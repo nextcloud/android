@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Ändringslogg utvecklingsversion</string>
     <string name="checkbox">Kryssruta</string>
     <string name="choose_local_folder">Välj lokal mapp…</string>
+    <string name="choose_location">Välj plats</string>
     <string name="choose_remote_folder">Välj extern mapp…</string>
     <string name="choose_template_helper_text">Vänligen välj en mall och ange ett filnamn.</string>
     <string name="choose_which_file">Välj vilken fil du vill behålla!</string>
@@ -256,6 +257,7 @@
     <string name="error_comment_file">Fel vid kommentering av fil</string>
     <string name="error_crash_title">%1$s kraschade</string>
     <string name="error_creating_file_from_template">Fel vid skapande av fil från mallen</string>
+    <string name="error_file_lock">Fel när filens lås-status ändrades</string>
     <string name="error_report_issue_action">Rapportera</string>
     <string name="error_report_issue_text">Rapportera fel till Tracker? (kräver ett konto hos GitHub)</string>
     <string name="error_retrieving_file">Fel vid mottagning av fil</string>
@@ -292,6 +294,7 @@
     <string name="failed_update_ui">Misslyckades med att uppdatera UI</string>
     <string name="favorite">Lägg till favoriter</string>
     <string name="favorite_icon">Favoritisera</string>
+    <string name="file_already_exists">Filnamnet finns redan</string>
     <string name="file_delete">Ta bort</string>
     <string name="file_detail_activity_error">Fel vid hämtning av aktiviteter för fil</string>
     <string name="file_details_no_content">Kunde inte läsa in detaljer</string>
@@ -403,7 +406,9 @@
     <string name="local_file_not_found_message">Filen hittades inte i det lokala filsystemet</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Det finna inga fler mappar.</string>
+    <string name="locate_folder">Välj mapp</string>
     <string name="lock_file">Lås fil</string>
+    <string name="locked_by">Låst av %1$s</string>
     <string name="log_send_mail_subject">%1$s Android-apploggar</string>
     <string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Vänligen installera en e-postklient.</string>
     <string name="login">Logga in</string>
@@ -607,6 +612,7 @@
     <string name="screenshot_06_davdroid_subline">Synka med DAVx5</string>
     <string name="search_error">Ett fel uppstod vid sökning</string>
     <string name="select_all">Välj alla</string>
+    <string name="select_media_folder">Ställ in mapp för media</string>
     <string name="select_one_template">Vänligen välj en mall</string>
     <string name="select_template">Välj mall</string>
     <string name="send">Skicka</string>
@@ -661,6 +667,8 @@
     <string name="shared_icon_shared_via_link">delad via länk</string>
     <string name="shared_with_you_by">Delad med dig av %1$s</string>
     <string name="sharee_add_failed">Misslyckades lägga till delning</string>
+    <string name="show_images">Visa bilder</string>
+    <string name="show_video">Visa video</string>
     <string name="signup_with_provider">Registrera hos en leverantör</string>
     <string name="single_sign_on_request_token" formatted="true">Tillåt %1$s att komma åt ditt Nextcloud-konto %2$s?</string>
     <string name="sort_by">Sortera efter</string>
@@ -717,6 +725,9 @@
     <string name="strict_mode">Strikt läge: inga HTTP-anslutningar tillåtna!</string>
     <string name="subject_shared_with_you">\"%1$s\" har delats med dig</string>
     <string name="subject_user_shared_with_you">%1$s delade \"%2$s\" med dig</string>
+    <string name="subtitle_photos_only">Endast bilder</string>
+    <string name="subtitle_photos_videos">Bilder &amp; videos</string>
+    <string name="subtitle_videos_only">Endast videos</string>
     <string name="suggest">Föreslå</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finns inte längre</string>
@@ -891,6 +902,10 @@
     <plurals name="found_n_duplicates">
         <item quantity="one">Hittade %d dublett</item>
         <item quantity="other">Hittade %d dubletter</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">%d filer exporterade, övriga överhoppade pga fel</item>
+        <item quantity="other">1%d filer exporterade, övriga överhoppade pga fel</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mapp</item>
