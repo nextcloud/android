@@ -116,8 +116,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
                                           this,
                                           clientFactory,
                                           false,
-                                          themeColorUtils,
-                                          themeDrawableUtils);
+                                          viewThemeUtils);
         binding.list.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

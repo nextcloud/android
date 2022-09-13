@@ -144,8 +144,7 @@ public class TrashbinActivity extends DrawerActivity implements
             preferences,
             this,
             getUser().orElse(accountProvider.getUser()),
-            themeColorUtils,
-            themeDrawableUtils
+            viewThemeUtils
         );
         recyclerView.setAdapter(trashbinListAdapter);
         recyclerView.setHasFixedSize(true);

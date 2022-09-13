@@ -82,6 +82,7 @@ import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -846,8 +847,7 @@ public final class DisplayUtils {
                                     Context context,
                                     LoaderImageView shimmerThumbnail,
                                     AppPreferences preferences,
-                                    ThemeColorUtils themeColorUtils,
-                                    ThemeDrawableUtils themeDrawableUtils) {
+                                    ViewThemeUtils viewThemeUtils) {
         if (file.isFolder()) {
             stopShimmer(shimmerThumbnail, thumbnailView);
             thumbnailView.setImageDrawable(MimeTypeUtil
@@ -857,8 +857,7 @@ public final class DisplayUtils {
                                                                   file.isGroupFolder(),
                                                                   file.getMountType(),
                                                                   context,
-                                                                  themeColorUtils,
-                                                                  themeDrawableUtils));
+                                                                  viewThemeUtils));
         } else {
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?
@@ -901,8 +900,7 @@ public final class DisplayUtils {
                                                                                  file.getFileName(),
                                                                                  user,
                                                                                  context,
-                                                                                 themeColorUtils,
-                                                                                 themeDrawableUtils);
+                                                                                 viewThemeUtils);
                                 if (drawable == null) {
                                     drawable = ResourcesCompat.getDrawable(context.getResources(),
                                                                            R.drawable.file_image,
@@ -954,8 +952,7 @@ public final class DisplayUtils {
                                                                             file.getFileName(),
                                                                             user,
                                                                             context,
-                                                                            themeColorUtils,
-                                                                            themeDrawableUtils));
+                                                                            viewThemeUtils));
             }
         }
     }

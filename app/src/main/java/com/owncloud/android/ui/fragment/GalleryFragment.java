@@ -138,7 +138,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                       preferences,
                                       mContainerActivity,
                                       themeColorUtils,
-                                      themeDrawableUtils);
+                                      themeDrawableUtils,
+                                      viewThemeUtils);
 
         setRecyclerViewAdapter(mAdapter);
 

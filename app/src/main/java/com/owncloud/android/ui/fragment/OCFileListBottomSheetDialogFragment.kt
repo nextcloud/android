@@ -32,6 +32,7 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.theme.ThemeUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import javax.inject.Inject
 
 class OCFileListBottomSheetDialogFragment(
@@ -51,6 +52,9 @@ class OCFileListBottomSheetDialogFragment(
     @Inject
     lateinit var themeDrawableUtils: ThemeDrawableUtils
 
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return OCFileListBottomSheetDialog(
             fileActivity,
@@ -60,7 +64,8 @@ class OCFileListBottomSheetDialogFragment(
             file,
             themeColorUtils,
             themeUtils,
-            themeDrawableUtils
+            themeDrawableUtils,
+            viewThemeUtils
         )
     }
 }

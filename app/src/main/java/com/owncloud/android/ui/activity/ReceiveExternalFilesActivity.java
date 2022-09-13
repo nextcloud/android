@@ -769,8 +769,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                          new int[]{R.id.filename},
                                                          getStorageManager(),
                                                          getUser().get(),
-                                                         themeColorUtils,
-                                                         themeDrawableUtils);
+                                                         viewThemeUtils);
 
                 binding.list.setAdapter(sa);
             }

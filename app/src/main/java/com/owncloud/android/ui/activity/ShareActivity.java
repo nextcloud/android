@@ -43,6 +43,7 @@ import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -79,15 +80,13 @@ public class ShareActivity extends FileActivity {
                                                                                   file.isGroupFolder(),
                                                                                   file.getMountType(),
                                                                                   this,
-                                                                                  themeColorUtils,
-                                                                                  themeDrawableUtils));
+                                                                                  viewThemeUtils));
         } else {
             binding.shareFileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                                 file.getFileName(),
                                                                                 optionalUser.get(),
                                                                                 this,
-                                                                                themeColorUtils,
-                                                                                themeDrawableUtils));
+                                                                                viewThemeUtils));
             if (MimeTypeUtil.isImage(file)) {
                 String remoteId = String.valueOf(file.getRemoteId());
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(remoteId);

@@ -43,6 +43,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 public abstract class EditorWebView extends ExternalSiteWebView {
     protected Snackbar loadingSnackbar;
@@ -159,8 +160,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                                                                               file.isGroupFolder(),
                                                                               file.getMountType(),
                                                                               this,
-                                                                              themeColorUtils,
-                                                                              themeDrawableUtils));
+                                                                              viewThemeUtils));
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
@@ -184,8 +184,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                                                              file.getFileName(),
                                                              user,
                                                              getApplicationContext(),
-                                                             themeColorUtils,
-                                                             themeDrawableUtils);
+                                                             viewThemeUtils);
                 binding.thumbnail.setImageDrawable(icon);
             }
         }
