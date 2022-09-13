@@ -41,7 +41,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager.InitDiskCacheTask
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 
 /**
