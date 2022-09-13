@@ -43,7 +43,6 @@ import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader
 import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 
 @Suppress("LongParameterList")
