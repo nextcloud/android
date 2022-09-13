@@ -146,11 +146,11 @@ class FilesSyncWork(
         } else {
             null
         }
-        val maxUploadAmount = 250
+        val MAX_UPLOAD_AMOUNT = 250
         val paths = filesystemDataProvider.getFilesForUpload(
             syncedFolder.localPath,
             java.lang.Long.toString(syncedFolder.id),
-            maxUploadAmout
+            MAX_UPLOAD_AMOUNT
         )
         for (path in paths) {
             file = File(path)
