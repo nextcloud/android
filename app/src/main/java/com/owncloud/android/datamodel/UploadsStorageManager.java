@@ -57,6 +57,7 @@ public class UploadsStorageManager extends Observable {
 
     private static final String AND = " AND ";
     private static final int SINGLE_RESULT = 1;
+    private static final int GET_UPLOADS_MAX_PAGE_AMOUNT = 1;
 
     private final ContentResolver contentResolver;
     private final CurrentAccountProvider currentAccountProvider;
@@ -321,6 +322,10 @@ public class UploadsStorageManager extends Observable {
     }
 
     private OCUpload[] getUploads(@Nullable String selection, @Nullable String... selectionArgs) {
+      return getUploadsWithMaximumAmountOfPages(null, selection, selectionArgs);
+    }
+
+    private OCUpload[] getUploadsWithMaximumAmountOfPages(@Nullable int max_page_amount, @Nullable String selection, @Nullable String... selectionArgs) {
         ArrayList<OCUpload> uploads = new ArrayList<>();
         final long pageSize = 100;
         long page = 0;
@@ -329,6 +334,10 @@ public class UploadsStorageManager extends Observable {
         long lastRowID = -1;
 
         do {
+            // We have read the maximum amount of pages that were specified
+            if (max_page_amount != null && page >= max_page_amount) {
+              break;
+            }
             String pageSelection = selection;
             String[] pageSelectionArgs = selectionArgs;
             if (page > 0 && lastRowID >= 0) {
@@ -428,7 +437,7 @@ public class UploadsStorageManager extends Observable {
     public OCUpload[] getCurrentAndPendingUploadsForCurrentAccount() {
         User user = currentAccountProvider.getUser();
 
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
+        return getUploadsWithMaximumAmountOfPages(GET_UPLOADS_MAX_PAGE_AMOUNT, ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
                         " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
                         "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
                         " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
@@ -445,7 +454,7 @@ public class UploadsStorageManager extends Observable {
      * Get all failed uploads.
      */
     public OCUpload[] getFailedUploads() {
-        return getUploads("(" + ProviderTableMeta.UPLOADS_STATUS + "== ?" +
+        return getUploadsWithMaximumAmountOfPages(GET_UPLOADS_MAX_PAGE_AMOUNT, "(" + ProviderTableMeta.UPLOADS_STATUS + "== ?" +
                 " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
                         "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
                         " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
@@ -462,7 +471,7 @@ public class UploadsStorageManager extends Observable {
     public OCUpload[] getFinishedUploadsForCurrentAccount() {
         User user = currentAccountProvider.getUser();
 
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value + AND +
+        return getUploadsWithMaximumAmountOfPages(GET_UPLOADS_MAX_PAGE_AMOUNT, ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value + AND +
                               ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", user.getAccountName());
     }
 
@@ -471,13 +480,13 @@ public class UploadsStorageManager extends Observable {
      */
     public OCUpload[] getFinishedUploads() {
 
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value, (String[]) null);
+        return getUploadsWithMaximumAmountOfPages(GET_UPLOADS_MAX_PAGE_AMOUNT, ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value, (String[]) null);
     }
 
     public OCUpload[] getFailedButNotDelayedUploadsForCurrentAccount() {
         User user = currentAccountProvider.getUser();
 
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value +
+        return getUploadsWithMaximumAmountOfPages(GET_UPLOADS_MAX_PAGE_AMOUNT, ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value +
                         AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
                         "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
                         AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
@@ -497,7 +506,7 @@ public class UploadsStorageManager extends Observable {
      */
     public OCUpload[] getFailedButNotDelayedUploads() {
 
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
+        return getUploadsWithMaximumAmountOfPages(GET_UPLOADS_MAX_PAGE_AMOUNT, ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
                         ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.LOCK_FAILED.getValue() +
                         AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
                         "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
