@@ -160,8 +160,4 @@ public class ThemeToolbarUtils {
             }
         }
     }
-
-    public void colorStatusBar(Activity fragmentActivity) {
-        colorStatusBar(fragmentActivity, themeColorUtils.primaryAppbarColor(fragmentActivity));
-    }
 }

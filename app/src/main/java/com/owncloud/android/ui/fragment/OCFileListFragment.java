@@ -780,6 +780,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 setFabVisible(true);
             }
 
+            Activity activity = getActivity();
+            if (activity != null) {
+                viewThemeUtils.platform.resetStatusBar(activity);
+            }
+
             getCommonAdapter().setMultiSelect(false);
             getCommonAdapter().clearCheckedItems();
         }
