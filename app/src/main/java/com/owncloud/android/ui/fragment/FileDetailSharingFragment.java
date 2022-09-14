@@ -63,7 +63,6 @@ import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
@@ -103,7 +102,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Inject ClientFactory clientFactory;
     @Inject ThemeColorUtils themeColorUtils;
     @Inject ThemeToolbarUtils themeToolbarUtils;
-    @Inject ThemeSnackbarUtils themeSnackbarUtils;
     @Inject ThemeDrawableUtils themeDrawableUtils;
     @Inject ViewThemeUtils viewThemeUtils;
 
@@ -288,7 +286,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private void showSendLinkTo(OCShare publicShare) {
         if (file.isSharedViaLink()) {
             if (TextUtils.isEmpty(publicShare.getShareLink())) {
-                fileOperationsHelper.getFileWithLink(file, themeSnackbarUtils);
+                fileOperationsHelper.getFileWithLink(file, viewThemeUtils);
             } else {
                 FileDisplayActivity.showShareLinkDialog(fileActivity, file, publicShare.getShareLink());
             }
@@ -298,7 +296,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     public void copyLink(OCShare share) {
         if (file.isSharedViaLink()) {
             if (TextUtils.isEmpty(share.getShareLink())) {
-                fileOperationsHelper.getFileWithLink(file, themeSnackbarUtils);
+                fileOperationsHelper.getFileWithLink(file, viewThemeUtils);
             } else {
                 ClipboardUtil.copyToClipboard(getActivity(), share.getShareLink());
             }

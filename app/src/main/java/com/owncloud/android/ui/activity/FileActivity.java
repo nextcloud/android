@@ -93,7 +93,7 @@ import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -171,9 +171,6 @@ public abstract class FileActivity extends DrawerActivity
 
     @Inject
     BackgroundJobManager backgroundJobManager;
-
-    @Inject
-    ThemeSnackbarUtils themeSnackbarUtils;
 
     @Override
     public void showFiles(boolean onDeviceOnly) {
@@ -700,12 +697,12 @@ public abstract class FileActivity extends DrawerActivity
     public static void copyAndShareFileLink(FileActivity activity,
                                             OCFile file,
                                             String link,
-                                            ThemeSnackbarUtils themeSnackbarUtils) {
+                                            final ViewThemeUtils viewThemeUtils) {
         ClipboardUtil.copyToClipboard(activity, link, false);
         Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), R.string.clipboard_text_copied,
                                           Snackbar.LENGTH_LONG)
             .setAction(R.string.share, v -> showShareLinkDialog(activity, file, link));
-        themeSnackbarUtils.colorSnackbar(activity, snackbar);
+        viewThemeUtils.material.themeSnackbar(snackbar);
         snackbar.show();
     }
 
@@ -774,7 +771,7 @@ public abstract class FileActivity extends DrawerActivity
                 snackbar = Snackbar.make(sharingFragment.getView(), result.getMessage(), Snackbar.LENGTH_LONG);
             }
 
-            themeSnackbarUtils.colorSnackbar(this, snackbar);
+            viewThemeUtils.material.themeSnackbar(snackbar);
             snackbar.show();
         }
     }
@@ -800,7 +797,7 @@ public abstract class FileActivity extends DrawerActivity
                 }
             }
 
-            copyAndShareFileLink(this, file, link, themeSnackbarUtils);
+            copyAndShareFileLink(this, file, link, viewThemeUtils);
 
             if (sharingFragment != null) {
                 sharingFragment.onUpdateShareInformation(result, file);
@@ -834,7 +831,7 @@ public abstract class FileActivity extends DrawerActivity
                                                                                            operation,
                                                                                            getResources()),
                                                   Snackbar.LENGTH_LONG);
-                themeSnackbarUtils.colorSnackbar(this, snackbar);
+                viewThemeUtils.material.themeSnackbar(snackbar);
                 snackbar.show();
             }
         }

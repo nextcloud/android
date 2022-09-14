@@ -36,7 +36,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import org.greenrobot.eventbus.EventBus
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
@@ -45,7 +45,6 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.whenever
-import javax.inject.Provider
 
 class BackgroundJobFactoryTest {
 
@@ -104,7 +103,7 @@ class BackgroundJobFactoryTest {
     private lateinit var themeColorUtils: ThemeColorUtils
 
     @Mock
-    private lateinit var themeSnackbarUtils: ThemeSnackbarUtils
+    private lateinit var viewThemeUtils: ViewThemeUtils
 
     private lateinit var factory: BackgroundJobFactory
 
@@ -117,7 +116,7 @@ class BackgroundJobFactoryTest {
             contentResolver,
             clock,
             powerManagementService,
-            Provider { backgroundJobManager },
+            { backgroundJobManager },
             deviceInfo,
             accountManager,
             resources,
@@ -128,7 +127,7 @@ class BackgroundJobFactoryTest {
             eventBus,
             deckApi,
             themeColorUtils,
-            themeSnackbarUtils
+            { viewThemeUtils }
         )
     }
 

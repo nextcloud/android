@@ -332,7 +332,7 @@ public class FileDisplayActivity extends FileActivity
             if (dialog != null && dialog.isShowing()) {
                 dialog.dismiss();
                 getSupportFragmentManager().beginTransaction().remove(fragment).commitNowAllowingStateLoss();
-                PermissionUtil.requestExternalStoragePermission(this, themeSnackbarUtils);
+                PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
             }
         }
     }
@@ -342,7 +342,7 @@ public class FileDisplayActivity extends FileActivity
         super.onPostCreate(savedInstanceState);
 
 
-        PermissionUtil.requestExternalStoragePermission(this, themeSnackbarUtils);
+        PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
 
         if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             switchToSearchFragment(savedInstanceState);
