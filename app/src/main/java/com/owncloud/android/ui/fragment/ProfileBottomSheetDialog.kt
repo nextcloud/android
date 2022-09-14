@@ -41,6 +41,7 @@ import com.owncloud.android.databinding.ProfileBottomSheetFragmentBinding
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 
 /**
  * Show actions of an user
@@ -50,7 +51,8 @@ class ProfileBottomSheetDialog(
     private val user: User,
     private val hoverCard: HoverCard,
     private val themeColorUtils: ThemeColorUtils,
-    private val themeDrawableUtils: ThemeDrawableUtils
+    private val themeDrawableUtils: ThemeDrawableUtils,
+    private val viewThemeUtils: ViewThemeUtils
 ) : BottomSheetDialog(fileActivity), DisplayUtils.AvatarGenerationListener {
     private var _binding: ProfileBottomSheetFragmentBinding? = null
 
@@ -64,6 +66,9 @@ class ProfileBottomSheetDialog(
         if (window != null) {
             window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
+
+        viewThemeUtils.platform.themeDialog(binding.root)
+
         val primaryColor = themeColorUtils.primaryColor(context, true)
 
         binding.icon.tag = hoverCard.userId

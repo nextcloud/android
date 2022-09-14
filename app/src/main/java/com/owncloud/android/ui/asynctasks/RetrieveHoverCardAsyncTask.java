@@ -34,6 +34,7 @@ import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -47,19 +48,22 @@ public class RetrieveHoverCardAsyncTask extends AsyncTask<Void, Void, HoverCard>
     private final ClientFactory clientFactory;
     private final ThemeColorUtils themeColorUtils;
     private final ThemeDrawableUtils themeDrawableUtils;
+    private final ViewThemeUtils viewThemeUtils;
 
     public RetrieveHoverCardAsyncTask(User user,
                                       String userId,
                                       FragmentActivity activity,
                                       ClientFactory clientFactory,
                                       ThemeColorUtils themeColorUtils,
-                                      ThemeDrawableUtils themeDrawableUtils) {
+                                      ThemeDrawableUtils themeDrawableUtils,
+                                      ViewThemeUtils viewThemeUtils) {
         this.user = user;
         this.userId = userId;
         this.activityWeakReference = new WeakReference<>(activity);
         this.clientFactory = clientFactory;
         this.themeColorUtils = themeColorUtils;
         this.themeDrawableUtils = themeDrawableUtils;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     @Override
@@ -84,7 +88,13 @@ public class RetrieveHoverCardAsyncTask extends AsyncTask<Void, Void, HoverCard>
 
         if (activity != null && activity.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
             if (hoverCard.getActions().size() > 0) {
-                new ProfileBottomSheetDialog(activity, user, hoverCard, themeColorUtils, themeDrawableUtils).show();
+                new ProfileBottomSheetDialog(activity,
+                                             user,
+                                             hoverCard,
+                                             themeColorUtils,
+                                             themeDrawableUtils,
+                                             viewThemeUtils)
+                    .show();
             } else {
                 DisplayUtils.showSnackMessage(activity, R.string.no_actions);
             }
