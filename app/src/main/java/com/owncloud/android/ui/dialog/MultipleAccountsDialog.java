@@ -43,8 +43,6 @@ import com.owncloud.android.databinding.MultipleAccountsBinding;
 import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.adapter.UserListItem;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.ArrayList;
@@ -53,16 +51,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class MultipleAccountsDialog extends DialogFragment implements Injectable, UserListAdapter.ClickListener {
 
     @Inject UserAccountManager accountManager;
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ViewThemeUtils viewThemeUtils;
-    @Inject ThemeDrawableUtils themeDrawableUtils;
 
     @NonNull
     @Override
@@ -85,8 +80,7 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
                                                       this,
                                                       false,
                                                       false,
-                                                      themeColorUtils,
-                                                      themeDrawableUtils);
+                                                      viewThemeUtils);
 
         binding.list.setHasFixedSize(true);
         binding.list.setLayoutManager(new LinearLayoutManager(activity));
