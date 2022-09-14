@@ -65,7 +65,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
-import com.nextcloud.utils.view.FastScroll;
+import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FilesBinding;
@@ -231,6 +231,9 @@ public class FileDisplayActivity extends FileActivity
     @Inject
     ConnectivityService connectivityService;
 
+    @Inject
+    FastScrollUtils fastScrollUtils;
+
     public static Intent openFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
@@ -272,7 +275,7 @@ public class FileDisplayActivity extends FileActivity
         mSwitchAccountButton.setOnClickListener(v -> showManageAccountsDialog());
 
 
-        FastScroll.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout);
+        fastScrollUtils.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout);
 
 
         // Init Fragment without UI to retain AsyncTask across configuration changes

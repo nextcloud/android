@@ -58,7 +58,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.utils.view.FastScroll;
+import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -198,6 +198,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject ArbitraryDataProvider arbitraryDataProvider;
     @Inject BackgroundJobManager backgroundJobManager;
     @Inject ViewThemeUtils viewThemeUtils;
+    @Inject FastScrollUtils fastScrollUtils;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -429,7 +430,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         setRecyclerViewAdapter(mAdapter);
 
-        FastScroll.applyFastScroll(requireContext(), themeColorUtils, themeDrawableUtils, getRecyclerView());
+        fastScrollUtils.applyFastScroll(getRecyclerView());
     }
 
     protected void prepareCurrentSearch(SearchEvent event) {
