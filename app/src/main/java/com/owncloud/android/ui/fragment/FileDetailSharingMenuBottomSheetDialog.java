@@ -64,6 +64,12 @@ public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
 
         viewThemeUtils.platform.themeDialog(binding.getRoot());
 
+        viewThemeUtils.platform.colorImageView(binding.menuIconAddAnotherLink);
+        viewThemeUtils.platform.colorImageView(binding.menuIconAdvancedPermissions);
+        viewThemeUtils.platform.colorImageView(binding.menuIconSendLink);
+        viewThemeUtils.platform.colorImageView(binding.menuIconUnshare);
+        viewThemeUtils.platform.colorImageView(binding.menuIconSendNewEmail);
+
         updateUI();
 
         setupClickListener();
