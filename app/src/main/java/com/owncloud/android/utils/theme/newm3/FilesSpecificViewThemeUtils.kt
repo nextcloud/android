@@ -24,6 +24,7 @@ package com.owncloud.android.utils.theme.newm3
 
 import android.content.Context
 import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.preference.PreferenceCategory
 import android.text.Spannable
 import android.text.SpannableString
@@ -35,9 +36,12 @@ import androidx.core.content.res.ResourcesCompat
 import com.nextcloud.android.common.ui.theme.MaterialSchemes
 import com.nextcloud.android.common.ui.theme.ViewThemeUtilsBase
 import com.nextcloud.android.common.ui.theme.utils.AndroidViewThemeUtils
+import com.nextcloud.utils.view.FastScrollPopupBackground
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.ShareType
+import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import me.zhanghai.android.fastscroll.PopupStyles
 import javax.inject.Inject
 
 class FilesSpecificViewThemeUtils @Inject constructor(
@@ -97,6 +101,30 @@ class FilesSpecificViewThemeUtils @Inject constructor(
             }
             else -> Log_OC.d(TAG, "Unknown share type")
         }
+    }
+
+    fun themeFastScrollerBuilder(context: Context, builder: FastScrollerBuilder): FastScrollerBuilder {
+        return withScheme(context) { scheme ->
+            builder
+                .useMd2Style()
+                .setThumbDrawable(getThumbDrawable(context))
+                .setPopupStyle {
+                    PopupStyles.MD2.accept(it)
+                    it.background = FastScrollPopupBackground(context, scheme.primary)
+                }
+        }
+    }
+
+    private fun getThumbDrawable(
+        context: Context
+    ): Drawable {
+        val thumbDrawable =
+            ResourcesCompat.getDrawable(
+                context.resources,
+                me.zhanghai.android.fastscroll.R.drawable.afs_md2_thumb,
+                null
+            )
+        return androidViewThemeUtils.tintPrimaryDrawable(context, thumbDrawable)!!
     }
 
     companion object {

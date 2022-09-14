@@ -34,7 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nextcloud.utils.view.FastScroll;
+import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -74,6 +74,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
 
     @Inject FileDataStorageManager fileDataStorageManager;
+    @Inject FastScrollUtils fastScrollUtils;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -148,11 +149,9 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         mAdapter.setLayoutManager(layoutManager);
         getRecyclerView().setLayoutManager(layoutManager);
 
-        FastScroll.applyFastScroll(requireContext(),
-                                   themeColorUtils,
-                                   themeDrawableUtils,
-                                   getRecyclerView(),
-                                   new GalleryFastScrollViewHelper(getRecyclerView(), mAdapter));
+        fastScrollUtils.applyFastScroll(
+            getRecyclerView(),
+            new GalleryFastScrollViewHelper(getRecyclerView(), mAdapter));
     }
 
     @Override
