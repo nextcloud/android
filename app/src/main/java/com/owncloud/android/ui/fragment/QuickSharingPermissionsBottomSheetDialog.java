@@ -88,17 +88,21 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
 
     private void setUpRecyclerView() {
         List<QuickPermissionModel> quickPermissionModelList = getQuickPermissionList();
-        QuickSharingPermissionsAdapter adapter = new QuickSharingPermissionsAdapter(quickPermissionModelList, new QuickSharingPermissionsAdapter.QuickSharingPermissionViewHolder.OnPermissionChangeListener() {
-            @Override
-            public void onPermissionChanged(int position) {
-                handlePermissionChanged(quickPermissionModelList, position);
-            }
+        QuickSharingPermissionsAdapter adapter = new QuickSharingPermissionsAdapter(
+            quickPermissionModelList,
+            new QuickSharingPermissionsAdapter.QuickSharingPermissionViewHolder.OnPermissionChangeListener() {
+                @Override
+                public void onPermissionChanged(int position) {
+                    handlePermissionChanged(quickPermissionModelList, position);
+                }
 
-            @Override
-            public void onDismissSheet() {
-                dismiss();
-            }
-        });
+                @Override
+                public void onDismissSheet() {
+                    dismiss();
+                }
+            },
+            viewThemeUtils
+        );
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(fileActivity);
         binding.rvQuickSharePermissions.setLayoutManager(linearLayoutManager);
         binding.rvQuickSharePermissions.setAdapter(adapter);
