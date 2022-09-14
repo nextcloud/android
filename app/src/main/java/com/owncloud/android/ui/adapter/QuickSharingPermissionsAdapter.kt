@@ -27,15 +27,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.databinding.ItemQuickSharePermissionsBinding
 import com.owncloud.android.datamodel.QuickPermissionModel
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 
 class QuickSharingPermissionsAdapter(
     private val quickPermissionList: MutableList<QuickPermissionModel>,
-    private val onPermissionChangeListener: QuickSharingPermissionViewHolder.OnPermissionChangeListener
+    private val onPermissionChangeListener: QuickSharingPermissionViewHolder.OnPermissionChangeListener,
+    private val viewThemeUtils: ViewThemeUtils
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemQuickSharePermissionsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return QuickSharingPermissionViewHolder(binding, binding.root, onPermissionChangeListener)
+        return QuickSharingPermissionViewHolder(binding, binding.root, onPermissionChangeListener, viewThemeUtils)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -51,7 +53,8 @@ class QuickSharingPermissionsAdapter(
     class QuickSharingPermissionViewHolder(
         val binding: ItemQuickSharePermissionsBinding,
         itemView: View,
-        val onPermissionChangeListener: OnPermissionChangeListener
+        val onPermissionChangeListener: OnPermissionChangeListener,
+        private val viewThemeUtils: ViewThemeUtils
     ) :
         RecyclerView
         .ViewHolder(itemView) {
@@ -59,6 +62,7 @@ class QuickSharingPermissionsAdapter(
         fun bindData(quickPermissionModel: QuickPermissionModel) {
             binding.tvQuickShareName.text = quickPermissionModel.permissionName
             if (quickPermissionModel.isSelected) {
+                viewThemeUtils.platform.colorImageView(binding.tvQuickShareCheckIcon)
                 binding.tvQuickShareCheckIcon.visibility = View.VISIBLE
             } else {
                 binding.tvQuickShareCheckIcon.visibility = View.INVISIBLE
