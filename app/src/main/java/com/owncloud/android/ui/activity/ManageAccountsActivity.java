@@ -156,8 +156,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                               multipleAccountsSupported,
                                               true,
                                               true,
-                                              themeColorUtils,
-                                              themeDrawableUtils);
+                                              viewThemeUtils);
 
         recyclerView.setAdapter(userListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -312,8 +311,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                       multipleAccountsSupported,
                                       false,
                                       true,
-                                      themeColorUtils,
-                                      themeDrawableUtils);
+                                      viewThemeUtils);
                                   recyclerView.setAdapter(userListAdapter);
                                   runOnUiThread(() -> userListAdapter.notifyDataSetChanged());
                               } catch (OperationCanceledException e) {
@@ -367,8 +365,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                                       multipleAccountsSupported,
                                                       false,
                                                       true,
-                                                      themeColorUtils,
-                                                      themeDrawableUtils);
+                                                      viewThemeUtils);
                 recyclerView.setAdapter(userListAdapter);
             } else {
                 onBackPressed();
