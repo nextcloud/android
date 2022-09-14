@@ -42,12 +42,8 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.AppScanActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
-
-import javax.inject.Inject;
 
 /**
  * FAB menu {@link android.app.Dialog} styled as a bottom sheet for main actions.
@@ -60,9 +56,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
     private final DeviceInfo deviceInfo;
     private final User user;
     private final OCFile file;
-    private final ThemeColorUtils themeColorUtils;
     private final ThemeUtils themeUtils;
-    private final ThemeDrawableUtils themeDrawableUtils;
     private final ViewThemeUtils viewThemeUtils;
 
 
@@ -71,9 +65,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
                                        DeviceInfo deviceInfo,
                                        User user,
                                        OCFile file,
-                                       ThemeColorUtils themeColorUtils,
                                        ThemeUtils themeUtils,
-                                       ThemeDrawableUtils themeDrawableUtils,
                                        ViewThemeUtils viewThemeUtils) {
         super(fileActivity);
         this.actions = actions;
@@ -81,9 +73,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         this.deviceInfo = deviceInfo;
         this.user = user;
         this.file = file;
-        this.themeColorUtils = themeColorUtils;
         this.themeUtils = themeUtils;
-        this.themeDrawableUtils = themeDrawableUtils;
         this.viewThemeUtils = viewThemeUtils;
     }
 

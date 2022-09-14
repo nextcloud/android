@@ -311,7 +311,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Override
     @VisibleForTesting
     public void showSharingMenuActionSheet(OCShare share) {
-        new FileDetailSharingMenuBottomSheetDialog(fileActivity, this, share).show();
+        new FileDetailSharingMenuBottomSheetDialog(fileActivity, this, share, viewThemeUtils).show();
     }
 
     /**
@@ -321,7 +321,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      */
     @Override
     public void showPermissionsDialog(OCShare share) {
-        new QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share).show();
+        new QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share, viewThemeUtils).show();
     }
 
     /**
@@ -393,7 +393,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                            fileActivity,
                                            clientFactory,
                                            themeColorUtils,
-                                           themeDrawableUtils).execute();
+                                           themeDrawableUtils,
+                                           viewThemeUtils).execute();
         }
     }
 
