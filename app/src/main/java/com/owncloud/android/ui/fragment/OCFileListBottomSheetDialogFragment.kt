@@ -62,9 +62,7 @@ class OCFileListBottomSheetDialogFragment(
             deviceInfo,
             user,
             file,
-            themeColorUtils,
             themeUtils,
-            themeDrawableUtils,
             viewThemeUtils
         )
     }
