@@ -42,8 +42,7 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,8 +68,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final ClickListener clickListener;
     private final boolean showAddAccount;
     private final boolean showDotsMenu;
-    private final ThemeColorUtils themeColorUtils;
-    private final ThemeDrawableUtils themeDrawableUtils;
+    private final ViewThemeUtils viewThemeUtils;
 
     public UserListAdapter(BaseActivity context,
                            UserAccountManager accountManager,
@@ -78,8 +76,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                            ClickListener clickListener,
                            boolean showAddAccount,
                            boolean showDotsMenu,
-                           ThemeColorUtils themeColorUtils,
-                           ThemeDrawableUtils themeDrawableUtils) {
+                           final ViewThemeUtils viewThemeUtils) {
         this.context = context;
         this.accountManager = accountManager;
         this.values = values;
@@ -90,8 +87,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.clickListener = clickListener;
         this.showAddAccount = showAddAccount;
         this.showDotsMenu = showDotsMenu;
-        this.themeColorUtils = themeColorUtils;
-        this.themeDrawableUtils = themeDrawableUtils;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     @Override
@@ -109,7 +105,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return new AccountViewHolderItem(AccountItemBinding.inflate(LayoutInflater.from(context),
                                                                         parent,
                                                                         false),
-                                             themeDrawableUtils);
+                                             viewThemeUtils);
         } else {
             return new AddAccountViewHolderItem(
                 AccountActionBinding.inflate(LayoutInflater.from(context), parent, false));
@@ -198,11 +194,11 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private final AccountItemBinding binding;
         private User user;
 
-        AccountViewHolderItem(@NonNull AccountItemBinding binding, ThemeDrawableUtils themeDrawableUtils) {
+        AccountViewHolderItem(@NonNull AccountItemBinding binding, final ViewThemeUtils viewThemeUtils) {
             super(binding.getRoot());
             this.binding = binding;
 
-            themeDrawableUtils.tintDrawable(binding.ticker.getDrawable(), themeColorUtils.primaryColor(context, true));
+            viewThemeUtils.platform.tintPrimaryDrawable(context, binding.ticker.getDrawable());
 
             binding.getRoot().setOnClickListener(this);
             if (showDotsMenu) {

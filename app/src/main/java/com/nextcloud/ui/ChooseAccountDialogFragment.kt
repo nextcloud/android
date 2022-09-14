@@ -29,7 +29,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
@@ -48,8 +47,6 @@ import com.owncloud.android.ui.adapter.UserListItem
 import com.owncloud.android.ui.asynctasks.RetrieveStatusAsyncTask
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import javax.inject.Inject
 
@@ -75,12 +72,6 @@ class ChooseAccountDialogFragment :
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
-
-    @Inject
-    lateinit var themeColorUtils: ThemeColorUtils
-
-    @Inject
-    lateinit var themeDrawableUtils: ThemeDrawableUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,10 +115,7 @@ class ChooseAccountDialogFragment :
             binding.currentAccount.account.text = user.accountName
 
             // Defining user right indicator
-            val icon = themeDrawableUtils.tintDrawable(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_check_circle),
-                themeColorUtils.primaryColor(requireContext(), true)
-            )
+            val icon = viewThemeUtils.platform.tintPrimaryDrawable(requireContext(), R.drawable.ic_check_circle)
             binding.currentAccount.accountMenu.setImageDrawable(icon)
 
             // Creating adapter for accounts list
@@ -138,8 +126,7 @@ class ChooseAccountDialogFragment :
                 this,
                 false,
                 false,
-                themeColorUtils,
-                themeDrawableUtils
+                viewThemeUtils
             )
 
             binding.accountsList.adapter = adapter
