@@ -255,7 +255,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         binding.tabLayout.removeAllTabs();
 
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities).setIcon(R.drawable.ic_activity));
-        viewThemeUtils.material.themeTabLayoutOnSurface(binding.tabLayout);
+        viewThemeUtils.material.themeTabLayout(binding.tabLayout);
 
         if (!getFile().isEncrypted()) {
             binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.shared_via_users));
