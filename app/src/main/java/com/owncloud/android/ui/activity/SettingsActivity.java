@@ -31,11 +31,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
@@ -98,7 +98,7 @@ import androidx.core.content.res.ResourcesCompat;
  * <p>
  * It proxies the necessary calls via {@link androidx.appcompat.app.AppCompatDelegate} to be used with AppCompat.
  */
-public class SettingsActivity extends ThemedPreferenceActivity
+public class SettingsActivity extends PreferenceActivity
     implements StorageMigration.StorageMigrationProgressListener, LoadingVersionNumberTask.VersionDevInterface,
     Injectable {
 
@@ -150,10 +150,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (themeUtils.themingEnabled(this)) {
-            setTheme(R.style.FallbackThemingTheme);
-        }
 
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
@@ -729,6 +725,10 @@ public class SettingsActivity extends ThemedPreferenceActivity
             DarkMode mode = DarkMode.valueOf((String) newValue);
             preferences.setDarkThemeMode(mode);
             MainApp.setAppTheme(mode);
+            finish();
+            Intent intent = new Intent(this, SettingsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
 
             return true;
         });
