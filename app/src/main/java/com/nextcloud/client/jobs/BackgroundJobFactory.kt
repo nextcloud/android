@@ -41,7 +41,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 import javax.inject.Provider
@@ -67,7 +67,7 @@ class BackgroundJobFactory @Inject constructor(
     private val eventBus: EventBus,
     private val deckApi: DeckApi,
     private val themeColorUtils: ThemeColorUtils,
-    private val themeSnackbarUtils: ThemeSnackbarUtils
+    private val viewThemeUtils: Provider<ViewThemeUtils>
 ) : WorkerFactory() {
 
     @SuppressLint("NewApi")
@@ -211,7 +211,7 @@ class BackgroundJobFactory @Inject constructor(
             preferences,
             clock,
             themeColorUtils,
-            themeSnackbarUtils
+            viewThemeUtils.get()
         )
     }
 

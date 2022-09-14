@@ -85,7 +85,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -497,13 +497,13 @@ public class FileOperationsHelper {
         }
     }
 
-    public void getFileWithLink(@NonNull OCFile file, ThemeSnackbarUtils themeSnackbarUtils) {
+    public void getFileWithLink(@NonNull OCFile file, final ViewThemeUtils viewThemeUtils) {
         List<OCShare> shares = fileActivity.getStorageManager().getSharesByPathAndType(file.getRemotePath(),
                                                                                        ShareType.PUBLIC_LINK,
                                                                                        "");
 
         if (shares.size() == SINGLE_LINK_SIZE) {
-            FileActivity.copyAndShareFileLink(fileActivity, file, shares.get(0).getShareLink(), themeSnackbarUtils);
+            FileActivity.copyAndShareFileLink(fileActivity, file, shares.get(0).getShareLink(), viewThemeUtils);
         } else {
             if (fileActivity instanceof FileDisplayActivity) {
                 ((FileDisplayActivity) fileActivity).showDetails(file, 1);

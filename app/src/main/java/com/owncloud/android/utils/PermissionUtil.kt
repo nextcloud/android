@@ -42,7 +42,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.owncloud.android.R
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 
 object PermissionUtil {
     const val PERMISSIONS_EXTERNAL_STORAGE = 1
@@ -116,7 +116,7 @@ object PermissionUtil {
     @JvmOverloads
     fun requestExternalStoragePermission(
         activity: AppCompatActivity,
-        themeSnackbarUtils: ThemeSnackbarUtils,
+        viewThemeUtils: ViewThemeUtils,
         permissionRequired: Boolean = false
     ) {
         if (!checkExternalStoragePermission(activity)) {
@@ -124,20 +124,20 @@ object PermissionUtil {
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
                     if (canRequestAllFilesPermission(activity)) {
                         // can request All Files, show choice
-                        showPermissionChoiceDialog(activity, permissionRequired, themeSnackbarUtils)
+                        showPermissionChoiceDialog(activity, permissionRequired, viewThemeUtils)
                     } else {
                         // can not request all files, request READ_EXTERNAL_STORAGE
                         requestStoragePermission(
                             activity,
                             Manifest.permission.READ_EXTERNAL_STORAGE,
-                            themeSnackbarUtils
+                            viewThemeUtils
                         )
                     }
                 }
                 else -> requestStoragePermission(
                     activity,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    themeSnackbarUtils
+                    viewThemeUtils
                 )
             }
         }
@@ -146,10 +146,11 @@ object PermissionUtil {
     /**
      * Request a storage permission
      */
+    // TODO inject this class to avoid passing ViewThemeUtils around
     private fun requestStoragePermission(
         activity: Activity,
         permission: String,
-        themeSnackbarUtils: ThemeSnackbarUtils
+        viewThemeUtils: ViewThemeUtils
     ) {
         fun doRequest() {
             ActivityCompat.requestPermissions(
@@ -171,7 +172,7 @@ object PermissionUtil {
                 .setAction(R.string.common_ok) {
                     doRequest()
                 }
-                .also { themeSnackbarUtils.colorSnackbar(activity, it) }
+                .also { viewThemeUtils.material.themeSnackbar(it) }
                 .show()
         } else {
             // No explanation needed, request the permission.
@@ -205,7 +206,7 @@ object PermissionUtil {
     private fun showPermissionChoiceDialog(
         activity: AppCompatActivity,
         permissionRequired: Boolean,
-        themeSnackbarUtils: ThemeSnackbarUtils
+        viewThemeUtils: ViewThemeUtils
     ) {
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
 
@@ -228,7 +229,7 @@ object PermissionUtil {
                         requestStoragePermission(
                             activity,
                             Manifest.permission.READ_EXTERNAL_STORAGE,
-                            themeSnackbarUtils
+                            viewThemeUtils
                         )
                     }
                 }

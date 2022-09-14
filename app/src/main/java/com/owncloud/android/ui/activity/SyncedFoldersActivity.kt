@@ -66,7 +66,6 @@ import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.OnSy
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.SyncedFolderUtils
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -160,9 +159,6 @@ class SyncedFoldersActivity :
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
-
-    @Inject
-    lateinit var themeSnackBarUtils: ThemeSnackbarUtils
 
     private lateinit var binding: SyncedFoldersLayoutBinding
     private lateinit var adapter: SyncedFolderAdapter
@@ -300,7 +296,7 @@ class SyncedFoldersActivity :
                 perFolderMediaItemLimit,
                 this@SyncedFoldersActivity,
                 false,
-                themeSnackbarUtils
+                viewThemeUtils
             )
             mediaFolders.addAll(
                 MediaProvider.getVideoFolders(
@@ -308,7 +304,7 @@ class SyncedFoldersActivity :
                     perFolderMediaItemLimit,
                     this@SyncedFoldersActivity,
                     false,
-                    themeSnackbarUtils
+                    viewThemeUtils
                 )
             )
             val syncedFolderArrayList = syncedFolderProvider.syncedFolders
@@ -557,7 +553,7 @@ class SyncedFoldersActivity :
                     )
                     onSyncFolderSettingsClick(0, emptyCustomFolder)
                 } else {
-                    PermissionUtil.requestExternalStoragePermission(this, themeSnackBarUtils, true)
+                    PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true)
                 }
                 result = super.onOptionsItemSelected(item)
             }
@@ -784,7 +780,7 @@ class SyncedFoldersActivity :
                     load(getItemsDisplayedPerFolder(), true)
                 } else {
                     // permission denied --> request again
-                    PermissionUtil.requestExternalStoragePermission(this, themeSnackbarUtils, true)
+                    PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true)
                 }
             }
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)

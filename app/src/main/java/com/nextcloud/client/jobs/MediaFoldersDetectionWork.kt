@@ -56,7 +56,7 @@ import com.owncloud.android.ui.activity.SyncedFoldersActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.SyncedFolderUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import java.util.Random
 
 @Suppress("LongParameterList") // dependencies injection
@@ -69,7 +69,7 @@ class MediaFoldersDetectionWork constructor(
     private val preferences: AppPreferences,
     private val clock: Clock,
     private val themeColorUtils: ThemeColorUtils,
-    private val themeSnackbarUtils: ThemeSnackbarUtils
+    private val viewThemeUtils: ViewThemeUtils
 ) : Worker(context, params) {
 
     companion object {
@@ -95,14 +95,14 @@ class MediaFoldersDetectionWork constructor(
             1,
             null,
             true,
-            themeSnackbarUtils
+            viewThemeUtils
         )
         val videoMediaFolders = MediaProvider.getVideoFolders(
             contentResolver,
             1,
             null,
             true,
-            themeSnackbarUtils
+            viewThemeUtils
         )
         val imageMediaFolderPaths: MutableList<String> = ArrayList()
         val videoMediaFolderPaths: MutableList<String> = ArrayList()

@@ -55,7 +55,6 @@ import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -98,7 +97,6 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private static final String WAIT_DIALOG_TAG = "WAIT";
 
     @Inject AppPreferences preferences;
-    @Inject ThemeSnackbarUtils themeSnackbarUtils;
     private Account mAccountOnCreation;
     private ArrayAdapter<String> mDirectories;
     private boolean mLocalFolderPickerMode;
@@ -261,7 +259,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     }
 
     private void requestPermissions() {
-        PermissionUtil.requestExternalStoragePermission(this, themeSnackbarUtils, true);
+        PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true);
     }
 
     public void showToolbarSpinner() {

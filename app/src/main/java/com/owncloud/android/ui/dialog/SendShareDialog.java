@@ -29,7 +29,7 @@ import com.owncloud.android.ui.components.SendButtonData;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +80,7 @@ public class SendShareDialog extends BottomSheetDialogFragment implements Inject
     private boolean sharingPublicAskForPassword;
     private FileOperationsHelper fileOperationsHelper;
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeSnackbarUtils themeSnackbarUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     public static SendShareDialog newInstance(OCFile file, boolean hideNcSharingOptions, OCCapability capability) {
 
@@ -131,11 +131,11 @@ public class SendShareDialog extends BottomSheetDialogFragment implements Inject
 
         // Share via link button
         TextView shareLinkText = view.findViewById(R.id.share_link_button);
-        shareLinkText.setOnClickListener(v -> shareByLink(themeSnackbarUtils));
+        shareLinkText.setOnClickListener(v -> shareByLink());
 
         ImageView shareLinkImageView = view.findViewById(R.id.share_link_icon);
         themeShareButtonImage(shareLinkImageView);
-        shareLinkImageView.setOnClickListener(v -> shareByLink(themeSnackbarUtils));
+        shareLinkImageView.setOnClickListener(v -> shareByLink());
 
         if (hideNcSharingOptions) {
             sendShareButtons.setVisibility(View.GONE);
@@ -185,9 +185,9 @@ public class SendShareDialog extends BottomSheetDialogFragment implements Inject
         BottomSheetBehavior.from((View) requireView().getParent()).setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
-    private void shareByLink(ThemeSnackbarUtils themeSnackbarUtils) {
+    private void shareByLink() {
         if (file.isSharedViaLink()) {
-            ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file, themeSnackbarUtils);
+            ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file, viewThemeUtils);
         } else if (sharingPublicPasswordEnforced || sharingPublicAskForPassword) {
             // password enforced by server, request to the user before trying to create
             requestPasswordForShareViaLink();

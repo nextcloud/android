@@ -43,7 +43,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 public abstract class EditorWebView extends ExternalSiteWebView {
     protected Snackbar loadingSnackbar;
@@ -79,7 +78,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                                                                     R.string.timeout_richDocuments, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.common_back, v -> closeView());
 
-                    themeSnackbarUtils.colorSnackbar(getApplicationContext(), snackbar);
+                    viewThemeUtils.material.themeSnackbar(snackbar);
                     setLoadingSnackbar(snackbar);
                     snackbar.show();
                 }
