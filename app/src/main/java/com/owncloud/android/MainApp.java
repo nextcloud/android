@@ -81,7 +81,7 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
 import com.owncloud.android.utils.SecurityUtils;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.conscrypt.Conscrypt;
 import org.greenrobot.eventbus.EventBus;
@@ -97,6 +97,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 
@@ -177,7 +178,10 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @Inject
     PassCodeManager passCodeManager;
 
-    @Inject ThemeSnackbarUtils themeSnackbarUtils;
+    // workaround because injection is initialized on onAttachBaseContext
+    // and getApplicationContext is null at that point, which crashes when getting current user
+    @Inject Provider<ViewThemeUtils> viewThemeUtilsProvider;
+    private ViewThemeUtils viewThemeUtils;
 
     @SuppressWarnings("unused")
     private boolean mBound;
@@ -274,6 +278,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     public void onCreate() {
         enableStrictMode();
 
+        viewThemeUtils = viewThemeUtilsProvider.get();
+
         setAppTheme(preferences.getDarkThemeMode());
         super.onCreate();
 
@@ -320,7 +326,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                            powerManagementService,
                            backgroundJobManager,
                            clock,
-                           themeSnackbarUtils);
+                           viewThemeUtils);
         initContactsBackup(accountManager, backgroundJobManager);
         notificationChannels();
 
@@ -500,7 +506,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         final PowerManagementService powerManagementService,
         final BackgroundJobManager backgroundJobManager,
         final Clock clock,
-        final ThemeSnackbarUtils themeSnackbarUtils
+        final ViewThemeUtils viewThemeUtils
                                          ) {
         updateToAutoUpload();
         cleanOldEntries(clock);
@@ -508,7 +514,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         if (getAppContext() != null) {
             if (PermissionUtil.checkExternalStoragePermission(getAppContext())) {
-                splitOutAutoUploadEntries(clock, themeSnackbarUtils);
+                splitOutAutoUploadEntries(clock, viewThemeUtils);
             } else {
                 preferences.setAutoUploadSplitEntriesEnabled(true);
             }
@@ -731,7 +737,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
     private static void splitOutAutoUploadEntries(Clock clock,
-                                                  ThemeSnackbarUtils themeSnackbarUtils) {
+                                                  final ViewThemeUtils viewThemeUtils) {
         Context context = getAppContext();
         AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         if (!preferences.isAutoUploadSplitEntriesEnabled()) {
@@ -746,12 +752,12 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                                                                                       1,
                                                                                       null,
                                                                                       true,
-                                                                                      themeSnackbarUtils);
+                                                                                      viewThemeUtils);
             final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver,
                                                                                       1,
                                                                                       null,
                                                                                       true,
-                                                                                      themeSnackbarUtils);
+                                                                                      viewThemeUtils);
 
             ArrayList<Long> idsToDelete = new ArrayList<>();
             List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();

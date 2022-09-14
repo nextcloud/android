@@ -29,7 +29,7 @@ import android.provider.MediaStore;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -74,9 +74,9 @@ public final class MediaProvider {
                                                     int itemLimit,
                                                     @Nullable final AppCompatActivity activity,
                                                     boolean getWithoutActivity,
-                                                    ThemeSnackbarUtils themeSnackbarUtils) {
+                                                    final ViewThemeUtils viewThemeUtils) {
         // check permissions
-        checkPermissions(activity, themeSnackbarUtils);
+        checkPermissions(activity, viewThemeUtils);
 
         // query media/image folders
         Cursor cursorFolders = null;
@@ -174,10 +174,10 @@ public final class MediaProvider {
     }
 
     private static void checkPermissions(@Nullable AppCompatActivity activity,
-                                         ThemeSnackbarUtils themeSnackbarUtils) {
+                                         final ViewThemeUtils viewThemeUtils) {
         if (activity != null &&
             !PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext())) {
-            PermissionUtil.requestExternalStoragePermission(activity, themeSnackbarUtils, true);
+            PermissionUtil.requestExternalStoragePermission(activity, viewThemeUtils, true);
         }
     }
 
@@ -185,9 +185,9 @@ public final class MediaProvider {
                                                     int itemLimit,
                                                     @Nullable final AppCompatActivity activity,
                                                     boolean getWithoutActivity,
-                                                    ThemeSnackbarUtils themeSnackbarUtils) {
+                                                    final ViewThemeUtils viewThemeUtils) {
         // check permissions
-        checkPermissions(activity, themeSnackbarUtils);
+        checkPermissions(activity, viewThemeUtils);
 
         // query media/image folders
         Cursor cursorFolders = null;
