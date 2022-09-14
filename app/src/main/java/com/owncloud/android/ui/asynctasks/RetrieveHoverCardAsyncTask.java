@@ -91,8 +91,6 @@ public class RetrieveHoverCardAsyncTask extends AsyncTask<Void, Void, HoverCard>
                 new ProfileBottomSheetDialog(activity,
                                              user,
                                              hoverCard,
-                                             themeColorUtils,
-                                             themeDrawableUtils,
                                              viewThemeUtils)
                     .show();
             } else {
