@@ -94,6 +94,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
         if (!TextUtils.isEmpty(permissionName)) {
             binding.permissionName.setText(permissionName);
             binding.permissionName.setVisibility(View.VISIBLE);
+            viewThemeUtils.androidx.colorPrimaryTextViewElement(binding.permissionName);
         } else {
             binding.permissionName.setVisibility(View.GONE);
         }
