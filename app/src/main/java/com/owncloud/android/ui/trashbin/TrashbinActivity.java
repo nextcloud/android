@@ -154,6 +154,8 @@ public class TrashbinActivity extends DrawerActivity implements
         viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList);
         binding.swipeContainingList.setOnRefreshListener(this::loadFolder);
 
+        viewThemeUtils.material.colorMaterialTextButton(findViewById(R.id.sort_button));
+
         findViewById(R.id.sort_button).setOnClickListener(l ->
                                                               openSortingOrderDialogFragment(getSupportFragmentManager(),
                                                                                              preferences.getSortOrderByType(
