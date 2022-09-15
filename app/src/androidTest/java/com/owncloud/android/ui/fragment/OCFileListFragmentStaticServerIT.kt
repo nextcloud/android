@@ -30,7 +30,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.shares.ShareeUser
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.After
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -196,11 +195,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         shortSleep()
 
         screenshot(sut)
-    }
-
-    @After
-    fun after() {
-        fileDataStorageManager.deleteAllFiles()
     }
 
     @Test

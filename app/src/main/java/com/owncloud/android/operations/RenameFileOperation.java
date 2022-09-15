@@ -176,11 +176,11 @@ public class RenameFileOperation extends SyncOperation {
         File testFile = new File(tmpFolderName + newName);
         File tmpFolder = testFile.getParentFile();
 
-            if (!tmpFolder.exists() && !tmpFolder.mkdirs()){
+        if (tmpFolder != null && !tmpFolder.exists() && !tmpFolder.mkdirs()) {
             Log_OC.e(TAG, "Unable to create parent folder " + tmpFolder.getAbsolutePath());
         }
 
-        if (!tmpFolder.isDirectory()) {
+        if (tmpFolder != null && !tmpFolder.isDirectory()) {
             throw new IOException("Unexpected error: temporal directory could not be created");
         }
         try {

@@ -55,10 +55,8 @@ import com.owncloud.android.ui.activity.ContactsPreferenceActivity
 import com.owncloud.android.ui.activity.ManageAccountsActivity
 import com.owncloud.android.ui.events.AccountRemovedEvent
 import com.owncloud.android.utils.EncryptionUtils
-import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.PushUtils
 import org.greenrobot.eventbus.EventBus
-import java.io.File
 import java.util.ArrayList
 
 /**
@@ -131,7 +129,7 @@ class AccountRemovalWork(
         }
 
         // remove all files
-        removeFiles(user, storageManager)
+        storageManager.removeLocalFiles(user, storageManager)
         // delete all database entries
         storageManager.deleteAllFiles()
 
@@ -205,13 +203,6 @@ class AccountRemovalWork(
         for (syncedFolderId in syncedFolderIds) {
             filesystemDataProvider.deleteAllEntriesForSyncedFolder(syncedFolderId.toString())
         }
-    }
-
-    private fun removeFiles(user: User, storageManager: FileDataStorageManager) {
-        val tempDir = File(FileStorageUtils.getTemporalPath(user.accountName))
-        val saveDir = File(FileStorageUtils.getSavePath(user.accountName))
-        FileStorageUtils.deleteRecursively(tempDir, storageManager)
-        FileStorageUtils.deleteRecursively(saveDir, storageManager)
     }
 
     private fun createClient(user: User): Optional<OwnCloudClient> {
