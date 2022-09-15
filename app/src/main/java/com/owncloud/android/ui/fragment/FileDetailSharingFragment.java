@@ -61,7 +61,6 @@ import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
@@ -100,7 +99,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ThemeToolbarUtils themeToolbarUtils;
     @Inject ThemeDrawableUtils themeDrawableUtils;
     @Inject ViewThemeUtils viewThemeUtils;
@@ -392,8 +390,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                            shareWith,
                                            fileActivity,
                                            clientFactory,
-                                           themeColorUtils,
-                                           themeDrawableUtils,
                                            viewThemeUtils).execute();
         }
     }

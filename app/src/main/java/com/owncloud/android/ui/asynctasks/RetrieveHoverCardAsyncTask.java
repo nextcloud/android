@@ -46,23 +46,17 @@ public class RetrieveHoverCardAsyncTask extends AsyncTask<Void, Void, HoverCard>
     private final String userId;
     private final WeakReference<FragmentActivity> activityWeakReference;
     private final ClientFactory clientFactory;
-    private final ThemeColorUtils themeColorUtils;
-    private final ThemeDrawableUtils themeDrawableUtils;
     private final ViewThemeUtils viewThemeUtils;
 
     public RetrieveHoverCardAsyncTask(User user,
                                       String userId,
                                       FragmentActivity activity,
                                       ClientFactory clientFactory,
-                                      ThemeColorUtils themeColorUtils,
-                                      ThemeDrawableUtils themeDrawableUtils,
                                       ViewThemeUtils viewThemeUtils) {
         this.user = user;
         this.userId = userId;
         this.activityWeakReference = new WeakReference<>(activity);
         this.clientFactory = clientFactory;
-        this.themeColorUtils = themeColorUtils;
-        this.themeDrawableUtils = themeDrawableUtils;
         this.viewThemeUtils = viewThemeUtils;
     }
 
