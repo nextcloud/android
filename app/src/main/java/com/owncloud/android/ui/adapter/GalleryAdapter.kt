@@ -85,8 +85,6 @@ class GalleryAdapter(
             transferServiceGetter,
             showMetadata = false,
             showShareAvatar = false,
-            themeColorUtils,
-            themeDrawableUtils,
             viewThemeUtils
         )
     }
