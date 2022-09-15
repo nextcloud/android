@@ -352,7 +352,9 @@ public class ExtendedListFragment extends Fragment implements
         mRefreshListLayout.setOnRefreshListener(this);
 
         mSortButton = getActivity().findViewById(R.id.sort_button);
+        viewThemeUtils.material.colorMaterialTextButton(mSortButton);
         mSwitchGridViewButton = getActivity().findViewById(R.id.switch_grid_view_button);
+        viewThemeUtils.material.colorMaterialTextButton(mSwitchGridViewButton);
 
         return v;
     }
