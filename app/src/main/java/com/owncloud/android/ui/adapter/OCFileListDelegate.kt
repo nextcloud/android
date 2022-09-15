@@ -34,8 +34,6 @@ import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 
 @Suppress("LongParameterList", "TooManyFunctions")
@@ -50,8 +48,6 @@ class OCFileListDelegate(
     private val transferServiceGetter: ComponentsGetter,
     private val showMetadata: Boolean,
     private var showShareAvatar: Boolean,
-    private var themeColorUtils: ThemeColorUtils,
-    private var themeDrawableUtils: ThemeDrawableUtils,
     private var viewThemeUtils: ViewThemeUtils
 ) {
     private val checkedFiles: MutableSet<OCFile> = HashSet()

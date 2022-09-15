@@ -49,8 +49,6 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeTypeUtil
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import java.util.Calendar
@@ -63,8 +61,6 @@ class GalleryAdapter(
     ocFileListFragmentInterface: OCFileListFragmentInterface,
     preferences: AppPreferences,
     transferServiceGetter: ComponentsGetter,
-    themeColorUtils: ThemeColorUtils,
-    themeDrawableUtils: ThemeDrawableUtils,
     viewThemeUtils: ViewThemeUtils
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
     var files: List<GalleryItems> = mutableListOf()
@@ -85,8 +81,6 @@ class GalleryAdapter(
             transferServiceGetter,
             showMetadata = false,
             showShareAvatar = false,
-            themeColorUtils,
-            themeDrawableUtils,
             viewThemeUtils
         )
     }

@@ -181,8 +181,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                         .getCapability(activity)
                                                         .getVersion()
                                                         .isShareesOnDavSupported(),
-                                                    themeColorUtils,
-                                                    themeDrawableUtils,
                                                     viewThemeUtils);
 
         // initialise thumbnails cache on background thread
