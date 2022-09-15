@@ -56,6 +56,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -125,6 +126,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -172,7 +174,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private final static Charset FILENAME_ENCODING = Charset.forName("UTF-8");
 
-    private LinearLayout mEmptyListContainer;
+    private NestedScrollView mEmptyListContainer;
     private TextView mEmptyListMessage;
     private TextView mEmptyListHeadline;
     private ImageView mEmptyListIcon;
