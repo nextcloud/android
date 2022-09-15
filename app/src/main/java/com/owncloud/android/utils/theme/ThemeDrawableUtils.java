@@ -23,13 +23,11 @@
 package com.owncloud.android.utils.theme;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
@@ -57,17 +55,5 @@ public final class ThemeDrawableUtils {
         }
 
         return null;
-    }
-
-    public void setIconColor(Drawable drawable) {
-        int color;
-
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            color = Color.WHITE;
-        } else {
-            color = Color.BLACK;
-        }
-
-        tintDrawable(drawable, color);
     }
 }

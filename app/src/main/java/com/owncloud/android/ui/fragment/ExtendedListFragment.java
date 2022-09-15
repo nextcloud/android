@@ -590,8 +590,7 @@ public class ExtendedListFragment extends Fragment implements
                     if (tintIcon) {
                         if (getContext() != null) {
                             mEmptyListIcon.setImageDrawable(
-                                themeDrawableUtils.tintDrawable(icon,
-                                                                themeColorUtils.primaryColor(getContext(), true)));
+                                viewThemeUtils.platform.tintPrimaryDrawable(getContext(), icon));
                         }
                     } else {
                         mEmptyListIcon.setImageResource(icon);

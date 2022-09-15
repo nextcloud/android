@@ -82,9 +82,10 @@ class LogsActivity : ToolbarActivity() {
 
         setupToolbar()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.apply { themeToolbarUtils.setColoredTitle(this, getString(R.string.logs_title), baseContext) }
 
-        themeToolbarUtils.tintBackButton(supportActionBar, baseContext)
+        supportActionBar?.let {
+            viewThemeUtils.files.themeActionBar(this, it, R.string.logs_title)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

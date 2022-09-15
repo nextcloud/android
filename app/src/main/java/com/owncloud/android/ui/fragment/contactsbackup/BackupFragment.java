@@ -53,7 +53,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
@@ -90,7 +89,6 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
 
     @Inject BackgroundJobManager backgroundJobManager;
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeToolbarUtils themeToolbarUtils;
     @Inject ThemeUtils themeUtils;
 
     @Inject ArbitraryDataProvider arbitraryDataProvider;
@@ -154,10 +152,8 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         ActionBar actionBar = contactsPreferenceActivity != null ? contactsPreferenceActivity.getSupportActionBar() : null;
 
         if (actionBar != null) {
-            themeToolbarUtils.setColoredTitle(actionBar, getString(R.string.backup_title), getContext());
-
             actionBar.setDisplayHomeAsUpEnabled(true);
-            themeToolbarUtils.tintBackButton(actionBar, getContext());
+            viewThemeUtils.files.themeActionBar(requireContext(), actionBar, R.string.backup_title);
         }
 
 
