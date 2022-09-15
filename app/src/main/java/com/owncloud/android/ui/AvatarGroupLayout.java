@@ -112,7 +112,7 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
 
             if (avatarCount == 0 && sharees.size() > MAX_AVATAR_COUNT) {
                 avatar.setImageResource(R.drawable.ic_people);
-                themeDrawableUtils.setIconColor(avatar.getDrawable());
+                viewThemeUtils.platform.tintTextDrawable(context, avatar.getDrawable());
             } else {
                 sharee = sharees.get(avatarCount);
                 switch (sharee.getShareType()) {

@@ -460,9 +460,8 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     private void setSyncButtonActiveIcon(ImageButton syncStatusButton, boolean enabled) {
         if (enabled) {
             syncStatusButton.setImageDrawable(
-                themeDrawableUtils.tintDrawable(
-                    R.drawable.ic_cloud_sync_on,
-                    themeColorUtils.primaryColor(context, true)));
+                viewThemeUtils.platform.tintPrimaryDrawable(context, R.drawable.ic_cloud_sync_on)
+                                             );
         } else {
             syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_off);
         }

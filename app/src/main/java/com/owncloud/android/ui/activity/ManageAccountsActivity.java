@@ -131,11 +131,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
+            viewThemeUtils.files.themeActionBar(this, actionBar, R.string.prefs_manage_accounts);
         }
-
-        // set title Action bar
-        updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.prefs_manage_accounts));
-        themeToolbarUtils.tintBackButton(actionBar, this);
 
         List<User> users = accountManager.getAllUsers();
         originalUsers = toAccountNames(users);

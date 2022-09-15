@@ -221,7 +221,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null);
             actionBar.setDisplayShowTitleEnabled(false);
 
-            themeToolbarUtils.tintBackButton(actionBar, this);
+            viewThemeUtils.files.themeActionBar(this, actionBar);
         }
 
         showToolbarSpinner();
@@ -296,7 +296,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         final MenuItem item = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(item);
         themeToolbarUtils.themeSearchView(mSearchView, this);
-        themeDrawableUtils.tintDrawable(menu.findItem(R.id.action_choose_storage_path).getIcon(), fontColor);
+        viewThemeUtils.platform.tintTextDrawable(this, menu.findItem(R.id.action_choose_storage_path).getIcon());
 
         mSearchView.setOnSearchClickListener(v -> mToolbarSpinner.setVisibility(View.GONE));
 
@@ -464,7 +464,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 selectAll.setIcon(R.drawable.ic_select_none);
             } else {
                 selectAll.setIcon(
-                    themeDrawableUtils.tintDrawable(R.drawable.ic_select_all, themeColorUtils.primaryColor(this)));
+                    viewThemeUtils.platform.tintPrimaryDrawable(this, R.drawable.ic_select_all));
             }
             updateUploadButtonActive();
         }

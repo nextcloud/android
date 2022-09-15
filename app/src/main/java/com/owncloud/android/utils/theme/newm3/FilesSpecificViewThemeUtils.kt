@@ -32,10 +32,13 @@ import android.text.style.ForegroundColorSpan
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.annotation.Px
+import androidx.annotation.StringRes
+import androidx.appcompat.app.ActionBar
 import androidx.core.content.res.ResourcesCompat
 import com.nextcloud.android.common.ui.theme.MaterialSchemes
 import com.nextcloud.android.common.ui.theme.ViewThemeUtilsBase
 import com.nextcloud.android.common.ui.theme.utils.AndroidViewThemeUtils
+import com.nextcloud.android.common.ui.theme.utils.AndroidXViewThemeUtils
 import com.nextcloud.utils.view.FastScrollPopupBackground
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -46,7 +49,8 @@ import javax.inject.Inject
 
 class FilesSpecificViewThemeUtils @Inject constructor(
     schemes: MaterialSchemes,
-    private val androidViewThemeUtils: AndroidViewThemeUtils
+    private val androidViewThemeUtils: AndroidViewThemeUtils,
+    private val androidXViewThemeUtils: AndroidXViewThemeUtils
 ) : ViewThemeUtilsBase(schemes) {
     // not ported to common lib because PreferenceCategory is deprecated
     fun themePreferenceCategory(category: PreferenceCategory) {
@@ -125,6 +129,48 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                 null
             )
         return androidViewThemeUtils.tintPrimaryDrawable(context, thumbDrawable)!!
+    }
+
+    /**
+     * Sets title and colors the actionbar, the title and the back arrow
+     */
+    // TODO move back arrow resource to lib and use lib method directly?
+    fun themeActionBar(context: Context, actionBar: ActionBar, title: String) {
+        val backArrow = ResourcesCompat.getDrawable(
+            context.resources,
+            R.drawable.ic_arrow_back,
+            null
+        )!!
+        androidXViewThemeUtils.themeActionBar(
+            context,
+            actionBar,
+            title,
+            backArrow
+        )
+    }
+
+    /**
+     * Sets title and colors the actionbar, the title and the back arrow
+     */
+    fun themeActionBar(context: Context, actionBar: ActionBar, @StringRes titleRes: Int) {
+        val title = context.getString(titleRes)
+        themeActionBar(
+            context,
+            actionBar,
+            title
+        )
+    }
+
+    /**
+     * Colors actionbar background and back arrow but not the title
+     */
+    fun themeActionBar(context: Context, actionBar: ActionBar) {
+        val backArrow = ResourcesCompat.getDrawable(
+            context.resources,
+            R.drawable.ic_arrow_back,
+            null
+        )!!
+        androidXViewThemeUtils.themeActionBar(context, actionBar, backArrow)
     }
 
     companion object {
