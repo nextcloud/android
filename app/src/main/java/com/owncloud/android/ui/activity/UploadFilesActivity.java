@@ -83,7 +83,7 @@ import androidx.fragment.app.FragmentTransaction;
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_USER;
 
 /**
- * Displays local files and l et the user choose what of them wants to upload to the current ownCloud account.
+ * Displays local files and let the user choose what of them wants to upload to the current ownCloud account.
  */
 public class UploadFilesActivity extends DrawerActivity implements LocalFileListFragment.ContainerActivity,
     OnClickListener, ConfirmationDialogFragmentListener, SortingOrderDialogFragment.OnSortingOrderListener,
@@ -668,6 +668,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     public boolean isFolderPickerMode() {
         return mLocalFolderPickerMode;
     }
+
     @Override
     public boolean isWithinEncryptedFolder() {
         return isWithinEncryptedFolder;
