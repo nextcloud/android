@@ -342,8 +342,8 @@ open class FolderPickerActivity :
             val atRoot = currentDir == null || currentDir.parentId == 0L
             actionBar.setDisplayHomeAsUpEnabled(!atRoot)
             actionBar.setHomeButtonEnabled(!atRoot)
-            themeToolbarUtils.tintBackButton(actionBar, this)
-            themeToolbarUtils.setColoredTitle(supportActionBar, if (atRoot) caption else currentDir!!.fileName, this)
+            val title = if (atRoot) caption ?: "" else currentDir!!.fileName
+            viewThemeUtils.files.themeActionBar(this, actionBar, title)
         }
     }
 

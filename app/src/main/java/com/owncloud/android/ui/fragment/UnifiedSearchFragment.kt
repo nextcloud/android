@@ -131,10 +131,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
                     binding.emptyList.emptyListViewText.text =
                         requireContext().getString(R.string.file_list_empty_unified_search_no_results)
                     binding.emptyList.emptyListIcon.setImageDrawable(
-                        themeDrawableUtils.tintDrawable(
-                            R.drawable.ic_search_grey,
-                            themeColorUtils.primaryColor(context, true)
-                        )
+                        viewThemeUtils.platform.tintPrimaryDrawable(requireContext(), R.drawable.ic_search_grey)
                     )
                 }
             }

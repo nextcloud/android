@@ -727,9 +727,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         if (actionBar != null) {
             if (TextUtils.isEmpty(current_dir)) {
-                themeToolbarUtils.setColoredTitle(actionBar, R.string.uploader_top_message, this);
+                viewThemeUtils.files.themeActionBar(this, actionBar, R.string.uploader_top_message);
             } else {
-                themeToolbarUtils.setColoredTitle(actionBar, current_dir, this);
+                viewThemeUtils.files.themeActionBar(this, actionBar, current_dir);
             }
 
             actionBar.setDisplayHomeAsUpEnabled(notRoot);
@@ -784,8 +784,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             viewThemeUtils.platform.themeStatusBar(this);
 
-            themeToolbarUtils.tintBackButton(actionBar, this);
-
             Button btnNewFolder = binding.uploaderCancel;
             btnNewFolder.setTextColor(themeColorUtils.primaryColor(this, true));
             btnNewFolder.setOnClickListener(this);
@@ -812,8 +810,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             if (mEmptyListContainer != null && mEmptyListMessage != null) {
                 mEmptyListHeadline.setText(headline);
                 mEmptyListMessage.setText(message);
-                mEmptyListIcon.setImageDrawable(
-                    themeDrawableUtils.tintDrawable(icon, themeColorUtils.primaryColor(this, true)));
+                mEmptyListIcon.setImageDrawable(viewThemeUtils.platform.tintPrimaryDrawable(this, icon));
                 mEmptyListIcon.setVisibility(View.VISIBLE);
                 mEmptyListMessage.setVisibility(View.VISIBLE);
             }

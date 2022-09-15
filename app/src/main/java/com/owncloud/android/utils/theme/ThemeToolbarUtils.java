@@ -58,16 +58,6 @@ public class ThemeToolbarUtils {
         this.viewThemeUtils = viewThemeUtils;
     }
 
-    /**
-     * For activities that do not use drawer, e.g. Settings, this can be used to correctly tint back button based on
-     * theme
-     *
-     * @param supportActionBar the back button's action bar
-     */
-    public void tintBackButton(@Nullable ActionBar supportActionBar, Context context) {
-        tintBackButton(supportActionBar, context, themeColorUtils.appBarPrimaryFontColor(context));
-    }
-
     public void tintBackButton(@Nullable ActionBar supportActionBar, Context context, @ColorInt int color) {
         if (supportActionBar == null) {
             return;

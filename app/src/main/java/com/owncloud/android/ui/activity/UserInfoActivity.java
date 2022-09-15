@@ -134,7 +134,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
-            themeToolbarUtils.tintBackButton(actionBar, this);
+            viewThemeUtils.files.themeActionBar(this, actionBar);
         }
 
         binding.userinfoList.setAdapter(

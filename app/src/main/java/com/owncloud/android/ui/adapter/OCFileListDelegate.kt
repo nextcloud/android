@@ -163,10 +163,7 @@ class OCFileListDelegate(
                     .getColor(R.color.selected_item_background)
             )
             gridViewHolder.checkbox.setImageDrawable(
-                themeDrawableUtils.tintDrawable(
-                    R.drawable.ic_checkbox_marked,
-                    themeColorUtils.primaryColor(context)
-                )
+                viewThemeUtils.platform.tintPrimaryDrawable(context, R.drawable.ic_checkbox_marked)
             )
         } else {
             gridViewHolder.itemLayout.setBackgroundColor(context.resources.getColor(R.color.bg_default))
