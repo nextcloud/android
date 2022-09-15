@@ -113,6 +113,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_IN_BACKGROUND = "IN_BACKGROUND";
     public static final String EXTRA_SHARE_TOKEN = "SHARE_TOKEN";
     public static final String EXTRA_SHARE_DOWNLOAD_LIMIT = "SHARE_DOWNLOAD_LIMIT";
+    public static final String EXTRA_CHECK_ONLY_FOLDER_EXISTENCE = "CHECK_ONLY_FOLDER_EXISTENCE";
 
     public static final String ACTION_CREATE_SHARE_VIA_LINK = "CREATE_SHARE_VIA_LINK";
     public static final String ACTION_CREATE_SHARE_WITH_SHAREE = "CREATE_SHARE_WITH_SHAREE";
@@ -697,8 +698,9 @@ public class OperationsService extends Service {
 
                     case ACTION_CREATE_FOLDER_NOT_EXIST:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        operation = new CreateFolderIfNotExistOperation(remotePath, user, getApplicationContext(),
-                                                                        fileDataStorageManager);
+                        operation = new CreateFolderIfNotExistOperation(remotePath, user,
+                                                                        operationIntent.getBooleanExtra(EXTRA_CHECK_ONLY_FOLDER_EXISTENCE, false),
+                                                                        getApplicationContext(), fileDataStorageManager);
                         break;
 
                     case ACTION_SYNC_FILE:

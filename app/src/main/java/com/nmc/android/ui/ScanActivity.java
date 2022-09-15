@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 
 import com.nextcloud.client.preferences.AppPreferences;
@@ -12,6 +13,9 @@ import com.nmc.android.interfaces.OnFragmentChangeListener;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ActivityScanBinding;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.operations.CreateFolderIfNotExistOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 
 import java.util.ArrayList;
@@ -51,6 +55,9 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
     @Inject AppPreferences appPreferences;
 
     private String remotePath;
+    //flag to avoid checking folder existence whenever user goes to save fragment
+    //we will make it true when the operation finishes first time
+    private boolean isFolderCheckOperationFinished;
 
     public static void openScanActivity(Context context, String remotePath, int requestCode) {
         Intent intent = new Intent(context, ScanActivity.class);
@@ -94,11 +101,9 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
 
     @Override
     public void onReplaceFragment(Fragment fragment, String tag, boolean addToBackStack) {
-        //create the default scan folder if it doesn't exist or if user has not selected any other folder
-        //only while replacing save scan fragment
-        if (tag.equalsIgnoreCase(FRAGMENT_SAVE_SCAN_TAG)
-            && appPreferences.getUploadScansLastPath().equalsIgnoreCase(ScanActivity.DEFAULT_UPLOAD_SCAN_PATH)) {
-            getFileOperationsHelper().createFolderIfNotExist(ScanActivity.DEFAULT_UPLOAD_SCAN_PATH);
+        //only during replacing save scan fragment
+        if (tag.equalsIgnoreCase(FRAGMENT_SAVE_SCAN_TAG)) {
+            checkAndCreateFolderIfRequired();
         }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -171,8 +176,8 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
             originalScannedImages.remove(index);
         }
         if (filteredImages.size() > 0 && file != null) {
-             filteredImages.remove(index);
-             return true;
+            filteredImages.remove(index);
+            return true;
         }
         return false;
     }
@@ -202,6 +207,51 @@ public class ScanActivity extends FileActivity implements OnFragmentChangeListen
         List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
         for (Fragment fragment : fragmentList) {
             fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    protected void checkAndCreateFolderIfRequired() {
+        //if user is coming from sub-folder then we should not check for existence as folder will be available
+        if (!TextUtils.isEmpty(remotePath) && !remotePath.equals(OCFile.ROOT_PATH)) {
+            return;
+        }
+
+        //no need to do any operation if its already finished earlier
+        if (isFolderCheckOperationFinished) {
+            return;
+        }
+
+        String lastRemotePath = appPreferences.getUploadScansLastPath();
+
+        //create the default scan folder if it doesn't exist or if user has not selected any other folder
+        if (lastRemotePath.equalsIgnoreCase(ScanActivity.DEFAULT_UPLOAD_SCAN_PATH)) {
+            getFileOperationsHelper().createFolderIfNotExist(lastRemotePath, false);
+            return;
+        }
+
+        //if last saved remote path is not root path then we have to check if the folder exist or not
+        if (!lastRemotePath.equals(OCFile.ROOT_PATH)) {
+            getFileOperationsHelper().createFolderIfNotExist(lastRemotePath, true);
+        }
+    }
+
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        super.onRemoteOperationFinish(operation, result);
+        if (operation instanceof CreateFolderIfNotExistOperation) {
+            //we are only handling callback when we are checking if folder exist or not to update the UI
+            //in case the folder doesn't exist (user has deleted)
+            if (!result.isSuccess() && result.getCode() == RemoteOperationResult.ResultCode.FILE_NOT_FOUND) {
+                Fragment saveScanFragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_SAVE_SCAN_TAG);
+                if (saveScanFragment != null && saveScanFragment.isVisible()) {
+                    //update the root path in preferences as well
+                    //so that next time folder issue won't come
+                    appPreferences.setUploadScansLastPath(OCFile.ROOT_PATH);
+                    //if folder doesn't exist then we have to set the remote path as root i.e. fallback mechanism
+                    ((SaveScannedDocumentFragment) saveScanFragment).setRemoteFilePath(OCFile.ROOT_PATH);
+                }
+            }
+            isFolderCheckOperationFinished = true;
         }
     }
 }

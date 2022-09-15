@@ -22,7 +22,6 @@
 package com.owncloud.android.operations;
 
 import android.content.Context;
-import android.os.storage.StorageManager;
 
 import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -43,18 +42,24 @@ public class CreateFolderIfNotExistOperation extends SyncOperation {
     private final String mRemotePath;
     private final User user;
     private final Context context;
+    private boolean isCheckOnlyFolderExistence; //flag to check if folder exist or not and will not create folder if flag is true
 
-    public CreateFolderIfNotExistOperation(String remotePath, User user, Context context, FileDataStorageManager storageManager) {
+    public CreateFolderIfNotExistOperation(String remotePath, User user, boolean isCheckOnlyFolderExistence, Context context, FileDataStorageManager storageManager) {
         super(storageManager);
         this.mRemotePath = remotePath;
         this.user = user;
         this.context = context;
+        this.isCheckOnlyFolderExistence = isCheckOnlyFolderExistence;
     }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperation operation = new ExistenceCheckRemoteOperation(mRemotePath, false);
         RemoteOperationResult result = operation.execute(client);
+
+        if (isCheckOnlyFolderExistence) {
+            return result;
+        }
 
         //if remote folder doesn't exist then create it else ignore it
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND) {

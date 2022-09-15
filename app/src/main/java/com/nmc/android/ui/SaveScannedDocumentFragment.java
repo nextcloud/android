@@ -95,8 +95,7 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews();
-        String remotePath = setDefaultRemotePath();
-        updateSaveLocationText(remotePath);
+        prepareRemotePath();
         implementCheckListeners();
         implementClickEvent();
     }
@@ -109,32 +108,32 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
     }
 
     /**
-     * create default OCFile if default Scan folder is selected
+     * prepare remote path to save scanned files
      */
-    private String setDefaultRemotePath() {
+    private void prepareRemotePath() {
 
         //check if user has selected scan document from sub folders
         //if yes then show that folder in location to save scanned documents
         //else check in preferences for last selected path
         //if no last path selected available then show default /Scans/ path
-        if (requireActivity() instanceof ScanActivity){
+        if (requireActivity() instanceof ScanActivity) {
             String remotePath = ((ScanActivity) requireActivity()).getRemotePath();
             //remote path should not be null and should not be root path i.e only /
-            if (!TextUtils.isEmpty(remotePath) && !remotePath.equals("/")){
+            if (!TextUtils.isEmpty(remotePath) && !remotePath.equals(OCFile.ROOT_PATH)) {
                 setRemoteFilePath(remotePath);
-                return remotePath;
+                return;
             }
         }
-        if (remoteFilePath == null &&
-            appPreferences.getUploadScansLastPath().equalsIgnoreCase(ScanActivity.DEFAULT_UPLOAD_SCAN_PATH)) {
-            setRemoteFilePath(appPreferences.getUploadScansLastPath());
-        }
-        return appPreferences.getUploadScansLastPath();
+
+        setRemoteFilePath(appPreferences.getUploadScansLastPath());
+
     }
 
-    private void setRemoteFilePath(String remotePath) {
+    protected void setRemoteFilePath(String remotePath) {
         remoteFilePath = new OCFile(remotePath);
         remoteFilePath.setFolder();
+
+        updateSaveLocationText(remotePath);
     }
 
     private void initViews() {
@@ -333,12 +332,6 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
             case R.id.scan_save_with_txt_recognition_pdf_checkbox:
                 enableDisablePdfPasswordSwitch();
                 break;
-            case R.id.scan_save_without_txt_recognition_jpg_checkbox:
-                break;
-            case R.id.scan_save_without_txt_recognition_png_checkbox:
-                break;
-            case R.id.scan_save_with_txt_recognition_txt_checkbox:
-                break;
             case R.id.scan_save_pdf_password_switch:
                 showHidePdfPasswordInput(isChecked);
                 break;
@@ -347,7 +340,7 @@ public class SaveScannedDocumentFragment extends Fragment implements CompoundBut
 
     private void updateSaveLocationText(String path) {
         remotePath = path;
-        if (path.equalsIgnoreCase("/")) {
+        if (path.equalsIgnoreCase(OCFile.ROOT_PATH)) {
             path = getResources().getString(R.string.scan_save_location_root);
         }
         binding.scanSaveLocationInput.setText(path);
