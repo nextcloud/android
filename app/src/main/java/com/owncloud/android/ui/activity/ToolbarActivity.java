@@ -118,6 +118,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
         viewThemeUtils.material.themeToolbar(mToolbar);
         viewThemeUtils.platform.themeStatusBar(this);
+        viewThemeUtils.material.colorMaterialTextButton(mSwitchAccountButton);
     }
 
     public void setupToolbar() {
