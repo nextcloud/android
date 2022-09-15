@@ -144,9 +144,9 @@
     <string name="community_testing_version_text">Chcesz pomóc nam w testowaniu następnej wersji?</string>
     <string name="configure_new_media_folder_detection_notifications">Konfiguruj</string>
     <string name="confirmation_remove_file_alert">Czy na pewno chcesz usunąć %1$s?</string>
-    <string name="confirmation_remove_files_alert">Czy na pewno chcesz usunąć wybrane elementy?</string>
+    <string name="confirmation_remove_files_alert">Czy na pewno chcesz usunąć wybrane pozycje?</string>
     <string name="confirmation_remove_folder_alert">Czy na pewno chcesz usunąć %1$s wraz z zawartością?</string>
-    <string name="confirmation_remove_folders_alert">Czy na pewno chcesz usunąć wybrane elementy i ich zawartość?</string>
+    <string name="confirmation_remove_folders_alert">Czy na pewno chcesz usunąć wybrane pozycje i ich zawartość?</string>
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="conflict_dialog_error">Błąd podczas tworzenia dialogu konfliktu!</string>
     <string name="conflict_file_headline">Plik powodujący konflikt %1$s</string>

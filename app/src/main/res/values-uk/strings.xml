@@ -911,6 +911,36 @@
         <item quantity="many">Опрацьовані %d записи.</item>
         <item quantity="other">Опрацьовані %d записи.</item>
     </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="one">Знайдено %d повторюваний запис.</item>
+        <item quantity="few">Знайдено %d повторюваних записів.</item>
+        <item quantity="many">Знайдено %d повторюваних записів.</item>
+        <item quantity="other">Знайдено %d повторювані записи.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Експортований файл %d</item>
+        <item quantity="few">Експортовані файли %d</item>
+        <item quantity="many">Експортовані файли %d</item>
+        <item quantity="other">Експортовані файли %d</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Не вдалося експортувати файл %d</item>
+        <item quantity="few">Не вдалося експортувати файли %d</item>
+        <item quantity="many">Не вдалося експортувати файли %d</item>
+        <item quantity="other">Не вдалося експортувати файли %d</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Файл %d експортовано, решту пропущено через помилку</item>
+        <item quantity="few">Файли %d експортовано, решту пропущено через помилку</item>
+        <item quantity="many">Файли %d експортовано, решту пропущено через помилку</item>
+        <item quantity="other">Файли %d експортовано, решту пропущено через помилку</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%d файл буде експортовано. Дивіться сповіщення для деталей.</item>
+        <item quantity="few">%d файлів буде експортовано. Дивіться сповіщення для деталей.</item>
+        <item quantity="many">%d файлів буде експортовано. Дивіться сповіщення для деталей.</item>
+        <item quantity="other">%d файлів буде експортовано. Дивіться сповіщення для деталей.</item>
+    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d тека</item>
         <item quantity="few">%1$d тек</item>
