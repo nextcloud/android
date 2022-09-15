@@ -92,8 +92,6 @@ class GalleryAdapterTest {
             ocFileListFragmentInterface,
             preferences,
             transferServiceGetter,
-            themeColorUtils,
-            themeDrawableUtils,
             viewThemeUtils
         )
 
