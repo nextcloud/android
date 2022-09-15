@@ -998,15 +998,17 @@ public class FileOperationsHelper {
     }
 
     /**
-     * create folder in remote if it doesn't exist
-     * if it exist then we will ignore creating
-     * @param remotePath to be created
+     * create folder in remote if it doesn't exist if it exist then we will ignore creating
+     *
+     * @param remotePath                 to be created
+     * @param isCheckOnlyFolderExistence to check only folder exists or not and will not create folder if flag is true
      */
-    public void createFolderIfNotExist(String remotePath) {
+    public void createFolderIfNotExist(String remotePath, boolean isCheckOnlyFolderExistence) {
         Intent service = new Intent(fileActivity, OperationsService.class);
         service.setAction(OperationsService.ACTION_CREATE_FOLDER_NOT_EXIST);
         service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, remotePath);
+        service.putExtra(OperationsService.EXTRA_CHECK_ONLY_FOLDER_EXISTENCE, isCheckOnlyFolderExistence);
         mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
