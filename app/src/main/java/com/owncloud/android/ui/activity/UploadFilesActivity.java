@@ -295,7 +295,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         int fontColor = themeColorUtils.appBarPrimaryFontColor(this);
         final MenuItem item = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(item);
-        themeToolbarUtils.themeSearchView(mSearchView, this);
+        viewThemeUtils.androidx.themeToolbarSearchView(mSearchView);
         viewThemeUtils.platform.tintTextDrawable(this, menu.findItem(R.id.action_choose_storage_path).getIcon());
 
         mSearchView.setOnSearchClickListener(v -> mToolbarSpinner.setVisibility(View.GONE));

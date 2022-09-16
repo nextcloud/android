@@ -488,7 +488,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 final User user = optionalUser.get();
                 final Drawable icon = MimeTypeUtil.getFileTypeIcon(item.getMimeType(),
                                                                    fileName,
-                                                                   user,
                                                                    parentActivity,
                                                                    viewThemeUtils);
                 itemViewHolder.binding.thumbnail.setImageDrawable(icon);

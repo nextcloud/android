@@ -42,6 +42,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.mozilla.universalchardet.ReaderFactory;
 
@@ -73,6 +74,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     private User user;
 
     @Inject UserAccountManager accountManager;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     public static PreviewTextFileFragment create(User user, OCFile file, boolean openSearch, String searchQuery) {
         Bundle args = new Bundle();
@@ -260,6 +262,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         menuItem.setVisible(true);
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setMaxWidth(Integer.MAX_VALUE);
+        viewThemeUtils.androidx.themeToolbarSearchView(searchView);
 
         if (searchOpen) {
             searchView.setIconified(false);

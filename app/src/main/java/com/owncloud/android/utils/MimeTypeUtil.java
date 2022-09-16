@@ -95,23 +95,6 @@ public final class MimeTypeUtil {
                                            String filename,
                                            Context context,
                                            ViewThemeUtils viewThemeUtils) {
-        return getFileTypeIcon(mimetype, filename, null, context, viewThemeUtils);
-    }
-
-    /**
-     * Returns the Drawable of an image to use as icon associated to a known MIME type.
-     *
-     * @param mimetype MIME type string; if NULL, the method tries to guess it from the extension in filename
-     * @param filename Name, with extension.
-     * @param user     user which color should be used
-     * @return Drawable of an image resource.
-     */
-    @Nullable
-    public static Drawable getFileTypeIcon(String mimetype,
-                                           String filename,
-                                           @Nullable User user,
-                                           Context context,
-                                           ViewThemeUtils viewThemeUtils) {
         if (context != null) {
             int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
             Drawable icon = ContextCompat.getDrawable(context, iconId);

@@ -184,13 +184,10 @@ public class ExtendedListFragment extends Fragment implements
     public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
         final MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(item);
+        viewThemeUtils.androidx.themeToolbarSearchView(searchView);
         closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
-        themeToolbarUtils.themeSearchView(searchView, requireContext());
-
-        SearchView.SearchAutoComplete theTextArea = searchView.findViewById(R.id.search_src_text);
-        theTextArea.setHighlightColor(themeColorUtils.primaryAccentColor(getContext()));
 
         final Handler handler = new Handler();
 

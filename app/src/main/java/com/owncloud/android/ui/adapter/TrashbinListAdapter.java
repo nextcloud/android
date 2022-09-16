@@ -266,7 +266,6 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             } else {
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                             file.getFileName(),
-                                                                            user,
                                                                             context,
                                                                             viewThemeUtils));
             }

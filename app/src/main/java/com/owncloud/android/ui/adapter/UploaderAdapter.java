@@ -145,7 +145,6 @@ public class UploaderAdapter extends SimpleAdapter {
             } else {
                 final Drawable icon = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                    file.getFileName(),
-                                                                   user,
                                                                    mContext,
                                                                    viewThemeUtils);
                 fileIcon.setImageDrawable(icon);
