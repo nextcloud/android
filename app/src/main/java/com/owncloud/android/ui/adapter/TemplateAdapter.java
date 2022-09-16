@@ -138,7 +138,6 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
 
             Drawable placeholder = MimeTypeUtil.getFileTypeIcon(mimetype,
                                                                 template.getTitle(),
-                                                                currentAccountProvider.getUser(),
                                                                 context,
                                                                 viewThemeUtils);
 

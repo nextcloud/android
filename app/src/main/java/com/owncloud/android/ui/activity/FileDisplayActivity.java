@@ -688,7 +688,7 @@ public class FileDisplayActivity extends FileActivity
             searchView.setIconified(false);
         });
 
-        themeToolbarUtils.themeSearchView(searchView, this);
+        viewThemeUtils.androidx.themeToolbarSearchView(searchView);
 
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(1);

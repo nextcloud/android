@@ -181,7 +181,6 @@ public abstract class EditorWebView extends ExternalSiteWebView {
             } else {
                 Drawable icon = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                              file.getFileName(),
-                                                             user,
                                                              getApplicationContext(),
                                                              viewThemeUtils);
                 binding.thumbnail.setImageDrawable(icon);

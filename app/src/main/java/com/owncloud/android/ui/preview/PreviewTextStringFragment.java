@@ -119,6 +119,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(this);
         searchView.setMaxWidth(Integer.MAX_VALUE);
+        viewThemeUtils.androidx.themeToolbarSearchView(searchView);
 
         if (searchOpen) {
             searchView.setIconified(false);
