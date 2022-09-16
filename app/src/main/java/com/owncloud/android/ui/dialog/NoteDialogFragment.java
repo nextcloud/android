@@ -53,7 +53,6 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
     private static final String ARG_SHARE = "SHARE";
 
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ViewThemeUtils viewThemeUtils;
 
     private OCShare share;

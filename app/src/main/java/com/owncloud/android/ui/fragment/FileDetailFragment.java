@@ -72,7 +72,6 @@ import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -115,7 +114,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject FileDataStorageManager storageManager;
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject BackgroundJobManager backgroundJobManager;
 

@@ -40,8 +40,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
@@ -72,8 +70,6 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
     private User user;
     private final List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private Button positiveButton;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeDrawableUtils themeDrawableUtils;
     @Inject ViewThemeUtils viewThemeUtils;
 
     private static final String KEY_NEW_FILE = "file";

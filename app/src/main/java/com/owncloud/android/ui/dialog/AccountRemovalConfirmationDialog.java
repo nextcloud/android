@@ -30,7 +30,6 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.owncloud.android.R;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
@@ -44,7 +43,6 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
     private static final String KEY_USER = "USER";
 
     @Inject BackgroundJobManager backgroundJobManager;
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ViewThemeUtils viewThemeUtils;
     private User user;
 

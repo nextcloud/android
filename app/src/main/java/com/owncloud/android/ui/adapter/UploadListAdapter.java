@@ -90,7 +90,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private UploadGroup[] uploadGroups;
     private boolean showUser;
     private ThemeColorUtils themeColorUtils;
-    private ThemeDrawableUtils themeDrawableUtils;
     private final  ViewThemeUtils viewThemeUtils;
 
     @Override
@@ -172,7 +171,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                              final PowerManagementService powerManagementService,
                              final Clock clock,
                              final ThemeColorUtils themeColorUtils,
-                             final ThemeDrawableUtils themeDrawableUtils,
                              final ViewThemeUtils viewThemeUtils) {
         Log_OC.d(TAG, "UploadListAdapter");
         this.parentActivity = fileActivity;
@@ -183,7 +181,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         this.powerManagementService = powerManagementService;
         this.clock = clock;
         this.themeColorUtils = themeColorUtils;
-        this.themeDrawableUtils = themeDrawableUtils;
         this.viewThemeUtils = viewThemeUtils;
 
         uploadGroups = new UploadGroup[3];

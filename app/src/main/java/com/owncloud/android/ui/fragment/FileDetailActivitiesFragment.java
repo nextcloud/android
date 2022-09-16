@@ -59,9 +59,6 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.interfaces.VersionListInterface;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -113,9 +110,6 @@ public class FileDetailActivitiesFragment extends Fragment implements
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject ContentResolver contentResolver;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeToolbarUtils themeToolbarUtils;
-    @Inject ThemeDrawableUtils themeDrawableUtils;
     @Inject ViewThemeUtils viewThemeUtils;
 
     public static FileDetailActivitiesFragment newInstance(OCFile file, User user) {

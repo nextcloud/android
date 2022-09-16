@@ -93,7 +93,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeType;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
@@ -331,7 +330,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         private Spinner mSpinner;
         @Inject AppPreferences preferences;
-        @Inject ThemeColorUtils themeColorUtils;
         @Inject ViewThemeUtils viewThemeUtils;
 
         public static DialogInputUploadFilename newInstance(String subjectText, String extraText) {
