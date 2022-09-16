@@ -75,9 +75,6 @@ import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.ArrayList;
@@ -140,9 +137,6 @@ public class SettingsActivity extends PreferenceActivity
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeToolbarUtils themeToolbarUtils;
-    @Inject ThemeUtils themeUtils;
     @Inject ViewThemeUtils viewThemeUtils;
 
 

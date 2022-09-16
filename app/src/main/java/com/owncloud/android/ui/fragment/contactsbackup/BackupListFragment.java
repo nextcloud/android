@@ -55,7 +55,7 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -95,7 +95,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
     @Inject ClientFactory clientFactory;
     @Inject BackgroundJobManager backgroundJobManager;
     @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeToolbarUtils themeToolbarUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
     private TransferManagerConnection fileDownloader;
     private LoadContactsTask loadContactsTask = null;
     private ContactsAccount selectedAccount;
@@ -142,9 +142,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
         if (contactsPreferenceActivity != null) {
             ActionBar actionBar = contactsPreferenceActivity.getSupportActionBar();
             if (actionBar != null) {
-                themeToolbarUtils.setColoredTitle(actionBar,
-                                                  R.string.actionbar_calendar_contacts_restore,
-                                                  getContext());
+                viewThemeUtils.files.themeActionBar(requireContext(), actionBar, R.string.actionbar_calendar_contacts_restore);
                 actionBar.setDisplayHomeAsUpEnabled(true);
             }
             contactsPreferenceActivity.setDrawerIndicatorEnabled(false);

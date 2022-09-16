@@ -28,12 +28,9 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -48,8 +45,6 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
 
     private static final int SINGLE_SELECTION = 1;
     private static final String ARG_TARGET_FILES = "TARGET_FILES";
-
-    @Inject ThemeColorUtils themeColorUtils;
 
     private Collection<OCFile> mTargetFiles;
     private ActionMode actionMode;

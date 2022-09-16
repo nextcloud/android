@@ -32,7 +32,6 @@ import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
 import com.owncloud.android.databinding.StoragePermissionDialogBinding
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment.Listener
-import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import javax.inject.Inject
 
@@ -49,9 +48,6 @@ import javax.inject.Inject
 class StoragePermissionDialogFragment(val listener: Listener, val permissionRequired: Boolean = false) :
     DialogFragment(), Injectable {
     private lateinit var binding: StoragePermissionDialogBinding
-
-    @Inject
-    lateinit var themeColorUtils: ThemeColorUtils
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils

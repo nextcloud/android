@@ -43,7 +43,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.List;
@@ -67,7 +66,6 @@ public class CreateFolderDialogFragment
 
     public static final String CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT";
 
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
     @Inject ViewThemeUtils viewThemeUtils;
 

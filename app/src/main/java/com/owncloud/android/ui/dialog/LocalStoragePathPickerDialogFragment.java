@@ -34,7 +34,6 @@ import com.owncloud.android.databinding.StoragePathDialogBinding;
 import com.owncloud.android.ui.adapter.StoragePathAdapter;
 import com.owncloud.android.ui.adapter.StoragePathItem;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
@@ -61,7 +60,6 @@ public class LocalStoragePathPickerDialogFragment extends DialogFragment
 
     private static Set<String> internalStoragePaths = new HashSet<>();
 
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ViewThemeUtils viewThemeUtils;
 
     static {

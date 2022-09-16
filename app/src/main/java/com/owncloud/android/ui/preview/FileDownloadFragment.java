@@ -34,7 +34,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.lang.ref.WeakReference;
@@ -62,7 +61,6 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     private View mView;
     private User user;
 
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ViewThemeUtils viewThemeUtils;
     public ProgressListener mProgressListener;
     private boolean mListening;

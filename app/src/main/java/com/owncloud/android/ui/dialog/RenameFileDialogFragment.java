@@ -48,7 +48,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.List;
@@ -72,7 +71,6 @@ public class RenameFileDialogFragment
     private static final String ARG_TARGET_FILE = "TARGET_FILE";
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
 
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
 
