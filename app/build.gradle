@@ -73,6 +73,11 @@ android {
     // install this NDK version and Cmake to produce smaller APKs. Build will still work if not installed
     ndkVersion "${ndkEnv.get("NDK_VERSION")}"
 
+
+    namespace 'com.owncloud.android'
+    testNamespace "${namespace}.test"
+
+
     defaultConfig {
         minSdkVersion 23
         targetSdkVersion 30

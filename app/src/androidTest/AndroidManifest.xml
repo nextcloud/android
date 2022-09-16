@@ -26,7 +26,6 @@
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="${applicationId}.test"
     android:sharedUserId="${applicationId}.uid">
 
 </manifest>
