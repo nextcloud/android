@@ -90,10 +90,11 @@ class LogsActivity : ToolbarActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.activity_logs, menu)
+
         (menu.findItem(R.id.action_search).actionView as SearchView).apply {
             setOnQueryTextListener(searchBoxListener)
+            viewThemeUtils.androidx.themeToolbarSearchView(this)
 
-            themeToolbarUtils.themeSearchView(this, context)
         }
         return super.onCreateOptionsMenu(menu)
     }

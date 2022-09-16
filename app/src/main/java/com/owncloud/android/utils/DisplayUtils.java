@@ -898,7 +898,6 @@ public final class DisplayUtils {
                             if (thumbnail == null) {
                                 Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                                  file.getFileName(),
-                                                                                 user,
                                                                                  context,
                                                                                  viewThemeUtils);
                                 if (drawable == null) {
@@ -950,7 +949,6 @@ public final class DisplayUtils {
                 stopShimmer(shimmerThumbnail, thumbnailView);
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                             file.getFileName(),
-                                                                            user,
                                                                             context,
                                                                             viewThemeUtils));
             }

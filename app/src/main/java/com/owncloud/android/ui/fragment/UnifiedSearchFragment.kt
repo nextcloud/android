@@ -236,6 +236,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val item = menu.findItem(R.id.action_search)
         val searchView = MenuItemCompat.getActionView(item) as SearchView
+        viewThemeUtils.androidx.themeToolbarSearchView(searchView)
         searchView.setQuery(vm.query.value, false)
         searchView.setOnQueryTextListener(this)
         searchView.isIconified = false

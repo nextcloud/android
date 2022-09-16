@@ -84,7 +84,6 @@ public class ShareActivity extends FileActivity {
         } else {
             binding.shareFileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                                 file.getFileName(),
-                                                                                optionalUser.get(),
                                                                                 this,
                                                                                 viewThemeUtils));
             if (MimeTypeUtil.isImage(file)) {

@@ -117,6 +117,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         mToolbarSpinner = findViewById(R.id.toolbar_spinner);
 
         viewThemeUtils.material.themeToolbar(mToolbar);
+        viewThemeUtils.material.colorToolbarOverflowIcon(mToolbar);
         viewThemeUtils.platform.themeStatusBar(this);
         viewThemeUtils.material.colorMaterialTextButton(mSwitchAccountButton);
     }
