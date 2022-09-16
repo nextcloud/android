@@ -27,7 +27,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -61,6 +60,7 @@ import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -70,13 +70,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
@@ -137,8 +135,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             viewThemeUtils.files.themeActionBar(this, actionBar);
         }
 
-        binding.userinfoList.setAdapter(
-            new UserInfoAdapter(null, themeColorUtils.primaryColor(getAccount(), true, this)));
+        binding.userinfoList.setAdapter(new UserInfoAdapter(null, viewThemeUtils));
 
         if (userInfo != null) {
             populateUserInfoUi(userInfo);
@@ -214,14 +211,17 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
                     SimpleTarget target = new SimpleTarget<Drawable>() {
                         @Override
                         public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                            Drawable[] drawables = {new ColorDrawable(primaryColor), resource};
+                            Drawable[] drawables = {
+                                viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()),
+                                resource};
                             LayerDrawable layerDrawable = new LayerDrawable(drawables);
                             backgroundImageView.setImageDrawable(layerDrawable);
                         }
 
                         @Override
                         public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                            Drawable[] drawables = {new ColorDrawable(primaryColor),
+                            Drawable[] drawables = {
+                                viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()),
                                 ResourcesCompat.getDrawable(getResources(),
                                                             R.drawable.background,
                                                             null)};
@@ -239,7 +239,8 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
                             .into(target);
                 } else {
                     // plain color
-                    backgroundImageView.setImageDrawable(new ColorDrawable(primaryColor));
+                    backgroundImageView.setImageDrawable(
+                        viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()));
                 }
             }
         }
@@ -254,8 +255,6 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
                                getResources(),
                                binding.userinfoIcon,
                                this);
-
-        int tint = themeColorUtils.primaryColor(user.toPlatformAccount(), true, this);
 
         if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
             binding.userinfoFullName.setText(userInfo.getDisplayName());
@@ -275,7 +274,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             binding.emptyList.emptyListView.setVisibility(View.GONE);
 
             if (binding.userinfoList.getAdapter() instanceof UserInfoAdapter) {
-                binding.userinfoList.setAdapter(new UserInfoAdapter(createUserInfoDetails(userInfo), tint));
+                binding.userinfoList.setAdapter(new UserInfoAdapter(createUserInfoDetails(userInfo), viewThemeUtils));
             }
 
             binding.loadingContent.setVisibility(View.GONE);
@@ -373,7 +372,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
 
     protected static class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHolder> {
         protected List<UserInfoDetailsItem> mDisplayList;
-        @ColorInt protected int mTintColor;
+        protected ViewThemeUtils viewThemeUtils;
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
             protected UserInfoDetailsTableItemBinding binding;
@@ -384,9 +383,9 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             }
         }
 
-        public UserInfoAdapter(List<UserInfoDetailsItem> displayList, @ColorInt int tintColor) {
+        public UserInfoAdapter(List<UserInfoDetailsItem> displayList, ViewThemeUtils viewThemeUtils) {
             mDisplayList = displayList == null ? new LinkedList<>() : displayList;
-            mTintColor = tintColor;
+            this.viewThemeUtils = viewThemeUtils;
         }
 
         public void setData(List<UserInfoDetailsItem> displayList) {
@@ -411,7 +410,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             holder.binding.icon.setImageResource(item.icon);
             holder.binding.text.setText(item.text);
             holder.binding.icon.setContentDescription(item.iconContentDescription);
-            DrawableCompat.setTint(holder.binding.icon.getDrawable(), mTintColor);
+            viewThemeUtils.platform.colorImageView(holder.binding.icon);
         }
 
         @Override
