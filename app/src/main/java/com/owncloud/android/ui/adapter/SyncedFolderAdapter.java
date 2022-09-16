@@ -71,8 +71,6 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     private static final int VIEW_TYPE_HEADER = 2;
     private static final int VIEW_TYPE_FOOTER = 3;
     private boolean hideItems;
-    private final ThemeColorUtils themeColorUtils;
-    private final ThemeDrawableUtils themeDrawableUtils;
     private final ViewThemeUtils viewThemeUtils;
     private final Executor thumbnailThreadPool;
 
@@ -93,8 +91,6 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
         filteredSyncFolderItems = new ArrayList<>();
         this.light = light;
         this.hideItems = true;
-        this.themeColorUtils = themeColorUtils;
-        this.themeDrawableUtils = themeDrawableUtils;
         this.viewThemeUtils = viewThemeUtils;
         this.thumbnailThreadPool = Executors.newCachedThreadPool();
 

@@ -57,7 +57,6 @@ import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.adapter.PredefinedStatusClickListener
 import com.owncloud.android.ui.adapter.PredefinedStatusListAdapter
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.EmojiPopup
@@ -111,9 +110,6 @@ class SetStatusDialogFragment :
 
     @Inject
     lateinit var clientFactory: ClientFactory
-
-    @Inject
-    lateinit var themeColorUtils: ThemeColorUtils
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils

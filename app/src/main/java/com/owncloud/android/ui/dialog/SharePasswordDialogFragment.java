@@ -37,7 +37,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
@@ -58,8 +57,6 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
     private static final String ARG_CREATE_SHARE = "CREATE_SHARE";
     private static final String ARG_ASK_FOR_PASSWORD = "ASK_FOR_PASSWORD";
     public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
-
-    @Inject ThemeColorUtils themeColorUtils;
 
     @Inject ViewThemeUtils viewThemeUtils;
 

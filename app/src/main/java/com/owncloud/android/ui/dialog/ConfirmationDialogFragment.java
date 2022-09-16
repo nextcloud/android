@@ -23,7 +23,6 @@ import android.os.Bundle;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
@@ -45,7 +44,6 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
 
     public static final String FTAG_CONFIRMATION = "CONFIRMATION_FRAGMENT";
 
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ViewThemeUtils viewThemeUtils;
 
 

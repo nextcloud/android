@@ -84,10 +84,6 @@ public class ThemeToolbarUtils {
         }
     }
 
-    public void setColoredTitle(@Nullable ActionBar actionBar, int titleId, Context context) {
-        setColoredTitle(actionBar, context.getString(titleId), context);
-    }
-
     /**
      * Set color of subtitle to white/black depending on background color
      *

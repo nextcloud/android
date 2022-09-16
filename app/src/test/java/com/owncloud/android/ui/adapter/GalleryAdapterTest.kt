@@ -30,8 +30,6 @@ import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import junit.framework.Assert.assertEquals
 import org.junit.After
@@ -60,12 +58,6 @@ class GalleryAdapterTest {
 
     @Mock
     lateinit var storageManager: FileDataStorageManager
-
-    @Mock
-    lateinit var themeColorUtils: ThemeColorUtils
-
-    @Mock
-    lateinit var themeDrawableUtils: ThemeDrawableUtils
 
     @Mock
     lateinit var viewThemeUtils: ViewThemeUtils
