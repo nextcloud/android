@@ -10,7 +10,6 @@
  */
 package com.owncloud.android.utils.svg;
 
-import android.annotation.TargetApi;
 import android.graphics.drawable.PictureDrawable;
 import android.os.Build;
 import android.widget.ImageView;
@@ -19,7 +18,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.bumptech.glide.request.target.Target;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class SvgSoftwareLayerSetter<T> implements RequestListener<T, PictureDrawable> {
 
     @Override

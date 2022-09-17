@@ -3,7 +3,7 @@ import org.gradle.internal.jvm.Jvm
 
 buildscript {
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.3'
+        classpath 'com.android.tools.build:gradle:7.3.0'
         classpath 'com.hiya:jacoco-android:0.2'
         classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.11'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -72,6 +72,11 @@ android {
     compileSdkVersion 31
     // install this NDK version and Cmake to produce smaller APKs. Build will still work if not installed
     ndkVersion "${ndkEnv.get("NDK_VERSION")}"
+
+
+    namespace 'com.owncloud.android'
+    testNamespace "${namespace}.test"
+
 
     defaultConfig {
         minSdkVersion 23
@@ -247,7 +252,7 @@ dependencies {
     }
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'androidx.annotation:annotation:1.4.0'
-    implementation 'com.vanniktech:emoji-google:0.15.0'
+    implementation 'com.vanniktech:emoji-google:0.9.0'
 
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido:$fidoVersion"
     implementation "com.github.cotechde.hwsecurity:hwsecurity-fido2:$fidoVersion"
