@@ -626,7 +626,7 @@ Attention la suppression est irréversible.</string>
     <string name="set_note">Définir la note</string>
     <string name="set_picture_as">Utiliser l\'image comme</string>
     <string name="set_status">Définir le statut</string>
-    <string name="set_status_message">Message d\'état</string>
+    <string name="set_status_message">Enregistrer le message d\'état</string>
     <string name="share">Partager</string>
     <string name="share_copy_link">Partager &amp; Copier le lien</string>
     <string name="share_dialog_title">Partage</string>
