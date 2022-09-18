@@ -22,6 +22,7 @@
 
 package com.owncloud.android.utils
 
+import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.os.Build
@@ -64,6 +65,7 @@ class FileExportUtils {
         }
     }
 
+    @SuppressLint("Recycle") // handled inside copy method
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun exportFileAndroid10AndAbove(
         fileName: String,
@@ -139,30 +141,28 @@ class FileExportUtils {
 
     @Throws(IllegalStateException::class)
     private fun copy(ocFile: OCFile?, file: File?, contentResolver: ContentResolver, outputStream: FileOutputStream) {
-        try {
-            val inputStream = if (ocFile != null) {
-                contentResolver.openInputStream(ocFile.storageUri)
-            } else if (file != null) {
-                FileInputStream(file)
-            } else {
-                error("ocFile and file both may not be null")
-            }
+        outputStream.use { fos ->
+            try {
+                val inputStream = when {
+                    ocFile != null -> contentResolver.openInputStream(ocFile.storageUri)
+                    file != null -> FileInputStream(file)
+                    else -> error("ocFile and file both may not be null")
+                }!!
 
-            copyStream(inputStream!!, outputStream)
-        } catch (e: IOException) {
-            Log_OC.e(this, "Cannot write file", e)
+                inputStream.use { fis ->
+                    copyStream(fis, fos)
+                }
+            } catch (e: IOException) {
+                Log_OC.e(this, "Cannot write file", e)
+            }
         }
     }
 
     private fun copyStream(inputStream: InputStream, outputStream: FileOutputStream) {
-        inputStream.use { input ->
-            outputStream.use { output ->
-                val buffer = ByteArray(COPY_BUFFER_SIZE)
-                var len: Int
-                while (input.read(buffer).also { len = it } != -1) {
-                    output.write(buffer, 0, len)
-                }
-            }
+        val buffer = ByteArray(COPY_BUFFER_SIZE)
+        var len: Int
+        while (inputStream.read(buffer).also { len = it } != -1) {
+            outputStream.write(buffer, 0, len)
         }
     }
 
