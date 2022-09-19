@@ -74,6 +74,7 @@
 
     <application
         android:name=".MainApp"
+        android:allowBackup="false"
         android:fullBackupContent="@xml/backup_config"
         android:dataExtractionRules="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -86,6 +87,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ownCloud.Toolbar"
         android:usesCleartextTraffic="true"
+        tools:replace="android:allowBackup"
         tools:ignore="UnusedAttribute">
 
         <uses-library
