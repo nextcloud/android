@@ -1,0 +1,8 @@
+Rollback emoji-google to 0.9.0
+Use gradle 7.4.2
+AndroidManifest: disable backup&restore
+Move package declarations to build.gradle
+Solve new lint warnings with AGP 7.3.0
+Update Gradle distribution to 7.4
+Update Nextcloud Android library
+Update 3rd-party dependencies
