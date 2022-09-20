@@ -195,7 +195,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             return result;
         } catch (Exception e) {
             if (!EncryptionUtils.unlockFolder(parent, client, token).isSuccess()) {
-                throw new RuntimeException("Could not clean up after failing folder creation!");
+                throw new RuntimeException("Could not clean up after failing folder creation!", e);
             }
 
             // remove folder
