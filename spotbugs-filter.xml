@@ -24,6 +24,7 @@
     <!-- Dagger generated code uses internal APIs -->
     <Match>
         <Class name="~.*\..*.*Factory" />
+		<Class name="~.*\..*.*Factory_Impl" />
         <Bug pattern="IICU_INCORRECT_INTERNAL_CLASS_USE" />
     </Match>
 
