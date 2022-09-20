@@ -53,7 +53,6 @@
     <color name="login_btn_tint">#ffffff</color>
     <color name="login_btn_stroke">#ffffff</color>
     <color name="bg_default">#FFFFFF</color>
-    <color name="bg_elevation_one">#FFFFFF</color>
     <color name="background_color_inverse">#000000</color>
     <color name="primary_button_background_color">@color/color_accent</color>
     <color name="primary_button_text_color">#ffffff</color>
@@ -81,10 +80,6 @@
     <color name="switch_thumb_color_unchecked">#FFFFFF</color>
     <color name="switch_track_color_unchecked">#4D000000</color>
     <color name="drawer_active_item_background">#80000000</color>
-
-    <!-- Excluded from future app dark theme -->
-    <color name="themed_fg">#FFFFFF</color>
-    <color name="themed_fg_inverse">#000000</color>
 
     <!-- App bar -->
     <color name="appbar">@android:color/white</color>
