@@ -230,7 +230,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
 
             if (textView != null) {
                 originalText = stringWriter.toString();
-                setText(textView, originalText, getFile(), requireActivity(), false, false, themeColorUtils);
+                setText(textView, originalText, getFile(), requireActivity(), false, false, viewThemeUtils);
 
                 if (searchView != null) {
                     searchView.setOnQueryTextListener(PreviewTextFileFragment.this);
