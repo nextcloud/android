@@ -130,7 +130,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
 
     void loadAndShowTextPreview() {
         originalText = getFile().getRichWorkspace();
-        setText(binding.textPreview, originalText, getFile(), requireActivity(), true, false, themeColorUtils);
+        setText(binding.textPreview, originalText, getFile(), requireActivity(), true, false, viewThemeUtils);
 
         binding.textPreview.setVisibility(View.VISIBLE);
         binding.emptyListProgress.setVisibility(View.GONE);
