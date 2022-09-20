@@ -107,7 +107,6 @@ public class UploaderAdapter extends SimpleAdapter {
                                                                  file.isSharedViaLink(),
                                                                  file.isEncrypted(),
                                                                  file.isGroupFolder(),
-                                                                 user,
                                                                  file.getMountType(),
                                                                  mContext,
                                                                  viewThemeUtils);

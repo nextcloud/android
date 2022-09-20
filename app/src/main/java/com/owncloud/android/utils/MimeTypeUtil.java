@@ -131,40 +131,14 @@ public final class MimeTypeUtil {
      * Returns the resource identifier of an image to use as icon associated to a type of folder.
      *
      * @param isSharedViaUsers flag if the folder is shared via the users system
-     * @param isSharedViaLink  flag if the folder is publicly shared via link
-     * @return Identifier of an image resource.
-     */
-    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
-                                             boolean isSharedViaLink,
-                                             boolean isEncrypted,
-                                             boolean isGroupfolder,
-                                             WebdavEntry.MountType mountType,
-                                             Context context,
-                                             ViewThemeUtils viewThemeUtils) {
-        return getFolderTypeIcon(isSharedViaUsers,
-                                 isSharedViaLink,
-                                 isEncrypted,
-                                 isGroupfolder,
-                                 null,
-                                 mountType,
-                                 context,
-                                 viewThemeUtils);
-    }
-
-    /**
-     * Returns the resource identifier of an image to use as icon associated to a type of folder.
-     *
-     * @param isSharedViaUsers flag if the folder is shared via the users system
      * @param isSharedViaLink flag if the folder is publicly shared via link
      * @param isEncrypted flag if the folder is encrypted
-     * @param user user which color should be used
      * @return Identifier of an image resource.
      */
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
                                              boolean isSharedViaLink,
                                              boolean isEncrypted,
                                              boolean isGroupFolder,
-                                             @Nullable User user,
                                              WebdavEntry.MountType mountType,
                                              Context context,
                                              ViewThemeUtils viewThemeUtils) {
