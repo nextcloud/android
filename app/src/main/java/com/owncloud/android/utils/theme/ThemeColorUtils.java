@@ -34,6 +34,7 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.owncloud.android.utils.theme.CapabilityUtils.getCapability;
 
@@ -208,6 +209,7 @@ public class ThemeColorUtils {
      * @param color the color
      * @return true if primaryColor is lighter than MAX_LIGHTNESS
      */
+    @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
     public boolean lightTheme(int color) {
         float[] hsl = colorToHSL(color);
 
@@ -219,6 +221,7 @@ public class ThemeColorUtils {
      *
      * @return true if dark theme -> e.g.use light font color, darker accent color
      */
+    @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
     public boolean darkTheme(Context context) {
         int primaryColor = primaryColor(context);
         float[] hsl = colorToHSL(primaryColor);
@@ -250,6 +253,7 @@ public class ThemeColorUtils {
      * @param threshold      0..1 as maximum value, -1 to disable
      * @return color adjusted by lightness
      */
+    @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
     public int adjustLightness(float lightnessDelta, int color, float threshold) {
         float[] hsl = colorToHSL(color);
 
