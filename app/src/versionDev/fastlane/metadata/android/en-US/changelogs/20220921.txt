@@ -1,0 +1,2 @@
+Add monochrome icon
+Update translations
