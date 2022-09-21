@@ -687,7 +687,7 @@
     <string name="store_short_dev_desc">A plataforma de produtividade auto alojada que o mantém em controle (versão \"preview dev\")</string>
     <string name="stream">Transmita com…</string>
     <string name="stream_not_possible_headline">Transmissão interna não é possível</string>
-    <string name="stream_not_possible_message">Por favor, como opção, transfira media ou utilize uma aplicação externa.</string>
+    <string name="stream_not_possible_message">Em vez disso, por favor, transfira mediateca ou utilize uma aplicação externa.</string>
     <string name="subject_shared_with_you">\"%1$s\" foi partilhado consigo</string>
     <string name="subject_user_shared_with_you">%1$s partilhou \"%2$s\" consigo</string>
     <string name="suggest">Sugerir </string>
