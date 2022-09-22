@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Αρχείο αλλαγών της έκδοσης προγραμματιστή</string>
     <string name="checkbox">Πλαίσιο ελέγχου</string>
     <string name="choose_local_folder">Επιλέξτε τοπικό φάκελο…</string>
+    <string name="choose_location">Επιλέξτε τοποθεσία</string>
     <string name="choose_remote_folder">Επιλέξτε απομακρυσμένο φάκελο…</string>
     <string name="choose_template_helper_text">Παρακαλούμε επιλέξτε ένα πρότυπο και εισαγάγετε ένα όνομα αρχείου.</string>
     <string name="choose_which_file">Επέλεξε ποιο αρχείο θέλεις να κρατήσεις!</string>
@@ -402,7 +403,9 @@
     <string name="local_file_not_found_message">Το αρχείο δεν βρέθηκε στο τοπικό σύστημα αρχείων</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Δεν υπάρχουν άλλοι φάκελοι.</string>
+    <string name="lock_expiration_info">Λήγει: %1$s</string>
     <string name="lock_file">Κλείδωμα αρχείου</string>
+    <string name="locked_by_app">Κλειδωμένο από την εφαρμογή %1$s</string>
     <string name="log_send_mail_subject">%1$s ιστορικό της εφαρμογής Android</string>
     <string name="log_send_no_mail_app">Δεν βρέθηκε εφαρμογή για αποστολή αρχείων καταγραφής. Εγκαταστήστε ένα πρόγραμμα -πελάτη ηλεκτρονικής αλληλογραφίας.</string>
     <string name="login">Είσοδος</string>
@@ -605,6 +608,7 @@
     <string name="screenshot_06_davdroid_subline">Συγχρονισμός με DAVx5</string>
     <string name="search_error">Σφάλμα λήψης αποτελεσμάτων αναζήτησης</string>
     <string name="select_all">Επιλογή όλων</string>
+    <string name="select_media_folder">Επίλεξε φάκελο πολυμέσων</string>
     <string name="select_one_template">Παρακαλούμε επιλέξτε ένα πρότυπο</string>
     <string name="select_template">Επιλογή προτύπου</string>
     <string name="send">Αποστολή</string>
