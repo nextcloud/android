@@ -43,7 +43,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Toast;
 
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -1583,7 +1582,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             if (remoteOperationResult.isSuccess()) {
                 boolean removeFromList = currentSearchType == SearchType.FAVORITE_SEARCH && !event.shouldFavorite;
-                mAdapter.setFavoriteAttributeForItemID(event.remoteId, event.shouldFavorite, removeFromList);
+                mAdapter.setFavoriteAttributeForItemID(event.remotePath, event.shouldFavorite, removeFromList);
             }
 
         } catch (ClientFactory.CreationException e) {
