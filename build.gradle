@@ -1,7 +1,7 @@
 buildscript {
     ext {
         jacoco_version = '0.8.8'
-        kotlin_version = '1.6.21'
+        kotlin_version = '1.7.10'
         androidxTestVersion = "1.4.0"
         daggerVersion = "2.43.2"
         markwonVersion = "4.6.2"
