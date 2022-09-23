@@ -23,7 +23,6 @@
 
 package com.owncloud.android.ui;
 
-import android.accounts.Account;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -133,12 +132,12 @@ public class TextDrawable extends Drawable {
     }
 
     @VisibleForTesting
-    public static String extractCharsFromDisplayName(@NonNull String displayName) {
-        if (displayName.isEmpty()) {
+    public static String extractCharsFromDisplayName(@NonNull final String displayName) {
+        final String trimmed = displayName.trim();
+        if (trimmed.isEmpty()) {
             return "";
         }
-
-        String[] nameParts = displayName.split("\\s+");
+        String[] nameParts = trimmed.split("\\s+");
 
         StringBuilder firstTwoLetters = new StringBuilder();
         for (int i = 0; i < Math.min(2, nameParts.length); i++) {

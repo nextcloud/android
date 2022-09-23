@@ -23,17 +23,43 @@ package com.owncloud.android.ui
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 
+@RunWith(Parameterized::class)
 class TextDrawableTest {
+
+    @Parameterized.Parameter(0)
+    lateinit var expected: String
+
+    @Parameterized.Parameter(1)
+    lateinit var input: String
+
     @Test
     fun twoDigitAvatars() {
-        assertEquals("A", TextDrawable.extractCharsFromDisplayName("Admin"))
-        assertEquals("TS", TextDrawable.extractCharsFromDisplayName("Test Server Admin"))
-        assertEquals("", TextDrawable.extractCharsFromDisplayName(""))
-        assertEquals("CP", TextDrawable.extractCharsFromDisplayName("Cormier Paulette"))
-        assertEquals("WB", TextDrawable.extractCharsFromDisplayName("winston brent"))
-        assertEquals("BJ", TextDrawable.extractCharsFromDisplayName("Baker James Lorena"))
-        assertEquals("BJ", TextDrawable.extractCharsFromDisplayName("Baker  James   Lorena"))
-        assertEquals("E", TextDrawable.extractCharsFromDisplayName("email@nextcloud.localhost"))
+        assertEquals(
+            "Avatar chars from displayname not correct",
+            expected,
+            TextDrawable.extractCharsFromDisplayName(input)
+        )
+    }
+
+    companion object {
+        @Parameterized.Parameters(name = "{1}")
+        @JvmStatic
+        fun data(): Iterable<Array<String>> = listOf(
+            arrayOf("A", "Admin"),
+            arrayOf("TS", "Test Server Admin"),
+            arrayOf("", ""),
+            arrayOf("CP", "Cormier Paulette"),
+            arrayOf("WB", "winston brent"),
+            arrayOf("BJ", "Baker James Lorena"),
+            arrayOf("BJ", "Baker  James   Lorena"),
+            arrayOf("E", "email@nextcloud.localhost"),
+            arrayOf("SA", "  Spaces At Start"),
+            arrayOf("SA", "Spaces At End   "),
+            arrayOf("SA", "  Spaces At Start And End   "),
+            arrayOf("", "  ")
+        )
     }
 }
