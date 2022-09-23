@@ -626,6 +626,7 @@
 
     <string name="foreground_service_upload">Uploading files…</string>
     <string name="foreground_service_download">Downloading files…</string>
+    <string name="foreground_service_save">Saving files…</string>
 
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_license">License</string>
@@ -1041,4 +1042,5 @@
     <string name="file_already_exists">Filename already exists</string>
     <string name="filedetails_export">Export</string>
     <string name="locate_folder">Locate folder</string>
+    <string name="action_rotate">Rotate</string>
 </resources>

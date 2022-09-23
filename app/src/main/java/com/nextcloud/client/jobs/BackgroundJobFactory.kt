@@ -2,7 +2,9 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -101,6 +103,7 @@ class BackgroundJobFactory @Inject constructor(
                 CalendarBackupWork::class -> createCalendarBackupWork(context, workerParameters)
                 CalendarImportWork::class -> createCalendarImportWork(context, workerParameters)
                 FilesExportWork::class -> createFilesExportWork(context, workerParameters)
+                UploadImagesWorker::class -> createUploadImagesWork(context, workerParameters)
                 else -> null // caller falls back to default factory
             }
         }
@@ -240,6 +243,16 @@ class BackgroundJobFactory @Inject constructor(
             clock,
             eventBus,
             preferences
+        )
+    }
+
+    private fun createUploadImagesWork(context: Context, params: WorkerParameters): UploadImagesWorker {
+        return UploadImagesWorker(
+            context = context,
+            params = params,
+            notificationManager,
+            accountManager,
+            themeColorUtils
         )
     }
 }

@@ -2,8 +2,11 @@
 <!--
   ownCloud Android client application
 
+  @author TSI-mc
+
   Copyright (C) 2012 Bartek Przybylski
   Copyright (C) 2015 ownCloud Inc.
+  Copyright (C) 2022 TSI-mc
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -100,6 +103,14 @@
         android:title="@string/actionbar_copy"
         app:showAsAction="never"
         android:showAsAction="never" />
+
+    <!-- rotate image will only visible for preview image -->
+    <item
+        android:id="@+id/action_rotate_image"
+        android:showAsAction="never"
+        android:title="@string/action_rotate"
+        android:visible="false"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_download_file"

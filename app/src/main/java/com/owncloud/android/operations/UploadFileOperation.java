@@ -3,8 +3,10 @@
  *
  * @author David A. Velasco
  * @author Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2016 ownCloud GmbH.
  * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -120,6 +122,7 @@ public class UploadFileOperation extends SyncOperation {
     private boolean mWhileChargingOnly;
     private boolean mIgnoringPowerSaveMode;
     private final boolean mDisableRetries;
+    private final boolean mIsRotatedImages;
 
     private boolean mWasRenamed;
     private long mOCUploadId;
@@ -195,6 +198,7 @@ public class UploadFileOperation extends SyncOperation {
              onWifiOnly,
              whileChargingOnly,
              true,
+             false,
              storageManager);
     }
 
@@ -210,6 +214,7 @@ public class UploadFileOperation extends SyncOperation {
                                boolean onWifiOnly,
                                boolean whileChargingOnly,
                                boolean disableRetries,
+                               boolean isRotatedImages,
                                FileDataStorageManager storageManager) {
         super(storageManager);
 
@@ -250,6 +255,7 @@ public class UploadFileOperation extends SyncOperation {
         mIgnoringPowerSaveMode = mCreatedBy == CREATED_BY_USER;
         mFolderUnlockToken = upload.getFolderUnlockToken();
         mDisableRetries = disableRetries;
+        mIsRotatedImages = isRotatedImages;
     }
 
     public boolean isWifiRequired() {
@@ -1359,7 +1365,27 @@ public class UploadFileOperation extends SyncOperation {
             // coincidence; nothing else is needed, the storagePath is right
             // in the instance returned by mCurrentUpload.getFile()
         }
-        file.setUpdateThumbnailNeeded(true);
+
+        //if uploaded file is image then set the preview available as true
+        //this will be used to update the rotated image thumbnail for media view
+        //since media view listing depends upon then storage manager
+        //so we have to update this flag in local db
+        if (MimeTypeUtil.isImage(file.getMimeType())) {
+            //preview available true is required so that thumbnail gets updated automatically
+            //and user doesn't has to refresh the list manually
+            file.setPreviewAvailable(true);
+        }
+
+        //setUpdateThumbnailNeeded FALSE
+        //if the file is media file set thumbnail needed flag as false
+        //as this will avoid showing shimmer in OCFileListAdapter on refresh
+        //as we are creating thumbnail over here as well and also in OCFileListAdapter if not available
+        //this is specially for MediaView
+
+        //setUpdateThumbnailNeeded TRUE
+        //for other files we can set the thumbnail needed true
+        file.setUpdateThumbnailNeeded(!mIsRotatedImages);
+
         getStorageManager().saveFile(file);
         getStorageManager().saveConflict(file, null);
 

@@ -2,7 +2,9 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2021 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -86,6 +88,7 @@ class UploadTask(
             applicationContext,
             upload.isUseWifiOnly,
             upload.isWhileChargingOnly,
+            false,
             false,
             fileDataStorageManager
         )

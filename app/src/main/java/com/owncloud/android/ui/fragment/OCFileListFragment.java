@@ -6,9 +6,11 @@
  * @author David A. Velasco
  * @author Andy Scherzinger
  * @author Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -1346,6 +1348,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
             handleSearchEvent(searchEvent);
             mRefreshListLayout.setRefreshing(false);
         }
+
+        //Notify the adapter only for Gallery
+        //this will be used when user rotated the image and comes back
+        //so we have to update the thumbnail of the rotated image
+        //this method will also be called when uploading of the any file (rotated image) is finished
+        if (searchEvent != null
+            && searchEvent.getSearchType() == SearchRemoteOperation.SearchType.PHOTO_SEARCH
+            && getRecyclerView().getAdapter() != null) {
+            getRecyclerView().getAdapter().notifyDataSetChanged();
+        }
+
     }
 
     public void updateOCFile(OCFile file) {

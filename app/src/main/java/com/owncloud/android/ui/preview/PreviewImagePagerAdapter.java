@@ -2,7 +2,9 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
+ *   @author TSI-mc
  *   Copyright (C) 2015  ownCloud Inc.
+ *   Copyright (C) 2022 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -157,7 +159,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
             fragment = PreviewImageErrorFragment.newInstance();
 
         } else if (file.isDown()) {
-            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false);
+            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false, i);
         } else {
             if (mDownloadErrors.remove(i)) {
                 fragment = FileDownloadFragment.newInstance(file, user, true);
@@ -168,7 +170,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                 } else if (PreviewMediaFragment.canBePreviewed(file)) {
                     fragment = PreviewMediaFragment.newInstance(file, user, 0, false);
                 } else {
-                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
+                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true, i);
                 }
             }
         }

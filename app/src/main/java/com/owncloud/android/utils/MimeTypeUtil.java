@@ -1,7 +1,9 @@
 /*
  * ownCloud Android client application
+ * @author TSI-mc
  * <p>
  * Copyright (C) 2016 ownCloud Inc.
+ * Copyright (C) 2022 TSI-mc
  * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -259,6 +261,14 @@ public final class MimeTypeUtil {
 
     public static boolean isImageOrVideo(ServerFileInterface file) {
         return isImage(file) || isVideo(file);
+    }
+
+    //check if file is png or jpg image
+    public static boolean isJpgOrPngFile(String fileName) {
+        String extension = fileName.substring(fileName.lastIndexOf("."));
+        return extension.equalsIgnoreCase(".png")
+            || extension.equalsIgnoreCase(".jpg")
+            || extension.equalsIgnoreCase(".jpeg");
     }
 
     /**
