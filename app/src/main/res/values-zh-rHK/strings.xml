@@ -74,7 +74,7 @@
     <string name="autoupload_custom_folder">設定自訂資料夾</string>
     <string name="autoupload_disable_power_save_check">停用省電功能</string>
     <string name="autoupload_hide_folder">隱藏資料夾</string>
-    <string name="avatar">頭像</string>
+    <string name="avatar">虛擬化身</string>
     <string name="away">不在</string>
     <string name="backup_settings">備份設定</string>
     <string name="backup_title">通訊錄與日曆備份</string>
@@ -662,7 +662,7 @@
     <string name="share_via_link_send_link_label">傳送連結</string>
     <string name="share_via_link_unset_password">解除設定</string>
     <string name="share_with_title">分享給</string>
-    <string name="shared_avatar_desc">分享者的頭像</string>
+    <string name="shared_avatar_desc">分享者的虛擬化身頭像</string>
     <string name="shared_icon_share">分享</string>
     <string name="shared_icon_shared">已分享</string>
     <string name="shared_icon_shared_via_link">透過連結分享</string>

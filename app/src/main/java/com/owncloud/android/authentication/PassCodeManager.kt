@@ -121,7 +121,7 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
             visibleActivitiesCounter--
         }
         val powerMgr = activity.getSystemService(Context.POWER_SERVICE) as PowerManager
-        if ((isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) && !powerMgr?.isScreenOn) {
+        if ((isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) && !powerMgr.isScreenOn) {
             activity.moveTaskToBack(true)
         }
     }

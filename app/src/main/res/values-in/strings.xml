@@ -14,6 +14,7 @@
     <string name="action_send_share">Kirim/Bagi</string>
     <string name="action_switch_grid_view">Tampilan kotak</string>
     <string name="action_switch_list_view">Tampilan lis</string>
+    <string name="actionbar_calendar_contacts_restore">Kembalikan kontak &amp; kalender</string>
     <string name="actionbar_copy">Salin</string>
     <string name="actionbar_mkdir">Folder baru</string>
     <string name="actionbar_move">Pindah</string>
@@ -76,6 +77,7 @@
     <string name="avatar">Avatar</string>
     <string name="away">Jauh</string>
     <string name="backup_settings">Pengaturan Pencadangan</string>
+    <string name="backup_title">Kontak &amp; backup kalender</string>
     <string name="battery_optimization_close">Tutup</string>
     <string name="battery_optimization_disable">Nonaktifkan</string>
     <string name="battery_optimization_message">Optimisasi baterai perangkat anda mungkin sedang aktif.
@@ -85,6 +87,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalender</string>
     <string name="certificate_load_problem">Terjadi permasalahan memuat sertifikat.</string>
+    <string name="changelog_dev_version">Perubahan versi dev</string>
     <string name="checkbox">Kotak check</string>
     <string name="choose_local_folder">Pilih folder lokal…</string>
     <string name="choose_location">Pilih lokasi</string>
@@ -92,8 +95,8 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="choose_template_helper_text">Mohon pilih templat dan masukkan nama file.</string>
     <string name="choose_which_file">Pilih file mana yang ditahan!</string>
     <string name="clear_notifications_failed">Gagal membersihkan notifikasi</string>
-    <string name="clear_status_message">Kosongkan pesan status</string>
-    <string name="clear_status_message_after">Kosongkan pesan status setelah</string>
+    <string name="clear_status_message">Kosongkan status pesan</string>
+    <string name="clear_status_message_after">Kosongkan status pesan setelah</string>
     <string name="clipboard_label">Teks tersalin dari %1$s</string>
     <string name="clipboard_no_text_to_copy">Tidak ada teks yang disalin ke papan klip.</string>
     <string name="clipboard_text_copied">Link tersalin</string>
@@ -144,6 +147,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="confirmation_remove_folder_alert">Apakah anda yakin ingin menghapus %1$s beserta isinya?</string>
     <string name="confirmation_remove_folders_alert">Apa anda yakin ingin menghapus item yang terpilih beserta isinya?</string>
     <string name="confirmation_remove_local">Lokal saja</string>
+    <string name="conflict_file_headline">File konflik %1$s</string>
     <string name="conflict_local_file">File lokal</string>
     <string name="conflict_server_file">File server</string>
     <string name="contactlist_no_permission">Tidak ada perizinan diberikan, tidak ada yang terimpor</string>
@@ -160,6 +164,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="copy_file_not_found">Tidak dapat menyalin. Silakan periksa apakah berkas eksis.</string>
     <string name="copy_link">Salin tautan</string>
     <string name="copy_to">Salin ke…</string>
+    <string name="could_not_download_image">Tidak bisa unduh gambar penuh</string>
     <string name="could_not_retrieve_url">Tidak dapat mengambil URL</string>
     <string name="create">Buat</string>
     <string name="create_dir_fail_msg">Folder tidak dapat dibuat</string>
@@ -323,6 +328,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="foreign_files_success">Semua berkas sudah dipindahkan</string>
     <string name="forward">Teruskan</string>
+    <string name="fourHours">4 jam</string>
     <string name="hint_name">Nama</string>
     <string name="hint_note">Catatan</string>
     <string name="hint_password">Kata kunci</string>
@@ -371,6 +377,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="new_media_folder_detected">Media baru %1$s terdeteksi.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="new_notification">Notifikasi Baru</string>
     <string name="note_confirm">Kirim</string>
     <string name="note_could_not_sent">Tidak dapat mengirim catatan</string>
     <string name="notification_channel_download_name_short">Unduhan</string>
@@ -432,6 +439,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="preview_image_error_unknown_format">Gambar ini tidak dapat ditampilkan</string>
     <string name="preview_sorry">Maaf</string>
     <string name="privacy">Privasi</string>
+    <string name="public_share_name">Nama baru</string>
     <string name="recommend_subject">Coba %1$s di perangkat mu!</string>
     <string name="recommend_text">Saya ingin mengundang anda untuk menggunakan %1$s di perangkat anda. \nUnduh disini %2$s</string>
     <string name="recommend_urls">%1$s atau %2$s</string>
