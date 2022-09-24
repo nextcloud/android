@@ -1,0 +1,4 @@
+PassCodeManager: fix compilation error with kotlin 1.7.10
+Update translations
+Update Nextcloud Android library
+Update 3rd-party dependencies
