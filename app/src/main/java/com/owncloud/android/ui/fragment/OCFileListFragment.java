@@ -423,7 +423,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             this,
             hideItemOptions,
             isGridViewPreferred(mFile),
-            themeColorUtils,
             themeDrawableUtils,
             viewThemeUtils
         );
