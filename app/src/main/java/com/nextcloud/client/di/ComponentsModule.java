@@ -103,6 +103,7 @@ import com.owncloud.android.ui.fragment.FeatureFragment;
 import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
+import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
@@ -253,6 +254,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract FileDetailActivitiesFragment fileDetailActivitiesFragment();
+
+    @ContributesAndroidInjector
+    abstract FileDetailsSharingProcessFragment fileDetailsSharingProcessFragment();
 
     @ContributesAndroidInjector
     abstract FileDetailSharingFragment fileDetailSharingFragment();
