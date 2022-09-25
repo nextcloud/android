@@ -155,7 +155,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
                                                 new HashMap<>(),
                                                 this,
                                                 requireContext(),
-                                                themeColorUtils);
+                                                viewThemeUtils);
         } else {
             HashMap<String, Integer> checkedCalendarItems = new HashMap<>();
             String[] checkedCalendarItemsArray = savedInstanceState.getStringArray(CHECKED_CALENDAR_ITEMS_ARRAY_KEY);
@@ -185,7 +185,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
                                                 checkedCalendarItems,
                                                 this,
                                                 requireContext(),
-                                                themeColorUtils);
+                                                viewThemeUtils);
         }
 
         binding.list.setAdapter(listAdapter);
@@ -250,7 +250,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
             closeFragment();
         });
 
-        binding.restoreSelected.setTextColor(themeColorUtils.primaryAccentColor(getContext()));
+        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.restoreSelected);
 
         return view;
     }
