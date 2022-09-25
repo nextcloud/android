@@ -204,7 +204,6 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             if (backgroundImageView != null) {
 
                 String background = getStorageManager().getCapability(user.getAccountName()).getServerBackground();
-                int primaryColor = themeColorUtils.primaryColor(getAccount(), false, this);
 
                 if (URLUtil.isValidUrl(background)) {
                     // background image

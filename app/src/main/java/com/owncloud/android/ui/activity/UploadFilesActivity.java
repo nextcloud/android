@@ -289,7 +289,6 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             setSelectAllMenuItem(selectAll, mSelectAll);
         }
 
-        int fontColor = themeColorUtils.appBarPrimaryFontColor(this);
         final MenuItem item = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(item);
         viewThemeUtils.androidx.themeToolbarSearchView(mSearchView);
