@@ -187,7 +187,6 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
             currentAccountProvider.user,
             clientFactory,
             requireContext(),
-            themeColorUtils,
             viewThemeUtils
         )
         adapter.shouldShowFooters(true)

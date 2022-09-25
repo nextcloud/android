@@ -25,17 +25,17 @@ import android.content.Context
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.owncloud.android.databinding.UnifiedSearchHeaderBinding
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
-import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 
 class UnifiedSearchHeaderViewHolder(
     val binding: UnifiedSearchHeaderBinding,
-    val themeColorUtils: ThemeColorUtils,
+    val viewThemeUtils: ViewThemeUtils,
     val context: Context
 ) :
     SectionedViewHolder(binding.root) {
 
     fun bind(section: UnifiedSearchSection) {
         binding.title.text = section.name
-        binding.title.setTextColor(themeColorUtils.primaryColor(context))
+        viewThemeUtils.platform.colorPrimaryTextViewElement(binding.title)
     }
 }
