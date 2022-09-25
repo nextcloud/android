@@ -23,14 +23,12 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
-import android.widget.EditText;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
@@ -39,7 +37,6 @@ import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
@@ -49,7 +46,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 /**
- * Dialog to rename a public share
+ * Dialog to rename a public share.
  */
 public class RenamePublicShareDialogFragment
     extends DialogFragment implements DialogInterface.OnClickListener, Injectable {
@@ -58,7 +55,6 @@ public class RenamePublicShareDialogFragment
 
     public static final String RENAME_PUBLIC_SHARE_FRAGMENT = "RENAME_PUBLIC_SHARE_FRAGMENT";
 
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ViewThemeUtils viewThemeUtils;
 
     private EditBoxDialogBinding binding;
@@ -87,7 +83,6 @@ public class RenamePublicShareDialogFragment
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = themeColorUtils.primaryAccentColor(getContext());
         publicShare = requireArguments().getParcelable(ARG_PUBLIC_SHARE);
 
         // Inflate the layout for the dialog
@@ -96,11 +91,9 @@ public class RenamePublicShareDialogFragment
         View view = binding.getRoot();
 
         // Setup layout
-        EditText inputText = binding.userInput;
-        inputText.setText(publicShare.getLabel());
-        inputText.requestFocus();
-        inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
-        inputText.setHighlightColor(themeColorUtils.primaryColor(getActivity()));
+        viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer);
+        binding.userInput.setText(publicShare.getLabel());
+        binding.userInput.requestFocus();
 
         // Build the dialog
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(view.getContext());
@@ -120,7 +113,6 @@ public class RenamePublicShareDialogFragment
 
         return dialog;
     }
-
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
