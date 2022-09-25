@@ -21,7 +21,6 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -84,17 +83,14 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     private final List<Notification> notificationsList;
     private final OwnCloudClient client;
     private final NotificationsActivity notificationsActivity;
-    private final ThemeColorUtils themeColorUtils;
     private final ViewThemeUtils viewThemeUtils;
 
     public NotificationListAdapter(OwnCloudClient client,
                                    NotificationsActivity notificationsActivity,
-                                   ThemeColorUtils themeColorUtils,
                                    ViewThemeUtils viewThemeUtils) {
         this.notificationsList = new ArrayList<>();
         this.client = client;
         this.notificationsActivity = notificationsActivity;
-        this.themeColorUtils = themeColorUtils;
         this.viewThemeUtils = viewThemeUtils;
         foregroundColorSpanBlack = new ForegroundColorSpan(
             notificationsActivity.getResources().getColor(R.color.text_color));
@@ -181,10 +177,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
             0,
             resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
-            0
-                         );
-
-        int primaryColor = themeColorUtils.primaryColor(notificationsActivity);
+            0);
 
         List<Action> overflowActions = new ArrayList<>();
 
@@ -272,8 +265,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 if (action.primary) {
                     viewThemeUtils.material.colorMaterialButtonPrimaryFilled(button);
                 } else {
-                    button.setBackgroundColor(resources.getColor(R.color.grey_200));
-                    button.setTextColor(primaryColor);
+                    viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(button);
                 }
 
                 button.setAllCaps(false);
