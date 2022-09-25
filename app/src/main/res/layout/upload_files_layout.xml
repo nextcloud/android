@@ -23,7 +23,8 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_standard" />
+    <include android:id="@+id/upload_files_toolbar"
+        layout="@layout/toolbar_standard" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/local_files_list_container"
