@@ -21,6 +21,7 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -225,8 +226,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
             // further actions
             button = new MaterialButton(notificationsActivity);
-            button.setBackgroundColor(resources.getColor(R.color.grey_200));
-            button.setTextColor(primaryColor);
+            viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(button);
 
             button.setAllCaps(false);
 
