@@ -361,7 +361,7 @@ open class FolderPickerActivity :
             if (this is FilePickerActivity) {
                 viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mCancelBtn!!)
             } else {
-                mCancelBtn!!.setTextColor(themeColorUtils.primaryColor(this, true))
+                viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(mCancelBtn!!)
             }
             mCancelBtn!!.setOnClickListener(this)
         }
