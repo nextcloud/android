@@ -31,7 +31,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.res.Resources;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -76,7 +75,6 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
@@ -131,7 +129,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private FileSortOrder sortOrder;
 
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
-    private final ThemeColorUtils themeColorUtils;
     private final ThemeDrawableUtils themeDrawableUtils;
     private final ViewThemeUtils viewThemeUtils;
     private SearchType searchType;
@@ -144,7 +141,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         OCFileListFragmentInterface ocFileListFragmentInterface,
         boolean argHideItemOptions,
         boolean gridView,
-        ThemeColorUtils themeColorUtils,
         ThemeDrawableUtils themeDrawableUtils,
         final ViewThemeUtils viewThemeUtils) {
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
@@ -164,7 +160,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             .getUserData(this.user.toPlatformAccount(),
                          com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
-        this.themeColorUtils = themeColorUtils;
         this.themeDrawableUtils = themeDrawableUtils;
         this.viewThemeUtils = viewThemeUtils;
 
@@ -362,8 +357,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof OCFileListFooterViewHolder) {
             OCFileListFooterViewHolder footerViewHolder = (OCFileListFooterViewHolder) holder;
             footerViewHolder.getFooterText().setText(getFooterText());
-            footerViewHolder.getLoadingProgressBar().getIndeterminateDrawable()
-                .setColorFilter(themeColorUtils.primaryColor(activity), PorterDuff.Mode.SRC_IN);
+            viewThemeUtils.platform.colorCircularProgressBar(footerViewHolder.getLoadingProgressBar());
             footerViewHolder.getLoadingProgressBar().setVisibility(
                 ocFileListFragmentInterface.isLoading() ? View.VISIBLE : View.GONE);
         } else if (holder instanceof OCFileListHeaderViewHolder) {
