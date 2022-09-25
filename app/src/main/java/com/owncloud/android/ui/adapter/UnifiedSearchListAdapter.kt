@@ -40,7 +40,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.InitDiskCacheTask
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
-import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 
 /**
@@ -53,7 +52,6 @@ class UnifiedSearchListAdapter(
     private val user: User,
     private val clientFactory: ClientFactory,
     private val context: Context,
-    private val themeColorUtils: ThemeColorUtils,
     private val viewThemeUtils: ViewThemeUtils
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
@@ -71,7 +69,7 @@ class UnifiedSearchListAdapter(
                     parent,
                     false
                 )
-                UnifiedSearchHeaderViewHolder(binding, themeColorUtils, context)
+                UnifiedSearchHeaderViewHolder(binding, viewThemeUtils, context)
             }
             VIEW_TYPE_FOOTER -> {
                 val binding = UnifiedSearchFooterBinding.inflate(
@@ -94,7 +92,6 @@ class UnifiedSearchListAdapter(
                     storageManager,
                     listInterface,
                     context,
-                    themeColorUtils,
                     viewThemeUtils
                 )
             }
