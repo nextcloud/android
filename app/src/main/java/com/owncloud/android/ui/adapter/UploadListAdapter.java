@@ -64,8 +64,6 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
@@ -89,7 +87,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private Clock clock;
     private UploadGroup[] uploadGroups;
     private boolean showUser;
-    private ThemeColorUtils themeColorUtils;
     private final  ViewThemeUtils viewThemeUtils;
 
     @Override
@@ -111,7 +108,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         headerViewHolder.binding.uploadListTitle.setText(
             String.format(parentActivity.getString(R.string.uploads_view_group_header),
                           group.getGroupName(), group.getGroupItemCount()));
-        headerViewHolder.binding.uploadListTitle.setTextColor(themeColorUtils.primaryAccentColor(parentActivity));
+        viewThemeUtils.platform.colorPrimaryTextViewElement(headerViewHolder.binding.uploadListTitle);
 
         headerViewHolder.binding.uploadListTitle.setOnClickListener(v -> toggleSectionExpanded(section));
 
@@ -170,7 +167,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                              final ConnectivityService connectivityService,
                              final PowerManagementService powerManagementService,
                              final Clock clock,
-                             final ThemeColorUtils themeColorUtils,
                              final ViewThemeUtils viewThemeUtils) {
         Log_OC.d(TAG, "UploadListAdapter");
         this.parentActivity = fileActivity;
@@ -180,7 +176,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         this.connectivityService = connectivityService;
         this.powerManagementService = powerManagementService;
         this.clock = clock;
-        this.themeColorUtils = themeColorUtils;
         this.viewThemeUtils = viewThemeUtils;
 
         uploadGroups = new UploadGroup[3];
