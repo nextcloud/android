@@ -159,7 +159,6 @@ public class UploadListActivity extends FileActivity {
                                                   connectivityService,
                                                   powerManagementService,
                                                   clock,
-                                                  themeColorUtils,
                                                   viewThemeUtils);
 
         final GridLayoutManager lm = new GridLayoutManager(this, 1);
