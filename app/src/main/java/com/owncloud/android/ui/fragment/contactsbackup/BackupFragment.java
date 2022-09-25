@@ -197,7 +197,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         }
 
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.backupNow);
-        viewThemeUtils.platform.colorTextButtons(binding.contactsDatepicker);
+        viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.contactsDatepicker);
 
         int primaryAccentColor = themeColorUtils.primaryAccentColor(getContext());
         binding.dataToBackUpTitle.setTextColor(primaryAccentColor);
@@ -306,7 +306,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
                     Collections.sort(backupFiles, new AlphanumComparator<>());
 
                     if (backupFiles == null || backupFiles.isEmpty()) {
-                        binding.contactsDatepicker.setVisibility(View.GONE);
+                        binding.contactsDatepicker.setVisibility(View.INVISIBLE);
                     } else {
                         binding.contactsDatepicker.setVisibility(View.VISIBLE);
                     }
@@ -556,8 +556,8 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
             datePickerDialog.setTitle("");
             datePickerDialog.show();
 
-            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(themeColorUtils.primaryColor(getContext(), true));
-            datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(themeColorUtils.primaryColor(getContext(), true));
+            viewThemeUtils.platform.colorTextButtons(datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE),
+                                                     datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE));
 
             // set background to transparent
             datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(0x00000000);
