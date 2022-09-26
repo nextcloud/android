@@ -23,6 +23,7 @@
 package com.owncloud.android.utils.theme.newm3
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.preference.PreferenceCategory
@@ -35,6 +36,7 @@ import androidx.annotation.Px
 import androidx.annotation.StringRes
 import androidx.appcompat.app.ActionBar
 import androidx.core.content.res.ResourcesCompat
+import com.google.android.material.card.MaterialCardView
 import com.nextcloud.android.common.ui.theme.MaterialSchemes
 import com.nextcloud.android.common.ui.theme.ViewThemeUtilsBase
 import com.nextcloud.android.common.ui.theme.utils.AndroidViewThemeUtils
@@ -171,6 +173,30 @@ class FilesSpecificViewThemeUtils @Inject constructor(
             null
         )!!
         androidXViewThemeUtils.themeActionBar(context, actionBar, backArrow)
+    }
+
+    fun themeTemplateCardView(cardView: MaterialCardView) {
+        withScheme(cardView.context) { scheme ->
+            cardView.setStrokeColor(
+                ColorStateList(
+                    arrayOf(
+                        intArrayOf(android.R.attr.state_checked),
+                        intArrayOf(-android.R.attr.state_checked)
+                    ),
+                    intArrayOf(
+                        scheme.primary,
+                        scheme.outline
+                    )
+                )
+            )
+        }
+    }
+
+    fun themeAvatarButton(shareImageView: ImageView) {
+        withScheme(shareImageView.context) { scheme ->
+            shareImageView.background.setColorFilter(scheme.primary, PorterDuff.Mode.SRC_IN)
+            shareImageView.drawable.mutate().setColorFilter(scheme.onPrimary, PorterDuff.Mode.SRC_IN)
+        }
     }
 
     companion object {
