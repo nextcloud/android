@@ -113,7 +113,6 @@ import com.owncloud.android.utils.svg.SVGorImage;
 import com.owncloud.android.utils.svg.SvgOrImageBitmapTranscoder;
 import com.owncloud.android.utils.svg.SvgOrImageDecoder;
 import com.owncloud.android.utils.theme.CapabilityUtils;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -148,6 +147,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     private static final int MENU_ORDER_EXTERNAL_LINKS = 3;
     private static final int MENU_ITEM_EXTERNAL_LINK = 111;
     private static final int MAX_LOGO_SIZE_PX = 1000;
+    private static final int RELATIVE_THRESHOLD_WARNING = 80;
 
     /**
      * Reference to the drawer layout.
@@ -694,10 +694,12 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         mQuotaProgressBar.setProgress(relative);
 
-        final int color = DisplayUtils.getRelativeInfoColor(this,
-                                                                        relative,
-                                                                        themeColorUtils);
-        viewThemeUtils.platform.themeHorizontalProgressBar(mQuotaProgressBar, color);
+        if (relative < RELATIVE_THRESHOLD_WARNING) {
+            viewThemeUtils.platform.themeHorizontalProgressBar(mQuotaProgressBar);
+        } else {
+            viewThemeUtils.platform.themeHorizontalProgressBar(mQuotaProgressBar,
+                                                               getResources().getColor(R.color.infolevel_warning));
+        }
 
         updateQuotaLink();
         showQuota(true);
