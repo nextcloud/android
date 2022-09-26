@@ -782,9 +782,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             viewThemeUtils.platform.themeStatusBar(this);
 
-            Button btnNewFolder = binding.uploaderCancel;
-            btnNewFolder.setTextColor(themeColorUtils.primaryColor(this, true));
-            btnNewFolder.setOnClickListener(this);
+            viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.uploaderCancel);
+            binding.uploaderCancel.setOnClickListener(this);
 
             binding.list.setOnItemClickListener(this);
 
