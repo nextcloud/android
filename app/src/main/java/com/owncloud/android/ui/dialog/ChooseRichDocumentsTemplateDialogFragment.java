@@ -175,7 +175,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                                                    getContext(),
                                                    currentAccount,
                                                    clientFactory,
-                                                   themeColorUtils);
+                                                   viewThemeUtils);
         binding.list.setAdapter(adapter);
 
         binding.filename.addTextChangedListener(new TextWatcher() {
