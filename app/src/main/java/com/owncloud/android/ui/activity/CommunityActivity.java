@@ -64,7 +64,9 @@ public class CommunityActivity extends DrawerActivity {
         contributeForumView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeForumView.setText(Html.fromHtml(getString(R.string.community_contribute_forum_text) + " " +
                                                       getString(R.string.community_contribute_forum_text_link,
-                                                                themeColorUtils.primaryColorToHexString(this),
+                                                                viewThemeUtils
+                                                                    .files
+                                                                    .primaryColorToHexString(this),
                                                                 getString(R.string.help_link),
                                                                 getString(R.string.community_contribute_forum_forum))));
 
@@ -72,7 +74,7 @@ public class CommunityActivity extends DrawerActivity {
         contributeTranslationView.setMovementMethod(LinkMovementMethod.getInstance());
         contributeTranslationView.setText(Html.fromHtml(
             getString(R.string.community_contribute_translate_link,
-                      themeColorUtils.primaryColorToHexString(this),
+                      viewThemeUtils.files.primaryColorToHexString(this),
                       getString(R.string.translation_link),
                       getString(R.string.community_contribute_translate_translate)) + " " +
                 getString(R.string.community_contribute_translate_text)));
@@ -82,7 +84,7 @@ public class CommunityActivity extends DrawerActivity {
         contributeGithubView.setText(Html.fromHtml(
             getString(R.string.community_contribute_github_text,
                       getString(R.string.community_contribute_github_text_link,
-                                themeColorUtils.primaryColorToHexString(this),
+                                viewThemeUtils.files.primaryColorToHexString(this),
                                 getString(R.string.contributing_link)))));
 
         MaterialButton reportButton = binding.communityTestingReport;
