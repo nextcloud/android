@@ -294,10 +294,6 @@ public class ThemeColorUtils {
         return Configuration.UI_MODE_NIGHT_YES == nightModeFlag;
     }
 
-    public String primaryColorToHexString(Context context) {
-        return String.format("#%06X", 0xFFFFFF & primaryColor(context, true));
-    }
-
     public int unchangedPrimaryColor(Account account, Context context) {
         try {
             return Color.parseColor(getCapability(account, context).getServerColor());
