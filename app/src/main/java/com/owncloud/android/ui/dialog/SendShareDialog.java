@@ -207,11 +207,7 @@ public class SendShareDialog extends BottomSheetDialogFragment implements Inject
     }
 
     private void themeShareButtonImage(ImageView shareImageView) {
-        shareImageView.getBackground().setColorFilter(themeColorUtils.primaryColor(getContext().getApplicationContext(),
-                                                                                   true),
-                                                      PorterDuff.Mode.SRC_IN);
-        shareImageView.getDrawable().mutate().setColorFilter(themeColorUtils.fontColor(getContext().getApplicationContext()),
-                                                             PorterDuff.Mode.SRC_IN);
+        viewThemeUtils.files.themeAvatarButton(shareImageView);
     }
 
     private void showResharingNotAllowedSnackbar() {
