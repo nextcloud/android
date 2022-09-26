@@ -36,7 +36,7 @@ import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.utils.NextcloudServer;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,8 +56,7 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
     private CurrentAccountProvider currentAccountProvider;
     private ClientFactory clientFactory;
     private Template selectedTemplate;
-    private final int colorSelected;
-    private final int colorUnselected;
+    private ViewThemeUtils viewThemeUtils;
 
     public RichDocumentsTemplateAdapter(
         ChooseRichDocumentsTemplateDialogFragment.Type type,
@@ -65,15 +64,14 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
         Context context,
         CurrentAccountProvider currentAccountProvider,
         ClientFactory clientFactory,
-        ThemeColorUtils themeColorUtils
+        ViewThemeUtils viewThemeUtils
                                        ) {
         this.clickListener = clickListener;
         this.type = type;
         this.context = context;
         this.currentAccountProvider = currentAccountProvider;
         this.clientFactory = clientFactory;
-        colorSelected = themeColorUtils.primaryColor(context, true);
-        colorUnselected = context.getResources().getColor(R.color.grey_200);
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     @NonNull
@@ -118,6 +116,7 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
         public ViewHolder(@NonNull TemplateButtonBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            viewThemeUtils.files.themeTemplateCardView(this.binding.templateContainer);
             itemView.setOnClickListener(this);
         }
 
@@ -158,12 +157,7 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
                 .into(binding.template);
 
             binding.templateName.setText(template.getName());
-
-            if (template == selectedTemplate) {
-                binding.templateContainer.setStrokeColor(colorSelected);
-            } else {
-                binding.templateContainer.setStrokeColor(colorUnselected);
-            }
+            binding.templateContainer.setChecked(template == selectedTemplate);
         }
     }
 
