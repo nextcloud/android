@@ -62,7 +62,7 @@ public final class NotificationUtils {
      * @return An instance of the regular {@link NotificationCompat.Builder}.
      */
     public static NotificationCompat.Builder newNotificationBuilder(Context context, ThemeColorUtils themeColorUtils) {
-        return new NotificationCompat.Builder(context).setColor(themeColorUtils.primaryColor(context));
+        return new NotificationCompat.Builder(context).setColor(themeColorUtils.primaryColor(context, false));
     }
 
     @SuppressFBWarnings("DMI")
