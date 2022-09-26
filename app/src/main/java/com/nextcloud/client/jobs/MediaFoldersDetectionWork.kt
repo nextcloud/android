@@ -220,7 +220,7 @@ class MediaFoldersDetectionWork constructor(
         )
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-            .setColor(themeColorUtils.primaryColor(context))
+            .setColor(themeColorUtils.primaryColor(context, false))
             .setSubText(user.accountName)
             .setContentTitle(contentTitle)
             .setContentText(subtitle)

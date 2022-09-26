@@ -91,10 +91,6 @@ public class ThemeColorUtils {
         }
     }
 
-    public int primaryColor(Context context) {
-        return primaryColor(context, false);
-    }
-
     public int primaryColor(Context context, boolean replaceEdgeColors) {
         User nullUser = null;
         return primaryColor(nullUser, replaceEdgeColors, context);
@@ -223,7 +219,7 @@ public class ThemeColorUtils {
      */
     @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
     public boolean darkTheme(Context context) {
-        int primaryColor = primaryColor(context);
+        int primaryColor = primaryColor(context, false);
         float[] hsl = colorToHSL(primaryColor);
 
         return hsl[INDEX_LUMINATION] <= 0.55;
