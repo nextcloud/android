@@ -153,7 +153,7 @@ class FilesExportWork(
         )
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(appContext.resources, R.drawable.notification_icon))
-            .setColor(themeColorUtils.primaryColor(appContext))
+            .setColor(themeColorUtils.primaryColor(appContext, false))
             .setSubText(user.accountName)
             .setContentText(message)
             .setAutoCancel(true)
