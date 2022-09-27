@@ -121,7 +121,7 @@
     <string name="common_send">Envoyer</string>
     <string name="common_share">Partager</string>
     <string name="common_skip">Passer</string>
-    <string name="common_switch_account">Basculer de compte</string>
+    <string name="common_switch_account">Changer de compte</string>
     <string name="common_switch_to_account">Utiliser ce compte</string>
     <string name="common_yes">Oui</string>
     <string name="community_beta_headline">Testez la version de dév</string>
