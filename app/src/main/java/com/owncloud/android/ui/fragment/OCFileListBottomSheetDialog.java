@@ -22,7 +22,6 @@ package com.owncloud.android.ui.fragment;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -82,10 +81,6 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         super.onCreate(savedInstanceState);
         binding = FileListActionsBottomSheetFragmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        if (getWindow() != null) {
-            getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        }
 
         viewThemeUtils.platform.themeDialog(binding.getRoot());
 
@@ -160,19 +155,19 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
             // != "": info set -> hide button
             if (file.getRichWorkspace() == null || !"".equals(file.getRichWorkspace())) {
                 binding.menuCreateRichWorkspace.setVisibility(View.GONE);
+                binding.menuCreateRichWorkspaceDivider.setVisibility(View.GONE);
             } else {
                 binding.menuCreateRichWorkspace.setVisibility(View.VISIBLE);
+                binding.menuCreateRichWorkspaceDivider.setVisibility(View.VISIBLE);
             }
         } else {
             binding.menuCreateRichWorkspace.setVisibility(View.GONE);
+            binding.menuCreateRichWorkspaceDivider.setVisibility(View.GONE);
         }
 
         setupClickListener();
 
-        setOnShowListener(d ->
-                              BottomSheetBehavior.from((View) binding.getRoot().getParent())
-                                  .setPeekHeight(binding.getRoot().getMeasuredHeight())
-                         );
+        setOnShowListener(d -> getBehavior().setState(BottomSheetBehavior.STATE_COLLAPSED));
     }
 
     private void setupClickListener() {
