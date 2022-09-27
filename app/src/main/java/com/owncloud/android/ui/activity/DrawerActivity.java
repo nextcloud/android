@@ -66,6 +66,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
@@ -187,7 +188,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * progress bar of the quota view.
      */
-    private ProgressBar mQuotaProgressBar;
+    private LinearProgressIndicator mQuotaProgressBar;
 
     /**
      * text view of the quota view.
@@ -289,10 +290,10 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     private void setupQuotaElement() {
         mQuotaView = (LinearLayout) findQuotaViewById(R.id.drawer_quota);
-        mQuotaProgressBar = (ProgressBar) findQuotaViewById(R.id.drawer_quota_ProgressBar);
+        mQuotaProgressBar = (LinearProgressIndicator) findQuotaViewById(R.id.drawer_quota_ProgressBar);
         mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
         mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
-        viewThemeUtils.platform.themeHorizontalProgressBar(mQuotaProgressBar);
+        viewThemeUtils.material.colorProgressBar(mQuotaProgressBar);
     }
 
     public void updateHeader() {
@@ -695,9 +696,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         mQuotaProgressBar.setProgress(relative);
 
         if (relative < RELATIVE_THRESHOLD_WARNING) {
-            viewThemeUtils.platform.themeHorizontalProgressBar(mQuotaProgressBar);
+            viewThemeUtils.material.colorProgressBar(mQuotaProgressBar);
         } else {
-            viewThemeUtils.platform.themeHorizontalProgressBar(mQuotaProgressBar,
+            viewThemeUtils.material.colorProgressBar(mQuotaProgressBar,
                                                                getResources().getColor(R.color.infolevel_warning));
         }
 
