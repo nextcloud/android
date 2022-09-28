@@ -163,6 +163,11 @@ class SetStatusDialogFragment :
         binding.awayStatus.setOnClickListener { setStatus(StatusType.AWAY) }
         binding.invisibleStatus.setOnClickListener { setStatus(StatusType.INVISIBLE) }
 
+        viewThemeUtils.files.themeStatusCardView(binding.onlineStatus)
+        viewThemeUtils.files.themeStatusCardView(binding.dndStatus)
+        viewThemeUtils.files.themeStatusCardView(binding.awayStatus)
+        viewThemeUtils.files.themeStatusCardView(binding.invisibleStatus)
+
         binding.clearStatus.setOnClickListener { clearStatus() }
         binding.setStatus.setOnClickListener { setStatusMessage() }
         binding.emoji.setOnClickListener { popup.show() }
@@ -324,18 +329,12 @@ class SetStatusDialogFragment :
                 return
             }
         }
-        viewThemeUtils.material.colorCardViewBackground(views.first)
+        views.first.isChecked = true;
         viewThemeUtils.platform.colorPrimaryTextViewElement(views.second)
     }
 
     private fun clearTopStatus() {
         context?.let {
-            val grey = it.resources.getColor(R.color.grey_200)
-            binding.onlineStatus.setCardBackgroundColor(grey)
-            binding.awayStatus.setCardBackgroundColor(grey)
-            binding.dndStatus.setCardBackgroundColor(grey)
-            binding.invisibleStatus.setCardBackgroundColor(grey)
-
             binding.onlineHeadline.setTextColor(resources.getColor(R.color.high_emphasis_text))
             binding.awayHeadline.setTextColor(resources.getColor(R.color.high_emphasis_text))
             binding.dndHeadline.setTextColor(resources.getColor(R.color.high_emphasis_text))
@@ -345,6 +344,11 @@ class SetStatusDialogFragment :
             binding.awayIcon.imageTintList = null
             binding.dndIcon.imageTintList = null
             binding.invisibleIcon.imageTintList = null
+
+            binding.onlineStatus.isChecked = false
+            binding.awayStatus.isChecked = false
+            binding.dndStatus.isChecked = false
+            binding.invisibleStatus.isChecked = false
         }
     }
 
