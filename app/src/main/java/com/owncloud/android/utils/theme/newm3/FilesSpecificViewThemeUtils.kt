@@ -192,6 +192,34 @@ class FilesSpecificViewThemeUtils @Inject constructor(
         }
     }
 
+    fun themeStatusCardView(cardView: MaterialCardView) {
+        withScheme(cardView) { scheme ->
+            cardView.backgroundTintList =
+                ColorStateList(
+                    arrayOf(
+                        intArrayOf(android.R.attr.state_checked),
+                        intArrayOf(-android.R.attr.state_checked)
+                    ),
+                    intArrayOf(
+                        scheme.surfaceVariant,
+                        scheme.surfaceVariant
+                    )
+                )
+            cardView.setStrokeColor(
+                ColorStateList(
+                    arrayOf(
+                        intArrayOf(android.R.attr.state_checked),
+                        intArrayOf(-android.R.attr.state_checked)
+                    ),
+                    intArrayOf(
+                        scheme.primary,
+                        scheme.surface
+                    )
+                )
+            )
+        }
+    }
+
     fun themeAvatarButton(shareImageView: ImageView) {
         withScheme(shareImageView.context) { scheme ->
             shareImageView.background.setColorFilter(scheme.primary, PorterDuff.Mode.SRC_IN)
