@@ -60,10 +60,12 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="@dimen/standard_half_margin"
                 android:layout_weight="1"
+                android:checkable="true"
                 android:orientation="horizontal"
                 app:cardBackgroundColor="@color/grey_200"
+                app:cardCornerRadius="@dimen/button_corner_radius"
                 app:cardElevation="0dp"
-                app:cardCornerRadius="@dimen/button_corner_radius">
+                app:checkedIcon="@null">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -128,10 +130,12 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/standard_half_margin"
                 android:layout_weight="1"
+                android:checkable="true"
                 android:orientation="horizontal"
                 app:cardBackgroundColor="@color/grey_200"
+                app:cardCornerRadius="@dimen/button_corner_radius"
                 app:cardElevation="0dp"
-                app:cardCornerRadius="@dimen/button_corner_radius">
+                app:checkedIcon="@null">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -205,10 +209,12 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="@dimen/standard_half_margin"
                 android:layout_weight="1"
+                android:checkable="true"
                 android:orientation="horizontal"
                 app:cardBackgroundColor="@color/grey_200"
+                app:cardCornerRadius="@dimen/button_corner_radius"
                 app:cardElevation="0dp"
-                app:cardCornerRadius="@dimen/button_corner_radius">
+                app:checkedIcon="@null">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -260,10 +266,12 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/standard_half_margin"
                 android:layout_weight="1"
+                android:checkable="true"
                 android:orientation="horizontal"
                 app:cardBackgroundColor="@color/grey_200"
+                app:cardCornerRadius="@dimen/button_corner_radius"
                 app:cardElevation="0dp"
-                app:cardCornerRadius="@dimen/button_corner_radius">
+                app:checkedIcon="@null">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -421,8 +429,8 @@
             android:id="@+id/remainingClearTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color"
             android:layout_marginStart="4dp"
+            android:textColor="@color/text_color"
             android:visibility="gone" />
 
     </LinearLayout>
@@ -437,7 +445,7 @@
             android:id="@+id/clearStatus"
             style="@style/OutlinedButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/standard_half_margin"
             android:layout_weight="1"
             android:text="@string/clear_status_message"
@@ -446,7 +454,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/setStatus"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/set_status_message"
             android:theme="@style/Button.Primary"
