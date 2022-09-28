@@ -201,12 +201,14 @@ class FilesSpecificViewThemeUtils @Inject constructor(
 
     fun primaryColorToHexString(context: Context): String {
         return withScheme(context) { scheme ->
-            String.format("#%06X", 0xFFFFFF and scheme.primary)
+            String.format("#%06X", HEX_WHITE and scheme.primary)
         }
     }
 
     companion object {
         private val TAG = FilesSpecificViewThemeUtils::class.simpleName
+
+        private const val HEX_WHITE = 0xFFFFFF
 
         private object AvatarPadding {
             @Px
