@@ -329,7 +329,7 @@ class SetStatusDialogFragment :
                 return
             }
         }
-        views.first.isChecked = true;
+        views.first.isChecked = true
         viewThemeUtils.platform.colorPrimaryTextViewElement(views.second)
     }
 
