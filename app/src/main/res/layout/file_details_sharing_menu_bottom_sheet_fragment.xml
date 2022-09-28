@@ -25,15 +25,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:paddingTop="@dimen/dialog_padding"
     android:background="@color/bg_default">
 
     <LinearLayout
         android:id="@+id/menu_share_advanced_permissions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/bottom_sheet_item_height"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
         android:paddingLeft="@dimen/standard_padding"
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingRight="@dimen/standard_padding"
@@ -53,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
             android:text="@string/share_settings"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
@@ -63,8 +64,7 @@
     <LinearLayout
         android:id="@+id/menu_share_send_new_email"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/bottom_sheet_item_height"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/standard_padding"
@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
             android:text="@string/share_send_new_email"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
@@ -96,8 +96,7 @@
     <LinearLayout
         android:id="@+id/menu_share_send_link"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/bottom_sheet_item_height"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/standard_padding"
@@ -121,7 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
             android:text="@string/share_via_link_send_link_label"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
@@ -131,8 +130,7 @@
     <LinearLayout
         android:id="@+id/menu_share_unshare"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/bottom_sheet_item_height"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/standard_padding"
@@ -154,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
             android:text="@string/delete_link"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
@@ -164,8 +162,7 @@
     <LinearLayout
         android:id="@+id/menu_share_add_another_link"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/bottom_sheet_item_height"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/standard_padding"
@@ -189,12 +186,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
             android:text="@string/add_another_public_share_link"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
 
     </LinearLayout>
-
 
 </LinearLayout>
