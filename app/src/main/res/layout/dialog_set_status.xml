@@ -443,7 +443,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/clearStatus"
-            style="@style/OutlinedButton"
+            style="@style/Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/standard_half_margin"
