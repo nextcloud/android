@@ -88,6 +88,7 @@
     <string name="changelog_dev_version">Dnevnik razvojne različice</string>
     <string name="checkbox">Izbirno polje</string>
     <string name="choose_local_folder">Izberi krajevno mapo…</string>
+    <string name="choose_location">Izberi mesto</string>
     <string name="choose_remote_folder">Izberi oddaljeno mapo…</string>
     <string name="choose_template_helper_text">Izbrati je treba predlogo in vpisati ime datoteke.</string>
     <string name="choose_which_file">Izberite, katero datoteko želite obdržati!</string>
