@@ -207,8 +207,8 @@ class SetStatusDialogFragment :
             }
         }
 
-        viewThemeUtils.material.colorMaterialButtonText(binding.clearStatus)
-        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.setStatus)
+        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.clearStatus)
+        viewThemeUtils.material.colorMaterialButtonPrimaryTonal(binding.setStatus)
         viewThemeUtils.material.colorTextInputLayout(binding.customStatusInputContainer)
 
         viewThemeUtils.platform.themeDialog(binding.root)
@@ -330,7 +330,7 @@ class SetStatusDialogFragment :
             }
         }
         views.first.isChecked = true
-        viewThemeUtils.platform.colorPrimaryTextViewElement(views.second)
+        viewThemeUtils.platform.colorOnSecondaryContainerTextViewElement(views.second)
     }
 
     private fun clearTopStatus() {

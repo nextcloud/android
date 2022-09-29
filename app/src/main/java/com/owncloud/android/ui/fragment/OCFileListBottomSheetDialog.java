@@ -82,8 +82,6 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         binding = FileListActionsBottomSheetFragmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        viewThemeUtils.platform.themeDialog(binding.getRoot());
-
         viewThemeUtils.platform.colorImageView(binding.menuIconUploadFiles);
         viewThemeUtils.platform.colorImageView(binding.menuIconUploadFromApp);
         viewThemeUtils.platform.colorImageView(binding.menuIconDirectCameraUpload);
