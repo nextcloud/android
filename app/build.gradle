@@ -156,7 +156,8 @@ android {
     // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
     packagingOptions {
         resources {
-            excludes += ['META-INF/LICENSE.txt', 'META-INF/LICENSE']
+            excludes += 'META-INF/LICENSE*'
+            pickFirst 'MANIFEST.MF' // workaround for duplicated manifest on some dependencies
         }
     }
 
