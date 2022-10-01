@@ -1,0 +1,6 @@
+Bump kotlin_version from 1.7.10 to 1.7.20
+Bump bcpkix-jdk15to18 from 1.70 to 1.72
+Bump mockkVersion from 1.12.5 to 1.13.2
+Bump json from 20220320 to 20220924
+Update Nextcloud Android library
+Update 3rd-party dependencies
