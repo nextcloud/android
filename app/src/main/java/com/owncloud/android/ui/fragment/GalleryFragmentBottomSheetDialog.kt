@@ -26,11 +26,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nextcloud.client.di.Injectable
 import com.owncloud.android.databinding.FragmentGalleryBottomSheetBinding
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
+import javax.inject.Inject
 
 class GalleryFragmentBottomSheetDialog(
     private val actions: GalleryFragmentBottomSheetActions
-) : BottomSheetDialogFragment() {
+) : BottomSheetDialogFragment(), Injectable {
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
+
     private lateinit var binding: FragmentGalleryBottomSheetBinding
     private lateinit var mBottomBehavior: BottomSheetBehavior<*>
     private var currentMediaState: MediaState = MediaState.MEDIA_STATE_DEFAULT
@@ -52,7 +58,17 @@ class GalleryFragmentBottomSheetDialog(
         mBottomBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun setupLayout() {
+    fun setupLayout() {
+        listOf(
+            binding.tickMarkShowImages,
+            binding.tickMarkShowVideo,
+            binding.hideImagesImageview,
+            binding.hideVideoImageView,
+            binding.selectMediaFolderImageView
+        ).forEach {
+            viewThemeUtils.platform.colorImageView(it)
+        }
+
         when (currentMediaState) {
             MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
                 binding.tickMarkShowImages.visibility = View.VISIBLE

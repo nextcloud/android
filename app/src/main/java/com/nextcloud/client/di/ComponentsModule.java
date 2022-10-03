@@ -102,6 +102,7 @@ import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
+import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialogFragment;
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
@@ -434,4 +435,7 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract SyncFileNotEnoughSpaceDialogFragment syncFileNotEnoughSpaceDialogFragment();
+
+    @ContributesAndroidInjector
+    abstract GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog();
 }
