@@ -23,7 +23,7 @@
         <item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
         <item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppTheme.PopupMenu</item>
-        <item name="actionModeBackground">@color/action_mode_background</item>
+        <item name="actionModeStyle">@style/App.ActionMode</item>
         <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
         <item name="android:alertDialogTheme">@style/ownCloud.AlertDialog</item>
         <item name="android:textColor">@color/text_color</item>
@@ -108,7 +108,6 @@
 
     <!-- separate action bar style for activities without an action bar -->
     <style name="BaseTheme.ownCloud.Toolbar" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="actionModeBackground">@color/action_mode_background</item>
         <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
         <item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
         <item name="android:colorBackground">@color/bg_default</item>
@@ -123,10 +122,10 @@
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
         <item name="popupMenuStyle">@style/Nextcloud.Widget.PopupMenu</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
+        <item name="actionModeStyle">@style/App.ActionMode</item>
     </style>
 
     <style name="Theme.ownCloud.ToolbarBase" parent="BaseTheme.ownCloud.Toolbar">
-        <item name="android:actionModeBackground">@color/action_mode_background</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:navigationBarColor">@color/bg_default</item>
     </style>
@@ -463,6 +462,16 @@
     <style name="App.BottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
         <item name="backgroundTint">@color/bg_default</item>
     </style>
+
+    <style name="App.ActionMode" parent="@style/Widget.Material3.ActionMode">
+        <item name="background">@color/action_mode_background</item>
+        <item name="titleTextStyle">@style/App.ActionModeTitleText</item>
+    </style>
+
+    <style name="App.ActionModeTitleText" parent="TextAppearance.Material3.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 
 
 </resources>
