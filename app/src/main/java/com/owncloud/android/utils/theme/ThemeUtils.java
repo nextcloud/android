@@ -51,10 +51,4 @@ public final class ThemeUtils {
             }
         }
     }
-
-    public boolean isDarkModeActive(Context context) {
-        int nightModeFlag = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
-        return Configuration.UI_MODE_NIGHT_YES == nightModeFlag;
-    }
 }

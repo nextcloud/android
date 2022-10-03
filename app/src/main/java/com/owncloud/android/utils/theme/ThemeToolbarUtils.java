@@ -31,7 +31,6 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
@@ -39,12 +38,12 @@ import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.SearchView;
 import androidx.core.content.res.ResourcesCompat;
 
 /**
  * Utility class with methods for client side action/toolbar theming.
  */
+@Deprecated
 public class ThemeToolbarUtils {
     private final ThemeColorUtils themeColorUtils;
     private final ThemeDrawableUtils themeDrawableUtils;
@@ -99,26 +98,6 @@ public class ThemeToolbarUtils {
                          Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             actionBar.setSubtitle(text);
         }
-    }
-
-    /**
-     * Theme search view
-     *
-     * @param searchView searchView to be changed
-     * @param context    the app's context
-     */
-    public void themeSearchView(SearchView searchView, Context context) {
-        // hacky as no default way is provided
-        int fontColor = themeColorUtils.appBarPrimaryFontColor(context);
-        SearchView.SearchAutoComplete editText = searchView.findViewById(R.id.search_src_text);
-        editText.setTextSize(16);
-        viewThemeUtils.platform.colorEditText(editText);
-        editText.setHintTextColor(themeColorUtils.appBarSecondaryFontColor(context));
-
-        ImageView closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
-        closeButton.setColorFilter(fontColor);
-        ImageView searchButton = searchView.findViewById(androidx.appcompat.R.id.search_button);
-        searchButton.setColorFilter(fontColor);
     }
 
     /**
