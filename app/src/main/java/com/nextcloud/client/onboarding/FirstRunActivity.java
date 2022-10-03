@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.Injectable;
@@ -47,6 +48,7 @@ import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -65,6 +67,10 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     @Inject AppPreferences preferences;
     @Inject AppInfo appInfo;
     @Inject OnboardingService onboarding;
+    @Inject ViewThemeUtils.DefaultFactory viewThemeUtilsFactory;
+
+    private ViewThemeUtils viewThemeUtils;
+
 
     private FirstRunActivityBinding binding;
 
@@ -76,13 +82,20 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         this.binding = FirstRunActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // this activity uses the default color from XML, not the server color
+        viewThemeUtils = viewThemeUtilsFactory.getDefaultViewThemeUtils();
+
+
+        viewThemeUtils.platform.colorViewBackground(binding.container, ColorRole.PRIMARY);
+
         boolean isProviderOrOwnInstallationVisible = getResources().getBoolean(R.bool.show_provider_or_own_installation);
 
         setSlideshowSize(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
 
 
-        binding.login.setBackgroundColor(getResources().getColor(R.color.login_btn_tint));
-        binding.login.setTextColor(getResources().getColor(R.color.primary));
+
+        viewThemeUtils.material.colorMaterialButtonFilledOnPrimary(binding.login);
+
 
         binding.login.setOnClickListener(v -> {
             if (getIntent().getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
@@ -95,8 +108,8 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         });
 
 
-        binding.signup.setBackgroundColor(getResources().getColor(R.color.primary));
-        binding.signup.setTextColor(getResources().getColor(R.color.login_text_color));
+        viewThemeUtils.material.colorMaterialButtonOutlinedOnPrimary(binding.signup);
+
         binding.signup.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
         binding.signup.setOnClickListener(v -> {
             Intent authenticatorActivityIntent = new Intent(this, AuthenticatorActivity.class);
@@ -110,7 +123,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
             }
         });
 
-        binding.hostOwnServer.setTextColor(getResources().getColor(R.color.login_text_color));
+        viewThemeUtils.platform.colorTextView(binding.hostOwnServer, ColorRole.ON_PRIMARY);
         binding.hostOwnServer.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
 
         if (!isProviderOrOwnInstallationVisible) {

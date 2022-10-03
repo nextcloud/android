@@ -1,6 +1,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.features.FeatureItem;
@@ -24,11 +26,15 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import scheme.Scheme;
 
 
 public class FeatureFragment extends Fragment implements Injectable {
     private FeatureItem item;
     @Inject ThemeDrawableUtils themeDrawableUtils;
+    @Inject ViewThemeUtils.DefaultFactory viewThemeUtilsFactory;
+
+    private ViewThemeUtils viewThemeUtils;
 
     static public FeatureFragment newInstance(FeatureItem item) {
         FeatureFragment f = new FeatureFragment();
@@ -41,6 +47,8 @@ public class FeatureFragment extends Fragment implements Injectable {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewThemeUtils = viewThemeUtilsFactory.getDefaultViewThemeUtils();
+
         item = getArguments() != null ? (FeatureItem) getArguments().getParcelable("feature") : null;
     }
 
@@ -49,18 +57,22 @@ public class FeatureFragment extends Fragment implements Injectable {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+        final Scheme scheme = viewThemeUtils.getScheme(requireContext());
+
         View view = inflater.inflate(R.layout.whats_new_element, container, false);
-        int fontColor = getResources().getColor(R.color.login_text_color);
+        int fontColor = scheme.getOnPrimary();
 
         ImageView whatsNewImage = view.findViewById(R.id.whatsNewImage);
         if (item.shouldShowImage()) {
-            whatsNewImage.setImageDrawable(themeDrawableUtils.tintDrawable(item.getImage(), fontColor));
+            final Drawable drawable = viewThemeUtils.platform.tintDrawable(getActivity(), item.getImage(), ColorRole.ON_PRIMARY);
+            whatsNewImage.setImageDrawable(drawable);
         }
 
         TextView whatsNewTitle = view.findViewById(R.id.whatsNewTitle);
         if (item.shouldShowTitleText()) {
             whatsNewTitle.setText(item.getTitleText());
-            whatsNewTitle.setTextColor(fontColor);
+            viewThemeUtils.platform.colorTextView(whatsNewTitle, ColorRole.ON_PRIMARY);
             whatsNewTitle.setVisibility(View.VISIBLE);
         } else {
             whatsNewTitle.setVisibility(View.GONE);
