@@ -59,8 +59,6 @@ import com.owncloud.android.ui.activity.TextEditorWebView
 import com.owncloud.android.ui.adapter.TemplateAdapter
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import java.lang.ref.WeakReference
 import javax.inject.Inject
@@ -77,12 +75,6 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
 
     @Inject
     lateinit var currentAccount: CurrentAccountProvider
-
-    @Inject
-    lateinit var themeColorUtils: ThemeColorUtils
-
-    @Inject
-    lateinit var themeDrawableUtils: ThemeDrawableUtils
 
     @Inject
     lateinit var fileDataStorageManager: FileDataStorageManager

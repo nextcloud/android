@@ -78,7 +78,7 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
 import java.security.SecureRandom;
@@ -201,7 +201,7 @@ public class FileUploader extends Service
     @Inject ConnectivityService connectivityService;
     @Inject PowerManagementService powerManagementService;
     @Inject LocalBroadcastManager localBroadcastManager;
-    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     private IndexedForest<UploadFileOperation> mPendingUploads = new IndexedForest<>();
 
@@ -237,12 +237,11 @@ public class FileUploader extends Service
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileUploaderBinder();
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this).setContentTitle(
-            getApplicationContext().getResources().getString(R.string.app_name))
+        NotificationCompat.Builder builder = NotificationUtils.newNotificationBuilder(this, viewThemeUtils).setContentTitle(
+                getApplicationContext().getResources().getString(R.string.app_name))
             .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_upload))
             .setSmallIcon(R.drawable.notification_icon)
-            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
-            .setColor(themeColorUtils.primaryColor(getApplicationContext(), true));
+            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
@@ -689,7 +688,7 @@ public class FileUploader extends Service
     private void notifyUploadStart(UploadFileOperation upload) {
         // / create status notification with a progress bar
         mLastPercent = 0;
-        mNotificationBuilder = NotificationUtils.newNotificationBuilder(this, themeColorUtils);
+        mNotificationBuilder = NotificationUtils.newNotificationBuilder(this, viewThemeUtils);
         mNotificationBuilder
             .setOngoing(true)
             .setSmallIcon(R.drawable.notification_icon)

@@ -49,6 +49,7 @@ import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.apache.jackrabbit.webdav.DavException;
 
@@ -122,7 +123,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      */
     private SyncResult mSyncResult;
 
-    private final ThemeColorUtils themeColorUtils;
+    private final ViewThemeUtils viewThemeUtils;
 
     /**
      * Creates a {@link FileSyncAdapter}
@@ -132,9 +133,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     public FileSyncAdapter(Context context,
                            boolean autoInitialize,
                            UserAccountManager userAccountManager,
-                           ThemeColorUtils themeColorUtils) {
+                           final ViewThemeUtils viewThemeUtils) {
         super(context, autoInitialize, userAccountManager);
-        this.themeColorUtils = themeColorUtils;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     /**
@@ -146,9 +147,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                            boolean autoInitialize,
                            boolean allowParallelSyncs,
                            UserAccountManager userAccountManager,
-                           ThemeColorUtils themeColorUtils) {
+                           final ViewThemeUtils viewThemeUtils) {
         super(context, autoInitialize, allowParallelSyncs, userAccountManager);
-        this.themeColorUtils = themeColorUtils;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
 
@@ -524,7 +525,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private NotificationCompat.Builder createNotificationBuilder() {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getContext());
         notificationBuilder.setSmallIcon(R.drawable.notification_icon).setAutoCancel(true);
-        notificationBuilder.setColor(themeColorUtils.primaryColor(getContext(), true));
+        viewThemeUtils.androidx.themeNotificationCompatBuilder(getContext(), notificationBuilder);
         return notificationBuilder;
     }
 

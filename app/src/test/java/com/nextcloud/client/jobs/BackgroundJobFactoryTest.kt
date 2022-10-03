@@ -35,7 +35,6 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
-import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import org.greenrobot.eventbus.EventBus
 import org.junit.Assert.assertNotNull
@@ -100,9 +99,6 @@ class BackgroundJobFactoryTest {
     private lateinit var deckApi: DeckApi
 
     @Mock
-    private lateinit var themeColorUtils: ThemeColorUtils
-
-    @Mock
     private lateinit var viewThemeUtils: ViewThemeUtils
 
     private lateinit var factory: BackgroundJobFactory
@@ -126,7 +122,6 @@ class BackgroundJobFactoryTest {
             notificationManager,
             eventBus,
             deckApi,
-            themeColorUtils,
             { viewThemeUtils }
         )
     }

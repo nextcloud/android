@@ -54,8 +54,6 @@ import com.owncloud.android.ui.unifiedsearch.ProviderID
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import javax.inject.Inject
 
@@ -85,13 +83,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     lateinit var clientFactory: ClientFactory
 
     @Inject
-    lateinit var themeColorUtils: ThemeColorUtils
-
-    @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
-
-    @Inject
-    lateinit var themeDrawableUtils: ThemeDrawableUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
