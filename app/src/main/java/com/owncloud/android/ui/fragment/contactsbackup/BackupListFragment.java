@@ -54,7 +54,6 @@ import com.owncloud.android.ui.events.VCardToggleEvent;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -94,7 +93,6 @@ public class BackupListFragment extends FileFragment implements Injectable {
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject BackgroundJobManager backgroundJobManager;
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ViewThemeUtils viewThemeUtils;
     private TransferManagerConnection fileDownloader;
     private LoadContactsTask loadContactsTask = null;

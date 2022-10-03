@@ -52,7 +52,6 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
@@ -88,7 +87,6 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
     private BackupFragmentBinding binding;
 
     @Inject BackgroundJobManager backgroundJobManager;
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ThemeUtils themeUtils;
 
     @Inject ArbitraryDataProvider arbitraryDataProvider;
@@ -199,9 +197,8 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.backupNow);
         viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.contactsDatepicker);
 
-        int primaryAccentColor = themeColorUtils.primaryAccentColor(getContext());
-        binding.dataToBackUpTitle.setTextColor(primaryAccentColor);
-        binding.backupSettingsTitle.setTextColor(primaryAccentColor);
+        viewThemeUtils.platform.colorTextView(binding.dataToBackUpTitle);
+        viewThemeUtils.platform.colorTextView(binding.backupSettingsTitle);
 
         return view;
     }

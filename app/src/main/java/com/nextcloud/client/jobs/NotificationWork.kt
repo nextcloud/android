@@ -54,7 +54,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.NotificationsActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.PushUtils
-import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import dagger.android.AndroidInjection
 import org.apache.commons.httpclient.HttpMethod
 import org.apache.commons.httpclient.HttpStatus
@@ -76,7 +76,7 @@ class NotificationWork constructor(
     private val notificationManager: NotificationManager,
     private val accountManager: UserAccountManager,
     private val deckApi: DeckApi,
-    private val themeColorUtils: ThemeColorUtils
+    private val viewThemeUtils: ViewThemeUtils
 ) : Worker(context, params) {
 
     companion object {
@@ -168,7 +168,6 @@ class NotificationWork constructor(
         val notificationBuilder = NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_PUSH)
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-            .setColor(themeColorUtils.primaryColor(user.toPlatformAccount(), false, context))
             .setShowWhen(true)
             .setSubText(user.accountName)
             .setContentTitle(notification.getSubject())
@@ -177,6 +176,9 @@ class NotificationWork constructor(
             .setAutoCancel(true)
             .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
             .setContentIntent(pendingIntent)
+
+        viewThemeUtils.androidx.themeNotificationCompatBuilder(context, notificationBuilder)
+
         // Remove
         if (notification.getActions().isEmpty()) {
             val disableDetection = Intent(context, NotificationReceiver::class.java)
@@ -223,14 +225,17 @@ class NotificationWork constructor(
             NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_PUSH)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-                .setColor(themeColorUtils.primaryColor(user.toPlatformAccount(), false, context))
                 .setShowWhen(true)
                 .setSubText(user.accountName)
                 .setContentTitle(context.getString(R.string.new_notification))
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setAutoCancel(true)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setContentIntent(pendingIntent).build()
+                .setContentIntent(pendingIntent)
+                .also {
+                    viewThemeUtils.androidx.themeNotificationCompatBuilder(context, it)
+                }
+                .build()
         )
         val notificationManager = NotificationManagerCompat.from(context)
         notificationManager.notify(notification.getNotificationId(), notificationBuilder.build())

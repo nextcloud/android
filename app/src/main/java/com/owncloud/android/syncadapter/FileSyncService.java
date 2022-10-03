@@ -26,6 +26,7 @@ import android.os.IBinder;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -44,7 +45,7 @@ public class FileSyncService extends Service {
     private static final Object syncAdapterLock = new Object();
 
     @Inject UserAccountManager userAccountManager;
-    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     /*
      * {@inheritDoc}
@@ -54,7 +55,7 @@ public class FileSyncService extends Service {
         AndroidInjection.inject(this);
         synchronized (syncAdapterLock) {
             if (syncAdapter == null) {
-                syncAdapter = new FileSyncAdapter(getApplicationContext(), true, userAccountManager, themeColorUtils);
+                syncAdapter = new FileSyncAdapter(getApplicationContext(), true, userAccountManager, viewThemeUtils);
             }
         }
     }

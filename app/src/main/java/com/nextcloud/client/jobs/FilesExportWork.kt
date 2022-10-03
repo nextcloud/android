@@ -44,14 +44,14 @@ import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileExportUtils
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import java.security.SecureRandom
 
 class FilesExportWork(
     private val appContext: Context,
     private val user: User,
     private val contentResolver: ContentResolver,
-    private val themeColorUtils: ThemeColorUtils,
+    private val viewThemeUtils: ViewThemeUtils,
     params: WorkerParameters
 ) : Worker(appContext, params) {
 
@@ -153,10 +153,11 @@ class FilesExportWork(
         )
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(appContext.resources, R.drawable.notification_icon))
-            .setColor(themeColorUtils.primaryColor(appContext, false))
             .setSubText(user.accountName)
             .setContentText(message)
             .setAutoCancel(true)
+
+        viewThemeUtils.androidx.themeNotificationCompatBuilder(appContext, notificationBuilder)
 
         val actionIntent = Intent(DownloadManager.ACTION_VIEW_DOWNLOADS).apply {
             flags = FLAG_ACTIVITY_NEW_TASK

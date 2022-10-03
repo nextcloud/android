@@ -69,6 +69,7 @@ import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
 import java.security.SecureRandom;
@@ -127,7 +128,7 @@ public class FileDownloader extends Service
     @Inject UserAccountManager accountManager;
     @Inject UploadsStorageManager uploadsStorageManager;
     @Inject LocalBroadcastManager localBroadcastManager;
-    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     public static String getDownloadAddedMessage() {
         return FileDownloader.class.getName() + DOWNLOAD_ADDED_MESSAGE;
@@ -152,12 +153,12 @@ public class FileDownloader extends Service
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileDownloaderBinder();
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this).setContentTitle(
+        NotificationCompat.Builder builder = NotificationUtils.newNotificationBuilder(this, viewThemeUtils).setContentTitle(
             getApplicationContext().getResources().getString(R.string.app_name))
             .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_download))
             .setSmallIcon(R.drawable.notification_icon)
-            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon))
-            .setColor(themeColorUtils.primaryColor(getApplicationContext(), true));
+            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon));
+
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD);
@@ -544,7 +545,7 @@ public class FileDownloader extends Service
     private void notifyDownloadStart(DownloadFileOperation download) {
         /// create status notification with a progress bar
         mLastPercent = 0;
-        mNotificationBuilder = NotificationUtils.newNotificationBuilder(this, themeColorUtils);
+        mNotificationBuilder = NotificationUtils.newNotificationBuilder(this, viewThemeUtils);
         mNotificationBuilder
             .setSmallIcon(R.drawable.notification_icon)
             .setTicker(getString(R.string.downloader_download_in_progress_ticker))

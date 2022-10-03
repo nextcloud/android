@@ -25,7 +25,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.security.SecureRandom;
 
@@ -61,8 +61,10 @@ public final class NotificationUtils {
      * @param context       Context that will use the builder to create notifications
      * @return An instance of the regular {@link NotificationCompat.Builder}.
      */
-    public static NotificationCompat.Builder newNotificationBuilder(Context context, ThemeColorUtils themeColorUtils) {
-        return new NotificationCompat.Builder(context).setColor(themeColorUtils.primaryColor(context, false));
+    public static NotificationCompat.Builder newNotificationBuilder(Context context, final ViewThemeUtils viewThemeUtils) {
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        viewThemeUtils.androidx.themeNotificationCompatBuilder(context, builder);
+        return builder;
     }
 
     @SuppressFBWarnings("DMI")

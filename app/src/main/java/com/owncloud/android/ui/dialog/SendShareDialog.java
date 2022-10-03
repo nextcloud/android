@@ -3,7 +3,6 @@ package com.owncloud.android.ui.dialog;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,7 +27,6 @@ import com.owncloud.android.ui.adapter.SendButtonAdapter;
 import com.owncloud.android.ui.components.SendButtonData;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.ArrayList;
@@ -79,7 +77,6 @@ public class SendShareDialog extends BottomSheetDialogFragment implements Inject
     private boolean sharingPublicPasswordEnforced;
     private boolean sharingPublicAskForPassword;
     private FileOperationsHelper fileOperationsHelper;
-    @Inject ThemeColorUtils themeColorUtils;
     @Inject ViewThemeUtils viewThemeUtils;
 
     public static SendShareDialog newInstance(OCFile file, boolean hideNcSharingOptions, OCCapability capability) {
