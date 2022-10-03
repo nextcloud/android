@@ -34,6 +34,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 /**
  * Utility class with methods for client side button theming.
  */
+@Deprecated
 public final class ThemeDrawableUtils {
     private final Context context;
 

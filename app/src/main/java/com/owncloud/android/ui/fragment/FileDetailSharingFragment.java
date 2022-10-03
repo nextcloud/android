@@ -201,7 +201,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
             binding.searchView,
             fileActivity.getComponentName());
-        themeToolbarUtils.themeSearchView(binding.searchView, requireContext());
+        viewThemeUtils.androidx.themeToolbarSearchView(binding.searchView);
 
         if (file.canReshare()) {
             binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
