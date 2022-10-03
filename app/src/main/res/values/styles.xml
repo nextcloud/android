@@ -123,6 +123,8 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="windowNoTitle">true</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+        <item name="popupMenuStyle">@style/Nextcloud.Widget.PopupMenu</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
     </style>
 
     <style name="Theme.ownCloud.ToolbarBase" parent="BaseTheme.ownCloud.Toolbar">
@@ -381,12 +383,17 @@
         <item name="android:textColorPrimary">@color/text_color</item>
     </style>
 
-    <style name="Nextcloud.Widget.PopupMenu" parent="@style/Widget.AppCompat.PopupMenu">
-        <item name="android:textColor">@color/menu_item_text_color</item>
+    <style name="Nextcloud.Widget.PopupMenu" parent="@style/Widget.Material3.PopupMenu">
+        <item name="popupMenuBackground">@color/bg_default</item>
     </style>
 
-    <style name="Theme.ToolbarWithDisabled" parent="@style/ThemeOverlay.Material3.Dark.ActionBar">
+    <style name="Theme.ToolbarTheme" parent="@style/ThemeOverlay.Material3.Dark.ActionBar">
         <item name="android:textColor">@color/menu_item_text_color</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+    </style>
+
+    <style name="OverflowMenuStyle" parent="Widget.Material3.PopupMenu.Overflow">
+        <item name="android:popupBackground">@color/bg_default</item>
     </style>
 
     <style name="MaterialListItemSingleLine">
@@ -446,6 +453,14 @@
         <item name="android:colorBackground">@color/bg_default</item>
     </style>
 
+
+    <style name="ThemeOverlay.App.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/App.BottomSheetDialog</item>
+    </style>
+
+    <style name="App.BottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">@color/bg_default</item>
+    </style>
 
 
 </resources>

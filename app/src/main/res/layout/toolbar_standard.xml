@@ -111,8 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/appbar"
-                android:theme="@style/Theme.ToolbarWithDisabled"
-                app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar"
+                android:theme="@style/Theme.ToolbarTheme"
                 tools:visibility="gone">
 
                 <androidx.appcompat.widget.AppCompatSpinner
