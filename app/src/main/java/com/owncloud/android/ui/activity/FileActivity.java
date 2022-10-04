@@ -103,6 +103,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -202,9 +203,10 @@ public abstract class FileActivity extends DrawerActivity
             mFileOperationsHelper.setOpIdWaitingFor(
                 savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
                                                    );
-            themeToolbarUtils.setColoredTitle(getSupportActionBar(),
-                                              savedInstanceState.getString(KEY_ACTION_BAR_TITLE),
-                                              this);
+            final ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                viewThemeUtils.files.themeActionBar(this, actionBar, savedInstanceState.getString(KEY_ACTION_BAR_TITLE));
+            }
         } else {
             User user = getIntent().getParcelableExtra(FileActivity.EXTRA_USER);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);

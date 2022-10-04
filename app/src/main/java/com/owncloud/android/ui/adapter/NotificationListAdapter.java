@@ -60,7 +60,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.InputStream;

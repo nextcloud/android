@@ -52,7 +52,6 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -707,8 +706,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private void setupActionBarSubtitle() {
         ActionBar actionBar = getSupportActionBar();
 
-        if (isHaveMultipleAccount()) {
-            themeToolbarUtils.setColoredSubtitle(actionBar, getAccount().name, this);
+        if (isHaveMultipleAccount() && actionBar != null) {
+            viewThemeUtils.files.themeActionBar(this, actionBar, getAccount().name);
         } else if (actionBar != null) {
             actionBar.setSubtitle(null);
         }

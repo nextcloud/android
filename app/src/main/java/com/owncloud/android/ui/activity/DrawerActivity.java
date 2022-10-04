@@ -54,7 +54,6 @@ import android.webkit.URLUtil;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.GenericRequestBuilder;
@@ -302,11 +301,11 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             OCCapability capability = getCapabilities();
             String logo = capability.getServerLogo();
-            int primaryColor = themeColorUtils.primaryColor(getAccount(), false, this);
+            int primaryColor = themeColorUtils.unchangedPrimaryColor(getAccount(), this);
 
             // set background to primary color
             LinearLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
-            drawerHeader.setBackgroundColor(themeColorUtils.unchangedPrimaryColor(getAccount(), this));
+            drawerHeader.setBackgroundColor(primaryColor);
 
             if (!TextUtils.isEmpty(logo) && URLUtil.isValidUrl(logo)) {
                 // background image
@@ -370,13 +369,6 @@ public abstract class DrawerActivity extends ToolbarActivity
             serverName.setTextColor(themeColorUtils.unchangedFontColor(this));
         }
 
-    }
-
-    /**
-     * setup drawer header, basically the logo color
-     */
-    private void setupDrawerHeader(FrameLayout drawerHeader) {
-        drawerHeader.setBackgroundColor(themeColorUtils.primaryColor(getAccount(), true, this));
     }
 
     /**
@@ -898,7 +890,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         if (menuItem != null) {
             if (drawable != null) {
-                menuItem.setIcon(themeDrawableUtils.tintDrawable(drawable, greyColor));
+                menuItem.setIcon(viewThemeUtils.platform.colorDrawable(drawable, greyColor));
             } else {
                 menuItem.setIcon(R.drawable.ic_link);
             }

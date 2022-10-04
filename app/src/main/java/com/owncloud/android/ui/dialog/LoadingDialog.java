@@ -19,7 +19,6 @@
 package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +29,6 @@ import android.widget.TextView;
 
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;

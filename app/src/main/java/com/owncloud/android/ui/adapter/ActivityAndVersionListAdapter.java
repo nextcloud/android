@@ -40,8 +40,6 @@ import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.interfaces.VersionListInterface;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.Collections;

@@ -107,8 +107,6 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
@@ -132,6 +130,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -192,8 +191,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject Throttler throttler;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeToolbarUtils themeToolbarUtils;
     @Inject ThemeUtils themeUtils;
     @Inject ArbitraryDataProvider arbitraryDataProvider;
     @Inject BackgroundJobManager backgroundJobManager;
@@ -423,7 +420,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             this,
             hideItemOptions,
             isGridViewPreferred(mFile),
-            themeDrawableUtils,
             viewThemeUtils
         );
 
@@ -719,7 +715,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mode.invalidate();
 
             //set actionMode color
-            themeToolbarUtils.colorStatusBar(getActivity(), themeColorUtils.actionModeColor(requireContext()));
+            viewThemeUtils.platform.colorStatusBar(
+                getActivity(),
+                ContextCompat.getColor(getContext(), R.color.action_mode_background));
 
             // hide FAB in multi selection mode
             setFabVisible(false);
@@ -1744,10 +1742,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected void setTitle(final String title) {
         getActivity().runOnUiThread(() -> {
             if (getActivity() != null) {
-                ActionBar actionBar = ((FileDisplayActivity) getActivity()).getSupportActionBar();
+                final ActionBar actionBar = ((FileDisplayActivity) getActivity()).getSupportActionBar();
+                final Context context = getContext();
 
-                if (actionBar != null) {
-                    themeToolbarUtils.setColoredTitle(actionBar, title, getContext());
+                if (actionBar != null && context != null) {
+                    viewThemeUtils.files.themeActionBar(context, actionBar, title);
                 }
             }
         });

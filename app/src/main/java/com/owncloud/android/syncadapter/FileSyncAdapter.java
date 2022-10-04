@@ -48,7 +48,6 @@ import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.DataHolderUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import org.apache.jackrabbit.webdav.DavException;

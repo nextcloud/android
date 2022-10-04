@@ -75,7 +75,6 @@ import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
@@ -129,7 +128,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private FileSortOrder sortOrder;
 
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
-    private final ThemeDrawableUtils themeDrawableUtils;
     private final ViewThemeUtils viewThemeUtils;
     private SearchType searchType;
 
@@ -141,7 +139,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         OCFileListFragmentInterface ocFileListFragmentInterface,
         boolean argHideItemOptions,
         boolean gridView,
-        ThemeDrawableUtils themeDrawableUtils,
         final ViewThemeUtils viewThemeUtils) {
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         this.activity = activity;
@@ -160,7 +157,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             .getUserData(this.user.toPlatformAccount(),
                          com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
-        this.themeDrawableUtils = themeDrawableUtils;
         this.viewThemeUtils = viewThemeUtils;
 
         ocFileListDelegate = new OCFileListDelegate(activity,
@@ -408,7 +404,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             Log_OC.d(this, "sharees of " + file.getFileName() + ": " + sharees);
 
-            holder.getSharedAvatars().setAvatars(user, sharees, themeDrawableUtils, viewThemeUtils);
+            holder.getSharedAvatars().setAvatars(user, sharees, viewThemeUtils);
             holder.getSharedAvatars().setOnClickListener(
                 view -> ocFileListFragmentInterface.onShareIconClick(file));
         } else {
