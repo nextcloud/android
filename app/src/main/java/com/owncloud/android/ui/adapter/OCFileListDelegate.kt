@@ -34,7 +34,7 @@ import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListDelegate(

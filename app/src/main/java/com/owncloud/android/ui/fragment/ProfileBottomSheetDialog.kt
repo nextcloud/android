@@ -39,7 +39,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.ProfileBottomSheetActionBinding
 import com.owncloud.android.databinding.ProfileBottomSheetFragmentBinding
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 
 /**
  * Show actions of an user

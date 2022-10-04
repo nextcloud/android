@@ -37,7 +37,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
 import com.owncloud.android.ui.adapter.FeaturesWebViewAdapter;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 

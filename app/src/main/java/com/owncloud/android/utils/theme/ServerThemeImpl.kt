@@ -20,7 +20,7 @@
  *
  */
 
-package com.owncloud.android.utils.theme.newm3
+package com.owncloud.android.utils.theme
 
 import com.nextcloud.android.common.ui.color.ColorUtil
 import com.nextcloud.android.common.ui.theme.ServerTheme

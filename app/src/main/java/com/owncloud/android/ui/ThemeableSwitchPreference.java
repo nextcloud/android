@@ -28,7 +28,7 @@ import android.view.ViewGroup;
 import android.widget.Switch;
 
 import com.owncloud.android.MainApp;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 

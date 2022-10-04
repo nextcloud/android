@@ -36,7 +36,7 @@ import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.utils.NextcloudServer;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -23,7 +23,6 @@ package com.owncloud.android.ui.activity;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import com.nextcloud.client.account.User;
@@ -43,7 +42,6 @@ import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;

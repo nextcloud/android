@@ -29,7 +29,7 @@ import android.provider.MediaStore;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;

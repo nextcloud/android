@@ -27,7 +27,7 @@ import com.nextcloud.client.account.AnonymousUser
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.ui.activity.FileActivity
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import org.junit.Assert
 import org.junit.Test
 import org.mockito.Mock

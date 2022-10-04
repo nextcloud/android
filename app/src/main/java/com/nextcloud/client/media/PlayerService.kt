@@ -33,7 +33,7 @@ import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import dagger.android.AndroidInjection
 import java.util.Locale
 import javax.inject.Inject

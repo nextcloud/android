@@ -22,7 +22,7 @@ package com.owncloud.android.ui.adapter;
 
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.junit.Before;
 import org.junit.Test;

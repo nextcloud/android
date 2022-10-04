@@ -43,7 +43,7 @@ import com.owncloud.android.ui.adapter.CertificateCombinedExceptionViewAdapter;
 import com.owncloud.android.ui.adapter.SslCertificateViewAdapter;
 import com.owncloud.android.ui.adapter.SslErrorViewAdapter;
 import com.owncloud.android.ui.adapter.X509CertificateViewAdapter;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;

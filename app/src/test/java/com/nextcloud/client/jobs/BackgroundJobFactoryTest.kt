@@ -35,7 +35,7 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import org.greenrobot.eventbus.EventBus
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
