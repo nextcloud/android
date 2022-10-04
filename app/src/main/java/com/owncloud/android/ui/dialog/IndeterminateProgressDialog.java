@@ -29,7 +29,7 @@ import android.widget.ProgressBar;
 
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -42,7 +42,7 @@ public class IndeterminateProgressDialog extends DialogFragment implements Injec
     private static final String ARG_MESSAGE_ID = IndeterminateProgressDialog.class.getCanonicalName() + ".ARG_MESSAGE_ID";
     private static final String ARG_CANCELABLE = IndeterminateProgressDialog.class.getCanonicalName() + ".ARG_CANCELABLE";
 
-    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     /**
      * Public factory method to get dialog instances.
@@ -71,14 +71,9 @@ public class IndeterminateProgressDialog extends DialogFragment implements Injec
         /// create indeterminate progress dialog
         final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.ProgressDialogTheme);
         progressDialog.setIndeterminate(true);
-        progressDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                ProgressBar v = progressDialog.findViewById(android.R.id.progress);
-                v.getIndeterminateDrawable().setColorFilter(themeColorUtils.primaryAccentColor(getContext()),
-                                                            android.graphics.PorterDuff.Mode.MULTIPLY);
-
-            }
+        progressDialog.setOnShowListener(dialog -> {
+            ProgressBar v = progressDialog.findViewById(android.R.id.progress);
+            viewThemeUtils.platform.tintDrawable(requireContext(), v.getIndeterminateDrawable());
         });
 
         /// set message
