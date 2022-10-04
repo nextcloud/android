@@ -24,6 +24,7 @@ package com.owncloud.android.utils.theme.newm3
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.preference.PreferenceCategory
@@ -232,6 +233,12 @@ class FilesSpecificViewThemeUtils @Inject constructor(
         return withScheme(context) { scheme ->
             String.format("#%06X", HEX_WHITE and scheme.primary)
         }
+    }
+
+    fun setWhiteBackButton(context: Context, supportActionBar: ActionBar) {
+        val backArrow = ResourcesCompat.getDrawable(context.resources, R.drawable.ic_arrow_back, null)
+        val tinted = androidViewThemeUtils.colorDrawable(backArrow!!, Color.WHITE)
+        supportActionBar.setHomeAsUpIndicator(tinted)
     }
 
     companion object {

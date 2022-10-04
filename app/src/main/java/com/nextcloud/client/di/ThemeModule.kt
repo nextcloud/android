@@ -20,15 +20,11 @@
  */
 package com.nextcloud.client.di
 
-import android.content.Context
 import com.nextcloud.android.common.ui.theme.MaterialSchemes
 import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
-import com.owncloud.android.utils.theme.ThemeToolbarUtils
 import com.owncloud.android.utils.theme.ThemeUtils
 import com.owncloud.android.utils.theme.newm3.MaterialSchemesProvider
 import com.owncloud.android.utils.theme.newm3.MaterialSchemesProviderImpl
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -46,22 +42,6 @@ internal abstract class ThemeModule {
         @Singleton
         fun themeColorUtils(): ThemeColorUtils {
             return ThemeColorUtils()
-        }
-
-        @Provides
-        @Singleton
-        fun themeToolbarUtils(
-            themeColorUtils: ThemeColorUtils?,
-            themeDrawableUtils: ThemeDrawableUtils?,
-            viewThemeUtils: ViewThemeUtils
-        ): ThemeToolbarUtils {
-            return ThemeToolbarUtils(themeColorUtils, themeDrawableUtils, viewThemeUtils)
-        }
-
-        @Provides
-        @Singleton
-        fun themeDrawableUtils(context: Context?): ThemeDrawableUtils {
-            return ThemeDrawableUtils(context)
         }
 
         @Provides

@@ -46,8 +46,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
@@ -58,8 +56,6 @@ import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean, boolean)}.
@@ -81,9 +77,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     private boolean isHomeSearchToolbarShow = false;
 
     @Inject public ThemeColorUtils themeColorUtils;
-    @Inject public ThemeToolbarUtils themeToolbarUtils;
     @Inject public ThemeUtils themeUtils;
-    @Inject public ThemeDrawableUtils themeDrawableUtils;
     @Inject public ViewThemeUtils viewThemeUtils;
 
     /**
@@ -289,7 +283,10 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     public void updateToolbarSubtitle(@NonNull String subtitle) {
         ActionBar actionBar = getSupportActionBar();
-        themeToolbarUtils.setColoredSubtitle(actionBar, subtitle, this);
+        if (actionBar != null) {
+            actionBar.setSubtitle(subtitle);
+            viewThemeUtils.androidx.themeActionBarSubtitle(this, actionBar);
+        }
     }
 
     public void clearToolbarSubtitle() {

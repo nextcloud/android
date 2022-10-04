@@ -122,7 +122,10 @@ public class PreviewImageActivity extends FileActivity implements
         // ActionBar
         updateActionBarTitleAndHomeButton(null);
 
-        themeToolbarUtils.tintBackButton(actionBar, this, Color.WHITE);
+        if (actionBar != null) {
+            viewThemeUtils.files.setWhiteBackButton(this, actionBar);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         mFullScreenAnchorView = getWindow().getDecorView();
         // to keep our UI controls visibility in line with system bars visibility

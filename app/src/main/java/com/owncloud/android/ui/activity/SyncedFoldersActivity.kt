@@ -254,8 +254,6 @@ class SyncedFoldersActivity :
             gridWidth,
             this,
             lightVersion,
-            themeColorUtils,
-            themeDrawableUtils,
             viewThemeUtils
         )
         syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)

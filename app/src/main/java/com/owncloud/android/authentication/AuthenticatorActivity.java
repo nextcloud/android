@@ -118,8 +118,7 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertL
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.InputStream;
 import java.net.URLDecoder;
@@ -233,8 +232,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject OnboardingService onboarding;
     @Inject DeviceInfo deviceInfo;
     @Inject PassCodeManager passCodeManager;
-    @Inject ThemeToolbarUtils themeToolbarUtils;
-    @Inject ThemeDrawableUtils themeDrawableUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     private boolean onlyAdd = false;
     @SuppressLint("ResourceAsColor") @ColorInt
@@ -439,7 +437,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
                 accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
 
-                themeToolbarUtils.colorStatusBar(AuthenticatorActivity.this, primaryColor);
+                viewThemeUtils.platform.colorStatusBar(AuthenticatorActivity.this, primaryColor);
                 getWindow().setNavigationBarColor(primaryColor);
             }
 
@@ -529,8 +527,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (deviceInfo.hasCamera(this)) {
             accountSetupBinding.scanQr.setOnClickListener(v -> onScan());
-            themeDrawableUtils.tintDrawable(accountSetupBinding.scanQr.getDrawable(),
-                                            getResources().getColor(R.color.login_text_color));
+            viewThemeUtils.platform.colorDrawable(accountSetupBinding.scanQr.getDrawable(),
+                                                  getResources().getColor(R.color.login_text_color));
         } else {
             accountSetupBinding.scanQr.setVisibility(View.GONE);
         }

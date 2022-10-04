@@ -38,7 +38,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.List;
@@ -85,7 +84,6 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
 
     public void setAvatars(@NonNull User user,
                            @NonNull List<ShareeUser> sharees,
-                           ThemeDrawableUtils themeDrawableUtils,
                            final ViewThemeUtils viewThemeUtils) {
         @NonNull Context context = getContext();
         removeAllViews();
@@ -128,7 +126,7 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
                                                  avatarRadius,
                                                  resources,
                                                  avatar,
-                                                 themeDrawableUtils);
+                                                 viewThemeUtils);
                         break;
                     default:
                         avatar.setTag(sharee);
@@ -157,7 +155,7 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
                                           float avatarRadius,
                                           Resources resources,
                                           ImageView avatar,
-                                          ThemeDrawableUtils themeDrawableUtils) {
+                                          ViewThemeUtils viewThemeUtils) {
         // maybe federated share
         String[] split = user.split("@");
         String userId = split[0];
@@ -171,10 +169,10 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
             placeholder = TextDrawable.createAvatarByUserId(userId, avatarRadius);
         } catch (Exception e) {
             Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-            placeholder = themeDrawableUtils.tintDrawable(ResourcesCompat.getDrawable(resources,
-                                                                                      R.drawable.account_circle_white,
-                                                                                      null),
-                                                          R.color.black);
+            placeholder = viewThemeUtils.platform.colorDrawable(ResourcesCompat.getDrawable(resources,
+                                                                                            R.drawable.account_circle_white,
+                                                                                            null),
+                                                                ContextCompat.getColor(context, R.color.black));
         }
 
         avatar.setTag(null);

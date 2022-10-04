@@ -61,8 +61,6 @@ import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.util.ArrayList;
@@ -99,8 +97,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
-    @Inject ThemeToolbarUtils themeToolbarUtils;
-    @Inject ThemeDrawableUtils themeDrawableUtils;
     @Inject ViewThemeUtils viewThemeUtils;
 
     public static FileDetailSharingFragment newInstance(OCFile file, User user) {

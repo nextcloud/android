@@ -40,8 +40,6 @@ import com.owncloud.android.databinding.SyncedFoldersItemHeaderBinding;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
 
 import java.io.File;
@@ -79,8 +77,6 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
                                int gridWidth,
                                ClickListener listener,
                                boolean light,
-                               ThemeColorUtils themeColorUtils,
-                               ThemeDrawableUtils themeDrawableUtils,
                                ViewThemeUtils viewThemeUtils) {
         this.context = context;
         this.clock = clock;
