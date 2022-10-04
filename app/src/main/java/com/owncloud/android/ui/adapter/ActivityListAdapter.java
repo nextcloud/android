@@ -72,7 +72,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 import com.owncloud.android.utils.svg.SvgBitmapTranscoder;
 import com.owncloud.android.utils.svg.SvgDecoder;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.InputStream;
 import java.util.ArrayList;

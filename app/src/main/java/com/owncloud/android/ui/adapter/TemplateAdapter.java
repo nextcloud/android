@@ -38,7 +38,7 @@ import com.owncloud.android.lib.common.Template;
 import com.owncloud.android.lib.common.TemplateList;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
 

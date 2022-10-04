@@ -34,7 +34,7 @@ import com.owncloud.android.databinding.StoragePathDialogBinding;
 import com.owncloud.android.ui.adapter.StoragePathAdapter;
 import com.owncloud.android.ui.adapter.StoragePathItem;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;

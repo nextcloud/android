@@ -56,7 +56,7 @@ import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.adapter.UploadListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 

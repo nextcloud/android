@@ -42,7 +42,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.owncloud.android.R
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 
 object PermissionUtil {
     const val PERMISSIONS_EXTERNAL_STORAGE = 1

@@ -30,7 +30,7 @@ package com.nextcloud.utils.view
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import me.zhanghai.android.fastscroll.FastScroller
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import javax.inject.Inject

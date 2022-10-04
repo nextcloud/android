@@ -44,7 +44,7 @@ import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileExportUtils
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.security.SecureRandom
 
 class FilesExportWork(

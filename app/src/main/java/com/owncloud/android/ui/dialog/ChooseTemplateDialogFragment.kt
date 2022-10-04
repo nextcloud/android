@@ -59,7 +59,7 @@ import com.owncloud.android.ui.activity.TextEditorWebView
 import com.owncloud.android.ui.adapter.TemplateAdapter
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 

@@ -31,7 +31,7 @@ import com.owncloud.android.databinding.FileDetailsSharingMenuBottomSheetFragmen
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 /**
  * File Details Sharing option menus {@link android.app.Dialog} styled as a bottom sheet for main actions.

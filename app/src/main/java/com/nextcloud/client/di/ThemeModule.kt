@@ -23,8 +23,8 @@ package com.nextcloud.client.di
 import com.nextcloud.android.common.ui.theme.MaterialSchemes
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeUtils
-import com.owncloud.android.utils.theme.newm3.MaterialSchemesProvider
-import com.owncloud.android.utils.theme.newm3.MaterialSchemesProviderImpl
+import com.owncloud.android.utils.theme.MaterialSchemesProvider
+import com.owncloud.android.utils.theme.MaterialSchemesProviderImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

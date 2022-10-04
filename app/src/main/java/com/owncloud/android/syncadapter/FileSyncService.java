@@ -25,7 +25,7 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import com.nextcloud.client.account.UserAccountManager;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 

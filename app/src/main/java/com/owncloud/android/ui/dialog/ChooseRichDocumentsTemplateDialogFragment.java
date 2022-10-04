@@ -60,7 +60,7 @@ import com.owncloud.android.ui.adapter.RichDocumentsTemplateAdapter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.NextcloudServer;
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

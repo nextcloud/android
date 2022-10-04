@@ -25,7 +25,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.security.SecureRandom;
 

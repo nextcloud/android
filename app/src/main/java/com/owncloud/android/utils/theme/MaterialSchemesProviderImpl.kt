@@ -20,7 +20,7 @@
  *
  */
 
-package com.owncloud.android.utils.theme.newm3
+package com.owncloud.android.utils.theme
 
 import android.content.Context
 import androidx.core.content.ContextCompat
@@ -31,7 +31,6 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.logger.Logger
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.status.OCCapability
-import com.owncloud.android.utils.theme.CapabilityUtils
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 

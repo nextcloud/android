@@ -32,7 +32,7 @@ import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
 import com.owncloud.android.databinding.StoragePermissionDialogBinding
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment.Listener
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
 /**

@@ -28,7 +28,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.databinding.FragmentGalleryBottomSheetBinding
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
 class GalleryFragmentBottomSheetDialog(

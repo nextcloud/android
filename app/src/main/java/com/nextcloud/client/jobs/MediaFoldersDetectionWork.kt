@@ -55,7 +55,7 @@ import com.owncloud.android.ui.activity.ManageAccountsActivity.PENDING_FOR_REMOV
 import com.owncloud.android.ui.activity.SyncedFoldersActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.SyncedFolderUtils
-import com.owncloud.android.utils.theme.newm3.ViewThemeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.Random
 
 @Suppress("LongParameterList") // dependencies injection
