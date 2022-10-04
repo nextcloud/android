@@ -36,7 +36,6 @@ import javax.inject.Inject;
 /**
  * Themeable switch preference TODO Migrate to androidx
  */
-// TODO use ViewThemeUtils to theme SwitchPreference directly and remove this class
 public class ThemeableSwitchPreference extends SwitchPreference {
     @Inject
     ViewThemeUtils viewThemeUtils;

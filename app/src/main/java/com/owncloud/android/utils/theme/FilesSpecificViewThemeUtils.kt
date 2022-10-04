@@ -81,7 +81,6 @@ class FilesSpecificViewThemeUtils @Inject constructor(
             avatar.setPadding(padding, padding, padding, padding)
         }
 
-        // TODO figure out why circle and email use grey background instead of primary
         when (type) {
             ShareType.GROUP -> {
                 createAvatarBase(R.drawable.ic_group)
