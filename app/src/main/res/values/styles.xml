@@ -254,6 +254,8 @@
 
     <style name="Theme.ownCloud.Overlay" parent="Theme.ownCloud.OverlayBase">
         <item name="android:navigationBarColor">@color/black</item>
+        <item name="toolbarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
+        <item name="actionOverflowButtonStyle">@style/ToolbarStyle.Overflow</item>
     </style>
 
     <style name="Theme.ownCloud.OverlayGrey" parent="Theme.ownCloud.OverlayBase">
@@ -263,6 +265,10 @@
         <item name="android:colorBackground">@color/grey_400</item>
     </style>
 
+    <style name="ToolbarStyle.Overflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@android:color/white</item>
+    </style>
+
     <!-- ACTION BAR STYLES -->
     <style name="Theme.ownCloud.Overlay.ActionBar" parent="@style/Widget.Material3.Toolbar">
         <item name="android:background">@color/color_transparent</item>
@@ -270,6 +276,7 @@
         <!-- Support library compatibility -->
         <item name="background">@color/color_transparent</item>
         <item name="windowActionBarOverlay">true</item>
+        <item name="titleTextColor">@color/white</item>
     </style>
 
     <!-- Launch screen -->
