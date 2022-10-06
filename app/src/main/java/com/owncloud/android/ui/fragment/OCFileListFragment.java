@@ -518,6 +518,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
+    public void createEncryptedFolder() {
+        if (checkEncryptionIsSetup(null)) {
+            CreateFolderDialogFragment.newInstance(mFile, true)
+                .show(getActivity().getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
+        }
+    }
+
+    @Override
     public void uploadFromApp() {
         Intent action = new Intent(Intent.ACTION_GET_CONTENT);
         action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
@@ -1259,10 +1267,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
             int position = data.getIntExtra(SetupEncryptionDialogFragment.ARG_POSITION, -1);
             OCFile file = mAdapter.getItem(position);
 
+            // TODO needed?
             if (file != null) {
                 mContainerActivity.getFileOperationsHelper().toggleEncryption(file, true);
                 mAdapter.setEncryptionAttributeForItemID(file.getRemoteId(), true);
+           }
+
+            if (file == null) {
+                return;
             }
+            
+            encryptFolder(file.getLocalId(), file.getRemoteId(), file.getRemotePath(), true);
 
             // update state and view of this fragment
             searchFragment = false;
@@ -1883,8 +1898,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EncryptionEvent event) {
-        new Thread(() -> {{
-            final User user = accountManager.getUser();
+        if (checkEncryptionIsSetup(event.remoteId)) {
+            encryptFolder(event.localId, event.remoteId, event.remotePath, event.shouldBeEncrypted);
+        }
+    }
+
+    private boolean checkEncryptionIsSetup(@Nullable String remoteId) {
+        final User user = accountManager.getUser();
 
             // check if keys are stored
             String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
