@@ -92,6 +92,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
+    public static final String EXTRA_ENCRYPTED = "ENCRYPTED";
     public static final String EXTRA_NEWNAME = "NEWNAME";
     public static final String EXTRA_REMOVE_ONLY_LOCAL = "REMOVE_LOCAL_COPY";
     public static final String EXTRA_SYNC_FILE_CONTENTS = "SYNC_FILE_CONTENTS";
@@ -676,7 +677,9 @@ public class OperationsService extends Service {
 
                     case ACTION_CREATE_FOLDER:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        boolean encrypted = operationIntent.getBooleanExtra(EXTRA_ENCRYPTED, false);
                         operation = new CreateFolderOperation(remotePath,
+                                                              encrypted,
                                                               user,
                                                               getApplicationContext(),
                                                               fileDataStorageManager);

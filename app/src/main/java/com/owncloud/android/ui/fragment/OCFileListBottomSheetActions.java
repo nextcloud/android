@@ -23,14 +23,18 @@ package com.owncloud.android.ui.fragment;
 import com.owncloud.android.lib.common.Creator;
 
 /**
- * Actions interface to be implemented by any class that makes use of
- * {@link com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog}.
+ * Actions interface to be implemented by any class that makes use of {@link com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog}.
  */
 public interface OCFileListBottomSheetActions {
     /**
      * creates a folder within the actual folder.
      */
     void createFolder();
+
+    /**
+     * creates an encrypted folder within the actual folder
+     */
+    void createEncryptedFolder();
 
     /**
      * offers a file upload with the Android OS file picker to the current folder.
