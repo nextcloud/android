@@ -193,7 +193,7 @@ android {
         }
     }
 
-    check.dependsOn 'checkstyle', 'spotbugsGplayDebug', 'pmd', 'lint', 'ktlintCheck', 'detekt'
+    check.dependsOn 'checkstyle', 'spotbugsGplayDebug', 'pmd', 'lint', 'spotlessKotlinCheck', 'detekt'
 
     buildFeatures {
         dataBinding true
