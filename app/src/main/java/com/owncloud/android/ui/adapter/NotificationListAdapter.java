@@ -167,7 +167,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     public void setButtons(NotificationViewHolder holder, Notification notification) {
         // add action buttons
         holder.binding.buttons.removeAllViews();
-        MaterialButton button;
 
         Resources resources = notificationsActivity.getResources();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -183,7 +182,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         if (notification.getActions().size() > 2) {
             for (Action action : notification.getActions()) {
                 if (action.primary) {
-                    button = new MaterialButton(notificationsActivity);
+                    final MaterialButton button = new MaterialButton(notificationsActivity);
                     button.setAllCaps(false);
 
                     button.setText(action.label);
@@ -217,20 +216,19 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             }
 
             // further actions
-            button = new MaterialButton(notificationsActivity);
-            viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(button);
+            final MaterialButton moreButton = new MaterialButton(notificationsActivity);
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(moreButton);
 
-            button.setAllCaps(false);
+            moreButton.setAllCaps(false);
 
-            button.setText(R.string.more);
-            button.setCornerRadiusResource(R.dimen.button_corner_radius);
+            moreButton.setText(R.string.more);
+            moreButton.setCornerRadiusResource(R.dimen.button_corner_radius);
 
-            button.setLayoutParams(params);
-            button.setGravity(Gravity.CENTER);
+            moreButton.setLayoutParams(params);
+            moreButton.setGravity(Gravity.CENTER);
 
-            MaterialButton finalButton = button;
-            button.setOnClickListener(v -> {
-                PopupMenu popup = new PopupMenu(notificationsActivity, finalButton);
+            moreButton.setOnClickListener(v -> {
+                PopupMenu popup = new PopupMenu(notificationsActivity, moreButton);
 
                 for (Action action : overflowActions) {
                     popup.getMenu().add(action.label).setOnMenuItemClickListener(item -> {
@@ -256,15 +254,15 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 popup.show();
             });
 
-            holder.binding.buttons.addView(button);
+            holder.binding.buttons.addView(moreButton);
         } else {
             for (Action action : notification.getActions()) {
-                button = new MaterialButton(notificationsActivity);
+                final MaterialButton button = new MaterialButton(notificationsActivity);
 
                 if (action.primary) {
                     viewThemeUtils.material.colorMaterialButtonPrimaryFilled(button);
                 } else {
-                    viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(button);
+                    viewThemeUtils.material.colorMaterialButtonPrimaryTonal(button);
                 }
 
                 button.setAllCaps(false);
@@ -296,11 +294,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             }
         }
     }
-
-    private void handleItemClick() {
-
-    }
-
 
     private SpannableStringBuilder makeSpecialPartsBold(Notification notification) {
         String text = notification.getSubjectRich();
