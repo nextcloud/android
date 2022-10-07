@@ -23,7 +23,6 @@ package com.owncloud.android.ui.fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.nextcloud.client.account.User;
@@ -164,8 +163,6 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         }
 
         setupClickListener();
-
-        setOnShowListener(d -> getBehavior().setState(BottomSheetBehavior.STATE_COLLAPSED));
     }
 
     private void setupClickListener() {

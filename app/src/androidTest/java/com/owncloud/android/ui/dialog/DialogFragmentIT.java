@@ -30,6 +30,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.nextcloud.android.lib.resources.profile.Action;
 import com.nextcloud.android.lib.resources.profile.HoverCard;
@@ -57,6 +59,7 @@ import com.owncloud.android.lib.resources.users.Status;
 import com.owncloud.android.lib.resources.users.StatusType;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetActions;
+import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialogFragment;
 import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -402,7 +405,21 @@ public class DialogFragmentIT extends AbstractIT {
                                                                                   user,
                                                                                   ocFile);
 
-        showDialog(fda, sut);
+        sut.show(fda.getSupportFragmentManager(), "");
+
+        getInstrumentation().waitForIdleSync();
+        shortSleep();
+
+        ((BottomSheetDialog) sut.requireDialog()).getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+
+        getInstrumentation().waitForIdleSync();
+        shortSleep();
+
+        ViewGroup viewGroup = sut.requireDialog().getWindow().findViewById(android.R.id.content);
+        hideCursors(viewGroup);
+
+        screenshot(Objects.requireNonNull(sut.requireDialog().getWindow()).getDecorView());
+
     }
 
     @Test
