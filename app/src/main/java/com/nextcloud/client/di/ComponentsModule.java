@@ -115,6 +115,7 @@ import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
 import com.owncloud.android.ui.preview.FileDownloadFragment;
+import com.owncloud.android.ui.preview.PreviewBitmapActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
@@ -450,4 +451,7 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog();
+
+    @ContributesAndroidInjector
+    abstract PreviewBitmapActivity previewBitmapActivity();
 }
