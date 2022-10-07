@@ -771,13 +771,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             viewThemeUtils.material.colorMaterialButtonPrimaryFilled(btnChooseFolder);
             btnChooseFolder.setOnClickListener(this);
 
-            if (mFile.canWrite()) {
-                btnChooseFolder.setEnabled(true);
-                viewThemeUtils.material.colorMaterialButtonPrimaryFilled(btnChooseFolder);
-            } else {
-                btnChooseFolder.setEnabled(false);
-                btnChooseFolder.setBackgroundColor(Color.GRAY);
-            }
+            btnChooseFolder.setEnabled(mFile.canWrite());
 
             viewThemeUtils.platform.themeStatusBar(this);
 
