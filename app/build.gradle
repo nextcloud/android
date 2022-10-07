@@ -380,14 +380,6 @@ android.applicationVariants.all { variant ->
     }
 }
 
-task installGitHooks(type: Copy, group: "development") {
-    description = "Install git hooks"
-    from("${project.rootDir}/scripts/hooks") {
-        include '*'
-    }
-    into "${project.rootDir}/.git/hooks"
-}
-
 spotless {
     kotlin {
         target "**/*.kt"
