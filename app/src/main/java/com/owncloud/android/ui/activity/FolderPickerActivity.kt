@@ -433,7 +433,12 @@ open class FolderPickerActivity :
         /**
          * [BroadcastReceiver] to enable syncing feedback in UI
          */
-        @Suppress("Detekt.ComplexMethod", "Detekt.NestedBlockDepth", "Detekt.TooGenericExceptionCaught") // legacy code
+        @Suppress(
+            "Detekt.ComplexMethod",
+            "Detekt.NestedBlockDepth",
+            "Detekt.TooGenericExceptionCaught",
+            "Detekt.LongMethod"
+        ) // legacy code
         override fun onReceive(context: Context, intent: Intent) {
             try {
                 val event = intent.action
