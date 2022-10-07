@@ -4,7 +4,6 @@ import com.nextcloud.client.core.Clock
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
-
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.verify

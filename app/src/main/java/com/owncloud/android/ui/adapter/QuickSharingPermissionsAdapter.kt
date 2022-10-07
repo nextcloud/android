@@ -65,7 +65,6 @@ class QuickSharingPermissionsAdapter(
             }
 
             itemView.setOnClickListener {
-
                 // if user select different options then only update the permission
                 if (!quickPermissionModel.isSelected) {
                     onPermissionChangeListener.onPermissionChanged(adapterPosition)

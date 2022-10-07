@@ -59,7 +59,7 @@ class DownloadRequest internal constructor(
 
     constructor(
         user: User,
-        file: OCFile,
+        file: OCFile
     ) : this(user, file, UUID.randomUUID(), Direction.DOWNLOAD)
 
     constructor(
@@ -106,7 +106,7 @@ class UploadRequest internal constructor(
     val upload: OCUpload,
     uuid: UUID,
     type: Direction,
-    test: Boolean,
+    test: Boolean
 ) : Request(user, file, uuid, type, test) {
 
     constructor(

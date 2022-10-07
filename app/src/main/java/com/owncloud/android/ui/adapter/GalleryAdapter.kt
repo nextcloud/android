@@ -152,7 +152,8 @@ class GalleryAdapter(
             )
             headerViewHolder.binding.year.text = DisplayUtils.getDateByPattern(
                 galleryItem.date,
-                context, DisplayUtils.YEAR_PATTERN
+                context,
+                DisplayUtils.YEAR_PATTERN
             )
         }
     }
@@ -167,7 +168,6 @@ class GalleryAdapter(
         mediaState: GalleryFragmentBottomSheetDialog.MediaState,
         photoFragment: GalleryFragment
     ) {
-
         val items = storageManager.allGalleryItems
 
         val filteredList = items.filter { it != null && it.remotePath.startsWith(remotePath) }
@@ -186,7 +186,6 @@ class GalleryAdapter(
         mediaState: GalleryFragmentBottomSheetDialog.MediaState,
         photoFragment: GalleryFragment
     ) {
-
         val finalSortedList: List<OCFile> = when (mediaState) {
             GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
                 items.filter { MimeTypeUtil.isImage(it.mimeType) }.distinct()

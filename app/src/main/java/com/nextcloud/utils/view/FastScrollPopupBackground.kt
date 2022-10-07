@@ -156,8 +156,13 @@ class FastScrollPopupBackground(context: Context, @ColorInt color: Int) : Drawab
             sweepAngle: Float
         ) {
             path.arcTo(
-                centerX - radius, centerY - radius, centerX + radius, centerY + radius,
-                startAngle, sweepAngle, false
+                centerX - radius,
+                centerY - radius,
+                centerX + radius,
+                centerY + radius,
+                startAngle,
+                sweepAngle,
+                false
             )
         }
     }

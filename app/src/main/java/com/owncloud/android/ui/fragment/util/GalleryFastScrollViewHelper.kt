@@ -59,6 +59,7 @@ class GalleryFastScrollViewHelper(
 
     // header is always 1st in the adapter
     private val headerHeight by lazy { getItemHeight(0) }
+
     // the 2nd element is always an item
     private val rowHeight by lazy { getItemHeight(1) }
 
@@ -236,7 +237,9 @@ class GalleryFastScrollViewHelper(
         val position = getFirstItemAdapterPosition()
         return if (position == RecyclerView.NO_POSITION) {
             null
-        } else popupTextProvider.getPopupText(position)
+        } else {
+            popupTextProvider.getPopupText(position)
+        }
     }
 
     private fun getFirstItemAdapterPosition(): Int {

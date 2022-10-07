@@ -208,7 +208,6 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
 
     @Synchronized
     fun onSearchResult(result: UnifiedSearchResult) {
-
         if (result.success) {
             val providerMeta = results[result.provider] ?: UnifiedSearchMetadata()
             providerMeta.results.add(result.result)

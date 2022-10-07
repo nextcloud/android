@@ -21,7 +21,6 @@ package com.owncloud.android.datamodel
 
 import android.accounts.Account
 import android.os.Parcelable
-
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

@@ -73,7 +73,7 @@ class NaturalSortTest {
                 "With umlauts",
                 arrayOf(
                     "ah.txt", "äh.txt", "Äh.txt", "oh.txt", "öh.txt", "Öh.txt", "uh.txt", "üh.txt", "Üh.txt",
-                    "Üh 2.txt",
+                    "Üh 2.txt"
                 )
             ),
             arrayOf(

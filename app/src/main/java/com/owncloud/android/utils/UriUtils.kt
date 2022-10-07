@@ -57,7 +57,8 @@ object UriUtils {
         var displayName: String? = null
         try {
             context.contentResolver.query(
-                uri, arrayOf(displayNameColumn),
+                uri,
+                arrayOf(displayNameColumn),
                 null,
                 null,
                 null

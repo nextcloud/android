@@ -88,6 +88,7 @@ class SyncedFoldersActivity :
 
     companion object {
         private const val SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG"
+
         // yes, there is a typo in this value
         private const val KEY_SYNCED_FOLDER_INITIATED_PREFIX = "syncedFolderIntitiated_"
         private val PRIORITIZED_FOLDERS = arrayOf("Camera", "Screenshots")
@@ -579,7 +580,8 @@ class SyncedFoldersActivity :
         val ft = fm.beginTransaction()
         ft.addToBackStack(null)
         syncedFolderPreferencesDialogFragment = SyncedFolderPreferencesDialogFragment.newInstance(
-            syncedFolderDisplayItem, section
+            syncedFolderDisplayItem,
+            section
         ).also {
             it.show(ft, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
         }
@@ -787,7 +789,8 @@ class SyncedFoldersActivity :
                 .setMessage(getString(R.string.battery_optimization_message))
                 .setPositiveButton(getString(R.string.battery_optimization_disable)) { _, _ ->
                     // show instant upload
-                    @SuppressLint("BatteryLife") val intent = Intent(
+                    @SuppressLint("BatteryLife")
+                    val intent = Intent(
                         Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
                         Uri.parse("package:" + BuildConfig.APPLICATION_ID)
                     )

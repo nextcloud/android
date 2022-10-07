@@ -40,6 +40,7 @@ class LogsActivity : ToolbarActivity() {
 
     @Inject
     protected lateinit var viewModelFactory: ViewModelFactory
+
     @Inject
     protected lateinit var themeBarUtils: ThemeBarUtils
     private lateinit var vm: LogsViewModel

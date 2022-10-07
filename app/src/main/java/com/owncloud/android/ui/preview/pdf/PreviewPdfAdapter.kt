@@ -71,7 +71,9 @@ class PreviewPdfAdapter(
 
     private fun createBitmapForPage(page: PdfRenderer.Page): Bitmap {
         val bitmap = Bitmap.createBitmap(
-            screenWidth, (screenWidth.toFloat() / page.width * page.height).toInt(), Bitmap.Config.ARGB_8888
+            screenWidth,
+            (screenWidth.toFloat() / page.width * page.height).toInt(),
+            Bitmap.Config.ARGB_8888
         )
 
         val canvas = Canvas(bitmap)

@@ -21,11 +21,11 @@
  */
 package com.owncloud.android.providers
 
-import java.lang.IllegalArgumentException
-import com.owncloud.android.db.ProviderMeta
 import android.content.ContentValues
+import com.owncloud.android.db.ProviderMeta
 import com.owncloud.android.utils.MimeTypeUtil
 import org.junit.Test
+import java.lang.IllegalArgumentException
 
 @Suppress("FunctionNaming")
 class FileContentProviderVerificationIT {

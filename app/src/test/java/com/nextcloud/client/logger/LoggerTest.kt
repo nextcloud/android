@@ -236,7 +236,6 @@ class LoggerTest {
 
     @Test
     fun `queue overflow warning is logged`() {
-
         // GIVEN
         //      logger loop is overflown
         for (i in 0..QUEUE_CAPACITY + 1) {
