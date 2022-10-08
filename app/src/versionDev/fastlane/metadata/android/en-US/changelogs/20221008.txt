@@ -1,0 +1,4 @@
+Bump exifinterface from 1.3.3 to 1.3.4
+Bump spotbugs-gradle-plugin from 5.0.11 to 5.0.12
+Update Nextcloud Android library
+Update 3rd-party dependencies
