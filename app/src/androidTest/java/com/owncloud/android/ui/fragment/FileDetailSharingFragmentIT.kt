@@ -54,9 +54,9 @@ import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.utils.ScreenshotTest
-import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.anyOf
+import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.not
 import org.junit.After
 import org.junit.Assert.assertFalse
@@ -107,12 +107,12 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         show(file)
     }
 
-    @Test
-    @ScreenshotTest
-    @Suppress("MagicNumber")
     /**
      * Use same values as {@link OCFileListFragmentStaticServerIT showSharedFiles }
      */
+    @Test
+    @ScreenshotTest
+    @Suppress("MagicNumber")
     fun listSharesFileAllShareTypes() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 1
@@ -230,10 +230,10 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         screenshot(activity)
     }
 
-    @Test
-    @Suppress("MagicNumber")
     // public link and email are handled the same way
     // for advanced permissions
+    @Test
+    @Suppress("MagicNumber")
     fun publicLinkOptionMenuFolderAdvancePermission() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
@@ -327,10 +327,10 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
     }
 
-    @Test
-    @Suppress("MagicNumber")
     // public link and email are handled the same way
     // for send new email
+    @Test
+    @Suppress("MagicNumber")
     fun publicLinkOptionMenuFolderSendNewEmail() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
@@ -359,10 +359,10 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         )
     }
 
-    @Test
-    @Suppress("MagicNumber")
     // public link and email are handled the same way
     // for advanced permissions
+    @Test
+    @Suppress("MagicNumber")
     fun publicLinkOptionMenuFileAdvancePermission() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
@@ -447,10 +447,10 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
     }
 
-    @Test
-    @Suppress("MagicNumber")
     // public link and email are handled the same way
     // for send new email
+    @Test
+    @Suppress("MagicNumber")
     fun publicLinkOptionMenuFileSendNewEmail() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
@@ -467,14 +467,14 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         verifySendNewEmail(sut, publicShare)
     }
 
-    @Test
-    @Suppress("MagicNumber")
     // also applies for
     // group
     // conversation
     // circle
     // federated share
     // for advanced permissions
+    @Test
+    @Suppress("MagicNumber")
     fun userOptionMenuFileAdvancePermission() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         suppressFDFAccessibilityChecks()
@@ -557,7 +557,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
                 allOf(
                     anyOf(
                         matchesCheckNames(`is`("TouchTargetSizeCheck")),
-                        matchesCheckNames(`is`("SpeakableTextPresentCheck")),
+                        matchesCheckNames(`is`("SpeakableTextPresentCheck"))
                     ),
                     anyOf(
                         matchesViews(ViewMatchers.withId(R.id.favorite)),
@@ -568,14 +568,14 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         }
     }
 
-    @Test
-    @Suppress("MagicNumber")
     // also applies for
     // group
     // conversation
     // circle
     // federated share
     // for send new email
+    @Test
+    @Suppress("MagicNumber")
     fun userOptionMenuFileSendNewEmail() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
@@ -592,14 +592,14 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         verifySendNewEmail(sut, userShare)
     }
 
-    @Test
-    @Suppress("MagicNumber")
     // also applies for
     // group
     // conversation
     // circle
     // federated share
     // for advanced permissions
+    @Test
+    @Suppress("MagicNumber")
     fun userOptionMenuFolderAdvancePermission() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
@@ -709,14 +709,14 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         waitForIdleSync()
     }
 
-    @Test
-    @Suppress("MagicNumber")
     // also applies for
     // group
     // conversation
     // circle
     // federated share
     // for send new email
+    @Test
+    @Suppress("MagicNumber")
     fun userOptionMenuFolderSendNewEmail() {
         val sut = FileDetailSharingFragment.newInstance(file, user)
         activity.addFragment(sut)
@@ -752,7 +752,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
     @Test
     fun testUploadAndEditingSharePermissions() {
-
         val share = OCShare().apply {
             permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
         }

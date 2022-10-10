@@ -410,7 +410,8 @@ open class FolderPickerActivity :
         } else {
             try {
                 DisplayUtils.showSnackMessage(
-                    this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, resources)
+                    this,
+                    ErrorMessageAdapter.getErrorCauseMessage(result, operation, resources)
                 )
             } catch (e: Resources.NotFoundException) {
                 Log_OC.e(TAG, "Error while trying to show fail message ", e)
@@ -432,7 +433,12 @@ open class FolderPickerActivity :
         /**
          * [BroadcastReceiver] to enable syncing feedback in UI
          */
-        @Suppress("Detekt.ComplexMethod", "Detekt.NestedBlockDepth", "Detekt.TooGenericExceptionCaught") // legacy code
+        @Suppress(
+            "Detekt.ComplexMethod",
+            "Detekt.NestedBlockDepth",
+            "Detekt.TooGenericExceptionCaught",
+            "Detekt.LongMethod"
+        ) // legacy code
         override fun onReceive(context: Context, intent: Intent) {
             try {
                 val event = intent.action
@@ -447,9 +453,13 @@ open class FolderPickerActivity :
                         mSyncInProgress = true
                     } else {
                         var currentFile = if (file == null) null else storageManager.getFileByPath(file.remotePath)
-                        val currentDir = if (currentFolder == null) null else storageManager.getFileByPath(
-                            currentFolder!!.remotePath
-                        )
+                        val currentDir = if (currentFolder == null) {
+                            null
+                        } else {
+                            storageManager.getFileByPath(
+                                currentFolder!!.remotePath
+                            )
+                        }
                         if (currentDir == null) {
                             // current folder was removed from the server
                             DisplayUtils.showSnackMessage(

@@ -494,10 +494,12 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
 
     private fun updateShare() {
         fileOperationsHelper?.updateShareInformation(
-            share, permission,
+            share,
+            permission,
             binding.shareProcessHideDownloadCheckbox.isChecked,
             binding.shareProcessEnterPassword.text.toString().trim(),
-            chosenExpDateInMills, binding.shareProcessChangeNameEt.text.toString().trim()
+            chosenExpDateInMills,
+            binding.shareProcessChangeNameEt.text.toString().trim()
         )
         // copy the share link if available
         if (!TextUtils.isEmpty(share?.shareLink)) {

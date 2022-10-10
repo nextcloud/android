@@ -107,7 +107,7 @@ class OCShareToOCFileConverterTest {
                 .apply {
                     shareType = ShareType.EMAIL
                     sharedDate = 5
-                },
+                }
         )
 
         val result = OCShareToOCFileConverter.buildOCFilesFromShares(shares)

@@ -153,7 +153,8 @@ object PermissionUtil {
     ) {
         fun doRequest() {
             ActivityCompat.requestPermissions(
-                activity, arrayOf(permission),
+                activity,
+                arrayOf(permission),
                 PERMISSIONS_EXTERNAL_STORAGE
             )
         }
@@ -252,7 +253,8 @@ object PermissionUtil {
     @JvmStatic
     fun requestCameraPermission(activity: Activity, requestCode: Int) {
         ActivityCompat.requestPermissions(
-            activity, arrayOf(Manifest.permission.CAMERA),
+            activity,
+            arrayOf(Manifest.permission.CAMERA),
             requestCode
         )
     }

@@ -45,7 +45,6 @@ internal class MigrationsManagerImpl(
     @Throws(MigrationError::class)
     @Suppress("ReturnCount")
     override fun startMigration(): Int {
-
         if (migrationsDb.isFailed) {
             (status as MutableLiveData<Status>).value = Status.FAILED
             return 0

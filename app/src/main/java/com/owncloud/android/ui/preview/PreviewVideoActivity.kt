@@ -211,7 +211,6 @@ class PreviewVideoActivity :
     override fun onStart() {
         super.onStart()
         if (account != null) {
-
             require(file != null) { throw IllegalStateException("Instanced with a NULL OCFile") }
             var fileToPlay: OCFile? = file
 

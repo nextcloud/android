@@ -110,7 +110,7 @@ internal class PlayerStateMachine(initialState: State, private val delegate: Del
         FOCUS_LOST,
         FOCUS_GAIN,
         FOCUS_DUCK,
-        IMMEDIATE_TRANSITION,
+        IMMEDIATE_TRANSITION
     }
 
     private var pendingEvents = ArrayDeque<Event>()

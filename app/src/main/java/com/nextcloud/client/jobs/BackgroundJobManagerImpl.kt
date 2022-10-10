@@ -258,7 +258,6 @@ internal class BackgroundJobManagerImpl(
         vCardFilePath: String,
         selectedContacts: IntArray
     ): LiveData<JobInfo?> {
-
         val data = Data.Builder()
             .putString(ContactsImportWork.ACCOUNT_NAME, contactsAccountName)
             .putString(ContactsImportWork.ACCOUNT_TYPE, contactsAccountType)
@@ -281,7 +280,6 @@ internal class BackgroundJobManagerImpl(
     }
 
     override fun startImmediateCalendarImport(calendarPaths: Map<String, Int>): LiveData<JobInfo?> {
-
         val data = Data.Builder()
             .putAll(calendarPaths)
             .build()

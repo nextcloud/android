@@ -58,6 +58,7 @@ open class NextcloudWebViewClient(val supportFragmentManager: FragmentManager) :
         }
         return x509Certificate
     }
+
     /**
      * Show untrusted cert dialog
      */

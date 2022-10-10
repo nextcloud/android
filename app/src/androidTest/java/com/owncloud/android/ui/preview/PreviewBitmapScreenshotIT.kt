@@ -40,7 +40,6 @@ class PreviewBitmapScreenshotIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun showBitmap() {
-
         val pngFile = getFile(PNG_FILE_ASSET)
 
         val activity = testActivityRule.launchActivity(

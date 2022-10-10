@@ -53,7 +53,6 @@ class FileSortOrderBySize internal constructor(name: String?, ascending: Boolean
     }
 
     override fun sortLocalFiles(files: MutableList<File>): List<File> {
-
         files.sortWith { o1: File, o2: File ->
             when {
                 o1.isDirectory && o2.isDirectory -> sortMultiplier * FileStorageUtils.getFolderSize(o1)

@@ -184,8 +184,11 @@ object DocumentsProviderUtils {
                             override fun onChange(selfChange: Boolean, uri: Uri?) {
                                 cursor.close()
                                 val newCursor = query()
-                                if (newCursor == null) cont.cancel(IOException("Re-query returned no results"))
-                                else cont.resume(newCursor)
+                                if (newCursor == null) {
+                                    cont.cancel(IOException("Re-query returned no results"))
+                                } else {
+                                    cont.resume(newCursor)
+                                }
                             }
                         }
                     )

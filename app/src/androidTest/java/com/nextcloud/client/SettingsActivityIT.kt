@@ -22,13 +22,13 @@
 package com.nextcloud.client
 
 import android.app.Activity
-import com.owncloud.android.AbstractIT
-import androidx.test.espresso.intent.rule.IntentsTestRule
-import com.owncloud.android.ui.activity.SettingsActivity
-import android.os.Looper
 import android.content.Intent
-import com.owncloud.android.ui.activity.RequestCredentialsActivity
+import android.os.Looper
+import androidx.test.espresso.intent.rule.IntentsTestRule
+import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.ui.activity.RequestCredentialsActivity
+import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Assert
