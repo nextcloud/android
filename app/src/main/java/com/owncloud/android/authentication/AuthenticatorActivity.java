@@ -75,6 +75,7 @@ import android.widget.Toast;
 
 import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.android.common.ui.color.ColorUtil;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
@@ -118,6 +119,7 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertL
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.InputStream;
@@ -233,6 +235,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject DeviceInfo deviceInfo;
     @Inject PassCodeManager passCodeManager;
     @Inject ViewThemeUtils viewThemeUtils;
+    @Inject ColorUtil colorUtil;
 
     private boolean onlyAdd = false;
     @SuppressLint("ResourceAsColor") @ColorInt
@@ -1129,6 +1132,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             if (success) {
                 accountManager.setCurrentOwnCloudAccount(mAccount.name);
+                setupColorCapability();
                 if (onlyAdd) {
                     finish();
                 } else {
@@ -1186,6 +1190,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
         }
+    }
+
+    /**
+     * Caches a fake OCCapability with only the server color, so that it is immediately available for drawing the next
+     * screens
+     */
+    private void setupColorCapability() {
+        final OCCapability colorCapability = new OCCapability();
+        colorCapability.setServerColor(colorUtil.colorToHexString(primaryColor));
+        colorCapability.setAccountName(mAccount.name);
+        CapabilityUtils.updateCapability(colorCapability);
     }
 
     /**

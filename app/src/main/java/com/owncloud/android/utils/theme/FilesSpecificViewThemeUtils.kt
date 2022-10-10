@@ -38,6 +38,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.ActionBar
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.card.MaterialCardView
+import com.nextcloud.android.common.ui.color.ColorUtil
 import com.nextcloud.android.common.ui.theme.MaterialSchemes
 import com.nextcloud.android.common.ui.theme.ViewThemeUtilsBase
 import com.nextcloud.android.common.ui.theme.utils.AndroidViewThemeUtils
@@ -52,6 +53,7 @@ import javax.inject.Inject
 
 class FilesSpecificViewThemeUtils @Inject constructor(
     schemes: MaterialSchemes,
+    private val colorUtil: ColorUtil,
     private val androidViewThemeUtils: AndroidViewThemeUtils,
     private val androidXViewThemeUtils: AndroidXViewThemeUtils
 ) : ViewThemeUtilsBase(schemes) {
@@ -230,7 +232,7 @@ class FilesSpecificViewThemeUtils @Inject constructor(
 
     fun primaryColorToHexString(context: Context): String {
         return withScheme(context) { scheme ->
-            String.format("#%06X", HEX_WHITE and scheme.primary)
+            colorUtil.colorToHexString(scheme.primary)
         }
     }
 
@@ -242,8 +244,6 @@ class FilesSpecificViewThemeUtils @Inject constructor(
 
     companion object {
         private val TAG = FilesSpecificViewThemeUtils::class.simpleName
-
-        private const val HEX_WHITE = 0xFFFFFF
 
         private object AvatarPadding {
             @Px
