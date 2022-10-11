@@ -2,7 +2,7 @@ rootProject.name = 'NMC-Android'
 
 include ':app'
 //Note: Replace the nextcloud android library path before using
-includeBuild('C:\\Users\\A117870935\\StudioProjects\\NextCloud-android-library') {
+includeBuild('C:\\Users\\A200073727\\NMC Android\\android-library') {
     dependencySubstitution {
         substitute module('com.github.nextcloud:android-library') using project(':library')
     }
