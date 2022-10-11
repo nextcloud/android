@@ -38,7 +38,6 @@ import static com.owncloud.android.utils.theme.CapabilityUtils.getCapability;
  */
 @Deprecated
 public class ThemeColorUtils {
-    // TODO integrate this somehow into new theming, as we need it e.g. for sidebar header and login
     public int unchangedPrimaryColor(Account account, Context context) {
         try {
             return Color.parseColor(getCapability(account, context).getServerColor());
