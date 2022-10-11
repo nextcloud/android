@@ -375,7 +375,9 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
                     .execute(client)
                 if (!result.isSuccess) {
                     TemplateList()
-                } else result.resultData
+                } else {
+                    result.resultData
+                }
             } catch (e: CreationException) {
                 Log_OC.e(TAG, "Could not fetch template", e)
                 TemplateList()

@@ -38,7 +38,7 @@ class UploadTask(
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
     private val clientProvider: () -> OwnCloudClient,
-    private val fileDataStorageManager: FileDataStorageManager,
+    private val fileDataStorageManager: FileDataStorageManager
 ) {
 
     data class Result(val file: OCFile, val success: Boolean)

@@ -67,13 +67,17 @@ class UnifiedSearchListAdapter(
         return when (viewType) {
             VIEW_TYPE_HEADER -> {
                 val binding = UnifiedSearchHeaderBinding.inflate(
-                    layoutInflater, parent, false
+                    layoutInflater,
+                    parent,
+                    false
                 )
                 UnifiedSearchHeaderViewHolder(binding, themeColorUtils, context)
             }
             VIEW_TYPE_FOOTER -> {
                 val binding = UnifiedSearchFooterBinding.inflate(
-                    layoutInflater, parent, false
+                    layoutInflater,
+                    parent,
+                    false
                 )
                 UnifiedSearchFooterViewHolder(binding, context, listInterface)
             }

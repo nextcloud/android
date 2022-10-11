@@ -13,8 +13,11 @@ buildscript {
         classpath "org.jacoco:org.jacoco.core:$jacoco_version"
         classpath "org.jacoco:org.jacoco.report:$jacoco_version"
         classpath "org.jacoco:org.jacoco.agent:$jacoco_version"
-        classpath "org.jlleitschuh.gradle:ktlint-gradle:10.3.0"
     }
+}
+
+plugins {
+    id "com.diffplug.spotless" version "6.11.0"
 }
 
 apply plugin: 'com.android.application'
@@ -28,7 +31,6 @@ apply plugin: 'com.hiya.jacoco-android'
 apply plugin: 'com.github.spotbugs'
 apply plugin: 'io.gitlab.arturbosch.detekt'
 apply plugin: 'shot'
-apply plugin: "org.jlleitschuh.gradle.ktlint"
 
 println "Gradle uses Java ${Jvm.current()}"
 
@@ -191,7 +193,7 @@ android {
         }
     }
 
-    check.dependsOn 'checkstyle', 'spotbugsGplayDebug', 'pmd', 'lint', 'ktlintCheck', 'detekt'
+    check.dependsOn 'checkstyle', 'spotbugsGplayDebug', 'pmd', 'lint', 'spotlessKotlinCheck', 'detekt'
 
     buildFeatures {
         dataBinding true
@@ -378,12 +380,11 @@ android.applicationVariants.all { variant ->
     }
 }
 
-task installGitHooks(type: Copy, group: "development") {
-    description = "Install git hooks"
-    from("${project.rootDir}/scripts/hooks") {
-        include '*'
+spotless {
+    kotlin {
+        target "**/*.kt"
+        ktlint()
     }
-    into "${project.rootDir}/.git/hooks"
 }
 
 detekt {

@@ -34,12 +34,16 @@ class TaskTest {
 
     @Mock
     private lateinit var taskBody: TaskFunction<String, Int>
+
     @Mock
     private lateinit var removeFromQueue: (Runnable) -> Boolean
+
     @Mock
     private lateinit var onResult: OnResultCallback<String>
+
     @Mock
     private lateinit var onError: OnErrorCallback
+
     @Mock
     private lateinit var onProgress: OnProgressCallback<Int>
 

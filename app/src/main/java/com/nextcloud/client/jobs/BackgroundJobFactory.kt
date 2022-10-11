@@ -79,7 +79,6 @@ class BackgroundJobFactory @Inject constructor(
         workerClassName: String,
         workerParameters: WorkerParameters
     ): ListenableWorker? {
-
         val workerClass = try {
             Class.forName(workerClassName).kotlin
         } catch (ex: ClassNotFoundException) {

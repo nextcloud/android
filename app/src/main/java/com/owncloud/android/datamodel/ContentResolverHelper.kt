@@ -32,13 +32,13 @@ object ContentResolverHelper {
     const val SORT_DIRECTION_ASCENDING = "ASC"
     const val SORT_DIRECTION_DESCENDING = "DESC"
 
-    @JvmStatic
-    @JvmOverloads
-    @Suppress("LongParameterList")
     /**
      * Queries the content resolver with the given params using the correct API level-dependant syntax.
      * This is needed in order to use LIMIT or OFFSET from android 11.
      */
+    @JvmStatic
+    @JvmOverloads
+    @Suppress("LongParameterList")
     fun queryResolver(
         contentResolver: ContentResolver,
         uri: Uri,

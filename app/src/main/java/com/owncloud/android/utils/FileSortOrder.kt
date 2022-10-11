@@ -33,9 +33,9 @@ open class FileSortOrder(@JvmField var name: String, var isAscending: Boolean) {
     val sortMultiplier: Int
         get() = if (isAscending) 1 else -1
 
-    @Suppress("EnumNaming") // already saved in user preferences -.-'
+    @Suppress("EnumNaming", "EnumEntryName") // already saved in user preferences -.-'
     enum class Type {
-        trashBinView, localFileListView
+        trashBinView, localFileListView // ktlint-disable enum-entry-name-case
     }
 
     enum class SortType {

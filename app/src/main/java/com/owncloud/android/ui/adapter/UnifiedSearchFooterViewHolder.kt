@@ -30,7 +30,7 @@ import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 class UnifiedSearchFooterViewHolder(
     val binding: UnifiedSearchFooterBinding,
     val context: Context,
-    private val listInterface: UnifiedSearchListInterface,
+    private val listInterface: UnifiedSearchListInterface
 ) :
     SectionedViewHolder(binding.root) {
 

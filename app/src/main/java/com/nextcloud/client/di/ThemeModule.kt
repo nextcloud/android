@@ -21,23 +21,23 @@
 package com.nextcloud.client.di
 
 import android.content.Context
-import javax.inject.Singleton
+import com.owncloud.android.utils.theme.ThemeAvatarUtils
+import com.owncloud.android.utils.theme.ThemeBarUtils
+import com.owncloud.android.utils.theme.ThemeButtonUtils
+import com.owncloud.android.utils.theme.ThemeCheckableUtils
 import com.owncloud.android.utils.theme.ThemeColorUtils
 import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.theme.ThemeFabUtils
 import com.owncloud.android.utils.theme.ThemeLayoutUtils
-import com.owncloud.android.utils.theme.ThemeTextInputUtils
-import com.owncloud.android.utils.theme.ThemeToolbarUtils
 import com.owncloud.android.utils.theme.ThemeMenuUtils
 import com.owncloud.android.utils.theme.ThemeSnackbarUtils
+import com.owncloud.android.utils.theme.ThemeTextInputUtils
 import com.owncloud.android.utils.theme.ThemeTextUtils
-import com.owncloud.android.utils.theme.ThemeButtonUtils
-import com.owncloud.android.utils.theme.ThemeBarUtils
-import com.owncloud.android.utils.theme.ThemeCheckableUtils
-import com.owncloud.android.utils.theme.ThemeAvatarUtils
+import com.owncloud.android.utils.theme.ThemeToolbarUtils
 import com.owncloud.android.utils.theme.ThemeUtils
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 internal class ThemeModule {

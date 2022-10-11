@@ -33,7 +33,7 @@ import org.mockito.kotlin.whenever
 class AudioFocusManagerTest {
 
     private val audioManager = mock<AudioManager>()
-    private val callback = mock<(AudioFocus)->Unit>()
+    private val callback = mock<(AudioFocus) -> Unit>()
     private lateinit var audioFocusManager: AudioFocusManager
 
     val audioRequestMatcher = object : ArgumentMatcher<AudioFocusRequest> {

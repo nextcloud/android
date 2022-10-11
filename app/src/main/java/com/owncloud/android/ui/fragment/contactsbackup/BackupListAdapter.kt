@@ -93,7 +93,9 @@ class BackupListAdapter(
             VIEW_TYPE_HEADER -> {
                 BackupListHeaderViewHolder(
                     BackupListItemHeaderBinding.inflate(
-                        LayoutInflater.from(parent.context), parent, false
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
                     ),
                     context
                 )
@@ -101,14 +103,18 @@ class BackupListAdapter(
             VIEW_TYPE_CONTACTS -> {
                 ContactItemViewHolder(
                     ContactlistListItemBinding.inflate(
-                        LayoutInflater.from(parent.context), parent, false
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
                     )
                 )
             }
             else -> {
                 CalendarItemViewHolder(
                     CalendarlistListItemBinding.inflate(
-                        LayoutInflater.from(parent.context), parent, false
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
                     ),
                     context
                 )

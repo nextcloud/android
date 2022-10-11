@@ -42,7 +42,6 @@ class ExceptionHandler(
     }
 
     override fun uncaughtException(thread: Thread, exception: Throwable) {
-
         @Suppress("TooGenericExceptionCaught") // this is exactly what we want here
         try {
             val errorReport = generateErrorReport(formatException(thread, exception))
