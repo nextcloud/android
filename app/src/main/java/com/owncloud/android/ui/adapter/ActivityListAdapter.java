@@ -129,13 +129,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         for (Object o : activityItems) {
             Activity activity = (Activity) o;
             String time;
-            if (activity.getDatetime() != null) {
-                time = getHeaderDateString(context, activity.getDatetime().getTime()).toString();
-            } else if (activity.getDate() != null) {
-                time = getHeaderDateString(context, activity.getDate().getTime()).toString();
-            } else {
-                time = context.getString(R.string.date_unknown);
-            }
+            time = getHeaderDateString(context, activity.getDatetime().getTime()).toString();
 
             if (sTime.equalsIgnoreCase(time)) {
                 values.add(activity);
@@ -167,18 +161,14 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (holder instanceof ActivityViewHolder) {
             final ActivityViewHolder activityViewHolder = (ActivityViewHolder) holder;
             Activity activity = (Activity) values.get(position);
-            if (activity.getDatetime() != null) {
-                activityViewHolder.binding.datetime.setVisibility(View.VISIBLE);
-                activityViewHolder.binding.datetime.setText(DateFormat.format("HH:mm", activity.getDatetime().getTime()));
-            } else {
-                activityViewHolder.binding.datetime.setVisibility(View.GONE);
-            }
+            activityViewHolder.binding.datetime.setVisibility(View.VISIBLE);
+            activityViewHolder.binding.datetime.setText(DateFormat.format("HH:mm", activity.getDatetime().getTime()));
 
-            if (activity.getRichSubjectElement() != null &&
-                !TextUtils.isEmpty(activity.getRichSubjectElement().getRichSubject())) {
+            if (!TextUtils.isEmpty(activity.getRichSubjectElement().getRichSubject())) {
                 activityViewHolder.binding.subject.setVisibility(View.VISIBLE);
                 activityViewHolder.binding.subject.setMovementMethod(LinkMovementMethod.getInstance());
-                activityViewHolder.binding.subject.setText(addClickablePart(activity.getRichSubjectElement()), TextView.BufferType.SPANNABLE);
+                activityViewHolder.binding.subject.setText(addClickablePart(activity.getRichSubjectElement()),
+                                                           TextView.BufferType.SPANNABLE);
                 activityViewHolder.binding.subject.setVisibility(View.VISIBLE);
             } else if (!TextUtils.isEmpty(activity.getSubject())) {
                 activityViewHolder.binding.subject.setVisibility(View.VISIBLE);
@@ -210,8 +200,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
 
-            if (activity.getRichSubjectElement() != null &&
-                activity.getRichSubjectElement().getRichObjectList().size() > 0) {
+            if (activity.getRichSubjectElement().getRichObjectList().size() > 0) {
                 activityViewHolder.binding.list.setVisibility(View.VISIBLE);
                 activityViewHolder.binding.list.removeAllViews();
 
@@ -391,8 +380,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private int getThumbnailDimension() {
         // Converts dp to pixel
         Resources r = MainApp.getAppContext().getResources();
-        Double d = Math.pow(2, Math.floor(Math.log(r.getDimension(R.dimen.file_icon_size_grid)) / Math.log(2))) / 2;
-        return d.intValue();
+        double d = Math.pow(2, Math.floor(Math.log(r.getDimension(R.dimen.file_icon_size_grid)) / Math.log(2))) / 2;
+        return (int) d;
     }
 
     CharSequence getHeaderDateString(Context context, long modificationTimestamp) {

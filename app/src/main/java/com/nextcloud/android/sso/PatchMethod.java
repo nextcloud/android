@@ -106,11 +106,10 @@ public class PatchMethod extends PostMethod {
             // as bytes allows us to keep the current charset without worrying about how
             // this charset will effect the encoding of the form url encoded string.
             String content = EncodingUtil.formUrlEncode(getParameters(), getRequestCharSet());
-            ByteArrayRequestEntity entity = new ByteArrayRequestEntity(
+            return new ByteArrayRequestEntity(
                 EncodingUtil.getAsciiBytes(content),
                 FORM_URL_ENCODED_CONTENT_TYPE
             );
-            return entity;
         } else {
             return super.generateRequestEntity();
         }
