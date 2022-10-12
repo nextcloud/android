@@ -32,7 +32,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -176,7 +175,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                             new ArrayList<>(),
                                                             this,
                                                             userId,
-                                                            user, SharingMenuHelper.isFileWithNoTextFile(file)));
+                                                            user));
         binding.sharesList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         binding.shareCreateNewLink.setOnClickListener(v -> createPublicShareLink());
@@ -315,7 +314,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.share_fragment_container,
                                                                                  FileDetailsSharingProcessFragment.newInstance(file,
                                                                                                                                shareeName,
-                                                                                                                               shareType, SharingMenuHelper.isFileWithNoTextFile(file)),
+                                                                                                                               shareType,
+                                                                                                                               SharingMenuHelper.canEditFile(requireActivity(), user, capabilities, file)),
                                                                                  FileDetailsSharingProcessFragment.TAG)
             .addToBackStack(null)
             .commit();
@@ -333,7 +333,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                   boolean isExpiryDateShown) {
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.share_fragment_container,
                                                                                  FileDetailsSharingProcessFragment.newInstance(share, screenTypePermission, isReshareShown,
-                                                                                                                               isExpiryDateShown, SharingMenuHelper.isFileWithNoTextFile(file)),
+                                                                                                                               isExpiryDateShown, SharingMenuHelper.canEditFile(requireActivity(), user, capabilities, file)),
                                                                                  FileDetailsSharingProcessFragment.TAG)
             .addToBackStack(null)
             .commit();
@@ -549,6 +549,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             return;
         }
         adapter.getShares().clear();
+
+        //update flag in adapter
+        adapter.setTextFile(SharingMenuHelper.canEditFile(requireActivity(), user,
+                                                          capabilities, file));
 
         // to show share with users/groups info
         List<OCShare> shares = fileDataStorageManager.getSharesWithForAFile(file.getRemotePath(),
