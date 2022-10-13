@@ -460,6 +460,7 @@
 
     <style name="PreferenceTheme" parent="FallbackThemingTheme">
         <item name="android:colorBackground">@color/bg_default</item>
+        <item name="android:listDivider">@null</item>
     </style>
 
 
