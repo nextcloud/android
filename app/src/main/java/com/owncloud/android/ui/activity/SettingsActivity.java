@@ -88,6 +88,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 /**
@@ -179,6 +180,9 @@ public class SettingsActivity extends PreferenceActivity
 
         // Dev
         setupDevCategory(preferenceScreen);
+
+        // workaround for mismatched color when app dark mode and system dark mode don't agree
+        setListBackground();
     }
 
     private void setupDevCategory(PreferenceScreen preferenceScreen) {
@@ -719,13 +723,14 @@ public class SettingsActivity extends PreferenceActivity
             DarkMode mode = DarkMode.valueOf((String) newValue);
             preferences.setDarkThemeMode(mode);
             MainApp.setAppTheme(mode);
-            finish();
-            Intent intent = new Intent(this, SettingsActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(intent);
+            setListBackground();
 
             return true;
         });
+    }
+
+    private void setListBackground() {
+        getListView().setBackgroundColor(ContextCompat.getColor(this, R.color.bg_default));
     }
 
     private String getAppVersion() {
