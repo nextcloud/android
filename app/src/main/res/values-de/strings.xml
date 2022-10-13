@@ -557,6 +557,7 @@
     <string name="prefs_category_more">Mehr</string>
     <string name="prefs_daily_backup_summary">Tägliche Sicherung Ihrer Kalender &amp; Kontakte</string>
     <string name="prefs_e2e_mnemonic">E2E-Mnemonic</string>
+    <string name="prefs_mnemonic_summary">E2E 12-Wortfolge (Passphrase) anzeigen</string>
     <string name="prefs_e2e_no_device_credentials">Um Mnemonic anzuzeigen aktivieren Sie bitte Geräte-Zugangsdaten</string>
     <string name="prefs_enable_media_scan_notifications">Benachrichtigungen der Mediensuche anzeigen</string>
     <string name="prefs_enable_media_scan_notifications_summary">Über neu gefundene Medienordner informieren</string>
