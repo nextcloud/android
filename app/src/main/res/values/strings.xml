@@ -52,7 +52,7 @@
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up</string>
     <string name="prefs_daily_backup_summary">Daily backup of your calendar &amp; contacts</string>
-    <string name="prefs_mnemonic_summary">Displays your E2E 12 words passphrase</string>
+    <string name="prefs_mnemonic_summary">Displays your 12 word key (passhprase)</string>
     <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Recommend to a friend</string>
@@ -773,8 +773,9 @@
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="unsharing_failed">Unsharing failed</string>
     <string name="updating_share_failed">Updating share failed</string>
-    <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
+    <string name="prefs_e2e_mnemonic">End-to-end encryption</string>
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
+    <string name="dialog_e2e_mnemonic_title">Passphrase</string>
     <string name="login">Log in</string>
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="host_your_own_server">Host your own server</string>
