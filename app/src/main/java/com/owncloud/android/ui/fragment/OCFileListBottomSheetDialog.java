@@ -92,13 +92,13 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
                                                                          themeUtils.getDefaultDisplayNameForRootFolder(getContext())));
 
         OCCapability capability = fileActivity.getCapabilities();
-        if (capability != null &&
-            capability.getRichDocuments().isTrue() &&
-            capability.getRichDocumentsDirectEditing().isTrue() &&
-            capability.getRichDocumentsTemplatesAvailable().isTrue() &&
-            !file.isEncrypted()) {
-            binding.templates.setVisibility(View.VISIBLE);
-        }
+//        if (capability != null &&
+//            capability.getRichDocuments().isTrue() &&
+//            capability.getRichDocumentsDirectEditing().isTrue() &&
+//            capability.getRichDocumentsTemplatesAvailable().isTrue() &&
+//            !file.isEncrypted()) {
+        binding.templates.setVisibility(View.VISIBLE);
+//        }
 
         String json = new ArbitraryDataProvider(getContext().getContentResolver())
             .getValue(user, ArbitraryDataProvider.DIRECT_EDITING);
