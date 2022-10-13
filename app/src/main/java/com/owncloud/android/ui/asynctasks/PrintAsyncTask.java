@@ -73,7 +73,7 @@ public class PrintAsyncTask extends AsyncTask<Void, Void, Boolean> {
         HttpClient client = new HttpClient();
         GetMethod getMethod = null;
 
-        FileOutputStream fos;
+        FileOutputStream fos = null;
         try {
             getMethod = new GetMethod(url);
             int status = client.executeMethod(getMethod);
@@ -122,6 +122,13 @@ public class PrintAsyncTask extends AsyncTask<Void, Void, Boolean> {
         } finally {
             if (getMethod != null) {
                 getMethod.releaseConnection();
+            }
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Error closing file output stream", e);
+                }
             }
         }
 
