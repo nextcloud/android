@@ -288,13 +288,6 @@
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/creators"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -304,6 +297,11 @@
         android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">
+        <LinearLayout
+            android:id="@+id/creators"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
     </LinearLayout>
 
     <View
