@@ -55,11 +55,6 @@ class GalleryFragmentIT : AbstractIT() {
         createImage(1, true, 700, 300)
         createImage(2, true, 500, 300)
 
-        // createImage(3, true, 300, 400)
-        // createImage(4, true, 600, 800)
-        //
-        // createImage(5, true, 700, 300)
-        // createImage(6, true, 300, 400)
 
         createImage(7, true, 300, 400)
 
