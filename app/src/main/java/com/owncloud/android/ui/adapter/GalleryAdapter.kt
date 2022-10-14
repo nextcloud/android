@@ -254,27 +254,16 @@ class GalleryAdapter(
     }
 
     override fun getItemPosition(file: OCFile): Int {
-        var item: Int? = null
-        var row: Int? = null
-        for (galleryItem in files.withIndex()) {
-            if (item != null) {
-                break
+        val findResult = files
+            .asSequence()
+            .flatMapIndexed { itemIndex, item ->
+                item.rows.withIndex().map { row -> Triple(itemIndex, row.index, row.value) }
+            }.find {
+                it.third.files.contains(file)
             }
-            for (galleryRow in galleryItem.value.rows.withIndex()) {
-                if (galleryRow.value.files.contains(file)) {
-                    item = galleryItem.index
-                    row = galleryRow.index
-                    break
-                }
-            }
-        }
 
-        // month, row
-        return if (item == null || row == null) {
-            getAbsolutePosition(0, 0)
-        } else {
-            getAbsolutePosition(item, row)
-        }
+        val (item, row) = findResult ?: Triple(0, 0, null)
+        return getAbsolutePosition(item, row)
     }
 
     override fun swapDirectory(
