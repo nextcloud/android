@@ -155,6 +155,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                               this,
                                               multipleAccountsSupported,
                                               true,
+                                              true,
                                               themeColorUtils,
                                               themeDrawableUtils);
 
@@ -310,6 +311,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                       this,
                                       multipleAccountsSupported,
                                       false,
+                                      true,
                                       themeColorUtils,
                                       themeDrawableUtils);
                                   recyclerView.setAdapter(userListAdapter);
@@ -364,6 +366,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                                       this,
                                                       multipleAccountsSupported,
                                                       false,
+                                                      true,
                                                       themeColorUtils,
                                                       themeDrawableUtils);
                 recyclerView.setAdapter(userListAdapter);

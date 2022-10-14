@@ -37,11 +37,11 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 
 import java.io.IOException;
 
-class ClientFactoryImpl implements ClientFactory {
+public class ClientFactoryImpl implements ClientFactory {
 
     private Context context;
 
-    ClientFactoryImpl(Context context) {
+    public ClientFactoryImpl(Context context) {
         this.context = context;
     }
 
@@ -49,8 +49,8 @@ class ClientFactoryImpl implements ClientFactory {
     public OwnCloudClient create(User user) throws CreationException {
         try {
             return OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(user.toOwnCloudAccount(), context);
-        } catch (OperationCanceledException|
-                 AuthenticatorException|
+        } catch (OperationCanceledException |
+            AuthenticatorException |
             IOException e) {
             throw new CreationException(e);
         }

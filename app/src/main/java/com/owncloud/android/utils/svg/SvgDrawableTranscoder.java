@@ -10,7 +10,12 @@
  */
 package com.owncloud.android.utils.svg;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Picture;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 
 import com.bumptech.glide.load.engine.Resource;
@@ -21,13 +26,27 @@ import com.caverock.androidsvg.SVG;
 /**
  * Convert the {@link SVG}'s internal representation to an Android-compatible one ({@link Picture}).
  */
-public class SvgDrawableTranscoder implements ResourceTranscoder<SVG, PictureDrawable> {
+public class SvgDrawableTranscoder implements ResourceTranscoder<SVG, Drawable> {
+    private final Context context;
+
+    public SvgDrawableTranscoder(Context context) {
+        this.context = context;
+    }
+
     @Override
-    public Resource<PictureDrawable> transcode(Resource<SVG> toTranscode) {
+    public Resource<Drawable> transcode(Resource<SVG> toTranscode) {
         SVG svg = toTranscode.get();
         Picture picture = svg.renderToPicture();
         PictureDrawable drawable = new PictureDrawable(picture);
-        return new SimpleResource<PictureDrawable>(drawable);
+
+        Bitmap returnedBitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                                                    drawable.getIntrinsicHeight(),
+                                                    Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        canvas.drawPicture(drawable.getPicture());
+        Drawable d = new BitmapDrawable(context.getResources(), returnedBitmap);
+
+        return new SimpleResource<>(d);
     }
 
     @Override

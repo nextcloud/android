@@ -10,7 +10,7 @@
  */
 package com.owncloud.android.utils.svg;
 
-import android.graphics.drawable.PictureDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.widget.ImageView;
 
@@ -18,10 +18,10 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.bumptech.glide.request.target.Target;
 
-public class SvgSoftwareLayerSetter<T> implements RequestListener<T, PictureDrawable> {
+public class SvgSoftwareLayerSetter<T> implements RequestListener<T, Drawable> {
 
     @Override
-    public boolean onException(Exception e, T model, Target<PictureDrawable> target, boolean isFirstResource) {
+    public boolean onException(Exception e, T model, Target<Drawable> target, boolean isFirstResource) {
         ImageView view = ((ImageViewTarget<?>) target).getView();
         if (Build.VERSION_CODES.HONEYCOMB <= Build.VERSION.SDK_INT) {
             view.setLayerType(ImageView.LAYER_TYPE_NONE, null);
@@ -30,7 +30,7 @@ public class SvgSoftwareLayerSetter<T> implements RequestListener<T, PictureDraw
     }
 
     @Override
-    public boolean onResourceReady(PictureDrawable resource, T model, Target<PictureDrawable> target,
+    public boolean onResourceReady(Drawable resource, T model, Target<Drawable> target,
                                    boolean isFromMemoryCache, boolean isFirstResource) {
         ImageView view = ((ImageViewTarget<?>) target).getView();
         if (Build.VERSION_CODES.HONEYCOMB <= Build.VERSION.SDK_INT) {

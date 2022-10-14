@@ -282,9 +282,7 @@ class BackupListAdapter(
                 context,
                 url,
                 target,
-                R.drawable.ic_user,
-                imageView.width,
-                imageView.height
+                R.drawable.ic_user
             )
         }
     }

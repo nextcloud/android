@@ -73,6 +73,7 @@ public class UserListAdapterTest {
                                               null,
                                               true,
                                               true,
+                                              true,
                                               themeColorUtils,
                                               themeDrawableUtils);
         assertEquals(0, userListAdapter.getItemCount());
@@ -91,6 +92,7 @@ public class UserListAdapterTest {
                                               null,
                                               accounts,
                                               null,
+                                              true,
                                               true,
                                               true,
                                               themeColorUtils,
@@ -113,6 +115,7 @@ public class UserListAdapterTest {
                                               null,
                                               accounts,
                                               null,
+                                              true,
                                               true,
                                               true,
                                               themeColorUtils,

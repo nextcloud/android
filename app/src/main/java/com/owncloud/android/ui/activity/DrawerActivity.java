@@ -769,9 +769,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                                               this,
                                               firstQuota.getIconUrl(),
                                               target,
-                                              R.drawable.ic_link,
-                                              size,
-                                              size);
+                                              R.drawable.ic_link);
 
                 } else {
                     mQuotaTextLink.setVisibility(View.GONE);
@@ -884,8 +882,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (mNavigationView != null && getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
             mNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
 
-            float density = getResources().getDisplayMetrics().density;
-            final int size = Math.round(24 * density);
             int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
@@ -911,9 +907,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                                           this,
                                           link.getIconUrl(),
                                           target,
-                                          R.drawable.ic_link,
-                                          size,
-                                          size);
+                                          R.drawable.ic_link);
             }
 
             setDrawerMenuItemChecked(mCheckedMenuItem);

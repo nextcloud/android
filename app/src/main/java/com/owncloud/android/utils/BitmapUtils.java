@@ -27,8 +27,10 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
@@ -47,6 +49,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -429,7 +432,7 @@ public final class BitmapUtils {
                                      imageView);
     }
 
-    public static Bitmap createAvatarWithStatus(Bitmap avatar, StatusType statusType, String icon, Context context) {
+    public static Bitmap createAvatarWithStatus(Bitmap avatar, StatusType statusType, @NonNull String icon, Context context) {
         float avatarRadius = getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
         int width = DisplayUtils.convertDpToPixel(2 * avatarRadius, context);
 
@@ -451,6 +454,42 @@ public final class BitmapUtils {
         statusDrawable.draw(canvas);
 
         return output;
+    }
+
+    /**
+     * Inspired from https://www.demo2s.com/android/android-bitmap-get-a-round-version-of-the-bitmap.html
+     */
+    public static Bitmap roundBitmap(Bitmap bitmap) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+        final Canvas canvas = new Canvas(output);
+
+        final int color = R.color.white;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(getResources().getColor(color, null));
+        canvas.drawOval(rectF, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
+    }
+
+    /**
+     * from https://stackoverflow.com/a/38249623
+     **/
+    public static Bitmap tintImage(Bitmap bitmap, int color) {
+        Paint paint = new Paint();
+        paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
+        Bitmap bitmapResult = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmapResult);
+        canvas.drawBitmap(bitmap, 0, 0, paint);
+        return bitmapResult;
     }
 
     /**

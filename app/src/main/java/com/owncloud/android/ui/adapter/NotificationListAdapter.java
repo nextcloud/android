@@ -19,13 +19,14 @@
 
 package com.owncloud.android.ui.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.PictureDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -147,7 +148,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         holder.binding.message.setText(notification.getMessage());
 
         if (!TextUtils.isEmpty(notification.getIcon())) {
-            downloadIcon(notification.getIcon(), holder.binding.icon);
+            downloadIcon(notification.getIcon(), holder.binding.icon, notificationsActivity);
         }
 
         int nightModeFlag =
@@ -360,12 +361,12 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         }
     }
 
-    private void downloadIcon(String icon, ImageView itemViewType) {
-        GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(notificationsActivity)
+    private void downloadIcon(String icon, ImageView itemViewType, Context context) {
+        GenericRequestBuilder<Uri, InputStream, SVG, Drawable> requestBuilder = Glide.with(notificationsActivity)
             .using(Glide.buildStreamModelLoader(Uri.class, notificationsActivity), InputStream.class)
             .from(Uri.class)
             .as(SVG.class)
-            .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
+            .transcode(new SvgDrawableTranscoder(context), Drawable.class)
             .sourceEncoder(new StreamEncoder())
             .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
             .decoder(new SvgDecoder())
