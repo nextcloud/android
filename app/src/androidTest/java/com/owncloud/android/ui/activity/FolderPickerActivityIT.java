@@ -22,6 +22,7 @@ package com.owncloud.android.ui.activity;
  */
 
 import com.owncloud.android.AbstractIT;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.ScreenshotTest;
 
@@ -128,6 +129,10 @@ public class FolderPickerActivityIT extends AbstractIT {
         OCFile origin = new OCFile("/test/file.txt");
         sut.setFile(origin);
 
+        sut.runOnUiThread(() -> {
+            sut.findViewById(R.id.folder_picker_btn_choose).requestFocus();
+        });
+        waitForIdleSync();
         screenshot(sut);
     }
 }

@@ -23,7 +23,6 @@ package com.owncloud.android.ui.activity;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import com.nextcloud.client.account.User;
@@ -79,15 +78,12 @@ public class ShareActivity extends FileActivity {
                                                                                   file.isGroupFolder(),
                                                                                   file.getMountType(),
                                                                                   this,
-                                                                                  themeColorUtils,
-                                                                                  themeDrawableUtils));
+                                                                                  viewThemeUtils));
         } else {
             binding.shareFileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                                 file.getFileName(),
-                                                                                optionalUser.get(),
                                                                                 this,
-                                                                                themeColorUtils,
-                                                                                themeDrawableUtils));
+                                                                                viewThemeUtils));
             if (MimeTypeUtil.isImage(file)) {
                 String remoteId = String.valueOf(file.getRemoteId());
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(remoteId);
@@ -100,8 +96,7 @@ public class ShareActivity extends FileActivity {
         // Name
         binding.shareFileName.setText(getResources().getString(R.string.share_file, file.getFileName()));
 
-        binding.shareHeaderDivider.getBackground().setColorFilter(themeColorUtils.primaryAccentColor(this),
-                                                                  PorterDuff.Mode.SRC_ATOP);
+        viewThemeUtils.platform.colorViewBackground(binding.shareHeaderDivider);
 
         // Size
         binding.shareFileSize.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));

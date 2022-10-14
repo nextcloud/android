@@ -29,15 +29,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.NoteDialogBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeTextInputUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -53,9 +52,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
     private static final String ARG_SHARE = "SHARE";
 
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
-    @Inject ThemeTextInputUtils themeTextInputUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     private OCShare share;
     private NoteDialogBinding binding;
@@ -86,9 +83,8 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                               alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                 alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
     }
 
     @NonNull
@@ -102,17 +98,17 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
         // Setup layout
         binding.noteText.setText(share.getNote());
         binding.noteText.requestFocus();
-        themeTextInputUtils.colorTextInput(binding.noteContainer,
-                                           binding.noteText,
-                                           themeColorUtils.primaryColor(getContext()),
-                                           themeColorUtils.primaryAccentColor(getContext()));
+        viewThemeUtils.material.colorTextInputLayout(binding.noteContainer);
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(binding.noteContainer.getContext());
         builder.setView(view)
             .setPositiveButton(R.string.note_confirm, this)
             .setNeutralButton(R.string.common_cancel, this)
             .setTitle(R.string.send_note);
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.noteContainer.getContext(), builder);
+
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();

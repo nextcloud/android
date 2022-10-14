@@ -55,9 +55,7 @@ import com.owncloud.android.ui.activity.ManageAccountsActivity.PENDING_FOR_REMOV
 import com.owncloud.android.ui.activity.SyncedFoldersActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.SyncedFolderUtils
-import com.owncloud.android.utils.theme.ThemeButtonUtils
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.Random
 
 @Suppress("LongParameterList") // dependencies injection
@@ -69,9 +67,7 @@ class MediaFoldersDetectionWork constructor(
     private val userAccountManager: UserAccountManager,
     private val preferences: AppPreferences,
     private val clock: Clock,
-    private val themeColorUtils: ThemeColorUtils,
-    private val themeSnackbarUtils: ThemeSnackbarUtils,
-    private val themeButtonUtils: ThemeButtonUtils
+    private val viewThemeUtils: ViewThemeUtils
 ) : Worker(context, params) {
 
     companion object {
@@ -97,14 +93,14 @@ class MediaFoldersDetectionWork constructor(
             1,
             null,
             true,
-            themeSnackbarUtils
+            viewThemeUtils
         )
         val videoMediaFolders = MediaProvider.getVideoFolders(
             contentResolver,
             1,
             null,
             true,
-            themeSnackbarUtils
+            viewThemeUtils
         )
         val imageMediaFolderPaths: MutableList<String> = ArrayList()
         val videoMediaFolderPaths: MutableList<String> = ArrayList()
@@ -222,13 +218,15 @@ class MediaFoldersDetectionWork constructor(
         )
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-            .setColor(themeColorUtils.primaryColor(context))
             .setSubText(user.accountName)
             .setContentTitle(contentTitle)
             .setContentText(subtitle)
             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
+
+        viewThemeUtils.androidx.themeNotificationCompatBuilder(context, notificationBuilder)
+
         val disableDetection = Intent(context, NotificationReceiver::class.java)
         disableDetection.putExtra(NOTIFICATION_ID, notificationId)
         disableDetection.action = DISABLE_DETECTION_CLICK

@@ -72,8 +72,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 import com.owncloud.android.utils.svg.SvgBitmapTranscoder;
 import com.owncloud.android.utils.svg.SvgDecoder;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -100,8 +99,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private ClientFactory clientFactory;
     protected List<Object> values;
     private boolean isDetailView;
-    private ThemeColorUtils themeColorUtils;
-    private ThemeDrawableUtils themeDrawableUtils;
+    private ViewThemeUtils viewThemeUtils;
 
     public ActivityListAdapter(
         Context context,
@@ -109,8 +107,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ActivityListInterface activityListInterface,
         ClientFactory clientFactory,
         boolean isDetailView,
-        ThemeColorUtils themeColorUtils,
-        ThemeDrawableUtils themeDrawableUtils) {
+        ViewThemeUtils viewThemeUtils) {
         this.values = new ArrayList<>();
         this.context = context;
         this.currentAccountProvider = currentAccountProvider;
@@ -118,8 +115,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.clientFactory = clientFactory;
         px = getThumbnailDimension();
         this.isDetailView = isDetailView;
-        this.themeColorUtils = themeColorUtils;
-        this.themeDrawableUtils = themeDrawableUtils;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     public void setActivityItems(List<Object> activityItems, NextcloudClient client, boolean clear) {
@@ -287,14 +283,12 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         } else {
             if (MimeTypeUtil.isFolder(previewObject.getMimeType())) {
                 imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context,
-                                                                             themeColorUtils,
-                                                                             themeDrawableUtils));
+                                                                             viewThemeUtils));
             } else {
                 imageView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(previewObject.getMimeType(),
                                                                         "",
                                                                         context,
-                                                                        themeColorUtils,
-                                                                        themeDrawableUtils));
+                                                                        viewThemeUtils));
             }
         }
 

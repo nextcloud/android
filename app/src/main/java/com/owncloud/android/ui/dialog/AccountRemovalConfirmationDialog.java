@@ -25,12 +25,12 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.os.Bundle;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.owncloud.android.R;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -43,8 +43,7 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
     private static final String KEY_USER = "USER";
 
     @Inject BackgroundJobManager backgroundJobManager;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
     private User user;
 
     public static AccountRemovalConfirmationDialog newInstance(User user) {
@@ -69,22 +68,24 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                               alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                 alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new AlertDialog.Builder(requireActivity(), R.style.Theme_ownCloud_Dialog)
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity())
             .setTitle(R.string.delete_account)
             .setMessage(getResources().getString(R.string.delete_account_warning, user.getAccountName()))
             .setIcon(R.drawable.ic_warning)
             .setPositiveButton(R.string.common_ok,
                                (dialogInterface, i) -> backgroundJobManager.startAccountRemovalJob(user.getAccountName(),
                                                                                                    false))
-            .setNeutralButton(R.string.common_cancel, null)
-            .create();
+            .setNeutralButton(R.string.common_cancel, null);
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(requireActivity(), builder);
+
+        return  builder.create();
     }
 }

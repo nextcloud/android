@@ -78,7 +78,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                                                                     R.string.timeout_richDocuments, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.common_back, v -> closeView());
 
-                    themeSnackbarUtils.colorSnackbar(getApplicationContext(), snackbar);
+                    viewThemeUtils.material.themeSnackbar(snackbar);
                     setLoadingSnackbar(snackbar);
                     snackbar.show();
                 }
@@ -159,8 +159,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                                                                               file.isGroupFolder(),
                                                                               file.getMountType(),
                                                                               this,
-                                                                              themeColorUtils,
-                                                                              themeDrawableUtils));
+                                                                              viewThemeUtils));
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
@@ -182,10 +181,8 @@ public abstract class EditorWebView extends ExternalSiteWebView {
             } else {
                 Drawable icon = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                              file.getFileName(),
-                                                             user,
                                                              getApplicationContext(),
-                                                             themeColorUtils,
-                                                             themeDrawableUtils);
+                                                             viewThemeUtils);
                 binding.thumbnail.setImageDrawable(icon);
             }
         }

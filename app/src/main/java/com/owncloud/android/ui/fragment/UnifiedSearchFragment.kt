@@ -54,8 +54,7 @@ import com.owncloud.android.ui.unifiedsearch.ProviderID
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
 /**
@@ -84,10 +83,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     lateinit var clientFactory: ClientFactory
 
     @Inject
-    lateinit var themeColorUtils: ThemeColorUtils
-
-    @Inject
-    lateinit var themeDrawableUtils: ThemeDrawableUtils
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,10 +123,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
                     binding.emptyList.emptyListViewText.text =
                         requireContext().getString(R.string.file_list_empty_unified_search_no_results)
                     binding.emptyList.emptyListIcon.setImageDrawable(
-                        themeDrawableUtils.tintDrawable(
-                            R.drawable.ic_search_grey,
-                            themeColorUtils.primaryColor(context, true)
-                        )
+                        viewThemeUtils.platform.tintPrimaryDrawable(requireContext(), R.drawable.ic_search_grey)
                     )
                 }
             }
@@ -186,8 +179,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
             currentAccountProvider.user,
             clientFactory,
             requireContext(),
-            themeColorUtils,
-            themeDrawableUtils
+            viewThemeUtils
         )
         adapter.shouldShowFooters(true)
         adapter.setLayoutManager(gridLayoutManager)
@@ -235,6 +227,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val item = menu.findItem(R.id.action_search)
         val searchView = MenuItemCompat.getActionView(item) as SearchView
+        viewThemeUtils.androidx.themeToolbarSearchView(searchView)
         searchView.setQuery(vm.query.value, false)
         searchView.setOnQueryTextListener(this)
         searchView.isIconified = false

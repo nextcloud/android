@@ -112,7 +112,7 @@ android {
 
         buildTypes {
             debug {
-                testCoverageEnabled (project.hasProperty('coverage'))
+                testCoverageEnabled(project.hasProperty('coverage'))
             }
         }
 
@@ -218,7 +218,7 @@ dependencies {
     // dependencies for app building
     implementation 'androidx.multidex:multidex:2.0.1'
 //    implementation project('nextcloud-android-library')
-    implementation ("com.github.nextcloud:android-library:$androidLibraryVersion") {
+    implementation("com.github.nextcloud:android-library:$androidLibraryVersion") {
         exclude group: 'org.ogce', module: 'xpp3' // unused in Android and brings wrong Junit version
     }
 
@@ -281,7 +281,7 @@ dependencies {
     implementation "com.google.android.exoplayer:extension-okhttp:$exoplayerVersion"
 
     implementation 'me.zhanghai.android.fastscroll:library:1.1.8'
-    
+
     // Shimmer animation
     implementation 'io.github.elye:loaderviewlibrary:3.0.0'
 
@@ -296,8 +296,8 @@ dependencies {
     implementation "io.noties:prism4j:$prismVersion"
     kapt "io.noties:prism4j-bundler:$prismVersion"
 
-    implementation ('org.mnode.ical4j:ical4j:3.0.0') {
-        ['org.apache.commons','commons-logging'].each {
+    implementation('org.mnode.ical4j:ical4j:3.0.0') {
+        ['org.apache.commons', 'commons-logging'].each {
             exclude group: "$it"
         }
     }
@@ -352,10 +352,12 @@ dependencies {
 
     // upon each update first test: new registration, receive push
     gplayImplementation "com.google.firebase:firebase-messaging:23.0.7"
+
+    implementation 'com.github.nextcloud.android-common:ui:0.2.0'
 }
 
 configurations.all {
-    resolutionStrategy{
+    resolutionStrategy {
         cacheChangingModulesFor 0, 'seconds'
         force 'org.objenesis:objenesis:2.6'
         eachDependency { details ->
@@ -400,7 +402,7 @@ shot {
     showOnlyFailingTestsInReports = ciBuild
     // CI environment renders some shadows slightly different from local VMs
     // Add a 0.5% tolerance to account for that
-    tolerance = ciBuild ? 0.5: 0
+    tolerance = ciBuild ? 0.5 : 0
 }
 
 jacoco {
@@ -413,7 +415,7 @@ spotbugs {
     reportLevel = "medium"
 }
 
-tasks.withType(SpotBugsTask){task ->
+tasks.withType(SpotBugsTask) { task ->
     String variantNameCap = task.name.replace("spotbugs", "")
     String variantName = variantNameCap.substring(0, 1).toLowerCase() + variantNameCap.substring(1)
 

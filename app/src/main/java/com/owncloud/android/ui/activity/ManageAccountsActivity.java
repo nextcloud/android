@@ -131,11 +131,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
+            viewThemeUtils.files.themeActionBar(this, actionBar, R.string.prefs_manage_accounts);
         }
-
-        // set title Action bar
-        updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.prefs_manage_accounts));
-        themeToolbarUtils.tintBackButton(actionBar, this);
 
         List<User> users = accountManager.getAllUsers();
         originalUsers = toAccountNames(users);
@@ -156,8 +153,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                               multipleAccountsSupported,
                                               true,
                                               true,
-                                              themeColorUtils,
-                                              themeDrawableUtils);
+                                              viewThemeUtils);
 
         recyclerView.setAdapter(userListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -312,8 +308,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                       multipleAccountsSupported,
                                       false,
                                       true,
-                                      themeColorUtils,
-                                      themeDrawableUtils);
+                                      viewThemeUtils);
                                   recyclerView.setAdapter(userListAdapter);
                                   runOnUiThread(() -> userListAdapter.notifyDataSetChanged());
                               } catch (OperationCanceledException e) {
@@ -367,8 +362,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                                       multipleAccountsSupported,
                                                       false,
                                                       true,
-                                                      themeColorUtils,
-                                                      themeDrawableUtils);
+                                                      viewThemeUtils);
                 recyclerView.setAdapter(userListAdapter);
             } else {
                 onBackPressed();

@@ -54,8 +54,7 @@ import com.owncloud.android.ui.events.VCardToggleEvent;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -94,8 +93,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject BackgroundJobManager backgroundJobManager;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeToolbarUtils themeToolbarUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
     private TransferManagerConnection fileDownloader;
     private LoadContactsTask loadContactsTask = null;
     private ContactsAccount selectedAccount;
@@ -142,9 +140,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
         if (contactsPreferenceActivity != null) {
             ActionBar actionBar = contactsPreferenceActivity.getSupportActionBar();
             if (actionBar != null) {
-                themeToolbarUtils.setColoredTitle(actionBar,
-                                                  R.string.actionbar_calendar_contacts_restore,
-                                                  getContext());
+                viewThemeUtils.files.themeActionBar(requireContext(), actionBar, R.string.actionbar_calendar_contacts_restore);
                 actionBar.setDisplayHomeAsUpEnabled(true);
             }
             contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
@@ -157,7 +153,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
                                                 new HashMap<>(),
                                                 this,
                                                 requireContext(),
-                                                themeColorUtils);
+                                                viewThemeUtils);
         } else {
             HashMap<String, Integer> checkedCalendarItems = new HashMap<>();
             String[] checkedCalendarItemsArray = savedInstanceState.getStringArray(CHECKED_CALENDAR_ITEMS_ARRAY_KEY);
@@ -187,7 +183,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
                                                 checkedCalendarItems,
                                                 this,
                                                 requireContext(),
-                                                themeColorUtils);
+                                                viewThemeUtils);
         }
 
         binding.list.setAdapter(listAdapter);
@@ -252,7 +248,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
             closeFragment();
         });
 
-        binding.restoreSelected.setTextColor(themeColorUtils.primaryAccentColor(getContext()));
+        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.restoreSelected);
 
         return view;
     }

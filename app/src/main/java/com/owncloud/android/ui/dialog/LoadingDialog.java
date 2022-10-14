@@ -19,7 +19,6 @@
 package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +29,7 @@ import android.widget.TextView;
 
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -39,7 +38,7 @@ import androidx.fragment.app.DialogFragment;
 
 public class LoadingDialog extends DialogFragment implements Injectable {
 
-    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
     private String mMessage;
 
     @Override
@@ -66,8 +65,7 @@ public class LoadingDialog extends DialogFragment implements Injectable {
 
         // set progress wheel color
         ProgressBar progressBar = v.findViewById(R.id.loadingBar);
-        progressBar.getIndeterminateDrawable().setColorFilter(themeColorUtils.primaryAccentColor(getContext()),
-                                                              PorterDuff.Mode.SRC_IN);
+        viewThemeUtils.platform.tintDrawable(requireContext(), progressBar.getIndeterminateDrawable());
 
         return v;
     }

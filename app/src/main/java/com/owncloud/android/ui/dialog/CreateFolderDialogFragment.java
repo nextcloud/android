@@ -33,6 +33,7 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
@@ -42,9 +43,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeTextInputUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.List;
 import java.util.Set;
@@ -67,10 +66,9 @@ public class CreateFolderDialogFragment
 
     public static final String CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT";
 
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
-    @Inject ThemeTextInputUtils themeTextInputUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
+    @Inject ViewThemeUtils viewThemeUtils;
+
 
     private OCFile mParentFolder;
     private Button positiveButton;
@@ -99,9 +97,8 @@ public class CreateFolderDialogFragment
         if (alertDialog != null) {
             positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
 
-            themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                                   positiveButton,
-                                                   alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+            viewThemeUtils.platform.colorTextButtons(positiveButton,
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         }
     }
 
@@ -118,10 +115,7 @@ public class CreateFolderDialogFragment
         // Setup layout
         binding.userInput.setText("");
         binding.userInput.requestFocus();
-        themeTextInputUtils.colorTextInput(binding.userInputContainer,
-                                           binding.userInput,
-                                           themeColorUtils.primaryColor(getActivity()),
-                                           themeColorUtils.primaryAccentColor(getActivity()));
+        viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer);
 
         OCFile parentFolder = requireArguments().getParcelable(ARG_PARENT_FOLDER);
         List<OCFile> folderContent = fileDataStorageManager.getFolderContent(parentFolder, false);
@@ -173,11 +167,14 @@ public class CreateFolderDialogFragment
         });
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
         builder.setView(view)
             .setPositiveButton(R.string.folder_confirm_create, this)
             .setNeutralButton(R.string.common_cancel, this)
             .setTitle(R.string.uploader_info_dirname);
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInputContainer.getContext(), builder);
+
         AlertDialog d = builder.create();
 
         Window window = d.getWindow();
@@ -192,8 +189,8 @@ public class CreateFolderDialogFragment
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
             String newFolderName =
-                    ((TextView)(getDialog().findViewById(R.id.user_input)))
-                        .getText().toString().trim();
+                ((TextView) (getDialog().findViewById(R.id.user_input)))
+                    .getText().toString().trim();
 
             if (TextUtils.isEmpty(newFolderName)) {
                 DisplayUtils.showSnackMessage(getActivity(), R.string.filename_empty);
@@ -207,6 +204,7 @@ public class CreateFolderDialogFragment
             }
 
             String path = mParentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
+
             ((ComponentsGetter) getActivity()).getFileOperationsHelper().createFolder(path);
         }
     }

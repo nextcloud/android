@@ -23,22 +23,21 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
-import android.widget.EditText;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -47,7 +46,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 /**
- * Dialog to rename a public share
+ * Dialog to rename a public share.
  */
 public class RenamePublicShareDialogFragment
     extends DialogFragment implements DialogInterface.OnClickListener, Injectable {
@@ -56,7 +55,7 @@ public class RenamePublicShareDialogFragment
 
     public static final String RENAME_PUBLIC_SHARE_FRAGMENT = "RENAME_PUBLIC_SHARE_FRAGMENT";
 
-    @Inject ThemeColorUtils themeColorUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     private EditBoxDialogBinding binding;
     private OCShare publicShare;
@@ -67,27 +66,23 @@ public class RenamePublicShareDialogFragment
         args.putParcelable(ARG_PUBLIC_SHARE, share);
         frag.setArguments(args);
         return frag;
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        int color = themeColorUtils.primaryAccentColor(getContext());
-
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
+            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         }
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int accentColor = themeColorUtils.primaryAccentColor(getContext());
         publicShare = requireArguments().getParcelable(ARG_PUBLIC_SHARE);
 
         // Inflate the layout for the dialog
@@ -96,18 +91,19 @@ public class RenamePublicShareDialogFragment
         View view = binding.getRoot();
 
         // Setup layout
-        EditText inputText = binding.userInput;
-        inputText.setText(publicShare.getLabel());
-        inputText.requestFocus();
-        inputText.getBackground().setColorFilter(accentColor, PorterDuff.Mode.SRC_ATOP);
-        inputText.setHighlightColor(themeColorUtils.primaryColor(getActivity()));
+        viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer);
+        binding.userInput.setText(publicShare.getLabel());
+        binding.userInput.requestFocus();
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(view.getContext());
         builder.setView(view)
             .setPositiveButton(R.string.file_rename, this)
             .setNeutralButton(R.string.common_cancel, this)
             .setTitle(R.string.public_share_name);
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInput.getContext(), builder);
+
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();
@@ -117,7 +113,6 @@ public class RenamePublicShareDialogFragment
 
         return dialog;
     }
-
 
     @Override
     public void onClick(DialogInterface dialog, int which) {

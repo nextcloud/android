@@ -35,6 +35,7 @@ import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.android.lib.resources.directediting.DirectEditingCreateFileRemoteOperation
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainListOfTemplatesRemoteOperation
 import com.nextcloud.client.account.CurrentAccountProvider
@@ -58,10 +59,7 @@ import com.owncloud.android.ui.activity.TextEditorWebView
 import com.owncloud.android.ui.adapter.TemplateAdapter
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.theme.ThemeButtonUtils
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
-import com.owncloud.android.utils.theme.ThemeTextInputUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
@@ -79,19 +77,10 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
     lateinit var currentAccount: CurrentAccountProvider
 
     @Inject
-    lateinit var themeColorUtils: ThemeColorUtils
-
-    @Inject
-    lateinit var themeDrawableUtils: ThemeDrawableUtils
-
-    @Inject
-    lateinit var themeButtonUtils: ThemeButtonUtils
-
-    @Inject
-    lateinit var themeTextInputUtils: ThemeTextInputUtils
-
-    @Inject
     lateinit var fileDataStorageManager: FileDataStorageManager
+
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     private var adapter: TemplateAdapter? = null
     private var parentFolder: OCFile? = null
@@ -111,8 +100,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         val alertDialog = dialog as AlertDialog
         val button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
 
-        themeButtonUtils.themeBorderlessButton(
-            themeColorUtils,
+        viewThemeUtils.platform.colorTextButtons(
             button,
             alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
         )
@@ -144,11 +132,8 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         val view: View = binding.root
 
         binding.filename.requestFocus()
-        themeTextInputUtils.colorTextInput(
-            binding.filenameContainer,
-            binding.filename,
-            themeColorUtils.primaryColor(context),
-            themeColorUtils.primaryAccentColor(context)
+        viewThemeUtils.material.colorTextInputLayout(
+            binding.filenameContainer
         )
 
         binding.filename.addTextChangedListener(object : TextWatcher {
@@ -173,17 +158,19 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
             context,
             currentAccount,
             clientFactory,
-            themeColorUtils,
-            themeDrawableUtils
+            viewThemeUtils
         )
         binding.list.adapter = adapter
 
         // Build the dialog
-        val builder = AlertDialog.Builder(activity)
+        val builder = MaterialAlertDialogBuilder(activity)
         builder.setView(view)
             .setPositiveButton(R.string.create, null)
             .setNeutralButton(R.string.common_cancel, null)
             .setTitle(title)
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.list.context, builder)
+
         val dialog: Dialog = builder.create()
         val window = dialog.window
         window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)

@@ -32,9 +32,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -43,11 +41,11 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.databinding.FirstRunActivityBinding;
 import com.owncloud.android.features.FeatureItem;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
-import com.owncloud.android.ui.whatsnew.ProgressIndicator;
 import com.owncloud.android.utils.DisplayUtils;
 
 import javax.inject.Inject;
@@ -63,29 +61,30 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     public static final String EXTRA_EXIT = "EXIT";
     public static final int FIRST_RUN_RESULT_CODE = 199;
 
-    private ProgressIndicator progressIndicator;
-
     @Inject UserAccountManager userAccountManager;
     @Inject AppPreferences preferences;
     @Inject AppInfo appInfo;
     @Inject OnboardingService onboarding;
+
+    private FirstRunActivityBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         enableAccountHandling = false;
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.first_run_activity);
+        this.binding = FirstRunActivityBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         boolean isProviderOrOwnInstallationVisible = getResources().getBoolean(R.bool.show_provider_or_own_installation);
 
         setSlideshowSize(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
 
-        Button loginButton = findViewById(R.id.login);
-        loginButton.setBackgroundColor(getResources().getColor(R.color.login_btn_tint));
-        loginButton.setTextColor(getResources().getColor(R.color.primary));
 
-        loginButton.setOnClickListener(v -> {
+        binding.login.setBackgroundColor(getResources().getColor(R.color.login_btn_tint));
+        binding.login.setTextColor(getResources().getColor(R.color.primary));
+
+        binding.login.setOnClickListener(v -> {
             if (getIntent().getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
                 Intent authenticatorActivityIntent = new Intent(this, AuthenticatorActivity.class);
                 authenticatorActivityIntent.putExtra(AuthenticatorActivity.EXTRA_USE_PROVIDER_AS_WEBLOGIN, false);
@@ -95,11 +94,11 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
             }
         });
 
-        Button providerButton = findViewById(R.id.signup);
-        providerButton.setBackgroundColor(getResources().getColor(R.color.primary));
-        providerButton.setTextColor(getResources().getColor(R.color.login_text_color));
-        providerButton.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
-        providerButton.setOnClickListener(v -> {
+
+        binding.signup.setBackgroundColor(getResources().getColor(R.color.primary));
+        binding.signup.setTextColor(getResources().getColor(R.color.login_text_color));
+        binding.signup.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
+        binding.signup.setOnClickListener(v -> {
             Intent authenticatorActivityIntent = new Intent(this, AuthenticatorActivity.class);
             authenticatorActivityIntent.putExtra(AuthenticatorActivity.EXTRA_USE_PROVIDER_AS_WEBLOGIN, true);
 
@@ -111,16 +110,13 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
             }
         });
 
-        TextView hostOwnServerTextView = findViewById(R.id.host_own_server);
-        hostOwnServerTextView.setTextColor(getResources().getColor(R.color.login_text_color));
-        hostOwnServerTextView.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
+        binding.hostOwnServer.setTextColor(getResources().getColor(R.color.login_text_color));
+        binding.hostOwnServer.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
 
-        if(!isProviderOrOwnInstallationVisible) {
-            hostOwnServerTextView.setOnClickListener(v -> onHostYourOwnServerClick());
+        if (!isProviderOrOwnInstallationVisible) {
+            binding.hostOwnServer.setOnClickListener(v -> onHostYourOwnServerClick());
         }
 
-        progressIndicator = findViewById(R.id.progressIndicator);
-        ViewPager viewPager = findViewById(R.id.contentPanel);
 
         // Sometimes, accounts are not deleted when you uninstall the application so we'll do it now
         if (onboarding.isFirstRun()) {
@@ -128,29 +124,26 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         }
 
         FeaturesViewAdapter featuresViewAdapter = new FeaturesViewAdapter(getSupportFragmentManager(), getFirstRun());
-        progressIndicator.setNumberOfSteps(featuresViewAdapter.getCount());
-        viewPager.setAdapter(featuresViewAdapter);
+        binding.progressIndicator.setNumberOfSteps(featuresViewAdapter.getCount());
+        binding.contentPanel.setAdapter(featuresViewAdapter);
 
-        viewPager.addOnPageChangeListener(this);
+        binding.contentPanel.addOnPageChangeListener(this);
     }
 
     private void setSlideshowSize(boolean isLandscape) {
         boolean isProviderOrOwnInstallationVisible = getResources().getBoolean(R.bool.show_provider_or_own_installation);
-        LinearLayout buttonLayout = findViewById(R.id.buttonLayout);
+
         LinearLayout.LayoutParams layoutParams;
 
-        buttonLayout.setOrientation(isLandscape ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
+        binding.buttonLayout.setOrientation(isLandscape ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
 
-        LinearLayout bottomLayout = findViewById(R.id.bottomLayout);
         if (isProviderOrOwnInstallationVisible) {
-            layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         } else {
-            layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    DisplayUtils.convertDpToPixel(isLandscape ? 100f : 150f, this));
+            layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DisplayUtils.convertDpToPixel(isLandscape ? 100f : 150f, this));
         }
 
-        bottomLayout.setLayoutParams(layoutParams);
+        binding.bottomLayout.setLayoutParams(layoutParams);
     }
 
     @Override
@@ -196,7 +189,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
 
     @Override
     public void onPageSelected(int position) {
-        progressIndicator.animateToStep(position + 1);
+        binding.progressIndicator.animateToStep(position + 1);
     }
 
     @Override
@@ -233,7 +226,6 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
             finish();
         }
     }
-
 
 
     public static FeatureItem[] getFirstRun() {

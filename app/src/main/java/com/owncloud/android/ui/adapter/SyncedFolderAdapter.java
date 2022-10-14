@@ -40,8 +40,7 @@ import com.owncloud.android.databinding.SyncedFoldersItemHeaderBinding;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -70,8 +69,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     private static final int VIEW_TYPE_HEADER = 2;
     private static final int VIEW_TYPE_FOOTER = 3;
     private boolean hideItems;
-    private final ThemeColorUtils themeColorUtils;
-    private final ThemeDrawableUtils themeDrawableUtils;
+    private final ViewThemeUtils viewThemeUtils;
     private final Executor thumbnailThreadPool;
 
     public SyncedFolderAdapter(Context context,
@@ -79,8 +77,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
                                int gridWidth,
                                ClickListener listener,
                                boolean light,
-                               ThemeColorUtils themeColorUtils,
-                               ThemeDrawableUtils themeDrawableUtils) {
+                               ViewThemeUtils viewThemeUtils) {
         this.context = context;
         this.clock = clock;
         this.gridWidth = gridWidth;
@@ -90,8 +87,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
         filteredSyncFolderItems = new ArrayList<>();
         this.light = light;
         this.hideItems = true;
-        this.themeColorUtils = themeColorUtils;
-        this.themeDrawableUtils = themeDrawableUtils;
+        this.viewThemeUtils = viewThemeUtils;
         this.thumbnailThreadPool = Executors.newCachedThreadPool();
 
         shouldShowHeadersForEmptySections(true);
@@ -348,8 +344,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
             ThumbnailsCacheManager.MediaThumbnailGenerationTask task =
                 new ThumbnailsCacheManager.MediaThumbnailGenerationTask(holder.binding.thumbnail,
                                                                         context,
-                                                                        themeColorUtils,
-                                                                        themeDrawableUtils);
+                                                                        viewThemeUtils);
 
             ThumbnailsCacheManager.AsyncMediaThumbnailDrawable asyncDrawable =
                     new ThumbnailsCacheManager.AsyncMediaThumbnailDrawable(
@@ -457,9 +452,8 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     private void setSyncButtonActiveIcon(ImageButton syncStatusButton, boolean enabled) {
         if (enabled) {
             syncStatusButton.setImageDrawable(
-                themeDrawableUtils.tintDrawable(
-                    R.drawable.ic_cloud_sync_on,
-                    themeColorUtils.primaryColor(context, true)));
+                viewThemeUtils.platform.tintPrimaryDrawable(context, R.drawable.ic_cloud_sync_on)
+                                             );
         } else {
             syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_off);
         }

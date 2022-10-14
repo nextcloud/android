@@ -41,6 +41,7 @@ import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.List;
 
@@ -70,6 +71,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     @Inject ActivitiesRepository activitiesRepository;
     @Inject FilesRepository filesRepository;
     @Inject ClientFactory clientFactory;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +86,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
         // setup toolbar
         setupToolbar();
 
-        themeLayoutUtils.colorSwipeRefreshLayout(this, binding.swipeContainingList);
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList);
 
         // setup drawer
         setupDrawer(R.id.nav_activity);
@@ -114,8 +116,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
                                           this,
                                           clientFactory,
                                           false,
-                                          themeColorUtils,
-                                          themeDrawableUtils);
+                                          viewThemeUtils);
         binding.list.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

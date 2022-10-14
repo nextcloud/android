@@ -103,7 +103,9 @@ import com.owncloud.android.ui.fragment.FeatureFragment;
 import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
+import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
+import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialogFragment;
@@ -113,6 +115,7 @@ import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
 import com.owncloud.android.ui.preview.FileDownloadFragment;
+import com.owncloud.android.ui.preview.PreviewBitmapActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
@@ -253,6 +256,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract FileDetailActivitiesFragment fileDetailActivitiesFragment();
+
+    @ContributesAndroidInjector
+    abstract FileDetailsSharingProcessFragment fileDetailsSharingProcessFragment();
 
     @ContributesAndroidInjector
     abstract FileDetailSharingFragment fileDetailSharingFragment();
@@ -442,4 +448,10 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract DashboardWidgetProvider dashboardWidgetProvider();
+
+    @ContributesAndroidInjector
+    abstract GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog();
+
+    @ContributesAndroidInjector
+    abstract PreviewBitmapActivity previewBitmapActivity();
 }

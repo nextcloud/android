@@ -16,14 +16,14 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.ui.preview.PreviewImageActivity
 import com.owncloud.android.ui.preview.PreviewImageFragment
-import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
 class AppNotificationManagerImpl @Inject constructor(
     private val context: Context,
     private val resources: Resources,
     private val platformNotificationsManager: NotificationManager,
-    private val themeColorUtils: ThemeColorUtils
+    private val viewThemeUtils: ViewThemeUtils
 ) : AppNotificationManager {
 
     companion object {
@@ -32,12 +32,13 @@ class AppNotificationManagerImpl @Inject constructor(
     }
 
     private fun builder(channelId: String): NotificationCompat.Builder {
-        val color = themeColorUtils.primaryColor(context, true)
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationCompat.Builder(context, channelId).setColor(color)
+        val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationCompat.Builder(context, channelId)
         } else {
-            NotificationCompat.Builder(context).setColor(color)
+            NotificationCompat.Builder(context)
         }
+        viewThemeUtils.androidx.themeNotificationCompatBuilder(context, builder)
+        return builder
     }
 
     override fun buildDownloadServiceForegroundNotification(): Notification {

@@ -22,8 +22,7 @@ package com.owncloud.android.ui.adapter;
 
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,10 +45,7 @@ public class UserListAdapterTest {
     private ManageAccountsActivity manageAccountsActivity;
 
     @Mock
-    private ThemeColorUtils themeColorUtils;
-
-    @Mock
-    private ThemeDrawableUtils themeDrawableUtils;
+    private ViewThemeUtils viewThemeUtils;
 
     /**
      * Setting up and mocking the manageAccountsActivity class, and then mocking the method calls in the construction of
@@ -74,8 +70,7 @@ public class UserListAdapterTest {
                                               true,
                                               true,
                                               true,
-                                              themeColorUtils,
-                                              themeDrawableUtils);
+                                              viewThemeUtils);
         assertEquals(0, userListAdapter.getItemCount());
     }
 
@@ -95,8 +90,7 @@ public class UserListAdapterTest {
                                               true,
                                               true,
                                               true,
-                                              themeColorUtils,
-                                              themeDrawableUtils);
+                                              viewThemeUtils);
 
         assertEquals(2, userListAdapter.getItemCount());
     }
@@ -118,8 +112,7 @@ public class UserListAdapterTest {
                                               true,
                                               true,
                                               true,
-                                              themeColorUtils,
-                                              themeDrawableUtils);
+                                              viewThemeUtils);
 
         UserListItem userListItem1 = new UserListItem();
         UserListItem userListItem2 = new UserListItem();

@@ -35,11 +35,9 @@ import com.nextcloud.client.widget.DashboardWidgetConfigurationInterface
 import com.owncloud.android.R
 import com.owncloud.android.databinding.WidgetListItemBinding
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
 
 class WidgetListItemViewHolder(
     val binding: WidgetListItemBinding,
-    val themeDrawableUtils: ThemeDrawableUtils,
     val accountManager: UserAccountManager,
     val clientFactory: ClientFactory,
     val context: Context

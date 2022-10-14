@@ -1,6 +1,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -16,18 +17,19 @@ import android.widget.TextView;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.features.FeatureItem;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 
 public class FeatureFragment extends Fragment implements Injectable {
     private FeatureItem item;
-    @Inject ThemeDrawableUtils themeDrawableUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     static public FeatureFragment newInstance(FeatureItem item) {
         FeatureFragment f = new FeatureFragment();
@@ -53,7 +55,8 @@ public class FeatureFragment extends Fragment implements Injectable {
 
         ImageView whatsNewImage = view.findViewById(R.id.whatsNewImage);
         if (item.shouldShowImage()) {
-            whatsNewImage.setImageDrawable(themeDrawableUtils.tintDrawable(item.getImage(), fontColor));
+            final Drawable image = ResourcesCompat.getDrawable(getResources(), item.getImage(), null);
+            whatsNewImage.setImageDrawable(viewThemeUtils.platform.colorDrawable(image, fontColor));
         }
 
         TextView whatsNewTitle = view.findViewById(R.id.whatsNewTitle);

@@ -18,6 +18,8 @@
   -->
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -60,7 +62,9 @@
             android:layout_marginBottom="@dimen/standard_margin"
             android:contentDescription="@string/fab_label"
             android:visibility="gone"
-            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+            app:srcCompat="@drawable/ic_plus"
+            tools:visibility="visible"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

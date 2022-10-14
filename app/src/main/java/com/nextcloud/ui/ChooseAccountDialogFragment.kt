@@ -29,7 +29,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
@@ -48,8 +47,7 @@ import com.owncloud.android.ui.adapter.UserListItem
 import com.owncloud.android.ui.asynctasks.RetrieveStatusAsyncTask
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
 private const val ARG_CURRENT_USER_PARAM = "currentUser"
@@ -73,10 +71,7 @@ class ChooseAccountDialogFragment :
     lateinit var clientFactory: ClientFactory
 
     @Inject
-    lateinit var themeColorUtils: ThemeColorUtils
-
-    @Inject
-    lateinit var themeDrawableUtils: ThemeDrawableUtils
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,9 +85,12 @@ class ChooseAccountDialogFragment :
         _binding = DialogChooseAccountBinding.inflate(layoutInflater)
         dialogView = binding.root
 
-        return MaterialAlertDialogBuilder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)
-            .create()
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.statusView.context, builder)
+
+        return builder.create()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -117,10 +115,7 @@ class ChooseAccountDialogFragment :
             binding.currentAccount.account.text = user.accountName
 
             // Defining user right indicator
-            val icon = themeDrawableUtils.tintDrawable(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_check_circle),
-                themeColorUtils.primaryColor(requireContext(), true)
-            )
+            val icon = viewThemeUtils.platform.tintPrimaryDrawable(requireContext(), R.drawable.ic_check_circle)
             binding.currentAccount.accountMenu.setImageDrawable(icon)
 
             // Creating adapter for accounts list
@@ -132,8 +127,7 @@ class ChooseAccountDialogFragment :
                 false,
                 false,
                 true,
-                themeColorUtils,
-                themeDrawableUtils
+                viewThemeUtils
             )
 
             binding.accountsList.adapter = adapter
@@ -165,6 +159,20 @@ class ChooseAccountDialogFragment :
 
             RetrieveStatusAsyncTask(user, this, clientFactory).execute()
         }
+
+        themeViews()
+    }
+
+    private fun themeViews() {
+        viewThemeUtils.platform.themeDialogDivider(binding.separatorLine)
+        viewThemeUtils.platform.themeDialog(binding.root)
+
+        viewThemeUtils.material.colorMaterialTextButton(binding.setStatus)
+        viewThemeUtils.dialog.colorDialogMenuText(binding.setStatus)
+        viewThemeUtils.material.colorMaterialTextButton(binding.addAccount)
+        viewThemeUtils.dialog.colorDialogMenuText(binding.addAccount)
+        viewThemeUtils.material.colorMaterialTextButton(binding.manageAccounts)
+        viewThemeUtils.dialog.colorDialogMenuText(binding.manageAccounts)
     }
 
     private fun getAccountListItems(): List<UserListItem> {

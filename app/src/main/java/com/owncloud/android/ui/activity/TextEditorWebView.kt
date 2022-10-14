@@ -26,6 +26,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
+import com.nextcloud.android.common.ui.util.PlatformThemeUtil
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.device.DeviceInfo
 import com.owncloud.android.R
@@ -67,7 +68,7 @@ class TextEditorWebView : EditorWebView() {
                 WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY
             )
         }
-        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK) && themeUtils.isDarkModeActive(this)) {
+        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK) && PlatformThemeUtil.isDarkMode(this)) {
             WebSettingsCompat.setForceDark(getWebView().settings, WebSettingsCompat.FORCE_DARK_ON)
         }
 

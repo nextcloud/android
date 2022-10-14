@@ -35,6 +35,7 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
@@ -59,9 +60,7 @@ import com.owncloud.android.ui.adapter.RichDocumentsTemplateAdapter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.NextcloudServer;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeTextInputUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -89,9 +88,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
     @Inject CurrentAccountProvider currentAccount;
     @Inject ClientFactory clientFactory;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
-    @Inject ThemeTextInputUtils themeTextInputUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
     private RichDocumentsTemplateAdapter adapter;
     private OCFile parentFolder;
@@ -123,9 +120,8 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                               positiveButton,
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        viewThemeUtils.platform.colorTextButtons(positiveButton,
+                                                 alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         positiveButton.setOnClickListener(this);
         positiveButton.setEnabled(false);
 
@@ -165,10 +161,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         View view = binding.getRoot();
 
         binding.filename.requestFocus();
-        themeTextInputUtils.colorTextInput(binding.filenameContainer,
-                                           binding.filename,
-                                           themeColorUtils.primaryColor(getContext()),
-                                           themeColorUtils.primaryAccentColor(getContext()));
+        viewThemeUtils.material.colorTextInputLayout(binding.filenameContainer);
 
         Type type = Type.valueOf(arguments.getString(ARG_TYPE));
         new FetchTemplateTask(this, client).execute(type);
@@ -180,7 +173,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                                                    getContext(),
                                                    currentAccount,
                                                    clientFactory,
-                                                   themeColorUtils);
+                                                   viewThemeUtils);
         binding.list.setAdapter(adapter);
 
         binding.filename.addTextChangedListener(new TextWatcher() {
@@ -218,11 +211,14 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         });
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activity);
         builder.setView(view)
             .setPositiveButton(R.string.create, null)
             .setNeutralButton(R.string.common_cancel, null)
             .setTitle(getTitle(type));
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(activity, builder);
+
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();
@@ -323,7 +319,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                                    Template template,
                                    String path,
                                    User user
-        ) {
+                                  ) {
             this.client = client;
             this.chooseTemplateDialogFragmentWeakReference = new WeakReference<>(chooseTemplateDialogFragment);
             this.template = template;

@@ -34,6 +34,7 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.QuickSharingPermissionsAdapter;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,14 +54,17 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
     private final QuickPermissionSharingBottomSheetActions actions;
     private final FileActivity fileActivity;
     private final OCShare ocShare;
+    private final ViewThemeUtils viewThemeUtils;
 
     public QuickSharingPermissionsBottomSheetDialog(FileActivity fileActivity,
                                                     QuickPermissionSharingBottomSheetActions actions,
-                                                    OCShare ocShare) {
+                                                    OCShare ocShare,
+                                                    ViewThemeUtils viewThemeUtils) {
         super(fileActivity);
         this.actions = actions;
         this.ocShare = ocShare;
         this.fileActivity = fileActivity;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     @Override
@@ -73,6 +77,8 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
             getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
 
+        viewThemeUtils.platform.themeDialog(binding.getRoot());
+
         setUpRecyclerView();
         setOnShowListener(d ->
                               BottomSheetBehavior.from((View) binding.getRoot().getParent())
@@ -82,17 +88,21 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
 
     private void setUpRecyclerView() {
         List<QuickPermissionModel> quickPermissionModelList = getQuickPermissionList();
-        QuickSharingPermissionsAdapter adapter = new QuickSharingPermissionsAdapter(quickPermissionModelList, new QuickSharingPermissionsAdapter.QuickSharingPermissionViewHolder.OnPermissionChangeListener() {
-            @Override
-            public void onPermissionChanged(int position) {
-                handlePermissionChanged(quickPermissionModelList, position);
-            }
+        QuickSharingPermissionsAdapter adapter = new QuickSharingPermissionsAdapter(
+            quickPermissionModelList,
+            new QuickSharingPermissionsAdapter.QuickSharingPermissionViewHolder.OnPermissionChangeListener() {
+                @Override
+                public void onPermissionChanged(int position) {
+                    handlePermissionChanged(quickPermissionModelList, position);
+                }
 
-            @Override
-            public void onDismissSheet() {
-                dismiss();
-            }
-        });
+                @Override
+                public void onDismissSheet() {
+                    dismiss();
+                }
+            },
+            viewThemeUtils
+        );
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(fileActivity);
         binding.rvQuickSharePermissions.setLayoutManager(linearLayoutManager);
         binding.rvQuickSharePermissions.setAdapter(adapter);

@@ -35,8 +35,7 @@ import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
-import com.owncloud.android.utils.theme.ThemeAvatarUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
@@ -45,8 +44,7 @@ import androidx.recyclerview.widget.RecyclerView;
 class LinkShareViewHolder extends RecyclerView.ViewHolder {
     private FileDetailsShareLinkShareItemBinding binding;
     private Context context;
-    private ThemeColorUtils themeColorUtils;
-    private ThemeAvatarUtils themeAvatarUtils;
+    private ViewThemeUtils viewThemeUtils;
 
     public LinkShareViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -54,13 +52,11 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
 
     public LinkShareViewHolder(FileDetailsShareLinkShareItemBinding binding,
                                Context context,
-                               ThemeColorUtils themeColorUtils,
-                               ThemeAvatarUtils themeAvatarUtils) {
+                               final ViewThemeUtils viewThemeUtils) {
         this(binding.getRoot());
         this.binding = binding;
         this.context = context;
-        this.themeColorUtils = themeColorUtils;
-        this.themeAvatarUtils = themeAvatarUtils;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     public void bind(OCShare publicShare, ShareeListAdapterListener listener) {
@@ -83,7 +79,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
                 binding.name.setText(R.string.share_link);
             }
 
-            themeAvatarUtils.colorIconImageViewWithBackground(binding.icon, context, themeColorUtils);
+            viewThemeUtils.platform.colorImageViewBackgroundAndIcon(binding.icon);
         }
 
         String permissionName = SharingMenuHelper.getPermissionName(context, publicShare);
@@ -98,6 +94,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
         if (!TextUtils.isEmpty(permissionName)) {
             binding.permissionName.setText(permissionName);
             binding.permissionName.setVisibility(View.VISIBLE);
+            viewThemeUtils.androidx.colorPrimaryTextViewElement(binding.permissionName);
         } else {
             binding.permissionName.setVisibility(View.GONE);
         }

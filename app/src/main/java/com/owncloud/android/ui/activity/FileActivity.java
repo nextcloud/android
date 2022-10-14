@@ -89,11 +89,12 @@ import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -103,6 +104,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -172,9 +174,6 @@ public abstract class FileActivity extends DrawerActivity
     @Inject
     BackgroundJobManager backgroundJobManager;
 
-    @Inject
-    ThemeSnackbarUtils themeSnackbarUtils;
-
     @Override
     public void showFiles(boolean onDeviceOnly) {
         // must be specialized in subclasses
@@ -205,9 +204,10 @@ public abstract class FileActivity extends DrawerActivity
             mFileOperationsHelper.setOpIdWaitingFor(
                 savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
                                                    );
-            themeToolbarUtils.setColoredTitle(getSupportActionBar(),
-                                              savedInstanceState.getString(KEY_ACTION_BAR_TITLE),
-                                              this);
+            final ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null && !(this instanceof PreviewImageActivity)) {
+                viewThemeUtils.files.themeActionBar(this, actionBar, savedInstanceState.getString(KEY_ACTION_BAR_TITLE));
+            }
         } else {
             User user = getIntent().getParcelableExtra(FileActivity.EXTRA_USER);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
@@ -700,12 +700,12 @@ public abstract class FileActivity extends DrawerActivity
     public static void copyAndShareFileLink(FileActivity activity,
                                             OCFile file,
                                             String link,
-                                            ThemeSnackbarUtils themeSnackbarUtils) {
+                                            final ViewThemeUtils viewThemeUtils) {
         ClipboardUtil.copyToClipboard(activity, link, false);
         Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), R.string.clipboard_text_copied,
                                           Snackbar.LENGTH_LONG)
             .setAction(R.string.share, v -> showShareLinkDialog(activity, file, link));
-        themeSnackbarUtils.colorSnackbar(activity, snackbar);
+        viewThemeUtils.material.themeSnackbar(snackbar);
         snackbar.show();
     }
 
@@ -774,7 +774,7 @@ public abstract class FileActivity extends DrawerActivity
                 snackbar = Snackbar.make(sharingFragment.getView(), result.getMessage(), Snackbar.LENGTH_LONG);
             }
 
-            themeSnackbarUtils.colorSnackbar(this, snackbar);
+            viewThemeUtils.material.themeSnackbar(snackbar);
             snackbar.show();
         }
     }
@@ -800,7 +800,7 @@ public abstract class FileActivity extends DrawerActivity
                 }
             }
 
-            copyAndShareFileLink(this, file, link, themeSnackbarUtils);
+            copyAndShareFileLink(this, file, link, viewThemeUtils);
 
             if (sharingFragment != null) {
                 sharingFragment.onUpdateShareInformation(result, file);
@@ -834,7 +834,7 @@ public abstract class FileActivity extends DrawerActivity
                                                                                            operation,
                                                                                            getResources()),
                                                   Snackbar.LENGTH_LONG);
-                themeSnackbarUtils.colorSnackbar(this, snackbar);
+                viewThemeUtils.material.themeSnackbar(snackbar);
                 snackbar.show();
             }
         }

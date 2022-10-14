@@ -31,11 +31,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
@@ -75,11 +75,7 @@ import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeTextUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
-import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,19 +88,21 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 /**
  * An Activity that allows the user to change the application's settings.
- *
+ * <p>
  * It proxies the necessary calls via {@link androidx.appcompat.app.AppCompatDelegate} to be used with AppCompat.
  */
-public class SettingsActivity extends ThemedPreferenceActivity
+public class SettingsActivity extends PreferenceActivity
     implements StorageMigration.StorageMigrationProgressListener, LoadingVersionNumberTask.VersionDevInterface,
     Injectable {
 
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
-    public static final String PREFERENCE_LOCK= "lock";
+    public static final String PREFERENCE_LOCK = "lock";
 
     public static final String LOCK_NONE = "none";
     public static final String LOCK_PASSCODE = "passcode";
@@ -140,20 +138,13 @@ public class SettingsActivity extends ThemedPreferenceActivity
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeToolbarUtils themeToolbarUtils;
-    @Inject ThemeUtils themeUtils;
-    @Inject ThemeTextUtils themeTextUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
+
 
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (themeUtils.themingEnabled(this)) {
-            setTheme(R.style.FallbackThemingTheme);
-        }
 
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
@@ -164,7 +155,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
-        int accentColor = themeColorUtils.primaryAccentColor(this);
         String appVersion = getAppVersion();
         PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("preference_screen");
 
@@ -174,31 +164,33 @@ public class SettingsActivity extends ThemedPreferenceActivity
         setupBaseUri();
 
         // General
-        setupGeneralCategory(accentColor);
+        setupGeneralCategory();
 
         // Synced folders
-        setupAutoUploadCategory(accentColor, preferenceScreen);
+        setupAutoUploadCategory(preferenceScreen);
 
         // Details
-        setupDetailsCategory(accentColor, preferenceScreen);
+        setupDetailsCategory(preferenceScreen);
 
         // More
-        setupMoreCategory(accentColor);
+        setupMoreCategory();
 
         // About
-        setupAboutCategory(accentColor, appVersion);
+        setupAboutCategory(appVersion);
 
         // Dev
-        setupDevCategory(accentColor, preferenceScreen);
+        setupDevCategory(preferenceScreen);
+
+        // workaround for mismatched color when app dark mode and system dark mode don't agree
+        setListBackground();
     }
 
-    private void setupDevCategory(int accentColor, PreferenceScreen preferenceScreen) {
+    private void setupDevCategory(PreferenceScreen preferenceScreen) {
         // Dev category
         PreferenceCategory preferenceCategoryDev = (PreferenceCategory) findPreference("dev_category");
 
         if (getResources().getBoolean(R.bool.is_beta)) {
-            preferenceCategoryDev.setTitle(themeTextUtils.getColoredTitle(getString(R.string.prefs_category_dev),
-                                                                          accentColor));
+            viewThemeUtils.files.themePreferenceCategory(preferenceCategoryDev);
 
             /* Link to dev apks */
             Preference pDevLink = findPreference("dev_link");
@@ -235,10 +227,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
-    private void setupAboutCategory(int accentColor, String appVersion) {
-        PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("about");
-        preferenceCategoryAbout.setTitle(themeTextUtils.getColoredTitle(getString(R.string.prefs_category_about),
-                                                                        accentColor));
+    private void setupAboutCategory(String appVersion) {
+        final PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("about");
+        viewThemeUtils.files.themePreferenceCategory(preferenceCategoryAbout);
 
         /* About App */
         Preference pAboutApp = findPreference("about_app");
@@ -288,7 +279,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                         } else {
                             intent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
                             intent.putExtra(ExternalSiteWebView.EXTRA_TITLE,
-                                    getResources().getString(R.string.privacy));
+                                            getResources().getString(R.string.privacy));
                             intent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl.toString());
                             intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
                             intent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
@@ -321,10 +312,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
-    private void setupMoreCategory(int accentColor) {
-        PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
-        preferenceCategoryMore.setTitle(themeTextUtils.getColoredTitle(getString(R.string.prefs_category_more),
-                                                                       accentColor));
+    private void setupMoreCategory() {
+        final PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
+        viewThemeUtils.files.themePreferenceCategory(preferenceCategoryMore);
 
         setupAutoUploadPreference(preferenceCategoryMore);
 
@@ -386,7 +376,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
     }
 
 
-
     private void setupRecommendPreference(PreferenceCategory preferenceCategoryMore) {
         boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
         Preference pRecommend = findPreference("recommend");
@@ -402,11 +391,11 @@ public class SettingsActivity extends ThemedPreferenceActivity
                     String downloadUrlGooglePlayStore = getString(R.string.url_app_download);
                     String downloadUrlFDroid = getString(R.string.fdroid_link);
                     String downloadUrls = String.format(getString(R.string.recommend_urls),
-                            downloadUrlGooglePlayStore, downloadUrlFDroid);
+                                                        downloadUrlGooglePlayStore, downloadUrlFDroid);
 
                     String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
                     String recommendText = String.format(getString(R.string.recommend_text),
-                            appName, downloadUrls);
+                                                         appName, downloadUrls);
 
                     intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
                     intent.putExtra(Intent.EXTRA_TEXT, recommendText);
@@ -501,9 +490,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
                     } catch (Throwable t) {
                         Log_OC.e(TAG, "Base Uri for account could not be resolved to call DAVdroid!", t);
                         DisplayUtils.showSnackMessage(
-                                activity,
-                                R.string.prefs_calendar_contacts_address_resolve_error
-                        );
+                            activity,
+                            R.string.prefs_calendar_contacts_address_resolve_error
+                                                     );
                     }
                     return true;
                 });
@@ -513,10 +502,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
-    private void setupDetailsCategory(int accentColor, PreferenceScreen preferenceScreen) {
+    private void setupDetailsCategory(PreferenceScreen preferenceScreen) {
         PreferenceCategory preferenceCategoryDetails = (PreferenceCategory) findPreference("details");
-        preferenceCategoryDetails.setTitle(themeTextUtils.getColoredTitle(getString(R.string.prefs_category_details),
-                                                                          accentColor));
+        viewThemeUtils.files.themePreferenceCategory(preferenceCategoryDetails);
 
         boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
         boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials_enabled);
@@ -609,11 +597,10 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
-    private void setupAutoUploadCategory(int accentColor, PreferenceScreen preferenceScreen) {
-        PreferenceCategory preferenceCategorySyncedFolders =
+    private void setupAutoUploadCategory(PreferenceScreen preferenceScreen) {
+        final PreferenceCategory preferenceCategorySyncedFolders =
             (PreferenceCategory) findPreference("synced_folders_category");
-        preferenceCategorySyncedFolders.setTitle(themeTextUtils.getColoredTitle(getString(R.string.drawer_synced_folders),
-                                                                                accentColor));
+        viewThemeUtils.files.themePreferenceCategory(preferenceCategorySyncedFolders);
 
         if (!getResources().getBoolean(R.bool.syncedFolder_light)) {
             preferenceScreen.removePreference(preferenceCategorySyncedFolders);
@@ -653,7 +640,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
             i.setAction(PassCodeActivity.ACTION_REQUEST_WITH_RESULT);
             startActivityForResult(i, ACTION_REQUEST_PASSCODE);
-        } else if (LOCK_DEVICE_CREDENTIALS.equals(lock)){
+        } else if (LOCK_DEVICE_CREDENTIALS.equals(lock)) {
             if (!DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
                 DisplayUtils.showSnackMessage(this, R.string.prefs_lock_device_credentials_not_setup);
             } else {
@@ -680,10 +667,9 @@ public class SettingsActivity extends ThemedPreferenceActivity
         }
     }
 
-    private void setupGeneralCategory(int accentColor) {
-        PreferenceCategory preferenceCategoryGeneral = (PreferenceCategory) findPreference("general");
-        preferenceCategoryGeneral.setTitle(themeTextUtils.getColoredTitle(getString(R.string.prefs_category_general),
-                                                                          accentColor));
+    private void setupGeneralCategory() {
+        final PreferenceCategory preferenceCategoryGeneral = (PreferenceCategory) findPreference("general");
+        viewThemeUtils.files.themePreferenceCategory(preferenceCategoryGeneral);
 
         prefStoragePath = (ListPreference) findPreference(AppPreferencesImpl.STORAGE_PATH);
         if (prefStoragePath != null) {
@@ -737,9 +723,14 @@ public class SettingsActivity extends ThemedPreferenceActivity
             DarkMode mode = DarkMode.valueOf((String) newValue);
             preferences.setDarkThemeMode(mode);
             MainApp.setAppTheme(mode);
+            setListBackground();
 
             return true;
         });
+    }
+
+    private void setListBackground() {
+        getListView().setBackgroundColor(ContextCompat.getColor(this, R.color.bg_default));
     }
 
     private String getAppVersion() {
@@ -764,12 +755,17 @@ public class SettingsActivity extends ThemedPreferenceActivity
         ActionBar actionBar = getDelegate().getSupportActionBar();
 
         if (actionBar != null) {
-            themeToolbarUtils.setColoredTitle(actionBar, getString(R.string.actionbar_settings), this);
-            themeToolbarUtils.colorStatusBar(this);
-            actionBar.setBackgroundDrawable(new ColorDrawable(themeColorUtils.primaryAppbarColor(this)));
-
+            viewThemeUtils.platform.themeStatusBar(this);
             actionBar.setDisplayHomeAsUpEnabled(true);
-            themeToolbarUtils.tintBackButton(actionBar, this);
+            actionBar.setDisplayShowTitleEnabled(true);
+            if (this.getResources() != null) {
+                viewThemeUtils.androidx.themeActionBar(this,
+                                                       actionBar,
+                                                       getString(R.string.actionbar_settings),
+                                                       ResourcesCompat.getDrawable(this.getResources(),
+                                                                                   R.drawable.ic_arrow_back,
+                                                                                   null));
+            }
         }
     }
 
@@ -798,7 +794,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             } else {
                 // no f-droid market app or Play store installed --> launch browser for f-droid url
                 Intent downloadIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://f-droid.org/repository/browse/?fdid=at.bitfire.davdroid"));
+                                                   Uri.parse("https://f-droid.org/repository/browse/?fdid=at.bitfire.davdroid"));
                 DisplayUtils.startIntentIfAppAvailable(downloadIntent, this, R.string.no_browser_available);
 
                 DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_no_store_error);
@@ -819,7 +815,6 @@ public class SettingsActivity extends ThemedPreferenceActivity
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -834,7 +829,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
             String passcode = data.getStringExtra(PassCodeActivity.KEY_PASSCODE);
             if (passcode != null && passcode.length() == 4) {
                 SharedPreferences.Editor appPrefs = PreferenceManager
-                        .getDefaultSharedPreferences(getApplicationContext()).edit();
+                    .getDefaultSharedPreferences(getApplicationContext()).edit();
 
                 for (int i = 1; i <= 4; ++i) {
                     appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i - 1, i));
@@ -887,8 +882,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                     .create();
 
                 alertDialog.show();
-                themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                                       alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
+                viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
             }
         }
     }

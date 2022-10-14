@@ -29,9 +29,8 @@ import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileActivity
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
 import com.owncloud.android.utils.theme.ThemeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
 class OCFileListBottomSheetDialogFragment(
@@ -43,13 +42,10 @@ class OCFileListBottomSheetDialogFragment(
 ) : DialogFragment(), Injectable {
 
     @Inject
-    lateinit var themeColorUtils: ThemeColorUtils
-
-    @Inject
     lateinit var themeUtils: ThemeUtils
 
     @Inject
-    lateinit var themeDrawableUtils: ThemeDrawableUtils
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return OCFileListBottomSheetDialog(
@@ -58,9 +54,8 @@ class OCFileListBottomSheetDialogFragment(
             deviceInfo,
             user,
             file,
-            themeColorUtils,
             themeUtils,
-            themeDrawableUtils
+            viewThemeUtils
         )
     }
 }

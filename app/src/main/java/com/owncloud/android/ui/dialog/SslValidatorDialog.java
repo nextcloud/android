@@ -26,9 +26,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.SslValidatorLayoutBinding;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.network.NetworkUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -55,7 +55,7 @@ public class SslValidatorDialog extends Dialog {
 
     private OnSslValidatorListener mListener;
     private CertificateCombinedException mException;
-    private View mView;
+    private SslValidatorLayoutBinding binding;
     
     
     /**
@@ -95,10 +95,10 @@ public class SslValidatorDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mView = getLayoutInflater().inflate(R.layout.ssl_validator_layout, null);
-        setContentView(mView); 
-        
-        mView.findViewById(R.id.ok).setOnClickListener( 
+        binding = SslValidatorLayoutBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        binding.ok.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -121,16 +121,16 @@ public class SslValidatorDialog extends Dialog {
                         }
                     }
                 });
-        
-        mView.findViewById(R.id.cancel).setOnClickListener(
+
+        binding.cancel.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         cancel();
                     }
                 });
-        
-        mView.findViewById(R.id.details_btn).setOnClickListener(
+
+        binding.detailsBtn.setOnClickListener(
                 new View.OnClickListener() {
                    @Override
                     public void onClick(View v) {
@@ -152,27 +152,27 @@ public class SslValidatorDialog extends Dialog {
             mException = (CertificateCombinedException) result.getException();
             
             /// clean
-            mView.findViewById(R.id.reason_cert_not_trusted).setVisibility(View.GONE);
-            mView.findViewById(R.id.reason_cert_expired).setVisibility(View.GONE);
-            mView.findViewById(R.id.reason_cert_not_yet_valid).setVisibility(View.GONE);
-            mView.findViewById(R.id.reason_hostname_not_verified).setVisibility(View.GONE);
-            mView.findViewById(R.id.details_scroll).setVisibility(View.GONE);
+            binding.reasonCertNotTrusted.setVisibility(View.GONE);
+            binding.reasonCertExpired.setVisibility(View.GONE);
+            binding.reasonCertNotYetValid.setVisibility(View.GONE);
+            binding.reasonHostnameNotVerified.setVisibility(View.GONE);
+            binding.detailsScroll.setVisibility(View.GONE);
 
             /// refresh
             if (mException.getCertPathValidatorException() != null) {
-                mView.findViewById(R.id.reason_cert_not_trusted).setVisibility(View.VISIBLE);
+                binding.reasonCertNotTrusted.setVisibility(View.VISIBLE);
             }
             
             if (mException.getCertificateExpiredException() != null) {
-                mView.findViewById(R.id.reason_cert_expired).setVisibility(View.VISIBLE);
+                binding.reasonCertExpired.setVisibility(View.VISIBLE);
             }
             
             if (mException.getCertificateNotYetValidException() != null) {
-                mView.findViewById(R.id.reason_cert_not_yet_valid).setVisibility(View.VISIBLE);
+                binding.reasonCertNotYetValid.setVisibility(View.VISIBLE);
             } 
 
             if (mException.getSslPeerUnverifiedException() != null ) {
-                mView.findViewById(R.id.reason_hostname_not_verified).setVisibility(View.VISIBLE);
+                binding.reasonHostnameNotVerified.setVisibility(View.VISIBLE);
             }
             
             showCertificateData(mException.getServerCertificate());
@@ -194,10 +194,8 @@ public class SslValidatorDialog extends Dialog {
     }
 
     private void showSignature(X509Certificate cert) {
-        TextView sigView = mView.findViewById(R.id.value_signature);
-        TextView algorithmView = mView.findViewById(R.id.value_signature_algorithm);
-        sigView.setText(getHex(cert.getSignature()));
-        algorithmView.setText(cert.getSigAlgName());
+        binding.valueSignature.setText(getHex(cert.getSignature()));
+        binding.valueSignatureAlgorithm.setText(cert.getSigAlgName());
     }
     
     public String getHex(final byte [] raw) {
@@ -216,106 +214,91 @@ public class SslValidatorDialog extends Dialog {
 
     @SuppressWarnings("deprecation")
     private void showValidity(Date notBefore, Date notAfter) {
-        TextView fromView = mView.findViewById(R.id.value_validity_from);
-        TextView toView = mView.findViewById(R.id.value_validity_to);
-        fromView.setText(notBefore.toLocaleString());
-        toView.setText(notAfter.toLocaleString());
+        binding.valueValidityFrom.setText(notBefore.toLocaleString());
+        binding.valueValidityTo.setText(notAfter.toLocaleString());
     }
 
     private void showSubject(X500Principal subject) {
         Map<String, String> s = parsePrincipal(subject);
-        TextView cnView = mView.findViewById(R.id.value_subject_CN);
-        TextView oView = mView.findViewById(R.id.value_subject_O);
-        TextView ouView = mView.findViewById(R.id.value_subject_OU);
-        TextView cView = mView.findViewById(R.id.value_subject_C);
-        TextView stView = mView.findViewById(R.id.value_subject_ST);
-        TextView lView = mView.findViewById(R.id.value_subject_L);
         
         if (s.get("CN") != null) {
-            cnView.setText(s.get("CN"));
-            cnView.setVisibility(View.VISIBLE);
+            binding.valueSubjectCN.setText(s.get("CN"));
+            binding.valueSubjectCN.setVisibility(View.VISIBLE);
         } else {
-            cnView.setVisibility(View.GONE);
+            binding.valueSubjectCN.setVisibility(View.GONE);
         }
         if (s.get("O") != null) {
-            oView.setText(s.get("O"));
-            oView.setVisibility(View.VISIBLE);
+            binding.valueSubjectO.setText(s.get("O"));
+            binding.valueSubjectO.setVisibility(View.VISIBLE);
         } else {
-            oView.setVisibility(View.GONE);
+            binding.valueSubjectO.setVisibility(View.GONE);
         }
         if (s.get("OU") != null) {
-            ouView.setText(s.get("OU"));
-            ouView.setVisibility(View.VISIBLE);
+            binding.valueSubjectOU.setText(s.get("OU"));
+            binding.valueSubjectOU.setVisibility(View.VISIBLE);
         } else {
-            ouView.setVisibility(View.GONE);
+            binding.valueSubjectOU.setVisibility(View.GONE);
         }
         if (s.get("C") != null) {
-            cView.setText(s.get("C"));
-            cView.setVisibility(View.VISIBLE);
+            binding.valueSubjectC.setText(s.get("C"));
+            binding.valueSubjectC.setVisibility(View.VISIBLE);
         } else {
-            cView.setVisibility(View.GONE);
+            binding.valueSubjectC.setVisibility(View.GONE);
         }
         if (s.get("ST") != null) {
-            stView.setText(s.get("ST"));
-            stView.setVisibility(View.VISIBLE);
+            binding.valueSubjectST.setText(s.get("ST"));
+            binding.valueSubjectST.setVisibility(View.VISIBLE);
         } else {
-            stView.setVisibility(View.GONE);
+            binding.valueSubjectST.setVisibility(View.GONE);
         }
         if (s.get("L") != null) {
-            lView.setText(s.get("L"));
-            lView.setVisibility(View.VISIBLE);
+            binding.valueSubjectL.setText(s.get("L"));
+            binding.valueSubjectL.setVisibility(View.VISIBLE);
         } else {
-            lView.setVisibility(View.GONE);
+            binding.valueSubjectL.setVisibility(View.GONE);
         }
     }
     
     private void showIssuer(X500Principal issuer) {
         Map<String, String> s = parsePrincipal(issuer);
-        TextView cnView = mView.findViewById(R.id.value_issuer_CN);
-        TextView oView = mView.findViewById(R.id.value_issuer_O);
-        TextView ouView = mView.findViewById(R.id.value_issuer_OU);
-        TextView cView = mView.findViewById(R.id.value_issuer_C);
-        TextView stView = mView.findViewById(R.id.value_issuer_ST);
-        TextView lView = mView.findViewById(R.id.value_issuer_L);
         
         if (s.get("CN") != null) {
-            cnView.setText(s.get("CN"));
-            cnView.setVisibility(View.VISIBLE);
+            binding.valueIssuerCN.setText(s.get("CN"));
+            binding.valueIssuerCN.setVisibility(View.VISIBLE);
         } else {
-            cnView.setVisibility(View.GONE);
+            binding.valueIssuerCN.setVisibility(View.GONE);
         }
         if (s.get("O") != null) {
-            oView.setText(s.get("O"));
-            oView.setVisibility(View.VISIBLE);
+            binding.valueIssuerO.setText(s.get("O"));
+            binding.valueIssuerO.setVisibility(View.VISIBLE);
         } else {
-            oView.setVisibility(View.GONE);
+            binding.valueIssuerO.setVisibility(View.GONE);
         }
         if (s.get("OU") != null) {
-            ouView.setText(s.get("OU"));
-            ouView.setVisibility(View.VISIBLE);
+            binding.valueIssuerOU.setText(s.get("OU"));
+            binding.valueIssuerOU.setVisibility(View.VISIBLE);
         } else {
-            ouView.setVisibility(View.GONE);
+            binding.valueIssuerOU.setVisibility(View.GONE);
         }
         if (s.get("C") != null) {
-            cView.setText(s.get("C"));
-            cView.setVisibility(View.VISIBLE);
+            binding.valueIssuerC.setText(s.get("C"));
+            binding.valueIssuerC.setVisibility(View.VISIBLE);
         } else {
-            cView.setVisibility(View.GONE);
+            binding.valueIssuerC.setVisibility(View.GONE);
         }
         if (s.get("ST") != null) {
-            stView.setText(s.get("ST"));
-            stView.setVisibility(View.VISIBLE);
+            binding.valueIssuerST.setText(s.get("ST"));
+            binding.valueIssuerST.setVisibility(View.VISIBLE);
         } else {
-            stView.setVisibility(View.GONE);
+            binding.valueIssuerST.setVisibility(View.GONE);
         }
         if (s.get("L") != null) {
-            lView.setText(s.get("L"));
-            lView.setVisibility(View.VISIBLE);
+            binding.valueIssuerL.setText(s.get("L"));
+            binding.valueIssuerL.setVisibility(View.VISIBLE);
         } else {
-            lView.setVisibility(View.GONE);
+            binding.valueIssuerL.setVisibility(View.GONE);
         }
     }
-    
 
     private Map<String, String> parsePrincipal(X500Principal principal) {
         Map<String, String> result = new HashMap<>();

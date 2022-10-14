@@ -18,7 +18,8 @@
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -38,14 +39,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/appbar"
             android:clickable="false"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/standard_padding"
+            android:paddingLeft="@dimen/drawer_content_horizontal_padding"
             android:paddingTop="@dimen/standard_half_padding"
-            android:paddingRight="@dimen/standard_padding"
-            android:paddingBottom="@dimen/standard_half_padding"
-            android:visibility="gone">
+            android:paddingRight="@dimen/drawer_content_horizontal_padding"
+            android:paddingBottom="@dimen/standard_padding"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <TextView
                 android:id="@+id/drawer_quota_link"
@@ -53,15 +54,16 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/alternate_half_padding" />
 
-            <ProgressBar
+            <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/drawer_quota_ProgressBar"
-                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:indeterminate="false"
                 android:indeterminateOnly="false"
-                android:scaleY="1.4"
-                android:text="@string/drawer_quota" />
+                android:text="@string/drawer_quota"
+                app:trackCornerRadius="5dp"
+                app:trackThickness="5dp"
+                tools:progress="50" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/drawer_quota_percentage"

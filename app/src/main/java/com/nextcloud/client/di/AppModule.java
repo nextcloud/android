@@ -64,13 +64,14 @@ import com.owncloud.android.ui.activities.data.activities.RemoteActivitiesReposi
 import com.owncloud.android.ui.activities.data.files.FilesRepository;
 import com.owncloud.android.ui.activities.data.files.FilesServiceApiImpl;
 import com.owncloud.android.ui.activities.data.files.RemoteFilesRepository;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 
 import javax.inject.Named;
+import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -229,11 +230,11 @@ class AppModule {
     @Singleton
     AppNotificationManager notificationsManager(Context context,
                                                 NotificationManager platformNotificationsManager,
-                                                ThemeColorUtils themeColorUtils) {
+                                                Provider<ViewThemeUtils> viewThemeUtilsProvider) {
         return new AppNotificationManagerImpl(context,
                                               context.getResources(),
                                               platformNotificationsManager,
-                                              themeColorUtils);
+                                              viewThemeUtilsProvider.get());
     }
 
     @Provides

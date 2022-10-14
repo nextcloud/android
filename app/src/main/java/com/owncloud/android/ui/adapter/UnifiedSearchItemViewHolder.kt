@@ -23,8 +23,6 @@ package com.owncloud.android.ui.adapter
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
@@ -42,8 +40,7 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList")
 class UnifiedSearchItemViewHolder(
@@ -53,8 +50,7 @@ class UnifiedSearchItemViewHolder(
     private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
     val context: Context,
-    private val themeColorUtils: ThemeColorUtils,
-    private val themeDrawableUtils: ThemeDrawableUtils
+    private val viewThemeUtils: ViewThemeUtils
 ) :
     SectionedViewHolder(binding.root) {
 
@@ -101,12 +97,10 @@ class UnifiedSearchItemViewHolder(
                 startsWith("icon-deck") ->
                     ResourcesCompat.getDrawable(context.resources, R.drawable.ic_deck, null)
                 else ->
-                    MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context, themeColorUtils, themeDrawableUtils)
+                    MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context, viewThemeUtils)
             }
         }
-        val color = themeColorUtils.primaryColor(context)
-        drawable!!.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
-        return drawable
+        return viewThemeUtils.platform.tintPrimaryDrawable(context, drawable)!!
     }
 
     private inner class RoundIfNeededListener(private val entry: SearchResultEntry) :

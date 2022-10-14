@@ -26,7 +26,6 @@ import android.content.Context
 import android.content.res.Resources
 import android.database.Cursor
 import android.graphics.BitmapFactory
-import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.provider.ContactsContract
 import android.view.LayoutInflater
@@ -51,7 +50,7 @@ import com.owncloud.android.ui.TextDrawable
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment.getDisplayName
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import ezvcard.VCard
 import ezvcard.property.Photo
 import third_parties.sufficientlysecure.AndroidCalendar
@@ -64,7 +63,7 @@ class BackupListAdapter(
     private val checkedCalendars: HashMap<String, Int> = HashMap(),
     val backupListFragment: BackupListFragment,
     val context: Context,
-    private val themeColorUtils: ThemeColorUtils
+    private val viewThemeUtils: ViewThemeUtils
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     private val calendarFiles = arrayListOf<OCFile>()
     private val contacts = arrayListOf<VCard>()
@@ -160,7 +159,7 @@ class BackupListAdapter(
     override fun onBindHeaderViewHolder(holder: SectionedViewHolder?, section: Int, expanded: Boolean) {
         val headerViewHolder = holder as BackupListHeaderViewHolder
 
-        headerViewHolder.binding.name.setTextColor(themeColorUtils.primaryColor(context))
+        viewThemeUtils.platform.colorPrimaryTextViewElement(headerViewHolder.binding.name)
 
         if (section == SECTION_CALENDAR) {
             headerViewHolder.binding.name.text = context.resources.getString(R.string.calendars)
@@ -207,6 +206,7 @@ class BackupListAdapter(
         setChecked(checkedVCards.contains(position), holder.binding.name)
 
         holder.binding.name.text = getDisplayName(vCard)
+        viewThemeUtils.platform.themeCheckedTextView(holder.binding.name)
 
         // photo
         if (vCard.photos.size > 0) {
@@ -229,24 +229,13 @@ class BackupListAdapter(
 
     private fun setChecked(checked: Boolean, checkedTextView: CheckedTextView) {
         checkedTextView.isChecked = checked
-        if (checked) {
-            checkedTextView.checkMarkDrawable
-                .setColorFilter(themeColorUtils.primaryColor(context), PorterDuff.Mode.SRC_ATOP)
-        } else {
-            checkedTextView.checkMarkDrawable.clearColorFilter()
-        }
     }
 
     private fun toggleVCard(holder: ContactItemViewHolder, position: Int) {
         holder.binding.name.isChecked = !holder.binding.name.isChecked
         if (holder.binding.name.isChecked) {
-            holder.binding.name.checkMarkDrawable.setColorFilter(
-                themeColorUtils.primaryColor(context),
-                PorterDuff.Mode.SRC_ATOP
-            )
             checkedVCards.add(position)
         } else {
-            holder.binding.name.checkMarkDrawable.clearColorFilter()
             checkedVCards.remove(position)
         }
 
@@ -295,6 +284,7 @@ class BackupListAdapter(
         val calendarName = name.substring(0, name.indexOf("_"))
         val date = name.substring(name.lastIndexOf("_") + 1).replace(".ics", "").replace("-", ":")
         holder.binding.name.text = context.resources.getString(R.string.calendar_name_linewrap, calendarName, date)
+        viewThemeUtils.platform.themeCheckedTextView(holder.binding.name)
         holder.setCalendars(ArrayList(AndroidCalendar.loadAll(context.contentResolver)))
         holder.binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, calendarPosition: Int, id: Long) {
@@ -313,14 +303,9 @@ class BackupListAdapter(
         val checkedTextView = holder.binding.name
         checkedTextView.isChecked = !checkedTextView.isChecked
         if (checkedTextView.isChecked) {
-            checkedTextView.checkMarkDrawable.setColorFilter(
-                themeColorUtils.primaryColor(context),
-                PorterDuff.Mode.SRC_ATOP
-            )
             holder.showCalendars(true)
             checkedCalendars[calendarFiles[position].storagePath] = 0
         } else {
-            checkedTextView.checkMarkDrawable.clearColorFilter()
             checkedCalendars.remove(calendarFiles[position].storagePath)
             holder.showCalendars(false)
         }

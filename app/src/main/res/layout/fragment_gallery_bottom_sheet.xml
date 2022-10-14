@@ -127,6 +127,7 @@
         android:paddingBottom="@dimen/standard_half_padding">
 
         <ImageView
+            android:id="@+id/selectMediaFolderImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@null"

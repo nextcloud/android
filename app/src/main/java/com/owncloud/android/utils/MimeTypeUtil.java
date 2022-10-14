@@ -23,13 +23,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
-import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,7 +38,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 /**
@@ -95,32 +92,13 @@ public final class MimeTypeUtil {
     public static Drawable getFileTypeIcon(String mimetype,
                                            String filename,
                                            Context context,
-                                           ThemeColorUtils themeColorUtils,
-                                           ThemeDrawableUtils themeDrawableUtils) {
-        return getFileTypeIcon(mimetype, filename, null, context, themeColorUtils, themeDrawableUtils);
-    }
-
-    /**
-     * Returns the Drawable of an image to use as icon associated to a known MIME type.
-     *
-     * @param mimetype MIME type string; if NULL, the method tries to guess it from the extension in filename
-     * @param filename Name, with extension.
-     * @param user     user which color should be used
-     * @return Drawable of an image resource.
-     */
-    @Nullable
-    public static Drawable getFileTypeIcon(String mimetype,
-                                           String filename,
-                                           @Nullable User user,
-                                           Context context,
-                                           ThemeColorUtils themeColorUtils,
-                                           ThemeDrawableUtils themeDrawableUtils) {
+                                           ViewThemeUtils viewThemeUtils) {
         if (context != null) {
             int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
             Drawable icon = ContextCompat.getDrawable(context, iconId);
 
             if (R.drawable.file_zip == iconId) {
-                themeDrawableUtils.tintDrawable(icon, themeColorUtils.primaryColor(user, true, context));
+                viewThemeUtils.platform.tintPrimaryDrawable(context, icon);
             }
 
             return icon;
@@ -151,46 +129,17 @@ public final class MimeTypeUtil {
      * Returns the resource identifier of an image to use as icon associated to a type of folder.
      *
      * @param isSharedViaUsers flag if the folder is shared via the users system
-     * @param isSharedViaLink  flag if the folder is publicly shared via link
-     * @return Identifier of an image resource.
-     */
-    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
-                                             boolean isSharedViaLink,
-                                             boolean isEncrypted,
-                                             boolean isGroupfolder,
-                                             WebdavEntry.MountType mountType,
-                                             Context context,
-                                             ThemeColorUtils themeColorUtils,
-                                             ThemeDrawableUtils themeDrawableUtils) {
-        return getFolderTypeIcon(isSharedViaUsers,
-                                 isSharedViaLink,
-                                 isEncrypted,
-                                 isGroupfolder,
-                                 null,
-                                 mountType,
-                                 context,
-                                 themeColorUtils,
-                                 themeDrawableUtils);
-    }
-
-    /**
-     * Returns the resource identifier of an image to use as icon associated to a type of folder.
-     *
-     * @param isSharedViaUsers flag if the folder is shared via the users system
      * @param isSharedViaLink flag if the folder is publicly shared via link
      * @param isEncrypted flag if the folder is encrypted
-     * @param user user which color should be used
      * @return Identifier of an image resource.
      */
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
                                              boolean isSharedViaLink,
                                              boolean isEncrypted,
                                              boolean isGroupFolder,
-                                             @Nullable User user,
                                              WebdavEntry.MountType mountType,
                                              Context context,
-                                             ThemeColorUtils themeColorUtils,
-                                             ThemeDrawableUtils themeDrawableUtils) {
+                                             ViewThemeUtils viewThemeUtils) {
         int drawableId;
 
         if (isSharedViaLink) {
@@ -207,25 +156,21 @@ public final class MimeTypeUtil {
             drawableId = R.drawable.folder;
         }
 
-        int color = themeColorUtils.primaryColor(user != null ? user.toPlatformAccount() : null,
-                                                 true,
-                                                 context);
-        return themeDrawableUtils.tintDrawable(drawableId, color);
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        viewThemeUtils.platform.tintPrimaryDrawable(context, drawable);
+        return drawable;
     }
 
     public static Drawable getDefaultFolderIcon(Context context,
-                                                ThemeColorUtils themeColorUtils,
-                                                ThemeDrawableUtils themeDrawableUtils) {
+                                                ViewThemeUtils viewThemeUtils) {
         return getFolderTypeIcon(false,
                                  false,
                                  false,
                                  false,
                                  WebdavEntry.MountType.INTERNAL,
                                  context,
-                                 themeColorUtils,
-                                 themeDrawableUtils);
+                                 viewThemeUtils);
     }
-
 
     /**
      * Returns a single MIME type of all the possible, by inspection of the file extension, and taking

@@ -35,6 +35,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -42,8 +43,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.MultipleAccountsBinding;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.adapter.UserListItem;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,15 +51,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class MultipleAccountsDialog extends DialogFragment implements Injectable, UserListAdapter.ClickListener {
 
     @Inject UserAccountManager accountManager;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeDrawableUtils themeDrawableUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
     public boolean highlightCurrentlyActiveAccount = true;
 
     @NonNull
@@ -75,7 +73,7 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
         MultipleAccountsBinding binding = MultipleAccountsBinding.inflate(inflater, null, false);
 
         final Context parent = getActivity();
-        AlertDialog.Builder builder = new AlertDialog.Builder(parent);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(binding.getRoot().getContext());
 
         UserListAdapter adapter = new UserListAdapter(parent,
                                                       accountManager,
@@ -84,14 +82,16 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
                                                       false,
                                                       highlightCurrentlyActiveAccount,
                                                       false,
-                                                      themeColorUtils,
-                                                      themeDrawableUtils);
+                                                      viewThemeUtils);
 
         binding.list.setHasFixedSize(true);
         binding.list.setLayoutManager(new LinearLayoutManager(activity));
         binding.list.setAdapter(adapter);
 
         builder.setView(binding.getRoot()).setTitle(R.string.common_choose_account);
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.getRoot().getContext(), builder);
+
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();

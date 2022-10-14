@@ -37,6 +37,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
@@ -44,12 +45,9 @@ import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeLayoutUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -58,8 +56,6 @@ import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean, boolean)}.
@@ -71,7 +67,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     private AppBarLayout mAppBar;
     private RelativeLayout mDefaultToolbar;
-    private Toolbar mToolbar;
+    private MaterialToolbar mToolbar;
     private MaterialCardView mHomeSearchToolbar;
     private ImageView mPreviewImage;
     private FrameLayout mPreviewImageContainer;
@@ -81,22 +77,16 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     private boolean isHomeSearchToolbarShow = false;
 
     @Inject public ThemeColorUtils themeColorUtils;
-    @Inject public ThemeLayoutUtils themeLayoutUtils;
-    @Inject public ThemeToolbarUtils themeToolbarUtils;
     @Inject public ThemeUtils themeUtils;
-    @Inject public ThemeDrawableUtils themeDrawableUtils;
-    @Inject public ThemeButtonUtils themeButtonUtils;
+    @Inject public ViewThemeUtils viewThemeUtils;
 
     /**
      * Toolbar setup that must be called in implementer's {@link #onCreate} after {@link #setContentView} if they want
      * to use the toolbar.
      */
     private void setupToolbar(boolean isHomeSearchToolbarShow, boolean showSortListButtonGroup) {
-        int fontColor = themeColorUtils.appBarPrimaryFontColor(this);
-
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        themeToolbarUtils.colorStatusBar(this);
 
         mAppBar = findViewById(R.id.appbar);
         mDefaultToolbar = findViewById(R.id.default_toolbar);
@@ -120,13 +110,10 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
         mToolbarSpinner = findViewById(R.id.toolbar_spinner);
 
-        if (mToolbar.getOverflowIcon() != null) {
-            themeDrawableUtils.tintDrawable(mToolbar.getOverflowIcon(), fontColor);
-        }
-
-        if (mToolbar.getNavigationIcon() != null) {
-            themeDrawableUtils.tintDrawable(mToolbar.getNavigationIcon(), fontColor);
-        }
+        viewThemeUtils.material.themeToolbar(mToolbar);
+        viewThemeUtils.material.colorToolbarOverflowIcon(mToolbar);
+        viewThemeUtils.platform.themeStatusBar(this);
+        viewThemeUtils.material.colorMaterialTextButton(mSwitchAccountButton);
     }
 
     public void setupToolbar() {
@@ -171,18 +158,21 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     @SuppressLint("PrivateResource")
     private void showHomeSearchToolbar(boolean isShow) {
+        viewThemeUtils.material.themeToolbar(mToolbar);
         if (isShow) {
+            viewThemeUtils.platform.resetStatusBar(this);
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                 R.animator.appbar_elevation_off));
             mDefaultToolbar.setVisibility(View.GONE);
             mHomeSearchToolbar.setVisibility(View.VISIBLE);
-            themeToolbarUtils.colorStatusBar(this, ContextCompat.getColor(this, R.color.bg_default));
+            viewThemeUtils.material.themeCardView(mHomeSearchToolbar);
+            viewThemeUtils.material.themeSearchBarText(mSearchText);
         } else {
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
                                                                                 R.animator.appbar_elevation_on));
+            viewThemeUtils.platform.themeStatusBar(this);
             mDefaultToolbar.setVisibility(View.VISIBLE);
             mHomeSearchToolbar.setVisibility(View.GONE);
-            themeToolbarUtils.colorStatusBar(this);
         }
     }
 
@@ -198,10 +188,10 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
         // set & color the chosen title
         ActionBar actionBar = getSupportActionBar();
-        themeToolbarUtils.setColoredTitle(actionBar, titleToSet, this);
 
         // set home button properties
         if (actionBar != null) {
+            actionBar.setTitle(titleToSet);
             actionBar.setDisplayShowTitleEnabled(true);
         }
     }
@@ -209,10 +199,12 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     /**
      * checks if the given file is the root folder.
      *
+     *
      * @param file file to be checked if it is the root folder
      * @return <code>true</code> if it is <code>null</code> or the root folder, else returns <code>false</code>
      */
     public boolean isRoot(OCFile file) {
+
         return file == null || (file.isFolder() && file.getParentId() == FileDataStorageManager.ROOT_PARENT_ID);
     }
 
@@ -291,7 +283,10 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     public void updateToolbarSubtitle(@NonNull String subtitle) {
         ActionBar actionBar = getSupportActionBar();
-        themeToolbarUtils.setColoredSubtitle(actionBar, subtitle, this);
+        if (actionBar != null) {
+            actionBar.setSubtitle(subtitle);
+            viewThemeUtils.androidx.themeActionBarSubtitle(this, actionBar);
+        }
     }
 
     public void clearToolbarSubtitle() {

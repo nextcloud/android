@@ -61,11 +61,7 @@ import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeAvatarUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,11 +97,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeToolbarUtils themeToolbarUtils;
-    @Inject ThemeSnackbarUtils themeSnackbarUtils;
-    @Inject ThemeDrawableUtils themeDrawableUtils;
-    @Inject ThemeAvatarUtils themeAvatarUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     public static FileDetailSharingFragment newInstance(OCFile file, User user) {
         FileDetailSharingFragment fragment = new FileDetailSharingFragment();
@@ -171,8 +163,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                             this,
                                                             userId,
                                                             user,
-                                                            themeColorUtils,
-                                                            themeAvatarUtils));
+                                                            viewThemeUtils));
         binding.sharesList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         setupView();
@@ -206,7 +197,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
             binding.searchView,
             fileActivity.getComponentName());
-        themeToolbarUtils.themeSearchView(binding.searchView, requireContext());
+        viewThemeUtils.androidx.themeToolbarSearchView(binding.searchView);
 
         if (file.canReshare()) {
             binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
@@ -289,7 +280,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private void showSendLinkTo(OCShare publicShare) {
         if (file.isSharedViaLink()) {
             if (TextUtils.isEmpty(publicShare.getShareLink())) {
-                fileOperationsHelper.getFileWithLink(file, themeSnackbarUtils);
+                fileOperationsHelper.getFileWithLink(file, viewThemeUtils);
             } else {
                 FileDisplayActivity.showShareLinkDialog(fileActivity, file, publicShare.getShareLink());
             }
@@ -299,7 +290,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     public void copyLink(OCShare share) {
         if (file.isSharedViaLink()) {
             if (TextUtils.isEmpty(share.getShareLink())) {
-                fileOperationsHelper.getFileWithLink(file, themeSnackbarUtils);
+                fileOperationsHelper.getFileWithLink(file, viewThemeUtils);
             } else {
                 ClipboardUtil.copyToClipboard(getActivity(), share.getShareLink());
             }
@@ -314,7 +305,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Override
     @VisibleForTesting
     public void showSharingMenuActionSheet(OCShare share) {
-        new FileDetailSharingMenuBottomSheetDialog(fileActivity, this, share).show();
+        new FileDetailSharingMenuBottomSheetDialog(fileActivity, this, share, viewThemeUtils).show();
     }
 
     /**
@@ -324,7 +315,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      */
     @Override
     public void showPermissionsDialog(OCShare share) {
-        new QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share).show();
+        new QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share, viewThemeUtils).show();
     }
 
     /**
@@ -395,8 +386,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                            shareWith,
                                            fileActivity,
                                            clientFactory,
-                                           themeColorUtils,
-                                           themeDrawableUtils).execute();
+                                           viewThemeUtils).execute();
         }
     }
 

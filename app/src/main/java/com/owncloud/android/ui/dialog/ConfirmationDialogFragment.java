@@ -20,10 +20,10 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -44,8 +44,8 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
 
     public static final String FTAG_CONFIRMATION = "CONFIRMATION_FRAGMENT";
 
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
+
 
     private ConfirmationDialogFragmentListener mListener;
 
@@ -84,10 +84,11 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                               alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE),
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        if(alertDialog != null) {
+            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE),
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        }
     }
 
     public void setOnConfirmationListener(ConfirmationDialogFragmentListener listener) {
@@ -120,7 +121,7 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
             messageArguments = new String[]{};
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.Theme_ownCloud_Dialog)
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activity)
             .setIcon(R.drawable.ic_warning)
             .setIconAttribute(android.R.attr.alertDialogIcon)
             .setMessage(String.format(getString(messageId), messageArguments));
@@ -155,6 +156,9 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
                 dialog.dismiss();
             });
         }
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(activity, builder);
+
         return builder.create();
     }
 

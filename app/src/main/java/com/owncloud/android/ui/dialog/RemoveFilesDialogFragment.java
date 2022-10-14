@@ -28,12 +28,9 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -48,8 +45,6 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
 
     private static final int SINGLE_SELECTION = 1;
     private static final String ARG_TARGET_FILES = "TARGET_FILES";
-
-    @Inject ThemeColorUtils themeColorUtils;
 
     private Collection<OCFile> mTargetFiles;
     private ActionMode actionMode;
@@ -133,13 +128,13 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
     public void onStart() {
         super.onStart();
 
-        int color = themeColorUtils.primaryAccentColor(getActivity());
-
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
-        alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
+        if (alertDialog != null) {
+            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE),
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        }
     }
 
     @NonNull

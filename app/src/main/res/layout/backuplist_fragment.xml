@@ -54,6 +54,9 @@
             style="@style/Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:minHeight="@dimen/minimum_size_for_touchable_area"
             android:text="@string/restore_selected" />
 
     </LinearLayout>
