@@ -55,9 +55,7 @@ class GalleryFragmentIT : AbstractIT() {
         createImage(1, true, 700, 300)
         createImage(2, true, 500, 300)
 
-
         createImage(7, true, 300, 400)
-
     }
 
     @After

@@ -45,8 +45,8 @@ import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.theme.ViewThemeUtils
 import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListDelegate(
@@ -117,8 +117,7 @@ class OCFileListDelegate(
             asyncGalleryTasks,
             context,
             shimmer,
-            themeColorUtils,
-            themeDrawableUtils,
+            viewThemeUtils,
             galleryRowHolder,
             width
         )
@@ -135,8 +134,7 @@ class OCFileListDelegate(
         asyncTasks: MutableList<GalleryImageGenerationTask>,
         context: Context,
         shimmerThumbnail: LoaderImageView?,
-        themeColorUtils: ThemeColorUtils?,
-        themeDrawableUtils: ThemeDrawableUtils?,
+        viewThemeUtils: ViewThemeUtils,
         galleryRowHolder: GalleryRowHolder,
         width: Int
     ) {
@@ -159,10 +157,8 @@ class OCFileListDelegate(
                 var drawable = MimeTypeUtil.getFileTypeIcon(
                     file.mimeType,
                     file.fileName,
-                    user,
                     context,
-                    themeColorUtils,
-                    themeDrawableUtils
+                    viewThemeUtils
                 )
                 if (drawable == null) {
                     drawable = ResourcesCompat.getDrawable(
