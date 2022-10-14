@@ -266,7 +266,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
         startDate = endDate - (daySpan * 24 * 60 * 60);
 
-        // runGallerySearchTask();
+        runGallerySearchTask();
     }
 
     @Override

@@ -76,7 +76,6 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.adapter.GalleryRowHolder;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -836,95 +835,6 @@ public final class DisplayUtils {
         return df.format(timestamp);
     }
 
-    public static void setGalleryImage(OCFile file,
-                                       ImageView thumbnailView,
-                                       User user,
-                                       FileDataStorageManager storageManager,
-                                       List<ThumbnailsCacheManager.GalleryImageGenerationTask> asyncTasks,
-                                       boolean gridView,
-                                       Context context,
-                                       LoaderImageView shimmerThumbnail,
-                                       AppPreferences preferences,
-                                       ThemeColorUtils themeColorUtils,
-                                       ThemeDrawableUtils themeDrawableUtils,
-                                       GalleryRowHolder galleryRowHolder,
-                                       Integer width) {
-
-        // cancel previous generation, if view is re-used
-        if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
-            for (ThumbnailsCacheManager.GalleryImageGenerationTask task : asyncTasks) {
-                if (file.getRemoteId() != null && task.getImageKey() != null &&
-                    file.getRemoteId().equals(task.getImageKey())) {
-                    return;
-                }
-            }
-            try {
-                final ThumbnailsCacheManager.GalleryImageGenerationTask task =
-                    new ThumbnailsCacheManager.GalleryImageGenerationTask(
-                        thumbnailView,
-                        user,
-                        storageManager,
-                        asyncTasks,
-                        file.getRemoteId(),
-                        context.getResources().getColor(R.color.bg_default));
-                Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
-                                                                 file.getFileName(),
-                                                                 user,
-                                                                 context,
-                                                                 themeColorUtils,
-                                                                 themeDrawableUtils);
-                if (drawable == null) {
-                    drawable = ResourcesCompat.getDrawable(context.getResources(),
-                                                           R.drawable.file_image,
-                                                           null);
-                }
-
-                if (drawable == null) {
-                    drawable = new ColorDrawable(Color.GRAY);
-                }
-
-                Bitmap thumbnail = BitmapUtils.drawableToBitmap(drawable, width / 2, width / 2);
-
-                final ThumbnailsCacheManager.AsyncGalleryImageDrawable asyncDrawable =
-                    new ThumbnailsCacheManager.AsyncGalleryImageDrawable(context.getResources(),
-                                                                         thumbnail,
-                                                                         task);
-
-                if (shimmerThumbnail != null) {
-                    Log_OC.d("Shimmer", "start Shimmer");
-                    startShimmer(shimmerThumbnail, thumbnailView);
-                }
-
-                task.setListener(new ThumbnailsCacheManager.GalleryImageGenerationTask.GalleryListener() {
-                    @Override
-                    public void onSuccess() {
-                        galleryRowHolder.getBinding().rowLayout.invalidate();
-                        Log_OC.d("Shimmer", "stop Shimmer");
-                        stopShimmer(shimmerThumbnail, thumbnailView);
-                    }
-
-                    @Override
-                    public void onNewGalleryImage() {
-                        galleryRowHolder.redraw();
-                    }
-
-                    @Override
-                    public void onError() {
-                        Log_OC.d("Shimmer", "stop Shimmer");
-                        stopShimmer(shimmerThumbnail, thumbnailView);
-                    }
-                });
-
-                thumbnailView.setImageDrawable(asyncDrawable);
-                asyncTasks.add(task);
-                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                                       file);
-            } catch (IllegalArgumentException e) {
-                Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
-            }
-        }
-    }
-
     public static void setThumbnail(OCFile file,
                                     ImageView thumbnailView,
                                     User user,
@@ -1046,14 +956,14 @@ public final class DisplayUtils {
         }
     }
 
-    private static void startShimmer(LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
+    public static void startShimmer(LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
         thumbnailShimmer.setImageResource(R.drawable.background);
         thumbnailShimmer.resetLoader();
         thumbnailView.setVisibility(View.GONE);
         thumbnailShimmer.setVisibility(View.VISIBLE);
     }
 
-    private static void stopShimmer(@Nullable LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
+    public static void stopShimmer(@Nullable LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
         if (thumbnailShimmer != null) {
             thumbnailShimmer.setVisibility(View.GONE);
         }
