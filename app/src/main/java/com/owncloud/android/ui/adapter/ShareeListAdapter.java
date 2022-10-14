@@ -60,20 +60,18 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private float avatarRadiusDimension;
     private String userId;
     private User user;
-    private boolean isFileWithNoTextFile;
+    private boolean isTextFile;
 
     public ShareeListAdapter(FileActivity fileActivity,
                              List<OCShare> shares,
                              ShareeListAdapterListener listener,
                              String userId,
-                             User user,
-                             boolean isFileWithNoTextFile) {
+                             User user) {
         this.fileActivity = fileActivity;
         this.shares = shares;
         this.listener = listener;
         this.userId = userId;
         this.user = user;
-        this.isFileWithNoTextFile = isFileWithNoTextFile;
 
         avatarRadiusDimension = fileActivity.getResources().getDimension(R.dimen.user_icon_radius);
 
@@ -95,7 +93,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     FileDetailsShareLinkShareItemBinding.inflate(LayoutInflater.from(fileActivity),
                                                                  parent,
                                                                  false),
-                    fileActivity, isFileWithNoTextFile);
+                    fileActivity, isTextFile);
             case NEW_PUBLIC_LINK:
                 return new NewLinkShareViewHolder(
                     FileDetailsSharePublicLinkAddNewItemBinding.inflate(LayoutInflater.from(fileActivity),
@@ -170,6 +168,10 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return String.valueOf(iv.getTag()).equals(tag.split("@")[0]);
         }
         return false;
+    }
+
+    public void setTextFile(boolean textFile) {
+        isTextFile = textFile;
     }
 
     public void remove(OCShare share) {

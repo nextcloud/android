@@ -26,14 +26,11 @@ package com.owncloud.android.ui.fragment
 import android.view.View
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.accessibility.AccessibilityChecks
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isChecked
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultBaseUtils.matchesCheckNames
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils.matchesViews
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -44,23 +41,15 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSION_FLAG
-import com.owncloud.android.lib.resources.shares.OCShare.DELETE_PERMISSION_FLAG
-import com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
-import com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
-import com.owncloud.android.lib.resources.shares.OCShare.NO_PERMISSION
 import com.owncloud.android.lib.resources.shares.OCShare.READ_PERMISSION_FLAG
 import com.owncloud.android.lib.resources.shares.OCShare.SHARE_PERMISSION_FLAG
 import com.owncloud.android.lib.resources.shares.ShareType
-import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.utils.ScreenshotTest
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.anyOf
 import org.hamcrest.CoreMatchers.not
-import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -1593,7 +1582,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         //add the note edit fragment
         val noteFragment = FileDetailsSharingProcessFragment.newInstance(userShare,
             FileDetailsSharingProcessFragment.SCREEN_TYPE_NOTE, isReshareShown = true, isExpirationDateShown = true,
-            isFileWithNoTextFile = SharingMenuHelper.isFileWithNoTextFile(file))
+            isTextFile = SharingMenuHelper.canEditFile(file))
         activity.addFragment(noteFragment)
         shortSleep()
 
@@ -1605,7 +1594,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         //add the note edit fragment
         val noteFragment = FileDetailsSharingProcessFragment.newInstance(userShare,
             FileDetailsSharingProcessFragment.SCREEN_TYPE_PERMISSION, isReshareShown = true, isExpirationDateShown = true,
-            isFileWithNoTextFile = SharingMenuHelper.isFileWithNoTextFile(file))
+            isTextFile = SharingMenuHelper.canEditFile(file))
         activity.addFragment(noteFragment)
         shortSleep()
     }

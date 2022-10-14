@@ -30,8 +30,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
-import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.RadioGroup.OnCheckedChangeListener
 import androidx.fragment.app.Fragment
@@ -49,7 +47,6 @@ import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ThemeButtonUtils
-import com.owncloud.android.utils.theme.ThemeCheckableUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -73,7 +70,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         private const val ARG_SCREEN_TYPE = "arg_screen_type"
         private const val ARG_RESHARE_SHOWN = "arg_reshare_shown"
         private const val ARG_EXP_DATE_SHOWN = "arg_exp_date_shown"
-        private const val ARG_NO_TEXT_FILE = "is_file_with_no_text_file"
+        private const val ARG_IS_TEXT_FILE = "is_text_file"
 
         //types of screens to be displayed
         const val SCREEN_TYPE_PERMISSION = 1 // permissions screen
@@ -83,13 +80,13 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
          * fragment instance to be called while creating new share for internal and external share
          */
         @JvmStatic
-        fun newInstance(file: OCFile, shareeName: String, shareType: ShareType, isFileWithNoTextFile: Boolean):
+        fun newInstance(file: OCFile, shareeName: String, shareType: ShareType, isTextFile: Boolean):
             FileDetailsSharingProcessFragment {
             val args = Bundle()
             args.putParcelable(ARG_OCFILE, file)
             args.putSerializable(ARG_SHARE_TYPE, shareType)
             args.putString(ARG_SHAREE_NAME, shareeName)
-            args.putBoolean(ARG_NO_TEXT_FILE, isFileWithNoTextFile)
+            args.putBoolean(ARG_IS_TEXT_FILE, isTextFile)
             val fragment = FileDetailsSharingProcessFragment()
             fragment.arguments = args
             return fragment
@@ -104,7 +101,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             screenType: Int,
             isReshareShown: Boolean,
             isExpirationDateShown: Boolean,
-            isFileWithNoTextFile: Boolean
+            isTextFile: Boolean
         ):
             FileDetailsSharingProcessFragment {
             val args = Bundle()
@@ -112,7 +109,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             args.putInt(ARG_SCREEN_TYPE, screenType)
             args.putBoolean(ARG_RESHARE_SHOWN, isReshareShown)
             args.putBoolean(ARG_EXP_DATE_SHOWN, isExpirationDateShown)
-            args.putBoolean(ARG_NO_TEXT_FILE, isFileWithNoTextFile)
+            args.putBoolean(ARG_IS_TEXT_FILE, isTextFile)
             val fragment = FileDetailsSharingProcessFragment()
             fragment.arguments = args
             return fragment
@@ -131,7 +128,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     private var shareProcessStep = SCREEN_TYPE_PERMISSION // default screen type
     private var permission = OCShare.NO_PERMISSION // no permission
     private var chosenExpDateInMills: Long = -1 // for no expiry date
-    private var isFileWithNoTextFile: Boolean = false
+    private var isTextFile: Boolean = false
 
     private var share: OCShare? = null
     private var isReshareShown: Boolean = true // show or hide reshare option
@@ -169,7 +166,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             shareProcessStep = it.getInt(ARG_SCREEN_TYPE, SCREEN_TYPE_PERMISSION)
             isReshareShown = it.getBoolean(ARG_RESHARE_SHOWN, true)
             isExpDateShown = it.getBoolean(ARG_EXP_DATE_SHOWN, true)
-            isFileWithNoTextFile = it.getBoolean(ARG_NO_TEXT_FILE, false)
+            isTextFile = it.getBoolean(ARG_IS_TEXT_FILE, false)
         }
 
         fileActivity = activity as FileActivity?
@@ -393,7 +390,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     }
 
     private fun updateFileEditingRadioButton() {
-        if (isFileWithNoTextFile) {
+        if (!isTextFile) {
             binding.shareProcessPermissionUploadEditing.isEnabled = false
             binding.shareProcessPermissionUploadEditing.setTextColor(resources.getColor(R.color.share_disabled_txt_color))
         }
