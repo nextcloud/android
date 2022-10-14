@@ -44,7 +44,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.DashboardWidgetListAdapter
 import com.owncloud.android.ui.dialog.AccountChooserInterface
 import com.owncloud.android.ui.dialog.MultipleAccountsDialog
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,7 +61,7 @@ class DashboardWidgetConfigurationActivity :
     private lateinit var currentUser: User
 
     @Inject
-    lateinit var themeDrawableUtils: ThemeDrawableUtils
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
     lateinit var accountManager: UserAccountManager
@@ -87,11 +87,11 @@ class DashboardWidgetConfigurationActivity :
         binding = DashboardWidgetConfigurationLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        themeDrawableUtils.tintDrawable(binding.icon.drawable, getColor(R.color.dark))
+        viewThemeUtils.platform.colorDrawable(binding.icon.drawable, getColor(R.color.dark))
 
         val layoutManager = LinearLayoutManager(this)
         // TODO follow our new architecture
-        mAdapter = DashboardWidgetListAdapter(themeDrawableUtils, accountManager, clientFactory, this, this)
+        mAdapter = DashboardWidgetListAdapter(accountManager, clientFactory, this, this)
         binding.list.apply {
             setHasFooter(false)
             setAdapter(mAdapter)
@@ -107,12 +107,12 @@ class DashboardWidgetConfigurationActivity :
                 setCompoundDrawablesWithIntrinsicBounds(
                     null,
                     null,
-                    themeDrawableUtils.tintDrawable(
+                    viewThemeUtils.platform.colorDrawable(
                         AppCompatResources.getDrawable(
                             context,
                             R.drawable.ic_baseline_arrow_drop_down_24
-                        ),
-                        R.color.black
+                        )!!,
+                        getColor(R.color.black)
                     ),
                     null
                 )

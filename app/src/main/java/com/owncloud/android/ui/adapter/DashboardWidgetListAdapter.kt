@@ -32,10 +32,8 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.widget.DashboardWidgetConfigurationInterface
 import com.owncloud.android.databinding.WidgetListItemBinding
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
 
 class DashboardWidgetListAdapter(
-    val themeDrawableUtils: ThemeDrawableUtils,
     val accountManager: UserAccountManager,
     val clientFactory: ClientFactory,
     val context: Context,
@@ -47,7 +45,6 @@ class DashboardWidgetListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return WidgetListItemViewHolder(
             WidgetListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-            themeDrawableUtils,
             accountManager,
             clientFactory,
             context
