@@ -245,7 +245,7 @@ class BackgroundJobFactory @Inject constructor(
             connectivityService,
             powerManagementService,
             accountManager,
-            themeColorUtils,
+            viewThemeUtils.get(),
             localBroadcastManager.get(),
             context,
             params

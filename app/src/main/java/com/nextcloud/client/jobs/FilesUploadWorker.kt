@@ -50,7 +50,7 @@ import com.owncloud.android.lib.resources.files.FileUtils
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.UploadListActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.utils.theme.ThemeColorUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 
 @Suppress("LongParameterList")
@@ -59,14 +59,14 @@ class FilesUploadWorker(
     val connectivityService: ConnectivityService,
     val powerManagementService: PowerManagementService,
     val userAccountManager: UserAccountManager,
-    val themeColorUtils: ThemeColorUtils,
+    val viewThemeUtils: ViewThemeUtils,
     val localBroadcastManager: LocalBroadcastManager,
     val context: Context,
     params: WorkerParameters
 ) : Worker(context, params), OnDatatransferProgressListener {
     var lastPercent = 0
     val notificationBuilder: NotificationCompat.Builder =
-        NotificationUtils.newNotificationBuilder(context, themeColorUtils)
+        NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
     val notificationManager: NotificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     val fileUploaderDelegate = FileUploaderDelegate()
