@@ -1195,9 +1195,6 @@ public final class ThumbnailsCacheManager {
     }
 
     public static Bitmap addVideoOverlay(Bitmap thumbnail, Context context) {
-//        int minValue = Math.min(thumbnail.getWidth(), thumbnail.getHeight());
-//        int playButtonWidth = (int) (minValue * 0.2);
-//        int playButtonHeight = (int) (minValue * 0.2);
 
         Drawable playButtonDrawable = ResourcesCompat.getDrawable(MainApp.getAppContext().getResources(),
                                                                   R.drawable.video_white,
