@@ -183,7 +183,6 @@
     <string name="credentials_disabled">设备凭证已禁用</string>
     <string name="daily_backup">每日备份</string>
     <string name="data_to_back_up">要备份的数据</string>
-    <string name="date_unknown">未知</string>
     <string name="default_credentials_wrong">凭据不正确</string>
     <string name="delete_account">删除账号</string>
     <string name="delete_account_warning">删除账号 %s 并删除所有本地文件吗？\n\n一经删除无法撤销。</string>

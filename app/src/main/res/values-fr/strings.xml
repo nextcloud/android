@@ -184,7 +184,6 @@
     <string name="credentials_disabled">Informations d\'identification désactivées</string>
     <string name="daily_backup">Sauvegarde journalière</string>
     <string name="data_to_back_up">Données à sauvegarder</string>
-    <string name="date_unknown">Inconnu</string>
     <string name="default_credentials_wrong">Informations d\'identification erronées</string>
     <string name="delete_account">Supprimer le compte</string>
     <string name="delete_account_warning">Supprimer le compte %s et supprimer tous les fichiers locaux ?

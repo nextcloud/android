@@ -635,7 +635,6 @@
     <string name="push_notifications_temp_error">Push notifications currently not available.</string>
 
     <string name="sync_in_progress">Fetching most recent version of the file.</string>
-    <string name="date_unknown">Unknown</string>
 
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
 

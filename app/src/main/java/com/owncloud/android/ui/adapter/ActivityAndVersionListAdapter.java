@@ -33,7 +33,6 @@ import android.view.ViewGroup;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
-import com.owncloud.android.R;
 import com.owncloud.android.databinding.VersionListItemBinding;
 import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
@@ -103,13 +102,7 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
 
             if (item instanceof Activity) {
                 Activity activity = (Activity) item;
-                if (activity.getDatetime() != null) {
-                    time = getHeaderDateString(context, activity.getDatetime().getTime()).toString();
-                } else if (activity.getDate() != null) {
-                    time = getHeaderDateString(context, activity.getDate().getTime()).toString();
-                } else {
-                    time = context.getString(R.string.date_unknown);
-                }
+                time = getHeaderDateString(context, activity.getDatetime().getTime()).toString();
             } else {
                 FileVersion version = (FileVersion) item;
                 time = getHeaderDateString(context, version.getModifiedTimestamp()).toString();

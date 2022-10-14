@@ -258,10 +258,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void setEncryptionAttributeForItemID(String fileId, boolean encrypted) {
-        int filesSize = mFiles.size();
-        for (int i = 0; i < filesSize; i++) {
-            if (mFiles.get(i).getRemoteId().equals(fileId)) {
-                OCFile file = mFiles.get(i);
+        for (OCFile file : mFiles) {
+            if (file.getRemoteId().equals(fileId)) {
                 file.setEncrypted(encrypted);
                 mStorageManager.saveFile(file);
 
@@ -269,11 +267,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        filesSize = mFilesAll.size();
-        for (int i = 0; i < filesSize; i++) {
-            if (mFilesAll.get(i).getRemoteId().equals(fileId)) {
-                mFilesAll.get(i).setEncrypted(encrypted);
-                break;
+        for (OCFile file : mFilesAll) {
+            if (file.getRemoteId().equals(fileId)) {
+                file.setEncrypted(encrypted);
             }
         }
 
@@ -298,7 +294,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public boolean isEmpty() {
-        return mFiles.size() == 0;
+        return mFiles.isEmpty();
     }
 
     @NonNull

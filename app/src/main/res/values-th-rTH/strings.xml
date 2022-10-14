@@ -166,7 +166,6 @@
     <string name="create_rich_workspace">เพิ่มข้อมูลโฟลเดอร์</string>
     <string name="creates_rich_workspace">สร้างข้อมูลโฟลเดอร์</string>
     <string name="credentials_disabled">ข้อมูลประจำตัวถูกปิดใช้งาน</string>
-    <string name="date_unknown">ไม่ทราบ</string>
     <string name="default_credentials_wrong">ข้อมูลประจำตัวไม่ถูกต้อง</string>
     <string name="delete_account">ลบบัญชี</string>
     <string name="delete_account_warning">ลบบัญชี %s ออก และลบไฟล์ในเครื่องทั้งหมดหรือไม่?\n\nเมื่อลบแล้ว จะไม่สามารถย้อนกลับได้</string>
