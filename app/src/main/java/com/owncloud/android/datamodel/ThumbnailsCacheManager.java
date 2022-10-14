@@ -1212,24 +1212,6 @@ public final class ThumbnailsCacheManager {
 
         Canvas c = new Canvas(resultBitmap);
 
-//        // compute visual center of play button, according to resized image
-//        int x1 = resizedPlayButton.getWidth();
-//        int y1 = resizedPlayButton.getHeight() / 2;
-//        int x2 = 0;
-//        int y2 = resizedPlayButton.getWidth();
-//        int x3 = 0;
-//        int y3 = 0;
-//
-//        double ym = ( ((Math.pow(x3,2) - Math.pow(x1,2) + Math.pow(y3,2) - Math.pow(y1,2)) *
-//                (x2 - x1)) - (Math.pow(x2,2) - Math.pow(x1,2) + Math.pow(y2,2) -
-//                Math.pow(y1,2)) * (x3 - x1) )  /  (2 * ( ((y3 - y1) * (x2 - x1)) -
-//                ((y2 - y1) * (x3 - x1)) ));
-//        double xm = ( (Math.pow(x2,2) - Math.pow(x1,2)) + (Math.pow(y2,2) - Math.pow(y1,2)) -
-//                (2*ym*(y2 - y1)) ) / (2*(x2 - x1));
-//
-//        // offset to top left
-//        double ox = - xm;
-//
 
         c.drawBitmap(thumbnail, 0, 0, null);
 
