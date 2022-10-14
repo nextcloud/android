@@ -184,7 +184,6 @@
     <string name="credentials_disabled">Prisijungimo duomenys išjungti</string>
     <string name="daily_backup">Kasdienės atsarginės kopijos</string>
     <string name="data_to_back_up">Duomenys, kurių atsarginę kopiją daryti</string>
-    <string name="date_unknown">Nežinoma</string>
     <string name="default_credentials_wrong">Neteisingi prisijungimo duomenys</string>
     <string name="delete_account">Šalinti paskyrą</string>
     <string name="delete_account_warning">Pašalinti paskyrą %s ir ištrinti visus vietinius failus?\n\nIštrynimo nebegalima bus atšaukti.</string>

@@ -184,7 +184,6 @@
     <string name="credentials_disabled">Inloggegevens uitgeschakeld</string>
     <string name="daily_backup">Dagelijkse back-up</string>
     <string name="data_to_back_up">Te back-uppen data</string>
-    <string name="date_unknown">Onbekend</string>
     <string name="default_credentials_wrong">Ongeldige inloggegevens</string>
     <string name="delete_account">Account verwijderen</string>
     <string name="delete_account_warning">Verwijder account %s met alle lokale bestanden? Het verwijderen kan niet worden teruggedraaid.</string>

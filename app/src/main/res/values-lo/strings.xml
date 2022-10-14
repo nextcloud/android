@@ -172,7 +172,6 @@
     <string name="create_rich_workspace">ເພີ່ມຂໍ້ມູນໂຟນເດີ</string>
     <string name="creates_rich_workspace">ສ້າງໂຟນເດີຂໍ້ມຸນ</string>
     <string name="credentials_disabled">ຂໍ້ມູນປະຈໍາຕົວຖືກປິດ</string>
-    <string name="date_unknown">ບໍ່ຮູ້</string>
     <string name="default_credentials_wrong">ການຢັ້ງຢືນຕົວຕົນທີ່ບໍ່ຖືກຕ້ອງ</string>
     <string name="delete_account">ຍ້າຍບັນຊີ</string>
     <string name="delete_account_warning">ລຶບບັນຊີ %sແລະ ລຶບຟາຍໃນຊ່ອງເກັບທັງຫມົດ?\n\nDeletion ບໍ່ສາມາດລົບລ້າງໄດ້.</string>

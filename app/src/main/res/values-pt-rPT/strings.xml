@@ -181,7 +181,6 @@
     <string name="creates_rich_workspace">cria informação sobre a pasta</string>
     <string name="credentials_disabled">Credenciais desativadas</string>
     <string name="daily_backup">Cópia de segurança diária </string>
-    <string name="date_unknown">Desconhecido</string>
     <string name="default_credentials_wrong">Credenciais incorretas</string>
     <string name="delete_account">Remover conta</string>
     <string name="delete_account_warning">Excluir a conta %s e remover todos os ficheiros locais?\n\nEsta exclusão não pode ser desfeita.</string>

@@ -184,7 +184,6 @@
     <string name="credentials_disabled">Inloggningsuppgifter inaktiverade</string>
     <string name="daily_backup">Daglig säkerhetskopiering</string>
     <string name="data_to_back_up">Data att säkerhetskopiera</string>
-    <string name="date_unknown">Okänd</string>
     <string name="default_credentials_wrong">Felaktiga inloggningsuppgifter</string>
     <string name="delete_account">Ta bort konto</string>
     <string name="delete_account_warning">Ta bort konto %s med alla lokala filer?\n\nBorttagning kan inte ångras.</string>
