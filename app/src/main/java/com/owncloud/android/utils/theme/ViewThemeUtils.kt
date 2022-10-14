@@ -51,5 +51,5 @@ class ViewThemeUtils @Inject constructor(
     val dialog = DialogViewThemeUtils(schemes)
 
     @JvmField
-    val files = FilesSpecificViewThemeUtils(schemes, colorUtil, platform, androidx)
+    val files = FilesSpecificViewThemeUtils(schemes, platform, androidx)
 }
