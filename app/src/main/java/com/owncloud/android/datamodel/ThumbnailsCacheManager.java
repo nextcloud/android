@@ -312,11 +312,6 @@ public final class ThumbnailsCacheManager {
 
             file = (OCFile) params[0];
 
-//            try {
-//                Thread.sleep(10000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
 
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?
