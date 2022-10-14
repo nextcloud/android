@@ -112,12 +112,7 @@ class OCFileListDelegate(
         setGalleryImage(
             file,
             imageView,
-            user,
-            storageManager,
-            asyncGalleryTasks,
-            context,
             shimmer,
-            viewThemeUtils,
             galleryRowHolder,
             width
         )
@@ -129,12 +124,7 @@ class OCFileListDelegate(
     private fun setGalleryImage(
         file: OCFile,
         thumbnailView: ImageView,
-        user: User?,
-        storageManager: FileDataStorageManager?,
-        asyncTasks: MutableList<GalleryImageGenerationTask>,
-        context: Context,
         shimmerThumbnail: LoaderImageView?,
-        viewThemeUtils: ViewThemeUtils,
         galleryRowHolder: GalleryRowHolder,
         width: Int
     ) {
@@ -150,7 +140,7 @@ class OCFileListDelegate(
                     thumbnailView,
                     user,
                     storageManager,
-                    asyncTasks,
+                    asyncGalleryTasks,
                     file.remoteId,
                     context.resources.getColor(R.color.bg_default)
                 )
@@ -197,7 +187,7 @@ class OCFileListDelegate(
                     }
                 })
                 thumbnailView.setImageDrawable(asyncDrawable)
-                asyncTasks.add(task)
+                asyncGalleryTasks.add(task)
                 task.executeOnExecutor(
                     AsyncTask.THREAD_POOL_EXECUTOR,
                     file
