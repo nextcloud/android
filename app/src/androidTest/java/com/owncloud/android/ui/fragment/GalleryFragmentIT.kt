@@ -58,9 +58,6 @@ class GalleryFragmentIT : AbstractIT() {
 
         createImage(7, true, 300, 400)
 
-        // for (i in 7..50) {
-        //     createImage(i)
-        // }
     }
 
     @After
