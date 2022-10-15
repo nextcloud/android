@@ -68,10 +68,7 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
-import com.owncloud.android.utils.theme.ThemeLayoutUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -116,10 +113,8 @@ public class ExtendedListFragment extends Fragment implements
 
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeLayoutUtils themeLayoutUtils;
-    @Inject ThemeToolbarUtils themeToolbarUtils;
-    @Inject ThemeDrawableUtils themeDrawableUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
+
     private ScaleGestureDetector mScaleGestureDetector;
     protected SwipeRefreshLayout mRefreshListLayout;
     protected MaterialButton mSortButton;
@@ -183,13 +178,10 @@ public class ExtendedListFragment extends Fragment implements
     public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
         final MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(item);
+        viewThemeUtils.androidx.themeToolbarSearchView(searchView);
         closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
-        themeToolbarUtils.themeSearchView(searchView, requireContext());
-
-        SearchView.SearchAutoComplete theTextArea = searchView.findViewById(R.id.search_src_text);
-        theTextArea.setHighlightColor(themeColorUtils.primaryAccentColor(getContext()));
 
         final Handler handler = new Handler();
 
@@ -347,11 +339,17 @@ public class ExtendedListFragment extends Fragment implements
 
         // Pull-down to refresh layout
         mRefreshListLayout = binding.swipeContainingList;
-        themeLayoutUtils.colorSwipeRefreshLayout(getContext(), mRefreshListLayout);
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(mRefreshListLayout);
         mRefreshListLayout.setOnRefreshListener(this);
 
         mSortButton = getActivity().findViewById(R.id.sort_button);
+        if (mSortButton != null) {
+            viewThemeUtils.material.colorMaterialTextButton(mSortButton);
+        }
         mSwitchGridViewButton = getActivity().findViewById(R.id.switch_grid_view_button);
+        if (mSwitchGridViewButton != null) {
+            viewThemeUtils.material.colorMaterialTextButton(mSwitchGridViewButton);
+        }
 
         return v;
     }
@@ -587,8 +585,7 @@ public class ExtendedListFragment extends Fragment implements
                     if (tintIcon) {
                         if (getContext() != null) {
                             mEmptyListIcon.setImageDrawable(
-                                themeDrawableUtils.tintDrawable(icon,
-                                                                themeColorUtils.primaryColor(getContext(), true)));
+                                viewThemeUtils.platform.tintPrimaryDrawable(getContext(), icon));
                         }
                     } else {
                         mEmptyListIcon.setImageResource(icon);

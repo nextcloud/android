@@ -131,11 +131,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
+            viewThemeUtils.files.themeActionBar(this, actionBar, R.string.prefs_manage_accounts);
         }
-
-        // set title Action bar
-        updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.prefs_manage_accounts));
-        themeToolbarUtils.tintBackButton(actionBar, this);
 
         List<User> users = accountManager.getAllUsers();
         originalUsers = toAccountNames(users);
@@ -155,8 +152,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                               this,
                                               multipleAccountsSupported,
                                               true,
-                                              themeColorUtils,
-                                              themeDrawableUtils);
+                                              true,
+                                              viewThemeUtils);
 
         recyclerView.setAdapter(userListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -310,8 +307,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                       this,
                                       multipleAccountsSupported,
                                       false,
-                                      themeColorUtils,
-                                      themeDrawableUtils);
+                                      true,
+                                      viewThemeUtils);
                                   recyclerView.setAdapter(userListAdapter);
                                   runOnUiThread(() -> userListAdapter.notifyDataSetChanged());
                               } catch (OperationCanceledException e) {
@@ -364,8 +361,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                                                       this,
                                                       multipleAccountsSupported,
                                                       false,
-                                                      themeColorUtils,
-                                                      themeDrawableUtils);
+                                                      true,
+                                                      viewThemeUtils);
                 recyclerView.setAdapter(userListAdapter);
             } else {
                 onBackPressed();

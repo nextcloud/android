@@ -1081,7 +1081,7 @@ public class FileContentProvider extends ContentProvider {
 
         @VisibleForTesting
         public static void verifyColumns(@Nullable ContentValues contentValues) {
-            if (contentValues == null || contentValues.keySet().size() == 0) {
+            if (contentValues == null || contentValues.keySet().isEmpty()) {
                 return;
             }
 

@@ -31,6 +31,9 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -47,6 +50,8 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
 
     private OCFile targetFile;
 
+    @Inject ViewThemeUtils viewThemeUtils;
+
     public static SyncFileNotEnoughSpaceDialogFragment newInstance(OCFile file, long availableDeviceSpace) {
         Bundle args = new Bundle();
         SyncFileNotEnoughSpaceDialogFragment frag = new SyncFileNotEnoughSpaceDialogFragment();
@@ -57,7 +62,7 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
         args.putInt(ARG_TITLE_ID, R.string.sync_not_enough_space_dialog_title);
         args.putInt(ARG_MESSAGE_RESOURCE_ID, R.string.sync_not_enough_space_dialog_placeholder);
         args.putStringArray(ARG_MESSAGE_ARGUMENTS,
-                            new String[] {
+                            new String[]{
                                 file.getFileName(),
                                 properFileSize,
                                 properDiskAvailableSpace});
@@ -83,10 +88,9 @@ public class SyncFileNotEnoughSpaceDialogFragment extends ConfirmationDialogFrag
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
-            themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                                   alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                                   alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL),
-                                                   alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
+            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL),
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
         }
     }
 

@@ -23,7 +23,10 @@
     </Match>
     <!-- Dagger generated code uses internal APIs -->
     <Match>
-        <Class name="~.*\..*.*Factory" />
+	    <Or>
+            <Class name="~.*\..*.*Factory" />
+		    <Class name="~.*\..*.*Factory_Impl" />
+		</Or>
         <Bug pattern="IICU_INCORRECT_INTERNAL_CLASS_USE" />
     </Match>
 

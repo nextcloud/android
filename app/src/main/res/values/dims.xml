@@ -20,13 +20,16 @@
     <dimen name="nav_drawer_header_height">164dp</dimen>
     <dimen name="nav_drawer_menu_avatar_radius">12sp</dimen>
     <dimen name="list_item_avatar_icon_radius">20dp</dimen>
-    <dimen name="bottom_sheet_menu_item_divider_standard_margin">56dp</dimen>
+    <dimen name="bottom_sheet_text_start_margin">40dp</dimen>
+    <dimen name="bottom_sheet_item_height">56dp</dimen>
+    <dimen name="bottom_sheet_menu_item_divider_standard_margin">80dp</dimen>
     <dimen name="file_icon_size">40dp</dimen>
     <dimen name="file_icon_size_grid">128dp</dimen>
     <dimen name="file_icon_rounded_corner_radius">8dp</dimen>
     <dimen name="file_icon_rounded_corner_radius_for_grid_mode">3dp</dimen>
     <dimen name="file_avatar_size">128dp</dimen>
     <integer name="file_avatar_px">512</integer>
+    <dimen name="drawer_content_horizontal_padding">28dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
     <dimen name="standard_double_padding">32dp</dimen>
     <dimen name="standard_half_padding">8dp</dimen>
@@ -140,4 +143,7 @@
     <dimen name="minimum_size_for_touchable_area">48dp</dimen>
     <dimen name="dialog_elevation">24dp</dimen>
     <dimen name="default_login_width">400dp</dimen>
+    <dimen name="dialogBorderRadius">24dp</dimen>
+    <dimen name="dialog_padding">24dp</dimen>
+
 </resources>

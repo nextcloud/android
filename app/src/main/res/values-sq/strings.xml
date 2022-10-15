@@ -160,7 +160,6 @@
     <string name="create_rich_workspace">Shto informacion për dosjen</string>
     <string name="creates_rich_workspace">Krijon informacionin e dosjeve</string>
     <string name="credentials_disabled">Kredencialet të pa aktivizuara</string>
-    <string name="date_unknown">I panjohur</string>
     <string name="default_credentials_wrong">Kredenciele jo të sakta</string>
     <string name="delete_account">Hiqe llogarinë</string>
     <string name="delete_account_warning">Fshij llogarinë %s me të gjithë skedarët lokalë?\n\nFshirja nuk mund të zhbëhet.</string>

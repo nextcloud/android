@@ -29,6 +29,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
@@ -39,10 +40,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeCheckableUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -72,10 +70,7 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
     private User user;
     private final List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private Button positiveButton;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeDrawableUtils themeDrawableUtils;
-    @Inject ThemeButtonUtils themeButtonUtils;
-    @Inject ThemeCheckableUtils themeCheckableUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     private static final String KEY_NEW_FILE = "file";
     private static final String KEY_EXISTING_FILE = "ocfile";
@@ -123,9 +118,8 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
         }
 
         positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                               positiveButton,
-                                               alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        viewThemeUtils.platform.colorTextButtons(positiveButton,
+                                                 alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         positiveButton.setEnabled(false);
     }
 
@@ -161,12 +155,11 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
         // Inflate the layout for the dialog
         binding = ConflictResolveDialogBinding.inflate(requireActivity().getLayoutInflater());
 
-        themeCheckableUtils.tintCheckbox(themeColorUtils.primaryColor(getContext()),
-                                         binding.newCheckbox,
-                                         binding.existingCheckbox);
+        viewThemeUtils.platform.themeCheckbox(binding.newCheckbox);
+        viewThemeUtils.platform.themeCheckbox(binding.existingCheckbox);
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
         builder.setView(binding.getRoot())
             .setPositiveButton(R.string.common_ok, (dialog, which) -> {
                 if (listener != null) {
@@ -201,8 +194,7 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
         LocalFileListAdapter.setThumbnail(newFile,
                                           binding.newThumbnail,
                                           getContext(),
-                                          themeColorUtils,
-                                          themeDrawableUtils);
+                                          viewThemeUtils);
 
         // set info for existing file
         binding.existingSize.setText(DisplayUtils.bytesToHumanReadable(existingFile.getFileLength()));
@@ -220,8 +212,7 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
                                   getContext(),
                                   null,
                                   null,
-                                  themeColorUtils,
-                                  themeDrawableUtils);
+                                  viewThemeUtils);
 
         View.OnClickListener checkBoxClickListener = v ->
             positiveButton.setEnabled(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());
@@ -237,6 +228,8 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
             binding.existingCheckbox.setChecked(!binding.existingCheckbox.isChecked());
             positiveButton.setEnabled(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());
         });
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.existingFileContainer.getContext(), builder);
 
         return builder.create();
     }

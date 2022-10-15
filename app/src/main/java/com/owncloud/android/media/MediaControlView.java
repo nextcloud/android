@@ -41,8 +41,7 @@ import android.widget.TextView;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.theme.ThemeBarUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.Formatter;
 import java.util.Locale;
@@ -72,9 +71,7 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
     private ImageButton rewindButton;
 
     @Inject
-    ThemeColorUtils themeColorUtils;
-    @Inject
-    ThemeBarUtils themeBarUtils;
+    ViewThemeUtils viewThemeUtils;
 
 
     public MediaControlView(Context context,
@@ -137,10 +134,10 @@ public class MediaControlView extends FrameLayout implements OnClickListener, On
         if (progressBar != null) {
             if (progressBar instanceof SeekBar) {
                 SeekBar seeker = (SeekBar) progressBar;
-                themeBarUtils.colorHorizontalSeekBar(seeker, getContext(), themeColorUtils);
+                viewThemeUtils.platform.themeHorizontalSeekBar(seeker);
                 seeker.setOnSeekBarChangeListener(this);
             } else {
-                themeBarUtils.colorHorizontalProgressBar(progressBar, themeColorUtils.primaryAccentColor(getContext()));
+                viewThemeUtils.platform.themeHorizontalProgressBar(progressBar);
             }
             progressBar.setMax(1000);
         }

@@ -106,13 +106,12 @@
                     android:background="@drawable/preview_image_gradient_shape" />
             </FrameLayout>
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/appbar"
-                android:theme="@style/Theme.ToolbarWithDisabled"
-                app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar"
+                android:theme="@style/Theme.ToolbarTheme"
                 tools:visibility="gone">
 
                 <androidx.appcompat.widget.AppCompatSpinner
@@ -122,7 +121,7 @@
                     android:visibility="gone"
                     app:backgroundTint="@color/fontAppbar"
                     app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-            </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.MaterialToolbar>
 
         </RelativeLayout>
 

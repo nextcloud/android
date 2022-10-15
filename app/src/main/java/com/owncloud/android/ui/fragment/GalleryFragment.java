@@ -34,7 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nextcloud.utils.view.FastScroll;
+import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -47,7 +47,6 @@ import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.fragment.util.GalleryFastScrollViewHelper;
-import com.owncloud.android.utils.theme.ThemeMenuUtils;
 
 import javax.inject.Inject;
 
@@ -74,8 +73,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private OCFile remoteFile;
     private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
 
-    @Inject ThemeMenuUtils themeMenuUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
+    @Inject FastScrollUtils fastScrollUtils;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -139,8 +138,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                       this,
                                       preferences,
                                       mContainerActivity,
-                                      themeColorUtils,
-                                      themeDrawableUtils);
+                                      viewThemeUtils);
 
         setRecyclerViewAdapter(mAdapter);
 
@@ -149,11 +147,9 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         mAdapter.setLayoutManager(layoutManager);
         getRecyclerView().setLayoutManager(layoutManager);
 
-        FastScroll.applyFastScroll(requireContext(),
-                                   themeColorUtils,
-                                   themeDrawableUtils,
-                                   getRecyclerView(),
-                                   new GalleryFastScrollViewHelper(getRecyclerView(), mAdapter));
+        fastScrollUtils.applyFastScroll(
+            getRecyclerView(),
+            new GalleryFastScrollViewHelper(getRecyclerView(), mAdapter));
     }
 
     @Override
@@ -252,8 +248,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         MenuItem menuItem = menu.findItem(R.id.action_three_dot_icon);
 
         if (menuItem != null) {
-            themeMenuUtils.tintMenuIcon(menuItem,
-                                        themeColorUtils.appBarPrimaryFontColor(requireContext()));
+            viewThemeUtils.platform.colorMenuItemText(requireContext(), menuItem);
         }
 
     }

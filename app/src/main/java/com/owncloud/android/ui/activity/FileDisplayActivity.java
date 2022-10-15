@@ -65,7 +65,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
-import com.nextcloud.utils.view.FastScroll;
+import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FilesBinding;
@@ -231,6 +231,9 @@ public class FileDisplayActivity extends FileActivity
     @Inject
     ConnectivityService connectivityService;
 
+    @Inject
+    FastScrollUtils fastScrollUtils;
+
     public static Intent openFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
@@ -272,7 +275,7 @@ public class FileDisplayActivity extends FileActivity
         mSwitchAccountButton.setOnClickListener(v -> showManageAccountsDialog());
 
 
-        FastScroll.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout);
+        fastScrollUtils.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout);
 
 
         // Init Fragment without UI to retain AsyncTask across configuration changes
@@ -314,8 +317,7 @@ public class FileDisplayActivity extends FileActivity
                     .create();
 
                 alertDialog.show();
-                themeButtonUtils.themeBorderlessButton(themeColorUtils,
-                                                       alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
+                viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
             } catch (WindowManager.BadTokenException e) {
                 Log_OC.e(TAG, "Error showing wrong storage info, so skipping it: " + e.getMessage());
             }
@@ -333,7 +335,7 @@ public class FileDisplayActivity extends FileActivity
             if (dialog != null && dialog.isShowing()) {
                 dialog.dismiss();
                 getSupportFragmentManager().beginTransaction().remove(fragment).commitNowAllowingStateLoss();
-                PermissionUtil.requestExternalStoragePermission(this, themeSnackbarUtils);
+                PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
             }
         }
     }
@@ -343,7 +345,7 @@ public class FileDisplayActivity extends FileActivity
         super.onPostCreate(savedInstanceState);
 
 
-        PermissionUtil.requestExternalStoragePermission(this, themeSnackbarUtils);
+        PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
 
         if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             switchToSearchFragment(savedInstanceState);
@@ -686,7 +688,7 @@ public class FileDisplayActivity extends FileActivity
             searchView.setIconified(false);
         });
 
-        themeToolbarUtils.themeSearchView(searchView, this);
+        viewThemeUtils.androidx.themeToolbarSearchView(searchView);
 
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(1);

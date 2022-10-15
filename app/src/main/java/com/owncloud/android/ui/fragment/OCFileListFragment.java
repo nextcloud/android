@@ -27,7 +27,6 @@ package com.owncloud.android.ui.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,7 +42,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Toast;
 
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -60,7 +58,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.utils.view.FastScroll;
+import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -109,11 +107,8 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeAvatarUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeFabUtils;
-import com.owncloud.android.utils.theme.ThemeToolbarUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
@@ -135,6 +130,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -195,13 +191,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject Throttler throttler;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeFabUtils themeFabUtils;
-    @Inject ThemeToolbarUtils themeToolbarUtils;
     @Inject ThemeUtils themeUtils;
-    @Inject ThemeAvatarUtils themeAvatarUtils;
     @Inject ArbitraryDataProvider arbitraryDataProvider;
     @Inject BackgroundJobManager backgroundJobManager;
+    @Inject ViewThemeUtils viewThemeUtils;
+    @Inject FastScrollUtils fastScrollUtils;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -321,7 +315,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mFabMain = requireActivity().findViewById(R.id.fab_main);
 
         if (mFabMain != null) { // is not available in FolderPickerActivity
-            themeFabUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
+            viewThemeUtils.material.themeFAB(mFabMain);
         }
 
         Log_OC.i(TAG, "onCreateView() end");
@@ -426,14 +420,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
             this,
             hideItemOptions,
             isGridViewPreferred(mFile),
-            themeColorUtils,
-            themeDrawableUtils,
-            themeAvatarUtils
+            viewThemeUtils
         );
 
         setRecyclerViewAdapter(mAdapter);
 
-        FastScroll.applyFastScroll(requireContext(), themeColorUtils, themeDrawableUtils, getRecyclerView());
+        fastScrollUtils.applyFastScroll(getRecyclerView());
     }
 
     protected void prepareCurrentSearch(SearchEvent event) {
@@ -472,7 +464,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         FileActivity activity = (FileActivity) getActivity();
 
         if (mFabMain != null) { // is not available in FolderPickerActivity
-            themeFabUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
+            viewThemeUtils.material.themeFAB(mFabMain);
             mFabMain.setOnClickListener(v -> {
                 final OCFileListBottomSheetDialogFragment dialog =
                     new OCFileListBottomSheetDialogFragment(activity,
@@ -723,7 +715,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mode.invalidate();
 
             //set actionMode color
-            themeToolbarUtils.colorStatusBar(getActivity(), themeColorUtils.actionModeColor(requireContext()));
+            viewThemeUtils.platform.colorStatusBar(
+                getActivity(),
+                ContextCompat.getColor(getContext(), R.color.action_mode_background));
 
             // hide FAB in multi selection mode
             setFabVisible(false);
@@ -784,6 +778,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 setFabVisible(true);
             }
 
+            Activity activity = getActivity();
+            if (activity != null) {
+                viewThemeUtils.platform.resetStatusBar(activity);
+            }
+
             getCommonAdapter().setMultiSelect(false);
             getCommonAdapter().clearCheckedItems();
         }
@@ -827,7 +826,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        if (mOriginalMenuItems.size() == 0) {
+        if (mOriginalMenuItems.isEmpty()) {
             mOriginalMenuItems.add(menu.findItem(R.id.action_search));
         }
 
@@ -1743,10 +1742,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected void setTitle(final String title) {
         getActivity().runOnUiThread(() -> {
             if (getActivity() != null) {
-                ActionBar actionBar = ((FileDisplayActivity) getActivity()).getSupportActionBar();
+                final ActionBar actionBar = ((FileDisplayActivity) getActivity()).getSupportActionBar();
+                final Context context = getContext();
 
-                if (actionBar != null) {
-                    themeToolbarUtils.setColoredTitle(actionBar, title, getContext());
+                if (actionBar != null && context != null) {
+                    viewThemeUtils.files.themeActionBar(context, actionBar, title);
                 }
             }
         });
@@ -1871,7 +1871,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (visible) {
                     mFabMain.show();
-                    themeFabUtils.colorFloatingActionButton(mFabMain, requireContext());
+                    viewThemeUtils.material.themeFAB(mFabMain);
                 } else {
                     mFabMain.hide();
                 }
@@ -1921,10 +1921,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (enabled) {
                     mFabMain.setEnabled(true);
-                    themeFabUtils.colorFloatingActionButton(mFabMain, requireContext());
+                    viewThemeUtils.material.themeFAB(mFabMain);
                 } else {
                     mFabMain.setEnabled(false);
-                    themeFabUtils.colorFloatingActionButton(mFabMain, requireContext(), Color.GRAY);
+                    viewThemeUtils.material.themeFAB(mFabMain);
                 }
             });
         }

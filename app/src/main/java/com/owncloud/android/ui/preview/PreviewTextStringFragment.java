@@ -38,7 +38,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeFabUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -50,7 +50,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
     private static final String EXTRA_FILE = "FILE";
 
     @Inject UserAccountManager accountManager;
-    @Inject ThemeFabUtils themeFabUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
 
     /**
      * Creates an empty fragment for previews.
@@ -100,7 +100,9 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
         fabMain.setVisibility(View.VISIBLE);
         fabMain.setEnabled(true);
         fabMain.setOnClickListener(v -> edit());
-        themeFabUtils.colorFloatingActionButton(fabMain, R.drawable.ic_edit, requireContext());
+
+        fabMain.setImageResource(R.drawable.ic_edit);
+        viewThemeUtils.material.themeFAB(fabMain);
 
         return view;
     }
@@ -117,6 +119,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(this);
         searchView.setMaxWidth(Integer.MAX_VALUE);
+        viewThemeUtils.androidx.themeToolbarSearchView(searchView);
 
         if (searchOpen) {
             searchView.setIconified(false);
@@ -127,7 +130,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
 
     void loadAndShowTextPreview() {
         originalText = getFile().getRichWorkspace();
-        setText(binding.textPreview, originalText, getFile(), requireActivity(), true, false, themeColorUtils);
+        setText(binding.textPreview, originalText, getFile(), requireActivity(), true, false, viewThemeUtils);
 
         binding.textPreview.setVisibility(View.VISIBLE);
         binding.emptyListProgress.setVisibility(View.GONE);

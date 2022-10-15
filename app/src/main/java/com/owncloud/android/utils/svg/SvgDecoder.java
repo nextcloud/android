@@ -25,14 +25,6 @@ import java.io.InputStream;
  * Decodes an SVG internal representation from an {@link InputStream}.
  */
 public class SvgDecoder implements ResourceDecoder<InputStream, SVG> {
-    private int height = -1;
-    private int width = -1;
-
-    public SvgDecoder(int height, int width) {
-        this.height = height;
-        this.width = width;
-    }
-
     public SvgDecoder() {
         // empty constructor
     }
@@ -40,13 +32,9 @@ public class SvgDecoder implements ResourceDecoder<InputStream, SVG> {
     public Resource<SVG> decode(InputStream source, int w, int h) throws IOException {
         try {
             SVG svg = SVG.getFromInputStream(source);
-
-            if (width > 0) {
-                svg.setDocumentWidth(width);
-            }
-            if (height > 0) {
-                svg.setDocumentHeight(height);
-            }
+            svg.setDocumentViewBox(0, 0, svg.getDocumentWidth(), svg.getDocumentHeight());
+            svg.setDocumentWidth("100%");
+            svg.setDocumentHeight("100%");
             svg.setDocumentPreserveAspectRatio(PreserveAspectRatio.LETTERBOX);
 
             return new SimpleResource<>(svg);

@@ -65,8 +65,7 @@ import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -757,18 +756,15 @@ public final class ThumbnailsCacheManager {
         private File mFile;
         private String mImageKey;
         private final Context mContext;
-        private final ThemeColorUtils themeColorUtils;
-        private final ThemeDrawableUtils themeDrawableUtils;
+        private final ViewThemeUtils viewThemeUtils;
 
         public MediaThumbnailGenerationTask(ImageView imageView,
                                             Context context,
-                                            ThemeColorUtils themeColorUtils,
-                                            ThemeDrawableUtils themeDrawableUtils) {
+                                            ViewThemeUtils viewThemeUtils) {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<>(imageView);
             mContext = context;
-            this.themeColorUtils = themeColorUtils;
-            this.themeDrawableUtils = themeDrawableUtils;
+            this.viewThemeUtils = viewThemeUtils;
         }
 
         @Override
@@ -816,8 +812,7 @@ public final class ThumbnailsCacheManager {
                     if (mFile != null) {
                         if (mFile.isDirectory()) {
                             imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(mContext,
-                                                                                         themeColorUtils,
-                                                                                         themeDrawableUtils));
+                                                                                         viewThemeUtils));
                         } else {
                             if (MimeTypeUtil.isVideo(mFile)) {
                                 imageView.setImageBitmap(ThumbnailsCacheManager.mDefaultVideo);
@@ -825,8 +820,7 @@ public final class ThumbnailsCacheManager {
                                 imageView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(null,
                                                                                         mFile.getName(),
                                                                                         mContext,
-                                                                                        themeColorUtils,
-                                                                                        themeDrawableUtils));
+                                                                                        viewThemeUtils));
                             }
                         }
                     }

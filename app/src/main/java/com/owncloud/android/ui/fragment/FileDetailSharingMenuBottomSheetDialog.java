@@ -31,6 +31,7 @@ import com.owncloud.android.databinding.FileDetailsSharingMenuBottomSheetFragmen
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 /**
  * File Details Sharing option menus {@link android.app.Dialog} styled as a bottom sheet for main actions.
@@ -39,13 +40,16 @@ public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
     private FileDetailsSharingMenuBottomSheetFragmentBinding binding;
     private final FileDetailsSharingMenuBottomSheetActions actions;
     private final OCShare ocShare;
+    private final ViewThemeUtils viewThemeUtils;
 
     public FileDetailSharingMenuBottomSheetDialog(FileActivity fileActivity,
                                                   FileDetailsSharingMenuBottomSheetActions actions,
-                                                  OCShare ocShare) {
+                                                  OCShare ocShare,
+                                                  ViewThemeUtils viewThemeUtils) {
         super(fileActivity);
         this.actions = actions;
         this.ocShare = ocShare;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     @Override
@@ -57,6 +61,14 @@ public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
         if (getWindow() != null) {
             getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
+
+        viewThemeUtils.platform.themeDialog(binding.getRoot());
+
+        viewThemeUtils.platform.colorImageView(binding.menuIconAddAnotherLink);
+        viewThemeUtils.platform.colorImageView(binding.menuIconAdvancedPermissions);
+        viewThemeUtils.platform.colorImageView(binding.menuIconSendLink);
+        viewThemeUtils.platform.colorImageView(binding.menuIconUnshare);
+        viewThemeUtils.platform.colorImageView(binding.menuIconSendNewEmail);
 
         updateUI();
 

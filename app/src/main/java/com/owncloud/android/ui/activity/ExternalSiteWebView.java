@@ -202,7 +202,7 @@ public class ExternalSiteWebView extends FileActivity {
     private void setupActionBar(String title) {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            themeToolbarUtils.setColoredTitle(actionBar, title, this);
+            viewThemeUtils.files.themeActionBar(this, actionBar, title);
 
             if (showSidebar) {
                 actionBar.setDisplayHomeAsUpEnabled(true);

@@ -26,6 +26,7 @@
 
 package com.owncloud.android.ui.adapter;
 
+import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -40,10 +41,8 @@ import com.owncloud.android.databinding.AccountActionBinding;
 import com.owncloud.android.databinding.AccountItemBinding;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +58,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final String TAG = UserListAdapter.class.getSimpleName();
 
     private final float accountAvatarRadiusDimension;
-    private final BaseActivity context;
+    private final Context context;
     private List<UserListItem> values;
     private Listener accountListAdapterListener;
     private final UserAccountManager accountManager;
@@ -69,17 +68,17 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final ClickListener clickListener;
     private final boolean showAddAccount;
     private final boolean showDotsMenu;
-    private final ThemeColorUtils themeColorUtils;
-    private final ThemeDrawableUtils themeDrawableUtils;
+    private boolean highlightCurrentlyActiveAccount;
+    private final ViewThemeUtils viewThemeUtils;
 
-    public UserListAdapter(BaseActivity context,
+    public UserListAdapter(Context context,
                            UserAccountManager accountManager,
                            List<UserListItem> values,
                            ClickListener clickListener,
                            boolean showAddAccount,
                            boolean showDotsMenu,
-                           ThemeColorUtils themeColorUtils,
-                           ThemeDrawableUtils themeDrawableUtils) {
+                           boolean highlightCurrentlyActiveAccount,
+                           final ViewThemeUtils viewThemeUtils) {
         this.context = context;
         this.accountManager = accountManager;
         this.values = values;
@@ -90,8 +89,8 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.clickListener = clickListener;
         this.showAddAccount = showAddAccount;
         this.showDotsMenu = showDotsMenu;
-        this.themeColorUtils = themeColorUtils;
-        this.themeDrawableUtils = themeDrawableUtils;
+        this.viewThemeUtils = viewThemeUtils;
+        this.highlightCurrentlyActiveAccount = highlightCurrentlyActiveAccount;
     }
 
     @Override
@@ -109,7 +108,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return new AccountViewHolderItem(AccountItemBinding.inflate(LayoutInflater.from(context),
                                                                         parent,
                                                                         false),
-                                             themeDrawableUtils);
+                                             viewThemeUtils);
         } else {
             return new AddAccountViewHolderItem(
                 AccountActionBinding.inflate(LayoutInflater.from(context), parent, false));
@@ -125,7 +124,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (UserListItem.TYPE_ACCOUNT == userListItem.getType()) {
                 final User user = userListItem.getUser();
                 AccountViewHolderItem item = (AccountViewHolderItem) holder;
-                item.bind(user, userListItem.isEnabled(), this);
+                item.bind(user, userListItem.isEnabled(), highlightCurrentlyActiveAccount, this);
             } // create add account action item
             else if (UserListItem.TYPE_ACTION_ADD == userListItem.getType() && accountListAdapterListener != null) {
                 ((AddAccountViewHolderItem) holder).bind(accountListAdapterListener);
@@ -198,11 +197,11 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private final AccountItemBinding binding;
         private User user;
 
-        AccountViewHolderItem(@NonNull AccountItemBinding binding, ThemeDrawableUtils themeDrawableUtils) {
+        AccountViewHolderItem(@NonNull AccountItemBinding binding, final ViewThemeUtils viewThemeUtils) {
             super(binding.getRoot());
             this.binding = binding;
 
-            themeDrawableUtils.tintDrawable(binding.ticker.getDrawable(), themeColorUtils.primaryColor(context, true));
+            viewThemeUtils.platform.tintPrimaryDrawable(context, binding.ticker.getDrawable());
 
             binding.getRoot().setOnClickListener(this);
             if (showDotsMenu) {
@@ -228,12 +227,19 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         }
 
-        public void bind(User user, boolean userListItemEnabled, DisplayUtils.AvatarGenerationListener avatarGenerationListener) {
+        public void bind(User user,
+                         boolean userListItemEnabled,
+                         boolean highlightCurrentlyActiveAccount,
+                         DisplayUtils.AvatarGenerationListener avatarGenerationListener) {
             setData(user);
             setUser(user);
             setUsername(user);
             setAvatar(user, avatarGenerationListener);
-            setCurrentlyActiveState(user);
+            if (highlightCurrentlyActiveAccount) {
+                setCurrentlyActiveState(user);
+            } else {
+                binding.ticker.setVisibility(View.INVISIBLE);
+            }
 
             if (!userListItemEnabled) {
                 binding.userName.setPaintFlags(binding.userName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);

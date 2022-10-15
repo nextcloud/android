@@ -20,112 +20,39 @@
  */
 package com.nextcloud.client.di
 
-import android.content.Context
-import com.owncloud.android.utils.theme.ThemeAvatarUtils
-import com.owncloud.android.utils.theme.ThemeBarUtils
-import com.owncloud.android.utils.theme.ThemeButtonUtils
-import com.owncloud.android.utils.theme.ThemeCheckableUtils
+import com.nextcloud.android.common.ui.theme.MaterialSchemes
+import com.owncloud.android.utils.theme.MaterialSchemesProvider
+import com.owncloud.android.utils.theme.MaterialSchemesProviderImpl
 import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
-import com.owncloud.android.utils.theme.ThemeFabUtils
-import com.owncloud.android.utils.theme.ThemeLayoutUtils
-import com.owncloud.android.utils.theme.ThemeMenuUtils
-import com.owncloud.android.utils.theme.ThemeSnackbarUtils
-import com.owncloud.android.utils.theme.ThemeTextInputUtils
-import com.owncloud.android.utils.theme.ThemeTextUtils
-import com.owncloud.android.utils.theme.ThemeToolbarUtils
 import com.owncloud.android.utils.theme.ThemeUtils
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-internal class ThemeModule {
-    @Provides
-    @Singleton
-    fun themeColorUtils(): ThemeColorUtils {
-        return ThemeColorUtils()
-    }
+internal abstract class ThemeModule {
 
-    @Provides
-    @Singleton
-    fun themeFabUtils(themeColorUtils: ThemeColorUtils?, themeDrawableUtils: ThemeDrawableUtils?): ThemeFabUtils {
-        return ThemeFabUtils(themeColorUtils, themeDrawableUtils)
-    }
+    @Binds
+    abstract fun bindMaterialSchemesProvider(provider: MaterialSchemesProviderImpl): MaterialSchemesProvider
 
-    @Provides
-    @Singleton
-    fun themeLayoutUtils(themeColorUtils: ThemeColorUtils?): ThemeLayoutUtils {
-        return ThemeLayoutUtils(themeColorUtils)
-    }
+    companion object {
 
-    @Provides
-    @Singleton
-    fun themeToolbarUtils(
-        themeColorUtils: ThemeColorUtils?,
-        themeDrawableUtils: ThemeDrawableUtils?,
-        themeTextInputUtils: ThemeTextInputUtils?
-    ): ThemeToolbarUtils {
-        return ThemeToolbarUtils(themeColorUtils, themeDrawableUtils, themeTextInputUtils)
-    }
+        @Provides
+        @Singleton
+        fun themeColorUtils(): ThemeColorUtils {
+            return ThemeColorUtils()
+        }
 
-    @Provides
-    @Singleton
-    fun themeDrawableUtils(context: Context?): ThemeDrawableUtils {
-        return ThemeDrawableUtils(context)
-    }
+        @Provides
+        @Singleton
+        fun themeUtils(): ThemeUtils {
+            return ThemeUtils()
+        }
 
-    @Provides
-    @Singleton
-    fun themeUtils(): ThemeUtils {
-        return ThemeUtils()
-    }
-
-    @Provides
-    @Singleton
-    fun themeMenuUtils(): ThemeMenuUtils {
-        return ThemeMenuUtils()
-    }
-
-    @Provides
-    @Singleton
-    fun themeSnackbarUtils(): ThemeSnackbarUtils {
-        return ThemeSnackbarUtils()
-    }
-
-    @Provides
-    @Singleton
-    fun themeTextUtils(): ThemeTextUtils {
-        return ThemeTextUtils()
-    }
-
-    @Provides
-    @Singleton
-    fun themeButtonUtils(): ThemeButtonUtils {
-        return ThemeButtonUtils()
-    }
-
-    @Provides
-    @Singleton
-    fun themeBarUtils(): ThemeBarUtils {
-        return ThemeBarUtils()
-    }
-
-    @Provides
-    @Singleton
-    fun themeTextInputUtils(): ThemeTextInputUtils {
-        return ThemeTextInputUtils()
-    }
-
-    @Provides
-    @Singleton
-    fun themeCheckableUtils(): ThemeCheckableUtils {
-        return ThemeCheckableUtils()
-    }
-
-    @Provides
-    @Singleton
-    fun themeAvatarUtils(): ThemeAvatarUtils {
-        return ThemeAvatarUtils()
+        @Provides
+        fun provideMaterialSchemes(materialSchemesProvider: MaterialSchemesProvider): MaterialSchemes {
+            return materialSchemesProvider.getMaterialSchemesForCurrentUser()
+        }
     }
 }

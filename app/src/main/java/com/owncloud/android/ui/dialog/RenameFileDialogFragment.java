@@ -38,6 +38,7 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
@@ -47,8 +48,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeTextInputUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.List;
 import java.util.Set;
@@ -71,13 +71,13 @@ public class RenameFileDialogFragment
     private static final String ARG_TARGET_FILE = "TARGET_FILE";
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
 
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeTextInputUtils themeTextInputUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
 
     private EditBoxDialogBinding binding;
     private OCFile mTargetFile;
     private Button positiveButton;
+
 
     /**
      * Public factory method to create new RenameFileDialogFragment instances.
@@ -92,21 +92,18 @@ public class RenameFileDialogFragment
         args.putParcelable(ARG_PARENT_FOLDER, parentFolder);
         frag.setArguments(args);
         return frag;
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        int color = themeColorUtils.primaryAccentColor(getContext());
-
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
             positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            positiveButton.setTextColor(color);
-            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color);
+            viewThemeUtils.platform.colorTextButtons(positiveButton,
+                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
         }
     }
 
@@ -123,10 +120,7 @@ public class RenameFileDialogFragment
         // Setup layout
         String currentName = mTargetFile.getFileName();
         binding.userInput.setText(currentName);
-        themeTextInputUtils.colorTextInput(binding.userInputContainer,
-                                           binding.userInput,
-                                           themeColorUtils.primaryColor(getActivity()),
-                                           themeColorUtils.primaryAccentColor(getActivity()));
+        viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer);
         int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
         int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
         binding.userInput.setSelection(0, selectionEnd);
@@ -179,11 +173,14 @@ public class RenameFileDialogFragment
         });
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
         builder.setView(view)
             .setPositiveButton(R.string.file_rename, this)
             .setNeutralButton(R.string.common_cancel, this)
             .setTitle(R.string.rename_dialog_title);
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInputContainer.getContext(), builder);
+
         Dialog d = builder.create();
 
         Window window = d.getWindow();

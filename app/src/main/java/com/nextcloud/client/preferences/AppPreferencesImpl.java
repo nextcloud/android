@@ -25,8 +25,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -45,15 +45,14 @@ import static com.owncloud.android.ui.fragment.OCFileListFragment.FOLDER_LAYOUT_
 
 /**
  * Implementation of application-wide preferences using {@link SharedPreferences}.
- *
- * Users should not use this class directly. Please use {@link AppPreferences} interface
- * instead.
+ * <p>
+ * Users should not use this class directly. Please use {@link AppPreferences} interface instead.
  */
 public final class AppPreferencesImpl implements AppPreferences {
 
     /**
-     * Constant to access value of last path selected by the user to upload a file shared from other app.
-     * Value handled by the app without direct access in the UI.
+     * Constant to access value of last path selected by the user to upload a file shared from other app. Value handled
+     * by the app without direct access in the UI.
      */
     public static final String AUTO_PREF__LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
     public static final String STORAGE_PATH = "storage_path";
@@ -101,7 +100,7 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     private final Context context;
     private final SharedPreferences preferences;
-    private final CurrentAccountProvider currentAccountProvider;
+    private final UserAccountManager userAccountManager;
     private final ListenerRegistry listeners;
 
     /**
@@ -123,7 +122,7 @@ public final class AppPreferencesImpl implements AppPreferences {
             }
         }
 
-        void remove(@Nullable  final Listener listener) {
+        void remove(@Nullable final Listener listener) {
             if (listener != null) {
                 listeners.remove(listener);
             }
@@ -133,7 +132,7 @@ public final class AppPreferencesImpl implements AppPreferences {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             if (PREF__DARK_THEME.equals(key)) {
                 DarkMode mode = preferences.getDarkThemeMode();
-                for(Listener l : listeners) {
+                for (Listener l : listeners) {
                     l.onDarkThemeModeChanged(mode);
                 }
             }
@@ -141,9 +140,9 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     /**
-     * This is a temporary workaround to access app preferences in places that cannot use
-     * dependency injection yet. Use injected component via {@link AppPreferences} interface.
-     *
+     * This is a temporary workaround to access app preferences in places that cannot use dependency injection yet. Use
+     * injected component via {@link AppPreferences} interface.
+     * <p>
      * WARNING: this creates new instance! it does not return app-wide singleton
      *
      * @param context Context used to create shared preferences
@@ -151,15 +150,15 @@ public final class AppPreferencesImpl implements AppPreferences {
      */
     @Deprecated
     public static AppPreferences fromContext(Context context) {
-        final CurrentAccountProvider currentAccountProvider = UserAccountManagerImpl.fromContext(context);
+        final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(context);
         final SharedPreferences prefs = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
-        return new AppPreferencesImpl(context, prefs, currentAccountProvider);
+        return new AppPreferencesImpl(context, prefs, userAccountManager);
     }
 
-    AppPreferencesImpl(Context appContext, SharedPreferences preferences, CurrentAccountProvider currentAccountProvider) {
+    AppPreferencesImpl(Context appContext, SharedPreferences preferences, UserAccountManager userAccountManager) {
         this.context = appContext;
         this.preferences = preferences;
-        this.currentAccountProvider = currentAccountProvider;
+        this.userAccountManager = userAccountManager;
         this.listeners = new ListenerRegistry(this);
         this.preferences.registerOnSharedPreferenceChangeListener(listeners);
     }
@@ -277,7 +276,7 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     @Override
     public String[] getPassCode() {
-        return new String[] {
+        return new String[]{
             preferences.getString(PassCodeActivity.PREFERENCE_PASSCODE_D1, null),
             preferences.getString(PassCodeActivity.PREFERENCE_PASSCODE_D2, null),
             preferences.getString(PassCodeActivity.PREFERENCE_PASSCODE_D3, null),
@@ -293,7 +292,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public String getFolderLayout(OCFile folder) {
         return getFolderPreference(context,
-                                   currentAccountProvider.getUser(),
+                                   userAccountManager.getUser(),
                                    PREF__FOLDER_LAYOUT,
                                    folder,
                                    FOLDER_LAYOUT_LIST);
@@ -302,7 +301,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setFolderLayout(@Nullable OCFile folder, String layoutName) {
         setFolderPreference(context,
-                            currentAccountProvider.getUser(),
+                            userAccountManager.getUser(),
                             PREF__FOLDER_LAYOUT,
                             folder,
                             layoutName);
@@ -311,7 +310,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public FileSortOrder getSortOrderByFolder(OCFile folder) {
         return FileSortOrder.sortOrders.get(getFolderPreference(context,
-                                                                currentAccountProvider.getUser(),
+                                                                userAccountManager.getUser(),
                                                                 PREF__FOLDER_SORT_ORDER,
                                                                 folder,
                                                                 FileSortOrder.sort_a_to_z.name));
@@ -320,7 +319,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setSortOrder(@Nullable OCFile folder, FileSortOrder sortOrder) {
         setFolderPreference(context,
-                            currentAccountProvider.getUser(),
+                            userAccountManager.getUser(),
                             PREF__FOLDER_SORT_ORDER,
                             folder,
                             sortOrder.name);
@@ -333,7 +332,7 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     @Override
     public FileSortOrder getSortOrderByType(FileSortOrder.Type type, FileSortOrder defaultOrder) {
-        User user = currentAccountProvider.getUser();
+        User user = userAccountManager.getUser();
         if (user.isAnonymous()) {
             return defaultOrder;
         }
@@ -347,7 +346,7 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     @Override
     public void setSortOrder(FileSortOrder.Type type, FileSortOrder sortOrder) {
-        User user = currentAccountProvider.getUser();
+        User user = userAccountManager.getUser();
         ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
         dataProvider.storeOrUpdateKeyValue(user.getAccountName(), PREF__FOLDER_SORT_ORDER + "_" + type, sortOrder.name);
     }
@@ -506,19 +505,19 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void removeLegacyPreferences() {
         preferences.edit()
-                .remove("instant_uploading")
-                .remove("instant_video_uploading")
-                .remove("instant_upload_path")
-                .remove("instant_upload_path_use_subfolders")
-                .remove("instant_upload_on_wifi")
-                .remove("instant_upload_on_charging")
-                .remove("instant_video_upload_path")
-                .remove("instant_video_upload_path_use_subfolders")
-                .remove("instant_video_upload_on_wifi")
-                .remove("instant_video_uploading")
-                .remove("instant_video_upload_on_charging")
-                .remove("prefs_instant_behaviour")
-                .apply();
+            .remove("instant_uploading")
+            .remove("instant_video_uploading")
+            .remove("instant_upload_path")
+            .remove("instant_upload_path_use_subfolders")
+            .remove("instant_upload_on_wifi")
+            .remove("instant_upload_on_charging")
+            .remove("instant_video_upload_path")
+            .remove("instant_video_upload_path_use_subfolders")
+            .remove("instant_video_upload_on_wifi")
+            .remove("instant_video_uploading")
+            .remove("instant_video_upload_on_charging")
+            .remove("prefs_instant_behaviour")
+            .apply();
     }
 
     @Override
@@ -588,13 +587,12 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     /**
-     * Get preference value for a folder.
-     * If folder is not set itself, it finds an ancestor that is set.
+     * Get preference value for a folder. If folder is not set itself, it finds an ancestor that is set.
      *
-     * @param context Context object.
+     * @param context        Context object.
      * @param preferenceName Name of the preference to lookup.
-     * @param folder Folder.
-     * @param defaultValue Fallback value in case no ancestor is set.
+     * @param folder         Folder.
+     * @param defaultValue   Fallback value in case no ancestor is set.
      * @return Preference value
      */
     private static String getFolderPreference(final Context context,
@@ -621,10 +619,10 @@ public final class AppPreferencesImpl implements AppPreferences {
     /**
      * Set preference value for a folder.
      *
-     * @param context Context object.
+     * @param context        Context object.
      * @param preferenceName Name of the preference to set.
-     * @param folder Folder.
-     * @param value Preference value to set.
+     * @param folder         Folder.
+     * @param value          Preference value to set.
      */
     private static void setFolderPreference(final Context context,
                                             final User user,
@@ -637,7 +635,7 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     private static String getKeyFromFolder(String preferenceName, @Nullable OCFile folder) {
         final String folderIdString = String.valueOf(folder != null ? folder.getFileId() :
-            FileDataStorageManager.ROOT_PARENT_ID);
+                                                         FileDataStorageManager.ROOT_PARENT_ID);
 
         return preferenceName + "_" + folderIdString;
     }

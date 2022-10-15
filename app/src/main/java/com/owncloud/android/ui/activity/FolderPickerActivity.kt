@@ -342,8 +342,8 @@ open class FolderPickerActivity :
             val atRoot = currentDir == null || currentDir.parentId == 0L
             actionBar.setDisplayHomeAsUpEnabled(!atRoot)
             actionBar.setHomeButtonEnabled(!atRoot)
-            themeToolbarUtils.tintBackButton(actionBar, this)
-            themeToolbarUtils.setColoredTitle(supportActionBar, if (atRoot) caption else currentDir!!.fileName, this)
+            val title = if (atRoot) caption ?: "" else currentDir!!.fileName
+            viewThemeUtils.files.themeActionBar(this, actionBar, title)
         }
     }
 
@@ -354,14 +354,14 @@ open class FolderPickerActivity :
         mCancelBtn = findViewById(R.id.folder_picker_btn_cancel)
         mChooseBtn = findViewById(R.id.folder_picker_btn_choose)
         if (mChooseBtn != null) {
-            themeButtonUtils.colorPrimaryButton(mChooseBtn, this, themeColorUtils)
+            viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mChooseBtn!!)
             mChooseBtn!!.setOnClickListener(this)
         }
         if (mCancelBtn != null) {
             if (this is FilePickerActivity) {
-                themeButtonUtils.colorPrimaryButton(mCancelBtn, this, themeColorUtils)
+                viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mCancelBtn!!)
             } else {
-                mCancelBtn!!.setTextColor(themeColorUtils.primaryColor(this, true))
+                viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(mCancelBtn!!)
             }
             mCancelBtn!!.setOnClickListener(this)
         }

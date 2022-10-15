@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   Nextcloud Android client application
 
+  Copyright (C) 2022 Andy Scherzinger
   Copyright (C) 2018 Tobias Kaminsky
   Copyright (C) 2018 Nextcloud
 
@@ -18,37 +19,51 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="clip_horizontal"
     android:orientation="vertical"
-    android:padding="@dimen/standard_padding">
+    android:padding="@dimen/dialog_padding">
 
     <TextView
         android:id="@+id/encryption_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_margin" />
+        android:layout_marginBottom="@dimen/standard_margin"
+        tools:text="@string/end_to_end_encryption_keywords_description" />
 
     <TextView
         android:id="@+id/encryption_passphrase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
         android:background="@drawable/e2e_border"
         android:gravity="center"
         android:padding="5dp"
         android:textIsSelectable="true"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:text="passphrase"
+        tools:visibility="visible" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/encryption_passwordInput"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/encryption_passwordInput_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:hint="@string/end_to_end_encryption_password"
-        android:inputType="textPassword"
-        android:textCursorDrawable="@null"
+        android:minHeight="@dimen/minimum_size_for_touchable_area"
         android:visibility="gone"
-        android:autofillHints="password"/>
+        tools:visibility="visible">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/encryption_passwordInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="password"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:textCursorDrawable="@null" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 </LinearLayout>

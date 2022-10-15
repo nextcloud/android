@@ -29,6 +29,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsSharingProcessFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -41,8 +42,10 @@ import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.text.SimpleDateFormat
 import java.util.Date
+import javax.inject.Inject
 
 /**
  * Fragment class to show share permission options, set expiration date, change label, set password, send note
@@ -53,7 +56,10 @@ import java.util.Date
  * 2. This will handle both Advanced Permissions and Send New Email functionality for existing shares to modify them.
  */
 @Suppress("TooManyFunctions")
-class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialogFragment.OnExpiryDateListener {
+class FileDetailsSharingProcessFragment :
+    Fragment(),
+    Injectable,
+    ExpirationDatePickerDialogFragment.OnExpiryDateListener {
 
     companion object {
         const val TAG = "FileDetailsSharingProcessFragment"
@@ -99,6 +105,9 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             return fragment
         }
     }
+
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     private lateinit var onEditShareListener: FileDetailSharingFragment.OnEditShareListener
 
@@ -164,6 +173,31 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             showShareProcessSecond()
         }
         implementClickEvents()
+
+        themeView()
+    }
+
+    private fun themeView() {
+        viewThemeUtils.platform.colorPrimaryTextViewElement(binding.shareProcessEditShareLink)
+        viewThemeUtils.platform.colorPrimaryTextViewElement(binding.shareProcessAdvancePermissionTitle)
+
+        viewThemeUtils.platform.themeRadioButton(binding.shareProcessPermissionReadOnly)
+        viewThemeUtils.platform.themeRadioButton(binding.shareProcessPermissionUploadEditing)
+        viewThemeUtils.platform.themeRadioButton(binding.shareProcessPermissionFileDrop)
+
+        viewThemeUtils.platform.themeCheckbox(binding.shareProcessAllowResharingCheckbox)
+
+        viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessSetPasswordSwitch)
+        viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessSetExpDateSwitch)
+        viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessHideDownloadCheckbox)
+        viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessChangeNameSwitch)
+
+        viewThemeUtils.material.colorTextInputLayout(binding.shareProcessEnterPasswordContainer)
+        viewThemeUtils.material.colorTextInputLayout(binding.shareProcessChangeNameContainer)
+        viewThemeUtils.material.colorTextInputLayout(binding.noteContainer)
+
+        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.shareProcessBtnNext)
+        viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.shareProcessBtnCancel)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -251,7 +285,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         // external share
         if (shareType == ShareType.EMAIL) {
             binding.shareProcessChangeNameSwitch.visibility = View.GONE
-            binding.shareProcessChangeNameEt.visibility = View.GONE
+            binding.shareProcessChangeNameContainer.visibility = View.GONE
             updateViewForExternalAndLinkShare()
         }
         // link share
@@ -259,7 +293,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             updateViewForExternalAndLinkShare()
             binding.shareProcessChangeNameSwitch.visibility = View.VISIBLE
             if (share != null) {
-                binding.shareProcessChangeNameEt.setText(share?.label)
+                binding.shareProcessChangeName.setText(share?.label)
                 binding.shareProcessChangeNameSwitch.isChecked = !TextUtils.isEmpty(share?.label)
             }
             showChangeNameInput(binding.shareProcessChangeNameSwitch.isChecked)
@@ -267,7 +301,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         // internal share
         else {
             binding.shareProcessChangeNameSwitch.visibility = View.GONE
-            binding.shareProcessChangeNameEt.visibility = View.GONE
+            binding.shareProcessChangeNameContainer.visibility = View.GONE
             binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
             binding.shareProcessAllowResharingCheckbox.visibility = View.VISIBLE
             binding.shareProcessSetPasswordSwitch.visibility = View.GONE
@@ -383,9 +417,9 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     }
 
     private fun showChangeNameInput(isChecked: Boolean) {
-        binding.shareProcessChangeNameEt.visibility = if (isChecked) View.VISIBLE else View.GONE
+        binding.shareProcessChangeNameContainer.visibility = if (isChecked) View.VISIBLE else View.GONE
         if (!isChecked) {
-            binding.shareProcessChangeNameEt.setText("")
+            binding.shareProcessChangeName.setText("")
         }
     }
 
@@ -417,7 +451,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
     }
 
     private fun showPasswordInput(isChecked: Boolean) {
-        binding.shareProcessEnterPassword.visibility = if (isChecked) View.VISIBLE else View.GONE
+        binding.shareProcessEnterPasswordContainer.visibility = if (isChecked) View.VISIBLE else View.GONE
 
         // reset the password if switch is unchecked
         if (!isChecked) {
@@ -462,7 +496,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
         }
 
         if (binding.shareProcessChangeNameSwitch.isChecked &&
-            binding.shareProcessChangeNameEt.text?.trim().isNullOrEmpty()
+            binding.shareProcessChangeName.text?.trim().isNullOrEmpty()
         ) {
             DisplayUtils.showSnackMessage(binding.root, R.string.label_empty)
             return
@@ -499,7 +533,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
             binding.shareProcessHideDownloadCheckbox.isChecked,
             binding.shareProcessEnterPassword.text.toString().trim(),
             chosenExpDateInMills,
-            binding.shareProcessChangeNameEt.text.toString().trim()
+            binding.shareProcessChangeName.text.toString().trim()
         )
         // copy the share link if available
         if (!TextUtils.isEmpty(share?.shareLink)) {
@@ -527,7 +561,7 @@ class FileDetailsSharingProcessFragment : Fragment(), ExpirationDatePickerDialog
                 binding.shareProcessEnterPassword.text.toString().trim(),
                 chosenExpDateInMills,
                 noteText,
-                binding.shareProcessChangeNameEt.text.toString().trim()
+                binding.shareProcessChangeName.text.toString().trim()
             )
         }
         removeCurrentFragment()

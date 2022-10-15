@@ -167,7 +167,6 @@
     <string name="create_rich_workspace">Додај информације о фасцикли</string>
     <string name="creates_rich_workspace">прави информације о фасцикли</string>
     <string name="credentials_disabled">Акредитиви искључени</string>
-    <string name="date_unknown">Непознато</string>
     <string name="default_credentials_wrong">Неисправни акредитиви</string>
     <string name="delete_account">Уклони налог</string>
     <string name="delete_account_warning">Уклонити налог %s и избрисати све локалне фајлове?\n\nБрисање се не може опозвати.</string>

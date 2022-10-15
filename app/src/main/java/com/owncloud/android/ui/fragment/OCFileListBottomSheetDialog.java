@@ -22,9 +22,7 @@ package com.owncloud.android.ui.fragment;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.nextcloud.client.account.User;
@@ -42,11 +40,8 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.AppScanActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
-
-import javax.inject.Inject;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 /**
  * FAB menu {@link android.app.Dialog} styled as a bottom sheet for main actions.
@@ -59,9 +54,8 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
     private final DeviceInfo deviceInfo;
     private final User user;
     private final OCFile file;
-    private final ThemeColorUtils themeColorUtils;
     private final ThemeUtils themeUtils;
-    private final ThemeDrawableUtils themeDrawableUtils;
+    private final ViewThemeUtils viewThemeUtils;
 
 
     public OCFileListBottomSheetDialog(FileActivity fileActivity,
@@ -69,18 +63,16 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
                                        DeviceInfo deviceInfo,
                                        User user,
                                        OCFile file,
-                                       ThemeColorUtils themeColorUtils,
                                        ThemeUtils themeUtils,
-                                       ThemeDrawableUtils themeDrawableUtils) {
+                                       ViewThemeUtils viewThemeUtils) {
         super(fileActivity);
         this.actions = actions;
         this.fileActivity = fileActivity;
         this.deviceInfo = deviceInfo;
         this.user = user;
         this.file = file;
-        this.themeColorUtils = themeColorUtils;
         this.themeUtils = themeUtils;
-        this.themeDrawableUtils = themeDrawableUtils;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     @Override
@@ -89,15 +81,12 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         binding = FileListActionsBottomSheetFragmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if (getWindow() != null) {
-            getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        }
-
-        int primaryColor = themeColorUtils.primaryColor(getContext(), true);
-        themeDrawableUtils.tintDrawable(binding.menuIconUploadFiles.getDrawable(), primaryColor);
-        themeDrawableUtils.tintDrawable(binding.menuIconUploadFromApp.getDrawable(), primaryColor);
-        themeDrawableUtils.tintDrawable(binding.menuIconDirectCameraUpload.getDrawable(), primaryColor);
-        themeDrawableUtils.tintDrawable(binding.menuIconMkdir.getDrawable(), primaryColor);
+        viewThemeUtils.platform.colorImageView(binding.menuIconUploadFiles);
+        viewThemeUtils.platform.colorImageView(binding.menuIconUploadFromApp);
+        viewThemeUtils.platform.colorImageView(binding.menuIconDirectCameraUpload);
+        viewThemeUtils.platform.colorImageView(binding.menuIconScanDocUpload);
+        viewThemeUtils.platform.colorImageView(binding.menuIconMkdir);
+        viewThemeUtils.platform.colorImageView(binding.menuIconAddFolderInfo);
 
         binding.addToCloud.setText(getContext().getResources().getString(R.string.add_to_cloud,
                                                                          themeUtils.getDefaultDisplayNameForRootFolder(getContext())));
@@ -135,10 +124,8 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
                     creatorViewBinding.creatorThumbnail.setImageDrawable(
                         MimeTypeUtil.getFileTypeIcon(creator.getMimetype(),
                                                      creator.getExtension(),
-                                                     user,
-                                                     getContext(),
-                                                     themeColorUtils,
-                                                     themeDrawableUtils));
+                                                     creatorViewBinding.creatorThumbnail.getContext(),
+                                                     viewThemeUtils));
 
                     creatorView.setOnClickListener(v -> {
                         actions.showTemplate(creator, creatorViewBinding.creatorName.getText().toString());
@@ -165,19 +152,17 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
             // != "": info set -> hide button
             if (file.getRichWorkspace() == null || !"".equals(file.getRichWorkspace())) {
                 binding.menuCreateRichWorkspace.setVisibility(View.GONE);
+                binding.menuCreateRichWorkspaceDivider.setVisibility(View.GONE);
             } else {
                 binding.menuCreateRichWorkspace.setVisibility(View.VISIBLE);
+                binding.menuCreateRichWorkspaceDivider.setVisibility(View.VISIBLE);
             }
         } else {
             binding.menuCreateRichWorkspace.setVisibility(View.GONE);
+            binding.menuCreateRichWorkspaceDivider.setVisibility(View.GONE);
         }
 
         setupClickListener();
-
-        setOnShowListener(d ->
-                              BottomSheetBehavior.from((View) binding.getRoot().getParent())
-                                  .setPeekHeight(binding.getRoot().getMeasuredHeight())
-                         );
     }
 
     private void setupClickListener() {

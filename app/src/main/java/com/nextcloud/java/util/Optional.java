@@ -31,7 +31,6 @@ import java.util.NoSuchElementException;
 import androidx.core.util.Consumer;
 import androidx.core.util.ObjectsCompat;
 import androidx.core.util.Supplier;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.jvm.functions.Function1;
 
 /**
@@ -83,11 +82,9 @@ public final class Optional<T> {
      * @param <T> Type of the non-existent value
      * @return an empty {@code Optional}
      */
+    @SuppressWarnings("unchecked")
     public static<T> Optional<T> empty() {
-        @SuppressWarnings("unchecked")
-        @SuppressFBWarnings("USBR_UNNECESSARY_STORE_BEFORE_RETURN")
-        Optional<T> t = (Optional<T>) EMPTY;
-        return t;
+        return (Optional<T>) EMPTY;
     }
 
     /**

@@ -3,7 +3,7 @@ package com.nextcloud.client.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.nextcloud.client.account.CurrentAccountProvider;
+import com.nextcloud.client.account.UserAccountManager;
 
 import javax.inject.Singleton;
 
@@ -23,7 +23,7 @@ public class PreferencesModule {
     @Singleton
     public AppPreferences appPreferences(Context context,
                                          SharedPreferences sharedPreferences,
-                                         CurrentAccountProvider currentAccountProvider) {
-        return new AppPreferencesImpl(context, sharedPreferences, currentAccountProvider);
+                                         UserAccountManager userAccountManager) {
+        return new AppPreferencesImpl(context, sharedPreferences, userAccountManager);
     }
 }

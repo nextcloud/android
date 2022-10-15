@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="16" height="16" version="1.1" id="svg4" sodipodi:docname="dashboard.svg"
+    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg">
+    <defs id="defs8" />
+    <sodipodi:namedview id="namedview6" pagecolor="#505050" bordercolor="#eeeeee" borderopacity="1"
+        inkscape:showpageshadow="0" inkscape:pageopacity="0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#505050"
+        showgrid="false" inkscape:zoom="46.4375" inkscape:cx="8" inkscape:cy="7.9892328" inkscape:window-width="1920"
+        inkscape:window-height="1141" inkscape:window-x="0" inkscape:window-y="0" inkscape:window-maximized="1"
+        inkscape:current-layer="svg4" />
+    <path
+        d="m7.9062 1a7 7 0 0 0-6.9062 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7 7 7 0 0 0-0.09375 0zm0.09375 2.6992a4.3 4.3 0 0 1 4.3008 4.3008 4.3 4.3 0 0 1-4.3008 4.3008 4.3 4.3 0 0 1-4.3008-4.3008 4.3 4.3 0 0 1 4.3008-4.3008z"
+        fill="#fff" stroke-dashoffset="10" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"
+        style="paint-order:markers stroke fill;fill:#000000" id="path2" />
+</svg>

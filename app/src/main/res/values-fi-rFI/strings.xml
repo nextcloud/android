@@ -184,7 +184,6 @@
     <string name="credentials_disabled">Kirjautumistiedot poistettu käytöstä</string>
     <string name="daily_backup">Päivittäinen varmuuskopio</string>
     <string name="data_to_back_up">Varmuuskopioitavat tiedot</string>
-    <string name="date_unknown">Tuntematon</string>
     <string name="default_credentials_wrong">Virheelliset kirjautumistiedot</string>
     <string name="delete_account">Poista tili</string>
     <string name="delete_account_warning">Poistetaanko tili %s ja kaikki sen paikalliset tiedostot?\n\nPoistamista ei voi perua.</string>

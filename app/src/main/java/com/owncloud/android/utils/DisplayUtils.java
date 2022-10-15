@@ -36,7 +36,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.Spannable;
@@ -81,8 +80,7 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.glide.CustomGlideUriLoader;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -128,7 +126,6 @@ public final class DisplayUtils {
 
     private static final String[] sizeSuffixes = {"B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
     private static final int[] sizeScales = {0, 0, 1, 1, 1, 2, 2, 2, 2};
-    private static final int RELATIVE_THRESHOLD_WARNING = 80;
     private static final String MIME_TYPE_UNKNOWN = "Unknown type";
 
     private static final String HTTP_PROTOCOL = "http://";
@@ -142,6 +139,7 @@ public final class DisplayUtils {
     public static final String MONTH_YEAR_PATTERN = "MMMM yyyy";
     public static final String MONTH_PATTERN = "MMMM";
     public static final String YEAR_PATTERN = "yyyy";
+    public static final int SVG_SIZE = 512;
 
     private static Map<String, String> mimeType2HumanReadable;
 
@@ -334,22 +332,6 @@ public final class DisplayUtils {
                                          DateUtils.WEEK_IN_MILLIS,
                                          0,
                                          showFuture);
-    }
-
-
-    /**
-     * determines the info level color based on {@link #RELATIVE_THRESHOLD_WARNING}.
-     *
-     * @param context  the app's context
-     * @param relative relative value for which the info level color should be looked up
-     * @return info level color
-     */
-    public static int getRelativeInfoColor(Context context, int relative, ThemeColorUtils themeColorUtils) {
-        if (relative < RELATIVE_THRESHOLD_WARNING) {
-            return themeColorUtils.primaryColor(context, true);
-        } else {
-            return context.getResources().getColor(R.color.infolevel_warning);
-        }
     }
 
     public static CharSequence getRelativeDateTimeString(Context c, long time, long minResolution,
@@ -552,13 +534,10 @@ public final class DisplayUtils {
                                     Context context,
                                     String iconUrl,
                                     SimpleTarget imageView,
-                                    int placeholder,
-                                    int width,
-                                    int height) {
+                                    int placeholder) {
         try {
-            if (iconUrl.endsWith(".svg")) {
-                downloadSVGIcon(currentAccountProvider, clientFactory, context, iconUrl, imageView, placeholder, width,
-                                height);
+            if (Uri.parse(iconUrl).getEncodedPath().endsWith(".svg")) {
+                downloadSVGIcon(currentAccountProvider, clientFactory, context, iconUrl, imageView, placeholder);
             } else {
                 downloadPNGIcon(context, iconUrl, imageView, placeholder);
             }
@@ -583,17 +562,15 @@ public final class DisplayUtils {
                                         Context context,
                                         String iconUrl,
                                         SimpleTarget imageView,
-                                        int placeholder,
-                                        int width,
-                                        int height) {
-        GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(context)
+                                        int placeholder) {
+        GenericRequestBuilder<Uri, InputStream, SVG, Drawable> requestBuilder = Glide.with(context)
             .using(new CustomGlideUriLoader(currentAccountProvider.getUser(), clientFactory), InputStream.class)
             .from(Uri.class)
             .as(SVG.class)
-            .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
+            .transcode(new SvgDrawableTranscoder(context), Drawable.class)
             .sourceEncoder(new StreamEncoder())
-            .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder(height, width)))
-            .decoder(new SvgDecoder(height, width))
+            .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
+            .decoder(new SvgDecoder())
             .placeholder(placeholder)
             .error(placeholder)
             .animate(android.R.anim.fade_in);
@@ -851,8 +828,7 @@ public final class DisplayUtils {
                                     Context context,
                                     LoaderImageView shimmerThumbnail,
                                     AppPreferences preferences,
-                                    ThemeColorUtils themeColorUtils,
-                                    ThemeDrawableUtils themeDrawableUtils) {
+                                    ViewThemeUtils viewThemeUtils) {
         if (file.isFolder()) {
             stopShimmer(shimmerThumbnail, thumbnailView);
             thumbnailView.setImageDrawable(MimeTypeUtil
@@ -862,8 +838,7 @@ public final class DisplayUtils {
                                                                   file.isGroupFolder(),
                                                                   file.getMountType(),
                                                                   context,
-                                                                  themeColorUtils,
-                                                                  themeDrawableUtils));
+                                                                  viewThemeUtils));
         } else {
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?
@@ -904,10 +879,8 @@ public final class DisplayUtils {
                             if (thumbnail == null) {
                                 Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                                  file.getFileName(),
-                                                                                 user,
                                                                                  context,
-                                                                                 themeColorUtils,
-                                                                                 themeDrawableUtils);
+                                                                                 viewThemeUtils);
                                 if (drawable == null) {
                                     drawable = ResourcesCompat.getDrawable(context.getResources(),
                                                                            R.drawable.file_image,
@@ -957,10 +930,8 @@ public final class DisplayUtils {
                 stopShimmer(shimmerThumbnail, thumbnailView);
                 thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                             file.getFileName(),
-                                                                            user,
                                                                             context,
-                                                                            themeColorUtils,
-                                                                            themeDrawableUtils));
+                                                                            viewThemeUtils));
             }
         }
     }

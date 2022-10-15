@@ -146,7 +146,6 @@
     <string name="create_new_presentation">Napravi novu prezentaciju</string>
     <string name="create_new_spreadsheet">Napravi novu tabelu</string>
     <string name="credentials_disabled">Akreditivi isključeni</string>
-    <string name="date_unknown">Nepoznato</string>
     <string name="default_credentials_wrong">Neispravni akreditivi</string>
     <string name="delete_account">Ukloni nalog</string>
     <string name="delete_account_warning">Uklonite nalog %s i izbrišite sve lokalne fajlove?\n\nBrisanje ne može da se povrati.</string>

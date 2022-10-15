@@ -33,7 +33,7 @@ import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.LogsActivityBinding
 import com.owncloud.android.ui.activity.ToolbarActivity
-import com.owncloud.android.utils.theme.ThemeBarUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
 class LogsActivity : ToolbarActivity() {
@@ -42,7 +42,8 @@ class LogsActivity : ToolbarActivity() {
     protected lateinit var viewModelFactory: ViewModelFactory
 
     @Inject
-    protected lateinit var themeBarUtils: ThemeBarUtils
+    lateinit var viewThemeUtils: ViewThemeUtils
+
     private lateinit var vm: LogsViewModel
     private lateinit var binding: LogsActivityBinding
     private lateinit var logsAdapter: LogsAdapter
@@ -67,7 +68,7 @@ class LogsActivity : ToolbarActivity() {
         }
 
         findViewById<ProgressBar>(R.id.logs_loading_progress).apply {
-            themeBarUtils.themeProgressBar(context, this, themeColorUtils)
+            viewThemeUtils.platform.themeHorizontalProgressBar(this)
         }
 
         logsAdapter = LogsAdapter(this)
@@ -81,17 +82,18 @@ class LogsActivity : ToolbarActivity() {
 
         setupToolbar()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.apply { themeToolbarUtils.setColoredTitle(this, getString(R.string.logs_title), baseContext) }
 
-        themeToolbarUtils.tintBackButton(supportActionBar, baseContext)
+        supportActionBar?.let {
+            viewThemeUtils.files.themeActionBar(this, it, R.string.logs_title)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.activity_logs, menu)
+
         (menu.findItem(R.id.action_search).actionView as SearchView).apply {
             setOnQueryTextListener(searchBoxListener)
-
-            themeToolbarUtils.themeSearchView(this, context)
+            viewThemeUtils.androidx.themeToolbarSearchView(this)
         }
         return super.onCreateOptionsMenu(menu)
     }

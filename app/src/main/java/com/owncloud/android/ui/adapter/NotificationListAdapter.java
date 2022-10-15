@@ -19,13 +19,14 @@
 
 package com.owncloud.android.ui.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.PictureDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -59,8 +60,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
-import com.owncloud.android.utils.theme.ThemeButtonUtils;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -82,18 +82,15 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     private final List<Notification> notificationsList;
     private final OwnCloudClient client;
     private final NotificationsActivity notificationsActivity;
-    private final ThemeColorUtils themeColorUtils;
-    private final ThemeButtonUtils themeButtonUtils;
+    private final ViewThemeUtils viewThemeUtils;
 
     public NotificationListAdapter(OwnCloudClient client,
                                    NotificationsActivity notificationsActivity,
-                                   ThemeColorUtils themeColorUtils,
-                                   ThemeButtonUtils themeButtonUtils) {
+                                   ViewThemeUtils viewThemeUtils) {
         this.notificationsList = new ArrayList<>();
         this.client = client;
         this.notificationsActivity = notificationsActivity;
-        this.themeColorUtils = themeColorUtils;
-        this.themeButtonUtils = themeButtonUtils;
+        this.viewThemeUtils = viewThemeUtils;
         foregroundColorSpanBlack = new ForegroundColorSpan(
             notificationsActivity.getResources().getColor(R.color.text_color));
     }
@@ -147,12 +144,12 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         holder.binding.message.setText(notification.getMessage());
 
         if (!TextUtils.isEmpty(notification.getIcon())) {
-            downloadIcon(notification.getIcon(), holder.binding.icon);
+            downloadIcon(notification.getIcon(), holder.binding.icon, notificationsActivity);
         }
 
         int nightModeFlag =
             notificationsActivity.getResources().getConfiguration().uiMode
-            & Configuration.UI_MODE_NIGHT_MASK;
+                & Configuration.UI_MODE_NIGHT_MASK;
         if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
             holder.binding.icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
         } else {
@@ -170,7 +167,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     public void setButtons(NotificationViewHolder holder, Notification notification) {
         // add action buttons
         holder.binding.buttons.removeAllViews();
-        MaterialButton button;
 
         Resources resources = notificationsActivity.getResources();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -179,17 +175,14 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
             0,
             resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
-            0
-                         );
+            0);
 
-        int primaryColor = themeColorUtils.primaryColor(notificationsActivity);
-        
         List<Action> overflowActions = new ArrayList<>();
-        
+
         if (notification.getActions().size() > 2) {
-            for (Action action: notification.getActions()) {
+            for (Action action : notification.getActions()) {
                 if (action.primary) {
-                    button = new MaterialButton(notificationsActivity);
+                    final MaterialButton button = new MaterialButton(notificationsActivity);
                     button.setAllCaps(false);
 
                     button.setText(action.label);
@@ -215,29 +208,27 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                         }
                     });
 
-                    themeButtonUtils.colorPrimaryButton(button, notificationsActivity, themeColorUtils);
+                    viewThemeUtils.material.colorMaterialButtonPrimaryFilled(button);
                     holder.binding.buttons.addView(button);
                 } else {
                     overflowActions.add(action);
                 }
             }
-            
+
             // further actions
-            button = new MaterialButton(notificationsActivity);
-            button.setBackgroundColor(resources.getColor(R.color.grey_200));
-            button.setTextColor(primaryColor);
+            final MaterialButton moreButton = new MaterialButton(notificationsActivity);
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(moreButton);
 
-            button.setAllCaps(false);
+            moreButton.setAllCaps(false);
 
-            button.setText(R.string.more);
-            button.setCornerRadiusResource(R.dimen.button_corner_radius);
+            moreButton.setText(R.string.more);
+            moreButton.setCornerRadiusResource(R.dimen.button_corner_radius);
 
-            button.setLayoutParams(params);
-            button.setGravity(Gravity.CENTER);
+            moreButton.setLayoutParams(params);
+            moreButton.setGravity(Gravity.CENTER);
 
-            MaterialButton finalButton = button;
-            button.setOnClickListener(v -> {
-                PopupMenu popup = new PopupMenu(notificationsActivity, finalButton);
+            moreButton.setOnClickListener(v -> {
+                PopupMenu popup = new PopupMenu(notificationsActivity, moreButton);
 
                 for (Action action : overflowActions) {
                     popup.getMenu().add(action.label).setOnMenuItemClickListener(item -> {
@@ -255,24 +246,23 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                                                               notificationsActivity)
                                 .execute(action);
                         }
-                        
+
                         return true;
                     });
                 }
-                
+
                 popup.show();
             });
 
-            holder.binding.buttons.addView(button);
+            holder.binding.buttons.addView(moreButton);
         } else {
             for (Action action : notification.getActions()) {
-                button = new MaterialButton(notificationsActivity);
+                final MaterialButton button = new MaterialButton(notificationsActivity);
 
                 if (action.primary) {
-                    themeButtonUtils.colorPrimaryButton(button, notificationsActivity, themeColorUtils);
+                    viewThemeUtils.material.colorMaterialButtonPrimaryFilled(button);
                 } else {
-                    button.setBackgroundColor(resources.getColor(R.color.grey_200));
-                    button.setTextColor(primaryColor);
+                    viewThemeUtils.material.colorMaterialButtonPrimaryTonal(button);
                 }
 
                 button.setAllCaps(false);
@@ -304,11 +294,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             }
         }
     }
-    
-    private void handleItemClick() {
-        
-    }
-    
 
     private SpannableStringBuilder makeSpecialPartsBold(Notification notification) {
         String text = notification.getSubjectRich();
@@ -360,12 +345,12 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         }
     }
 
-    private void downloadIcon(String icon, ImageView itemViewType) {
-        GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(notificationsActivity)
+    private void downloadIcon(String icon, ImageView itemViewType, Context context) {
+        GenericRequestBuilder<Uri, InputStream, SVG, Drawable> requestBuilder = Glide.with(notificationsActivity)
             .using(Glide.buildStreamModelLoader(Uri.class, notificationsActivity), InputStream.class)
             .from(Uri.class)
             .as(SVG.class)
-            .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
+            .transcode(new SvgDrawableTranscoder(context), Drawable.class)
             .sourceEncoder(new StreamEncoder())
             .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
             .decoder(new SvgDecoder())

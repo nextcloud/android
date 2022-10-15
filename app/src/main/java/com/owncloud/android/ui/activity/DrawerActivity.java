@@ -54,7 +54,6 @@ import android.webkit.URLUtil;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.GenericRequestBuilder;
@@ -66,6 +65,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
@@ -113,8 +113,6 @@ import com.owncloud.android.utils.svg.SVGorImage;
 import com.owncloud.android.utils.svg.SvgOrImageBitmapTranscoder;
 import com.owncloud.android.utils.svg.SvgOrImageDecoder;
 import com.owncloud.android.utils.theme.CapabilityUtils;
-import com.owncloud.android.utils.theme.ThemeBarUtils;
-import com.owncloud.android.utils.theme.ThemeMenuUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -149,6 +147,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     private static final int MENU_ORDER_EXTERNAL_LINKS = 3;
     private static final int MENU_ITEM_EXTERNAL_LINK = 111;
     private static final int MAX_LOGO_SIZE_PX = 1000;
+    private static final int RELATIVE_THRESHOLD_WARNING = 80;
 
     /**
      * Reference to the drawer layout.
@@ -188,7 +187,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * progress bar of the quota view.
      */
-    private ProgressBar mQuotaProgressBar;
+    private LinearProgressIndicator mQuotaProgressBar;
 
     /**
      * text view of the quota view.
@@ -209,12 +208,6 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     @Inject
     ClientFactory clientFactory;
-
-    @Inject
-    ThemeMenuUtils themeMenuUtils;
-
-    @Inject
-    ThemeBarUtils themeBarUtils;
 
     /**
      * Initializes the drawer, its content and highlights the menu item with the given id. This method needs to be
@@ -287,9 +280,8 @@ public abstract class DrawerActivity extends ToolbarActivity
         Drawable backArrow = ResourcesCompat.getDrawable(getResources(),
                                                          R.drawable.ic_arrow_back,
                                                          null);
-        mDrawerToggle.setHomeAsUpIndicator(
-            themeDrawableUtils.tintDrawable(backArrow, themeColorUtils.appBarPrimaryFontColor(this)));
-        mDrawerToggle.getDrawerArrowDrawable().setColor(themeColorUtils.appBarPrimaryFontColor(this));
+
+        viewThemeUtils.platform.tintToolbarArrowDrawable(this, mDrawerToggle, backArrow);
     }
 
     /**
@@ -297,10 +289,10 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     private void setupQuotaElement() {
         mQuotaView = (LinearLayout) findQuotaViewById(R.id.drawer_quota);
-        mQuotaProgressBar = (ProgressBar) findQuotaViewById(R.id.drawer_quota_ProgressBar);
+        mQuotaProgressBar = (LinearProgressIndicator) findQuotaViewById(R.id.drawer_quota_ProgressBar);
         mQuotaTextPercentage = (TextView) findQuotaViewById(R.id.drawer_quota_percentage);
         mQuotaTextLink = (TextView) findQuotaViewById(R.id.drawer_quota_link);
-        themeBarUtils.colorProgressBar(mQuotaProgressBar, themeColorUtils.primaryColor(this));
+        viewThemeUtils.material.colorProgressBar(mQuotaProgressBar);
     }
 
     public void updateHeader() {
@@ -309,11 +301,11 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             OCCapability capability = getCapabilities();
             String logo = capability.getServerLogo();
-            int primaryColor = themeColorUtils.primaryColor(getAccount(), false, this);
+            int primaryColor = themeColorUtils.unchangedPrimaryColor(getAccount(), this);
 
             // set background to primary color
             LinearLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
-            drawerHeader.setBackgroundColor(themeColorUtils.unchangedPrimaryColor(getAccount(), this));
+            drawerHeader.setBackgroundColor(primaryColor);
 
             if (!TextUtils.isEmpty(logo) && URLUtil.isValidUrl(logo)) {
                 // background image
@@ -377,13 +369,6 @@ public abstract class DrawerActivity extends ToolbarActivity
             serverName.setTextColor(themeColorUtils.unchangedFontColor(this));
         }
 
-    }
-
-    /**
-     * setup drawer header, basically the logo color
-     */
-    private void setupDrawerHeader(FrameLayout drawerHeader) {
-        drawerHeader.setBackgroundColor(themeColorUtils.primaryColor(getAccount(), true, this));
     }
 
     /**
@@ -702,9 +687,12 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         mQuotaProgressBar.setProgress(relative);
 
-        themeBarUtils.colorProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this,
-                                                                                            relative,
-                                                                                            themeColorUtils));
+        if (relative < RELATIVE_THRESHOLD_WARNING) {
+            viewThemeUtils.material.colorProgressBar(mQuotaProgressBar);
+        } else {
+            viewThemeUtils.material.colorProgressBar(mQuotaProgressBar,
+                                                               getResources().getColor(R.color.infolevel_warning));
+        }
 
         updateQuotaLink();
         showQuota(true);
@@ -769,9 +757,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                                               this,
                                               firstQuota.getIconUrl(),
                                               target,
-                                              R.drawable.ic_link,
-                                              size,
-                                              size);
+                                              R.drawable.ic_link);
 
                 } else {
                     mQuotaTextLink.setVisibility(View.GONE);
@@ -789,26 +775,9 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     protected void setDrawerMenuItemChecked(int menuItemId) {
         if (mNavigationView != null && mNavigationView.getMenu().findItem(menuItemId) != null) {
+            viewThemeUtils.platform.colorNavigationView(mNavigationView);
             mCheckedMenuItem = menuItemId;
-            MenuItem currentItem = mNavigationView.getMenu().findItem(menuItemId);
-            int drawerColor = getResources().getColor(R.color.drawer_text_color);
-            int activeColor = themeColorUtils.primaryColor(null, true, true, this);
-
-            currentItem.setChecked(true);
-
-            // For each menu item, change the color of the selected item, and of the other items
-            for (int i = 0; i < mNavigationView.getMenu().size(); i++) {
-                MenuItem menuItem = mNavigationView.getMenu().getItem(i);
-                if (menuItem.getIcon() != null) {
-                    if (menuItem == currentItem) {
-                        themeDrawableUtils.tintDrawable(currentItem.getIcon(), activeColor);
-                        themeMenuUtils.tintMenuItemText(currentItem, activeColor);
-                    } else {
-                        themeDrawableUtils.tintDrawable(menuItem.getIcon(), drawerColor);
-                        themeMenuUtils.tintMenuItemText(menuItem, drawerColor);
-                    }
-                }
-            }
+            mNavigationView.getMenu().findItem(menuItemId).setChecked(true);
         } else {
             Log_OC.w(TAG, "setDrawerMenuItemChecked has been called with invalid menu-item-ID");
         }
@@ -884,8 +853,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (mNavigationView != null && getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
             mNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
 
-            float density = getResources().getDisplayMetrics().density;
-            final int size = Math.round(24 * density);
             int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
@@ -911,9 +878,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                                           this,
                                           link.getIconUrl(),
                                           target,
-                                          R.drawable.ic_link,
-                                          size,
-                                          size);
+                                          R.drawable.ic_link);
             }
 
             setDrawerMenuItemChecked(mCheckedMenuItem);
@@ -925,7 +890,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         if (menuItem != null) {
             if (drawable != null) {
-                menuItem.setIcon(themeDrawableUtils.tintDrawable(drawable, greyColor));
+                menuItem.setIcon(viewThemeUtils.platform.colorDrawable(drawable, greyColor));
             } else {
                 menuItem.setIcon(R.drawable.ic_link);
             }

@@ -28,22 +28,22 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.MultipleAccountsBinding;
-import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.adapter.UserListItem;
-import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeDrawableUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,15 +51,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class MultipleAccountsDialog extends DialogFragment implements Injectable, UserListAdapter.ClickListener {
 
     @Inject UserAccountManager accountManager;
-    @Inject ThemeColorUtils themeColorUtils;
-    @Inject ThemeDrawableUtils themeDrawableUtils;
+    @Inject ViewThemeUtils viewThemeUtils;
+    public boolean highlightCurrentlyActiveAccount = true;
 
     @NonNull
     @Override
@@ -73,23 +72,26 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
         LayoutInflater inflater = activity.getLayoutInflater();
         MultipleAccountsBinding binding = MultipleAccountsBinding.inflate(inflater, null, false);
 
-        final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
-        AlertDialog.Builder builder = new AlertDialog.Builder(parent);
+        final Context parent = getActivity();
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(binding.getRoot().getContext());
 
         UserListAdapter adapter = new UserListAdapter(parent,
                                                       accountManager,
                                                       getAccountListItems(),
                                                       this,
                                                       false,
+                                                      highlightCurrentlyActiveAccount,
                                                       false,
-                                                      themeColorUtils,
-                                                      themeDrawableUtils);
+                                                      viewThemeUtils);
 
         binding.list.setHasFixedSize(true);
         binding.list.setLayoutManager(new LinearLayoutManager(activity));
         binding.list.setAdapter(adapter);
 
         builder.setView(binding.getRoot()).setTitle(R.string.common_choose_account);
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.getRoot().getContext(), builder);
+
         Dialog dialog = builder.create();
 
         Window window = dialog.getWindow();
@@ -125,9 +127,9 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
 
     @Override
     public void onAccountClicked(User user) {
-        final ReceiveExternalFilesActivity parentActivity = (ReceiveExternalFilesActivity) getActivity();
+        final AccountChooserInterface parentActivity = (AccountChooserInterface) getActivity();
         if (parentActivity != null) {
-            parentActivity.changeAccount(user.toPlatformAccount());
+            parentActivity.onAccountChosen(user);
         }
         dismiss();
     }

@@ -34,8 +34,7 @@ import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.theme.ThemeColorUtils
-import com.owncloud.android.utils.theme.ThemeDrawableUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListDelegate(
@@ -49,8 +48,7 @@ class OCFileListDelegate(
     private val transferServiceGetter: ComponentsGetter,
     private val showMetadata: Boolean,
     private var showShareAvatar: Boolean,
-    private var themeColorUtils: ThemeColorUtils,
-    private var themeDrawableUtils: ThemeDrawableUtils
+    private var viewThemeUtils: ViewThemeUtils
 ) {
     private val checkedFiles: MutableSet<OCFile> = HashSet()
     private var highlightedItem: OCFile? = null
@@ -106,8 +104,7 @@ class OCFileListDelegate(
             context,
             gridViewHolder.shimmerThumbnail,
             preferences,
-            themeColorUtils,
-            themeDrawableUtils
+            viewThemeUtils
         )
         // item layout + click listeners
         bindGridItemLayout(file, gridViewHolder)
@@ -162,10 +159,7 @@ class OCFileListDelegate(
                     .getColor(R.color.selected_item_background)
             )
             gridViewHolder.checkbox.setImageDrawable(
-                themeDrawableUtils.tintDrawable(
-                    R.drawable.ic_checkbox_marked,
-                    themeColorUtils.primaryColor(context)
-                )
+                viewThemeUtils.platform.tintPrimaryDrawable(context, R.drawable.ic_checkbox_marked)
             )
         } else {
             gridViewHolder.itemLayout.setBackgroundColor(context.resources.getColor(R.color.bg_default))
