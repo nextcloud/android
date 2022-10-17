@@ -1,0 +1,10 @@
+## 3.22.0 (October 18, 2022)
+
+- Material 3 UI revamp
+- Dashboard widgets for Android launcher
+- New tiled design for media view
+- Many bugfixes and improvements
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/70
