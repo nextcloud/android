@@ -45,6 +45,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.Observable;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
@@ -428,17 +429,21 @@ public class UploadsStorageManager extends Observable {
     public OCUpload[] getCurrentAndPendingUploadsForCurrentAccount() {
         User user = currentAccountProvider.getUser();
 
+        return getCurrentAndPendingUploadsForAccount(user.getAccountName());
+    }
+
+    public OCUpload[] getCurrentAndPendingUploadsForAccount(final @NonNull String accountName) {
         return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
-                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "==" + UploadResult.LOCK_FAILED.getValue() +
-                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
-                        " AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
-                        user.getAccountName());
+                              " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                              "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
+                              " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                              "==" + UploadResult.LOCK_FAILED.getValue() +
+                              " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                              "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
+                              " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                              "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
+                              " AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
+                          accountName);
     }
 
     /**

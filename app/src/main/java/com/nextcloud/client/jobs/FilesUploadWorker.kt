@@ -27,6 +27,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.text.TextUtils
 import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
@@ -64,18 +65,24 @@ class FilesUploadWorker(
     val context: Context,
     params: WorkerParameters
 ) : Worker(context, params), OnDatatransferProgressListener {
-    var lastPercent = 0
-    val notificationBuilder: NotificationCompat.Builder =
+    private var lastPercent = 0
+    private val notificationBuilder: NotificationCompat.Builder =
         NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
-    val notificationManager: NotificationManager =
+    private val notificationManager: NotificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    val fileUploaderDelegate = FileUploaderDelegate()
+    private val fileUploaderDelegate = FileUploaderDelegate()
 
     override fun doWork(): Result {
+        val accountName = inputData.getString(ACCOUNT)
+        if (TextUtils.isEmpty(accountName)) {
+            return Result.failure() // user account is needed
+        }
+
+        val user = userAccountManager.getUser(accountName)
+
         // get all pending uploads
-        for (upload in uploadsStorageManager.currentAndPendingUploadsForCurrentAccount) {
+        for (upload in uploadsStorageManager.getCurrentAndPendingUploadsForAccount(accountName!!)) {
             // create upload file operation
-            val user = userAccountManager.getUser(upload.accountName)
             if (user.isPresent) {
                 val uploadFileOperation = createUploadFileOperation(upload, user.get())
 
@@ -89,6 +96,7 @@ class FilesUploadWorker(
                     localBroadcastManager
                 )
             } else {
+                // user not present anymore, remove upload
                 uploadsStorageManager.removeUpload(upload.uploadId)
             }
         }
@@ -197,12 +205,6 @@ class FilesUploadWorker(
         // TODO generalize for automated uploads
     }
 
-    companion object {
-        val TAG: String = FilesUploadWorker::class.java.simpleName
-        const val FOREGROUND_SERVICE_ID: Int = 412
-        const val MAX_PROGRESS: Int = 100
-    }
-
     /**
      * see [com.owncloud.android.files.services.FileUploader.onTransferProgress]
      */
@@ -222,5 +224,12 @@ class FilesUploadWorker(
             notificationManager.notify(FOREGROUND_SERVICE_ID, notificationBuilder.build())
         }
         lastPercent = percent
+    }
+
+    companion object {
+        val TAG: String = FilesUploadWorker::class.java.simpleName
+        const val FOREGROUND_SERVICE_ID: Int = 412
+        const val MAX_PROGRESS: Int = 100
+        const val ACCOUNT = "data_account"
     }
 }

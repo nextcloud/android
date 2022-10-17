@@ -35,6 +35,7 @@ import androidx.work.Operation
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
+import androidx.work.workDataOf
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.owncloud.android.datamodel.OCFile
@@ -448,7 +449,10 @@ internal class BackgroundJobManagerImpl(
     }
 
     override fun startFilesUploadJob(user: User) {
+        val data = workDataOf(FilesUploadWorker.ACCOUNT to user.accountName)
+
         val request = oneTimeRequestBuilder(FilesUploadWorker::class, JOB_FILES_UPLOAD, user)
+            .setInputData(data)
             .build()
 
         workManager.enqueue(request)
