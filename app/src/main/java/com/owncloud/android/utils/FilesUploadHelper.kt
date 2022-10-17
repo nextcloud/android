@@ -62,11 +62,11 @@ class FilesUploadHelper {
                 uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
                 this.createdBy = createdBy
                 isCreateRemoteFolder = createRemoteFolder
-
-                uploadsStorageManager.storeUpload(this)
-                backgroundJobManager.startFilesUploadJob(user)
+            }.also {
+                uploadsStorageManager.storeUpload(it)
             }
         }
+        backgroundJobManager.startFilesUploadJob(user)
     }
 
     fun uploadUpdatedFile(
@@ -86,11 +86,11 @@ class FilesUploadHelper {
                 isUseWifiOnly = false
                 isWhileChargingOnly = false
                 uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
-
-                uploadsStorageManager.storeUpload(this)
-                backgroundJobManager.startFilesUploadJob(user)
+            }.also {
+                uploadsStorageManager.storeUpload(it)
             }
         }
+        backgroundJobManager.startFilesUploadJob(user)
     }
 
     fun retryUpload(upload: OCUpload, user: User) {
