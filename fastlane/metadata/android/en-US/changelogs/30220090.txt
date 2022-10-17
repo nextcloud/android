@@ -1,4 +1,4 @@
-## 3.22.0 (October 18, 2022)
+## 3.22.0 (October 19, 2022)
 
 - Material 3 UI revamp
 - Dashboard widgets for Android launcher
