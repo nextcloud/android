@@ -35,7 +35,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -48,7 +47,6 @@ import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
-import com.owncloud.android.ui.fragment.util.GalleryFastScrollViewHelper;
 
 import javax.inject.Inject;
 
@@ -76,7 +74,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
 
     @Inject FileDataStorageManager fileDataStorageManager;
-    @Inject FastScrollUtils fastScrollUtils;
     private final int maxColumnSizeLandscape = 5;
     private final int maxColumnSizePortrait = 2;
     private int columnSize;
@@ -159,10 +156,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
         mAdapter.setLayoutManager(layoutManager);
         getRecyclerView().setLayoutManager(layoutManager);
-
-        fastScrollUtils.applyFastScroll(
-            getRecyclerView(),
-            new GalleryFastScrollViewHelper(getRecyclerView(), mAdapter));
     }
 
     @Override
