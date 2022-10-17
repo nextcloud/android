@@ -27,6 +27,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
+import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
@@ -77,6 +78,7 @@ class GalleryAdapterTest {
     @Test
     fun testItemCount() {
         whenever(transferServiceGetter.storageManager) doReturn storageManager
+        val thumbnailSize = 50
 
         val sut = GalleryAdapter(
             context,
@@ -84,16 +86,24 @@ class GalleryAdapterTest {
             ocFileListFragmentInterface,
             preferences,
             transferServiceGetter,
-            viewThemeUtils
+            viewThemeUtils,
+            5,
+            thumbnailSize
         )
 
         val list = listOf(
-            GalleryItems(1649317247, listOf(OCFile("/1.md"), OCFile("/2.md"))),
-            GalleryItems(1649317247, listOf(OCFile("/1.md"), OCFile("/2.md")))
+            GalleryItems(
+                1649317247,
+                listOf(GalleryRow(listOf(OCFile("/1.md"), OCFile("/2.md")), thumbnailSize, thumbnailSize))
+            ),
+            GalleryItems(
+                1649317248,
+                listOf(GalleryRow(listOf(OCFile("/1.md"), OCFile("/2.md")), thumbnailSize, thumbnailSize))
+            )
         )
 
         sut.addFiles(list)
 
-        assertEquals(4, sut.getFilesCount())
+        assertEquals(2, sut.getFilesCount())
     }
 }

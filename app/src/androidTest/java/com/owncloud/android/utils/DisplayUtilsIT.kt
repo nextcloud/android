@@ -19,15 +19,19 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.utils
 
-package com.owncloud.android.ui.adapter
+import com.owncloud.android.AbstractIT
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
-import android.widget.ImageView
-import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.owncloud.android.databinding.GridImageBinding
+class DisplayUtilsIT : AbstractIT() {
+    @Test
+    fun testPixelToDP() {
+        val px = 123
+        val dp = DisplayUtils.convertPixelToDp(px, targetContext)
+        val newPx = DisplayUtils.convertDpToPixel(dp, targetContext)
 
-class GalleryItemViewHolder(val binding: GridImageBinding) :
-    SectionedViewHolder(binding.root) {
-    val thumbnail: ImageView
-        get() = binding.thumbnail
+        assertEquals(px.toLong(), newPx.toLong())
+    }
 }

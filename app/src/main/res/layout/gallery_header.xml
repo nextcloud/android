@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
         android:layout_marginEnd="@dimen/standard_half_margin"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
@@ -43,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
         android:textAppearance="?android:attr/textAppearanceLarge"
         tools:text="2016" />
 </LinearLayout>

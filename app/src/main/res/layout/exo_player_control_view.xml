@@ -33,7 +33,8 @@
             android:id="@id/exo_prev"
             style="@style/FullScreenExoControlButton"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/exo_controls_previous" />
+            android:src="@drawable/exo_controls_previous"
+            android:contentDescription="@string/exo_controls_previous_description" />
 
         <ImageButton
             android:id="@id/exo_rew"

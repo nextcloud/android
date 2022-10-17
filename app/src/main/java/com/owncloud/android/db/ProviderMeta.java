@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 63;
+    public static final int DB_VERSION = 64;
 
     private ProviderMeta() {
         // No instance
@@ -117,6 +117,7 @@ public class ProviderMeta {
         public static final String FILE_NOTE = "note";
         public static final String FILE_SHAREES = "sharees";
         public static final String FILE_RICH_WORKSPACE = "rich_workspace";
+        public static final String FILE_METADATA_SIZE = "metadata_size";
         public static final String FILE_LOCKED = "locked";
         public static final String FILE_LOCK_TYPE = "lock_type";
         public static final String FILE_LOCK_OWNER = "lock_owner";
@@ -169,7 +170,8 @@ public class ProviderMeta {
             FILE_LOCK_OWNER_EDITOR,
             FILE_LOCK_TIMESTAMP,
             FILE_LOCK_TIMEOUT,
-            FILE_LOCK_TOKEN));
+            FILE_LOCK_TOKEN,
+            FILE_METADATA_SIZE));
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
 
         // Columns of ocshares table

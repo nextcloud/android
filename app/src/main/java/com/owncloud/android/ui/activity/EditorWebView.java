@@ -168,7 +168,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
 
                 if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
                     if (MimeTypeUtil.isVideo(file)) {
-                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
+                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, this);
                         binding.thumbnail.setImageBitmap(withOverlay);
                     } else {
                         binding.thumbnail.setImageBitmap(thumbnail);

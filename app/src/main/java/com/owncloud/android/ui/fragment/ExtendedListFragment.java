@@ -373,7 +373,7 @@ public class ExtendedListFragment extends Fragment implements
         }
     }
 
-    private void setGridViewColumns(float scaleFactor) {
+    protected void setGridViewColumns(float scaleFactor) {
         if (mRecyclerView.getLayoutManager() instanceof GridLayoutManager) {
             GridLayoutManager gridLayoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
             if (mScale == -1f) {

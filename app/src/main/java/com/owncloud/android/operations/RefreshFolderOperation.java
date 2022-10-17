@@ -506,6 +506,11 @@ public class RefreshFolderOperation extends RemoteOperation {
             // add to updatedFile data about LOCAL STATE (not existing in server)
             updatedFile.setLastSyncDateForProperties(mCurrentSyncTime);
 
+            // keep thumbnail info
+            if (!updatedFile.isUpdateThumbnailNeeded() && localFile != null && localFile.getImageDimension() != null) {
+                updatedFile.setImageDimension(localFile.getImageDimension());
+            }
+
             // add to updatedFile data from local and remote file
             setLocalFileDataOnUpdatedFile(remoteFile, localFile, updatedFile, mRemoteFolderChanged);
 
