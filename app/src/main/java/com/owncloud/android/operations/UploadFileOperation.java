@@ -86,6 +86,7 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.CheckResult;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -275,9 +276,9 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     /**
-     * If remote file was renamed, return original OCFile which was uploaded. Is
-     * null is file was not renamed.
+     * If remote file was renamed, return original OCFile which was uploaded. Is null is file was not renamed.
      */
+    @Nullable
     public OCFile getOldFile() {
         return mOldFile;
     }

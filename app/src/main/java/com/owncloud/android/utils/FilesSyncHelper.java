@@ -243,7 +243,7 @@ public final class FilesSyncHelper {
                     connectivityService,
                     accountManager,
                     powerManagementService
-                );
+                                               );
             }
         }).start();
     }

@@ -422,7 +422,7 @@ public class UploadIT extends AbstractOnServerIT {
 
     @Test
     public void testCreationAndUploadTimestamp() throws IOException {
-        File file = getDummyFile("/empty.txt");
+        File file = getDummyFile("empty.txt");
         String remotePath = "/testFile.txt";
         OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);
 

@@ -26,6 +26,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
@@ -65,7 +66,8 @@ class BackgroundJobFactory @Inject constructor(
     private val notificationManager: NotificationManager,
     private val eventBus: EventBus,
     private val deckApi: DeckApi,
-    private val viewThemeUtils: Provider<ViewThemeUtils>
+    private val viewThemeUtils: Provider<ViewThemeUtils>,
+    private val localBroadcastManager: Provider<LocalBroadcastManager>
 ) : WorkerFactory() {
 
     @SuppressLint("NewApi")
@@ -96,6 +98,7 @@ class BackgroundJobFactory @Inject constructor(
                 CalendarBackupWork::class -> createCalendarBackupWork(context, workerParameters)
                 CalendarImportWork::class -> createCalendarImportWork(context, workerParameters)
                 FilesExportWork::class -> createFilesExportWork(context, workerParameters)
+                FilesUploadWorker::class -> createFilesUploadWorker(context, workerParameters)
                 else -> null // caller falls back to default factory
             }
         }
@@ -233,6 +236,19 @@ class BackgroundJobFactory @Inject constructor(
             clock,
             eventBus,
             preferences
+        )
+    }
+
+    private fun createFilesUploadWorker(context: Context, params: WorkerParameters): FilesUploadWorker {
+        return FilesUploadWorker(
+            uploadsStorageManager,
+            connectivityService,
+            powerManagementService,
+            accountManager,
+            viewThemeUtils.get(),
+            localBroadcastManager.get(),
+            context,
+            params
         )
     }
 }

@@ -74,7 +74,7 @@ public final class ReceiversHelper {
         final UserAccountManager accountManager,
         final ConnectivityService connectivityService,
         final PowerManagementService powerManagementService
-    ) {
+                                                  ) {
         Context context = MainApp.getAppContext();
 
         IntentFilter intentFilter = new IntentFilter();
@@ -101,7 +101,7 @@ public final class ReceiversHelper {
         final UserAccountManager accountManager,
         final ConnectivityService connectivityService,
         final PowerManagementService powerManagementService
-        ) {
+                                                ) {
         Context context = MainApp.getAppContext();
 
         IntentFilter intentFilter = new IntentFilter();

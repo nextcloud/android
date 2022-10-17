@@ -125,6 +125,7 @@ import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
+import com.owncloud.android.utils.FilesUploadHelper;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -454,4 +455,7 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract PreviewBitmapActivity previewBitmapActivity();
+
+    @ContributesAndroidInjector
+    abstract FilesUploadHelper filesUploadHelper();
 }

@@ -299,12 +299,12 @@ public class SynchronizeFileOperation extends SyncOperation {
      */
     private void requestForUpload(OCFile file) {
         FileUploader.uploadUpdateFile(
-                mContext,
-                mUser,
-                file,
-                FileUploader.LOCAL_BEHAVIOUR_MOVE,
-                NameCollisionPolicy.OVERWRITE
-        );
+            mContext,
+            mUser,
+            file,
+            FileUploader.LOCAL_BEHAVIOUR_MOVE,
+            NameCollisionPolicy.OVERWRITE
+                                     );
 
         mTransferWasRequested = true;
     }
