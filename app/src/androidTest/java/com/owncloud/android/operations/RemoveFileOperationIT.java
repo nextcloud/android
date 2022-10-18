@@ -71,7 +71,7 @@ public class RemoveFileOperationIT extends AbstractOnServerIT {
     public void deleteFile() throws IOException {
         String parent = "/test/";
         String path = parent + "empty.txt";
-        OCUpload ocUpload = new OCUpload(getDummyFile("/empty.txt").getAbsolutePath(), path, account.name);
+        OCUpload ocUpload = new OCUpload(getDummyFile("empty.txt").getAbsolutePath(), path, account.name);
 
         uploadOCUpload(ocUpload);
 

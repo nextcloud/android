@@ -22,18 +22,30 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.AsyncTask
 import android.view.View
+import android.widget.ImageView
+import androidx.core.content.res.ResourcesCompat
+import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncGalleryImageDrawable
+import com.owncloud.android.datamodel.ThumbnailsCacheManager.GalleryImageGenerationTask
+import com.owncloud.android.datamodel.ThumbnailsCacheManager.GalleryImageGenerationTask.GalleryListener
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
+import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList", "TooManyFunctions")
@@ -54,6 +66,7 @@ class OCFileListDelegate(
     private var highlightedItem: OCFile? = null
     var isMultiSelect = false
     private val asyncTasks: MutableList<ThumbnailGenerationTask> = ArrayList()
+    private val asyncGalleryTasks: MutableList<ThumbnailsCacheManager.GalleryImageGenerationTask> = ArrayList()
     fun setHighlightedItem(highlightedItem: OCFile?) {
         this.highlightedItem = highlightedItem
     }
@@ -85,6 +98,104 @@ class OCFileListDelegate(
 
     fun clearCheckedItems() {
         checkedFiles.clear()
+    }
+
+    fun bindGalleryRowThumbnail(
+        shimmer: LoaderImageView?,
+        imageView: ImageView,
+        file: OCFile,
+        galleryRowHolder: GalleryRowHolder,
+        width: Int
+    ) {
+        // thumbnail
+        imageView.tag = file.fileId
+        setGalleryImage(
+            file,
+            imageView,
+            shimmer,
+            galleryRowHolder,
+            width
+        )
+
+        imageView.setOnClickListener { ocFileListFragmentInterface.onItemClicked(file) }
+    }
+
+    @Suppress("ComplexMethod")
+    private fun setGalleryImage(
+        file: OCFile,
+        thumbnailView: ImageView,
+        shimmerThumbnail: LoaderImageView?,
+        galleryRowHolder: GalleryRowHolder,
+        width: Int
+    ) {
+        // cancel previous generation, if view is re-used
+        if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
+            for (task in asyncTasks) {
+                if (file.remoteId != null && task.imageKey != null && file.remoteId == task.imageKey) {
+                    return
+                }
+            }
+            try {
+                val task = GalleryImageGenerationTask(
+                    thumbnailView,
+                    user,
+                    storageManager,
+                    asyncGalleryTasks,
+                    file.remoteId,
+                    context.resources.getColor(R.color.bg_default)
+                )
+                var drawable = MimeTypeUtil.getFileTypeIcon(
+                    file.mimeType,
+                    file.fileName,
+                    context,
+                    viewThemeUtils
+                )
+                if (drawable == null) {
+                    drawable = ResourcesCompat.getDrawable(
+                        context.resources,
+                        R.drawable.file_image,
+                        null
+                    )
+                }
+                if (drawable == null) {
+                    drawable = ColorDrawable(Color.GRAY)
+                }
+                val thumbnail = BitmapUtils.drawableToBitmap(drawable, width / 2, width / 2)
+                val asyncDrawable = AsyncGalleryImageDrawable(
+                    context.resources,
+                    thumbnail,
+                    task
+                )
+                if (shimmerThumbnail != null) {
+                    Log_OC.d("Shimmer", "start Shimmer")
+                    DisplayUtils.startShimmer(shimmerThumbnail, thumbnailView)
+                }
+                task.setListener(object : GalleryListener {
+                    override fun onSuccess() {
+                        galleryRowHolder.binding.rowLayout.invalidate()
+                        Log_OC.d("Shimmer", "stop Shimmer")
+                        DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
+                    }
+
+                    override fun onNewGalleryImage() {
+                        galleryRowHolder.redraw()
+                    }
+
+                    override fun onError() {
+                        Log_OC.d("Shimmer", "stop Shimmer")
+                        DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
+                    }
+                })
+                thumbnailView.setImageDrawable(asyncDrawable)
+                asyncGalleryTasks.add(task)
+                task.executeOnExecutor(
+                    AsyncTask.THREAD_POOL_EXECUTOR,
+                    file
+                )
+            } catch (e: IllegalArgumentException) {
+                Log_OC.d(this, "ThumbnailGenerationTask : " + e.message)
+            }
+        }
     }
 
     fun bindGridViewHolder(

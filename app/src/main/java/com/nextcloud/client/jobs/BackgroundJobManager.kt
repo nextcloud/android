@@ -138,6 +138,8 @@ interface BackgroundJobManager {
 
     fun startNotificationJob(subject: String, signature: String)
     fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean)
+    fun startFilesUploadJob(user: User)
+    fun getFileUploads(user: User): LiveData<List<JobInfo>>
 
     fun scheduleTestJob()
     fun startImmediateTestJob()

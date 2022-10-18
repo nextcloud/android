@@ -34,7 +34,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -752,6 +754,13 @@ public final class DisplayUtils {
         return (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
+    public static float convertPixelToDp(int px, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+
+        return px * (DisplayMetrics.DENSITY_DEFAULT / (float) metrics.densityDpi);
+    }
+
     static public void showServerOutdatedSnackbar(Activity activity, int length) {
         Snackbar.make(activity.findViewById(android.R.id.content),
                       R.string.outdated_server, length)
@@ -811,13 +820,20 @@ public final class DisplayUtils {
         }
     }
 
-    public static String getDateByPattern(long timestamp, Context context, String pattern) {
-        DateFormat df = new SimpleDateFormat(pattern, context.getResources().getConfiguration().locale);
+    public static String getDateByPattern(long timestamp, String pattern) {
+        return getDateByPattern(timestamp, null, pattern);
+    }
+
+    public static String getDateByPattern(long timestamp, @Nullable Context context, String pattern) {
+        DateFormat df;
+        if (context == null) {
+            context = MainApp.getAppContext();
+        }
+        df = new SimpleDateFormat(pattern, context.getResources().getConfiguration().locale);
         df.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
 
         return df.format(timestamp);
     }
-
 
     public static void setThumbnail(OCFile file,
                                     ImageView thumbnailView,
@@ -850,7 +866,7 @@ public final class DisplayUtils {
                     stopShimmer(shimmerThumbnail, thumbnailView);
 
                     if (MimeTypeUtil.isVideo(file)) {
-                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
+                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, context);
                         thumbnailView.setImageBitmap(withOverlay);
                     } else {
                         if (gridView) {
@@ -886,6 +902,10 @@ public final class DisplayUtils {
                                                                            R.drawable.file_image,
                                                                            null);
                                 }
+                                if (drawable == null) {
+                                    drawable = new ColorDrawable(Color.GRAY);
+                                }
+
                                 int px = ThumbnailsCacheManager.getThumbnailDimension();
                                 thumbnail = BitmapUtils.drawableToBitmap(drawable, px, px);
                             }
@@ -936,14 +956,14 @@ public final class DisplayUtils {
         }
     }
 
-    private static void startShimmer(LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
+    public static void startShimmer(LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
         thumbnailShimmer.setImageResource(R.drawable.background);
         thumbnailShimmer.resetLoader();
         thumbnailView.setVisibility(View.GONE);
         thumbnailShimmer.setVisibility(View.VISIBLE);
     }
 
-    private static void stopShimmer(@Nullable LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
+    public static void stopShimmer(@Nullable LoaderImageView thumbnailShimmer, ImageView thumbnailView) {
         if (thumbnailShimmer != null) {
             thumbnailShimmer.setVisibility(View.GONE);
         }

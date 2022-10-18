@@ -22,4 +22,18 @@
 
 package com.owncloud.android.datamodel
 
-data class GalleryItems(val date: Long, val files: List<OCFile>)
+import com.owncloud.android.utils.DisplayUtils
+
+data class GalleryItems(val date: Long, val rows: List<GalleryRow>) {
+    override fun toString(): String {
+        val month = DisplayUtils.getDateByPattern(
+            date,
+            DisplayUtils.MONTH_PATTERN
+        )
+        val year = DisplayUtils.getDateByPattern(
+            date,
+            DisplayUtils.YEAR_PATTERN
+        )
+        return "$month/$year with $rows rows"
+    }
+}

@@ -25,6 +25,7 @@ package com.owncloud.android.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -34,10 +35,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -46,7 +47,6 @@ import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
-import com.owncloud.android.ui.fragment.util.GalleryFastScrollViewHelper;
 
 import javax.inject.Inject;
 
@@ -74,7 +74,9 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
 
     @Inject FileDataStorageManager fileDataStorageManager;
-    @Inject FastScrollUtils fastScrollUtils;
+    private final int maxColumnSizeLandscape = 5;
+    private final int maxColumnSizePortrait = 2;
+    private int columnSize;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,12 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
         if (galleryFragmentBottomSheetDialog == null) {
             galleryFragmentBottomSheetDialog = new GalleryFragmentBottomSheetDialog(this);
+        }
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            columnSize = maxColumnSizeLandscape;
+        } else {
+            columnSize = maxColumnSizePortrait;
         }
     }
 
@@ -138,18 +146,33 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                       this,
                                       preferences,
                                       mContainerActivity,
-                                      viewThemeUtils);
+                                      viewThemeUtils,
+                                      columnSize,
+                                      ThumbnailsCacheManager.getThumbnailDimension());
 
         setRecyclerViewAdapter(mAdapter);
 
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), getColumnsCount());
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
         mAdapter.setLayoutManager(layoutManager);
         getRecyclerView().setLayoutManager(layoutManager);
+    }
 
-        fastScrollUtils.applyFastScroll(
-            getRecyclerView(),
-            new GalleryFastScrollViewHelper(getRecyclerView(), mAdapter));
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            columnSize = maxColumnSizeLandscape;
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            columnSize = maxColumnSizePortrait;
+        }
+        mAdapter.changeColumn(columnSize);
+        showAllGalleryItems();
+    }
+
+    public int getColumnsCount() {
+        return columnSize;
     }
 
     @Override
@@ -359,5 +382,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                 ((ToolbarActivity) requireActivity()).updateToolbarSubtitle(subTitle);
             }
         });
+    }
+
+    @Override
+    protected void setGridViewColumns(float scaleFactor) {
+        // do nothing
     }
 }

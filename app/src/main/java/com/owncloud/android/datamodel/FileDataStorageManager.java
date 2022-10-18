@@ -509,6 +509,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_LOCK_TIMEOUT, file.getLockTimeout());
         cv.put(ProviderTableMeta.FILE_LOCK_TOKEN, file.getLockToken());
         cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
+        cv.put(ProviderTableMeta.FILE_METADATA_SIZE, new Gson().toJson(file.getImageDimension()));
 
         return cv;
     }
@@ -1033,6 +1034,12 @@ public class FileDataStorageManager {
                     // ignore saved value due to api change
                     ocFile.setSharees(new ArrayList<>());
                 }
+            }
+            String metadataSize = cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_METADATA_SIZE));
+            ImageDimension imageDimension = new Gson().fromJson(metadataSize, ImageDimension.class);
+
+            if (imageDimension != null) {
+                ocFile.setImageDimension(imageDimension);
             }
         }
 

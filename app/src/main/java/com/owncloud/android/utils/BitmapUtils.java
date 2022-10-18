@@ -378,6 +378,7 @@ public final class BitmapUtils {
         return drawableToBitmap(drawable, -1, -1);
     }
 
+    @NonNull
     public static Bitmap drawableToBitmap(Drawable drawable, int desiredWidth, int desiredHeight) {
         if (drawable instanceof BitmapDrawable) {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;

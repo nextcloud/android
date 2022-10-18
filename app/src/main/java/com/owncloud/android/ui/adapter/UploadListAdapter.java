@@ -143,7 +143,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         connectivityService,
                         accountManager,
                         powerManagementService
-                    )).start();
+                                                                    )).start();
                     break;
 
                 default:

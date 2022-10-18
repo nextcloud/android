@@ -20,14 +20,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.ui.adapter
+package com.owncloud.android.datamodel
 
-import android.widget.ImageView
-import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.owncloud.android.databinding.GridImageBinding
-
-class GalleryItemViewHolder(val binding: GridImageBinding) :
-    SectionedViewHolder(binding.root) {
-    val thumbnail: ImageView
-        get() = binding.thumbnail
+data class GalleryRow(val files: List<OCFile>, val defaultHeight: Int, val defaultWidth: Int) {
+    fun getMaxHeight(): Float {
+        return files.map { it.imageDimension?.height ?: defaultHeight.toFloat() }.maxOrNull() ?: 0f
+    }
 }

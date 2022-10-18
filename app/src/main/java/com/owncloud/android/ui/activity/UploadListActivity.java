@@ -196,7 +196,7 @@ public class UploadListActivity extends FileActivity {
             connectivityService,
             userAccountManager,
             powerManagementService
-        )).start();
+                                                        )).start();
 
         // update UI
         uploadListAdapter.loadUploadItemsFromDb();

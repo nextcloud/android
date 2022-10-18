@@ -42,7 +42,7 @@ import junit.framework.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-class FileUploaderIT : AbstractOnServerIT() {
+abstract class FileUploaderIT : AbstractOnServerIT() {
     var uploadsStorageManager: UploadsStorageManager? = null
 
     val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
@@ -74,7 +74,7 @@ class FileUploaderIT : AbstractOnServerIT() {
     // disabled, flaky test
     // @Test
     // fun testKeepLocalAndOverwriteRemote() {
-    //     val file = getDummyFile("/chunkedFile.txt")
+    //     val file = getDummyFile("chunkedFile.txt")
     //     val ocUpload = OCUpload(file.absolutePath, "/testFile.txt", account.name)
     //
     //     assertTrue(
@@ -101,7 +101,7 @@ class FileUploaderIT : AbstractOnServerIT() {
     //
     //     assertEquals(file.length(), (result.data[0] as RemoteFile).length)
     //
-    //     val ocUpload2 = OCUpload(getDummyFile("/empty.txt").absolutePath, "/testFile.txt", account.name)
+    //     val ocUpload2 = OCUpload(getDummyFile("empty.txt").absolutePath, "/testFile.txt", account.name)
     //
     //     assertTrue(
     //         UploadFileOperation(
@@ -132,7 +132,7 @@ class FileUploaderIT : AbstractOnServerIT() {
      */
     @Test
     fun testKeepLocalAndOverwriteRemoteStatic() {
-        val file = getDummyFile("/chunkedFile.txt")
+        val file = getDummyFile("chunkedFile.txt")
 
         FileUploader.uploadNewFile(
             targetContext,
@@ -156,7 +156,7 @@ class FileUploaderIT : AbstractOnServerIT() {
         assertEquals(file.length(), (result.data[0] as RemoteFile).length)
 
         val ocFile2 = OCFile("/testFile.txt")
-        ocFile2.storagePath = getDummyFile("/empty.txt").absolutePath
+        ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
 
         FileUploader.uploadUpdateFile(
             targetContext,
@@ -181,7 +181,7 @@ class FileUploaderIT : AbstractOnServerIT() {
     fun testKeepBoth() {
         var renameListenerWasTriggered = false
 
-        val file = getDummyFile("/chunkedFile.txt")
+        val file = getDummyFile("chunkedFile.txt")
         val ocUpload = OCUpload(file.absolutePath, "/testFile.txt", account.name)
 
         assertTrue(
@@ -251,7 +251,7 @@ class FileUploaderIT : AbstractOnServerIT() {
      */
     @Test
     fun testKeepBothStatic() {
-        val file = getDummyFile("/chunkedFile.txt")
+        val file = getDummyFile("nonEmpty.txt")
 
         FileUploader.uploadNewFile(
             targetContext,
@@ -275,7 +275,7 @@ class FileUploaderIT : AbstractOnServerIT() {
         assertEquals(file.length(), (result.data[0] as RemoteFile).length)
 
         val ocFile2 = OCFile("/testFile.txt")
-        ocFile2.storagePath = getDummyFile("/empty.txt").absolutePath
+        ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
 
         FileUploader.uploadUpdateFile(
             targetContext,
@@ -303,7 +303,7 @@ class FileUploaderIT : AbstractOnServerIT() {
      */
     @Test
     fun testKeepServer() {
-        val file = getDummyFile("/chunkedFile.txt")
+        val file = getDummyFile("chunkedFile.txt")
         val ocUpload = OCUpload(file.absolutePath, "/testFile.txt", account.name)
 
         assertTrue(
@@ -331,7 +331,7 @@ class FileUploaderIT : AbstractOnServerIT() {
 
         assertEquals(file.length(), (result.data[0] as RemoteFile).length)
 
-        val ocUpload2 = OCUpload(getDummyFile("/empty.txt").absolutePath, "/testFile.txt", account.name)
+        val ocUpload2 = OCUpload(getDummyFile("empty.txt").absolutePath, "/testFile.txt", account.name)
 
         assertFalse(
             UploadFileOperation(
@@ -362,7 +362,7 @@ class FileUploaderIT : AbstractOnServerIT() {
      */
     @Test
     fun testKeepServerStatic() {
-        val file = getDummyFile("/chunkedFile.txt")
+        val file = getDummyFile("chunkedFile.txt")
 
         FileUploader.uploadNewFile(
             targetContext,
@@ -386,7 +386,7 @@ class FileUploaderIT : AbstractOnServerIT() {
         assertEquals(file.length(), (result.data[0] as RemoteFile).length)
 
         val ocFile2 = OCFile("/testFile.txt")
-        ocFile2.storagePath = getDummyFile("/empty.txt").absolutePath
+        ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
 
         FileUploader.uploadUpdateFile(
             targetContext,
@@ -409,7 +409,7 @@ class FileUploaderIT : AbstractOnServerIT() {
      */
     @Test
     fun testCancelServer() {
-        val file = getDummyFile("/chunkedFile.txt")
+        val file = getDummyFile("chunkedFile.txt")
         val ocUpload = OCUpload(file.absolutePath, "/testFile.txt", account.name)
 
         assertTrue(
@@ -437,7 +437,7 @@ class FileUploaderIT : AbstractOnServerIT() {
 
         assertEquals(file.length(), (result.data[0] as RemoteFile).length)
 
-        val ocUpload2 = OCUpload(getDummyFile("/empty.txt").absolutePath, "/testFile.txt", account.name)
+        val ocUpload2 = OCUpload(getDummyFile("empty.txt").absolutePath, "/testFile.txt", account.name)
 
         val uploadResult = UploadFileOperation(
             uploadsStorageManager,
@@ -469,7 +469,7 @@ class FileUploaderIT : AbstractOnServerIT() {
      */
     @Test
     fun testKeepCancelStatic() {
-        val file = getDummyFile("/chunkedFile.txt")
+        val file = getDummyFile("chunkedFile.txt")
 
         FileUploader.uploadNewFile(
             targetContext,
@@ -493,7 +493,7 @@ class FileUploaderIT : AbstractOnServerIT() {
         assertEquals(file.length(), (result.data[0] as RemoteFile).length)
 
         val ocFile2 = OCFile("/testFile.txt")
-        ocFile2.storagePath = getDummyFile("/empty.txt").absolutePath
+        ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
 
         FileUploader.uploadUpdateFile(
             targetContext,

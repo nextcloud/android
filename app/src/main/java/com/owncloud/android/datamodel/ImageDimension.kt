@@ -19,15 +19,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.datamodel
 
-package com.owncloud.android.ui.adapter
-
-import android.widget.ImageView
-import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.owncloud.android.databinding.GridImageBinding
-
-class GalleryItemViewHolder(val binding: GridImageBinding) :
-    SectionedViewHolder(binding.root) {
-    val thumbnail: ImageView
-        get() = binding.thumbnail
-}
+data class ImageDimension(var width: Float = -1f, var height: Float = -1f)

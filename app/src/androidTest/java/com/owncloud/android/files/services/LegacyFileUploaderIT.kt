@@ -20,14 +20,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.ui.adapter
+package com.owncloud.android.files.services
 
-import android.widget.ImageView
-import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.owncloud.android.databinding.GridImageBinding
-
-class GalleryItemViewHolder(val binding: GridImageBinding) :
-    SectionedViewHolder(binding.root) {
-    val thumbnail: ImageView
-        get() = binding.thumbnail
-}
+class LegacyFileUploaderIT : FileUploaderIT()

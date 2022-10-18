@@ -42,12 +42,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/thumbnail"
+            <FrameLayout
                 android:layout_width="@dimen/file_icon_size"
                 android:layout_height="@dimen/file_icon_size"
-                android:contentDescription="@null"
-                android:src="@drawable/folder" />
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/thumbnail"
+                    android:layout_width="@dimen/file_icon_size"
+                    android:layout_height="@dimen/file_icon_size"
+                    android:contentDescription="@null"
+                    android:src="@drawable/folder" />
+
+                <ImageView
+                    android:id="@+id/videoOverlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="2dp"
+                    android:src="@drawable/video_white"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:contentDescription="@string/video_overlay_icon" />
+            </FrameLayout>
 
             <com.elyeproj.loaderviewlibrary.LoaderImageView
                 android:id="@+id/thumbnail_shimmer"

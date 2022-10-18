@@ -36,9 +36,10 @@ import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.databinding.GalleryHeaderBinding
-import com.owncloud.android.databinding.GridImageBinding
+import com.owncloud.android.databinding.GalleryRowBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
+import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.fragment.GalleryFragment
@@ -47,7 +48,6 @@ import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
-import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import me.zhanghai.android.fastscroll.PopupTextProvider
@@ -61,7 +61,9 @@ class GalleryAdapter(
     ocFileListFragmentInterface: OCFileListFragmentInterface,
     preferences: AppPreferences,
     transferServiceGetter: ComponentsGetter,
-    viewThemeUtils: ViewThemeUtils
+    viewThemeUtils: ViewThemeUtils,
+    var columns: Int,
+    val defaultThumbnailSize: Int
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
     var files: List<GalleryItems> = mutableListOf()
     private val ocFileListDelegate: OCFileListDelegate
@@ -97,8 +99,12 @@ class GalleryAdapter(
                 )
             )
         } else {
-            GalleryItemViewHolder(
-                GridImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            GalleryRowHolder(
+                GalleryRowBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+                defaultThumbnailSize.toFloat(),
+                ocFileListDelegate,
+                storageManager,
+                this
             )
         }
     }
@@ -110,19 +116,13 @@ class GalleryAdapter(
         absolutePosition: Int
     ) {
         if (holder != null) {
-            val itemViewHolder = holder as GalleryItemViewHolder
-            val ocFile = files[section].files[relativePosition]
-
-            ocFileListDelegate.bindGridViewHolder(
-                itemViewHolder,
-                ocFile,
-                SearchType.GALLERY_SEARCH
-            )
+            val rowHolder = holder as GalleryRowHolder
+            rowHolder.bind(files[section].rows[relativePosition])
         }
     }
 
     override fun getItemCount(section: Int): Int {
-        return files[section].files.size
+        return files[section].rows.size
     }
 
     override fun getSectionCount(): Int {
@@ -199,10 +199,18 @@ class GalleryAdapter(
 
         files = finalSortedList
             .groupBy { firstOfMonth(it.modificationTimestamp) }
-            .map { GalleryItems(it.key, FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(it.value)) }
+            .map { GalleryItems(it.key, transformToRows(it.value)) }
             .sortedBy { it.date }.reversed()
 
         Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
+    }
+
+    private fun transformToRows(list: List<OCFile>): List<GalleryRow> {
+        return list
+            .sortedBy { it.modificationTimestamp }
+            .reversed()
+            .chunked(columns)
+            .map { entry -> GalleryRow(entry, defaultThumbnailSize, defaultThumbnailSize) }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -227,10 +235,14 @@ class GalleryAdapter(
     }
 
     fun getItem(position: Int): OCFile? {
-        val itemCoord = getRelativePosition(position)
+        val itemCoordinates = getRelativePosition(position)
+
         return files
-            .getOrNull(itemCoord.section())?.files
-            ?.getOrNull(itemCoord.relativePos())
+            .getOrNull(itemCoordinates.section())
+            ?.rows
+            ?.getOrNull(itemCoordinates.relativePos())
+            ?.files
+            ?.getOrNull(0)
     }
 
     override fun isMultiSelect(): Boolean {
@@ -242,8 +254,16 @@ class GalleryAdapter(
     }
 
     override fun getItemPosition(file: OCFile): Int {
-        val item = files.find { it.files.contains(file) }
-        return getAbsolutePosition(files.indexOf(item), item?.files?.indexOf(file) ?: 0)
+        val findResult = files
+            .asSequence()
+            .flatMapIndexed { itemIndex, item ->
+                item.rows.withIndex().map { row -> Triple(itemIndex, row.index, row.value) }
+            }.find {
+                it.third.files.contains(file)
+            }
+
+        val (item, row) = findResult ?: Triple(0, 0, null)
+        return getAbsolutePosition(item, row)
     }
 
     override fun swapDirectory(
@@ -285,7 +305,7 @@ class GalleryAdapter(
     }
 
     override fun getFilesCount(): Int {
-        return files.fold(0) { acc, item -> acc + item.files.size }
+        return files.fold(0) { acc, item -> acc + item.rows.size }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -301,5 +321,9 @@ class GalleryAdapter(
     @VisibleForTesting
     fun addFiles(items: List<GalleryItems>) {
         files = items
+    }
+
+    fun changeColumn(newColumn: Int) {
+        columns = newColumn
     }
 }

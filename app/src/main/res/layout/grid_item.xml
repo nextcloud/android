@@ -17,6 +17,7 @@
 -->
 <com.owncloud.android.ui.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -55,13 +56,30 @@
                 android:visibility="gone"
                 app:corners="8" />
 
-            <ImageView
-                android:id="@+id/thumbnail"
+            <FrameLayout
                 android:layout_width="@dimen/standard_list_item_size"
                 android:layout_height="@dimen/standard_list_item_size"
-                android:layout_gravity="center"
-                android:contentDescription="@null"
-                android:src="@drawable/folder" />
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/thumbnail"
+                    android:layout_width="@dimen/standard_list_item_size"
+                    android:layout_height="@dimen/standard_list_item_size"
+                    android:contentDescription="@null"
+                    android:src="@drawable/folder" />
+
+                <ImageView
+                    android:id="@+id/videoOverlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/video_white"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:contentDescription="@string/video_overlay_icon" />
+            </FrameLayout>
+
 
             <ImageView
                 android:id="@+id/sharedIcon"
@@ -71,7 +89,7 @@
                 android:layout_marginTop="@dimen/grid_item_shared_icon_layout_top_margin"
                 android:layout_marginEnd="@dimen/standard_quarter_margin"
                 android:src="@drawable/shared_via_link"
-                android:contentDescription="@string/shared_icon_shared_via_link"/>
+                android:contentDescription="@string/shared_icon_shared_via_link" />
 
             <ImageView
                 android:id="@+id/unreadComments"
