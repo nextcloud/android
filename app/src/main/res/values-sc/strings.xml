@@ -176,6 +176,7 @@
     <string name="create_rich_workspace">Agiunghe informatziones de sa cartella</string>
     <string name="creates_rich_workspace">creat informatziones de sa cartella</string>
     <string name="credentials_disabled">Credentziales disativadas</string>
+    <string name="date_unknown">Non connotu</string>
     <string name="default_credentials_wrong">Credentziales isballiadas</string>
     <string name="delete_account">Boga·nche su contu</string>
     <string name="delete_account_warning">Bogare su contu %s e cantzellare is documentos locales?\n\nSa cantzelladura non faghet a dd\'annullare.</string>
@@ -539,6 +540,7 @@
     <string name="recommend_subject">Proa %1$s in su dispositivu tuo!</string>
     <string name="recommend_text">Ti bògio invitare a impreare %1$s in su dispositiu tuo.\nIscarriga·ddu inoghe: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="reload">Torra a carrigare</string>
     <string name="remote">(remotu)</string>
     <string name="remote_file_fetch_failed">Chirca de documentos faddida!</string>
     <string name="remove_fail_msg">Cantzelladura faddida</string>
@@ -816,6 +818,7 @@
     <string name="whats_new_skip">Brinca</string>
     <string name="whats_new_title">Prima borta in %1$s</string>
     <string name="whats_your_status">Cale est s\'istadu tuo?</string>
+    <string name="widgets_not_available_title">No a disponimentu</string>
     <string name="write_email">Imbia messàgiu de posta eletrònica</string>
     <string name="wrong_storage_path">Sa cartella de archiviatzione de datos no esistit!</string>
     <string name="wrong_storage_path_desc">Custu podet èssere ca su recùperu de sa còpia de seguresa s\'est fatu in un\'àteru dispositivu. Torrende a is cunfiguratziones predefinidas. Controlla sa cunfiguratzione pro acontzare sa cartella de archiviatzione de is datos.</string>

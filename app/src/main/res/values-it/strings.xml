@@ -183,6 +183,7 @@
     <string name="credentials_disabled">Credenziali disabilitate</string>
     <string name="daily_backup">Backup giornaliero</string>
     <string name="data_to_back_up">Dati di cui eseguire il backup</string>
+    <string name="date_unknown">Sconosciuta</string>
     <string name="default_credentials_wrong">Credenziali non corrette</string>
     <string name="delete_account">Rimuovi account</string>
     <string name="delete_account_warning">Rimuovere l\'account %s e tutti i file salvati localmente?\n\nIl processo non può essere annullato.</string>
@@ -571,6 +572,7 @@
     <string name="recommend_subject">Prova %1$s sul tuo dispositivo!</string>
     <string name="recommend_text">Vorrei invitarti a utilizzare %1$s sul tuo dispositivo.\nScaricalo qui:%2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="reload">Ricarica</string>
     <string name="remote">(remota)</string>
     <string name="remote_file_fetch_failed">File non trovato!</string>
     <string name="remove_fail_msg">Eliminazione non riuscita</string>
@@ -862,6 +864,7 @@
     <string name="whats_new_skip">Salta</string>
     <string name="whats_new_title">Prima volta su %1$s</string>
     <string name="whats_your_status">Qual è il tuo stato?</string>
+    <string name="widgets_not_available_title">Non disponibile</string>
     <string name="write_email">Invia email</string>
     <string name="wrong_storage_path">La cartella di archiviazione dei dati non esiste!</string>
     <string name="wrong_storage_path_desc">Ciò potrebbe essere dovuto a un ripristino di backup su un altro dispositivo. Ripristino del valore predefinito. Controlla le impostazioni per modificare la cartella di archiviazione dei dati.</string>

@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Hitelesítő adatok letiltva</string>
     <string name="daily_backup">Napi biztonsági mentés</string>
     <string name="data_to_back_up">Mentendő adatok</string>
+    <string name="date_unknown">Ismeretlen</string>
     <string name="default_credentials_wrong">Hibás hitelesítési adatok</string>
     <string name="delete_account">Fiók eltávolítása</string>
     <string name="delete_account_warning">A(z) %s fiók törlése az összes helyi fájlal együtt?\n\nA törlés nem vonható vissza.</string>
@@ -579,6 +580,7 @@
     <string name="recommend_subject">Próbálja ki a %1$sot az eszközén!</string>
     <string name="recommend_text">Meg akarom hívni a %1$s használatára az eszközén.\nTöltse le itt: %2$s</string>
     <string name="recommend_urls">%1$s vagy %2$s</string>
+    <string name="reload">Újratöltés</string>
     <string name="remote">(távoli)</string>
     <string name="remote_file_fetch_failed">A fájl nem található.</string>
     <string name="remove_fail_msg">Törlés sikertelen</string>
@@ -894,6 +896,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="whats_new_skip">Kihagyás</string>
     <string name="whats_new_title">Új itt: %1$s</string>
     <string name="whats_your_status">Mi az állapota?</string>
+    <string name="widgets_not_available_title">Nem érhető el</string>
     <string name="write_email">E-mail küldése</string>
     <string name="wrong_storage_path">Adattároló mappa nem létezik!</string>
     <string name="wrong_storage_path_desc">Ennek oka lehet egy másik eszköz biztonsági mentésének visszaállítása. Visszatérés az alapértelmezettre. Ellenőrizze a beállításokat az adattárolási mappa beállításához.</string>

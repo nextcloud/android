@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Kirjautumistiedot poistettu käytöstä</string>
     <string name="daily_backup">Päivittäinen varmuuskopio</string>
     <string name="data_to_back_up">Varmuuskopioitavat tiedot</string>
+    <string name="date_unknown">Tuntematon</string>
     <string name="default_credentials_wrong">Virheelliset kirjautumistiedot</string>
     <string name="delete_account">Poista tili</string>
     <string name="delete_account_warning">Poistetaanko tili %s ja kaikki sen paikalliset tiedostot?\n\nPoistamista ei voi perua.</string>
@@ -580,6 +581,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="recommend_subject">Kokeile %1$sia laitteellasi!</string>
     <string name="recommend_text">Haluan, että kokeilet %1$sia laitteellasi.\nLataa tästä: %2$s</string>
     <string name="recommend_urls">%1$s tai %2$s</string>
+    <string name="reload">Lataa uudelleen</string>
     <string name="remote">(etä)</string>
     <string name="remote_file_fetch_failed">Tiedostoa ei löytynyt!</string>
     <string name="remove_fail_msg">Poistaminen epäonnistui</string>
@@ -876,6 +878,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="whats_new_skip">Ohita</string>
     <string name="whats_new_title">Uutta versiossa %1$s</string>
     <string name="whats_your_status">Mikä on tilatietosi?</string>
+    <string name="widgets_not_available_title">Ei saatavilla</string>
     <string name="write_email">Lähetä sähköposti</string>
     <string name="wrong_storage_path">Tiedostokansiota ei ole olemassa!</string>
     <string name="wrong_storage_path_desc">Tämä voi johtua varmuuskopion palautuksesta toisella laitteella. Palautetaan oletusasetukset. Tarkista tiedostokansion asetukset.</string>

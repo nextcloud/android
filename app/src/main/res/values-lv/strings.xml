@@ -146,6 +146,7 @@
     <string name="create_rich_workspace">Pievienot mapes informāciju</string>
     <string name="creates_rich_workspace">pievieno mapes informāciju</string>
     <string name="credentials_disabled">Akreditācijas dati atspējoti</string>
+    <string name="date_unknown">Nezināms</string>
     <string name="default_credentials_wrong">Nepareizi akreditācijas dati</string>
     <string name="delete_account">Noņemt kontu</string>
     <string name="delete_account_warning">Noņemt kontu %s un izdzēst visas vietēji saglabātās datnes?\n\nDzēšanu nevar atsaukt.</string>
@@ -369,6 +370,7 @@
     <string name="recommend_subject">Izmēģini %1$s savā ierīcē!</string>
     <string name="recommend_text">Izmanto %1$s lietotni arī Tu.\nLejuplādē to šeit: %2$s</string>
     <string name="recommend_urls">%1$s vai %2$s</string>
+    <string name="reload">Reload</string>
     <string name="remove_fail_msg">Dzēšana neizdevās</string>
     <string name="remove_push_notification">Izņemt</string>
     <string name="remove_success_msg">Dzēstie</string>

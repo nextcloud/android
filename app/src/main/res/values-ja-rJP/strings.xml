@@ -26,7 +26,7 @@
     <string name="actionbar_sort">並び替え</string>
     <string name="active_user">アクティブなユーザー</string>
     <string name="activities_no_results_headline">まだアクティビティはありません</string>
-    <string name="activities_no_results_message">追加、変更、共有のようなイベントはまだありません</string>
+    <string name="activities_no_results_message">追加、変更、共有はまだありません</string>
     <string name="activity_chooser_send_file_title">送信</string>
     <string name="activity_chooser_title">リンク送信…</string>
     <string name="activity_icon">アクティビティ</string>
@@ -183,6 +183,7 @@
     <string name="credentials_disabled">資格情報が無効です</string>
     <string name="daily_backup">毎日のバックアップ</string>
     <string name="data_to_back_up">バックアップするデータ</string>
+    <string name="date_unknown">不明</string>
     <string name="default_credentials_wrong">不正な資格情報</string>
     <string name="delete_account">アカウント削除</string>
     <string name="delete_account_warning">アカウント %s のファイルとアカウントを削除しますか？\n\n削除すると復元はできません。</string>
@@ -575,6 +576,7 @@
     <string name="recommend_subject">デバイスで %1$s をお試しください</string>
     <string name="recommend_text">あなたのデバイスで %1$s を使用してください。\nダウンロードはこちらです: %2$s</string>
     <string name="recommend_urls">%1$s または %2$s</string>
+    <string name="reload">再読み込み</string>
     <string name="remote">(リモート)</string>
     <string name="remote_file_fetch_failed">ファイルが見つかりません！</string>
     <string name="remove_fail_msg">削除失敗</string>
@@ -762,7 +764,7 @@
     <string name="trashbin_loading_failed">ゴミ箱へのロードに失敗しました！</string>
     <string name="trashbin_not_emptied">ファイルを完全に削除できませんでした。</string>
     <string name="unlock_file">ファイルのロックを解除</string>
-    <string name="unread_comments">未読のコメントが存在します</string>
+    <string name="unread_comments">未読のコメントがあります</string>
     <string name="unset_encrypted">暗号化解除</string>
     <string name="unset_favorite">お気に入りから削除</string>
     <string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
@@ -866,6 +868,7 @@
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>
     <string name="whats_your_status">あなたのステータスは？</string>
+    <string name="widgets_not_available_title">利用できません</string>
     <string name="write_email">メールを送信</string>
     <string name="wrong_storage_path">データ保存フォルダーが存在しません!</string>
     <string name="wrong_storage_path_desc">これはバックアップの復元を違うデバイスで行ったためです。既定値に戻されています。データストレージフォルダーを調整するために設定を確認してください。</string>

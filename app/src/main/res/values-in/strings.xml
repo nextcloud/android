@@ -178,6 +178,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="credentials_disabled">Kredensial dimatikan</string>
     <string name="daily_backup">Pencadangan harian</string>
     <string name="data_to_back_up">Data untuk dicadangkan</string>
+    <string name="date_unknown">Tidak diketahui</string>
     <string name="default_credentials_wrong">Kredensial tidak tepat</string>
     <string name="delete_account">Hapus akun</string>
     <string name="delete_account_warning">Hapus akun %s dan hapus semua file lokal? Penghapusan tidak dapat dibatalkan.</string>
@@ -442,6 +443,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="recommend_subject">Coba %1$s di perangkat mu!</string>
     <string name="recommend_text">Saya ingin mengundang anda untuk menggunakan %1$s di perangkat anda. \nUnduh disini %2$s</string>
     <string name="recommend_urls">%1$s atau %2$s</string>
+    <string name="reload">Muat ulang</string>
     <string name="remove_fail_msg">Penghapusan gagal</string>
     <string name="remove_push_notification">Hapus</string>
     <string name="remove_success_msg">Dihapus</string>

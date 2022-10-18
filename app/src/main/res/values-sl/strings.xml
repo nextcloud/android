@@ -183,6 +183,7 @@
     <string name="credentials_disabled">Poverila so onemogočena</string>
     <string name="daily_backup">Dnevna varnostna kopija</string>
     <string name="data_to_back_up">Podatki za varnostno kopiranje</string>
+    <string name="date_unknown">Neznano</string>
     <string name="default_credentials_wrong">Nepravilna poverila</string>
     <string name="delete_account">Odstrani račun</string>
     <string name="delete_account_warning">Ali želite odstraniti račun %s z vsemi krajevnimi datotekami?\n\nBrisanja kasneje ni mogoče razveljaviti.</string>
@@ -558,6 +559,7 @@
     <string name="recommend_subject">Poskusite %1$s na vaši napravi!</string>
     <string name="recommend_text">Želim priporočiti program %1$s!\nPrejeti ga je mogoče prek: %2$s</string>
     <string name="recommend_urls">%1$s ali %2$s</string>
+    <string name="reload">Ponovno naloži</string>
     <string name="remote">(oddaljeno) </string>
     <string name="remote_file_fetch_failed">Iskanje datoteke je spodletelo!</string>
     <string name="remove_fail_msg">Brisanje je spodletelo</string>
@@ -844,6 +846,7 @@
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo v %1$s</string>
     <string name="whats_your_status">Kako želite nastaviti stanje?</string>
+    <string name="widgets_not_available_title">Ni na voljo</string>
     <string name="write_email">Pošlji elektronsko sporočilo</string>
     <string name="wrong_storage_path">Podatkovna mapa ne obstaja!</string>
     <string name="wrong_storage_path_desc">Napaka se lahko pojavi zaradi obnovitve varnostne kopije na drugi napravi. Nastavitev je povrnjena na privzeto vrednost. Za ustrezno delovanje je treba nastaviti podatkovno mapo.</string>

@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Inloggningsuppgifter inaktiverade</string>
     <string name="daily_backup">Daglig säkerhetskopiering</string>
     <string name="data_to_back_up">Data att säkerhetskopiera</string>
+    <string name="date_unknown">Okänd</string>
     <string name="default_credentials_wrong">Felaktiga inloggningsuppgifter</string>
     <string name="delete_account">Ta bort konto</string>
     <string name="delete_account_warning">Ta bort konto %s med alla lokala filer?\n\nBorttagning kan inte ångras.</string>
@@ -580,6 +581,7 @@
     <string name="recommend_subject">Försök%1$s på din enhet!</string>
     <string name="recommend_text">Jag vill bjuda in dig att använda %1$s på din enhet.\nHämta här: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="reload">Uppdatera</string>
     <string name="remote">(avlägsen)</string>
     <string name="remote_file_fetch_failed">Kunde inte hitta filen!</string>
     <string name="remove_fail_msg">Radering misslyckades</string>
@@ -798,7 +800,7 @@
     <string name="upload_files">Ladda upp filer</string>
     <string name="upload_item_action_button">Ladda upp objekthändelse-knapp</string>
     <string name="upload_list_delete">Ta bort</string>
-    <string name="upload_list_empty_headline">Inga nerladdningar tillgängliga</string>
+    <string name="upload_list_empty_headline">Inga uppladdningar tillgängliga</string>
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>
     <string name="upload_list_resolve_conflict">Lös konflikt</string>
     <string name="upload_local_storage_full">Lokal lagring full</string>
@@ -877,6 +879,7 @@
     <string name="whats_new_skip">Hoppa över</string>
     <string name="whats_new_title">Ny i %1$s</string>
     <string name="whats_your_status">Vad är din status?</string>
+    <string name="widgets_not_available_title">Inte tillgänglig</string>
     <string name="write_email">Skicka e-post</string>
     <string name="wrong_storage_path">Datalagringsmapp finns inte!</string>
     <string name="wrong_storage_path_desc">Detta kan bero på en säkerhetskopiering som återställts på en annan enhet. Kommer använda standarden. Vänligen kontrollera inställningarna för att konfigurera datalagringsmappen.</string>

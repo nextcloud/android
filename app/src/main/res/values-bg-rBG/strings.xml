@@ -185,6 +185,7 @@
     <string name="credentials_disabled">Потребителските данни са спрени</string>
     <string name="daily_backup">Ежедневно архивиране</string>
     <string name="data_to_back_up">Данни за архивиране</string>
+    <string name="date_unknown">Неизвестен</string>
     <string name="default_credentials_wrong">Грешни данни за вход</string>
     <string name="delete_account">Изтриване</string>
     <string name="delete_account_warning">Изтриване на профила %s и всички локални файлове?\n\nИзтриването е необратима операция.</string>
@@ -580,6 +581,7 @@
     <string name="recommend_subject">Пробвайте%1$sна вашето устройство</string>
     <string name="recommend_text">Каня Ви да използвате %1$s на вашето device.\nDownload тук %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="reload">Презареди</string>
     <string name="remote">(отдалечен)</string>
     <string name="remote_file_fetch_failed">Неуспешно намиране на файл!</string>
     <string name="remove_fail_msg">Изтриването неуспешно</string>
@@ -877,6 +879,7 @@
     <string name="whats_new_skip">Пропусни</string>
     <string name="whats_new_title">Ново в %1$s</string>
     <string name="whats_your_status">Какъв е вашият статус?</string>
+    <string name="widgets_not_available_title">Не е наличен</string>
     <string name="write_email">Изпращане на имейл</string>
     <string name="wrong_storage_path"> Не съществува папка за съхранение на данни!</string>
     <string name="wrong_storage_path_desc">Това може да се дължи на възстановяване на резервно копие на друго устройство. Връщане към подразбиране. Моля, проверете настройките, за да коригирате папката за съхранение на данни.</string>

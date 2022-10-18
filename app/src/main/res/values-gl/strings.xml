@@ -175,6 +175,7 @@
     <string name="create_rich_workspace">Engadir información do  cartafol</string>
     <string name="creates_rich_workspace"> crear a información do cartafol </string>
     <string name="credentials_disabled">Credenciais eliminadas</string>
+    <string name="date_unknown">Descoñecido</string>
     <string name="default_credentials_wrong">Credenciais incorrectas</string>
     <string name="delete_account">Eliminar conta</string>
     <string name="delete_account_warning">Retirar a conta %s e eliminar os ficheiros locais?\n\n Esta eliminación non pode desfacerse.</string>
@@ -531,6 +532,7 @@
     <string name="recommend_subject">Probe %1$s no seu dispositivo!</string>
     <string name="recommend_text">Quixera convidalo a usar %1$s no seu dispositivo.\nDescargueo aquí: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="reload">Volver cargar</string>
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">Produciuse un fallo ao atopar o ficheiro!</string>
     <string name="remove_fail_msg">Produciuse un fallo na eliminación</string>
@@ -804,6 +806,7 @@
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Novo en %1$s</string>
     <string name="whats_your_status">Cal é o seu estado?</string>
+    <string name="widgets_not_available_title">Non dispoñíbel</string>
     <string name="write_email">Enviar o correo</string>
     <string name="wrong_storage_path">O cartafol de almacenamento de datos non existe.</string>
     <string name="wrong_storage_path_desc">Isto pode deberse a unha restauración de copia de seguridade noutro dispositivo. Volvendo ao predeterminado. Comprobe a configuración para axustar o cartafol de almacenamento de datos.</string>

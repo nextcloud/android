@@ -35,6 +35,7 @@
     <string name="add_to_cloud">%1$s üzerine ekle</string>
     <string name="advanced_settings">Gelişmiş ayarlar</string>
     <string name="allow_resharing">Yeniden paylaşılabilsin</string>
+    <string name="app_widget_description">Panodan bir pano bileşeni görüntüler</string>
     <string name="appbar_search_in">%s içinde arama</string>
     <string name="associated_account_not_found">İlişkili hesap bulunamadı!</string>
     <string name="auth_access_failed">Erişilemedi: %1$s</string>
@@ -87,12 +88,14 @@
     <string name="calendars">Takvimler</string>
     <string name="certificate_load_problem">Sertifika yüklenirken bir sorun çıktı.</string>
     <string name="changelog_dev_version">Değişiklik günlüğü geliştirici sürümü</string>
+    <string name="check_back_later_or_reload">Bir süre sonra bakın ya da yeniden yükleyin </string>
     <string name="checkbox">İşaret kutusu</string>
     <string name="choose_local_folder">Yerel klasörü seçin …</string>
     <string name="choose_location">Konum seçin</string>
     <string name="choose_remote_folder">Uzak klasörü seçin …</string>
     <string name="choose_template_helper_text">Lütfen bir kalıp seçin ve bir dosya adı yazın.</string>
     <string name="choose_which_file">Korunacak dosyayı seçin!</string>
+    <string name="choose_widget">Pano bileşenini seçin</string>
     <string name="clear_notifications_failed">Bildirimler temizlenemedi.</string>
     <string name="clear_status_message">Durum iletisini kaldır</string>
     <string name="clear_status_message_after">Durum iletisi şu süre sonunda kaldırılsın</string>
@@ -184,6 +187,7 @@
     <string name="credentials_disabled">Kimlik doğrulama bilgileri kullanılmıyor</string>
     <string name="daily_backup">Günlük yedek</string>
     <string name="data_to_back_up">Yedeklenecek veriler</string>
+    <string name="date_unknown">Bilinmiyor</string>
     <string name="default_credentials_wrong">Kimlik doğrulama bilgileri hatalı</string>
     <string name="delete_account">Hesabı kaldır</string>
     <string name="delete_account_warning">%s hesabı ve tüm yerel dosyalar kaldırılsın mı?\n\nSilme işlemi geri alınamaz.</string>
@@ -385,6 +389,9 @@
     <string name="hint_password">Parola</string>
     <string name="host_not_available">Sunucu kullanılamıyor</string>
     <string name="host_your_own_server">Kendi sunucunuzu işletin</string>
+    <string name="icon_for_empty_list">boş liste simgesi</string>
+    <string name="icon_of_dashboard_widget">pano bileşeni simgesi</string>
+    <string name="icon_of_widget_entry">Pano bileşeni kaydı simgesi</string>
     <string name="in_folder">%1$s klasöründe</string>
     <string name="instant_upload_existing">Var olan dosyalar da yüklensin</string>
     <string name="instant_upload_on_charging">Yalnızca şarj edilirken yüklensin</string>
@@ -463,6 +470,7 @@
     <string name="no_browser_available">Bağlantıları işleyecek bir uygulama bulunamadı</string>
     <string name="no_calendar_exists">Herhangi bir takvim yok</string>
     <string name="no_email_app_available">E-posta adreslerini işleyecek bir uygulama bulunamadı</string>
+    <string name="no_items">Herhangi bir öge yok</string>
     <string name="no_mutliple_accounts_allowed">Yalnızca bir hesap kullanılabilir</string>
     <string name="no_pdf_app_available">PDF dosyalarını işleyecek bir uygulama bulunamadı</string>
     <string name="no_send_app">Seçilmiş dosyaların gönderilebileceği bir uygulama bulunamadı</string>
@@ -579,6 +587,8 @@
     <string name="recommend_subject">%1$s uygulamasını aygıtınız üzerinde deneyin!</string>
     <string name="recommend_text">Aygıtında %1$s kullanmanı öneriyorum!\nŞuradan indirebilirsin: %2$s</string>
     <string name="recommend_urls">%1$s ya da %2$s</string>
+    <string name="refresh_content">İçeriği yenile</string>
+    <string name="reload">Yeniden yükle</string>
     <string name="remote">(uzak)</string>
     <string name="remote_file_fetch_failed">Dosya bulunamadı!</string>
     <string name="remove_fail_msg">Silinemedi</string>
@@ -876,6 +886,8 @@
     <string name="whats_new_skip">Atla</string>
     <string name="whats_new_title">%1$s yenilikleri</string>
     <string name="whats_your_status">Durumunuz nedir?</string>
+    <string name="widgets_not_available">Pano bileşenleri yalnızca %1$s 25 ve üzeri sürümlerde kullanılabilir</string>
+    <string name="widgets_not_available_title">Kullanılamaz</string>
     <string name="write_email">E-posta gönder</string>
     <string name="wrong_storage_path">Veri depolama klasörü bulunamadı!</string>
     <string name="wrong_storage_path_desc">Bunun nedeni bir yedeğin başka bir aygıta geri yüklenmesi olabilir. Varsayılan değerlere geri dönülüyor. Lütfen veri depolama klasörünü ayarlamak için ayarları denetleyin.</string>

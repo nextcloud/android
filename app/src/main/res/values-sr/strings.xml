@@ -98,7 +98,7 @@
     <string name="common_error_out_memory">Нема довољно меморије</string>
     <string name="common_error_unknown">Непозната грешка</string>
     <string name="common_loading">Учитавам…</string>
-    <string name="common_next">Следећа</string>
+    <string name="common_next">Следеће</string>
     <string name="common_no">Не</string>
     <string name="common_ok">У реду</string>
     <string name="common_pending">На чекању</string>
@@ -108,7 +108,7 @@
     <string name="common_select">Обележи</string>
     <string name="common_send">Пошаљи</string>
     <string name="common_share">Подели</string>
-    <string name="common_skip">Preskoči</string>
+    <string name="common_skip">Прескочи</string>
     <string name="common_switch_account">Пребаци налог</string>
     <string name="common_switch_to_account">Пребаци на налог</string>
     <string name="common_yes">Да</string>
@@ -167,6 +167,7 @@
     <string name="create_rich_workspace">Додај информације о фасцикли</string>
     <string name="creates_rich_workspace">прави информације о фасцикли</string>
     <string name="credentials_disabled">Акредитиви искључени</string>
+    <string name="date_unknown">Непознато</string>
     <string name="default_credentials_wrong">Неисправни акредитиви</string>
     <string name="delete_account">Уклони налог</string>
     <string name="delete_account_warning">Уклонити налог %s и избрисати све локалне фајлове?\n\nБрисање се не може опозвати.</string>
@@ -196,7 +197,7 @@
     <string name="drawer_item_activities">Активности</string>
     <string name="drawer_item_all_files">Сви фајлови</string>
     <string name="drawer_item_favorites">Омиљено</string>
-    <string name="drawer_item_gallery">Мултимедија</string>
+    <string name="drawer_item_gallery">Медији</string>
     <string name="drawer_item_home">Почетна</string>
     <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_item_on_device">На уређају</string>
@@ -515,6 +516,7 @@
     <string name="recommend_subject">Испробај %1$s на свом уређају!</string>
     <string name="recommend_text">Желим да те позовем да испробаш %1$s на свом уређају.\nПреузми га овде: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="reload">Поново учитај</string>
     <string name="remote_file_fetch_failed">Не могу да пронађем фајл!</string>
     <string name="remove_fail_msg">Брисање није успело</string>
     <string name="remove_notification_failed">Грешка при уклањању обавештења.</string>

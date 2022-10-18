@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Legitimasjon deaktivert</string>
     <string name="daily_backup">Daglig sikkerhetskopi</string>
     <string name="data_to_back_up">Data å sikkerhetskopiere</string>
+    <string name="date_unknown">Ukjent</string>
     <string name="default_credentials_wrong">Feil legitimasjon</string>
     <string name="delete_account">Fjern konto</string>
     <string name="delete_account_warning">Fjern kontoen %s og slett alle lokale filer?\n\nSletting kan ikke angres.</string>
@@ -577,6 +578,7 @@
     <string name="recommend_subject">Prøv %1$s på denne enheten.</string>
     <string name="recommend_text">Jeg inviterer deg til å bruke %1$s på enheten din.\nLast ned her: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="reload">Last inn på nytt</string>
     <string name="remote">(ekstern)</string>
     <string name="remote_file_fetch_failed">Kunne ikke finne filen!</string>
     <string name="remove_fail_msg">Sletting mislyktes</string>
@@ -874,6 +876,7 @@
     <string name="whats_new_skip">Hopp over</string>
     <string name="whats_new_title">Nytt i %1$s</string>
     <string name="whats_your_status">Hva er din status?</string>
+    <string name="widgets_not_available_title">Ikke tilgjengelig</string>
     <string name="write_email">Send e-post</string>
     <string name="wrong_storage_path">Denne datalagringsmappen finnes ikke</string>
     <string name="wrong_storage_path_desc">Dette kan skyldes at det er gjort en backup eller gjenoppretting på en annen enhet. Går tilbake til standardinnstilling. Sjekk innstillinger for å endre datalagringsmappen.</string>

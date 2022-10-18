@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Credenciales desactivadas</string>
     <string name="daily_backup">Copia de seguridad diaria</string>
     <string name="data_to_back_up">Datos a respaldar</string>
+    <string name="date_unknown">Desconocido</string>
     <string name="default_credentials_wrong">Credenciales incorrectas</string>
     <string name="delete_account">Eliminar cuenta</string>
     <string name="delete_account_warning">¿Eliminar cuenta %s y borrar todos los archivos locales?\n\nEl borrado no se puede deshacer.</string>
@@ -579,6 +580,7 @@
     <string name="recommend_subject">¡Prueba %1$s en tu móvil!</string>
     <string name="recommend_text">Quiero invitarte a usar %1$s en tu móvil.\nDescárgalo aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="reload">Volver a cargar</string>
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">¡No se pudo encontrar el archivo!</string>
     <string name="remove_fail_msg">Ha fallado el borrado</string>
@@ -876,6 +878,7 @@
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
     <string name="whats_your_status">¿Cuál es su estado?</string>
+    <string name="widgets_not_available_title">No disponible</string>
     <string name="write_email">Enviar email</string>
     <string name="wrong_storage_path">¡No existe la carpeta de almacenamiento de datos!</string>
     <string name="wrong_storage_path_desc">Esto podría deberse a una copia de seguridad restaurada en otro dispositivo. Volviendo a los valores predeterminados. Por favor, compruebe la configuración para ajustar la carpeta de almacenamiento.</string>

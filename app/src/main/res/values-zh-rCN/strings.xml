@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">开发版本修改日志</string>
     <string name="checkbox">复选框</string>
     <string name="choose_local_folder">选择本地文件夹…</string>
+    <string name="choose_location">选择位置</string>
     <string name="choose_remote_folder">选择远程文件夹…</string>
     <string name="choose_template_helper_text">请选择一个模板并输入一个文件名</string>
     <string name="choose_which_file">选择保留的文件！</string>
@@ -183,6 +184,7 @@
     <string name="credentials_disabled">设备凭证已禁用</string>
     <string name="daily_backup">每日备份</string>
     <string name="data_to_back_up">要备份的数据</string>
+    <string name="date_unknown">未知</string>
     <string name="default_credentials_wrong">凭据不正确</string>
     <string name="delete_account">删除账号</string>
     <string name="delete_account_warning">删除账号 %s 并删除所有本地文件吗？\n\n一经删除无法撤销。</string>
@@ -239,6 +241,7 @@
     <string name="end_to_end_encryption_folder_not_empty">此文件夹不是空的。</string>
     <string name="end_to_end_encryption_generating_keys">正在生成密钥…</string>
     <string name="end_to_end_encryption_keywords_description">这12个单词共同构成了一个非常安全的密码，使得只有您能够查看以及使用您的加密文件。请把它记下并保存到某个安全的地方。</string>
+    <string name="end_to_end_encryption_not_enabled">服务器上的端到端加密已被禁用。</string>
     <string name="end_to_end_encryption_passphrase_title">请记录你的 12 字的加密密码</string>
     <string name="end_to_end_encryption_password">密码…</string>
     <string name="end_to_end_encryption_retrieving_keys">正在检索密钥…</string>
@@ -260,6 +263,7 @@
     <string name="error_retrieving_file">获取文件时遇到错误</string>
     <string name="error_retrieving_templates">检索模板时出错</string>
     <string name="error_starting_direct_camera_upload">开启相机时发生错误</string>
+    <string name="error_starting_scan_doc">使用文档扫描时出错</string>
     <string name="etm_accounts">账号</string>
     <string name="etm_background_job_name">工作名称</string>
     <string name="etm_background_job_progress">进度</string>
@@ -290,6 +294,7 @@
     <string name="failed_update_ui">更新用户界面失败</string>
     <string name="favorite">添加到收藏夹</string>
     <string name="favorite_icon">收藏</string>
+    <string name="file_already_exists">文件名已存在</string>
     <string name="file_delete">删除</string>
     <string name="file_detail_activity_error">获取文件动态时出错</string>
     <string name="file_details_no_content">加载详情失败</string>
@@ -314,6 +319,9 @@
     <string name="file_list_no_app_for_file_type">此文件类型未设置默认打开程序</string>
     <string name="file_list_seconds_ago">几秒前</string>
     <string name="file_management_permission">需要权限</string>
+    <string name="file_management_permission_optional">存储权限</string>
+    <string name="file_management_permission_optional_text">%1$s在有权限访问的存储上工作得最好。您可以选择对所有文件获取完整权限，或者对照片和视频提供只读权限。</string>
+    <string name="file_management_permission_text">%1$s需要文件管理权限以上传文件。您可以选择对所有文件获取完整权限，或者对照片和视频提供只读权限。</string>
     <string name="file_migration_checking_destination">正在检查目的地…</string>
     <string name="file_migration_cleaning">清除中…</string>
     <string name="file_migration_dialog_title">正在更新数据存储文件夹</string>
@@ -398,7 +406,11 @@
     <string name="local_file_not_found_message">本地文件系统无法找到此文件</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">没有其他文件夹。</string>
+    <string name="locate_folder">找到文件夹的位置</string>
+    <string name="lock_expiration_info">过期：%1$s</string>
     <string name="lock_file">锁定文件</string>
+    <string name="locked_by">被 %1$s 锁定</string>
+    <string name="locked_by_app">被 %1$s 应用锁定</string>
     <string name="log_send_mail_subject">%1$s 安卓应用日志</string>
     <string name="log_send_no_mail_app">没有找到发送日志文件的应用程序。请安装电子邮件客户端。</string>
     <string name="login">登录</string>
@@ -490,6 +502,7 @@
     <string name="pass_code_removed">安全码已删除</string>
     <string name="pass_code_stored">安全码已存储</string>
     <string name="pass_code_wrong">安全码不正确</string>
+    <string name="pdf_zoom_tip">点击页面以放大</string>
     <string name="permission_allow">允许</string>
     <string name="permission_deny">禁止</string>
     <string name="permission_storage_access">上传和下载文件所需的其他权限。</string>
@@ -567,6 +580,7 @@
     <string name="recommend_subject">在你的设备上尝试%1$s！</string>
     <string name="recommend_text">我想邀请你在你的设备上使用 %1$s。\n在这里下载：%2$s</string>
     <string name="recommend_urls">%1$s 或 %2$s</string>
+    <string name="reload">刷新</string>
     <string name="remote">(远程)</string>
     <string name="remote_file_fetch_failed">查找文件失败！</string>
     <string name="remove_fail_msg">删除失败</string>
@@ -600,6 +614,7 @@
     <string name="screenshot_06_davdroid_subline">与DAVx5同步</string>
     <string name="search_error">获取搜索结果时出错</string>
     <string name="select_all">全部选择</string>
+    <string name="select_media_folder">设定媒体文件夹</string>
     <string name="select_one_template">请选择一个模板</string>
     <string name="select_template">选择模板</string>
     <string name="send">发送</string>
@@ -654,6 +669,8 @@
     <string name="shared_icon_shared_via_link">通过链接共享</string>
     <string name="shared_with_you_by">您已通过 %1$s 共享</string>
     <string name="sharee_add_failed">新建共享失败</string>
+    <string name="show_images">显示照片</string>
+    <string name="show_video">显示视频</string>
     <string name="signup_with_provider">与提供商签约</string>
     <string name="single_sign_on_request_token" formatted="true">是否允许%1$s访问您的 Nextcloud 账号%2$s？</string>
     <string name="sort_by">排序方式</string>
@@ -697,6 +714,8 @@
     <string name="storage_internal_storage">内部存储</string>
     <string name="storage_movies">影片</string>
     <string name="storage_music">音乐</string>
+    <string name="storage_permission_full_access">完整存取权限</string>
+    <string name="storage_permission_media_read_only">媒体只读权限</string>
     <string name="storage_pictures">图片</string>
     <string name="store_full_desc">让您掌控全局的自托管生产力平台。\n\n特色：\n* 简单，现代的界面，搭配您服务器的主题\n* 上传文件到您的 Nextcloud 服务器\n* 与他人共享您的文件\n* 为您最喜欢的文件及文件夹保持同步\n* 在您的服务器上的所有文件夹中进行搜索\n* 自动上传通过您的设备所拍摄的照片和视频\n* 获得最新的通知\n* 多账号支持\n* 通过使用指纹或者 PIN 来安全访问到您的数据\n* 集成了 DAVx5（原名DAVdroid） 来快速设置日历和联系人同步\n\n请通过 https://github.com/nextcloud/android/issues 报告任何问题，并在 https://help.nextcloud.com/c/clients/android 讨论此应用程序\n\n刚刚接触 Nextcloud？Nextcloud 是一个私人文件同步和共享和交流服务端软件。它是自由软件，您可以自己组建或者花钱购买某一公司提供的服务。这样，您就可以操作您的照片，日历，联系方式，文档和其他所有内容.\n\n通过 https://nextcloud.com 查看 Nextcloud</string>
     <string name="store_full_dev_desc">让您掌控全局的自托管生产力平台。
@@ -711,6 +730,9 @@
     <string name="strict_mode">严格模式:不允许 HTTP 连接!</string>
     <string name="subject_shared_with_you">已与你共享 “%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s 已和你共享了“%2$s”</string>
+    <string name="subtitle_photos_only">仅照片</string>
+    <string name="subtitle_photos_videos">照片 &amp; 视频</string>
+    <string name="subtitle_videos_only">仅视频</string>
     <string name="suggest">建议</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
     <string name="sync_current_folder_was_removed">文件夹%1$s不再存在</string>
@@ -788,6 +810,7 @@
     <string name="upload_lock_failed">锁定文件夹失败</string>
     <string name="upload_old_android">加密功能仅适用于安卓 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空间不足将阻止将所选文件复制到%1$s文件夹中。 你想把它们移到那里吗？</string>
+    <string name="upload_scan_doc_upload">使用相机扫描文档</string>
     <string name="upload_sync_conflict">同步时发生异常，请手动同步</string>
     <string name="upload_unknown_error">未知错误</string>
     <string name="uploader_btn_alternative_text">选择</string>
@@ -858,6 +881,7 @@
     <string name="whats_new_skip">跳过</string>
     <string name="whats_new_title">新建%1$s</string>
     <string name="whats_your_status">你什么状态？</string>
+    <string name="widgets_not_available_title">不可用</string>
     <string name="write_email">发送邮件</string>
     <string name="wrong_storage_path">数据存储文件夹不存在！</string>
     <string name="wrong_storage_path_desc">这可能是由于另一台设备上的备份还原。正退回到默认。请检查设置来调整数据存储文件夹。</string>
@@ -878,6 +902,18 @@
     </plurals>
     <plurals name="found_n_duplicates">
         <item quantity="other">找到了 %d 个重复项</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="other">导出了 %d 个文件</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="other">导出 %d 个文件失败</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="other">导出了 %d 个文件，跳过了出错的其余部分</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="other">%d个文件将被导出。详情见通知。</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">%1$d个文件夹</item>
