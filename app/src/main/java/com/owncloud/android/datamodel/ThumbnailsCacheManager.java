@@ -77,11 +77,10 @@ import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.net.URLEncoder;
 import java.util.List;
-import java.util.Locale;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.content.res.ResourcesCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -152,7 +151,7 @@ public final class ThumbnailsCacheManager {
                         mThumbnailCache = new DiskLruImageCache(diskCacheDir, DISK_CACHE_SIZE, mCompressFormat,
                                                                 mCompressQuality);
                     } catch (Exception e) {
-                        Log_OC.d(TAG, String.format(Locale.US, "Disk cache init failed: %s", e.getMessage()));
+                        Log_OC.d(TAG, "Disk cache init failed", e);
                         mThumbnailCache = null;
                     }
                 }
@@ -1378,6 +1377,7 @@ public final class ThumbnailsCacheManager {
     @VisibleForTesting
     public static void clearCache() {
         mThumbnailCache.clearCache();
+        mThumbnailCache = null;
     }
 
     private static Bitmap doResizedImageInBackground(OCFile file, FileDataStorageManager storageManager) {
