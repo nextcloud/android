@@ -26,7 +26,6 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.content.res.ColorStateList;
 import android.text.TextUtils;
 import android.view.View;
@@ -36,7 +35,6 @@ import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
-import com.owncloud.android.utils.theme.ThemeAvatarUtils;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
@@ -46,17 +44,17 @@ import androidx.recyclerview.widget.RecyclerView;
 class LinkShareViewHolder extends RecyclerView.ViewHolder {
     private FileDetailsShareLinkShareItemBinding binding;
     private Context context;
-    private boolean isFileWithNoTextFile;
+    private boolean isTextFile;
 
     public LinkShareViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
-    public LinkShareViewHolder(FileDetailsShareLinkShareItemBinding binding, Context context, boolean isFileWithNoTextFile) {
+    public LinkShareViewHolder(FileDetailsShareLinkShareItemBinding binding, Context context, boolean isTextFile) {
         this(binding.getRoot());
         this.binding = binding;
         this.context = context;
-        this.isFileWithNoTextFile = isFileWithNoTextFile;
+        this.isTextFile = isTextFile;
     }
 
     public void bind(OCShare publicShare, ShareeListAdapterListener listener) {
@@ -104,9 +102,8 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
         binding.permissionName.setTextColor(colorStateList);
 
         if (!TextUtils.isEmpty(permissionName)) {
-            if (permissionName.equalsIgnoreCase(context.getResources().getString(R.string.share_permission_read_only)) && isFileWithNoTextFile) {
+            if (permissionName.equalsIgnoreCase(context.getResources().getString(R.string.share_permission_read_only)) && !isTextFile) {
                 binding.permissionName.setEnabled(false);
-
             } else {
                 binding.permissionName.setEnabled(true);
                 binding.shareByLinkContainer.setOnClickListener(v -> listener.showPermissionsDialog(publicShare));

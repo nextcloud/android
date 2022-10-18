@@ -26,13 +26,18 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.view.MenuItem;
 
+import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.utils.EditorUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import androidx.annotation.NonNull;
 
 import static com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSION_FLAG;
 import static com.owncloud.android.lib.resources.shares.OCShare.DELETE_PERMISSION_FLAG;
@@ -177,7 +182,24 @@ public final class SharingMenuHelper {
         return (share.getPermissions() & SHARE_PERMISSION_FLAG) > 0;
     }
 
-    public static boolean isFileWithNoTextFile(OCFile file) {
-        return !file.isFolder() && !MimeTypeUtil.isText(file);
+    /**
+     * method to check if the file should not be a text file or any of the office files
+     * this method will be used during sharing process to disable/enable edit option
+     */
+    public static boolean canEditFile(@NonNull Context context, @NonNull User user,
+                                      @NonNull OCCapability capability, @NonNull OCFile file) {
+
+        //if OCFile is folder then no need to check further direct return false
+        if (file.isFolder()) return false;
+
+        //check for text files like .md, .txt, etc
+        boolean isTextFile = EditorUtils.isEditorAvailable(context.getContentResolver(), user,
+                                                           file.getMimeType()) && !file.isEncrypted();
+
+        //check for office files like .docx, .pptx, .xls, etc
+        boolean isOfficeFile = capability.getRichDocumentsMimeTypeList() != null && capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
+            capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted();
+
+        return isTextFile || isOfficeFile;
     }
 }

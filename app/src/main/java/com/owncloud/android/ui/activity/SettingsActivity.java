@@ -910,7 +910,7 @@ public class SettingsActivity extends ThemedPreferenceActivity
                 String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);
-                AlertDialog alertDialog = builder.setTitle(R.string.prefs_e2e_mnemonic)
+                AlertDialog alertDialog = builder.setTitle(R.string.dialog_e2e_mnemonic_title)
                     .setMessage(mnemonic)
                     .setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
                     .create();

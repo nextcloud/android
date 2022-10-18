@@ -42,7 +42,6 @@ import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
@@ -81,7 +80,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeBarUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
-import com.owncloud.android.utils.theme.ThemeLayoutUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -94,7 +92,6 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
 
 /**
  * This Fragment is used to display the details about a file.
@@ -757,7 +754,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sharing_frame_container,
                                                                              FileDetailsSharingProcessFragment.newInstance(getFile(),
                                                                                                                            shareeName,
-                                                                                                                           shareType, SharingMenuHelper.isFileWithNoTextFile(getFile())),
+                                                                                                                           shareType, SharingMenuHelper.canEditFile(requireActivity(), user, storageManager.getCapability(user), getFile())),
                                                                              FileDetailsSharingProcessFragment.TAG)
             .addToBackStack(null)
             .commit();
@@ -774,7 +771,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                   boolean isExpiryDateShown) {
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.sharing_frame_container,
                                                                              FileDetailsSharingProcessFragment.newInstance(share, screenTypePermission, isReshareShown,
-                                                                                                                           isExpiryDateShown, SharingMenuHelper.isFileWithNoTextFile(getFile())),
+                                                                                                                           isExpiryDateShown, SharingMenuHelper.canEditFile(requireActivity(), user, storageManager.getCapability(user), getFile())),
                                                                              FileDetailsSharingProcessFragment.TAG)
             .addToBackStack(null)
             .commit();

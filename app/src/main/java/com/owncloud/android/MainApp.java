@@ -884,10 +884,12 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
     private void initMoEngageSDK() {
-        MoEngage moEngage =
-            new MoEngage.Builder(this, BuildConfig.MOENGAGE_APP_ID)
-                .build();
-        MoEngage.initialise(moEngage);
+        if (getResources().getBoolean(R.bool.moengage_enabled)) {
+            MoEngage moEngage =
+                new MoEngage.Builder(this, BuildConfig.MOENGAGE_APP_ID)
+                    .build();
+            MoEngage.initialise(moEngage);
+        }
     }
 
     private void setUpLeakCanary() {
