@@ -224,6 +224,7 @@ public class FileMenuFilter {
         filterLock(toShow, toHide, fileLockingEnabled);
         filterUnlock(toShow, toHide, fileLockingEnabled);
         filterLockInfo(toShow, toHide, fileLockingEnabled);
+        filterDelete(toShow, toHide);
     }
 
     private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
@@ -342,6 +343,17 @@ public class FileMenuFilter {
             toHide.add(R.id.action_unset_encrypted);
         } else {
             toShow.add(R.id.action_unset_encrypted);
+        }
+    }
+
+    /**
+     * delete menu to be shown or hidden for encrypted folders since user cannot delete encrypted folders
+     */
+    private void filterDelete(List<Integer> toShow, List<Integer> toHide) {
+        if (isSingleSelection() && !isEncryptedFolder()) {
+            toShow.add(R.id.action_remove_file);
+        } else {
+            toHide.add(R.id.action_remove_file);
         }
     }
 
