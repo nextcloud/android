@@ -879,6 +879,7 @@
     <string name="userinfo_no_info_text">在您的個人檔案中新增名字、大頭照和聯絡資訊。</string>
     <string name="username">使用者名稱</string>
     <string name="version_dev_download">下載</string>
+    <string name="video_overlay_icon">視訊覆蓋層圖示</string>
     <string name="wait_a_moment">稍候……</string>
     <string name="wait_checking_credentials">正在檢查儲存的憑證</string>
     <string name="wait_for_tmp_copy_from_private_storage">從私有儲存空間複製檔案中</string>
