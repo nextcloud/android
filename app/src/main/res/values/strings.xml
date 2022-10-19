@@ -193,7 +193,6 @@
     <string name="data_to_back_up">Data to back up</string>
     <string name="date_unknown">Unknown</string>
     <string name="default_credentials_wrong">Incorrect credentials</string>
-    <string name="default_emoji" translatable="false">😃</string>
     <string name="delete_account">Remove account</string>
     <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
     <string name="delete_entries">Delete entries</string>
@@ -210,7 +209,6 @@
     <string name="disable_new_media_folder_detection_notifications">Disable</string>
     <string name="dismiss">Dismiss</string>
     <string name="dismiss_notification_description">Dismiss notification</string>
-    <string name="divider" translatable="false">—</string>
     <string name="dnd">Do not disturb</string>
     <string name="dontClear">Don\'t clear</string>
     <string name="download_latest_dev_version">Download latest dev version</string>
