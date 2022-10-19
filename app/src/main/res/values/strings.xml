@@ -908,6 +908,8 @@
     <string name="write_email">Send email</string>
     <string name="wrong_storage_path">Data storage folder does not exist!</string>
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
+    <string translatable="false" name="default_emoji">😃</string>
+    <string translatable="false" name="divider">—</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>
         <item quantity="other">Could not sync %1$d files (conflicts: %2$d)</item>
