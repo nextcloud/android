@@ -61,6 +61,8 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class GalleryFragment extends OCFileListFragment implements GalleryFragmentBottomSheetActions {
     private static final int MAX_ITEMS_PER_ROW = 10;
+    private static final String FRAGMENT_TAG_BOTTOM_SHEET = "data";
+
     private boolean photoSearchQueryRunning = false;
     private AsyncTask<Void, Void, GallerySearchTask.Result> photoSearchTask;
     private long startDate;
@@ -282,10 +284,16 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         // Handle item selection
         if (item.getItemId() == R.id.action_three_dot_icon && !photoSearchQueryRunning
             && galleryFragmentBottomSheetDialog != null) {
-            galleryFragmentBottomSheetDialog.show(getChildFragmentManager(),"data" );
+            showBottomSheet();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showBottomSheet() {
+        if (!galleryFragmentBottomSheetDialog.isVisible()) {
+            galleryFragmentBottomSheetDialog.show(getChildFragmentManager(), FRAGMENT_TAG_BOTTOM_SHEET);
+        }
     }
 
     @Override
