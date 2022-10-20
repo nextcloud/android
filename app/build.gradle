@@ -353,7 +353,7 @@ dependencies {
     // upon each update first test: new registration, receive push
     gplayImplementation "com.google.firebase:firebase-messaging:23.0.7"
 
-    implementation 'com.github.nextcloud.android-common:ui:0.2.0'
+    implementation 'com.github.nextcloud.android-common:ui:0.3.0'
 }
 
 configurations.all {
