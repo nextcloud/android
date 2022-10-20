@@ -22,7 +22,6 @@
 
 package com.nextcloud.client.widget
 
-import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
@@ -101,17 +100,17 @@ class DashboardWidgetUpdater @Inject constructor(
         )
     }
 
-    // clickPI needs to me mutable, as it is re-used. PendingIntent.FLAG_IMMUTABLE requires S (API 31)
-    @SuppressLint("UnspecifiedImmutableFlag")
     private fun setPendingClick(remoteViews: RemoteViews) {
-        val clickPI = PendingIntent.getActivity(
+        val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+
+        val clickIntent = PendingIntent.getActivity(
             context,
             0,
             Intent(),
-            PendingIntent.FLAG_UPDATE_CURRENT
+            flags
         )
 
-        remoteViews.setPendingIntentTemplate(R.id.list, clickPI)
+        remoteViews.setPendingIntentTemplate(R.id.list, clickIntent)
     }
 
     private fun setAddButton(addButton: DashboardButton?, appWidgetId: Int, remoteViews: RemoteViews) {
