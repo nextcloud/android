@@ -183,7 +183,6 @@
     <string name="credentials_disabled">Đã vô hiệu hóa thông tin đăng nhập</string>
     <string name="daily_backup">Sao lưu hàng ngày</string>
     <string name="data_to_back_up">Dữ liệu được sao lưu</string>
-    <string name="date_unknown">Không xác định</string>
     <string name="default_credentials_wrong">Thông tin đăng nhập không chính xác</string>
     <string name="delete_account">Xóa tài khoản</string>
     <string name="delete_account_warning">Xóa tài khoản %s và xóa tất cả các tệp cục bộ?\n\nXóa không thể hoàn tác.</string>

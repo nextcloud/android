@@ -185,7 +185,6 @@
     <string name="credentials_disabled">Kredentzialak desgaituta</string>
     <string name="daily_backup">Eguneko babeskopia</string>
     <string name="data_to_back_up">Babesteko datuak</string>
-    <string name="date_unknown">Ezezaguna</string>
     <string name="default_credentials_wrong">Kredentzial okerrak</string>
     <string name="delete_account">Ezabatu kontua</string>
     <string name="delete_account_warning">%s kontua kendu eta fitxategi lokal guztiak ezabatu?\n\nBehin ezabatuta ezin da atzera egin.</string>
