@@ -19,7 +19,9 @@
             android:fillColor="#fff"/>
         <path
             android:pathData="M206.388,179.173L173.216,179.173L173.216,167.62L195.098,167.62l11.288,11.551ZM138.577,179.173L104.816,179.173L116.237,167.62h22.34L138.577,179.172Z"
-            android:fillColor="#f2f2f2"/>
+            android:strokeAlpha="0.2"
+            android:fillColor="#E20074"
+            android:fillAlpha="0.2"/>
       </group>
     </group>
   </group>
