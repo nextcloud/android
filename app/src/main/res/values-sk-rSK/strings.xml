@@ -184,7 +184,6 @@
     <string name="credentials_disabled">Prihlasovacie údaje zakázané</string>
     <string name="daily_backup">Denná záloha</string>
     <string name="data_to_back_up">Dáta pre zálohovanie</string>
-    <string name="date_unknown">Neznámy</string>
     <string name="default_credentials_wrong">Nesprávne prihlasovacie údaje</string>
     <string name="delete_account">Odstrániť účet</string>
     <string name="delete_account_warning">Zmazať účet %s a zmazať všetky lokálne súbory?\n\nZmazanie nebude možné vrátiť späť.</string>
