@@ -21,14 +21,40 @@
  */
 package com.owncloud.android.ui.adapter
 
+import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.databinding.GridImageBinding
 
 internal class OCFileListGridImageViewHolder(var binding: GridImageBinding) :
     RecyclerView.ViewHolder(
         binding.root
-    ) {
-    val thumbnail: ImageView
+    ),
+    ListGridImageViewHolder {
+    override val thumbnail: ImageView
         get() = binding.thumbnail
+
+    override fun showVideoOverlay() {
+        // noop
+    }
+
+    override val shimmerThumbnail: LoaderImageView
+        get() = binding.thumbnailShimmer
+    override val favorite: ImageView
+        get() = binding.favoriteAction
+    override val localFileIndicator: ImageView
+        get() = binding.localFileIndicator
+    override val shared: ImageView
+        get() = binding.sharedIcon
+    override val checkbox: ImageView
+        get() = binding.customCheckbox
+    override val itemLayout: View
+        get() = binding.ListItemLayout
+    override val unreadComments: ImageView
+        get() = binding.unreadComments
+
+    init {
+        binding.favoriteAction.drawable.mutate()
+    }
 }
