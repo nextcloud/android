@@ -187,7 +187,6 @@
     <string name="credentials_disabled">認證方式已取消</string>
     <string name="daily_backup">每日備份</string>
     <string name="data_to_back_up">要備份的資料</string>
-    <string name="date_unknown">未知</string>
     <string name="default_credentials_wrong">不正確的認證方式</string>
     <string name="delete_account">刪除帳號</string>
     <string name="delete_account_warning">移除帳號 %s 並刪除所有本機檔案？\n\n刪除後將無法復原。</string>
