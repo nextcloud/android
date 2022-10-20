@@ -174,7 +174,6 @@
     <string name="create_rich_workspace">اطلاعات پوشه را اضافه کنید</string>
     <string name="creates_rich_workspace">ایجاد اطلاعات پوشه</string>
     <string name="credentials_disabled">اعتبارنامه غیرفعال است</string>
-    <string name="date_unknown">ناشناخته</string>
     <string name="default_credentials_wrong">اعتبارنامه نادرست است</string>
     <string name="delete_account">حذف حساب کاربری</string>
     <string name="delete_account_warning">برداشتن حساب %s و حذف تمام پرونده‌ّای محلّی؟\n\nحذف قابل بازگردانی نیست.</string>
