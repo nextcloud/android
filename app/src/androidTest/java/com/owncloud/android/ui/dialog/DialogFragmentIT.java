@@ -25,9 +25,12 @@ package com.owncloud.android.ui.dialog;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
+import android.net.http.SslCertificate;
+import android.net.http.SslError;
 import android.os.Looper;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.SslErrorHandler;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -59,7 +62,6 @@ import com.owncloud.android.lib.resources.users.Status;
 import com.owncloud.android.lib.resources.users.StatusType;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetActions;
-import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialogFragment;
 import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -69,6 +71,7 @@ import com.owncloud.android.utils.theme.CapabilityUtils;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -462,6 +465,23 @@ public class DialogFragmentIT extends AbstractIT {
         waitForIdleSync();
 
         screenshot(sut.getWindow().getDecorView());
+    }
+
+
+    @Test
+    @ScreenshotTest
+    public void testSslUntrustedCertDialog() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare();
+        }
+
+        final SslCertificate certificate = new SslCertificate("foo", "bar", "2022/01/10", "2022/01/30");
+        final SslError sslError = new SslError(SslError.SSL_UNTRUSTED, certificate);
+        final SslErrorHandler handler = Mockito.mock(SslErrorHandler.class);
+
+
+        SslUntrustedCertDialog sut = SslUntrustedCertDialog.newInstanceForEmptySslError(sslError, handler);
+        showDialog(sut);
     }
 
     private FileDisplayActivity showDialog(DialogFragment dialog) {
