@@ -23,34 +23,42 @@ package com.owncloud.android.ui.dialog
 import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
 import com.owncloud.android.databinding.StoragePermissionDialogBinding
-import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment.Listener
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
 
 /**
  * Dialog that shows permission options in SDK >= 30
  *
  * Allows choosing "full access" (MANAGE_ALL_FILES) or "read-only media" (READ_EXTERNAL_STORAGE)
- *
- * @param listener a [Listener] for button clicks. The dialog will auto-dismiss after the callback is called.
- * @param permissionRequired Whether the permission is absolutely required by the calling component.
- * This changes the texts to a more strict version.
  */
 @RequiresApi(Build.VERSION_CODES.R)
-class StoragePermissionDialogFragment(val listener: Listener, val permissionRequired: Boolean = false) :
+class StoragePermissionDialogFragment :
     DialogFragment(), Injectable {
+
     private lateinit var binding: StoragePermissionDialogBinding
+
+    private var permissionRequired = false
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            permissionRequired = it.getBoolean(ARG_PERMISSION_REQUIRED, false)
+        }
+    }
 
     override fun onStart() {
         super.onStart()
@@ -75,12 +83,12 @@ class StoragePermissionDialogFragment(val listener: Listener, val permissionRequ
         // Setup layout
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.btnFullAccess)
         binding.btnFullAccess.setOnClickListener {
-            listener.onClickFullAccess()
+            setResult(Result.FULL_ACCESS)
             dismiss()
         }
         viewThemeUtils.platform.colorTextButtons(binding.btnReadOnly)
         binding.btnReadOnly.setOnClickListener {
-            listener.onClickMediaReadOnly()
+            setResult(Result.MEDIA_READ_ONLY)
             dismiss()
         }
 
@@ -94,7 +102,7 @@ class StoragePermissionDialogFragment(val listener: Listener, val permissionRequ
             .setTitle(titleResource)
             .setView(view)
             .setNegativeButton(R.string.common_cancel) { _, _ ->
-                listener.onCancel()
+                setResult(Result.CANCEL)
                 dismiss()
             }
 
@@ -103,9 +111,28 @@ class StoragePermissionDialogFragment(val listener: Listener, val permissionRequ
         return builder.create()
     }
 
-    interface Listener {
-        fun onCancel()
-        fun onClickFullAccess()
-        fun onClickMediaReadOnly()
+    private fun setResult(result: Result) {
+        parentFragmentManager.setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY to result))
+    }
+
+    @Parcelize
+    enum class Result : Parcelable {
+        CANCEL, FULL_ACCESS, MEDIA_READ_ONLY
+    }
+
+    companion object {
+        private const val ARG_PERMISSION_REQUIRED = "ARG_PERMISSION_REQUIRED"
+        const val REQUEST_KEY = "REQUEST_KEY_STORAGE_PERMISSION"
+        const val RESULT_KEY = "RESULT"
+
+        /**
+         * @param permissionRequired Whether the permission is absolutely required by the calling component.
+         * This changes the texts to a more strict version.
+         */
+        fun newInstance(permissionRequired: Boolean): StoragePermissionDialogFragment {
+            return StoragePermissionDialogFragment().apply {
+                arguments = bundleOf(ARG_PERMISSION_REQUIRED to permissionRequired)
+            }
+        }
     }
 }
