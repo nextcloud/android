@@ -169,6 +169,7 @@
     <string name="create_rich_workspace">Cuir fiosrachadh pasgain ris</string>
     <string name="creates_rich_workspace">cruthaichidh seo fiosrachadh pasgain</string>
     <string name="credentials_disabled">Chaidh an teisteas a chur à comas</string>
+    <string name="date_unknown">Chan eil fhios</string>
     <string name="default_credentials_wrong">Teisteas ceàrr</string>
     <string name="delete_account">Thoir air falbh an cunntas</string>
     <string name="delete_account_warning">A bheil thu airson cunntas %s a thoirt air falbh ’s na faidhlichean ionadail uile a sguabadh às?\n\Cha ghabh an sguabadh às a neo-dhèanamh.</string>

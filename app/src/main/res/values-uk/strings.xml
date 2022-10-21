@@ -185,6 +185,7 @@
     <string name="credentials_disabled">Дані авторизації не активні</string>
     <string name="daily_backup">Щоденне резервне збереження</string>
     <string name="data_to_back_up">Дані для резервного збереження</string>
+    <string name="date_unknown">Невідомо</string>
     <string name="default_credentials_wrong">Неправильні дані авторизації</string>
     <string name="delete_account">Вилучити обліковий запис</string>
     <string name="delete_account_warning">Вилучити обліковий запис %s і знищити всі локальні файли?\n\nВилучення неможливо буде скасувати.</string>

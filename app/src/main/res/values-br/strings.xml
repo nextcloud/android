@@ -166,6 +166,7 @@
     <string name="create_rich_workspace">Ouzhpennañ titouroù an teuliad</string>
     <string name="creates_rich_workspace">kroui titouroù an teuliad</string>
     <string name="credentials_disabled">Titouroù identitelez disaotreet</string>
+    <string name="date_unknown">Dianv</string>
     <string name="default_credentials_wrong">Titouroù identitelez fall</string>
     <string name="delete_account">Lemel ar c\'hont</string>
     <string name="delete_account_warning">Lemel ar c\'hont %s ha toud e restroù ?\n\nN\'eo ket posuple disober ur wech graet.</string>

@@ -184,6 +184,7 @@
     <string name="credentials_disabled">التصريح غير مفعل</string>
     <string name="daily_backup">النسخ الاحتياطي اليومي</string>
     <string name="data_to_back_up">البيانات التي سيتم نسخها احتياطيا</string>
+    <string name="date_unknown">غير معروف</string>
     <string name="default_credentials_wrong">التصريح خاطئ</string>
     <string name="delete_account">حذف الحساب</string>
     <string name="delete_account_warning">حذف الحساب %s وحذف جميع الملفات المحلية؟\n\nعملية الحذف لا يمكن التراجع عنها.</string>

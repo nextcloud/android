@@ -176,6 +176,7 @@
     <string name="create_rich_workspace">Bæta við upplýsingum möppu</string>
     <string name="creates_rich_workspace">býr til upplýsingar um möppu</string>
     <string name="credentials_disabled">Auðkenni óvirk</string>
+    <string name="date_unknown">Óþekkt</string>
     <string name="default_credentials_wrong">Röng auðkenni</string>
     <string name="delete_account">Fjarlægja reikning</string>
     <string name="delete_account_warning">Fjarlægja notandaaðgang %s og eyða öllum staðværum skrám?\n\nEkki er hægt að afturkalla aðgerðina.</string>

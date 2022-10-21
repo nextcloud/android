@@ -176,6 +176,7 @@
     <string name="create_rich_workspace">Додади информации за папката</string>
     <string name="credentials_disabled">Акредитивите се оневозможени</string>
     <string name="daily_backup">Дневена резервна копија</string>
+    <string name="date_unknown">Непознат</string>
     <string name="default_credentials_wrong">Погрешни акредитиви</string>
     <string name="delete_account">Отстрани сметка</string>
     <string name="delete_account_warning">Избриши ја сметката %s и избриши ги локалните датотеки?\n\nПозсле бришењето на датотеките неможат да се вратат.</string>

@@ -130,6 +130,7 @@
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
     <string name="create_new_folder">Crear nueva carpeta</string>
+    <string name="date_unknown">Desconocido</string>
     <string name="delete_account">Cerrar sesión</string>
     <string name="delete_account_warning">¿Borrar la cuenta %s y borrar todos los archivos localeS?\n\nEl borrado no se puede deshacer</string>
     <string name="deselect_all">Deseleccionar todo</string>

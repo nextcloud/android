@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Учётная запись отключена</string>
     <string name="daily_backup">Ежедневное резервное копирование</string>
     <string name="data_to_back_up">Данные для резервного копирования</string>
+    <string name="date_unknown">Неизвестно</string>
     <string name="default_credentials_wrong">Неверные учётные данные</string>
     <string name="delete_account">Удалить аккаунт</string>
     <string name="delete_account_warning">Удалить аккаунт %s и все связанные с ним файлы?\n\nУдаление не может быть отменено.</string>

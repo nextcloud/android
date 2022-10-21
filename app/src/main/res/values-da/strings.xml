@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Brugeroplysninger deaktiverede</string>
     <string name="daily_backup">Daglig backup</string>
     <string name="data_to_back_up">Data at sikkerhedskopiere</string>
+    <string name="date_unknown">Ukendt</string>
     <string name="default_credentials_wrong">Ukorrekte brugeroplysninger</string>
     <string name="delete_account">Fjern konto</string>
     <string name="delete_account_warning">Slet konto %s og slet alle filer lokalt?\n\nDu kan ikke fortryde en sletning.</string>

@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Ajouter à %1$s</string>
     <string name="advanced_settings">Paramètres avancés</string>
     <string name="allow_resharing">Autoriser le repartage</string>
+    <string name="app_widget_description">Affiche un widget du tableau de bord</string>
     <string name="appbar_search_in">Recherche dans %s</string>
     <string name="associated_account_not_found">Compte associé introuvable !</string>
     <string name="auth_access_failed">L\'accès a échoué: %1$s</string>
@@ -94,6 +95,7 @@
     <string name="choose_remote_folder">Sélectionner le dossier distant…</string>
     <string name="choose_template_helper_text">Veuillez choisir un modèle et entrer un nom de fichier</string>
     <string name="choose_which_file">Sélectionnez le fichier à conserver</string>
+    <string name="choose_widget">Choisir un widget</string>
     <string name="clear_notifications_failed">Erreur lors de l\'effacement des notifications.</string>
     <string name="clear_status_message">Effacer le message d\'état</string>
     <string name="clear_status_message_after">Effacer le message d\'états après</string>
@@ -185,6 +187,7 @@
     <string name="credentials_disabled">Informations d\'identification désactivées</string>
     <string name="daily_backup">Sauvegarde journalière</string>
     <string name="data_to_back_up">Données à sauvegarder</string>
+    <string name="date_unknown">Inconnu</string>
     <string name="default_credentials_wrong">Informations d\'identification erronées</string>
     <string name="delete_account">Supprimer le compte</string>
     <string name="delete_account_warning">Supprimer le compte %s et supprimer tous les fichiers locaux ?
@@ -222,7 +225,7 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_item_activities">Activités</string>
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_favorites">Favoris</string>
-    <string name="drawer_item_gallery">Média</string>
+    <string name="drawer_item_gallery">Médias</string>
     <string name="drawer_item_home">Accueil</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
@@ -388,6 +391,9 @@ Attention la suppression est irréversible.</string>
     <string name="hint_password">Mot de passe</string>
     <string name="host_not_available">Serveur indisponible</string>
     <string name="host_your_own_server">Hébergez votre propre serveur</string>
+    <string name="icon_for_empty_list">icône pour liste vide</string>
+    <string name="icon_of_dashboard_widget">Icône du widget du tableau de bord</string>
+    <string name="icon_of_widget_entry">Icône de l\'entrée du widget</string>
     <string name="in_folder">dans le dossier %1$s</string>
     <string name="instant_upload_existing">Envoyer aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
@@ -875,6 +881,7 @@ Attention la suppression est irréversible.</string>
     <string name="userinfo_no_info_text">Ajouter le nom, la photo et les coordonnées sur votre page de profil.</string>
     <string name="username">Nom d\'utilisateur</string>
     <string name="version_dev_download">Télécharger</string>
+    <string name="video_overlay_icon">icône d\'incrustation vidéo</string>
     <string name="wait_a_moment">Veuillez patienter…</string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
@@ -882,6 +889,7 @@ Attention la suppression est irréversible.</string>
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
     <string name="whats_your_status">Quel est votre status ?</string>
+    <string name="widgets_not_available">Les widgets ne sont disponibles que sur %1$s 25 ou plus tard</string>
     <string name="widgets_not_available_title">Non disponible</string>
     <string name="write_email">Envoyer un e-mail</string>
     <string name="wrong_storage_path">Le répertoire de données n’existe pas !</string>

@@ -175,6 +175,7 @@
     <string name="create_rich_workspace">Agregar información de la carpeta</string>
     <string name="creates_rich_workspace">crea la información de la carpeta</string>
     <string name="credentials_disabled">Credenciales deshabilitadas</string>
+    <string name="date_unknown">Desconocido</string>
     <string name="default_credentials_wrong">Credenciales incorrectas</string>
     <string name="delete_account">Cerrar sesión</string>
     <string name="delete_account_warning">¿Borrar la cuenta %s y borrar todos los archivos localeS?\n\nEl borrado no se puede deshacer</string>

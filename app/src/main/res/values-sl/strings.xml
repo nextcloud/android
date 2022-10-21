@@ -183,6 +183,7 @@
     <string name="credentials_disabled">Poverila so onemogočena</string>
     <string name="daily_backup">Dnevna varnostna kopija</string>
     <string name="data_to_back_up">Podatki za varnostno kopiranje</string>
+    <string name="date_unknown">Neznano</string>
     <string name="default_credentials_wrong">Nepravilna poverila</string>
     <string name="delete_account">Odstrani račun</string>
     <string name="delete_account_warning">Ali želite odstraniti račun %s z vsemi krajevnimi datotekami?\n\nBrisanja kasneje ni mogoče razveljaviti.</string>

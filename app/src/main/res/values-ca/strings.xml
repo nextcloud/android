@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Credencials desactivades</string>
     <string name="daily_backup">Còpia de seguretat diària</string>
     <string name="data_to_back_up">Dades a fer una còpia de seguretat</string>
+    <string name="date_unknown">Desconegut</string>
     <string name="default_credentials_wrong">Credencials incorrectes</string>
     <string name="delete_account">Suprimeix el compte</string>
     <string name="delete_account_warning">Suprimeix el compte %s i tots els fitxers locals?\n\nAquesta acció no es pot desfer.</string>

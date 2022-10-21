@@ -187,6 +187,7 @@
     <string name="credentials_disabled">Přihlašovací údaje znepřístupněny</string>
     <string name="daily_backup">Každodenní záloha</string>
     <string name="data_to_back_up">Data k zálohování</string>
+    <string name="date_unknown">Neznámé</string>
     <string name="default_credentials_wrong">Neplatné přihlašovací údaje</string>
     <string name="delete_account">Odebrat účet</string>
     <string name="delete_account_warning">Odebrat účet %s a smazat všechny místní soubory?\n\nTuto akci nelze vzít zpět.</string>

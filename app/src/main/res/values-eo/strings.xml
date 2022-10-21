@@ -148,6 +148,7 @@
     <string name="create_new_presentation">Krei novan prezentaĵon</string>
     <string name="create_new_spreadsheet">Krei novan kalkultabelon</string>
     <string name="credentials_disabled">Akreditiloj estas malebligitaj</string>
+    <string name="date_unknown">Nekonata</string>
     <string name="default_credentials_wrong">Malĝustaj akreditiloj</string>
     <string name="delete_account">Forigi konton</string>
     <string name="delete_account_warning">Ĉu forigi la konton %s kaj forigi ĉiujn lokajn dosierojn?\n\nMalfari la forigadon tute ne eblas.</string>

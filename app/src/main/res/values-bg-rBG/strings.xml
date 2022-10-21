@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Добави към %1$s</string>
     <string name="advanced_settings">Допълнителни настройки</string>
     <string name="allow_resharing">Може да споделя повторно</string>
+    <string name="app_widget_description">Показва един изпълним модул от таблото за управление</string>
     <string name="appbar_search_in">Търсене в %s</string>
     <string name="associated_account_not_found">Свързания профил не е намерен!</string>
     <string name="auth_access_failed">Достъп неуспешен: %1$s</string>
@@ -87,12 +88,14 @@
     <string name="calendars">Kалендари</string>
     <string name="certificate_load_problem">Проблем при зареждане на сертификата.</string>
     <string name="changelog_dev_version">Версия за разработка на журнал за промени</string>
+    <string name="check_back_later_or_reload">Проверка отново по-късно или презареждане.</string>
     <string name="checkbox">Отметка</string>
     <string name="choose_local_folder">Изберете локална папка…</string>
     <string name="choose_location">Избор на местоположение</string>
     <string name="choose_remote_folder">Изберете отдалечена папка…</string>
     <string name="choose_template_helper_text">Моля, изберете шаблон и въведете име на файл.</string>
     <string name="choose_which_file">Изберете кой файл да бъде запазен!</string>
+    <string name="choose_widget">Избор на изпълним модул</string>
     <string name="clear_notifications_failed">Изтриването на известията не бе успешно.</string>
     <string name="clear_status_message">Изчистване на съобщението за състоянието</string>
     <string name="clear_status_message_after">Изчистване на съобщение за състоянието след това</string>
@@ -185,6 +188,7 @@
     <string name="credentials_disabled">Потребителските данни са спрени</string>
     <string name="daily_backup">Ежедневно архивиране</string>
     <string name="data_to_back_up">Данни за архивиране</string>
+    <string name="date_unknown">Неизвестен</string>
     <string name="default_credentials_wrong">Грешни данни за вход</string>
     <string name="delete_account">Изтриване</string>
     <string name="delete_account_warning">Изтриване на профила %s и всички локални файлове?\n\nИзтриването е необратима операция.</string>
@@ -386,6 +390,9 @@
     <string name="hint_password">Парола</string>
     <string name="host_not_available">Сървърът не е наличен</string>
     <string name="host_your_own_server">Стартирайте собствен сървър</string>
+    <string name="icon_for_empty_list">икона за празен списък</string>
+    <string name="icon_of_dashboard_widget">Икона на изпълним модул на табло за управление</string>
+    <string name="icon_of_widget_entry">Икона на вход на изпълним модул</string>
     <string name="in_folder">в папка %1$s</string>
     <string name="instant_upload_existing">Качете и съществуващи файлове</string>
     <string name="instant_upload_on_charging">Качване само при зареждане</string>
@@ -464,6 +471,7 @@
     <string name="no_browser_available">Няма налично приложение за обработка на връзките</string>
     <string name="no_calendar_exists">Не съществува календар</string>
     <string name="no_email_app_available">Няма налично приложение за обработка на имейл адрес</string>
+    <string name="no_items">Без/няма елементи</string>
     <string name="no_mutliple_accounts_allowed">Само един профил е позволен</string>
     <string name="no_pdf_app_available">Няма налично приложение за обработка на в PDF</string>
     <string name="no_send_app">Няма налично приложение за изпращане на избраните файлове</string>
@@ -580,6 +588,7 @@
     <string name="recommend_subject">Пробвайте%1$sна вашето устройство</string>
     <string name="recommend_text">Каня Ви да използвате %1$s на вашето device.\nDownload тук %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="refresh_content">Обновяване на съдържанието</string>
     <string name="reload">Презареди</string>
     <string name="remote">(отдалечен)</string>
     <string name="remote_file_fetch_failed">Неуспешно намиране на файл!</string>
@@ -871,6 +880,7 @@
     <string name="userinfo_no_info_text">Добавете име, снимка и данни за контакт към профила си.</string>
     <string name="username">Потребител</string>
     <string name="version_dev_download">Изтегли</string>
+    <string name="video_overlay_icon">икона за наслагване на видео</string>
     <string name="wait_a_moment">Моля изчакайте…</string>
     <string name="wait_checking_credentials">Проверка на съхранените пълномощия</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копиране на файла от личното хранилище</string>
@@ -878,6 +888,7 @@
     <string name="whats_new_skip">Пропусни</string>
     <string name="whats_new_title">Ново в %1$s</string>
     <string name="whats_your_status">Какъв е вашият статус?</string>
+    <string name="widgets_not_available">Изпълнимите модули са налични само в %1$s, 25 или по-нова версия</string>
     <string name="widgets_not_available_title">Не е наличен</string>
     <string name="write_email">Изпращане на имейл</string>
     <string name="wrong_storage_path"> Не съществува папка за съхранение на данни!</string>

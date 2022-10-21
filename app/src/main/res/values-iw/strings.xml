@@ -169,6 +169,7 @@
     <string name="create_rich_workspace">הוספת פרטי תיקייה</string>
     <string name="creates_rich_workspace">יוצר פרטי תיקייה</string>
     <string name="credentials_disabled">פרטי גישה מושבתים</string>
+    <string name="date_unknown">לא ידוע</string>
     <string name="default_credentials_wrong">פרטי הגישה שגויים</string>
     <string name="delete_account">הסרת חשבון</string>
     <string name="delete_account_warning">להסיר את החשבון %s ולמחוק את כל הקבצים המקומיים?\n\nלא ניתן לבטל מחיקה.</string>

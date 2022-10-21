@@ -146,6 +146,7 @@
     <string name="create_rich_workspace">Pievienot mapes informāciju</string>
     <string name="creates_rich_workspace">pievieno mapes informāciju</string>
     <string name="credentials_disabled">Akreditācijas dati atspējoti</string>
+    <string name="date_unknown">Nezināms</string>
     <string name="default_credentials_wrong">Nepareizi akreditācijas dati</string>
     <string name="delete_account">Noņemt kontu</string>
     <string name="delete_account_warning">Noņemt kontu %s un izdzēst visas vietēji saglabātās datnes?\n\nDzēšanu nevar atsaukt.</string>

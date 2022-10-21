@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Legitimasjon deaktivert</string>
     <string name="daily_backup">Daglig sikkerhetskopi</string>
     <string name="data_to_back_up">Data å sikkerhetskopiere</string>
+    <string name="date_unknown">Ukjent</string>
     <string name="default_credentials_wrong">Feil legitimasjon</string>
     <string name="delete_account">Fjern konto</string>
     <string name="delete_account_warning">Fjern kontoen %s og slett alle lokale filer?\n\nSletting kan ikke angres.</string>

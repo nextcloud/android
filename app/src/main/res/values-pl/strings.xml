@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Poświadczenia wyłączone</string>
     <string name="daily_backup">Codzienna kopia zapasowa</string>
     <string name="data_to_back_up">Dane dla kopii zapasowej</string>
+    <string name="date_unknown">Nieznane</string>
     <string name="default_credentials_wrong">Błedne poświadczenia</string>
     <string name="delete_account">Usuń konto</string>
     <string name="delete_account_warning">Usunąć konto %s i wszystkie jego pliki lokalne? Usunięcia nie będzie można cofnąć.</string>

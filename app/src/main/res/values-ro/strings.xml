@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Autentificare dezactivată</string>
     <string name="daily_backup">Copie de rezervă zilnică</string>
     <string name="data_to_back_up">Date pentru copia de rezervă</string>
+    <string name="date_unknown">Necunoscut</string>
     <string name="default_credentials_wrong">Date de autentificare incorecte</string>
     <string name="delete_account">Sterge contul</string>
     <string name="delete_account_warning">Eliminați contul %s și ștergeți toate fișierele locale?\n\nȘtergerea nu poate fi anulată.</string>

@@ -175,6 +175,7 @@
     <string name="create_rich_workspace">Engadir información do  cartafol</string>
     <string name="creates_rich_workspace"> crear a información do cartafol </string>
     <string name="credentials_disabled">Credenciais eliminadas</string>
+    <string name="date_unknown">Descoñecido</string>
     <string name="default_credentials_wrong">Credenciais incorrectas</string>
     <string name="delete_account">Eliminar conta</string>
     <string name="delete_account_warning">Retirar a conta %s e eliminar os ficheiros locais?\n\n Esta eliminación non pode desfacerse.</string>

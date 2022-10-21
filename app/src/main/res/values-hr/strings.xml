@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Vjerodajnice onemogućene</string>
     <string name="daily_backup">Svakodnevno sigurnosno kopiranje</string>
     <string name="data_to_back_up">Podaci za sigurnosno kopiranje</string>
+    <string name="date_unknown">Nepoznato</string>
     <string name="default_credentials_wrong">Netočne vjerodajnice</string>
     <string name="delete_account">Izbriši račun</string>
     <string name="delete_account_warning">Želite li ukloniti račun %s i izbrisati sve lokalne datoteke?\n\nBrisanje se ne može poništiti.</string>
