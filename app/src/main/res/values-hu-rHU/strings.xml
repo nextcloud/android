@@ -580,6 +580,7 @@
     <string name="recommend_subject">Próbálja ki a %1$sot az eszközén!</string>
     <string name="recommend_text">Meg akarom hívni a %1$s használatára az eszközén.\nTöltse le itt: %2$s</string>
     <string name="recommend_urls">%1$s vagy %2$s</string>
+    <string name="refresh_content">Tartalom frissítése</string>
     <string name="reload">Újratöltés</string>
     <string name="remote">(távoli)</string>
     <string name="remote_file_fetch_failed">A fájl nem található.</string>
