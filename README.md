@@ -58,6 +58,7 @@ Easy starting points are also reviewing [pull requests](https://github.com/nextc
 *   enter `adb shell pidof -s 'com.nextcloud.client'` and use the output as `<processID>` in the following command:
 *   `adb logcat --pid=<processID> > "%USERPROFILE%\Downloads\logcatOutput.txt"` (This will produce a `logcatOutput.txt` file in your downloads)
 *   if the processID is `18841`, an example command is: `adb logcat --pid=18841 > "%USERPROFILE%\Downloads\logcatOutput.txt"` (You might cancel the process after a while manually: it will not be exited automatically.)
+*   For a PowerShell terminal, replace `%USERPROFILE%` with `$env:USERPROFILE` in the commands above.
 
 #### On a device (with root) :wrench:
 
