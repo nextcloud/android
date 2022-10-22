@@ -55,9 +55,9 @@ Easy starting points are also reviewing [pull requests](https://github.com/nextc
 *   download and install [Minimal ADB and fastboot](https://forum.xda-developers.com/t/tool-minimal-adb-and-fastboot-2-9-18.2317790/#post-42407269)
 *   enable USB-Debugging in your smartphones developer settings and connect it via USB
 *   launch Minimal ADB and fastboot
-*   enter `adb shell pidof -s 'com.nextcloud.client` and use the output as `<processID>` in the following command:
-*   `adb logcat --pid=<processID> > %HOMEPATH%\Downloads\logcatOutput.txt` (This will produce a `logcatOutput.txt` file in your downloads)
-*   if the processID is `18841`, an example command is: `adb logcat --pid=18841 > %HOMEPATH%\Downloads\logcatOutput.txt` (You might cancel the process after a while manually: it will not be exited automatically.)
+*   enter `adb shell pidof -s 'com.nextcloud.client'` and use the output as `<processID>` in the following command:
+*   `adb logcat --pid=<processID> > "%USERPROFILE%\Downloads\logcatOutput.txt"` (This will produce a `logcatOutput.txt` file in your downloads)
+*   if the processID is `18841`, an example command is: `adb logcat --pid=18841 > "%USERPROFILE%\Downloads\logcatOutput.txt"` (You might cancel the process after a while manually: it will not be exited automatically.)
 
 #### On a device (with root) :wrench:
 
