@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Hozzáadás ehhez: %1$s</string>
     <string name="advanced_settings">Speciális beállítások</string>
     <string name="allow_resharing">Újra megosztás engedélyezése</string>
+    <string name="app_widget_description">Egy modult jelenít meg a irányítópultról</string>
     <string name="appbar_search_in">Keresés itt: %s</string>
     <string name="associated_account_not_found">A kapcsolódó fiók nem található!</string>
     <string name="auth_access_failed">Hozzáférési hiba: %1$s</string>
@@ -87,12 +88,14 @@
     <string name="calendars">Naptárak</string>
     <string name="certificate_load_problem">Probléma történt a tanúsítvány betöltésekor.</string>
     <string name="changelog_dev_version">Változásnapló fejlesztői verziója</string>
+    <string name="check_back_later_or_reload">Nézzen vissza később vagy töltse újra.</string>
     <string name="checkbox">Jelölőmező</string>
     <string name="choose_local_folder">Válasszon helyi mappát…</string>
     <string name="choose_location">Válasszon helyet</string>
     <string name="choose_remote_folder">Válasszon távoli mappát…</string>
     <string name="choose_template_helper_text">Válasszon egy sablont, és írja be a fájl nevét.</string>
     <string name="choose_which_file">Válasszon melyik fájl legyen megtartva!</string>
+    <string name="choose_widget">Válasszon modult</string>
     <string name="clear_notifications_failed">Az értesítések törlése sikertelen.</string>
     <string name="clear_status_message">Állapotüzenet törlése</string>
     <string name="clear_status_message_after">Állapotüzenet törlése ennyi idő után:</string>
@@ -386,6 +389,9 @@
     <string name="hint_password">Jelszó</string>
     <string name="host_not_available">A kiszolgáló nem érhető el</string>
     <string name="host_your_own_server">Saját kiszolgáló használata</string>
+    <string name="icon_for_empty_list">üres lista ikonja</string>
+    <string name="icon_of_dashboard_widget">Irányítópult-modul ikonja</string>
+    <string name="icon_of_widget_entry">Modulbejegyzés ikonja</string>
     <string name="in_folder">%1$s mappában</string>
     <string name="instant_upload_existing">A meglévő fájlokat is töltse fel</string>
     <string name="instant_upload_on_charging">Feltöltés csak töltés közben</string>
@@ -464,6 +470,7 @@
     <string name="no_browser_available">Nincs elérhető alkalmazás hivatkozások kezeléséhez</string>
     <string name="no_calendar_exists">Nem létezik naptár</string>
     <string name="no_email_app_available">Nem érhető el alkalmazás a levélcímek kezeléséhez</string>
+    <string name="no_items">Nincsenek elemek</string>
     <string name="no_mutliple_accounts_allowed">Csak egy fiók engedélyezett</string>
     <string name="no_pdf_app_available">Nincs elérhető alkalmazás PDF kezeléséhez</string>
     <string name="no_send_app">Nem érhető el alkalmazás a kiválasztott fájlok küldéséhez</string>
@@ -580,6 +587,7 @@
     <string name="recommend_subject">Próbálja ki a %1$sot az eszközén!</string>
     <string name="recommend_text">Meg akarom hívni a %1$s használatára az eszközén.\nTöltse le itt: %2$s</string>
     <string name="recommend_urls">%1$s vagy %2$s</string>
+    <string name="refresh_content">Tartalom frissítése</string>
     <string name="reload">Újratöltés</string>
     <string name="remote">(távoli)</string>
     <string name="remote_file_fetch_failed">A fájl nem található.</string>
@@ -889,6 +897,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="userinfo_no_info_text">Adja meg a nevét, profilképét és kapcsolati adatait a profil oldalán.</string>
     <string name="username">Felhasználónév</string>
     <string name="version_dev_download">Letöltés</string>
+    <string name="video_overlay_icon">videórátét ikonja</string>
     <string name="wait_a_moment">Egy pillanat…</string>
     <string name="wait_checking_credentials">Tárolt hitelesítő adatok ellenőrzése</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fájl másolása a privát tárolóról</string>
@@ -896,6 +905,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="whats_new_skip">Kihagyás</string>
     <string name="whats_new_title">Új itt: %1$s</string>
     <string name="whats_your_status">Mi az állapota?</string>
+    <string name="widgets_not_available">A modulok csak %1$s 25 vagy újabb esetén érhetők el</string>
     <string name="widgets_not_available_title">Nem érhető el</string>
     <string name="write_email">E-mail küldése</string>
     <string name="wrong_storage_path">Adattároló mappa nem létezik!</string>
