@@ -209,33 +209,37 @@ object PermissionUtil {
         viewThemeUtils: ViewThemeUtils
     ) {
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
-
-        if (!preferences.isStoragePermissionRequested || permissionRequired) {
-            if (activity.supportFragmentManager.findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG) == null) {
-                val listener = object : StoragePermissionDialogFragment.Listener {
-                    override fun onCancel() {
-                        preferences.isStoragePermissionRequested = true
-                    }
-
-                    override fun onClickFullAccess() {
-                        preferences.isStoragePermissionRequested = true
-                        val intent = getManageAllFilesIntent(activity)
-                        activity.startActivityForResult(intent, REQUEST_CODE_MANAGE_ALL_FILES)
-                        preferences.isStoragePermissionRequested = true
-                    }
-
-                    override fun onClickMediaReadOnly() {
-                        preferences.isStoragePermissionRequested = true
-                        requestStoragePermission(
-                            activity,
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            viewThemeUtils
-                        )
+        val shouldRequestPermission = !preferences.isStoragePermissionRequested || permissionRequired
+        if (shouldRequestPermission &&
+            activity.supportFragmentManager.findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG) == null
+        ) {
+            activity.supportFragmentManager.setFragmentResultListener(
+                StoragePermissionDialogFragment.REQUEST_KEY,
+                activity
+            ) { _, resultBundle ->
+                val result: StoragePermissionDialogFragment.Result? =
+                    resultBundle.getParcelable(StoragePermissionDialogFragment.RESULT_KEY)
+                if (result != null) {
+                    preferences.isStoragePermissionRequested = true
+                    when (result) {
+                        StoragePermissionDialogFragment.Result.FULL_ACCESS -> {
+                            val intent = getManageAllFilesIntent(activity)
+                            activity.startActivityForResult(intent, REQUEST_CODE_MANAGE_ALL_FILES)
+                        }
+                        StoragePermissionDialogFragment.Result.MEDIA_READ_ONLY -> {
+                            requestStoragePermission(
+                                activity,
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                viewThemeUtils
+                            )
+                        }
+                        StoragePermissionDialogFragment.Result.CANCEL -> {}
                     }
                 }
-                val dialogFragment = StoragePermissionDialogFragment(listener, permissionRequired)
-                dialogFragment.show(activity.supportFragmentManager, PERMISSION_CHOICE_DIALOG_TAG)
             }
+
+            val dialogFragment = StoragePermissionDialogFragment.newInstance(permissionRequired)
+            dialogFragment.show(activity.supportFragmentManager, PERMISSION_CHOICE_DIALOG_TAG)
         }
     }
 
