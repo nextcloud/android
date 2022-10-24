@@ -484,6 +484,18 @@ public class DialogFragmentIT extends AbstractIT {
         showDialog(sut);
     }
 
+
+    @Test
+    @ScreenshotTest
+    public void testStoragePermissionDialog() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare();
+        }
+
+        StoragePermissionDialogFragment sut = StoragePermissionDialogFragment.Companion.newInstance(false);
+        showDialog(sut);
+    }
+
     private FileDisplayActivity showDialog(DialogFragment dialog) {
         Intent intent = new Intent(targetContext, FileDisplayActivity.class);
 
