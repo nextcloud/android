@@ -29,6 +29,7 @@
     <string name="activity_chooser_title">שליחת קישור אל…</string>
     <string name="activity_icon">פעילות</string>
     <string name="add_another_public_share_link">הוספת קישור נוסף</string>
+    <string name="add_new_public_share">הוסף קישור שיתוף ציבורי חדש</string>
     <string name="add_to_cloud">הוספה אל %1$s</string>
     <string name="advanced_settings">הגדרות מתקדמות</string>
     <string name="allow_resharing">לאפשר שיתוף מחדש</string>
@@ -73,6 +74,7 @@
     <string name="autoupload_hide_folder">הסתרת תיקייה</string>
     <string name="avatar">תמונה מייצגת</string>
     <string name="away">לא פה</string>
+    <string name="backup_settings">הגדרות גיבוי</string>
     <string name="battery_optimization_close">סגירה</string>
     <string name="battery_optimization_disable">השבתה</string>
     <string name="battery_optimization_message">יתכן שבמכשיר שלך מופעל מיטוב סוללה. שליחה אוטומטית עובדת כראוי רק אם היישומון הזה לא נכלל בהגדרה זו.</string>
@@ -169,11 +171,13 @@
     <string name="create_rich_workspace">הוספת פרטי תיקייה</string>
     <string name="creates_rich_workspace">יוצר פרטי תיקייה</string>
     <string name="credentials_disabled">פרטי גישה מושבתים</string>
+    <string name="daily_backup">גיבוי יומי</string>
     <string name="date_unknown">לא ידוע</string>
     <string name="default_credentials_wrong">פרטי הגישה שגויים</string>
     <string name="delete_account">הסרת חשבון</string>
     <string name="delete_account_warning">להסיר את החשבון %s ולמחוק את כל הקבצים המקומיים?\n\nלא ניתן לבטל מחיקה.</string>
     <string name="delete_entries">מחיקת רשומות</string>
+    <string name="delete_link">מחק קישור</string>
     <string name="deselect_all">ביטול בחירה</string>
     <string name="dev_version_new_version_available">קיימת גרסה חדשה</string>
     <string name="dev_version_no_information_available">אין מידע זמין.</string>
@@ -200,6 +204,7 @@
     <string name="drawer_item_activities">פעילויות</string>
     <string name="drawer_item_all_files">כל הקבצים</string>
     <string name="drawer_item_favorites">מועדפים</string>
+    <string name="drawer_item_gallery">מדיה</string>
     <string name="drawer_item_home">בית</string>
     <string name="drawer_item_notifications">התרעות</string>
     <string name="drawer_item_on_device">בהתקן</string>
@@ -279,6 +284,8 @@
     <string name="file_list_loading">בטעינה…</string>
     <string name="file_list_no_app_for_file_type">לא הוגדר יישומון לטיפול בסוג קובץ שכזה.</string>
     <string name="file_list_seconds_ago">לפני מספר שניות</string>
+    <string name="file_management_permission">נדרשות הרשאות</string>
+    <string name="file_management_permission_optional">הרשאות אחסון</string>
     <string name="file_migration_checking_destination">בודק יעד…</string>
     <string name="file_migration_cleaning">מתבצע ניקיון…</string>
     <string name="file_migration_dialog_title">תיקיית אחסון הנתונים מתעדכנת</string>
@@ -349,12 +356,14 @@
     <string name="link">קישור</string>
     <string name="link_share_allow_upload_and_editing">לאפשר העלאה ועריכה</string>
     <string name="link_share_file_drop">השלכת קבצים (העלאה בלבד)</string>
+    <string name="link_share_view_only">לצפיה בלבד</string>
     <string name="list_layout">פריסה מוצגת</string>
     <string name="load_more_results">לטעון עוד תוצאות</string>
     <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
     <string name="local_file_not_found_message">הקובץ לא נמצא במערכת הקבצים המקומית</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">אין תיקיות נוספות.</string>
+    <string name="lock_expiration_info">תפוגה: %1$s</string>
     <string name="lock_file">נעילת קובץ</string>
     <string name="log_send_mail_subject">%1$s לוגים של יישום אנדרואיד</string>
     <string name="login">כניסה</string>
@@ -556,6 +565,7 @@
     <string name="share_no_password_title">הגדרת ססמה</string>
     <string name="share_password_title">מוגן בססמה</string>
     <string name="share_permission_can_edit">ניתן לערוך</string>
+    <string name="share_permission_view_only">לצפיה בלבד</string>
     <string name="share_remote_clarification">%1$s (נשלט מרחוק)</string>
     <string name="share_room_clarification">%1$s (דיון)</string>
     <string name="share_send_note">מסר לנמען</string>

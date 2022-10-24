@@ -36,6 +36,7 @@
     <string name="add_to_cloud">Додати на хмару %1$s</string>
     <string name="advanced_settings">Додаткові налаштування</string>
     <string name="allow_resharing">Можете ділитися</string>
+    <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
     <string name="appbar_search_in">Пошук у %s</string>
     <string name="associated_account_not_found">Пов\'язаний обліковий запис не знайдено!</string>
     <string name="auth_access_failed">Доступ невдалий: %1$s</string>
@@ -88,12 +89,14 @@
     <string name="calendars">Календарі</string>
     <string name="certificate_load_problem">Помилка завантаження сертифіката.</string>
     <string name="changelog_dev_version">Версія для розробника зі списку змін</string>
+    <string name="check_back_later_or_reload">Перевірити пізніше або перевантажити.</string>
     <string name="checkbox">Прапорець</string>
     <string name="choose_local_folder">Виберіть каталог на пристрої...</string>
     <string name="choose_location">Виберіть місце розташування</string>
     <string name="choose_remote_folder">Виберіть віддалений каталог...</string>
     <string name="choose_template_helper_text">Будь ласка, оберіть шаблон і введіть ім\'я файлу.</string>
     <string name="choose_which_file">Виберіть, який файл зберігати!</string>
+    <string name="choose_widget">Виберіть віджет</string>
     <string name="clear_notifications_failed">Неможливо очистити сповіщення.</string>
     <string name="clear_status_message">Очистити повідомлення про стан</string>
     <string name="clear_status_message_after">Очистити повідомлення про стан після</string>
@@ -387,6 +390,9 @@
     <string name="hint_password">Пароль</string>
     <string name="host_not_available">Сервер недоступний</string>
     <string name="host_your_own_server">Розмістити на власному сервері</string>
+    <string name="icon_for_empty_list">піктограма порожнього списку</string>
+    <string name="icon_of_dashboard_widget">Піктограма віджету панелі</string>
+    <string name="icon_of_widget_entry">Піктограма запису віджету</string>
     <string name="in_folder">в папці %1$s</string>
     <string name="instant_upload_existing">Також завантажити існуючі файли</string>
     <string name="instant_upload_on_charging">Завантаження тільки під час заряджання</string>
@@ -465,6 +471,7 @@
     <string name="no_browser_available">Відсутні застосунки для обробки посилань</string>
     <string name="no_calendar_exists">Календар не існує</string>
     <string name="no_email_app_available">Відсутній застосунок для опрацювання адреси ел. пошти</string>
+    <string name="no_items">Відсутні елементи</string>
     <string name="no_mutliple_accounts_allowed">Дозволено лише один обліковий запис</string>
     <string name="no_pdf_app_available">Відсутні застосунки для відкриття PDF-файлів</string>
     <string name="no_send_app">Відсутній застосунок для надсилання виділених файлів</string>
@@ -581,6 +588,7 @@
     <string name="recommend_subject">Спробуйте %1$s на Вашому пристрої!</string>
     <string name="recommend_text">Запрошую вас почати використовувати %1$s на вашому пристрої.\nЗвантажити можна тут: %2$s</string>
     <string name="recommend_urls">%1$s або %2$s</string>
+    <string name="refresh_content">Оновити вміст</string>
     <string name="reload">Перезавантажити</string>
     <string name="remote">(віддалено)</string>
     <string name="remote_file_fetch_failed">Не знайдено файл!</string>
@@ -872,6 +880,7 @@
     <string name="userinfo_no_info_text">Додайте назву, зображення та деталі контакту на сторінці вашого профілю.</string>
     <string name="username">Ім\'я користувача</string>
     <string name="version_dev_download">Завантажити</string>
+    <string name="video_overlay_icon">піктограма напису у відео</string>
     <string name="wait_a_moment">Зачекайте трохи…</string>
     <string name="wait_checking_credentials">Перевірка збережених даних авторизації</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копіювання файлу з приватного сховища</string>
@@ -879,6 +888,7 @@
     <string name="whats_new_skip">Пропустити</string>
     <string name="whats_new_title">Нове у %1$s</string>
     <string name="whats_your_status">Який твій статус?</string>
+    <string name="widgets_not_available">Віджети доступні тільки з версії %1$s 25 або пізніше</string>
     <string name="widgets_not_available_title">Не доступно</string>
     <string name="write_email">Відправити лист</string>
     <string name="wrong_storage_path">Каталог для збереження даних не існує!</string>
