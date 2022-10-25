@@ -224,7 +224,6 @@ public class FileMenuFilter {
         filterLock(toShow, toHide, fileLockingEnabled);
         filterUnlock(toShow, toHide, fileLockingEnabled);
         filterLockInfo(toShow, toHide, fileLockingEnabled);
-        filterDelete(toShow, toHide);
     }
 
     private void filterShareFile(List<Integer> toShow, List<Integer> toHide, OCCapability capability) {
@@ -346,17 +345,6 @@ public class FileMenuFilter {
         }
     }
 
-    /**
-     * delete menu to be shown or hidden for encrypted folders since user cannot delete encrypted folders
-     */
-    private void filterDelete(List<Integer> toShow, List<Integer> toHide) {
-        if (isSingleSelection() && !isEncryptedFolder()) {
-            toShow.add(R.id.action_remove_file);
-        } else {
-            toHide.add(R.id.action_remove_file);
-        }
-    }
-
     private void filterSetPictureAs(List<Integer> toShow, List<Integer> toHide) {
         if (isSingleImage() && !MimeTypeUtil.isSVG(files.iterator().next())) {
             toShow.add(R.id.action_set_as_wallpaper);
@@ -450,7 +438,7 @@ public class FileMenuFilter {
     }
 
     private void filterRemove(List<Integer> toShow, List<Integer> toHide, boolean synchronizing) {
-        if (files.isEmpty() || synchronizing || containsLockedFile()) {
+        if (files.isEmpty() || synchronizing || containsLockedFile() || containsEncryptedFolder()) {
             toHide.add(R.id.action_remove_file);
         } else {
             toShow.add(R.id.action_remove_file);
