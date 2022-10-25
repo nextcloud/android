@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Voeg toe aan %1$s</string>
     <string name="advanced_settings">Geavanceerde instellingen</string>
     <string name="allow_resharing">Opnieuw delen toestaan</string>
+    <string name="app_widget_description">Toont één widget van dashboard</string>
     <string name="appbar_search_in">Zoeken in %s</string>
     <string name="associated_account_not_found">Bijbehorend account niet gevonden!</string>
     <string name="auth_access_failed">Toegang mislukt: %1$s</string>
@@ -87,12 +88,14 @@
     <string name="calendars">Agenda\'s</string>
     <string name="certificate_load_problem">Er is een probleem met het laden van het certificaat.</string>
     <string name="changelog_dev_version">Changelog dev versie</string>
+    <string name="check_back_later_or_reload">Kom later terug of laad opnieuw.</string>
     <string name="checkbox">Aanvinkvakje</string>
     <string name="choose_local_folder">Kies lokale map…</string>
     <string name="choose_location">Kies locatie</string>
     <string name="choose_remote_folder">Kies externe map…</string>
     <string name="choose_template_helper_text">Kies een sjabloon en geen een bestandsnaam op.</string>
     <string name="choose_which_file">Kies welk bestand bewaard moet blijven!</string>
+    <string name="choose_widget">Kies widget</string>
     <string name="clear_notifications_failed">Niet gelukt om alle meldingen af te handelen</string>
     <string name="clear_status_message">Statusberichten wissen</string>
     <string name="clear_status_message_after">Statusbericht wissen na</string>
@@ -184,6 +187,7 @@
     <string name="credentials_disabled">Inloggegevens uitgeschakeld</string>
     <string name="daily_backup">Dagelijkse back-up</string>
     <string name="data_to_back_up">Te back-uppen data</string>
+    <string name="date_unknown">Onbekend</string>
     <string name="default_credentials_wrong">Ongeldige inloggegevens</string>
     <string name="delete_account">Account verwijderen</string>
     <string name="delete_account_warning">Verwijder account %s met alle lokale bestanden? Het verwijderen kan niet worden teruggedraaid.</string>
@@ -385,6 +389,9 @@
     <string name="hint_password">Wachtwoord</string>
     <string name="host_not_available">Server niet beschikbaar</string>
     <string name="host_your_own_server">Host je eigen server</string>
+    <string name="icon_for_empty_list">pictogram voor lege lijst</string>
+    <string name="icon_of_dashboard_widget">Pictogram van dashboard widget</string>
+    <string name="icon_of_widget_entry">Pictogram van widget vermelding</string>
     <string name="in_folder">in map %1$s</string>
     <string name="instant_upload_existing">Upload ook bestaande bestanden</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
@@ -463,6 +470,7 @@
     <string name="no_browser_available">Geen app beschikbaar voor het openen van de link</string>
     <string name="no_calendar_exists">Agenda bestaat niet</string>
     <string name="no_email_app_available">Geen app beschikbaar voor het openen van het mailadres</string>
+    <string name="no_items">Geen items</string>
     <string name="no_mutliple_accounts_allowed">Slechts één account toegestaan</string>
     <string name="no_pdf_app_available">Geen app bechikbaar voor het openen van de pdf</string>
     <string name="no_send_app">Geen app gevonden om de geselecteerde bestanden mee te verzenden</string>
@@ -579,6 +587,8 @@
     <string name="recommend_subject">Probeer %1$s op je toestel!</string>
     <string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
+    <string name="refresh_content">Inhoud verversen</string>
+    <string name="reload">Herladen</string>
     <string name="remote">(remote)</string>
     <string name="remote_file_fetch_failed">Het bestand is niet gevonden!</string>
     <string name="remove_fail_msg">Verwijderen mislukt</string>
@@ -805,7 +815,7 @@
     <string name="upload_lock_failed">Vergrendeling van de map mislukt</string>
     <string name="upload_old_android">Encryptie kan alleen met &gt; >= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de geselecteerde bestanden te kopiëren naar %1$s. Wil je ze in plaats daarvan verplaatsen?</string>
-    <string name="upload_scan_doc_upload">Scan een ducument van je camera</string>
+    <string name="upload_scan_doc_upload">Scan een document van je camera</string>
     <string name="upload_sync_conflict">Synchronisatieconflict, los het a.u.b. handmatig op</string>
     <string name="upload_unknown_error">Onbekende fout</string>
     <string name="uploader_btn_alternative_text">Kies</string>
@@ -869,6 +879,7 @@
     <string name="userinfo_no_info_text">Voeg naam, foto en contact details op je profielpagina toe.</string>
     <string name="username">Gebruikersnaam</string>
     <string name="version_dev_download">Download</string>
+    <string name="video_overlay_icon">video overlay icon</string>
     <string name="wait_a_moment">Wacht even…</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
@@ -876,6 +887,8 @@
     <string name="whats_new_skip">Overslaan</string>
     <string name="whats_new_title">Nieuw in %1$s</string>
     <string name="whats_your_status">Wat is jouw status?</string>
+    <string name="widgets_not_available">Widgets zijn alleen beschikbaar op %1$s 25 of later</string>
+    <string name="widgets_not_available_title">Niet beschikbaar</string>
     <string name="write_email">Stuur e-mail</string>
     <string name="wrong_storage_path">Gegevensopslagmap bestaat niet!</string>
     <string name="wrong_storage_path_desc">Dit kan komen door een back-upherstel op een ander apparaat. Standaardinstelling wordt gebruikt. Controleer de instellingen om de gegevensopslagmap aan te passen.</string>

@@ -176,6 +176,7 @@
     <string name="create_rich_workspace">Додади информации за папката</string>
     <string name="credentials_disabled">Акредитивите се оневозможени</string>
     <string name="daily_backup">Дневена резервна копија</string>
+    <string name="date_unknown">Непознат</string>
     <string name="default_credentials_wrong">Погрешни акредитиви</string>
     <string name="delete_account">Отстрани сметка</string>
     <string name="delete_account_warning">Избриши ја сметката %s и избриши ги локалните датотеки?\n\nПозсле бришењето на датотеките неможат да се вратат.</string>
@@ -522,6 +523,7 @@
     <string name="recommend_subject">Пробајте го %1$s на вашиот уред!</string>
     <string name="recommend_text">Сакам да те поканам за да ја користиш %1$s апликацијата на твојот уред.\nПревземи ја овде: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="reload">Reload</string>
     <string name="remote">(далечински)</string>
     <string name="remote_file_fetch_failed">Неуспешно барање на датотеката!</string>
     <string name="remove_fail_msg">Неуспешно бришење</string>
@@ -778,6 +780,7 @@
     <string name="whats_new_skip">Прескокни</string>
     <string name="whats_new_title">Ново во %1$s</string>
     <string name="whats_your_status">Кој е вашиот статус?</string>
+    <string name="widgets_not_available_title">Недостапно</string>
     <string name="write_email">Испрати е-пошта</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Неможе да се синхронизира %1$d датотека (конфликт: %2$d)</item>

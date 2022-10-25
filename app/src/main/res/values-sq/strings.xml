@@ -160,6 +160,7 @@
     <string name="create_rich_workspace">Shto informacion për dosjen</string>
     <string name="creates_rich_workspace">Krijon informacionin e dosjeve</string>
     <string name="credentials_disabled">Kredencialet të pa aktivizuara</string>
+    <string name="date_unknown">I panjohur</string>
     <string name="default_credentials_wrong">Kredenciele jo të sakta</string>
     <string name="delete_account">Hiqe llogarinë</string>
     <string name="delete_account_warning">Fshij llogarinë %s me të gjithë skedarët lokalë?\n\nFshirja nuk mund të zhbëhet.</string>
@@ -477,6 +478,7 @@
     <string name="recommend_subject">Provojeni %1$s në pajisjen tuaj!</string>
     <string name="recommend_text">Dua t’ju ftoj të përdorni %1$s në telefonin tuaj!\nShkarkojeni këtu: %2$s</string>
     <string name="recommend_urls">%1$s ose %2$s</string>
+    <string name="reload">Ringarko</string>
     <string name="remote_file_fetch_failed">Nuk u gjet asnjë skedar!</string>
     <string name="remove_fail_msg">Heqja dështoi</string>
     <string name="remove_notification_failed">Dështoi heqja e njoftimit.</string>

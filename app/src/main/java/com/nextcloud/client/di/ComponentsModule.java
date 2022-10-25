@@ -95,6 +95,7 @@ import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment;
 import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
@@ -458,4 +459,7 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract FilesUploadHelper filesUploadHelper();
+
+    @ContributesAndroidInjector
+    abstract SslUntrustedCertDialog sslUntrustedCertDialog();
 }

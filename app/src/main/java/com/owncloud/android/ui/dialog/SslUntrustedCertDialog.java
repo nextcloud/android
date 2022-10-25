@@ -24,10 +24,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.net.http.SslError;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.SslErrorHandler;
 import android.widget.Button;
@@ -135,17 +133,14 @@ public class SslUntrustedCertDialog extends DialogFragment implements Injectable
         binding = null;
     }
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log_OC.d(TAG, "onCreateView, savedInsanceState is " + savedInstanceState);
-        // Create a view by inflating desired layout
-        if (binding == null) {
-            binding = SslUntrustedCertLayoutBinding.inflate(inflater, container, false);
-            binding.detailsScroll.setVisibility(View.GONE);
-            mErrorViewAdapter.updateErrorView(binding);
-        } else {
-            ((ViewGroup) binding.getRoot().getParent()).removeView(binding.getRoot());
-        }
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Log_OC.d(TAG, "onCreateDialog, savedInstanceState is " + savedInstanceState);
+
+        binding = SslUntrustedCertLayoutBinding.inflate(getLayoutInflater(), null, false);
+        binding.detailsScroll.setVisibility(View.GONE);
+        mErrorViewAdapter.updateErrorView(binding);
 
         binding.ok.setOnClickListener(new OnCertificateTrusted());
 
@@ -163,13 +158,7 @@ public class SslUntrustedCertDialog extends DialogFragment implements Injectable
             }
         });
 
-        return binding.getRoot();
-    }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Log_OC.d(TAG, "onCreateDialog, savedInstanceState is " + savedInstanceState);
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(binding.getRoot().getContext());
         builder.setView(binding.getRoot());
 

@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Credentials disabled</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>
+    <string name="date_unknown">Unknown</string>
     <string name="default_credentials_wrong">Incorrect credentials</string>
     <string name="delete_account">Remove account</string>
     <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
@@ -291,8 +292,8 @@
     <string name="failed_to_print">Failed to print file</string>
     <string name="failed_to_start_editor">Failed to start editor</string>
     <string name="failed_update_ui">Failed to update UI</string>
-    <string name="favorite">Add to favorites</string>
-    <string name="favorite_icon">Favorite</string>
+    <string name="favorite">Add to favourites</string>
+    <string name="favorite_icon">Favourite</string>
     <string name="file_already_exists">Filename already exists</string>
     <string name="file_delete">Delete</string>
     <string name="file_detail_activity_error">Error retrieving activities for file</string>
@@ -300,7 +301,7 @@
     <string name="file_icon">File</string>
     <string name="file_keep">Keep</string>
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
-    <string name="file_list_empty_favorite_headline">Nothing favorited yet</string>
+    <string name="file_list_empty_favorite_headline">Nothing favourited yet</string>
     <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorites will show up here.</string>
     <string name="file_list_empty_gallery">Found no images or videos</string>
     <string name="file_list_empty_headline">No files here</string>
@@ -579,6 +580,7 @@
     <string name="recommend_subject">Try %1$s on your device!</string>
     <string name="recommend_text">I want to invite you to use %1$s on your device.\nDownload here: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
+    <string name="reload">Reload</string>
     <string name="remote">(remote)</string>
     <string name="remote_file_fetch_failed">Failed to find file!</string>
     <string name="remove_fail_msg">Deletion failed</string>
@@ -715,7 +717,7 @@
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="storage_pictures">Pictures</string>
-    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
+    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favourite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
     <string name="store_full_dev_desc">The self-hosted productivity platform that keeps you in control.\nThis is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!\n\nBoth the official dev and regular version are available on F-droid, and can be installed at the same time.</string>
     <string name="store_short_desc">The self-hosted productivity platform that keeps you in control</string>
     <string name="store_short_dev_desc">The self-hosted productivity platform that keeps you in control (dev preview version)</string>
@@ -730,7 +732,7 @@
     <string name="subtitle_videos_only">Videos only</string>
     <string name="suggest">Suggest</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
-    <string name="sync_current_folder_was_removed">The folder %1$s does not exist anymore</string>
+    <string name="sync_current_folder_was_removed">The folder %1$s does not exist any more</string>
     <string name="sync_fail_content">Could not sync %1$s</string>
     <string name="sync_fail_content_unauthorized">Wrong password for %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Kept-in-sync files failed</string>

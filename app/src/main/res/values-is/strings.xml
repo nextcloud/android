@@ -176,6 +176,7 @@
     <string name="create_rich_workspace">Bæta við upplýsingum möppu</string>
     <string name="creates_rich_workspace">býr til upplýsingar um möppu</string>
     <string name="credentials_disabled">Auðkenni óvirk</string>
+    <string name="date_unknown">Óþekkt</string>
     <string name="default_credentials_wrong">Röng auðkenni</string>
     <string name="delete_account">Fjarlægja reikning</string>
     <string name="delete_account_warning">Fjarlægja notandaaðgang %s og eyða öllum staðværum skrám?\n\nEkki er hægt að afturkalla aðgerðina.</string>
@@ -526,6 +527,7 @@
     <string name="recommend_subject">Prófaðu %1$s á snjalltækinu þínu!</string>
     <string name="recommend_text">Mér langar til að bjóða þér að nota  %1$s á snjalltækinu þínu.\nSæktu það hér: %2$s</string>
     <string name="recommend_urls">%1$s eða %2$s</string>
+    <string name="reload">Endurhlaða</string>
     <string name="remote_file_fetch_failed">Mistókst að finna skrá!</string>
     <string name="remove_fail_msg">Mistókst að eyða</string>
     <string name="remove_notification_failed">Mistókst að fjarlægja tilkynningu.</string>
@@ -793,6 +795,7 @@
     <string name="whats_new_skip">Sleppa</string>
     <string name="whats_new_title">(Nýtt í %s)</string>
     <string name="whats_your_status">Hver er staðan á þér?</string>
+    <string name="widgets_not_available_title">Not available</string>
     <string name="write_email">Senda tölvupóst</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ekki var hægt að samstilla %1$d skrá (árekstrar: %2$d)</item>

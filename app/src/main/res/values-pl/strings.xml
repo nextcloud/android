@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Poświadczenia wyłączone</string>
     <string name="daily_backup">Codzienna kopia zapasowa</string>
     <string name="data_to_back_up">Dane dla kopii zapasowej</string>
+    <string name="date_unknown">Nieznane</string>
     <string name="default_credentials_wrong">Błedne poświadczenia</string>
     <string name="delete_account">Usuń konto</string>
     <string name="delete_account_warning">Usunąć konto %s i wszystkie jego pliki lokalne? Usunięcia nie będzie można cofnąć.</string>
@@ -579,6 +580,7 @@
     <string name="recommend_subject">Wypróbuj %1$s na swoim urządzeniu!</string>
     <string name="recommend_text">Chciałbym zaprosić Ciebie do użytkowania z %1$s na swoim urządzeniu.\nPobierz stąd: %2$s</string>
     <string name="recommend_urls">%1$s lub %2$s</string>
+    <string name="reload">Przeładuj</string>
     <string name="remote">(zdalne)</string>
     <string name="remote_file_fetch_failed">Nie znaleziono pliku!</string>
     <string name="remove_fail_msg">Usuwanie nie powiodło się</string>
@@ -876,6 +878,7 @@
     <string name="whats_new_skip">Pomiń</string>
     <string name="whats_new_title">Co nowego w %1$s</string>
     <string name="whats_your_status">Jaki jest Twój status?</string>
+    <string name="widgets_not_available_title">Niedostępny</string>
     <string name="write_email">Wyślij e-mail</string>
     <string name="wrong_storage_path">Katalog przechowywania danych nie istnieje!</string>
     <string name="wrong_storage_path_desc">Może to być spowodowane z przywróceniem kopii zapasowej na innym urządzeniu. Powrócono do wartości domyślnych. Sprawdź ustawienia, aby dostosować katalog przechowywania danych.</string>

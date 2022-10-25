@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Προσθήκη στο %1$s</string>
     <string name="advanced_settings">Ρυθμίσεις για προχωρημένους</string>
     <string name="allow_resharing">Επιτρέπεται ο επαναδιαμοιρασμός</string>
+    <string name="app_widget_description">Εμφάνιση ενός γραφικού στοιχείου από τον πίνακα ελέγχου</string>
     <string name="appbar_search_in">Αναζήτηση στο %s</string>
     <string name="associated_account_not_found">Δεν βρέθηκε ο συνδεδεμένος λογαριασμός!</string>
     <string name="auth_access_failed">Αποτυχία πρόσβασης: %1$s</string>
@@ -87,12 +88,14 @@
     <string name="calendars">Ημερολόγια</string>
     <string name="certificate_load_problem">Πρόβλημα φόρτωσης του πιστοποιητικού.</string>
     <string name="changelog_dev_version">Αρχείο αλλαγών της έκδοσης προγραμματιστή</string>
+    <string name="check_back_later_or_reload">Ελέγξτε ξανά αργότερα ή κάνετε ανανέωση.</string>
     <string name="checkbox">Πλαίσιο ελέγχου</string>
     <string name="choose_local_folder">Επιλέξτε τοπικό φάκελο…</string>
     <string name="choose_location">Επιλέξτε τοποθεσία</string>
     <string name="choose_remote_folder">Επιλέξτε απομακρυσμένο φάκελο…</string>
     <string name="choose_template_helper_text">Παρακαλούμε επιλέξτε ένα πρότυπο και εισαγάγετε ένα όνομα αρχείου.</string>
     <string name="choose_which_file">Επέλεξε ποιο αρχείο θέλεις να κρατήσεις!</string>
+    <string name="choose_widget">Επιλογή γραφικού στοιχείου</string>
     <string name="clear_notifications_failed">Αποτυχία εκκαθάρισης όλων των ειδοποιήσεων</string>
     <string name="clear_status_message">Εκκαθάριση μηνύματος κατάστασης</string>
     <string name="clear_status_message_after">Εκκαθάριση μηνύματος κατάστασης μετά από</string>
@@ -184,6 +187,7 @@
     <string name="credentials_disabled">Απενεργοποιημένα διαπιστευτήρια</string>
     <string name="daily_backup">Ημερήσιο αντίγραφο ασφαλείας</string>
     <string name="data_to_back_up">Δεδομένα για δημιουργία αντιγράφου ασφαλείας</string>
+    <string name="date_unknown">Άγνωστο</string>
     <string name="default_credentials_wrong">Λανθασμένα διαπιστευτήρια</string>
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
     <string name="delete_account_warning">Κατάργηση λογαριασμού %s και διαγραφή όλων των τοπικών αρχείων; \ n \ nΗ διαγραφή δεν μπορεί να ανακληθεί.</string>
@@ -240,6 +244,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Αυτός ο φάκελος δεν είναι κενός.</string>
     <string name="end_to_end_encryption_generating_keys">Γίνεται δημιουργία νέων κλειδιών…</string>
     <string name="end_to_end_encryption_keywords_description">Οι 12 λέξεις μαζί φτιάχνουν έναν πολύ ισχυρό κωδικό πρόσβασης, επιτρέποντας μόνο σε εσάς την προβολή και τη χρήση των κρυπτογραφημένων αρχείων σας. Παρακαλούμε γράψτε το κάπου και κρατήστε το σε ασφαλές μεέρος.</string>
+    <string name="end_to_end_encryption_not_enabled">Η κρυπτογράφηση από άκρο σε άκρο είναι απενεργοποιημένη στον διακομιστή.</string>
     <string name="end_to_end_encryption_passphrase_title">Σημειώστε το συνθηματικό κρυπτογράφησης 12 λέξεων</string>
     <string name="end_to_end_encryption_password">Συνθηματικό…</string>
     <string name="end_to_end_encryption_retrieving_keys">Γίνεται λήψη κλειδιών…</string>
@@ -255,6 +260,7 @@
     <string name="error_comment_file">Σφάλμα σχολιασμού αρχείου</string>
     <string name="error_crash_title">%1$sκαταστράφηκε</string>
     <string name="error_creating_file_from_template">Σφάλμα δημιουργίας αρχείου από πρότυπο</string>
+    <string name="error_file_lock">Σφάλμα αλλαγής κατάστασης κλειδώματος αρχείου</string>
     <string name="error_report_issue_action">Αναφορά</string>
     <string name="error_report_issue_text">Αναφορά προβλήματος στο tracker; (απαιτείται λογαριασμός GitHub)</string>
     <string name="error_retrieving_file">Σφάλμα ανάκτησης αρχείου</string>
@@ -291,6 +297,7 @@
     <string name="failed_update_ui">Αποτυχία ενημέρωσης του UI</string>
     <string name="favorite">Προσθήκη στα αγαπημένα</string>
     <string name="favorite_icon">Αγαπημένο</string>
+    <string name="file_already_exists">Το όνομα αρχείου υπάρχει ήδη</string>
     <string name="file_delete">Διαγραφή</string>
     <string name="file_detail_activity_error">Σφάλμα κατά την ανάκτηση δραστηριοτήτων για το αρχείο</string>
     <string name="file_details_no_content">Αποτυχία φόρτωσης λεπτομερειών</string>
@@ -382,6 +389,9 @@
     <string name="hint_password">Συνθηματικό</string>
     <string name="host_not_available">Μη διαθέσιμος διακομιστής</string>
     <string name="host_your_own_server">Φιλοξενήστε το δικό σας διακομιστή</string>
+    <string name="icon_for_empty_list">Εικονίδιο κενής λίστας</string>
+    <string name="icon_of_dashboard_widget">Εικονίδιο πίνακα γραφικού στοιχείου</string>
+    <string name="icon_of_widget_entry">Εικονίδιο κενού γραφικού στοιχείου</string>
     <string name="in_folder">Στον φάκελο %1$s</string>
     <string name="instant_upload_existing">Μεταφόρτωση, επίσης, υπαρχόντων αρχείων</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
@@ -402,8 +412,10 @@
     <string name="local_file_not_found_message">Το αρχείο δεν βρέθηκε στο τοπικό σύστημα αρχείων</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Δεν υπάρχουν άλλοι φάκελοι.</string>
+    <string name="locate_folder">Εντοπισμός φακέλου</string>
     <string name="lock_expiration_info">Λήγει: %1$s</string>
     <string name="lock_file">Κλείδωμα αρχείου</string>
+    <string name="locked_by">Κλειδωμένο από: %1$s</string>
     <string name="locked_by_app">Κλειδωμένο από την εφαρμογή %1$s</string>
     <string name="log_send_mail_subject">%1$s ιστορικό της εφαρμογής Android</string>
     <string name="log_send_no_mail_app">Δεν βρέθηκε εφαρμογή για αποστολή αρχείων καταγραφής. Εγκαταστήστε ένα πρόγραμμα -πελάτη ηλεκτρονικής αλληλογραφίας.</string>
@@ -458,6 +470,7 @@
     <string name="no_browser_available">Δεν υπάρχει διαθέσιμη εφαρμογή για χειρισμό συνδέσμων</string>
     <string name="no_calendar_exists">Δεν υπάρχει ημερολόγιο</string>
     <string name="no_email_app_available">Δεν υπάρχει διαθέσιμη εφαρμογή για χειρισμό διεθύνσεων email</string>
+    <string name="no_items">Κανένα στοιχείο</string>
     <string name="no_mutliple_accounts_allowed">Μόνο ένας λογαριασμός επιτρέπεται</string>
     <string name="no_pdf_app_available">Δεν υπάρχει διαθέσιμη εφαρμογή για χειρισμό PDF</string>
     <string name="no_send_app">Δεν υπάρχει διαθέσιμη εφαρμογή για την αποστολή των επιλεγμένων αρχείων</string>
@@ -574,6 +587,8 @@
     <string name="recommend_subject">Δοκιμάστε το %1$s στη συσκευή σας!</string>
     <string name="recommend_text">Θέλω να σας προσκαλέσω να χρησιμοποιήσετε το %1$s στη συσκευή σας. \nΚατεβάστε εδώ:%2$s</string>
     <string name="recommend_urls">%1$s ή %2$s</string>
+    <string name="refresh_content">Ανανέωση περιεχομένου</string>
+    <string name="reload">Επαναφόρτωση</string>
     <string name="remote">(εξ αποστάσεως)</string>
     <string name="remote_file_fetch_failed">Η εύρεση αρχείου απέτυχε!</string>
     <string name="remove_fail_msg">Αποτυχία διαγραφής</string>
@@ -662,6 +677,8 @@
     <string name="shared_icon_shared_via_link">Διαμοιράστηκε μέσω συνδέσμου</string>
     <string name="shared_with_you_by">Διαμοιράστηκε με εσάς από τον %1$s</string>
     <string name="sharee_add_failed">Η προσθήκη κοινής χρήσης απέτυχε</string>
+    <string name="show_images">Εμφάνιση φωτογραφιών</string>
+    <string name="show_video">Εμφάνιση βίντεο</string>
     <string name="signup_with_provider">Σύνδεση με πάροχο</string>
     <string name="single_sign_on_request_token" formatted="true">Να επιτραπεί%1$sη πρόσβαση στον λογαριασμό σας Nextcloud %2$s ?</string>
     <string name="sort_by">Ταξινόμηση κατά</string>
@@ -718,6 +735,9 @@
     <string name="strict_mode">Αυστηρή λειτουργία: δεν επιτρέπεται σύνδεση HTTP!</string>
     <string name="subject_shared_with_you">Ο \"%1$s\" διαμοιράστηκε μαζί σας</string>
     <string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
+    <string name="subtitle_photos_only">Μόνο φωτογραφίες</string>
+    <string name="subtitle_photos_videos">Φωτογραφίες &amp; βίντεο</string>
+    <string name="subtitle_videos_only">Μόνο βίντεο</string>
     <string name="suggest">Προτείνετε</string>
     <string name="sync_conflicts_in_favourites_ticker">Βρέθηκαν διενέξεις</string>
     <string name="sync_current_folder_was_removed">Ο φάκελος %1$s δεν υπάρχει πια</string>
@@ -859,6 +879,7 @@
     <string name="userinfo_no_info_text">Προσθέστε όνομα, εικόνα και λεπτομέρειες επικοινωνίας στο προφίλ σας.</string>
     <string name="username">Όνομα χρήστη</string>
     <string name="version_dev_download">Λήψη</string>
+    <string name="video_overlay_icon">Εικονίδιο επικάλυψης βίντεο</string>
     <string name="wait_a_moment">Παρακαλούμε περιμένετε…</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>
@@ -866,6 +887,8 @@
     <string name="whats_new_skip">Παράλειψη</string>
     <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>
     <string name="whats_your_status">Ποια είναι η κατάστασή σας;</string>
+    <string name="widgets_not_available">Τα γραφικά στοιχεία είναι διαθέσιμα μόνο στην %1$s 25 ή νεότερη</string>
+    <string name="widgets_not_available_title">Δεν είναι διαθέσιμο</string>
     <string name="write_email">Αποστολή email</string>
     <string name="wrong_storage_path">Ο φάκελος αποθήκευσης δεδομένων δεν υπάρχει!</string>
     <string name="wrong_storage_path_desc">Αυτό μπορεί να οφείλεται σε μια επαναφορά αντιγράφων ασφαλείας σε άλλη συσκευή. Επιστροφή στην προεπιλογή. Παρακαλούμε ελέγξτε τις ρυθμίσεις για να προσαρμόσετε τον φάκελο αποθήκευσης δεδομένων.</string>
@@ -892,6 +915,22 @@
     <plurals name="found_n_duplicates">
         <item quantity="one">Βρέθηκε %dδιπλότυπη εγγραφές.</item>
         <item quantity="other">Βρέθηκαν %d διπλότυπες εγγραφές.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Έγινε εξαγωγή %d αρχείου</item>
+        <item quantity="other">Έγινε εξαγωγή %d αρχείων</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Απέτυχε η εξαγωγή %d αρχείου</item>
+        <item quantity="other">Απέτυχε η εξαγωγή %d αρχείων</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Έγινε εξαγωγή %d αρχείου, τα υπόλοιπα παραλείφθηκαν λόγω σφάλματος</item>
+        <item quantity="other">Έγινε εξαγωγή %d αρχείων, τα υπόλοιπα παραλείφθηκαν λόγω σφάλματος</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">Θα γίνει εξαγωγή %d αρχείου. Δείτε την ειδοποίηση για λεπτομέρειες.</item>
+        <item quantity="other">Θα γίνει εξαγωγή %d αρχείων. Δείτε την ειδοποίηση για λεπτομέρειες.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d φάκελος</item>

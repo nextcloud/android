@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-    <string name="about_android">%1$s Aplicació per a l\'Android</string>
+    <string name="about_android">%1$s Aplicació d\'Android</string>
     <string name="about_title">Quant a</string>
     <string name="about_version">versió %1$s</string>
     <string name="about_version_with_build">versió %1$s, compilació #%2$s</string>
@@ -31,13 +31,13 @@
     <string name="activity_chooser_title">Envia l\'enllaç a…</string>
     <string name="activity_icon">Activitat</string>
     <string name="add_another_public_share_link">Afegeix un altre enllaç</string>
-    <string name="add_new_public_share">Afegir nou enllaç d\'accés públic</string>
+    <string name="add_new_public_share">Afegeix nou enllaç d\'accés públic</string>
     <string name="add_to_cloud">Afegeix a %1$s</string>
     <string name="advanced_settings">Paràmetres avançats</string>
     <string name="allow_resharing">Permet compartir de nou</string>
     <string name="appbar_search_in">Cerca a %s</string>
     <string name="associated_account_not_found">No s\'ha trobat el compte associat!</string>
-    <string name="auth_access_failed">No s\'ha pogut accedir: %1$s</string>
+    <string name="auth_access_failed">No s\'ha tingut accés: %1$s</string>
     <string name="auth_account_does_not_exist">Encara no s\'ha afegit el compte en aquest dispositiu</string>
     <string name="auth_account_not_new">Ja existeix un compte per al mateix usuari i servidor al dispositiu</string>
     <string name="auth_account_not_the_same">L\'usuari introduït no coincideix amb l\'usuari d\'aquest compte</string>
@@ -51,7 +51,7 @@
     <string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
     <string name="auth_not_configured_title">La configuració del servidor està malformada</string>
     <string name="auth_oauth_error">Autorització sense èxit</string>
-    <string name="auth_oauth_error_access_denied">El servidor d\'autenticació us ha denegat l\'accés</string>
+    <string name="auth_oauth_error_access_denied">El servidor d\'autorització us ha denegat l\'accés</string>
     <string name="auth_redirect_non_secure_connection_title">Una connexió segura està essent redirigida a través d\'una ruta insegura</string>
     <string name="auth_secure_connection">S\'ha establert la connexió segura</string>
     <string name="auth_ssl_general_error_title">La inicialització SSL ha fallat</string>
@@ -63,7 +63,7 @@
     <string name="auth_unknown_error_exception_title">Error desconegut: %1$s</string>
     <string name="auth_unknown_error_http_title">Hi ha hagut un error HTTP desconegut!</string>
     <string name="auth_unknown_error_title">S\'ha produït un error desconegut!</string>
-    <string name="auth_unknown_host_title">No s\'ha pogut trobar</string>
+    <string name="auth_unknown_host_title">No s\'ha pogut trobar el servidor</string>
     <string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
     <string name="auth_wrong_connection_title">No s\'ha pogut establir la connexió</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">manté a la carpeta original, ja que és només de lectura</string>
@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Credencials desactivades</string>
     <string name="daily_backup">Còpia de seguretat diària</string>
     <string name="data_to_back_up">Dades a fer una còpia de seguretat</string>
+    <string name="date_unknown">Desconegut</string>
     <string name="default_credentials_wrong">Credencials incorrectes</string>
     <string name="delete_account">Suprimeix el compte</string>
     <string name="delete_account_warning">Suprimeix el compte %s i tots els fitxers locals?\n\nAquesta acció no es pot desfer.</string>
@@ -579,6 +580,7 @@
     <string name="recommend_subject">Proveu %1$s al vostre dispositiu!</string>
     <string name="recommend_text">Us vull convidar a fer servir %1$s al vostre dispositiu.\nDescarregueu-lo d\'aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="reload">Recarrega</string>
     <string name="remote">(remot)</string>
     <string name="remote_file_fetch_failed">No s\'ha pogut trobar l\'arxiu!</string>
     <string name="remove_fail_msg">No s\'ha pogut completar l\'eliminació</string>
@@ -876,6 +878,7 @@
     <string name="whats_new_skip">Omet</string>
     <string name="whats_new_title">Nou a %1$s</string>
     <string name="whats_your_status">Quin és el vostre estat?</string>
+    <string name="widgets_not_available_title">No disponible</string>
     <string name="write_email">Enviar correu</string>
     <string name="wrong_storage_path">La carpeta de dades no existeix!</string>
     <string name="wrong_storage_path_desc">Això podria ser degut a una còpia de seguretat restaurada per un altre dispositiu. Revertint a la configuració per defecte. Si us plau, comprova els paràmetres per seleccionar la carpeta de dades.</string>

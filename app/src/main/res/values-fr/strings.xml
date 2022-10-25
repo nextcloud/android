@@ -25,7 +25,7 @@
     <string name="actionbar_settings">Paramètres</string>
     <string name="actionbar_sort">Trier</string>
     <string name="active_user">Utilisateur actif</string>
-    <string name="activities_no_results_headline">Aucune activité</string>
+    <string name="activities_no_results_headline">Pas encore d\'activité</string>
     <string name="activities_no_results_message">Aucun évènement d\'ajout, modification ou partage pour l\'instant</string>
     <string name="activity_chooser_send_file_title">Envoyer</string>
     <string name="activity_chooser_title">Envoyer le lien vers…</string>
@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Ajouter à %1$s</string>
     <string name="advanced_settings">Paramètres avancés</string>
     <string name="allow_resharing">Autoriser le repartage</string>
+    <string name="app_widget_description">Affiche un widget du tableau de bord</string>
     <string name="appbar_search_in">Recherche dans %s</string>
     <string name="associated_account_not_found">Compte associé introuvable !</string>
     <string name="auth_access_failed">L\'accès a échoué: %1$s</string>
@@ -87,12 +88,14 @@
     <string name="calendars">Agendas</string>
     <string name="certificate_load_problem">Le chargement du certificat pose problème.</string>
     <string name="changelog_dev_version">Notes de version de la version de développement</string>
+    <string name="check_back_later_or_reload">Revenez plus tard ou actualisez la page.</string>
     <string name="checkbox">Case à cocher</string>
     <string name="choose_local_folder">Sélectionner le dossier local…</string>
-    <string name="choose_location">Sélectionner la position</string>
+    <string name="choose_location">Sélectionner l\'emplacement</string>
     <string name="choose_remote_folder">Sélectionner le dossier distant…</string>
     <string name="choose_template_helper_text">Veuillez choisir un modèle et entrer un nom de fichier</string>
     <string name="choose_which_file">Sélectionnez le fichier à conserver</string>
+    <string name="choose_widget">Choisir un widget</string>
     <string name="clear_notifications_failed">Erreur lors de l\'effacement des notifications.</string>
     <string name="clear_status_message">Effacer le message d\'état</string>
     <string name="clear_status_message_after">Effacer le message d\'états après</string>
@@ -184,6 +187,7 @@
     <string name="credentials_disabled">Informations d\'identification désactivées</string>
     <string name="daily_backup">Sauvegarde journalière</string>
     <string name="data_to_back_up">Données à sauvegarder</string>
+    <string name="date_unknown">Inconnu</string>
     <string name="default_credentials_wrong">Informations d\'identification erronées</string>
     <string name="delete_account">Supprimer le compte</string>
     <string name="delete_account_warning">Supprimer le compte %s et supprimer tous les fichiers locaux ?
@@ -215,13 +219,13 @@ Attention la suppression est irréversible.</string>
     <string name="downloader_download_succeeded_content">%1$s reçu</string>
     <string name="downloader_download_succeeded_ticker">Reçu</string>
     <string name="downloader_not_downloaded_yet">Pas encore téléchargé</string>
-    <string name="drawer_close">Fermer la barre latérale</string>
+    <string name="drawer_close">Fermer le panneau latéral</string>
     <string name="drawer_community">Communauté</string>
     <string name="drawer_header_background">Image d\'arrière-plan de l\'en-tête du menu-tiroir</string>
-    <string name="drawer_item_activities">Activité</string>
+    <string name="drawer_item_activities">Activités</string>
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_favorites">Favoris</string>
-    <string name="drawer_item_gallery">Média</string>
+    <string name="drawer_item_gallery">Médias</string>
     <string name="drawer_item_home">Accueil</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
@@ -295,7 +299,7 @@ Attention la suppression est irréversible.</string>
     <string name="failed_update_ui">Échec de la mise à jour de l\'interface utilisateur</string>
     <string name="favorite">Ajouter aux favoris</string>
     <string name="favorite_icon">Favoris</string>
-    <string name="file_already_exists">Le nom de fichier existe déjà</string>
+    <string name="file_already_exists">Ce nom de fichier existe déjà</string>
     <string name="file_delete">Supprimer</string>
     <string name="file_detail_activity_error">Erreur lors de la récupération de l’activité du fichier</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
@@ -322,7 +326,7 @@ Attention la suppression est irréversible.</string>
     <string name="file_management_permission">Autorisations requises</string>
     <string name="file_management_permission_optional">Autorisations d\'accès au stockage</string>
     <string name="file_management_permission_optional_text">%1$s fonctionne mieux avec les autorisations d\'accès au stockage. Vous pouvez choisir un accès complet à tous les fichiers ou un accès en lecture seule aux photos et vidéos.</string>
-    <string name="file_management_permission_text">%1$s a besoin d\'autorisations concernant la gestion des fichiers afin d\'envoyer des fichiers. Vous pouvez choisir un accès complet à tous les fichiers ou un accès en lecture seule aux photos et vidéos.</string>
+    <string name="file_management_permission_text">%1$s a besoin d\'autorisations concernant la gestion des fichiers afin de téléverser des fichiers. Vous pouvez choisir un accès complet à tous les fichiers ou un accès en lecture seule aux photos et vidéos.</string>
     <string name="file_migration_checking_destination">Vérification de la destination…</string>
     <string name="file_migration_cleaning">Nettoyage…</string>
     <string name="file_migration_dialog_title">Mise à jour du répertoire de données</string>
@@ -387,6 +391,9 @@ Attention la suppression est irréversible.</string>
     <string name="hint_password">Mot de passe</string>
     <string name="host_not_available">Serveur indisponible</string>
     <string name="host_your_own_server">Hébergez votre propre serveur</string>
+    <string name="icon_for_empty_list">icône pour liste vide</string>
+    <string name="icon_of_dashboard_widget">Icône du widget du tableau de bord</string>
+    <string name="icon_of_widget_entry">Icône de l\'entrée du widget</string>
     <string name="in_folder">dans le dossier %1$s</string>
     <string name="instant_upload_existing">Envoyer aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Envoyer uniquement si le chargeur est branché</string>
@@ -465,6 +472,7 @@ Attention la suppression est irréversible.</string>
     <string name="no_browser_available">Aucune application n\'est disponible pour ouvrir les liens</string>
     <string name="no_calendar_exists">Il n’existe aucun agenda</string>
     <string name="no_email_app_available">Aucune application disponible pour ouvrir l\'adresse e-mail</string>
+    <string name="no_items">Aucun élément</string>
     <string name="no_mutliple_accounts_allowed">Seulement un compte autorisé</string>
     <string name="no_pdf_app_available">Aucune application n\'est disponible pour ouvrir les fichiers PDF</string>
     <string name="no_send_app">Aucune application disponible pour envoyer les fichiers sélectionnés</string>
@@ -581,6 +589,8 @@ Attention la suppression est irréversible.</string>
     <string name="recommend_subject">Essayez %1$s sur votre appareil !</string>
     <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre appareil.\nTéléchargez-la ici : %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="refresh_content">Actualiser le contenu</string>
+    <string name="reload">Recharger</string>
     <string name="remote">(distant)</string>
     <string name="remote_file_fetch_failed">Impossible de trouver le fichier</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
@@ -777,7 +787,7 @@ Attention la suppression est irréversible.</string>
     <string name="unread_comments">Il y a des commentaire non lus</string>
     <string name="unset_encrypted">Désactiver le chiffrement</string>
     <string name="unset_favorite">Supprimer des favoris</string>
-    <string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
+    <string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou dossier</string>
     <string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier existe </string>
     <string name="unshare_link_forbidden_permissions">de cesser le partage de ce fichier</string>
     <string name="unsharing_failed">L\'arrêt du partage a échoué</string>
@@ -817,7 +827,7 @@ Attention la suppression est irréversible.</string>
     <string name="uploader_error_message_source_file_not_copied">Impossible de copier le fichier vers un dossier temporaire. Merci de recommencer votre envoi.</string>
     <string name="uploader_error_message_source_file_not_found">Le fichier à envoyer n\'a pas été trouvé. Merci de vérifier si ce fichier existe.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">le fichier ne peut être téléchargé </string>
-    <string name="uploader_error_title_no_file_to_upload">Aucun fichier à envoyer</string>
+    <string name="uploader_error_title_no_file_to_upload">Aucun fichier à téléverser</string>
     <string name="uploader_info_dirname">Nom du dossier</string>
     <string name="uploader_top_message">Sélectionnez le dossier d\'envoi</string>
     <string name="uploader_upload_failed_content_single">Impossible d\'envoyer %1$s</string>
@@ -871,6 +881,7 @@ Attention la suppression est irréversible.</string>
     <string name="userinfo_no_info_text">Ajouter le nom, la photo et les coordonnées sur votre page de profil.</string>
     <string name="username">Nom d\'utilisateur</string>
     <string name="version_dev_download">Télécharger</string>
+    <string name="video_overlay_icon">icône d\'incrustation vidéo</string>
     <string name="wait_a_moment">Veuillez patienter…</string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
@@ -878,6 +889,8 @@ Attention la suppression est irréversible.</string>
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
     <string name="whats_your_status">Quel est votre status ?</string>
+    <string name="widgets_not_available">Les widgets ne sont disponibles que sur %1$s 25 ou plus tard</string>
+    <string name="widgets_not_available_title">Non disponible</string>
     <string name="write_email">Envoyer un e-mail</string>
     <string name="wrong_storage_path">Le répertoire de données n’existe pas !</string>
     <string name="wrong_storage_path_desc">Cela peut être dû à une restauration de sauvegarde sur un autre appareil. Retour aux valeurs par défaut. Veuillez vérifier les paramètres pour ajuster le chemin de stockage.</string>
@@ -919,7 +932,7 @@ Attention la suppression est irréversible.</string>
     <plurals name="export_failed">
         <item quantity="one">Impossible d\'exporter %d fichier</item>
         <item quantity="many">Impossible d\'exporter %d fichier</item>
-        <item quantity="other">Impossible d\'exporter %d fichiers</item>
+        <item quantity="other">Échec de l\'exportation de %d fichiers</item>
     </plurals>
     <plurals name="export_partially_failed">
         <item quantity="one">%d fichier exporté, le reste a été ignoré en raison d\'une erreur</item>

@@ -171,6 +171,7 @@
     <string name="create_rich_workspace">Agregar información de carpeta</string>
     <string name="creates_rich_workspace">Crear información de carpeta</string>
     <string name="credentials_disabled">Contraseña deshabilitada</string>
+    <string name="date_unknown">Desconocido</string>
     <string name="default_credentials_wrong">Contraseña incorrecta</string>
     <string name="delete_account">Eliminar cuenta</string>
     <string name="delete_account_warning">¿Deseas eliminar la cuenta %s y eliminar todos los archivos locales?\n\nLa eliminación no se puede deshacer.</string>
@@ -520,6 +521,7 @@
     <string name="recommend_subject">¡Prueba %1$s en tu dispositivo!</string>
     <string name="recommend_text">Quiero invitarlo a usar %1$s en su dispositivo.\nDescargue aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="reload">Volver a cargar</string>
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">¡No se pudo encontrar el archivo!</string>
     <string name="remove_fail_msg">Borrado fallido</string>

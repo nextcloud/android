@@ -122,6 +122,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">ამჟამად კოპირება/გადატანა დაშიფრულ დირექტორიაში არაა მხარდაჭერილი.</string>
     <string name="create">შექმნა</string>
     <string name="create_dir_fail_msg">დირექტორია ვერ შეიქმნა</string>
+    <string name="date_unknown">ამოუცნობი</string>
     <string name="delete_account">ანგარიშის გაუქმება</string>
     <string name="delete_account_warning">გავაუქმოთ ანგარიში %s და ყველა ლოკალური ფაილი?\n\nგაუქმება ვერ იქნება უკუბრუნებული.</string>
     <string name="deselect_all">ყველას წაშლა</string>
@@ -336,6 +337,7 @@
     <string name="recommend_subject">სცდეთ %1$s თქვენს მოწყობილობაზე!</string>
     <string name="recommend_text">გიწვევთ გამოიყენოთ %1$s თქვენს მოწყობილობაზე.\nჩამოტვირთეთ აქედან: %2$s</string>
     <string name="recommend_urls">%1$s ან %2$s</string>
+    <string name="reload">გადატვირთვა</string>
     <string name="remove_fail_msg">გაუქმება ვერ მოხერხდა</string>
     <string name="remove_push_notification">გაუქმება</string>
     <string name="remove_success_msg">გაუქმდა</string>

@@ -35,6 +35,7 @@
     <string name="add_to_cloud">新增到 %1$s </string>
     <string name="advanced_settings">進階設定</string>
     <string name="allow_resharing">允許轉貼分享</string>
+    <string name="app_widget_description">顯示儀表板中的一個小工具</string>
     <string name="appbar_search_in">%s內搜尋</string>
     <string name="associated_account_not_found">找不到相關的帳號！</string>
     <string name="auth_access_failed">存取失敗：%1$s</string>
@@ -87,12 +88,14 @@
     <string name="calendars">日曆</string>
     <string name="certificate_load_problem">載入憑證時發生問題。</string>
     <string name="changelog_dev_version">更新日誌開發版本</string>
+    <string name="check_back_later_or_reload">稍後再回來檢視或重新載入。</string>
     <string name="checkbox">核取方塊</string>
     <string name="choose_local_folder">選擇本機資料夾……</string>
     <string name="choose_location">選擇位置</string>
     <string name="choose_remote_folder">選擇遠端資料夾……</string>
     <string name="choose_template_helper_text">請選擇範本並輸入檔案名稱。</string>
     <string name="choose_which_file">選擇要保留哪個檔案！</string>
+    <string name="choose_widget">選擇小工具</string>
     <string name="clear_notifications_failed">清空通知訊息失敗</string>
     <string name="clear_status_message">清空狀態訊息</string>
     <string name="clear_status_message_after">在……之後清空狀態訊息</string>
@@ -184,6 +187,7 @@
     <string name="credentials_disabled">認證方式已取消</string>
     <string name="daily_backup">每日備份</string>
     <string name="data_to_back_up">要備份的資料</string>
+    <string name="date_unknown">未知</string>
     <string name="default_credentials_wrong">不正確的認證方式</string>
     <string name="delete_account">刪除帳號</string>
     <string name="delete_account_warning">移除帳號 %s 並刪除所有本機檔案？\n\n刪除後將無法復原。</string>
@@ -385,6 +389,9 @@
     <string name="hint_password">密碼</string>
     <string name="host_not_available">伺服器無法使用</string>
     <string name="host_your_own_server">架設您自己的伺服器</string>
+    <string name="icon_for_empty_list">空清單的圖示</string>
+    <string name="icon_of_dashboard_widget">儀表板小工具的圖示</string>
+    <string name="icon_of_widget_entry">小工具條目的圖示</string>
     <string name="in_folder">在資料夾 %1$s</string>
     <string name="instant_upload_existing">同時上傳既有的檔案</string>
     <string name="instant_upload_on_charging">只在充電時上傳</string>
@@ -463,6 +470,7 @@
     <string name="no_browser_available">沒有應用程式可以開啟連結</string>
     <string name="no_calendar_exists">不存在日曆</string>
     <string name="no_email_app_available">沒有應用程式可開啟此郵件地址</string>
+    <string name="no_items">無項目</string>
     <string name="no_mutliple_accounts_allowed">僅允許一個帳號</string>
     <string name="no_pdf_app_available">沒有應用程式可以開啟 PDF</string>
     <string name="no_send_app">沒有可用於傳送選定檔案的應用程式</string>
@@ -579,6 +587,8 @@
     <string name="recommend_subject">在您的裝置上試用 %1$s！</string>
     <string name="recommend_text">我想邀請您在您的裝置上使用 %1$s。\n在此下載：%2$s</string>
     <string name="recommend_urls">%1$s 或 %2$s</string>
+    <string name="refresh_content">重新整理內容</string>
+    <string name="reload">重新載入</string>
     <string name="remote">(remote)</string>
     <string name="remote_file_fetch_failed">找不到檔案！</string>
     <string name="remove_fail_msg">刪除失敗</string>
@@ -869,6 +879,7 @@
     <string name="userinfo_no_info_text">在您的個人檔案中新增名字、大頭照和聯絡資訊。</string>
     <string name="username">使用者名稱</string>
     <string name="version_dev_download">下載</string>
+    <string name="video_overlay_icon">視訊覆蓋層圖示</string>
     <string name="wait_a_moment">稍候……</string>
     <string name="wait_checking_credentials">正在檢查儲存的憑證</string>
     <string name="wait_for_tmp_copy_from_private_storage">從私有儲存空間複製檔案中</string>
@@ -876,6 +887,8 @@
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>
     <string name="whats_your_status">您目前的狀態是什麼呢？</string>
+    <string name="widgets_not_available">小工具僅在 %1$s 25 或更新提供</string>
+    <string name="widgets_not_available_title">無法使用</string>
     <string name="write_email">傳送電子郵件</string>
     <string name="wrong_storage_path">資料儲存資料不存在！</string>
     <string name="wrong_storage_path_desc">這可能是因為在另一台裝置上備份還原的關係。正在汰退至預設值。請檢查設定以調整資料儲存資料夾。</string>

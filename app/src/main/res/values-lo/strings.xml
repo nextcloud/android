@@ -172,6 +172,7 @@
     <string name="create_rich_workspace">ເພີ່ມຂໍ້ມູນໂຟນເດີ</string>
     <string name="creates_rich_workspace">ສ້າງໂຟນເດີຂໍ້ມຸນ</string>
     <string name="credentials_disabled">ຂໍ້ມູນປະຈໍາຕົວຖືກປິດ</string>
+    <string name="date_unknown">ບໍ່ຮູ້</string>
     <string name="default_credentials_wrong">ການຢັ້ງຢືນຕົວຕົນທີ່ບໍ່ຖືກຕ້ອງ</string>
     <string name="delete_account">ຍ້າຍບັນຊີ</string>
     <string name="delete_account_warning">ລຶບບັນຊີ %sແລະ ລຶບຟາຍໃນຊ່ອງເກັບທັງຫມົດ?\n\nDeletion ບໍ່ສາມາດລົບລ້າງໄດ້.</string>
@@ -523,6 +524,7 @@
     <string name="recommend_subject">ລອງໃສ່ອຸປະກອນຂອງທ່ານ!%1$s</string>
     <string name="recommend_text">ຂ້າພະເຈົ້າຢາກເຊີນທ່ານໃຊ້ໃນອຸປະກອນຂອງທ່ານ%1$s.nDownload ທີ່ນີ້:%2$s</string>
     <string name="recommend_urls">%1$sຫລື%2$s</string>
+    <string name="reload">ໂຫຼດຄຶນ</string>
     <string name="remote">(ໄລຍະໄກ)</string>
     <string name="remote_file_fetch_failed">ຊອກຫາຟາຍບໍ່ສຳເລັດ</string>
     <string name="remove_fail_msg">ການລຶບບໍ່ສຳເລັດ</string>
@@ -794,6 +796,7 @@
     <string name="what_s_new_image">ຮູບພາບໃຫມ່</string>
     <string name="whats_new_skip">ຂ້າມໄປ</string>
     <string name="whats_new_title">ໃຫມ່ໃນ%1$s</string>
+    <string name="widgets_not_available_title">ບໍ່ມີ</string>
     <string name="wrong_storage_path">ບໍ່ມີໂຟນເດີເກັບຂໍ້ມູນ!</string>
     <string name="wrong_storage_path_desc">ນີ້ອາດຈະເປັນຍ້ອນການກູ້ຄືນການສໍາຮອງໃນອຸປະກອນອື່ນ.ການກັບຄືນຄ່າເດີມບໍ່ສຳເລັດ. ກະລຸນາກວດເບິ່ງການຕັ້ງຄ່າເພື່ອປັບຟາຍການເກັບຂໍ້ມູນ.</string>
     <plurals name="sync_fail_in_favourites_content">

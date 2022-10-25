@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Учётная запись отключена</string>
     <string name="daily_backup">Ежедневное резервное копирование</string>
     <string name="data_to_back_up">Данные для резервного копирования</string>
+    <string name="date_unknown">Неизвестно</string>
     <string name="default_credentials_wrong">Неверные учётные данные</string>
     <string name="delete_account">Удалить аккаунт</string>
     <string name="delete_account_warning">Удалить аккаунт %s и все связанные с ним файлы?\n\nУдаление не может быть отменено.</string>
@@ -580,6 +581,7 @@
     <string name="recommend_subject">Испытайте %1$s на своём устройстве!</string>
     <string name="recommend_text">Хочу посоветовать использовать %1$s на твоём устройстве!\nСкачай здесь: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="reload">Перезагрузить</string>
     <string name="remote">(удалённо)</string>
     <string name="remote_file_fetch_failed">Не удалось найти файл.</string>
     <string name="remove_fail_msg">Ошибка при удалении</string>
@@ -877,6 +879,7 @@
     <string name="whats_new_skip">Пропустить</string>
     <string name="whats_new_title">Новое в %1$s</string>
     <string name="whats_your_status">Ваш статус?</string>
+    <string name="widgets_not_available_title">Не доступен</string>
     <string name="write_email">Отправить письмо</string>
     <string name="wrong_storage_path">Папка хранения данных не существует.</string>
     <string name="wrong_storage_path_desc">Это могло случиться после восстановления из резервной копии, созданной на другом устройстве. Будут использованы параметры по умолчанию, проверьте путь размещения папки хранения данных.</string>

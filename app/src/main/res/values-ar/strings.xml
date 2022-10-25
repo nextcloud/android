@@ -184,6 +184,7 @@
     <string name="credentials_disabled">التصريح غير مفعل</string>
     <string name="daily_backup">النسخ الاحتياطي اليومي</string>
     <string name="data_to_back_up">البيانات التي سيتم نسخها احتياطيا</string>
+    <string name="date_unknown">غير معروف</string>
     <string name="default_credentials_wrong">التصريح خاطئ</string>
     <string name="delete_account">حذف الحساب</string>
     <string name="delete_account_warning">حذف الحساب %s وحذف جميع الملفات المحلية؟\n\nعملية الحذف لا يمكن التراجع عنها.</string>
@@ -579,6 +580,7 @@
     <string name="recommend_text">أريد أن أدعوك لاستخدام %1$s على جهازك
 التنزيل هنا %2$s</string>
     <string name="recommend_urls">%1$s أو %2$s</string>
+    <string name="reload">إعادة تحميل</string>
     <string name="remote">(عن بعد)</string>
     <string name="remote_file_fetch_failed">فشل في العثور على الملف!</string>
     <string name="remove_fail_msg">فشلت عملية الحذف</string>
@@ -878,6 +880,7 @@
     <string name="whats_new_skip">تخطى</string>
     <string name="whats_new_title">جديد على %1$s</string>
     <string name="whats_your_status">ماهي حالتك؟</string>
+    <string name="widgets_not_available_title">غير متوفر</string>
     <string name="write_email">إرسال بريد</string>
     <string name="wrong_storage_path">مجلد التخزين غير موجود !</string>
     <string name="wrong_storage_path_desc">قد يكون هذا بسبب استعادة نسخة احتياطية على جهاز آخر . العودة الى الافتراضي . يرجى التحقق من الإعدادات لضبط مجلد تخزين البيانات.</string>

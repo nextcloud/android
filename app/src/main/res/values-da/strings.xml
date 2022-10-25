@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Brugeroplysninger deaktiverede</string>
     <string name="daily_backup">Daglig backup</string>
     <string name="data_to_back_up">Data at sikkerhedskopiere</string>
+    <string name="date_unknown">Ukendt</string>
     <string name="default_credentials_wrong">Ukorrekte brugeroplysninger</string>
     <string name="delete_account">Fjern konto</string>
     <string name="delete_account_warning">Slet konto %s og slet alle filer lokalt?\n\nDu kan ikke fortryde en sletning.</string>
@@ -299,7 +300,7 @@
     <string name="file_details_no_content">Fejl ved indlæsning af detaljer</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behold</string>
-    <string name="file_list_empty">Upload indhold eller synk med dine enheder.</string>
+    <string name="file_list_empty">Upload indhold eller synkronisér med dine enheder.</string>
     <string name="file_list_empty_favorite_headline">Send/Del</string>
     <string name="file_list_empty_favorites_filter_list">Filer og mapper du markerer som favoritter vil blive vist her.</string>
     <string name="file_list_empty_gallery">Fandt ingen billeder eller videoer</string>
@@ -581,6 +582,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="recommend_subject">Prøv %1$s på din enhed!</string>
     <string name="recommend_text">Jeg ønsker at invitere dig til at bruge %1$s på din smartphone!\nHent den her: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="reload">Genindlæs</string>
     <string name="remote">(fjernt)</string>
     <string name="remote_file_fetch_failed">Kunne ikke finde fil!</string>
     <string name="remove_fail_msg">Sletning fejlede</string>
@@ -878,6 +880,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="whats_new_skip">Spring over</string>
     <string name="whats_new_title">Nyt i %1$s</string>
     <string name="whats_your_status">Hvad er din status</string>
+    <string name="widgets_not_available_title">Ikke tilgængelig</string>
     <string name="write_email">Send email</string>
     <string name="wrong_storage_path">Datalagrings mappe eksisterer ikke</string>
     <string name="wrong_storage_path_desc">Dette kan være på grund af en gendannet sikkerhedskopi på en anden enhed. Ruller tilbage til standard. Undersøg indstillingerne for at tilpasse data lagringsmappen.</string>

@@ -1,3 +1,30 @@
+## 3.22.2 (October 24, 2022)
+
+- Bug fixes
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/75
+
+## 3.22.1 (October 20, 2022)
+
+- Bug fixes
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/73
+
+## 3.22.0 (October 19, 2022)
+
+- Material 3 UI revamp
+- Dashboard widgets for Android launcher
+- New tiled design for media view
+- Many bugfixes and improvements
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/70
+
 ## 3.21.2 (September 1, 2022)
 
 - Bug fixes

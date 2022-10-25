@@ -183,6 +183,7 @@
     <string name="credentials_disabled">Đã vô hiệu hóa thông tin đăng nhập</string>
     <string name="daily_backup">Sao lưu hàng ngày</string>
     <string name="data_to_back_up">Dữ liệu được sao lưu</string>
+    <string name="date_unknown">Không xác định</string>
     <string name="default_credentials_wrong">Thông tin đăng nhập không chính xác</string>
     <string name="delete_account">Xóa tài khoản</string>
     <string name="delete_account_warning">Xóa tài khoản %s và xóa tất cả các tệp cục bộ?\n\nXóa không thể hoàn tác.</string>
@@ -570,6 +571,7 @@
     <string name="recommend_subject">Thử %1$s trên điện thoại của bạn!</string>
     <string name="recommend_text">Tôi muốn mời bạn sử dụng %1$s trên điện thoại của bạn.\nTải về: %2$s</string>
     <string name="recommend_urls">%1$s hoặc %2$s</string>
+    <string name="reload">Tải lại</string>
     <string name="remote">(từ xa)</string>
     <string name="remote_file_fetch_failed">Không tìm thấy tệp!</string>
     <string name="remove_fail_msg">Lỗi khi xóa</string>
@@ -857,6 +859,7 @@
     <string name="whats_new_skip">Bỏ qua</string>
     <string name="whats_new_title">Mới trong %1$s</string>
     <string name="whats_your_status">Trạng thái của bạn là gì?</string>
+    <string name="widgets_not_available_title">Không khả dụng</string>
     <string name="write_email">Gửi email</string>
     <string name="wrong_storage_path">Thư mục lưu trữ dữ liệu không tồn tại!</string>
     <string name="wrong_storage_path_desc">Điều này có thể là do khôi phục sao lưu trên một thiết bị khác. Trở lại mặc định. Vui lòng kiểm tra cài đặt để điều chỉnh thư mục lưu trữ dữ liệu.</string>

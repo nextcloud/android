@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Vjerodajnice onemogućene</string>
     <string name="daily_backup">Svakodnevno sigurnosno kopiranje</string>
     <string name="data_to_back_up">Podaci za sigurnosno kopiranje</string>
+    <string name="date_unknown">Nepoznato</string>
     <string name="default_credentials_wrong">Netočne vjerodajnice</string>
     <string name="delete_account">Izbriši račun</string>
     <string name="delete_account_warning">Želite li ukloniti račun %s i izbrisati sve lokalne datoteke?\n\nBrisanje se ne može poništiti.</string>
@@ -579,6 +580,7 @@
     <string name="recommend_subject">Isprobajte %1$s na uređaju!</string>
     <string name="recommend_text">Želim vas pozvati da koristite %1$s na svom uređaju.\nPreuzmite ovdje: %2$s</string>
     <string name="recommend_urls">%1$s ili %2$s</string>
+    <string name="reload">Ponovno učitaj</string>
     <string name="remote">(na daljinu)</string>
     <string name="remote_file_fetch_failed">Datoteka nije pronađena!</string>
     <string name="remove_fail_msg">Brisanje nije uspjelo</string>
@@ -876,6 +878,7 @@
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo u %1$s</string>
     <string name="whats_your_status">Koji je vaš status?</string>
+    <string name="widgets_not_available_title">Nije dostupno</string>
     <string name="write_email">Pošalji poruku e-pošte</string>
     <string name="wrong_storage_path">Put pohrane ne postoji!</string>
     <string name="wrong_storage_path_desc">To može biti zbog vraćanja sigurnosne kopije na drugom uređaju. Provjerite postavke i prilagodite put pohrane.</string>

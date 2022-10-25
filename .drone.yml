@@ -32,7 +32,7 @@ services:
     image: ghcr.io/nextcloud/continuous-integration-server:latest # also change in updateScreenshots.sh
     environment:
       EVAL: true
-      SERVER_VERSION: 'stable24'
+      SERVER_VERSION: 'stable25'
     commands:
       - BRANCH="$SERVER_VERSION" /usr/local/bin/initnc.sh
       - echo 127.0.0.1 server >> /etc/hosts

@@ -89,6 +89,7 @@
     <string name="changelog_dev_version">Zmeny v dev verzii</string>
     <string name="checkbox">Zaškrtávacie políčko</string>
     <string name="choose_local_folder">Vyberte miestny priečinok…</string>
+    <string name="choose_location">Vybrať polohu</string>
     <string name="choose_remote_folder">Vyberte vzdialený priečinok…</string>
     <string name="choose_template_helper_text">Prosím vyberte šablónu a zadajte meno súboru.</string>
     <string name="choose_which_file">Vyberte ktorý súbor zachovať!</string>
@@ -183,6 +184,7 @@
     <string name="credentials_disabled">Prihlasovacie údaje zakázané</string>
     <string name="daily_backup">Denná záloha</string>
     <string name="data_to_back_up">Dáta pre zálohovanie</string>
+    <string name="date_unknown">Neznámy</string>
     <string name="default_credentials_wrong">Nesprávne prihlasovacie údaje</string>
     <string name="delete_account">Odstrániť účet</string>
     <string name="delete_account_warning">Zmazať účet %s a zmazať všetky lokálne súbory?\n\nZmazanie nebude možné vrátiť späť.</string>
@@ -239,6 +241,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Tento priečinok nie je prázdny.</string>
     <string name="end_to_end_encryption_generating_keys">Vytvárajú sa nové kľúče…</string>
     <string name="end_to_end_encryption_keywords_description">Táto 12-slovná fráza je veľmi silné heslo, ktoré poskytuje úplný prístup k prezeraniu a používaniu šifrovaných súborov. Napíšte si ju a uschovajte niekde v bezpečí.</string>
+    <string name="end_to_end_encryption_not_enabled">End-to-end šifrovanie zakázané na serveri.</string>
     <string name="end_to_end_encryption_passphrase_title">Poznačte si Vaše 12 slovné šifrovacie heslo</string>
     <string name="end_to_end_encryption_password">Heslo…</string>
     <string name="end_to_end_encryption_retrieving_keys">Získavam kľúče…</string>
@@ -291,6 +294,7 @@
     <string name="failed_update_ui">Nepodarilo sa aktualizovať UI</string>
     <string name="favorite">Pridať do obľúbených</string>
     <string name="favorite_icon">Obľúbené</string>
+    <string name="file_already_exists">Súbor už existuje</string>
     <string name="file_delete">Zmazať</string>
     <string name="file_detail_activity_error">Chyba pri načítavaní aktivít pre súbor</string>
     <string name="file_details_no_content">Nepodarilo sa načítať podrobnosti</string>
@@ -402,6 +406,7 @@
     <string name="local_file_not_found_message">Súbor nebolo možné nájsť na lokálnom úložisku</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Neexistujú ďalšie priečinky.</string>
+    <string name="locate_folder">Vyhľadať priečinok</string>
     <string name="lock_expiration_info">Vyprší: %1$s</string>
     <string name="lock_file">Zamknúť súbor</string>
     <string name="locked_by">Zamknuté od %1$s</string>
@@ -575,6 +580,7 @@
     <string name="recommend_subject">Vyskúšajte %1$s na vašom zariadení!</string>
     <string name="recommend_text">Chcel by som odporučiť %1$s pre vaše zariadenie.\nZískať ho môžete aj tu: %2$s</string>
     <string name="recommend_urls">%1$s alebo %2$s</string>
+    <string name="reload">Znovu načítať</string>
     <string name="remote">(vzdialené)</string>
     <string name="remote_file_fetch_failed">Nepodarilo sa nájsť súbor</string>
     <string name="remove_fail_msg">Zmazanie zlyhalo</string>
@@ -608,6 +614,7 @@
     <string name="screenshot_06_davdroid_subline">Synchronizácia s DAVx5</string>
     <string name="search_error">Chyba pri získavaní výsledkov vyhľadávania</string>
     <string name="select_all">Vybrať všetko</string>
+    <string name="select_media_folder">Nastaviť priečinok médií</string>
     <string name="select_one_template">Vyberte jednu šablónu</string>
     <string name="select_template">Vybrať šablónu</string>
     <string name="send">Odoslať</string>
@@ -662,6 +669,8 @@
     <string name="shared_icon_shared_via_link">sprístupnené prostredníctvom odkazu</string>
     <string name="shared_with_you_by">Sprístupnené vám používateľom %1$s</string>
     <string name="sharee_add_failed">Pridanie sprístupňujúceho sa nepodarilo</string>
+    <string name="show_images">Zobraziť fotky</string>
+    <string name="show_video">Zobraziť videá</string>
     <string name="signup_with_provider">Zaregistrovať sa u poskytovateľa</string>
     <string name="single_sign_on_request_token" formatted="true">Umožniť %1$s pristupovať k Vášmu Nextcloud účtu %2$s?</string>
     <string name="sort_by">Zoradiť podľa</string>
@@ -718,6 +727,9 @@
     <string name="strict_mode">Striktný mód: HTTP spojenie nie je povolené!</string>
     <string name="subject_shared_with_you">\"%1$s\" vám bol sprístupnený</string>
     <string name="subject_user_shared_with_you">%1$s vám sprístupnil \"%2$s\"</string>
+    <string name="subtitle_photos_only">Iba fotky</string>
+    <string name="subtitle_photos_videos">Fotky a videá</string>
+    <string name="subtitle_videos_only">Iba videá</string>
     <string name="suggest">Navrhnúť</string>
     <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
     <string name="sync_current_folder_was_removed">Adresár %1$s už neexistuje</string>
@@ -866,6 +878,7 @@
     <string name="whats_new_skip">Preskočiť</string>
     <string name="whats_new_title">Nové v %1$s</string>
     <string name="whats_your_status">Aký je váš stav?</string>
+    <string name="widgets_not_available_title">Nie je k dispozícií</string>
     <string name="write_email">Odoslať email</string>
     <string name="wrong_storage_path">Adresár pre úložisko dát neexistuje!</string>
     <string name="wrong_storage_path_desc">Môže to byť spôsobené obnovením zálohy na inom zariadení. Návrat na predvolené hodnoty. Skontrolujte adresár a upravte adresár pre ukladanie údajov.</string>
@@ -904,6 +917,30 @@
         <item quantity="few">Nájdených %d duplicitných záznamov.</item>
         <item quantity="many">Nájdených %d duplicitných záznamov.</item>
         <item quantity="other">Nájdených %d duplicitných záznamov.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">%d exportovaný súbor</item>
+        <item quantity="few">%d exportované súbory</item>
+        <item quantity="many">%d exportovaných súborov</item>
+        <item quantity="other">%d exportovaných súborov</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Chyba pri exportovaní %d súboru</item>
+        <item quantity="few">Chyba pri exportovaní %d súborov</item>
+        <item quantity="many">Chyba pri exportovaní %d súborov</item>
+        <item quantity="other">Chyba pri exportovaní %d súborov</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">%d exportovaný súbor, ostatné vynechané pre chybu</item>
+        <item quantity="few">%d exportované súbory, ostatné vynechané pre chybu</item>
+        <item quantity="many">%d exportovaných súborov, ostatné vynechané pre chybu</item>
+        <item quantity="other">%d exportovaných súborov, ostatné vynechané pre chybu</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%d súborov bol exportovaný. Pozrite si upozornenia pre viac detailov.</item>
+        <item quantity="few">%d súborov boli exportované. Pozrite si upozornenia pre viac detailov.</item>
+        <item quantity="many">%d súborov bolo exportovaných. Pozrite si upozornenia pre viac detailov.</item>
+        <item quantity="other">%d súborov bolo exportovaných. Pozrite si upozornenia pre viac detailov.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d priečinok</item>

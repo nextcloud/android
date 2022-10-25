@@ -93,6 +93,7 @@
     <string name="choose_remote_folder">Hautatu urruneko karpeta...</string>
     <string name="choose_template_helper_text">Hautatu txantiloia eta sartu fitxategi-izena.</string>
     <string name="choose_which_file">Aukeratu zein fitxategi gorde!</string>
+    <string name="choose_widget">Aukeratu trepeta</string>
     <string name="clear_notifications_failed">Huts egin du jakinarazpenak garbitzean.</string>
     <string name="clear_status_message">Garbitu egoera mezua</string>
     <string name="clear_status_message_after">Garbitu egoera mezua gero</string>
@@ -184,6 +185,7 @@
     <string name="credentials_disabled">Kredentzialak desgaituta</string>
     <string name="daily_backup">Eguneko babeskopia</string>
     <string name="data_to_back_up">Babesteko datuak</string>
+    <string name="date_unknown">Ezezaguna</string>
     <string name="default_credentials_wrong">Kredentzial okerrak</string>
     <string name="delete_account">Ezabatu kontua</string>
     <string name="delete_account_warning">%s kontua kendu eta fitxategi lokal guztiak ezabatu?\n\nBehin ezabatuta ezin da atzera egin.</string>
@@ -463,6 +465,7 @@
     <string name="no_browser_available">Ez dago eskuragarri estekak kudeatzeko aplikaziorik</string>
     <string name="no_calendar_exists">Ez da egutegirik existitzen</string>
     <string name="no_email_app_available">Ez dago aplikaziorik helbide elektronikoak kudeatzeko</string>
+    <string name="no_items">Elementurik ez</string>
     <string name="no_mutliple_accounts_allowed">Kontu bat onartzen da soilik</string>
     <string name="no_pdf_app_available">Ez dago eskuragarri PDFak kudeatzeko aplikaziorik</string>
     <string name="no_send_app">Hautatutako fitxategiak bidaltzeko app-ik ez dago eskuragarri</string>
@@ -579,6 +582,7 @@
     <string name="recommend_subject">Probatu %1$s zure gailuan!</string>
     <string name="recommend_text">%1$s zure gailuan erabiltzera gonbidatu nahi zaitut.\n Hemendik deskargatu: %2$s</string>
     <string name="recommend_urls">%1$s edo %2$s</string>
+    <string name="reload">Birkargatu</string>
     <string name="remote">(urrunekoa)</string>
     <string name="remote_file_fetch_failed">Fitxategia bilatzeak huts egin du!</string>
     <string name="remove_fail_msg">Ezabatzeak huts egin du</string>
@@ -876,6 +880,7 @@
     <string name="whats_new_skip">Salto egin</string>
     <string name="whats_new_title">Berria %1$s-n</string>
     <string name="whats_your_status">Zein da zure egoera?</string>
+    <string name="widgets_not_available_title">Ez dago erabilgarri</string>
     <string name="write_email">Bidali e-posta</string>
     <string name="wrong_storage_path">Datu-biltegiratze karpeta ez dago!</string>
     <string name="wrong_storage_path_desc">Hau babeskopia eta leheneratzea beste gailu batean egiteagatik izan daiteke. Itzuli balio lehenetsietara. Egiaztatu ezarpenak datu biltegiratze-karpeta doitzeko.</string>

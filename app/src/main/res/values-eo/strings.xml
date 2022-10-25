@@ -148,6 +148,7 @@
     <string name="create_new_presentation">Krei novan prezentaĵon</string>
     <string name="create_new_spreadsheet">Krei novan kalkultabelon</string>
     <string name="credentials_disabled">Akreditiloj estas malebligitaj</string>
+    <string name="date_unknown">Nekonata</string>
     <string name="default_credentials_wrong">Malĝustaj akreditiloj</string>
     <string name="delete_account">Forigi konton</string>
     <string name="delete_account_warning">Ĉu forigi la konton %s kaj forigi ĉiujn lokajn dosierojn?\n\nMalfari la forigadon tute ne eblas.</string>
@@ -433,6 +434,7 @@
     <string name="recommend_subject">Provu %1$s sur via aparato!</string>
     <string name="recommend_text">Mi invitas vin uzi %1$s sur via aparato.\nElŝutu ĝin tie: %2$s</string>
     <string name="recommend_urls">%1$s aŭ %2$s</string>
+    <string name="reload">Reŝargi</string>
     <string name="remove_fail_msg">Forigado malsukcesis</string>
     <string name="remove_notification_failed">Malsukcesis forigi sciigon.</string>
     <string name="remove_push_notification">Forigi</string>

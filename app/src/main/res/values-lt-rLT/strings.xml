@@ -184,6 +184,7 @@
     <string name="credentials_disabled">Prisijungimo duomenys išjungti</string>
     <string name="daily_backup">Kasdienės atsarginės kopijos</string>
     <string name="data_to_back_up">Duomenys, kurių atsarginę kopiją daryti</string>
+    <string name="date_unknown">Nežinoma</string>
     <string name="default_credentials_wrong">Neteisingi prisijungimo duomenys</string>
     <string name="delete_account">Šalinti paskyrą</string>
     <string name="delete_account_warning">Pašalinti paskyrą %s ir ištrinti visus vietinius failus?\n\nIštrynimo nebegalima bus atšaukti.</string>
@@ -564,6 +565,7 @@
     <string name="recommend_subject">Išbandykite %1$s savo įrenginyje!</string>
     <string name="recommend_text">Noriu jus paraginti naudoti %1$s savo įrenginyje.\nAtsisiųskite čia: %2$s</string>
     <string name="recommend_urls">%1$s arba %2$s</string>
+    <string name="reload">Įkelti iš naujo</string>
     <string name="remote">(nuotolinis)</string>
     <string name="remote_file_fetch_failed">Nepavyko rasti failo!</string>
     <string name="remove_fail_msg">Ištrynimas nepavyko</string>
