@@ -83,10 +83,12 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountSetupBinding;
 import com.owncloud.android.databinding.AccountSetupWebviewBinding;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
@@ -107,6 +109,7 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
+import com.owncloud.android.operations.GetCapabilitiesOperation;
 import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.services.OperationsService;
@@ -119,7 +122,6 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertL
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.InputStream;
@@ -127,6 +129,7 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -1132,15 +1135,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             if (success) {
                 accountManager.setCurrentOwnCloudAccount(mAccount.name);
-                setupColorCapability();
-                if (onlyAdd) {
-                    finish();
-                } else {
-                    Intent i = new Intent(this, FileDisplayActivity.class);
-                    i.setAction(FileDisplayActivity.RESTART);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
-                }
+                getUserCapabilitiesAndFinish();
             } else {
                 // init webView again
                 if (accountSetupWebviewBinding != null) {
@@ -1192,15 +1187,36 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-    /**
-     * Caches a fake OCCapability with only the server color, so that it is immediately available for drawing the next
-     * screens
-     */
-    private void setupColorCapability() {
-        final OCCapability colorCapability = new OCCapability();
-        colorCapability.setServerColor(colorUtil.colorToHexString(primaryColor));
-        colorCapability.setAccountName(mAccount.name);
-        CapabilityUtils.updateCapability(colorCapability);
+    private void endSuccess() {
+        if (onlyAdd) {
+            finish();
+        } else {
+            Intent i = new Intent(this, FileDisplayActivity.class);
+            i.setAction(FileDisplayActivity.RESTART);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
+    }
+
+    private void getUserCapabilitiesAndFinish() {
+        final Handler handler = new Handler();
+        final Optional<User> user = accountManager.getUser(mAccount.name);
+
+        if (user.isPresent()) {
+            Executors.newSingleThreadExecutor().execute(() -> {
+                try {
+                    final FileDataStorageManager storageManager = new FileDataStorageManager(user.get(), getContentResolver());
+                    new GetCapabilitiesOperation(storageManager).execute(MainApp.getAppContext());
+                    handler.post(this::endSuccess);
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Failed to fetch capabilities", e);
+                    handler.post(this::endSuccess);
+                }
+            });
+        } else {
+            Log_OC.w(TAG, "User not present for fetching capabilities");
+            endSuccess();
+        }
     }
 
     /**
