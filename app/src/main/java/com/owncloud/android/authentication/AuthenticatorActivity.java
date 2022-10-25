@@ -105,6 +105,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation;
+import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
@@ -137,6 +138,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -443,8 +445,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
                 accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
 
-                viewThemeUtils.platform.colorStatusBar(AuthenticatorActivity.this, primaryColor);
-                getWindow().setNavigationBarColor(primaryColor);
+                if (mServerInfo.mVersion != null && mServerInfo.mVersion.isOlderThan(NextcloudVersion.nextcloud_25)) {
+                    viewThemeUtils.platform.colorStatusBar(AuthenticatorActivity.this, primaryColor);
+                    getWindow().setNavigationBarColor(primaryColor);
+                } else {
+                    viewThemeUtils.platform.resetStatusBar(AuthenticatorActivity.this);
+                    getWindow().setNavigationBarColor(ContextCompat.getColor(AuthenticatorActivity.this, R.color.bg_default));
+                }
             }
 
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
