@@ -190,17 +190,21 @@ public class SaveCalendar {
             cal.getComponents().add(v);
         }
 
-        new CalendarOutputter().output(cal, new FileOutputStream(fileName));
+        if (!cal.getComponents().isEmpty()) {
+            new CalendarOutputter().output(cal, new FileOutputStream(fileName));
 
-        Resources res = activity.getResources();
-        String msg = res.getQuantityString(R.plurals.wrote_n_events_to, events.size(), events.size(), file);
-        if (numberOfCreatedUids > 0) {
-            msg += "\n" + res.getQuantityString(R.plurals.created_n_uids_to, numberOfCreatedUids, numberOfCreatedUids);
+            Resources res = activity.getResources();
+            String msg = res.getQuantityString(R.plurals.wrote_n_events_to, events.size(), events.size(), file);
+            if (numberOfCreatedUids > 0) {
+                msg += "\n" + res.getQuantityString(R.plurals.created_n_uids_to, numberOfCreatedUids, numberOfCreatedUids);
+            }
+
+            // TODO replace DisplayUtils.showSnackMessage(activity, msg);
+
+            upload(fileName);
+        } else {
+            Log_OC.w(TAG, "Calendar has " + selectedCal.mIdStr + "no components");
         }
-
-        // TODO replace DisplayUtils.showSnackMessage(activity, msg);
-
-        upload(fileName);
     }
 
     private int ensureUids(Context activity, ContentResolver resolver, AndroidCalendar cal) {
