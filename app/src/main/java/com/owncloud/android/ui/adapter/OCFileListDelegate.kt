@@ -257,7 +257,7 @@ class OCFileListDelegate(
                     sharedMessageView.text = context.resources.getString(R.string.placeholder_sharedMessage)
                     sharedMessageView.setTextColor(primaryColor)
                 }
-                file.isFolder && file.isEncrypted -> {
+                file.isEncrypted -> {
                     sharedIconView.visibility = View.GONE;
                 }
                 else -> {
