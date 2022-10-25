@@ -27,7 +27,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.text.TextUtils
 import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
@@ -74,14 +73,26 @@ class FilesUploadWorker(
 
     override fun doWork(): Result {
         val accountName = inputData.getString(ACCOUNT)
-        if (TextUtils.isEmpty(accountName)) {
+        if (accountName.isNullOrEmpty()) {
             return Result.failure() // user account is needed
         }
 
+        // get all pending uploads
+        var currentAndPendingUploadsForAccount =
+            uploadsStorageManager.getCurrentAndPendingUploadsForAccount(accountName)
+        while (currentAndPendingUploadsForAccount.isNotEmpty()) {
+            handlePendingUploads(currentAndPendingUploadsForAccount, accountName)
+            currentAndPendingUploadsForAccount =
+                uploadsStorageManager.getCurrentAndPendingUploadsForAccount(accountName)
+        }
+
+        return Result.success()
+    }
+
+    private fun handlePendingUploads(uploads: Array<OCUpload>, accountName: String) {
         val user = userAccountManager.getUser(accountName)
 
-        // get all pending uploads
-        for (upload in uploadsStorageManager.getCurrentAndPendingUploadsForAccount(accountName!!)) {
+        for (upload in uploads) {
             // create upload file operation
             if (user.isPresent) {
                 val uploadFileOperation = createUploadFileOperation(upload, user.get())
@@ -100,8 +111,6 @@ class FilesUploadWorker(
                 uploadsStorageManager.removeUpload(upload.uploadId)
             }
         }
-
-        return Result.success()
     }
 
     /**
