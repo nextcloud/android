@@ -94,7 +94,7 @@ class StackRemoteViewsFactory(
     private var hasLoadMore = false
 
     override fun onCreate() {
-        Log_OC.d(this, "onCreate")
+        Log_OC.d(TAG, "onCreate")
         val appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)
 
         widgetConfiguration = widgetRepository.getWidget(appWidgetId)
@@ -110,23 +110,27 @@ class StackRemoteViewsFactory(
     override fun onDataSetChanged() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val client = clientFactory.createNextcloudClient(widgetConfiguration.user.get())
-                val result =
-                    DashboardGetWidgetItemsRemoteOperation(widgetConfiguration.widgetId, LIMIT_SIZE).execute(client)
-                widgetItems = result.resultData[widgetConfiguration.widgetId] ?: emptyList()
+                if (widgetConfiguration.user.isPresent) {
+                    val client = clientFactory.createNextcloudClient(widgetConfiguration.user.get())
+                    val result =
+                        DashboardGetWidgetItemsRemoteOperation(widgetConfiguration.widgetId, LIMIT_SIZE).execute(client)
+                    widgetItems = result.resultData[widgetConfiguration.widgetId] ?: emptyList()
 
-                hasLoadMore = widgetConfiguration.moreButton != null &&
-                    widgetItems.size == LIMIT_SIZE
+                    hasLoadMore = widgetConfiguration.moreButton != null &&
+                        widgetItems.size == LIMIT_SIZE
+                } else {
+                    Log_OC.w(TAG, "User not present for widget update")
+                }
             } catch (e: ClientFactory.CreationException) {
-                Log_OC.e(this, "Error updating widget", e)
+                Log_OC.e(TAG, "Error updating widget", e)
             }
         }
 
-        Log_OC.d("WidgetService", "onDataSetChanged")
+        Log_OC.d(TAG, "onDataSetChanged")
     }
 
     override fun onDestroy() {
-        Log_OC.d("WidgetService", "onDestroy")
+        Log_OC.d(TAG, "onDestroy")
 
         widgetItems = emptyList()
     }
@@ -195,7 +199,7 @@ class StackRemoteViewsFactory(
                         setImageViewBitmap(R.id.icon, glide.get())
                     }
                 } catch (e: Exception) {
-                    Log_OC.d(this, "Error setting icon", e)
+                    Log_OC.d(TAG, "Error setting icon", e)
                     setImageViewResource(R.id.icon, R.drawable.ic_dashboard)
                 }
             }
@@ -238,6 +242,7 @@ class StackRemoteViewsFactory(
     }
 
     companion object {
+        private val TAG = DashboardWidgetService::class.simpleName
         const val LIMIT_SIZE = 14
     }
 }
