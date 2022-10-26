@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-    <string name="about_android">%1$s Застосунок Android</string>
+    <string name="about_android"> Застосунок %1$s для Android</string>
     <string name="about_title">Про</string>
     <string name="about_version">Версія %1$s </string>
     <string name="about_version_with_build">версія %1$s, збірка #%2$s</string>
@@ -37,7 +37,7 @@
     <string name="advanced_settings">Додаткові налаштування</string>
     <string name="allow_resharing">Можете ділитися</string>
     <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
-    <string name="appbar_search_in">Пошук у %s</string>
+    <string name="appbar_search_in">Пошук %s</string>
     <string name="associated_account_not_found">Пов\'язаний обліковий запис не знайдено!</string>
     <string name="auth_access_failed">Доступ невдалий: %1$s</string>
     <string name="auth_account_does_not_exist">Обліковий запис все ще не доданий на цьому пристрої</string>
@@ -178,7 +178,7 @@
     <string name="could_not_retrieve_url">Неможливо отримати посилання</string>
     <string name="create">Створити</string>
     <string name="create_dir_fail_msg">Неможливо створити каталог</string>
-    <string name="create_new">Створити</string>
+    <string name="create_new">Додати</string>
     <string name="create_new_document">Створити новий документ</string>
     <string name="create_new_folder">Створити новий каталог</string>
     <string name="create_new_presentation">Створити нову презентацію</string>
@@ -227,7 +227,7 @@
     <string name="drawer_item_gallery">Зображення та відео</string>
     <string name="drawer_item_home">Старт</string>
     <string name="drawer_item_notifications">Сповіщення</string>
-    <string name="drawer_item_on_device">На пристрої</string>
+    <string name="drawer_item_on_device">на пристрої</string>
     <string name="drawer_item_recently_modified">Нещодавно змінені</string>
     <string name="drawer_item_shared">Спільні</string>
     <string name="drawer_item_trashbin">Кошик</string>
@@ -290,7 +290,7 @@
     <string name="etm_transfer_remote_path">Віддалений шлях</string>
     <string name="etm_transfer_type">Передати</string>
     <string name="etm_transfer_type_download">Завантажити</string>
-    <string name="etm_transfer_type_upload">Відвантажити</string>
+    <string name="etm_transfer_type_upload">Завантажити</string>
     <string name="fab_label">Додати або завантажити</string>
     <string name="failed_to_download">Не вдалося передати файл до менеджера звантажень</string>
     <string name="failed_to_print">Не вдалося роздрукувати файл</string>
@@ -353,7 +353,7 @@
     <string name="file_version_restored_error">Помилка під час відновлення версії файлу!</string>
     <string name="file_version_restored_successfully">Успішно відновлено версію файлу.</string>
     <string name="filedetails_download">Завантажити</string>
-    <string name="filedetails_export">Експорт</string>
+    <string name="filedetails_export">Експортувати</string>
     <string name="filedetails_renamed_in_upload_msg">Під час завантаження назву файлу було змінено %1$s</string>
     <string name="filedetails_sync_file">Синхронізація</string>
     <string name="filedisplay_no_file_selected">Жодного файлу обрано</string>
@@ -368,7 +368,7 @@
     <string name="folder_already_exists">Каталог вже існує</string>
     <string name="folder_confirm_create">Створити</string>
     <string name="folder_list_empty_headline">Тут немає папок</string>
-    <string name="folder_picker_choose_button_text">Обрати</string>
+    <string name="folder_picker_choose_button_text">Вибрати</string>
     <string name="forbidden_permissions">У вас відсутні повноваження %s</string>
     <string name="forbidden_permissions_copy">скопіювати даний файл</string>
     <string name="forbidden_permissions_create">щоб створити цей файл</string>
@@ -417,7 +417,7 @@
     <string name="lock_expiration_info">Спливає: %1$s</string>
     <string name="lock_file">Заблокувати файл</string>
     <string name="locked_by">Заблоковано %1$s</string>
-    <string name="locked_by_app">Заблоковано застосунком %1$s</string>
+    <string name="locked_by_app">Заблоковано %1$s</string>
     <string name="log_send_mail_subject">%1$s Журнали застосунку для Android</string>
     <string name="log_send_no_mail_app">Не знайдено застосунку для надсилання журналу. Будь ласка, встановіть поштовий клієнт.</string>
     <string name="login">Увійти</string>
@@ -449,8 +449,8 @@
     <string name="menu_item_sort_by_date_oldest_first">Старіші спочатку</string>
     <string name="menu_item_sort_by_name_a_z">А - Я</string>
     <string name="menu_item_sort_by_name_z_a">Я - А</string>
-    <string name="menu_item_sort_by_size_biggest_first">Найбільші за розміром спочатку</string>
-    <string name="menu_item_sort_by_size_smallest_first">Найменші за розміром спочатку</string>
+    <string name="menu_item_sort_by_size_biggest_first">Найбільші на початку</string>
+    <string name="menu_item_sort_by_size_smallest_first">Найменші на початку</string>
     <string name="more">Докладно</string>
     <string name="move_file_error">Виникла помилка при спробі перемістити файл або каталог</string>
     <string name="move_file_invalid_into_descendent">Неможливо перемістити каталог до одного з вкладених підкаталогів</string>
@@ -494,7 +494,7 @@
     <string name="notification_channel_upload_name_short">Завантаження</string>
     <string name="notification_icon">Значок сповіщень</string>
     <string name="notifications_no_results_headline">Немає сповіщень</string>
-    <string name="notifications_no_results_message">Будь ласка, перегляньте ще раз пізніше.</string>
+    <string name="notifications_no_results_message">Будь ласка, перейдіть сюди пізніше.</string>
     <string name="offline_mode">Відсутнє з\'єднання з мережею</string>
     <string name="oneHour">1 година</string>
     <string name="online">Онлайн</string>
@@ -503,7 +503,7 @@
     <string name="overflow_menu">Більше параметрів</string>
     <string name="pass_code_configure_your_pass_code">Зазначте пароль</string>
     <string name="pass_code_configure_your_pass_code_explanation">Щоразу під час запуску застосунку вам потрібно буде зазначати пароль</string>
-    <string name="pass_code_enter_pass_code">Будь ласка, введіть пароль</string>
+    <string name="pass_code_enter_pass_code">Введіть пароль на застосунок</string>
     <string name="pass_code_mismatch">Парольні фрази не збігаються</string>
     <string name="pass_code_reenter_your_pass_code">Будь ласка, зазначте пароль ще раз</string>
     <string name="pass_code_remove_your_pass_code">Вилучити пароль</string>
@@ -562,13 +562,13 @@
     <string name="prefs_lock_none">Нічого</string>
     <string name="prefs_lock_title">Захистити застосунок</string>
     <string name="prefs_lock_using_device_credentials">Розблокування пристрою</string>
-    <string name="prefs_lock_using_passcode">Пароль</string>
+    <string name="prefs_lock_using_passcode">Пароль на застосунок</string>
     <string name="prefs_manage_accounts">Облікові записи</string>
     <string name="prefs_recommend">Рекомендувати застосунок</string>
     <string name="prefs_show_hidden_files">Показувати приховані файли</string>
     <string name="prefs_sourcecode">Отримати вихідний код</string>
     <string name="prefs_storage_path">Місце збереження даних</string>
-    <string name="prefs_sycned_folders_summary">Керуйте каталогами для автоматичного завантаження</string>
+    <string name="prefs_sycned_folders_summary">Налаштуйте каталоги, які будуть автоматично завантажуватися</string>
     <string name="prefs_synced_folders_local_path_title">Каталог на пристрої</string>
     <string name="prefs_synced_folders_remote_path_title">Віддалений каталог</string>
     <string name="prefs_theme_title">Тема</string>
@@ -623,7 +623,7 @@
     <string name="screenshot_06_davdroid_subline">Синхронізувати з DAVx5</string>
     <string name="search_error">Помилка під час отримання результатів</string>
     <string name="select_all">Вибрати все</string>
-    <string name="select_media_folder">Встановити каталог для зображень та відео</string>
+    <string name="select_media_folder">Налаштувати місце збереження зображень та відео</string>
     <string name="select_one_template">Будь ласка, виберіть один шаблон.</string>
     <string name="select_template">Виберіть шаблон</string>
     <string name="send">Надіслати</string>
@@ -651,8 +651,8 @@
     <string name="share_link_file_error">Помилка під час надання спільного доступу до файлу чи каталогу.</string>
     <string name="share_link_file_no_exist">Неможливо надати спільний доступ. Будь ласка, перевірте, чи файл існує.</string>
     <string name="share_link_forbidden_permissions">для надання доступу до файла</string>
-    <string name="share_link_optional_password_title">Зазначте пароль (необов\'язково)</string>
-    <string name="share_link_password_title">Ввести пароль</string>
+    <string name="share_link_optional_password_title">Введіть пароль (необов\'язково)</string>
+    <string name="share_link_password_title">Введіть пароль</string>
     <string name="share_link_with_label">Поділитись посиланням (%1$s)</string>
     <string name="share_no_expiration_date_label">Встановити термін дії</string>
     <string name="share_no_password_title">Встановити пароль</string>
@@ -687,8 +687,8 @@
     <string name="sort_by_modification_date_descending">Старіші спочатку</string>
     <string name="sort_by_name_ascending">А--Я</string>
     <string name="sort_by_name_descending">Я--А</string>
-    <string name="sort_by_size_ascending">Найменші за розміром спочатку</string>
-    <string name="sort_by_size_descending">Найбільші за розміром спочатку</string>
+    <string name="sort_by_size_ascending">Найменші на початку</string>
+    <string name="sort_by_size_descending">Найбільші на початку</string>
     <string name="ssl_validator_btn_details_hide">Сховати</string>
     <string name="ssl_validator_btn_details_see">Деталі</string>
     <string name="ssl_validator_header">Неможливо перевірити ідентифікатор сервера.</string>
@@ -797,7 +797,7 @@
     <string name="updating_share_failed">Не вдалося оновити спільний ресурс.</string>
     <string name="upload_cannot_create_file">Неможливо створити файл на пристрої</string>
     <string name="upload_chooser_title">Завантажити з…</string>
-    <string name="upload_content_from_other_apps">Завантажити вміст з інших застосунків</string>
+    <string name="upload_content_from_other_apps">Вибрати з інших застосунків</string>
     <string name="upload_direct_camera_upload">Сфотографувати</string>
     <string name="upload_file_dialog_filename">Ім\'я файлу</string>
     <string name="upload_file_dialog_filetype">Тип файлу</string>
@@ -805,7 +805,7 @@
     <string name="upload_file_dialog_filetype_internet_shortcut">Ярлик файлу в інтернеті (%s)</string>
     <string name="upload_file_dialog_filetype_snippet_text">Текстовий файл(.txt)</string>
     <string name="upload_file_dialog_title">Зазначте ім\'я та тип файлу для завантаження</string>
-    <string name="upload_files">Завантажити файли</string>
+    <string name="upload_files">Завантажити файл</string>
     <string name="upload_item_action_button">Кнопка завантаження</string>
     <string name="upload_list_delete">Вилучити</string>
     <string name="upload_list_empty_headline">Ви ще нічого не завантажили</string>
@@ -820,7 +820,7 @@
     <string name="upload_sync_conflict">Конфлікт синхронізації, будь ласка, вирішіть вручну</string>
     <string name="upload_unknown_error">Невідома помилка</string>
     <string name="uploader_btn_alternative_text">Вибрати</string>
-    <string name="uploader_btn_upload_text">Відвантажити</string>
+    <string name="uploader_btn_upload_text">Завантажити</string>
     <string name="uploader_error_message_no_file_to_upload">Отримані дані не містили вірного файлу.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s не дозволено читати отриманий файл</string>
     <string name="uploader_error_message_source_file_not_copied">Неможливо скопіювати файл до тимчасового каталогу. Спробуйте знову</string>
