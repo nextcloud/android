@@ -52,7 +52,8 @@ class FilesUploadHelper {
         createdBy: Int,
         requiresWifi: Boolean,
         requiresCharging: Boolean,
-        nameCollisionPolicy: NameCollisionPolicy
+        nameCollisionPolicy: NameCollisionPolicy,
+        localBehavior: Int
     ) {
         for (i in localPaths.indices) {
             OCUpload(localPaths[i], remotePaths[i], user.accountName).apply {
@@ -62,6 +63,7 @@ class FilesUploadHelper {
                 uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
                 this.createdBy = createdBy
                 isCreateRemoteFolder = createRemoteFolder
+                localAction = localBehavior
             }.also {
                 uploadsStorageManager.storeUpload(it)
             }

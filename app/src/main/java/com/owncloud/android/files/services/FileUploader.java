@@ -912,19 +912,7 @@ public class FileUploader extends Service
         boolean requiresCharging,
         NameCollisionPolicy nameCollisionPolicy
                                     ) {
-        Intent intent = new Intent(context, FileUploader.class);
 
-        intent.putExtra(FileUploader.KEY_ACCOUNT, user.toPlatformAccount());
-        intent.putExtra(FileUploader.KEY_USER, user);
-        intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
-        intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
-        intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
-        intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
-        intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
-        intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
-        intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
-        intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
-        intent.putExtra(FileUploader.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
 
         if (useFilesUploadWorker(context)) {
             new FilesUploadHelper().uploadNewFiles(user,
@@ -934,11 +922,28 @@ public class FileUploader extends Service
                                                    createdBy,
                                                    requiresWifi,
                                                    requiresCharging,
-                                                   nameCollisionPolicy);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(intent);
+                                                   nameCollisionPolicy,
+                                                   behaviour);
         } else {
-            context.startService(intent);
+            Intent intent = new Intent(context, FileUploader.class);
+
+            intent.putExtra(FileUploader.KEY_ACCOUNT, user.toPlatformAccount());
+            intent.putExtra(FileUploader.KEY_USER, user);
+            intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
+            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
+            intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
+            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
+            intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
+            intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
+            intent.putExtra(FileUploader.KEY_WHILE_ON_WIFI_ONLY, requiresWifi);
+            intent.putExtra(FileUploader.KEY_WHILE_CHARGING_ONLY, requiresCharging);
+            intent.putExtra(FileUploader.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(intent);
+            } else {
+                context.startService(intent);
+            }
         }
     }
 
