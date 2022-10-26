@@ -74,6 +74,7 @@ class FilesUploadWorker(
     override fun doWork(): Result {
         val accountName = inputData.getString(ACCOUNT)
         if (accountName.isNullOrEmpty()) {
+            Log_OC.w(TAG, "User was null for file upload worker")
             return Result.failure() // user account is needed
         }
 
@@ -81,11 +82,13 @@ class FilesUploadWorker(
         var currentAndPendingUploadsForAccount =
             uploadsStorageManager.getCurrentAndPendingUploadsForAccount(accountName)
         while (currentAndPendingUploadsForAccount.isNotEmpty()) {
+            Log_OC.d(TAG, "Handling ${currentAndPendingUploadsForAccount.size} uploads for account $accountName")
             handlePendingUploads(currentAndPendingUploadsForAccount, accountName)
             currentAndPendingUploadsForAccount =
                 uploadsStorageManager.getCurrentAndPendingUploadsForAccount(accountName)
         }
 
+        Log_OC.d(TAG, "No more pending uploads for account $accountName, stopping work")
         return Result.success()
     }
 
