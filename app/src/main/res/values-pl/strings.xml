@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Dodaj do %1$s</string>
     <string name="advanced_settings">Ustawienia zaawansowane</string>
     <string name="allow_resharing">Zezwalaj na udostępnianie dalej</string>
+    <string name="app_widget_description">Pokazuje jeden widżet z pulpitu nawigacyjnego</string>
     <string name="appbar_search_in">Szukaj w %s</string>
     <string name="associated_account_not_found">Nie znaleziono powiązanego konta!</string>
     <string name="auth_access_failed">Dostęp nieudany: %1$s</string>
@@ -87,12 +88,14 @@
     <string name="calendars">Kalendarze</string>
     <string name="certificate_load_problem">Problem podczas ładowania certyfikatu.</string>
     <string name="changelog_dev_version">Dziennik zmian wersji dev</string>
+    <string name="check_back_later_or_reload">Sprawdź później lub załaduj ponownie.</string>
     <string name="checkbox">Pole checkbox</string>
     <string name="choose_local_folder">Wybierz katalog lokalny…</string>
     <string name="choose_location">Wybierz lokację</string>
     <string name="choose_remote_folder">Wybierz katalog zdalny…</string>
     <string name="choose_template_helper_text">Wybierz szablon i wprowadź nazwę pliku.</string>
     <string name="choose_which_file">Wybierz, który plik chcesz zachować!</string>
+    <string name="choose_widget">Wybierz widżet</string>
     <string name="clear_notifications_failed">Wyczyszczenie powiadomień nie powiodło się.</string>
     <string name="clear_status_message">Wyczyść komunikat statusu</string>
     <string name="clear_status_message_after">Wyczyść komunikat statusu po</string>
@@ -386,6 +389,9 @@
     <string name="hint_password">Hasło</string>
     <string name="host_not_available">Serwer jest niedostępny</string>
     <string name="host_your_own_server">Hostuj własny serwer</string>
+    <string name="icon_for_empty_list">Ikona pustej listy</string>
+    <string name="icon_of_dashboard_widget">Ikona widżetu pulpitu nawigacyjnego</string>
+    <string name="icon_of_widget_entry">Ikona wpisu widżetu</string>
     <string name="in_folder">w katalogu %1$s</string>
     <string name="instant_upload_existing">Wyślij również istniejące pliki</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
@@ -464,6 +470,7 @@
     <string name="no_browser_available">Brak aplikacji obsługującej odnośniki</string>
     <string name="no_calendar_exists">Brak kalendarza</string>
     <string name="no_email_app_available">Brak dostępnej aplikacji do obsługi adresu e-mail</string>
+    <string name="no_items">Brak elementu</string>
     <string name="no_mutliple_accounts_allowed">Dozwolone jest tylko jedno konto</string>
     <string name="no_pdf_app_available">Brak aplikacji obsługującej PDF</string>
     <string name="no_send_app">Brak dostępnej aplikacji do wysyłania wybranych plików</string>
@@ -580,6 +587,7 @@
     <string name="recommend_subject">Wypróbuj %1$s na swoim urządzeniu!</string>
     <string name="recommend_text">Chciałbym zaprosić Ciebie do użytkowania z %1$s na swoim urządzeniu.\nPobierz stąd: %2$s</string>
     <string name="recommend_urls">%1$s lub %2$s</string>
+    <string name="refresh_content">Odśwież zawartość</string>
     <string name="reload">Przeładuj</string>
     <string name="remote">(zdalne)</string>
     <string name="remote_file_fetch_failed">Nie znaleziono pliku!</string>
@@ -871,6 +879,7 @@
     <string name="userinfo_no_info_text">Dodaj nazwę, zdjęcie profilowe i dane kontaktowe do swojego profilu.</string>
     <string name="username">Nazwa użytkownika</string>
     <string name="version_dev_download">Pobierz</string>
+    <string name="video_overlay_icon">Ikona nakładki wideo</string>
     <string name="wait_a_moment">Proszę czekać…</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego magazynu</string>
@@ -878,6 +887,7 @@
     <string name="whats_new_skip">Pomiń</string>
     <string name="whats_new_title">Co nowego w %1$s</string>
     <string name="whats_your_status">Jaki jest Twój status?</string>
+    <string name="widgets_not_available">Widżety są dostępne tylko w wersji %1$s 25 lub nowszej</string>
     <string name="widgets_not_available_title">Niedostępny</string>
     <string name="write_email">Wyślij e-mail</string>
     <string name="wrong_storage_path">Katalog przechowywania danych nie istnieje!</string>
