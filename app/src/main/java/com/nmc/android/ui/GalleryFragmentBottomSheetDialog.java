@@ -110,8 +110,6 @@ public class GalleryFragmentBottomSheetDialog extends BottomSheetDialog {
 
         binding.hideVideo.setOnClickListener(v -> {
             //actions.hideVideos(isHideVideoClicked);
-
-
             if (!preferences.getHideVideoClicked() && !preferences.getHideImageClicked()) {
                 isHideVideoClicked = true;
                 binding.hideVideoImageView.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.ic_no_video_camera));
