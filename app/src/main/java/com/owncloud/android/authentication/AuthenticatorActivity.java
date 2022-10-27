@@ -85,6 +85,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nmc.android.ui.LoginPrivacySettingsActivity;
 import com.nmc.android.utils.AdjustSdkUtils;
 import com.nmc.android.utils.TealiumSdkUtils;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountSetupBinding;
@@ -297,6 +298,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (getIntent().getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
             webViewLoginMethod = true;
             webloginUrl = getString(R.string.provider_registration_server);
+        }
+        //enabling login url input screen in debug mode
+        //this will be useful in switching the environments during testing
+        else if (BuildConfig.DEBUG) {
+            webViewLoginMethod = false;
         } else {
             webViewLoginMethod = !TextUtils.isEmpty(getResources().getString(R.string.webview_login_url));
             showWebViewLoginUrl = getResources().getBoolean(R.bool.show_server_url_input);
