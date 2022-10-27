@@ -22,11 +22,17 @@
 
 package com.owncloud.android.files.services
 
+import org.junit.After
 import org.junit.Before
 
 class FileUploadWorkerIT : FileUploaderIT() {
     @Before
-    fun enableWorker() {
+    fun forceUploadWorker() {
         FileUploader.setForceNewUploadWorker(true)
+    }
+
+    @After
+    fun resetForceUploadWorker() {
+        FileUploader.setForceNewUploadWorker(false)
     }
 }

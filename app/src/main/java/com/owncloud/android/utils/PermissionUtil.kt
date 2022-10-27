@@ -31,6 +31,7 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import androidx.annotation.RequiresApi
@@ -213,10 +214,7 @@ object PermissionUtil {
         if (shouldRequestPermission &&
             activity.supportFragmentManager.findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG) == null
         ) {
-            activity.supportFragmentManager.setFragmentResultListener(
-                StoragePermissionDialogFragment.REQUEST_KEY,
-                activity
-            ) { _, resultBundle ->
+            val listener: (requestKey: String, result: Bundle) -> Unit = { _, resultBundle ->
                 val result: StoragePermissionDialogFragment.Result? =
                     resultBundle.getParcelable(StoragePermissionDialogFragment.RESULT_KEY)
                 if (result != null) {
@@ -236,6 +234,14 @@ object PermissionUtil {
                         StoragePermissionDialogFragment.Result.CANCEL -> {}
                     }
                 }
+            }
+
+            activity.runOnUiThread {
+                activity.supportFragmentManager.setFragmentResultListener(
+                    StoragePermissionDialogFragment.REQUEST_KEY,
+                    activity,
+                    listener
+                )
             }
 
             val dialogFragment = StoragePermissionDialogFragment.newInstance(permissionRequired)

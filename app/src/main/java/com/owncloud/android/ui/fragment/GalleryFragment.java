@@ -314,13 +314,15 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     private void runGallerySearchTask() {
-        photoSearchTask = new GallerySearchTask(this,
-                                                accountManager.getUser(),
-                                                mContainerActivity.getStorageManager(),
-                                                startDate,
-                                                endDate,
-                                                limit)
-            .execute();
+        if (mContainerActivity != null) {
+            photoSearchTask = new GallerySearchTask(this,
+                                                    accountManager.getUser(),
+                                                    mContainerActivity.getStorageManager(),
+                                                    startDate,
+                                                    endDate,
+                                                    limit)
+                .execute();
+        }
     }
 
     @Override
