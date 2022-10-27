@@ -25,7 +25,6 @@ package com.nextcloud.client.jobs
 import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Resources
-import android.os.PowerManager.WakeLock
 import android.text.TextUtils
 import androidx.exifinterface.media.ExifInterface
 import androidx.work.Worker
@@ -74,16 +73,12 @@ class FilesSyncWork(
         const val TAG = "FilesSyncJob"
         const val SKIP_CUSTOM = "skipCustom"
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
-        private const val WAKELOCK_TAG_SEPARATION = ":"
-        private const val WAKELOCK_ACQUIRE_TIMEOUT_MS = 10L * 60L * 1000L
     }
 
     override fun doWork(): Result {
-        val wakeLock: WakeLock? = null
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         // If we are in power save mode, better to postpone upload
         if (powerManagementService.isPowerSavingEnabled && !overridePowerSaving) {
-            wakeLock?.release()
             return Result.success()
         }
         val resources = context.resources
@@ -96,7 +91,7 @@ class FilesSyncWork(
             powerManagementService
         )
         FilesSyncHelper.insertAllDBEntries(preferences, clock, skipCustom)
-        // Create all the providers we'll needq
+        // Create all the providers we'll need
         val filesystemDataProvider = FilesystemDataProvider(contentResolver)
         val syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
         val currentLocale = resources.configuration.locale
@@ -115,7 +110,6 @@ class FilesSyncWork(
                 )
             }
         }
-        wakeLock?.release()
         return Result.success()
     }
 
@@ -129,11 +123,9 @@ class FilesSyncWork(
         sFormatter: SimpleDateFormat,
         syncedFolder: SyncedFolder
     ) {
-        var remotePath: String?
-        var subfolderByDate: Boolean
-        var uploadAction: Int?
-        var needsCharging: Boolean
-        var needsWifi: Boolean
+        val uploadAction: Int?
+        val needsCharging: Boolean
+        val needsWifi: Boolean
         var file: File
         val accountName = syncedFolder.account
         val optionalUser = userAccountManager.getUser(accountName)
@@ -148,54 +140,88 @@ class FilesSyncWork(
         }
         val paths = filesystemDataProvider.getFilesForUpload(
             syncedFolder.localPath,
-            java.lang.Long.toString(syncedFolder.id)
+            syncedFolder.id.toString()
         )
-        for (path in paths) {
+
+        if (paths.size == 0) {
+            return
+        }
+
+        val pathsAndMimes = paths.map { path ->
             file = File(path)
-            val lastModificationTime = calculateLastModificationTime(file, syncedFolder, sFormatter)
-            val mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.absolutePath)
-            if (lightVersion) {
-                needsCharging = resources.getBoolean(R.bool.syncedFolder_light_on_charging)
-                needsWifi = arbitraryDataProvider!!.getBooleanValue(
-                    accountName,
-                    SettingsActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI
-                )
-                val uploadActionString = resources.getString(R.string.syncedFolder_light_upload_behaviour)
-                uploadAction = getUploadAction(uploadActionString)
-                subfolderByDate = resources.getBoolean(R.bool.syncedFolder_light_use_subfolders)
-                remotePath = resources.getString(R.string.syncedFolder_remote_folder)
-            } else {
-                needsCharging = syncedFolder.isChargingOnly
-                needsWifi = syncedFolder.isWifiOnly
-                uploadAction = syncedFolder.uploadAction
-                subfolderByDate = syncedFolder.isSubfolderByDate
-                remotePath = syncedFolder.remotePath
-            }
-            FileUploader.uploadNewFile(
-                context,
-                user,
-                file.absolutePath,
-                FileStorageUtils.getInstantUploadFilePath(
-                    file,
-                    currentLocale,
-                    remotePath,
-                    syncedFolder.localPath,
-                    lastModificationTime,
-                    subfolderByDate
-                ),
-                uploadAction!!,
-                mimeType,
-                true, // create parent folder if not existent
-                UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
-                needsWifi,
-                needsCharging,
-                syncedFolder.nameCollisionPolicy
-            )
-            filesystemDataProvider.updateFilesystemFileAsSentForUpload(
-                path,
-                java.lang.Long.toString(syncedFolder.id)
+            val localPath = file.absolutePath
+            Triple(
+                localPath,
+                getRemotePath(file, syncedFolder, sFormatter, lightVersion, resources, currentLocale),
+                MimeTypeUtil.getBestMimeTypeByFilename(localPath)
             )
         }
+        val localPaths = pathsAndMimes.map { it.first }.toTypedArray()
+        val remotePaths = pathsAndMimes.map { it.second }.toTypedArray()
+        val mimetypes = pathsAndMimes.map { it.third }.toTypedArray()
+
+        if (lightVersion) {
+            needsCharging = resources.getBoolean(R.bool.syncedFolder_light_on_charging)
+            needsWifi = arbitraryDataProvider!!.getBooleanValue(
+                accountName,
+                SettingsActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI
+            )
+            val uploadActionString = resources.getString(R.string.syncedFolder_light_upload_behaviour)
+            uploadAction = getUploadAction(uploadActionString)
+        } else {
+            needsCharging = syncedFolder.isChargingOnly
+            needsWifi = syncedFolder.isWifiOnly
+            uploadAction = syncedFolder.uploadAction
+        }
+        FileUploader.uploadNewFile(
+            context,
+            user,
+            localPaths,
+            remotePaths,
+            mimetypes,
+            uploadAction!!,
+            true, // create parent folder if not existent
+            UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
+            needsWifi,
+            needsCharging,
+            syncedFolder.nameCollisionPolicy
+        )
+
+        for (path in paths) {
+            // TODO batch update
+            filesystemDataProvider.updateFilesystemFileAsSentForUpload(
+                path,
+                syncedFolder.id.toString()
+            )
+        }
+    }
+
+    private fun getRemotePath(
+        file: File,
+        syncedFolder: SyncedFolder,
+        sFormatter: SimpleDateFormat,
+        lightVersion: Boolean,
+        resources: Resources,
+        currentLocale: Locale
+    ): String {
+        val lastModificationTime = calculateLastModificationTime(file, syncedFolder, sFormatter)
+        val remoteFolder: String
+        val useSubfolders: Boolean
+        if (lightVersion) {
+            useSubfolders = resources.getBoolean(R.bool.syncedFolder_light_use_subfolders)
+            remoteFolder = resources.getString(R.string.syncedFolder_remote_folder)
+        } else {
+            useSubfolders = syncedFolder.isSubfolderByDate
+            remoteFolder = syncedFolder.remotePath
+        }
+        return FileStorageUtils.getInstantUploadFilePath(
+            file,
+            currentLocale,
+            remoteFolder,
+            syncedFolder.localPath,
+            lastModificationTime,
+            useSubfolders
+        )
     }
 
     private fun hasExif(file: File): Boolean {
