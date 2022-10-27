@@ -364,6 +364,10 @@ public class UploadsStorageManager extends Observable {
     }
 
     private OCUpload[] getUploads(@Nullable String selection, @Nullable String... selectionArgs) {
+        return getUploads(0, selection, selectionArgs);
+    }
+
+    private OCUpload[] getUploads(final int limit, @Nullable String selection, @Nullable String... selectionArgs) {
         ArrayList<OCUpload> uploads = new ArrayList<>();
         final long pageSize = 100;
         long page = 0;
@@ -426,7 +430,11 @@ public class UploadsStorageManager extends Observable {
             } else {
                 break;
             }
-        } while (rowsRead > 0);
+        } while (rowsRead > 0 && (limit <= 0 || rowsRead < limit));
+
+        if (limit > 0 && uploads.size() > limit) {
+            uploads = new ArrayList<>(uploads.subList(0, limit));
+        }
 
         Log_OC.v(TAG, String.format(Locale.ENGLISH,
                                     "getUploads() returning %d (%d) rows after reading %d pages",
@@ -434,6 +442,7 @@ public class UploadsStorageManager extends Observable {
                                     uploads.size(),
                                     page
                                    ));
+
 
         return uploads.toArray(new OCUpload[0]);
     }
@@ -475,7 +484,11 @@ public class UploadsStorageManager extends Observable {
     }
 
     public OCUpload[] getCurrentAndPendingUploadsForAccount(final @NonNull String accountName) {
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
+        return getCurrentAndPendingUploadsForAccount(0, accountName);
+    }
+
+    public OCUpload[] getCurrentAndPendingUploadsForAccount(final int limit, final @NonNull String accountName) {
+        return getUploads(limit, ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
                               " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
                               "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
                               " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
