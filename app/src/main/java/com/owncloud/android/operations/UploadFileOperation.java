@@ -388,13 +388,7 @@ public class UploadFileOperation extends SyncOperation {
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
 
-        for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
-            if (ocUpload.getUploadId() == getOCUploadId()) {
-                ocUpload.setFileSize(0);
-                uploadsStorageManager.updateUpload(ocUpload);
-                break;
-            }
-        }
+        updateSize(0);
 
         String remoteParentPath = new File(getRemotePath()).getParent();
         remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
@@ -567,13 +561,8 @@ public class UploadFileOperation extends SyncOperation {
                 size = new File(mFile.getStoragePath()).length();
             }
 
-            for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
-                if (ocUpload.getUploadId() == getOCUploadId()) {
-                    ocUpload.setFileSize(size);
-                    uploadsStorageManager.updateUpload(ocUpload);
-                    break;
-                }
-            }
+
+            updateSize(size);
 
             /// perform the upload
             if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
@@ -810,13 +799,7 @@ public class UploadFileOperation extends SyncOperation {
                 size = new File(mFile.getStoragePath()).length();
             }
 
-            for (OCUpload ocUpload : uploadsStorageManager.getAllStoredUploads()) {
-                if (ocUpload.getUploadId() == getOCUploadId()) {
-                    ocUpload.setFileSize(size);
-                    uploadsStorageManager.updateUpload(ocUpload);
-                    break;
-                }
-            }
+            updateSize(size);
 
             // perform the upload
             if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
@@ -899,6 +882,14 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         return result;
+    }
+
+    private void updateSize(long size) {
+        OCUpload ocUpload = uploadsStorageManager.getUploadById(getOCUploadId());
+        if(ocUpload != null){
+            ocUpload.setFileSize(size);
+            uploadsStorageManager.updateUpload(ocUpload);
+        }
     }
 
     private void logResult(RemoteOperationResult result, String sourcePath, String targetPath) {
