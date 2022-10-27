@@ -738,6 +738,8 @@ public class UploadFileOperation extends SyncOperation {
         File originalFile = new File(mOriginalStoragePath);
         File expectedFile = null;
         FileLock fileLock = null;
+        FileChannel channel = null;
+
         long size;
 
         try {
@@ -768,7 +770,6 @@ public class UploadFileOperation extends SyncOperation {
 
             final Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
-            FileChannel channel = null;
             try {
                 channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
                 fileLock = channel.tryLock();
@@ -856,6 +857,14 @@ public class UploadFileOperation extends SyncOperation {
                     fileLock.release();
                 } catch (IOException e) {
                     Log_OC.e(TAG, "Failed to unlock file with path " + mOriginalStoragePath);
+                }
+            }
+
+            if (channel != null) {
+                try {
+                    channel.close();
+                } catch (IOException e) {
+                    Log_OC.w(TAG, "Failed to close file channel");
                 }
             }
 
