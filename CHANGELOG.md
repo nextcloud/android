@@ -1,3 +1,11 @@
+## 3.22.3 RC1 (October 27, 2022)
+
+- Bug fixes
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/76
+
 ## 3.21.2 (September 1, 2022)
 
 - Bug fixes
