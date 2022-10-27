@@ -400,7 +400,7 @@
     <string name="hint_password">Password</string>
     <string name="host_not_available">Server not available</string>
     <string name="host_your_own_server">Host your own server</string>
-    <string name="icon_for_empty_list">icon for empty list</string>
+    <string name="icon_for_empty_list">Icon for empty list</string>
     <string name="icon_of_dashboard_widget">Icon of dashboard widget</string>
     <string name="icon_of_widget_entry">Icon of widget entry</string>
     <string name="in_folder">in folder %1$s</string>
@@ -893,7 +893,7 @@
     <string name="userinfo_no_info_text">Add name, picture and contact details on your profile page.</string>
     <string name="username">Username</string>
     <string name="version_dev_download">Download</string>
-    <string name="video_overlay_icon">video overlay icon</string>
+    <string name="video_overlay_icon">Video overlay icon</string>
     <string name="wait_a_moment">Wait a moment…</string>
     <string name="wait_checking_credentials">Checking stored credentials</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
