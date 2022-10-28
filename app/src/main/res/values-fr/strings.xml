@@ -391,7 +391,6 @@ Attention la suppression est irréversible.</string>
     <string name="hint_password">Mot de passe</string>
     <string name="host_not_available">Serveur indisponible</string>
     <string name="host_your_own_server">Hébergez votre propre serveur</string>
-    <string name="icon_for_empty_list">icône pour liste vide</string>
     <string name="icon_of_dashboard_widget">Icône du widget du tableau de bord</string>
     <string name="icon_of_widget_entry">Icône de l\'entrée du widget</string>
     <string name="in_folder">dans le dossier %1$s</string>
@@ -881,7 +880,6 @@ Attention la suppression est irréversible.</string>
     <string name="userinfo_no_info_text">Ajouter le nom, la photo et les coordonnées sur votre page de profil.</string>
     <string name="username">Nom d\'utilisateur</string>
     <string name="version_dev_download">Télécharger</string>
-    <string name="video_overlay_icon">icône d\'incrustation vidéo</string>
     <string name="wait_a_moment">Veuillez patienter…</string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>

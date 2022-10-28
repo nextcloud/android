@@ -389,7 +389,6 @@
     <string name="hint_password">Wachtwoord</string>
     <string name="host_not_available">Server niet beschikbaar</string>
     <string name="host_your_own_server">Host je eigen server</string>
-    <string name="icon_for_empty_list">pictogram voor lege lijst</string>
     <string name="icon_of_dashboard_widget">Pictogram van dashboard widget</string>
     <string name="icon_of_widget_entry">Pictogram van widget vermelding</string>
     <string name="in_folder">in map %1$s</string>
@@ -879,7 +878,6 @@
     <string name="userinfo_no_info_text">Voeg naam, foto en contact details op je profielpagina toe.</string>
     <string name="username">Gebruikersnaam</string>
     <string name="version_dev_download">Download</string>
-    <string name="video_overlay_icon">video overlay icon</string>
     <string name="wait_a_moment">Wacht even…</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
