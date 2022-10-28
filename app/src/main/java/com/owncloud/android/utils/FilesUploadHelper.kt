@@ -55,8 +55,8 @@ class FilesUploadHelper {
         nameCollisionPolicy: NameCollisionPolicy,
         localBehavior: Int
     ) {
-        for (i in localPaths.indices) {
-            OCUpload(localPaths[i], remotePaths[i], user.accountName).apply {
+        val uploads = localPaths.mapIndexed { index, localPath ->
+            OCUpload(localPath, remotePaths[index], user.accountName).apply {
                 this.nameCollisionPolicy = nameCollisionPolicy
                 isUseWifiOnly = requiresWifi
                 isWhileChargingOnly = requiresCharging
@@ -64,10 +64,9 @@ class FilesUploadHelper {
                 this.createdBy = createdBy
                 isCreateRemoteFolder = createRemoteFolder
                 localAction = localBehavior
-            }.also {
-                uploadsStorageManager.storeUpload(it)
             }
         }
+        uploadsStorageManager.storeUploads(uploads)
         backgroundJobManager.startFilesUploadJob(user)
     }
 
@@ -79,7 +78,7 @@ class FilesUploadHelper {
     ) {
         Log_OC.d(this, "upload updated file")
 
-        for (file in existingFiles) {
+        val uploads = existingFiles.map { file ->
             OCUpload(file, user).apply {
                 fileSize = file.fileLength
                 this.nameCollisionPolicy = nameCollisionPolicy
@@ -88,10 +87,9 @@ class FilesUploadHelper {
                 isUseWifiOnly = false
                 isWhileChargingOnly = false
                 uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
-            }.also {
-                uploadsStorageManager.storeUpload(it)
             }
         }
+        uploadsStorageManager.storeUploads(uploads)
         backgroundJobManager.startFilesUploadJob(user)
     }
 

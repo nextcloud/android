@@ -23,13 +23,18 @@
  */
 package com.owncloud.android.datamodel;
 
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.RemoteException;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.db.UploadResult;
@@ -42,6 +47,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.Observable;
 
@@ -82,6 +88,52 @@ public class UploadsStorageManager extends Observable {
     public long storeUpload(OCUpload ocUpload) {
         Log_OC.v(TAG, "Inserting " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
 
+        ContentValues cv = getContentValues(ocUpload);
+        Uri result = getDB().insert(ProviderTableMeta.CONTENT_URI_UPLOADS, cv);
+
+        Log_OC.d(TAG, "storeUpload returns with: " + result + " for file: " + ocUpload.getLocalPath());
+        if (result == null) {
+            Log_OC.e(TAG, "Failed to insert item " + ocUpload.getLocalPath() + " into upload db.");
+            return -1;
+        } else {
+            long new_id = Long.parseLong(result.getPathSegments().get(1));
+            ocUpload.setUploadId(new_id);
+            notifyObserversNow();
+            return new_id;
+        }
+    }
+
+    public long[] storeUploads(final List<OCUpload> ocUploads) {
+        Log_OC.v(TAG, "Inserting " + ocUploads.size() + " uploads");
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>(ocUploads.size());
+        for (OCUpload ocUpload : ocUploads) {
+            final ContentProviderOperation operation = ContentProviderOperation
+                .newInsert(ProviderTableMeta.CONTENT_URI_UPLOADS)
+                .withValues(getContentValues(ocUpload))
+                .build();
+            operations.add(operation);
+        }
+
+        try {
+            final ContentProviderResult[] contentProviderResults = getDB().applyBatch(MainApp.getAuthority(), operations);
+            final long[] newIds = new long[ocUploads.size()];
+            for (int i = 0; i < contentProviderResults.length; i++) {
+                final ContentProviderResult result = contentProviderResults[i];
+                final long new_id = Long.parseLong(result.uri.getPathSegments().get(1));
+                ocUploads.get(i).setUploadId(new_id);
+                newIds[i] = new_id;
+            }
+            notifyObserversNow();
+            return newIds;
+        } catch (OperationApplicationException | RemoteException e) {
+            Log_OC.e(TAG, "Error inserting uploads", e);
+        }
+
+        return null;
+    }
+
+    @NonNull
+    private ContentValues getContentValues(OCUpload ocUpload) {
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.UPLOADS_LOCAL_PATH, ocUpload.getLocalPath());
         cv.put(ProviderTableMeta.UPLOADS_REMOTE_PATH, ocUpload.getRemotePath());
@@ -96,19 +148,9 @@ public class UploadsStorageManager extends Observable {
         cv.put(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY, ocUpload.isWhileChargingOnly() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY, ocUpload.isUseWifiOnly() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN, ocUpload.getFolderUnlockToken());
-        Uri result = getDB().insert(ProviderTableMeta.CONTENT_URI_UPLOADS, cv);
-
-        Log_OC.d(TAG, "storeUpload returns with: " + result + " for file: " + ocUpload.getLocalPath());
-        if (result == null) {
-            Log_OC.e(TAG, "Failed to insert item " + ocUpload.getLocalPath() + " into upload db.");
-            return -1;
-        } else {
-            long new_id = Long.parseLong(result.getPathSegments().get(1));
-            ocUpload.setUploadId(new_id);
-            notifyObserversNow();
-            return new_id;
-        }
+        return cv;
     }
+
 
     /**
      * Update an upload object in DB.
@@ -322,6 +364,10 @@ public class UploadsStorageManager extends Observable {
     }
 
     private OCUpload[] getUploads(@Nullable String selection, @Nullable String... selectionArgs) {
+        return getUploads(0, selection, selectionArgs);
+    }
+
+    private OCUpload[] getUploads(final int limit, @Nullable String selection, @Nullable String... selectionArgs) {
         ArrayList<OCUpload> uploads = new ArrayList<>();
         final long pageSize = 100;
         long page = 0;
@@ -384,7 +430,11 @@ public class UploadsStorageManager extends Observable {
             } else {
                 break;
             }
-        } while (rowsRead > 0);
+        } while (rowsRead > 0 && (limit <= 0 || rowsRead < limit));
+
+        if (limit > 0 && uploads.size() > limit) {
+            uploads = new ArrayList<>(uploads.subList(0, limit));
+        }
 
         Log_OC.v(TAG, String.format(Locale.ENGLISH,
                                     "getUploads() returning %d (%d) rows after reading %d pages",
@@ -392,6 +442,7 @@ public class UploadsStorageManager extends Observable {
                                     uploads.size(),
                                     page
                                    ));
+
 
         return uploads.toArray(new OCUpload[0]);
     }
@@ -433,7 +484,11 @@ public class UploadsStorageManager extends Observable {
     }
 
     public OCUpload[] getCurrentAndPendingUploadsForAccount(final @NonNull String accountName) {
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
+        return getCurrentAndPendingUploadsForAccount(0, accountName);
+    }
+
+    public OCUpload[] getCurrentAndPendingUploadsForAccount(final int limit, final @NonNull String accountName) {
+        return getUploads(limit, ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
                               " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
                               "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
                               " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
