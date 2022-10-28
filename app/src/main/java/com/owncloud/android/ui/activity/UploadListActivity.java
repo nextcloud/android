@@ -43,6 +43,7 @@ import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.utils.Throttler;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -103,6 +104,8 @@ public class UploadListActivity extends FileActivity {
     @Inject
     ViewThemeUtils viewThemeUtils;
 
+    @Inject Throttler throttler;
+
     private UploadListLayoutBinding binding;
 
     public static Intent createIntent(OCFile file, User user, Integer flag, Context context) {
@@ -119,6 +122,8 @@ public class UploadListActivity extends FileActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        throttler.setIntervalMillis(1000);
 
         binding = UploadListLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -351,7 +356,10 @@ public class UploadListActivity extends FileActivity {
          */
         @Override
         public void onReceive(Context context, Intent intent) {
-            uploadListAdapter.loadUploadItemsFromDb();
+
+            throttler.run("update_upload_list", () -> {
+                uploadListAdapter.loadUploadItemsFromDb();
+            });
         }
     }
 }

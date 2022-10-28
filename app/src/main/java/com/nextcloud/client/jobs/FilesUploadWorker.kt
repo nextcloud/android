@@ -80,12 +80,12 @@ class FilesUploadWorker(
 
         // get all pending uploads
         var currentAndPendingUploadsForAccount =
-            uploadsStorageManager.getCurrentAndPendingUploadsForAccount(accountName)
+            uploadsStorageManager.getCurrentAndPendingUploadsForAccount(MAX_UPLOADS_QUERY, accountName)
         while (currentAndPendingUploadsForAccount.isNotEmpty()) {
             Log_OC.d(TAG, "Handling ${currentAndPendingUploadsForAccount.size} uploads for account $accountName")
             handlePendingUploads(currentAndPendingUploadsForAccount, accountName)
             currentAndPendingUploadsForAccount =
-                uploadsStorageManager.getCurrentAndPendingUploadsForAccount(accountName)
+                uploadsStorageManager.getCurrentAndPendingUploadsForAccount(MAX_UPLOADS_QUERY, accountName)
         }
 
         Log_OC.d(TAG, "No more pending uploads for account $accountName, stopping work")
@@ -240,8 +240,9 @@ class FilesUploadWorker(
 
     companion object {
         val TAG: String = FilesUploadWorker::class.java.simpleName
-        const val FOREGROUND_SERVICE_ID: Int = 412
-        const val MAX_PROGRESS: Int = 100
+        private const val MAX_UPLOADS_QUERY = 100
+        private const val FOREGROUND_SERVICE_ID: Int = 412
+        private const val MAX_PROGRESS: Int = 100
         const val ACCOUNT = "data_account"
     }
 }
