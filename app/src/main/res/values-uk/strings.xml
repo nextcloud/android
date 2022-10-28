@@ -653,7 +653,7 @@
     <string name="share_link_forbidden_permissions">для надання доступу до файла</string>
     <string name="share_link_optional_password_title">Введіть пароль (необов\'язково)</string>
     <string name="share_link_password_title">Введіть пароль</string>
-    <string name="share_link_with_label">Поділитись посиланням (%1$s)</string>
+    <string name="share_link_with_label">Поділитися посиланням (%1$s)</string>
     <string name="share_no_expiration_date_label">Встановити термін дії</string>
     <string name="share_no_password_title">Встановити пароль</string>
     <string name="share_password_title">Захищено паролем</string>
@@ -668,7 +668,7 @@
     <string name="share_send_note">Примітка для одержувача</string>
     <string name="share_settings">Налаштування</string>
     <string name="share_via_link_hide_download">Сховати завантаження</string>
-    <string name="share_via_link_section_title">Поділитись посиланням</string>
+    <string name="share_via_link_section_title">Поділитися посиланням</string>
     <string name="share_via_link_send_link_label">Надіслати посилання</string>
     <string name="share_via_link_unset_password">Зняти</string>
     <string name="share_with_title">Поділитися з...</string>

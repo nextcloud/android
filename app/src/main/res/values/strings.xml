@@ -1040,7 +1040,7 @@
     <string name="file_already_exists">Filename already exists</string>
     <string name="filedetails_export">Export</string>
     <string name="locate_folder">Locate folder</string>
-    <string name="video_overlay_icon">video overlay icon</string>
+    <string name="video_overlay_icon">Video overlay icon</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="icon_of_dashboard_widget">Icon of dashboard widget</string>
     <string name="refresh_content">Refresh content</string>
@@ -1049,7 +1049,7 @@
     <string name="reload">Reload</string>
     <string name="widgets_not_available">Widgets are only available on %1$s 25 or later</string>
     <string name="widgets_not_available_title">Not available</string>
-    <string name="icon_for_empty_list">icon for empty list</string>
+    <string name="icon_for_empty_list">Icon for empty list</string>
     <string name="no_items">No items</string>
     <string name="check_back_later_or_reload">Check back later or reload.</string>
 </resources>
