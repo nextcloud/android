@@ -389,7 +389,6 @@
     <string name="hint_password">Συνθηματικό</string>
     <string name="host_not_available">Μη διαθέσιμος διακομιστής</string>
     <string name="host_your_own_server">Φιλοξενήστε το δικό σας διακομιστή</string>
-    <string name="icon_for_empty_list">Εικονίδιο κενής λίστας</string>
     <string name="icon_of_dashboard_widget">Εικονίδιο πίνακα γραφικού στοιχείου</string>
     <string name="icon_of_widget_entry">Εικονίδιο κενού γραφικού στοιχείου</string>
     <string name="in_folder">Στον φάκελο %1$s</string>
@@ -879,7 +878,6 @@
     <string name="userinfo_no_info_text">Προσθέστε όνομα, εικόνα και λεπτομέρειες επικοινωνίας στο προφίλ σας.</string>
     <string name="username">Όνομα χρήστη</string>
     <string name="version_dev_download">Λήψη</string>
-    <string name="video_overlay_icon">Εικονίδιο επικάλυψης βίντεο</string>
     <string name="wait_a_moment">Παρακαλούμε περιμένετε…</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>

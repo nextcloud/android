@@ -23,7 +23,7 @@
     <string name="actionbar_see_details">Деталі</string>
     <string name="actionbar_send_file">Надіслати</string>
     <string name="actionbar_settings">Налаштування</string>
-    <string name="actionbar_sort">Сортувати</string>
+    <string name="actionbar_sort">Впорядкувати</string>
     <string name="active_user">Активний користувач</string>
     <string name="activities_no_results_headline">Поки що активність відсутня</string>
     <string name="activities_no_results_message"> 
@@ -390,7 +390,6 @@
     <string name="hint_password">Пароль</string>
     <string name="host_not_available">Сервер недоступний</string>
     <string name="host_your_own_server">Розмістити на власному сервері</string>
-    <string name="icon_for_empty_list">піктограма порожнього списку</string>
     <string name="icon_of_dashboard_widget">Піктограма віджету панелі</string>
     <string name="icon_of_widget_entry">Піктограма запису віджету</string>
     <string name="in_folder">в папці %1$s</string>
@@ -682,7 +681,7 @@
     <string name="show_video">Показувати відео</string>
     <string name="signup_with_provider">Зареєструватися у провайдейра</string>
     <string name="single_sign_on_request_token" formatted="true">Дозволити %1$s мати доступ до вашого облікового запису у Nextcloud %2$s?</string>
-    <string name="sort_by">Сортувати по</string>
+    <string name="sort_by">Впорядкувати за</string>
     <string name="sort_by_modification_date_ascending">Новіші спочатку</string>
     <string name="sort_by_modification_date_descending">Старіші спочатку</string>
     <string name="sort_by_name_ascending">А--Я</string>
@@ -880,7 +879,6 @@
     <string name="userinfo_no_info_text">Додайте назву, зображення та деталі контакту на сторінці вашого профілю.</string>
     <string name="username">Ім\'я користувача</string>
     <string name="version_dev_download">Завантажити</string>
-    <string name="video_overlay_icon">піктограма напису у відео</string>
     <string name="wait_a_moment">Зачекайте трохи…</string>
     <string name="wait_checking_credentials">Перевірка збережених даних авторизації</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копіювання файлу з приватного сховища</string>

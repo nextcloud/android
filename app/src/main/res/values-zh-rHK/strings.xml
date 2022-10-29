@@ -389,7 +389,6 @@
     <string name="hint_password">密碼</string>
     <string name="host_not_available">伺服器無法使用</string>
     <string name="host_your_own_server">擁有您自己的伺服器</string>
-    <string name="icon_for_empty_list">空清單的圖示</string>
     <string name="icon_of_dashboard_widget">儀表板小部件的圖示</string>
     <string name="icon_of_widget_entry">小部件條目的圖示</string>
     <string name="in_folder">在資料夾 %1$s</string>

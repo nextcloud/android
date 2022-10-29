@@ -389,7 +389,6 @@
     <string name="hint_password">Jelszó</string>
     <string name="host_not_available">A kiszolgáló nem érhető el</string>
     <string name="host_your_own_server">Saját kiszolgáló használata</string>
-    <string name="icon_for_empty_list">üres lista ikonja</string>
     <string name="icon_of_dashboard_widget">Irányítópult-modul ikonja</string>
     <string name="icon_of_widget_entry">Modulbejegyzés ikonja</string>
     <string name="in_folder">%1$s mappában</string>
@@ -897,7 +896,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="userinfo_no_info_text">Adja meg a nevét, profilképét és kapcsolati adatait a profil oldalán.</string>
     <string name="username">Felhasználónév</string>
     <string name="version_dev_download">Letöltés</string>
-    <string name="video_overlay_icon">videórátét ikonja</string>
     <string name="wait_a_moment">Egy pillanat…</string>
     <string name="wait_checking_credentials">Tárolt hitelesítő adatok ellenőrzése</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fájl másolása a privát tárolóról</string>

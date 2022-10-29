@@ -389,7 +389,6 @@
     <string name="hint_password">Heslo</string>
     <string name="host_not_available">Server není k dispozici</string>
     <string name="host_your_own_server">Hostovat svůj vlastní server</string>
-    <string name="icon_for_empty_list">ikona pro prázdný seznam</string>
     <string name="icon_of_dashboard_widget">Ikona ovládacího prvku nástěnky</string>
     <string name="icon_of_widget_entry">Ikona položky ovládacího prvku</string>
     <string name="in_folder">ve složce %1$s</string>
@@ -900,7 +899,6 @@ Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nain
     <string name="userinfo_no_info_text">Na své profilové stránce přidejte jméno, obrázek a kontaktní údaje.</string>
     <string name="username">Uživatelské jméno</string>
     <string name="version_dev_download">Stáhnout</string>
-    <string name="video_overlay_icon">ikona překryvu videa</string>
     <string name="wait_a_moment">Chvilku strpení…</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru ze soukromého úložiště</string>
