@@ -390,6 +390,7 @@
     <string name="hint_password">Парола</string>
     <string name="host_not_available">Сървърът не е наличен</string>
     <string name="host_your_own_server">Стартирайте собствен сървър</string>
+    <string name="icon_for_empty_list">Икона за празен списък</string>
     <string name="icon_of_dashboard_widget">Икона на изпълним модул на табло за управление</string>
     <string name="icon_of_widget_entry">Икона на вход на изпълним модул</string>
     <string name="in_folder">в папка %1$s</string>
@@ -879,6 +880,7 @@
     <string name="userinfo_no_info_text">Добавете име, снимка и данни за контакт към профила си.</string>
     <string name="username">Потребител</string>
     <string name="version_dev_download">Изтегли</string>
+    <string name="video_overlay_icon">Икона за наслагване на видео</string>
     <string name="wait_a_moment">Моля изчакайте…</string>
     <string name="wait_checking_credentials">Проверка на съхранените пълномощия</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копиране на файла от личното хранилище</string>
