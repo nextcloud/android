@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Añadir a %1$s</string>
     <string name="advanced_settings">Configuración avanzada</string>
     <string name="allow_resharing">Permitir que se vuelva a compartir</string>
+    <string name="app_widget_description">Muestra un widget del tablero</string>
     <string name="appbar_search_in">Buscar en %s</string>
     <string name="associated_account_not_found">¡Cuenta asociada no encontrada!</string>
     <string name="auth_access_failed">Acceso fallido: %1$s</string>
@@ -87,12 +88,14 @@
     <string name="calendars">Calendarios</string>
     <string name="certificate_load_problem">Existe un problema al cargar el certificado.</string>
     <string name="changelog_dev_version">Historial de cambios de la versión de desarroll</string>
+    <string name="check_back_later_or_reload">Regrese luego o recargue.</string>
     <string name="checkbox">Casilla de verificación</string>
     <string name="choose_local_folder">Seleccione carpeta local…</string>
     <string name="choose_location">Elige una ubicación</string>
     <string name="choose_remote_folder">Selecciona carpeta remota…</string>
     <string name="choose_template_helper_text">Por favor, elije una plantilla e introduce un nombre de archivo.</string>
     <string name="choose_which_file">¡Elije que archivos mantener!</string>
+    <string name="choose_widget">Seleccione widget</string>
     <string name="clear_notifications_failed">Fallo al limpiar notificaciones.</string>
     <string name="clear_status_message">Borrar mensaje de estado</string>
     <string name="clear_status_message_after">Borrar mensaje de estado después de</string>
@@ -386,6 +389,9 @@
     <string name="hint_password">Contraseña</string>
     <string name="host_not_available">Servidor no disponible</string>
     <string name="host_your_own_server">Aloja tu propio servidor</string>
+    <string name="icon_for_empty_list">Ícono para lista vacía</string>
+    <string name="icon_of_dashboard_widget">Ícono para el widget del tablero</string>
+    <string name="icon_of_widget_entry">Ícono para renglón del widget</string>
     <string name="in_folder">en carpeta %1$s</string>
     <string name="instant_upload_existing">Subir también archivos existentes</string>
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
@@ -464,6 +470,7 @@
     <string name="no_browser_available">No hay ninguna app disponible para manejar enlaces</string>
     <string name="no_calendar_exists">No existe el calendario</string>
     <string name="no_email_app_available">No hay ninguna app disponible para manejar direciones de correo electrónico</string>
+    <string name="no_items">Sin ítems</string>
     <string name="no_mutliple_accounts_allowed">Sólo se permite una cuenta</string>
     <string name="no_pdf_app_available">No hay apps disponibles para manejar PDF</string>
     <string name="no_send_app">No hay una app disponible para el envío de los archivos seleccionados</string>
@@ -580,6 +587,7 @@
     <string name="recommend_subject">¡Prueba %1$s en tu móvil!</string>
     <string name="recommend_text">Quiero invitarte a usar %1$s en tu móvil.\nDescárgalo aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="refresh_content">Refrescar contenido</string>
     <string name="reload">Volver a cargar</string>
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">¡No se pudo encontrar el archivo!</string>
@@ -871,6 +879,7 @@
     <string name="userinfo_no_info_text">Añade tu nombre, imagen y detalles de contacto en tu página de perfil.</string>
     <string name="username">Nombre de usuario</string>
     <string name="version_dev_download">Descargar</string>
+    <string name="video_overlay_icon">Ícono para la capa de video</string>
     <string name="wait_a_moment">Espera un momento…</string>
     <string name="wait_checking_credentials">Comprobando las credenciales guardadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
@@ -878,6 +887,7 @@
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
     <string name="whats_your_status">¿Cuál es su estado?</string>
+    <string name="widgets_not_available">Los widgets solo están disponibles para %1$s 25 o superior</string>
     <string name="widgets_not_available_title">No disponible</string>
     <string name="write_email">Enviar email</string>
     <string name="wrong_storage_path">¡No existe la carpeta de almacenamiento de datos!</string>
