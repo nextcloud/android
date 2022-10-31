@@ -30,7 +30,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.WindowManager
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
@@ -59,6 +58,7 @@ import com.owncloud.android.ui.activity.TextEditorWebView
 import com.owncloud.android.ui.adapter.TemplateAdapter
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.lang.ref.WeakReference
 import javax.inject.Inject
@@ -81,6 +81,9 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
+
+    @Inject
+    lateinit var keyboardUtils: KeyboardUtils
 
     private var adapter: TemplateAdapter? = null
     private var parentFolder: OCFile? = null
@@ -112,6 +115,11 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         checkEnablingCreateButton()
     }
 
+    override fun onResume() {
+        super.onResume()
+        keyboardUtils.showKeyboardForEditText(binding.filename)
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val arguments = arguments ?: throw IllegalArgumentException("Arguments may not be null")
         val activity = activity ?: throw IllegalArgumentException("Activity may not be null")
@@ -131,7 +139,6 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         _binding = ChooseTemplateBinding.inflate(inflater, null, false)
         val view: View = binding.root
 
-        binding.filename.requestFocus()
         viewThemeUtils.material.colorTextInputLayout(
             binding.filenameContainer
         )
@@ -171,10 +178,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.list.context, builder)
 
-        val dialog: Dialog = builder.create()
-        val window = dialog.window
-        window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
-        return dialog
+        return builder.create()
     }
 
     @Suppress("TooGenericExceptionCaught") // legacy code

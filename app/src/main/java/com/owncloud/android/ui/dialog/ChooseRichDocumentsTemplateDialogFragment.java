@@ -31,8 +31,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -59,6 +57,7 @@ import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
 import com.owncloud.android.ui.adapter.RichDocumentsTemplateAdapter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.KeyboardUtils;
 import com.owncloud.android.utils.NextcloudServer;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -90,6 +89,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     @Inject ClientFactory clientFactory;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
+    @Inject KeyboardUtils keyboardUtils;
     private RichDocumentsTemplateAdapter adapter;
     private OCFile parentFolder;
     private OwnCloudClient client;
@@ -128,6 +128,12 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         checkEnablingCreateButton();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        keyboardUtils.showKeyboardForEditText(binding.filename);
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -160,7 +166,6 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         binding = ChooseTemplateBinding.inflate(inflater, null, false);
         View view = binding.getRoot();
 
-        binding.filename.requestFocus();
         viewThemeUtils.material.colorTextInputLayout(binding.filenameContainer);
 
         Type type = Type.valueOf(arguments.getString(ARG_TYPE));
@@ -219,15 +224,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(activity, builder);
 
-        Dialog dialog = builder.create();
-
-        Window window = dialog.getWindow();
-
-        if (window != null) {
-            window.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        }
-
-        return dialog;
+        return builder.create();
     }
 
     private int getTitle(Type type) {
