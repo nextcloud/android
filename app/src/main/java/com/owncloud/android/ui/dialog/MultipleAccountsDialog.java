@@ -32,8 +32,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
@@ -92,15 +90,7 @@ public class MultipleAccountsDialog extends DialogFragment implements Injectable
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.getRoot().getContext(), builder);
 
-        Dialog dialog = builder.create();
-
-        Window window = dialog.getWindow();
-
-        if (window != null) {
-            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        }
-
-        return dialog;
+        return builder.create();
     }
 
     /**
