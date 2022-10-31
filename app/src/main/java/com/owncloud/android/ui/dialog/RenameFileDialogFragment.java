@@ -34,8 +34,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -48,6 +46,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.KeyboardUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.List;
@@ -73,6 +72,7 @@ public class RenameFileDialogFragment
 
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
+    @Inject KeyboardUtils keyboardUtils;
 
     private EditBoxDialogBinding binding;
     private OCFile mTargetFile;
@@ -107,6 +107,12 @@ public class RenameFileDialogFragment
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        keyboardUtils.showKeyboardForEditText(binding.userInput);
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -124,7 +130,6 @@ public class RenameFileDialogFragment
         int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
         int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
         binding.userInput.setSelection(0, selectionEnd);
-        binding.userInput.requestFocus();
 
         OCFile parentFolder = requireArguments().getParcelable(ARG_PARENT_FOLDER);
         List<OCFile> folderContent = fileDataStorageManager.getFolderContent(parentFolder, false);
@@ -181,14 +186,7 @@ public class RenameFileDialogFragment
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInputContainer.getContext(), builder);
 
-        Dialog d = builder.create();
-
-        Window window = d.getWindow();
-        if (window != null) {
-            window.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        }
-
-        return d;
+        return builder.create();
     }
 
 

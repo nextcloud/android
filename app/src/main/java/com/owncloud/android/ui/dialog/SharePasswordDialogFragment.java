@@ -26,8 +26,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
@@ -37,6 +35,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.KeyboardUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
@@ -59,6 +58,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
     public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
 
     @Inject ViewThemeUtils viewThemeUtils;
+    @Inject KeyboardUtils keyboardUtils;
 
     private PasswordDialogBinding binding;
     private OCFile file;
@@ -94,6 +94,12 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
                 alertDialog.dismiss();
             });
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        keyboardUtils.showKeyboardForEditText(binding.sharePassword);
     }
 
     /**
@@ -159,7 +165,6 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         // Setup layout
         binding.sharePassword.setText("");
         viewThemeUtils.material.colorTextInputLayout(binding.sharePasswordContainer);
-        binding.sharePassword.requestFocus();
 
         int negativeButtonCaption;
         int title;
@@ -182,14 +187,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(view.getContext(), builder);
 
-        Dialog d = builder.create();
-
-        Window window = d.getWindow();
-        if (window != null) {
-            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        }
-
-        return d;
+        return builder.create();
     }
 
     @Override

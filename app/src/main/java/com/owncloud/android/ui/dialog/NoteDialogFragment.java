@@ -26,8 +26,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager.LayoutParams;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
@@ -36,6 +34,7 @@ import com.owncloud.android.databinding.NoteDialogBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.KeyboardUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
@@ -53,6 +52,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
     private static final String ARG_SHARE = "SHARE";
 
     @Inject ViewThemeUtils viewThemeUtils;
+    @Inject KeyboardUtils keyboardUtils;
 
     private OCShare share;
     private NoteDialogBinding binding;
@@ -87,6 +87,12 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
                                                  alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        keyboardUtils.showKeyboardForEditText(binding.noteText);
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -97,7 +103,6 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
         // Setup layout
         binding.noteText.setText(share.getNote());
-        binding.noteText.requestFocus();
         viewThemeUtils.material.colorTextInputLayout(binding.noteContainer);
 
         // Build the dialog
@@ -109,15 +114,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.noteContainer.getContext(), builder);
 
-        Dialog dialog = builder.create();
-
-        Window window = dialog.getWindow();
-
-        if (window != null) {
-            window.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        }
-
-        return dialog;
+        return builder.create();
     }
 
     @Override

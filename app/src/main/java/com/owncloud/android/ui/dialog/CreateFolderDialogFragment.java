@@ -28,8 +28,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -43,6 +41,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.KeyboardUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.List;
@@ -68,10 +67,14 @@ public class CreateFolderDialogFragment
 
     @Inject FileDataStorageManager fileDataStorageManager;
     @Inject ViewThemeUtils viewThemeUtils;
+    @Inject KeyboardUtils keyboardUtils;
 
 
     private OCFile mParentFolder;
     private Button positiveButton;
+
+
+    private EditBoxDialogBinding binding;
 
     /**
      * Public factory method to create new CreateFolderDialogFragment instances.
@@ -102,6 +105,12 @@ public class CreateFolderDialogFragment
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        keyboardUtils.showKeyboardForEditText(binding.userInput);
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -109,12 +118,11 @@ public class CreateFolderDialogFragment
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        EditBoxDialogBinding binding = EditBoxDialogBinding.inflate(inflater, null, false);
+        binding = EditBoxDialogBinding.inflate(inflater, null, false);
         View view = binding.getRoot();
 
         // Setup layout
         binding.userInput.setText("");
-        binding.userInput.requestFocus();
         viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer);
 
         OCFile parentFolder = requireArguments().getParcelable(ARG_PARENT_FOLDER);
@@ -175,14 +183,7 @@ public class CreateFolderDialogFragment
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInputContainer.getContext(), builder);
 
-        AlertDialog d = builder.create();
-
-        Window window = d.getWindow();
-        if (window != null) {
-            window.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        }
-
-        return d;
+        return builder.create();
     }
 
     @Override
