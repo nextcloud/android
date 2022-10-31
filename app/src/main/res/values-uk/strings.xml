@@ -227,7 +227,7 @@
     <string name="drawer_item_gallery">Зображення та відео</string>
     <string name="drawer_item_home">Старт</string>
     <string name="drawer_item_notifications">Сповіщення</string>
-    <string name="drawer_item_on_device">на пристрої</string>
+    <string name="drawer_item_on_device">На пристрої</string>
     <string name="drawer_item_recently_modified">Нещодавно змінені</string>
     <string name="drawer_item_shared">Спільні</string>
     <string name="drawer_item_trashbin">Кошик</string>

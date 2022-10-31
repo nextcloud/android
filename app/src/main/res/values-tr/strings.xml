@@ -389,6 +389,7 @@
     <string name="hint_password">Parola</string>
     <string name="host_not_available">Sunucu kullanılamıyor</string>
     <string name="host_your_own_server">Kendi sunucunuzu işletin</string>
+    <string name="icon_for_empty_list">Boş liste simgesi</string>
     <string name="icon_of_dashboard_widget">pano bileşeni simgesi</string>
     <string name="icon_of_widget_entry">Pano bileşeni kaydı simgesi</string>
     <string name="in_folder">%1$s klasöründe</string>
@@ -878,6 +879,7 @@
     <string name="userinfo_no_info_text">Profil sayfanızdan ad, görsel ve iletişim bilgilerinizi ekleyin.</string>
     <string name="username">Kullanıcı adı</string>
     <string name="version_dev_download">İndir</string>
+    <string name="video_overlay_icon">Görüntü kaplama simgesi</string>
     <string name="wait_a_moment">Lütfen bekleyin …</string>
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
