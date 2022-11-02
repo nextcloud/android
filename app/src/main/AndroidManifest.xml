@@ -344,7 +344,7 @@
 
         <activity
             android:name=".authentication.AuthenticatorActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
             android:exported="true"
             android:launchMode="singleTask"
             android:theme="@style/Theme.ownCloud.noActionBar.Login">
