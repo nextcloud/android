@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Lisää kohteeseen %1$s</string>
     <string name="advanced_settings">Lisäasetukset</string>
     <string name="allow_resharing">Salli uudelleenjakaminen</string>
+    <string name="app_widget_description">Näyttää yhden pienoissovelluksen konsolista</string>
     <string name="appbar_search_in">Etsi kohteesta %s</string>
     <string name="associated_account_not_found">Liitettyä tiliä ei löydy!</string>
     <string name="auth_access_failed">Pääsy epäonnistui: %1$s</string>
@@ -87,12 +88,14 @@
     <string name="calendars">Kalenterit</string>
     <string name="certificate_load_problem">Varmennetta ladatessa ilmeni ongelmia.</string>
     <string name="changelog_dev_version">Muutosloki kehitysversiolle</string>
+    <string name="check_back_later_or_reload">Lataa uudelleen tai yritä myöhemmin uudelleen.</string>
     <string name="checkbox">Valintaruutu</string>
     <string name="choose_local_folder">Valitse paikallinen kansio…</string>
     <string name="choose_location">Valitse sijainti</string>
     <string name="choose_remote_folder">Valitse etäkansio…</string>
     <string name="choose_template_helper_text">Valitse mallipohja ja anna tiedostonimi</string>
     <string name="choose_which_file">Valitse säilytettävä tiedosto!</string>
+    <string name="choose_widget">Valitse pienoissovellus</string>
     <string name="clear_notifications_failed">Ilmoituksia ei voitu tyhjentää</string>
     <string name="clear_status_message">Tyhjennä tilaviesti</string>
     <string name="clear_status_message_after">Tyhjennä tilaviesti, kun on kulunut</string>
@@ -386,6 +389,8 @@
     <string name="hint_password">Salasana</string>
     <string name="host_not_available">Ei yhteyttä palvelimeen</string>
     <string name="host_your_own_server">Ylläpidä oma palvelin</string>
+    <string name="icon_for_empty_list">Kuvake tyhjälle listalle</string>
+    <string name="icon_of_dashboard_widget">Pienoissovelluksen kuvake</string>
     <string name="in_folder">kansiossa %1$s</string>
     <string name="instant_upload_existing">Siirrä myös olemassaolevat tiedostot palvelimelle</string>
     <string name="instant_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
@@ -464,6 +469,7 @@
     <string name="no_browser_available">Linkkien käsittelyyn ei ole sovellusta</string>
     <string name="no_calendar_exists">Kalenteria ei ole olemassa</string>
     <string name="no_email_app_available">Sähköpostiosoitteiden käsittelyyn ei ole saatavilla sovellusta</string>
+    <string name="no_items">Ei kohteita</string>
     <string name="no_mutliple_accounts_allowed">Vain yksi tili on sallittu</string>
     <string name="no_pdf_app_available">PDF -sovellusta ei löydy</string>
     <string name="no_send_app">Valittujen tiedostojen lähettämiseen ei ole sovellusta</string>
@@ -581,6 +587,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="recommend_subject">Kokeile %1$sia laitteellasi!</string>
     <string name="recommend_text">Haluan, että kokeilet %1$sia laitteellasi.\nLataa tästä: %2$s</string>
     <string name="recommend_urls">%1$s tai %2$s</string>
+    <string name="refresh_content">Päivitä sisältö</string>
     <string name="reload">Lataa uudelleen</string>
     <string name="remote">(etä)</string>
     <string name="remote_file_fetch_failed">Tiedostoa ei löytynyt!</string>
@@ -905,6 +912,14 @@ GNU yleinen lisenssi, versio 2</string>
     <plurals name="export_failed">
         <item quantity="one">%d tiedoston vienti epäonnistui</item>
         <item quantity="other">%d tiedoston vienti epäonnistui</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Viety %d tiedosto, loput ohitettu virheen vuoksi</item>
+        <item quantity="other">Viety %d tiedostoa, loput ohitettu virheen vuoksi</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">Viedään %d tiedosto. Katso ilmoituksesta lisätietoja.</item>
+        <item quantity="other">Viedään %d tiedostoa. Katso ilmoituksesta lisätietoja.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d kansio</item>
