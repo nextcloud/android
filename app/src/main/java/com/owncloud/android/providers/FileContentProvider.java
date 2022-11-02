@@ -37,12 +37,12 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Binder;
 import android.text.TextUtils;
 
 import com.nextcloud.client.core.Clock;
+import com.nextcloud.client.database.NextcloudDatabase;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -68,6 +68,10 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteOpenHelper;
+import androidx.sqlite.db.SupportSQLiteQuery;
+import androidx.sqlite.db.SupportSQLiteQueryBuilder;
 import dagger.android.AndroidInjection;
 import third_parties.aosp.SQLiteTokenizer;
 
@@ -118,7 +122,7 @@ public class FileContentProvider extends ContentProvider {
     private static final Map<String, String> FILE_PROJECTION_MAP;
 
     static {
-        HashMap<String,String> tempMap = new HashMap<>();
+        HashMap<String, String> tempMap = new HashMap<>();
         for (String projection : ProviderTableMeta.FILE_ALL_COLUMNS) {
             tempMap.put(projection, projection);
         }
@@ -127,7 +131,8 @@ public class FileContentProvider extends ContentProvider {
 
 
     @Inject protected Clock clock;
-    private DataBaseHelper mDbHelper;
+    @Inject NextcloudDatabase database;
+    private SupportSQLiteOpenHelper mDbHelper;
     private Context mContext;
     private UriMatcher mUriMatcher;
 
@@ -138,7 +143,7 @@ public class FileContentProvider extends ContentProvider {
         }
 
         int count;
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        SupportSQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.beginTransaction();
         try {
             count = delete(db, uri, where, whereArgs);
@@ -150,7 +155,7 @@ public class FileContentProvider extends ContentProvider {
         return count;
     }
 
-    private int delete(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
+    private int delete(SupportSQLiteDatabase db, Uri uri, String where, String... whereArgs) {
         if (isCallerNotAllowed(uri)) {
             return -1;
         }
@@ -205,7 +210,7 @@ public class FileContentProvider extends ContentProvider {
         return count;
     }
 
-    private int deleteDirectory(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
+    private int deleteDirectory(SupportSQLiteDatabase db, Uri uri, String where, String... whereArgs) {
         int count = 0;
 
         Cursor children = query(uri, PROJECTION_CONTENT_TYPE, null, null, null);
@@ -238,7 +243,7 @@ public class FileContentProvider extends ContentProvider {
         return count;
     }
 
-    private int deleteSingleFile(SQLiteDatabase db, Uri uri, String where, String... whereArgs) {
+    private int deleteSingleFile(SupportSQLiteDatabase db, Uri uri, String where, String... whereArgs) {
         int count = 0;
 
         try (Cursor c = query(db, uri, PROJECTION_REMOTE_ID, where, whereArgs, null)) {
@@ -255,7 +260,7 @@ public class FileContentProvider extends ContentProvider {
         return count;
     }
 
-    private int deleteWithUri(SQLiteDatabase db, Uri uri, String where, String[] whereArgs) {
+    private int deleteWithUri(SupportSQLiteDatabase db, Uri uri, String where, String[] whereArgs) {
         final String[] argsWithUri = VerificationUtils.prependUriFirstSegmentToSelectionArgs(whereArgs, uri);
         return db.delete(ProviderTableMeta.FILE_TABLE_NAME,
                          ProviderTableMeta._ID + "=?"
@@ -281,7 +286,7 @@ public class FileContentProvider extends ContentProvider {
         }
 
         Uri newUri;
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        SupportSQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.beginTransaction();
         try {
             newUri = insert(db, uri, values);
@@ -293,7 +298,7 @@ public class FileContentProvider extends ContentProvider {
         return newUri;
     }
 
-    private Uri insert(SQLiteDatabase db, Uri uri, ContentValues values) {
+    private Uri insert(SupportSQLiteDatabase db, Uri uri, ContentValues values) {
         // verify only for those requests that are not internal (files table)
         switch (mUriMatcher.match(uri)) {
             case ROOT_DIRECTORY:
@@ -318,7 +323,7 @@ public class FileContentProvider extends ContentProvider {
                 // FileDataStorageManager and bring it to FileContentProvider
                 if (!doubleCheck.moveToFirst()) {
                     doubleCheck.close();
-                    long rowId = db.insert(ProviderTableMeta.FILE_TABLE_NAME, null, values);
+                    long rowId = db.insert(ProviderTableMeta.FILE_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
                     if (rowId > 0) {
                         return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
                     } else {
@@ -337,7 +342,7 @@ public class FileContentProvider extends ContentProvider {
 
             case SHARES:
                 Uri insertedShareUri;
-                long idShares = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, null, values);
+                long idShares = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
                 if (idShares > 0) {
                     insertedShareUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, idShares);
                 } else {
@@ -350,7 +355,7 @@ public class FileContentProvider extends ContentProvider {
 
             case CAPABILITIES:
                 Uri insertedCapUri;
-                long idCapabilities = db.insert(ProviderTableMeta.CAPABILITIES_TABLE_NAME, null, values);
+                long idCapabilities = db.insert(ProviderTableMeta.CAPABILITIES_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
                 if (idCapabilities > 0) {
                     insertedCapUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_CAPABILITIES, idCapabilities);
                 } else {
@@ -360,7 +365,7 @@ public class FileContentProvider extends ContentProvider {
 
             case UPLOADS:
                 Uri insertedUploadUri;
-                long uploadId = db.insert(ProviderTableMeta.UPLOADS_TABLE_NAME, null, values);
+                long uploadId = db.insert(ProviderTableMeta.UPLOADS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
                 if (uploadId > 0) {
                     insertedUploadUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_UPLOADS, uploadId);
                 } else {
@@ -370,7 +375,7 @@ public class FileContentProvider extends ContentProvider {
 
             case SYNCED_FOLDERS:
                 Uri insertedSyncedFolderUri;
-                long syncedFolderId = db.insert(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, null, values);
+                long syncedFolderId = db.insert(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
                 if (syncedFolderId > 0) {
                     insertedSyncedFolderUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
                                                                          syncedFolderId);
@@ -381,7 +386,7 @@ public class FileContentProvider extends ContentProvider {
 
             case EXTERNAL_LINKS:
                 Uri insertedExternalLinkUri;
-                long externalLinkId = db.insert(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME, null, values);
+                long externalLinkId = db.insert(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
                 if (externalLinkId > 0) {
                     insertedExternalLinkUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_EXTERNAL_LINKS,
                                                                          externalLinkId);
@@ -392,7 +397,7 @@ public class FileContentProvider extends ContentProvider {
 
             case ARBITRARY_DATA:
                 Uri insertedArbitraryDataUri;
-                long arbitraryDataId = db.insert(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, null, values);
+                long arbitraryDataId = db.insert(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
                 if (arbitraryDataId > 0) {
                     insertedArbitraryDataUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
                                                                           arbitraryDataId);
@@ -402,7 +407,7 @@ public class FileContentProvider extends ContentProvider {
                 return insertedArbitraryDataUri;
             case VIRTUAL:
                 Uri insertedVirtualUri;
-                long virtualId = db.insert(ProviderTableMeta.VIRTUAL_TABLE_NAME, null, values);
+                long virtualId = db.insert(ProviderTableMeta.VIRTUAL_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
 
                 if (virtualId > 0) {
                     insertedVirtualUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_VIRTUAL, virtualId);
@@ -413,7 +418,7 @@ public class FileContentProvider extends ContentProvider {
                 return insertedVirtualUri;
             case FILESYSTEM:
                 Uri insertedFilesystemUri;
-                long filesystemId = db.insert(ProviderTableMeta.FILESYSTEM_TABLE_NAME, null, values);
+                long filesystemId = db.insert(ProviderTableMeta.FILESYSTEM_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
                 if (filesystemId > 0) {
                     insertedFilesystemUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILESYSTEM,
                                                                        filesystemId);
@@ -426,7 +431,7 @@ public class FileContentProvider extends ContentProvider {
         }
     }
 
-    private void updateFilesTableAccordingToShareInsertion(SQLiteDatabase db, ContentValues newShare) {
+    private void updateFilesTableAccordingToShareInsertion(SupportSQLiteDatabase db, ContentValues newShare) {
         ContentValues fileValues = new ContentValues();
         ShareType newShareType = ShareType.fromValue(newShare.getAsInteger(ProviderTableMeta.OCSHARES_SHARE_TYPE));
 
@@ -456,14 +461,14 @@ public class FileContentProvider extends ContentProvider {
             newShare.getAsString(ProviderTableMeta.OCSHARES_PATH),
             newShare.getAsString(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER)
         };
-        db.update(ProviderTableMeta.FILE_TABLE_NAME, fileValues, where, whereArgs);
+        db.update(ProviderTableMeta.FILE_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, fileValues, where, whereArgs);
     }
 
 
     @Override
     public boolean onCreate() {
         AndroidInjection.inject(this);
-        mDbHelper = new DataBaseHelper(getContext());
+        mDbHelper = database.getOpenHelper();
         mContext = getContext();
 
         if (mContext == null) {
@@ -510,7 +515,7 @@ public class FileContentProvider extends ContentProvider {
         }
 
         Cursor result;
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        SupportSQLiteDatabase db = mDbHelper.getReadableDatabase();
         db.beginTransaction();
         try {
             result = query(db, uri, projection, selection, selectionArgs, sortOrder);
@@ -521,7 +526,7 @@ public class FileContentProvider extends ContentProvider {
         return result;
     }
 
-    private Cursor query(SQLiteDatabase db,
+    private Cursor query(SupportSQLiteDatabase db,
                          Uri uri,
                          String[] projectionArray,
                          String selection,
@@ -531,49 +536,49 @@ public class FileContentProvider extends ContentProvider {
         // verify only for those requests that are not internal
         final int uriMatch = mUriMatcher.match(uri);
 
-        SQLiteQueryBuilder sqlQuery = new SQLiteQueryBuilder();
-
-
+        String tableName;
         switch (uriMatch) {
             case ROOT_DIRECTORY:
             case DIRECTORY:
             case SINGLE_FILE:
                 VerificationUtils.verifyWhere(selection); // prevent injection in public paths
-                sqlQuery.setTables(ProviderTableMeta.FILE_TABLE_NAME);
+                tableName = ProviderTableMeta.FILE_TABLE_NAME;
                 break;
             case SHARES:
-                sqlQuery.setTables(ProviderTableMeta.OCSHARES_TABLE_NAME);
+                tableName = ProviderTableMeta.OCSHARES_TABLE_NAME;
                 break;
             case CAPABILITIES:
-                sqlQuery.setTables(ProviderTableMeta.CAPABILITIES_TABLE_NAME);
+                tableName = ProviderTableMeta.CAPABILITIES_TABLE_NAME;
                 break;
             case UPLOADS:
-                sqlQuery.setTables(ProviderTableMeta.UPLOADS_TABLE_NAME);
+                tableName = ProviderTableMeta.UPLOADS_TABLE_NAME;
                 break;
             case SYNCED_FOLDERS:
-                sqlQuery.setTables(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME);
+                tableName = ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME;
                 break;
             case EXTERNAL_LINKS:
-                sqlQuery.setTables(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME);
+                tableName = ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME;
                 break;
             case ARBITRARY_DATA:
-                sqlQuery.setTables(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME);
+                tableName = ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME;
                 break;
             case VIRTUAL:
-                sqlQuery.setTables(ProviderTableMeta.VIRTUAL_TABLE_NAME);
+                tableName = ProviderTableMeta.VIRTUAL_TABLE_NAME;
                 break;
             case FILESYSTEM:
-                sqlQuery.setTables(ProviderTableMeta.FILESYSTEM_TABLE_NAME);
+                tableName = ProviderTableMeta.FILESYSTEM_TABLE_NAME;
                 break;
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
 
+        SupportSQLiteQueryBuilder queryBuilder = SupportSQLiteQueryBuilder.builder(tableName);
+
 
         // add ID to arguments if Uri has more than one segment
-        if (uriMatch != ROOT_DIRECTORY && uri.getPathSegments().size() > SINGLE_PATH_SEGMENT ) {
+        if (uriMatch != ROOT_DIRECTORY && uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
             String idColumn = uriMatch == DIRECTORY ? ProviderTableMeta.FILE_PARENT : ProviderTableMeta._ID;
-            sqlQuery.appendWhere(idColumn + "=?");
+            selection = idColumn + "=? AND " + selection;
             selectionArgs = VerificationUtils.prependUriFirstSegmentToSelectionArgs(selectionArgs, uri);
         }
 
@@ -619,11 +624,12 @@ public class FileContentProvider extends ContentProvider {
         // DB case_sensitive
         db.execSQL("PRAGMA case_sensitive_like = true");
 
-        // only file list is accessible via content provider, so only this has to be protected with projectionMap
-        if ((uriMatch == ROOT_DIRECTORY || uriMatch == SINGLE_FILE ||
-            uriMatch == DIRECTORY) && projectionArray != null) {
-            sqlQuery.setProjectionMap(FILE_PROJECTION_MAP);
-        }
+        // TODO
+//        // only file list is accessible via content provider, so only this has to be protected with projectionMap
+//        if ((uriMatch == ROOT_DIRECTORY || uriMatch == SINGLE_FILE ||
+//            uriMatch == DIRECTORY) && projectionArray != null) {
+//            sqlQuery.setProjectionMap(FILE_PROJECTION_MAP);
+//        }
 
         // if both are null, let them pass to query
         if (selectionArgs == null && selection != null) {
@@ -631,8 +637,20 @@ public class FileContentProvider extends ContentProvider {
             selection = "(?)";
         }
 
-        sqlQuery.setStrict(true);
-        Cursor c = sqlQuery.query(db, projectionArray, selection, selectionArgs, null, null, order);
+        // TODO
+//        sqlQuery.setStrict(true);
+
+        if (!TextUtils.isEmpty(selection)) {
+            queryBuilder.selection(selection, selectionArgs);
+        }
+        if (!TextUtils.isEmpty(order)) {
+            queryBuilder.orderBy(order);
+        }
+        if (projectionArray != null && projectionArray.length > 0) {
+            queryBuilder.columns(projectionArray);
+        }
+        final SupportSQLiteQuery supportSQLiteQuery = queryBuilder.create();
+        final Cursor c = db.query(supportSQLiteQuery);
         c.setNotificationUri(mContext.getContentResolver(), uri);
         return c;
     }
@@ -644,7 +662,7 @@ public class FileContentProvider extends ContentProvider {
         }
 
         int count;
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        SupportSQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.beginTransaction();
         try {
             count = update(db, uri, values, selection, selectionArgs);
@@ -656,7 +674,7 @@ public class FileContentProvider extends ContentProvider {
         return count;
     }
 
-    private int update(SQLiteDatabase db, Uri uri, ContentValues values, String selection, String... selectionArgs) {
+    private int update(SupportSQLiteDatabase db, Uri uri, ContentValues values, String selection, String... selectionArgs) {
         // verify contentValues and selection for public paths to prevent injection
         switch (mUriMatcher.match(uri)) {
             case ROOT_DIRECTORY:
@@ -670,19 +688,19 @@ public class FileContentProvider extends ContentProvider {
             case DIRECTORY:
                 return 0;
             case SHARES:
-                return db.update(ProviderTableMeta.OCSHARES_TABLE_NAME, values, selection, selectionArgs);
+                return db.update(ProviderTableMeta.OCSHARES_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
             case CAPABILITIES:
-                return db.update(ProviderTableMeta.CAPABILITIES_TABLE_NAME, values, selection, selectionArgs);
+                return db.update(ProviderTableMeta.CAPABILITIES_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
             case UPLOADS:
-                return db.update(ProviderTableMeta.UPLOADS_TABLE_NAME, values, selection, selectionArgs);
+                return db.update(ProviderTableMeta.UPLOADS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
             case SYNCED_FOLDERS:
-                return db.update(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, values, selection, selectionArgs);
+                return db.update(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
             case ARBITRARY_DATA:
-                return db.update(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, values, selection, selectionArgs);
+                return db.update(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
             case FILESYSTEM:
-                return db.update(ProviderTableMeta.FILESYSTEM_TABLE_NAME, values, selection, selectionArgs);
+                return db.update(ProviderTableMeta.FILESYSTEM_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
             default:
-                return db.update(ProviderTableMeta.FILE_TABLE_NAME, values, selection, selectionArgs);
+                return db.update(ProviderTableMeta.FILE_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
         }
     }
 
@@ -695,7 +713,7 @@ public class FileContentProvider extends ContentProvider {
         ContentProviderResult[] results = new ContentProviderResult[operations.size()];
         int i = 0;
 
-        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+        SupportSQLiteDatabase database = mDbHelper.getWritableDatabase();
         database.beginTransaction();  // it's supposed that transactions can be nested
         try {
             for (ContentProviderOperation operation : operations) {
