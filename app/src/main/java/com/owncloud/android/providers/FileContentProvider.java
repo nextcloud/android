@@ -46,10 +46,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.utils.MimeType;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -97,16 +94,6 @@ public class FileContentProvider extends ContentProvider {
     private static final String[] PROJECTION_FILE_PATH_AND_OWNER = new String[]{
         ProviderTableMeta._ID, ProviderTableMeta.FILE_PATH, ProviderTableMeta.FILE_ACCOUNT_OWNER
     };
-
-    private static final Map<String, String> FILE_PROJECTION_MAP;
-
-    static {
-        HashMap<String, String> tempMap = new HashMap<>();
-        for (String projection : ProviderTableMeta.FILE_ALL_COLUMNS) {
-            tempMap.put(projection, projection);
-        }
-        FILE_PROJECTION_MAP = Collections.unmodifiableMap(tempMap);
-    }
 
 
     @Inject protected Clock clock;
@@ -603,21 +590,19 @@ public class FileContentProvider extends ContentProvider {
         // DB case_sensitive
         db.execSQL("PRAGMA case_sensitive_like = true");
 
-        // TODO
-//        // only file list is accessible via content provider, so only this has to be protected with projectionMap
-//        if ((uriMatch == ROOT_DIRECTORY || uriMatch == SINGLE_FILE ||
-//            uriMatch == DIRECTORY) && projectionArray != null) {
-//            sqlQuery.setProjectionMap(FILE_PROJECTION_MAP);
-//        }
+        // only file list is publicly accessible via content provider, so only this has to be protected
+        if ((uriMatch == ROOT_DIRECTORY || uriMatch == SINGLE_FILE ||
+            uriMatch == DIRECTORY) && projectionArray != null && projectionArray.length > 0) {
+            for (String column : projectionArray) {
+                VerificationUtils.verifyColumnName(column);
+            }
+        }
 
         // if both are null, let them pass to query
         if (selectionArgs == null && selection != null) {
             selectionArgs = new String[]{selection};
             selection = "(?)";
         }
-
-        // TODO
-//        sqlQuery.setStrict(true);
 
         if (!TextUtils.isEmpty(selection)) {
             queryBuilder.selection(selection, selectionArgs);
@@ -746,7 +731,6 @@ public class FileContentProvider extends ContentProvider {
             }
         }
 
-        @VisibleForTesting
         public static void verifyColumnName(@NonNull String columnName) {
             if (!isValidColumnName(columnName)) {
                 throw new IllegalArgumentException(String.format("Column name \"%s\" is not allowed", columnName));
