@@ -27,8 +27,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager.LayoutParams;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
@@ -37,6 +35,7 @@ import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.KeyboardUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
@@ -56,6 +55,7 @@ public class RenamePublicShareDialogFragment
     public static final String RENAME_PUBLIC_SHARE_FRAGMENT = "RENAME_PUBLIC_SHARE_FRAGMENT";
 
     @Inject ViewThemeUtils viewThemeUtils;
+    @Inject KeyboardUtils keyboardUtils;
 
     private EditBoxDialogBinding binding;
     private OCShare publicShare;
@@ -80,6 +80,12 @@ public class RenamePublicShareDialogFragment
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        keyboardUtils.showKeyboardForEditText(binding.userInput);
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -93,7 +99,6 @@ public class RenamePublicShareDialogFragment
         // Setup layout
         viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer);
         binding.userInput.setText(publicShare.getLabel());
-        binding.userInput.requestFocus();
 
         // Build the dialog
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(view.getContext());
@@ -104,14 +109,7 @@ public class RenamePublicShareDialogFragment
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInput.getContext(), builder);
 
-        Dialog dialog = builder.create();
-
-        Window window = dialog.getWindow();
-        if (window != null) {
-            window.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        }
-
-        return dialog;
+        return builder.create();
     }
 
     @Override

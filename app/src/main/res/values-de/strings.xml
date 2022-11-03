@@ -389,6 +389,7 @@
     <string name="hint_password">Passwort</string>
     <string name="host_not_available">Server nicht verfügbar</string>
     <string name="host_your_own_server">Eigenen Server betreiben</string>
+    <string name="icon_for_empty_list">Symbol für leere Liste</string>
     <string name="icon_of_dashboard_widget">Symbol des Dashboard-Widgets</string>
     <string name="icon_of_widget_entry">Symbol des Widget-Eintrags</string>
     <string name="in_folder">in Ordner %1$s</string>
@@ -879,6 +880,7 @@
     <string name="userinfo_no_info_text">Fügen Sie Name, Bild und Kontaktdaten auf Ihrer Profilseite hinzu.</string>
     <string name="username">Benutzername</string>
     <string name="version_dev_download">Herunterladen</string>
+    <string name="video_overlay_icon">Video Überlagerungsicon</string>
     <string name="wait_a_moment">Bitte warten…</string>
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei von privatem Speicher</string>

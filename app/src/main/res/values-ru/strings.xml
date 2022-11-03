@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Добавить в %1$s</string>
     <string name="advanced_settings">Дополнительные настройки</string>
     <string name="allow_resharing">Разрешить повторную публикацию</string>
+    <string name="app_widget_description">Показывает один виджет с главного экрана.</string>
     <string name="appbar_search_in">Искать в %s</string>
     <string name="associated_account_not_found">Связанный аккаунт не найден!</string>
     <string name="auth_access_failed">Доступ запрещен: %1$s</string>
@@ -87,12 +88,14 @@
     <string name="calendars">Календари</string>
     <string name="certificate_load_problem">Проблема при загрузке сертификата.</string>
     <string name="changelog_dev_version">Журнал изменений версии для разработчиков</string>
+    <string name="check_back_later_or_reload">Зайдите позже или перезагрузите.</string>
     <string name="checkbox">Флажок</string>
     <string name="choose_local_folder">Выберите каталог на устройстве…</string>
     <string name="choose_location">Выбрать местоположение</string>
     <string name="choose_remote_folder">Выберите каталог на сервере…</string>
     <string name="choose_template_helper_text">Пожалуйста, выберите шаблон и введите имя файла.</string>
     <string name="choose_which_file">Выберите какой файл оставить!</string>
+    <string name="choose_widget">Выбрать виджет</string>
     <string name="clear_notifications_failed">Не удалось удалить уведомления.</string>
     <string name="clear_status_message">Очистить сообщение о состоянии</string>
     <string name="clear_status_message_after">Очистить сообщение о состоянии через</string>
@@ -387,6 +390,9 @@
     <string name="hint_password">Пароль</string>
     <string name="host_not_available">Сервер недоступен</string>
     <string name="host_your_own_server">Развернуть собственный сервер</string>
+    <string name="icon_for_empty_list">Значок для пустого списка</string>
+    <string name="icon_of_dashboard_widget">Значок виджета главного экрана</string>
+    <string name="icon_of_widget_entry">Значок записи виджета</string>
     <string name="in_folder">в папку %1$s</string>
     <string name="instant_upload_existing">Также загрузить существующие файлы</string>
     <string name="instant_upload_on_charging">Необходимо подключение внешнего питания</string>
@@ -465,6 +471,7 @@
     <string name="no_browser_available">Отсутствует приложение, которое может обрабатывать переход по ссылкам</string>
     <string name="no_calendar_exists">Нет календарей</string>
     <string name="no_email_app_available">Нет приложения для электронной почты</string>
+    <string name="no_items">Нет выбранных</string>
     <string name="no_mutliple_accounts_allowed">Разрешено использование только одной учётной записи</string>
     <string name="no_pdf_app_available">Отсутствует приложение, которое может отображать формат PDF</string>
     <string name="no_send_app">Нет доступного приложения для отправки выбранных файлов</string>
@@ -581,6 +588,7 @@
     <string name="recommend_subject">Испытайте %1$s на своём устройстве!</string>
     <string name="recommend_text">Хочу посоветовать использовать %1$s на твоём устройстве!\nСкачай здесь: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="refresh_content">Обновить содержимое</string>
     <string name="reload">Перезагрузить</string>
     <string name="remote">(удалённо)</string>
     <string name="remote_file_fetch_failed">Не удалось найти файл.</string>
@@ -872,6 +880,7 @@
     <string name="userinfo_no_info_text">На странице профиля укажите своё имя, добавьте изображение и подробные сведения</string>
     <string name="username">Имя пользователя</string>
     <string name="version_dev_download">Скачать</string>
+    <string name="video_overlay_icon">Значок наложения видео</string>
     <string name="wait_a_moment">Подождите немного…</string>
     <string name="wait_checking_credentials">Проверка сохранённых реквизитов учётных данных</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частного хранилища</string>
@@ -879,6 +888,7 @@
     <string name="whats_new_skip">Пропустить</string>
     <string name="whats_new_title">Новое в %1$s</string>
     <string name="whats_your_status">Ваш статус?</string>
+    <string name="widgets_not_available">Виджеты доступны только на%1$s25 или более</string>
     <string name="widgets_not_available_title">Не доступен</string>
     <string name="write_email">Отправить письмо</string>
     <string name="wrong_storage_path">Папка хранения данных не существует.</string>

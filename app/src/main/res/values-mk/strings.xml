@@ -34,6 +34,7 @@
     <string name="add_to_cloud">Додади во %1$s</string>
     <string name="advanced_settings">Напредни параметри</string>
     <string name="allow_resharing">Дозволи повторно споделување</string>
+    <string name="app_widget_description">Прикажува еден виџет од контролната табла</string>
     <string name="appbar_search_in">Барај во %s</string>
     <string name="associated_account_not_found">Не е пронајдена поврзана сметка!</string>
     <string name="auth_access_failed">Неуспешен пристап: %1$s</string>
@@ -88,6 +89,7 @@
     <string name="choose_location">Избери локација</string>
     <string name="choose_remote_folder">Избери папка на серверот…</string>
     <string name="choose_which_file">Избери која датотека да се зачува!</string>
+    <string name="choose_widget">Избери виџет</string>
     <string name="clear_notifications_failed">Неуспешно чистење на нотификациите.</string>
     <string name="clear_status_message">Тргни ја статус пораката</string>
     <string name="clear_status_message_after">Тргни го статусот после</string>
@@ -174,6 +176,7 @@
     <string name="create_new_presentation">Креирај нова презентација</string>
     <string name="create_new_spreadsheet">Креирајте нова табела</string>
     <string name="create_rich_workspace">Додади информации за папката</string>
+    <string name="creates_rich_workspace">креира инфо за папката</string>
     <string name="credentials_disabled">Акредитивите се оневозможени</string>
     <string name="daily_backup">Дневена резервна копија</string>
     <string name="date_unknown">Непознат</string>
@@ -187,6 +190,7 @@
     <string name="dev_version_no_new_version_available">Нема достапно нова верзија</string>
     <string name="dialog_close">Затвори</string>
     <string name="digest_algorithm_not_available">Овој алгоритам не е поддржан од вашиот уред</string>
+    <string name="direct_login_failed">Логирањето преку директен линк не е успешно!</string>
     <string name="disable_new_media_folder_detection_notifications">Оневозможи</string>
     <string name="dismiss">Отфрли</string>
     <string name="dismiss_notification_description">Отфрли известување</string>
@@ -229,6 +233,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Папката не е празна.</string>
     <string name="end_to_end_encryption_generating_keys">Генерирање на нови клучеви…</string>
     <string name="end_to_end_encryption_keywords_description">Сите 12 зборови заедно прават многу јака лозинка, дозволувајќи ви да ги гледате и да ги користите вашите криптирани датотеки. Ве молиме, запишете го и чувајте го некаде безбедно.</string>
+    <string name="end_to_end_encryption_not_enabled">Енкрипцијата од крај-до-крај е оневозможена на серверот.</string>
     <string name="end_to_end_encryption_passphrase_title">Забележете ја вашата лозинка за ентриптирање составена од 12 зборови</string>
     <string name="end_to_end_encryption_password">Лозинка…</string>
     <string name="end_to_end_encryption_retrieving_keys">Превземање на клучеви…</string>
@@ -239,13 +244,18 @@
     <string name="enter_filename">Внесете име на датотека</string>
     <string name="error__upload__local_file_not_copied">%1$s не може да се копира во локалната папка %2$s</string>
     <string name="error_cant_bind_to_operations_service">Критична грешка: Не може да се изврши операцијата</string>
+    <string name="error_choosing_date">Грешка при избирање на датумот</string>
     <string name="error_comment_file">Грешка при коментирање на датотека</string>
     <string name="error_crash_title">%1$s срушено</string>
+    <string name="error_creating_file_from_template">Грешка при креирањето на датотека од шаблон</string>
+    <string name="error_file_lock">Грешка при проверка на статусот на заклучување на датотеката</string>
     <string name="error_report_issue_action">Пријави</string>
+    <string name="error_report_issue_text">Пријави проблем? (потребна е Github сметка)</string>
     <string name="error_retrieving_file">Грешка при превземањето на датотеката</string>
     <string name="error_retrieving_templates">Грешка при превземањето на шаблоните</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартување на камерата</string>
     <string name="etm_accounts">Сметки</string>
+    <string name="etm_background_job_name">Име на задачата</string>
     <string name="etm_background_job_progress">Напредок</string>
     <string name="etm_background_job_started">Започна</string>
     <string name="etm_background_job_state">Статус</string>
@@ -253,6 +263,7 @@
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_background_jobs">Задачи кој се извршуваат во позадина</string>
     <string name="etm_background_jobs_cancel_all">Откажи ги сите активности</string>
+    <string name="etm_background_jobs_start_test_job">Започни пробна задача</string>
     <string name="etm_preferences">Перформанси</string>
     <string name="etm_title">Инженерски мод за тестирање</string>
     <string name="etm_transfer">Пренос на датотека</string>

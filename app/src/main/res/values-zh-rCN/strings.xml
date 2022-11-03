@@ -87,12 +87,14 @@
     <string name="calendars">日历</string>
     <string name="certificate_load_problem">加载证书失败。</string>
     <string name="changelog_dev_version">开发版本修改日志</string>
+    <string name="check_back_later_or_reload">请稍后重试</string>
     <string name="checkbox">复选框</string>
     <string name="choose_local_folder">选择本地文件夹…</string>
     <string name="choose_location">选择位置</string>
     <string name="choose_remote_folder">选择远程文件夹…</string>
     <string name="choose_template_helper_text">请选择一个模板并输入一个文件名</string>
     <string name="choose_which_file">选择保留的文件！</string>
+    <string name="choose_widget">选择小工具</string>
     <string name="clear_notifications_failed">清除通知失败</string>
     <string name="clear_status_message">清除状态信息</string>
     <string name="clear_status_message_after">清除状态信息于</string>
@@ -464,6 +466,7 @@
     <string name="no_browser_available">没有可用来打开链接的应用</string>
     <string name="no_calendar_exists">日历不存在</string>
     <string name="no_email_app_available">没有可处理邮件地址的应用</string>
+    <string name="no_items">没有项目</string>
     <string name="no_mutliple_accounts_allowed">只允许一个账号</string>
     <string name="no_pdf_app_available">没有可用来打开 PDF 的应用</string>
     <string name="no_send_app">没有可用于发送所选文件的应用</string>
@@ -580,6 +583,7 @@
     <string name="recommend_subject">在你的设备上尝试%1$s！</string>
     <string name="recommend_text">我想邀请你在你的设备上使用 %1$s。\n在这里下载：%2$s</string>
     <string name="recommend_urls">%1$s 或 %2$s</string>
+    <string name="refresh_content">刷新内容</string>
     <string name="reload">刷新</string>
     <string name="remote">(远程)</string>
     <string name="remote_file_fetch_failed">查找文件失败！</string>
@@ -881,6 +885,7 @@
     <string name="whats_new_skip">跳过</string>
     <string name="whats_new_title">新建%1$s</string>
     <string name="whats_your_status">你什么状态？</string>
+    <string name="widgets_not_available">小工具仅在%1$s25及更高版本中可用</string>
     <string name="widgets_not_available_title">不可用</string>
     <string name="write_email">发送邮件</string>
     <string name="wrong_storage_path">数据存储文件夹不存在！</string>
