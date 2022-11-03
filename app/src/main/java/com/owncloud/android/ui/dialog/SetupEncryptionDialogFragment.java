@@ -260,7 +260,6 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
 
             binding.encryptionStatus.setText(R.string.end_to_end_encryption_retrieving_keys);
             positiveButton.setVisibility(View.INVISIBLE);
-            neutralButton.setVisibility(View.INVISIBLE);
         }
 
         @Override
