@@ -31,7 +31,7 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 data class FileEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)
-    val id: Int,
+    val id: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_NAME)
     val name: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_ENCRYPTED_NAME)
@@ -41,53 +41,53 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_PATH_DECRYPTED)
     val pathDecrypted: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_PARENT)
-    val parent: Int,
+    val parent: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_CREATION)
-    val creation: Int,
+    val creation: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_MODIFIED)
-    val modified: Int,
+    val modified: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_CONTENT_TYPE)
     val contentType: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_CONTENT_LENGTH)
-    val contentLength: Int,
+    val contentLength: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_STORAGE_PATH)
     val storagePath: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_ACCOUNT_OWNER)
     val accountOwner: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LAST_SYNC_DATE)
-    val lastSyncDate: Int,
+    val lastSyncDate: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA)
-    val lastSyncDateForData: Int,
+    val lastSyncDateForData: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA)
-    val modifiedAtLastSyncForData: Int,
+    val modifiedAtLastSyncForData: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_ETAG)
     val etag: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_ETAG_ON_SERVER)
     val etagOnServer: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_SHARED_VIA_LINK)
-    val sharedViaLink: Int,
+    val sharedViaLink: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_PERMISSIONS)
     val permissions: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_REMOTE_ID)
     val remoteId: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_UPDATE_THUMBNAIL)
-    val updateThumbnail: Int,
+    val updateThumbnail: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_IS_DOWNLOADING)
-    val isDownloading: Int,
+    val isDownloading: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_FAVORITE)
-    val favorite: Int,
+    val favorite: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_IS_ENCRYPTED)
-    val isEncrypted: Int,
+    val isEncrypted: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_ETAG_IN_CONFLICT)
     val etagInConflict: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_SHARED_WITH_SHAREE)
-    val sharedWithSharee: Int,
+    val sharedWithSharee: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_MOUNT_TYPE)
     val mountType: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_HAS_PREVIEW)
-    val hasPreview: Int,
+    val hasPreview: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT)
-    val unreadCommentsCount: Int,
+    val unreadCommentsCount: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_OWNER_ID)
     val ownerId: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_OWNER_DISPLAY_NAME)
@@ -101,9 +101,9 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_METADATA_SIZE)
     val metadataSize: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCKED)
-    val locked: Int,
+    val locked: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TYPE)
-    val lockType: Int,
+    val lockType: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_OWNER)
     val lockOwner: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_OWNER_DISPLAY_NAME)
@@ -111,9 +111,9 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_OWNER_EDITOR)
     val lockOwnerEditor: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TIMESTAMP)
-    val lockTimestamp: Int,
+    val lockTimestamp: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TIMEOUT)
-    val lockTimeout: Int,
+    val lockTimeout: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TOKEN)
     val lockToken: String?
 )

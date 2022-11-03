@@ -31,7 +31,7 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 data class UploadEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)
-    val id: Int,
+    val id: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_LOCAL_PATH)
     val localPath: String?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_REMOTE_PATH)
@@ -41,25 +41,25 @@ data class UploadEntity(
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_FILE_SIZE)
     val fileSize: Long?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_STATUS)
-    val status: Int,
+    val status: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR)
-    val localBehaviour: Int,
+    val localBehaviour: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_UPLOAD_TIME)
     val uploadTime: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY)
-    val nameCollisionPolicy: Int,
+    val nameCollisionPolicy: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER)
-    val isCreateRemoteFolder: Int,
+    val isCreateRemoteFolder: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP)
     val uploadEndTimestamp: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_LAST_RESULT)
     val lastResult: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY)
-    val isWhileChargingOnly: Int,
+    val isWhileChargingOnly: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_IS_WIFI_ONLY)
-    val isWifiOnly: Int,
+    val isWifiOnly: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_CREATED_BY)
-    val createdBy: Int,
+    val createdBy: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_FOLDER_UNLOCK_TOKEN)
     val folderUnlockToken: String?
 )

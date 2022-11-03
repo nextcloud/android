@@ -96,8 +96,13 @@ class AppModule {
 
     @Provides
     @Singleton
-    NextcloudDatabase database(Context context) {
-        return Room.databaseBuilder(context, NextcloudDatabase.class, ProviderMeta.DB_NAME).build();
+    NextcloudDatabase database(Context context, Clock clock) {
+        // TODO move somewhere else to not pollute this file
+        return Room
+            .databaseBuilder(context, NextcloudDatabase.class, ProviderMeta.DB_NAME)
+            .addMigrations(NextcloudDatabase.getLegacyMigrations(context, clock))
+            .addMigrations(NextcloudDatabase.roomMigration)
+            .build();
     }
 
     @Provides

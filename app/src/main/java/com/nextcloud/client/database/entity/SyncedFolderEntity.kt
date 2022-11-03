@@ -31,31 +31,31 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 data class SyncedFolderEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)
-    val id: Int,
+    val id: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH)
     val localPath: String?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH)
     val remotePath: String?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY)
-    val wifiOnly: Int,
+    val wifiOnly: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY)
-    val chargingOnly: Int,
+    val chargingOnly: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_EXISTING)
-    val existing: Int,
+    val existing: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_ENABLED)
-    val enabled: Int,
+    val enabled: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS)
-    val enabledTimestampMs: Int,
+    val enabledTimestampMs: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE)
-    val subfolderByDate: Int,
+    val subfolderByDate: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_ACCOUNT)
     val account: String?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION)
-    val uploadAction: Int,
+    val uploadAction: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY)
-    val nameCollisionPolicy: Int,
+    val nameCollisionPolicy: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_TYPE)
-    val type: Int,
+    val type: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_HIDDEN)
-    val hidden: Int
+    val hidden: Int?
 )

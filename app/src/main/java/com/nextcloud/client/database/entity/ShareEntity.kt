@@ -31,41 +31,41 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 data class ShareEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)
-    val id: Int,
+    val id: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_FILE_SOURCE)
-    val fileSource: Int,
+    val fileSource: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_ITEM_SOURCE)
-    val itemSource: Int,
+    val itemSource: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_SHARE_TYPE)
-    val shareType: Int,
+    val shareType: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_SHARE_WITH)
     val shareWith: String?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_PATH)
     val path: String?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_PERMISSIONS)
-    val permissions: Int,
+    val permissions: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_SHARED_DATE)
-    val sharedDate: Int,
+    val sharedDate: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_EXPIRATION_DATE)
-    val expirationDate: Int,
+    val expirationDate: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_TOKEN)
     val token: String?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME)
     val shareWithDisplayName: String?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_IS_DIRECTORY)
-    val isDirectory: Int,
+    val isDirectory: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_USER_ID)
-    val userId: Int,
+    val userId: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED)
-    val idRemoteShared: Int,
+    val idRemoteShared: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER)
     val accountOwner: String?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED)
-    val isPasswordProtected: Int,
+    val isPasswordProtected: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_NOTE)
     val note: String?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD)
-    val hideDownload: Int,
+    val hideDownload: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_SHARE_LINK)
     val shareLink: String?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_SHARE_LABEL)

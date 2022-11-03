@@ -31,17 +31,17 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 data class ExternalLinkEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)
-    val id: Int,
+    val id: Int?,
     @ColumnInfo(name = ProviderTableMeta.EXTERNAL_LINKS_ICON_URL)
     val iconUrl: String?,
     @ColumnInfo(name = ProviderTableMeta.EXTERNAL_LINKS_LANGUAGE)
     val language: String?,
     @ColumnInfo(name = ProviderTableMeta.EXTERNAL_LINKS_TYPE)
-    val type: Int,
+    val type: Int?,
     @ColumnInfo(name = ProviderTableMeta.EXTERNAL_LINKS_NAME)
     val name: String?,
     @ColumnInfo(name = ProviderTableMeta.EXTERNAL_LINKS_URL)
-    val url: String,
+    val url: String?,
     @ColumnInfo(name = ProviderTableMeta.EXTERNAL_LINKS_REDIRECT)
-    val redirect: Int
+    val redirect: Int?
 )

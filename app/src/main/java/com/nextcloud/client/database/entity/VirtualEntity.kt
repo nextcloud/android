@@ -31,9 +31,9 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 data class VirtualEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)
-    val id: Int,
+    val id: Int?,
     @ColumnInfo(name = ProviderTableMeta.VIRTUAL_TYPE)
-    val type: String,
+    val type: String?,
     @ColumnInfo(name = ProviderTableMeta.VIRTUAL_OCFILE_ID)
-    val ocFileId: Int
+    val ocFileId: Int?
 )

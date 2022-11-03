@@ -31,7 +31,7 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 data class ArbitraryDataEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)
-    val id: Int,
+    val id: Int?,
     @ColumnInfo(name = ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID)
     val cloudId: String?,
     @ColumnInfo(name = ProviderTableMeta.ARBITRARY_DATA_KEY)

@@ -31,55 +31,55 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 data class CapabilityEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)
-    val id: Int,
+    val id: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME)
     val accountName: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_VERSION_MAYOR)
-    val versionMajor: Int,
+    val versionMajor: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_VERSION_MINOR)
-    val versionMinor: Int,
+    val versionMinor: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_VERSION_MICRO)
-    val versionMicro: Int,
+    val versionMicro: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_VERSION_STRING)
     val versionString: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_VERSION_EDITION)
     val versionEditor: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_EXTENDED_SUPPORT)
-    val extendedSupport: Int,
+    val extendedSupport: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_CORE_POLLINTERVAL)
-    val corePollinterval: Int,
+    val corePollinterval: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_API_ENABLED)
-    val sharingApiEnabled: Int,
+    val sharingApiEnabled: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ENABLED)
-    val sharingPublicEnabled: Int,
+    val sharingPublicEnabled: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_PASSWORD_ENFORCED)
-    val sharingPublicPasswordEnforced: Int,
+    val sharingPublicPasswordEnforced: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENABLED)
-    val sharingPublicExpireDateEnabled: Int,
+    val sharingPublicExpireDateEnabled: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_DAYS)
-    val sharingPublicExpireDateDays: Int,
+    val sharingPublicExpireDateDays: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENFORCED)
-    val sharingPublicExpireDateEnforced: Int,
+    val sharingPublicExpireDateEnforced: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_SEND_MAIL)
-    val sharingPublicSendMail: Int,
+    val sharingPublicSendMail: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_UPLOAD)
-    val sharingPublicUpload: Int,
+    val sharingPublicUpload: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_USER_SEND_MAIL)
-    val sharingUserSendMail: Int,
+    val sharingUserSendMail: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_RESHARING)
-    val sharingResharing: Int,
+    val sharingResharing: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_OUTGOING)
-    val sharingFederationOutgoing: Int,
+    val sharingFederationOutgoing: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_INCOMING)
-    val sharingFederationIncoming: Int,
+    val sharingFederationIncoming: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING)
-    val filesBigfilechunking: Int,
+    val filesBigfilechunking: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FILES_UNDELETE)
-    val filesUndelete: Int,
+    val filesUndelete: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FILES_VERSIONING)
-    val filesVersioning: Int,
+    val filesVersioning: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS)
-    val externalLinks: Int,
+    val externalLinks: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SERVER_NAME)
     val serverName: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SERVER_COLOR)
@@ -95,33 +95,33 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL)
     val serverBackgroundUrl: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION)
-    val endToEndEncryption: Int,
+    val endToEndEncryption: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_ACTIVITY)
-    val activity: Int,
+    val activity: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT)
-    val serverBackgroundDefault: Int,
+    val serverBackgroundDefault: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN)
-    val serverBackgroundPlain: Int,
+    val serverBackgroundPlain: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_RICHDOCUMENT)
-    val richdocument: Int,
+    val richdocument: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST)
     val richdocumentMimetypeList: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING)
-    val richdocumentDirectEditing: Int,
+    val richdocumentDirectEditing: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES)
-    val richdocumentTemplates: Int,
+    val richdocumentTemplates: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_OPTIONAL_MIMETYPE_LIST)
     val richdocumentOptionalMimetypeList: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ASK_FOR_OPTIONAL_PASSWORD)
-    val sharingPublicAskForOptionalPassword: Int,
+    val sharingPublicAskForOptionalPassword: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_PRODUCT_NAME)
     val richdocumentProductName: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_DIRECT_EDITING_ETAG)
     val directEditingEtag: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_USER_STATUS)
-    val userStatus: Int,
+    val userStatus: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI)
-    val userStatusSupportsEmoji: Int,
+    val userStatusSupportsEmoji: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_ETAG)
     val etag: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION)
