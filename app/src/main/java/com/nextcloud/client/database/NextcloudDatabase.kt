@@ -51,7 +51,8 @@ import com.owncloud.android.db.ProviderMeta
         UploadEntity::class,
         VirtualEntity::class
     ],
-    version = ProviderMeta.DB_VERSION
+    version = ProviderMeta.DB_VERSION,
+    exportSchema = true
 )
 abstract class NextcloudDatabase : RoomDatabase() {
 

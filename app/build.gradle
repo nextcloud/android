@@ -86,6 +86,12 @@ android {
 
         buildConfigField 'boolean', 'CI', ciBuild.toString()
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+
         // arguments to be passed to functional tests
         testInstrumentationRunner "com.nextcloud.client.ScreenshotTestRunner"
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "${NC_TEST_SERVER_BASEURL}"
@@ -147,6 +153,7 @@ android {
                 versionName "1"
             }
         }
+
 
         testOptions {
             unitTests.returnDefaultValues = true
