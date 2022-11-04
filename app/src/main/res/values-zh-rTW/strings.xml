@@ -236,6 +236,7 @@
     <string name="drawer_quota">在  %2$s中使用了%1$s </string>
     <string name="drawer_quota_unlimited">%1$s已使用</string>
     <string name="drawer_synced_folders">自動上傳</string>
+    <string name="e2e_not_yet_setup">尚未設定端到端加密</string>
     <string name="encrypted">設為已加密的</string>
     <string name="end_to_end_encryption_confirm_button">設定加密</string>
     <string name="end_to_end_encryption_decrypting">正在解密……</string>
