@@ -1,14 +1,9 @@
 /*
  * Nextcloud Android client application
  *
- * @author Bartek Przybylski
- * @author David A. Velasco
- * @author masensio
- * @author Álvaro Brey Vilas
- * Copyright (C) 2011 Bartek Przybylski
- * Copyright (C) 2016 ownCloud Inc.
- * Copyright (C) 2022 Álvaro Brey Vilas
- * Copyright (C) 2022 Nextcloud GmbH
+ *  @author Álvaro Brey
+ *  Copyright (C) 2022 Álvaro Brey
+ *  Copyright (C) 2022 Nextcloud GmbH
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -25,7 +20,7 @@
  *
  */
 
-package com.nextcloud.client.database;
+package com.nextcloud.client.database.migrations;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
