@@ -389,6 +389,7 @@
     <string name="hint_password">密碼</string>
     <string name="host_not_available">伺服器無法使用</string>
     <string name="host_your_own_server">擁有您自己的伺服器</string>
+    <string name="icon_for_empty_list">空清單的圖示</string>
     <string name="icon_of_dashboard_widget">儀表板小部件的圖示</string>
     <string name="icon_of_widget_entry">小部件條目的圖示</string>
     <string name="in_folder">在資料夾 %1$s</string>
@@ -878,6 +879,7 @@
     <string name="userinfo_no_info_text">在您的個人檔案中新增名字、頭像和聯絡資訊</string>
     <string name="username">用戶名稱</string>
     <string name="version_dev_download">下載</string>
+    <string name="video_overlay_icon">影片覆蓋層圖示</string>
     <string name="wait_a_moment">請稍候…</string>
     <string name="wait_checking_credentials">檢查儲存的身分驗證</string>
     <string name="wait_for_tmp_copy_from_private_storage">從私有儲存空間複製檔案中</string>
@@ -885,6 +887,7 @@
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>
     <string name="whats_your_status">您目前的狀態是什麼呢？</string>
+    <string name="widgets_not_available">小部件僅在 %1$s 25 或更新提供</string>
     <string name="widgets_not_available_title">不可用</string>
     <string name="write_email">傳送電子郵件</string>
     <string name="wrong_storage_path">資料儲存資料夾不存在！</string>
