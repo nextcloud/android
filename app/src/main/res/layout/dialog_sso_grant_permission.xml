@@ -24,7 +24,8 @@
     android:orientation="horizontal"
     android:paddingHorizontal="@dimen/dialog_padding"
     android:paddingTop="@dimen/dialog_padding"
-    tools:context="com.owncloud.android.ui.activity.SsoGrantPermissionActivity">
+    tools:context="com.owncloud.android.ui.activity.SsoGrantPermissionActivity"
+    tools:ignore="UseCompoundDrawables">
 
     <ImageView
         android:id="@+id/appIcon"
