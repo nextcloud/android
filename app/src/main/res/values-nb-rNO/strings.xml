@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Legg til %1$s</string>
     <string name="advanced_settings">Avanserte innstillinger</string>
     <string name="allow_resharing">TIllat videre deling</string>
+    <string name="app_widget_description">Viser en widget fra dashbordet</string>
     <string name="appbar_search_in">Søk i %s</string>
     <string name="associated_account_not_found">Tilknyttet bruker ikke funnet!</string>
     <string name="auth_access_failed">Tilgang mislyktes: %1$s</string>
@@ -87,12 +88,14 @@
     <string name="calendars">Kalendere</string>
     <string name="certificate_load_problem">Det er et problem med lasting av sertifikatet.</string>
     <string name="changelog_dev_version">Endringslogg utviklingsversjon</string>
+    <string name="check_back_later_or_reload">Kom tilbake senere eller last på nytt.</string>
     <string name="checkbox">Avkryssningsboks</string>
     <string name="choose_local_folder">Velg lokal mappe…</string>
     <string name="choose_location">Velg lokasjon</string>
     <string name="choose_remote_folder">Velg mappe annensteds hen…</string>
     <string name="choose_template_helper_text">Velg en mal og oppgi filnavn</string>
     <string name="choose_which_file">Velg filen du ønsker å beholde!</string>
+    <string name="choose_widget">Velg widget</string>
     <string name="clear_notifications_failed">Kunne ikke fjerne meldinger.</string>
     <string name="clear_status_message">Fjern statusmelding</string>
     <string name="clear_status_message_after">Fjern statusmelding etter</string>
@@ -233,6 +236,7 @@
     <string name="drawer_quota">%1$s av %2$s brukt</string>
     <string name="drawer_quota_unlimited">%1$s brukt</string>
     <string name="drawer_synced_folders">Auto-opplasting</string>
+    <string name="e2e_not_yet_setup">E2E er ikke satt opp enda</string>
     <string name="encrypted">Sett som kryptert</string>
     <string name="end_to_end_encryption_confirm_button">Sett opp kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer…</string>
@@ -241,6 +245,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Denne mappen er ikke tom.</string>
     <string name="end_to_end_encryption_generating_keys">Genererer nye nøkler…</string>
     <string name="end_to_end_encryption_keywords_description">Alle 12 ordene sammen utgjør et veldig sterkt passord, som lar bare deg vise og gjøre bruk av dine krypterte filer. Skriv det ned og oppbevar det på en trygg plass.</string>
+    <string name="end_to_end_encryption_not_enabled">Ende-til-ende-kryptering deaktivert på serveren.</string>
     <string name="end_to_end_encryption_passphrase_title">Merk deg dit 12-ords-krypteringspassord</string>
     <string name="end_to_end_encryption_password">Passord…</string>
     <string name="end_to_end_encryption_retrieving_keys">Henter nøkler…</string>
@@ -256,6 +261,7 @@
     <string name="error_comment_file">Feil ved kommentering av fil</string>
     <string name="error_crash_title">%1$s kræsjet</string>
     <string name="error_creating_file_from_template">Feil ved oppretting av fil fra mal</string>
+    <string name="error_file_lock">Feil ved endring av fillåsstatus</string>
     <string name="error_report_issue_action">Rapporter</string>
     <string name="error_report_issue_text">Rapporter feil? (Krever GitHub konto.)</string>
     <string name="error_retrieving_file">Oppstod feil med å få tilbake filen</string>
@@ -384,6 +390,9 @@
     <string name="hint_password">Passord</string>
     <string name="host_not_available">Server er ikke tilgjengelig</string>
     <string name="host_your_own_server">Bruk din egen server</string>
+    <string name="icon_for_empty_list">Ikon for tom liste</string>
+    <string name="icon_of_dashboard_widget">Ikon for dashbord-widget</string>
+    <string name="icon_of_widget_entry">Ikon for widgetoppføring</string>
     <string name="in_folder">i mappen %1$s</string>
     <string name="instant_upload_existing">Last også opp eksisterende filer</string>
     <string name="instant_upload_on_charging">Bare last opp under lading</string>
@@ -462,6 +471,7 @@
     <string name="no_browser_available">Ingen app tilgjengelig for å håndtere lenker</string>
     <string name="no_calendar_exists">Ingen kalender finnes</string>
     <string name="no_email_app_available">Ingen program for å behandle e-post adresse</string>
+    <string name="no_items">Ingen gjenstander</string>
     <string name="no_mutliple_accounts_allowed">Kun én konto er tillatt</string>
     <string name="no_pdf_app_available">Ingen app tilgjengelig for å håndtere PDF</string>
     <string name="no_send_app">Ingen program for å sende valgt fil</string>
@@ -578,6 +588,7 @@
     <string name="recommend_subject">Prøv %1$s på denne enheten.</string>
     <string name="recommend_text">Jeg inviterer deg til å bruke %1$s på enheten din.\nLast ned her: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="refresh_content">Oppdater innhold</string>
     <string name="reload">Last inn på nytt</string>
     <string name="remote">(ekstern)</string>
     <string name="remote_file_fetch_failed">Kunne ikke finne filen!</string>
@@ -869,6 +880,7 @@
     <string name="userinfo_no_info_text">Legg til navn, bilde og kontaktdetaljer på profilsiden.</string>
     <string name="username">Brukernavn</string>
     <string name="version_dev_download">Last ned</string>
+    <string name="video_overlay_icon">Videooverleggsikon</string>
     <string name="wait_a_moment">Vent et øyeblikk…</string>
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
@@ -876,6 +888,7 @@
     <string name="whats_new_skip">Hopp over</string>
     <string name="whats_new_title">Nytt i %1$s</string>
     <string name="whats_your_status">Hva er din status?</string>
+    <string name="widgets_not_available">Widgeter er bare tilgjengelige på %1$s 25 eller nyere</string>
     <string name="widgets_not_available_title">Ikke tilgjengelig</string>
     <string name="write_email">Send e-post</string>
     <string name="wrong_storage_path">Denne datalagringsmappen finnes ikke</string>
