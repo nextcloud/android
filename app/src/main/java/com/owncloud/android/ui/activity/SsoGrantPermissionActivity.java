@@ -38,10 +38,11 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.android.sso.Constants;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.databinding.ActivitySsoGrantPermissionBinding;
+import com.owncloud.android.databinding.DialogSsoGrantPermissionBinding;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -72,19 +73,37 @@ public class SsoGrantPermissionActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivitySsoGrantPermissionBinding binding = ActivitySsoGrantPermissionBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        DialogSsoGrantPermissionBinding binding = DialogSsoGrantPermissionBinding.inflate(getLayoutInflater());
 
         ComponentName callingActivity = getCallingActivity();
 
         if (callingActivity != null) {
             packageName = callingActivity.getPackageName();
-            String appName = getAppNameForPackage(packageName);
+            final String appName = getAppNameForPackage(packageName);
             account = getIntent().getParcelableExtra(NEXTCLOUD_FILES_ACCOUNT);
-            binding.permissionText.setText(makeSpecialPartsBold(
+
+            final SpannableStringBuilder dialogText = makeSpecialPartsBold(
                 getString(R.string.single_sign_on_request_token, appName, account.name),
                 appName,
-                account.name));
+                account.name);
+            binding.permissionText.setText(dialogText);
+            try {
+                if (packageName != null) {
+                    Drawable appIcon = getPackageManager().getApplicationIcon(packageName);
+                    binding.appIcon.setImageDrawable(appIcon);
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                Log_OC.e(TAG, "Error retrieving app icon", e);
+            }
+
+            final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+                .setView(binding.getRoot())
+                .setCancelable(false)
+                .setPositiveButton(R.string.permission_allow, (dialog, which) -> grantPermission())
+                .setNegativeButton(R.string.permission_deny, (dialog, which) -> exitFailed());
+
+            builder.show();
+
             Log_OC.v(TAG, "TOKEN-REQUEST: Calling Package: " + packageName);
             Log_OC.v(TAG, "TOKEN-REQUEST: App Name: " + appName);
         } else {
@@ -92,18 +111,6 @@ public class SsoGrantPermissionActivity extends BaseActivity {
             Log_OC.e(TAG, "Calling Package is null");
             setResultAndExit("Request was not executed properly. Use startActivityForResult()");
         }
-
-        try {
-            if (packageName != null) {
-                Drawable appIcon = getPackageManager().getApplicationIcon(packageName);
-                binding.appIcon.setImageDrawable(appIcon);
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            Log_OC.e(TAG, "Error retrieving app icon", e);
-        }
-
-        binding.btnDecline.setOnClickListener(v -> exitFailed());
-        binding.btnGrant.setOnClickListener(v -> grantPermission());
     }
 
     private SpannableStringBuilder makeSpecialPartsBold(String text, String... toBeStyledText) {
