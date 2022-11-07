@@ -54,6 +54,7 @@ import com.nextcloud.client.logger.LegacyLoggerAdapter;
 import com.nextcloud.client.logger.Logger;
 import com.nextcloud.client.migrations.MigrationsManager;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.WalledCheckCache;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
@@ -177,6 +178,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     @Inject
     PassCodeManager passCodeManager;
+
+    @Inject WalledCheckCache walledCheckCache;
 
     // workaround because injection is initialized on onAttachBaseContext
     // and getApplicationContext is null at that point, which crashes when getting current user
@@ -326,7 +329,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                            powerManagementService,
                            backgroundJobManager,
                            clock,
-                           viewThemeUtils);
+                           viewThemeUtils,
+                           walledCheckCache);
         initContactsBackup(accountManager, backgroundJobManager);
         notificationChannels();
 
@@ -506,8 +510,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         final PowerManagementService powerManagementService,
         final BackgroundJobManager backgroundJobManager,
         final Clock clock,
-        final ViewThemeUtils viewThemeUtils
-                                         ) {
+        final ViewThemeUtils viewThemeUtils,
+        final WalledCheckCache walledCheckCache) {
         updateToAutoUpload();
         cleanOldEntries(clock);
         updateAutoUploadEntries(clock);
@@ -537,7 +541,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         ReceiversHelper.registerNetworkChangeReceiver(uploadsStorageManager,
                                                       accountManager,
                                                       connectivityService,
-                                                      powerManagementService);
+                                                      powerManagementService,
+                                                      walledCheckCache);
 
         ReceiversHelper.registerPowerChangeReceiver(uploadsStorageManager,
                                                     accountManager,

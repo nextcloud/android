@@ -23,7 +23,6 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkInfo
-import android.os.Build
 import com.nextcloud.client.account.Server
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -98,6 +97,9 @@ class ConnectivityServiceTest {
         lateinit var network: Network
 
         @Mock
+        lateinit var walledCheckCache: WalledCheckCache
+
+        @Mock
         lateinit var networkCapabilities: NetworkCapabilities
 
         @Mock
@@ -120,7 +122,7 @@ class ConnectivityServiceTest {
                 accountManager,
                 clientFactory,
                 requestBuilder,
-                Build.VERSION_CODES.Q
+                walledCheckCache
             )
 
             whenever(networkCapabilities.hasCapability(eq(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)))
@@ -133,6 +135,7 @@ class ConnectivityServiceTest {
             whenever(clientFactory.createPlainClient()).thenReturn(client)
             whenever(user.server).thenReturn(newServer)
             whenever(accountManager.user).thenReturn(user)
+            whenever(walledCheckCache.getValue()).thenReturn(null)
         }
     }
 
