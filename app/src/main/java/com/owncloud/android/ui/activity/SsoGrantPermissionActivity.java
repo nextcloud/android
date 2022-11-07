@@ -47,8 +47,13 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.EncryptionUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.UUID;
+
+import javax.inject.Inject;
+
+import androidx.appcompat.app.AlertDialog;
 
 import static com.nextcloud.android.sso.Constants.DELIMITER;
 import static com.nextcloud.android.sso.Constants.EXCEPTION_ACCOUNT_ACCESS_DECLINED;
@@ -69,9 +74,16 @@ public class SsoGrantPermissionActivity extends BaseActivity {
     private String packageName;
     private Account account;
 
+    @Inject ViewThemeUtils.Factory themeUtilsFactory;
+    private ViewThemeUtils viewThemeUtils;
+
+    private AlertDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        viewThemeUtils = themeUtilsFactory.withDefaultSchemes();
 
         DialogSsoGrantPermissionBinding binding = DialogSsoGrantPermissionBinding.inflate(getLayoutInflater());
 
@@ -102,7 +114,8 @@ public class SsoGrantPermissionActivity extends BaseActivity {
                 .setPositiveButton(R.string.permission_allow, (dialog, which) -> grantPermission())
                 .setNegativeButton(R.string.permission_deny, (dialog, which) -> exitFailed());
 
-            builder.show();
+            dialog = builder.create();
+            dialog.show();
 
             Log_OC.v(TAG, "TOKEN-REQUEST: Calling Package: " + packageName);
             Log_OC.v(TAG, "TOKEN-REQUEST: App Name: " + appName);
@@ -111,6 +124,13 @@ public class SsoGrantPermissionActivity extends BaseActivity {
             Log_OC.e(TAG, "Calling Package is null");
             setResultAndExit("Request was not executed properly. Use startActivityForResult()");
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        viewThemeUtils.platform.colorTextButtons(dialog.getButton(AlertDialog.BUTTON_POSITIVE),
+                                                 dialog.getButton(AlertDialog.BUTTON_NEGATIVE));
     }
 
     private SpannableStringBuilder makeSpecialPartsBold(String text, String... toBeStyledText) {
