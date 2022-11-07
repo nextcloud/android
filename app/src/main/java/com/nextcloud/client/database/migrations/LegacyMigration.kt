@@ -29,6 +29,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.database.NextcloudDatabase
 
+private const val MIN_SUPPORTED_DB_VERSION = 24
+
 /**
  * Migrations for DB versions before Room was introduced
  */
@@ -54,7 +56,7 @@ fun RoomDatabase.Builder<NextcloudDatabase>.addLegacyMigrations(
     context: Context,
     clock: Clock
 ): RoomDatabase.Builder<NextcloudDatabase> {
-    (1 until NextcloudDatabase.FIRST_ROOM_DB_VERSION - 1)
+    (MIN_SUPPORTED_DB_VERSION until NextcloudDatabase.FIRST_ROOM_DB_VERSION - 1)
         .map { from -> LegacyMigration(from, from + 1, context, clock) }
         .forEach { migration -> this.addMigrations(migration) }
     return this

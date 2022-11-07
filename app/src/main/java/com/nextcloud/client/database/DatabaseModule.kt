@@ -43,6 +43,7 @@ class DatabaseModule {
             .databaseBuilder(context, NextcloudDatabase::class.java, ProviderMeta.DB_NAME)
             .addLegacyMigrations(context, clock)
             .addMigrations(RoomMigration())
+            .fallbackToDestructiveMigration()
             .build()
     }
 }
