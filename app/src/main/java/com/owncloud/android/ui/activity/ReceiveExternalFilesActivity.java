@@ -755,6 +755,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
             if (files.isEmpty()) {
                 setMessageForEmptyList(R.string.file_list_empty_headline, R.string.empty,
                                        R.drawable.uploads);
+                mEmptyListContainer.setVisibility(View.VISIBLE);
+                binding.list.setVisibility(View.GONE);
             } else {
                 mEmptyListContainer.setVisibility(View.GONE);
 
@@ -777,6 +779,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                          viewThemeUtils);
 
                 binding.list.setAdapter(sa);
+                binding.list.setVisibility(View.VISIBLE);
             }
             MaterialButton btnChooseFolder = binding.uploaderChooseFolder;
             viewThemeUtils.material.colorMaterialButtonPrimaryFilled(btnChooseFolder);
