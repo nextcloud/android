@@ -34,6 +34,7 @@ import com.nextcloud.client.widget.DashboardWidgetProvider;
 import com.nextcloud.client.widget.DashboardWidgetService;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.SetStatusDialogFragment;
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.DeepLinkLoginActivity;
@@ -462,4 +463,7 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract SslUntrustedCertDialog sslUntrustedCertDialog();
+
+    @ContributesAndroidInjector
+    abstract FileActionsBottomSheet fileActionsBottomSheet();
 }

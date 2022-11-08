@@ -34,6 +34,7 @@ import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -254,9 +255,10 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
      * {@inheritDoc}
      */
     @Override
+    // TODO replace with MenuProvider
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.item_file, menu);
+        inflater.inflate(R.menu.custom_menu_placeholder, menu);
 
         MenuItem menuItem = menu.findItem(R.id.action_search);
         menuItem.setVisible(true);
@@ -271,25 +273,23 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+    // TODO remove
+    public void onPrepareOptionsMenu_old(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        if (containerActivity.getStorageManager() != null) {
-            User user = accountManager.getUser();
-            FileMenuFilter mf = new FileMenuFilter(
-                getFile(),
-                containerActivity,
-                getActivity(),
-                false,
-                user
-            );
-            mf.filter(menu, true);
-        }
+//        if (containerActivity.getStorageManager() != null) {
+//            User user = accountManager.getUser();
+//            FileMenuFilter mf = new FileMenuFilter(
+//                getFile(),
+//                containerActivity,
+//                getActivity(),
+//                false,
+//                user
+//            );
+//            mf.filter(menu, true);
+//        }
 
+        // TODO remove in bottom sheet too
         // additional restriction for this fragment
         FileMenuFilter.hideMenuItems(
             menu.findItem(R.id.action_rename_file),
@@ -299,46 +299,56 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             menu.findItem(R.id.action_sync_file),
             menu.findItem(R.id.action_favorite),
             menu.findItem(R.id.action_unset_favorite)
-        );
+                                    );
 
         if (getFile().isSharedWithMe() && !getFile().canReshare()) {
             FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.custom_menu_placeholder_item) {
+            final OCFile file = getFile();
+            if (containerActivity.getStorageManager() != null && file != null) {
+                // Update the file
+                final OCFile updatedFile = containerActivity.getStorageManager().getFileById(file.getFileId());
+                setFile(updatedFile);
+
+                final OCFile fileNew = getFile();
+                if (fileNew != null) {
+                    FileActionsBottomSheet.newInstance(fileNew,
+                                                       containerActivity,
+                                                       false,
+                                                       this::onFileActionChosen)
+                        .show(getActivity().getSupportFragmentManager(), "actions");
+                }
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void onFileActionChosen(final int itemId) {
         if (itemId == R.id.action_send_share_file) {
             if (getFile().isSharedWithMe() && !getFile().canReshare()) {
                 DisplayUtils.showSnackMessage(getView(), R.string.resharing_is_not_allowed);
             } else {
                 containerActivity.getFileOperationsHelper().sendShareFile(getFile());
             }
-            return true;
         } else if (itemId == R.id.action_open_file_with) {
             openFile();
-            return true;
         } else if (itemId == R.id.action_remove_file) {
             RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
             dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-            return true;
         } else if (itemId == R.id.action_see_details) {
             seeDetails();
-            return true;
         } else if (itemId == R.id.action_sync_file) {
             containerActivity.getFileOperationsHelper().syncFile(getFile());
-            return true;
         } else if (itemId == R.id.action_edit) {
             containerActivity.getFileOperationsHelper().openFileWithTextEditor(getFile(), getContext());
-            return true;
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**

@@ -57,6 +57,7 @@ import com.nextcloud.client.media.NextcloudExoPlayer;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FragmentPreviewMediaBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -367,27 +368,28 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.removeItem(R.id.action_search);
-        inflater.inflate(R.menu.item_file, menu);
+        menu.removeItem(R.id.action_search); // TODO handle in bottom sheet?
+        inflater.inflate(R.menu.custom_menu_placeholder, menu);
     }
 
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+    // TODO remove
+    public void onPrepareOptionsMenu_old(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        if (containerActivity.getStorageManager() != null) {
-            User currentUser = accountManager.getUser();
-            FileMenuFilter mf = new FileMenuFilter(
-                getFile(),
-                containerActivity,
-                getActivity(),
-                false,
-                currentUser
-            );
+//        if (containerActivity.getStorageManager() != null) {
+//            User currentUser = accountManager.getUser();
+//            FileMenuFilter mf = new FileMenuFilter(
+//                getFile(),
+//                containerActivity,
+//                getActivity(),
+//                false,
+//                currentUser
+//            );
+//
+//            mf.filter(menu, true);
+//        }
 
-            mf.filter(menu, true);
-        }
-
+        // TODO handle this in bottomsheet to
         // additional restriction for this fragment
         // TODO allow renaming in PreviewImageFragment
         MenuItem item = menu.findItem(R.id.action_rename_file);
@@ -441,25 +443,43 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         }
     }
 
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
+    // TODO replace with MenuProvider
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.custom_menu_placeholder_item) {
+            final OCFile file = getFile();
+            if (containerActivity.getStorageManager() != null && file != null) {
+                // Update the file
+                final OCFile updatedFile = containerActivity.getStorageManager().getFileById(file.getFileId());
+                setFile(updatedFile);
+
+                final OCFile fileNew = getFile();
+                if (fileNew != null) {
+                    FileActionsBottomSheet.newInstance(fileNew,
+                                                       containerActivity,
+                                                       false,
+                                                       this::onFileActionChosen)
+                        .show(getActivity().getSupportFragmentManager(), "actions");
+                }
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void onFileActionChosen(final int itemId) {
         if (itemId == R.id.action_send_share_file) {
             sendShareFile();
-            return true;
         } else if (itemId == R.id.action_open_file_with) {
             openFile();
-            return true;
         } else if (itemId == R.id.action_remove_file) {
             RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
             dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-            return true;
         } else if (itemId == R.id.action_see_details) {
             seeDetails();
-            return true;
         } else if (itemId == R.id.action_sync_file) {
             containerActivity.getFileOperationsHelper().syncFile(getFile());
-            return true;
         } else if (itemId == R.id.action_stream_media) {
             containerActivity.getFileOperationsHelper().streamMediaFile(getFile());
         } else if (itemId == R.id.action_export_file) {
@@ -469,9 +489,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                                                                     getContext(),
                                                                     getView(),
                                                                     backgroundJobManager);
-            return true;
         }
-        return super.onOptionsItemSelected(item);
     }
 
     /**

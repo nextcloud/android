@@ -23,10 +23,8 @@ package com.owncloud.android.ui.preview;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -35,8 +33,6 @@ import android.graphics.drawable.PictureDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Process;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -57,6 +53,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.PreviewImageFragmentBinding;
@@ -341,74 +338,84 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
      * {@inheritDoc}
      */
     @Override
+    // TODO replace with MenuProvider
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.item_file, menu);
-
-        int nightModeFlag = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
-        if (Configuration.UI_MODE_NIGHT_NO == nightModeFlag) {
-            for (int i = 0; i < menu.size(); i++) {
-                MenuItem menuItem = menu.getItem(i);
-
-                SpannableString spanString = new SpannableString(menuItem.getTitle().toString());
-                spanString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, spanString.length(), 0);
-                menuItem.setTitle(spanString);
-            }
-        }
+        inflater.inflate(R.menu.custom_menu_placeholder, menu);
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+    // TODO delete
+    public void prepareOptionsMenu_old(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        if (containerActivity.getStorageManager() != null && getFile() != null) {
-            // Update the file
-            final OCFile updatedFile = containerActivity.getStorageManager().getFileById(getFile().getFileId());
-            setFile(updatedFile);
+//        if (containerActivity.getStorageManager() != null && getFile() != null) {
+//            // Update the file
+//            final OCFile updatedFile = containerActivity.getStorageManager().getFileById(getFile().getFileId());
+//            setFile(updatedFile);
+//
+//            if (getFile() != null) {
+//                User currentUser = accountManager.getUser();
+//                FileMenuFilter mf = new FileMenuFilter(
+//                    getFile(),
+//                    containerActivity,
+//                    getActivity(),
+//                    false,
+//                    currentUser
+//                );
+//
+//                mf.filter(menu, true);
+//            }
+//        }
 
-            if (getFile() != null) {
-                User currentUser = accountManager.getUser();
-                FileMenuFilter mf = new FileMenuFilter(
-                    getFile(),
-                    containerActivity,
-                    getActivity(),
-                    false,
-                    currentUser
-                );
-
-                mf.filter(menu, true);
-            }
-        }
-
+        // TODO remove items from bottom sheet too
         // additional restriction for this fragment
         // TODO allow renaming in PreviewImageFragment
         // TODO allow refresh file in PreviewImageFragment
         FileMenuFilter.hideMenuItems(
-                menu.findItem(R.id.action_rename_file),
-                menu.findItem(R.id.action_sync_file),
-                menu.findItem(R.id.action_select_all),
-                menu.findItem(R.id.action_move),
-                menu.findItem(R.id.action_copy),
-                menu.findItem(R.id.action_favorite),
-                menu.findItem(R.id.action_unset_favorite)
-        );
+            menu.findItem(R.id.action_rename_file),
+            menu.findItem(R.id.action_sync_file),
+            menu.findItem(R.id.action_select_all),
+            menu.findItem(R.id.action_move),
+            menu.findItem(R.id.action_copy),
+            menu.findItem(R.id.action_favorite),
+            menu.findItem(R.id.action_unset_favorite)
+                                    );
 
         if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
             FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.custom_menu_placeholder_item) {
+            final OCFile file = getFile();
+            if (containerActivity.getStorageManager() != null && file != null) {
+                // Update the file
+                final OCFile updatedFile = containerActivity.getStorageManager().getFileById(file.getFileId());
+                setFile(updatedFile);
+
+                final OCFile fileNew = getFile();
+                if (fileNew != null) {
+                    FileActionsBottomSheet.newInstance(fileNew,
+                                                       containerActivity,
+                                                       false,
+                                                       this::onFileActionChosen)
+                        .show(getActivity().getSupportFragmentManager(), "actions");
+                }
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
+    public void onFileActionChosen(final int itemId) {
         if (itemId == R.id.action_send_share_file) {
             if (getFile().isSharedWithMe() && !getFile().canReshare()) {
                 Snackbar.make(requireView(),
@@ -419,23 +426,17 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             } else {
                 containerActivity.getFileOperationsHelper().sendShareFile(getFile());
             }
-            return true;
         } else if (itemId == R.id.action_open_file_with) {
             openFile();
-            return true;
         } else if (itemId == R.id.action_remove_file) {
             RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
             dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-            return true;
         } else if (itemId == R.id.action_see_details) {
             seeDetails();
-            return true;
         } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
             containerActivity.getFileOperationsHelper().syncFile(getFile());
-            return true;
         } else if (itemId == R.id.action_set_as_wallpaper) {
             containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getImageView());
-            return true;
         } else if (itemId == R.id.action_export_file) {
             ArrayList<OCFile> list = new ArrayList<>();
             list.add(getFile());
@@ -443,9 +444,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                                                     getContext(),
                                                                     getView(),
                                                                     backgroundJobManager);
-            return true;
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void seeDetails() {

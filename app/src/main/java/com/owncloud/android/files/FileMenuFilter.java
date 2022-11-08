@@ -49,7 +49,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile}
@@ -107,6 +109,7 @@ public class FileMenuFilter {
      * @param overflowMenu      true if the overflow menu items are being filtered
      * @param user              currently active user
      */
+    @VisibleForTesting // TODO remove this constructor for testing too
     public FileMenuFilter(OCFile file,
                           ComponentsGetter componentsGetter,
                           Context context,
@@ -114,6 +117,22 @@ public class FileMenuFilter {
                           User user
     ) {
         this(1, Collections.singletonList(file), componentsGetter, context, overflowMenu, user);
+    }
+
+    /**
+     * Temporary while migrating to bottom sheet
+     *
+     * TODO refactor and remove
+     */
+    @IdRes
+    public List<Integer> getToHide(final boolean inSingleFileFragment){
+        if(files != null && ! files.isEmpty()){
+            List<Integer> toShow = new ArrayList<>();
+            List<Integer> toHide = new ArrayList<>();
+            filter(toShow, toHide, inSingleFileFragment);
+            return toHide;
+        }
+        return null;
     }
 
     /**
@@ -368,6 +387,7 @@ public class FileMenuFilter {
     }
 
     @Nullable
+    // TODO this does NOT belong in this class
     public static Editor getEditor(ContentResolver contentResolver, User user, String mimeType) {
         String json = new ArbitraryDataProvider(contentResolver).getValue(user, ArbitraryDataProvider.DIRECT_EDITING);
 
