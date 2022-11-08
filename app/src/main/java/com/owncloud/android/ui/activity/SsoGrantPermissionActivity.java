@@ -114,6 +114,8 @@ public class SsoGrantPermissionActivity extends BaseActivity {
                 .setPositiveButton(R.string.permission_allow, (dialog, which) -> grantPermission())
                 .setNegativeButton(R.string.permission_deny, (dialog, which) -> exitFailed());
 
+            viewThemeUtils.dialog.colorMaterialAlertDialogBackground(this, builder);
+
             dialog = builder.create();
             dialog.show();
 
