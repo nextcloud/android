@@ -12,7 +12,7 @@ buildscript {
         mockkVersion = "1.13.2"
         espressoVersion = "3.4.0"
         workRuntime = "2.7.1"
-        fidoVersion = "4.1.0-patch1"
+        fidoVersion = "4.4.0"
         checkerVersion = "3.21.2"
         exoplayerVersion = "2.18.1"
         documentScannerVersion = "1.0.1"
