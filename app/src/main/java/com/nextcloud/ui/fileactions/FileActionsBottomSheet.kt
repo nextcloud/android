@@ -36,6 +36,7 @@ import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
 // TODO add file name
@@ -44,7 +45,7 @@ import javax.inject.Inject
 // TODO viewModel
 // TODO drag handle
 // TODO theming
-class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
+class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment(), Injectable {
 
     // TODO refactor FileMenuFilter and inject needed things into it
     lateinit var componentsGetter: ComponentsGetter
@@ -54,6 +55,9 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
 
     @Inject
     lateinit var currentAccountProvider: CurrentAccountProvider
+
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     private lateinit var binding: FileActionsBottomSheetBinding
 
@@ -75,15 +79,23 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
             currentAccountProvider.user
         )
             .getToHide(false)
-        FileAction.values()
+        FileAction.SORTED_VALUES
             .filter { it.id !in toHide }.forEach { action ->
                 // TODO change icon
                 val itemBinding = FileActionsBottomSheetItemBinding.inflate(inflater, binding.fileActionsList, false)
                     .apply {
-                        root.setText(action.title)
                         root.setOnClickListener {
                             clickListener.onClick(action.id)
                             dismiss()
+                        }
+                        text.setText(action.title)
+                        if (action.icon != null) {
+                            val drawable =
+                                viewThemeUtils.platform.tintDrawable(
+                                    requireContext(),
+                                    resources.getDrawable(action.icon)
+                                )
+                            icon.setImageDrawable(drawable)
                         }
                     }
                 binding.fileActionsList.addView(itemBinding.root)
