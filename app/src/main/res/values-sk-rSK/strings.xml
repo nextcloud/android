@@ -88,12 +88,14 @@
     <string name="calendars">Kalendáre</string>
     <string name="certificate_load_problem">Nastal problém s načítaním certifikátu.</string>
     <string name="changelog_dev_version">Zmeny v dev verzii</string>
+    <string name="check_back_later_or_reload">Skúste to neskôr alebo znova načítajte.</string>
     <string name="checkbox">Zaškrtávacie políčko</string>
     <string name="choose_local_folder">Vyberte miestny priečinok…</string>
     <string name="choose_location">Vybrať polohu</string>
     <string name="choose_remote_folder">Vyberte vzdialený priečinok…</string>
     <string name="choose_template_helper_text">Prosím vyberte šablónu a zadajte meno súboru.</string>
     <string name="choose_which_file">Vyberte ktorý súbor zachovať!</string>
+    <string name="choose_widget">Vybrať widget</string>
     <string name="clear_notifications_failed">Odstránenie upozornení zlyhalo.</string>
     <string name="clear_status_message">Vyčistiť správu o stave</string>
     <string name="clear_status_message_after">Vyčistiť správu o stave po</string>
@@ -234,6 +236,7 @@
     <string name="drawer_quota">Využité: %1$s z %2$s</string>
     <string name="drawer_quota_unlimited">%1$s použitých</string>
     <string name="drawer_synced_folders">Automatické nahratie</string>
+    <string name="e2e_not_yet_setup">E2E zatiaľ nie je nastavené</string>
     <string name="encrypted">Nastaviť ako zašifrované</string>
     <string name="end_to_end_encryption_confirm_button">Nastavenie šifrovania</string>
     <string name="end_to_end_encryption_decrypting">Dešifrujem…</string>
@@ -387,6 +390,9 @@
     <string name="hint_password">Heslo</string>
     <string name="host_not_available">Server nie je dostupný</string>
     <string name="host_your_own_server">Hostiť vlastný server</string>
+    <string name="icon_for_empty_list">Ikona pre prázdny zoznam</string>
+    <string name="icon_of_dashboard_widget">Ikona widgetu na hlavnom paneli</string>
+    <string name="icon_of_widget_entry">Ikona položky ovládacieho panelu</string>
     <string name="in_folder">v adresári %1$s</string>
     <string name="instant_upload_existing">Nahrať aj existujúce súbory</string>
     <string name="instant_upload_on_charging">Nahrať iba počas nabíjania</string>
@@ -465,6 +471,7 @@
     <string name="no_browser_available">Aplikácia na prácu s linkami nenájdená</string>
     <string name="no_calendar_exists">Neexistuje žiadny kalendár</string>
     <string name="no_email_app_available">Aplikácia pre prácu s e-mail adresami nenájdená</string>
+    <string name="no_items">Žiadne položky</string>
     <string name="no_mutliple_accounts_allowed">Povolený je iba jeden účet</string>
     <string name="no_pdf_app_available">Aplikácia na prácu s PDF nenájdená</string>
     <string name="no_send_app">Nie je k dispozícii žiadna aplikácia na odosielanie vybratých súborov</string>
@@ -581,6 +588,7 @@
     <string name="recommend_subject">Vyskúšajte %1$s na vašom zariadení!</string>
     <string name="recommend_text">Chcel by som odporučiť %1$s pre vaše zariadenie.\nZískať ho môžete aj tu: %2$s</string>
     <string name="recommend_urls">%1$s alebo %2$s</string>
+    <string name="refresh_content">Obnoviť obsah</string>
     <string name="reload">Znovu načítať</string>
     <string name="remote">(vzdialené)</string>
     <string name="remote_file_fetch_failed">Nepodarilo sa nájsť súbor</string>
@@ -872,6 +880,7 @@
     <string name="userinfo_no_info_text">Pridaj meno, obrázok a kontakt na profilovú stránku.</string>
     <string name="username">Používateľské meno</string>
     <string name="version_dev_download">Stiahnúť</string>
+    <string name="video_overlay_icon">Ikona prekryvu videa</string>
     <string name="wait_a_moment">Počkajte chvíľu…</string>
     <string name="wait_checking_credentials">Overujem uložené prihlasovacie údaje</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>
@@ -879,6 +888,7 @@
     <string name="whats_new_skip">Preskočiť</string>
     <string name="whats_new_title">Nové v %1$s</string>
     <string name="whats_your_status">Aký je váš stav?</string>
+    <string name="widgets_not_available">Widgety sú dostupné iba na %1$s 25 alebo vyšší</string>
     <string name="widgets_not_available_title">Nie je k dispozícií</string>
     <string name="write_email">Odoslať email</string>
     <string name="wrong_storage_path">Adresár pre úložisko dát neexistuje!</string>
