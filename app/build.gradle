@@ -71,7 +71,7 @@ file("$project.rootDir/ndk.env").readLines().each() {
 
 android {
 
-    compileSdkVersion 31
+    compileSdkVersion 32
     // install this NDK version and Cmake to produce smaller APKs. Build will still work if not installed
     ndkVersion "${ndkEnv.get("NDK_VERSION")}"
 
