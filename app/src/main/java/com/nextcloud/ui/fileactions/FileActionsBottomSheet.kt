@@ -42,9 +42,8 @@ import javax.inject.Inject
 // TODO add file name
 // TODO add lock info (see FileLockingMenuCustomization)
 // TODO give events back
-// TODO drag handle
+// TODO drag handle (needs material 1.7.0)
 // TODO theming
-// TODO scrollable (for small screens)
 class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment(), Injectable {
 
     lateinit var componentsGetter: ComponentsGetter

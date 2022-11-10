@@ -50,6 +50,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.IdRes;
+import androidx.annotation.VisibleForTesting;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile}
@@ -151,6 +152,8 @@ public class FileMenuFilter {
      * @param menu                 Options or context menu to filter.
      * @param inSingleFileFragment True if this is not listing, but single file fragment, like preview or details.
      */
+    @Deprecated
+    @VisibleForTesting // TODO remove this, we only need toHide now
     public void filter(Menu menu, boolean inSingleFileFragment) {
         if (files == null || files.isEmpty()) {
             MenuUtils.hideAll(menu);
