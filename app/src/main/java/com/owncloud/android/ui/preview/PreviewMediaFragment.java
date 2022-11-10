@@ -76,6 +76,8 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
@@ -367,81 +369,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.removeItem(R.id.action_search); // TODO handle in bottom sheet?
+        menu.removeItem(R.id.action_search);
         inflater.inflate(R.menu.custom_menu_placeholder, menu);
     }
-
-    // TODO remove
-    public void onPrepareOptionsMenu_old(@NonNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-//        if (containerActivity.getStorageManager() != null) {
-//            User currentUser = accountManager.getUser();
-//            FileMenuFilter mf = new FileMenuFilter(
-//                getFile(),
-//                containerActivity,
-//                getActivity(),
-//                false,
-//                currentUser
-//            );
-//
-//            mf.filter(menu, true);
-//        }
-
-        // TODO handle this in bottomsheet to
-        // additional restriction for this fragment
-        // TODO allow renaming in PreviewImageFragment
-        MenuItem item = menu.findItem(R.id.action_rename_file);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_select_all);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_move);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_copy);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_favorite);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_unset_favorite);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-            // additional restriction for this fragment
-            item = menu.findItem(R.id.action_send_share_file);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
-        }
-    }
-
 
     @Override
     // TODO replace with MenuProvider
@@ -455,10 +385,24 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
                 final OCFile fileNew = getFile();
                 if (fileNew != null) {
+                    final List<Integer> additionalFilter =
+                        Arrays.asList(
+                            R.id.action_rename_file,
+                            R.id.action_sync_file,
+                            R.id.action_select_all,
+                            R.id.action_move,
+                            R.id.action_copy,
+                            R.id.action_favorite,
+                            R.id.action_unset_favorite
+                                     );
+                    if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
+                        additionalFilter.add(R.id.action_send_share_file);
+                    }
                     FileActionsBottomSheet.newInstance(fileNew,
                                                        containerActivity,
                                                        false,
-                                                       this::onFileActionChosen)
+                                                       this::onFileActionChosen,
+                                                       additionalFilter)
                         .show(getActivity().getSupportFragmentManager(), "actions");
                 }
             }

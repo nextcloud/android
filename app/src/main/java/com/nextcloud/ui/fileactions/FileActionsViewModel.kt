@@ -56,7 +56,8 @@ class FileActionsViewModel @Inject constructor(
         files: Collection<OCFile>,
         componentsGetter: ComponentsGetter,
         numberOfAllFiles: Int?,
-        isOverflow: Boolean?
+        isOverflow: Boolean?,
+        additionalFilter: IntArray?
     ) {
         val toHide = filterFactory.newInstance(
             numberOfAllFiles ?: 1,
@@ -67,6 +68,7 @@ class FileActionsViewModel @Inject constructor(
         )
             .getToHide(false)
         val availableActions = FileAction.SORTED_VALUES
+            .filter { additionalFilter == null || it.id !in additionalFilter }
             .filter { it.id !in toHide }
         _uiState.value = UiState.Loaded(availableActions)
     }

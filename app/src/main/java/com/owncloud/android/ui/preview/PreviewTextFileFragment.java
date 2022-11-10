@@ -53,6 +53,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.lang.ref.WeakReference;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -273,40 +274,6 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         }
     }
 
-    // TODO remove
-    public void onPrepareOptionsMenu_old(@NonNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-//        if (containerActivity.getStorageManager() != null) {
-//            User user = accountManager.getUser();
-//            FileMenuFilter mf = new FileMenuFilter(
-//                getFile(),
-//                containerActivity,
-//                getActivity(),
-//                false,
-//                user
-//            );
-//            mf.filter(menu, true);
-//        }
-
-        // TODO remove in bottom sheet too
-        // additional restriction for this fragment
-        MenuUtils.hideMenuItems(
-            menu.findItem(R.id.action_rename_file),
-            menu.findItem(R.id.action_select_all),
-            menu.findItem(R.id.action_move),
-            menu.findItem(R.id.action_download_file),
-            menu.findItem(R.id.action_sync_file),
-            menu.findItem(R.id.action_favorite),
-            menu.findItem(R.id.action_unset_favorite)
-                               );
-
-        if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-            MenuUtils.hideMenuItem(menu.findItem(R.id.action_send_share_file));
-        }
-    }
-
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.custom_menu_placeholder_item) {
@@ -318,10 +285,24 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
 
                 final OCFile fileNew = getFile();
                 if (fileNew != null) {
+                    final List<Integer> additionalFilter =
+                        Arrays.asList(
+                            R.id.action_rename_file,
+                            R.id.action_sync_file,
+                            R.id.action_select_all,
+                            R.id.action_move,
+                            R.id.action_copy,
+                            R.id.action_favorite,
+                            R.id.action_unset_favorite
+                                     );
+                    if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
+                        additionalFilter.add(R.id.action_send_share_file);
+                    }
                     FileActionsBottomSheet.newInstance(fileNew,
                                                        containerActivity,
                                                        false,
-                                                       this::onFileActionChosen)
+                                                       this::onFileActionChosen,
+                                                       additionalFilter)
                         .show(getActivity().getSupportFragmentManager(), "actions");
                 }
             }

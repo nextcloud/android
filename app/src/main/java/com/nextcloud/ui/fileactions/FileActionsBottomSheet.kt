@@ -71,6 +71,7 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         require(files != null)
         val numberOfAllFiles: Int = args.getInt(ARG_ALL_FILES_COUNT, 1)
         val isOverflow = args.getBoolean(ARG_IS_OVERFLOW, false)
+        val additionalFilter: IntArray? = args.getIntArray(ARG_ADDITIONAL_FILTER)
 
         viewModel = ViewModelProvider(this, vmFactory)[FileActionsViewModel::class.java]
         _binding = FileActionsBottomSheetBinding.inflate(inflater, container, false)
@@ -90,7 +91,7 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
             dispatchActionClick(id)
         }
 
-        viewModel.load(files.toList(), componentsGetter, numberOfAllFiles, isOverflow)
+        viewModel.load(files.toList(), componentsGetter, numberOfAllFiles, isOverflow, additionalFilter)
 
         return binding.root
     }
@@ -144,31 +145,42 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         private const val ARG_ALL_FILES_COUNT = "ALL_FILES_COUNT"
         private const val ARG_FILES = "FILES"
         private const val ARG_IS_OVERFLOW = "OVERFLOW"
+        private const val ARG_ADDITIONAL_FILTER = "ADDITIONAL_FILTER"
 
         @JvmStatic
+        @JvmOverloads
         fun newInstance(
             file: OCFile,
             componentsGetter: ComponentsGetter,
             isOverflow: Boolean,
-            onItemClick: ClickListener
+            onItemClick: ClickListener,
+            @IdRes
+            additionalToHide: List<Int>? = null
         ): FileActionsBottomSheet {
-            return newInstance(1, listOf(file), componentsGetter, isOverflow, onItemClick)
+            return newInstance(1, listOf(file), componentsGetter, isOverflow, onItemClick, additionalToHide)
         }
 
         @JvmStatic
+        @JvmOverloads
         fun newInstance(
             numberOfAllFiles: Int,
             files: Collection<OCFile>,
             componentsGetter: ComponentsGetter,
             isOverflow: Boolean,
-            onItemClick: ClickListener
+            onItemClick: ClickListener,
+            @IdRes
+            additionalToHide: List<Int>? = null
         ): FileActionsBottomSheet {
             return FileActionsBottomSheet().apply {
-                arguments = bundleOf(
+                val argsBundle = bundleOf(
                     ARG_ALL_FILES_COUNT to numberOfAllFiles,
                     ARG_FILES to files.toTypedArray(),
                     ARG_IS_OVERFLOW to isOverflow
                 )
+                additionalToHide?.let {
+                    argsBundle.putIntArray(ARG_ADDITIONAL_FILTER, additionalToHide.toIntArray())
+                }
+                arguments = argsBundle
                 this.componentsGetter = componentsGetter
                 this.clickListener = onItemClick
             }

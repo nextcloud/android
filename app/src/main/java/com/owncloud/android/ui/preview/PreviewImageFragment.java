@@ -74,6 +74,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -344,51 +346,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         inflater.inflate(R.menu.custom_menu_placeholder, menu);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    // TODO delete
-    public void prepareOptionsMenu_old(@NonNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-//        if (containerActivity.getStorageManager() != null && getFile() != null) {
-//            // Update the file
-//            final OCFile updatedFile = containerActivity.getStorageManager().getFileById(getFile().getFileId());
-//            setFile(updatedFile);
-//
-//            if (getFile() != null) {
-//                User currentUser = accountManager.getUser();
-//                FileMenuFilter mf = new FileMenuFilter(
-//                    getFile(),
-//                    containerActivity,
-//                    getActivity(),
-//                    false,
-//                    currentUser
-//                );
-//
-//                mf.filter(menu, true);
-//            }
-//        }
-
-        // TODO remove items from bottom sheet too
-        // additional restriction for this fragment
-        // TODO allow renaming in PreviewImageFragment
-        // TODO allow refresh file in PreviewImageFragment
-        MenuUtils.hideMenuItems(
-            menu.findItem(R.id.action_rename_file),
-            menu.findItem(R.id.action_sync_file),
-            menu.findItem(R.id.action_select_all),
-            menu.findItem(R.id.action_move),
-            menu.findItem(R.id.action_copy),
-            menu.findItem(R.id.action_favorite),
-            menu.findItem(R.id.action_unset_favorite)
-                               );
-
-        if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
-            MenuUtils.hideMenuItem(menu.findItem(R.id.action_send_share_file));
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.custom_menu_placeholder_item) {
@@ -400,10 +357,24 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
                 final OCFile fileNew = getFile();
                 if (fileNew != null) {
+                    final List<Integer> additionalFilter =
+                        Arrays.asList(
+                            R.id.action_rename_file,
+                            R.id.action_sync_file,
+                            R.id.action_select_all,
+                            R.id.action_move,
+                            R.id.action_copy,
+                            R.id.action_favorite,
+                            R.id.action_unset_favorite
+                                     );
+                    if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
+                        additionalFilter.add(R.id.action_send_share_file);
+                    }
                     FileActionsBottomSheet.newInstance(fileNew,
                                                        containerActivity,
                                                        false,
-                                                       this::onFileActionChosen)
+                                                       this::onFileActionChosen,
+                                                       additionalFilter)
                         .show(getActivity().getSupportFragmentManager(), "actions");
                 }
             }

@@ -27,7 +27,6 @@ import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import com.owncloud.android.R
 
-// TODO get rid of id, use enum value directly
 enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRes val icon: Int? = null) {
     // selection
     SELECT_ALL(R.id.action_select_all_action_menu, R.string.select_all, R.drawable.ic_select_all),
