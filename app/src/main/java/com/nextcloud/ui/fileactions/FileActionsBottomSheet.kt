@@ -32,6 +32,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.datamodel.OCFile
@@ -39,7 +40,6 @@ import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-// TODO add file name
 // TODO add lock info (see FileLockingMenuCustomization)
 // TODO give events back
 // TODO drag handle (needs material 1.7.0)
@@ -77,8 +77,13 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
 
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is FileActionsViewModel.UiState.Loaded -> {
+                is FileActionsViewModel.UiState.LoadedForSingleFile -> {
                     displayActions(state.actions, inflater)
+                    displayTitle(state.titleFile)
+                }
+                is FileActionsViewModel.UiState.LoadedForMultipleFiles -> {
+                    displayActions(state.actions, inflater)
+                    displayTitle(state.fileCount)
                 }
                 FileActionsViewModel.UiState.Loading -> {
                     // TODO show spinner
@@ -103,6 +108,16 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
             val view = inflateActionView(inflater, action)
             binding.fileActionsList.addView(view)
         }
+    }
+
+    private fun displayTitle(titleFile: OCFile?) {
+        titleFile?.decryptedFileName?.let {
+            binding.title.text = it
+        }
+    }
+
+    private fun displayTitle(fileCount: Int) {
+        binding.title.text = resources.getQuantityString(R.plurals.file_list__footer__file, fileCount, fileCount)
     }
 
     private fun inflateActionView(inflater: LayoutInflater, action: FileAction): View {

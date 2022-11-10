@@ -40,7 +40,8 @@ class FileActionsViewModel @Inject constructor(
 
     sealed interface UiState {
         object Loading : UiState
-        class Loaded(val actions: List<FileAction>) : UiState
+        class LoadedForSingleFile(val actions: List<FileAction>, val titleFile: OCFile?) : UiState
+        class LoadedForMultipleFiles(val actions: List<FileAction>, val fileCount: Int) : UiState
     }
 
     private val _uiState: MutableLiveData<UiState> = MutableLiveData(UiState.Loading)
@@ -70,7 +71,10 @@ class FileActionsViewModel @Inject constructor(
         val availableActions = FileAction.SORTED_VALUES
             .filter { additionalFilter == null || it.id !in additionalFilter }
             .filter { it.id !in toHide }
-        _uiState.value = UiState.Loaded(availableActions)
+        _uiState.value = when (files.size) {
+            1 -> UiState.LoadedForSingleFile(availableActions, files.first())
+            else -> UiState.LoadedForMultipleFiles(availableActions, files.size)
+        }
     }
 
     fun onClick(action: FileAction) {
