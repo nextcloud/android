@@ -22,21 +22,19 @@
 package com.owncloud.android.files;
 
 import android.accounts.AccountManager;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.gson.Gson;
 import com.nextcloud.android.files.FileLockingHelper;
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.MenuUtils;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.lib.common.DirectEditing;
-import com.owncloud.android.lib.common.Editor;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -49,9 +47,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.annotation.IdRes;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile}
@@ -70,24 +68,54 @@ public class FileMenuFilter {
     private final boolean overflowMenu;
     private final User user;
     private final String userId;
+    private final FileDataStorageManager storageManager;
+    private final EditorUtils editorUtils;
 
-    /**
-     * Constructor
-     *
-     * @param numberOfAllFiles  Number of all displayed files
-     * @param files             Collection of {@link OCFile} file targets of the action to filter in the {@link Menu}.
-     * @param componentsGetter  Accessor to app components, needed to access synchronization services
-     * @param context           Android {@link Context}, needed to access build setup resources.
-     * @param overflowMenu      true if the overflow menu items are being filtered
-     * @param user              currently active user
-     */
-    public FileMenuFilter(int numberOfAllFiles,
-                          Collection<OCFile> files,
-                          ComponentsGetter componentsGetter,
-                          Context context,
-                          boolean overflowMenu,
-                          User user
-    ) {
+
+    public static class Factory {
+        private FileDataStorageManager storageManager;
+        private Context context;
+        private EditorUtils editorUtils;
+
+        @Inject
+        public Factory(final FileDataStorageManager storageManager, final Context context, final EditorUtils editorUtils) {
+            this.storageManager = storageManager;
+            this.context = context;
+            this.editorUtils = editorUtils;
+        }
+
+        /**
+         * @param numberOfAllFiles Number of all displayed files
+         * @param files            Collection of {@link OCFile} file targets of the action to filter in the {@link Menu}.
+         * @param componentsGetter Accessor to app components, needed to access synchronization services
+         * @param overflowMenu     true if the overflow menu items are being filtered
+         * @param user             currently active user
+         */
+        public FileMenuFilter newInstance(final int numberOfAllFiles, final Collection<OCFile> files, final ComponentsGetter componentsGetter, boolean overflowMenu, User user) {
+            return new FileMenuFilter(storageManager, editorUtils, numberOfAllFiles, files, componentsGetter, context, overflowMenu, user);
+        }
+
+        /**
+         * @param file             {@link OCFile} file target
+         * @param componentsGetter Accessor to app components, needed to access synchronization services
+         * @param overflowMenu     true if the overflow menu items are being filtered
+         * @param user             currently active user
+         */
+        public FileMenuFilter newInstance(final OCFile file, final ComponentsGetter componentsGetter, boolean overflowMenu, User user) {
+            return newInstance(1, Collections.singletonList(file), componentsGetter, overflowMenu, user);
+        }
+    }
+
+
+    private FileMenuFilter(FileDataStorageManager storageManager, EditorUtils editorUtils, int numberOfAllFiles,
+                           Collection<OCFile> files,
+                           ComponentsGetter componentsGetter,
+                           Context context,
+                           boolean overflowMenu,
+                           User user
+                          ) {
+        this.storageManager = storageManager;
+        this.editorUtils = editorUtils;
         this.numberOfAllFiles = numberOfAllFiles;
         this.files = files;
         this.componentsGetter = componentsGetter;
@@ -98,25 +126,6 @@ public class FileMenuFilter {
             .get(context)
             .getUserData(this.user.toPlatformAccount(),
                          com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
-    }
-
-    /**
-     * Constructor
-     *
-     * @param file              {@link OCFile} target of the action to filter in the {@link Menu}.
-     * @param componentsGetter  Accessor to app components, needed to access synchronization services
-     * @param context           Android {@link Context}, needed to access build setup resources.
-     * @param overflowMenu      true if the overflow menu items are being filtered
-     * @param user              currently active user
-     */
-    @VisibleForTesting // TODO remove this constructor for testing too
-    public FileMenuFilter(OCFile file,
-                          ComponentsGetter componentsGetter,
-                          Context context,
-                          boolean overflowMenu,
-                          User user
-    ) {
-        this(1, Collections.singletonList(file), componentsGetter, context, overflowMenu, user);
     }
 
     /**
@@ -144,7 +153,7 @@ public class FileMenuFilter {
      */
     public void filter(Menu menu, boolean inSingleFileFragment) {
         if (files == null || files.isEmpty()) {
-            hideAll(menu);
+            MenuUtils.hideAll(menu);
         } else {
             List<Integer> toShow = new ArrayList<>();
             List<Integer> toHide = new ArrayList<>();
@@ -154,7 +163,7 @@ public class FileMenuFilter {
             for (int i : toShow) {
                 final MenuItem item = menu.findItem(i);
                 if (item != null) {
-                    showMenuItem(item);
+                    MenuUtils.showMenuItem(item);
                 } else {
                     // group
                     menu.setGroupVisible(i, true);
@@ -164,46 +173,11 @@ public class FileMenuFilter {
             for (int i : toHide) {
                 final MenuItem item = menu.findItem(i);
                 if (item != null) {
-                    hideMenuItem(item);
+                    MenuUtils.hideMenuItem(item);
                 } else {
                     // group
                     menu.setGroupVisible(i, false);
                 }
-            }
-        }
-    }
-
-    public static void hideAll(Menu menu) {
-        if (menu != null) {
-            for (int i = 0; i < menu.size(); i++) {
-                hideMenuItem(menu.getItem(i));
-            }
-        }
-    }
-
-    /**
-     * hides a given {@link MenuItem}.
-     *
-     * @param item the {@link MenuItem} to be hidden
-     */
-    public static void hideMenuItem(MenuItem item) {
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-    }
-
-    private static void showMenuItem(MenuItem item) {
-        if (item != null) {
-            item.setVisible(true);
-            item.setEnabled(true);
-        }
-    }
-
-    public static void hideMenuItems(MenuItem... items) {
-        if (items != null) {
-            for (MenuItem item : items) {
-                hideMenuItem(item);
             }
         }
     }
@@ -218,7 +192,7 @@ public class FileMenuFilter {
                         List<Integer> toHide,
                         boolean inSingleFileFragment) {
         boolean synchronizing = anyFileSynchronizing();
-        OCCapability capability = componentsGetter.getStorageManager().getCapability(user.getAccountName());
+        OCCapability capability = storageManager.getCapability(user.getAccountName());
         boolean endToEndEncryptionEnabled = capability.getEndToEndEncryption().isTrue();
         boolean fileLockingEnabled = capability.getFilesLockingVersion() != null;
 
@@ -373,43 +347,11 @@ public class FileMenuFilter {
 
         String mimeType = files.iterator().next().getMimeType();
 
-        if (isRichDocumentEditingSupported(capability, mimeType) || isEditorAvailable(context.getContentResolver(),
-                                                                                      user,
-                                                                                      mimeType)) {
+        if (isRichDocumentEditingSupported(capability, mimeType) || editorUtils.isEditorAvailable(user, mimeType)) {
             toShow.add(R.id.action_edit);
         } else {
             toHide.add(R.id.action_edit);
         }
-    }
-
-    public static boolean isEditorAvailable(ContentResolver contentResolver, User user, String mimeType) {
-        return getEditor(contentResolver, user, mimeType) != null;
-    }
-
-    @Nullable
-    // TODO this does NOT belong in this class
-    public static Editor getEditor(ContentResolver contentResolver, User user, String mimeType) {
-        String json = new ArbitraryDataProvider(contentResolver).getValue(user, ArbitraryDataProvider.DIRECT_EDITING);
-
-        if (json.isEmpty()) {
-            return null;
-        }
-
-        DirectEditing directEditing = new Gson().fromJson(json, DirectEditing.class);
-
-        for (Editor editor : directEditing.getEditors().values()) {
-            if (editor.getMimetypes().contains(mimeType)) {
-                return editor;
-            }
-        }
-
-        for (Editor editor : directEditing.getEditors().values()) {
-            if (editor.getOptionalMimetypes().contains(mimeType)) {
-                return editor;
-            }
-        }
-
-        return null;
     }
 
     /**
@@ -630,7 +572,7 @@ public class FileMenuFilter {
 
     private boolean hasEncryptedParent() {
         OCFile folder = files.iterator().next();
-        OCFile parent = componentsGetter.getStorageManager().getFileById(folder.getParentId());
+        OCFile parent = storageManager.getFileById(folder.getParentId());
 
         return parent != null && parent.isEncrypted();
     }

@@ -57,6 +57,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -64,7 +65,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
-import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -195,6 +195,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject BackgroundJobManager backgroundJobManager;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject FastScrollUtils fastScrollUtils;
+    @Inject EditorUtils editorUtils;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -1055,9 +1056,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             // stream media preview on >= NC14
                             setFabVisible(false);
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
-                        } else if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
-                                                                    accountManager.getUser(),
-                                                                    file.getMimeType()) &&
+                        } else if (editorUtils.isEditorAvailable(accountManager.getUser(),
+                                                                 file.getMimeType()) &&
                             !file.isEncrypted()) {
                             mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
                         } else if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
@@ -1127,9 +1127,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 return true;
             } else if (itemId == R.id.action_edit) {
                 // should not be necessary, as menu item is filtered, but better play safe
-                if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
-                                                     accountManager.getUser(),
-                                                     singleFile.getMimeType())) {
+                if (editorUtils.isEditorAvailable(accountManager.getUser(),
+                                                  singleFile.getMimeType())) {
                     mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext());
                 } else {
                     mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(singleFile, getContext());

@@ -22,12 +22,10 @@
 
 package com.nextcloud.ui.fileactions
 
-import android.app.Application
-import android.content.Context
 import androidx.annotation.IdRes
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.FileMenuFilter
@@ -35,18 +33,15 @@ import com.owncloud.android.ui.activity.ComponentsGetter
 import javax.inject.Inject
 
 class FileActionsViewModel @Inject constructor(
-    application: Application,
-    private val currentAccountProvider: CurrentAccountProvider
+    private val currentAccountProvider: CurrentAccountProvider,
+    private val filterFactory: FileMenuFilter.Factory
 ) :
-    AndroidViewModel(application) {
+    ViewModel() {
 
     sealed interface UiState {
         object Loading : UiState
         class Loaded(val actions: List<FileAction>) : UiState
     }
-
-    private val context: Context
-        get() = getApplication()
 
     private val _uiState: MutableLiveData<UiState> = MutableLiveData(UiState.Loading)
     val uiState: LiveData<UiState>
@@ -60,15 +55,14 @@ class FileActionsViewModel @Inject constructor(
     fun load(
         files: Collection<OCFile>,
         componentsGetter: ComponentsGetter,
-        numberOfAllFiles: Int,
-        isOverflow: Boolean
+        numberOfAllFiles: Int?,
+        isOverflow: Boolean?
     ) {
-        val toHide = FileMenuFilter(
-            numberOfAllFiles,
+        val toHide = filterFactory.newInstance(
+            numberOfAllFiles ?: 1,
             files.toList(),
             componentsGetter,
-            context,
-            isOverflow,
+            isOverflow ?: false,
             currentAccountProvider.user
         )
             .getToHide(false)

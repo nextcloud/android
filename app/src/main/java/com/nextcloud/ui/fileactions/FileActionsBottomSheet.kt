@@ -44,9 +44,9 @@ import javax.inject.Inject
 // TODO give events back
 // TODO drag handle
 // TODO theming
+// TODO scrollable (for small screens)
 class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment(), Injectable {
 
-    // TODO refactor FileMenuFilter and inject needed things into it
     lateinit var componentsGetter: ComponentsGetter
 
     // TODO replace with fragment listener from Activity
@@ -69,7 +69,7 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         // TODO pass only IDs, fetch from DB to avoid TransactionTooLarge
         val files: Array<OCFile>? = args.getParcelableArray(ARG_FILES) as Array<OCFile>?
         require(files != null)
-        val numberOfAllFiles = args.getInt(ARG_ALL_FILES_COUNT, 1)
+        val numberOfAllFiles: Int = args.getInt(ARG_ALL_FILES_COUNT, 1)
         val isOverflow = args.getBoolean(ARG_IS_OVERFLOW, false)
 
         viewModel = ViewModelProvider(this, vmFactory)[FileActionsViewModel::class.java]

@@ -54,12 +54,12 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.utils.MenuUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.PreviewImageFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
@@ -374,7 +374,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         // additional restriction for this fragment
         // TODO allow renaming in PreviewImageFragment
         // TODO allow refresh file in PreviewImageFragment
-        FileMenuFilter.hideMenuItems(
+        MenuUtils.hideMenuItems(
             menu.findItem(R.id.action_rename_file),
             menu.findItem(R.id.action_sync_file),
             menu.findItem(R.id.action_select_all),
@@ -382,10 +382,10 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             menu.findItem(R.id.action_copy),
             menu.findItem(R.id.action_favorite),
             menu.findItem(R.id.action_unset_favorite)
-                                    );
+                               );
 
         if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
-            FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
+            MenuUtils.hideMenuItem(menu.findItem(R.id.action_send_share_file));
         }
     }
 

@@ -35,9 +35,9 @@ import android.widget.TextView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.utils.MenuUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
@@ -291,7 +291,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
 
         // TODO remove in bottom sheet too
         // additional restriction for this fragment
-        FileMenuFilter.hideMenuItems(
+        MenuUtils.hideMenuItems(
             menu.findItem(R.id.action_rename_file),
             menu.findItem(R.id.action_select_all),
             menu.findItem(R.id.action_move),
@@ -299,10 +299,10 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             menu.findItem(R.id.action_sync_file),
             menu.findItem(R.id.action_favorite),
             menu.findItem(R.id.action_unset_favorite)
-                                    );
+                               );
 
         if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-            FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
+            MenuUtils.hideMenuItem(menu.findItem(R.id.action_send_share_file));
         }
     }
 

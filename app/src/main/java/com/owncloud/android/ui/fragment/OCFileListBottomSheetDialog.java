@@ -28,12 +28,12 @@ import com.google.gson.Gson;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorBinding;
 import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -56,6 +56,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
     private final OCFile file;
     private final ThemeUtils themeUtils;
     private final ViewThemeUtils viewThemeUtils;
+    private final EditorUtils editorUtils;
 
 
     public OCFileListBottomSheetDialog(FileActivity fileActivity,
@@ -64,7 +65,8 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
                                        User user,
                                        OCFile file,
                                        ThemeUtils themeUtils,
-                                       ViewThemeUtils viewThemeUtils) {
+                                       ViewThemeUtils viewThemeUtils,
+                                       EditorUtils editorUtils) {
         super(fileActivity);
         this.actions = actions;
         this.fileActivity = fileActivity;
@@ -73,6 +75,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         this.file = file;
         this.themeUtils = themeUtils;
         this.viewThemeUtils = viewThemeUtils;
+        this.editorUtils = editorUtils;
     }
 
     @Override
@@ -142,9 +145,8 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         }
 
         // create rich workspace
-        if (FileMenuFilter.isEditorAvailable(getContext().getContentResolver(),
-                                             user,
-                                             MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN) &&
+        if (editorUtils.isEditorAvailable(user,
+                                          MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN) &&
             file != null && !file.isEncrypted()) {
             // richWorkspace
             // == "": no info set -> show button

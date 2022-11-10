@@ -26,6 +26,7 @@ import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextcloud.client.TestActivity
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.EditorUtils
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -49,6 +50,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import java.security.SecureRandom
 
+// TODO update this class to an unit test checking FileActions instead of an actual menu, and not using filter()
 @RunWith(AndroidJUnit4::class)
 class FileMenuFilterIT : AbstractIT() {
 
@@ -67,6 +69,9 @@ class FileMenuFilterIT : AbstractIT() {
     @MockK
     private lateinit var mockOperationsServiceBinder: OperationsService.OperationsServiceBinder
 
+    @MockK
+    private lateinit var mockEditorUtils: EditorUtils
+
     @Before
     fun setup() {
         MockKAnnotations.init(this)
@@ -78,6 +83,8 @@ class FileMenuFilterIT : AbstractIT() {
         every { mockComponentsGetter.operationsServiceBinder } returns mockOperationsServiceBinder
         every { mockStorageManager.getFileById(any()) } returns OCFile("/")
         every { mockStorageManager.getFolderContent(any(), any()) } returns ArrayList<OCFile>()
+        every { mockEditorUtils.isEditorAvailable(any(), any()) } returns false
+        every { mockEditorUtils.getEditor(any(), any()) } returns null
     }
 
     @Test
@@ -188,7 +195,10 @@ class FileMenuFilterIT : AbstractIT() {
             it.onActivity { activity ->
                 val menu = getMenu(activity)
 
-                var sut = FileMenuFilter(encryptedFolder, mockComponentsGetter, activity, true, user)
+                val filterFactory =
+                    FileMenuFilter.Factory(mockStorageManager, activity, mockEditorUtils)
+
+                var sut = filterFactory.newInstance(encryptedFolder, mockComponentsGetter, true, user)
                 sut.filter(menu, false)
 
                 // encrypted folder, with content
@@ -196,21 +206,21 @@ class FileMenuFilterIT : AbstractIT() {
                 assertFalse(menu.findItem(R.id.action_encrypted).isVisible)
 
                 // encrypted, but empty folder
-                sut = FileMenuFilter(encryptedEmptyFolder, mockComponentsGetter, activity, true, user)
+                sut = filterFactory.newInstance(encryptedEmptyFolder, mockComponentsGetter, true, user)
                 sut.filter(menu, false)
 
                 assertTrue(menu.findItem(R.id.action_unset_encrypted).isVisible)
                 assertFalse(menu.findItem(R.id.action_encrypted).isVisible)
 
                 // regular folder, with content
-                sut = FileMenuFilter(normalFolder, mockComponentsGetter, activity, true, user)
+                sut = filterFactory.newInstance(normalFolder, mockComponentsGetter, true, user)
                 sut.filter(menu, false)
 
                 assertFalse(menu.findItem(R.id.action_unset_encrypted).isVisible)
                 assertFalse(menu.findItem(R.id.action_encrypted).isVisible)
 
                 // regular folder, without content
-                sut = FileMenuFilter(normalEmptyFolder, mockComponentsGetter, activity, true, user)
+                sut = filterFactory.newInstance(normalEmptyFolder, mockComponentsGetter, true, user)
                 sut.filter(menu, false)
 
                 assertFalse(menu.findItem(R.id.action_unset_encrypted).isVisible)
@@ -229,7 +239,6 @@ class FileMenuFilterIT : AbstractIT() {
     private fun configureCapability(capability: OCCapability) {
         every { mockStorageManager.getCapability(any<User>()) } returns capability
         every { mockStorageManager.getCapability(any<String>()) } returns capability
-        every { mockComponentsGetter.storageManager } returns mockStorageManager
     }
 
     private fun getMenu(activity: TestActivity): Menu {
@@ -250,7 +259,9 @@ class FileMenuFilterIT : AbstractIT() {
             it.onActivity { activity ->
                 val menu = getMenu(activity)
 
-                val sut = FileMenuFilter(file, mockComponentsGetter, activity, true, user)
+                val filterFactory =
+                    FileMenuFilter.Factory(mockStorageManager, activity, mockEditorUtils)
+                val sut = filterFactory.newInstance(file, mockComponentsGetter, true, user)
 
                 sut.filter(menu, false)
 

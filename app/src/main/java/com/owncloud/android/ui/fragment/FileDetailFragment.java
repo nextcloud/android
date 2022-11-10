@@ -35,7 +35,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -48,13 +47,13 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.utils.MenuUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -80,8 +79,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -365,7 +362,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        FileMenuFilter.hideAll(menu);
+        MenuUtils.hideAll(menu);
     }
 
     private void prepareOptionsMenu(Menu menu) {
@@ -384,8 +381,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
         // TODO handle this
         if (getFile().isFolder()) {
-            FileMenuFilter.hideMenuItems(menu.findItem(R.id.action_send_file));
-            FileMenuFilter.hideMenuItems(menu.findItem(R.id.action_sync_file));
+            MenuUtils.hideMenuItem(menu.findItem(R.id.action_send_file));
+            MenuUtils.hideMenuItem(menu.findItem(R.id.action_sync_file));
         }
     }
 
