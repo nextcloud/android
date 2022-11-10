@@ -22,25 +22,33 @@
 
 package com.nextcloud.ui.fileactions
 
+import android.content.res.ColorStateList
+import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-// TODO add lock info (see FileLockingMenuCustomization)
 // TODO give events back
 // TODO drag handle (needs material 1.7.0)
 // TODO theming
@@ -56,6 +64,9 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
 
     @Inject
     lateinit var vmFactory: ViewModelFactory
+
+    @Inject
+    lateinit var currentUserProvider: CurrentAccountProvider
 
     lateinit var viewModel: FileActionsViewModel
 
@@ -78,6 +89,9 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is FileActionsViewModel.UiState.LoadedForSingleFile -> {
+                    if (state.lockInfo != null) {
+                        displayLockInfo(state.lockInfo, inflater)
+                    }
                     displayActions(state.actions, inflater)
                     displayTitle(state.titleFile)
                 }
@@ -114,6 +128,59 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         titleFile?.decryptedFileName?.let {
             binding.title.text = it
         }
+    }
+
+    private fun displayLockInfo(lockInfo: FileActionsViewModel.LockInfo, inflater: LayoutInflater) {
+        val view = FileActionsBottomSheetItemBinding.inflate(inflater, binding.fileActionsList, false)
+            .apply {
+                // TODO theme
+                val textColor = ColorStateList.valueOf(resources.getColor(R.color.secondary_text_color, null))
+                root.isClickable = false
+                text.setTextColor(textColor)
+                text.text = getLockedByText(lockInfo)
+                if (lockInfo.lockedUntil != null) {
+                    textLine2.text = getLockedUntilText(lockInfo)
+                    textLine2.isVisible = true
+                }
+                if (lockInfo.lockType != FileLockType.COLLABORATIVE) {
+                    val drawable = object : AvatarGenerationListener {
+                        override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any?) {
+                            icon.setImageDrawable(avatarDrawable)
+                        }
+
+                        override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean {
+                            return false
+                        }
+                    }
+                    DisplayUtils.setAvatar(
+                        currentUserProvider.user,
+                        lockInfo.lockedBy,
+                        drawable,
+                        resources.getDimension(R.dimen.list_item_avatar_icon_radius),
+                        resources,
+                        this,
+                        requireContext()
+                    )
+                }
+            }
+        binding.fileActionsList.addView(view.root)
+    }
+
+    private fun getLockedByText(lockInfo: FileActionsViewModel.LockInfo): CharSequence {
+        val resource = when (lockInfo.lockType) {
+            FileLockType.COLLABORATIVE -> R.string.locked_by_app
+            else -> R.string.locked_by
+        }
+        return DisplayUtils.createTextWithSpan(
+            getString(resource, lockInfo.lockedBy),
+            lockInfo.lockedBy,
+            StyleSpan(Typeface.BOLD)
+        )
+    }
+
+    private fun getLockedUntilText(lockInfo: FileActionsViewModel.LockInfo): CharSequence {
+        val relativeTimestamp = DisplayUtils.getRelativeTimestamp(context, lockInfo.lockedUntil!!, true)
+        return getString(R.string.lock_expiration_info, relativeTimestamp)
     }
 
     private fun displayTitle(fileCount: Int) {

@@ -43,15 +43,16 @@
             android:padding="@dimen/standard_padding"
             tools:text="Test file name which is very very very very very long.pdf" />
 
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <LinearLayout
                 android:id="@+id/file_actions_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:orientation="vertical">
+            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 

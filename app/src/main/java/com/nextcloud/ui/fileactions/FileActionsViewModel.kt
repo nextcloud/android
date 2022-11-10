@@ -27,8 +27,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.utils.TimeConstants
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.FileMenuFilter
+import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
 import javax.inject.Inject
 
@@ -38,10 +40,17 @@ class FileActionsViewModel @Inject constructor(
 ) :
     ViewModel() {
 
+    data class LockInfo(val lockType: FileLockType, val lockedBy: String, val lockedUntil: Long?)
+
     sealed interface UiState {
         object Loading : UiState
-        class LoadedForSingleFile(val actions: List<FileAction>, val titleFile: OCFile?) : UiState
-        class LoadedForMultipleFiles(val actions: List<FileAction>, val fileCount: Int) : UiState
+        data class LoadedForSingleFile(
+            val actions: List<FileAction>,
+            val titleFile: OCFile?,
+            val lockInfo: LockInfo? = null
+        ) : UiState
+
+        data class LoadedForMultipleFiles(val actions: List<FileAction>, val fileCount: Int) : UiState
     }
 
     private val _uiState: MutableLiveData<UiState> = MutableLiveData(UiState.Loading)
@@ -72,8 +81,29 @@ class FileActionsViewModel @Inject constructor(
             .filter { additionalFilter == null || it.id !in additionalFilter }
             .filter { it.id !in toHide }
         _uiState.value = when (files.size) {
-            1 -> UiState.LoadedForSingleFile(availableActions, files.first())
+            1 -> {
+                val file = files.first()
+                UiState.LoadedForSingleFile(availableActions, file, getLockInfo(file))
+            }
             else -> UiState.LoadedForMultipleFiles(availableActions, files.size)
+        }
+    }
+
+    private fun getLockInfo(file: OCFile): LockInfo? {
+        val lockType = file.lockType
+        val username = file.lockOwnerDisplayName ?: file.lockOwnerId
+        return if (file.isLocked && lockType != null && username != null) {
+            LockInfo(lockType, username, getLockedUntil(file))
+        } else {
+            null
+        }
+    }
+
+    private fun getLockedUntil(file: OCFile): Long? {
+        return if (file.lockTimestamp == 0L || file.lockTimeout == 0L) {
+            null
+        } else {
+            (file.lockTimestamp + file.lockTimeout) * TimeConstants.MILLIS_PER_SECOND
         }
     }
 

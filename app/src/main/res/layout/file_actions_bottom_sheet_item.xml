@@ -38,6 +38,7 @@
     android:paddingBottom="@dimen/standard_half_padding"
     tools:ignore="UseCompoundDrawables">
 
+
     <ImageView
         android:id="@+id/icon"
         android:layout_width="@dimen/iconized_single_line_item_icon_size"
@@ -46,14 +47,34 @@
         app:tint="@color/primary"
         tools:src="@drawable/ic_delete" />
 
-    <TextView
-        android:id="@+id/text"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/bottom_sheet_text_size"
-        tools:text="Delete file" />
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/bottom_sheet_text_size"
+            tools:text="Delete file" />
+
+        <TextView
+            android:id="@+id/text_line2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
+            android:textColor="@color/secondary_text_color"
+            android:textSize="@dimen/bottom_sheet_text_size"
+            android:visibility="gone"
+            tools:text="Some additional action info"
+            tools:visibility="visible" />
+    </LinearLayout>
+
 
 </LinearLayout>
