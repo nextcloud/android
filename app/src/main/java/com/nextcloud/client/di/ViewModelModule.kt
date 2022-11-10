@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.etm.EtmViewModel
 import com.nextcloud.client.logger.ui.LogsViewModel
+import com.nextcloud.ui.fileactions.FileActionsViewModel
 import com.owncloud.android.ui.preview.pdf.PreviewPdfViewModel
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import dagger.Binds
@@ -50,6 +51,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(PreviewPdfViewModel::class)
     abstract fun previewPDFViewModel(vm: PreviewPdfViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FileActionsViewModel::class)
+    abstract fun fileActionsViewModel(vm: FileActionsViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

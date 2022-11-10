@@ -28,13 +28,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -42,7 +42,6 @@ import javax.inject.Inject
 // TODO add file name
 // TODO add lock info (see FileLockingMenuCustomization)
 // TODO give events back
-// TODO viewModel
 // TODO drag handle
 // TODO theming
 class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment(), Injectable {
@@ -54,53 +53,87 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
     lateinit var clickListener: ClickListener
 
     @Inject
-    lateinit var currentAccountProvider: CurrentAccountProvider
-
-    @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
-    private lateinit var binding: FileActionsBottomSheetBinding
+    @Inject
+    lateinit var vmFactory: ViewModelFactory
+
+    lateinit var viewModel: FileActionsViewModel
+
+    private var _binding: FileActionsBottomSheetBinding? = null
+    private val binding
+        get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        // TODO pass only IDs, fetch from DB to avoid TransactionTooLarge
         val args = requireArguments()
+        // TODO pass only IDs, fetch from DB to avoid TransactionTooLarge
         val files: Array<OCFile>? = args.getParcelableArray(ARG_FILES) as Array<OCFile>?
         require(files != null)
         val numberOfAllFiles = args.getInt(ARG_ALL_FILES_COUNT, 1)
         val isOverflow = args.getBoolean(ARG_IS_OVERFLOW, false)
 
-        binding = FileActionsBottomSheetBinding.inflate(inflater, container, false)
-        val toHide = FileMenuFilter(
-            numberOfAllFiles,
-            files.toList(),
-            componentsGetter,
-            requireContext(),
-            isOverflow,
-            currentAccountProvider.user
-        )
-            .getToHide(false)
-        FileAction.SORTED_VALUES
-            .filter { it.id !in toHide }.forEach { action ->
-                // TODO change icon
-                val itemBinding = FileActionsBottomSheetItemBinding.inflate(inflater, binding.fileActionsList, false)
-                    .apply {
-                        root.setOnClickListener {
-                            clickListener.onClick(action.id)
-                            dismiss()
-                        }
-                        text.setText(action.title)
-                        if (action.icon != null) {
-                            val drawable =
-                                viewThemeUtils.platform.tintDrawable(
-                                    requireContext(),
-                                    resources.getDrawable(action.icon)
-                                )
-                            icon.setImageDrawable(drawable)
-                        }
-                    }
-                binding.fileActionsList.addView(itemBinding.root)
+        viewModel = ViewModelProvider(this, vmFactory)[FileActionsViewModel::class.java]
+        _binding = FileActionsBottomSheetBinding.inflate(inflater, container, false)
+
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is FileActionsViewModel.UiState.Loaded -> {
+                    displayActions(state.actions, inflater)
+                }
+                FileActionsViewModel.UiState.Loading -> {
+                    // TODO show spinner
+                }
             }
+        }
+
+        viewModel.clickActionId.observe(viewLifecycleOwner) { id ->
+            dispatchActionClick(id)
+        }
+
+        viewModel.load(files.toList(), componentsGetter, numberOfAllFiles, isOverflow)
+
         return binding.root
+    }
+
+    private fun displayActions(
+        actions: List<FileAction>,
+        inflater: LayoutInflater
+    ) {
+        actions.forEach { action ->
+            val view = inflateActionView(inflater, action)
+            binding.fileActionsList.addView(view)
+        }
+    }
+
+    private fun inflateActionView(inflater: LayoutInflater, action: FileAction): View {
+        val itemBinding = FileActionsBottomSheetItemBinding.inflate(inflater, binding.fileActionsList, false)
+            .apply {
+                root.setOnClickListener {
+                    viewModel.onClick(action)
+                }
+                text.setText(action.title)
+                if (action.icon != null) {
+                    val drawable =
+                        viewThemeUtils.platform.tintDrawable(
+                            requireContext(),
+                            resources.getDrawable(action.icon)
+                        )
+                    icon.setImageDrawable(drawable)
+                }
+            }
+        return itemBinding.root
+    }
+
+    private fun dispatchActionClick(id: Int?) {
+        if (id != null) {
+            clickListener.onClick(id)
+            dismiss()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     interface ClickListener {
