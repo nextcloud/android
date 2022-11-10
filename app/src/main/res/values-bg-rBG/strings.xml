@@ -237,6 +237,7 @@
     <string name="drawer_quota">%1$s от %2$s използвани</string>
     <string name="drawer_quota_unlimited">%1$s използвани</string>
     <string name="drawer_synced_folders">Автоматично качване</string>
+    <string name="e2e_not_yet_setup">E2E все още няма настройки</string>
     <string name="encrypted">Включване на криптиране</string>
     <string name="end_to_end_encryption_confirm_button">Настройки за криптиране</string>
     <string name="end_to_end_encryption_decrypting">Декриптиране...</string>
