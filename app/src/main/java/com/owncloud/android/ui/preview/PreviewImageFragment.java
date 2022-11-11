@@ -357,7 +357,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
                 final OCFile fileNew = getFile();
                 if (fileNew != null) {
-                    final List<Integer> additionalFilter =
+                    final List<Integer> additionalFilter = new ArrayList<>(
                         Arrays.asList(
                             R.id.action_rename_file,
                             R.id.action_sync_file,
@@ -366,7 +366,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                             R.id.action_copy,
                             R.id.action_favorite,
                             R.id.action_unset_favorite
-                                     );
+                                     ));
                     if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
                         additionalFilter.add(R.id.action_send_share_file);
                     }

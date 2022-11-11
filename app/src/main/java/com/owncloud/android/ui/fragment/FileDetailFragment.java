@@ -79,6 +79,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -240,9 +242,25 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     private void onOverflowIconClicked() {
-        // TODO this fragment originally used fragment_file_detail.xml menu, which has fewer things that item_file.xml. Figure that out
         final OCFile file = getFile();
-        FileActionsBottomSheet.newInstance(file, containerActivity, true, this::optionsItemSelected)
+        final List<Integer> additionalFilter = new ArrayList<>(
+            Arrays.asList(
+                R.id.action_lock_file,
+                R.id.action_unlock_file,
+                R.id.action_edit,
+                R.id.action_favorite,
+                R.id.action_unset_favorite,
+                R.id.action_see_details,
+                R.id.action_move,
+                R.id.action_copy,
+                R.id.action_stream_media,
+                R.id.action_send_share_file,
+                R.id.action_select_all_action_menu));
+        if (getFile().isFolder()) {
+            additionalFilter.add(R.id.action_send_file);
+            additionalFilter.add(R.id.action_sync_file);
+        }
+        FileActionsBottomSheet.newInstance(file, containerActivity, true, this::optionsItemSelected, additionalFilter)
             .show(getActivity().getSupportFragmentManager(), "actions");
     }
 
@@ -363,27 +381,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         super.onPrepareOptionsMenu(menu);
 
         MenuUtils.hideAll(menu);
-    }
-
-    private void prepareOptionsMenu(Menu menu) {
-//        if (containerActivity.getStorageManager() != null) {
-//            User currentUser = accountManager.getUser();
-//            FileMenuFilter mf = new FileMenuFilter(
-//                getFile(),
-//                containerActivity,
-//                getActivity(),
-//                false,
-//                currentUser
-//            );
-//
-//            mf.filter(menu, true);
-//        }
-
-        // TODO handle this
-        if (getFile().isFolder()) {
-            MenuUtils.hideMenuItem(menu.findItem(R.id.action_send_file));
-            MenuUtils.hideMenuItem(menu.findItem(R.id.action_sync_file));
-        }
     }
 
     private void optionsItemSelected(final int itemId) {

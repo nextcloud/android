@@ -53,6 +53,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -285,7 +286,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
 
                 final OCFile fileNew = getFile();
                 if (fileNew != null) {
-                    final List<Integer> additionalFilter =
+                    final List<Integer> additionalFilter = new ArrayList<>(
                         Arrays.asList(
                             R.id.action_rename_file,
                             R.id.action_sync_file,
@@ -294,7 +295,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                             R.id.action_copy,
                             R.id.action_favorite,
                             R.id.action_unset_favorite
-                                     );
+                                     ));
                     if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
                         additionalFilter.add(R.id.action_send_share_file);
                     }

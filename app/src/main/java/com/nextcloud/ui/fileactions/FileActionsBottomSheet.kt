@@ -49,7 +49,6 @@ import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-// TODO give events back
 // TODO theming
 class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment(), Injectable {
 
@@ -75,7 +74,7 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val args = requireArguments()
-        // TODO pass only IDs, fetch from DB to avoid TransactionTooLarge
+        // todo parse bundle in viewmodel, not here
         val files: Array<OCFile>? = args.getParcelableArray(ARG_FILES) as Array<OCFile>?
         require(files != null)
         val numberOfAllFiles: Int = args.getInt(ARG_ALL_FILES_COUNT, 1)
