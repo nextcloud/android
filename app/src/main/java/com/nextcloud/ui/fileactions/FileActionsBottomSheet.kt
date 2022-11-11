@@ -86,6 +86,7 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         _binding = FileActionsBottomSheetBinding.inflate(inflater, container, false)
 
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            toggleLoadingOrContent(state)
             when (state) {
                 is FileActionsViewModel.UiState.LoadedForSingleFile -> {
                     if (state.lockInfo != null) {
@@ -98,9 +99,7 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
                     displayActions(state.actions, inflater)
                     displayTitle(state.fileCount)
                 }
-                FileActionsViewModel.UiState.Loading -> {
-                    // TODO show spinner
-                }
+                FileActionsViewModel.UiState.Loading -> {}
             }
         }
 
@@ -111,6 +110,16 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         viewModel.load(files.toList(), componentsGetter, numberOfAllFiles, isOverflow, additionalFilter)
 
         return binding.root
+    }
+
+    private fun toggleLoadingOrContent(state: FileActionsViewModel.UiState) {
+        if (state is FileActionsViewModel.UiState.Loading) {
+            binding.bottomSheetLoading.isVisible = true
+            binding.bottomSheetContent.isVisible = false
+        } else {
+            binding.bottomSheetLoading.isVisible = false
+            binding.bottomSheetContent.isVisible = true
+        }
     }
 
     private fun displayActions(

@@ -23,6 +23,7 @@
     <dimen name="bottom_sheet_text_start_margin">40dp</dimen>
     <dimen name="bottom_sheet_item_height">56dp</dimen>
     <dimen name="bottom_sheet_menu_item_divider_standard_margin">80dp</dimen>
+    <dimen name="bottom_sheet_min_height">112dp</dimen>
     <dimen name="file_icon_size">40dp</dimen>
     <dimen name="file_icon_size_grid">128dp</dimen>
     <dimen name="file_icon_rounded_corner_radius">8dp</dimen>

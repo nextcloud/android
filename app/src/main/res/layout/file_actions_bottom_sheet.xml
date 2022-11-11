@@ -31,34 +31,50 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:orientation="vertical"
+        android:minHeight="@dimen/bottom_sheet_min_height"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <com.google.android.material.bottomsheet.BottomSheetDragHandleView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:indeterminate="true"
+            android:id="@+id/bottom_sheet_loading"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-            android:lines="1"
-            android:ellipsize="middle"
-            android:padding="@dimen/standard_padding"
-            tools:text="Test file name which is very very very very very long.pdf" />
+            android:layout_gravity="center" />
 
-
-        <androidx.core.widget.NestedScrollView
+        <LinearLayout
+            android:id="@+id/bottom_sheet_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <!-- TODO maybe convert to listview instead -->
-            <LinearLayout
-                android:id="@+id/file_actions_list"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <TextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+                android:ellipsize="middle"
+                android:lines="1"
+                android:padding="@dimen/standard_padding"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                tools:text="Test file name which is very very very very very long.pdf" />
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!-- TODO maybe convert to listview instead -->
+                <LinearLayout
+                    android:id="@+id/file_actions_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

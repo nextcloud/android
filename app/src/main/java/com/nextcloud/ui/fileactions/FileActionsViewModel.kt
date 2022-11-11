@@ -26,12 +26,15 @@ import androidx.annotation.IdRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.utils.TimeConstants
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FileActionsViewModel @Inject constructor(
@@ -69,7 +72,20 @@ class FileActionsViewModel @Inject constructor(
         isOverflow: Boolean?,
         additionalFilter: IntArray?
     ) {
-        val toHide = filterFactory.newInstance(
+        viewModelScope.launch(Dispatchers.IO) {
+            val toHide = getHiddenActions(numberOfAllFiles, files, componentsGetter, isOverflow)
+            val availableActions = getActionsToShow(additionalFilter, toHide)
+            updateStateLoaded(files, availableActions)
+        }
+    }
+
+    private fun getHiddenActions(
+        numberOfAllFiles: Int?,
+        files: Collection<OCFile>,
+        componentsGetter: ComponentsGetter,
+        isOverflow: Boolean?
+    ): List<Int> {
+        return filterFactory.newInstance(
             numberOfAllFiles ?: 1,
             files.toList(),
             componentsGetter,
@@ -77,16 +93,27 @@ class FileActionsViewModel @Inject constructor(
             currentAccountProvider.user
         )
             .getToHide(false)
-        val availableActions = FileAction.SORTED_VALUES
-            .filter { additionalFilter == null || it.id !in additionalFilter }
-            .filter { it.id !in toHide }
-        _uiState.value = when (files.size) {
+    }
+
+    private fun getActionsToShow(
+        additionalFilter: IntArray?,
+        toHide: List<Int>
+    ) = FileAction.SORTED_VALUES
+        .filter { additionalFilter == null || it.id !in additionalFilter }
+        .filter { it.id !in toHide }
+
+    private fun updateStateLoaded(
+        files: Collection<OCFile>,
+        availableActions: List<FileAction>
+    ) {
+        val state: UiState = when (files.size) {
             1 -> {
                 val file = files.first()
                 UiState.LoadedForSingleFile(availableActions, file, getLockInfo(file))
             }
             else -> UiState.LoadedForMultipleFiles(availableActions, files.size)
         }
+        _uiState.postValue(state)
     }
 
     private fun getLockInfo(file: OCFile): LockInfo? {
