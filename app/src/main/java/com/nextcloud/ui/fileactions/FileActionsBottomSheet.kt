@@ -49,7 +49,6 @@ import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-// TODO theming
 class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment(), Injectable {
 
     lateinit var componentsGetter: ComponentsGetter
@@ -140,7 +139,6 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
     private fun displayLockInfo(lockInfo: FileActionsViewModel.LockInfo, inflater: LayoutInflater) {
         val view = FileActionsBottomSheetItemBinding.inflate(inflater, binding.fileActionsList, false)
             .apply {
-                // TODO theme
                 val textColor = ColorStateList.valueOf(resources.getColor(R.color.secondary_text_color, null))
                 root.isClickable = false
                 text.setTextColor(textColor)
