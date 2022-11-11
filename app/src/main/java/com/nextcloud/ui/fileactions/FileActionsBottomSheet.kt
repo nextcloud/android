@@ -50,7 +50,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
 // TODO give events back
-// TODO drag handle (needs material 1.7.0)
 // TODO theming
 class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment(), Injectable {
 

@@ -33,6 +33,10 @@
         android:orientation="vertical"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
+        <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
@@ -47,6 +51,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <!-- TODO maybe convert to listview instead -->
             <LinearLayout
                 android:id="@+id/file_actions_list"
                 android:layout_width="match_parent"
