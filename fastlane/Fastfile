@@ -292,6 +292,7 @@ desc "Upload to play store"
 private_lane :uploadToPlaystore_Final do |options|
     upload_to_play_store(
         skip_upload_images: true,
+        skip_upload_apk: true,
         aab: "release/app-gplay-release.aab"
     )
 end

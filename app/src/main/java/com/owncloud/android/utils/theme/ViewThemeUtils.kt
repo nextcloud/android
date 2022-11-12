@@ -52,4 +52,17 @@ class ViewThemeUtils @Inject constructor(
 
     @JvmField
     val files = FilesSpecificViewThemeUtils(schemes, colorUtil, platform, androidx)
+
+    class Factory @Inject constructor(
+        private val schemesProvider: MaterialSchemesProvider,
+        private val colorUtil: ColorUtil
+    ) {
+        fun withSchemes(schemes: MaterialSchemes): ViewThemeUtils {
+            return ViewThemeUtils(schemes, colorUtil)
+        }
+
+        fun withDefaultSchemes(): ViewThemeUtils {
+            return withSchemes(schemesProvider.getDefaultMaterialSchemes())
+        }
+    }
 }

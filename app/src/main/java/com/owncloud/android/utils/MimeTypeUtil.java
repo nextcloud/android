@@ -142,7 +142,9 @@ public final class MimeTypeUtil {
                                              ViewThemeUtils viewThemeUtils) {
         int drawableId;
 
-        if (isSharedViaLink) {
+        if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder) {
+            drawableId = R.drawable.folder_group;
+        } else if (isSharedViaLink) {
             drawableId = R.drawable.folder_shared_link;
         } else if (isSharedViaUsers) {
             drawableId = R.drawable.folder_shared_users;
@@ -150,8 +152,6 @@ public final class MimeTypeUtil {
             drawableId = R.drawable.folder_encrypted;
         } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
             drawableId = R.drawable.folder_external;
-        } else if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder) {
-            drawableId = R.drawable.folder_group;
         } else {
             drawableId = R.drawable.folder;
         }

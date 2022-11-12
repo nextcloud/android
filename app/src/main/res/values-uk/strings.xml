@@ -123,7 +123,7 @@
     <string name="common_save">Зберегти</string>
     <string name="common_select">Вибрати</string>
     <string name="common_send">Надіслати</string>
-    <string name="common_share">Поділитися</string>
+    <string name="common_share">Спільний доступ</string>
     <string name="common_skip">Пропустити</string>
     <string name="common_switch_account">Перемкнути обліковий запис</string>
     <string name="common_switch_to_account">Перейти до облікового запису</string>
@@ -634,7 +634,7 @@
     <string name="set_picture_as">Використати як</string>
     <string name="set_status">Встановити статус</string>
     <string name="set_status_message">Встановити повідомлення про стан</string>
-    <string name="share">Поділитися</string>
+    <string name="share">Спільний доступ</string>
     <string name="share_copy_link">Поділитися &amp; Копіювати посилання</string>
     <string name="share_dialog_title">Спільний доступ</string>
     <string name="share_expiration_date_format">%1$s</string>

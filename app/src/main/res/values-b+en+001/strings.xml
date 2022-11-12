@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Add to %1$s</string>
     <string name="advanced_settings">Advanced Settings</string>
     <string name="allow_resharing">Allow resharing</string>
+    <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
     <string name="associated_account_not_found">Associated account not found!</string>
     <string name="auth_access_failed">Access failed: %1$s</string>
@@ -87,12 +88,14 @@
     <string name="calendars">Calendars</string>
     <string name="certificate_load_problem">There is a problem loading the certificate.</string>
     <string name="changelog_dev_version">Changelog dev version</string>
+    <string name="check_back_later_or_reload">Check back later or reload.</string>
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Choose local folder…</string>
     <string name="choose_location">Choose location</string>
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
     <string name="choose_which_file">Choose which file to keep!</string>
+    <string name="choose_widget">Choose widget</string>
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
     <string name="clear_status_message">Clear status message</string>
     <string name="clear_status_message_after">Clear status message after</string>
@@ -233,6 +236,7 @@
     <string name="drawer_quota">%1$s of %2$s used</string>
     <string name="drawer_quota_unlimited">%1$s used</string>
     <string name="drawer_synced_folders">Auto upload</string>
+    <string name="e2e_not_yet_setup">E2E not yet setup</string>
     <string name="encrypted">Set as encrypted</string>
     <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
     <string name="end_to_end_encryption_decrypting">Decrypting…</string>
@@ -386,6 +390,9 @@
     <string name="hint_password">Password</string>
     <string name="host_not_available">Server not available</string>
     <string name="host_your_own_server">Host your own server</string>
+    <string name="icon_for_empty_list">Icon for empty list</string>
+    <string name="icon_of_dashboard_widget">Icon of dashboard widget</string>
+    <string name="icon_of_widget_entry">Icon of widget entry</string>
     <string name="in_folder">in folder %1$s</string>
     <string name="instant_upload_existing">Also upload existing files</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
@@ -464,6 +471,7 @@
     <string name="no_browser_available">No app available to handle links</string>
     <string name="no_calendar_exists">No calendar exists</string>
     <string name="no_email_app_available">No App available to handle mail address</string>
+    <string name="no_items">No items</string>
     <string name="no_mutliple_accounts_allowed">Only one account allowed</string>
     <string name="no_pdf_app_available">No App available to handle PDF</string>
     <string name="no_send_app">No app available for sending the selected files</string>
@@ -580,6 +588,7 @@
     <string name="recommend_subject">Try %1$s on your device!</string>
     <string name="recommend_text">I want to invite you to use %1$s on your device.\nDownload here: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
+    <string name="refresh_content">Refresh content</string>
     <string name="reload">Reload</string>
     <string name="remote">(remote)</string>
     <string name="remote_file_fetch_failed">Failed to find file!</string>
@@ -871,6 +880,7 @@
     <string name="userinfo_no_info_text">Add name, picture and contact details on your profile page.</string>
     <string name="username">Username</string>
     <string name="version_dev_download">Download</string>
+    <string name="video_overlay_icon">Video overlay icon</string>
     <string name="wait_a_moment">Wait a moment…</string>
     <string name="wait_checking_credentials">Checking stored credentials</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
@@ -878,6 +888,8 @@
     <string name="whats_new_skip">Skip</string>
     <string name="whats_new_title">New in %1$s</string>
     <string name="whats_your_status">What is your status?</string>
+    <string name="widgets_not_available">Widgets are only available on %1$s 25 or later</string>
+    <string name="widgets_not_available_title">Not available</string>
     <string name="write_email">Send email</string>
     <string name="wrong_storage_path">Data storage folder does not exist!</string>
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
