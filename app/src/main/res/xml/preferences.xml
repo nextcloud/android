@@ -59,27 +59,47 @@
             android:key="show_media_scan_notifications"/>
 	</PreferenceCategory>
 
-	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">
+	<PreferenceCategory
+        android:title="@string/prefs_category_more"
+        android:key="more">
         <Preference
             android:title="@string/drawer_synced_folders"
             android:key="syncedFolders"
-            android:summary="@string/prefs_sycned_folders_summary"/>
-		<Preference android:title="@string/prefs_calendar_contacts"
-					android:key="calendar_contacts"
-					android:summary="@string/prefs_calendar_contacts_summary" />
-		<Preference
+            android:summary="@string/prefs_sycned_folders_summary" />
+        <Preference
+            android:title="@string/prefs_calendar_contacts"
+            android:key="calendar_contacts"
+            android:summary="@string/prefs_calendar_contacts_summary" />
+        <Preference
             android:title="@string/backup_title"
             android:key="backup"
             android:summary="@string/prefs_daily_backup_summary" />
-		<Preference
-			android:title="@string/prefs_e2e_mnemonic"
-			android:key="mnemonic"
-			android:summary="Displays your E2E 12 words passphrase" />
-		<Preference android:title="@string/prefs_help" android:key="help" />
-		<Preference android:title="@string/prefs_recommend" android:key="recommend" />
-		<Preference android:title="@string/logs_title" android:key="logger" />
-		<Preference android:title="@string/prefs_imprint" android:key="imprint" />
-	</PreferenceCategory>
+        <Preference
+            android:title="@string/prefs_setup_e2e"
+            android:key="setup_e2e"
+            android:summary="@string/setup_e2e" />
+        <Preference
+            android:title="@string/prefs_e2e_active"
+            android:key="mnemonic"
+            android:summary="@string/displays_mnemonic" />
+        <Preference
+            android:title="@string/prefs_remove_e2e"
+            android:key="remove_e2e"
+            android:summary="@string/remove_e2e" />
+
+        <Preference
+            android:title="@string/prefs_help"
+            android:key="help" />
+        <Preference
+            android:title="@string/prefs_recommend"
+            android:key="recommend" />
+        <Preference
+            android:title="@string/logs_title"
+            android:key="logger" />
+        <Preference
+            android:title="@string/prefs_imprint"
+            android:key="imprint" />
+    </PreferenceCategory>
 	<PreferenceCategory android:title="@string/prefs_category_about" android:key="about">
 		<Preference
 			android:title="@string/privacy"

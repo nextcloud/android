@@ -114,9 +114,7 @@ class AccountRemovalWork(
         uploadsStorageManager.removeUserUploads(user)
 
         // delete stored E2E keys and mnemonic
-        arbitraryDataProvider.deleteKeyForAccount(user.accountName, EncryptionUtils.PRIVATE_KEY)
-        arbitraryDataProvider.deleteKeyForAccount(user.accountName, EncryptionUtils.PUBLIC_KEY)
-        arbitraryDataProvider.deleteKeyForAccount(user.accountName, EncryptionUtils.MNEMONIC)
+        EncryptionUtils.removeE2E(arbitraryDataProvider, user)
 
         // unset default account, if needed
         if (preferences.currentAccountName.equals(user.accountName)) {

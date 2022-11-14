@@ -72,6 +72,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.ui.ThemeableSwitchPreference;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
@@ -98,7 +100,8 @@ import androidx.core.content.res.ResourcesCompat;
  * It proxies the necessary calls via {@link androidx.appcompat.app.AppCompatDelegate} to be used with AppCompat.
  */
 public class SettingsActivity extends PreferenceActivity
-    implements StorageMigration.StorageMigrationProgressListener, LoadingVersionNumberTask.VersionDevInterface,
+    implements StorageMigration.StorageMigrationProgressListener,
+    LoadingVersionNumberTask.VersionDevInterface,
     Injectable {
 
     private static final String TAG = SettingsActivity.class.getSimpleName();
@@ -323,7 +326,11 @@ public class SettingsActivity extends PreferenceActivity
 
         setupBackupPreference();
 
+        setupE2EPreference(preferenceCategoryMore);
+
         setupE2EMnemonicPreference(preferenceCategoryMore);
+
+        removeE2E(preferenceCategoryMore);
 
         setupHelpPreference(preferenceCategoryMore);
 
@@ -411,6 +418,25 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
+    private void setupE2EPreference(PreferenceCategory preferenceCategoryMore) {
+        Preference preference = findPreference("setup_e2e");
+
+        if (preference != null) {
+            if (FileOperationsHelper.isEndToEndEncryptionSetup(this, user)) {
+                preferenceCategoryMore.removePreference(preference);
+            } else {
+                preference.setOnPreferenceClickListener(p -> {
+                    Intent i = new Intent(MainApp.getAppContext(), SetupEncryptionActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    i.putExtra("EXTRA_USER", user);
+                    startActivityForResult(i, ACTION_SHOW_MNEMONIC);
+
+                    return true;
+                });
+            }
+        }
+    }
+
     private void setupE2EMnemonicPreference(PreferenceCategory preferenceCategoryMore) {
         String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
 
@@ -432,6 +458,36 @@ public class SettingsActivity extends PreferenceActivity
                 }
             } else {
                 preferenceCategoryMore.removePreference(pMnemonic);
+            }
+        }
+    }
+
+    private void removeE2E(PreferenceCategory preferenceCategoryMore) {
+        Preference preference = findPreference("remove_e2e");
+
+        if (preference != null) {
+            if (!FileOperationsHelper.isEndToEndEncryptionSetup(this, user)) {
+                preferenceCategoryMore.removePreference(preference);
+            } else {
+                preference.setOnPreferenceClickListener(p -> {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);
+                    AlertDialog alertDialog = builder.setTitle(R.string.prefs_e2e_mnemonic)
+                        .setMessage(getString(R.string.remove_e2e_message))
+                        .setCancelable(true)
+                        .setNegativeButton(R.string.common_cancel, ((dialog, i) -> dialog.dismiss()))
+                        .setPositiveButton(R.string.confirm_removal, (dialog, which) -> {
+                            // do something
+                            EncryptionUtils.removeE2E(arbitraryDataProvider, user);
+                            preferenceCategoryMore.removePreference(preference);
+
+                            dialog.dismiss();
+                        })
+                        .create();
+
+                    alertDialog.show();
+
+                    return true;
+                });
             }
         }
     }
@@ -879,6 +935,9 @@ public class SettingsActivity extends PreferenceActivity
                 AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);
                 AlertDialog alertDialog = builder.setTitle(R.string.prefs_e2e_mnemonic)
                     .setMessage(mnemonic)
+                    .setNegativeButton(R.string.common_cancel, (dialog, i) -> dialog.dismiss())
+                    .setNeutralButton(R.string.common_copy, (dialog, i) ->
+                        ClipboardUtil.copyToClipboard(this, mnemonic, false))
                     .setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
                     .create();
 

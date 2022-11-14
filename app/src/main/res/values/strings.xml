@@ -124,6 +124,7 @@
     <string name="common_send">Send</string>
     <string name="common_share">Share</string>
     <string name="common_skip">Skip</string>
+    <string name="common_copy">Copy</string>
     <string name="about_title">About</string>
     <string name="delete_account">Remove account</string>
     <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
@@ -1056,4 +1057,13 @@
     <string name="error_file_actions">Error showing file actions</string>
     <string name="pin_home">Pin to Home screen</string>
     <string name="pin_shortcut_label">Open %1$s</string>
+    <string name="displays_mnemonic">Displays your 12 word passphrase</string>
+    <string name="prefs_setup_e2e">Set up end to end encryption</string>
+    <string name="prefs_e2e_active">End to end encryption is set up!</string>
+    <string name="prefs_remove_e2e">Remove encryption locally</string>
+    <string name="remove_e2e">You can remove end to end encryption locally on this client</string>
+    <string name="confirm_removal">Remove local encryption</string>
+    <string name="remove_e2e_message">You can remove end to end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
+    <string name="setup_e2e">During setup of end to end encryption you will receive random 12 word mnemonic, which you need to add another client. This will only be stored on this computer and can be shown here. Please note it down to a secure place!</string>
+    <string name="error_showing_encryption_dialog">Error showing setup encryption dialog!</string>
 </resources>

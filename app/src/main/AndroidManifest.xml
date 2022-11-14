@@ -195,6 +195,9 @@
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false" />
         <activity
+            android:name=".ui.activity.SetupEncryptionActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.ContactsPreferenceActivity"
             android:exported="false"
             android:launchMode="singleInstance" />
