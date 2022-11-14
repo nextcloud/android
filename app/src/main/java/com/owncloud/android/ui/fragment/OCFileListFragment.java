@@ -130,6 +130,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -709,9 +710,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mIsActionModeNew = true;
 
             // fake menu to be able to use bottom sheet instead
-            // TODO android:iconTint does not work below API 26. Color icon with viewThemeUtils
             MenuInflater inflater = getActivity().getMenuInflater();
             inflater.inflate(R.menu.custom_menu_placeholder, menu);
+            final MenuItem item = menu.findItem(R.id.custom_menu_placeholder_item);
+            item.setIcon(viewThemeUtils.platform.colorDrawable(item.getIcon(), ContextCompat.getColor(requireContext(), R.color.white)));
             mode.invalidate();
 
             //set actionMode color

@@ -22,12 +22,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- This is a "fake" menu so that we can implement custom actions on menu click, while still behaving and looking like a traditional menu item -->
-    <!-- TODO only color white in actionmode and always-black bars (previewimagefragment), use viewthemeutils for that-->
     <item
         android:id="@+id/custom_menu_placeholder_item"
         android:icon="@drawable/ic_dots_vertical"
-        android:iconTint="@color/white"
         android:title="@string/overflow_menu"
         app:showAsAction="always" />
-
 </menu>

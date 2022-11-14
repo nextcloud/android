@@ -67,7 +67,6 @@
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <!-- TODO maybe convert to listview instead -->
                 <LinearLayout
                     android:id="@+id/file_actions_list"
                     android:layout_width="match_parent"

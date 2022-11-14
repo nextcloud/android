@@ -67,6 +67,7 @@ import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -81,6 +82,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -124,6 +126,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
     @Inject BackgroundJobManager backgroundJobManager;
+    @Inject ViewThemeUtils viewThemeUtils;
+
     private PreviewImageFragmentBinding binding;
 
     /**
@@ -344,6 +348,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.custom_menu_placeholder, menu);
+        final MenuItem item = menu.findItem(R.id.custom_menu_placeholder_item);
+        item.setIcon(viewThemeUtils.platform.colorDrawable(item.getIcon(), ContextCompat.getColor(requireContext(), R.color.white)));
     }
 
     @Override
