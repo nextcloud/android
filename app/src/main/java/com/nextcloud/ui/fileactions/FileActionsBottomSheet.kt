@@ -74,33 +74,15 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
 
     lateinit var componentsGetter: ComponentsGetter
 
+    interface ResultListener {
+        fun onResult(@IdRes actionId: Int)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         viewModel = ViewModelProvider(this, vmFactory)[FileActionsViewModel::class.java]
         _binding = FileActionsBottomSheetBinding.inflate(inflater, container, false)
 
-        viewModel.uiState.observe(viewLifecycleOwner) { state ->
-            toggleLoadingOrContent(state)
-            when (state) {
-                is FileActionsViewModel.UiState.LoadedForSingleFile -> {
-                    if (state.lockInfo != null) {
-                        displayLockInfo(state.lockInfo, inflater)
-                    }
-                    displayActions(state.actions, inflater)
-                    displayTitle(state.titleFile)
-                }
-                is FileActionsViewModel.UiState.LoadedForMultipleFiles -> {
-                    displayActions(state.actions, inflater)
-                    displayTitle(state.fileCount)
-                }
-                FileActionsViewModel.UiState.Loading -> {}
-                FileActionsViewModel.UiState.Error -> {
-                    context?.let {
-                        Toast.makeText(it, R.string.error_file_actions, Toast.LENGTH_SHORT).show()
-                    }
-                    dismissAllowingStateLoss()
-                }
-            }
-        }
+        viewModel.uiState.observe(viewLifecycleOwner, this::handleState)
 
         viewModel.clickActionId.observe(viewLifecycleOwner) { id ->
             dispatchActionClick(id)
@@ -111,12 +93,57 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         return binding.root
     }
 
+    private fun handleState(
+        state: FileActionsViewModel.UiState
+    ) {
+        toggleLoadingOrContent(state)
+        when (state) {
+            is FileActionsViewModel.UiState.LoadedForSingleFile -> {
+                if (state.lockInfo != null) {
+                    displayLockInfo(state.lockInfo)
+                }
+                displayActions(state.actions)
+                displayTitle(state.titleFile)
+            }
+            is FileActionsViewModel.UiState.LoadedForMultipleFiles -> {
+                displayActions(state.actions)
+                displayTitle(state.fileCount)
+            }
+            FileActionsViewModel.UiState.Loading -> {}
+            FileActionsViewModel.UiState.Error -> {
+                context?.let {
+                    Toast.makeText(it, R.string.error_file_actions, Toast.LENGTH_SHORT).show()
+                }
+                dismissAllowingStateLoss()
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         require(context is ComponentsGetter) {
             "Context is not a ComponentsGetter"
         }
         this.componentsGetter = context
+    }
+
+    fun setResultListener(
+        fragmentManager: FragmentManager,
+        lifecycleOwner: LifecycleOwner,
+        listener: ResultListener
+    ): FileActionsBottomSheet {
+        fragmentManager.setFragmentResultListener(REQUEST_KEY, lifecycleOwner) { _, result ->
+            @IdRes val actionId = result.getInt(RESULT_KEY_ACTION_ID, -1)
+            if (actionId != -1) {
+                listener.onResult(actionId)
+            }
+        }
+        return this
     }
 
     private fun toggleLoadingOrContent(state: FileActionsViewModel.UiState) {
@@ -130,23 +157,27 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
     }
 
     private fun displayActions(
-        actions: List<FileAction>,
-        inflater: LayoutInflater
+        actions: List<FileAction>
     ) {
         actions.forEach { action ->
-            val view = inflateActionView(inflater, action)
+            val view = inflateActionView(action)
             binding.fileActionsList.addView(view)
         }
     }
 
     private fun displayTitle(titleFile: OCFile?) {
-        titleFile?.decryptedFileName?.let {
-            binding.title.text = it
+        val decryptedFileName = titleFile?.decryptedFileName
+        if (decryptedFileName != null) {
+            decryptedFileName.let {
+                binding.title.text = it
+            }
+        } else {
+            binding.title.isVisible = false
         }
     }
 
-    private fun displayLockInfo(lockInfo: FileActionsViewModel.LockInfo, inflater: LayoutInflater) {
-        val view = FileActionsBottomSheetItemBinding.inflate(inflater, binding.fileActionsList, false)
+    private fun displayLockInfo(lockInfo: FileActionsViewModel.LockInfo) {
+        val view = FileActionsBottomSheetItemBinding.inflate(layoutInflater, binding.fileActionsList, false)
             .apply {
                 val textColor = ColorStateList.valueOf(resources.getColor(R.color.secondary_text_color, null))
                 root.isClickable = false
@@ -157,27 +188,31 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
                     textLine2.isVisible = true
                 }
                 if (lockInfo.lockType != FileLockType.COLLABORATIVE) {
-                    val drawable = object : AvatarGenerationListener {
-                        override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any?) {
-                            icon.setImageDrawable(avatarDrawable)
-                        }
-
-                        override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean {
-                            return false
-                        }
-                    }
-                    DisplayUtils.setAvatar(
-                        currentUserProvider.user,
-                        lockInfo.lockedBy,
-                        drawable,
-                        resources.getDimension(R.dimen.list_item_avatar_icon_radius),
-                        resources,
-                        this,
-                        requireContext()
-                    )
+                    showLockAvatar(lockInfo)
                 }
             }
         binding.fileActionsList.addView(view.root)
+    }
+
+    private fun FileActionsBottomSheetItemBinding.showLockAvatar(lockInfo: FileActionsViewModel.LockInfo) {
+        val listener = object : AvatarGenerationListener {
+            override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any?) {
+                icon.setImageDrawable(avatarDrawable)
+            }
+
+            override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean {
+                return false
+            }
+        }
+        DisplayUtils.setAvatar(
+            currentUserProvider.user,
+            lockInfo.lockedBy,
+            listener,
+            resources.getDimension(R.dimen.list_item_avatar_icon_radius),
+            resources,
+            this,
+            requireContext()
+        )
     }
 
     private fun getLockedByText(lockInfo: FileActionsViewModel.LockInfo): CharSequence {
@@ -201,8 +236,8 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         binding.title.text = resources.getQuantityString(R.plurals.file_list__footer__file, fileCount, fileCount)
     }
 
-    private fun inflateActionView(inflater: LayoutInflater, action: FileAction): View {
-        val itemBinding = FileActionsBottomSheetItemBinding.inflate(inflater, binding.fileActionsList, false)
+    private fun inflateActionView(action: FileAction): View {
+        val itemBinding = FileActionsBottomSheetItemBinding.inflate(layoutInflater, binding.fileActionsList, false)
             .apply {
                 root.setOnClickListener {
                     viewModel.onClick(action)
@@ -226,29 +261,6 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
             parentFragmentManager.clearFragmentResultListener(REQUEST_KEY)
             dismiss()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    interface ResultListener {
-        fun onResult(@IdRes actionId: Int)
-    }
-
-    fun setResultListener(
-        fragmentManager: FragmentManager,
-        lifecycleOwner: LifecycleOwner,
-        listener: ResultListener
-    ): FileActionsBottomSheet {
-        fragmentManager.setFragmentResultListener(REQUEST_KEY, lifecycleOwner) { _, result ->
-            @IdRes val actionId = result.getInt(RESULT_KEY_ACTION_ID, -1)
-            if (actionId != -1) {
-                listener.onResult(actionId)
-            }
-        }
-        return this
     }
 
     companion object {
