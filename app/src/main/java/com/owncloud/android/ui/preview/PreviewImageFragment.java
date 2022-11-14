@@ -344,7 +344,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
      * {@inheritDoc}
      */
     @Override
-    // TODO replace with MenuProvider
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.custom_menu_placeholder, menu);

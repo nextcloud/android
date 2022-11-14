@@ -375,7 +375,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     }
 
     @Override
-    // TODO replace with MenuProvider
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.custom_menu_placeholder_item) {
             final OCFile file = getFile();

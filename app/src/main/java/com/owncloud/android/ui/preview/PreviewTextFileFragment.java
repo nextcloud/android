@@ -257,7 +257,6 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
      * {@inheritDoc}
      */
     @Override
-    // TODO replace with MenuProvider
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.custom_menu_placeholder, menu);
