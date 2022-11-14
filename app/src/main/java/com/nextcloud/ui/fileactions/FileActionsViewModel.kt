@@ -22,12 +22,14 @@
 
 package com.nextcloud.ui.fileactions
 
+import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.client.logger.Logger
 import com.nextcloud.utils.TimeConstants
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.FileMenuFilter
@@ -39,7 +41,8 @@ import javax.inject.Inject
 
 class FileActionsViewModel @Inject constructor(
     private val currentAccountProvider: CurrentAccountProvider,
-    private val filterFactory: FileMenuFilter.Factory
+    private val filterFactory: FileMenuFilter.Factory,
+    private val logger: Logger
 ) :
     ViewModel() {
 
@@ -47,6 +50,7 @@ class FileActionsViewModel @Inject constructor(
 
     sealed interface UiState {
         object Loading : UiState
+        object Error : UiState
         data class LoadedForSingleFile(
             val actions: List<FileAction>,
             val titleFile: OCFile?,
@@ -65,24 +69,38 @@ class FileActionsViewModel @Inject constructor(
         @IdRes
         get() = _clickActionId
 
-    fun load(
-        files: Collection<OCFile>,
+    fun load(arguments: Bundle, componentsGetter: ComponentsGetter) {
+        val files: List<OCFile>? = arguments.getParcelableArrayList(ARG_FILES)
+        val numberOfAllFiles: Int = arguments.getInt(ARG_ALL_FILES_COUNT, 1)
+        val isOverflow = arguments.getBoolean(ARG_IS_OVERFLOW, false)
+        val additionalFilter: IntArray? = arguments.getIntArray(ARG_ADDITIONAL_FILTER)
+
+        if (files.isNullOrEmpty()) {
+            logger.d(TAG, "No valid files argument for loading actions")
+            _uiState.postValue(UiState.Error)
+        } else {
+            load(componentsGetter, files.toList(), numberOfAllFiles, isOverflow, additionalFilter)
+        }
+    }
+
+    private fun load(
         componentsGetter: ComponentsGetter,
+        files: Collection<OCFile>,
         numberOfAllFiles: Int?,
         isOverflow: Boolean?,
         additionalFilter: IntArray?
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val toHide = getHiddenActions(numberOfAllFiles, files, componentsGetter, isOverflow)
+            val toHide = getHiddenActions(componentsGetter, numberOfAllFiles, files, isOverflow)
             val availableActions = getActionsToShow(additionalFilter, toHide)
             updateStateLoaded(files, availableActions)
         }
     }
 
     private fun getHiddenActions(
+        componentsGetter: ComponentsGetter,
         numberOfAllFiles: Int?,
         files: Collection<OCFile>,
-        componentsGetter: ComponentsGetter,
         isOverflow: Boolean?
     ): List<Int> {
         return filterFactory.newInstance(
@@ -136,5 +154,14 @@ class FileActionsViewModel @Inject constructor(
 
     fun onClick(action: FileAction) {
         _clickActionId.value = action.id
+    }
+
+    companion object {
+        const val ARG_ALL_FILES_COUNT = "ALL_FILES_COUNT"
+        const val ARG_FILES = "FILES"
+        const val ARG_IS_OVERFLOW = "OVERFLOW"
+        const val ARG_ADDITIONAL_FILTER = "ADDITIONAL_FILTER"
+
+        private val TAG = FileActionsViewModel::class.simpleName!!
     }
 }

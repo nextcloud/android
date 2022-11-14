@@ -31,6 +31,7 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.os.bundleOf
@@ -74,14 +75,6 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
     lateinit var componentsGetter: ComponentsGetter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val args = requireArguments()
-        // todo parse bundle in viewmodel, not here
-        val files: Array<OCFile>? = args.getParcelableArray(ARG_FILES) as Array<OCFile>?
-        require(files != null)
-        val numberOfAllFiles: Int = args.getInt(ARG_ALL_FILES_COUNT, 1)
-        val isOverflow = args.getBoolean(ARG_IS_OVERFLOW, false)
-        val additionalFilter: IntArray? = args.getIntArray(ARG_ADDITIONAL_FILTER)
-
         viewModel = ViewModelProvider(this, vmFactory)[FileActionsViewModel::class.java]
         _binding = FileActionsBottomSheetBinding.inflate(inflater, container, false)
 
@@ -100,6 +93,12 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
                     displayTitle(state.fileCount)
                 }
                 FileActionsViewModel.UiState.Loading -> {}
+                FileActionsViewModel.UiState.Error -> {
+                    context?.let {
+                        Toast.makeText(it, R.string.error_file_actions, Toast.LENGTH_SHORT).show()
+                    }
+                    dismissAllowingStateLoss()
+                }
             }
         }
 
@@ -107,7 +106,7 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
             dispatchActionClick(id)
         }
 
-        viewModel.load(files.toList(), componentsGetter, numberOfAllFiles, isOverflow, additionalFilter)
+        viewModel.load(requireArguments(), componentsGetter)
 
         return binding.root
     }
@@ -255,10 +254,6 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
     companion object {
         private const val REQUEST_KEY = "REQUEST_KEY_ACTION"
         private const val RESULT_KEY_ACTION_ID = "RESULT_KEY_ACTION_ID"
-        private const val ARG_ALL_FILES_COUNT = "ALL_FILES_COUNT"
-        private const val ARG_FILES = "FILES"
-        private const val ARG_IS_OVERFLOW = "OVERFLOW"
-        private const val ARG_ADDITIONAL_FILTER = "ADDITIONAL_FILTER"
 
         @JvmStatic
         @JvmOverloads
@@ -282,12 +277,12 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         ): FileActionsBottomSheet {
             return FileActionsBottomSheet().apply {
                 val argsBundle = bundleOf(
-                    ARG_ALL_FILES_COUNT to numberOfAllFiles,
-                    ARG_FILES to files.toTypedArray(),
-                    ARG_IS_OVERFLOW to isOverflow
+                    FileActionsViewModel.ARG_ALL_FILES_COUNT to numberOfAllFiles,
+                    FileActionsViewModel.ARG_FILES to ArrayList<OCFile>(files),
+                    FileActionsViewModel.ARG_IS_OVERFLOW to isOverflow
                 )
                 additionalToHide?.let {
-                    argsBundle.putIntArray(ARG_ADDITIONAL_FILTER, additionalToHide.toIntArray())
+                    argsBundle.putIntArray(FileActionsViewModel.ARG_ADDITIONAL_FILTER, additionalToHide.toIntArray())
                 }
                 arguments = argsBundle
             }
