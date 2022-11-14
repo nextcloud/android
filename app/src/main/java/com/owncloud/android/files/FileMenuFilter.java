@@ -177,7 +177,6 @@ public class FileMenuFilter {
         filterStream(toHide);
         filterLock(toHide, fileLockingEnabled);
         filterUnlock(toHide, fileLockingEnabled);
-        filterLockInfo(toHide, fileLockingEnabled);
 
         return toHide;
     }
@@ -239,17 +238,6 @@ public class FileMenuFilter {
             OCFile file = files.iterator().next();
             if (!FileLockingHelper.canUserUnlockFile(userId, file)) {
                 toHide.add(R.id.action_unlock_file);
-            }
-        }
-    }
-
-    private void filterLockInfo(List<Integer> toHide, boolean fileLockingEnabled) {
-        if (files.isEmpty() || !isSingleSelection() || !fileLockingEnabled) {
-            toHide.add(R.id.menu_group_lock_info);
-        } else {
-            OCFile file = files.iterator().next();
-            if (!file.isLocked()) {
-                toHide.add(R.id.menu_group_lock_info);
             }
         }
     }
