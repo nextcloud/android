@@ -54,7 +54,6 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
-import com.nextcloud.utils.MenuUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.PreviewImageFragmentBinding;
@@ -83,6 +82,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import pl.droidsonroids.gif.GifDrawable;
@@ -370,12 +370,10 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                     if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
                         additionalFilter.add(R.id.action_send_share_file);
                     }
-                    FileActionsBottomSheet.newInstance(fileNew,
-                                                       containerActivity,
-                                                       false,
-                                                       this::onFileActionChosen,
-                                                       additionalFilter)
-                        .show(getActivity().getSupportFragmentManager(), "actions");
+                    final FragmentManager fragmentManager = getChildFragmentManager();
+                    FileActionsBottomSheet.newInstance(file, false, additionalFilter)
+                        .setResultListener(fragmentManager, this, this::onFileActionChosen)
+                        .show(fragmentManager, "actions");
                 }
             }
             return true;

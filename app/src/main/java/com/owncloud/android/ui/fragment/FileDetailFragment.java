@@ -84,9 +84,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.FragmentManager;
 
 /**
  * This Fragment is used to display the details about a file.
@@ -260,8 +262,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             additionalFilter.add(R.id.action_send_file);
             additionalFilter.add(R.id.action_sync_file);
         }
-        FileActionsBottomSheet.newInstance(file, containerActivity, true, this::optionsItemSelected, additionalFilter)
-            .show(getActivity().getSupportFragmentManager(), "actions");
+        final FragmentManager fragmentManager = getChildFragmentManager();
+        FileActionsBottomSheet.newInstance(file, true, additionalFilter)
+            .setResultListener(fragmentManager, this, this::optionsItemSelected)
+            .show(fragmentManager, "actions");
     }
 
     private void setupViewPager() {
@@ -383,7 +387,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         MenuUtils.hideAll(menu);
     }
 
-    private void optionsItemSelected(final int itemId) {
+    private void optionsItemSelected(@IdRes final int itemId) {
         if (itemId == R.id.action_send_file) {
             containerActivity.getFileOperationsHelper().sendShareFile(getFile(), true);
         } else if (itemId == R.id.action_open_file_with) {

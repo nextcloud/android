@@ -86,6 +86,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
@@ -398,12 +399,10 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                     if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
                         additionalFilter.add(R.id.action_send_share_file);
                     }
-                    FileActionsBottomSheet.newInstance(fileNew,
-                                                       containerActivity,
-                                                       false,
-                                                       this::onFileActionChosen,
-                                                       additionalFilter)
-                        .show(getActivity().getSupportFragmentManager(), "actions");
+                    final FragmentManager fragmentManager = getChildFragmentManager();
+                    FileActionsBottomSheet.newInstance(file, false, additionalFilter)
+                        .setResultListener(fragmentManager, this, this::onFileActionChosen)
+                        .show(fragmentManager, "actions");
                 }
             }
             return true;

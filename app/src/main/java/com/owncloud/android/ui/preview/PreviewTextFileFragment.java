@@ -35,7 +35,6 @@ import android.widget.TextView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
-import com.nextcloud.utils.MenuUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -64,6 +63,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
+import androidx.fragment.app.FragmentManager;
 
 public class PreviewTextFileFragment extends PreviewTextFragment {
     private static final String EXTRA_FILE = "FILE";
@@ -299,12 +299,10 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                     if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
                         additionalFilter.add(R.id.action_send_share_file);
                     }
-                    FileActionsBottomSheet.newInstance(fileNew,
-                                                       containerActivity,
-                                                       false,
-                                                       this::onFileActionChosen,
-                                                       additionalFilter)
-                        .show(getActivity().getSupportFragmentManager(), "actions");
+                    final FragmentManager fragmentManager = getChildFragmentManager();
+                    FileActionsBottomSheet.newInstance(file, false, additionalFilter)
+                        .setResultListener(fragmentManager, this, this::onFileActionChosen)
+                        .show(fragmentManager, "actions");
                 }
             }
             return true;

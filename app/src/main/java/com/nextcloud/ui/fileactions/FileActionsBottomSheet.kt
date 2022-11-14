@@ -22,6 +22,7 @@
 
 package com.nextcloud.ui.fileactions
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
@@ -31,8 +32,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.setFragmentResult
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nextcloud.client.account.CurrentAccountProvider
@@ -51,11 +56,6 @@ import javax.inject.Inject
 
 class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment(), Injectable {
 
-    lateinit var componentsGetter: ComponentsGetter
-
-    // TODO replace with fragment listener from Activity
-    lateinit var clickListener: ClickListener
-
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
@@ -70,6 +70,8 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
     private var _binding: FileActionsBottomSheetBinding? = null
     private val binding
         get() = _binding!!
+
+    lateinit var componentsGetter: ComponentsGetter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val args = requireArguments()
@@ -108,6 +110,14 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         viewModel.load(files.toList(), componentsGetter, numberOfAllFiles, isOverflow, additionalFilter)
 
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        require(context is ComponentsGetter) {
+            "Context is not a ComponentsGetter"
+        }
+        this.componentsGetter = context
     }
 
     private fun toggleLoadingOrContent(state: FileActionsViewModel.UiState) {
@@ -203,7 +213,7 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
                     val drawable =
                         viewThemeUtils.platform.tintDrawable(
                             requireContext(),
-                            resources.getDrawable(action.icon)
+                            AppCompatResources.getDrawable(requireContext(), action.icon)!!
                         )
                     icon.setImageDrawable(drawable)
                 }
@@ -213,7 +223,8 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
 
     private fun dispatchActionClick(id: Int?) {
         if (id != null) {
-            clickListener.onClick(id)
+            setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY_ACTION_ID to id))
+            parentFragmentManager.clearFragmentResultListener(REQUEST_KEY)
             dismiss()
         }
     }
@@ -223,11 +234,27 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         _binding = null
     }
 
-    interface ClickListener {
-        fun onClick(@IdRes itemId: Int)
+    interface ResultListener {
+        fun onResult(@IdRes actionId: Int)
+    }
+
+    fun setResultListener(
+        fragmentManager: FragmentManager,
+        lifecycleOwner: LifecycleOwner,
+        listener: ResultListener
+    ): FileActionsBottomSheet {
+        fragmentManager.setFragmentResultListener(REQUEST_KEY, lifecycleOwner) { _, result ->
+            @IdRes val actionId = result.getInt(RESULT_KEY_ACTION_ID, -1)
+            if (actionId != -1) {
+                listener.onResult(actionId)
+            }
+        }
+        return this
     }
 
     companion object {
+        private const val REQUEST_KEY = "REQUEST_KEY_ACTION"
+        private const val RESULT_KEY_ACTION_ID = "RESULT_KEY_ACTION_ID"
         private const val ARG_ALL_FILES_COUNT = "ALL_FILES_COUNT"
         private const val ARG_FILES = "FILES"
         private const val ARG_IS_OVERFLOW = "OVERFLOW"
@@ -237,13 +264,11 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         @JvmOverloads
         fun newInstance(
             file: OCFile,
-            componentsGetter: ComponentsGetter,
             isOverflow: Boolean,
-            onItemClick: ClickListener,
             @IdRes
             additionalToHide: List<Int>? = null
         ): FileActionsBottomSheet {
-            return newInstance(1, listOf(file), componentsGetter, isOverflow, onItemClick, additionalToHide)
+            return newInstance(1, listOf(file), isOverflow, additionalToHide)
         }
 
         @JvmStatic
@@ -251,9 +276,7 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         fun newInstance(
             numberOfAllFiles: Int,
             files: Collection<OCFile>,
-            componentsGetter: ComponentsGetter,
             isOverflow: Boolean,
-            onItemClick: ClickListener,
             @IdRes
             additionalToHide: List<Int>? = null
         ): FileActionsBottomSheet {
@@ -267,8 +290,6 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
                     argsBundle.putIntArray(ARG_ADDITIONAL_FILTER, additionalToHide.toIntArray())
                 }
                 arguments = argsBundle
-                this.componentsGetter = componentsGetter
-                this.clickListener = onItemClick
             }
         }
     }

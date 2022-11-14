@@ -132,6 +132,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -571,30 +572,20 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onOverflowIconClicked(OCFile file, View view) {
-        throttler.run("overflowClick", () -> {
-            FileActionsBottomSheet.newInstance(file, mContainerActivity, true, itemId -> {
-                    Set<OCFile> checkedFiles = new HashSet<>();
-                    checkedFiles.add(file);
-                    onFileActionChosen(itemId, checkedFiles);
-                })
-                .show(getActivity().getSupportFragmentManager(), "actions");
+        final Set<OCFile> checkedFiles = new HashSet<>();
+        checkedFiles.add(file);
+        openActionsMenu(1, checkedFiles, true);
+    }
 
-//            final ThemedPopupMenu popup = new ThemedPopupMenu(requireContext(), view);
-//            popup.inflate(R.menu.item_file);
-//            FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
-//                                                   Collections.singleton(file),
-//                                                   mContainerActivity, getActivity(),
-//                                                   true,
-//                                                   accountManager.getUser());
-//            mf.filter(popup.getMenu(), true);
-//            new FileLockingMenuCustomization(requireContext()).customizeMenu(popup.getMenu(), file);
-//            popup.setOnMenuItemClickListener(item -> {
-//                Set<OCFile> checkedFiles = new HashSet<>();
-//                checkedFiles.add(file);
-//                return onFileActionChosen(item, checkedFiles);
-//            });
-//
-////            popup.show();
+    public void openActionsMenu(final int filesCount, final Set<OCFile> checkedFiles, final boolean isOverflow) {
+        throttler.run("overflowClick", () -> {
+            final FragmentManager childFragmentManager = getChildFragmentManager();
+            FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow)
+                .setResultListener(childFragmentManager, this, (id) -> {
+                    onFileActionChosen(id, checkedFiles);
+                })
+                .show(childFragmentManager, "actions");
+            ;
         });
     }
 
@@ -761,12 +752,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             final Set<OCFile> checkedFiles = getCommonAdapter().getCheckedItems();
             if (item.getItemId() == R.id.custom_menu_placeholder_item) {
-                FileActionsBottomSheet.newInstance(getCommonAdapter().getFilesCount(),
-                                                   checkedFiles,
-                                                   mContainerActivity,
-                                                   false,
-                                                   itemId -> onFileActionChosen(itemId, checkedFiles))
-                    .show(getActivity().getSupportFragmentManager(), "actions");
+                openActionsMenu(getCommonAdapter().getFilesCount(), checkedFiles, false);
             }
             return true;
         }
@@ -1103,7 +1089,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     /**
      * Start the appropriate action(s) on the currently selected files given menu selected by the user.
      *
-     * @param item         MenuItem selected by the user
      * @param checkedFiles List of files selected by the user on which the action should be performed
      * @return 'true' if the menu selection started any action, 'false' otherwise.
      */
