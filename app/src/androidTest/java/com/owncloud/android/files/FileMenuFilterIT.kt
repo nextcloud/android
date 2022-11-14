@@ -80,8 +80,8 @@ class FileMenuFilterIT : AbstractIT() {
         every { mockComponentsGetter.operationsServiceBinder } returns mockOperationsServiceBinder
         every { mockStorageManager.getFileById(any()) } returns OCFile("/")
         every { mockStorageManager.getFolderContent(any(), any()) } returns ArrayList<OCFile>()
-        every { mockEditorUtils.isEditorAvailable(any(), any()) } returns false
         every { mockEditorUtils.getEditor(any(), any()) } returns null
+        every { mockEditorUtils.isEditorAvailable(any(), any()) } returns false
     }
 
     @Test
