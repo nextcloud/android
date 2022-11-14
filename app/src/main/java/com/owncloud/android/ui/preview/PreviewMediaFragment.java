@@ -385,28 +385,32 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
                 final OCFile fileNew = getFile();
                 if (fileNew != null) {
-                    final List<Integer> additionalFilter = new ArrayList<>(
-                        Arrays.asList(
-                            R.id.action_rename_file,
-                            R.id.action_sync_file,
-                            R.id.action_select_all,
-                            R.id.action_move,
-                            R.id.action_copy,
-                            R.id.action_favorite,
-                            R.id.action_unset_favorite
-                                     ));
-                    if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
-                        additionalFilter.add(R.id.action_send_share_file);
-                    }
-                    final FragmentManager fragmentManager = getChildFragmentManager();
-                    FileActionsBottomSheet.newInstance(file, false, additionalFilter)
-                        .setResultListener(fragmentManager, this, this::onFileActionChosen)
-                        .show(fragmentManager, "actions");
+                    showFileActions(file);
                 }
             }
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showFileActions(OCFile file) {
+        final List<Integer> additionalFilter = new ArrayList<>(
+            Arrays.asList(
+                R.id.action_rename_file,
+                R.id.action_sync_file,
+                R.id.action_select_all,
+                R.id.action_move,
+                R.id.action_copy,
+                R.id.action_favorite,
+                R.id.action_unset_favorite
+                         ));
+        if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
+            additionalFilter.add(R.id.action_send_share_file);
+        }
+        final FragmentManager fragmentManager = getChildFragmentManager();
+        FileActionsBottomSheet.newInstance(file, false, additionalFilter)
+            .setResultListener(fragmentManager, this, this::onFileActionChosen)
+            .show(fragmentManager, "actions");
     }
 
     public void onFileActionChosen(final int itemId) {
