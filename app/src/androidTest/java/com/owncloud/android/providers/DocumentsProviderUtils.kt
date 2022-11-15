@@ -75,8 +75,8 @@ object DocumentsProviderUtils {
         assertTrue("File $name older than expected: $diff", diff < RECENT_MILLISECONDS)
     }
 
-    internal fun assertExistsOnServer(client: OwnCloudClient, remotePath: String, shouldExit: Boolean) {
-        val result = ExistenceCheckRemoteOperation(remotePath, !shouldExit).execute(client)
+    internal fun assertExistsOnServer(client: OwnCloudClient, remotePath: String, shouldExist: Boolean) {
+        val result = ExistenceCheckRemoteOperation(remotePath, !shouldExist).execute(client)
         assertTrue("$result", result.isSuccess)
     }
 

@@ -23,6 +23,7 @@ package com.nextcloud.client.di;
 import android.app.Application;
 
 import com.nextcloud.client.appinfo.AppInfoModule;
+import com.nextcloud.client.database.DatabaseModule;
 import com.nextcloud.client.device.DeviceModule;
 import com.nextcloud.client.integrations.IntegrationsModule;
 import com.nextcloud.client.jobs.JobsModule;
@@ -51,7 +52,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
     ViewModelModule.class,
     JobsModule.class,
     IntegrationsModule.class,
-    ThemeModule.class
+    ThemeModule.class,
+    DatabaseModule.class
 })
 @Singleton
 public interface AppComponent {
