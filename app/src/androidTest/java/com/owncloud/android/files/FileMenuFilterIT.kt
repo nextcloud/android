@@ -27,6 +27,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.utils.EditorUtils
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.services.FileDownloader
@@ -67,7 +68,9 @@ class FileMenuFilterIT : AbstractIT() {
     private lateinit var mockOperationsServiceBinder: OperationsService.OperationsServiceBinder
 
     @MockK
-    private lateinit var mockEditorUtils: EditorUtils
+    private lateinit var mockArbitraryDataProvider: ArbitraryDataProvider
+
+    private lateinit var editorUtils: EditorUtils
 
     @Before
     fun setup() {
@@ -80,8 +83,8 @@ class FileMenuFilterIT : AbstractIT() {
         every { mockComponentsGetter.operationsServiceBinder } returns mockOperationsServiceBinder
         every { mockStorageManager.getFileById(any()) } returns OCFile("/")
         every { mockStorageManager.getFolderContent(any(), any()) } returns ArrayList<OCFile>()
-        every { mockEditorUtils.getEditor(any(), any()) } returns null
-        every { mockEditorUtils.isEditorAvailable(any(), any()) } returns false
+        every { mockArbitraryDataProvider.getValue(any<User>(), any()) } returns ""
+        editorUtils = EditorUtils(mockArbitraryDataProvider)
     }
 
     @Test
@@ -191,7 +194,7 @@ class FileMenuFilterIT : AbstractIT() {
         launchActivity<TestActivity>().use {
             it.onActivity { activity ->
                 val filterFactory =
-                    FileMenuFilter.Factory(mockStorageManager, activity, mockEditorUtils)
+                    FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
 
                 var sut = filterFactory.newInstance(encryptedFolder, mockComponentsGetter, true, user)
                 var toHide = sut.getToHide(false)
@@ -244,7 +247,7 @@ class FileMenuFilterIT : AbstractIT() {
         launchActivity<TestActivity>().use {
             it.onActivity { activity ->
                 val filterFactory =
-                    FileMenuFilter.Factory(mockStorageManager, activity, mockEditorUtils)
+                    FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
                 val sut = filterFactory.newInstance(file, mockComponentsGetter, true, user)
 
                 val toHide = sut.getToHide(false)
