@@ -33,10 +33,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -261,13 +259,6 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
     public void showToolbarSpinner() {
         mToolbarSpinner.setVisibility(View.VISIBLE);
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        requestPermissions();
     }
 
     private void fillDirectoryDropdown() {
@@ -677,12 +668,9 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     @Override
     protected void onStart() {
         super.onStart();
-        if (getAccount() != null) {
-            if (!mAccountOnCreation.equals(getAccount())) {
-                setResult(RESULT_CANCELED);
-                finish();
-            }
-
+        final Account account = getAccount();
+        if (mAccountOnCreation != null && mAccountOnCreation.equals(account)) {
+            requestPermissions();
         } else {
             setResult(RESULT_CANCELED);
             finish();
