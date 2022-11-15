@@ -135,14 +135,25 @@ class FilesSpecificViewThemeUtils @Inject constructor(
         return androidViewThemeUtils.tintPrimaryDrawable(context, thumbDrawable)!!
     }
 
+    private fun getHomeAsUpIcon(isMenu: Boolean): Int {
+        val icon = if (isMenu) {
+            R.drawable.ic_menu
+        } else {
+            R.drawable.ic_arrow_back
+        }
+        return icon
+    }
+
     /**
      * Sets title and colors the actionbar, the title and the back arrow
      */
     // TODO move back arrow resource to lib and use lib method directly?
-    fun themeActionBar(context: Context, actionBar: ActionBar, title: String) {
+    @JvmOverloads
+    fun themeActionBar(context: Context, actionBar: ActionBar, title: String, isMenu: Boolean = false) {
+        val icon = getHomeAsUpIcon(isMenu)
         val backArrow = ResourcesCompat.getDrawable(
             context.resources,
-            R.drawable.ic_arrow_back,
+            icon,
             null
         )!!
         androidXViewThemeUtils.themeActionBar(
@@ -156,22 +167,25 @@ class FilesSpecificViewThemeUtils @Inject constructor(
     /**
      * Sets title and colors the actionbar, the title and the back arrow
      */
-    fun themeActionBar(context: Context, actionBar: ActionBar, @StringRes titleRes: Int) {
+    @JvmOverloads
+    fun themeActionBar(context: Context, actionBar: ActionBar, @StringRes titleRes: Int, isMenu: Boolean = false) {
         val title = context.getString(titleRes)
         themeActionBar(
             context,
             actionBar,
-            title
+            title,
+            isMenu
         )
     }
 
     /**
      * Colors actionbar background and back arrow but not the title
      */
-    fun themeActionBar(context: Context, actionBar: ActionBar) {
+    @JvmOverloads
+    fun themeActionBar(context: Context, actionBar: ActionBar, isMenu: Boolean = false) {
         val backArrow = ResourcesCompat.getDrawable(
             context.resources,
-            R.drawable.ic_arrow_back,
+            getHomeAsUpIcon(isMenu),
             null
         )!!
         androidXViewThemeUtils.themeActionBar(context, actionBar, backArrow)
