@@ -236,6 +236,7 @@
     <string name="drawer_quota">%1$s felhasználva ennyiből: %2$s</string>
     <string name="drawer_quota_unlimited">%1$s használt</string>
     <string name="drawer_synced_folders">Automatikus feltöltés</string>
+    <string name="e2e_not_yet_setup">A végpontok közti titkosítás még nincs beállítva</string>
     <string name="encrypted">Titkosítás bekapcsolása</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_decrypting">Visszafejtés…</string>
@@ -389,6 +390,7 @@
     <string name="hint_password">Jelszó</string>
     <string name="host_not_available">A kiszolgáló nem érhető el</string>
     <string name="host_your_own_server">Saját kiszolgáló használata</string>
+    <string name="icon_for_empty_list">Az üres lista ikonja</string>
     <string name="icon_of_dashboard_widget">Irányítópult-modul ikonja</string>
     <string name="icon_of_widget_entry">Modulbejegyzés ikonja</string>
     <string name="in_folder">%1$s mappában</string>
@@ -896,6 +898,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="userinfo_no_info_text">Adja meg a nevét, profilképét és kapcsolati adatait a profil oldalán.</string>
     <string name="username">Felhasználónév</string>
     <string name="version_dev_download">Letöltés</string>
+    <string name="video_overlay_icon">Videórátét ikonja</string>
     <string name="wait_a_moment">Egy pillanat…</string>
     <string name="wait_checking_credentials">Tárolt hitelesítő adatok ellenőrzése</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fájl másolása a privát tárolóról</string>

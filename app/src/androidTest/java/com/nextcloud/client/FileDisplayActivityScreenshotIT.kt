@@ -57,7 +57,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
         shortSleep()
         sut.runOnUiThread {
             sut.listOfFilesFragment!!.setFabEnabled(false)
-            sut.resetScrolling()
+            sut.resetScrolling(true)
             sut.listOfFilesFragment!!.setEmptyListLoadingMessage()
             sut.listOfFilesFragment!!.isLoading = false
         }
@@ -109,7 +109,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
         shortSleep()
         sut.runOnUiThread {
             sut.hideInfoBox()
-            sut.resetScrolling()
+            sut.resetScrolling(true)
             sut.listOfFilesFragment!!.setFabEnabled(false)
             sut.listOfFilesFragment!!.setEmptyListLoadingMessage()
             sut.listOfFilesFragment!!.isLoading = false

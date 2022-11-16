@@ -4,7 +4,7 @@
     <string name="about_title">關於</string>
     <string name="about_version">版本 %1$s</string>
     <string name="about_version_with_build">版本 %1$s，組建 #%2$s</string>
-    <string name="account_creation_failed">賬號建立失敗</string>
+    <string name="account_creation_failed">建立賬戶失敗</string>
     <string name="account_icon">賬戶圖示</string>
     <string name="account_not_found">沒有找到任何賬戶</string>
     <string name="action_clear_failed_uploads">清除失敗的上傳</string>
@@ -39,7 +39,7 @@
     <string name="appbar_search_in">%s內搜尋</string>
     <string name="associated_account_not_found">無法找到連結賬戶</string>
     <string name="auth_access_failed">存取失敗：%1$s</string>
-    <string name="auth_account_does_not_exist">此賬號尚未加入到這個裝置</string>
+    <string name="auth_account_does_not_exist">此賬戶尚未加入到這個裝置</string>
     <string name="auth_account_not_new">此裝置上已經存在同樣伺服器與用戶賬戶</string>
     <string name="auth_account_not_the_same">輸入的用戶與此賬戶的用戶不一致</string>
     <string name="auth_bad_oc_version_title">無法辨識的伺服器版本</string>
@@ -106,7 +106,7 @@
     <string name="common_back">返回</string>
     <string name="common_cancel">取消</string>
     <string name="common_cancel_sync">取消同步</string>
-    <string name="common_choose_account">選擇賬號</string>
+    <string name="common_choose_account">選擇賬戶</string>
     <string name="common_confirm">確認</string>
     <string name="common_delete">刪除</string>
     <string name="common_error">錯誤</string>
@@ -124,8 +124,8 @@
     <string name="common_send">傳送</string>
     <string name="common_share">分享</string>
     <string name="common_skip">略過</string>
-    <string name="common_switch_account">切換賬號</string>
-    <string name="common_switch_to_account">切換到賬號</string>
+    <string name="common_switch_account">切換賬戶</string>
+    <string name="common_switch_to_account">切換到賬戶</string>
     <string name="common_yes">是</string>
     <string name="community_beta_headline">測試開發版本</string>
     <string name="community_beta_text">這包含所有最新功能，預期執行上仍可能會有錯誤，若發現錯誤請舉報給我們。</string>
@@ -190,7 +190,7 @@
     <string name="date_unknown">不詳</string>
     <string name="default_credentials_wrong">不正確的認證方式</string>
     <string name="delete_account">刪除賬戶</string>
-    <string name="delete_account_warning">移除賬號%s並刪除所有近端檔案?\n\n刪除後將無法恢復。</string>
+    <string name="delete_account_warning">移除賬戶%s並刪除所有近端檔案?\n\n刪除後將無法恢復。</string>
     <string name="delete_entries">刪除條目</string>
     <string name="delete_link">刪除連結</string>
     <string name="deselect_all">取消全選</string>
@@ -263,7 +263,7 @@
     <string name="error_creating_file_from_template">從模板創建檔案時出錯</string>
     <string name="error_file_lock">更改檔案上鎖狀態時出錯</string>
     <string name="error_report_issue_action">舉報</string>
-    <string name="error_report_issue_text">想舉報問題？（需要GitHub賬號）</string>
+    <string name="error_report_issue_text">想舉報問題？（需要GitHub賬戶）</string>
     <string name="error_retrieving_file">檢索檔案時發生錯誤</string>
     <string name="error_retrieving_templates">取得範本時發生錯誤</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
@@ -563,7 +563,7 @@
     <string name="prefs_lock_title">使用以下工具保護 app</string>
     <string name="prefs_lock_using_device_credentials">裝置身分驗證方式</string>
     <string name="prefs_lock_using_passcode">通行碼</string>
-    <string name="prefs_manage_accounts">管理賬號</string>
+    <string name="prefs_manage_accounts">管理賬戶</string>
     <string name="prefs_recommend">向朋友推薦</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_sourcecode">取得原始碼</string>
@@ -681,7 +681,7 @@
     <string name="show_images">顯示照片</string>
     <string name="show_video">顯示影片</string>
     <string name="signup_with_provider">使用第三方登入</string>
-    <string name="single_sign_on_request_token" formatted="true">允許 %1$s 存取您的 Nextcloud 賬號 %2$s？</string>
+    <string name="single_sign_on_request_token" formatted="true">允許 %1$s 存取您的 Nextcloud 賬戶 %2$s？</string>
     <string name="sort_by">排序方式</string>
     <string name="sort_by_modification_date_ascending">最新先</string>
     <string name="sort_by_modification_date_descending">最舊先</string>
@@ -726,7 +726,7 @@
     <string name="storage_permission_full_access">完整存取權限</string>
     <string name="storage_permission_media_read_only">僅媒體唯讀</string>
     <string name="storage_pictures">圖片</string>
-    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的用戶界面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多賬號支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx5 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 舉報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https://nextcloud.com 以取得更多資訊</string>
+    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的用戶界面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多賬戶支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx5 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 舉報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https://nextcloud.com 以取得更多資訊</string>
     <string name="store_full_dev_desc">可自架且始終讓您掌控一切的生產力平台。\n這是官方的開發版本，每天都會提供未經測試的任何新功能的範例，可能造成不穩定或資料遺失。此應用程式適合願意測試且舉報遇到的問題的用戶。不要將其用於您的生產力工作！\n\nF-Droid 同時提供了官方的開發版本與一般版本，可同時安裝。</string>
     <string name="store_short_desc">讓你能完全掌控、自建且具生產力的平台</string>
     <string name="store_short_dev_desc">讓你能完全掌控、自建且具生產力的平台（開發者預覽版）</string>
@@ -749,7 +749,7 @@
     <string name="sync_fail_ticker_unauthorized">同步失敗，需重新登入。</string>
     <string name="sync_file_nothing_to_do_msg">檔案已同步</string>
     <string name="sync_folder_failed_content">無法完成資料夾 %1$s 的同步作業</string>
-    <string name="sync_foreign_files_forgotten_explanation">於1.3.16版本中，此裝置已上傳的檔案會複製到近端%1$s資料夾，以防止多重賬號同步單一檔案時造成遺失。透過此應用程式更早的版本上傳的檔案則複製到%2$s資料夾。但是在同步時出現錯誤會阻礙此操作完成，你可以選擇無視此檔案並移除%3$s的連結，或者移動此檔案到%1$s資料夾並保留%4$s的連結，下面列出%5$s中近端與遠端檔案之間的連結。</string>
+    <string name="sync_foreign_files_forgotten_explanation">於1.3.16版本中，此裝置已上傳的檔案會複製到近端%1$s資料夾，以防止多重賬戶同步單一檔案時造成遺失。透過此應用程式更早的版本上傳的檔案則複製到%2$s資料夾。但是在同步時出現錯誤會阻礙此操作完成，你可以選擇無視此檔案並移除%3$s的連結，或者移動此檔案到%1$s資料夾並保留%4$s的連結，下面列出%5$s中近端與遠端檔案之間的連結。</string>
     <string name="sync_foreign_files_forgotten_ticker">有些近端端的檔案已遺失</string>
     <string name="sync_in_progress">取得檔案最近的版本</string>
     <string name="sync_not_enough_space_dialog_action_choose">選擇同步項目</string>

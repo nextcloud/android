@@ -594,7 +594,7 @@ public class FileDisplayActivity extends FileActivity
 
     protected void resetTitleBarAndScrolling() {
         updateActionBarTitleAndHomeButton(null);
-        resetScrolling();
+        resetScrolling(true);
     }
 
     public void updateListOfFilesFragment(boolean fromSearch) {
@@ -1070,7 +1070,7 @@ public class FileDisplayActivity extends FileActivity
             createMinFragments(null);
         } else {
             // pop back
-            resetScrolling();
+            resetScrolling(true);
             hideSearchView(getCurrentDir());
             showSortListGroup(true);
             super.onBackPressed();
@@ -1328,7 +1328,7 @@ public class FileDisplayActivity extends FileActivity
                                 if (ocFileListFragment.isEmpty()) {
                                     lockScrolling();
                                 } else {
-                                    resetScrolling();
+                                    resetScrolling(false);
                                 }
                             }
                         }
@@ -1568,7 +1568,7 @@ public class FileDisplayActivity extends FileActivity
     public void showDetails(OCFile file, int activeTab) {
         User currentUser = getUser().orElseThrow(RuntimeException::new);
 
-        resetScrolling();
+        resetScrolling(true);
 
         Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser, activeTab);
         setLeftFragment(detailFragment);
@@ -1592,11 +1592,13 @@ public class FileDisplayActivity extends FileActivity
      * Resets content scrolling and toolbar collapse
      */
     @VisibleForTesting
-    public void resetScrolling() {
+    public void resetScrolling(boolean expandAppBar) {
         AppBarLayout.LayoutParams appbarParams = (AppBarLayout.LayoutParams) binding.appbar.toolbarFrame.getLayoutParams();
         appbarParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
         binding.appbar.toolbarFrame.setLayoutParams(appbarParams);
-        binding.appbar.appbar.setExpanded(true, false);
+        if (expandAppBar) {
+            binding.appbar.appbar.setExpanded(true, false);
+        }
     }
 
     @Override
