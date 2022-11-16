@@ -1,0 +1,6 @@
+Bump mockitoVersion from 4.8.1 to 4.9.0
+Bump daggerVersion from 2.44.1 to 2.44.2
+Bump leakcanary-android from 2.9.1 to 2.10
+Bump daggerVersion from 2.44 to 2.44.1
+Update Nextcloud Android library
+Update 3rd-party dependencies
