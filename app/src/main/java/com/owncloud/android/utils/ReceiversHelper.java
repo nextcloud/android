@@ -30,6 +30,7 @@ import android.content.IntentFilter;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.WalledCheckCache;
 import com.nextcloud.common.DNSCache;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -46,7 +47,8 @@ public final class ReceiversHelper {
     public static void registerNetworkChangeReceiver(final UploadsStorageManager uploadsStorageManager,
                                                      final UserAccountManager accountManager,
                                                      final ConnectivityService connectivityService,
-                                                     final PowerManagementService powerManagementService) {
+                                                     final PowerManagementService powerManagementService,
+                                                     final WalledCheckCache walledCheckCache) {
         Context context = MainApp.getAppContext();
 
         IntentFilter intentFilter = new IntentFilter();
@@ -57,6 +59,7 @@ public final class ReceiversHelper {
             @Override
             public void onReceive(Context context, Intent intent) {
                 DNSCache.clear();
+                walledCheckCache.clear();
                 if (connectivityService.getConnectivity().isConnected()) {
                     FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
                                                         accountManager,

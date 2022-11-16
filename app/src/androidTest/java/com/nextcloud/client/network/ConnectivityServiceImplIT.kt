@@ -24,8 +24,8 @@ package com.nextcloud.client.network
 import android.accounts.AccountManager
 import android.content.Context
 import android.net.ConnectivityManager
-import android.os.Build
 import com.nextcloud.client.account.UserAccountManagerImpl
+import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.network.ConnectivityServiceImpl.GetRequestBuilder
 import com.owncloud.android.AbstractOnServerIT
 import org.junit.Assert.assertFalse
@@ -40,13 +40,14 @@ class ConnectivityServiceImplIT : AbstractOnServerIT() {
         val userAccountManager = UserAccountManagerImpl(targetContext, accountManager)
         val clientFactory = ClientFactoryImpl(targetContext)
         val requestBuilder = GetRequestBuilder()
+        val walledCheckCache = WalledCheckCache(ClockImpl())
 
         val sut = ConnectivityServiceImpl(
             connectivityManager,
             userAccountManager,
             clientFactory,
             requestBuilder,
-            Build.VERSION.SDK_INT
+            walledCheckCache
         )
 
         assertTrue(sut.connectivity.isConnected)
