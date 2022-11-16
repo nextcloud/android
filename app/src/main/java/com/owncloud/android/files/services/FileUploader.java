@@ -1102,7 +1102,8 @@ public class FileUploader extends Service
             return true;
         }
 
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S || context.getResources().getBoolean(R.bool.is_beta);
+        // bump min version down with every release until minSDK is reached, at that point get rid of old upload code
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.R || context.getResources().getBoolean(R.bool.is_beta);
     }
 
     @VisibleForTesting
