@@ -38,7 +38,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <!--  TODO theme this! -->
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:indeterminate="true"
             android:id="@+id/bottom_sheet_loading"
@@ -82,7 +81,6 @@
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
                 tools:text="Test file name which is very very very very very long.pdf" />
 
-            <!--  TODO test scroll -->
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

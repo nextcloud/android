@@ -184,6 +184,7 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         if (state is FileActionsViewModel.UiState.Loading) {
             binding.bottomSheetLoading.isVisible = true
             binding.bottomSheetContent.isVisible = false
+            viewThemeUtils.platform.colorCircularProgressBar(binding.bottomSheetLoading)
         } else {
             binding.bottomSheetLoading.isVisible = false
             binding.bottomSheetContent.isVisible = true
