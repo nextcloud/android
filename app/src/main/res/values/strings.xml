@@ -1053,4 +1053,5 @@
     <string name="no_items">No items</string>
     <string name="check_back_later_or_reload">Check back later or reload.</string>
     <string name="e2e_not_yet_setup">E2E not yet setup</string>
+    <string name="shared_folder_end_to_end_encryption_error">Shared folders cannot be encrypted.</string>
 </resources>

@@ -11,7 +11,7 @@
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
  * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- * Copyright (C) 2021 TSI-mc
+ * Copyright (C) 2022 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -913,6 +913,12 @@ public class FileOperationsHelper {
     }
 
     public void toggleEncryption(OCFile file, boolean shouldBeEncrypted) {
+        //shared folders cannot be encrypted
+        if (file.isSharedWithMe() || file.isSharedWithSharee() || file.isSharedViaLink()) {
+            DisplayUtils.showSnackMessage(fileActivity, R.string.shared_folder_end_to_end_encryption_error);
+            return;
+        }
+
         if (file.isEncrypted() != shouldBeEncrypted) {
             EventBus.getDefault().post(new EncryptionEvent(file.getLocalId(),
                                                            file.getRemoteId(),
