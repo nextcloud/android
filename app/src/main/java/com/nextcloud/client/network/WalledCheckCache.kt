@@ -36,7 +36,7 @@ class WalledCheckCache @Inject constructor(private val clock: Clock) {
         return when (val timestamp = cachedEntry?.first) {
             null -> true
             else -> {
-                val diff = clock.millisSinceBoot - timestamp
+                val diff = clock.currentTime - timestamp
                 diff >= CACHE_TIME_MS
             }
         }
@@ -44,7 +44,7 @@ class WalledCheckCache @Inject constructor(private val clock: Clock) {
 
     @Synchronized
     fun setValue(isWalled: Boolean) {
-        this.cachedEntry = Pair(clock.millisSinceBoot, isWalled)
+        this.cachedEntry = Pair(clock.currentTime, isWalled)
     }
 
     @Synchronized
