@@ -1740,7 +1740,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 final Context context = getContext();
 
                 if (actionBar != null && context != null) {
-                    viewThemeUtils.files.themeActionBar(context, actionBar, title);
+                    viewThemeUtils.files.themeActionBar(context, actionBar, title, true);
                 }
             }
         });
