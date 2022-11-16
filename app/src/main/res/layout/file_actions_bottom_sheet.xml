@@ -38,42 +38,65 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <!--  TODO theme this! -->
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:indeterminate="true"
             android:id="@+id/bottom_sheet_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            tools:visibility="gone" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottom_sheet_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:visibility="gone"
-            tools:visibility="gone">
+            tools:visibility="visible">
+
+            <FrameLayout
+                android:id="@+id/thumbnail_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_padding"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title">
+
+                <include
+                    android:id="@+id/thumbnail_layout"
+                    layout="@layout/file_thumbnail" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/title"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:lines="1"
                 android:padding="@dimen/standard_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/thumbnail_container"
+                app:layout_constraintTop_toTopOf="parent"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
                 tools:text="Test file name which is very very very very very long.pdf" />
 
-
+            <!--  TODO test scroll -->
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title">
+
                 <LinearLayout
                     android:id="@+id/file_actions_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
             </androidx.core.widget.NestedScrollView>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

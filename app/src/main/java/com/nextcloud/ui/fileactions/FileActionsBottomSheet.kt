@@ -41,13 +41,16 @@ import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.utils.DisplayUtils
@@ -66,6 +69,9 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
     @Inject
     lateinit var currentUserProvider: CurrentAccountProvider
 
+    @Inject
+    lateinit var storageManager: FileDataStorageManager
+
     lateinit var viewModel: FileActionsViewModel
 
     private var _binding: FileActionsBottomSheetBinding? = null
@@ -73,6 +79,8 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         get() = _binding!!
 
     lateinit var componentsGetter: ComponentsGetter
+
+    private val thumbnailAsyncTasks = mutableListOf<ThumbnailsCacheManager.ThumbnailGenerationTask>()
 
     interface ResultListener {
         fun onResult(@IdRes actionId: Int)
@@ -99,6 +107,7 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         toggleLoadingOrContent(state)
         when (state) {
             is FileActionsViewModel.UiState.LoadedForSingleFile -> {
+                loadFileThumbnail(state.titleFile)
                 if (state.lockInfo != null) {
                     displayLockInfo(state.lockInfo)
                 }
@@ -106,6 +115,7 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
                 displayTitle(state.titleFile)
             }
             is FileActionsViewModel.UiState.LoadedForMultipleFiles -> {
+                setMultipleFilesThumbnail()
                 displayActions(state.actions)
                 displayTitle(state.fileCount)
             }
@@ -116,6 +126,30 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
                 }
                 dismissAllowingStateLoss()
             }
+        }
+    }
+
+    private fun loadFileThumbnail(titleFile: OCFile?) {
+        titleFile?.let {
+            DisplayUtils.setThumbnail(
+                it,
+                binding.thumbnailLayout.thumbnail,
+                currentUserProvider.user,
+                storageManager,
+                thumbnailAsyncTasks,
+                false,
+                context,
+                binding.thumbnailLayout.thumbnailShimmer,
+                null,
+                viewThemeUtils
+            )
+        }
+    }
+
+    private fun setMultipleFilesThumbnail() {
+        context?.let {
+            val drawable = viewThemeUtils.platform.tintDrawable(it, R.drawable.file_multiple, ColorRole.PRIMARY)
+            binding.thumbnailLayout.thumbnail.setImageDrawable(drawable)
         }
     }
 

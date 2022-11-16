@@ -18,7 +18,6 @@
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/standard_list_item_size"
@@ -34,7 +33,7 @@
         android:layout_marginBottom="@dimen/standard_padding">
 
         <FrameLayout
-            android:id="@+id/thumbnail_layout"
+            android:id="@+id/thumbnail_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -42,36 +41,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <FrameLayout
-                android:layout_width="@dimen/file_icon_size"
-                android:layout_height="@dimen/file_icon_size"
-                android:layout_gravity="center">
-
-                <ImageView
-                    android:id="@+id/thumbnail"
-                    android:layout_width="@dimen/file_icon_size"
-                    android:layout_height="@dimen/file_icon_size"
-                    android:contentDescription="@null"
-                    android:src="@drawable/folder" />
-
-                <ImageView
-                    android:id="@+id/videoOverlay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginStart="2dp"
-                    android:src="@drawable/video_white"
-                    android:visibility="gone"
-                    tools:visibility="visible"
-                    android:contentDescription="@string/video_overlay_icon" />
-            </FrameLayout>
-
-            <com.elyeproj.loaderviewlibrary.LoaderImageView
-                android:id="@+id/thumbnail_shimmer"
-                android:layout_width="@dimen/file_icon_size"
-                android:layout_height="@dimen/file_icon_size"
-                android:visibility="gone"
-                app:corners="8" />
+            <include
+                android:id="@+id/thumbnail_layout"
+                layout="@layout/file_thumbnail" />
         </FrameLayout>
 
         <ImageView
@@ -81,10 +53,10 @@
             android:contentDescription="@string/downloader_download_succeeded_ticker"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_synced"
-            app:layout_constraintBottom_toBottomOf="@+id/thumbnail_layout"
-            app:layout_constraintEnd_toEndOf="@+id/thumbnail_layout"
-            app:layout_constraintStart_toEndOf="@+id/thumbnail_layout"
-            app:layout_constraintTop_toBottomOf="@+id/thumbnail_layout" />
+            app:layout_constraintBottom_toBottomOf="@+id/thumbnail_container"
+            app:layout_constraintEnd_toEndOf="@+id/thumbnail_container"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail_container"
+            app:layout_constraintTop_toBottomOf="@+id/thumbnail_container" />
 
         <ImageView
             android:id="@+id/favorite_action"
@@ -92,10 +64,10 @@
             android:layout_height="@dimen/list_item_favorite_action_layout_height"
             android:contentDescription="@string/favorite"
             android:src="@drawable/favorite"
-            app:layout_constraintBottom_toTopOf="@+id/thumbnail_layout"
-            app:layout_constraintEnd_toEndOf="@+id/thumbnail_layout"
-            app:layout_constraintStart_toEndOf="@+id/thumbnail_layout"
-            app:layout_constraintTop_toTopOf="@+id/thumbnail_layout" />
+            app:layout_constraintBottom_toTopOf="@+id/thumbnail_container"
+            app:layout_constraintEnd_toEndOf="@+id/thumbnail_container"
+            app:layout_constraintStart_toEndOf="@+id/thumbnail_container"
+            app:layout_constraintTop_toTopOf="@+id/thumbnail_container" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
