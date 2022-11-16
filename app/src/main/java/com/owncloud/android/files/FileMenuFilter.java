@@ -456,8 +456,7 @@ public class FileMenuFilter {
         if (isSingleSelection()) {
             OCFile file = files.iterator().next();
 
-            boolean noChildren = componentsGetter
-                .getStorageManager()
+            boolean noChildren = storageManager
                 .getFolderContent(file, false).size() == EMPTY_FILE_LENGTH;
 
             return file.isFolder() && file.getFileLength() == EMPTY_FILE_LENGTH && noChildren;
