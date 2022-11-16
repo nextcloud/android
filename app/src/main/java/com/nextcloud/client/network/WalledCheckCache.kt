@@ -29,11 +29,11 @@ import javax.inject.Singleton
 @Singleton
 class WalledCheckCache @Inject constructor(private val clock: Clock) {
 
-    private var value: Pair<Long, Boolean>? = null
+    private var cachedEntry: Pair<Long, Boolean>? = null
 
     @Synchronized
     fun isExpired(): Boolean {
-        return when (val timestamp = value?.first) {
+        return when (val timestamp = cachedEntry?.first) {
             null -> true
             else -> {
                 val diff = clock.millisSinceBoot - timestamp
@@ -43,21 +43,21 @@ class WalledCheckCache @Inject constructor(private val clock: Clock) {
     }
 
     @Synchronized
-    fun setValue(value: Boolean) {
-        this.value = Pair(clock.millisSinceBoot, value)
+    fun setValue(isWalled: Boolean) {
+        this.cachedEntry = Pair(clock.millisSinceBoot, isWalled)
     }
 
     @Synchronized
     fun getValue(): Boolean? {
         return when (isExpired()) {
             true -> null
-            else -> value?.second
+            else -> cachedEntry?.second
         }
     }
 
     @Synchronized
     fun clear() {
-        value = null
+        cachedEntry = null
     }
 
     companion object {
