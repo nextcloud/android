@@ -20,13 +20,12 @@
  */
 package com.owncloud.android.ui.asynctasks;
 
-import android.accounts.Account;
 import android.os.AsyncTask;
 
 import com.nextcloud.android.lib.resources.directediting.DirectEditingOpenFileRemoteOperation;
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.Editor;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.ui.activity.EditorWebView;
@@ -35,14 +34,16 @@ import java.lang.ref.WeakReference;
 
 public class TextEditorLoadUrlTask extends AsyncTask<Void, Void, String> {
 
+    private final EditorUtils editorUtils;
     private WeakReference<EditorWebView> editorWebViewWeakReference;
     private OCFile file;
     private User user;
 
-    public TextEditorLoadUrlTask(EditorWebView editorWebView, User user, OCFile file) {
+    public TextEditorLoadUrlTask(EditorWebView editorWebView, User user, OCFile file, EditorUtils editorUtils) {
         this.user = user;
         this.editorWebViewWeakReference = new WeakReference<>(editorWebView);
         this.file = file;
+        this.editorUtils = editorUtils;
     }
 
     @Override
@@ -53,7 +54,7 @@ public class TextEditorLoadUrlTask extends AsyncTask<Void, Void, String> {
             return "";
         }
 
-        Editor editor = FileMenuFilter.getEditor(editorWebView.getContentResolver(), user, file.getMimeType());
+        Editor editor = editorUtils.getEditor(user, file.getMimeType());
 
         if (editor == null) {
             return "";

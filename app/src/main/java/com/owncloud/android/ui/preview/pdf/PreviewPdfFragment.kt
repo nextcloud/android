@@ -33,10 +33,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.utils.MenuUtils
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPdfFragmentBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.preview.PreviewBitmapActivity
 import com.owncloud.android.utils.DisplayUtils
@@ -111,7 +111,7 @@ class PreviewPdfFragment : Fragment(), Injectable {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        FileMenuFilter.hideAll(menu)
+        MenuUtils.hideAll(menu)
     }
 
     override fun onResume() {

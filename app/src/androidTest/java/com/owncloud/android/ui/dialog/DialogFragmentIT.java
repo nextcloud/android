@@ -44,6 +44,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -493,6 +494,18 @@ public class DialogFragmentIT extends AbstractIT {
         }
 
         StoragePermissionDialogFragment sut = StoragePermissionDialogFragment.Companion.newInstance(false);
+        showDialog(sut);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testFileActionsBottomSheet() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare();
+        }
+
+        OCFile ocFile = new OCFile("/test.md");
+        final FileActionsBottomSheet sut = FileActionsBottomSheet.newInstance(ocFile, false);
         showDialog(sut);
     }
 

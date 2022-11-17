@@ -23,10 +23,8 @@ package com.owncloud.android.ui.preview;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -35,8 +33,6 @@ import android.graphics.drawable.PictureDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Process;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -57,12 +53,12 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.PreviewImageFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
@@ -71,19 +67,24 @@ import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import pl.droidsonroids.gif.GifDrawable;
@@ -125,6 +126,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     @Inject ConnectivityService connectivityService;
     @Inject UserAccountManager accountManager;
     @Inject BackgroundJobManager backgroundJobManager;
+    @Inject ViewThemeUtils viewThemeUtils;
+
     private PreviewImageFragmentBinding binding;
 
     /**
@@ -343,72 +346,54 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.item_file, menu);
-
-        int nightModeFlag = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
-        if (Configuration.UI_MODE_NIGHT_NO == nightModeFlag) {
-            for (int i = 0; i < menu.size(); i++) {
-                MenuItem menuItem = menu.getItem(i);
-
-                SpannableString spanString = new SpannableString(menuItem.getTitle().toString());
-                spanString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, spanString.length(), 0);
-                menuItem.setTitle(spanString);
-            }
-        }
+        inflater.inflate(R.menu.custom_menu_placeholder, menu);
+        final MenuItem item = menu.findItem(R.id.custom_menu_placeholder_item);
+        item.setIcon(viewThemeUtils.platform.colorDrawable(item.getIcon(), ContextCompat.getColor(requireContext(), R.color.white)));
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-        if (containerActivity.getStorageManager() != null && getFile() != null) {
-            // Update the file
-            final OCFile updatedFile = containerActivity.getStorageManager().getFileById(getFile().getFileId());
-            setFile(updatedFile);
-
-            if (getFile() != null) {
-                User currentUser = accountManager.getUser();
-                FileMenuFilter mf = new FileMenuFilter(
-                    getFile(),
-                    containerActivity,
-                    getActivity(),
-                    false,
-                    currentUser
-                );
-
-                mf.filter(menu, true);
-            }
-        }
-
-        // additional restriction for this fragment
-        // TODO allow renaming in PreviewImageFragment
-        // TODO allow refresh file in PreviewImageFragment
-        FileMenuFilter.hideMenuItems(
-                menu.findItem(R.id.action_rename_file),
-                menu.findItem(R.id.action_sync_file),
-                menu.findItem(R.id.action_select_all),
-                menu.findItem(R.id.action_move),
-                menu.findItem(R.id.action_copy),
-                menu.findItem(R.id.action_favorite),
-                menu.findItem(R.id.action_unset_favorite)
-        );
-
-        if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
-            FileMenuFilter.hideMenuItem(menu.findItem(R.id.action_send_share_file));
-        }
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
+        if (item.getItemId() == R.id.custom_menu_placeholder_item) {
+            final OCFile file = getFile();
+            if (containerActivity.getStorageManager() != null && file != null) {
+                // Update the file
+                final OCFile updatedFile = containerActivity.getStorageManager().getFileById(file.getFileId());
+                setFile(updatedFile);
+
+                final OCFile fileNew = getFile();
+                if (fileNew != null) {
+                    showFileActions(file);
+                }
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showFileActions(OCFile file) {
+        final List<Integer> additionalFilter = new ArrayList<>(
+            Arrays.asList(
+                R.id.action_rename_file,
+                R.id.action_sync_file,
+                R.id.action_select_all,
+                R.id.action_move,
+                R.id.action_copy,
+                R.id.action_favorite,
+                R.id.action_unset_favorite
+                         ));
+        if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
+            additionalFilter.add(R.id.action_send_share_file);
+        }
+        final FragmentManager fragmentManager = getChildFragmentManager();
+        FileActionsBottomSheet.newInstance(file, false, additionalFilter)
+            .setResultListener(fragmentManager, this, this::onFileActionChosen)
+            .show(fragmentManager, "actions");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onFileActionChosen(final int itemId) {
         if (itemId == R.id.action_send_share_file) {
             if (getFile().isSharedWithMe() && !getFile().canReshare()) {
                 Snackbar.make(requireView(),
@@ -419,23 +404,17 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             } else {
                 containerActivity.getFileOperationsHelper().sendShareFile(getFile());
             }
-            return true;
         } else if (itemId == R.id.action_open_file_with) {
             openFile();
-            return true;
         } else if (itemId == R.id.action_remove_file) {
             RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
             dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-            return true;
         } else if (itemId == R.id.action_see_details) {
             seeDetails();
-            return true;
         } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
             containerActivity.getFileOperationsHelper().syncFile(getFile());
-            return true;
         } else if (itemId == R.id.action_set_as_wallpaper) {
             containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getImageView());
-            return true;
         } else if (itemId == R.id.action_export_file) {
             ArrayList<OCFile> list = new ArrayList<>();
             list.add(getFile());
@@ -443,9 +422,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                                                     getContext(),
                                                                     getView(),
                                                                     backgroundJobManager);
-            return true;
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void seeDetails() {

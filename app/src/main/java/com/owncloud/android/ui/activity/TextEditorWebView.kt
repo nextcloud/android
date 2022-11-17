@@ -29,8 +29,8 @@ import androidx.webkit.WebViewFeature
 import com.nextcloud.android.common.ui.util.PlatformThemeUtil
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.device.DeviceInfo
+import com.nextcloud.utils.EditorUtils
 import com.owncloud.android.R
-import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask
 import com.owncloud.android.utils.theme.ThemeUtils
 import javax.inject.Inject
@@ -45,6 +45,9 @@ class TextEditorWebView : EditorWebView() {
     @Inject
     lateinit var themeUtils: ThemeUtils
 
+    @Inject
+    lateinit var editorUtils: EditorUtils
+
     @SuppressLint("AddJavascriptInterface") // suppress warning as webview is only used > Lollipop
     override fun postOnCreate() {
         super.postOnCreate()
@@ -54,7 +57,7 @@ class TextEditorWebView : EditorWebView() {
             finish()
         }
 
-        val editor = FileMenuFilter.getEditor(contentResolver, user.get(), file.mimeType)
+        val editor = editorUtils.getEditor(user.get(), file.mimeType)
 
         if (editor != null && editor.id == "onlyoffice") {
             getWebView().settings.userAgentString = generateOnlyOfficeUserAgent()
@@ -79,7 +82,7 @@ class TextEditorWebView : EditorWebView() {
 
     override fun loadUrl(url: String?) {
         if (url.isNullOrEmpty()) {
-            TextEditorLoadUrlTask(this, user.get(), file).execute()
+            TextEditorLoadUrlTask(this, user.get(), file, editorUtils).execute()
         }
     }
 

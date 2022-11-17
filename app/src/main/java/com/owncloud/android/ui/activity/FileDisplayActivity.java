@@ -2110,7 +2110,7 @@ public class FileDisplayActivity extends FileActivity
         } else {
             FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this,
                                                                                  getUserAccountManager(),
-                                                                                 connectivityService);
+                                                                                 connectivityService, editorUtils);
             fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent);
         }
     }
@@ -2131,7 +2131,7 @@ public class FileDisplayActivity extends FileActivity
         } else {
             FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this,
                                                                                  getUserAccountManager(),
-                                                                                 connectivityService);
+                                                                                 connectivityService, editorUtils);
             fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent);
         }
     }
@@ -2163,7 +2163,7 @@ public class FileDisplayActivity extends FileActivity
             previewIntent.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, autoplay);
             FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this,
                                                                                  getUserAccountManager(),
-                                                                                 connectivityService);
+                                                                                 connectivityService, editorUtils);
             fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent);
         }
     }
@@ -2197,7 +2197,7 @@ public class FileDisplayActivity extends FileActivity
             previewIntent.putExtra(TEXT_PREVIEW, true);
             FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this,
                                                                                  getUserAccountManager(),
-                                                                                 connectivityService);
+                                                                                 connectivityService, editorUtils);
             fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent);
         }
     }

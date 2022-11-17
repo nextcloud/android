@@ -45,8 +45,6 @@ import android.widget.Toast;
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.nextcloud.android.files.FileLockingMenuCustomization;
-import com.nextcloud.android.files.ThemedPopupMenu;
 import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
@@ -58,6 +56,8 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -65,7 +65,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
-import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -118,21 +117,23 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -196,6 +197,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject BackgroundJobManager backgroundJobManager;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject FastScrollUtils fastScrollUtils;
+    @Inject EditorUtils editorUtils;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -571,23 +573,20 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onOverflowIconClicked(OCFile file, View view) {
-        throttler.run("overflowClick", () -> {
-            final ThemedPopupMenu popup = new ThemedPopupMenu(requireContext(), view);
-            popup.inflate(R.menu.item_file);
-            FileMenuFilter mf = new FileMenuFilter(mAdapter.getFiles().size(),
-                                                   Collections.singleton(file),
-                                                   mContainerActivity, getActivity(),
-                                                   true,
-                                                   accountManager.getUser());
-            mf.filter(popup.getMenu(), true);
-            new FileLockingMenuCustomization(requireContext()).customizeMenu(popup.getMenu(), file);
-            popup.setOnMenuItemClickListener(item -> {
-                Set<OCFile> checkedFiles = new HashSet<>();
-                checkedFiles.add(file);
-                return onFileActionChosen(item, checkedFiles);
-            });
+        final Set<OCFile> checkedFiles = new HashSet<>();
+        checkedFiles.add(file);
+        openActionsMenu(1, checkedFiles, true);
+    }
 
-            popup.show();
+    public void openActionsMenu(final int filesCount, final Set<OCFile> checkedFiles, final boolean isOverflow) {
+        throttler.run("overflowClick", () -> {
+            final FragmentManager childFragmentManager = getChildFragmentManager();
+            FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow)
+                .setResultListener(childFragmentManager, this, (id) -> {
+                    onFileActionChosen(id, checkedFiles);
+                })
+                .show(childFragmentManager, "actions");
+            ;
         });
     }
 
@@ -710,8 +709,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
             // Determine if actionMode is "new" or not (already affected by item-selection)
             mIsActionModeNew = true;
 
+            // fake menu to be able to use bottom sheet instead
             MenuInflater inflater = getActivity().getMenuInflater();
-            inflater.inflate(R.menu.item_file, menu);
+            inflater.inflate(R.menu.custom_menu_placeholder, menu);
+            final MenuItem item = menu.findItem(R.id.custom_menu_placeholder_item);
+            item.setIcon(viewThemeUtils.platform.colorDrawable(item.getIcon(), ContextCompat.getColor(requireContext(), R.color.white)));
             mode.invalidate();
 
             //set actionMode color
@@ -726,6 +728,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return true;
         }
 
+
         /**
          * Updates available action in menu depending on current selection.
          */
@@ -735,23 +738,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             final int checkedCount = checkedFiles.size();
             String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
             mode.setTitle(title);
-            FileMenuFilter mf = new FileMenuFilter(
-                getCommonAdapter().getFilesCount(),
-                checkedFiles,
-                mContainerActivity,
-                getActivity(),
-                false,
-                accountManager.getUser()
-            );
-
-            mf.filter(menu, false);
 
             // Determine if we need to finish the action mode because there are no items selected
             if (checkedCount == 0 && !mIsActionModeNew) {
                 exitSelectionMode();
-            } else if (checkedCount == 1) {
-                // customize for locking if file is locked
-                new FileLockingMenuCustomization(requireContext()).customizeMenu(menu, checkedFiles.iterator().next());
             }
 
             return true;
@@ -762,8 +752,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
          */
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            Set<OCFile> checkedFiles = getCommonAdapter().getCheckedItems();
-            return onFileActionChosen(item, checkedFiles);
+            final Set<OCFile> checkedFiles = getCommonAdapter().getCheckedItems();
+            if (item.getItemId() == R.id.custom_menu_placeholder_item) {
+                openActionsMenu(getCommonAdapter().getFilesCount(), checkedFiles, false);
+            }
+            return true;
         }
 
         /**
@@ -1051,9 +1044,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             // stream media preview on >= NC14
                             setFabVisible(false);
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
-                        } else if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
-                                                                    accountManager.getUser(),
-                                                                    file.getMimeType()) &&
+                        } else if (editorUtils.isEditorAvailable(accountManager.getUser(),
+                                                                 file.getMimeType()) &&
                             !file.isEncrypted()) {
                             mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
                         } else if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
@@ -1099,11 +1091,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     /**
      * Start the appropriate action(s) on the currently selected files given menu selected by the user.
      *
-     * @param item       MenuItem selected by the user
      * @param checkedFiles List of files selected by the user on which the action should be performed
      * @return 'true' if the menu selection started any action, 'false' otherwise.
      */
-    public boolean onFileActionChosen(MenuItem item, Set<OCFile> checkedFiles) {
+    public boolean onFileActionChosen(@IdRes final int itemId, Set<OCFile> checkedFiles) {
         if (checkedFiles.isEmpty()) {
             return false;
         }
@@ -1111,7 +1102,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (checkedFiles.size() == SINGLE_SELECTION) {
             /// action only possible on a single file
             OCFile singleFile = checkedFiles.iterator().next();
-            int itemId = item.getItemId();
 
             if (itemId == R.id.action_send_share_file) {
                 mContainerActivity.getFileOperationsHelper().sendShareFile(singleFile);
@@ -1124,9 +1114,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 return true;
             } else if (itemId == R.id.action_edit) {
                 // should not be necessary, as menu item is filtered, but better play safe
-                if (FileMenuFilter.isEditorAvailable(requireContext().getContentResolver(),
-                                                     accountManager.getUser(),
-                                                     singleFile.getMimeType())) {
+                if (editorUtils.isEditorAvailable(accountManager.getUser(),
+                                                  singleFile.getMimeType())) {
                     mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext());
                 } else {
                     mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(singleFile, getContext());
@@ -1162,7 +1151,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         /// actions possible on a batch of files
-        int itemId = item.getItemId();
         if (itemId == R.id.action_remove_file) {
             RemoveFilesDialogFragment dialog =
                 RemoveFilesDialogFragment.newInstance(new ArrayList<>(checkedFiles), mActiveActionMode);

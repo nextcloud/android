@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud Android client application
+  ~
+  ~  @author Álvaro Brey
+  ~  Copyright (C) 2022 Álvaro Brey
+  ~  Copyright (C) 2022 Nextcloud GmbH
+  ~
+  ~ This program is free software; you can redistribute it and/or
+  ~ modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  ~ License as published by the Free Software Foundation; either
+  ~ version 3 of the License, or any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public
+  ~ License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
+<resources>
+    <item name="action_locked_by" type="id"/>
+    <item name="action_locked_until" type="id"/>
+    <item name="action_unlock_file" type="id"/>
+    <item name="action_edit" type="id"/>
+    <item name="action_favorite" type="id"/>
+    <item name="action_unset_favorite" type="id"/>
+    <item name="action_see_details" type="id"/>
+    <item name="action_lock_file" type="id"/>
+    <item name="action_rename_file" type="id"/>
+    <item name="action_move" type="id"/>
+    <item name="action_copy" type="id"/>
+    <item name="action_download_file" type="id"/>
+    <item name="action_export_file" type="id"/>
+    <item name="action_stream_media" type="id"/>
+    <item name="action_send_share_file" type="id"/>
+    <item name="action_send_file" type="id"/>
+    <item name="action_open_file_with" type="id"/>
+    <item name="action_sync_file" type="id"/>
+    <item name="action_cancel_sync" type="id"/>
+    <item name="action_select_all_action_menu" type="id"/>
+    <item name="action_deselect_all_action_menu" type="id"/>
+    <item name="action_encrypted" type="id"/>
+    <item name="action_unset_encrypted" type="id"/>
+    <item name="action_set_as_wallpaper" type="id"/>
+    <item name="action_remove_file" type="id"/>
+</resources>
