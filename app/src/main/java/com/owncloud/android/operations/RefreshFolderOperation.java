@@ -28,6 +28,7 @@ import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemo
 import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -296,7 +297,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateCapabilities() {
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext);
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(mContext);
         String oldDirectEditingEtag = arbitraryDataProvider.getValue(user,
                                                                      ArbitraryDataProvider.DIRECT_EDITING_ETAG);
 

@@ -33,41 +33,44 @@ import androidx.annotation.Nullable;
 
 /**
  * Database provider for handling the persistence aspects of arbitrary data table.
+ * <p>
+ * Don't instantiate this class, inject the interface instead.
  */
-public class ArbitraryDataProvider {
-    public static final String DIRECT_EDITING = "DIRECT_EDITING";
-    public static final String DIRECT_EDITING_ETAG = "DIRECT_EDITING_ETAG";
-    public static final String PREDEFINED_STATUS = "PREDEFINED_STATUS";
+public class ArbitraryDataProviderImpl implements ArbitraryDataProvider {
 
     private static final String TRUE = "true";
 
     private final ArbitraryDataDao arbitraryDataDao;
 
     /**
-     * @deprecated inject instead
+     * @deprecated inject interface instead
      */
     @Deprecated
-    public ArbitraryDataProvider(final Context context) {
+    public ArbitraryDataProviderImpl(final Context context) {
         this(NextcloudDatabase.getInstance(context).arbitraryDataDao());
     }
 
     @Inject
-    public ArbitraryDataProvider(final ArbitraryDataDao dao) {
+    public ArbitraryDataProviderImpl(final ArbitraryDataDao dao) {
         this.arbitraryDataDao = dao;
     }
 
+    @Override
     public void deleteKeyForAccount(String account, String key) {
         arbitraryDataDao.deleteValue(account, key);
     }
 
+    @Override
     public void storeOrUpdateKeyValue(String accountName, String key, long newValue) {
         storeOrUpdateKeyValue(accountName, key, String.valueOf(newValue));
     }
 
+    @Override
     public void storeOrUpdateKeyValue(final String accountName, final String key, final boolean newValue) {
         storeOrUpdateKeyValue(accountName, key, String.valueOf(newValue));
     }
 
+    @Override
     public void storeOrUpdateKeyValue(@NonNull String accountName,
                                       @NonNull String key,
                                       @Nullable String newValue) {
@@ -79,7 +82,8 @@ public class ArbitraryDataProvider {
         }
     }
 
-    Long getLongValue(String accountName, String key) {
+    @Override
+    public Long getLongValue(String accountName, String key) {
         String value = getValue(accountName, key);
 
         if (value.isEmpty()) {
@@ -90,14 +94,17 @@ public class ArbitraryDataProvider {
     }
 
 
+    @Override
     public Long getLongValue(User user, String key) {
         return getLongValue(user.getAccountName(), key);
     }
 
+    @Override
     public boolean getBooleanValue(String accountName, String key) {
         return TRUE.equalsIgnoreCase(getValue(accountName, key));
     }
 
+    @Override
     public boolean getBooleanValue(User user, String key) {
         return getBooleanValue(user.getAccountName(), key);
     }
@@ -106,9 +113,10 @@ public class ArbitraryDataProvider {
      * returns integer if found else -1
      *
      * @param accountName name of account
-     * @param key key to get value for
+     * @param key         key to get value for
      * @return Integer specified by account and key
      */
+    @Override
     public Integer getIntegerValue(String accountName, String key) {
         String value = getValue(accountName, key);
 
@@ -124,11 +132,13 @@ public class ArbitraryDataProvider {
      *
      * @return string if value found or empty string
      */
+    @Override
     @NonNull
     public String getValue(@Nullable User user, String key) {
         return user != null ? getValue(user.getAccountName(), key) : "";
     }
 
+    @Override
     public String getValue(String accountName, String key) {
         final String value = arbitraryDataDao.getValue(accountName, key);
         if (value == null) {

@@ -62,6 +62,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
@@ -606,7 +607,7 @@ public class SettingsActivity extends PreferenceActivity
             preferenceScreen.removePreference(preferenceCategorySyncedFolders);
         } else {
             // Upload on WiFi
-            final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(this);
+            final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
 
             final SwitchPreference pUploadOnWifiCheckbox = (SwitchPreference) findPreference("synced_folder_on_wifi");
             pUploadOnWifiCheckbox.setChecked(
@@ -872,7 +873,7 @@ public class SettingsActivity extends PreferenceActivity
                                  RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
                 RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
 
-                ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(this);
+                ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
                 String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);

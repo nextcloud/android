@@ -40,6 +40,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -377,7 +378,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     @Override
     @SuppressFBWarnings("IOI_USE_OF_FILE_STREAM_CONSTRUCTORS") // TODO remove with API26
     public ParcelFileDescriptor openFile(@NonNull Uri uri, @NonNull String mode) throws FileNotFoundException {
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContext());
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(getContext());
 
         String userId = uri.getQueryParameter("shareWith");
         String displayName = uri.getQueryParameter("displayName");

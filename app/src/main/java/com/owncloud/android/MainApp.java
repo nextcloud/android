@@ -62,6 +62,7 @@ import com.nextcloud.client.preferences.DarkMode;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.MediaProvider;
@@ -413,7 +414,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
     public static void initContactsBackup(UserAccountManager accountManager, BackgroundJobManager backgroundJobManager) {
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext);
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(mContext);
         List<User> users = accountManager.getAllUsers();
         for (User user : users) {
             if (arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {

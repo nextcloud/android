@@ -38,6 +38,7 @@ import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.NotificationsLayoutBinding;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -146,7 +147,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
                                          R.string.push_notifications_not_implemented,
                                          Snackbar.LENGTH_INDEFINITE);
             } else {
-                final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(this);
+                final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
                 final String accountName = optionalUser.isPresent() ? optionalUser.get().getAccountName() : "";
                 final boolean usesOldLogin = arbitraryDataProvider.getBooleanValue(accountName,
                                                                                    UserAccountManager.ACCOUNT_USES_STANDARD_PASSWORD);

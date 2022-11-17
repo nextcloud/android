@@ -39,7 +39,6 @@ import com.nextcloud.client.core.AsyncRunner;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.core.ClockImpl;
 import com.nextcloud.client.core.ThreadPoolAsyncRunner;
-import com.nextcloud.client.database.NextcloudDatabase;
 import com.nextcloud.client.database.dao.ArbitraryDataDao;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.logger.FileLogHandler;
@@ -57,9 +56,9 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesRepository;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApi;
 import com.owncloud.android.ui.activities.data.activities.ActivitiesServiceApiImpl;
@@ -78,7 +77,6 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.room.Room;
 import dagger.Module;
 import dagger.Provides;
 
@@ -120,7 +118,7 @@ class AppModule {
 
     @Provides
     ArbitraryDataProvider arbitraryDataProvider(ArbitraryDataDao dao) {
-        return new ArbitraryDataProvider(dao);
+        return new ArbitraryDataProviderImpl(dao);
     }
 
     @Provides

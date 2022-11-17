@@ -26,7 +26,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class ArbitraryDataProviderIT : AbstractIT() {
-    private val arbitraryDataProvider = ArbitraryDataProvider(targetContext.contentResolver)
+    private val arbitraryDataProvider = ArbitraryDataProviderImpl(targetContext)
 
     @Test
     fun testNull() {

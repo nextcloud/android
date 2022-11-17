@@ -26,6 +26,7 @@ import android.util.Pair;
 
 import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -106,7 +107,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     }
 
     private RemoteOperationResult encryptedCreate(OCFile parent, OwnCloudClient client) {
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context);
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
         String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
         String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
 

@@ -30,7 +30,7 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.EditorUtils
 import com.owncloud.android.R
 import com.owncloud.android.databinding.TestLayoutBinding
-import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.services.FileDownloader
@@ -146,7 +146,14 @@ class TestActivity :
 
     override fun getFileOperationsHelper(): FileOperationsHelper {
         if (!this::fileOperation.isInitialized) {
-            fileOperation = FileOperationsHelper(this, userAccountManager, connectivityServiceMock, EditorUtils(ArbitraryDataProvider(baseContext)))
+            fileOperation = FileOperationsHelper(
+                this,
+                userAccountManager,
+                connectivityServiceMock,
+                EditorUtils(
+                    ArbitraryDataProviderImpl(baseContext)
+                )
+            )
         }
 
         return fileOperation

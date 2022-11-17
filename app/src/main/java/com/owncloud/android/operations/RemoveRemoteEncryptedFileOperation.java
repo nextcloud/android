@@ -26,6 +26,7 @@ import android.content.Context;
 import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -84,7 +85,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
         this.user = user;
         this.fileName = fileName;
 
-        arbitraryDataProvider = new ArbitraryDataProvider(context);
+        arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
     }
 
     /**

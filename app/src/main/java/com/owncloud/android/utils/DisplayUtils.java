@@ -69,6 +69,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -491,7 +492,7 @@ public final class DisplayUtils {
             ((View) callContext).setContentDescription(String.valueOf(user.toPlatformAccount().hashCode()));
         }
 
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context);
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
 
         final String accountName = user.getAccountName();
         String serverName = accountName.substring(accountName.lastIndexOf('@') + 1);

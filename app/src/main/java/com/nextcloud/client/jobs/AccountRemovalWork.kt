@@ -38,6 +38,7 @@ import com.nextcloud.java.util.Optional
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.FilesystemDataProvider
 import com.owncloud.android.datamodel.PushConfigurationState
@@ -88,7 +89,7 @@ class AccountRemovalWork(
             return Result.failure()
         }
         val remoteWipe = inputData.getBoolean(REMOTE_WIPE, false)
-        val arbitraryDataProvider = ArbitraryDataProvider(context)
+        val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
         val user = optionalUser.get()
         backgroundJobManager.cancelPeriodicContactsBackup(user)
         val userRemoved = userAccountManager.removeUser(user)
