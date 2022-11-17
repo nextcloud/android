@@ -178,7 +178,7 @@
     <string name="create">Créer</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
     <string name="create_new">Créer un nouveau</string>
-    <string name="create_new_document">Créer une nouveau document</string>
+    <string name="create_new_document">Créer un nouveau document</string>
     <string name="create_new_folder">Créer un nouveau dossier</string>
     <string name="create_new_presentation">Créer une nouvelle présentation</string>
     <string name="create_new_spreadsheet">Créer une nouvelle feuille de calcul</string>
@@ -238,7 +238,7 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilisé</string>
     <string name="drawer_synced_folders">Envoi automatique</string>
-    <string name="e2e_not_yet_setup">E2D pas encore configuré</string>
+    <string name="e2e_not_yet_setup">E2E pas encore configuré</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_decrypting">Décryptage…</string>
@@ -665,7 +665,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_permissions">Autorisations pour le partage</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
-    <string name="share_search">Nom, ID du cloud fédéré ou adresse e-mail…</string>
+    <string name="share_search">Nom, ID de Cloud Fédéré ou adresse e-mail…</string>
     <string name="share_send_new_email">Envoyer un nouvel e-mail</string>
     <string name="share_send_note">Note au destinataire</string>
     <string name="share_settings">Paramètres</string>
