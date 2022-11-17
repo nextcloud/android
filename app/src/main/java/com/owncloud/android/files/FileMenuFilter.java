@@ -550,7 +550,7 @@ public class FileMenuFilter {
 
     private boolean isShared() {
         for (OCFile file : files) {
-            if (file.isSharedViaLink() || file.isSharedWithSharee()) {
+            if (file.isSharedWithMe() || file.isSharedViaLink() || file.isSharedWithSharee()) {
                 return true;
             }
         }
