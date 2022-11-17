@@ -244,7 +244,7 @@ public class FileMenuFilter {
 
     private void filterEncrypt(List<Integer> toHide, boolean endToEndEncryptionEnabled) {
         if (files.isEmpty() || !isSingleSelection() || isSingleFile() || isEncryptedFolder() || isGroupFolder()
-            || !endToEndEncryptionEnabled || !isEmptyFolder()) {
+            || !endToEndEncryptionEnabled || !isEmptyFolder() || isShared()) {
             toHide.add(R.id.action_encrypted);
         }
     }
@@ -546,5 +546,14 @@ public class FileMenuFilter {
             }
         }
         return true;
+    }
+
+    private boolean isShared() {
+        for (OCFile file : files) {
+            if (file.isSharedViaLink() || file.isSharedWithSharee()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
