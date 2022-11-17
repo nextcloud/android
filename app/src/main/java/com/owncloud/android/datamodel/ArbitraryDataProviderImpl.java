@@ -26,8 +26,6 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.NextcloudDatabase;
 import com.nextcloud.client.database.dao.ArbitraryDataDao;
 
-import javax.inject.Inject;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -50,23 +48,22 @@ public class ArbitraryDataProviderImpl implements ArbitraryDataProvider {
         this(NextcloudDatabase.getInstance(context).arbitraryDataDao());
     }
 
-    @Inject
-    public ArbitraryDataProviderImpl(final ArbitraryDataDao dao) {
+    public ArbitraryDataProviderImpl(@NonNull final ArbitraryDataDao dao) {
         this.arbitraryDataDao = dao;
     }
 
     @Override
-    public void deleteKeyForAccount(String account, String key) {
+    public void deleteKeyForAccount(@NonNull String account, @NonNull String key) {
         arbitraryDataDao.deleteValue(account, key);
     }
 
     @Override
-    public void storeOrUpdateKeyValue(String accountName, String key, long newValue) {
+    public void storeOrUpdateKeyValue(@NonNull String accountName, @NonNull String key, long newValue) {
         storeOrUpdateKeyValue(accountName, key, String.valueOf(newValue));
     }
 
     @Override
-    public void storeOrUpdateKeyValue(final String accountName, final String key, final boolean newValue) {
+    public void storeOrUpdateKeyValue(@NonNull final String accountName, @NonNull final String key, final boolean newValue) {
         storeOrUpdateKeyValue(accountName, key, String.valueOf(newValue));
     }
 
@@ -83,29 +80,29 @@ public class ArbitraryDataProviderImpl implements ArbitraryDataProvider {
     }
 
     @Override
-    public Long getLongValue(String accountName, String key) {
+    public long getLongValue(@NonNull String accountName, @NonNull String key) {
         String value = getValue(accountName, key);
 
         if (value.isEmpty()) {
             return -1L;
         } else {
-            return Long.valueOf(value);
+            return Long.parseLong(value);
         }
     }
 
 
     @Override
-    public Long getLongValue(User user, String key) {
+    public long getLongValue(User user, @NonNull String key) {
         return getLongValue(user.getAccountName(), key);
     }
 
     @Override
-    public boolean getBooleanValue(String accountName, String key) {
+    public boolean getBooleanValue(@NonNull String accountName, @NonNull String key) {
         return TRUE.equalsIgnoreCase(getValue(accountName, key));
     }
 
     @Override
-    public boolean getBooleanValue(User user, String key) {
+    public boolean getBooleanValue(User user, @NonNull String key) {
         return getBooleanValue(user.getAccountName(), key);
     }
 
@@ -117,13 +114,13 @@ public class ArbitraryDataProviderImpl implements ArbitraryDataProvider {
      * @return Integer specified by account and key
      */
     @Override
-    public Integer getIntegerValue(String accountName, String key) {
+    public int getIntegerValue(@NonNull String accountName, @NonNull String key) {
         String value = getValue(accountName, key);
 
         if (value.isEmpty()) {
             return -1;
         } else {
-            return Integer.valueOf(value);
+            return Integer.parseInt(value);
         }
     }
 
@@ -134,12 +131,13 @@ public class ArbitraryDataProviderImpl implements ArbitraryDataProvider {
      */
     @Override
     @NonNull
-    public String getValue(@Nullable User user, String key) {
+    public String getValue(@Nullable User user, @NonNull String key) {
         return user != null ? getValue(user.getAccountName(), key) : "";
     }
 
     @Override
-    public String getValue(String accountName, String key) {
+    @NonNull
+    public String getValue(@NonNull String accountName, @NonNull String key) {
         final String value = arbitraryDataDao.getValue(accountName, key);
         if (value == null) {
             return "";
