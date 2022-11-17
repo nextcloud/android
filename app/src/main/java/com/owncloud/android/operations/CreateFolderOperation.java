@@ -106,7 +106,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     }
 
     private RemoteOperationResult encryptedCreate(OCFile parent, OwnCloudClient client) {
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context);
         String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
         String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
 

@@ -20,26 +20,22 @@
  *
  */
 
-package com.nextcloud.client.database
+package com.nextcloud.client.database.dao
 
-import android.content.Context
-import com.nextcloud.client.core.Clock
-import com.nextcloud.client.database.dao.ArbitraryDataDao
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import androidx.room.Dao
+import androidx.room.Query
 
-@Module
-class DatabaseModule {
+@Dao
+interface ArbitraryDataDao {
+    @Query("INSERT INTO arbitrary_data(cloud_id, `key`, value) VALUES(:accountName, :key, :value)")
+    fun insertValue(accountName: String, key: String, value: String?)
 
-    @Provides
-    @Singleton
-    fun database(context: Context, clock: Clock): NextcloudDatabase {
-        return NextcloudDatabase.getInstance(context, clock)
-    }
+    @Query("SELECT value FROM arbitrary_data WHERE cloud_id = :accountName AND `key` = :key LIMIT 1")
+    fun getValue(accountName: String, key: String): String?
 
-    @Provides
-    fun arbitraryDataDao(nextcloudDatabase: NextcloudDatabase): ArbitraryDataDao {
-        return nextcloudDatabase.arbitraryDataDao()
-    }
+    @Query("UPDATE arbitrary_data SET value = :value WHERE cloud_id = :accountName AND `key` = :key ")
+    fun updateValue(accountName: String, key: String, value: String?)
+
+    @Query("DELETE FROM arbitrary_data WHERE cloud_id = :accountName AND `key` = :key")
+    fun deleteValue(accountName: String, key: String)
 }

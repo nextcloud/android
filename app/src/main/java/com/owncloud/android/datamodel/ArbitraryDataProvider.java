@@ -20,14 +20,13 @@
  */
 package com.owncloud.android.datamodel;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.net.Uri;
+import android.content.Context;
 
 import com.nextcloud.client.account.User;
-import com.owncloud.android.db.ProviderMeta;
-import com.owncloud.android.lib.common.utils.Log_OC;
+import com.nextcloud.client.database.NextcloudDatabase;
+import com.nextcloud.client.database.dao.ArbitraryDataDao;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,25 +39,25 @@ public class ArbitraryDataProvider {
     public static final String DIRECT_EDITING_ETAG = "DIRECT_EDITING_ETAG";
     public static final String PREDEFINED_STATUS = "PREDEFINED_STATUS";
 
-    private static final String TAG = ArbitraryDataProvider.class.getSimpleName();
     private static final String TRUE = "true";
 
-    private ContentResolver contentResolver;
+    private final ArbitraryDataDao arbitraryDataDao;
 
-    public ArbitraryDataProvider(ContentResolver contentResolver) {
-        if (contentResolver == null) {
-            throw new IllegalArgumentException("Cannot create an instance with a NULL contentResolver");
-        }
-        this.contentResolver = contentResolver;
+    /**
+     * @deprecated inject instead
+     */
+    @Deprecated
+    public ArbitraryDataProvider(final Context context) {
+        this(NextcloudDatabase.getInstance(context).arbitraryDataDao());
     }
 
-    public int deleteKeyForAccount(String account, String key) {
-        return contentResolver.delete(
-            ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
-            ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? AND " +
-                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + "= ?",
-            new String[]{account, key}
-                                     );
+    @Inject
+    public ArbitraryDataProvider(final ArbitraryDataDao dao) {
+        this.arbitraryDataDao = dao;
+    }
+
+    public void deleteKeyForAccount(String account, String key) {
+        arbitraryDataDao.deleteValue(account, key);
     }
 
     public void storeOrUpdateKeyValue(String accountName, String key, long newValue) {
@@ -72,49 +71,11 @@ public class ArbitraryDataProvider {
     public void storeOrUpdateKeyValue(@NonNull String accountName,
                                       @NonNull String key,
                                       @Nullable String newValue) {
-        ArbitraryDataSet data = getArbitraryDataSet(accountName, key);
-
-        String value;
-        if (newValue == null) {
-            value = "";
+        final String currentValue = arbitraryDataDao.getValue(accountName, key);
+        if (currentValue != null) {
+            arbitraryDataDao.updateValue(accountName, key, newValue);
         } else {
-            value = newValue;
-        }
-
-        if (data == null) {
-            Log_OC.v(TAG, "Adding arbitrary data with cloud id: " + accountName + " key: " + key
-                + " value: " + value);
-
-            ContentValues cv = new ContentValues();
-            cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID, accountName);
-            cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY, key);
-            cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE, value);
-
-            Uri result = contentResolver.insert(ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA, cv);
-
-            if (result == null) {
-                Log_OC.v(TAG, "Failed to store arbitrary data with cloud id: " + accountName + " key: " + key
-                    + " value: " + value);
-            }
-        } else {
-            Log_OC.v(TAG, "Updating arbitrary data with cloud id: " + accountName + " key: " + key
-                + " value: " + value);
-            ContentValues cv = new ContentValues();
-            cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID, data.getCloudId());
-            cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY, data.getKey());
-            cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE, value);
-
-            int result = contentResolver.update(
-                    ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
-                    cv,
-                    ProviderMeta.ProviderTableMeta._ID + "=?",
-                    new String[]{String.valueOf(data.getId())}
-            );
-
-            if (result == 0) {
-                Log_OC.v(TAG, "Failed to update arbitrary data with cloud id: " + accountName + " key: " + key
-                    + " value: " + value);
-            }
+            arbitraryDataDao.insertValue(accountName, key, newValue);
         }
     }
 
@@ -169,70 +130,10 @@ public class ArbitraryDataProvider {
     }
 
     public String getValue(String accountName, String key) {
-        Cursor cursor = contentResolver.query(
-            ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
-            null,
-            ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? and " +
-                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + " = ?",
-            new String[]{accountName, key},
-            null
-                                             );
-
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                String value = cursor.getString(cursor.getColumnIndexOrThrow(
-                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE));
-                if (value == null) {
-                    Log_OC.e(TAG, "Arbitrary value could not be created from cursor");
-                } else {
-                    cursor.close();
-                    return value;
-                }
-            }
-            cursor.close();
+        final String value = arbitraryDataDao.getValue(accountName, key);
+        if (value == null) {
             return "";
-        } else {
-            Log_OC.e(TAG, "DB error restoring arbitrary values.");
         }
-
-        return "";
-    }
-
-    private ArbitraryDataSet getArbitraryDataSet(String accountName, String key) {
-        Cursor cursor = contentResolver.query(
-                ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
-                null,
-                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? and " +
-                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + " = ?",
-                new String[]{accountName, key},
-                null
-        );
-
-        ArbitraryDataSet dataSet = null;
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                int id = cursor.getInt(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta._ID));
-                String dbAccount = cursor.getString(cursor.getColumnIndexOrThrow(
-                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID));
-                String dbKey = cursor.getString(cursor.getColumnIndexOrThrow(
-                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY));
-                String dbValue = cursor.getString(cursor.getColumnIndexOrThrow(
-                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE));
-
-                if (id == -1) {
-                    Log_OC.e(TAG, "Arbitrary value could not be created from cursor");
-                } else {
-                    if (dbValue == null) {
-                        dbValue = "";
-                    }
-                    dataSet = new ArbitraryDataSet(id, dbAccount, dbKey, dbValue);
-                }
-            }
-            cursor.close();
-        } else {
-            Log_OC.e(TAG, "DB error restoring arbitrary values.");
-        }
-
-        return dataSet;
+        return value;
     }
 }

@@ -644,7 +644,7 @@ public abstract class FileActivity extends DrawerActivity
 
     public void checkForNewDevVersionNecessary(Context context) {
         if (getResources().getBoolean(R.bool.dev_version_direct_download_enabled)) {
-            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(this);
             int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL, APP_OPENED_COUNT);
 
             if (count > 10 || count == -1) {

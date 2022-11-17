@@ -134,7 +134,7 @@ class FilesSyncWork(
         }
         val user = optionalUser.get()
         val arbitraryDataProvider = if (lightVersion) {
-            ArbitraryDataProvider(contentResolver)
+            ArbitraryDataProvider(context)
         } else {
             null
         }

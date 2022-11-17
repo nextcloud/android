@@ -146,7 +146,7 @@ class TestActivity :
 
     override fun getFileOperationsHelper(): FileOperationsHelper {
         if (!this::fileOperation.isInitialized) {
-            fileOperation = FileOperationsHelper(this, userAccountManager, connectivityServiceMock, EditorUtils(ArbitraryDataProvider(contentResolver)))
+            fileOperation = FileOperationsHelper(this, userAccountManager, connectivityServiceMock, EditorUtils(ArbitraryDataProvider(baseContext)))
         }
 
         return fileOperation

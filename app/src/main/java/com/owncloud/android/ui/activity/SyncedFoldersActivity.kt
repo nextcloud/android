@@ -696,14 +696,14 @@ class SyncedFoldersActivity :
                 backgroundJobManager.startImmediateFilesSyncJob(skipCustomFolders = false, overridePowerSaving = false)
             } else {
                 val syncedFolderInitiatedKey = KEY_SYNCED_FOLDER_INITIATED_PREFIX + item.id
-                val arbitraryDataProvider = ArbitraryDataProvider(MainApp.getAppContext().contentResolver)
+                val arbitraryDataProvider = ArbitraryDataProvider(MainApp.getAppContext())
                 arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey)
             }
         }
     }
 
     private fun storeSyncedFolder(item: SyncedFolderDisplayItem) {
-        val arbitraryDataProvider = ArbitraryDataProvider(MainApp.getAppContext().contentResolver)
+        val arbitraryDataProvider = ArbitraryDataProvider(MainApp.getAppContext())
         val storedId = syncedFolderProvider.storeSyncedFolder(item)
         if (storedId != -1L) {
             item.id = storedId

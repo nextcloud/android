@@ -132,7 +132,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         user = getArguments().getParcelable(ARG_USER);
 
-        arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
+        arbitraryDataProvider = new ArbitraryDataProvider(getContext());
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = getActivity().getLayoutInflater();

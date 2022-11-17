@@ -337,7 +337,7 @@ public final class AppPreferencesImpl implements AppPreferences {
             return defaultOrder;
         }
 
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context);
 
         String value = dataProvider.getValue(user.getAccountName(), PREF__FOLDER_SORT_ORDER + "_" + type);
 
@@ -347,7 +347,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setSortOrder(FileSortOrder.Type type, FileSortOrder sortOrder) {
         User user = userAccountManager.getUser();
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context);
         dataProvider.storeOrUpdateKeyValue(user.getAccountName(), PREF__FOLDER_SORT_ORDER + "_" + type, sortOrder.name);
     }
 
@@ -604,7 +604,7 @@ public final class AppPreferencesImpl implements AppPreferences {
             return defaultValue;
         }
 
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context);
         FileDataStorageManager storageManager = new FileDataStorageManager(user, context.getContentResolver());
 
         String value = dataProvider.getValue(user.getAccountName(), getKeyFromFolder(preferenceName, folder));
@@ -629,7 +629,7 @@ public final class AppPreferencesImpl implements AppPreferences {
                                             final String preferenceName,
                                             @Nullable final OCFile folder,
                                             final String value) {
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context);
         dataProvider.storeOrUpdateKeyValue(user.getAccountName(), getKeyFromFolder(preferenceName, folder), value);
     }
 

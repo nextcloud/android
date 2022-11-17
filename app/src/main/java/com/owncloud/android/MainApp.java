@@ -413,7 +413,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
     public static void initContactsBackup(UserAccountManager accountManager, BackgroundJobManager backgroundJobManager) {
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext.getContentResolver());
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext);
         List<User> users = accountManager.getAllUsers();
         for (User user : users) {
             if (arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {

@@ -40,6 +40,7 @@ import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.core.ClockImpl;
 import com.nextcloud.client.core.ThreadPoolAsyncRunner;
 import com.nextcloud.client.database.NextcloudDatabase;
+import com.nextcloud.client.database.dao.ArbitraryDataDao;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.logger.FileLogHandler;
 import com.nextcloud.client.logger.Logger;
@@ -118,9 +119,8 @@ class AppModule {
     }
 
     @Provides
-    ArbitraryDataProvider arbitraryDataProvider(Context context) {
-        final ContentResolver resolver = context.getContentResolver();
-        return new ArbitraryDataProvider(resolver);
+    ArbitraryDataProvider arbitraryDataProvider(ArbitraryDataDao dao) {
+        return new ArbitraryDataProvider(dao);
     }
 
     @Provides

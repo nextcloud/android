@@ -1120,7 +1120,7 @@ public class FileOperationsHelper {
     }
 
     public static boolean isEndToEndEncryptionSetup(Context context, User user) {
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context);
 
         String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
         String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);

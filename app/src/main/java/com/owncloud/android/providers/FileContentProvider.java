@@ -75,14 +75,12 @@ public class FileContentProvider extends ContentProvider {
     private static final int UPLOADS = 6;
     private static final int SYNCED_FOLDERS = 7;
     private static final int EXTERNAL_LINKS = 8;
-    private static final int ARBITRARY_DATA = 9;
     private static final int VIRTUAL = 10;
     private static final int FILESYSTEM = 11;
     private static final String TAG = FileContentProvider.class.getSimpleName();
     // todo avoid string concatenation and use string formatting instead later.
     private static final String ERROR = "ERROR ";
     private static final int SINGLE_PATH_SEGMENT = 1;
-    public static final int ARBITRARY_DATA_TABLE_INTRODUCTION_VERSION = 20;
     public static final int MINIMUM_PATH_SEGMENTS_SIZE = 1;
 
     private static final String[] PROJECTION_CONTENT_TYPE = new String[]{
@@ -159,9 +157,6 @@ public class FileContentProvider extends ContentProvider {
                 break;
             case EXTERNAL_LINKS:
                 count = db.delete(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME, where, whereArgs);
-                break;
-            case ARBITRARY_DATA:
-                count = db.delete(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, where, whereArgs);
                 break;
             case VIRTUAL:
                 count = db.delete(ProviderTableMeta.VIRTUAL_TABLE_NAME, where, whereArgs);
@@ -361,16 +356,6 @@ public class FileContentProvider extends ContentProvider {
                 }
                 return insertedExternalLinkUri;
 
-            case ARBITRARY_DATA:
-                Uri insertedArbitraryDataUri;
-                long arbitraryDataId = db.insert(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
-                if (arbitraryDataId > 0) {
-                    insertedArbitraryDataUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
-                                                                          arbitraryDataId);
-                } else {
-                    throw new SQLException("ERROR " + uri);
-                }
-                return insertedArbitraryDataUri;
             case VIRTUAL:
                 Uri insertedVirtualUri;
                 long virtualId = db.insert(ProviderTableMeta.VIRTUAL_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
@@ -456,7 +441,6 @@ public class FileContentProvider extends ContentProvider {
         mUriMatcher.addURI(authority, "uploads/#", UPLOADS);
         mUriMatcher.addURI(authority, "synced_folders", SYNCED_FOLDERS);
         mUriMatcher.addURI(authority, "external_links", EXTERNAL_LINKS);
-        mUriMatcher.addURI(authority, "arbitrary_data", ARBITRARY_DATA);
         mUriMatcher.addURI(authority, "virtual", VIRTUAL);
         mUriMatcher.addURI(authority, "filesystem", FILESYSTEM);
 
@@ -525,9 +509,6 @@ public class FileContentProvider extends ContentProvider {
             case EXTERNAL_LINKS:
                 tableName = ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME;
                 break;
-            case ARBITRARY_DATA:
-                tableName = ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME;
-                break;
             case VIRTUAL:
                 tableName = ProviderTableMeta.VIRTUAL_TABLE_NAME;
                 break;
@@ -566,9 +547,6 @@ public class FileContentProvider extends ContentProvider {
                     break;
                 case EXTERNAL_LINKS:
                     order = ProviderTableMeta.EXTERNAL_LINKS_NAME;
-                    break;
-                case ARBITRARY_DATA:
-                    order = ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID;
                     break;
                 case VIRTUAL:
                     order = ProviderTableMeta.VIRTUAL_TYPE;
@@ -659,8 +637,6 @@ public class FileContentProvider extends ContentProvider {
                 return db.update(ProviderTableMeta.UPLOADS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
             case SYNCED_FOLDERS:
                 return db.update(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
-            case ARBITRARY_DATA:
-                return db.update(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
             case FILESYSTEM:
                 return db.update(ProviderTableMeta.FILESYSTEM_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
             default:
@@ -699,7 +675,6 @@ public class FileContentProvider extends ContentProvider {
             case UPLOADS:
             case SYNCED_FOLDERS:
             case EXTERNAL_LINKS:
-            case ARBITRARY_DATA:
             case VIRTUAL:
             case FILESYSTEM:
                 String callingPackage = mContext.getPackageManager().getNameForUid(Binder.getCallingUid());

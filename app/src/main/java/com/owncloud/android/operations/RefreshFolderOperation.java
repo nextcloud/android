@@ -296,7 +296,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateCapabilities() {
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext.getContentResolver());
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext);
         String oldDirectEditingEtag = arbitraryDataProvider.getValue(user,
                                                                      ArbitraryDataProvider.DIRECT_EDITING_ETAG);
 

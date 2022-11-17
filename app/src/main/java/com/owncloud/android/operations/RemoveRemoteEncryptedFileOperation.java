@@ -84,7 +84,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
         this.user = user;
         this.fileName = fileName;
 
-        arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        arbitraryDataProvider = new ArbitraryDataProvider(context);
     }
 
     /**

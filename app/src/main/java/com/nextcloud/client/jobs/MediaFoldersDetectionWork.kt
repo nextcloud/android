@@ -84,7 +84,7 @@ class MediaFoldersDetectionWork constructor(
 
     @Suppress("LongMethod", "ComplexMethod", "NestedBlockDepth") // legacy code
     override fun doWork(): Result {
-        val arbitraryDataProvider = ArbitraryDataProvider(contentResolver)
+        val arbitraryDataProvider = ArbitraryDataProvider(context)
         val syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
         val gson = Gson()
         val mediaFoldersModel: MediaFoldersModel

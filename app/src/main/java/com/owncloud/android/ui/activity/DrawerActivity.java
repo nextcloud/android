@@ -907,7 +907,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
 
         externalLinksProvider = new ExternalLinksProvider(getContentResolver());
-        arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+        arbitraryDataProvider = new ArbitraryDataProvider(this);
     }
 
     @Override

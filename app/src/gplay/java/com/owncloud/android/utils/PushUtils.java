@@ -151,7 +151,7 @@ public final class PushUtils {
     private static void deleteRegistrationForAccount(Account account) {
         Context context = MainApp.getAppContext();
         OwnCloudAccount ocAccount;
-        arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().getContentResolver());
+        arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext());
 
         try {
             ocAccount = new OwnCloudAccount(account, context);
@@ -193,7 +193,7 @@ public final class PushUtils {
     }
 
     public static void pushRegistrationToServer(final UserAccountManager accountManager, final String token) {
-        arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().getContentResolver());
+        arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext());
 
         if (!TextUtils.isEmpty(MainApp.getAppContext().getResources().getString(R.string.push_server_url)) &&
                 !TextUtils.isEmpty(token)) {
@@ -418,7 +418,7 @@ public final class PushUtils {
 
         Account[] accounts = accountManager.getAccounts();
 
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context);
         String arbitraryValue;
         Gson gson = new Gson();
         PushConfigurationState pushArbitraryData;

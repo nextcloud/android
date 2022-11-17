@@ -103,7 +103,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
             binding.templates.setVisibility(View.VISIBLE);
         }
 
-        String json = new ArbitraryDataProvider(getContext().getContentResolver())
+        String json = new ArbitraryDataProvider(getContext())
             .getValue(user, ArbitraryDataProvider.DIRECT_EDITING);
 
         if (!json.isEmpty() &&

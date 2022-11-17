@@ -1047,7 +1047,7 @@ public final class ThumbnailsCacheManager {
 
             String accountName = mUserId + "@" + mServerName;
 
-            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext.getContentResolver());
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(mContext);
 
             String eTag = arbitraryDataProvider.getValue(accountName, ThumbnailsCacheManager.AVATAR);
             long timestamp = arbitraryDataProvider.getLongValue(accountName, ThumbnailsCacheManager.AVATAR_TIMESTAMP);

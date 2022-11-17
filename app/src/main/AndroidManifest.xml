@@ -281,10 +281,6 @@
                 android:readPermission="false"
                 android:writePermission="false" />
             <path-permission
-                android:pathPrefix="/arbitrary_data"
-                android:readPermission="false"
-                android:writePermission="false" />
-            <path-permission
                 android:pathPrefix="/virtual"
                 android:readPermission="false"
                 android:writePermission="false" />

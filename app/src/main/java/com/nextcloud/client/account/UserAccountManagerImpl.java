@@ -148,7 +148,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
         Account[] ocAccounts = getAccounts();
         Account defaultAccount = null;
 
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context);
 
         SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String accountName = appPreferences.getString(PREF_SELECT_OC_ACCOUNT, null);

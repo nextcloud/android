@@ -606,7 +606,7 @@ public class SettingsActivity extends PreferenceActivity
             preferenceScreen.removePreference(preferenceCategorySyncedFolders);
         } else {
             // Upload on WiFi
-            final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+            final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(this);
 
             final SwitchPreference pUploadOnWifiCheckbox = (SwitchPreference) findPreference("synced_folder_on_wifi");
             pUploadOnWifiCheckbox.setChecked(
@@ -872,7 +872,7 @@ public class SettingsActivity extends PreferenceActivity
                                  RequestCredentialsActivity.KEY_CHECK_RESULT_FALSE) ==
                 RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
 
-                ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+                ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(this);
                 String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);

@@ -88,7 +88,7 @@ class AccountRemovalWork(
             return Result.failure()
         }
         val remoteWipe = inputData.getBoolean(REMOTE_WIPE, false)
-        val arbitraryDataProvider = ArbitraryDataProvider(context.contentResolver)
+        val arbitraryDataProvider = ArbitraryDataProvider(context)
         val user = optionalUser.get()
         backgroundJobManager.cancelPeriodicContactsBackup(user)
         val userRemoved = userAccountManager.removeUser(user)

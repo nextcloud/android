@@ -146,7 +146,7 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
                                          R.string.push_notifications_not_implemented,
                                          Snackbar.LENGTH_INDEFINITE);
             } else {
-                final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+                final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(this);
                 final String accountName = optionalUser.isPresent() ? optionalUser.get().getAccountName() : "";
                 final boolean usesOldLogin = arbitraryDataProvider.getBooleanValue(accountName,
                                                                                    UserAccountManager.ACCOUNT_USES_STANDARD_PASSWORD);

@@ -142,7 +142,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
             originalCurrentUser = currentUser.get().getAccountName();
         }
 
-        arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+        arbitraryDataProvider = new ArbitraryDataProvider(this);
 
         multipleAccountsSupported = getResources().getBoolean(R.bool.multiaccount_support);
 
@@ -426,7 +426,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         }
 
         // store pending account removal
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(this);
         arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), PENDING_FOR_REMOVAL, String.valueOf(true));
 
         // Cancel transfers

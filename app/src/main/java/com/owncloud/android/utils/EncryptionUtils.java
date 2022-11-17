@@ -231,7 +231,7 @@ public final class EncryptionUtils {
         }
 
         // decrypt metadata
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context);
         String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
         String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
 
