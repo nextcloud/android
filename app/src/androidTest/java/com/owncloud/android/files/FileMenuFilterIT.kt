@@ -77,6 +77,7 @@ class FileMenuFilterIT : AbstractIT() {
         every { mockOperationsServiceBinder.isSynchronizing(any(), any()) } returns false
         every { mockComponentsGetter.operationsServiceBinder } returns mockOperationsServiceBinder
         every { mockStorageManager.getFileById(any()) } returns OCFile("/")
+        every { mockStorageManager.getFolderContent(any(), any()) } returns ArrayList<OCFile>()
     }
 
     @Test

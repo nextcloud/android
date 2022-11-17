@@ -37,12 +37,13 @@ public class NetworkModule {
     @Provides
     ConnectivityService connectivityService(ConnectivityManager connectivityManager,
                                             UserAccountManager accountManager,
-                                            ClientFactory clientFactory) {
+                                            ClientFactory clientFactory,
+                                            WalledCheckCache walledCheckCache) {
         return new ConnectivityServiceImpl(connectivityManager,
                                            accountManager,
                                            clientFactory,
                                            new ConnectivityServiceImpl.GetRequestBuilder(),
-                                           Build.VERSION.SDK_INT
+                                           walledCheckCache
         );
     }
 

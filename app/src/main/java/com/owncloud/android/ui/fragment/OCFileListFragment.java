@@ -1536,6 +1536,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
         searchFragment = false;
         searchEvent = null;
+        currentSearchType = SearchType.NO_SEARCH;
 
         menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
         Activity activity = getActivity();
@@ -1739,7 +1740,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 final Context context = getContext();
 
                 if (actionBar != null && context != null) {
-                    viewThemeUtils.files.themeActionBar(context, actionBar, title);
+                    viewThemeUtils.files.themeActionBar(context, actionBar, title, true);
                 }
             }
         });

@@ -32,6 +32,7 @@ import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.client.network.WalledCheckCache;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -59,6 +60,7 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
     @Inject BackgroundJobManager backgroundJobManager;
     @Inject Clock clock;
     @Inject ViewThemeUtils viewThemeUtils;
+    @Inject WalledCheckCache walledCheckCache;
 
     /**
      * Receives broadcast intent reporting that the system was just boot up. *
@@ -78,7 +80,8 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
                                        powerManagementService,
                                        backgroundJobManager,
                                        clock,
-                                       viewThemeUtils);
+                                       viewThemeUtils,
+                                       walledCheckCache);
             MainApp.initContactsBackup(accountManager, backgroundJobManager);
         } else {
             Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());
