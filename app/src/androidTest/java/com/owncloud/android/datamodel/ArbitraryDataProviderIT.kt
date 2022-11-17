@@ -56,11 +56,11 @@ class ArbitraryDataProviderIT : AbstractIT() {
     fun testBoolean() {
         val key = "DUMMY_KEY"
         var value = true
-        arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, key, value.toString())
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, key, value)
         assertEquals(value, arbitraryDataProvider.getBooleanValue(user.accountName, key))
 
         value = false
-        arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, key, value.toString())
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, key, value)
         assertEquals(value, arbitraryDataProvider.getBooleanValue(user.accountName, key))
     }
 

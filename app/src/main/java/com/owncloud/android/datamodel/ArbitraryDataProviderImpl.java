@@ -25,6 +25,7 @@ import android.content.Context;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.NextcloudDatabase;
 import com.nextcloud.client.database.dao.ArbitraryDataDao;
+import com.nextcloud.client.database.entity.ArbitraryDataEntity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,7 +72,7 @@ public class ArbitraryDataProviderImpl implements ArbitraryDataProvider {
     public void storeOrUpdateKeyValue(@NonNull String accountName,
                                       @NonNull String key,
                                       @Nullable String newValue) {
-        final String currentValue = arbitraryDataDao.getValue(accountName, key);
+        final ArbitraryDataEntity currentValue = arbitraryDataDao.getByAccountAndKey(accountName, key);
         if (currentValue != null) {
             arbitraryDataDao.updateValue(accountName, key, newValue);
         } else {
@@ -138,10 +139,10 @@ public class ArbitraryDataProviderImpl implements ArbitraryDataProvider {
     @Override
     @NonNull
     public String getValue(@NonNull String accountName, @NonNull String key) {
-        final String value = arbitraryDataDao.getValue(accountName, key);
-        if (value == null) {
+        final ArbitraryDataEntity entity = arbitraryDataDao.getByAccountAndKey(accountName, key);
+        if (entity == null || entity.getValue() == null) {
             return "";
         }
-        return value;
+        return entity.getValue();
     }
 }
