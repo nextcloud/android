@@ -22,33 +22,20 @@
 
 package com.nextcloud.client.database.migrations;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.net.Uri;
 
 import com.nextcloud.client.core.Clock;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.files.services.NameCollisionPolicy;
-import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.providers.FileContentProvider;
-import com.owncloud.android.utils.FileStorageUtils;
 
-import java.io.File;
 import java.util.Locale;
 
 import androidx.sqlite.db.SupportSQLiteDatabase;
-import androidx.sqlite.db.SupportSQLiteQuery;
-import androidx.sqlite.db.SupportSQLiteQueryBuilder;
 
 public class LegacyMigrationHelper {
 
@@ -61,15 +48,9 @@ public class LegacyMigrationHelper {
 
     private static final String UPGRADE_VERSION_MSG = "OUT of the ADD in onUpgrade; oldVersion == %d, newVersion == %d";
 
-    private static final String[] PROJECTION_FILE_AND_STORAGE_PATH = new String[]{
-        ProviderMeta.ProviderTableMeta._ID, ProviderMeta.ProviderTableMeta.FILE_STORAGE_PATH, ProviderMeta.ProviderTableMeta.FILE_PATH
-    };
-    
-    private final Context context;
     private final Clock clock;
 
-    public LegacyMigrationHelper(Context context, Clock clock) {
-        this.context = context;
+    public LegacyMigrationHelper(Clock clock) {
         this.clock = clock;
     }
 
@@ -931,82 +912,6 @@ public class LegacyMigrationHelper {
         }
     }
 
-    private void createOCSharesTable(SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + ProviderMeta.ProviderTableMeta.OCSHARES_TABLE_NAME + "("
-                       + ProviderMeta.ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_FILE_SOURCE + INTEGER
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_ITEM_SOURCE + INTEGER
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_SHARE_TYPE + INTEGER
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_SHARE_WITH + TEXT
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_PATH + TEXT
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_PERMISSIONS + INTEGER
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_SHARED_DATE + INTEGER
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_EXPIRATION_DATE + INTEGER
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_TOKEN + TEXT
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME + TEXT
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_IS_DIRECTORY + INTEGER  // boolean
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_USER_ID + INTEGER
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + INTEGER
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + TEXT
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED + INTEGER
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_NOTE + TEXT
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD + INTEGER
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_SHARE_LINK + TEXT
-                       + ProviderMeta.ProviderTableMeta.OCSHARES_SHARE_LABEL + " TEXT );");
-    }
-
-    private void createCapabilitiesTable(SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + ProviderMeta.ProviderTableMeta.CAPABILITIES_TABLE_NAME + "("
-                       + ProviderMeta.ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_VERSION_MAYOR + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_VERSION_MINOR + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_VERSION_MICRO + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_VERSION_STRING + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_VERSION_EDITION + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_EXTENDED_SUPPORT + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_CORE_POLLINTERVAL + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SHARING_API_ENABLED + INTEGER // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ENABLED + INTEGER  // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_PASSWORD_ENFORCED + INTEGER    // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENABLED + INTEGER  // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_DAYS + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENFORCED + INTEGER // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_SEND_MAIL + INTEGER    // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_UPLOAD + INTEGER       // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SHARING_USER_SEND_MAIL + INTEGER      // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SHARING_RESHARING + INTEGER           // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_OUTGOING + INTEGER     // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_INCOMING + INTEGER     // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING + INTEGER   // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_FILES_UNDELETE + INTEGER  // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_FILES_VERSIONING + INTEGER   // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS + INTEGER  // boolean
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SERVER_NAME + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SERVER_COLOR + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SERVER_TEXT_COLOR + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SERVER_ELEMENT_COLOR + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SERVER_SLOGAN + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SERVER_LOGO + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_URL + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_ACTIVITY + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_RICHDOCUMENT + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_DIRECT_EDITING + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_TEMPLATES + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_OPTIONAL_MIMETYPE_LIST + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ASK_FOR_OPTIONAL_PASSWORD + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_PRODUCT_NAME + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_DIRECT_EDITING_ETAG + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_USER_STATUS + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI + INTEGER
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_ETAG + TEXT
-                       + ProviderMeta.ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION + " TEXT );");
-    }
-
     private void createUploadsTable(SupportSQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + ProviderMeta.ProviderTableMeta.UPLOADS_TABLE_NAME + "("
                        + ProviderMeta.ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
@@ -1036,67 +941,6 @@ public class LegacyMigrationHelper {
     */
     }
 
-    private void createSyncedFoldersTable(SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + ProviderMeta.ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME + "("
-                       + ProviderMeta.ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "                 // id
-                       + ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + " TEXT, "           // local path
-                       + ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH + " TEXT, "          // remote path
-                       + ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY + " INTEGER, "         // wifi_only
-                       + ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY + " INTEGER, "     // charging only
-                       + ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_EXISTING + " INTEGER, "          // existing
-                       + ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED + " INTEGER, "           // enabled
-                       + ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS + " INTEGER, " // enable date
-                       + ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + " INTEGER, " // subfolder by date
-                       + ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + "  TEXT, "             // account
-                       + ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION + " INTEGER, "     // upload action
-                       + ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY + " INTEGER, " // name collision policy
-                       + ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE + " INTEGER, "              // type
-                       + ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN + " INTEGER );"           // hidden
-                  );
-    }
-
-    private void createExternalLinksTable(SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME + "("
-                       + ProviderMeta.ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "          // id
-                       + ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_ICON_URL + " TEXT, "     // icon url
-                       + ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_LANGUAGE + " TEXT, "     // language
-                       + ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_TYPE + " INTEGER, "      // type
-                       + ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_NAME + " TEXT, "         // name
-                       + ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_URL + " TEXT, "          // url
-                       + ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_REDIRECT + " INTEGER );" // redirect
-                  );
-    }
-
-    private void createArbitraryData(SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME + "("
-                       + ProviderMeta.ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "      // id
-                       + ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " TEXT, " // cloud id (account name + FQDN)
-                       + "'" + ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + "'" + " TEXT, "      // key
-                       + ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_VALUE + " TEXT );"   // value
-                  );
-    }
-
-    private void createVirtualTable(SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE '" + ProviderMeta.ProviderTableMeta.VIRTUAL_TABLE_NAME + "' ("
-                       + ProviderMeta.ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "          // id
-                       + ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE + " TEXT, "                // type
-                       + ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID + " INTEGER )"        // file id
-                  );
-    }
-
-    private void createFileSystemTable(SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME + "("
-                       + ProviderMeta.ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "      // id
-                       + ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " TEXT, "
-                       + ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " INTEGER, "
-                       + ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY + " LONG, "
-                       + ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " INTEGER, "
-                       + ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " STRING, "
-                       + ProviderMeta.ProviderTableMeta.FILESYSTEM_CRC32 + " STRING, "
-                       + ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED + " LONG );"
-                  );
-    }
-
     private boolean checkIfColumnExists(SupportSQLiteDatabase database, String table, String column) {
         Cursor cursor = database.query("SELECT * FROM " + table + " LIMIT 0");
         boolean exists = cursor.getColumnIndex(column) != -1;
@@ -1105,126 +949,5 @@ public class LegacyMigrationHelper {
         return exists;
     }
 
-
-    /**
-     * Version 10 of database does not modify its scheme. It coincides with the upgrade of the ownCloud account names
-     * structure to include in it the path to the server instance. Updating the account names and path to local files in
-     * the files table is a must to keep the existing account working and the database clean.
-     *
-     * @param db Database where table of files is included.
-     */
-    private void updateAccountName(SupportSQLiteDatabase db) {
-        Log_OC.d(TAG, "THREAD:  " + Thread.currentThread().getName());
-        AccountManager ama = AccountManager.get(context);
-        try {
-            // get accounts from AccountManager ;  we can't be sure if accounts in it are updated or not although
-            // we know the update was previously done in {link @FileActivity#onCreate} because the changes through
-            // AccountManager are not synchronous
-            Account[] accounts = AccountManager.get(context).getAccountsByType(MainApp.getAccountType(context));
-            String serverUrl;
-            String username;
-            String oldAccountName;
-            String newAccountName;
-            String[] accountOwner = new String[1];
-
-            for (Account account : accounts) {
-                // build both old and new account name
-                serverUrl = ama.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL);
-                username = AccountUtils.getUsernameForAccount(account);
-                oldAccountName = AccountUtils.buildAccountNameOld(Uri.parse(serverUrl), username);
-                newAccountName = AccountUtils.buildAccountName(Uri.parse(serverUrl), username);
-
-                // update values in database
-                db.beginTransaction();
-                try {
-                    ContentValues cv = new ContentValues();
-                    cv.put(ProviderMeta.ProviderTableMeta.FILE_ACCOUNT_OWNER, newAccountName);
-                    accountOwner[0] = oldAccountName;
-                    int num = db.update(ProviderMeta.ProviderTableMeta.FILE_TABLE_NAME,
-                                        SQLiteDatabase.CONFLICT_REPLACE,
-                                        cv,
-                                        ProviderMeta.ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                                        accountOwner);
-
-                    Log_OC.d(TAG, "Updated account in database: old name == " + oldAccountName +
-                        ", new name == " + newAccountName + " (" + num + " rows updated )");
-
-                    // update path for downloaded files
-                    updateDownloadedFiles(db, newAccountName, oldAccountName);
-
-                    db.setTransactionSuccessful();
-
-                } catch (SQLException e) {
-                    Log_OC.e(TAG, "SQL Exception upgrading account names or paths in database", e);
-                } finally {
-                    db.endTransaction();
-                }
-            }
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Exception upgrading account names or paths in database", e);
-        }
-    }
-
-    /**
-     * Rename the local ownCloud folder of one account to match the a rename of the account itself. Updates the table of
-     * files in database so that the paths to the local files keep being the same.
-     *
-     * @param db             Database where table of files is included.
-     * @param newAccountName New name for the target OC account.
-     * @param oldAccountName Old name of the target OC account.
-     */
-    private void updateDownloadedFiles(SupportSQLiteDatabase db, String newAccountName,
-                                       String oldAccountName) {
-
-        String whereClause = ProviderMeta.ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " +
-            ProviderMeta.ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL";
-
-        final SupportSQLiteQuery query = SupportSQLiteQueryBuilder.builder(ProviderMeta.ProviderTableMeta.FILE_TABLE_NAME)
-            .columns(PROJECTION_FILE_AND_STORAGE_PATH)
-            .selection(whereClause, new String[]{newAccountName})
-            .create();
-
-        Cursor c = db.query(query);
-
-        try {
-            if (c.moveToFirst()) {
-                // create storage path
-                String oldAccountPath = FileStorageUtils.getSavePath(oldAccountName);
-                String newAccountPath = FileStorageUtils.getSavePath(newAccountName);
-
-                // move files
-                File oldAccountFolder = new File(oldAccountPath);
-                File newAccountFolder = new File(newAccountPath);
-                oldAccountFolder.renameTo(newAccountFolder);
-
-                String[] storagePath = new String[1];
-
-                // update database
-                do {
-                    // Update database
-                    String oldPath = c.getString(
-                        c.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.FILE_STORAGE_PATH));
-                    OCFile file = new OCFile(
-                        c.getString(c.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.FILE_PATH)));
-                    String newPath = FileStorageUtils.getDefaultSavePathFor(newAccountName, file);
-
-                    ContentValues cv = new ContentValues();
-                    cv.put(ProviderMeta.ProviderTableMeta.FILE_STORAGE_PATH, newPath);
-                    storagePath[0] = oldPath;
-                    db.update(ProviderMeta.ProviderTableMeta.FILE_TABLE_NAME,
-                              SQLiteDatabase.CONFLICT_REPLACE,
-                              cv,
-                              ProviderMeta.ProviderTableMeta.FILE_STORAGE_PATH + "=?",
-                              storagePath);
-
-                    Log_OC.v(TAG, "Updated path of downloaded file: old file name == " + oldPath +
-                        ", new file name == " + newPath);
-
-                } while (c.moveToNext());
-            }
-        } finally {
-            c.close();
-        }
-    }
 
 }

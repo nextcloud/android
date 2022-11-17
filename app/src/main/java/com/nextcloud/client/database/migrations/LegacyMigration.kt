@@ -22,7 +22,6 @@
 
 package com.nextcloud.client.database.migrations
 
-import android.content.Context
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -37,12 +36,11 @@ private const val MIN_SUPPORTED_DB_VERSION = 24
 class LegacyMigration(
     private val from: Int,
     private val to: Int,
-    private val context: Context,
     private val clock: Clock
 ) : Migration(from, to) {
 
     override fun migrate(database: SupportSQLiteDatabase) {
-        LegacyMigrationHelper(context, clock)
+        LegacyMigrationHelper(clock)
             .onUpgrade(database, from, to)
     }
 }
@@ -53,11 +51,10 @@ class LegacyMigration(
  * This is needed because the [Migration] does not know which versions it's dealing with
  */
 fun RoomDatabase.Builder<NextcloudDatabase>.addLegacyMigrations(
-    context: Context,
     clock: Clock
 ): RoomDatabase.Builder<NextcloudDatabase> {
     (MIN_SUPPORTED_DB_VERSION until NextcloudDatabase.FIRST_ROOM_DB_VERSION - 1)
-        .map { from -> LegacyMigration(from, from + 1, context, clock) }
+        .map { from -> LegacyMigration(from, from + 1, clock) }
         .forEach { migration -> this.addMigrations(migration) }
     return this
 }
