@@ -427,7 +427,7 @@ public class SettingsActivity extends PreferenceActivity
 
         if (preference != null) {
             if (FileOperationsHelper.isEndToEndEncryptionSetup(this, user) ||
-                !CapabilityUtils.getCapability(this).getEndToEndEncryptionKeysExist().isFalse()) {
+                CapabilityUtils.getCapability(this).getEndToEndEncryptionKeysExist().isTrue()) {
                 preferenceCategoryMore.removePreference(preference);
             } else {
                 preference.setOnPreferenceClickListener(p -> {
