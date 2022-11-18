@@ -155,11 +155,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(v.getContext());
         builder.setView(v).setPositiveButton(R.string.common_ok, null)
             .setNeutralButton(R.string.common_cancel, (dialog, which) -> {
-                final FragmentManager parentFragmentManager = getParentFragmentManager();
-                final Bundle bundle = new Bundle();
-                bundle.putString(RESULT_KEY, RESULT_CANCELED);
-                parentFragmentManager.setFragmentResult(RESULT_REQUEST_KEY, bundle);
-                dismiss();
+                dialog.cancel();
             })
             .setTitle(R.string.end_to_end_encryption_title);
 
@@ -263,6 +259,16 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
             }
         });
         return dialog;
+    }
+
+
+    @Override
+    public void onCancel(@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        final FragmentManager parentFragmentManager = getParentFragmentManager();
+        final Bundle bundle = new Bundle();
+        bundle.putString(RESULT_KEY, RESULT_CANCELED);
+        parentFragmentManager.setFragmentResult(RESULT_REQUEST_KEY, bundle);
     }
 
     public class DownloadKeysAsyncTask extends AsyncTask<Void, Void, String> {
