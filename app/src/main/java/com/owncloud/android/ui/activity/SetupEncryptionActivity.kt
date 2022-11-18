@@ -37,7 +37,7 @@ class SetupEncryptionActivity : AppCompatActivity() {
 
         if (user == null) {
             Toast.makeText(this, getString(R.string.error_showing_encryption_dialog), Toast.LENGTH_LONG).show()
-            return
+            finish()
         }
 
         val setupEncryptionDialogFragment = SetupEncryptionDialogFragment.newInstance(user, -1)
