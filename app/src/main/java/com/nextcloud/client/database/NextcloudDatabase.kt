@@ -22,6 +22,7 @@
 
 package com.nextcloud.client.database
 
+import androidx.room.AutoMigration
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
@@ -55,6 +56,9 @@ import com.owncloud.android.db.ProviderMeta
         VirtualEntity::class
     ],
     version = ProviderMeta.DB_VERSION,
+    autoMigrations = [
+        AutoMigration(from = 65, to = 66)
+    ],
     exportSchema = true
 )
 @Suppress("Detekt.UnnecessaryAbstractClass") // needed by Room
