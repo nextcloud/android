@@ -62,7 +62,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.Fragment;
 
 import static com.owncloud.android.utils.EncryptionUtils.decodeStringToBase64Bytes;
 import static com.owncloud.android.utils.EncryptionUtils.decryptStringAsymmetric;
@@ -81,8 +81,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
     public static final String ARG_POSITION = "ARG_POSITION";
 
     public static final String RESULT_REQUEST_KEY = "RESULT_REQUEST";
-    public static final String RESULT_KEY = "RESULT_KEY";
-    public static final String RESULT_CANCELED = "RESULT_CANCELED";
+    public static final String RESULT_KEY_CANCELLED = "IS_CANCELLED";
 
     private static final String ARG_USER = "ARG_USER";
     private static final String TAG = SetupEncryptionDialogFragment.class.getSimpleName();
@@ -164,111 +163,119 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
         Dialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
 
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+        dialog.setOnShowListener(dialog1 -> {
 
-            @Override
-            public void onShow(final DialogInterface dialog) {
+            Button button = ((AlertDialog) dialog1).getButton(AlertDialog.BUTTON_POSITIVE);
+            button.setOnClickListener(view -> {
+                switch (keyResult) {
+                    case KEY_CREATED:
+                        Log_OC.d(TAG, "New keys generated and stored.");
 
-                Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                button.setOnClickListener(new View.OnClickListener() {
+                        dialog1.dismiss();
 
-                    @Override
-                    public void onClick(View view) {
-                        switch (keyResult) {
-                            case KEY_CREATED:
-                                Log_OC.d(TAG, "New keys generated and stored.");
+                        notifyResult();
+                        break;
 
-                                dialog.dismiss();
+                    case KEY_EXISTING_USED:
+                        Log_OC.d(TAG, "Decrypt private key");
 
-                                Intent intentCreated = new Intent();
-                                intentCreated.putExtra(SUCCESS, true);
-                                intentCreated.putExtra(ARG_POSITION, getArguments().getInt(ARG_POSITION));
-                                getTargetFragment().onActivityResult(getTargetRequestCode(),
-                                                                     SETUP_ENCRYPTION_RESULT_CODE, intentCreated);
-                                break;
+                        binding.encryptionStatus.setText(R.string.end_to_end_encryption_decrypting);
 
-                            case KEY_EXISTING_USED:
-                                Log_OC.d(TAG, "Decrypt private key");
+                        try {
+                            String privateKey = task.get();
+                            String mnemonicUnchanged = binding.encryptionPasswordInput.getText().toString();
+                            String mnemonic = binding.encryptionPasswordInput.getText().toString().replaceAll("\\s", "")
+                                .toLowerCase(Locale.ROOT);
+                            String decryptedPrivateKey = EncryptionUtils.decryptPrivateKey(privateKey,
+                                                                                           mnemonic);
 
-                                binding.encryptionStatus.setText(R.string.end_to_end_encryption_decrypting);
+                            arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
+                                                                        EncryptionUtils.PRIVATE_KEY, decryptedPrivateKey);
 
-                                try {
-                                    String privateKey = task.get();
-                                    String mnemonicUnchanged = binding.encryptionPasswordInput.getText().toString();
-                                    String mnemonic = binding.encryptionPasswordInput.getText().toString().replaceAll("\\s", "")
-                                        .toLowerCase(Locale.ROOT);
-                                    String decryptedPrivateKey = EncryptionUtils.decryptPrivateKey(privateKey,
-                                                                                                   mnemonic);
+                            dialog1.dismiss();
+                            Log_OC.d(TAG, "Private key successfully decrypted and stored");
 
-                                    arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
-                                                                                EncryptionUtils.PRIVATE_KEY, decryptedPrivateKey);
+                            arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
+                                                                        EncryptionUtils.MNEMONIC,
+                                                                        mnemonicUnchanged);
 
-                                    dialog.dismiss();
-                                    Log_OC.d(TAG, "Private key successfully decrypted and stored");
+                            // check if private key and public key match
+                            String publicKey = arbitraryDataProvider.getValue(user.getAccountName(),
+                                                                              EncryptionUtils.PUBLIC_KEY);
 
-                                    arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
-                                                                                EncryptionUtils.MNEMONIC,
-                                                                                mnemonicUnchanged);
+                            byte[] key1 = generateKey();
+                            String base64encodedKey = encodeBytesToBase64String(key1);
 
-                                    // check if private key and public key match
-                                    String publicKey = arbitraryDataProvider.getValue(user.getAccountName(),
-                                                                                      EncryptionUtils.PUBLIC_KEY);
+                            String encryptedString = EncryptionUtils.encryptStringAsymmetric(base64encodedKey,
+                                                                                             publicKey);
+                            String decryptedString = decryptStringAsymmetric(encryptedString,
+                                                                             decryptedPrivateKey);
 
-                                    byte[] key1 = generateKey();
-                                    String base64encodedKey = encodeBytesToBase64String(key1);
+                            byte[] key2 = decodeStringToBase64Bytes(decryptedString);
 
-                                    String encryptedString = EncryptionUtils.encryptStringAsymmetric(base64encodedKey,
-                                                                                                     publicKey);
-                                    String decryptedString = decryptStringAsymmetric(encryptedString,
-                                                                                     decryptedPrivateKey);
+                            if (!Arrays.equals(key1, key2)) {
+                                throw new Exception("Keys do not match");
+                            }
 
-                                    byte[] key2 = decodeStringToBase64Bytes(decryptedString);
+                            notifyResult();
 
-                                    if (!Arrays.equals(key1, key2)) {
-                                        throw new Exception("Keys do not match");
-                                    }
-
-                                    Intent intentExisting = new Intent();
-                                    intentExisting.putExtra(SUCCESS, true);
-                                    intentExisting.putExtra(ARG_POSITION, getArguments().getInt(ARG_POSITION));
-                                    getTargetFragment().onActivityResult(getTargetRequestCode(),
-                                                                         SETUP_ENCRYPTION_RESULT_CODE, intentExisting);
-
-                                } catch (Exception e) {
-                                    binding.encryptionStatus.setText(R.string.end_to_end_encryption_wrong_password);
-                                    Log_OC.d(TAG, "Error while decrypting private key: " + e.getMessage());
-                                }
-                                break;
-
-                            case KEY_GENERATE:
-                                binding.encryptionPassphrase.setVisibility(View.GONE);
-                                positiveButton.setVisibility(View.GONE);
-                                neutralButton.setVisibility(View.GONE);
-                                getDialog().setTitle(R.string.end_to_end_encryption_storing_keys);
-
-                                GenerateNewKeysAsyncTask newKeysTask = new GenerateNewKeysAsyncTask();
-                                newKeysTask.execute();
-                                break;
-
-                            default:
-                                dialog.dismiss();
-                                break;
+                        } catch (Exception e) {
+                            binding.encryptionStatus.setText(R.string.end_to_end_encryption_wrong_password);
+                            Log_OC.d(TAG, "Error while decrypting private key: " + e.getMessage());
                         }
-                    }
-                });
-            }
+                        break;
+
+                    case KEY_GENERATE:
+                        binding.encryptionPassphrase.setVisibility(View.GONE);
+                        positiveButton.setVisibility(View.GONE);
+                        neutralButton.setVisibility(View.GONE);
+                        getDialog().setTitle(R.string.end_to_end_encryption_storing_keys);
+
+                        GenerateNewKeysAsyncTask newKeysTask = new GenerateNewKeysAsyncTask();
+                        newKeysTask.execute();
+                        break;
+
+                    default:
+                        dialog1.dismiss();
+                        break;
+                }
+            });
         });
         return dialog;
+    }
+
+    private void notifyResult() {
+        final Fragment targetFragment = getTargetFragment();
+        if (targetFragment != null) {
+            targetFragment.onActivityResult(getTargetRequestCode(),
+                                            SETUP_ENCRYPTION_RESULT_CODE, getResultIntent());
+        }
+        getParentFragmentManager().setFragmentResult(RESULT_REQUEST_KEY, getResultBundle());
+    }
+
+    @NonNull
+    private Intent getResultIntent() {
+        Intent intentCreated = new Intent();
+        intentCreated.putExtra(SUCCESS, true);
+        intentCreated.putExtra(ARG_POSITION, getArguments().getInt(ARG_POSITION));
+        return intentCreated;
+    }
+
+    @NonNull
+    private Bundle getResultBundle() {
+        final Bundle bundle = new Bundle();
+        bundle.putBoolean(SUCCESS, true);
+        bundle.putInt(ARG_POSITION, getArguments().getInt(ARG_POSITION));
+        return bundle;
     }
 
 
     @Override
     public void onCancel(@NonNull DialogInterface dialog) {
         super.onCancel(dialog);
-        final FragmentManager parentFragmentManager = getParentFragmentManager();
         final Bundle bundle = new Bundle();
-        bundle.putString(RESULT_KEY, RESULT_CANCELED);
-        parentFragmentManager.setFragmentResult(RESULT_REQUEST_KEY, bundle);
+        bundle.putBoolean(RESULT_KEY_CANCELLED, true);
+        getParentFragmentManager().setFragmentResult(RESULT_REQUEST_KEY, bundle);
     }
 
     public class DownloadKeysAsyncTask extends AsyncTask<Void, Void, String> {
@@ -412,12 +419,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
                 errorSavingKeys();
             } else {
                 requireDialog().dismiss();
-
-                Intent intentExisting = new Intent();
-                intentExisting.putExtra(SUCCESS, true);
-                intentExisting.putExtra(ARG_POSITION, requireArguments().getInt(ARG_POSITION));
-                getTargetFragment().onActivityResult(getTargetRequestCode(),
-                                                     SETUP_ENCRYPTION_RESULT_CODE, intentExisting);
+                notifyResult();
             }
         }
     }

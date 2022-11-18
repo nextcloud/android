@@ -22,6 +22,7 @@
 
 package com.owncloud.android.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -45,13 +46,29 @@ class SetupEncryptionActivity : AppCompatActivity() {
             SetupEncryptionDialogFragment.RESULT_REQUEST_KEY,
             this
         ) { requestKey, result ->
-            if (requestKey == SetupEncryptionDialogFragment.RESULT_REQUEST_KEY && result.getString(
-                    SetupEncryptionDialogFragment.RESULT_KEY
-                ) == SetupEncryptionDialogFragment.RESULT_CANCELED
-            ) {
-                finish()
+            if (requestKey == SetupEncryptionDialogFragment.RESULT_REQUEST_KEY) {
+                if (!result.getBoolean(SetupEncryptionDialogFragment.RESULT_KEY_CANCELLED, false)) {
+                    setResult(
+                        SetupEncryptionDialogFragment.SETUP_ENCRYPTION_RESULT_CODE,
+                        buildResultIntentFromBundle(result)
+                    )
+                }
             }
+            finish()
         }
         setupEncryptionDialogFragment.show(supportFragmentManager, "setup_encryption")
+    }
+
+    private fun buildResultIntentFromBundle(result: Bundle): Intent {
+        val intent = Intent()
+        intent.putExtra(
+            SetupEncryptionDialogFragment.SUCCESS,
+            result.getBoolean(SetupEncryptionDialogFragment.SUCCESS)
+        )
+        intent.putExtra(
+            SetupEncryptionDialogFragment.ARG_POSITION,
+            result.getInt(SetupEncryptionDialogFragment.ARG_POSITION)
+        )
+        return intent
     }
 }
