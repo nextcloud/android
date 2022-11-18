@@ -1066,4 +1066,5 @@
     <string name="remove_e2e_message">You can remove end to end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
     <string name="setup_e2e">During setup of end to end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="error_showing_encryption_dialog">Error showing setup encryption dialog!</string>
+    <string name="prefs_keys_exist">Add end to end encryption to this client</string>
 </resources>

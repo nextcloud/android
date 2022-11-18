@@ -78,6 +78,7 @@ import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
@@ -121,6 +122,7 @@ public class SettingsActivity extends PreferenceActivity
     private static final int ACTION_CONFIRM_DEVICE_CREDENTIALS = 7;
     private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
     private static final int ACTION_SHOW_MNEMONIC = 11;
+    private static final int ACTION_E2E = 12;
     private static final int TRUE_VALUE = 1;
 
     private static final String DAV_PATH = "/remote.php/dav";
@@ -328,6 +330,8 @@ public class SettingsActivity extends PreferenceActivity
 
         setupE2EPreference(preferenceCategoryMore);
 
+        setupE2EKeysExist(preferenceCategoryMore);
+
         setupE2EMnemonicPreference(preferenceCategoryMore);
 
         removeE2E(preferenceCategoryMore);
@@ -422,14 +426,34 @@ public class SettingsActivity extends PreferenceActivity
         Preference preference = findPreference("setup_e2e");
 
         if (preference != null) {
-            if (FileOperationsHelper.isEndToEndEncryptionSetup(this, user)) {
+            if (FileOperationsHelper.isEndToEndEncryptionSetup(this, user) ||
+                !CapabilityUtils.getCapability(this).getEndToEndEncryptionKeysExist().isFalse()) {
                 preferenceCategoryMore.removePreference(preference);
             } else {
                 preference.setOnPreferenceClickListener(p -> {
                     Intent i = new Intent(MainApp.getAppContext(), SetupEncryptionActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     i.putExtra("EXTRA_USER", user);
-                    startActivityForResult(i, ACTION_SHOW_MNEMONIC);
+                    startActivityForResult(i, ACTION_E2E);
+
+                    return true;
+                });
+            }
+        }
+    }
+
+    private void setupE2EKeysExist(PreferenceCategory preferenceCategoryMore) {
+        Preference preference = findPreference("setup_e2e_keys_exist");
+
+        if (preference != null) {
+            if (!CapabilityUtils.getCapability(this).getEndToEndEncryptionKeysExist().isTrue()) {
+                preferenceCategoryMore.removePreference(preference);
+            } else {
+                preference.setOnPreferenceClickListener(p -> {
+                    Intent i = new Intent(MainApp.getAppContext(), SetupEncryptionActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    i.putExtra("EXTRA_USER", user);
+                    startActivityForResult(i, ACTION_E2E);
 
                     return true;
                 });
@@ -917,6 +941,13 @@ public class SettingsActivity extends PreferenceActivity
             }
         } else if (requestCode == ACTION_SHOW_MNEMONIC && resultCode == RESULT_OK) {
             handleMnemonicRequest(data);
+        } else if (requestCode == ACTION_E2E) {
+            PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
+
+            setupE2EPreference(preferenceCategoryMore);
+            setupE2EKeysExist(preferenceCategoryMore);
+            setupE2EMnemonicPreference(preferenceCategoryMore);
+            removeE2E(preferenceCategoryMore);
         }
     }
 

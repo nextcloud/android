@@ -79,6 +79,10 @@
             android:key="setup_e2e"
             android:summary="@string/setup_e2e" />
         <Preference
+            android:title="@string/prefs_keys_exist"
+            android:key="setup_e2e_keys_exist"
+            android:summary="End to end encryption was already set up on another client. Please enter your mnemonic to allow this client to sync and decrypt the files." />
+        <Preference
             android:title="@string/prefs_e2e_active"
             android:key="mnemonic"
             android:summary="@string/displays_mnemonic" />
