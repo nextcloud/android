@@ -41,7 +41,7 @@ class DatabaseModule {
     fun database(context: Context, clock: Clock): NextcloudDatabase {
         return Room
             .databaseBuilder(context, NextcloudDatabase::class.java, ProviderMeta.DB_NAME)
-            .addLegacyMigrations(context, clock)
+            .addLegacyMigrations(clock)
             .addMigrations(RoomMigration())
             .fallbackToDestructiveMigration()
             .build()

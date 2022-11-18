@@ -32,11 +32,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -48,13 +46,14 @@ import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.utils.MenuUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -80,12 +79,16 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.FragmentManager;
 
 /**
  * This Fragment is used to display the details about a file.
@@ -240,13 +243,29 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
     }
 
-    private void onOverflowIconClicked(View view) {
-        PopupMenu popup = new PopupMenu(getActivity(), view);
-        popup.inflate(R.menu.fragment_file_detail);
-        prepareOptionsMenu(popup.getMenu());
-
-        popup.setOnMenuItemClickListener(this::optionsItemSelected);
-        popup.show();
+    private void onOverflowIconClicked() {
+        final OCFile file = getFile();
+        final List<Integer> additionalFilter = new ArrayList<>(
+            Arrays.asList(
+                R.id.action_lock_file,
+                R.id.action_unlock_file,
+                R.id.action_edit,
+                R.id.action_favorite,
+                R.id.action_unset_favorite,
+                R.id.action_see_details,
+                R.id.action_move,
+                R.id.action_copy,
+                R.id.action_stream_media,
+                R.id.action_send_share_file,
+                R.id.action_select_all_action_menu));
+        if (getFile().isFolder()) {
+            additionalFilter.add(R.id.action_send_file);
+            additionalFilter.add(R.id.action_sync_file);
+        }
+        final FragmentManager fragmentManager = getChildFragmentManager();
+        FileActionsBottomSheet.newInstance(file, true, additionalFilter)
+            .setResultListener(fragmentManager, this, this::optionsItemSelected)
+            .show(fragmentManager, "actions");
     }
 
     private void setupViewPager() {
@@ -365,52 +384,24 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        FileMenuFilter.hideAll(menu);
+        MenuUtils.hideAll(menu);
     }
 
-    private void prepareOptionsMenu(Menu menu) {
-        if (containerActivity.getStorageManager() != null) {
-            User currentUser = accountManager.getUser();
-            FileMenuFilter mf = new FileMenuFilter(
-                getFile(),
-                containerActivity,
-                getActivity(),
-                false,
-                currentUser
-            );
-
-            mf.filter(menu, true);
-        }
-
-        if (getFile().isFolder()) {
-            FileMenuFilter.hideMenuItems(menu.findItem(R.id.action_send_file));
-            FileMenuFilter.hideMenuItems(menu.findItem(R.id.action_sync_file));
-        }
-    }
-
-    private boolean optionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-
+    private void optionsItemSelected(@IdRes final int itemId) {
         if (itemId == R.id.action_send_file) {
             containerActivity.getFileOperationsHelper().sendShareFile(getFile(), true);
-            return true;
         } else if (itemId == R.id.action_open_file_with) {
             containerActivity.getFileOperationsHelper().openFile(getFile());
-            return true;
         } else if (itemId == R.id.action_remove_file) {
             RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
             dialog.show(getFragmentManager(), FTAG_CONFIRMATION);
-            return true;
         } else if (itemId == R.id.action_rename_file) {
             RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(getFile(), parentFolder);
             dialog.show(getFragmentManager(), FTAG_RENAME_FILE);
-            return true;
         } else if (itemId == R.id.action_cancel_sync) {
             ((FileDisplayActivity) containerActivity).cancelTransference(getFile());
-            return true;
         } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
             containerActivity.getFileOperationsHelper().syncFile(getFile());
-            return true;
         } else if (itemId == R.id.action_export_file) {
             ArrayList<OCFile> list = new ArrayList<>();
             list.add(getFile());
@@ -418,17 +409,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                                                     getContext(),
                                                                     getView(),
                                                                     backgroundJobManager);
-            return true;
         } else if (itemId == R.id.action_set_as_wallpaper) {
             containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getView());
-            return true;
         } else if (itemId == R.id.action_encrypted) {// TODO implement or remove
-            return true;
         } else if (itemId == R.id.action_unset_encrypted) {// TODO implement or remove
-            return true;
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -441,7 +426,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             containerActivity.getFileOperationsHelper().toggleFavoriteFile(getFile(), !getFile().isFavorite());
             setFavoriteIconStatus(!getFile().isFavorite());
         } else if (id == R.id.overflow_menu) {
-            onOverflowIconClicked(v);
+            onOverflowIconClicked();
         } else if (id == R.id.last_modification_timestamp) {
             boolean showDetailedTimestamp = !preferences.isShowDetailedTimestampEnabled();
             preferences.setShowDetailedTimestampEnabled(showDetailedTimestamp);

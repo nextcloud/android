@@ -45,6 +45,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -174,6 +175,9 @@ public abstract class FileActivity extends DrawerActivity
     @Inject
     BackgroundJobManager backgroundJobManager;
 
+    @Inject
+    EditorUtils editorUtils;
+
     @Override
     public void showFiles(boolean onDeviceOnly) {
         // must be specialized in subclasses
@@ -196,7 +200,7 @@ public abstract class FileActivity extends DrawerActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHandler = new Handler();
-        mFileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService);
+        mFileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService, editorUtils);
 
         if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);

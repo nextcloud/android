@@ -51,12 +51,12 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.StreamMediaFileOperation;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -130,16 +130,18 @@ public class FileOperationsHelper {
     private final FileActivity fileActivity;
     private final CurrentAccountProvider currentAccount;
     private final ConnectivityService connectivityService;
+    private final EditorUtils editorUtils;
 
     /// Identifier of operation in progress which result shouldn't be lost
     private long mWaitingForOpId = Long.MAX_VALUE;
 
     public FileOperationsHelper(FileActivity fileActivity,
                                 CurrentAccountProvider currentAccount,
-                                ConnectivityService connectivityService) {
+                                ConnectivityService connectivityService, EditorUtils editorUtils) {
         this.fileActivity = fileActivity;
         this.currentAccount = currentAccount;
         this.connectivityService = connectivityService;
+        this.editorUtils = editorUtils;
     }
 
     @Nullable
@@ -304,9 +306,7 @@ public class FileOperationsHelper {
             if (launchables.isEmpty()) {
                 Optional<User> optionalUser = fileActivity.getUser();
 
-                if (optionalUser.isPresent() && FileMenuFilter.isEditorAvailable(fileActivity.getContentResolver(),
-                                                                                 optionalUser.get(),
-                                                                                 file.getMimeType())) {
+                if (optionalUser.isPresent() && editorUtils.isEditorAvailable(optionalUser.get(), file.getMimeType())) {
                     openFileWithTextEditor(file, fileActivity);
                 } else {
                     Account account = fileActivity.getAccount();
