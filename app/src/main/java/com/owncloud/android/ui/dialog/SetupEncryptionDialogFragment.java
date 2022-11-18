@@ -62,6 +62,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import static com.owncloud.android.utils.EncryptionUtils.decodeStringToBase64Bytes;
 import static com.owncloud.android.utils.EncryptionUtils.decryptStringAsymmetric;
@@ -78,6 +79,10 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
     public static final int SETUP_ENCRYPTION_REQUEST_CODE = 100;
     public static final String SETUP_ENCRYPTION_DIALOG_TAG = "SETUP_ENCRYPTION_DIALOG_TAG";
     public static final String ARG_POSITION = "ARG_POSITION";
+
+    public static final String RESULT_REQUEST_KEY = "RESULT_REQUEST";
+    public static final String RESULT_KEY = "RESULT_KEY";
+    public static final String RESULT_CANCELED = "RESULT_CANCELED";
 
     private static final String ARG_USER = "ARG_USER";
     private static final String TAG = SetupEncryptionDialogFragment.class.getSimpleName();
@@ -149,7 +154,13 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
     private Dialog createDialog(View v) {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(v.getContext());
         builder.setView(v).setPositiveButton(R.string.common_ok, null)
-            .setNeutralButton(R.string.common_cancel, null)
+            .setNeutralButton(R.string.common_cancel, (dialog, which) -> {
+                final FragmentManager parentFragmentManager = getParentFragmentManager();
+                final Bundle bundle = new Bundle();
+                bundle.putString(RESULT_KEY, RESULT_CANCELED);
+                parentFragmentManager.setFragmentResult(RESULT_REQUEST_KEY, bundle);
+                dismiss();
+            })
             .setTitle(R.string.end_to_end_encryption_title);
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(v.getContext(), builder);
