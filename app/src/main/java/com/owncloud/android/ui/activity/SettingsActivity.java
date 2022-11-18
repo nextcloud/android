@@ -447,7 +447,9 @@ public class SettingsActivity extends PreferenceActivity
         Preference preference = findPreference("setup_e2e_keys_exist");
 
         if (preference != null) {
-            if (!CapabilityUtils.getCapability(this).getEndToEndEncryptionKeysExist().isTrue()) {
+            if (!CapabilityUtils.getCapability(this).getEndToEndEncryptionKeysExist().isTrue() ||
+                (CapabilityUtils.getCapability(this).getEndToEndEncryptionKeysExist().isTrue() &&
+                    FileOperationsHelper.isEndToEndEncryptionSetup(this, user))) {
                 preferenceCategoryMore.removePreference(preference);
             } else {
                 preference.setOnPreferenceClickListener(p -> {
@@ -501,9 +503,13 @@ public class SettingsActivity extends PreferenceActivity
                         .setCancelable(true)
                         .setNegativeButton(R.string.common_cancel, ((dialog, i) -> dialog.dismiss()))
                         .setPositiveButton(R.string.confirm_removal, (dialog, which) -> {
-                            // do something
                             EncryptionUtils.removeE2E(arbitraryDataProvider, user);
                             preferenceCategoryMore.removePreference(preference);
+
+                            Preference pMnemonic = findPreference("mnemonic");
+                            if (pMnemonic != null) {
+                                preferenceCategoryMore.removePreference(pMnemonic);
+                            }
 
                             dialog.dismiss();
                         })
