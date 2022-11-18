@@ -196,6 +196,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.activity.SetupEncryptionActivity"
+            android:theme="@style/Theme.NoBackground"
             android:exported="false" />
         <activity
             android:name=".ui.activity.ContactsPreferenceActivity"
