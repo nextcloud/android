@@ -38,6 +38,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.PushConfigurationState;
 import com.owncloud.android.datamodel.SignatureVerification;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -151,7 +152,7 @@ public final class PushUtils {
     private static void deleteRegistrationForAccount(Account account) {
         Context context = MainApp.getAppContext();
         OwnCloudAccount ocAccount;
-        arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().getContentResolver());
+        arbitraryDataProvider = new ArbitraryDataProviderImpl(MainApp.getAppContext());
 
         try {
             ocAccount = new OwnCloudAccount(account, context);
@@ -193,7 +194,7 @@ public final class PushUtils {
     }
 
     public static void pushRegistrationToServer(final UserAccountManager accountManager, final String token) {
-        arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().getContentResolver());
+        arbitraryDataProvider = new ArbitraryDataProviderImpl(MainApp.getAppContext());
 
         if (!TextUtils.isEmpty(MainApp.getAppContext().getResources().getString(R.string.push_server_url)) &&
                 !TextUtils.isEmpty(token)) {
@@ -418,7 +419,7 @@ public final class PushUtils {
 
         Account[] accounts = accountManager.getAccounts();
 
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
         String arbitraryValue;
         Gson gson = new Gson();
         PushConfigurationState pushArbitraryData;

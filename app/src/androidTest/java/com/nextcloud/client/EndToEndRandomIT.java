@@ -27,6 +27,7 @@ import android.accounts.AccountManager;
 import com.nextcloud.test.RandomStringGenerator;
 import com.owncloud.android.AbstractOnServerIT;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
@@ -93,7 +94,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
 
     @BeforeClass
     public static void initClass() throws Exception {
-        arbitraryDataProvider = new ArbitraryDataProvider(targetContext.getContentResolver());
+        arbitraryDataProvider = new ArbitraryDataProviderImpl(targetContext);
         createKeys();
     }
 

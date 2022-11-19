@@ -23,11 +23,8 @@
 package com.nextcloud.client.database
 
 import android.content.Context
-import androidx.room.Room
 import com.nextcloud.client.core.Clock
-import com.nextcloud.client.database.migrations.RoomMigration
-import com.nextcloud.client.database.migrations.addLegacyMigrations
-import com.owncloud.android.db.ProviderMeta
+import com.nextcloud.client.database.dao.ArbitraryDataDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -37,13 +34,12 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    @Suppress("Detekt.SpreadOperator") // forced by Room API
     fun database(context: Context, clock: Clock): NextcloudDatabase {
-        return Room
-            .databaseBuilder(context, NextcloudDatabase::class.java, ProviderMeta.DB_NAME)
-            .addLegacyMigrations(clock)
-            .addMigrations(RoomMigration())
-            .fallbackToDestructiveMigration()
-            .build()
+        return NextcloudDatabase.getInstance(context, clock)
+    }
+
+    @Provides
+    fun arbitraryDataDao(nextcloudDatabase: NextcloudDatabase): ArbitraryDataDao {
+        return nextcloudDatabase.arbitraryDataDao()
     }
 }

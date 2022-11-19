@@ -51,7 +51,6 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.webkit.URLUtil;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -78,6 +77,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.ExternalLink;
@@ -907,7 +907,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
 
         externalLinksProvider = new ExternalLinksProvider(getContentResolver());
-        arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+        arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
     }
 
     @Override

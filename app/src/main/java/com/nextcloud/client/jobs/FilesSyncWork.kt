@@ -36,6 +36,7 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FilesystemDataProvider
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
@@ -133,8 +134,8 @@ class FilesSyncWork(
             return
         }
         val user = optionalUser.get()
-        val arbitraryDataProvider = if (lightVersion) {
-            ArbitraryDataProvider(contentResolver)
+        val arbitraryDataProvider: ArbitraryDataProvider? = if (lightVersion) {
+            ArbitraryDataProviderImpl(context)
         } else {
             null
         }

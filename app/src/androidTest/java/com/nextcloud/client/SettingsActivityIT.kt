@@ -26,7 +26,7 @@ import android.content.Intent
 import android.os.Looper
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.owncloud.android.AbstractIT
-import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.ui.activity.RequestCredentialsActivity
 import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.utils.EncryptionUtils
@@ -71,7 +71,7 @@ class SettingsActivityIT : AbstractIT() {
         }
         val intent = Intent()
         intent.putExtra(RequestCredentialsActivity.KEY_CHECK_RESULT, RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE)
-        val arbitraryDataProvider = ArbitraryDataProvider(targetContext.contentResolver)
+        val arbitraryDataProvider = ArbitraryDataProviderImpl(targetContext)
         arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, EncryptionUtils.MNEMONIC, "Secret mnemonic")
         val sut = activityRule.launchActivity(null)
         sut.runOnUiThread {
