@@ -261,6 +261,7 @@
     <string name="error_comment_file">Chyba při přidávání komentáře k souboru</string>
     <string name="error_crash_title">%1$s zhavarovalo</string>
     <string name="error_creating_file_from_template">Chyba při vytváření souboru ze šablony</string>
+    <string name="error_file_actions">Chyba při zobrazování akcí ohledně souboru.</string>
     <string name="error_file_lock">Chyba při změně stavu zámku souboru</string>
     <string name="error_report_issue_action">Hlášení</string>
     <string name="error_report_issue_text">Nahlásit problém? (vyžaduje GitHub účet)</string>

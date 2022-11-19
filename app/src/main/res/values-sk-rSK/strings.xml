@@ -261,6 +261,7 @@
     <string name="error_comment_file">Chyba pri pridaní komentáru k súboru</string>
     <string name="error_crash_title">%1$s zhavarovalo</string>
     <string name="error_creating_file_from_template">Chyba pri vytváraní súboru zo šablóny</string>
+    <string name="error_file_actions">Chyba pri zobrazovaní akcií súboru</string>
     <string name="error_file_lock">Chyba pri zmene stavu uzamknutia súboru</string>
     <string name="error_report_issue_action">Hlásenie</string>
     <string name="error_report_issue_text">Nahlásiť chybu? (vyžaduje účet na Githube)</string>
