@@ -177,6 +177,7 @@ public class FileMenuFilter {
         filterStream(toHide);
         filterLock(toHide, fileLockingEnabled);
         filterUnlock(toHide, fileLockingEnabled);
+        filterPinToHome(toHide);
 
         return toHide;
     }
@@ -259,6 +260,12 @@ public class FileMenuFilter {
     private void filterSetPictureAs(List<Integer> toHide) {
         if (!isSingleImage() || MimeTypeUtil.isSVG(files.iterator().next())) {
             toHide.add(R.id.action_set_as_wallpaper);
+        }
+    }
+
+    private void filterPinToHome(List<Integer> toHide) {
+        if (files.size() > 1) {
+            toHide.add(R.id.action_pin_to_homescreen);
         }
     }
 
