@@ -261,6 +261,7 @@
     <string name="error_comment_file">Hiba a fájlhoz hozzászóláskor</string>
     <string name="error_crash_title">A(z) %1$s összeomlott</string>
     <string name="error_creating_file_from_template">Hiba a fájl sablonból történő létrehozása során</string>
+    <string name="error_file_actions">Hiba a fájlműveletek megjelenítése során</string>
     <string name="error_file_lock">Hiba a fájl zárolási állapotának módosítása során</string>
     <string name="error_report_issue_action">Jelentés</string>
     <string name="error_report_issue_text">Jelenti a hibát a követőbe? (GitHub-fiók szükséges)</string>

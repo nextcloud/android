@@ -931,6 +931,12 @@
         <item quantity="many">Найдено %d повторяющихся объектов.</item>
         <item quantity="other">Найдено %d повторяющихся объекта.</item>
     </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Экспортирован %d файл</item>
+        <item quantity="few">Экспортировано %d файлов</item>
+        <item quantity="many">Экспортировано %d файлов</item>
+        <item quantity="other">Экспортировано %d файлов</item>
+    </plurals>
     <plurals name="export_failed">
         <item quantity="one">Не удалось экспортировать %d файл</item>
         <item quantity="few">Не удалось экспортировать %d файла</item>

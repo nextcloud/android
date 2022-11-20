@@ -35,6 +35,7 @@
     <string name="add_to_cloud">添加到%1$s</string>
     <string name="advanced_settings">高级设置</string>
     <string name="allow_resharing">允许二次共享</string>
+    <string name="app_widget_description">显示仪表盘中的一个小工具</string>
     <string name="appbar_search_in">在 %s 中搜索</string>
     <string name="associated_account_not_found">相关账号未找到！</string>
     <string name="auth_access_failed">访问已失败: %1$s</string>
@@ -235,6 +236,7 @@
     <string name="drawer_quota">%1$s 中 %2$s 已使用</string>
     <string name="drawer_quota_unlimited">%1$s 已使用</string>
     <string name="drawer_synced_folders">自动上传</string>
+    <string name="e2e_not_yet_setup">尚未安装端到端加密</string>
     <string name="encrypted">设置为加密</string>
     <string name="end_to_end_encryption_confirm_button">设置加密</string>
     <string name="end_to_end_encryption_decrypting">正在解密…</string>
@@ -259,6 +261,7 @@
     <string name="error_comment_file">评论文件发生错误</string>
     <string name="error_crash_title">%1$s 崩溃了</string>
     <string name="error_creating_file_from_template">从模板创建文件时出错</string>
+    <string name="error_file_actions">显示文件操作时出错</string>
     <string name="error_file_lock">修改文件锁定状态时发生错误</string>
     <string name="error_report_issue_action">报告</string>
     <string name="error_report_issue_text">是否向跟踪器报告问题？（需要GitHub账号）</string>
@@ -388,6 +391,8 @@
     <string name="hint_password">密码</string>
     <string name="host_not_available">服务器不可用</string>
     <string name="host_your_own_server">自己搭建服务器</string>
+    <string name="icon_for_empty_list">空列表的图标</string>
+    <string name="icon_of_dashboard_widget">仪表盘小工具的图标</string>
     <string name="in_folder">在文件夹 %1$s 内 </string>
     <string name="instant_upload_existing">同时上传现有文件</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
