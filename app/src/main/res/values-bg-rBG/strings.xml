@@ -262,6 +262,7 @@
     <string name="error_comment_file">Грешка при коментиране на файл</string>
     <string name="error_crash_title">%1$s крах</string>
     <string name="error_creating_file_from_template">Грешка при създаването на файл от шаблон</string>
+    <string name="error_file_actions">Грешка при показване на действията на файла</string>
     <string name="error_file_lock">Грешка при промяна на състоянието на заключване на файла</string>
     <string name="error_report_issue_action">Докладване за грешка</string>
     <string name="error_report_issue_text">Подаване на сигнал за проблем към тракера? (изисква се профил в Github)</string>
