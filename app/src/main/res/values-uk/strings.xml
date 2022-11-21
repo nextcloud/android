@@ -289,7 +289,7 @@
     <string name="etm_transfer_enqueue_test_upload">Перевірити відвантаження</string>
     <string name="etm_transfer_remote_path">Віддалений шлях</string>
     <string name="etm_transfer_type">Передати</string>
-    <string name="etm_transfer_type_download">Завантажити</string>
+    <string name="etm_transfer_type_download">Звантажити</string>
     <string name="etm_transfer_type_upload">Завантажити</string>
     <string name="fab_label">Додати або завантажити</string>
     <string name="failed_to_download">Не вдалося передати файл до менеджера звантажень</string>
@@ -352,7 +352,7 @@
     <string name="file_rename">Перейменувати</string>
     <string name="file_version_restored_error">Помилка під час відновлення версії файлу!</string>
     <string name="file_version_restored_successfully">Успішно відновлено версію файлу.</string>
-    <string name="filedetails_download">Завантажити</string>
+    <string name="filedetails_download">Звантажити</string>
     <string name="filedetails_export">Експортувати</string>
     <string name="filedetails_renamed_in_upload_msg">Під час завантаження назву файлу було змінено %1$s</string>
     <string name="filedetails_sync_file">Синхронізація</string>
@@ -566,7 +566,7 @@
     <string name="prefs_recommend">Рекомендувати застосунок</string>
     <string name="prefs_show_hidden_files">Показувати приховані файли</string>
     <string name="prefs_sourcecode">Отримати вихідний код</string>
-    <string name="prefs_storage_path">Місце збереження даних</string>
+    <string name="prefs_storage_path">Місце збереження файлів</string>
     <string name="prefs_sycned_folders_summary">Налаштуйте каталоги, які будуть автоматично завантажуватися</string>
     <string name="prefs_synced_folders_local_path_title">Каталог на пристрої</string>
     <string name="prefs_synced_folders_remote_path_title">Віддалений каталог</string>
@@ -878,7 +878,7 @@
     <string name="userinfo_no_info_headline">Відсутня особиста інформація</string>
     <string name="userinfo_no_info_text">Додайте назву, зображення та деталі контакту на сторінці вашого профілю.</string>
     <string name="username">Ім\'я користувача</string>
-    <string name="version_dev_download">Завантажити</string>
+    <string name="version_dev_download">Звантажити</string>
     <string name="wait_a_moment">Зачекайте трохи…</string>
     <string name="wait_checking_credentials">Перевірка збережених даних авторизації</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копіювання файлу з приватного сховища</string>
