@@ -59,7 +59,9 @@ class CalendarBackupWork(
 
         val force = inputData.getBoolean(FORCE, false)
         if (force || lastExecution + JOB_INTERVAL_MS < Calendar.getInstance().timeInMillis) {
-            AndroidCalendar.loadAll(contentResolver).forEach { calendar ->
+            val calendars = AndroidCalendar.loadAll(contentResolver)
+            Log_OC.d(TAG, "Saving ${calendars.size} calendars")
+            calendars.forEach { calendar ->
                 SaveCalendar(
                     applicationContext,
                     calendar,
