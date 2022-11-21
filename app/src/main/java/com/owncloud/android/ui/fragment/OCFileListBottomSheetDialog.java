@@ -33,6 +33,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorBinding;
 import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.DirectEditing;
@@ -103,7 +104,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
             binding.templates.setVisibility(View.VISIBLE);
         }
 
-        String json = new ArbitraryDataProvider(getContext().getContentResolver())
+        String json = new ArbitraryDataProviderImpl(getContext())
             .getValue(user, ArbitraryDataProvider.DIRECT_EDITING);
 
         if (!json.isEmpty() &&

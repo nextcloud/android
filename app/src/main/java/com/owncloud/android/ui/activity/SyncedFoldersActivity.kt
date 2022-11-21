@@ -48,7 +48,7 @@ import com.owncloud.android.BuildConfig
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SyncedFoldersLayoutBinding
-import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.MediaProvider
@@ -696,14 +696,16 @@ class SyncedFoldersActivity :
                 backgroundJobManager.startImmediateFilesSyncJob(skipCustomFolders = false, overridePowerSaving = false)
             } else {
                 val syncedFolderInitiatedKey = KEY_SYNCED_FOLDER_INITIATED_PREFIX + item.id
-                val arbitraryDataProvider = ArbitraryDataProvider(MainApp.getAppContext().contentResolver)
+                val arbitraryDataProvider =
+                    ArbitraryDataProviderImpl(MainApp.getAppContext())
                 arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey)
             }
         }
     }
 
     private fun storeSyncedFolder(item: SyncedFolderDisplayItem) {
-        val arbitraryDataProvider = ArbitraryDataProvider(MainApp.getAppContext().contentResolver)
+        val arbitraryDataProvider =
+            ArbitraryDataProviderImpl(MainApp.getAppContext())
         val storedId = syncedFolderProvider.storeSyncedFolder(item)
         if (storedId != -1L) {
             item.id = storedId

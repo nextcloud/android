@@ -48,6 +48,7 @@ import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.Creator;
@@ -390,9 +391,9 @@ public class DialogFragmentIT extends AbstractIT {
 
         String json = new Gson().toJson(directEditing);
 
-        new ArbitraryDataProvider(targetContext.getContentResolver()).storeOrUpdateKeyValue(user.getAccountName(),
-                                                                                            ArbitraryDataProvider.DIRECT_EDITING,
-                                                                                            json);
+        new ArbitraryDataProviderImpl(targetContext).storeOrUpdateKeyValue(user.getAccountName(),
+                                                                                                ArbitraryDataProvider.DIRECT_EDITING,
+                                                                                                json);
 
         // activate templates
         OCCapability capability = fda.getCapabilities();

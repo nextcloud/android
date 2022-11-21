@@ -50,6 +50,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -644,7 +645,7 @@ public abstract class FileActivity extends DrawerActivity
 
     public void checkForNewDevVersionNecessary(Context context) {
         if (getResources().getBoolean(R.bool.dev_version_direct_download_enabled)) {
-            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
             int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL, APP_OPENED_COUNT);
 
             if (count > 10 || count == -1) {

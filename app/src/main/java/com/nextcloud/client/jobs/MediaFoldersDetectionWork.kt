@@ -46,6 +46,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.MediaFoldersModel
 import com.owncloud.android.datamodel.MediaProvider
@@ -84,7 +85,7 @@ class MediaFoldersDetectionWork constructor(
 
     @Suppress("LongMethod", "ComplexMethod", "NestedBlockDepth") // legacy code
     override fun doWork(): Result {
-        val arbitraryDataProvider = ArbitraryDataProvider(contentResolver)
+        val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
         val syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
         val gson = Gson()
         val mediaFoldersModel: MediaFoldersModel

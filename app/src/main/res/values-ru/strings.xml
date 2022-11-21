@@ -236,6 +236,7 @@
     <string name="drawer_quota">использовано %1$s из %2$s </string>
     <string name="drawer_quota_unlimited">%1$s использовано</string>
     <string name="drawer_synced_folders">Автоматическая передача</string>
+    <string name="e2e_not_yet_setup">Сквозное шифрование не настроено</string>
     <string name="encrypted">Зашифровать</string>
     <string name="end_to_end_encryption_confirm_button">Параметры шифрования</string>
     <string name="end_to_end_encryption_decrypting">Расшифровка…</string>
@@ -260,6 +261,7 @@
     <string name="error_comment_file">Ошибка комментирования файла</string>
     <string name="error_crash_title">сбой %1$s</string>
     <string name="error_creating_file_from_template">Не удалось создать файл на основе шаблона</string>
+    <string name="error_file_actions">Не удалось показать доступные действия с файлом</string>
     <string name="error_file_lock">Не удалось изменить состояние блокировки</string>
     <string name="error_report_issue_action">Сообщить</string>
     <string name="error_report_issue_text">Сообщить о проблеме? (требуется учётная запись на GitHub)</string>
@@ -928,6 +930,18 @@
         <item quantity="few">Найдено %d повторяющихся объекта.</item>
         <item quantity="many">Найдено %d повторяющихся объектов.</item>
         <item quantity="other">Найдено %d повторяющихся объекта.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Экспортирован %d файл</item>
+        <item quantity="few">Экспортировано %d файлов</item>
+        <item quantity="many">Экспортировано %d файлов</item>
+        <item quantity="other">Экспортировано %d файлов</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Не удалось экспортировать %d файл</item>
+        <item quantity="few">Не удалось экспортировать %d файла</item>
+        <item quantity="many">Не удалось экспортировать %d файлов</item>
+        <item quantity="other">Не удалось экспортировать %d файла</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d каталог</item>

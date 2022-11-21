@@ -41,6 +41,9 @@ public class LegacyMigrationHelper {
 
     private static final String TAG = LegacyMigrationHelper.class.getSimpleName();
 
+    public static final int ARBITRARY_DATA_TABLE_INTRODUCTION_VERSION = 20;
+
+
     private static final String ALTER_TABLE = "ALTER TABLE ";
     private static final String ADD_COLUMN = " ADD COLUMN ";
     private static final String INTEGER = " INTEGER, ";
@@ -176,7 +179,7 @@ public class LegacyMigrationHelper {
                     db.execSQL(ALTER_TABLE + ProviderMeta.ProviderTableMeta.FILE_TABLE_NAME +
                                    ADD_COLUMN + ProviderMeta.ProviderTableMeta.FILE_ENCRYPTED_NAME + " TEXT ");
                 }
-                if (oldVersion > FileContentProvider.ARBITRARY_DATA_TABLE_INTRODUCTION_VERSION) {
+                if (oldVersion > ARBITRARY_DATA_TABLE_INTRODUCTION_VERSION) {
                     if (!checkIfColumnExists(db, ProviderMeta.ProviderTableMeta.CAPABILITIES_TABLE_NAME,
                                              ProviderMeta.ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION)) {
                         db.execSQL(ALTER_TABLE + ProviderMeta.ProviderTableMeta.CAPABILITIES_TABLE_NAME +

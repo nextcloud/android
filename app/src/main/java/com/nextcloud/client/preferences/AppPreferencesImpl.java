@@ -29,6 +29,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.PassCodeActivity;
@@ -337,7 +338,7 @@ public final class AppPreferencesImpl implements AppPreferences {
             return defaultOrder;
         }
 
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProviderImpl(context);
 
         String value = dataProvider.getValue(user.getAccountName(), PREF__FOLDER_SORT_ORDER + "_" + type);
 
@@ -347,7 +348,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setSortOrder(FileSortOrder.Type type, FileSortOrder sortOrder) {
         User user = userAccountManager.getUser();
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProviderImpl(context);
         dataProvider.storeOrUpdateKeyValue(user.getAccountName(), PREF__FOLDER_SORT_ORDER + "_" + type, sortOrder.name);
     }
 
@@ -604,7 +605,7 @@ public final class AppPreferencesImpl implements AppPreferences {
             return defaultValue;
         }
 
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProviderImpl(context);
         FileDataStorageManager storageManager = new FileDataStorageManager(user, context.getContentResolver());
 
         String value = dataProvider.getValue(user.getAccountName(), getKeyFromFolder(preferenceName, folder));
@@ -629,7 +630,7 @@ public final class AppPreferencesImpl implements AppPreferences {
                                             final String preferenceName,
                                             @Nullable final OCFile folder,
                                             final String value) {
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProvider(context.getContentResolver());
+        ArbitraryDataProvider dataProvider = new ArbitraryDataProviderImpl(context);
         dataProvider.storeOrUpdateKeyValue(user.getAccountName(), getKeyFromFolder(preferenceName, folder), value);
     }
 

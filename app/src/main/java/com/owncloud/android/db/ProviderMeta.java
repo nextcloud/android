@@ -72,8 +72,6 @@ public class ProviderMeta {
                 + MainApp.getAuthority() + "/synced_folders");
         public static final Uri CONTENT_URI_EXTERNAL_LINKS = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/external_links");
-        public static final Uri CONTENT_URI_ARBITRARY_DATA = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/arbitrary_data");
         public static final Uri CONTENT_URI_VIRTUAL = Uri.parse(CONTENT_PREFIX + MainApp.getAuthority() + "/virtual");
         public static final Uri CONTENT_URI_FILESYSTEM = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/filesystem");

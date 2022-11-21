@@ -48,6 +48,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
@@ -142,7 +143,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
             originalCurrentUser = currentUser.get().getAccountName();
         }
 
-        arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+        arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
 
         multipleAccountsSupported = getResources().getBoolean(R.bool.multiaccount_support);
 
@@ -426,7 +427,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         }
 
         // store pending account removal
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
         arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), PENDING_FOR_REMOVAL, String.valueOf(true));
 
         // Cancel transfers

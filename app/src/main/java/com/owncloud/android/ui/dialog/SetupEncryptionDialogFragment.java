@@ -36,6 +36,7 @@ import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.SetupEncryptionDialogBinding;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -132,7 +133,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         user = getArguments().getParcelable(ARG_USER);
 
-        arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
+        arbitraryDataProvider = new ArbitraryDataProviderImpl(getContext());
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = getActivity().getLayoutInflater();
