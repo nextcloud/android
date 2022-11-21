@@ -558,10 +558,18 @@ public class FileDisplayActivity extends FileActivity
 
     private void onOpenFileIntent(Intent intent) {
         String extra = intent.getStringExtra(EXTRA_FILE);
-        OCFile file = getStorageManager().getFileByPath(extra);
-
-        OCFileListFragment fileListFragment = getListOfFilesFragment();
-        fileListFragment.onItemClicked(file);
+        OCFile file = getStorageManager().getFileByDecryptedRemotePath(extra);
+        if (file != null) {
+            OCFileListFragment fileFragment;
+            final Fragment leftFragment = getLeftFragment();
+            if (leftFragment instanceof OCFileListFragment) {
+                fileFragment = (OCFileListFragment) leftFragment;
+            } else {
+                fileFragment = new OCFileListFragment();
+                setLeftFragment(fileFragment);
+            }
+            fileFragment.onItemClicked(file);
+        }
     }
 
     /**
