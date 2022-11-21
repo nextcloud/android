@@ -19,7 +19,7 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.utils
+package com.nextcloud.utils
 
 import com.owncloud.android.datamodel.OCFile
 import android.content.pm.ShortcutManager
@@ -37,6 +37,8 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Icon
 import android.os.Build
+import androidx.annotation.RequiresApi
+import com.owncloud.android.utils.MimeTypeUtil
 import kotlin.math.roundToInt
 
 class ShortcutUtil(val mContext: Context) {
@@ -46,52 +48,51 @@ class ShortcutUtil(val mContext: Context) {
      *
      * @param file The file/folder to which a pinned shortcut should be added to the home screen.
      */
+    @RequiresApi(Build.VERSION_CODES.O)
     fun addShortcutToHomescreen(file: OCFile) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val shortcutManager = mContext.getSystemService(ShortcutManager::class.java)
-            if (shortcutManager.isRequestPinShortcutSupported) {
-                val intent = Intent(mContext, FileDisplayActivity::class.java)
-                intent.action = FileDisplayActivity.OPEN_FILE
-                intent.putExtra(FileActivity.EXTRA_FILE, file.remotePath)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                val shortcutId = "nextcloud_shortcut_" + file.remoteId
-                val icon: Icon
-                var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId
-                )
-                if (thumbnail != null) {
-                    thumbnail = bitmapToAdaptiveBitmap(thumbnail)
-                    icon = Icon.createWithAdaptiveBitmap(thumbnail)
-                } else if (file.isFolder) {
-                    icon = Icon.createWithResource(
-                        mContext,
-                        MimeTypeUtil.getFolderTypeIconId(
-                            file.isSharedWithMe ||
-                                file.isSharedWithSharee, file.isSharedViaLink, file.isEncrypted, file.mountType
-                        )
+        val shortcutManager = mContext.getSystemService(ShortcutManager::class.java)
+        if (shortcutManager.isRequestPinShortcutSupported) {
+            val intent = Intent(mContext, FileDisplayActivity::class.java)
+            intent.action = FileDisplayActivity.OPEN_FILE
+            intent.putExtra(FileActivity.EXTRA_FILE, file.remotePath)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            val shortcutId = "nextcloud_shortcut_" + file.remoteId
+            val icon: Icon
+            var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId
+            )
+            if (thumbnail != null) {
+                thumbnail = bitmapToAdaptiveBitmap(thumbnail)
+                icon = Icon.createWithAdaptiveBitmap(thumbnail)
+            } else if (file.isFolder) {
+                icon = Icon.createWithResource(
+                    mContext,
+                    MimeTypeUtil.getFolderTypeIconId(
+                        file.isSharedWithMe ||
+                            file.isSharedWithSharee, file.isSharedViaLink, file.isEncrypted, file.mountType
                     )
-                } else {
-                    icon = Icon.createWithResource(
-                        mContext,
-                        MimeTypeUtil.getFileTypeIconId(file.mimeType, file.fileName)
-                    )
-                }
-                val pinShortcutInfo = ShortcutInfo.Builder(mContext, shortcutId)
-                    .setShortLabel(file.fileName)
-                    .setLongLabel("Open " + file.fileName)
-                    .setIcon(icon)
-                    .setIntent(intent)
-                    .build()
-                val pinnedShortcutCallbackIntent = shortcutManager.createShortcutResultIntent(pinShortcutInfo)
-                val successCallback = PendingIntent.getBroadcast(
-                    mContext, 0,
-                    pinnedShortcutCallbackIntent, FLAG_IMMUTABLE
                 )
-                shortcutManager.requestPinShortcut(
-                    pinShortcutInfo,
-                    successCallback.intentSender
+            } else {
+                icon = Icon.createWithResource(
+                    mContext,
+                    MimeTypeUtil.getFileTypeIconId(file.mimeType, file.fileName)
                 )
             }
+            val pinShortcutInfo = ShortcutInfo.Builder(mContext, shortcutId)
+                .setShortLabel(file.fileName)
+                .setLongLabel("Open " + file.fileName)
+                .setIcon(icon)
+                .setIntent(intent)
+                .build()
+            val pinnedShortcutCallbackIntent = shortcutManager.createShortcutResultIntent(pinShortcutInfo)
+            val successCallback = PendingIntent.getBroadcast(
+                mContext, 0,
+                pinnedShortcutCallbackIntent, FLAG_IMMUTABLE
+            )
+            shortcutManager.requestPinShortcut(
+                pinShortcutInfo,
+                successCallback.intentSender
+            )
         }
     }
 
