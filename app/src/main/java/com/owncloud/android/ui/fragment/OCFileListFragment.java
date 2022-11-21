@@ -28,6 +28,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -106,7 +107,7 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ShortcutUtil;
+import com.nextcloud.utils.ShortcutUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -131,7 +132,6 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -1149,7 +1149,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             } else if (itemId == R.id.action_unlock_file) {
                 mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, false);
             } else if (itemId == R.id.action_pin_to_homescreen) {
-                new ShortcutUtil(getContext()).addShortcutToHomescreen(singleFile);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    new ShortcutUtil(getContext()).addShortcutToHomescreen(singleFile);
+                }
                 return true;
             }
         }
