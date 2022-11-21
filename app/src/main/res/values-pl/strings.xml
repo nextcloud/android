@@ -261,6 +261,7 @@
     <string name="error_comment_file">Błąd przy komentowaniu pliku</string>
     <string name="error_crash_title">%1$s zatrzymany</string>
     <string name="error_creating_file_from_template">Błąd podczas tworzenia pliku z szablonu</string>
+    <string name="error_file_actions">Błąd podczas wyświetlania aktywności na plikach</string>
     <string name="error_file_lock">Błąd podczas zmiany statusu blokady pliku</string>
     <string name="error_report_issue_action">Raport</string>
     <string name="error_report_issue_text">Chcesz zgłosić problem? (wymaga konta GitHub)</string>
