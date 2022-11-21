@@ -66,6 +66,8 @@ enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRe
     // locks
     UNLOCK_FILE(R.id.action_unlock_file, R.string.unlock_file, R.drawable.ic_lock_open_white),
     LOCK_FILE(R.id.action_lock_file, R.string.lock_file, R.drawable.ic_lock),
+
+    // Shortcuts
     PIN_TO_HOMESCREEN(R.id.action_pin_to_homescreen, R.string.pin_home, R.drawable.add_to_home_screen);
 
     companion object {
