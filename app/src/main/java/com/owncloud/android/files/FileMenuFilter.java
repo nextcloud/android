@@ -26,6 +26,7 @@ package com.owncloud.android.files;
 
 import android.accounts.AccountManager;
 import android.content.Context;
+import android.os.Build;
 import android.view.Menu;
 
 import com.nextcloud.android.files.FileLockingHelper;
@@ -264,7 +265,8 @@ public class FileMenuFilter {
     }
 
     private void filterPinToHome(List<Integer> toHide) {
-        if (!isSingleSelection()) {
+        // Always hide on API's before O, since the shortcut is not available there.
+        if (!isSingleSelection() || Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             toHide.add(R.id.action_pin_to_homescreen);
         }
     }
