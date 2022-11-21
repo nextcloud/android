@@ -21,24 +21,26 @@
 
 package com.nextcloud.utils
 
-import com.owncloud.android.datamodel.OCFile
-import android.content.pm.ShortcutManager
-import android.content.Intent
-import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.activity.FileActivity
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
-import android.content.pm.ShortcutInfo
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.content.Context
+import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.core.graphics.drawable.toBitmap
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlin.math.roundToInt
 
 class ShortcutUtil(val mContext: Context) {
@@ -49,7 +51,7 @@ class ShortcutUtil(val mContext: Context) {
      * @param file The file/folder to which a pinned shortcut should be added to the home screen.
      */
     @RequiresApi(Build.VERSION_CODES.O)
-    fun addShortcutToHomescreen(file: OCFile) {
+    fun addShortcutToHomescreen(file: OCFile, viewThemeUtils: ViewThemeUtils) {
         val shortcutManager = mContext.getSystemService(ShortcutManager::class.java)
         if (shortcutManager.isRequestPinShortcutSupported) {
             val intent = Intent(mContext, FileDisplayActivity::class.java)
@@ -65,13 +67,16 @@ class ShortcutUtil(val mContext: Context) {
                 thumbnail = bitmapToAdaptiveBitmap(thumbnail)
                 icon = Icon.createWithAdaptiveBitmap(thumbnail)
             } else if (file.isFolder) {
-                icon = Icon.createWithResource(
+                val bitmapIcon = MimeTypeUtil.getFolderTypeIcon(
+                    file.isSharedWithMe || file.isSharedWithSharee,
+                    file.isSharedViaLink,
+                    file.isEncrypted,
+                    file.isGroupFolder,
+                    file.mountType,
                     mContext,
-                    MimeTypeUtil.getFolderTypeIconId(
-                        file.isSharedWithMe ||
-                            file.isSharedWithSharee, file.isSharedViaLink, file.isEncrypted, file.mountType
-                    )
-                )
+                    viewThemeUtils
+                ).toBitmap()
+                icon = Icon.createWithBitmap(bitmapIcon)
             } else {
                 icon = Icon.createWithResource(
                     mContext,

@@ -172,28 +172,6 @@ public final class MimeTypeUtil {
                                  viewThemeUtils);
     }
 
-    public static int getFolderTypeIconId(boolean isSharedViaUsers, boolean isSharedViaLink,
-                                          boolean isEncrypted, WebdavEntry.MountType mountType) {
-        int drawableId;
-
-        if (isSharedViaLink) {
-            drawableId = R.drawable.folder_external;
-        } else if (isSharedViaUsers) {
-            drawableId = R.drawable.folder_shared_link;
-        } else if (isEncrypted) {
-            drawableId = R.drawable.folder_encrypted;
-        } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
-            drawableId = R.drawable.folder_external;
-        } else if (WebdavEntry.MountType.GROUP == mountType) {
-            drawableId = R.drawable.folder_group;
-        } else {
-            drawableId = R.drawable.folder;
-        }
-
-        return drawableId;
-    }
-
-
     /**
      * Returns a single MIME type of all the possible, by inspection of the file extension, and taking
      * into account the MIME types known by ownCloud first.
