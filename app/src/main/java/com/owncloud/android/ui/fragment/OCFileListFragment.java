@@ -1150,7 +1150,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, false);
             } else if (itemId == R.id.action_pin_to_homescreen) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    new ShortcutUtil(getContext()).addShortcutToHomescreen(singleFile);
+                    new ShortcutUtil(getContext()).addShortcutToHomescreen(singleFile, viewThemeUtils);
                 }
                 return true;
             }
