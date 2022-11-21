@@ -70,6 +70,7 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.ui.activity.SettingsActivity;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.FileUtil;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -165,8 +166,16 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         Context context = getNonNullContext();
         Document parentFolder = toDocument(parentDocumentId);
-        FileDataStorageManager storageManager = parentFolder.getStorageManager();
         final FileCursor resultCursor = new FileCursor(projection);
+
+        if (parentFolder.getFile().isEncrypted() &&
+            !FileOperationsHelper.isEndToEndEncryptionSetup(context, parentFolder.getUser())) {
+            Toast.makeText(context, R.string.e2e_not_yet_setup, Toast.LENGTH_LONG).show();
+            return resultCursor;
+        }
+
+        FileDataStorageManager storageManager = parentFolder.getStorageManager();
+
 
         for (OCFile file : storageManager.getFolderContent(parentFolder.getFile(), false)) {
             resultCursor.addFile(new Document(storageManager, file));
