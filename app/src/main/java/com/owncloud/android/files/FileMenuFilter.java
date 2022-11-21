@@ -264,7 +264,7 @@ public class FileMenuFilter {
     }
 
     private void filterPinToHome(List<Integer> toHide) {
-        if (files.size() > 1) {
+        if (!isSingleSelection()) {
             toHide.add(R.id.action_pin_to_homescreen);
         }
     }
