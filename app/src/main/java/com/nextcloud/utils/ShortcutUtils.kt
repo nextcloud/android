@@ -35,6 +35,7 @@ import android.graphics.drawable.Icon
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.graphics.drawable.toBitmap
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.ui.activity.FileActivity
@@ -42,6 +43,8 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlin.math.roundToInt
+
+private const val i = 108
 
 class ShortcutUtil(val mContext: Context) {
 
@@ -103,8 +106,11 @@ class ShortcutUtil(val mContext: Context) {
 
     private fun bitmapToAdaptiveBitmap(orig: Bitmap): Bitmap {
         val screenDensity = mContext.resources.displayMetrics.density
-        val adaptiveIconSize = (108 * screenDensity).roundToInt()
-        val adaptiveIconOuterSides = (18 * screenDensity).roundToInt()
+        val adaptiveIconSizeConst = mContext.resources.getInteger(R.integer.adaptive_icon_size)
+        val adaptiveIconPaddingConst = mContext.resources.getInteger(R.integer.adaptive_icon_padding)
+
+        val adaptiveIconSize = (adaptiveIconSizeConst * screenDensity).roundToInt()
+        val adaptiveIconOuterSides = (adaptiveIconPaddingConst * screenDensity).roundToInt()
         val drawable: Drawable = BitmapDrawable(mContext.resources, orig)
         val bitmap = Bitmap.createBitmap(adaptiveIconSize, adaptiveIconSize, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
