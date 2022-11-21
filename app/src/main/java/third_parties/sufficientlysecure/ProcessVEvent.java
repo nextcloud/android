@@ -433,18 +433,24 @@ public class ProcessVEvent {
             //        - Check the calendars max number of alarms
             if (t.getDateTime() != null) {
                 alarmMs = t.getDateTime().getTime(); // Absolute
-            } else if (t.getDuration() != null && t.getDuration().isNegative()) {
+            } else if (t.getDuration() != null && t.getDuration().isNegative()) { //alarm trigger before start of event
                 Related rel = (Related) t.getParameter(Parameter.RELATED);
                 if (rel != null && rel == Related.END) {
                     alarmStartMs = e.getEndDate().getDate().getTime();
                 }
-                alarmMs = alarmStartMs - durationToMs(t.getDuration()); // Relative
+                alarmMs = alarmStartMs - durationToMs(t.getDuration()); // Relative "-"
+            } else if (t.getDuration() != null && !t.getDuration().isNegative()) { //alarm trigger after start of event
+                Related rel = (Related) t.getParameter(Parameter.RELATED);
+                if (rel != null && rel == Related.END) {
+                    alarmStartMs = e.getEndDate().getDate().getTime();
+                }
+                alarmMs = alarmStartMs + durationToMs(t.getDuration()); // Relative "+"
             } else {
                 continue;
             }
 
             int reminder = (int) ((startMs - alarmMs) / DateUtils.MINUTE_IN_MILLIS);
-            if (reminder >= 0 && !reminders.contains(reminder)) {
+            if (!reminders.contains(reminder)) {
                 reminders.add(reminder);
             }
         }
@@ -520,7 +526,7 @@ public class ProcessVEvent {
     }
 
     private Cursor queryEvents(ContentResolver resolver, StringBuilder b, List<String> argsList) {
-        final String where = b.toString();
+        final String where = b.toString() + " AND deleted=0";
         final String[] args = argsList.toArray(new String[argsList.size()]);
         return resolver.query(Events.CONTENT_URI, EVENT_QUERY_COLUMNS, where, args, null);
     }

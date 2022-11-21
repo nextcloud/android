@@ -203,7 +203,7 @@ public class SaveCalendar {
 
             upload(fileName);
         } else {
-            Log_OC.w(TAG, "Calendar has " + selectedCal.mIdStr + "no components");
+            Log_OC.w(TAG, "Calendar '" + selectedCal.mIdStr + "' has no components");
         }
     }
 

@@ -101,7 +101,7 @@ public class AndroidCalendar {
             calendar.mTimezone = getString(cur, Calendars.CALENDAR_TIME_ZONE);
 
             final String[] args = new String[]{calendar.mIdStr};
-            Cursor eventsCur = resolver.query(Events.CONTENT_URI, CAL_ID_COLS, CAL_ID_WHERE, args, null);
+            Cursor eventsCur = resolver.query(Events.CONTENT_URI, CAL_ID_COLS, CAL_ID_WHERE + " AND deleted=0", args, null);
             calendar.mNumEntries = eventsCur.getCount();
             eventsCur.close();
             calendars.add(calendar);
