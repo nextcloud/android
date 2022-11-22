@@ -42,11 +42,12 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 private const val i = 108
 
-class ShortcutUtil(val mContext: Context) {
+class ShortcutUtil @Inject constructor(private val mContext: Context) {
 
     /**
      * Adds a pinned shortcut to the home screen that points to the passed file/folder.
