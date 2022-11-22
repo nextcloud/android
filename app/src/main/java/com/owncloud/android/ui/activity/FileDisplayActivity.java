@@ -1065,6 +1065,7 @@ public class FileDisplayActivity extends FileActivity
                 listOfFiles.registerFabListener();
                 showSortListGroup(true);
                 resetTitleBarAndScrolling();
+                setDrawerAllFiles();
             }
         } else if (leftFragment instanceof PreviewTextStringFragment) {
             createMinFragments(null);
@@ -1152,13 +1153,7 @@ public class FileDisplayActivity extends FileActivity
         menuItemId = getIntent().getIntExtra(FileDisplayActivity.DRAWER_MENU_ID, -1);
 
         if (menuItemId == -1) {
-            if (MainApp.isOnlyOnDevice()) {
-                setDrawerMenuItemChecked(R.id.nav_on_device);
-                setupToolbar();
-            } else {
-                setDrawerMenuItemChecked(R.id.nav_all_files);
-                setupHomeSearchToolbarWithSortAndListButtons();
-            }
+            setDrawerAllFiles();
         } else {
             if (menuItemId == R.id.nav_all_files) {
                 setupHomeSearchToolbarWithSortAndListButtons();
@@ -1173,6 +1168,16 @@ public class FileDisplayActivity extends FileActivity
         }
 
         Log_OC.v(TAG, "onResume() end");
+    }
+
+    private void setDrawerAllFiles() {
+        if (MainApp.isOnlyOnDevice()) {
+            setDrawerMenuItemChecked(R.id.nav_on_device);
+            setupToolbar();
+        } else {
+            setDrawerMenuItemChecked(R.id.nav_all_files);
+            setupHomeSearchToolbarWithSortAndListButtons();
+        }
     }
 
     public void initSyncBroadcastReceiver() {
