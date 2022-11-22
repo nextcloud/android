@@ -1054,6 +1054,5 @@
     <string name="check_back_later_or_reload">Check back later or reload.</string>
     <string name="e2e_not_yet_setup">E2E not yet setup</string>
     <string name="error_file_actions">Error showing file actions</string>
-    <string name="pin_home_text">This will create a shortcut on your Home screen</string>
     <string name="pin_home">Pin to Home screen</string>
 </resources>
