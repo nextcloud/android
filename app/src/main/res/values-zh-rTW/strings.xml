@@ -261,6 +261,7 @@
     <string name="error_comment_file">留言錯誤</string>
     <string name="error_crash_title">%1$s失敗</string>
     <string name="error_creating_file_from_template">從範本建立檔案時發生錯誤</string>
+    <string name="error_file_actions">顯示檔案動作時發生錯誤</string>
     <string name="error_file_lock">變更檔案鎖定狀態時發生錯誤</string>
     <string name="error_report_issue_action">回報</string>
     <string name="error_report_issue_text">要回報議題至追蹤程式？（需要 GitHub 帳號）</string>
