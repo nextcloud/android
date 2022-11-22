@@ -199,6 +199,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject FastScrollUtils fastScrollUtils;
     @Inject EditorUtils editorUtils;
+    @Inject ShortcutUtil shortcutUtil;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -1150,7 +1151,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, false);
             } else if (itemId == R.id.action_pin_to_homescreen) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    new ShortcutUtil(getContext()).addShortcutToHomescreen(singleFile, viewThemeUtils);
+                    shortcutUtil.addShortcutToHomescreen(singleFile, viewThemeUtils);
                 }
                 return true;
             }
