@@ -331,7 +331,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                             final NextcloudClient client = clientFactory.createNextcloudClient(accountManager.getUser());
                             handler.post(() ->{
                                 exoPlayer = NextcloudExoPlayer.createNextcloudExoplayer(requireContext(), client);
-                                exoPlayer.addListener(new ExoplayerListener(requireContext(), exoPlayer));
+                                exoPlayer.addListener(new ExoplayerListener(requireContext(), binding.exoplayerView, exoPlayer));
                                 playVideo();
                             });
                         } catch (ClientFactory.CreationException e) {

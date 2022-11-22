@@ -177,7 +177,7 @@ class PreviewVideoActivity :
                         val client = clientFactory.createNextcloudClient(accountManager.user)
                         CoroutineScope(Dispatchers.Main).launch {
                             exoPlayer = createNextcloudExoplayer(context, client).also {
-                                it.addListener(ExoplayerListener(context, it))
+                                it.addListener(ExoplayerListener(context, binding.videoPlayer, it))
                             }
                             setupPlayerView()
                             play(mediaItem)

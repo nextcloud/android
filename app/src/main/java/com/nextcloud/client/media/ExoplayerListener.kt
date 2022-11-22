@@ -24,6 +24,7 @@ package com.nextcloud.client.media
 
 import android.content.Context
 import android.content.DialogInterface
+import android.view.View
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.PlaybackException
 import com.google.android.exoplayer2.Player
@@ -31,12 +32,20 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 
-class ExoplayerListener(private val context: Context, private val exoPlayer: ExoPlayer) : Player.Listener {
+class ExoplayerListener(private val context: Context, private val playerView: View, private val exoPlayer: ExoPlayer) :
+    Player.Listener {
+
     override fun onPlaybackStateChanged(playbackState: Int) {
         super.onPlaybackStateChanged(playbackState)
         if (playbackState == Player.STATE_ENDED) {
             onCompletion()
         }
+    }
+
+    override fun onIsPlayingChanged(isPlaying: Boolean) {
+        super.onIsPlayingChanged(isPlaying)
+        Log_OC.d(TAG, "Exoplayer keep screen on: $isPlaying")
+        playerView.keepScreenOn = isPlaying
     }
 
     private fun onCompletion() {
@@ -48,7 +57,7 @@ class ExoplayerListener(private val context: Context, private val exoPlayer: Exo
 
     override fun onPlayerError(error: PlaybackException) {
         super.onPlayerError(error)
-        Log_OC.e(ExoplayerListener, "Exoplayer error", error)
+        Log_OC.e(TAG, "Exoplayer error", error)
         val message = ErrorFormat.toString(context, error)
         MaterialAlertDialogBuilder(context)
             .setMessage(message)
