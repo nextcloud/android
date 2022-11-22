@@ -41,7 +41,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
-import kotlin.math.roundToInt
 
 class ShortcutUtil @Inject constructor(private val mContext: Context) {
 
@@ -104,12 +103,8 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
     }
 
     private fun bitmapToAdaptiveBitmap(orig: Bitmap): Bitmap {
-        val screenDensity = mContext.resources.displayMetrics.density
-        val adaptiveIconSizeConst = mContext.resources.getInteger(R.integer.adaptive_icon_size)
-        val adaptiveIconPaddingConst = mContext.resources.getInteger(R.integer.adaptive_icon_padding)
-
-        val adaptiveIconSize = (adaptiveIconSizeConst * screenDensity).roundToInt()
-        val adaptiveIconOuterSides = (adaptiveIconPaddingConst * screenDensity).roundToInt()
+        val adaptiveIconSize = mContext.resources.getDimensionPixelSize(R.dimen.adaptive_icon_size)
+        val adaptiveIconOuterSides = mContext.resources.getDimensionPixelSize(R.dimen.adaptive_icon_padding)
         val drawable: Drawable = BitmapDrawable(mContext.resources, orig)
         val bitmap = Bitmap.createBitmap(adaptiveIconSize, adaptiveIconSize, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)

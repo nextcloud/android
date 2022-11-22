@@ -149,6 +149,6 @@
     <integer name="small_margin">5</integer>
     <integer name="zero">0</integer>
     <!--Adaptive Icon size specified here:  https://developer.android.com/develop/ui/views/launch/icon_design_adaptive -->
-    <integer name="adaptive_icon_size">108</integer>
-    <integer name="adaptive_icon_padding">18</integer>
+    <dimen name="adaptive_icon_size">108dp</dimen>
+    <dimen name="adaptive_icon_padding">18dp</dimen>
 </resources>
