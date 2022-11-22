@@ -45,8 +45,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
-private const val i = 108
-
 class ShortcutUtil @Inject constructor(private val mContext: Context) {
 
     /**
@@ -95,8 +93,10 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
                 .build()
             val pinnedShortcutCallbackIntent = shortcutManager.createShortcutResultIntent(pinShortcutInfo)
             val successCallback = PendingIntent.getBroadcast(
-                mContext, 0,
-                pinnedShortcutCallbackIntent, FLAG_IMMUTABLE
+                mContext,
+                0,
+                pinnedShortcutCallbackIntent,
+                FLAG_IMMUTABLE
             )
             shortcutManager.requestPinShortcut(
                 pinShortcutInfo,
@@ -116,7 +116,9 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
         val bitmap = Bitmap.createBitmap(adaptiveIconSize, adaptiveIconSize, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         drawable.setBounds(
-            adaptiveIconOuterSides, adaptiveIconOuterSides, adaptiveIconSize - adaptiveIconOuterSides,
+            adaptiveIconOuterSides,
+            adaptiveIconOuterSides,
+            adaptiveIconSize - adaptiveIconOuterSides,
             adaptiveIconSize - adaptiveIconOuterSides
         )
         drawable.draw(canvas)
