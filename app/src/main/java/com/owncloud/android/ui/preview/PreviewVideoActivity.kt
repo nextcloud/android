@@ -19,21 +19,16 @@
  */
 package com.owncloud.android.ui.preview
 
-import android.content.DialogInterface
 import android.content.Intent
-import android.media.MediaPlayer
-import android.media.MediaPlayer.OnCompletionListener
-import android.media.MediaPlayer.OnPreparedListener
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.media.ErrorFormat.toString
+import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
@@ -50,14 +45,10 @@ import javax.inject.Inject
 /**
  * Activity implementing a basic video player.
  *
- * THIS CLASS NEEDS WORK; the old listeners (OnCompletion, OnPrepared; OnError) don't work with ExoPlayer
  */
 @Suppress("TooManyFunctions")
 class PreviewVideoActivity :
     FileActivity(),
-    OnCompletionListener,
-    OnPreparedListener,
-    MediaPlayer.OnErrorListener,
     Player.Listener,
     Injectable {
 
@@ -153,52 +144,6 @@ class PreviewVideoActivity :
     private fun isPlaying() = exoPlayer?.isPlaying ?: false
     private fun currentPosition() = exoPlayer?.currentPosition ?: 0
 
-    /**
-     * Called when the file is ready to be played.
-     *
-     * Just starts the playback.
-     *
-     * @param mp    [MediaPlayer] instance performing the playback.
-     */
-    override fun onPrepared(mp: MediaPlayer) {
-        Log_OC.v(TAG, "onPrepare")
-        exoPlayer?.seekTo(mSavedPlaybackPosition)
-        if (mAutoplay) {
-            exoPlayer?.play()
-        }
-    }
-
-    /**
-     * Called when the file is finished playing.
-     *
-     * Rewinds the video
-     *
-     * @param mp    [MediaPlayer] instance performing the playback.
-     */
-    override fun onCompletion(mp: MediaPlayer?) {
-        exoPlayer?.seekTo(0)
-    }
-
-    /**
-     * Called when an error in playback occurs.
-     *
-     * @param mp      [MediaPlayer] instance performing the playback.
-     * @param what    Type of error
-     * @param extra   Extra code specific to the error
-     */
-    override fun onError(mp: MediaPlayer, what: Int, extra: Int): Boolean {
-        Log_OC.e(TAG, "Error in video playback, what = $what, extra = $extra")
-        val message = toString(this, what, extra)
-        AlertDialog.Builder(this)
-            .setMessage(message)
-            .setPositiveButton(android.R.string.VideoView_error_button) { _: DialogInterface?, _: Int ->
-                onCompletion(null)
-            }
-            .setCancelable(false)
-            .show()
-        return true
-    }
-
     private fun play(item: MediaItem) {
         exoPlayer?.addMediaItem(item)
         exoPlayer?.prepare()
@@ -231,7 +176,9 @@ class PreviewVideoActivity :
                     CoroutineScope(Dispatchers.IO).launch {
                         val client = clientFactory.createNextcloudClient(accountManager.user)
                         CoroutineScope(Dispatchers.Main).launch {
-                            exoPlayer = createNextcloudExoplayer(context, client)
+                            exoPlayer = createNextcloudExoplayer(context, client).also {
+                                it.addListener(ExoplayerListener(context, it))
+                            }
                             setupPlayerView()
                             play(mediaItem)
                         }

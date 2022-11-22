@@ -25,6 +25,7 @@ package com.nextcloud.client.media
 
 import android.content.Context
 import android.media.MediaPlayer
+import com.google.android.exoplayer2.PlaybackException
 import com.owncloud.android.R
 
 /**
@@ -90,5 +91,35 @@ object ErrorFormat {
             messageId = R.string.media_err_unknown
         }
         return context?.getString(messageId) ?: "Media error"
+    }
+
+    fun toString(context: Context, exception: PlaybackException): String {
+        val messageId = when (exception.errorCode) {
+            PlaybackException.ERROR_CODE_DECODING_FORMAT_UNSUPPORTED,
+            PlaybackException.ERROR_CODE_DECODING_FORMAT_EXCEEDS_CAPABILITIES -> {
+                R.string.media_err_unsupported
+            }
+            PlaybackException.ERROR_CODE_IO_UNSPECIFIED,
+            PlaybackException.ERROR_CODE_IO_NETWORK_CONNECTION_FAILED,
+            PlaybackException.ERROR_CODE_IO_INVALID_HTTP_CONTENT_TYPE,
+            PlaybackException.ERROR_CODE_IO_BAD_HTTP_STATUS,
+            PlaybackException.ERROR_CODE_IO_FILE_NOT_FOUND,
+            PlaybackException.ERROR_CODE_IO_NO_PERMISSION,
+            PlaybackException.ERROR_CODE_IO_CLEARTEXT_NOT_PERMITTED,
+            PlaybackException.ERROR_CODE_IO_READ_POSITION_OUT_OF_RANGE -> {
+                R.string.media_err_io
+            }
+            PlaybackException.ERROR_CODE_TIMEOUT -> {
+                R.string.media_err_timeout
+            }
+            PlaybackException.ERROR_CODE_PARSING_CONTAINER_MALFORMED,
+            PlaybackException.ERROR_CODE_PARSING_MANIFEST_MALFORMED -> {
+                R.string.media_err_malformed
+            }
+            else -> {
+                R.string.media_err_invalid_progressive_playback
+            }
+        }
+        return context.getString(messageId)
     }
 }
