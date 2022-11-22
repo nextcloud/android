@@ -28,7 +28,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -59,6 +58,7 @@ import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.ShortcutUtil;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -107,7 +107,6 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.nextcloud.utils.ShortcutUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -1150,9 +1149,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             } else if (itemId == R.id.action_unlock_file) {
                 mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, false);
             } else if (itemId == R.id.action_pin_to_homescreen) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    shortcutUtil.addShortcutToHomescreen(singleFile, viewThemeUtils);
-                }
+                shortcutUtil.addShortcutToHomescreen(singleFile, viewThemeUtils);
                 return true;
             }
         }
