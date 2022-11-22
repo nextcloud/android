@@ -949,12 +949,10 @@ public class SettingsActivity extends PreferenceActivity
         } else if (requestCode == ACTION_SHOW_MNEMONIC && resultCode == RESULT_OK) {
             handleMnemonicRequest(data);
         } else if (requestCode == ACTION_E2E && data != null && data.getBooleanExtra(SetupEncryptionDialogFragment.SUCCESS, false)) {
-            PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
-
-            setupE2EPreference(preferenceCategoryMore);
-            setupE2EKeysExist(preferenceCategoryMore);
-            setupE2EMnemonicPreference(preferenceCategoryMore);
-            removeE2E(preferenceCategoryMore);
+            Intent i = new Intent(this, SettingsActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(i);
         }
     }
 
