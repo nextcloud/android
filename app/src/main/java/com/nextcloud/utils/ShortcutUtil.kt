@@ -80,9 +80,10 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
                     MimeTypeUtil.getFileTypeIconId(file.mimeType, file.fileName)
                 )
             }
+            val longLabel = mContext.getString(R.string.pin_shortcut_label, file.fileName)
             val pinShortcutInfo = ShortcutInfoCompat.Builder(mContext, shortcutId)
                 .setShortLabel(file.fileName)
-                .setLongLabel("Open " + file.fileName)
+                .setLongLabel(longLabel)
                 .setIcon(icon)
                 .setIntent(intent)
                 .build()

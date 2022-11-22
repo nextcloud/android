@@ -1055,4 +1055,5 @@
     <string name="e2e_not_yet_setup">E2E not yet setup</string>
     <string name="error_file_actions">Error showing file actions</string>
     <string name="pin_home">Pin to Home screen</string>
+    <string name="pin_shortcut_label">Open %1$s</string>
 </resources>
