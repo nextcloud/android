@@ -51,6 +51,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.IdRes;
+import androidx.core.content.pm.ShortcutManagerCompat;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile}
@@ -177,6 +178,7 @@ public class FileMenuFilter {
         filterStream(toHide);
         filterLock(toHide, fileLockingEnabled);
         filterUnlock(toHide, fileLockingEnabled);
+        filterPinToHome(toHide);
 
         return toHide;
     }
@@ -259,6 +261,12 @@ public class FileMenuFilter {
     private void filterSetPictureAs(List<Integer> toHide) {
         if (!isSingleImage() || MimeTypeUtil.isSVG(files.iterator().next())) {
             toHide.add(R.id.action_set_as_wallpaper);
+        }
+    }
+
+    private void filterPinToHome(List<Integer> toHide) {
+        if (!isSingleSelection() || !ShortcutManagerCompat.isRequestPinShortcutSupported(context)) {
+            toHide.add(R.id.action_pin_to_homescreen);
         }
     }
 
