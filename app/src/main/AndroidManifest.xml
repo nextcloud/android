@@ -85,6 +85,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ownCloud.Toolbar"
         android:usesCleartextTraffic="true"
+        android:localeConfig="@xml/locale_config"
         tools:replace="android:allowBackup"
         tools:ignore="UnusedAttribute">
 
