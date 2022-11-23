@@ -261,6 +261,7 @@
     <string name="error_comment_file">Σφάλμα σχολιασμού αρχείου</string>
     <string name="error_crash_title">%1$sκαταστράφηκε</string>
     <string name="error_creating_file_from_template">Σφάλμα δημιουργίας αρχείου από πρότυπο</string>
+    <string name="error_file_actions">Σφάλμα κατά την εμφάνιση των ενεργειών του αρχείου</string>
     <string name="error_file_lock">Σφάλμα αλλαγής κατάστασης κλειδώματος αρχείου</string>
     <string name="error_report_issue_action">Αναφορά</string>
     <string name="error_report_issue_text">Αναφορά προβλήματος στο tracker; (απαιτείται λογαριασμός GitHub)</string>
