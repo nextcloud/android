@@ -58,6 +58,7 @@ import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.ShortcutUtil;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -130,7 +131,6 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -198,6 +198,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject FastScrollUtils fastScrollUtils;
     @Inject EditorUtils editorUtils;
+    @Inject ShortcutUtil shortcutUtil;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -1147,6 +1148,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, true);
             } else if (itemId == R.id.action_unlock_file) {
                 mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, false);
+            } else if (itemId == R.id.action_pin_to_homescreen) {
+                shortcutUtil.addShortcutToHomescreen(singleFile, viewThemeUtils);
+                return true;
             }
         }
 

@@ -166,6 +166,8 @@ public class FileDisplayActivity extends FileActivity
     public static final String ALL_FILES = "ALL_FILES";
     public static final String PHOTO_SEARCH = "PHOTO_SEARCH";
     public static final int SINGLE_USER_SIZE = 1;
+    public static final String OPEN_FILE = "NC_OPEN_FILE";
+
 
     private FilesBinding binding;
 
@@ -360,6 +362,11 @@ public class FileDisplayActivity extends FileActivity
             syncAndUpdateFolder(true);
         }
 
+        if (OPEN_FILE.equals(getIntent().getAction())) {
+            getSupportFragmentManager().executePendingTransactions();
+            onOpenFileIntent(getIntent());
+        }
+
         upgradeNotificationForInstantUpload();
         checkOutdatedServer();
     }
@@ -505,6 +512,8 @@ public class FileDisplayActivity extends FileActivity
             showDetails(file);
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             handleOpenFileViaIntent(intent);
+        } else if (OPEN_FILE.equals(intent.getAction())) {
+            onOpenFileIntent(intent);
         } else if (RESTART.equals(intent.getAction())) {
             finish();
             startActivity(intent);
@@ -546,6 +555,22 @@ public class FileDisplayActivity extends FileActivity
                 getSupportFragmentManager().executePendingTransactions();
                 browseToRoot();
             }
+    }
+
+    private void onOpenFileIntent(Intent intent) {
+        String extra = intent.getStringExtra(EXTRA_FILE);
+        OCFile file = getStorageManager().getFileByDecryptedRemotePath(extra);
+        if (file != null) {
+            OCFileListFragment fileFragment;
+            final Fragment leftFragment = getLeftFragment();
+            if (leftFragment instanceof OCFileListFragment) {
+                fileFragment = (OCFileListFragment) leftFragment;
+            } else {
+                fileFragment = new OCFileListFragment();
+                setLeftFragment(fileFragment);
+            }
+            fileFragment.onItemClicked(file);
+        }
     }
 
     /**
