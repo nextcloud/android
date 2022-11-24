@@ -83,8 +83,8 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:paddingHorizontal="4dp"
             android:includeFontPadding="false"
             android:textColor="#FFBEBEBE" />
 
@@ -100,8 +100,8 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:paddingHorizontal="4dp"
             android:includeFontPadding="false"
             android:textColor="#FFBEBEBE" />
 

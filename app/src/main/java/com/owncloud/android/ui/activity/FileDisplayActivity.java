@@ -118,7 +118,6 @@ import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
-import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
@@ -2191,8 +2190,8 @@ public class FileDisplayActivity extends FileActivity
         } else {
             Intent previewIntent = new Intent();
             previewIntent.putExtra(EXTRA_FILE, file);
-            previewIntent.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, startPlaybackPosition);
-            previewIntent.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, autoplay);
+            previewIntent.putExtra(PreviewMediaFragment.EXTRA_START_POSITION, startPlaybackPosition);
+            previewIntent.putExtra(PreviewMediaFragment.EXTRA_AUTOPLAY, autoplay);
             FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this,
                                                                                  getUserAccountManager(),
                                                                                  connectivityService, editorUtils);
@@ -2373,10 +2372,10 @@ public class FileDisplayActivity extends FileActivity
         Bundle bundle = event.getIntent().getExtras();
         if (event.getIntent().getBooleanExtra(TEXT_PREVIEW, false)) {
             startTextPreview((OCFile) bundle.get(EXTRA_FILE), true);
-        } else if (bundle.containsKey(PreviewVideoActivity.EXTRA_START_POSITION)) {
+        } else if (bundle.containsKey(PreviewMediaFragment.EXTRA_START_POSITION)) {
             startMediaPreview((OCFile) bundle.get(EXTRA_FILE),
-                              (long) bundle.get(PreviewVideoActivity.EXTRA_START_POSITION),
-                              (boolean) bundle.get(PreviewVideoActivity.EXTRA_AUTOPLAY), true, true);
+                              (long) bundle.get(PreviewMediaFragment.EXTRA_START_POSITION),
+                              (boolean) bundle.get(PreviewMediaFragment.EXTRA_AUTOPLAY), true, true);
         } else if (bundle.containsKey(PreviewImageActivity.EXTRA_VIRTUAL_TYPE)) {
             startImagePreview((OCFile) bundle.get(EXTRA_FILE),
                               (VirtualFolderType) bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE),

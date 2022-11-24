@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        app:show_buffering="when_playing"
+        app:show_buffering="always"
         app:show_next_button="false" />
 
     <com.owncloud.android.media.MediaControlView
