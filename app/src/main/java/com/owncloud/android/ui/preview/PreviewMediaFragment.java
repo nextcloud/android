@@ -86,6 +86,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 /**
@@ -605,7 +606,10 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     }
 
     private void startFullScreenVideo() {
-        new PreviewVideoFullscreenDialog(getActivity(), exoPlayer, binding.exoplayerView).show();
+        final FragmentActivity activity = getActivity();
+        if (activity != null) {
+            new PreviewVideoFullscreenDialog(activity, exoPlayer, binding.exoplayerView).show();
+        }
     }
 
     @Override
