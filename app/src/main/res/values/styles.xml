@@ -288,11 +288,6 @@
         <item name="android:textColorHint">@color/secondary_text_color</item>
     </style>
 
-    <style name="Theme.ownCloud.Fullscreen" parent="@style/Theme.Material3.DayNight">
-        <item name="android:windowFullscreen">true</item>
-        <item name="colorAccent">@color/color_accent</item>
-    </style>
-
     <style name="Theme.ownCloud.Widget.ActionBar" parent="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge">
         <item name="android:background">@color/primary</item>
         <item name="background">@color/primary</item>
