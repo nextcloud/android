@@ -340,6 +340,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                 int totalItemCount = gridLayoutManager.getItemCount();
                 int lastVisibleItem = gridLayoutManager.findLastCompletelyVisibleItemPosition();
 
+                if (lastVisibleItem == RecyclerView.NO_POSITION) {
+                    return;
+                }
+
                 if ((totalItemCount - visibleItemCount) <= (lastVisibleItem + MAX_ITEMS_PER_ROW)
                     && (totalItemCount - visibleItemCount) > 0) {
                     // Almost reached the end, continue to load new photos
