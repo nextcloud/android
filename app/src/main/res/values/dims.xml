@@ -148,4 +148,7 @@
     <dimen name="dialog_padding">24dp</dimen>
     <integer name="small_margin">5</integer>
     <integer name="zero">0</integer>
+    <!--Adaptive Icon size specified here:  https://developer.android.com/develop/ui/views/launch/icon_design_adaptive -->
+    <dimen name="adaptive_icon_size">108dp</dimen>
+    <dimen name="adaptive_icon_padding">18dp</dimen>
 </resources>

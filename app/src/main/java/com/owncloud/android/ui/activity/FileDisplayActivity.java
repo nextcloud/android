@@ -98,6 +98,7 @@ import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment;
+import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
@@ -165,6 +166,8 @@ public class FileDisplayActivity extends FileActivity
     public static final String ALL_FILES = "ALL_FILES";
     public static final String PHOTO_SEARCH = "PHOTO_SEARCH";
     public static final int SINGLE_USER_SIZE = 1;
+    public static final String OPEN_FILE = "NC_OPEN_FILE";
+
 
     private FilesBinding binding;
 
@@ -359,6 +362,11 @@ public class FileDisplayActivity extends FileActivity
             syncAndUpdateFolder(true);
         }
 
+        if (OPEN_FILE.equals(getIntent().getAction())) {
+            getSupportFragmentManager().executePendingTransactions();
+            onOpenFileIntent(getIntent());
+        }
+
         upgradeNotificationForInstantUpload();
         checkOutdatedServer();
     }
@@ -504,6 +512,8 @@ public class FileDisplayActivity extends FileActivity
             showDetails(file);
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             handleOpenFileViaIntent(intent);
+        } else if (OPEN_FILE.equals(intent.getAction())) {
+            onOpenFileIntent(intent);
         } else if (RESTART.equals(intent.getAction())) {
             finish();
             startActivity(intent);
@@ -545,6 +555,22 @@ public class FileDisplayActivity extends FileActivity
                 getSupportFragmentManager().executePendingTransactions();
                 browseToRoot();
             }
+    }
+
+    private void onOpenFileIntent(Intent intent) {
+        String extra = intent.getStringExtra(EXTRA_FILE);
+        OCFile file = getStorageManager().getFileByDecryptedRemotePath(extra);
+        if (file != null) {
+            OCFileListFragment fileFragment;
+            final Fragment leftFragment = getLeftFragment();
+            if (leftFragment instanceof OCFileListFragment) {
+                fileFragment = (OCFileListFragment) leftFragment;
+            } else {
+                fileFragment = new OCFileListFragment();
+                setLeftFragment(fileFragment);
+            }
+            fileFragment.onItemClicked(file);
+        }
     }
 
     /**
@@ -1065,6 +1091,8 @@ public class FileDisplayActivity extends FileActivity
                 listOfFiles.registerFabListener();
                 showSortListGroup(true);
                 resetTitleBarAndScrolling();
+                setDrawerAllFiles();
+                EventBus.getDefault().post(new ChangeMenuEvent()); // for OCFileListFragment to update sort menu
             }
         } else if (leftFragment instanceof PreviewTextStringFragment) {
             createMinFragments(null);
@@ -1152,13 +1180,7 @@ public class FileDisplayActivity extends FileActivity
         menuItemId = getIntent().getIntExtra(FileDisplayActivity.DRAWER_MENU_ID, -1);
 
         if (menuItemId == -1) {
-            if (MainApp.isOnlyOnDevice()) {
-                setDrawerMenuItemChecked(R.id.nav_on_device);
-                setupToolbar();
-            } else {
-                setDrawerMenuItemChecked(R.id.nav_all_files);
-                setupHomeSearchToolbarWithSortAndListButtons();
-            }
+            setDrawerAllFiles();
         } else {
             if (menuItemId == R.id.nav_all_files) {
                 setupHomeSearchToolbarWithSortAndListButtons();
@@ -1173,6 +1195,16 @@ public class FileDisplayActivity extends FileActivity
         }
 
         Log_OC.v(TAG, "onResume() end");
+    }
+
+    private void setDrawerAllFiles() {
+        if (MainApp.isOnlyOnDevice()) {
+            setDrawerMenuItemChecked(R.id.nav_on_device);
+            setupToolbar();
+        } else {
+            setDrawerMenuItemChecked(R.id.nav_all_files);
+            setupHomeSearchToolbarWithSortAndListButtons();
+        }
     }
 
     public void initSyncBroadcastReceiver() {

@@ -53,18 +53,21 @@ class CalendarBackupWork(
         val accountName = inputData.getString(ACCOUNT) ?: ""
         val optionalUser = accountManager.getUser(accountName)
         if (!optionalUser.isPresent || TextUtils.isEmpty(accountName)) { // no account provided
+            Log_OC.d(TAG, "User not present")
             return Result.failure()
         }
         val lastExecution = preferences.calendarLastBackup
 
         val force = inputData.getBoolean(FORCE, false)
         if (force || lastExecution + JOB_INTERVAL_MS < Calendar.getInstance().timeInMillis) {
-            AndroidCalendar.loadAll(contentResolver).forEach { calendar ->
+            val calendars = AndroidCalendar.loadAll(contentResolver)
+            Log_OC.d(TAG, "Saving ${calendars.size} calendars")
+            calendars.forEach { calendar ->
                 SaveCalendar(
                     applicationContext,
                     calendar,
                     preferences,
-                    accountManager.user
+                    optionalUser.get()
                 ).start()
             }
 
