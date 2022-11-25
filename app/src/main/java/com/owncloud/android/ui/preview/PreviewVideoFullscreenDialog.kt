@@ -61,18 +61,23 @@ class PreviewVideoFullscreenDialog(
     }
 
     override fun show() {
-        goFullScreen()
-        super.show()
-        binding.videoPlayer.showController()
-    }
-
-    private fun goFullScreen() {
-        setListeners(exoPlayer)
-        StyledPlayerView.switchTargetView(exoPlayer, sourceView, binding.videoPlayer)
+        val isPlaying = exoPlayer.isPlaying
+        if (isPlaying) {
+            exoPlayer.pause()
+        }
         enableImmersiveMode()
+        setOnShowListener {
+            StyledPlayerView.switchTargetView(exoPlayer, sourceView, binding.videoPlayer)
+            setListeners()
+            if (isPlaying) {
+                exoPlayer.play()
+            }
+            binding.videoPlayer.showController()
+        }
+        super.show()
     }
 
-    private fun setListeners(exoPlayer: ExoPlayer) {
+    private fun setListeners() {
         binding.root.findViewById<View>(R.id.exo_exit_fs).setOnClickListener { onBackPressed() }
         val pauseButton: View = binding.root.findViewById(R.id.exo_pause)
         pauseButton.setOnClickListener { exoPlayer.pause() }
@@ -96,13 +101,22 @@ class PreviewVideoFullscreenDialog(
     }
 
     override fun onBackPressed() {
-        playingStateListener?.let {
-            exoPlayer.removeListener(it)
+        val isPlaying = exoPlayer.isPlaying
+        if (isPlaying) {
+            exoPlayer.pause()
         }
-        StyledPlayerView.switchTargetView(exoPlayer, binding.videoPlayer, sourceView)
         disableImmersiveMode()
-        super.onBackPressed()
-        sourceView.showController()
+        setOnDismissListener {
+            playingStateListener?.let {
+                exoPlayer.removeListener(it)
+            }
+            StyledPlayerView.switchTargetView(exoPlayer, binding.videoPlayer, sourceView)
+            if (isPlaying) {
+                exoPlayer.play()
+            }
+            sourceView.showController()
+        }
+        dismiss()
     }
 
     private fun enableImmersiveMode() {
