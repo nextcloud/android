@@ -516,6 +516,8 @@
     <string name="permission_deny">拒絕</string>
     <string name="permission_storage_access">上傳與下載檔案需要額外的權限。</string>
     <string name="picture_set_as_no_app">沒有找到編輯圖片的應用程式</string>
+    <string name="pin_home">釘選至主畫面</string>
+    <string name="pin_shortcut_label">公開 %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12：23：45</string>
