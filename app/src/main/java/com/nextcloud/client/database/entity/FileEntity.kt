@@ -43,9 +43,9 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_PARENT)
     val parent: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_CREATION)
-    val creation: Int?,
+    val creation: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_MODIFIED)
-    val modified: Int?,
+    val modified: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_CONTENT_TYPE)
     val contentType: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_CONTENT_LENGTH)
@@ -55,11 +55,11 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_ACCOUNT_OWNER)
     val accountOwner: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LAST_SYNC_DATE)
-    val lastSyncDate: Int?,
+    val lastSyncDate: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA)
-    val lastSyncDateForData: Int?,
+    val lastSyncDateForData: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA)
-    val modifiedAtLastSyncForData: Int?,
+    val modifiedAtLastSyncForData: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_ETAG)
     val etag: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_ETAG_ON_SERVER)
@@ -111,7 +111,7 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_OWNER_EDITOR)
     val lockOwnerEditor: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TIMESTAMP)
-    val lockTimestamp: Int?,
+    val lockTimestamp: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TIMEOUT)
     val lockTimeout: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TOKEN)
