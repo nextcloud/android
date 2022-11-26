@@ -25,9 +25,10 @@ package com.nextcloud.client.database.dao
 import androidx.room.Dao
 import androidx.room.Query
 import com.nextcloud.client.database.entity.FileEntity
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
 @Dao
 interface FileDao {
-    @Query("SELECT * FROM filelist WHERE parent = :parentId")
+    @Query("SELECT * FROM filelist WHERE parent = :parentId ORDER BY " + ProviderTableMeta.FILE_DEFAULT_SORT_ORDER)
     fun getFolderContent(parentId: Long): List<FileEntity>
 }
