@@ -104,6 +104,7 @@
     <string name="common_cancel_sync">Prekliči usklajevanje</string>
     <string name="common_choose_account">Izbor računa</string>
     <string name="common_confirm">Potrdi</string>
+    <string name="common_copy">Kopiraj</string>
     <string name="common_delete">Izbriši</string>
     <string name="common_error">Napaka</string>
     <string name="common_error_out_memory">Ni dovolj pomnilnika</string>

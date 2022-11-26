@@ -105,6 +105,7 @@
     <string name="common_cancel_sync">Cancel·la la sincronització</string>
     <string name="common_choose_account">Escull un compte</string>
     <string name="common_confirm">Confirmar</string>
+    <string name="common_copy">Copia</string>
     <string name="common_delete">Suprimeix</string>
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">Memòria insuficient</string>

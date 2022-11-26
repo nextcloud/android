@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Eşitlemeyi iptal et</string>
     <string name="common_choose_account">Hesap seçin</string>
     <string name="common_confirm">Onayla</string>
+    <string name="common_copy">Kopyala</string>
     <string name="common_delete">Sil</string>
     <string name="common_error">Hata</string>
     <string name="common_error_out_memory">Bellek yetersiz</string>

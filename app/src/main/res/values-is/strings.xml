@@ -100,6 +100,7 @@
     <string name="common_cancel_sync">Hætta við samstillingu</string>
     <string name="common_choose_account">Veldu aðgang</string>
     <string name="common_confirm">Staðfesta</string>
+    <string name="common_copy">Afrita</string>
     <string name="common_delete">Eyða</string>
     <string name="common_error">Villa</string>
     <string name="common_error_out_memory">Ekki nægilegt minni</string>

@@ -105,6 +105,7 @@
     <string name="common_cancel_sync">Annullér sync</string>
     <string name="common_choose_account">Vælg konto</string>
     <string name="common_confirm">Bekræft</string>
+    <string name="common_copy">Kopiér</string>
     <string name="common_delete">Slet</string>
     <string name="common_error">Fejl</string>
     <string name="common_error_out_memory">Ikke tilstrækkelig hukommelse</string>

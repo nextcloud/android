@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Annuler la synchronisation</string>
     <string name="common_choose_account">Sélectionnez un compte</string>
     <string name="common_confirm">Confirmer</string>
+    <string name="common_copy">Copier</string>
     <string name="common_delete">Supprimer</string>
     <string name="common_error">Erreur</string>
     <string name="common_error_out_memory">Mémoire insuffisante</string>
@@ -517,6 +518,7 @@ Attention la suppression est irréversible.</string>
     <string name="permission_deny">Refuser</string>
     <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour envoyer et télécharger des fichiers.</string>
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image</string>
+    <string name="pin_shortcut_label">Ouvrir %1$s</string>
     <string name="placeholder_fileSize">389 Ko</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>

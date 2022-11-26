@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Отменить синхронизацию</string>
     <string name="common_choose_account">Выберите аккаунт</string>
     <string name="common_confirm">Подтвердить</string>
+    <string name="common_copy">Копировать</string>
     <string name="common_delete">Удалить</string>
     <string name="common_error">Ошибка</string>
     <string name="common_error_out_memory">Недостаточно памяти</string>

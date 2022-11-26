@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Anuleaza sincronizarea</string>
     <string name="common_choose_account">Alege cont</string>
     <string name="common_confirm">Confirmă</string>
+    <string name="common_copy">Copiază</string>
     <string name="common_delete">Șterge</string>
     <string name="common_error">Eroare</string>
     <string name="common_error_out_memory">Memorie insuficientă </string>

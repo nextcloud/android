@@ -97,6 +97,7 @@
     <string name="common_cancel_sync">ຍົກເລີກ</string>
     <string name="common_choose_account">ເລືອກບັນຊີ</string>
     <string name="common_confirm">ຢືນຢັນ</string>
+    <string name="common_copy">ສຳເນົາ</string>
     <string name="common_delete">ລຶບ</string>
     <string name="common_error">ຜິດພາດ</string>
     <string name="common_error_out_memory">ຄວາມຈຳບໍ່ພໍ</string>

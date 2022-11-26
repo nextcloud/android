@@ -105,6 +105,7 @@
     <string name="common_cancel_sync">Avbryt synkronisering</string>
     <string name="common_choose_account">Välj konto</string>
     <string name="common_confirm">Bekräfta</string>
+    <string name="common_copy">Kopiera</string>
     <string name="common_delete">Ta bort</string>
     <string name="common_error">Fel</string>
     <string name="common_error_out_memory">Inte tillräckligt med minne</string>

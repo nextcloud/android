@@ -106,6 +106,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="common_cancel_sync">Batalkan sinkron</string>
     <string name="common_choose_account">Pilih akun</string>
     <string name="common_confirm">Konfirmasi</string>
+    <string name="common_copy">Salin</string>
     <string name="common_delete">Hapus</string>
     <string name="common_error">Kesalahan</string>
     <string name="common_error_out_memory">Memori tidak cukup</string>

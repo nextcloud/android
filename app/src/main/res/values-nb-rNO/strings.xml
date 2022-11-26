@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Avbryt synkronisering</string>
     <string name="common_choose_account">Velg konto</string>
     <string name="common_confirm">Bekreft</string>
+    <string name="common_copy">Kopi</string>
     <string name="common_delete">Slett</string>
     <string name="common_error">Feil</string>
     <string name="common_error_out_memory">Ikke nok minne</string>

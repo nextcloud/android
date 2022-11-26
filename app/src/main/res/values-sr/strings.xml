@@ -93,6 +93,7 @@
     <string name="common_cancel_sync">Откажи синхронизацију</string>
     <string name="common_choose_account">Изаберите налог</string>
     <string name="common_confirm">Потврди</string>
+    <string name="common_copy">Копија</string>
     <string name="common_delete">Обриши</string>
     <string name="common_error">Грешка</string>
     <string name="common_error_out_memory">Нема довољно меморије</string>
