@@ -25,6 +25,7 @@ package com.nextcloud.client.database
 import android.content.Context
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.database.dao.ArbitraryDataDao
+import com.nextcloud.client.database.dao.FileDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -41,5 +42,10 @@ class DatabaseModule {
     @Provides
     fun arbitraryDataDao(nextcloudDatabase: NextcloudDatabase): ArbitraryDataDao {
         return nextcloudDatabase.arbitraryDataDao()
+    }
+
+    @Provides
+    fun fileDao(nextcloudDatabase: NextcloudDatabase): FileDao {
+        return nextcloudDatabase.fileDao()
     }
 }
