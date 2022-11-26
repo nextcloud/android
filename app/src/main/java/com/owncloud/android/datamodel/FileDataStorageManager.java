@@ -1024,11 +1024,19 @@ public class FileDataStorageManager {
         return ocFile;
     }
 
+    private int nullToZero(Integer i) {
+        return (i == null) ? 0 : i;
+    }
+
+    private long nullToZero(Long i) {
+        return (i == null) ? 0 : i;
+    }
+
     private OCFile createFileInstance(FileEntity fileEntity) {
         OCFile ocFile = new OCFile(fileEntity.getPath());
         ocFile.setDecryptedRemotePath(fileEntity.getPathDecrypted());
-        ocFile.setFileId(fileEntity.getId());
-        ocFile.setParentId(fileEntity.getParent());
+        ocFile.setFileId(nullToZero(fileEntity.getId()));
+        ocFile.setParentId(nullToZero(fileEntity.getParent()));
         ocFile.setMimeType(fileEntity.getContentType());
         ocFile.setStoragePath(fileEntity.getStoragePath());
         if (ocFile.getStoragePath() == null) {
@@ -1041,44 +1049,44 @@ public class FileDataStorageManager {
                 ocFile.setLastSyncDateForData(file.lastModified());
             }
         }
-        ocFile.setFileLength(fileEntity.getContentLength());
-        ocFile.setCreationTimestamp(fileEntity.getCreation());
-        ocFile.setModificationTimestamp(fileEntity.getModified());
-        ocFile.setModificationTimestampAtLastSyncForData(fileEntity.getModifiedAtLastSyncForData());
-        ocFile.setLastSyncDateForProperties(fileEntity.getLastSyncDate());
-        ocFile.setLastSyncDateForData(fileEntity.getLastSyncDateForData());
+        ocFile.setFileLength(nullToZero(fileEntity.getContentLength()));
+        ocFile.setCreationTimestamp(nullToZero(fileEntity.getCreation()));
+        ocFile.setModificationTimestamp(nullToZero(fileEntity.getModified()));
+        ocFile.setModificationTimestampAtLastSyncForData(nullToZero(fileEntity.getModifiedAtLastSyncForData()));
+        ocFile.setLastSyncDateForProperties(nullToZero(fileEntity.getLastSyncDate()));
+        ocFile.setLastSyncDateForData(nullToZero(fileEntity.getLastSyncDateForData()));
         ocFile.setEtag(fileEntity.getEtag());
         ocFile.setEtagOnServer(fileEntity.getEtagOnServer());
-        ocFile.setSharedViaLink(fileEntity.getSharedViaLink() == 1);
-        ocFile.setSharedWithSharee(fileEntity.getSharedWithSharee() == 1);
+        ocFile.setSharedViaLink(nullToZero(fileEntity.getSharedViaLink()) == 1);
+        ocFile.setSharedWithSharee(nullToZero(fileEntity.getSharedWithSharee()) == 1);
         ocFile.setPermissions(fileEntity.getPermissions());
         ocFile.setRemoteId(fileEntity.getRemoteId());
-        ocFile.setUpdateThumbnailNeeded(fileEntity.getUpdateThumbnail() == 1);
-        ocFile.setDownloading(fileEntity.isDownloading() == 1);
+        ocFile.setUpdateThumbnailNeeded(nullToZero(fileEntity.getUpdateThumbnail()) == 1);
+        ocFile.setDownloading(nullToZero(fileEntity.isDownloading()) == 1);
         ocFile.setEtagInConflict(fileEntity.getEtagInConflict());
-        ocFile.setFavorite(fileEntity.getFavorite() == 1);
-        ocFile.setEncrypted(fileEntity.isEncrypted() == 1);
+        ocFile.setFavorite(nullToZero(fileEntity.getFavorite()) == 1);
+        ocFile.setEncrypted(nullToZero(fileEntity.isEncrypted()) == 1);
 //        if (ocFile.isEncrypted()) {
 //            ocFile.setFileName(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_NAME)));
 //        }
-        Integer mountType = fileEntity.getMountType();
+        Integer mountType = fileEntity.getMountType(); // TODO - any default when NULL returned?
         if (mountType != null) {
             ocFile.setMountType(WebdavEntry.MountType.values()[mountType]);
         }
-        ocFile.setPreviewAvailable(fileEntity.getHasPreview() == 1);
-        ocFile.setUnreadCommentsCount(fileEntity.getUnreadCommentsCount());
+        ocFile.setPreviewAvailable(nullToZero(fileEntity.getHasPreview()) == 1);
+        ocFile.setUnreadCommentsCount(nullToZero(fileEntity.getUnreadCommentsCount()));
         ocFile.setOwnerId(fileEntity.getOwnerId());
         ocFile.setOwnerDisplayName(fileEntity.getOwnerDisplayName());
         ocFile.setNote(fileEntity.getNote());
         ocFile.setRichWorkspace(fileEntity.getRichWorkspace());
-        ocFile.setLocked(fileEntity.getLocked() == 1);
-        final int lockTypeInt = fileEntity.getLockType();
+        ocFile.setLocked(nullToZero(fileEntity.getLocked()) == 1);
+        final int lockTypeInt = nullToZero(fileEntity.getLockType()); // TODO - what value should be used for NULL???
         ocFile.setLockType(lockTypeInt != -1 ? FileLockType.fromValue(lockTypeInt) : null);
         ocFile.setLockOwnerId(fileEntity.getLockOwner());
         ocFile.setLockOwnerDisplayName(fileEntity.getLockOwnerDisplayName());
         ocFile.setLockOwnerEditor(fileEntity.getLockOwnerEditor());
-        ocFile.setLockTimestamp(fileEntity.getLockTimestamp());
-        ocFile.setLockTimeout(fileEntity.getLockTimeout());
+        ocFile.setLockTimestamp(nullToZero(fileEntity.getLockTimestamp()));
+        ocFile.setLockTimeout(nullToZero(fileEntity.getLockTimeout()));
         ocFile.setLockToken(fileEntity.getLockToken());
 
         String sharees = fileEntity.getSharees();
