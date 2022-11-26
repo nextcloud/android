@@ -105,6 +105,7 @@
     <string name="common_cancel_sync">Atsisakyti sinchronizavimo</string>
     <string name="common_choose_account">Pasirinkite paskyrą</string>
     <string name="common_confirm">Patvirtinti</string>
+    <string name="common_copy">Kopija</string>
     <string name="common_delete">Ištrinti</string>
     <string name="common_error">Klaida</string>
     <string name="common_error_out_memory">Nepakanka atminties</string>

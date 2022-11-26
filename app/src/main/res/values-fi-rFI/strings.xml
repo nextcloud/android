@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Peru synkronointi</string>
     <string name="common_choose_account">Valitse tili</string>
     <string name="common_confirm">Vahvista</string>
+    <string name="common_copy">Kopioi</string>
     <string name="common_delete">Poista</string>
     <string name="common_error">Virhe</string>
     <string name="common_error_out_memory">Muistia ei ole riittävästi</string>

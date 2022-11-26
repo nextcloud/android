@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Cancel sync</string>
     <string name="common_choose_account">Choose account</string>
     <string name="common_confirm">Confirm</string>
+    <string name="common_copy">Copy</string>
     <string name="common_delete">Delete</string>
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">Not enough memory</string>

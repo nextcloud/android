@@ -109,6 +109,7 @@
     <string name="common_cancel_sync">Скасувати синхронізацію</string>
     <string name="common_choose_account">Оберіть обліковий запис</string>
     <string name="common_confirm">Підтвердити</string>
+    <string name="common_copy">Копіювати</string>
     <string name="common_delete">Вилучити</string>
     <string name="common_error">Помилка</string>
     <string name="common_error_out_memory">Недостатньо пам\'яті</string>

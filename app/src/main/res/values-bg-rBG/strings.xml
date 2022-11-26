@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Откажи синхронизирането</string>
     <string name="common_choose_account">Изберете профил</string>
     <string name="common_confirm">Потвърди</string>
+    <string name="common_copy">Копиране</string>
     <string name="common_delete">Изтриване</string>
     <string name="common_error">Грешка</string>
     <string name="common_error_out_memory">Няма достатъчно памет</string>

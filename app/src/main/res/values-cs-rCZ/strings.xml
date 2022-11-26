@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Zrušit synchronizaci</string>
     <string name="common_choose_account">Vybrat účet</string>
     <string name="common_confirm">Potvrdit</string>
+    <string name="common_copy">Zkopírovat</string>
     <string name="common_delete">Smazat</string>
     <string name="common_error">Chyba</string>
     <string name="common_error_out_memory">Nedostatek paměti</string>

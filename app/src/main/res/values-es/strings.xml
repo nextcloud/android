@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Cancelar sincronización</string>
     <string name="common_choose_account">Elige una cuenta</string>
     <string name="common_confirm">Confirmar</string>
+    <string name="common_copy">Copia</string>
     <string name="common_delete">Borrar</string>
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">No hay suficiente memoria</string>
@@ -516,6 +517,8 @@
     <string name="permission_deny">Denegar</string>
     <string name="permission_storage_access">Se necesitan permisos adicionales para subir y descargar archivos.</string>
     <string name="picture_set_as_no_app">No se ha encontrado una app para establecer con ella la imagen</string>
+    <string name="pin_home">Anclar a la pantalla de inicio</string>
+    <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>

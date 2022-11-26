@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Szinkronizálás megszakítása</string>
     <string name="common_choose_account">Válasszon fiókot</string>
     <string name="common_confirm">Megerősítés</string>
+    <string name="common_copy">Másolás</string>
     <string name="common_delete">Törlés</string>
     <string name="common_error">Hiba</string>
     <string name="common_error_out_memory">Nincs elég memória</string>

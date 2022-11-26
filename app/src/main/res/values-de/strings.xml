@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Synchronisierung abbrechen</string>
     <string name="common_choose_account">Konto auswählen</string>
     <string name="common_confirm">Bestätigen</string>
+    <string name="common_copy">Kopieren</string>
     <string name="common_delete">Löschen</string>
     <string name="common_error">Fehler</string>
     <string name="common_error_out_memory">Nicht genügend Speicher</string>
@@ -516,6 +517,8 @@
     <string name="permission_deny">Ablehnen</string>
     <string name="permission_storage_access">Sie haben nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte</string>
+    <string name="pin_home">An Startbildschirm anheften</string>
+    <string name="pin_shortcut_label">%1$s öffnen</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">platzhalter.txt</string>
     <string name="placeholder_media_time">12:23:45</string>

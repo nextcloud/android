@@ -85,6 +85,7 @@
     <string name="common_cancel">Otkaži</string>
     <string name="common_cancel_sync">Otkaži sinhronizaciju</string>
     <string name="common_choose_account">Izaberite nalog</string>
+    <string name="common_copy">Kopija</string>
     <string name="common_delete">Obriši</string>
     <string name="common_error">Greška</string>
     <string name="common_error_out_memory">Nema dovoljno memorije</string>

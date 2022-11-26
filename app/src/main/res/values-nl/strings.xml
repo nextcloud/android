@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Synchronisatie annuleren</string>
     <string name="common_choose_account">Account kiezen</string>
     <string name="common_confirm">Bevestigen</string>
+    <string name="common_copy">Kopiëren</string>
     <string name="common_delete">Verwijderen</string>
     <string name="common_error">Fout</string>
     <string name="common_error_out_memory">Niet voldoende geheugen</string>

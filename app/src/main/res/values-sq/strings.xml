@@ -90,6 +90,7 @@
     <string name="common_cancel_sync">Anuloje sinkronizimin</string>
     <string name="common_choose_account">Zgjidhni llogari</string>
     <string name="common_confirm">Konfirmo</string>
+    <string name="common_copy">Kopjo</string>
     <string name="common_delete">Fshije</string>
     <string name="common_error">Gabim</string>
     <string name="common_error_out_memory">Pa kujtesë të mjaftueshme</string>

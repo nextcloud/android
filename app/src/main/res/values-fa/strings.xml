@@ -107,6 +107,7 @@
     <string name="common_cancel_sync">لغو همگام سازی</string>
     <string name="common_choose_account">حساب کاربری را انتخاب کنید</string>
     <string name="common_confirm">تائید</string>
+    <string name="common_copy">رونوشت</string>
     <string name="common_delete">حذف</string>
     <string name="common_error">خطا</string>
     <string name="common_error_out_memory">حافظه کافی وجود ندارد</string>

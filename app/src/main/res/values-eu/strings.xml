@@ -106,6 +106,7 @@
     <string name="common_cancel_sync">Utzi sinkronizazioa</string>
     <string name="common_choose_account">Aukeratu kontua</string>
     <string name="common_confirm">Berretsi</string>
+    <string name="common_copy">Kopiatu</string>
     <string name="common_delete">Ezabatu</string>
     <string name="common_error">Errorea</string>
     <string name="common_error_out_memory">Ez dago memoria nahikorik</string>
