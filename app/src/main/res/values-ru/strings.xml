@@ -943,6 +943,18 @@
         <item quantity="many">Не удалось экспортировать %d файлов</item>
         <item quantity="other">Не удалось экспортировать %d файла</item>
     </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Экспортирован %d файл, остальные были пропущены из-за ошибок</item>
+        <item quantity="few">Экспортированы %d файла, остальные были пропущены из-за ошибок</item>
+        <item quantity="many">Экспортирован %d файлов, остальные были пропущены из-за ошибок</item>
+        <item quantity="other">Экспортирован %d файла, остальные были пропущены из-за ошибок</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">Будет экспортирован %d файл. Подробные сведения приведены в уведомлении.</item>
+        <item quantity="few">Будет экспортированы %d файла. Подробные сведения приведены в уведомлении.</item>
+        <item quantity="many">Будут экспортированы %d файлов. Подробные сведения приведены в уведомлении.</item>
+        <item quantity="other">Будут экспортированы %d файла. Подробные сведения приведены в уведомлении.</item>
+    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d каталог</item>
         <item quantity="few">%1$d каталога</item>

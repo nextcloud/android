@@ -851,4 +851,11 @@ public final class EncryptionUtils {
             return new RemoteOperationResult(new Exception("No token available"));
         }
     }
+
+    public static void removeE2E(ArbitraryDataProvider arbitraryDataProvider, User user) {
+        // delete stored E2E keys and mnemonic
+        arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
+        arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
+        arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), EncryptionUtils.MNEMONIC);
+    }
 }

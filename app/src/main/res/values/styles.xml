@@ -342,6 +342,15 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.NoBackground" parent="Theme.ownCloud.Toolbar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
     <!-- Text styles -->
     <style name="NextcloudTextAppearanceHeadline" parent="@style/TextAppearance.AppCompat.Headline">
         <item name="android:textSize">26sp</item>
