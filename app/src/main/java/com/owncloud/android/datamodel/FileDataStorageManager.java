@@ -144,13 +144,12 @@ public class FileDataStorageManager {
 
     public @Nullable
     OCFile getFileById(long id) {
-        Cursor cursor = getFileCursorForValue(ProviderTableMeta._ID, String.valueOf(id));
         OCFile ocFile = null;
 
-        if (cursor.moveToFirst()) {
-            ocFile = createFileInstance(cursor);
+        FileEntity fileEntity = fileDao.getFileById(id);
+        if (fileEntity != null) {
+            ocFile = createFileInstance(fileEntity);
         }
-        cursor.close();
 
         return ocFile;
     }
