@@ -145,6 +145,7 @@
     <string name="community_testing_report_text">Jakinarazi arazoa GitHub-en</string>
     <string name="community_testing_version_text">Hurrengo bertsioa probatzen lagundu nahi gaituzu?</string>
     <string name="configure_new_media_folder_detection_notifications">Konfiguratu</string>
+    <string name="confirm_removal">Kendu enkriptatze lokala</string>
     <string name="confirmation_remove_file_alert">Ziur zaude %1$s ezabatu nahi duzula?</string>
     <string name="confirmation_remove_files_alert">Ziur zaude hautatutako elementuak ezabatu nahi dituzula?</string>
     <string name="confirmation_remove_folder_alert">Ziur zaude %1$s eta bere edukia ezabatu nahi duzula?</string>
@@ -204,6 +205,7 @@
     <string name="disable_new_media_folder_detection_notifications">Desaktibatu</string>
     <string name="dismiss">Baztertu</string>
     <string name="dismiss_notification_description">Baztertu jakinarazpena</string>
+    <string name="displays_mnemonic">Zure 12 hitzeko pasahitza erakusten dizu</string>
     <string name="dnd">Ez molestatu</string>
     <string name="dontClear">Ez garbitu</string>
     <string name="download_latest_dev_version">Deskargatu azken garapen bertsioa</string>
@@ -235,6 +237,7 @@
     <string name="drawer_quota">%1$s / %2$s erabilita</string>
     <string name="drawer_quota_unlimited">%1$s erabilita</string>
     <string name="drawer_synced_folders">Kargatu automatikoki</string>
+    <string name="e2e_not_yet_setup">MME ez dago konfiguratuta</string>
     <string name="encrypted">Ezarri zifratu gisa</string>
     <string name="end_to_end_encryption_confirm_button">Konfiguratu zifratzea</string>
     <string name="end_to_end_encryption_decrypting">Deszifratzen...</string>
@@ -259,6 +262,7 @@
     <string name="error_comment_file">Errorea fitxategia iruzkintzean</string>
     <string name="error_crash_title">%1$s(e)k huts egin du</string>
     <string name="error_creating_file_from_template">Errorea fitxategia plantilatik sortzerakoan</string>
+    <string name="error_file_actions">Errorea fitxategien ekintzak erakustean</string>
     <string name="error_file_lock">Errorea fitxategiaren blokeo egoera aldatzean</string>
     <string name="error_report_issue_action">Jakinarazi</string>
     <string name="error_report_issue_text">Arazoaren berri eman nahi duzu? (GitHub kontu bat beharrezkoa da)</string>
@@ -583,6 +587,7 @@
     <string name="recommend_subject">Probatu %1$s zure gailuan!</string>
     <string name="recommend_text">%1$s zure gailuan erabiltzera gonbidatu nahi zaitut.\n Hemendik deskargatu: %2$s</string>
     <string name="recommend_urls">%1$s edo %2$s</string>
+    <string name="refresh_content">Freskatu edukia</string>
     <string name="reload">Birkargatu</string>
     <string name="remote">(urrunekoa)</string>
     <string name="remote_file_fetch_failed">Fitxategia bilatzeak huts egin du!</string>

@@ -147,6 +147,7 @@
     <string name="community_testing_report_text">Nahlásit problém prostřednictvím portálu Github</string>
     <string name="community_testing_version_text">Chcete nám pomoci zkoušet nadcházející verzi?</string>
     <string name="configure_new_media_folder_detection_notifications">Nastavit</string>
+    <string name="confirm_removal">Odebrat lokální šifrování</string>
     <string name="confirmation_remove_file_alert">Opravdu chcete odstranit %1$s?</string>
     <string name="confirmation_remove_files_alert">Opravdu chcete odstranit vybrané položky?</string>
     <string name="confirmation_remove_folder_alert">Opravdu chcete odstranit %1$s a jeho obsah?</string>
@@ -206,6 +207,7 @@
     <string name="disable_new_media_folder_detection_notifications">Vypnout</string>
     <string name="dismiss">Zavřít</string>
     <string name="dismiss_notification_description">Zahodit upozornění</string>
+    <string name="displays_mnemonic">Zobrazí vaší 12 slovnou heslovou frázi</string>
     <string name="dnd">Nerušit</string>
     <string name="dontClear">Nikdy</string>
     <string name="download_latest_dev_version">Stáhnout si nejnovější vývojářskou verzi</string>
@@ -268,6 +270,7 @@
     <string name="error_report_issue_text">Nahlásit problém? (vyžaduje GitHub účet)</string>
     <string name="error_retrieving_file">Chyba při získávání souboru</string>
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
+    <string name="error_showing_encryption_dialog">Chyba při zobrazování dialogu por nastavení šifrování!</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
     <string name="error_starting_scan_doc">Chyb při použití skenování dokumentů</string>
     <string name="etm_accounts">Účty</string>
@@ -548,6 +551,7 @@
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
     <string name="prefs_daily_backup_summary">Každodenní záloha vašeho kalendáře a kontaktů</string>
+    <string name="prefs_e2e_active">Šifrování mezi koncovými body je nastaveno!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemotechnické</string>
     <string name="prefs_e2e_no_device_credentials">Pro zobrazení mnemotechnické, zapněte přihlašovací údaje zařízení.</string>
     <string name="prefs_enable_media_scan_notifications">Zobrazit upozornění ze skenování médií</string>
@@ -559,6 +563,7 @@
     <string name="prefs_instant_behaviour_title">Původní soubor bude…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ukládat v podsložkách podle roku a měsíce</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Používat podsložky</string>
+    <string name="prefs_keys_exist">Přidat do tohoto klienta šifrování mezi koncovými body</string>
     <string name="prefs_license">Licence</string>
     <string name="prefs_lock">Přístupový kód aplikace</string>
     <string name="prefs_lock_device_credentials_enabled">Přihlašovací údaje zařízení zapnuté</string>
@@ -569,6 +574,8 @@
     <string name="prefs_lock_using_passcode">Bezpečnostní kód</string>
     <string name="prefs_manage_accounts">Spravovat účty</string>
     <string name="prefs_recommend">Doporučit kamarádovi</string>
+    <string name="prefs_remove_e2e">Odebrat šifrování lokálně</string>
+    <string name="prefs_setup_e2e">Nastavit šifrování mezi koncovými body</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
     <string name="prefs_sourcecode">Získat zdrojové kódy</string>
     <string name="prefs_storage_path">Složka úložiště</string>
@@ -596,6 +603,8 @@
     <string name="reload">Načíst znovu</string>
     <string name="remote">(vzdálené)</string>
     <string name="remote_file_fetch_failed">Nepodařilo se najít soubor!</string>
+    <string name="remove_e2e">Na tomto klientovi je možné šifrování mezi koncovými body odebrat lokálně</string>
+    <string name="remove_e2e_message">Na tomto klientovi je možné odebrat šifrování mezi koncovými body. Šifrované soubory zůstanou na serveru, ale už nadále nebudou synchronizovány s tímto počítačem.</string>
     <string name="remove_fail_msg">Odstranění se nezdařilo</string>
     <string name="remove_notification_failed">Upozornění se nepodařilo odebrat.</string>
     <string name="remove_push_notification">Odebrat</string>
@@ -639,6 +648,7 @@
     <string name="set_picture_as">Použít obrázek jako</string>
     <string name="set_status">Nastavit stav</string>
     <string name="set_status_message">Nastavit stavovou zprávu</string>
+    <string name="setup_e2e">V průběhu nastavování šifrování mezi koncovými body obdržíte 12 slovnou mnemotechnickou frázi, které bude zapotřebí pro otevírání souborů na ostatních zařízeních. Ta bude uložena pouze na tomto zařízení a je možné ji na této obrazovce znovu zobrazit. Prosím poznamenejte si jí na bezpečné místo!</string>
     <string name="share">Sdílet</string>
     <string name="share_copy_link">Sdílet a zkopírovat odkaz</string>
     <string name="share_dialog_title">Sdílení</string>
