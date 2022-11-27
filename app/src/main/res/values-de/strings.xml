@@ -147,6 +147,7 @@
     <string name="community_testing_report_text">Fehlerbericht auf GitHub erstellen</string>
     <string name="community_testing_version_text">Möchten Sie uns beim Testen der nächsten Version unterstützen?</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurieren</string>
+    <string name="confirm_removal">Lokale Verschlüsselung entfernen</string>
     <string name="confirmation_remove_file_alert">Wollen Sie %1$s wirklich löschen?</string>
     <string name="confirmation_remove_files_alert">Möchten Sie die ausgewählten Elemente wirklich löschen?</string>
     <string name="confirmation_remove_folder_alert">Wollen Sie %1$s und deren Inhalte wirklich löschen?</string>
@@ -206,6 +207,7 @@
     <string name="disable_new_media_folder_detection_notifications">Ausschalten</string>
     <string name="dismiss">Ausblenden</string>
     <string name="dismiss_notification_description">Benachrichtigung verwerfen</string>
+    <string name="displays_mnemonic">Zeigt Ihre 12-Wörter-Passphrase an</string>
     <string name="dnd">Bitte nicht stören</string>
     <string name="dontClear">Nicht löschen</string>
     <string name="download_latest_dev_version">Die neueste Entwicklerversion herunterladen</string>
@@ -268,6 +270,7 @@
     <string name="error_report_issue_text">Problem melden? (benötigt ein GitHub-Konto)</string>
     <string name="error_retrieving_file">Fehler beim Abruf der Datei</string>
     <string name="error_retrieving_templates">Fehler beim Laden der Vorlagen</string>
+    <string name="error_showing_encryption_dialog">Fehler beim Anzeigen des Setup-Verschlüsselungsdialogs!</string>
     <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
     <string name="error_starting_scan_doc">Fehler beim Scannen von Dokumenten</string>
     <string name="etm_accounts">Konten</string>
@@ -548,6 +551,7 @@
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
     <string name="prefs_daily_backup_summary">Tägliche Sicherung Ihrer Kalender &amp; Kontakte</string>
+    <string name="prefs_e2e_active">Ende-zu-Ende-Verschlüsselung ist eingerichtet!</string>
     <string name="prefs_e2e_mnemonic">E2E-Gedächtnisstütze</string>
     <string name="prefs_e2e_no_device_credentials">Um die Gedächtnisstütze anzuzeigen, aktivieren Sie bitte Geräte-Zugangsdaten</string>
     <string name="prefs_enable_media_scan_notifications">Benachrichtigungen der Mediensuche anzeigen</string>
@@ -559,6 +563,7 @@
     <string name="prefs_instant_behaviour_title">Originaldatei wird…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">In Unterordnern speichern, basierend auf Jahr und Monat</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Unterordner benutzen</string>
+    <string name="prefs_keys_exist">Diesem Client End-to-End-Verschlüsselung hinzufügen</string>
     <string name="prefs_license">Lizenz</string>
     <string name="prefs_lock">App-PIN</string>
     <string name="prefs_lock_device_credentials_enabled">Geräte-Anmeldedaten aktiviert</string>
@@ -569,6 +574,8 @@
     <string name="prefs_lock_using_passcode">PIN</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
     <string name="prefs_recommend">Einem Freund empfehlen</string>
+    <string name="prefs_remove_e2e">Verschlüsselung lokal entfernen</string>
+    <string name="prefs_setup_e2e">Ende-zu-Ende-Verschlüsselung einrichten</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_sourcecode">Zum Programmcode</string>
     <string name="prefs_storage_path">Speicherordner</string>
@@ -596,6 +603,8 @@
     <string name="reload">Neu laden</string>
     <string name="remote">(entfernt)</string>
     <string name="remote_file_fetch_failed">Datei nicht gefunden!</string>
+    <string name="remove_e2e">Sie können die Ende-zu-Ende-Verschlüsselung lokal auf diesem Client entfernen</string>
+    <string name="remove_e2e_message">Sie können die Ende-zu-Ende-Verschlüsselung lokal auf diesem Client entfernen. Die verschlüsselten Dateien bleiben auf dem Server, werden aber nicht mehr mit diesem Computer synchronisiert.</string>
     <string name="remove_fail_msg">Löschung fehlgeschlagen</string>
     <string name="remove_notification_failed">Entfernen der Benachrichtigungen fehlgeschlagen.</string>
     <string name="remove_push_notification">Entfernen</string>
@@ -639,6 +648,7 @@
     <string name="set_picture_as">Nutze Bild als</string>
     <string name="set_status">Status setzen</string>
     <string name="set_status_message">Statusnachricht setzen</string>
+    <string name="setup_e2e">Während der Einrichtung der Ende-zu-Ende-Verschlüsselung erhalten Sie eine zufällige 12-Wörter-Gedächtnisstütze, die Sie benötigen, um Ihre Dateien auf anderen Geräten zu öffnen. Diese wird nur auf diesem Gerät gespeichert und kann in diesem Bildschirm erneut angezeigt werden. Bitte notieren Sie es an einem sicheren Ort!</string>
     <string name="share">Teilen</string>
     <string name="share_copy_link">Teilen &amp; Link kopieren</string>
     <string name="share_dialog_title">Teilen</string>
