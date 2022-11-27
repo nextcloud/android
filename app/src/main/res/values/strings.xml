@@ -1058,13 +1058,13 @@
     <string name="pin_home">Pin to Home screen</string>
     <string name="pin_shortcut_label">Open %1$s</string>
     <string name="displays_mnemonic">Displays your 12 word passphrase</string>
-    <string name="prefs_setup_e2e">Set up End-to-End encryption</string>
-    <string name="prefs_e2e_active">End-to-End encryption is set up!</string>
+    <string name="prefs_setup_e2e">Set up End-to-end encryption</string>
+    <string name="prefs_e2e_active">End-to-end encryption is set up!</string>
     <string name="prefs_remove_e2e">Remove encryption locally</string>
-    <string name="remove_e2e">You can remove End-to-End encryption locally on this client</string>
+    <string name="remove_e2e">You can remove End-to-end encryption locally on this client</string>
     <string name="confirm_removal">Remove local encryption</string>
-    <string name="remove_e2e_message">You can remove End-to-End encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
-    <string name="setup_e2e">During setup of End-to-End encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
+    <string name="remove_e2e_message">You can remove End-to-end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
+    <string name="setup_e2e">During setup of End-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="error_showing_encryption_dialog">Error showing setup encryption dialog!</string>
-    <string name="prefs_keys_exist">Add End-to-End encryption to this client</string>
+    <string name="prefs_keys_exist">Add End-to-end encryption to this client</string>
 </resources>
