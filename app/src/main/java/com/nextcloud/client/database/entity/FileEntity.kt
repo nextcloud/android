@@ -31,7 +31,7 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 data class FileEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)
-    val id: Int?,
+    val id: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_NAME)
     val name: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_ENCRYPTED_NAME)

@@ -29,6 +29,9 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
 @Dao
 interface FileDao {
+    @Query("SELECT * FROM filelist WHERE _id = :id LIMIT 1")
+    fun getFileById(id: Long): FileEntity?
+
     @Query("SELECT * FROM filelist WHERE parent = :parentId ORDER BY " + ProviderTableMeta.FILE_DEFAULT_SORT_ORDER)
     fun getFolderContent(parentId: Long): List<FileEntity>
 }
