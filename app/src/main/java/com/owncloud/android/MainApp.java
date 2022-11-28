@@ -217,7 +217,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     private String getAppProcessName() {
         String processName = "";
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
             ActivityManager manager = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
             final int ownPid = android.os.Process.myPid();
             final List<ActivityManager.RunningAppProcessInfo> processes = manager.getRunningAppProcesses();
@@ -488,19 +488,17 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
     private void enableStrictMode() {
-        if (BuildConfig.DEBUG) {
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                                           .detectDiskReads()
-                                           .detectDiskWrites()
-                                           .detectAll()
-                                           .penaltyLog()
-                                           .build());
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                                       .detectLeakedSqlLiteObjects()
-                                       .detectLeakedClosableObjects()
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                                       .detectDiskReads()
+                                       .detectDiskWrites()
+                                       .detectAll()
                                        .penaltyLog()
                                        .build());
-        }
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                                   .detectLeakedSqlLiteObjects()
+                                   .detectLeakedClosableObjects()
+                                   .penaltyLog()
+                                   .build());
     }
 
     public static void initSyncOperations(
