@@ -8,7 +8,7 @@ buildscript {
         prismVersion = "2.0.0"
         androidLibraryVersion = "master-SNAPSHOT"
         mockitoVersion = "4.9.0"
-        mockitoKotlinVersion = "4.0.0"
+        mockitoKotlinVersion = "4.1.0"
         mockkVersion = "1.13.2"
         espressoVersion = "3.5.0"
         workRuntime = "2.7.1"
