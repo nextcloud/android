@@ -139,6 +139,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
+import static com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG;
+import static com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment.SETUP_ENCRYPTION_REQUEST_CODE;
 import static com.owncloud.android.ui.fragment.SearchType.FAVORITE_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.FILE_SEARCH;
 import static com.owncloud.android.ui.fragment.SearchType.NO_SEARCH;
@@ -979,10 +981,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         } else {
                             Log_OC.d(TAG, "no public key for " + user.getAccountName());
 
-                            SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user,
-                                                                                                             position);
-                            dialog.setTargetFragment(this, SetupEncryptionDialogFragment.SETUP_ENCRYPTION_REQUEST_CODE);
-                            dialog.show(getFragmentManager(), SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG);
+                            FragmentManager fragmentManager = getFragmentManager();
+                            if (fragmentManager != null &&
+                                fragmentManager.findFragmentByTag(SETUP_ENCRYPTION_DIALOG_TAG) == null) {
+                                SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user,
+                                                                                                                 position);
+                                dialog.setTargetFragment(this, SETUP_ENCRYPTION_REQUEST_CODE);
+                                dialog.show(fragmentManager, SETUP_ENCRYPTION_DIALOG_TAG);
+                            }
                         }
                     } else {
                         // update state and view of this fragment
@@ -1066,8 +1072,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SetupEncryptionDialogFragment.SETUP_ENCRYPTION_REQUEST_CODE &&
-                resultCode == SetupEncryptionDialogFragment.SETUP_ENCRYPTION_RESULT_CODE &&
+        if (requestCode == SETUP_ENCRYPTION_REQUEST_CODE &&
+            resultCode == SetupEncryptionDialogFragment.SETUP_ENCRYPTION_RESULT_CODE &&
             data.getBooleanExtra(SetupEncryptionDialogFragment.SUCCESS, false)) {
 
             int position = data.getIntExtra(SetupEncryptionDialogFragment.ARG_POSITION, -1);
@@ -1659,8 +1665,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 position = mAdapter.getItemPosition(file);
             }
             SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
-            dialog.setTargetFragment(this, SetupEncryptionDialogFragment.SETUP_ENCRYPTION_REQUEST_CODE);
-            dialog.show(getParentFragmentManager(), SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG);
+            dialog.setTargetFragment(this, SETUP_ENCRYPTION_REQUEST_CODE);
+            dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
         } else {
             encryptFolder(event.localId, event.remoteId, event.remotePath, event.shouldBeEncrypted);
         }
