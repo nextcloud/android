@@ -144,14 +144,11 @@ public class FileDataStorageManager {
 
     public @Nullable
     OCFile getFileById(long id) {
-        OCFile ocFile = null;
-
         FileEntity fileEntity = fileDao.getFileById(id);
         if (fileEntity != null) {
-            ocFile = createFileInstance(fileEntity);
+            return createFileInstance(fileEntity);
         }
-
-        return ocFile;
+        return null;
     }
 
     public @Nullable
