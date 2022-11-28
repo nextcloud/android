@@ -132,6 +132,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     FragmentPreviewMediaBinding binding;
     private ViewGroup emptyListView;
     private ExoPlayer exoPlayer;
+    private NextcloudClient nextcloudClient;
 
     /**
      * Creates a fragment to preview a file.
@@ -332,9 +333,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                     final Handler handler = new Handler();
                     Executors.newSingleThreadExecutor().execute(() -> {
                         try {
-                            final NextcloudClient client = clientFactory.createNextcloudClient(accountManager.getUser());
+                            nextcloudClient = clientFactory.createNextcloudClient(accountManager.getUser());
                             handler.post(() ->{
-                                exoPlayer = NextcloudExoPlayer.createNextcloudExoplayer(requireContext(), client);
+                                exoPlayer = NextcloudExoPlayer.createNextcloudExoplayer(requireContext(), nextcloudClient);
                                 exoPlayer.addListener(new ExoplayerListener(requireContext(), binding.exoplayerView, exoPlayer));
                                 playVideo();
                             });
@@ -608,7 +609,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private void startFullScreenVideo() {
         final FragmentActivity activity = getActivity();
         if (activity != null) {
-            new PreviewVideoFullscreenDialog(activity, exoPlayer, binding.exoplayerView).show();
+            new PreviewVideoFullscreenDialog(activity, nextcloudClient, exoPlayer, binding.exoplayerView).show();
         }
     }
 
