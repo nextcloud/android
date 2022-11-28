@@ -41,7 +41,7 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_PATH_DECRYPTED)
     val pathDecrypted: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_PARENT)
-    val parent: Int?,
+    val parent: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_CREATION)
     val creation: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_MODIFIED)
@@ -49,7 +49,7 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_CONTENT_TYPE)
     val contentType: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_CONTENT_LENGTH)
-    val contentLength: Int?,
+    val contentLength: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_STORAGE_PATH)
     val storagePath: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_ACCOUNT_OWNER)
