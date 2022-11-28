@@ -112,12 +112,14 @@ class StackRemoteViewsFactory(
             try {
                 if (widgetConfiguration.user.isPresent) {
                     val client = clientFactory.createNextcloudClient(widgetConfiguration.user.get())
-                    val result =
-                        DashboardGetWidgetItemsRemoteOperation(widgetConfiguration.widgetId, LIMIT_SIZE).execute(client)
-                    widgetItems = result.resultData[widgetConfiguration.widgetId] ?: emptyList()
-
-                    hasLoadMore = widgetConfiguration.moreButton != null &&
-                        widgetItems.size == LIMIT_SIZE
+                    val result = DashboardGetWidgetItemsRemoteOperation(widgetConfiguration.widgetId, LIMIT_SIZE)
+                        .execute(client)
+                    widgetItems = if (result.isSuccess) {
+                        result.resultData[widgetConfiguration.widgetId] ?: emptyList()
+                    } else {
+                        emptyList()
+                    }
+                    hasLoadMore = widgetConfiguration.moreButton != null && widgetItems.size == LIMIT_SIZE
                 } else {
                     Log_OC.w(TAG, "User not present for widget update")
                 }
