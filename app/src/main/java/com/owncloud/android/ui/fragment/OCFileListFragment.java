@@ -981,7 +981,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         } else {
                             Log_OC.d(TAG, "no public key for " + user.getAccountName());
 
-                            FragmentManager fragmentManager = getFragmentManager();
+                            FragmentManager fragmentManager = getParentFragmentManager();
                             if (fragmentManager != null &&
                                 fragmentManager.findFragmentByTag(SETUP_ENCRYPTION_DIALOG_TAG) == null) {
                                 SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user,
