@@ -33,6 +33,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -161,13 +162,13 @@ public class ExtendedListFragment extends Fragment implements
 
     public void switchToGridView() {
         if (!isGridEnabled()) {
-            getRecyclerView().setLayoutManager(new GridLayoutManager(getContext(), getColumnsCount()));
+            getRecyclerView().setLayoutManager(new WrapContentGridLayoutManager(getContext(), getColumnsCount()));
         }
     }
 
     public void switchToListView() {
         if (isGridEnabled()) {
-            getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
+            getRecyclerView().setLayoutManager(new WrapContentLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         }
     }
 
@@ -696,6 +697,34 @@ public class ExtendedListFragment extends Fragment implements
         } else {
             mSwitchGridViewButton.setContentDescription(getString(R.string.action_switch_grid_view));
             mSwitchGridViewButton.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_module));
+        }
+    }
+}
+class WrapContentLinearLayoutManager extends LinearLayoutManager {
+    public WrapContentLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
+        super(context, orientation, reverseLayout);
+    }
+    @Override
+    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+        try {
+            super.onLayoutChildren(recycler, state);
+        } catch (IndexOutOfBoundsException e) {
+            Log.e("TAG", "meet a IOOBE in RecyclerView");
+        }
+    }
+}
+
+
+class WrapContentGridLayoutManager extends GridLayoutManager {
+    public WrapContentGridLayoutManager(Context context, int spanCount) {
+        super(context, spanCount);
+    }
+    @Override
+    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+        try {
+            super.onLayoutChildren(recycler, state);
+        } catch (IndexOutOfBoundsException e) {
+            Log.e("TAG", "meet a IOOBE in RecyclerView");
         }
     }
 }

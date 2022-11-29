@@ -1431,18 +1431,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (getRecyclerView().getLayoutManager() != null) {
             position = ((LinearLayoutManager) getRecyclerView().getLayoutManager())
-                    .findFirstCompletelyVisibleItemPosition();
+                .findFirstCompletelyVisibleItemPosition();
         }
 
         RecyclerView.LayoutManager layoutManager;
         if (grid) {
-            layoutManager = new GridLayoutManager(getContext(), getColumnsCount());
-            ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            //layoutManager = new GridLayoutManager(getContext(), getColumnsCount());
+            layoutManager=new WrapContentGridLayoutManager(getContext(),getColumnsCount());
+            ((WrapContentGridLayoutManager) layoutManager).setSpanSizeLookup(new WrapContentGridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
                     if (position == getAdapter().getItemCount() - 1 ||
                         position == 0 && getAdapter().shouldShowHeader()) {
-                        return ((GridLayoutManager) layoutManager).getSpanCount();
+                        return ((WrapContentGridLayoutManager) layoutManager).getSpanCount();
                     } else {
                         return 1;
                     }
@@ -1450,9 +1451,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
             });
 
         } else {
-            layoutManager = new LinearLayoutManager(getContext());
+            //layoutManager = new LinearLayoutManager(getContext());
+            layoutManager=new WrapContentLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         }
 
+        getRecyclerView().getLayoutManager().removeAllViews();
+        // getRecyclerView().getRecycledViewPool().clear();
         getRecyclerView().setLayoutManager(layoutManager);
         getRecyclerView().scrollToPosition(position);
         getAdapter().setGridView(grid);
