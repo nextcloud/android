@@ -407,6 +407,22 @@ and thereof we'd ask contributors to be mindful of their code testability:
    should at least not make future efforts more challenging
 3. whenever possible, testability should be improved even if the code is not covered by tests
 
+### Performance
+
+If you're interested in improving the app's performance, please check the [official documentation](https://developer.android.com/topic/performance)
+for ways you can inspect and improve performance.
+
+For additional analysis, set the `perfAnalysis` property
+in your Gradle build:
+
+```shell
+./gradlew installGplayDebug -P perfAnalysis
+```
+
+This will install the app with [LeakCanary](https://square.github.io/leakcanary/) and 
+[StrictMode](https://developer.android.com/reference/android/os/StrictMode) enabled and configured.
+These tools can help find memory leaks, foreground operations that should be in background, and other performance
+problems.
 
 # Releases
 At the moment we are releasing the app in two app stores:
