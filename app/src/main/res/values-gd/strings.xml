@@ -97,6 +97,7 @@
     <string name="common_cancel">Sguir dheth</string>
     <string name="common_cancel_sync">Sguir dhen t-sioncronachadh</string>
     <string name="common_choose_account">Tagh cunntas</string>
+    <string name="common_copy">Dèan lethbhreac</string>
     <string name="common_delete">Sguab às</string>
     <string name="common_error">Mearachd</string>
     <string name="common_error_out_memory">Chan eil cuimhne gu leòr ann</string>

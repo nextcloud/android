@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Откажи синхронизирането</string>
     <string name="common_choose_account">Изберете профил</string>
     <string name="common_confirm">Потвърди</string>
+    <string name="common_copy">Копиране</string>
     <string name="common_delete">Изтриване</string>
     <string name="common_error">Грешка</string>
     <string name="common_error_out_memory">Няма достатъчно памет</string>
@@ -146,6 +147,7 @@
     <string name="community_testing_report_text">Докладвайте за проблем чрез Github</string>
     <string name="community_testing_version_text">Желаете ли се да помогнете с тестването на следващата версия?</string>
     <string name="configure_new_media_folder_detection_notifications">Настройки</string>
+    <string name="confirm_removal">Премахване на локалното криптиране</string>
     <string name="confirmation_remove_file_alert">Наистина ли желаете %1$s да бъде изтрит?</string>
     <string name="confirmation_remove_files_alert">Наистина ли желаете избраните елементи да бъдат премахнати?</string>
     <string name="confirmation_remove_folder_alert">Наистина ли желаете %1$s и съдържанието ѝ да бъдат изтрито?</string>
@@ -206,6 +208,7 @@
     <string name="disable_new_media_folder_detection_notifications">Изключване</string>
     <string name="dismiss">Отхвърляне</string>
     <string name="dismiss_notification_description">Спри известията</string>
+    <string name="displays_mnemonic">Показва вашата парола, която се състои от 12 думи</string>
     <string name="dnd">Не безпокой</string>
     <string name="dontClear">Не изчиствай</string>
     <string name="download_latest_dev_version">Сваляне на най-новата dev версия</string>
@@ -268,6 +271,7 @@
     <string name="error_report_issue_text">Подаване на сигнал за проблем към тракера? (изисква се профил в Github)</string>
     <string name="error_retrieving_file">Грешка при извличане на файл</string>
     <string name="error_retrieving_templates">Грешка при извличане на шаблони</string>
+    <string name="error_showing_encryption_dialog">Грешка при показване на диалогов прозорец за настройка на криптирането!</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартирането на камерата</string>
     <string name="error_starting_scan_doc">Грешка при използване на сканирането на документи</string>
     <string name="etm_accounts">Профили</string>
@@ -517,6 +521,8 @@
     <string name="permission_deny">Не</string>
     <string name="permission_storage_access">Изискват се допълнителни права за изтегляне и сваляне на файлове.</string>
     <string name="picture_set_as_no_app">Няма намерени приложения за задаване на снимка</string>
+    <string name="pin_home">Фиксиране към началния екран</string>
+    <string name="pin_shortcut_label">Отваряне на %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -546,6 +552,7 @@
     <string name="prefs_category_general">Общи</string>
     <string name="prefs_category_more">Още</string>
     <string name="prefs_daily_backup_summary">Ежедневно архивиране на вашия календар &amp; контакти</string>
+    <string name="prefs_e2e_active">Настроено е цялостно криптиране!</string>
     <string name="prefs_e2e_mnemonic">E2E мнемоника </string>
     <string name="prefs_e2e_no_device_credentials">Моля, да активирате идентификационните данни на устройството, за да се покаже мнемоника.</string>
     <string name="prefs_enable_media_scan_notifications">Показване на известия за сканиране на мултимедия</string>
@@ -557,6 +564,7 @@
     <string name="prefs_instant_behaviour_title">Оригиналният файл ще бъде…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Съхраняване в подпапки, разделени по година и месец</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Ползване на подпапки</string>
+    <string name="prefs_keys_exist">Добавяне на цялостно криптиране към този клиент</string>
     <string name="prefs_license">Лиценз</string>
     <string name="prefs_lock">Код за достъп за приложение </string>
     <string name="prefs_lock_device_credentials_enabled">Удостоверяването от устройството е включено</string>
@@ -567,6 +575,8 @@
     <string name="prefs_lock_using_passcode">Код за достъп</string>
     <string name="prefs_manage_accounts">Управление на профилите</string>
     <string name="prefs_recommend">Препоръчайте на приятел</string>
+    <string name="prefs_remove_e2e">Премахване на локално криптиране</string>
+    <string name="prefs_setup_e2e">Настройка на цялостно криптиране</string>
     <string name="prefs_show_hidden_files">Показване и на скрити файлове</string>
     <string name="prefs_sourcecode">Получаване на изходния код</string>
     <string name="prefs_storage_path">Папка за съхранение на данни</string>
@@ -594,6 +604,8 @@
     <string name="reload">Презареди</string>
     <string name="remote">(отдалечен)</string>
     <string name="remote_file_fetch_failed">Неуспешно намиране на файл!</string>
+    <string name="remove_e2e">Можете да премахнете локално цялостното криптиране към този клиент</string>
+    <string name="remove_e2e_message">Можете да премахнете локално цялостното криптиране към този клиент. Криптираните файлове ще останат на сървъра, но вече няма да се синхронизират с този компютър.</string>
     <string name="remove_fail_msg">Изтриването неуспешно</string>
     <string name="remove_notification_failed">Неуспешно премахване на известие.</string>
     <string name="remove_push_notification">Премахване</string>
@@ -637,6 +649,7 @@
     <string name="set_picture_as">Задай като</string>
     <string name="set_status">Задайте състояние</string>
     <string name="set_status_message">Задайте съобщение за състояние</string>
+    <string name="setup_e2e">По време на настройката на цялостното криптиране ще получите мнемоника от 12 произволни думи , която ще ви е необходима, за да отваряте файловете си на други устройства. Тя ще бъде съхранена само на това устройство и може да бъде показана отново на този екран. Моля, запишете я на сигурно място!</string>
     <string name="share">Сподели</string>
     <string name="share_copy_link">Споделяне &amp; Копиране на връзка</string>
     <string name="share_dialog_title">Споделяне</string>

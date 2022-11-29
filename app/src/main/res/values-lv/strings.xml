@@ -86,6 +86,7 @@
     <string name="common_cancel_sync">Atsaukt sinhronizāciju</string>
     <string name="common_choose_account">Izvēlieties kontu</string>
     <string name="common_confirm">Apstiprināt</string>
+    <string name="common_copy">Kopēt</string>
     <string name="common_delete">Dzēst</string>
     <string name="common_error">Kļūda</string>
     <string name="common_error_out_memory">Nepietiek atmiņas</string>

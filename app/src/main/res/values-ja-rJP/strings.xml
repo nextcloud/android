@@ -104,6 +104,7 @@
     <string name="common_cancel_sync">同期のキャンセル</string>
     <string name="common_choose_account">アカウント選択</string>
     <string name="common_confirm">承認</string>
+    <string name="common_copy">コピー</string>
     <string name="common_delete">削除</string>
     <string name="common_error">エラー</string>
     <string name="common_error_out_memory">十分なメモリがありません</string>

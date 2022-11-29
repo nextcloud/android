@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">取消同步</string>
     <string name="common_choose_account">选择账号</string>
     <string name="common_confirm">确认</string>
+    <string name="common_copy">复制</string>
     <string name="common_delete">删除</string>
     <string name="common_error">错误</string>
     <string name="common_error_out_memory">内存不足</string>

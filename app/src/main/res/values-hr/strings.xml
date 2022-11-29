@@ -105,6 +105,7 @@
     <string name="common_cancel_sync">Prekini sinkronizaciju</string>
     <string name="common_choose_account">Odaberite račun</string>
     <string name="common_confirm">Potvrdi</string>
+    <string name="common_copy">Kopiraj</string>
     <string name="common_delete">Izbriši</string>
     <string name="common_error">Pogreška</string>
     <string name="common_error_out_memory">Nema dovoljno memorije</string>

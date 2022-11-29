@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">Cancel sync</string>
     <string name="common_choose_account">Choose account</string>
     <string name="common_confirm">Confirm</string>
+    <string name="common_copy">Copy</string>
     <string name="common_delete">Delete</string>
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">Not enough memory</string>
@@ -146,6 +147,7 @@
     <string name="community_testing_report_text">Report an issue on GitHub</string>
     <string name="community_testing_version_text">Interested in helping out by testing what will be the next version?</string>
     <string name="configure_new_media_folder_detection_notifications">Configure</string>
+    <string name="confirm_removal">Remove local encryption</string>
     <string name="confirmation_remove_file_alert">Do you really want to delete %1$s?</string>
     <string name="confirmation_remove_files_alert">Do you really want to delete the selected items?</string>
     <string name="confirmation_remove_folder_alert">Do you really want to delete %1$s and it\'s content?</string>
@@ -205,6 +207,7 @@
     <string name="disable_new_media_folder_detection_notifications">Disable</string>
     <string name="dismiss">Dismiss</string>
     <string name="dismiss_notification_description">Dismiss notification</string>
+    <string name="displays_mnemonic">Displays your 12 word passphrase</string>
     <string name="dnd">Do not disturb</string>
     <string name="dontClear">Don\'t clear</string>
     <string name="download_latest_dev_version">Download latest dev version</string>
@@ -267,6 +270,7 @@
     <string name="error_report_issue_text">Report issue to tracker? (requires a GitHub account)</string>
     <string name="error_retrieving_file">Error retrieving file</string>
     <string name="error_retrieving_templates">Error retrieving templates</string>
+    <string name="error_showing_encryption_dialog">Error showing setup encryption dialogue!</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="error_starting_scan_doc">Error using document scanning</string>
     <string name="etm_accounts">Accounts</string>
@@ -516,6 +520,8 @@
     <string name="permission_deny">Deny</string>
     <string name="permission_storage_access">Additional permissions required to upload and download files.</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
+    <string name="pin_home">Pin to Home screen</string>
+    <string name="pin_shortcut_label">Open %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -545,6 +551,7 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_daily_backup_summary">Daily backup of your calendar &amp; contacts</string>
+    <string name="prefs_e2e_active">End to end encryption is set up!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
     <string name="prefs_enable_media_scan_notifications">Show media scan notifications</string>
@@ -556,6 +563,7 @@
     <string name="prefs_instant_behaviour_title">Original file will be…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Store in subfolders based on year and month</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
+    <string name="prefs_keys_exist">Add end to end encryption to this client</string>
     <string name="prefs_license">License</string>
     <string name="prefs_lock">App passcode</string>
     <string name="prefs_lock_device_credentials_enabled">Device credentials enabled</string>
@@ -566,6 +574,8 @@
     <string name="prefs_lock_using_passcode">Passcode</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
     <string name="prefs_recommend">Recommend to a friend</string>
+    <string name="prefs_remove_e2e">Remove encryption locally</string>
+    <string name="prefs_setup_e2e">Set up end to end encryption</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_storage_path">Data storage folder</string>
@@ -593,6 +603,8 @@
     <string name="reload">Reload</string>
     <string name="remote">(remote)</string>
     <string name="remote_file_fetch_failed">Failed to find file!</string>
+    <string name="remove_e2e">You can remove end to end encryption locally on this client</string>
+    <string name="remove_e2e_message">You can remove end to end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
     <string name="remove_fail_msg">Deletion failed</string>
     <string name="remove_notification_failed">Failed to remove notification.</string>
     <string name="remove_push_notification">Remove</string>
@@ -636,6 +648,7 @@
     <string name="set_picture_as">Use picture as</string>
     <string name="set_status">Set status</string>
     <string name="set_status_message">Set status message</string>
+    <string name="setup_e2e">During setup of end to end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="share">Share</string>
     <string name="share_copy_link">Share &amp; Copy Link</string>
     <string name="share_dialog_title">Sharing</string>

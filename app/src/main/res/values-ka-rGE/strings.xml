@@ -67,6 +67,7 @@
     <string name="common_cancel_sync">სინქრონიზაციის შეჩერება</string>
     <string name="common_choose_account">აირჩიეთ ანგარიში</string>
     <string name="common_confirm">დადასტურება</string>
+    <string name="common_copy">კოპირება</string>
     <string name="common_delete">გაუქმება</string>
     <string name="common_error">შეცდომა</string>
     <string name="common_error_out_memory">არასაკმარისი მეხსიერება</string>

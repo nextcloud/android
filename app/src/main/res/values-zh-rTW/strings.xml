@@ -108,6 +108,7 @@
     <string name="common_cancel_sync">取消同步</string>
     <string name="common_choose_account">選擇帳號</string>
     <string name="common_confirm">確認</string>
+    <string name="common_copy">複製</string>
     <string name="common_delete">刪除</string>
     <string name="common_error">錯誤</string>
     <string name="common_error_out_memory">記憶體不足</string>
@@ -146,6 +147,7 @@
     <string name="community_testing_report_text">在 GitHub 上回報問題</string>
     <string name="community_testing_version_text">有興趣幫我們測試下一個版本嗎？</string>
     <string name="configure_new_media_folder_detection_notifications">設定</string>
+    <string name="confirm_removal">移除本機加密</string>
     <string name="confirmation_remove_file_alert">您真的想要刪除 %1$s 嗎？</string>
     <string name="confirmation_remove_files_alert">您真的想要刪除所選的項目嗎？</string>
     <string name="confirmation_remove_folder_alert">你真的想要刪除 %1$s 與裡面的檔案？</string>
@@ -205,6 +207,7 @@
     <string name="disable_new_media_folder_detection_notifications">停用</string>
     <string name="dismiss">取消</string>
     <string name="dismiss_notification_description">清除通知</string>
+    <string name="displays_mnemonic">顯示您的 12 字通關密語</string>
     <string name="dnd">請勿打擾</string>
     <string name="dontClear">不要清空</string>
     <string name="download_latest_dev_version">下載最新開發的版本</string>
@@ -267,6 +270,7 @@
     <string name="error_report_issue_text">要回報議題至追蹤程式？（需要 GitHub 帳號）</string>
     <string name="error_retrieving_file">擷取檔案時發生錯誤</string>
     <string name="error_retrieving_templates">擷取範本時發生錯誤</string>
+    <string name="error_showing_encryption_dialog">顯示設定加密對話方塊時發生錯誤！</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
     <string name="error_starting_scan_doc">使用文件掃描時發生錯誤</string>
     <string name="etm_accounts">帳戶</string>
@@ -516,6 +520,8 @@
     <string name="permission_deny">否</string>
     <string name="permission_storage_access">上傳與下載檔案需要額外的權限。</string>
     <string name="picture_set_as_no_app">沒有找到編輯圖片的應用程式</string>
+    <string name="pin_home">釘選至主畫面</string>
+    <string name="pin_shortcut_label">開啟 %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -545,6 +551,7 @@
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_daily_backup_summary">每日備份您的日曆與聯絡人</string>
+    <string name="prefs_e2e_active">端到端加密設定完畢！</string>
     <string name="prefs_e2e_mnemonic">端到端加密助記碼</string>
     <string name="prefs_e2e_no_device_credentials">裝置若要顯示助記碼請啟用裝置憑證。</string>
     <string name="prefs_enable_media_scan_notifications">顯示媒體掃描通知</string>
@@ -556,6 +563,7 @@
     <string name="prefs_instant_behaviour_title">原始的檔案將會……</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">依據年月存在子資料夾內</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子資料夾</string>
+    <string name="prefs_keys_exist">新增端到端加密至此客戶端</string>
     <string name="prefs_license">授權</string>
     <string name="prefs_lock">應用程式通行碼</string>
     <string name="prefs_lock_device_credentials_enabled">裝置憑證已啟用</string>
@@ -566,6 +574,8 @@
     <string name="prefs_lock_using_passcode">通行碼</string>
     <string name="prefs_manage_accounts">管理帳號</string>
     <string name="prefs_recommend">推薦給朋友</string>
+    <string name="prefs_remove_e2e">移除本機加密</string>
+    <string name="prefs_setup_e2e">設定端到端加密</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_sourcecode">取得原始碼</string>
     <string name="prefs_storage_path">資料儲存資料夾</string>
@@ -593,6 +603,8 @@
     <string name="reload">重新載入</string>
     <string name="remote">(remote)</string>
     <string name="remote_file_fetch_failed">找不到檔案！</string>
+    <string name="remove_e2e">您可以在此客戶端上移除本機端到端加密</string>
+    <string name="remove_e2e_message">您可以在此客戶端上移除本機端到端加密。已加密的檔案將會保留在伺服器上，但不會再同步到此電腦。</string>
     <string name="remove_fail_msg">刪除失敗</string>
     <string name="remove_notification_failed">移除通知失敗</string>
     <string name="remove_push_notification">移除</string>
@@ -636,6 +648,7 @@
     <string name="set_picture_as">使用圖片作為</string>
     <string name="set_status">設定狀態</string>
     <string name="set_status_message">設定狀態訊息</string>
+    <string name="setup_e2e">在設定端到端加密期間，您將會收到一個隨機的 12 字助記字串，您需要這個字串才能在其他裝置上開啟檔案。這將只會儲存在此裝置上，並可以在此畫面中再次顯示。請記在安全的地方！</string>
     <string name="share">分享</string>
     <string name="share_copy_link">分享並複製連結</string>
     <string name="share_dialog_title">分享</string>

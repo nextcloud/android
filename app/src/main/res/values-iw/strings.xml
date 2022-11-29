@@ -98,6 +98,7 @@
     <string name="common_cancel_sync">ביטול סנכרון</string>
     <string name="common_choose_account">נא לבחור בחשבון</string>
     <string name="common_confirm">אימות</string>
+    <string name="common_copy">העתק</string>
     <string name="common_delete">מחיקה</string>
     <string name="common_error">שגיאה</string>
     <string name="common_error_out_memory">אין די זכרון</string>

@@ -105,6 +105,7 @@
     <string name="common_cancel_sync">ألغ المزامنة</string>
     <string name="common_choose_account">اختر حسابا</string>
     <string name="common_confirm">تأكيد</string>
+    <string name="common_copy">نسخ</string>
     <string name="common_delete">حذف</string>
     <string name="common_error">خطأ</string>
     <string name="common_error_out_memory">لا يوجد ذاكرة عشوائية كافية</string>

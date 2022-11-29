@@ -104,6 +104,7 @@
     <string name="common_cancel_sync">Hủy đồng bộ</string>
     <string name="common_choose_account">Chọn tài khoản</string>
     <string name="common_confirm">Xác nhận</string>
+    <string name="common_copy">Sao chép</string>
     <string name="common_delete">Xóa</string>
     <string name="common_error">Lỗi</string>
     <string name="common_error_out_memory">Không đủ dung lượng lưu trữ</string>

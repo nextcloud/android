@@ -104,6 +104,7 @@
     <string name="common_cancel_sync">Annulla sincronizzazione</string>
     <string name="common_choose_account">Scegli account</string>
     <string name="common_confirm">Conferma</string>
+    <string name="common_copy">Copia</string>
     <string name="common_delete">Elimina</string>
     <string name="common_error">Errore</string>
     <string name="common_error_out_memory">Memoria insufficiente</string>
