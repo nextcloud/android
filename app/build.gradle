@@ -69,6 +69,8 @@ file("$project.rootDir/ndk.env").readLines().each() {
     ndkEnv.put(key, value)
 }
 
+def perfAnalysis = project.hasProperty('perfAnalysis')
+
 android {
 
     compileSdkVersion 32
@@ -85,6 +87,7 @@ android {
         targetSdkVersion 31
 
         buildConfigField 'boolean', 'CI', ciBuild.toString()
+        buildConfigField 'boolean', 'RUNTIME_PERF_ANALYSIS', perfAnalysis.toString()
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -309,7 +312,7 @@ dependencies {
         }
     }
 
-    if (project.hasProperty("leakCanary")) {
+    if (perfAnalysis) {
         debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
     }
 
