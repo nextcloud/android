@@ -227,11 +227,6 @@
             android:name=".ui.preview.PreviewImageActivity"
             android:exported="false"
             android:theme="@style/Theme.ownCloud.Overlay" />
-        <activity
-            android:name=".ui.preview.PreviewVideoActivity"
-            android:exported="false"
-            android:theme="@style/Theme.ownCloud.Fullscreen" />
-
         <service
             android:name=".authentication.AccountAuthenticatorService"
             android:exported="false">
