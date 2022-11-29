@@ -1456,7 +1456,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         getRecyclerView().getLayoutManager().removeAllViews();
-        // getRecyclerView().getRecycledViewPool().clear();
+        getRecyclerView().getRecycledViewPool().clear();
         getRecyclerView().setLayoutManager(layoutManager);
         getRecyclerView().scrollToPosition(position);
         getAdapter().setGridView(grid);

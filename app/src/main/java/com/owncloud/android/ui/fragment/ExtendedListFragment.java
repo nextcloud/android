@@ -149,7 +149,9 @@ public class ExtendedListFragment extends Fragment implements
     private ListFragmentBinding binding;
 
     protected void setRecyclerViewAdapter(RecyclerView.Adapter recyclerViewAdapter) {
+         mRecyclerView.getRecycledViewPool().clear();
         mRecyclerView.setAdapter(recyclerViewAdapter);
+        mRecyclerView.getAdapter().notifyDataSetChanged();
     }
 
     protected RecyclerView getRecyclerView() {
@@ -704,6 +706,11 @@ class WrapContentLinearLayoutManager extends LinearLayoutManager {
     public WrapContentLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
         super(context, orientation, reverseLayout);
     }
+
+    @Override
+    public boolean supportsPredictiveItemAnimations() {
+        return false;
+    }
     @Override
     public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
         try {
@@ -719,6 +726,12 @@ class WrapContentGridLayoutManager extends GridLayoutManager {
     public WrapContentGridLayoutManager(Context context, int spanCount) {
         super(context, spanCount);
     }
+
+    @Override
+    public boolean supportsPredictiveItemAnimations() {
+        return false;
+    }
+
     @Override
     public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
         try {
