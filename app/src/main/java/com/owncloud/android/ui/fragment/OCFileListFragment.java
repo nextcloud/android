@@ -1430,8 +1430,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         int position = 0;
 
         if (getRecyclerView().getLayoutManager() != null) {
-            position = ((LinearLayoutManager) getRecyclerView().getLayoutManager())
-                .findFirstCompletelyVisibleItemPosition();
+            position = ((LinearLayoutManager) getRecyclerView().getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         }
 
         RecyclerView.LayoutManager layoutManager;
