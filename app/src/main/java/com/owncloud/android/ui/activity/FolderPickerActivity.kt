@@ -123,9 +123,7 @@ open class FolderPickerActivity :
             caption = themeUtils.getDefaultDisplayNameForRootFolder(this)
         }
         mTargetFilePaths = intent.getStringArrayListExtra(EXTRA_FILE_PATHS)
-        if (intent.getParcelableExtra<Parcelable?>(EXTRA_CURRENT_FOLDER) != null) {
-            file = intent.getParcelableExtra(EXTRA_CURRENT_FOLDER)
-        }
+
         if (savedInstanceState == null) {
             createFragments()
         }
@@ -246,6 +244,7 @@ open class FolderPickerActivity :
         // refresh list of files
         refreshListOfFilesFragment(false)
 
+        file = listOfFilesFragment?.currentFile
         updateUiElements()
 
         // Listen for sync messages
@@ -589,9 +588,6 @@ open class FolderPickerActivity :
 
         @JvmField
         val EXTRA_ACTION = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_ACTION")
-
-        @JvmField
-        val EXTRA_CURRENT_FOLDER = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_CURRENT_FOLDER")
 
         const val MOVE = "MOVE"
         const val COPY = "COPY"
