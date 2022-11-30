@@ -1,3 +1,13 @@
+## 3.23.0 RC2 (November 24, 2022)
+
+- File actions menu redesign
+- Allow adding shortcuts to Home screen (@newhinton)
+- Many bugfixes and performance optimizations
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/74
+
 ## 3.23.0 RC1 (November 17, 2022)
 
 - File actions menu redesign
