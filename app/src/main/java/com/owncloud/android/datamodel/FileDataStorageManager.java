@@ -117,7 +117,8 @@ public class FileDataStorageManager {
         return getFileByEncryptedRemotePath(path);
     }
 
-    public OCFile getFileByEncryptedRemotePath(String path) {
+    public @Nullable
+    OCFile getFileByEncryptedRemotePath(String path) {
         return getFileByPath(ProviderTableMeta.FILE_PATH, path);
     }
 
@@ -128,18 +129,19 @@ public class FileDataStorageManager {
 
     private @Nullable
     OCFile getFileByPath(String type, String path) {
-        Cursor cursor = getFileCursorForValue(type, path);
-        OCFile ocFile = null;
-        if (cursor.moveToFirst()) {
-            ocFile = createFileInstance(cursor);
-        }
-        cursor.close();
+        FileEntity fileEntity = ProviderTableMeta.FILE_PATH.equals(type) ?
+            fileDao.getFileByEncryptedRemotePath(path, user.getAccountName()) :
+            fileDao.getFileByDecryptedRemotePath(path, user.getAccountName());
 
-        if (ocFile == null && OCFile.ROOT_PATH.equals(path)) {
+        if (fileEntity != null) {
+            return createFileInstance(fileEntity);
+        }
+
+        if (OCFile.ROOT_PATH.equals(path)) {
             return createRootDir(); // root should always exist
         }
 
-        return ocFile;
+        return null;
     }
 
     public @Nullable
@@ -153,36 +155,26 @@ public class FileDataStorageManager {
 
     public @Nullable
     OCFile getFileByLocalPath(String path) {
-        Cursor cursor = getFileCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
-        OCFile ocFile = null;
-
-        if (cursor.moveToFirst()) {
-            ocFile = createFileInstance(cursor);
+        FileEntity fileEntity = fileDao.getFileByLocalPath(path, user.getAccountName());
+        if (fileEntity != null) {
+            return createFileInstance(fileEntity);
         }
-        cursor.close();
-
-        return ocFile;
+        return null;
     }
 
     public @Nullable
     OCFile getFileByRemoteId(String remoteId) {
-        Cursor cursor = getFileCursorForValue(ProviderTableMeta.FILE_REMOTE_ID, remoteId);
-        OCFile ocFile = null;
-
-        if (cursor.moveToFirst()) {
-            ocFile = createFileInstance(cursor);
+        FileEntity fileEntity = fileDao.getFileByRemoteId(remoteId, user.getAccountName());
+        if (fileEntity != null) {
+            return createFileInstance(fileEntity);
         }
-        cursor.close();
-
-        return ocFile;
+        return null;
     }
 
-    public boolean fileExists(long id) {
-        return fileExists(ProviderTableMeta._ID, String.valueOf(id));
-    }
+    public boolean fileExists(long id) { return fileDao.getFileById(id) != null; }
 
     public boolean fileExists(String path) {
-        return fileExists(ProviderTableMeta.FILE_PATH, path);
+        return fileDao.getFileByEncryptedRemotePath(path, user.getAccountName()) != null;
     }
 
 
@@ -886,47 +878,6 @@ public class FileDataStorageManager {
         saveFile(ocFile);
 
         return ocFile;
-    }
-
-    // TODO write test
-    private boolean fileExists(String key, String value) {
-        Cursor cursor = getFileCursorForValue(key, value);
-        boolean isExists = false;
-
-        if (cursor == null) {
-            Log_OC.e(TAG, "Couldn't determine file existance, assuming non existance");
-        } else {
-            isExists = cursor.moveToFirst();
-            cursor.close();
-        }
-
-        return isExists;
-    }
-
-    private Cursor getFileCursorForValue(String key, String value) {
-        Cursor cursor;
-        if (getContentResolver() != null) {
-            cursor = getContentResolver()
-                .query(ProviderTableMeta.CONTENT_URI,
-                       null,
-                       key + AND
-                           + ProviderTableMeta.FILE_ACCOUNT_OWNER
-                           + "=?",
-                       new String[]{value, user.getAccountName()}, null);
-        } else {
-            try {
-                cursor = getContentProviderClient().query(
-                    ProviderTableMeta.CONTENT_URI,
-                    null,
-                    key + AND + ProviderTableMeta.FILE_ACCOUNT_OWNER
-                        + "=?", new String[]{value, user.getAccountName()},
-                    null);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Could not get file details: " + e.getMessage(), e);
-                cursor = null;
-            }
-        }
-        return cursor;
     }
 
     @Nullable
