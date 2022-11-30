@@ -1,0 +1,3 @@
+Bump kotlin_version from 1.7.21 to 1.7.22
+Update Nextcloud Android library
+Update 3rd-party dependencies
