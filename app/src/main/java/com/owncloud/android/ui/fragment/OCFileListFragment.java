@@ -1227,7 +1227,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             paths.add(file.getRemotePath());
         }
         action.putStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS, paths);
-        action.putExtra(FolderPickerActivity.EXTRA_CURRENT_FOLDER, mFile);
         action.putExtra(FolderPickerActivity.EXTRA_ACTION, extraAction);
         getActivity().startActivityForResult(action, requestCode);
     }
