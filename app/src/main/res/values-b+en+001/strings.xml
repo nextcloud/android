@@ -248,7 +248,7 @@
     <string name="end_to_end_encryption_folder_not_empty">This folder is not empty.</string>
     <string name="end_to_end_encryption_generating_keys">Generating new keys…</string>
     <string name="end_to_end_encryption_keywords_description">All 12 words together make a very strong password, letting only you view and make use of your encrypted files. Please write it down and keep it somewhere safe.</string>
-    <string name="end_to_end_encryption_not_enabled">End-to-End encryption disabled on server.</string>
+    <string name="end_to_end_encryption_not_enabled">End-to-end encryption disabled on server.</string>
     <string name="end_to_end_encryption_passphrase_title">Make note of your 12 word encryption password</string>
     <string name="end_to_end_encryption_password">Password…</string>
     <string name="end_to_end_encryption_retrieving_keys">Retrieving keys…</string>
@@ -551,7 +551,6 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_daily_backup_summary">Daily backup of your calendar &amp; contacts</string>
-    <string name="prefs_e2e_active">End to end encryption is set up!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
     <string name="prefs_enable_media_scan_notifications">Show media scan notifications</string>
@@ -563,7 +562,6 @@
     <string name="prefs_instant_behaviour_title">Original file will be…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Store in subfolders based on year and month</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
-    <string name="prefs_keys_exist">Add end to end encryption to this client</string>
     <string name="prefs_license">License</string>
     <string name="prefs_lock">App passcode</string>
     <string name="prefs_lock_device_credentials_enabled">Device credentials enabled</string>
@@ -575,7 +573,6 @@
     <string name="prefs_manage_accounts">Manage accounts</string>
     <string name="prefs_recommend">Recommend to a friend</string>
     <string name="prefs_remove_e2e">Remove encryption locally</string>
-    <string name="prefs_setup_e2e">Set up end to end encryption</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_storage_path">Data storage folder</string>
@@ -603,8 +600,6 @@
     <string name="reload">Reload</string>
     <string name="remote">(remote)</string>
     <string name="remote_file_fetch_failed">Failed to find file!</string>
-    <string name="remove_e2e">You can remove end to end encryption locally on this client</string>
-    <string name="remove_e2e_message">You can remove end to end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
     <string name="remove_fail_msg">Deletion failed</string>
     <string name="remove_notification_failed">Failed to remove notification.</string>
     <string name="remove_push_notification">Remove</string>
@@ -648,7 +643,6 @@
     <string name="set_picture_as">Use picture as</string>
     <string name="set_status">Set status</string>
     <string name="set_status_message">Set status message</string>
-    <string name="setup_e2e">During setup of end to end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="share">Share</string>
     <string name="share_copy_link">Share &amp; Copy Link</string>
     <string name="share_dialog_title">Sharing</string>

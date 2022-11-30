@@ -551,7 +551,6 @@
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
     <string name="prefs_daily_backup_summary">Tägliche Sicherung Ihrer Kalender &amp; Kontakte</string>
-    <string name="prefs_e2e_active">Ende-zu-Ende-Verschlüsselung ist eingerichtet!</string>
     <string name="prefs_e2e_mnemonic">E2E-Gedächtnisstütze</string>
     <string name="prefs_e2e_no_device_credentials">Um die Gedächtnisstütze anzuzeigen, aktivieren Sie bitte Geräte-Zugangsdaten</string>
     <string name="prefs_enable_media_scan_notifications">Benachrichtigungen der Mediensuche anzeigen</string>
@@ -563,7 +562,6 @@
     <string name="prefs_instant_behaviour_title">Originaldatei wird…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">In Unterordnern speichern, basierend auf Jahr und Monat</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Unterordner benutzen</string>
-    <string name="prefs_keys_exist">Diesem Client End-to-End-Verschlüsselung hinzufügen</string>
     <string name="prefs_license">Lizenz</string>
     <string name="prefs_lock">App-PIN</string>
     <string name="prefs_lock_device_credentials_enabled">Geräte-Anmeldedaten aktiviert</string>
@@ -575,7 +573,6 @@
     <string name="prefs_manage_accounts">Konten verwalten</string>
     <string name="prefs_recommend">Einem Freund empfehlen</string>
     <string name="prefs_remove_e2e">Verschlüsselung lokal entfernen</string>
-    <string name="prefs_setup_e2e">Ende-zu-Ende-Verschlüsselung einrichten</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_sourcecode">Zum Programmcode</string>
     <string name="prefs_storage_path">Speicherordner</string>
@@ -603,8 +600,6 @@
     <string name="reload">Neu laden</string>
     <string name="remote">(entfernt)</string>
     <string name="remote_file_fetch_failed">Datei nicht gefunden!</string>
-    <string name="remove_e2e">Sie können die Ende-zu-Ende-Verschlüsselung lokal auf diesem Client entfernen</string>
-    <string name="remove_e2e_message">Sie können die Ende-zu-Ende-Verschlüsselung lokal auf diesem Client entfernen. Die verschlüsselten Dateien bleiben auf dem Server, werden aber nicht mehr mit diesem Computer synchronisiert.</string>
     <string name="remove_fail_msg">Löschung fehlgeschlagen</string>
     <string name="remove_notification_failed">Entfernen der Benachrichtigungen fehlgeschlagen.</string>
     <string name="remove_push_notification">Entfernen</string>
@@ -648,7 +643,6 @@
     <string name="set_picture_as">Nutze Bild als</string>
     <string name="set_status">Status setzen</string>
     <string name="set_status_message">Statusnachricht setzen</string>
-    <string name="setup_e2e">Während der Einrichtung der Ende-zu-Ende-Verschlüsselung erhalten Sie eine zufällige 12-Wörter-Gedächtnisstütze, die Sie benötigen, um Ihre Dateien auf anderen Geräten zu öffnen. Diese wird nur auf diesem Gerät gespeichert und kann in diesem Bildschirm erneut angezeigt werden. Bitte notieren Sie es an einem sicheren Ort!</string>
     <string name="share">Teilen</string>
     <string name="share_copy_link">Teilen &amp; Link kopieren</string>
     <string name="share_dialog_title">Teilen</string>

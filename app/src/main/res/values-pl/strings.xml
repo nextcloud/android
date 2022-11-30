@@ -248,7 +248,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Ten katalog nie jest pusty.</string>
     <string name="end_to_end_encryption_generating_keys">Generowanie nowych kluczy</string>
     <string name="end_to_end_encryption_keywords_description">Wszystkie 12 słów utworzy bardzo trudne hasło, które pozwoli na przeglądanie i korzystanie z zaszyfrowanych plików. Zapisz je i przechowuj w bezpiecznym miejscu.</string>
-    <string name="end_to_end_encryption_not_enabled">Szyfrowanie end-to-end wyłączone na serwerze.</string>
+    <string name="end_to_end_encryption_not_enabled">Szyfrowanie End-to-End wyłączone po stronie serwera.</string>
     <string name="end_to_end_encryption_passphrase_title">Zapisz swoje 12-sto znakowe hasło szyfrujące</string>
     <string name="end_to_end_encryption_password">Hasło…</string>
     <string name="end_to_end_encryption_retrieving_keys">Pobieranie kluczy…</string>
@@ -551,7 +551,6 @@
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
     <string name="prefs_daily_backup_summary">Codzienna kopia zapasowa kontaktów i kalendarza</string>
-    <string name="prefs_e2e_active">Szyfrowanie End-to-End jest skonfigurowane!</string>
     <string name="prefs_e2e_mnemonic">Mnemonik E2E</string>
     <string name="prefs_e2e_no_device_credentials">Aby pokazać mnemonik włącz poświadczenia urządzenia.</string>
     <string name="prefs_enable_media_scan_notifications">Pokaż powiadomienia o skanowaniu multimediów</string>
@@ -563,7 +562,6 @@
     <string name="prefs_instant_behaviour_title">Oryginalny plik zostanie…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Przechowuj w podkatalogach na podstawie roku i miesiąca</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podkatalogów</string>
-    <string name="prefs_keys_exist">Dodaj szyfrowanie End-to-End do tego klienta</string>
     <string name="prefs_license">Licencja</string>
     <string name="prefs_lock">Hasło aplikacji</string>
     <string name="prefs_lock_device_credentials_enabled">Poświadczenia urządzenia włączone</string>
@@ -575,7 +573,6 @@
     <string name="prefs_manage_accounts">Zarządzaj kontami</string>
     <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_remove_e2e">Usuń szyfrowanie lokalne</string>
-    <string name="prefs_setup_e2e">Skonfiguruj szyfrowanie End-to-End</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_sourcecode">Pobierz kod źródłowy</string>
     <string name="prefs_storage_path">Katalog przechowywania danych</string>
@@ -603,8 +600,6 @@
     <string name="reload">Przeładuj</string>
     <string name="remote">(zdalne)</string>
     <string name="remote_file_fetch_failed">Nie znaleziono pliku!</string>
-    <string name="remove_e2e">Możesz usunąć szyfrowanie End-to-End lokalnie na tym kliencie</string>
-    <string name="remove_e2e_message">Szyfrowanie End-to-End można usunąć lokalnie na tym kliencie. Zaszyfrowane pliki pozostaną na serwerze, ale nie będą już synchronizowane z tym komputerem.</string>
     <string name="remove_fail_msg">Usuwanie nie powiodło się</string>
     <string name="remove_notification_failed">Usunięcie powiadomienia nie powiodło się.</string>
     <string name="remove_push_notification">Usuń</string>
@@ -648,7 +643,6 @@
     <string name="set_picture_as">Użyj obrazu jako</string>
     <string name="set_status">Ustaw status</string>
     <string name="set_status_message">Ustaw komunikat statusu</string>
-    <string name="setup_e2e">Podczas konfiguracji szyfrowania End-to-End otrzymasz losowy 12-wyrazowy mnemonik, który będzie potrzebny do otwierania plików na innych urządzeniach. Będzie on przechowywany tylko na tym urządzeniu i można go ponownie wyświetlić na tym ekranie. Zapisz go w bezpiecznym miejscu!</string>
     <string name="share">Udostępnij</string>
     <string name="share_copy_link">Udostępnij i skopiuj link</string>
     <string name="share_dialog_title">Udostępnianie</string>

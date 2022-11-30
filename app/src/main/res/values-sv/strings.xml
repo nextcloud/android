@@ -87,12 +87,14 @@
     <string name="calendars">Kalendrar</string>
     <string name="certificate_load_problem">Det uppstod ett problem med att läsa in certifikatet.</string>
     <string name="changelog_dev_version">Ändringslogg utvecklingsversion</string>
+    <string name="check_back_later_or_reload">Återkom senare eller ladda om</string>
     <string name="checkbox">Kryssruta</string>
     <string name="choose_local_folder">Välj lokal mapp…</string>
     <string name="choose_location">Välj plats</string>
     <string name="choose_remote_folder">Välj extern mapp…</string>
     <string name="choose_template_helper_text">Vänligen välj en mall och ange ett filnamn.</string>
     <string name="choose_which_file">Välj vilken fil du vill behålla!</string>
+    <string name="choose_widget">Välj widget</string>
     <string name="clear_notifications_failed">Kunde inte rensa aviseringar.</string>
     <string name="clear_status_message">Rensa statusmeddelande</string>
     <string name="clear_status_message_after">Rensa statusmeddelande efter</string>
@@ -144,6 +146,7 @@
     <string name="community_testing_report_text">Rapportera ditt problem på GitHub</string>
     <string name="community_testing_version_text">Intresserad av att hjälpa till att testa nästa version?</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurera</string>
+    <string name="confirm_removal">Ta bort lokal kryptering</string>
     <string name="confirmation_remove_file_alert">Vill du verkligen ta bort %1$s?</string>
     <string name="confirmation_remove_files_alert">Vill du verkligen radera de valda objekten?</string>
     <string name="confirmation_remove_folder_alert">Vill du verkligen ta bort %1$s och dess innehåll?</string>
@@ -203,6 +206,7 @@
     <string name="disable_new_media_folder_detection_notifications">Inaktivera</string>
     <string name="dismiss">Avfärda</string>
     <string name="dismiss_notification_description">Avfärda notifiering</string>
+    <string name="displays_mnemonic">Visar din 12-ord långa lösenordsfras</string>
     <string name="dnd">Stör ej</string>
     <string name="dontClear">Rensa inte</string>
     <string name="download_latest_dev_version">Hämta senaste utvecklingsversionen</string>
@@ -234,6 +238,7 @@
     <string name="drawer_quota">%1$s av %2$s använt</string>
     <string name="drawer_quota_unlimited">%1$s använt</string>
     <string name="drawer_synced_folders">Automatisk uppladdning</string>
+    <string name="e2e_not_yet_setup">E2E ej inställt än</string>
     <string name="encrypted">Sätt som krypterad</string>
     <string name="end_to_end_encryption_confirm_button">Aktivera kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterar…</string>
@@ -387,6 +392,7 @@
     <string name="hint_password">Lösenord</string>
     <string name="host_not_available">Server inte tillgänglig</string>
     <string name="host_your_own_server">Använd egen server</string>
+    <string name="icon_for_empty_list">Ikon för tom lista</string>
     <string name="in_folder">i mapp %1$s</string>
     <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
@@ -465,6 +471,7 @@
     <string name="no_browser_available">Ingen app tillgänglig för att hantera länkar</string>
     <string name="no_calendar_exists">Inga kalendrar existerar</string>
     <string name="no_email_app_available">Ingen tillgänglig applikation kan hantera e-postadresser</string>
+    <string name="no_items">Inga poster</string>
     <string name="no_mutliple_accounts_allowed">Endast ett konto tillåtet</string>
     <string name="no_pdf_app_available">Ingen app tillgänglig för att hantera PDF</string>
     <string name="no_send_app">Ingen app tillgänglig för att skicka de valda filerna</string>
@@ -508,6 +515,7 @@
     <string name="permission_deny">Neka</string>
     <string name="permission_storage_access">Ytterligare rättigheter krävs för att ladda upp eller hämta filer</string>
     <string name="picture_set_as_no_app">Ingen app hittades för att ställa in en bild med</string>
+    <string name="pin_home">Fäst upp på hemskärmen</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -582,6 +590,7 @@
     <string name="recommend_subject">Försök%1$s på din enhet!</string>
     <string name="recommend_text">Jag vill bjuda in dig att använda %1$s på din enhet.\nHämta här: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="refresh_content">Återinläs innhåll</string>
     <string name="reload">Uppdatera</string>
     <string name="remote">(avlägsen)</string>
     <string name="remote_file_fetch_failed">Kunde inte hitta filen!</string>

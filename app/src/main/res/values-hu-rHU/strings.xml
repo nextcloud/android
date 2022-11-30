@@ -147,6 +147,7 @@
     <string name="community_testing_report_text">Jelentse az esetet a GitHubon</string>
     <string name="community_testing_version_text">Segítene a következő verzió tesztelésében?</string>
     <string name="configure_new_media_folder_detection_notifications">Beállítás</string>
+    <string name="confirm_removal">Helyi titkosítás eltávolítása</string>
     <string name="confirmation_remove_file_alert">Biztos, hogy törli ezt: %1$s?</string>
     <string name="confirmation_remove_files_alert">Biztos, hogy törli a kiválasztott elemeket?</string>
     <string name="confirmation_remove_folder_alert">Biztos, hogy törli ezt: %1$s és a tartalmát?</string>
@@ -206,6 +207,7 @@
     <string name="disable_new_media_folder_detection_notifications">Letiltás</string>
     <string name="dismiss">Elutasítás</string>
     <string name="dismiss_notification_description">Értesítés mellőzése</string>
+    <string name="displays_mnemonic">Megjeleníti a 12 szavas jelmondatát</string>
     <string name="dnd">Ne zavarjanak</string>
     <string name="dontClear">Ne törölje</string>
     <string name="download_latest_dev_version">A legfrissebb fejlesztői verzió letöltése</string>
@@ -268,6 +270,7 @@
     <string name="error_report_issue_text">Jelenti a hibát a követőbe? (GitHub-fiók szükséges)</string>
     <string name="error_retrieving_file">Hiba a fájl lekérésekor</string>
     <string name="error_retrieving_templates">Hiba történt a sablonok lékérésekor</string>
+    <string name="error_showing_encryption_dialog">Hiba a titkosítás beállítóablakának megjelenítése során!</string>
     <string name="error_starting_direct_camera_upload">Hiba a kamera indításakor</string>
     <string name="error_starting_scan_doc">Hiba a dokumentumbeolvasás használata sorá</string>
     <string name="etm_accounts">Fiókok</string>
@@ -517,6 +520,8 @@
     <string name="permission_deny">Megtagadás</string>
     <string name="permission_storage_access">További jogosultságokra van szükség a fájlok fel- és letöltéséhez.</string>
     <string name="picture_set_as_no_app">Nincs alkalmazás a képbeállításhoz</string>
+    <string name="pin_home">Rögzítés a kezdőképernyőre</string>
+    <string name="pin_shortcut_label">A(z) %1$s megnyitása</string>
     <string name="placeholder_fileSize">389 kB</string>
     <string name="placeholder_filename">helykitöltő.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -567,6 +572,7 @@
     <string name="prefs_lock_using_passcode">Számkód</string>
     <string name="prefs_manage_accounts">Fiókok kezelése</string>
     <string name="prefs_recommend">Ajánlás egy barátnak</string>
+    <string name="prefs_remove_e2e">Titkosítás eltávolítása helyileg</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
     <string name="prefs_sourcecode">Forráskód beszerzése</string>
     <string name="prefs_storage_path">Adattároló mappa</string>

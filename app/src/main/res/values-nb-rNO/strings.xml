@@ -246,7 +246,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Denne mappen er ikke tom.</string>
     <string name="end_to_end_encryption_generating_keys">Genererer nye nøkler…</string>
     <string name="end_to_end_encryption_keywords_description">Alle 12 ordene sammen utgjør et veldig sterkt passord, som lar bare deg vise og gjøre bruk av dine krypterte filer. Skriv det ned og oppbevar det på en trygg plass.</string>
-    <string name="end_to_end_encryption_not_enabled">Ende-til-ende-kryptering deaktivert på serveren.</string>
+    <string name="end_to_end_encryption_not_enabled">Ende-til-ende -kryptering avskrudd på serveren.</string>
     <string name="end_to_end_encryption_passphrase_title">Merk deg dit 12-ords-krypteringspassord</string>
     <string name="end_to_end_encryption_password">Passord…</string>
     <string name="end_to_end_encryption_retrieving_keys">Henter nøkler…</string>

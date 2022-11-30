@@ -249,7 +249,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Папката не е празна.</string>
     <string name="end_to_end_encryption_generating_keys">Генериране на нови ключове...</string>
     <string name="end_to_end_encryption_keywords_description">Всички 12 думи заедно правят много силна парола, позволявайки само Вие да преглеждате и използвате вашите криптирани файлове. Моля запишете я и я пазете на сигурно място.</string>
-    <string name="end_to_end_encryption_not_enabled">Криптирането End-to-end е деактивирано на сървъра.</string>
+    <string name="end_to_end_encryption_not_enabled">Криптиране End-to-end е забранено на сървъра.</string>
     <string name="end_to_end_encryption_passphrase_title">Запишете паролата си за криптиране от 12 думи</string>
     <string name="end_to_end_encryption_password">Парола…</string>
     <string name="end_to_end_encryption_retrieving_keys">Извличане на ключове...</string>
@@ -552,7 +552,6 @@
     <string name="prefs_category_general">Общи</string>
     <string name="prefs_category_more">Още</string>
     <string name="prefs_daily_backup_summary">Ежедневно архивиране на вашия календар &amp; контакти</string>
-    <string name="prefs_e2e_active">Настроено е цялостно криптиране!</string>
     <string name="prefs_e2e_mnemonic">E2E мнемоника </string>
     <string name="prefs_e2e_no_device_credentials">Моля, да активирате идентификационните данни на устройството, за да се покаже мнемоника.</string>
     <string name="prefs_enable_media_scan_notifications">Показване на известия за сканиране на мултимедия</string>
@@ -564,7 +563,6 @@
     <string name="prefs_instant_behaviour_title">Оригиналният файл ще бъде…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Съхраняване в подпапки, разделени по година и месец</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Ползване на подпапки</string>
-    <string name="prefs_keys_exist">Добавяне на цялостно криптиране към този клиент</string>
     <string name="prefs_license">Лиценз</string>
     <string name="prefs_lock">Код за достъп за приложение </string>
     <string name="prefs_lock_device_credentials_enabled">Удостоверяването от устройството е включено</string>
@@ -576,7 +574,6 @@
     <string name="prefs_manage_accounts">Управление на профилите</string>
     <string name="prefs_recommend">Препоръчайте на приятел</string>
     <string name="prefs_remove_e2e">Премахване на локално криптиране</string>
-    <string name="prefs_setup_e2e">Настройка на цялостно криптиране</string>
     <string name="prefs_show_hidden_files">Показване и на скрити файлове</string>
     <string name="prefs_sourcecode">Получаване на изходния код</string>
     <string name="prefs_storage_path">Папка за съхранение на данни</string>
@@ -604,8 +601,6 @@
     <string name="reload">Презареди</string>
     <string name="remote">(отдалечен)</string>
     <string name="remote_file_fetch_failed">Неуспешно намиране на файл!</string>
-    <string name="remove_e2e">Можете да премахнете локално цялостното криптиране към този клиент</string>
-    <string name="remove_e2e_message">Можете да премахнете локално цялостното криптиране към този клиент. Криптираните файлове ще останат на сървъра, но вече няма да се синхронизират с този компютър.</string>
     <string name="remove_fail_msg">Изтриването неуспешно</string>
     <string name="remove_notification_failed">Неуспешно премахване на известие.</string>
     <string name="remove_push_notification">Премахване</string>
@@ -649,7 +644,6 @@
     <string name="set_picture_as">Задай като</string>
     <string name="set_status">Задайте състояние</string>
     <string name="set_status_message">Задайте съобщение за състояние</string>
-    <string name="setup_e2e">По време на настройката на цялостното криптиране ще получите мнемоника от 12 произволни думи , която ще ви е необходима, за да отваряте файловете си на други устройства. Тя ще бъде съхранена само на това устройство и може да бъде показана отново на този екран. Моля, запишете я на сигурно място!</string>
     <string name="share">Сподели</string>
     <string name="share_copy_link">Споделяне &amp; Копиране на връзка</string>
     <string name="share_dialog_title">Споделяне</string>
