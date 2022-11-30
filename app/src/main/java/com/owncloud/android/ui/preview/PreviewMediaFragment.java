@@ -68,7 +68,6 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.DrawerActivity;
-import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
@@ -87,6 +86,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 /**
@@ -105,9 +105,13 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_USER = "USER";
+    public static final String EXTRA_AUTOPLAY = "AUTOPLAY";
+    public static final String EXTRA_START_POSITION = "START_POSITION";
+    
     private static final String EXTRA_PLAY_POSITION = "PLAY_POSITION";
     private static final String EXTRA_PLAYING = "PLAYING";
     private static final double MIN_DENSITY_RATIO = 24.0;
+
 
     private static final String FILE = "FILE";
     private static final String USER = "USER";
@@ -128,6 +132,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     FragmentPreviewMediaBinding binding;
     private ViewGroup emptyListView;
     private ExoPlayer exoPlayer;
+    private NextcloudClient nextcloudClient;
 
     /**
      * Creates a fragment to preview a file.
@@ -328,9 +333,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                     final Handler handler = new Handler();
                     Executors.newSingleThreadExecutor().execute(() -> {
                         try {
-                            final NextcloudClient client = clientFactory.createNextcloudClient(accountManager.getUser());
+                            nextcloudClient = clientFactory.createNextcloudClient(accountManager.getUser());
                             handler.post(() ->{
-                                exoPlayer = NextcloudExoPlayer.createNextcloudExoplayer(requireContext(), client);
+                                exoPlayer = NextcloudExoPlayer.createNextcloudExoplayer(requireContext(), nextcloudClient);
                                 exoPlayer.addListener(new ExoplayerListener(requireContext(), binding.exoplayerView, exoPlayer));
                                 playVideo();
                             });
@@ -602,14 +607,10 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     }
 
     private void startFullScreenVideo() {
-        Intent intent = new Intent(getActivity(), PreviewVideoActivity.class);
-        intent.putExtra(FileActivity.EXTRA_USER, user);
-        intent.putExtra(FileActivity.EXTRA_FILE, getFile());
-        intent.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, exoPlayer.isPlaying());
-        intent.putExtra(PreviewVideoActivity.EXTRA_STREAM_URL, videoUri);
-        exoPlayer.pause();
-        intent.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, exoPlayer.getCurrentPosition());
-        startActivityForResult(intent, FileActivity.REQUEST_CODE__LAST_SHARED + 1);
+        final FragmentActivity activity = getActivity();
+        if (activity != null) {
+            new PreviewVideoFullscreenDialog(activity, nextcloudClient, exoPlayer, binding.exoplayerView).show();
+        }
     }
 
     @Override
@@ -623,8 +624,8 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         Log_OC.v(TAG, "onActivityResult " + this);
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            savedPlaybackPosition = data.getLongExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
-            autoplay = data.getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, false);
+            savedPlaybackPosition = data.getLongExtra(PreviewMediaFragment.EXTRA_START_POSITION, 0);
+            autoplay = data.getBooleanExtra(PreviewMediaFragment.EXTRA_AUTOPLAY, false);
         }
     }
 

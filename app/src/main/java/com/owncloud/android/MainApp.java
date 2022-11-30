@@ -488,7 +488,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
     private void enableStrictMode() {
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG && BuildConfig.RUNTIME_PERF_ANALYSIS) {
+            Log_OC.d(TAG, "Enabling StrictMode");
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                                            .detectDiskReads()
                                            .detectDiskWrites()
