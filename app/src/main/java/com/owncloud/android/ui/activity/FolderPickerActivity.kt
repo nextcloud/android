@@ -363,7 +363,7 @@ open class FolderPickerActivity :
     }
 
     private fun isParentFolder(folderPath: String, filePath: String): Boolean {
-        return folderPath == File(filePath).parent
+        return File(folderPath).path == File(filePath).parent
     }
 
     private fun updateNavigationElementsInActionBar() {
