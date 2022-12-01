@@ -28,7 +28,7 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class Template(
-    val id: Int,
+    val id: Long,
     val name: String,
     val thumbnailLink: String,
     val type: Type,
