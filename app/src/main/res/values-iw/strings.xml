@@ -14,6 +14,7 @@
     <string name="action_send_share">שליחה/שיתוף</string>
     <string name="action_switch_grid_view">תצוגת טבלה</string>
     <string name="action_switch_list_view">תצוגת רשימה</string>
+    <string name="actionbar_calendar_contacts_restore">שחזור אנשי קשר ולוח שנה</string>
     <string name="actionbar_copy">העתק</string>
     <string name="actionbar_mkdir">תיקייה חדשה</string>
     <string name="actionbar_move">העברה</string>
@@ -25,6 +26,7 @@
     <string name="actionbar_sort">מיון</string>
     <string name="active_user">משתמש פעיל</string>
     <string name="activities_no_results_headline">אין פעילות עדיין</string>
+    <string name="activities_no_results_message">אין אירועים כמו תוספות, שינויים ושיתופים עדיין.</string>
     <string name="activity_chooser_send_file_title">שליחה</string>
     <string name="activity_chooser_title">שליחת קישור אל…</string>
     <string name="activity_icon">פעילות</string>
@@ -33,6 +35,7 @@
     <string name="add_to_cloud">הוספה אל %1$s</string>
     <string name="advanced_settings">הגדרות מתקדמות</string>
     <string name="allow_resharing">לאפשר שיתוף מחדש</string>
+    <string name="app_widget_description">מצג וידג׳ט אחד מלוח הבקרה</string>
     <string name="appbar_search_in">חפש ב %s</string>
     <string name="associated_account_not_found">לא נמצא חשבון משויך!</string>
     <string name="auth_access_failed">גישה נכשלה: %1$s</string>
@@ -75,6 +78,7 @@
     <string name="avatar">תמונה מייצגת</string>
     <string name="away">לא פה</string>
     <string name="backup_settings">הגדרות גיבוי</string>
+    <string name="backup_title">גיבוי אנשי קשר ולוח שנה</string>
     <string name="battery_optimization_close">סגירה</string>
     <string name="battery_optimization_disable">השבתה</string>
     <string name="battery_optimization_message">יתכן שבמכשיר שלך מופעל מיטוב סוללה. שליחה אוטומטית עובדת כראוי רק אם היישומון הזה לא נכלל בהגדרה זו.</string>
@@ -143,7 +147,9 @@
     <string name="confirmation_remove_folders_alert">למחוק את הפריטים הנבחרים ואת תוכנם?</string>
     <string name="confirmation_remove_local">מקומי בלבד</string>
     <string name="conflict_dialog_error">שגיאה ביצירת תיבת דו־שיח סתירה!</string>
+    <string name="conflict_local_file">קובץ מקומי</string>
     <string name="conflict_message_description">בבחירה של שתי הגרסאות, יתווסף מספר בסוף שמו של הקובץ המקומי.</string>
+    <string name="conflict_server_file">קובץ בשרת</string>
     <string name="contactlist_item_icon">סמן משתמש לרשימת אנשי קשר</string>
     <string name="contactlist_no_permission">לא ניתנה הרשאה, שום דבר לא עבר ייבוא.</string>
     <string name="contacts">אנשי קשר</string>
@@ -161,6 +167,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">נכון לעכשיו, אין תמיכה בהעתקה/העברה לתיקייה מוצפנת.</string>
     <string name="copy_to">העתק אל…</string>
     <string name="could_not_download_image">לא ניתן להוריד את התמונה המלאה</string>
+    <string name="could_not_retrieve_shares">לא ניתן למשוך את השיתופים</string>
     <string name="could_not_retrieve_url">לא ניתן לקבל כתובת</string>
     <string name="create">יצירה</string>
     <string name="create_dir_fail_msg">לא ניתן ליצור תיקייה</string>
@@ -173,6 +180,7 @@
     <string name="creates_rich_workspace">יוצר פרטי תיקייה</string>
     <string name="credentials_disabled">פרטי גישה מושבתים</string>
     <string name="daily_backup">גיבוי יומי</string>
+    <string name="data_to_back_up">נתונים לגיבוי</string>
     <string name="date_unknown">לא ידוע</string>
     <string name="default_credentials_wrong">פרטי הגישה שגויים</string>
     <string name="delete_account">הסרת חשבון</string>
@@ -180,11 +188,14 @@
     <string name="delete_entries">מחיקת רשומות</string>
     <string name="delete_link">מחק קישור</string>
     <string name="deselect_all">ביטול בחירה</string>
+    <string name="destination_filename">שם קובץ היעד</string>
     <string name="dev_version_new_version_available">קיימת גרסה חדשה</string>
     <string name="dev_version_no_information_available">אין מידע זמין.</string>
     <string name="dev_version_no_new_version_available">לא קיימת גרסה חדשה.</string>
     <string name="dialog_close">סגירה</string>
+    <string name="did_not_check_for_dupes">לא התבצעה בדיקת כפילויות.</string>
     <string name="digest_algorithm_not_available">אלגוריתם digest זה אינו זמין במכשיר הטלפון החכם שלך.</string>
+    <string name="direct_login_failed">כניסה דרך קישור ישיר נכשלה!</string>
     <string name="disable_new_media_folder_detection_notifications">השבתה</string>
     <string name="dismiss">התעלמות</string>
     <string name="dismiss_notification_description">התעלמות מהתראה</string>
@@ -259,6 +270,7 @@
     <string name="etm_migrations">נדידות (שדרוגי יישומים)</string>
     <string name="etm_preferences">העדפות</string>
     <string name="etm_title">מצב בדיקת מהנדסים</string>
+    <string name="etm_transfer">העברת קבצים</string>
     <string name="etm_transfer_type">העברה</string>
     <string name="etm_transfer_type_download">הורדה</string>
     <string name="etm_transfer_type_upload">העלאה</string>

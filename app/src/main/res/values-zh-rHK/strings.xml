@@ -551,6 +551,7 @@
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_daily_backup_summary">您日曆及通訊錄的每日備份</string>
+    <string name="prefs_e2e_active">端到端加密設置完畢！</string>
     <string name="prefs_e2e_mnemonic">端到端助記碼</string>
     <string name="prefs_e2e_no_device_credentials">裝置若要顯示助記碼請啟用裝置身分驗證。</string>
     <string name="prefs_enable_media_scan_notifications">顯示媒體掃描通知</string>
@@ -562,6 +563,7 @@
     <string name="prefs_instant_behaviour_title">原始的檔案將會…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">依據年月存在子資料夾內</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子資料夾</string>
+    <string name="prefs_keys_exist">向此客戶端添加端到端加密</string>
     <string name="prefs_license">授權</string>
     <string name="prefs_lock">App 通行碼</string>
     <string name="prefs_lock_device_credentials_enabled">裝置身分驗證已啟動</string>
@@ -573,6 +575,7 @@
     <string name="prefs_manage_accounts">管理賬戶</string>
     <string name="prefs_recommend">向朋友推薦</string>
     <string name="prefs_remove_e2e">移除近端加密</string>
+    <string name="prefs_setup_e2e">設置端對端加密</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_sourcecode">取得原始碼</string>
     <string name="prefs_storage_path">資料儲存資料夾</string>
@@ -600,6 +603,8 @@
     <string name="reload">重新載入</string>
     <string name="remote">﹙遠端﹚</string>
     <string name="remote_file_fetch_failed">找不到檔案！</string>
+    <string name="remove_e2e">您可以在此客戶端上本地刪除端到端加密</string>
+    <string name="remove_e2e_message">您可以在此客戶端上本地刪除端到端加密。加密檔案將保留在伺服器上，但不會再同步到此電腦。</string>
     <string name="remove_fail_msg">刪除失敗</string>
     <string name="remove_notification_failed">移除通知失敗</string>
     <string name="remove_push_notification">移除</string>
@@ -643,6 +648,7 @@
     <string name="set_picture_as">使用圖片作為</string>
     <string name="set_status">設定狀態</string>
     <string name="set_status_message">設定狀態訊息</string>
+    <string name="setup_e2e">在設置端到端加密期間，您將收到一個隨機的 12 字助記碼，您需要在其他設備上打開文件。這將僅存儲在此設備上，並且可以在此屏幕中再次顯示。請記在安全的地方！</string>
     <string name="share">分享</string>
     <string name="share_copy_link">分享並複製連結</string>
     <string name="share_dialog_title">分享</string>

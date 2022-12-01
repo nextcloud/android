@@ -248,7 +248,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Ez a mappa nem üres.</string>
     <string name="end_to_end_encryption_generating_keys">Új kulcsok előállítása…</string>
     <string name="end_to_end_encryption_keywords_description">A 12 szó együtt nagyon erős jelszót alkot, amivel megtekintheti és használhatja a titkosított fájljait. Kérjük írja le, és őrizze biztonságos helyen.</string>
-    <string name="end_to_end_encryption_not_enabled">A végpontok közötti titkosítás ki van kapcsolva a kiszolgálón.</string>
+    <string name="end_to_end_encryption_not_enabled">A végpontok közti titkosítás ki van kapcsolva a kiszolgálón.</string>
     <string name="end_to_end_encryption_passphrase_title">Jegyezze fel a 12 szavas titkosítási kulcsát</string>
     <string name="end_to_end_encryption_password">Jelszó…</string>
     <string name="end_to_end_encryption_retrieving_keys">Kulcsok begyűjtése…</string>
@@ -551,6 +551,7 @@
     <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
     <string name="prefs_daily_backup_summary">Napi biztonsági mentés a naptáráról és a névjegyeiről</string>
+    <string name="prefs_e2e_active">A végpontok közti titkosítás beállítva!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonikus kód</string>
     <string name="prefs_e2e_no_device_credentials">A mnenomikus kód megjelenítéséhez engedélyezze az eszköz hitelesítését.</string>
     <string name="prefs_enable_media_scan_notifications">Média keresési értesítések megjelenítése</string>
@@ -562,6 +563,7 @@
     <string name="prefs_instant_behaviour_title">Az eredeti fájl…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tárolás év és hónap szerinti almappákban</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Almappák használata</string>
+    <string name="prefs_keys_exist">Végpontok közti titkosítás hozzáadása ehhez a klienshez</string>
     <string name="prefs_license">Licenc</string>
     <string name="prefs_lock">Alkalmazás számkód</string>
     <string name="prefs_lock_device_credentials_enabled">Eszközhitelesítő-adatok engedélyezve</string>
@@ -573,6 +575,7 @@
     <string name="prefs_manage_accounts">Fiókok kezelése</string>
     <string name="prefs_recommend">Ajánlás egy barátnak</string>
     <string name="prefs_remove_e2e">Titkosítás eltávolítása helyileg</string>
+    <string name="prefs_setup_e2e">Végpontok közti titkosítás beállítása</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
     <string name="prefs_sourcecode">Forráskód beszerzése</string>
     <string name="prefs_storage_path">Adattároló mappa</string>
@@ -600,6 +603,8 @@
     <string name="reload">Újratöltés</string>
     <string name="remote">(távoli)</string>
     <string name="remote_file_fetch_failed">A fájl nem található.</string>
+    <string name="remove_e2e">Helyileg eltávolíthatja a végpontok közti titkosítást ennél a kliensnél</string>
+    <string name="remove_e2e_message">Helyileg eltávolíthatja a végpontok közti titkosítást ennél a kliensnél. A titkosított fájlok továbbra is a kiszolgálón maradnak, de már nem lesznek szinkronizálva erre a számítógépre.</string>
     <string name="remove_fail_msg">Törlés sikertelen</string>
     <string name="remove_notification_failed">Az értesítés eltávolítása sikertelen.</string>
     <string name="remove_push_notification">Eltávolítás</string>
@@ -643,6 +648,7 @@
     <string name="set_picture_as">Kép használata mint</string>
     <string name="set_status">Állapot beállítása</string>
     <string name="set_status_message">Állapotüzenet beállítása</string>
+    <string name="setup_e2e">A végpontok közti titkosítás beállítása során kap egy 12 véletlenszerű szóból álló mnemonikus kódot, amelyre akkor lesz szüksége, ha más eszközökön akarja megnyitni a fájlokat. Ez csak ezen az eszközön lesz tárolva, és újra megjeleníthető ezen a képernyőn. Jegyezze le, és tárolja biztonságos helyen!</string>
     <string name="share">Megosztás</string>
     <string name="share_copy_link">Megosztás és hivatkozás másolása</string>
     <string name="share_dialog_title">Megosztás</string>
