@@ -78,21 +78,24 @@ class FilesUploadWorker(
             return Result.failure() // user account is needed
         }
 
-        // get all pending uploads
-        var currentAndPendingUploadsForAccount =
-            uploadsStorageManager.getCurrentAndPendingUploadsForAccount(MAX_UPLOADS_QUERY, accountName)
-        while (currentAndPendingUploadsForAccount.isNotEmpty()) {
-            Log_OC.d(TAG, "Handling ${currentAndPendingUploadsForAccount.size} uploads for account $accountName")
-            handlePendingUploads(currentAndPendingUploadsForAccount, accountName)
-            currentAndPendingUploadsForAccount =
-                uploadsStorageManager.getCurrentAndPendingUploadsForAccount(MAX_UPLOADS_QUERY, accountName)
+        /*
+         * As pages are retrieved by sorting uploads by ID, if new uploads are added while uploading the current ones,
+         * they will be present in the pages that follow.
+         */
+        var currentPage = uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(-1, accountName)
+        while (currentPage.isNotEmpty()) {
+            Log_OC.d(TAG, "Handling ${currentPage.size} uploads for account $accountName")
+            val lastId = currentPage.last().uploadId
+            handlePendingUploads(currentPage, accountName)
+            currentPage =
+                uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(lastId, accountName)
         }
 
         Log_OC.d(TAG, "No more pending uploads for account $accountName, stopping work")
         return Result.success()
     }
 
-    private fun handlePendingUploads(uploads: Array<OCUpload>, accountName: String) {
+    private fun handlePendingUploads(uploads: List<OCUpload>, accountName: String) {
         val user = userAccountManager.getUser(accountName)
 
         for (upload in uploads) {
@@ -240,7 +243,6 @@ class FilesUploadWorker(
 
     companion object {
         val TAG: String = FilesUploadWorker::class.java.simpleName
-        private const val MAX_UPLOADS_QUERY = 100
         private const val FOREGROUND_SERVICE_ID: Int = 412
         private const val MAX_PROGRESS: Int = 100
         const val ACCOUNT = "data_account"

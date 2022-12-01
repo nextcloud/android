@@ -409,17 +409,32 @@ public class UploadsStorageManager extends Observable {
         return uploads.toArray(new OCUpload[0]);
     }
 
-
     @NonNull
     private List<OCUpload> getUploadPage(final long afterId, @Nullable String selection, @Nullable String... selectionArgs) {
+        return getUploadPage(afterId, true, selection, selectionArgs);
+    }
+
+    @NonNull
+    private List<OCUpload> getUploadPage(final long afterId, final boolean descending, @Nullable String selection, @Nullable String... selectionArgs) {
         List<OCUpload> uploads = new ArrayList<>();
         String pageSelection = selection;
         String[] pageSelectionArgs = selectionArgs;
+
+        String idComparator;
+        String sortDirection;
+        if (descending) {
+            sortDirection = "DESC";
+            idComparator = "<";
+        } else {
+            sortDirection = "ASC";
+            idComparator = ">";
+        }
+
         if (afterId >= 0) {
             if (selection != null) {
-                pageSelection = "(" + selection + ") AND _id < ?";
+                pageSelection = "(" + selection + ") AND _id " + idComparator + " ?";
             } else {
-                pageSelection = "_id < ?";
+                pageSelection = "_id " + idComparator + " ?";
             }
             if (selectionArgs != null) {
                 pageSelectionArgs = Arrays.copyOf(selectionArgs, selectionArgs.length + 1);
@@ -436,7 +451,7 @@ public class UploadsStorageManager extends Observable {
             null,
             pageSelection,
             pageSelectionArgs,
-            String.format(Locale.ENGLISH, "_id DESC LIMIT %d", QUERY_PAGE_SIZE)
+            String.format(Locale.ENGLISH, "_id " + sortDirection + " LIMIT %d", QUERY_PAGE_SIZE)
                                 );
 
         if (c != null) {
@@ -510,20 +525,39 @@ public class UploadsStorageManager extends Observable {
     }
 
     /**
+     * Gets a page of uploads after <code>afterId</code>, where uploads are sorted by ascending upload id.
+     * <p>
+     * If <code>afterId</code> is -1, returns the first page
+     */
+    public List<OCUpload> getCurrentAndPendingUploadsForAccountPageAscById(final long afterId, final @NonNull String accountName) {
+        final String selection = ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
+            " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+            "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
+            " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+            "==" + UploadResult.LOCK_FAILED.getValue() +
+            " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+            "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
+            " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+            "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
+            " AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?";
+        return getUploadPage(afterId, false, selection, accountName);
+    }
+
+    /**
      * Get all failed uploads.
      */
     public OCUpload[] getFailedUploads() {
         return getUploads("(" + ProviderTableMeta.UPLOADS_STATUS + "== ?" +
-                " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "==" + UploadResult.LOCK_FAILED.getValue() +
-                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                        " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
-                        " ) AND " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "!= " + UploadResult.VIRUS_DETECTED.getValue()
+                              " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                              "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
+                              " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                              "==" + UploadResult.LOCK_FAILED.getValue() +
+                              " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                              "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
+                              " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                              "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
+                              " ) AND " + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                              "!= " + UploadResult.VIRUS_DETECTED.getValue()
             , String.valueOf(UploadStatus.UPLOAD_FAILED.value));
     }
 
