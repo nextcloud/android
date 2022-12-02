@@ -147,6 +147,7 @@
     <string name="community_testing_report_text">Ilmoita ongelmasta GitHubissa</string>
     <string name="community_testing_version_text">Oletko kiinnostunut auttamaan testaamalla seuraavaa versiota?</string>
     <string name="configure_new_media_folder_detection_notifications">Asetukset</string>
+    <string name="confirm_removal">Poista paikallinen salaus</string>
     <string name="confirmation_remove_file_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
     <string name="confirmation_remove_files_alert">Haluatko varmasti poistaa valitut kohteet?</string>
     <string name="confirmation_remove_folder_alert">Haluatko varmasti poistaa kohteen %1$s ja sen sisällön?</string>
@@ -206,6 +207,7 @@
     <string name="disable_new_media_folder_detection_notifications">Poista käytöstä</string>
     <string name="dismiss">Hylkää</string>
     <string name="dismiss_notification_description">Hylkää ilmoitus</string>
+    <string name="displays_mnemonic">Näyttää 12-sanaisen tunnuslauseen</string>
     <string name="dnd">Älä häiritse</string>
     <string name="dontClear">Älä tyhjennä</string>
     <string name="download_latest_dev_version">Lataa viimeisin kehitysversio</string>
@@ -514,6 +516,8 @@
     <string name="permission_deny">Kiellä</string>
     <string name="permission_storage_access">Tiedostojen lähetys ja lataaminen vaatii lisäoikeuksia.</string>
     <string name="picture_set_as_no_app">Kuvan liittämiseksi ei löytynyt sovellusta</string>
+    <string name="pin_home">Kiinnitä kotinäyttöön</string>
+    <string name="pin_shortcut_label">Avaa %1$s</string>
     <string name="placeholder_fileSize">389 kt</string>
     <string name="placeholder_filename">paikkamerkki.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -543,6 +547,7 @@
     <string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
     <string name="prefs_daily_backup_summary">Päivittäinen kalenterin &amp; yhteystietojen varmuuskopio</string>
+    <string name="prefs_e2e_active">Päästä päähän -salaus on määritetty!</string>
     <string name="prefs_e2e_mnemonic">E2E-avainkoodi</string>
     <string name="prefs_e2e_no_device_credentials">Jos haluat näyttää avainkoodin, ota käyttöön laitteen valtuudet.</string>
     <string name="prefs_enable_media_scan_notifications">Näytä mediakartoituksen ilmoitukset</string>
@@ -555,6 +560,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="prefs_instant_behaviour_title">Alkuperäinen tiedosto…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tallenna alikansioihin vuoden ja kuukauden mukaisesti.</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Käytä alikansioita</string>
+    <string name="prefs_keys_exist">Lisää päästä päähän -salaus tähän asiakasohjelmaan</string>
     <string name="prefs_license">Lisenssi</string>
     <string name="prefs_lock">Sovelluksen pääsykoodi</string>
     <string name="prefs_lock_device_credentials_enabled">Laitteen kirjautumistiedot käytössä</string>
@@ -565,6 +571,8 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="prefs_lock_using_passcode">Suojakoodi</string>
     <string name="prefs_manage_accounts">Tilien hallinta</string>
     <string name="prefs_recommend">Suosittele kaverille</string>
+    <string name="prefs_remove_e2e">Poista salaus paikallisesti</string>
+    <string name="prefs_setup_e2e">Määritä päästä päähän -salaus</string>
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_sourcecode">Hanki lähdekoodi</string>
     <string name="prefs_storage_path">Tiedostojen tallennuskansio</string>
