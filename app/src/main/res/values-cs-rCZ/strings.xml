@@ -551,6 +551,7 @@
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
     <string name="prefs_daily_backup_summary">Každodenní záloha vašeho kalendáře a kontaktů</string>
+    <string name="prefs_e2e_active">Šifrování mezi koncovými body je nastaveno!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemotechnické</string>
     <string name="prefs_e2e_no_device_credentials">Pro zobrazení mnemotechnické, zapněte přihlašovací údaje zařízení.</string>
     <string name="prefs_enable_media_scan_notifications">Zobrazit upozornění ze skenování médií</string>
@@ -562,6 +563,7 @@
     <string name="prefs_instant_behaviour_title">Původní soubor bude…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ukládat v podsložkách podle roku a měsíce</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Používat podsložky</string>
+    <string name="prefs_keys_exist">Přidat do tohoto klienta šifrování mezi koncovými body</string>
     <string name="prefs_license">Licence</string>
     <string name="prefs_lock">Přístupový kód aplikace</string>
     <string name="prefs_lock_device_credentials_enabled">Přihlašovací údaje zařízení zapnuté</string>
@@ -573,6 +575,7 @@
     <string name="prefs_manage_accounts">Spravovat účty</string>
     <string name="prefs_recommend">Doporučit kamarádovi</string>
     <string name="prefs_remove_e2e">Odebrat šifrování lokálně</string>
+    <string name="prefs_setup_e2e">Nastavit šifrování mezi koncovými body</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
     <string name="prefs_sourcecode">Získat zdrojové kódy</string>
     <string name="prefs_storage_path">Složka úložiště</string>
@@ -600,6 +603,8 @@
     <string name="reload">Načíst znovu</string>
     <string name="remote">(vzdálené)</string>
     <string name="remote_file_fetch_failed">Nepodařilo se najít soubor!</string>
+    <string name="remove_e2e">Na tomto klientovi je možné šifrování mezi koncovými body odebrat lokálně</string>
+    <string name="remove_e2e_message">Na tomto klientovi je možné odebrat šifrování mezi koncovými body. Šifrované soubory zůstanou na serveru, ale už nadále nebudou synchronizovány s tímto počítačem.</string>
     <string name="remove_fail_msg">Odstranění se nezdařilo</string>
     <string name="remove_notification_failed">Upozornění se nepodařilo odebrat.</string>
     <string name="remove_push_notification">Odebrat</string>
@@ -643,6 +648,7 @@
     <string name="set_picture_as">Použít obrázek jako</string>
     <string name="set_status">Nastavit stav</string>
     <string name="set_status_message">Nastavit stavovou zprávu</string>
+    <string name="setup_e2e">V průběhu nastavování šifrování mezi koncovými body obdržíte 12 slovnou mnemotechnickou frázi, které bude zapotřebí pro otevírání souborů na ostatních zařízeních. Ta bude uložena pouze na tomto zařízení a je možné ji na této obrazovce znovu zobrazit. Prosím poznamenejte si jí na bezpečné místo!</string>
     <string name="share">Sdílet</string>
     <string name="share_copy_link">Sdílet a zkopírovat odkaz</string>
     <string name="share_dialog_title">Sdílení</string>
