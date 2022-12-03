@@ -147,7 +147,7 @@
     <string name="community_testing_report_text">Signaler un problème sur Github</string>
     <string name="community_testing_version_text">Êtes-vous intéressé pour nous aider en testant la prochaine version ?</string>
     <string name="configure_new_media_folder_detection_notifications">Configurer</string>
-    <string name="confirm_removal">Supprimer le chiffrement local</string>
+    <string name="confirm_removal">Retirer le chiffrement local</string>
     <string name="confirmation_remove_file_alert">Souhaitez-vous vraiment supprimer %1$s ?</string>
     <string name="confirmation_remove_files_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ?</string>
     <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et ses contenus ?</string>
@@ -266,7 +266,7 @@ Attention la suppression est irréversible.</string>
     <string name="error_comment_file">Erreur lors du commentaire du fichier</string>
     <string name="error_crash_title">%1$s a planté</string>
     <string name="error_creating_file_from_template">Erreur lors de la création du fichier à partir du modèle</string>
-    <string name="error_file_actions">Erreur d\'affichage des actions de fichier !</string>
+    <string name="error_file_actions">Erreur d\'affichage des actions de fichier</string>
     <string name="error_file_lock">Erreur lors de la modification de l\'état de verrouillage du fichier</string>
     <string name="error_report_issue_action">Signaler</string>
     <string name="error_report_issue_text">Signaler le problème au traqueur ? (nécessite un compte GitHub)</string>
@@ -522,7 +522,7 @@ Attention la suppression est irréversible.</string>
     <string name="permission_deny">Refuser</string>
     <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour envoyer et télécharger des fichiers.</string>
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image</string>
-    <string name="pin_home">Épingler à l\'écran Accueil</string>
+    <string name="pin_home">Épingler sur l\'écran d\'accueil</string>
     <string name="pin_shortcut_label">Ouvrir %1$s</string>
     <string name="placeholder_fileSize">389 Ko</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -553,8 +553,9 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
     <string name="prefs_daily_backup_summary">Sauvegarde quotidienne de  votre agenda &amp; des contacts</string>
-    <string name="prefs_e2e_mnemonic">Mnémonique E2E</string>
-    <string name="prefs_e2e_no_device_credentials">Afin d\'afficher le mnémonique, merci d\'activer les informations d\'identification de l\'appareil.</string>
+    <string name="prefs_e2e_active">Le chiffrement de bout en bout est configuré !</string>
+    <string name="prefs_e2e_mnemonic">Phrase secrète E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Afin d\'afficher la phrase secrète, merci d\'activer les informations d\'identification de l\'appareil.</string>
     <string name="prefs_enable_media_scan_notifications">Afficher les notifications d\'analyse multimédia</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notifier les nouveaux dossiers multimédias trouvés</string>
     <string name="prefs_gpl_v2">Licence Publique Générale GNU, version 2</string>
@@ -564,6 +565,7 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_instant_behaviour_title">Le fichier original sera…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Stocker dans des sous-dossiers basés sur années et mois</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Utiliser des sous-dossiers</string>
+    <string name="prefs_keys_exist">Ajouter le chiffrement de bout en bout à ce client</string>
     <string name="prefs_license">Licence</string>
     <string name="prefs_lock">Mot de passe de l\'application</string>
     <string name="prefs_lock_device_credentials_enabled">Informations d\'identification du terminal activées</string>
@@ -574,7 +576,8 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_lock_using_passcode">Code de sécurité</string>
     <string name="prefs_manage_accounts">Gestion des comptes</string>
     <string name="prefs_recommend">Recommander à un ami</string>
-    <string name="prefs_remove_e2e">Supprimer le chiffrement localement</string>
+    <string name="prefs_remove_e2e">Retirer le chiffrement localement</string>
+    <string name="prefs_setup_e2e">Configurer le chiffrement de bout en bout</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_sourcecode">Obtenir le code source</string>
     <string name="prefs_storage_path">Répertoire de données</string>
@@ -602,6 +605,8 @@ Attention la suppression est irréversible.</string>
     <string name="reload">Recharger</string>
     <string name="remote">(distant)</string>
     <string name="remote_file_fetch_failed">Impossible de trouver le fichier</string>
+    <string name="remove_e2e">Vous pouvez supprimer le chiffrement de bout en bout localement sur ce client</string>
+    <string name="remove_e2e_message">Vous pouvez retirer le chiffrement de bout en bout localement sur ce client. Les fichiers chiffrés resteront sur le serveur, mais ne seront plus synchronisés avec cet ordinateur.</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
     <string name="remove_notification_failed">Erreur lors de la suppression des notifications.</string>
     <string name="remove_push_notification">Supprimer</string>
@@ -645,6 +650,7 @@ Attention la suppression est irréversible.</string>
     <string name="set_picture_as">Utiliser l\'image comme</string>
     <string name="set_status">Définir le statut</string>
     <string name="set_status_message">Enregistrer le message d\'état</string>
+    <string name="setup_e2e">Pendant la configuration du chiffrement de bout en bout, vous recevrez une phrase secrète aléatoire de 12 mots dont vous aurez besoin pour ouvrir vos fichiers sur d\'autres appareils. Cette phrase secrète ne sera stockée que sur cet appareil, et pourra être affichée à nouveau sur cet écran. Veuillez la noter en lieu sûr !</string>
     <string name="share">Partager</string>
     <string name="share_copy_link">Partager &amp; Copier le lien</string>
     <string name="share_dialog_title">Partage</string>

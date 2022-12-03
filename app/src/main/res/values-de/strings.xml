@@ -450,7 +450,7 @@
     <string name="media_play_pause_description">Wiedergabe-/Pause Knopf</string>
     <string name="media_rewind_description">Rückspulknopf</string>
     <string name="media_state_playing">%1$s (wird abgespielt)</string>
-    <string name="menu_item_sort_by_date_newest_first">Neueste zuerst</string>
+    <string name="menu_item_sort_by_date_newest_first">Neue zuerst</string>
     <string name="menu_item_sort_by_date_oldest_first">Älteste zuerst</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
@@ -697,7 +697,7 @@
     <string name="signup_with_provider">Mit Provider anmelden</string>
     <string name="single_sign_on_request_token" formatted="true">Zulassen, dass %1$s auf Ihr Nextcloud Konto %2$s zugreifen darf?</string>
     <string name="sort_by">Sortiere nach</string>
-    <string name="sort_by_modification_date_ascending">Neueste zuerst</string>
+    <string name="sort_by_modification_date_ascending">Neue zuerst</string>
     <string name="sort_by_modification_date_descending">Älteste zuerst</string>
     <string name="sort_by_name_ascending">A - Z</string>
     <string name="sort_by_name_descending">Z - A</string>

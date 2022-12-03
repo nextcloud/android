@@ -242,6 +242,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Denne folder er ikke tom.</string>
     <string name="end_to_end_encryption_generating_keys">Opretter nye nøgler...</string>
     <string name="end_to_end_encryption_keywords_description">Alle 12 ord udgør tilsammen et meget stærkt kodeord, så kun du kan læse og bruge dine krypterede filer. Venligst skriv det ned og gem det et sikkert sted.</string>
+    <string name="end_to_end_encryption_not_enabled">Ende til ende kryptering slået fra på server.</string>
     <string name="end_to_end_encryption_passphrase_title">Noter dit 12 ords krypterings kodeord</string>
     <string name="end_to_end_encryption_password">Adgangskode...</string>
     <string name="end_to_end_encryption_retrieving_keys">Henter nøgler...</string>
@@ -674,7 +675,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="show_images">Vis fotos</string>
     <string name="show_video">Vis videoer</string>
     <string name="signup_with_provider">Indskrivning hos udbyder</string>
-    <string name="single_sign_on_request_token" formatted="true">Tillad %1$s adgang til din Nextcloud account %2$s?</string>
+    <string name="single_sign_on_request_token" formatted="true">Tillad %1$s adgang til din Nextcloud konto %2$s?</string>
     <string name="sort_by">Sortér efter</string>
     <string name="sort_by_modification_date_ascending">Nyeste først</string>
     <string name="sort_by_modification_date_descending">Ældste først</string>
