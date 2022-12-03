@@ -147,6 +147,7 @@
     <string name="community_testing_report_text">Nahlásiť chybu na Githube</string>
     <string name="community_testing_version_text">Máte záujem pomôcť nám s testovaním ďalšej Verzie?</string>
     <string name="configure_new_media_folder_detection_notifications">Nastaviť</string>
+    <string name="confirm_removal">Odstrániť lokálne šifrovanie</string>
     <string name="confirmation_remove_file_alert">Naozaj chcete odstrániť %1$s?</string>
     <string name="confirmation_remove_files_alert">Naozaj chcete odstrániť vybraté položky?</string>
     <string name="confirmation_remove_folder_alert">Naozaj chcete odstrániť %1$s a jeho obsah?</string>
@@ -206,6 +207,7 @@
     <string name="disable_new_media_folder_detection_notifications">Zakázať</string>
     <string name="dismiss">Odmietnuť</string>
     <string name="dismiss_notification_description">Odmietnuť upozornenie</string>
+    <string name="displays_mnemonic">Zobrazí vaše prístupové heslo o 12-tich slovách</string>
     <string name="dnd">Nerušiť</string>
     <string name="dontClear">Nemazať</string>
     <string name="download_latest_dev_version">Stiahnuť poslednú vývojársku verziu</string>
@@ -517,6 +519,8 @@
     <string name="permission_deny">Odmietnuť</string>
     <string name="permission_storage_access">Na nahrávanie a sťahovanie súborov sú potrebné dodatočné oprávnenia.</string>
     <string name="picture_set_as_no_app">Aplikácia na nastavenie obrázku sa nenašla</string>
+    <string name="pin_home">Pripnúť na domovskú obrazovku</string>
+    <string name="pin_shortcut_label">Otvoriť %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -546,6 +550,7 @@
     <string name="prefs_category_general">Všeobecné</string>
     <string name="prefs_category_more">Viac</string>
     <string name="prefs_daily_backup_summary">Denná záloha vašeho kalendára &amp; kontaktov</string>
+    <string name="prefs_e2e_active">End-to-end šifrovanie je nastavené!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemotechnické</string>
     <string name="prefs_e2e_no_device_credentials">Pre zobrazenie mnemotechnické, zapnite prihlasovacie údaje zariadenia.</string>
     <string name="prefs_enable_media_scan_notifications">Zobrazovať notifikácie vyhľadávania médií</string>
@@ -557,6 +562,7 @@
     <string name="prefs_instant_behaviour_title">Pôvodný súbor bude…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ulož v podpriečinkoch podľa roku a mesiaca</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Použi podpriečinky</string>
+    <string name="prefs_keys_exist">Pridať end-to-end šifrovanie do tohto klienta</string>
     <string name="prefs_license">Licencia</string>
     <string name="prefs_lock">Prístupový kód apky</string>
     <string name="prefs_lock_device_credentials_enabled">Prihlasovacie údaje zariadenia povolené</string>
@@ -567,6 +573,8 @@
     <string name="prefs_lock_using_passcode">Heslo</string>
     <string name="prefs_manage_accounts">Spravovať účty</string>
     <string name="prefs_recommend">Odporučiť priateľom</string>
+    <string name="prefs_remove_e2e">Lokálne odstrániť šifrovanie</string>
+    <string name="prefs_setup_e2e">Nastaviť šifrovanie end-to-end</string>
     <string name="prefs_show_hidden_files">Zobraziť skryté súbory</string>
     <string name="prefs_sourcecode">Získajte zdrojový kód</string>
     <string name="prefs_storage_path">Adresár dátového úložiska</string>
