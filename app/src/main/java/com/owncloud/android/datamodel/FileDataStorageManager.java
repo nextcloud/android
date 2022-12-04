@@ -117,8 +117,7 @@ public class FileDataStorageManager {
         return getFileByEncryptedRemotePath(path);
     }
 
-    public @Nullable
-    OCFile getFileByEncryptedRemotePath(String path) {
+    public OCFile getFileByEncryptedRemotePath(String path) {
         return getFileByPath(ProviderTableMeta.FILE_PATH, path);
     }
 
