@@ -58,4 +58,7 @@ interface FileDao {
 
     @Query("SELECT * FROM filelist WHERE file_owner = :fileOwner ORDER BY " + ProviderTableMeta.FILE_DEFAULT_SORT_ORDER)
     fun getAllFiles(fileOwner: String): List<FileEntity>
+
+    @Query("SELECT * FROM filelist WHERE path LIKE :pathPattern AND file_owner = :fileOwner ORDER BY path ASC")
+    fun getFolderWithDescendants(pathPattern: String, fileOwner: String): List<FileEntity>
 }

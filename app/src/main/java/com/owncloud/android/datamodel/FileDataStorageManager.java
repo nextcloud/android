@@ -657,81 +657,57 @@ public class FileDataStorageManager {
             }
 
             /// 1. get all the descendants of the moved element in a single QUERY
-            Cursor cursor = null;
-            if (getContentProviderClient() != null) {
-                try {
-                    cursor = getContentProviderClient().query(
-                        ProviderTableMeta.CONTENT_URI,
-                        null,
-                        ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + " LIKE ? ",
-                        new String[]{user.getAccountName(), ocFile.getRemotePath() + "%"},
-                        ProviderTableMeta.FILE_PATH + " ASC "
-                    );
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, e.getMessage(), e);
-                }
-
-            } else {
-                cursor = getContentResolver().query(
-                    ProviderTableMeta.CONTENT_URI,
-                    null,
-                    ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + " LIKE ? ",
-                    new String[]{user.getAccountName(), ocFile.getRemotePath() + "%"},
-                    ProviderTableMeta.FILE_PATH + " ASC "
-                );
-            }
+            List<FileEntity> fileEntities =
+                fileDao.getFolderWithDescendants(ocFile.getRemotePath() + "%", user.getAccountName());
 
             /// 2. prepare a batch of update operations to change all the descendants
-            ArrayList<ContentProviderOperation> operations = new ArrayList<>(cursor.getCount());
+            ArrayList<ContentProviderOperation> operations = new ArrayList<>(fileEntities.size());
             String defaultSavePath = FileStorageUtils.getSavePath(user.getAccountName());
             List<String> originalPathsToTriggerMediaScan = new ArrayList<>();
             List<String> newPathsToTriggerMediaScan = new ArrayList<>();
 
-            if (cursor.moveToFirst()) {
-                int lengthOfOldPath = ocFile.getRemotePath().length();
-                int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
-                do {
-                    ContentValues contentValues = new ContentValues(); // keep construction in the loop
-                    OCFile childFile = createFileInstance(cursor);
+            int lengthOfOldPath = ocFile.getRemotePath().length();
+            int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
+            for (FileEntity fileEntity: fileEntities) {
+                ContentValues contentValues = new ContentValues(); // keep construction in the loop
+                OCFile childFile = createFileInstance(fileEntity);
+                contentValues.put(
+                    ProviderTableMeta.FILE_PATH,
+                    targetPath + childFile.getRemotePath().substring(lengthOfOldPath)
+                                 );
+
+                if (!childFile.isEncrypted()) {
                     contentValues.put(
-                        ProviderTableMeta.FILE_PATH,
+                        ProviderTableMeta.FILE_PATH_DECRYPTED,
                         targetPath + childFile.getRemotePath().substring(lengthOfOldPath)
                                      );
+                }
 
-                    if (!childFile.isEncrypted()) {
-                        contentValues.put(
-                            ProviderTableMeta.FILE_PATH_DECRYPTED,
-                            targetPath + childFile.getRemotePath().substring(lengthOfOldPath)
-                                         );
+                if (childFile.getStoragePath() != null && childFile.getStoragePath().startsWith(defaultSavePath)) {
+                    // update link to downloaded content - but local move is not done here!
+                    String targetLocalPath = defaultSavePath + targetPath +
+                        childFile.getStoragePath().substring(lengthOfOldStoragePath);
+
+                    contentValues.put(ProviderTableMeta.FILE_STORAGE_PATH, targetLocalPath);
+
+                    if (MimeTypeUtil.isMedia(childFile.getMimeType())) {
+                        originalPathsToTriggerMediaScan.add(childFile.getStoragePath());
+                        newPathsToTriggerMediaScan.add(targetLocalPath);
                     }
 
-                    if (childFile.getStoragePath() != null && childFile.getStoragePath().startsWith(defaultSavePath)) {
-                        // update link to downloaded content - but local move is not done here!
-                        String targetLocalPath = defaultSavePath + targetPath +
-                            childFile.getStoragePath().substring(lengthOfOldStoragePath);
+                }
 
-                        contentValues.put(ProviderTableMeta.FILE_STORAGE_PATH, targetLocalPath);
+                if (childFile.getRemotePath().equals(ocFile.getRemotePath())) {
+                    contentValues.put(ProviderTableMeta.FILE_PARENT, targetParent.getFileId());
+                }
 
-                        if (MimeTypeUtil.isMedia(childFile.getMimeType())) {
-                            originalPathsToTriggerMediaScan.add(childFile.getStoragePath());
-                            newPathsToTriggerMediaScan.add(targetLocalPath);
-                        }
+                operations.add(
+                    ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
+                        .withValues(contentValues)
+                        .withSelection(ProviderTableMeta._ID + " = ?", new String[]{String.valueOf(childFile.getFileId())})
+                        .build());
 
-                    }
-
-                    if (childFile.getRemotePath().equals(ocFile.getRemotePath())) {
-                        contentValues.put(ProviderTableMeta.FILE_PARENT, targetParent.getFileId());
-                    }
-
-                    operations.add(
-                        ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
-                            .withValues(contentValues)
-                            .withSelection(ProviderTableMeta._ID + " = ?", new String[]{String.valueOf(childFile.getFileId())})
-                            .build());
-
-                } while (cursor.moveToNext());
             }
-            cursor.close();
 
             /// 3. apply updates in batch
             try {
@@ -885,90 +861,6 @@ public class FileDataStorageManager {
         long fileId = cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta.VIRTUAL_OCFILE_ID));
 
         return getFileById(fileId);
-    }
-
-    private OCFile createFileInstance(Cursor cursor) {
-        OCFile ocFile = null;
-        if (cursor != null) {
-            ocFile = new OCFile(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_PATH)));
-            ocFile.setDecryptedRemotePath(getString(cursor, ProviderTableMeta.FILE_PATH_DECRYPTED));
-            ocFile.setFileId(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta._ID)));
-            ocFile.setParentId(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_PARENT)));
-            ocFile.setMimeType(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_CONTENT_TYPE)));
-            ocFile.setStoragePath(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_STORAGE_PATH)));
-            if (ocFile.getStoragePath() == null) {
-                // try to find existing file and bind it with current account;
-                // with the current update of SynchronizeFolderOperation, this won't be
-                // necessary anymore after a full synchronization of the account
-                File file = new File(FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), ocFile));
-                if (file.exists()) {
-                    ocFile.setStoragePath(file.getAbsolutePath());
-                    ocFile.setLastSyncDateForData(file.lastModified());
-                }
-            }
-            ocFile.setFileLength(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_CONTENT_LENGTH)));
-            ocFile.setCreationTimestamp(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_CREATION)));
-            ocFile.setModificationTimestamp(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_MODIFIED)));
-            ocFile.setModificationTimestampAtLastSyncForData(cursor.getLong(
-                cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA)));
-            ocFile.setLastSyncDateForProperties(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LAST_SYNC_DATE)));
-            ocFile.setLastSyncDateForData(cursor.getLong(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA)));
-            ocFile.setEtag(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_ETAG)));
-            ocFile.setEtagOnServer(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_ETAG_ON_SERVER)));
-            ocFile.setSharedViaLink(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_SHARED_VIA_LINK)) == 1);
-            ocFile.setSharedWithSharee(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_SHARED_WITH_SHAREE)) == 1);
-            ocFile.setPermissions(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_PERMISSIONS)));
-            ocFile.setRemoteId(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_REMOTE_ID)));
-            ocFile.setUpdateThumbnailNeeded(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_UPDATE_THUMBNAIL)) == 1);
-            ocFile.setDownloading(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1);
-            ocFile.setEtagInConflict(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_ETAG_IN_CONFLICT)));
-            ocFile.setFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_FAVORITE)) == 1);
-            ocFile.setEncrypted(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_IS_ENCRYPTED)) == 1);
-//            if (ocFile.isEncrypted()) {
-//                ocFile.setFileName(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_NAME)));
-//            }
-            ocFile.setMountType(WebdavEntry.MountType.values()[cursor.getInt(
-                cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_MOUNT_TYPE))]);
-            ocFile.setPreviewAvailable(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_HAS_PREVIEW)) == 1);
-            ocFile.setUnreadCommentsCount(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT)));
-            ocFile.setOwnerId(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_OWNER_ID)));
-            ocFile.setOwnerDisplayName(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME)));
-            ocFile.setNote(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_NOTE)));
-            ocFile.setRichWorkspace(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_RICH_WORKSPACE)));
-            ocFile.setLocked(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCKED)) == 1);
-            final int lockTypeInt = cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCK_TYPE));
-            ocFile.setLockType(lockTypeInt != -1 ? FileLockType.fromValue(lockTypeInt) : null);
-            ocFile.setLockOwnerId(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCK_OWNER)));
-            ocFile.setLockOwnerDisplayName(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCK_OWNER_DISPLAY_NAME)));
-            ocFile.setLockOwnerEditor(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCK_OWNER_EDITOR)));
-            ocFile.setLockTimestamp(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCK_TIMESTAMP)));
-            ocFile.setLockTimeout(cursor.getInt(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCK_TIMEOUT)));
-            ocFile.setLockToken(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_LOCK_TOKEN)));
-
-
-            String sharees = cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_SHAREES));
-
-            if (sharees == null || NULL_STRING.equals(sharees) || sharees.isEmpty()) {
-                ocFile.setSharees(new ArrayList<>());
-            } else {
-                try {
-                    ShareeUser[] shareesArray = new Gson().fromJson(sharees, ShareeUser[].class);
-
-                    ocFile.setSharees(new ArrayList<>(Arrays.asList(shareesArray)));
-                } catch (JsonSyntaxException e) {
-                    // ignore saved value due to api change
-                    ocFile.setSharees(new ArrayList<>());
-                }
-            }
-            String metadataSize = cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_METADATA_SIZE));
-            ImageDimension imageDimension = new Gson().fromJson(metadataSize, ImageDimension.class);
-
-            if (imageDimension != null) {
-                ocFile.setImageDimension(imageDimension);
-            }
-        }
-
-        return ocFile;
     }
 
     private int nullToZero(Integer i) {
