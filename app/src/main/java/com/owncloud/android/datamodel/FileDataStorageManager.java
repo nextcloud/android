@@ -656,9 +656,11 @@ public class FileDataStorageManager {
                 throw new IllegalStateException("Parent folder of the target path does not exist!!");
             }
 
+            String oldPath = ocFile.getRemotePath();
+
             /// 1. get all the descendants of the moved element in a single QUERY
             List<FileEntity> fileEntities =
-                fileDao.getFolderWithDescendants(ocFile.getRemotePath() + "%", user.getAccountName());
+                fileDao.getFolderWithDescendants(oldPath + "%", user.getAccountName());
 
             /// 2. prepare a batch of update operations to change all the descendants
             ArrayList<ContentProviderOperation> operations = new ArrayList<>(fileEntities.size());
@@ -666,7 +668,7 @@ public class FileDataStorageManager {
             List<String> originalPathsToTriggerMediaScan = new ArrayList<>();
             List<String> newPathsToTriggerMediaScan = new ArrayList<>();
 
-            int lengthOfOldPath = ocFile.getRemotePath().length();
+            int lengthOfOldPath = oldPath.length();
             int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
             for (FileEntity fileEntity: fileEntities) {
                 ContentValues contentValues = new ContentValues(); // keep construction in the loop
@@ -2098,11 +2100,11 @@ public class FileDataStorageManager {
 
     public List<OCFile> getGalleryItems(long startDate, long endDate) {
         Log_OC.d(TAG, "getGalleryItems - start: " + startDate + ", " + endDate);
-        List<OCFile> files = new ArrayList<>();
 
         List<FileEntity> fileEntities = fileDao.getGalleryItems(startDate, endDate, user.getAccountName());
         Log_OC.d(TAG, "getGalleryItems - query complete, list size: " + fileEntities.size());
 
+        List<OCFile> files = new ArrayList<>(fileEntities.size());
         for (FileEntity fileEntity: fileEntities) {
             files.add(createFileInstance(fileEntity));
         }
@@ -2196,8 +2198,8 @@ public class FileDataStorageManager {
 
     public List<OCFile> getAllFiles() {
         // TODO - Apparently this method is used only by tests
-        List<OCFile> folderContent = new ArrayList<>();
         List<FileEntity> fileEntities = fileDao.getAllFiles(user.getAccountName());
+        List<OCFile> folderContent = new ArrayList<>(fileEntities.size());
 
         for (FileEntity fileEntity: fileEntities) {
             folderContent.add(createFileInstance(fileEntity));
