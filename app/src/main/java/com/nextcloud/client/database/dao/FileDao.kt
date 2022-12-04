@@ -33,21 +33,29 @@ interface FileDao {
     fun getFileById(id: Long): FileEntity?
 
     // TODO - there should be only one entry - does it make sense to add order by to preserve previous behaviour?
-    @Query("SELECT * FROM filelist WHERE path = :path and file_owner = :fileOwner LIMIT 1")
+    @Query("SELECT * FROM filelist WHERE path = :path AND file_owner = :fileOwner LIMIT 1")
     fun getFileByEncryptedRemotePath(path: String, fileOwner: String): FileEntity?
 
     // TODO - there should be only one entry - does it make sense to add order by to preserve previous behaviour?
-    @Query("SELECT * FROM filelist WHERE path_decrypted = :path and file_owner = :fileOwner LIMIT 1")
+    @Query("SELECT * FROM filelist WHERE path_decrypted = :path AND file_owner = :fileOwner LIMIT 1")
     fun getFileByDecryptedRemotePath(path: String, fileOwner: String): FileEntity?
 
     // TODO - there should be only one entry - does it make sense to add order by to preserve previous behaviour?
-    @Query("SELECT * FROM filelist WHERE media_path = :path and file_owner = :fileOwner LIMIT 1")
+    @Query("SELECT * FROM filelist WHERE media_path = :path AND file_owner = :fileOwner LIMIT 1")
     fun getFileByLocalPath(path: String, fileOwner: String): FileEntity?
 
     // TODO - there should be only one entry - does it make sense to add order by to preserve previous behaviour?
-    @Query("SELECT * FROM filelist WHERE remote_id = :remoteId and file_owner = :fileOwner LIMIT 1")
+    @Query("SELECT * FROM filelist WHERE remote_id = :remoteId AND file_owner = :fileOwner LIMIT 1")
     fun getFileByRemoteId(remoteId: String, fileOwner: String): FileEntity?
 
     @Query("SELECT * FROM filelist WHERE parent = :parentId ORDER BY " + ProviderTableMeta.FILE_DEFAULT_SORT_ORDER)
     fun getFolderContent(parentId: Long): List<FileEntity>
+
+    @Query("SELECT * FROM filelist WHERE modified >= :startDate AND modified < :endDate AND " +
+        "(content_type LIKE 'image/%' OR content_type LIKE 'video/%') AND file_owner = :fileOwner " +
+        "ORDER BY " + ProviderTableMeta.FILE_DEFAULT_SORT_ORDER)
+    fun getGalleryItems(startDate: Long, endDate: Long, fileOwner: String): List<FileEntity>
+
+    @Query("SELECT * FROM filelist WHERE file_owner = :fileOwner ORDER BY " + ProviderTableMeta.FILE_DEFAULT_SORT_ORDER)
+    fun getAllFiles(fileOwner: String): List<FileEntity>
 }

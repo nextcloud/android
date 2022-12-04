@@ -2205,64 +2205,17 @@ public class FileDataStorageManager {
     }
 
     public List<OCFile> getGalleryItems(long startDate, long endDate) {
+        Log_OC.d(TAG, "getGalleryItems - start: " + startDate + ", " + endDate);
         List<OCFile> files = new ArrayList<>();
 
-        Uri requestURI = ProviderTableMeta.CONTENT_URI;
-        Cursor cursor;
+        List<FileEntity> fileEntities = fileDao.getGalleryItems(startDate, endDate, user.getAccountName());
+        Log_OC.d(TAG, "getGalleryItems - query complete, list size: " + fileEntities.size());
 
-        if (getContentProviderClient() != null) {
-            try {
-                cursor = getContentProviderClient().query(
-                    requestURI,
-                    null,
-                    ProviderTableMeta.FILE_ACCOUNT_OWNER + AND +
-                        ProviderTableMeta.FILE_MODIFIED + ">=? AND " +
-                        ProviderTableMeta.FILE_MODIFIED + "<? AND (" +
-                        ProviderTableMeta.FILE_CONTENT_TYPE + " LIKE ? OR " +
-                        ProviderTableMeta.FILE_CONTENT_TYPE + " LIKE ? )",
-                    new String[]{
-                        user.getAccountName(),
-                        String.valueOf(startDate),
-                        String.valueOf(endDate),
-                        "image/%",
-                        "video/%"
-                    },
-                    null
-                                                         );
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, e.getMessage(), e);
-                return files;
-            }
-        } else {
-            cursor = getContentResolver().query(
-                requestURI,
-                null,
-                ProviderTableMeta.FILE_ACCOUNT_OWNER + AND +
-                    ProviderTableMeta.FILE_MODIFIED + ">=? AND " +
-                    ProviderTableMeta.FILE_MODIFIED + "<? AND (" +
-                    ProviderTableMeta.FILE_CONTENT_TYPE + " LIKE ? OR " +
-                    ProviderTableMeta.FILE_CONTENT_TYPE + " LIKE ? )",
-                new String[]{
-                    user.getAccountName(),
-                    String.valueOf(startDate),
-                    String.valueOf(endDate),
-                    "image/%",
-                    "video/%"
-                },
-                null
-                                               );
+        for (FileEntity fileEntity: fileEntities) {
+            files.add(createFileInstance(fileEntity));
         }
 
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                do {
-                    OCFile child = createFileInstance(cursor);
-                    files.add(child);
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-        }
-
+        Log_OC.d(TAG, "getGalleryItems - finished");
         return files;
     }
 
@@ -2350,32 +2303,12 @@ public class FileDataStorageManager {
     }
 
     public List<OCFile> getAllFiles() {
-        String selection = ProviderTableMeta.FILE_ACCOUNT_OWNER + "= ? ";
-        String[] selectionArgs = new String[]{user.getAccountName()};
-
+        // TODO - Apparently this method is used only by tests
         List<OCFile> folderContent = new ArrayList<>();
+        List<FileEntity> fileEntities = fileDao.getAllFiles(user.getAccountName());
 
-        Uri requestURI = ProviderTableMeta.CONTENT_URI_DIR;
-        Cursor cursor;
-
-        if (getContentProviderClient() != null) {
-            try {
-                cursor = getContentProviderClient().query(requestURI, null, selection, selectionArgs, null);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, e.getMessage(), e);
-                return folderContent;
-            }
-        } else {
-            cursor = getContentResolver().query(requestURI, null, selection, selectionArgs, null);
-        }
-
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                do {
-                    folderContent.add(createFileInstance(cursor));
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
+        for (FileEntity fileEntity: fileEntities) {
+            folderContent.add(createFileInstance(fileEntity));
         }
 
         return folderContent;
