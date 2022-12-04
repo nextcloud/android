@@ -551,6 +551,7 @@
     <string name="prefs_category_general">Genel</string>
     <string name="prefs_category_more">Daha fazla</string>
     <string name="prefs_daily_backup_summary">Takvim ve kişilerinizin günlük yedeği</string>
+    <string name="prefs_davx5_setup_error">DAVx5 (eski adıyla DAVdroid) kurulurken beklenmeyen bir sorun çıktı</string>
     <string name="prefs_e2e_active">Uçtan uca şifreleme kuruldu!</string>
     <string name="prefs_e2e_mnemonic">E2E belleği</string>
     <string name="prefs_e2e_no_device_credentials">Belleğin görüntülenmesi için aygıt kimlik doğrulama bilgilerini etkinleştirin.</string>

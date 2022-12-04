@@ -551,6 +551,7 @@
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
     <string name="prefs_daily_backup_summary">Každodenní záloha vašeho kalendáře a kontaktů</string>
+    <string name="prefs_davx5_setup_error">Neočekávaná chyba při nastavování DAVx5 (dříve známého jako  DAVdroid)</string>
     <string name="prefs_e2e_active">Šifrování mezi koncovými body je nastaveno!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemotechnické</string>
     <string name="prefs_e2e_no_device_credentials">Pro zobrazení mnemotechnické, zapněte přihlašovací údaje zařízení.</string>

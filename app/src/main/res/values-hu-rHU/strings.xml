@@ -551,6 +551,7 @@
     <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
     <string name="prefs_daily_backup_summary">Napi biztonsági mentés a naptáráról és a névjegyeiről</string>
+    <string name="prefs_davx5_setup_error">Váratlan hiba a DAVx5 (előző nevén DAVdroid) beállítása során</string>
     <string name="prefs_e2e_active">A végpontok közti titkosítás beállítva!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonikus kód</string>
     <string name="prefs_e2e_no_device_credentials">A mnenomikus kód megjelenítéséhez engedélyezze az eszköz hitelesítését.</string>

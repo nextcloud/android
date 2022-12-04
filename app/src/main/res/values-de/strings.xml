@@ -551,6 +551,7 @@
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
     <string name="prefs_daily_backup_summary">Tägliche Sicherung Ihrer Kalender &amp; Kontakte</string>
+    <string name="prefs_davx5_setup_error">Unerwarteter Fehler beim Einrichten von DAVx5 (früher bekannt als DAVdroid)</string>
     <string name="prefs_e2e_active">Ende-zu-Ende-Verschlüsselung ist eingerichtet!</string>
     <string name="prefs_e2e_mnemonic">E2E-Gedächtnisstütze</string>
     <string name="prefs_e2e_no_device_credentials">Um die Gedächtnisstütze anzuzeigen, aktivieren Sie bitte Geräte-Zugangsdaten</string>

@@ -551,6 +551,7 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_daily_backup_summary">Daily backup of your calendar &amp; contacts</string>
+    <string name="prefs_davx5_setup_error">Unexpected error while setting up DAVx5 (formerly known as DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end encryption is set up!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
