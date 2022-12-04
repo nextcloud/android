@@ -524,7 +524,7 @@
     <string name="player_stop">停止</string>
     <string name="player_toggle">切换</string>
     <string name="power_save_check_dialog_message">禁用节能检查可能会导致在低电池电量状态下仍然上传文件！</string>
-    <string name="pref_behaviour_entries_delete_file">已删除</string>
+    <string name="pref_behaviour_entries_delete_file">删除</string>
     <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">如果文件已经存在怎么办？</string>
