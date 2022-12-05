@@ -521,7 +521,7 @@
     <string name="pref_behaviour_entries_move">Overført til app mappe</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Hvad skal ske, hvis filen allerede findes?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Spørg mig altid</string>
-    <string name="pref_instant_name_collision_policy_entries_cancel">spring upload over</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Spring upload over</string>
     <string name="pref_instant_name_collision_policy_entries_overwrite">Overskriv fjerntliggende version</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Omdøb ny version</string>
     <string name="pref_instant_name_collision_policy_title">Hvad skal ske, hvis filen allerede findes?</string>
@@ -731,7 +731,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="subject_shared_with_you">\"%1$s\" er blevet delt med dig</string>
     <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med dig</string>
     <string name="subtitle_photos_only">Kun billeder</string>
-    <string name="subtitle_photos_videos">Fotos &amp;videoer</string>
+    <string name="subtitle_photos_videos">Fotos &amp; videoer</string>
     <string name="subtitle_videos_only">Kun videoer</string>
     <string name="suggest">Foreslå</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
