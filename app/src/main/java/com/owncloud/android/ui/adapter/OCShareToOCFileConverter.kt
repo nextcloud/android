@@ -62,6 +62,7 @@ object OCShareToOCFileConverter {
             // don't have file length or mod timestamp
             fileLength = -1
             modificationTimestamp = -1
+            isFavorite = firstShare.isFavorite
         }
         if (shares.any { it.shareType in listOf(ShareType.PUBLIC_LINK, ShareType.EMAIL) }) {
             file.isSharedViaLink = true
