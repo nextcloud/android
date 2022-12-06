@@ -46,6 +46,7 @@
     <string name="prefs_enable_media_scan_notifications_summary">Notify about newly found media folders</string>
     <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
     <string name="prefs_calendar_contacts_summary">Set up DAVx5 (formerly known as DAVdroid) (v1.3.0+) for current account</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Server address for the account could not be resolved for DAVx5 (formerly known as DAVdroid)</string>
     <string name="prefs_davx5_setup_error">Unexpected error while setting up DAVx5 (formerly known as DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up</string>
