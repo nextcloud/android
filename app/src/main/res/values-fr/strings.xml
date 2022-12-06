@@ -553,6 +553,7 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
     <string name="prefs_daily_backup_summary">Sauvegarde quotidienne de  votre agenda &amp; des contacts</string>
+    <string name="prefs_davx5_setup_error">Erreur inattendue lors de la configuration de DAVx5 (anciennement connu sous le nom de DAVdroid)</string>
     <string name="prefs_e2e_active">Le chiffrement de bout en bout est configuré !</string>
     <string name="prefs_e2e_mnemonic">Phrase secrète E2E</string>
     <string name="prefs_e2e_no_device_credentials">Afin d\'afficher la phrase secrète, merci d\'activer les informations d\'identification de l\'appareil.</string>
