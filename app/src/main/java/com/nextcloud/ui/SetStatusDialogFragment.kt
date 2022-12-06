@@ -101,6 +101,7 @@ class SetStatusDialogFragment :
     private var selectedPredefinedMessageId: String? = null
     private var clearAt: Long? = -1
     private lateinit var popup: EmojiPopup
+    private var selectedPredefinedStatus : PredefinedStatus? = null
 
     @Inject
     lateinit var arbitraryDataProvider: ArbitraryDataProvider
@@ -353,6 +354,11 @@ class SetStatusDialogFragment :
     }
 
     private fun setStatusMessage() {
+        if (binding.customStatusInput.text.toString() != selectedPredefinedStatus?.message ||
+            binding.emoji.text.toString() != selectedPredefinedStatus?.icon ||
+            clearAt != clearAtToUnixTime(selectedPredefinedStatus?.clearAt)) {
+            selectedPredefinedMessageId = null
+        }
         if (selectedPredefinedMessageId != null) {
             asyncRunner.postQuickTask(
                 SetPredefinedCustomStatusTask(
@@ -405,6 +411,7 @@ class SetStatusDialogFragment :
     }
 
     override fun onClick(predefinedStatus: PredefinedStatus) {
+        selectedPredefinedStatus = predefinedStatus
         selectedPredefinedMessageId = predefinedStatus.id
         clearAt = clearAtToUnixTime(predefinedStatus.clearAt)
         binding.emoji.setText(predefinedStatus.icon)
