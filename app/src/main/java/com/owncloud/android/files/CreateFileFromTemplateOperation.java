@@ -38,14 +38,14 @@ public class CreateFileFromTemplateOperation extends RemoteOperation {
     private static final String NEW_FROM_TEMPLATE_URL = "/ocs/v2.php/apps/richdocuments/api/v1/templates/new";
 
     private String path;
-    private int templateId;
+    private long templateId;
 
     // JSON node names
     private static final String NODE_OCS = "ocs";
     private static final String NODE_DATA = "data";
     private static final String JSON_FORMAT = "?format=json";
 
-    public CreateFileFromTemplateOperation(String path, int templateId) {
+    public CreateFileFromTemplateOperation(String path, long templateId) {
         this.path = path;
         this.templateId = templateId;
     }
