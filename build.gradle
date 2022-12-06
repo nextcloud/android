@@ -9,7 +9,7 @@ buildscript {
         androidLibraryVersion = "master-SNAPSHOT"
         mockitoVersion = "4.9.0"
         mockitoKotlinVersion = "4.1.0"
-        mockkVersion = "1.13.2"
+        mockkVersion = "1.13.3"
         espressoVersion = "3.5.0"
         workRuntime = "2.7.1"
         fidoVersion = "4.1.0-patch1"

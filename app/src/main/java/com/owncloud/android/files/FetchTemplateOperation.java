@@ -78,11 +78,11 @@ public class FetchTemplateOperation extends RemoteOperation {
                 for (int i = 0; i < templates.length(); i++) {
                     JSONObject templateObject = templates.getJSONObject(i);
 
-                    templateArray.add(new Template(templateObject.getInt("id"),
+                    templateArray.add(new Template(templateObject.getLong("id"),
                                                    templateObject.getString("name"),
                                                    templateObject.optString("preview"),
                                                    Template.Type.parse(templateObject.getString("type")
-                                                                            .toUpperCase(Locale.ROOT)),
+                                                                           .toUpperCase(Locale.ROOT)),
                                                    templateObject.getString("extension")));
                 }
 
