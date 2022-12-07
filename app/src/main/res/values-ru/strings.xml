@@ -68,7 +68,7 @@
     <string name="auth_unsupported_multiaccount">%1$s не поддерживает множественные аккаунты</string>
     <string name="auth_wrong_connection_title">Не удается установить соединение</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
-    <string name="auto_upload_on_wifi">Необходимо безлимитное подключение Wi-Fi </string>
+    <string name="auto_upload_on_wifi">Только через безлимит или Wi-Fi</string>
     <string name="auto_upload_path">/Автозагрузка</string>
     <string name="autoupload_configure">Настроить</string>
     <string name="autoupload_create_new_custom_folder">Создать новую настройку пользовательского каталога</string>
@@ -398,7 +398,7 @@
     <string name="icon_of_widget_entry">Значок записи виджета</string>
     <string name="in_folder">в папку %1$s</string>
     <string name="instant_upload_existing">Также загрузить существующие файлы</string>
-    <string name="instant_upload_on_charging">Необходимо подключение внешнего питания</string>
+    <string name="instant_upload_on_charging">Только во время зарядки</string>
     <string name="instant_upload_path">/Автозагрузка</string>
     <string name="invalid_url">Неверный адрес</string>
     <string name="invisible">Невидимая</string>
