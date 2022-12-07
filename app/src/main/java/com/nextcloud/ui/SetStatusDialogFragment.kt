@@ -217,7 +217,7 @@ class SetStatusDialogFragment :
     private fun updateCurrentStatusViews(it: Status) {
         binding.emoji.setText(it.icon)
         binding.customStatusInput.text?.clear()
-        binding.customStatusInput.setText(it.message)
+        binding.customStatusInput.setText(it.message?.ifBlank {it.message?.trim()})
         visualizeStatus(it.status)
 
         if (it.clearAt > 0) {
@@ -366,7 +366,7 @@ class SetStatusDialogFragment :
         } else {
             asyncRunner.postQuickTask(
                 SetUserDefinedCustomStatusTask(
-                    binding.customStatusInput.text.toString(),
+                    binding.customStatusInput.text.toString().ifEmpty { " " },
                     binding.emoji.text.toString(),
                     clearAt,
                     accountManager.currentOwnCloudAccount?.savedAccount,
