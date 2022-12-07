@@ -147,6 +147,7 @@
     <string name="community_testing_report_text">在Github报告问题 OR 通过Github提交问题（issue）</string>
     <string name="community_testing_version_text">有兴趣来帮我们测试下一个版本吗？</string>
     <string name="configure_new_media_folder_detection_notifications">用户配置</string>
+    <string name="confirm_removal">移除近端加密</string>
     <string name="confirmation_remove_file_alert">确定删除%1$s？</string>
     <string name="confirmation_remove_files_alert">确定删除选中项？</string>
     <string name="confirmation_remove_folder_alert">确定删除%1$s及其相关内容？</string>
@@ -206,6 +207,7 @@
     <string name="disable_new_media_folder_detection_notifications">禁用</string>
     <string name="dismiss">忽略</string>
     <string name="dismiss_notification_description">忽略通知</string>
+    <string name="displays_mnemonic">显示您的12字密语</string>
     <string name="dnd">请勿打扰</string>
     <string name="dontClear">不要清除</string>
     <string name="download_latest_dev_version">下载最新的开发版本</string>
@@ -268,6 +270,7 @@
     <string name="error_report_issue_text">是否向跟踪器报告问题？（需要GitHub账号）</string>
     <string name="error_retrieving_file">获取文件时遇到错误</string>
     <string name="error_retrieving_templates">检索模板时出错</string>
+    <string name="error_showing_encryption_dialog">显示设置加密对话框时出错！</string>
     <string name="error_starting_direct_camera_upload">开启相机时发生错误</string>
     <string name="error_starting_scan_doc">使用文档扫描时出错</string>
     <string name="etm_accounts">账号</string>
@@ -394,6 +397,7 @@
     <string name="host_your_own_server">自己搭建服务器</string>
     <string name="icon_for_empty_list">空列表的图标</string>
     <string name="icon_of_dashboard_widget">仪表盘小工具的图标</string>
+    <string name="icon_of_widget_entry">小工具图标</string>
     <string name="in_folder">在文件夹 %1$s 内 </string>
     <string name="instant_upload_existing">同时上传现有文件</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
@@ -516,6 +520,8 @@
     <string name="permission_deny">禁止</string>
     <string name="permission_storage_access">上传和下载文件所需的其他权限。</string>
     <string name="picture_set_as_no_app">找不到可以设置图片的应用程序</string>
+    <string name="pin_home">固定到主屏幕</string>
+    <string name="pin_shortcut_label">打开 1%1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -545,6 +551,8 @@
     <string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_daily_backup_summary">每天备份日历 &amp; 联系人</string>
+    <string name="prefs_davx5_setup_error">设置 DAVx5（以前为 DAVdroid）时出现意外错误</string>
+    <string name="prefs_e2e_active">端对端加密已设置完成</string>
     <string name="prefs_e2e_mnemonic">端到端加密</string>
     <string name="prefs_e2e_no_device_credentials">启用端到端加密请打开设备认证</string>
     <string name="prefs_enable_media_scan_notifications">显示媒体扫描通知</string>
@@ -556,6 +564,7 @@
     <string name="prefs_instant_behaviour_title">原始文件将会被…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">基于年和月存于子文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
+    <string name="prefs_keys_exist">添加端对端加密到该客户端</string>
     <string name="prefs_license">许可证</string>
     <string name="prefs_lock">应用程序安全码</string>
     <string name="prefs_lock_device_credentials_enabled">设备凭证已启用</string>
@@ -566,6 +575,8 @@
     <string name="prefs_lock_using_passcode">安全码</string>
     <string name="prefs_manage_accounts">管理账号</string>
     <string name="prefs_recommend">推荐给朋友</string>
+    <string name="prefs_remove_e2e">在本地删除加密</string>
+    <string name="prefs_setup_e2e">设置端对端加密</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
     <string name="prefs_sourcecode">获取源代码</string>
     <string name="prefs_storage_path">数据存储文件夹</string>
@@ -593,6 +604,8 @@
     <string name="reload">刷新</string>
     <string name="remote">(远程)</string>
     <string name="remote_file_fetch_failed">查找文件失败！</string>
+    <string name="remove_e2e">您可以在该客户端上本地删除端对端加密</string>
+    <string name="remove_e2e_message">您可以在该客户端上本地删除端对端加密。加密文件将保留在服务器上，但不会再同步到该电脑。</string>
     <string name="remove_fail_msg">删除失败</string>
     <string name="remove_notification_failed">移除通知失败</string>
     <string name="remove_push_notification">移除</string>
@@ -636,6 +649,7 @@
     <string name="set_picture_as">将图片用作</string>
     <string name="set_status">设定状态</string>
     <string name="set_status_message">设定状态信息</string>
+    <string name="setup_e2e">在端对端加密期间，你将接收一个随机12字助记字串，您需要这个字符串才能在其它设备上开放您的文件。这将只会存储在该设备上，并可以在此画面中再次展示。请记在安全的地方！</string>
     <string name="share">共享</string>
     <string name="share_copy_link">分享 &amp; 复制链接</string>
     <string name="share_dialog_title">共享</string>
@@ -884,6 +898,7 @@
     <string name="userinfo_no_info_text">在你的个人资料页上添加姓名，图片和联系方式。</string>
     <string name="username">用户名</string>
     <string name="version_dev_download">下载</string>
+    <string name="video_overlay_icon">视频叠加图标</string>
     <string name="wait_a_moment">请稍等…</string>
     <string name="wait_checking_credentials">正在检查保存的证书</string>
     <string name="wait_for_tmp_copy_from_private_storage">正在从私有存储中复制文件</string>

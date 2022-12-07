@@ -23,13 +23,18 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/add_to_cloud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/standard_padding"
+        android:paddingHorizontal="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
         android:text="@string/add_to_cloud"
-        android:textSize="@dimen/bottom_sheet_text_size"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
         android:textColor="@color/text_color" />
 
     <LinearLayout

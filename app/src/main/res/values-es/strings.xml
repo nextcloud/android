@@ -551,6 +551,8 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_daily_backup_summary">Copia de seguridad diaria de tu calendario y contactos</string>
+    <string name="prefs_davx5_setup_error">Error inesperado al configurar DAVx5 (anteriormente conocido como DAVdroid)</string>
+    <string name="prefs_e2e_active">¡Se ha configurado el cifrado de extremo a extremo!</string>
     <string name="prefs_e2e_mnemonic">Regla mnemotécnica del cifrado E2E</string>
     <string name="prefs_e2e_no_device_credentials">Para mostrar la regla mnemotécnica, habilite las credenciales del dispositivo</string>
     <string name="prefs_enable_media_scan_notifications">Mostrar notificaciones de escaneo de medios</string>
@@ -562,6 +564,7 @@
     <string name="prefs_instant_behaviour_title">El archivo original será…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en subcarpetas basadas en año y mes.</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcarpetas</string>
+    <string name="prefs_keys_exist">Agregar cifrado de extremo a extremo a este cliente</string>
     <string name="prefs_license">Licencia</string>
     <string name="prefs_lock">Código de acceso de la app</string>
     <string name="prefs_lock_device_credentials_enabled">Credenciales del dispositivo activadas</string>
@@ -573,6 +576,7 @@
     <string name="prefs_manage_accounts">Gestionar cuentas</string>
     <string name="prefs_recommend">Recomendar a amigos</string>
     <string name="prefs_remove_e2e">Eliminar cifrado localmente</string>
+    <string name="prefs_setup_e2e">Configurar el cifrado de extremo a extremo</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_sourcecode">Obtener el código fuente</string>
     <string name="prefs_storage_path">Carpeta de almacenamiento de datos</string>
@@ -600,6 +604,8 @@
     <string name="reload">Volver a cargar</string>
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">¡No se pudo encontrar el archivo!</string>
+    <string name="remove_e2e">Puede eliminar el cifrado de extremo a extremo localmente en este cliente</string>
+    <string name="remove_e2e_message">Puede quitar el cifrado de un extremo a otro localmente en este cliente. Los archivos cifrados permanecerán en el servidor, pero ya no se sincronizarán con esta computadora.</string>
     <string name="remove_fail_msg">Ha fallado el borrado</string>
     <string name="remove_notification_failed">Fallo al quitar notificación.</string>
     <string name="remove_push_notification">Quitar</string>
@@ -643,6 +649,7 @@
     <string name="set_picture_as">Usar imagen como</string>
     <string name="set_status">Configurar estado</string>
     <string name="set_status_message">Ajustar el mensaje de estado</string>
+    <string name="setup_e2e">Durante la configuración del cifrado de extremo a extremo, recibirá un mnemónico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto solo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. Por favor anótelo en un lugar seguro!</string>
     <string name="share">Compartir</string>
     <string name="share_copy_link">Compartir y copiar enlace</string>
     <string name="share_dialog_title">Compartir</string>
