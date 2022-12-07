@@ -21,60 +21,21 @@
 
 package com.owncloud.android.ui.activity
 
-import android.Manifest
 import android.app.Activity
-import android.content.Intent
-import android.graphics.Bitmap
-import android.os.Bundle
-import com.owncloud.android.R
-import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.PermissionUtil
-import com.zynksoftware.documentscanner.ScanActivity
-import com.zynksoftware.documentscanner.model.DocumentScannerErrorModel
-import com.zynksoftware.documentscanner.model.ScannerResults
-import com.zynksoftware.documentscanner.ui.DocumentScanner
+import com.owncloud.android.lib.common.utils.Log_OC
 
-class AppScanActivity : ScanActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        addFragmentContentLayout()
-    }
-
-    override fun onError(error: DocumentScannerErrorModel) {
-        DisplayUtils.showSnackMessage(this, R.string.error_starting_scan_doc)
-    }
-
-    override fun onSuccess(scannerResults: ScannerResults) {
-        val intent = Intent()
-
-        intent.putExtra(
-            "file",
-            scannerResults.transformedImageFile?.absolutePath ?: scannerResults.croppedImageFile?.absolutePath
-        )
-
-        setResult(Activity.RESULT_OK, intent)
-        finish()
-    }
-
-    override fun onClose() {
-        finish()
-    }
-
+class AppScanActivity {
+    // stub
     companion object {
-        @JvmStatic
-        val enabled: Boolean = true
+        private val TAG = AppScanActivity::class.simpleName
 
         @JvmStatic
-        fun scanFromCamera(activity: Activity, requestCode: Int) {
-            val configuration = DocumentScanner.Configuration()
-            configuration.imageType = Bitmap.CompressFormat.PNG
-            DocumentScanner.init(activity, configuration)
-            val scanIntent = Intent(activity, AppScanActivity::class.java)
-            if (PermissionUtil.checkSelfPermission(activity, Manifest.permission.CAMERA)) {
-                activity.startActivityForResult(scanIntent, requestCode)
-            } else {
-                PermissionUtil.requestCameraPermission(activity, PermissionUtil.PERMISSIONS_SCAN_DOCUMENT)
-            }
+        val enabled: Boolean = false
+
+        @JvmStatic
+        fun scanFromCamera(activity: Activity, requestcode: Int) {
+            // stub
+            Log_OC.w(TAG, "scanFromCamera called in stub implementation")
         }
     }
 }
