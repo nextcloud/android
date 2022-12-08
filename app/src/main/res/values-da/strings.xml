@@ -517,7 +517,7 @@
     <string name="player_toggle">skift</string>
     <string name="power_save_check_dialog_message">Deaktiver strømsparecheck kan føre til forsendelse af filer mens der ikke resterer meget strøm på batteriet</string>
     <string name="pref_behaviour_entries_delete_file">Slettet</string>
-    <string name="pref_behaviour_entries_keep_file">forblive i oprindelig mappe</string>
+    <string name="pref_behaviour_entries_keep_file">I oprindelig mappe</string>
     <string name="pref_behaviour_entries_move">Overført til app mappe</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Hvad skal ske, hvis filen allerede findes?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Spørg mig altid</string>
@@ -546,7 +546,7 @@
     <string name="prefs_imprint">Aftryk</string>
     <string name="prefs_instant_behaviour_dialogTitle">Oprindelig fil vil blive...</string>
     <string name="prefs_instant_behaviour_title">Oprindelig fil vil blive...</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Lagre i undermapper baseret på år og måned</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Gem i undermapper baseret på år og måned</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Benyt undermapper</string>
     <string name="prefs_license">Licens</string>
     <string name="prefs_lock">App adgangskode</string>
@@ -756,7 +756,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="synced_folders_configure_folders">Konfigurer mapper</string>
     <string name="synced_folders_new_info">Øjeblikkelig send er blevet fundamentalt nylanceret. Omkonfigurer din autoupload fra hovedmenuen.\n\nNyd den nye og udvidede auto upload.</string>
     <string name="synced_folders_no_results">Ingen medie mapper fundet</string>
-    <string name="synced_folders_preferences">indstillinger til auto send</string>
+    <string name="synced_folders_preferences">Indstillinger til auto send</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <string name="synced_folders_type">Type</string>
     <string name="synced_icon">Synkroniseret</string>
