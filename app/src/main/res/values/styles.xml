@@ -281,12 +281,18 @@
     </style>
 
     <!-- Launch screen -->
-    <style name="Theme.ownCloud.Launcher">
+    <style name="Theme.AppSplash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimationDuration">300</item>
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+        <item name="postSplashScreenTheme">@style/Theme.AppSplash</item>
+
+        <!-- Status bar and Nav bar configs -->
         <item name="android:statusBarColor">@color/primary</item>
         <item name="android:navigationBarColor">@color/primary</item>
-        <item name="android:windowBackground">@drawable/launch_screen</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:textColorHint">@color/secondary_text_color</item>
     </style>
+
 
     <style name="Theme.ownCloud.Widget.ActionBar" parent="@style/Theme.MaterialComponents.Light.DarkActionBar.Bridge">
         <item name="android:background">@color/primary</item>

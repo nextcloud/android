@@ -100,7 +100,7 @@
             android:configChanges="orientation|screenSize"
             android:exported="true"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.ownCloud.Launcher">
+            android:theme="@style/Theme.AppSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

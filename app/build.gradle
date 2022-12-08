@@ -294,6 +294,9 @@ dependencies {
     // Shimmer animation
     implementation 'io.github.elye:loaderviewlibrary:3.0.0'
 
+    //splash screen
+    implementation "androidx.core:core-splashscreen:$splashScreenVersion"
+
     // dependencies for markdown rendering
     implementation "io.noties.markwon:core:$markwonVersion"
     implementation "io.noties.markwon:ext-strikethrough:$markwonVersion"
