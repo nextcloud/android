@@ -12,3 +12,8 @@ if ! ./gradlew --daemon detekt &>/dev/null; then
     echo >&2 "Detekt failed! See report at file://$(pwd)/app/build/reports/detekt/detekt.html"
     exit 1
 fi
+
+if ! ./gradlew compileGplayDebugUnitTestSources compileGplayDebugAndroidTestSources; then
+  echo >&2 "Compilation of unit test and androidTest code failed!"
+  exit 1
+fi
