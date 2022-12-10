@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Gehitu %1$s</string>
     <string name="advanced_settings">Ezarpen aurreratuak</string>
     <string name="allow_resharing">Baimendu birpartekatzea</string>
+    <string name="app_widget_description">Arbeleko widget bat erakusten du</string>
     <string name="appbar_search_in">Bilatu %s(e)n</string>
     <string name="associated_account_not_found">Ez da aurkitu lotutako konturik</string>
     <string name="auth_access_failed">Huts egin du atzitzean: %1$s</string>
@@ -87,6 +88,7 @@
     <string name="calendars">Egutegiak</string>
     <string name="certificate_load_problem">Arazo bat dago egiaztagiria kargatzean</string>
     <string name="changelog_dev_version">Garapen bertsioaren aldaketa-egunkaria</string>
+    <string name="check_back_later_or_reload">Begiratu berriro geroago edo kargatu berriro.</string>
     <string name="checkbox">Kontrol laukia</string>
     <string name="choose_local_folder">Hautatu tokiko karpeta...</string>
     <string name="choose_location">Hautatu kokapena</string>
@@ -268,6 +270,7 @@
     <string name="error_report_issue_text">Arazoaren berri eman nahi duzu? (GitHub kontu bat beharrezkoa da)</string>
     <string name="error_retrieving_file">Errorea fitxategia berreskuratzean</string>
     <string name="error_retrieving_templates">Errorea txantiloiak berreskuratzean</string>
+    <string name="error_showing_encryption_dialog">Errore bat gertatu da konfigurazio enkriptatzeko elkarrizketa-koadroa erakustean!</string>
     <string name="error_starting_direct_camera_upload">Errorea kamera abiaraztean</string>
     <string name="error_starting_scan_doc">Errorea dokumentu eskaneatzailea erabiltzerakoan</string>
     <string name="etm_accounts">Kontuak</string>
@@ -392,6 +395,9 @@
     <string name="hint_password">Pasahitza</string>
     <string name="host_not_available">Zerbitzaria ez dago eskuragarri</string>
     <string name="host_your_own_server">Ostatatu zure zerbitzaria</string>
+    <string name="icon_for_empty_list">Zerrenda hutsaren ikonoa</string>
+    <string name="icon_of_dashboard_widget">Arbeleko widgetaren ikonoa</string>
+    <string name="icon_of_widget_entry">Widget-sarreraren ikonoa</string>
     <string name="in_folder">%1$skarpetan</string>
     <string name="instant_upload_existing">Existitzen diren fitxategiak ere kargatu</string>
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
@@ -514,6 +520,8 @@
     <string name="permission_deny">Ukatu</string>
     <string name="permission_storage_access">Fitxategiak kargatu eta deskargatzeko baimen gehigarriak behar dira</string>
     <string name="picture_set_as_no_app">Ez da aplikaziorik aurkitu irudia ezartzeko</string>
+    <string name="pin_home">Ainguratu hasierako pantailan</string>
+    <string name="pin_shortcut_label">Ireki %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">leku-marka.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -543,6 +551,8 @@
     <string name="prefs_category_general">Orokorra</string>
     <string name="prefs_category_more">Gehiago</string>
     <string name="prefs_daily_backup_summary">Eguneroko babeskopia zure egutegi eta kontaktuentzat</string>
+    <string name="prefs_davx5_setup_error">Ustekabeko errorea DAVx5 konfiguratzean (lehen DAVdroid izenez ezagutzen zena)</string>
+    <string name="prefs_e2e_active">Muturretik muturrerako enkriptatzea konfiguratuta dago!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemoteknikoa</string>
     <string name="prefs_e2e_no_device_credentials">Mnemoteknikoa erakusteko, gaitu gailuaren kredentzialak.</string>
     <string name="prefs_enable_media_scan_notifications">Erakutsi multimedia azterketen jakinarazpenak</string>
@@ -554,6 +564,7 @@
     <string name="prefs_instant_behaviour_title">Jatorrizko fitxategia izango da...</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Biltegiratu urtearen eta hilabetearen araberako azpikarpetetan</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Erabili azpikarpetak</string>
+    <string name="prefs_keys_exist">Gehitu muturretik muturrerako enkriptatzea bezero honi</string>
     <string name="prefs_license">Lizentzia</string>
     <string name="prefs_lock">Aplikazio pasahitza</string>
     <string name="prefs_lock_device_credentials_enabled">Gailuaren egiaztagiriak gaituta</string>
@@ -564,6 +575,8 @@
     <string name="prefs_lock_using_passcode">Pasahitza</string>
     <string name="prefs_manage_accounts">Kudeatu kontuak</string>
     <string name="prefs_recommend">Gomendatu lagun bati</string>
+    <string name="prefs_remove_e2e">Kendu enkriptatzea lokalean</string>
+    <string name="prefs_setup_e2e">Konfiguratu muturretik muturrerako enkriptatzea</string>
     <string name="prefs_show_hidden_files">Erakutsi ezkutuko fitxategiak</string>
     <string name="prefs_sourcecode">Eskuratu iturburu-kodea</string>
     <string name="prefs_storage_path">Datu-biltegiratze karpeta</string>
@@ -591,6 +604,8 @@
     <string name="reload">Birkargatu</string>
     <string name="remote">(urrunekoa)</string>
     <string name="remote_file_fetch_failed">Fitxategia bilatzeak huts egin du!</string>
+    <string name="remove_e2e">Lokalean, muturretik muturrerako enkriptatzea ken dezakezu bezero honetan</string>
+    <string name="remove_e2e_message">Lokalean, muturretik muturrerako enkriptatzea ken dezakezu bezero honetan. Enkriptatutako fitxategiak zerbitzarian jarraituko dute, baina ez dira ordenagailu honekin sinkronizatuko.</string>
     <string name="remove_fail_msg">Ezabatzeak huts egin du</string>
     <string name="remove_notification_failed">Huts egin du jakinarazpena kentzean</string>
     <string name="remove_push_notification">Ezabatu</string>
@@ -634,6 +649,7 @@
     <string name="set_picture_as">Erabili irudia honela</string>
     <string name="set_status">Ezarri egoera</string>
     <string name="set_status_message">Ezarri egoera mezua</string>
+    <string name="setup_e2e">Muturretik muturrerako enkriptatzea konfiguratzean, ausazko 12 hitz mnemoteknikoa jasoko duzu, zure fitxategiak beste gailu batzuetan ireki beharko dituzunak. Gailu horretan bakarrik gordeko da eta pantaila honetan berriro erakutsi ahal izango da. Apuntatu leku seguru batean!</string>
     <string name="share">Partekatu</string>
     <string name="share_copy_link">Partekatu eta kopiatu esteka</string>
     <string name="share_dialog_title">Partekatzea</string>
@@ -879,6 +895,7 @@
     <string name="userinfo_no_info_text">Gehitu izena, irudia eta kontaktuko zehaztasunak zure profilaren orrian</string>
     <string name="username">Erabiltzaile-izena</string>
     <string name="version_dev_download">Deskargatu</string>
+    <string name="video_overlay_icon">Bideoa gainjartzeko ikonoa</string>
     <string name="wait_a_moment">Itxaron momentu bat…</string>
     <string name="wait_checking_credentials">Gordetako nortasun-datuak konprobatzen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fitxategia biltegiratze pribatutik kopiatzen</string>
@@ -886,6 +903,7 @@
     <string name="whats_new_skip">Salto egin</string>
     <string name="whats_new_title">Berria %1$s-n</string>
     <string name="whats_your_status">Zein da zure egoera?</string>
+    <string name="widgets_not_available">Widgetak %1$s 25 edo geroago bakarrik daude eskuragarri</string>
     <string name="widgets_not_available_title">Ez dago erabilgarri</string>
     <string name="write_email">Bidali e-posta</string>
     <string name="wrong_storage_path">Datu-biltegiratze karpeta ez dago!</string>

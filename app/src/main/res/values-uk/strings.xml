@@ -221,7 +221,7 @@
     <string name="downloader_not_downloaded_yet">Ще не завантажене</string>
     <string name="drawer_close">Закрити бічну панель</string>
     <string name="drawer_community">Спільнота</string>
-    <string name="drawer_header_background">Фонове зображення заголовку скрині</string>
+    <string name="drawer_header_background">Зображення тла верхньої панелі</string>
     <string name="drawer_item_activities">Події</string>
     <string name="drawer_item_all_files">Усі файли</string>
     <string name="drawer_item_favorites">Із зірочкою</string>
