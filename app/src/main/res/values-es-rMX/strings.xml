@@ -355,6 +355,7 @@
     <string name="local_file_list_empty">No hay archivos en esta carpeta</string>
     <string name="local_file_not_found_message">No se encontró el archivo en el sistema de archivos local</string>
     <string name="local_folder_list_empty">No hay más carpetas.</string>
+    <string name="lock_file">Archivo bloqueado</string>
     <string name="log_send_mail_subject"> %1$s bitácora de aplicación Android</string>
     <string name="login">Iniciar sesión</string>
     <string name="logs_menu_delete">Eliminar los registros</string>
@@ -569,6 +570,7 @@
     <string name="trashbin_empty_message">Podrás recuperar los archivos eliminados desde aquí </string>
     <string name="trashbin_file_not_deleted">¡El archivo %1$s no pudo ser eliminado!</string>
     <string name="trashbin_not_emptied">¡Los archivos no pudieron ser eliminados permanentemente!</string>
+    <string name="unlock_file">Archivo desbloqueado</string>
     <string name="unset_encrypted">Desestablecer encripción</string>
     <string name="unset_favorite">Eliminar de favoritos</string>
     <string name="unshare_link_forbidden_permissions">para dejar de compartir este archivo</string>
