@@ -109,8 +109,8 @@ class PreviewVideoFullscreenDialog(
         if (isPlaying) {
             sourceExoPlayer.pause()
         }
-        enableImmersiveMode()
         setOnShowListener {
+            enableImmersiveMode()
             switchTargetViewFromSource()
             setListeners()
             if (isPlaying) {
@@ -157,8 +157,8 @@ class PreviewVideoFullscreenDialog(
         if (isPlaying) {
             mExoPlayer.pause()
         }
-        disableImmersiveMode()
         setOnDismissListener {
+            disableImmersiveMode()
             playingStateListener?.let {
                 mExoPlayer.removeListener(it)
             }
@@ -180,12 +180,7 @@ class PreviewVideoFullscreenDialog(
     }
 
     private fun enableImmersiveMode() {
-        // for immersive mode to work properly, need to disable statusbar on activity window, but nav bar in dialog
-        // otherwise dialog navbar is not hidden, or statusbar padding is the wrong color
         activity.window?.let {
-            hideInset(it, WindowInsetsCompat.Type.statusBars())
-        }
-        window?.let {
             hideInset(it, WindowInsetsCompat.Type.systemBars())
         }
     }
