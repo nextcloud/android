@@ -26,6 +26,10 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+    - name: Set Swap Space
+      uses: pierotofy/set-swap-space@master
+      with:
+          swap-size-gb: 10
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2.1.36
       with:
