@@ -435,6 +435,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="prefs_sourcecode">Dapatkan kode sumber</string>
     <string name="prefs_synced_folders_local_path_title">Berkas lokal</string>
     <string name="prefs_synced_folders_remote_path_title">Folder remot</string>
+    <string name="prefs_theme_title">Tema</string>
     <string name="prefs_value_theme_dark">Gelap</string>
     <string name="prefs_value_theme_light">Terang</string>
     <string name="preview_image_description">Pratilik gambar</string>
