@@ -128,7 +128,8 @@ public class FileDataStorageManager {
 
     private @Nullable
     OCFile getFileByPath(String type, String path) {
-        FileEntity fileEntity = ProviderTableMeta.FILE_PATH.equals(type) ?
+        final boolean shouldUseEncryptedPath = ProviderTableMeta.FILE_PATH.equals(type);
+        FileEntity fileEntity = shouldUseEncryptedPath ?
             fileDao.getFileByEncryptedRemotePath(path, user.getAccountName()) :
             fileDao.getFileByDecryptedRemotePath(path, user.getAccountName());
 
