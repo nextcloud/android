@@ -488,11 +488,10 @@ public class SettingsActivity extends PreferenceActivity
                     try {
                         launchDavDroidLogin();
                     } catch (Throwable t) {
-                        Log_OC.e(TAG, "Base Uri for account could not be resolved to call DAVdroid!", t);
+                        Log_OC.e(TAG, "Error while setting up DavX5", t);
                         DisplayUtils.showSnackMessage(
                             activity,
-                            R.string.prefs_calendar_contacts_address_resolve_error
-                                                     );
+                            R.string.prefs_davx5_setup_error);
                     }
                     return true;
                 });
@@ -775,7 +774,7 @@ public class SettingsActivity extends PreferenceActivity
         if (getPackageManager().resolveActivity(davDroidLoginIntent, 0) != null) {
             // arguments
             if (serverBaseUri != null) {
-                davDroidLoginIntent.putExtra("url", serverBaseUri.toString() + DAV_PATH);
+                davDroidLoginIntent.putExtra("url", serverBaseUri + DAV_PATH);
 
                 davDroidLoginIntent.putExtra("loginFlow", TRUE_VALUE);
                 davDroidLoginIntent.setData(Uri.parse(serverBaseUri.toString() + AuthenticatorActivity.WEB_LOGIN));
