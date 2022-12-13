@@ -192,6 +192,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void onResume() {
         super.onResume();
         setLoading(photoSearchQueryRunning);
+        handleSearchEvent();
         final FragmentActivity activity = getActivity();
         if (activity instanceof FileDisplayActivity) {
             FileDisplayActivity fileDisplayActivity = ((FileDisplayActivity) activity);
