@@ -32,19 +32,15 @@ interface FileDao {
     @Query("SELECT * FROM filelist WHERE _id = :id LIMIT 1")
     fun getFileById(id: Long): FileEntity?
 
-    // TODO - there should be only one entry - does it make sense to add order by to preserve previous behaviour?
     @Query("SELECT * FROM filelist WHERE path = :path AND file_owner = :fileOwner LIMIT 1")
     fun getFileByEncryptedRemotePath(path: String, fileOwner: String): FileEntity?
 
-    // TODO - there should be only one entry - does it make sense to add order by to preserve previous behaviour?
     @Query("SELECT * FROM filelist WHERE path_decrypted = :path AND file_owner = :fileOwner LIMIT 1")
     fun getFileByDecryptedRemotePath(path: String, fileOwner: String): FileEntity?
 
-    // TODO - there should be only one entry - does it make sense to add order by to preserve previous behaviour?
     @Query("SELECT * FROM filelist WHERE media_path = :path AND file_owner = :fileOwner LIMIT 1")
     fun getFileByLocalPath(path: String, fileOwner: String): FileEntity?
 
-    // TODO - there should be only one entry - does it make sense to add order by to preserve previous behaviour?
     @Query("SELECT * FROM filelist WHERE remote_id = :remoteId AND file_owner = :fileOwner LIMIT 1")
     fun getFileByRemoteId(remoteId: String, fileOwner: String): FileEntity?
 
