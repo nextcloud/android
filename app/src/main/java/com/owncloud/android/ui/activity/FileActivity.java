@@ -182,10 +182,8 @@ public abstract class FileActivity extends DrawerActivity
     @Override
     public void showFiles(boolean onDeviceOnly) {
         // must be specialized in subclasses
-        MainApp.showOnlyFilesOnDevice(onDeviceOnly);
-        if (onDeviceOnly) {
-            setupToolbar();
-        } else {
+        super.showFiles(onDeviceOnly);
+        if (!onDeviceOnly) {
             setupHomeSearchToolbarWithSortAndListButtons();
         }
     }
