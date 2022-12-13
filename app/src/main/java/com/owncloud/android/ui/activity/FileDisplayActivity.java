@@ -53,6 +53,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import androidx.core.splashscreen.SplashScreen;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
@@ -246,8 +247,7 @@ public class FileDisplayActivity extends FileActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
-        // Set the default theme to replace the launch screen theme.
-        setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
+        SplashScreen.installSplashScreen(this);
 
         super.onCreate(savedInstanceState);
         /// Load of saved instance state
