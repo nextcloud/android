@@ -198,9 +198,10 @@
     <LinearLayout
         android:id="@+id/menu_encrypted_mkdir"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/bottom_sheet_item_height"
         android:orientation="horizontal"
         android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
         android:paddingLeft="@dimen/standard_padding"
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingRight="@dimen/standard_padding"
@@ -219,7 +220,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
             android:text="@string/create_new_encrypted_folder"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />

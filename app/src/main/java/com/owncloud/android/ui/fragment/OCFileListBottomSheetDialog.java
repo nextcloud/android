@@ -90,6 +90,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         viewThemeUtils.platform.colorImageView(binding.menuIconDirectCameraUpload);
         viewThemeUtils.platform.colorImageView(binding.menuIconScanDocUpload);
         viewThemeUtils.platform.colorImageView(binding.menuIconMkdir);
+        viewThemeUtils.platform.colorImageView(binding.menuIconEncryptedMkdir);
         viewThemeUtils.platform.colorImageView(binding.menuIconAddFolderInfo);
 
         binding.addToCloud.setText(getContext().getResources().getString(R.string.add_to_cloud,
@@ -144,7 +145,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
             binding.menuDirectCameraUpload.setVisibility(View.GONE);
         }
 
-        if (capability.getEndToEndEncryption().isTrue()) {
+        if (capability.getEndToEndEncryption().isTrue() && OCFile.ROOT_PATH.equals(file.getRemotePath())) {
             binding.menuEncryptedMkdir.setVisibility(View.VISIBLE);
         } else {
             binding.menuEncryptedMkdir.setVisibility(View.GONE);
