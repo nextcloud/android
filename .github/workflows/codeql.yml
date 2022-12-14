@@ -1,3 +1,4 @@
+# synced from @nextcloud/android-config
 name: "CodeQL"
 
 on:
@@ -26,6 +27,10 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+    - name: Set Swap Space
+      uses: pierotofy/set-swap-space@49819abfb41bd9b44fb781159c033dba90353a7c #v1.0
+      with:
+          swap-size-gb: 10
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
