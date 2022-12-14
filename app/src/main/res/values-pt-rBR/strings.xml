@@ -390,6 +390,7 @@
     <string name="hint_password">Senha</string>
     <string name="host_not_available">Servidor indisponível</string>
     <string name="host_your_own_server">Hospede seu próprio servidor</string>
+    <string name="icon_for_empty_list">ícone para lista vazia</string>
     <string name="icon_of_dashboard_widget">Ícone do widget do painel</string>
     <string name="icon_of_widget_entry">Ícone de entrada do widget</string>
     <string name="in_folder">na pasta %1$s</string>
@@ -879,6 +880,7 @@
     <string name="userinfo_no_info_text">Adicionar nome, imagem e detalhes de contato na sua página de perfil.</string>
     <string name="username">Nome do usuário</string>
     <string name="version_dev_download">Baixar</string>
+    <string name="video_overlay_icon">ícone de sobreposição de vídeo</string>
     <string name="wait_a_moment">Aguarde um momento…</string>
     <string name="wait_checking_credentials">Verificando credenciais salvas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o arquivo da armazenagem privada</string>

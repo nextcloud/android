@@ -147,6 +147,7 @@
     <string name="community_testing_report_text">GitHub에 문제점 보고하기</string>
     <string name="community_testing_version_text">다음 버전에 포함될 예정인 기능을 테스트해 보고 싶으신가요?</string>
     <string name="configure_new_media_folder_detection_notifications">구성</string>
+    <string name="confirm_removal">로컬 암호화를 제거합니다.</string>
     <string name="confirmation_remove_file_alert">%1$s을(를) 삭제하시겠습니까?</string>
     <string name="confirmation_remove_files_alert">선택한 항목을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_folder_alert">%1$s 및 포함된 모든 내용을 삭제하시겠습니까?</string>
@@ -206,6 +207,7 @@
     <string name="disable_new_media_folder_detection_notifications">비활성화</string>
     <string name="dismiss">무시</string>
     <string name="dismiss_notification_description">알림 해제</string>
+    <string name="displays_mnemonic">당신의 12 단어의 패스프레이즈를 보이시오.</string>
     <string name="dnd">방해 금지</string>
     <string name="dontClear">지우지 않음</string>
     <string name="download_latest_dev_version">최신 개발 버전 다운로드</string>
@@ -262,11 +264,13 @@
     <string name="error_comment_file">파일 주석 처리 중 오류 발생</string>
     <string name="error_crash_title">%1$s충돌</string>
     <string name="error_creating_file_from_template">템플릿으로부터 파일을 생성하는 중 오류 발생</string>
+    <string name="error_file_actions">파일 동작들을 보여주는 에러</string>
     <string name="error_file_lock">파일 잠금 상태 변경중 오류 발생</string>
     <string name="error_report_issue_action">보고</string>
     <string name="error_report_issue_text">트래커에 문제를 보고하시겠습니까? (GitHub 계정 필요함)</string>
     <string name="error_retrieving_file">파일 가져오는 중 오류 발생</string>
     <string name="error_retrieving_templates">템플릿 검색 중 오류 발생</string>
+    <string name="error_showing_encryption_dialog">암호화 다이얼로그 설정을 나타내는 에러!</string>
     <string name="error_starting_direct_camera_upload">카메라 시작 중 오류 발생</string>
     <string name="error_starting_scan_doc">문서 스캔 중 오류 발생</string>
     <string name="etm_accounts">계정</string>
@@ -516,6 +520,7 @@
     <string name="permission_deny">거부</string>
     <string name="permission_storage_access">파일을 업로드 및 다운로드하려면 추가 권한이 필요합니다.</string>
     <string name="picture_set_as_no_app">사진을 설정할 앱을 찾을 수 없음</string>
+    <string name="pin_home">홈화면에 고정하다.</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -545,6 +550,8 @@
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
     <string name="prefs_daily_backup_summary">달력 &amp; 의 연락처 매일 백업</string>
+    <string name="prefs_davx5_setup_error">DAVx5를 설정하는 동안 발생한 예기치 못한 에러</string>
+    <string name="prefs_e2e_active">종단간 암호화가 설정됩니다!</string>
     <string name="prefs_e2e_mnemonic">E2E 연상 기호</string>
     <string name="prefs_e2e_no_device_credentials">연상 기호를 표시하려면 장치 자격 증명을 활성화하십시오.</string>
     <string name="prefs_enable_media_scan_notifications">미디어 스캔 알림 표시</string>
@@ -556,6 +563,7 @@
     <string name="prefs_instant_behaviour_title">원래 파일은…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">연도와 월을 기준으로 하위 폴더에 보관</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">하위 폴더 사용</string>
+    <string name="prefs_keys_exist">이 고객에게 종단간 암호화를 추가합니다.</string>
     <string name="prefs_license">라이선스</string>
     <string name="prefs_lock">앱 암호</string>
     <string name="prefs_lock_device_credentials_enabled">기기 인증 활성화됨</string>
@@ -566,6 +574,8 @@
     <string name="prefs_lock_using_passcode">암호</string>
     <string name="prefs_manage_accounts">계정 관리</string>
     <string name="prefs_recommend">친구에게 추천하기</string>
+    <string name="prefs_remove_e2e">암호화를 일부 제거합니다.</string>
+    <string name="prefs_setup_e2e">종단간 암호화를 설정합니다.</string>
     <string name="prefs_show_hidden_files">숨겨진 파일 보기</string>
     <string name="prefs_sourcecode">소스 코드 보기</string>
     <string name="prefs_storage_path">데이터 저장 폴더</string>
@@ -593,6 +603,8 @@
     <string name="reload">새로 고침</string>
     <string name="remote">(원격)</string>
     <string name="remote_file_fetch_failed">파일을 찾을 수 없음</string>
+    <string name="remove_e2e">당신은 이 고객에 대하여 종단간 암호화를 일부 제거할 수 있습니다.</string>
+    <string name="remove_e2e_message">당신은 이 고객에 대하여 종단간 암호화를 일부 제거할 수 있습니다. 암호화된 파일들은 서버에 남아있을 것이지만, 더이상 이 컴퓨터에 동기화 되지 않을 것입니다.</string>
     <string name="remove_fail_msg">삭제할 수 없음</string>
     <string name="remove_notification_failed">알림을 지우는데 실패했습니다</string>
     <string name="remove_push_notification">삭제</string>
@@ -636,6 +648,7 @@
     <string name="set_picture_as">다음으로 사진 사용</string>
     <string name="set_status">상태 설정</string>
     <string name="set_status_message">상태 메시지 설정</string>
+    <string name="setup_e2e">종단간 암호화를 설정하는 동안, 당신은 다른 장치들에서 당신의 파일들을 열어야 할 무작위의 12 단어 니모닉을 수신할 것입니다. 이것은 당신의 장치에만 저장 될 것이고, 이 스크린에서 다시 보여질 수 있습니다. 이를 안전한 위치에 적어두세요!</string>
     <string name="share">공유</string>
     <string name="share_copy_link">공유 &amp;의 링크 복사</string>
     <string name="share_dialog_title">공유</string>

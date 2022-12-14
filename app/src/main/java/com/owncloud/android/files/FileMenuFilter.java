@@ -340,7 +340,8 @@ public class FileMenuFilter {
     }
 
     private void filterRemove(List<Integer> toHide, boolean synchronizing) {
-        if (files.isEmpty() || synchronizing || containsLockedFile()) {
+        if (files.isEmpty() || synchronizing || containsLockedFile()
+            || containsEncryptedFolder() || containsEncryptedFile()) {
             toHide.add(R.id.action_remove_file);
         }
     }

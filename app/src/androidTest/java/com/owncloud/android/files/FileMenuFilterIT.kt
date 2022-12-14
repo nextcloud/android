@@ -202,12 +202,14 @@ class FileMenuFilterIT : AbstractIT() {
                 // encrypted folder, with content
                 assertTrue(toHide.contains(R.id.action_unset_encrypted))
                 assertTrue(toHide.contains(R.id.action_encrypted))
+                assertTrue(toHide.contains(R.id.action_remove_file))
 
                 // encrypted, but empty folder
                 sut = filterFactory.newInstance(encryptedEmptyFolder, mockComponentsGetter, true, user)
                 toHide = sut.getToHide(false)
 
                 assertFalse(toHide.contains(R.id.action_unset_encrypted))
+                assertTrue(toHide.contains(R.id.action_remove_file))
                 assertTrue(toHide.contains(R.id.action_encrypted))
 
                 // regular folder, with content
@@ -216,6 +218,7 @@ class FileMenuFilterIT : AbstractIT() {
 
                 assertTrue(toHide.contains(R.id.action_unset_encrypted))
                 assertTrue(toHide.contains(R.id.action_encrypted))
+                assertFalse(toHide.contains(R.id.action_remove_file))
 
                 // regular folder, without content
                 sut = filterFactory.newInstance(normalEmptyFolder, mockComponentsGetter, true, user)
@@ -223,6 +226,7 @@ class FileMenuFilterIT : AbstractIT() {
 
                 assertTrue(toHide.contains(R.id.action_unset_encrypted))
                 assertFalse(toHide.contains(R.id.action_encrypted))
+                assertFalse(toHide.contains(R.id.action_remove_file))
             }
         }
     }
