@@ -24,7 +24,6 @@ package com.owncloud.android.ui.activity
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import com.owncloud.android.R
 import com.owncloud.android.utils.DisplayUtils
@@ -67,9 +66,7 @@ class AppScanActivity : ScanActivity() {
 
         @JvmStatic
         fun scanFromCamera(activity: Activity, requestCode: Int) {
-            val configuration = DocumentScanner.Configuration()
-            configuration.imageType = Bitmap.CompressFormat.PNG
-            DocumentScanner.init(activity, configuration)
+            DocumentScanner.init(activity)
             val scanIntent = Intent(activity, AppScanActivity::class.java)
             if (PermissionUtil.checkSelfPermission(activity, Manifest.permission.CAMERA)) {
                 activity.startActivityForResult(scanIntent, requestCode)
