@@ -381,7 +381,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Override
     public void showProfileBottomSheet(User user, String shareWith) {
-        if (user.getServer().getVersion().isNewerOrEqual(NextcloudVersion.Companion.getNextcloud_23())) {
+        if (user.getServer().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_23)) {
             new RetrieveHoverCardAsyncTask(user,
                                            shareWith,
                                            fileActivity,
