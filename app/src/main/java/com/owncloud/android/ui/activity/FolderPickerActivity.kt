@@ -53,6 +53,7 @@ import com.owncloud.android.utils.DataHolderUtil
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FileSortOrder
+import com.owncloud.android.utils.PathUtils
 import java.io.File
 import javax.inject.Inject
 
@@ -356,13 +357,12 @@ open class FolderPickerActivity :
             mAction != COPY && mAction != MOVE -> true
             mTargetFilePaths.isNullOrEmpty() -> true
             file?.isFolder != true -> true
-            // only disable if ALL target files are in selected folder
-            else -> mTargetFilePaths!!.any { !isParentFolder(file.remotePath, it) }
+            // all of the target files are already in the selected directory
+            mTargetFilePaths!!.all { PathUtils.isDirectParent(file.remotePath, it) } -> false
+            // some of the target files are parents of the selected folder
+            mTargetFilePaths!!.any { PathUtils.isAncestor(it, file.remotePath) } -> false
+            else -> true
         }
-    }
-
-    private fun isParentFolder(folderPath: String, filePath: String): Boolean {
-        return File(folderPath).path == File(filePath).parent
     }
 
     private fun updateNavigationElementsInActionBar() {
