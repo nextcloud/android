@@ -36,7 +36,6 @@ import com.owncloud.android.utils.EncryptionUtils;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.FileUtils;
-import org.conscrypt.OpenSSLRSAPublicKey;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,6 +52,7 @@ import java.security.MessageDigest;
 import java.security.PrivateKey;
 import java.security.SecureRandom;
 import java.security.interfaces.RSAPrivateCrtKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -184,7 +184,7 @@ public class EncryptionTestIT {
     @Test
     public void testModulus() throws Exception {
         KeyPair keyPair = EncryptionUtils.generateKeyPair();
-        OpenSSLRSAPublicKey publicKey = (OpenSSLRSAPublicKey) keyPair.getPublic();
+        RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
         RSAPrivateCrtKey privateKey = (RSAPrivateCrtKey) keyPair.getPrivate();
 
         BigInteger modulusPublic = publicKey.getModulus();
