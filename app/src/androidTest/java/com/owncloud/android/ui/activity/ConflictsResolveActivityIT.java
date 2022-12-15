@@ -246,7 +246,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         OCFile existingFile = new OCFile("/newFile.txt");
         existingFile.setFileLength(1024000);
         existingFile.setModificationTimestamp(1582019340);
-        existingFile.setRemoteId("123abc");
+        existingFile.setRemoteId("00000123abc");
 
         OCFile newFile = new OCFile("/newFile.txt");
         newFile.setFileLength(56000);
