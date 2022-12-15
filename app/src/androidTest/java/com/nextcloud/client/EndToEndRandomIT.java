@@ -53,7 +53,6 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import org.bouncycastle.operator.OperatorCreationException;
-import org.conscrypt.OpenSSLRSAPublicKey;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -67,6 +66,7 @@ import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.interfaces.RSAPrivateCrtKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -502,7 +502,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
 
         // check key
         RSAPrivateCrtKey privateKey = (RSAPrivateCrtKey) keyPair.getPrivate();
-        OpenSSLRSAPublicKey publicKey = EncryptionUtils.convertPublicKeyFromString(publicKeyString);
+        RSAPublicKey publicKey = EncryptionUtils.convertPublicKeyFromString(publicKeyString);
 
         BigInteger modulusPublic = publicKey.getModulus();
         BigInteger modulusPrivate = privateKey.getModulus();
@@ -615,7 +615,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
 
             // check key
             RSAPrivateCrtKey privateKey = (RSAPrivateCrtKey) keyPair.getPrivate();
-            OpenSSLRSAPublicKey publicKey = EncryptionUtils.convertPublicKeyFromString(publicKeyString);
+            RSAPublicKey publicKey = EncryptionUtils.convertPublicKeyFromString(publicKeyString);
 
             BigInteger modulusPublic = publicKey.getModulus();
             BigInteger modulusPrivate = privateKey.getModulus();
