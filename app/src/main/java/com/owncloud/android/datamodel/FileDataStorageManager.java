@@ -904,6 +904,7 @@ public class FileDataStorageManager {
         ocFile.setSharedWithSharee(nullToZero(fileEntity.getSharedWithSharee()) == 1);
         ocFile.setPermissions(fileEntity.getPermissions());
         ocFile.setRemoteId(fileEntity.getRemoteId());
+        ocFile.setLocalId(fileEntity.getLocalId());
         ocFile.setUpdateThumbnailNeeded(nullToZero(fileEntity.getUpdateThumbnail()) == 1);
         ocFile.setDownloading(nullToZero(fileEntity.isDownloading()) == 1);
         ocFile.setEtagInConflict(fileEntity.getEtagInConflict());
