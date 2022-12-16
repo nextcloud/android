@@ -1,4 +1,4 @@
----
+# synced from @nextcloud/android-config
 name: 'Close stale issues'
 on:
   schedule:
