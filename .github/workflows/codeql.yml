@@ -23,27 +23,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-          language: [ 'java' ]
+        language: [ 'java' ]
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-    - name: Set Swap Space
-      uses: pierotofy/set-swap-space@49819abfb41bd9b44fb781159c033dba90353a7c #v1.0
-      with:
+      - name: Checkout repository
+        uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@49819abfb41bd9b44fb781159c033dba90353a7c # v1.0
+        with:
           swap-size-gb: 10
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
-    - name: Set up JDK 
-      uses: actions/setup-java@v3
-      with:
-        distribution: "temurin"
-        java-version: 11
-    - name: Assemble
-      run: |
-        mkdir -p "$HOME/.gradle"
-        echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > "$HOME/.gradle/gradle.properties"
-        ./gradlew assembleDebug
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@959cbb7472c4d4ad70cdfe6f4976053fe48ab394 # v2
+        with:
+          languages: ${{ matrix.language }}
+      - name: Set up JDK
+        uses: actions/setup-java@1df8dbefe2a8cbc99770194893dd902763bee34b # v3
+        with:
+          distribution: "temurin"
+          java-version: 11
+      - name: Assemble
+        run: |
+          mkdir -p "$HOME/.gradle"
+          echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > "$HOME/.gradle/gradle.properties"
+          ./gradlew assembleDebug
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@959cbb7472c4d4ad70cdfe6f4976053fe48ab394 # v2
