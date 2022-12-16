@@ -18,17 +18,17 @@ jobs:
                 color: [ blue ]
                 api-level: [ 27 ]
         steps:
-            -   uses: actions/checkout@v3
+            -   uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
 
             -   name: Gradle cache
-                uses: actions/cache@v3
+                uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # v3
                 with:
                     path: |
                         ~/.gradle/caches
                         ~/.gradle/wrapper
                     key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
             -   name: AVD cache
-                uses: actions/cache@v3
+                uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # v3
                 id: avd-cache
                 with:
                     path: |
@@ -36,14 +36,14 @@ jobs:
                         ~/.android/adb*
                     key: avd-${{ matrix.api-level }}
 
-            -   uses: actions/setup-java@v3
+            -   uses: actions/setup-java@1df8dbefe2a8cbc99770194893dd902763bee34b # v3
                 with:
                     distribution: "temurin"
                     java-version: 11
 
             -   name: create AVD and generate snapshot for caching
                 if: steps.avd-cache.outputs.cache-hit != 'true'
-                uses: reactivecircus/android-emulator-runner@v2
+                uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # v2
                 with:
                     api-level: ${{ matrix.api-level }}
                     force-avd-creation: false
@@ -64,12 +64,12 @@ jobs:
 
             -   name: Delete old comments
                 env:
-                    GITHUB_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 if: ${{ always() }}
                 run: scripts/deleteOldComments.sh "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}}
 
             -   name: Run screenshot tests
-                uses: reactivecircus/android-emulator-runner@v2
+                uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # v2
                 with:
                     api-level: ${{ matrix.api-level }}
                     force-avd-creation: false
@@ -82,8 +82,7 @@ jobs:
                 if: ${{ failure() }}
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                run:
-                    scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}}
+                run: scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}}
             -   name: Archive Espresso results
                 uses: actions/upload-artifact@83fd05a356d7e2593de66fc9913b3002723633cb
                 if: ${{ always() }}
