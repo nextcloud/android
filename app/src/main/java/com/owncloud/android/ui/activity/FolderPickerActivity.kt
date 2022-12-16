@@ -53,6 +53,7 @@ import com.owncloud.android.utils.DataHolderUtil
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FileSortOrder
+import com.owncloud.android.utils.PathUtils
 import java.io.File
 import javax.inject.Inject
 
@@ -73,6 +74,9 @@ open class FolderPickerActivity :
     private var mCancelBtn: MaterialButton? = null
     private var mChooseBtn: MaterialButton? = null
     private var caption: String? = null
+
+    private var mAction: String? = null
+    private var mTargetFilePaths: ArrayList<String>? = null
 
     @Inject
     lateinit var localBroadcastManager: LocalBroadcastManager
@@ -95,8 +99,9 @@ open class FolderPickerActivity :
             View.VISIBLE
         findViewById<View>(R.id.switch_grid_view_button).visibility =
             View.GONE
-        if (intent.getStringExtra(EXTRA_ACTION) != null) {
-            when (intent.getStringExtra(EXTRA_ACTION)) {
+        mAction = intent.getStringExtra(EXTRA_ACTION)
+        if (mAction != null) {
+            when (mAction) {
                 MOVE -> {
                     caption = resources.getText(R.string.move_to).toString()
                     mSearchOnlyFolders = true
@@ -118,9 +123,8 @@ open class FolderPickerActivity :
         } else {
             caption = themeUtils.getDefaultDisplayNameForRootFolder(this)
         }
-        if (intent.getParcelableExtra<Parcelable?>(EXTRA_CURRENT_FOLDER) != null) {
-            file = intent.getParcelableExtra(EXTRA_CURRENT_FOLDER)
-        }
+        mTargetFilePaths = intent.getStringArrayListExtra(EXTRA_FILE_PATHS)
+
         if (savedInstanceState == null) {
             createFragments()
         }
@@ -146,7 +150,7 @@ open class FolderPickerActivity :
             val listOfFolders = listOfFilesFragment
             listOfFolders!!.listDirectory(folder, false, false)
             startSyncFolderOperation(folder, false)
-            updateNavigationElementsInActionBar()
+            updateUiElements()
         }
     }
 
@@ -205,7 +209,7 @@ open class FolderPickerActivity :
      */
     override fun onBrowsedDownTo(directory: OCFile) {
         file = directory
-        updateNavigationElementsInActionBar()
+        updateUiElements()
         // Sync Folder
         startSyncFolderOperation(directory, false)
     }
@@ -240,6 +244,9 @@ open class FolderPickerActivity :
 
         // refresh list of files
         refreshListOfFilesFragment(false)
+
+        file = listOfFilesFragment?.currentFile
+        updateUiElements()
 
         // Listen for sync messages
         val syncIntentFilter = IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START)
@@ -317,7 +324,7 @@ open class FolderPickerActivity :
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
             listOfFiles.listDirectory(root, false, false)
             file = listOfFiles.currentFile
-            updateNavigationElementsInActionBar()
+            updateUiElements()
             startSyncFolderOperation(root, false)
         }
     }
@@ -331,7 +338,30 @@ open class FolderPickerActivity :
                 return
             }
             file = listOfFiles.currentFile
-            updateNavigationElementsInActionBar()
+            updateUiElements()
+        }
+    }
+
+    private fun updateUiElements() {
+        toggleChooseEnabled()
+        updateNavigationElementsInActionBar()
+    }
+
+    private fun toggleChooseEnabled() {
+        mChooseBtn?.isEnabled = checkFolderSelectable()
+    }
+
+    // for copy and move, disable selecting parent folder of target files
+    private fun checkFolderSelectable(): Boolean {
+        return when {
+            mAction != COPY && mAction != MOVE -> true
+            mTargetFilePaths.isNullOrEmpty() -> true
+            file?.isFolder != true -> true
+            // all of the target files are already in the selected directory
+            mTargetFilePaths!!.all { PathUtils.isDirectParent(file.remotePath, it) } -> false
+            // some of the target files are parents of the selected folder
+            mTargetFilePaths!!.any { PathUtils.isAncestor(it, file.remotePath) } -> false
+            else -> true
         }
     }
 
@@ -378,9 +408,8 @@ open class FolderPickerActivity :
             if (targetFiles != null) {
                 resultData.putParcelableArrayListExtra(EXTRA_FILES, targetFiles)
             }
-            val targetFilePaths = i.getStringArrayListExtra(EXTRA_FILE_PATHS)
-            if (targetFilePaths != null) {
-                resultData.putStringArrayListExtra(EXTRA_FILE_PATHS, targetFilePaths)
+            mTargetFilePaths.let {
+                resultData.putStringArrayListExtra(EXTRA_FILE_PATHS, it)
             }
             setResult(RESULT_OK, resultData)
             finish()
@@ -559,9 +588,6 @@ open class FolderPickerActivity :
 
         @JvmField
         val EXTRA_ACTION = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_ACTION")
-
-        @JvmField
-        val EXTRA_CURRENT_FOLDER = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_CURRENT_FOLDER")
 
         const val MOVE = "MOVE"
         const val COPY = "COPY"
