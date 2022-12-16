@@ -145,7 +145,7 @@
     <string name="community_testing_bug_text">Fehler gefunden? Komisches Verhalten?</string>
     <string name="community_testing_headline">Helfen Sie durch Testen</string>
     <string name="community_testing_report_text">Fehlerbericht auf GitHub erstellen</string>
-    <string name="community_testing_version_text">Möchten Sie uns beim Testen der nächsten Version unterstützen?</string>
+    <string name="community_testing_version_text">Helfen Sie uns beim Testen der nächsten Version!</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurieren</string>
     <string name="confirm_removal">Lokale Verschlüsselung entfernen</string>
     <string name="confirmation_remove_file_alert">Wollen Sie %1$s wirklich löschen?</string>
