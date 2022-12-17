@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Lägg till %1$s</string>
     <string name="advanced_settings">Avancerade inställningar</string>
     <string name="allow_resharing">Tillåt dela vidare</string>
+    <string name="app_widget_description">Visa en widget från dashboard</string>
     <string name="appbar_search_in">Sök i %s</string>
     <string name="associated_account_not_found">Associerat konto kunde inte hittas!</string>
     <string name="auth_access_failed">Åtkomst misslyckades: %1$s</string>
@@ -263,11 +264,13 @@
     <string name="error_comment_file">Fel vid kommentering av fil</string>
     <string name="error_crash_title">%1$s kraschade</string>
     <string name="error_creating_file_from_template">Fel vid skapande av fil från mallen</string>
+    <string name="error_file_actions">Kunde inte visa filaktioner</string>
     <string name="error_file_lock">Fel när filens lås-status ändrades</string>
     <string name="error_report_issue_action">Rapportera</string>
     <string name="error_report_issue_text">Rapportera fel till Tracker? (kräver ett konto hos GitHub)</string>
     <string name="error_retrieving_file">Fel vid mottagning av fil</string>
     <string name="error_retrieving_templates">Fel vid hämtning av mallar</string>
+    <string name="error_showing_encryption_dialog">Fel vid visning av dialogruta för uppsättning av kryptering!</string>
     <string name="error_starting_direct_camera_upload">Fel vid start av kamera</string>
     <string name="error_starting_scan_doc">Fel vid dokumentskanning</string>
     <string name="etm_accounts">Konton</string>
@@ -393,6 +396,8 @@
     <string name="host_not_available">Server inte tillgänglig</string>
     <string name="host_your_own_server">Använd egen server</string>
     <string name="icon_for_empty_list">Ikon för tom lista</string>
+    <string name="icon_of_dashboard_widget">Ikon för dashboard widget</string>
+    <string name="icon_of_widget_entry">Ikon för widgetpost</string>
     <string name="in_folder">i mapp %1$s</string>
     <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
@@ -516,6 +521,7 @@
     <string name="permission_storage_access">Ytterligare rättigheter krävs för att ladda upp eller hämta filer</string>
     <string name="picture_set_as_no_app">Ingen app hittades för att ställa in en bild med</string>
     <string name="pin_home">Fäst upp på hemskärmen</string>
+    <string name="pin_shortcut_label">Öppna %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -545,6 +551,8 @@
     <string name="prefs_category_general">Allmänt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_daily_backup_summary">Daglig backup av din kalender &amp; dina kontakter </string>
+    <string name="prefs_davx5_setup_error">Oväntat fel vid installation av DAVx5 (tidigare känd som DAVdroid)</string>
+    <string name="prefs_e2e_active">End-to-end-kryptering är inställd!</string>
     <string name="prefs_e2e_mnemonic">E2E krypteringsord</string>
     <string name="prefs_e2e_no_device_credentials">För att visa mnemonic vänligen aktivera enhetsuppgifter.</string>
     <string name="prefs_enable_media_scan_notifications">Visa aviseringar om mediescanning</string>
@@ -556,6 +564,7 @@
     <string name="prefs_instant_behaviour_title">Originalfilen kommer att…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Spara i undermappar baserat på år och månad</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Använd undermappar</string>
+    <string name="prefs_keys_exist">Lägg till end-to-end-kryptering för denna klient</string>
     <string name="prefs_license">Licens</string>
     <string name="prefs_lock">Applösenkod</string>
     <string name="prefs_lock_device_credentials_enabled">Enhetens inloggningsuppgifter aktiverade</string>
@@ -567,6 +576,8 @@
     <string name="prefs_lock_using_passcode">Kodlås</string>
     <string name="prefs_manage_accounts">Hantera konton</string>
     <string name="prefs_recommend">Rekommendera till en vän</string>
+    <string name="prefs_remove_e2e">Ta bort kryptering lokalt</string>
+    <string name="prefs_setup_e2e">Sätt upp end-to-end-kryptering</string>
     <string name="prefs_show_hidden_files">Visa dolda filer</string>
     <string name="prefs_sourcecode">Hämta källkod</string>
     <string name="prefs_storage_path">Datalagringsmapp</string>
@@ -594,6 +605,8 @@
     <string name="reload">Uppdatera</string>
     <string name="remote">(avlägsen)</string>
     <string name="remote_file_fetch_failed">Kunde inte hitta filen!</string>
+    <string name="remove_e2e">Du kan ta bort end-to-end-kryptering lokalt på denna klient</string>
+    <string name="remove_e2e_message">Du kan ta bort end-to-end-kryptering lokalt på denna klienten. Krypterade filer kommer finnas kvar på servern, men kommer inte synkroniseras med denna enheten längre.</string>
     <string name="remove_fail_msg">Radering misslyckades</string>
     <string name="remove_notification_failed">Kunde inte radera notifiering.</string>
     <string name="remove_push_notification">Ta bort</string>
@@ -637,6 +650,7 @@
     <string name="set_picture_as">Använd bild som</string>
     <string name="set_status">Sätt status</string>
     <string name="set_status_message">Sätt statusmeddelande</string>
+    <string name="setup_e2e">Under inställningen av end-to-end-kryptering kommer du att få en slumpmässig 12-ords minnesregel, som du behöver för att öppna dina filer på andra enheter. Denna kommer endast att lagras på den här enheten och kan visas igen på den här skärmen. Vänligen notera den på ett säkert ställe!</string>
     <string name="share">Dela</string>
     <string name="share_copy_link">Dela &amp; kopiera länk</string>
     <string name="share_dialog_title">Dela</string>
@@ -882,6 +896,7 @@
     <string name="userinfo_no_info_text">Lägg till namn, bild och kontaktuppgifter på din profilsida.</string>
     <string name="username">Användarnamn</string>
     <string name="version_dev_download">Hämta</string>
+    <string name="video_overlay_icon">Videoöverlagringsikon</string>
     <string name="wait_a_moment">Vänligen vänta…</string>
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>
@@ -889,6 +904,7 @@
     <string name="whats_new_skip">Hoppa över</string>
     <string name="whats_new_title">Ny i %1$s</string>
     <string name="whats_your_status">Vad är din status?</string>
+    <string name="widgets_not_available">Widgets är endast tillgängliga på %1$s 25 eller senare</string>
     <string name="widgets_not_available_title">Inte tillgänglig</string>
     <string name="write_email">Skicka e-post</string>
     <string name="wrong_storage_path">Datalagringsmapp finns inte!</string>
