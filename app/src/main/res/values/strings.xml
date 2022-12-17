@@ -523,7 +523,6 @@
     <string name="community_testing_headline">Help by testing</string>
     <string name="community_testing_bug_text">Found a bug? Oddments?</string>
     <string name="community_testing_report_text">Report an issue on GitHub</string>
-    <string name="community_testing_version_text">Interested in helping out by testing what will be the next version?</string>
     <string name="community_beta_headline">Test the dev version</string>
     <string name="community_beta_text">This includes all upcoming features and it is on the very bleeding edge. Bugs/errors can occur, if and when they do, please report of your findings.</string>
     <string name="community_release_candidate_headline">Release candidate</string>

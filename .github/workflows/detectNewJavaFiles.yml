@@ -1,3 +1,4 @@
+# synced from @nextcloud/android-config
 name: "Detect new java files"
 
 on:
@@ -10,23 +11,22 @@ jobs:
   detectNewJavaFiles:
     runs-on: ubuntu-latest
     steps:
-      -   id: file_changes
-          uses: trilom/file-changes-action@v1.2.4
-          with:
-            output: ','
-      -   name: Detect new java files
-          run: |
-            if [ -z '${{ steps.file_changes.outputs.files_added }}' ]; then
-                echo "No new files added"
-                exit 0
-            fi
-            new_java=$(echo '${{ steps.file_changes.outputs.files_added }}' | tr ',' '\n' | grep '\.java$' | cat)
-            if [ -n "$new_java" ]; then
-                # shellcheck disable=SC2016
-                printf 'New java files detected:\n```\n%s\n```\n' "$new_java" | tee "$GITHUB_STEP_SUMMARY"
-                exit 1
-            else
-                echo "No new java files detected"
-                exit 0
-            fi
-
+      - id: file_changes
+        uses: trilom/file-changes-action@a6ca26c14274c33b15e6499323aac178af06ad4b # v1.2.4
+        with:
+          output: ','
+      - name: Detect new java files
+        run: |
+          if [ -z '${{ steps.file_changes.outputs.files_added }}' ]; then
+              echo "No new files added"
+              exit 0
+          fi
+          new_java=$(echo '${{ steps.file_changes.outputs.files_added }}' | tr ',' '\n' | grep '\.java$' | cat)
+          if [ -n "$new_java" ]; then
+              # shellcheck disable=SC2016
+              printf 'New java files detected:\n```\n%s\n```\n' "$new_java" | tee "$GITHUB_STEP_SUMMARY"
+              exit 1
+          else
+              echo "No new java files detected"
+              exit 0
+          fi

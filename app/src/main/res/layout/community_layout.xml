@@ -70,15 +70,6 @@
                     app:cornerRadius="@dimen/button_corner_radius" />
 
                 <TextView
-                    android:id="@+id/community_text"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:paddingTop="@dimen/standard_half_padding"
-                    android:text="@string/community_testing_version_text"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-                <TextView
                     android:id="@+id/community_contribute_headline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
