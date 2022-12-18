@@ -405,7 +405,7 @@
     <string name="link_name">Nome do link </string>
     <string name="link_share_allow_upload_and_editing">Permitir envio e edição</string>
     <string name="link_share_editing">Editando </string>
-    <string name="link_share_file_drop">Soltar arquivo (apenas envio)</string>
+    <string name="link_share_file_drop">Depósito de arquivos (somente envios)</string>
     <string name="link_share_view_only">Somente visualização </string>
     <string name="list_layout">Layout listado</string>
     <string name="load_more_results">Carregar mais resultados </string>
