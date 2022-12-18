@@ -29,6 +29,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
@@ -39,6 +41,8 @@ import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -56,6 +60,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public static final String PATH_SEPARATOR = "/";
     public static final String ROOT_PATH = PATH_SEPARATOR;
+
+    private static final String NULL_STRING = "null";
 
     private static final String TAG = OCFile.class.getSimpleName();
 
@@ -96,6 +102,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String ownerDisplayName;
     String note;
     private List<ShareeUser> sharees;
+    private String shareesJson;
+    private boolean shareesConvertFromJson = false;
     private String richWorkspace;
     private boolean locked;
     @Nullable
@@ -112,6 +120,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String lockToken;
     @Nullable
     private ImageDimension imageDimension;
+    private String imageDimensionJson;
+    private boolean imageDimensionConvertFromJson = false;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to {@link
@@ -760,10 +770,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.note;
     }
 
-    public List<ShareeUser> getSharees() {
-        return this.sharees;
-    }
-
     public String getRichWorkspace() {
         return this.richWorkspace;
     }
@@ -870,6 +876,37 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setSharees(List<ShareeUser> sharees) {
         this.sharees = sharees;
+        this.shareesJson = null;
+        this.shareesConvertFromJson = false;
+    }
+
+    public void setShareesJson(String shareesJson) {
+        this.sharees = null;
+        this.shareesJson = shareesJson;
+        this.shareesConvertFromJson = true;
+    }
+
+    private void deserializeSharees() {
+        Log_OC.d(TAG, "deserializeSharees: " + decryptedRemotePath + " converting: " + shareesJson);
+        if (shareesJson == null || NULL_STRING.equals(shareesJson) || shareesJson.isEmpty()) {
+            this.sharees = new ArrayList<>();
+        } else {
+            try {
+                ShareeUser[] shareesArray = new Gson().fromJson(shareesJson, ShareeUser[].class);
+                this.sharees = new ArrayList<>(Arrays.asList(shareesArray));
+            } catch (JsonSyntaxException e) {
+                // ignore saved value due to api change
+                this.sharees = new ArrayList<>();
+            }
+        }
+    }
+
+    public List<ShareeUser> getSharees() {
+        if (shareesConvertFromJson) {
+            deserializeSharees();
+            shareesConvertFromJson = false;
+        }
+        return this.sharees;
     }
 
     public void setRichWorkspace(String richWorkspace) {
@@ -955,10 +992,29 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setImageDimension(@Nullable ImageDimension imageDimension) {
         this.imageDimension = imageDimension;
+        this.imageDimensionJson = null;
+        this.imageDimensionConvertFromJson = false;
+    }
+
+    public void setImageDimensionJson(@Nullable String imageDimensionJson) {
+        this.imageDimension = null;
+        this.imageDimensionJson = imageDimensionJson;
+        this.imageDimensionConvertFromJson = true;
+    }
+
+    private void deserializeImageDimension() {
+        Log_OC.d(TAG, "deserializeImageDimension: " + decryptedRemotePath + " converting: " + imageDimensionJson);
+        if (imageDimensionJson != null && !imageDimensionJson.isEmpty()) {
+            this.imageDimension = new Gson().fromJson(imageDimensionJson, ImageDimension.class);
+        }
     }
 
     @Nullable
     public ImageDimension getImageDimension() {
+        if (imageDimensionConvertFromJson) {
+            deserializeImageDimension();
+            imageDimensionConvertFromJson = false;
+        }
         return imageDimension;
     }
 }

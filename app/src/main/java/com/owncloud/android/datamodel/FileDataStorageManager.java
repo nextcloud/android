@@ -39,7 +39,6 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.NextcloudDatabase;
 import com.nextcloud.client.database.dao.FileDao;
@@ -54,7 +53,6 @@ import com.owncloud.android.lib.resources.files.model.FileLockType;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.RemoteOperationFailedException;
@@ -88,14 +86,12 @@ public class FileDataStorageManager {
     private static final String EXCEPTION_MSG = "Exception in batch of operations ";
 
     public static final int ROOT_PARENT_ID = 0;
-    public static final String NULL_STRING = "null";
 
     private final ContentResolver contentResolver;
     private final ContentProviderClient contentProviderClient;
     private final User user;
 
     private final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
-    private final Gson gson = new Gson();
 
     public FileDataStorageManager(User user, ContentResolver contentResolver) {
         this.contentProviderClient = null;
@@ -930,24 +926,9 @@ public class FileDataStorageManager {
         ocFile.setLockTimeout(nullToZero(fileEntity.getLockTimeout()));
         ocFile.setLockToken(fileEntity.getLockToken());
 
-        String sharees = fileEntity.getSharees();
-        if (sharees == null || NULL_STRING.equals(sharees) || sharees.isEmpty()) {
-            ocFile.setSharees(new ArrayList<>());
-        } else {
-            try {
-                ShareeUser[] shareesArray = gson.fromJson(sharees, ShareeUser[].class);
-                ocFile.setSharees(new ArrayList<>(Arrays.asList(shareesArray)));
-            } catch (JsonSyntaxException e) {
-                // ignore saved value due to api change
-                ocFile.setSharees(new ArrayList<>());
-            }
-        }
+        ocFile.setShareesJson(fileEntity.getSharees());
 
-        String metadataSize = fileEntity.getMetadataSize();
-        ImageDimension imageDimension = gson.fromJson(metadataSize, ImageDimension.class);
-        if (imageDimension != null) {
-            ocFile.setImageDimension(imageDimension);
-        }
+        ocFile.setImageDimensionJson(fileEntity.getMetadataSize());
 
         return ocFile;
     }
