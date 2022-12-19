@@ -856,6 +856,8 @@ public class FileDisplayActivity extends FileActivity
             }, new String[]{FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath()}).execute();
         } else if (requestCode == REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA &&
             (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
+            // TODO replace with upload PDF from DocumentScanActivity
+
             Uri fileUri = Uri.parse(data.getStringExtra("file"));
 
             new CheckAvailableSpaceTask(new CheckAvailableSpaceTask.CheckAvailableSpaceListener() {

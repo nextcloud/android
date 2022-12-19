@@ -48,7 +48,7 @@ class AppScanActivity : ScanActivity() {
         val intent = Intent()
 
         intent.putExtra(
-            "file",
+            EXTRA_FILE,
             scannerResults.transformedImageFile?.absolutePath ?: scannerResults.croppedImageFile?.absolutePath
         )
 
@@ -63,6 +63,8 @@ class AppScanActivity : ScanActivity() {
     companion object {
         @JvmStatic
         val enabled: Boolean = true
+
+        const val EXTRA_FILE = "file"
 
         @JvmStatic
         fun scanFromCamera(activity: Activity, requestCode: Int) {

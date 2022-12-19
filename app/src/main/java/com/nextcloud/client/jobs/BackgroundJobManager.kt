@@ -141,6 +141,8 @@ interface BackgroundJobManager {
     fun startFilesUploadJob(user: User)
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
 
+    fun startPdfGenerateAndUploadWork(user: User, uploadFolder: String, imagePaths: List<String>, pdfPath: String)
+
     fun scheduleTestJob()
     fun startImmediateTestJob()
     fun cancelTestJob()

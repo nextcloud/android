@@ -373,6 +373,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
+    implementation "io.coil-kt:coil:2.2.2"
 }
 
 configurations.all {
