@@ -491,6 +491,10 @@
             android:name=".ui.preview.PreviewBitmapActivity"
             android:exported="false"
             android:theme="@style/Theme.ownCloud.OverlayGrey" />
+        <activity
+            android:name="com.nextcloud.client.documentscan.DocumentScanActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ownCloud.Toolbar" />
     </application>
 
     <queries>
