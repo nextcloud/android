@@ -511,7 +511,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
                 dialog.dismiss();
             }
         });
-        dialog.show(getParentFragmentManager(), "dialog");
+        dialog.show(getParentFragmentManager(), "UPLOAD_DELAY_PICKER_DIALOG");
     }
 
     @Override
