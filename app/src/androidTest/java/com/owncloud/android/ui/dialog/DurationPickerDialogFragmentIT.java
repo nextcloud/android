@@ -23,14 +23,15 @@ public class DurationPickerDialogFragmentIT extends AbstractIT {
                                                                                                true, false);
 
     @Test
-    public void showNotEnoughSpaceDialogForFolder() {
+    public void showSyncDelayDurationDialog() {
         TestActivity test = testActivityRule.launchActivity(null);
-        FragmentManager fm = testActivityRule.getActivity().getSupportFragmentManager();
+        FragmentManager fm = test.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
 
-        DurationPickerDialogFragment dialog = DurationPickerDialogFragment.newInstance(TimeUnit.HOURS.toMillis(5), "Test", "");
-        dialog.show(ft, "1");
+        DurationPickerDialogFragment dialog = DurationPickerDialogFragment.newInstance(TimeUnit.HOURS.toMillis(5),
+                                                                                       "Dialog title", "Hint message");
+        dialog.show(ft, "DURATION_DIALOG");
 
         getInstrumentation().waitForIdleSync();
 
