@@ -47,6 +47,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private long id;
     private String account;
     private int section;
+    private long uploadDelayTimeMs;
 
     public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
         id = syncedFolderDisplayItem.getId();
@@ -63,6 +64,7 @@ public class SyncedFolderParcelable implements Parcelable {
         uploadAction = syncedFolderDisplayItem.getUploadAction();
         nameCollisionPolicy = NameCollisionPolicy.deserialize(
             syncedFolderDisplayItem.getNameCollisionPolicyInt());
+        uploadDelayTimeMs = syncedFolderDisplayItem.getUploadDelayTimeMs();
         this.section = section;
         hidden = syncedFolderDisplayItem.isHidden();
     }
@@ -83,6 +85,7 @@ public class SyncedFolderParcelable implements Parcelable {
         nameCollisionPolicy = NameCollisionPolicy.deserialize(read.readInt());
         section = read.readInt();
         hidden = read.readInt() != 0;
+        uploadDelayTimeMs = read.readLong();
     }
 
     public SyncedFolderParcelable() {
@@ -106,6 +109,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(nameCollisionPolicy.serialize());
         dest.writeInt(section);
         dest.writeInt(hidden ? 1 : 0);
+        dest.writeLong(uploadDelayTimeMs);
     }
 
     public static final Creator<SyncedFolderParcelable> CREATOR =
@@ -188,6 +192,10 @@ public class SyncedFolderParcelable implements Parcelable {
         return this.subfolderByDate;
     }
 
+    public long getUploadDelayTimeMs() {
+        return uploadDelayTimeMs;
+    }
+
     public Integer getUploadAction() {
         return this.uploadAction;
     }
@@ -246,6 +254,10 @@ public class SyncedFolderParcelable implements Parcelable {
 
     public void setSubfolderByDate(boolean subfolderByDate) {
         this.subfolderByDate = subfolderByDate;
+    }
+
+    public void setUploadDelayTimeMs(long uploadDelayTimeMs) {
+        this.uploadDelayTimeMs = uploadDelayTimeMs;
     }
 
     public void setNameCollisionPolicy(NameCollisionPolicy nameCollisionPolicy) {

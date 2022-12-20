@@ -83,6 +83,7 @@ import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
+import com.owncloud.android.ui.dialog.DurationPickerDialogFragment;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.LoadingDialog;
@@ -441,6 +442,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract SyncFileNotEnoughSpaceDialogFragment syncFileNotEnoughSpaceDialogFragment();
+
+    @ContributesAndroidInjector
+    abstract DurationPickerDialogFragment durationPickerFragment();
 
     @ContributesAndroidInjector
     abstract DashboardWidgetConfigurationActivity dashboardWidgetConfigurationActivity();
