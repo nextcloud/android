@@ -74,10 +74,12 @@ public class FilesystemDataProvider {
         );
     }
 
-    public Set<String> getFilesForUpload(String localPath, String syncedFolderId) {
+    public Set<String> getFilesForUpload(String localPath, String syncedFolderId, long uploadDelayTimeMs) {
         Set<String> localPathsToUpload = new HashSet<>();
 
         String likeParam = localPath + "%";
+
+        long olderThanParam = (System.currentTimeMillis() - uploadDelayTimeMs) / 1000;
 
         Cursor cursor = contentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
@@ -85,8 +87,9 @@ public class FilesystemDataProvider {
                 ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ? and " +
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ? and " +
                         ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
-                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?",
-                new String[]{likeParam, syncedFolderId, "0", "0"},
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ? and " +
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED + " <= ?",
+                new String[]{likeParam, syncedFolderId, "0", "0", Long.toString(olderThanParam)},
                 null);
 
         if (cursor != null) {

@@ -284,6 +284,7 @@ public class ProviderMeta {
         public static final String SYNCED_FOLDER_ACCOUNT = "account";
         public static final String SYNCED_FOLDER_UPLOAD_ACTION = "upload_option";
         public static final String SYNCED_FOLDER_NAME_COLLISION_POLICY = "name_collision_policy";
+        public static final String SYNCED_FOLDER_UPLOAD_DELAY_TIME_MS = "upload_delay_time_ms";
         public static final String SYNCED_FOLDER_HIDDEN = "hidden";
 
         // Columns of external links table

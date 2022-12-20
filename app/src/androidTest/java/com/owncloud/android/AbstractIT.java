@@ -56,6 +56,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -253,6 +254,10 @@ public abstract class AbstractIT {
     }
 
     public static File createFile(String name, int iteration) throws IOException {
+        return createFile(name, iteration, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+    }
+
+    public static File createFile(String name, int iteration, long modificationTimestamp) throws IOException {
         File file = new File(FileStorageUtils.getTemporalPath(account.name) + File.separator + name);
         if (!file.getParentFile().exists()) {
             assertTrue(file.getParentFile().mkdirs());
@@ -267,6 +272,8 @@ public abstract class AbstractIT {
         }
         writer.flush();
         writer.close();
+
+        file.setLastModified(modificationTimestamp);
 
         return file;
     }
