@@ -11,7 +11,7 @@ BUILD_NUMBER=$4
 PR_NUMBER=$5
 
 
-stableBranch="stable-3.23"
+stableBranch="master"
 repository="android"
 
 ruby scripts/analysis/lint-up.rb
