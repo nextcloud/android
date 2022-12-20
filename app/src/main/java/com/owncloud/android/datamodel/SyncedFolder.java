@@ -35,6 +35,7 @@ public class SyncedFolder implements Serializable, Cloneable {
     private boolean chargingOnly;
     private boolean existing;
     private boolean subfolderByDate;
+    private long uploadDelayTimeMs;
     private String account;
     private int uploadAction;
     private int nameCollisionPolicy;
@@ -74,6 +75,7 @@ public class SyncedFolder implements Serializable, Cloneable {
                         String account,
                         int uploadAction,
                         int nameCollisionPolicy,
+                        long uploadDelayTimeMs,
                         boolean enabled,
                         long timestampMs,
                         MediaFolderType type,
@@ -91,6 +93,7 @@ public class SyncedFolder implements Serializable, Cloneable {
              account,
              uploadAction,
              nameCollisionPolicy,
+             uploadDelayTimeMs,
              enabled,
              timestampMs,
              type,
@@ -115,6 +118,7 @@ public class SyncedFolder implements Serializable, Cloneable {
                            String account,
                            int uploadAction,
                            int nameCollisionPolicy,
+                           long uploadDelayTimeMs,
                            boolean enabled,
                            long timestampMs,
                            MediaFolderType type,
@@ -132,6 +136,7 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.account = account;
         this.uploadAction = uploadAction;
         this.nameCollisionPolicy = nameCollisionPolicy;
+        this.uploadDelayTimeMs = uploadDelayTimeMs;
         this.setEnabled(enabled, timestampMs);
         this.type = type;
         this.hidden = hidden;
@@ -200,6 +205,10 @@ public class SyncedFolder implements Serializable, Cloneable {
         return NameCollisionPolicy.deserialize(nameCollisionPolicy);
     }
 
+    public long getUploadDelayTimeMs() {
+        return uploadDelayTimeMs;
+    }
+
     public boolean isEnabled() {
         return this.enabled;
     }
@@ -256,6 +265,10 @@ public class SyncedFolder implements Serializable, Cloneable {
 
     public void setNameCollisionPolicy(int nameCollisionPolicy) {
         this.nameCollisionPolicy = nameCollisionPolicy;
+    }
+
+    public void setUploadDelayTimeMs(long uploadDelayTimeMs) {
+        this.uploadDelayTimeMs = uploadDelayTimeMs;
     }
 
     public void setType(MediaFolderType type) {
