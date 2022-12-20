@@ -30,8 +30,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class FileDataStorageManagerContentProviderClientIT extends FileDataStorageManagerIT {
-    protected FileDataStorageManager sut;
-
     public void before() {
         sut = new FileDataStorageManager(user,
                                          targetContext
@@ -44,7 +42,6 @@ public class FileDataStorageManagerContentProviderClientIT extends FileDataStora
 
     @Test
     public void saveFile() {
-        before();
 
         String path = "/1.txt";
         OCFile file = new OCFile(path);
