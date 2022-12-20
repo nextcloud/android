@@ -21,7 +21,7 @@
 
 package com.owncloud.android.utils;
 
-import java.util.concurrent.TimeUnit;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 public class TimeUtils {
 
@@ -30,16 +30,16 @@ public class TimeUtils {
     }
 
     public static DurationParts getDurationParts(long duration) {
-        int days = (int) TimeUnit.MILLISECONDS.toDays(duration);
-        int hours = (int) TimeUnit.MILLISECONDS.toHours(duration) - (days * 24);
-        int minutes = (int) (TimeUnit.MILLISECONDS.toMinutes(duration) - (TimeUnit.MILLISECONDS.toHours(duration)* 60));
+        int days = (int) MILLISECONDS.toDays(duration);
+        int hours = (int) MILLISECONDS.toHours(duration) - (days * 24);
+        int minutes = (int) (MILLISECONDS.toMinutes(duration) - (MILLISECONDS.toHours(duration) * 60));
         return new DurationParts(days, hours, minutes);
     }
 
     public static class DurationParts {
-        int days;
-        int hours;
-        int minutes;
+        private int days;
+        private int hours;
+        private int minutes;
 
         public DurationParts(int days, int hours, int minutes) {
             this.days = days;

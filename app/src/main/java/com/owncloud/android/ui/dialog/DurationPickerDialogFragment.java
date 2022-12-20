@@ -45,18 +45,15 @@ import androidx.fragment.app.DialogFragment;
 import static com.owncloud.android.utils.TimeUtils.getDurationParts;
 
 public class DurationPickerDialogFragment extends DialogFragment implements Injectable {
+    private static final int MAX_DAYS_VALUE = 30;
+    private static final int MAX_HOURS_VALUE = 24;
+    private static final int MAX_MINUTES_VALUE = 59;
 
-    public static final String DURATION = "DURATION";
-    public static final String DIALOG_TITLE = "TITLE";
-    public static final String HINT_MESSAGE = "HINT";
+    private static final String DURATION = "DURATION";
+    private static final String DIALOG_TITLE = "TITLE";
+    private static final String HINT_MESSAGE = "HINT";
 
     @Inject ViewThemeUtils viewThemeUtils;
-
-    private NumberPicker daysPicker;
-    private NumberPicker hoursPicker;
-    private NumberPicker minutesPicker;
-
-    private TextView hint;
 
     private DurationPickerBinding binding;
 
@@ -99,39 +96,27 @@ public class DurationPickerDialogFragment extends DialogFragment implements Inje
     public Dialog onCreateDialog(Bundle savedState) {
         binding = DurationPickerBinding.inflate(requireActivity().getLayoutInflater(), null, false);
 
-        daysPicker = binding.daysPicker;
-        hoursPicker = binding.hoursPicker;
-        minutesPicker = binding.minutesPicker;
-
-        hint = binding.pickerHint;
-
-        daysPicker.setMaxValue(30);
-        hoursPicker.setMaxValue(24);
-        minutesPicker.setMaxValue(59);
-
-        binding.clear.setOnClickListener(view -> {
-            daysPicker.setValue(0);
-            hoursPicker.setValue(0);
-            minutesPicker.setValue(0);
-        });
+        setupLimits();
 
         long duration;
-        String hintMessage;
-        String dialogTitle;
         if (savedState != null) {
             duration = savedState.getLong(DURATION);
-            hintMessage = savedState.getString(HINT_MESSAGE);
-            dialogTitle = savedState.getString(DIALOG_TITLE);
         } else {
             duration = requireArguments().getLong(DURATION);
-            hintMessage = requireArguments().getString(HINT_MESSAGE);
-            dialogTitle = requireArguments().getString(DIALOG_TITLE);
         }
-
         setDuration(duration);
+
+        String hintMessage = requireArguments().getString(HINT_MESSAGE);
         setHintMessage(hintMessage);
 
+        binding.clear.setOnClickListener(view -> {
+            binding.daysPicker.setValue(0);
+            binding.hoursPicker.setValue(0);
+            binding.minutesPicker.setValue(0);
+        });
+
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(binding.getRoot().getContext());
+        String dialogTitle = requireArguments().getString(DIALOG_TITLE);
         builder.setTitle(dialogTitle);
         builder.setView(binding.getRoot());
         builder.setPositiveButton(R.string.common_save, (dialog, whichButton) -> {
@@ -156,22 +141,28 @@ public class DurationPickerDialogFragment extends DialogFragment implements Inje
         binding = null;
     }
 
+    private void setupLimits() {
+        binding.daysPicker.setMaxValue(MAX_DAYS_VALUE);
+        binding.hoursPicker.setMaxValue(MAX_HOURS_VALUE);
+        binding.minutesPicker.setMaxValue(MAX_MINUTES_VALUE);
+    }
+
     private long getDuration() {
-        return TimeUnit.DAYS.toMillis(daysPicker.getValue()) +
-            TimeUnit.HOURS.toMillis(hoursPicker.getValue()) +
-            TimeUnit.MINUTES.toMillis(minutesPicker.getValue());
+        return TimeUnit.DAYS.toMillis(binding.daysPicker.getValue()) +
+            TimeUnit.HOURS.toMillis(binding.hoursPicker.getValue()) +
+            TimeUnit.MINUTES.toMillis(binding.minutesPicker.getValue());
     }
 
     private void setDuration(long duration) {
         TimeUtils.DurationParts durationParts = getDurationParts(duration);
-        daysPicker.setValue(durationParts.getDays());
-        hoursPicker.setValue(durationParts.getHours());
-        minutesPicker.setValue(durationParts.getMinutes());
+        binding.daysPicker.setValue(durationParts.getDays());
+        binding.hoursPicker.setValue(durationParts.getHours());
+        binding.minutesPicker.setValue(durationParts.getMinutes());
     }
 
     private void setHintMessage(String hintMessage) {
-        hint.setVisibility(hintMessage != null ? View.VISIBLE : View.GONE);
-        hint.setText(hintMessage);
+        binding.pickerHint.setVisibility(hintMessage != null ? View.VISIBLE : View.GONE);
+        binding.pickerHint.setText(hintMessage);
     }
 
     interface Listener {
