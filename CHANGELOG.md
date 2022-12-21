@@ -1,3 +1,11 @@
+## 3.23.1 (December 21, 2022)
+
+- Bug fixes
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/79
+
 ## 3.23.0 (December 1, 2022)
 
 - File actions menu redesign
