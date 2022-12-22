@@ -1091,7 +1091,6 @@ public class FileDisplayActivity extends FileActivity
                 showSortListGroup(true);
                 resetTitleBarAndScrolling();
                 setDrawerAllFiles();
-                EventBus.getDefault().post(new ChangeMenuEvent()); // for OCFileListFragment to update sort menu
             }
         } else if (leftFragment instanceof PreviewTextStringFragment) {
             createMinFragments(null);
