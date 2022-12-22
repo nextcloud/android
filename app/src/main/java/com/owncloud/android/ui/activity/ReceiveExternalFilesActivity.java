@@ -58,14 +58,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ReceiveExternalFilesBinding;
+import com.owncloud.android.databinding.UploadFileDialogBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
@@ -363,8 +362,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 }
             }
 
-            LayoutInflater layout = getLayoutInflater();
-            View view = layout.inflate(R.layout.upload_file_dialog, null);
+            LayoutInflater inflater = getLayoutInflater();
+            final UploadFileDialogBinding binding = UploadFileDialogBinding.inflate(inflater);
 
             ArrayAdapter<String> adapter
                 = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item);
@@ -420,21 +419,18 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mFileCategory = CATEGORY_MAPS_URL;
             }
 
-            final TextInputEditText userInput = view.findViewById(R.id.user_input);
-            final TextInputLayout userInputContainer = view.findViewById(R.id.user_input_container);
-            setFilename(userInput, selectPos);
-            userInput.requestFocus();
-            viewThemeUtils.material.colorTextInputLayout(userInputContainer);
+            setFilename(binding.userInput, selectPos);
+            binding.userInput.requestFocus();
+            viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer);
 
-            final Spinner spinner = view.findViewById(R.id.file_type);
-            setupSpinner(adapter, selectPos, userInput, spinner);
+            setupSpinner(adapter, selectPos, binding.userInput, binding.fileType);
             if (adapter.getCount() == SINGLE_SPINNER_ENTRY) {
-                view.findViewById(R.id.label_file_type).setVisibility(View.GONE);
-                spinner.setVisibility(View.GONE);
+                binding.labelFileType.setVisibility(View.GONE);
+                binding.fileType.setVisibility(View.GONE);
             }
-            mSpinner = spinner;
+            mSpinner = binding.fileType;
 
-            Dialog filenameDialog = createFilenameDialog(view, userInput, spinner);
+            Dialog filenameDialog = createFilenameDialog(binding.getRoot(), binding.userInput, binding.fileType);
             if (filenameDialog.getWindow() != null) {
                 filenameDialog.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             }
