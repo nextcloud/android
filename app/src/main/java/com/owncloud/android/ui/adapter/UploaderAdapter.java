@@ -72,7 +72,7 @@ public class UploaderAdapter extends SimpleAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         if (convertView == null) {
-            vi = inflater.inflate(R.layout.uploader_list_item_layout, null);
+            vi = inflater.inflate(R.layout.uploader_list_item_layout, parent, false);
         }
 
         HashMap<String, OCFile> data = (HashMap<String, OCFile>) getItem(position);
