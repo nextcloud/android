@@ -644,7 +644,7 @@
     <string name="share_file">Спільне %1$s</string>
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_internal_link">Поділитися внутрішнім посиланням</string>
-    <string name="share_internal_link_to_file_text">Внутрішнє спільне посилання дійсне лише для користувачів, які мають доступ до цього файлу</string>
+    <string name="share_internal_link_to_file_text">Внутрішнє посилання спільного доступу дійсне лише для користувачів, які мають доступ до цього файлу</string>
     <string name="share_internal_link_to_folder_text">Внутрішнє посилання спільного доступу дійсне лише для користувачів, які мають доступ до цього каталогу</string>
     <string name="share_known_remote_on_clarification">на %1$s</string>
     <string name="share_link">Поділитися посиланням</string>
