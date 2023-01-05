@@ -54,12 +54,13 @@ import com.owncloud.android.databinding.GridItemBinding;
 import com.owncloud.android.databinding.ListFooterBinding;
 import com.owncloud.android.databinding.ListHeaderBinding;
 import com.owncloud.android.databinding.ListItemBinding;
-import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -285,6 +286,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         for (OCFile file : mFiles) {
             if (file.getRemoteId().equals(fileId)) {
                 file.setEncrypted(encrypted);
+                file.setE2eCounter(0L);
                 mStorageManager.saveFile(file);
 
                 break;
@@ -294,6 +296,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         for (OCFile file : mFilesAll) {
             if (file.getRemoteId().equals(fileId)) {
                 file.setEncrypted(encrypted);
+                file.setE2eCounter(0L);
             }
         }
 
@@ -435,7 +438,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 return;
             }
 
-            ocFileListDelegate.bindGridViewHolder(gridViewHolder, file, searchType);
+            ocFileListDelegate.bindGridViewHolder(gridViewHolder, file, currentDirectory, searchType);
             checkVisibilityOfMoreButtons(gridViewHolder);
             checkVisibilityOfFileFeaturesLayout(gridViewHolder);
 
@@ -890,19 +893,29 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 OCFile parentFolder = mStorageManager.getFileById(ocFile.getParentId());
                 if (parentFolder != null && (ocFile.isEncrypted() || parentFolder.isEncrypted())) {
-                    DecryptedFolderMetadata metadata = RefreshFolderOperation.getDecryptedFolderMetadata(
+                    Object object = RefreshFolderOperation.getDecryptedFolderMetadata(
                         true,
                         parentFolder,
                         OwnCloudClientFactory.createOwnCloudClient(user.toPlatformAccount(), activity),
                         user,
                         activity);
 
-                    if (metadata == null) {
+                    if (object == null) {
                         throw new IllegalStateException("metadata is null!");
                     }
 
-                    // update ocFile
-                    RefreshFolderOperation.updateFileNameForEncryptedFile(mStorageManager, metadata, ocFile);
+                    if (object instanceof DecryptedFolderMetadataFileV1) {
+                        // update ocFile
+                        RefreshFolderOperation.updateFileNameForEncryptedFileV1(mStorageManager,
+                                                                                (DecryptedFolderMetadataFileV1) object,
+                                                                                ocFile);
+                    } else {
+                        // update ocFile
+                        RefreshFolderOperation.updateFileNameForEncryptedFile(mStorageManager,
+                                                                              (DecryptedFolderMetadataFile) object,
+                                                                              ocFile);
+                    }
+
                     ocFile = mStorageManager.saveFileWithParent(ocFile, activity);
                 }
 

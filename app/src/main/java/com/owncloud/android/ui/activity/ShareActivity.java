@@ -143,7 +143,8 @@ public class ShareActivity extends FileActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.share_fragment_container,
                                                                FileDetailsSharingProcessFragment.newInstance(getFile(),
                                                                                                              shareeName,
-                                                                                                             shareType),
+                                                                                                             shareType,
+                                                                                                             false),
                                                                FileDetailsSharingProcessFragment.TAG)
             .commit();
     }

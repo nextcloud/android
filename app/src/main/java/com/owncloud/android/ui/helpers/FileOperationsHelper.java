@@ -568,13 +568,22 @@ public class FileOperationsHelper {
      * @param note                   note message for the receiver. Null or empty for no message
      * @param label                  new label
      */
-    public void shareFileWithSharee(OCFile file, String shareeName, ShareType shareType, int permissions,
-                                    boolean hideFileDownload, String password, long expirationTimeInMillis,
-                                    String note, String label) {
+    public void shareFileWithSharee(OCFile file,
+                                    String shareeName,
+                                    ShareType shareType,
+                                    int permissions,
+                                    boolean hideFileDownload,
+                                    String password,
+                                    long expirationTimeInMillis,
+                                    String note,
+                                    String label,
+                                    boolean showLoadingDialog) {
         if (file != null) {
             // TODO check capability?
-            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
-                                               getString(R.string.wait_a_moment));
+            if (showLoadingDialog) {
+                fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
+                                                   getString(R.string.wait_a_moment));
+            }
 
             Intent service = new Intent(fileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_CREATE_SHARE_WITH_SHAREE);

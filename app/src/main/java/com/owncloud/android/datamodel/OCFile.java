@@ -121,6 +121,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String lockToken;
     @Nullable
     private ImageDimension imageDimension;
+    private long e2eCounter = -1;
     @Nullable
     private GeoLocation geolocation;
     private List<String> tags = new ArrayList<>();
@@ -1056,4 +1057,15 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         this.tags = tags;
     }
 
+    public long getE2eCounter() {
+        return e2eCounter;
+    }
+
+    public void setE2eCounter(@Nullable Long e2eCounter) {
+        if (e2eCounter == null) {
+            this.e2eCounter = -1;
+        } else {
+            this.e2eCounter = e2eCounter;
+        }
+    }
 }

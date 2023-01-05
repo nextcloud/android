@@ -44,6 +44,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.java.util.Optional;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -140,6 +141,7 @@ public class OperationsService extends Service {
         mUndispatchedFinishedOperations = new ConcurrentHashMap<>();
 
     @Inject UserAccountManager accountManager;
+    @Inject ArbitraryDataProvider arbitraryDataProvider;
 
     private static class Target {
         public Uri mServerUrl;
@@ -610,7 +612,10 @@ public class OperationsService extends Service {
                                                                    sharePassword,
                                                                    expirationDateInMillis,
                                                                    hideFileDownload,
-                                                                   fileDataStorageManager);
+                                                                   fileDataStorageManager,
+                                                                   getApplicationContext(),
+                                                                   user,
+                                                                   arbitraryDataProvider);
 
                             if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_LABEL)) {
                                 createShareWithShareeOperation.setLabel(operationIntent.getStringExtra(EXTRA_SHARE_PUBLIC_LABEL));
@@ -654,7 +659,11 @@ public class OperationsService extends Service {
                         shareId = operationIntent.getLongExtra(EXTRA_SHARE_ID, -1);
 
                         if (shareId > 0) {
-                            operation = new UnshareOperation(remotePath, shareId, fileDataStorageManager);
+                            operation = new UnshareOperation(remotePath,
+                                                             shareId,
+                                                             fileDataStorageManager,
+                                                             user,
+                                                             getApplicationContext());
                         }
                         break;
 
