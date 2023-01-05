@@ -194,7 +194,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private void setupView() {
         setShareWithYou();
 
-        if (file.isEncrypted()) {
+        OCFile parentFile = fileDataStorageManager.getFileById(file.getParentId());
+        if (file.isEncrypted() && (parentFile == null || parentFile.isEncrypted())) {
             binding.searchContainer.setVisibility(View.GONE);
         } else {
             FileDetailSharingFragmentHelper.setupSearchView(

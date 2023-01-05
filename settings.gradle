@@ -8,3 +8,8 @@ include ':appscan'
 //        substitute module('com.github.nextcloud.android-common:ui') using project(':ui')
 //    }
 //}
+includeBuild('../android-library') {
+    dependencySubstitution {
+        substitute module('com.github.nextcloud:android-library') using project(':library')
+    }
+}
