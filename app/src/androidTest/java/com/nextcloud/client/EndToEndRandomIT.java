@@ -52,7 +52,6 @@ import com.owncloud.android.utils.CsrHelper;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
-import org.bouncycastle.operator.OperatorCreationException;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -63,8 +62,6 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.KeyPair;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
 import java.security.interfaces.RSAPrivateCrtKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
@@ -483,7 +480,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     }
 
     @Test
-    public void testCheckCSR() throws NoSuchAlgorithmException, IOException, OperatorCreationException, CertificateException {
+    public void testCheckCSR() throws Exception {
         deleteKeys();
 
         // Create public/private key pair
@@ -508,6 +505,8 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
         BigInteger modulusPrivate = privateKey.getModulus();
 
         assertEquals(modulusPrivate, modulusPublic);
+
+        createKeys();
     }
 
     private void deleteFile(int i) {
@@ -656,6 +655,10 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
             // delete keys
             assertTrue(new DeletePrivateKeyOperation().execute(client).isSuccess());
             assertTrue(new DeletePublicKeyOperation().execute(client).isSuccess());
+
+            arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PRIVATE_KEY);
+            arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PUBLIC_KEY);
+            arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.MNEMONIC);
         }
     }
 
