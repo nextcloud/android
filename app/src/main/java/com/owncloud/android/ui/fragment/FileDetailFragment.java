@@ -70,6 +70,7 @@ import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -272,11 +273,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         binding.tabLayout.removeAllTabs();
 
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities).setIcon(R.drawable.ic_activity));
-        viewThemeUtils.material.themeTabLayout(binding.tabLayout);
 
-        if (!getFile().isEncrypted()) {
+
+        if (!getFile().isEncrypted() || EncryptionUtils.supportsSecureFiledrop(getFile(), user)) {
             binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.shared_via_users));
         }
+
+        viewThemeUtils.material.themeTabLayout(binding.tabLayout);
 
         final FileDetailTabAdapter adapter = new FileDetailTabAdapter(getFragmentManager(), getFile(), user);
         binding.pager.setAdapter(adapter);

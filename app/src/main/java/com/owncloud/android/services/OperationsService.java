@@ -54,6 +54,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
@@ -110,6 +111,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_IN_BACKGROUND = "IN_BACKGROUND";
 
     public static final String ACTION_CREATE_SHARE_VIA_LINK = "CREATE_SHARE_VIA_LINK";
+    public static final String ACTION_CREATE_SECURE_FILE_DROP = "CREATE_SECURE_FILE_DROP";
     public static final String ACTION_CREATE_SHARE_WITH_SHAREE = "CREATE_SHARE_WITH_SHAREE";
     public static final String ACTION_UNSHARE = "UNSHARE";
     public static final String ACTION_UPDATE_PUBLIC_SHARE = "UPDATE_PUBLIC_SHARE";
@@ -517,6 +519,13 @@ public class OperationsService extends Service {
                         if (!TextUtils.isEmpty(remotePath)) {
                             operation = new CreateShareViaLinkOperation(remotePath, password, fileDataStorageManager);
                         }
+                        break;
+
+                    case ACTION_CREATE_SECURE_FILE_DROP:
+                        remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        operation = new CreateShareViaLinkOperation(remotePath,
+                                                                    fileDataStorageManager,
+                                                                    OCShare.CREATE_PERMISSION_FLAG);
                         break;
 
                     case ACTION_UPDATE_PUBLIC_SHARE:
