@@ -45,11 +45,14 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.PrivateKey;
 import java.security.SecureRandom;
+import java.security.interfaces.RSAPrivateCrtKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -176,6 +179,18 @@ public class EncryptionTestIT {
 
         String encryptedString = EncryptionUtils.encryptStringAsymmetric(base64encodedKey, keyPair1.getPublic());
         decryptStringAsymmetric(encryptedString, keyPair2.getPrivate());
+    }
+
+    @Test
+    public void testModulus() throws Exception {
+        KeyPair keyPair = EncryptionUtils.generateKeyPair();
+        RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+        RSAPrivateCrtKey privateKey = (RSAPrivateCrtKey) keyPair.getPrivate();
+
+        BigInteger modulusPublic = publicKey.getModulus();
+        BigInteger modulusPrivate = privateKey.getModulus();
+
+        assertEquals(modulusPrivate, modulusPublic);
     }
 
     @Test
