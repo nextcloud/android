@@ -35,7 +35,7 @@
     <string name="add_to_cloud">Gehitu %1$s</string>
     <string name="advanced_settings">Ezarpen aurreratuak</string>
     <string name="allow_resharing">Baimendu birpartekatzea</string>
-    <string name="app_widget_description">Paneleko widget bat erakusten du</string>
+    <string name="app_widget_description">Paneleko trepeta bat erakusten du</string>
     <string name="appbar_search_in">Bilatu %s(e)n</string>
     <string name="associated_account_not_found">Ez da aurkitu lotutako konturik</string>
     <string name="auth_access_failed">Huts egin du atzitzean: %1$s</string>
@@ -396,8 +396,8 @@
     <string name="host_not_available">Zerbitzaria ez dago eskuragarri</string>
     <string name="host_your_own_server">Ostatatu zure zerbitzaria</string>
     <string name="icon_for_empty_list">Zerrenda hutsaren ikonoa</string>
-    <string name="icon_of_dashboard_widget">Paneleko widgetaren ikonoa</string>
-    <string name="icon_of_widget_entry">Widget-sarreraren ikonoa</string>
+    <string name="icon_of_dashboard_widget">Paneleko trepetaren ikonoa</string>
+    <string name="icon_of_widget_entry">Trepeta-sarreraren ikonoa</string>
     <string name="in_folder">%1$skarpetan</string>
     <string name="instant_upload_existing">Existitzen diren fitxategiak ere kargatu</string>
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
@@ -435,7 +435,7 @@
     <string name="logs_status_loading">Kargatzen…</string>
     <string name="logs_status_not_filtered">Egunkariak: %1$d kB, iragazkirik ez</string>
     <string name="logs_title">Egunkariak</string>
-    <string name="maintenance_mode">Zerbitzaria mantentze-lanetan moduan dago</string>
+    <string name="maintenance_mode">Zerbitzaria mantentze moduan dago</string>
     <string name="manage_space_clear_data">Garbitu datuak</string>
     <string name="manage_space_description">%1$s(r)en ezarpenak, datu-basea eta zerbitzariaren ziurtagiriak betirako ezabatuko dira.\n\n Deskargatutako fitxategiak ez dira ukituko.\n\n Prozesu honek denbora behar du.</string>
     <string name="manage_space_title">Kudeatu lekua</string>
