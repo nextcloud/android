@@ -237,6 +237,7 @@
     <string name="drawer_quota">%1$s de %2$s usados</string>
     <string name="drawer_quota_unlimited">%1$s usados</string>
     <string name="drawer_synced_folders">Autoenvio</string>
+    <string name="e2e_not_yet_setup">E2E ainda não configurado</string>
     <string name="encrypted">Definir como criptografado</string>
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>
     <string name="end_to_end_encryption_decrypting">Descriptografando…</string>

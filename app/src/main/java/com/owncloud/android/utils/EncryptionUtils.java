@@ -54,6 +54,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -69,6 +70,8 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.security.interfaces.RSAPrivateCrtKey;
+import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -852,10 +855,33 @@ public final class EncryptionUtils {
         }
     }
 
+    public static RSAPublicKey convertPublicKeyFromString(String string) throws CertificateException {
+        String trimmedCert = string.replace("-----BEGIN CERTIFICATE-----\n", "")
+            .replace("-----END CERTIFICATE-----\n", "");
+        byte[] encodedCert = trimmedCert.getBytes(StandardCharsets.UTF_8);
+        byte[] decodedCert = org.apache.commons.codec.binary.Base64.decodeBase64(encodedCert);
+
+        CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
+        InputStream in = new ByteArrayInputStream(decodedCert);
+        X509Certificate certificate = (X509Certificate) certFactory.generateCertificate(in);
+        return (RSAPublicKey) certificate.getPublicKey();
+    }
+
     public static void removeE2E(ArbitraryDataProvider arbitraryDataProvider, User user) {
         // delete stored E2E keys and mnemonic
         arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
         arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
         arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(), EncryptionUtils.MNEMONIC);
+    }
+
+    public static boolean isMatchingKeys(KeyPair keyPair, String publicKeyString) throws CertificateException {
+        // check key
+        RSAPrivateCrtKey privateKey = (RSAPrivateCrtKey) keyPair.getPrivate();
+        RSAPublicKey publicKey = EncryptionUtils.convertPublicKeyFromString(publicKeyString);
+
+        BigInteger modulusPublic = publicKey.getModulus();
+        BigInteger modulusPrivate = privateKey.getModulus();
+
+        return modulusPrivate.compareTo(modulusPublic) == 0;
     }
 }

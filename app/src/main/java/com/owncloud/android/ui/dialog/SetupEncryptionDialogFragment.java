@@ -295,12 +295,12 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
             //  - decrypt private key, store unencrypted private key in database
 
             GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();
-            RemoteOperationResult publicKeyResult = publicKeyOperation.execute(user, getContext());
+            RemoteOperationResult<String> publicKeyResult = publicKeyOperation.execute(user, getContext());
 
             if (publicKeyResult.isSuccess()) {
                 Log_OC.d(TAG, "public key successful downloaded for " + user.getAccountName());
 
-                String publicKeyFromServer = (String) publicKeyResult.getData().get(0);
+                String publicKeyFromServer = publicKeyResult.getResultData();
                 arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
                                                             EncryptionUtils.PUBLIC_KEY,
                                                             publicKeyFromServer);
@@ -357,7 +357,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
             //  - encrypt private key, push key to server, store unencrypted private key in database
 
             try {
-                String publicKey;
+                String publicKeyString;
 
                 // Create public/private key pair
                 KeyPair keyPair = EncryptionUtils.generateKeyPair();
@@ -371,8 +371,13 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
                 RemoteOperationResult result = operation.execute(user, getContext());
 
                 if (result.isSuccess()) {
+                    publicKeyString = (String) result.getData().get(0);
+
+                    if (!EncryptionUtils.isMatchingKeys(keyPair, publicKeyString)) {
+                        throw new RuntimeException("Wrong CSR returned");
+                    }
+
                     Log_OC.d(TAG, "public key success");
-                    publicKey = (String) result.getData().get(0);
                 } else {
                     keyResult = KEY_FAILED;
                     return "";
@@ -391,10 +396,14 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
                 if (storePrivateKeyResult.isSuccess()) {
                     Log_OC.d(TAG, "private key success");
 
-                    arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY,
+                    arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
+                                                                EncryptionUtils.PRIVATE_KEY,
                                                                 privateKeyString);
-                    arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY, publicKey);
-                    arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), EncryptionUtils.MNEMONIC,
+                    arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
+                                                                EncryptionUtils.PUBLIC_KEY,
+                                                                publicKeyString);
+                    arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
+                                                                EncryptionUtils.MNEMONIC,
                                                                 generateMnemonicString(true));
 
                     keyResult = KEY_CREATED;

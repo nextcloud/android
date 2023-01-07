@@ -20,6 +20,8 @@ import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequestBuilder;
 import java.io.IOException;
 import java.security.KeyPair;
 
+import androidx.annotation.VisibleForTesting;
+
 /**
  * copied & modified from:
  * https://github.com/awslabs/aws-sdk-android-samples/blob/master/CreateIotCertWithCSR/src/com/amazonaws/demo/csrcert/CsrHelper.java
@@ -55,13 +57,14 @@ public final class CsrHelper {
      * Create the certificate signing request (CSR) from private and public keys
      *
      * @param keyPair the KeyPair with private and public keys
-     * @param userId userId of CSR owner
+     * @param userId  userId of CSR owner
      * @return PKCS10CertificationRequest with the certificate signing request (CSR) data
-     * @throws IOException thrown if key cannot be created
+     * @throws IOException               thrown if key cannot be created
      * @throws OperatorCreationException thrown if contentSigner cannot be build
      */
-    private static PKCS10CertificationRequest generateCSR(KeyPair keyPair, String userId) throws IOException,
-    OperatorCreationException {
+    @VisibleForTesting
+    public static PKCS10CertificationRequest generateCSR(KeyPair keyPair, String userId) throws IOException,
+        OperatorCreationException {
         String principal = "CN=" + userId;
         AsymmetricKeyParameter privateKey = PrivateKeyFactory.createKey(keyPair.getPrivate().getEncoded());
         AlgorithmIdentifier signatureAlgorithm = new DefaultSignatureAlgorithmIdentifierFinder().find("SHA1WITHRSA");
