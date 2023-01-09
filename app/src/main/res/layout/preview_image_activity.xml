@@ -20,8 +20,7 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="true" >
+    android:layout_height="match_parent">
 
     <com.owncloud.android.ui.components.CustomViewPager
         android:id="@+id/fragmentPager"
