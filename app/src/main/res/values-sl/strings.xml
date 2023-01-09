@@ -257,6 +257,7 @@
     <string name="error_comment_file">Napaka dodajanja opombe k datoteki</string>
     <string name="error_crash_title">Program %1$s se je sesul.</string>
     <string name="error_report_issue_action">Poročilo</string>
+    <string name="error_report_issue_text">Ali želite poslati poročilo na sledilnik (zahteva račun Github)?</string>
     <string name="error_retrieving_file">Pridobivanje datoteke je spodletelo</string>
     <string name="error_retrieving_templates">Napaka pridobivanja predlog</string>
     <string name="error_starting_direct_camera_upload">Napaka začenjanja kamere</string>
