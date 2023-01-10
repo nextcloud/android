@@ -33,9 +33,9 @@ data class ShareEntity(
     @ColumnInfo(name = ProviderTableMeta._ID)
     val id: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_FILE_SOURCE)
-    val fileSource: Int?,
+    val fileSource: Long?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_ITEM_SOURCE)
-    val itemSource: Int?,
+    val itemSource: Long?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_SHARE_TYPE)
     val shareType: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_SHARE_WITH)
@@ -45,9 +45,9 @@ data class ShareEntity(
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_PERMISSIONS)
     val permissions: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_SHARED_DATE)
-    val sharedDate: Int?,
+    val sharedDate: Long?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_EXPIRATION_DATE)
-    val expirationDate: Int?,
+    val expirationDate: Long?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_TOKEN)
     val token: String?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME)
@@ -57,7 +57,7 @@ data class ShareEntity(
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_USER_ID)
     val userId: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED)
-    val idRemoteShared: Int?,
+    val idRemoteShared: Long?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER)
     val accountOwner: String?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED)

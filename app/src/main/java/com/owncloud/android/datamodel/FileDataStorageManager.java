@@ -43,7 +43,9 @@ import com.google.gson.JsonSyntaxException;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.NextcloudDatabase;
 import com.nextcloud.client.database.dao.FileDao;
+import com.nextcloud.client.database.dao.ShareDao;
 import com.nextcloud.client.database.entity.FileEntity;
+import com.nextcloud.client.database.entity.ShareEntity;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -97,7 +99,9 @@ public class FileDataStorageManager {
     private final ContentProviderClient contentProviderClient;
     private final User user;
 
-    private final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
+    private final NextcloudDatabase nextcloudDatabase = NextcloudDatabase.getInstance(MainApp.getAppContext());
+    private final FileDao fileDao = nextcloudDatabase.fileDao();
+    private final ShareDao shareDao = nextcloudDatabase.shareDao();
     private final Gson gson = new Gson();
 
     public FileDataStorageManager(User user, ContentResolver contentResolver) {
@@ -1198,6 +1202,31 @@ public class FileDataStorageManager {
         return shares;
     }
 
+    private ShareEntity createShareEntity(OCShare share) {
+        return new ShareEntity(
+            null,
+            share.getFileSource(),
+            share.getItemSource(),
+            share.getShareType().getValue(),
+            share.getShareWith(),
+            share.getPath(),
+            share.getPermissions(),
+            share.getSharedDate(),
+            share.getExpirationDate(),
+            share.getToken(),
+            share.getSharedWithDisplayName(),
+            share.isFolder() ? 1 : 0,
+            0, // TODO - share.getUserId()? Data coming from the server does not match local DB
+            share.getRemoteId(),
+            user.getAccountName(),
+            share.isPasswordProtected() ? 1 : 0,
+            share.getNote(),
+            share.isHideFileDownload() ? 1 : 0,
+            share.getShareLink(),
+            share.getLabel()
+        );
+    }
+
     private ContentValues createContentValueForShare(OCShare share) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
@@ -1267,22 +1296,7 @@ public class FileDataStorageManager {
     }
 
     private void resetShareFlagsInFolder(OCFile folder) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, Boolean.FALSE);
-        contentValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, Boolean.FALSE);
-        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PARENT + " = ?";
-        String[] whereArgs = new String[]{user.getAccountName(), String.valueOf(folder.getFileId())};
-
-        if (getContentResolver() != null) {
-            getContentResolver().update(ProviderTableMeta.CONTENT_URI, contentValues, where, whereArgs);
-
-        } else {
-            try {
-                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, contentValues, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in resetShareFlagsInFiles" + e.getMessage(), e);
-            }
-        }
+        fileDao.resetShareFlagsInFolder(folder.getFileId(), user.getAccountName());
     }
 
     private void resetShareFlagInAFile(String filePath) {
@@ -1439,27 +1453,25 @@ public class FileDataStorageManager {
 
     // TOOD check if shares can be null
     public void saveSharesInFolder(ArrayList<OCShare> shares, OCFile folder) {
-        resetShareFlagsInFolder(folder);
-        ArrayList<ContentProviderOperation> operations = new ArrayList<>();
-        operations = prepareRemoveSharesInFolder(folder, operations);
+        Log_OC.d(TAG, "saveSharesInFolder - start");
 
-        // prepare operations to insert or update files to save in the given folder
-        operations = prepareInsertShares(shares, operations);
+        nextcloudDatabase.runInTransaction(() -> {
+            resetShareFlagsInFolder(folder);
+            removeSharesInFolder(folder);
+            insertShares(shares);
+        });
 
-        // apply operations in batch
-        if (operations.size() > 0) {
-            Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+        Log_OC.d(TAG, "saveSharesInFolder - finish");
+    }
 
-                } else {
-
-                    getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
+    private void insertShares(Iterable<OCShare> shares)
+    {
+        for (OCShare share : shares) {
+            shareDao.insertShare(createShareEntity(share));
+            if (share.getShareType() == ShareType.PUBLIC_LINK) {
+                fileDao.setSharedViaLink(share.getPath(), user.getAccountName());
+            } else {
+                fileDao.setSharedWithSharee(share.getPath(), user.getAccountName());
             }
         }
     }
@@ -1489,25 +1501,16 @@ public class FileDataStorageManager {
         return operations;
     }
 
-    private ArrayList<ContentProviderOperation> prepareRemoveSharesInFolder(
-        OCFile folder, ArrayList<ContentProviderOperation> preparedOperations) {
+    private void removeSharesInFolder(OCFile folder) {
         if (folder != null) {
-            String where = ProviderTableMeta.OCSHARES_PATH + AND
-                + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
-            String[] whereArgs = new String[]{"", user.getAccountName()};
+            String shareOwner = user.getAccountName();
 
             List<OCFile> files = getFolderContent(folder, false);
-
             for (OCFile file : files) {
-                whereArgs[0] = file.getRemotePath();
-                preparedOperations.add(
-                    ContentProviderOperation.newDelete(ProviderTableMeta.CONTENT_URI_SHARE).
-                        withSelection(where, whereArgs).
-                        build()
-                );
+                String path = file.getRemotePath();
+                shareDao.deleteShare(path, shareOwner);
             }
         }
-        return preparedOperations;
     }
 
     private ArrayList<ContentProviderOperation> prepareRemoveSharesInFile(

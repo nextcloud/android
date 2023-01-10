@@ -61,4 +61,16 @@ interface FileDao {
 
     @Query("SELECT * FROM filelist WHERE path LIKE :pathPattern AND file_owner = :fileOwner ORDER BY path ASC")
     fun getFolderWithDescendants(pathPattern: String, fileOwner: String): List<FileEntity>
+
+    @Query(
+        "UPDATE filelist SET share_by_link = 0, shared_via_users = 0" +
+        " WHERE parent = :parentId AND file_owner = :fileOwner"
+    )
+    fun resetShareFlagsInFolder(parentId: Long, fileOwner: String)
+
+    @Query("UPDATE filelist SET share_by_link = 1 WHERE path = :path AND file_owner = :fileOwner")
+    fun setSharedViaLink(path: String, fileOwner: String)
+
+    @Query("UPDATE filelist SET shared_via_users = 1 WHERE path = :path AND file_owner = :fileOwner")
+    fun setSharedWithSharee(path: String, fileOwner: String)
 }
