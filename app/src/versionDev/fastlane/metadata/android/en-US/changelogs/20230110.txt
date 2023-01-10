@@ -1,0 +1,6 @@
+Bump mockitoVersion from 4.10.0 to 4.11.0
+Build(deps): Bump gson from 2.10 to 2.10.1
+Build(deps): Bump espressoVersion from 3.5.0 to 3.5.1
+Build(deps): Bump junit from 1.1.4 to 1.1.5
+Update Nextcloud Android library
+Update 3rd-party dependencies
