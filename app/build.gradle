@@ -254,7 +254,7 @@ dependencies {
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.3'
     implementation 'org.lukhnos:nnio:0.2'
     implementation 'org.bouncycastle:bcpkix-jdk15to18:1.72'
-    implementation 'com.google.code.gson:gson:2.10'
+    implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.github.nextcloud-deps:sectioned-recyclerview:0.6.1'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.25'
@@ -327,7 +327,7 @@ dependencies {
 
     // dependencies for instrumented tests
     // JUnit4 Rules
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation "androidx.test:rules:$androidxTestVersion"
     // Android JUnit Runner
     androidTestImplementation "androidx.test:runner:$androidxTestVersion"
