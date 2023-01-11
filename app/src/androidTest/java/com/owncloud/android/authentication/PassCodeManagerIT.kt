@@ -22,17 +22,14 @@
 
 package com.owncloud.android.authentication
 
-import android.app.Activity
-import android.os.PowerManager
+import androidx.test.core.app.launchActivity
+import com.nextcloud.client.TestActivity
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.ui.activity.SettingsActivity
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
-import io.mockk.just
-import io.mockk.mockk
-import io.mockk.runs
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -58,30 +55,25 @@ class PassCodeManagerIT {
 
     @Test
     fun testResumeDuplicateActivity() {
-        // mock activity instead of using real one to avoid dealing with activity transitions
-        val activity: Activity = mockk()
-        val powerManager: PowerManager = mockk()
-        every { powerManager.isScreenOn } returns true
-        every { activity.getSystemService(Activity.POWER_SERVICE) } returns powerManager
-        every { activity.window } returns null
-        every { activity.startActivityForResult(any(), any()) } just runs
-        every { activity.moveTaskToBack(any()) } returns true
-
         // set locked state
         every { appPreferences.lockPreference } returns SettingsActivity.LOCK_PASSCODE
         every { appPreferences.lockTimestamp } returns 200
         every { clockImpl.millisSinceBoot } returns 10000
 
-        // resume activity twice
-        var askedForPin = sut.onActivityResumed(activity)
-        assertTrue("Passcode not requested on first launch", askedForPin)
-        sut.onActivityResumed(activity)
+        launchActivity<TestActivity>().use { scenario ->
+            scenario.onActivity { activity ->
+                // resume activity twice
+                var askedForPin = sut.onActivityResumed(activity)
+                assertTrue("Passcode not requested on first launch", askedForPin)
+                sut.onActivityResumed(activity)
 
-        // stop it once
-        sut.onActivityStopped(activity)
+                // stop it once
+                sut.onActivityStopped(activity)
 
-        // resume again. should ask for passcode
-        askedForPin = sut.onActivityResumed(activity)
-        assertTrue("Passcode not requested on subsequent launch after stop", askedForPin)
+                // resume again. should ask for passcode
+                askedForPin = sut.onActivityResumed(activity)
+                assertTrue("Passcode not requested on subsequent launch after stop", askedForPin)
+            }
+        }
     }
 }
