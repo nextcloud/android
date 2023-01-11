@@ -1,0 +1,18 @@
+name: Auto approve
+on:
+  pull_request_target:
+    branches:
+      - master
+      - main
+
+permissions:
+  pull-requests: write
+
+jobs:
+  auto-approve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hmarr/auto-approve-action@de8ae18c173c131e182d4adf2c874d8d2308a85b # v3.1.0
+        if: ${{ contains(github.event.pull_request.labels.*.name, 'sync') && github.actor == 'nextcloud-android-bot' }}
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
