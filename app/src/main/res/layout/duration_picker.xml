@@ -91,15 +91,18 @@
             app:layout_constraintStart_toStartOf="@+id/minutes_picker"
             app:layout_constraintVertical_bias="0.5" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:padding="@dimen/standard_half_padding"
+            android:src="@drawable/ic_action_cancel_grey"
+            android:background="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/minutes_picker"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/clear"
-        style="@style/OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/common_clear"
-        app:cornerRadius="@dimen/button_corner_radius" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
