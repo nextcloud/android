@@ -501,15 +501,12 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
             getString(R.string.pref_instant_upload_delay_dialogTitle),
             getString(R.string.pref_instant_upload_delay_hint));
 
-        dialog.setListener(new DurationPickerDialogFragment.Listener() {
-            @Override
-            public void onDurationPickerResult(int resultCode, long duration) {
-                if (resultCode == Activity.RESULT_OK) {
-                    mSyncedFolder.setUploadDelayTimeMs(duration);
-                    mUploadDelaySummary.setText(getDelaySummary(duration));
-                }
-                dialog.dismiss();
+        dialog.setListener((resultCode, duration) -> {
+            if (resultCode == Activity.RESULT_OK) {
+                mSyncedFolder.setUploadDelayTimeMs(duration);
+                mUploadDelaySummary.setText(getDelaySummary(duration));
             }
+            dialog.dismiss();
         });
         dialog.show(getParentFragmentManager(), "UPLOAD_DELAY_PICKER_DIALOG");
     }
