@@ -25,6 +25,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Looper
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import com.nextcloud.test.GrantStoragePermissionRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.ui.activity.RequestCredentialsActivity

@@ -23,7 +23,7 @@ package com.owncloud.android.ui.activity
 
 import android.content.Intent
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import com.nextcloud.client.GrantStoragePermissionRule
+import com.nextcloud.test.GrantStoragePermissionRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.ScreenshotTest

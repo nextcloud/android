@@ -24,7 +24,7 @@ package com.owncloud.android.ui.fragment
 import android.graphics.BitmapFactory
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
-import com.nextcloud.client.TestActivity
+import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.users.StatusType

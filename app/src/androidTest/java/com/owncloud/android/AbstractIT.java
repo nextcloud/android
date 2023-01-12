@@ -14,7 +14,7 @@ import android.view.View;
 
 import com.facebook.testing.screenshot.Screenshot;
 import com.facebook.testing.screenshot.internal.TestNameDetector;
-import com.nextcloud.client.GrantStoragePermissionRule;
+import com.nextcloud.test.GrantStoragePermissionRule;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;

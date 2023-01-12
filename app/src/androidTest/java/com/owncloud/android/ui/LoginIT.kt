@@ -29,10 +29,10 @@ import androidx.test.espresso.web.webdriver.DriverAtoms
 import androidx.test.espresso.web.webdriver.Locator
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
-import com.nextcloud.client.GrantStoragePermissionRule
-import com.nextcloud.client.RetryTestRule
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
+import com.nextcloud.test.GrantStoragePermissionRule
+import com.nextcloud.test.RetryTestRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity

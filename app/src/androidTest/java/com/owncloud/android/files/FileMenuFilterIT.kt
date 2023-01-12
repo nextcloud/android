@@ -22,8 +22,8 @@ package com.owncloud.android.files
 
 import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.nextcloud.client.TestActivity
 import com.nextcloud.client.account.User
+import com.nextcloud.test.TestActivity
 import com.nextcloud.utils.EditorUtils
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R

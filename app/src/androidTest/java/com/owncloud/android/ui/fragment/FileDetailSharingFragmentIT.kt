@@ -37,8 +37,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultBaseUtils.matchesCheckNames
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils.matchesViews
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.nextcloud.client.RetryTestRule
-import com.nextcloud.client.TestActivity
+import com.nextcloud.test.RetryTestRule
+import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile

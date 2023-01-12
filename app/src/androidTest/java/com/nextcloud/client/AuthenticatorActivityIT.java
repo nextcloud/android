@@ -20,9 +20,9 @@
 
 package com.nextcloud.client;
 
-import android.Manifest;
 import android.widget.TextView;
 
+import com.nextcloud.test.GrantStoragePermissionRule;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -34,8 +34,6 @@ import org.junit.rules.TestRule;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 

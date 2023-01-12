@@ -20,7 +20,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.client
+package com.nextcloud.test
 
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.lib.common.utils.Log_OC

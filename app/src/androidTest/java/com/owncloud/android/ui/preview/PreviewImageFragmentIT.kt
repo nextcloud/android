@@ -22,7 +22,7 @@
 package com.owncloud.android.ui.preview
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import com.nextcloud.client.TestActivity
+import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import org.junit.Rule
 
