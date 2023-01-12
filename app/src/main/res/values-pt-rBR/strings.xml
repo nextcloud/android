@@ -147,6 +147,7 @@
     <string name="community_testing_report_text">Reporte um problema no GitHub</string>
     <string name="community_testing_version_text">Interessado em ajudar testando a próxima versão?</string>
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
+    <string name="confirm_removal">Remover criptografia local</string>
     <string name="confirmation_remove_file_alert">Quer realmente excluir %1$s?</string>
     <string name="confirmation_remove_files_alert">Quer realmente excluir os itens selecionados?</string>
     <string name="confirmation_remove_folder_alert">Quer realmente excluir %1$s e seu conteúdo?</string>
@@ -206,6 +207,7 @@
     <string name="disable_new_media_folder_detection_notifications">Desativar</string>
     <string name="dismiss">Dispensar</string>
     <string name="dismiss_notification_description">Dispensar notificação</string>
+    <string name="displays_mnemonic">Exibe sua frase secreta de 12 palavras</string>
     <string name="dnd">Não perturbe</string>
     <string name="dontClear">Não limpar</string>
     <string name="download_latest_dev_version">Baixar a última versão dev</string>
@@ -262,11 +264,13 @@
     <string name="error_comment_file">Erro ao comentar arquivo</string>
     <string name="error_crash_title">%1$s travou</string>
     <string name="error_creating_file_from_template">Erro ao criar o arquivo a partir do modelo</string>
+    <string name="error_file_actions">Erro ao mostrar as ações do arquivo</string>
     <string name="error_file_lock">Erro ao alterar o status de bloqueio do arquivo</string>
     <string name="error_report_issue_action">Reportar</string>
     <string name="error_report_issue_text">Reportar problema ao rastreador? (requer uma conta GitHub)</string>
     <string name="error_retrieving_file">Erro ao recuperar o arquivo</string>
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
+    <string name="error_showing_encryption_dialog">Erro ao mostrar a caixa de diálogo de criptografia de configuração!</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
     <string name="error_starting_scan_doc">Erro ao usar a digitalização de documentos</string>
     <string name="etm_accounts">Contas</string>
@@ -516,6 +520,8 @@
     <string name="permission_deny">Negar</string>
     <string name="permission_storage_access">Permissões adicionais são necessárias para enviar ou baixar arquivos.</string>
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para definir uma imagem</string>
+    <string name="pin_home">Fixar na tela inicial</string>
+    <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -545,6 +551,8 @@
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
     <string name="prefs_daily_backup_summary">Backup diário de seu calendário &amp; contatos</string>
+    <string name="prefs_davx5_setup_error">Erro inesperado ao configurar o DAVx5 (anteriormente conhecido como DAVdroid)</string>
+    <string name="prefs_e2e_active">A criptografia de ponta a ponta está configurada!</string>
     <string name="prefs_e2e_mnemonic">Mnemônico E2E</string>
     <string name="prefs_e2e_no_device_credentials">Para exibir o mnemônico, ative as credenciais do dispositivo.</string>
     <string name="prefs_enable_media_scan_notifications">Exibir notificações de varredura de mídia</string>
@@ -556,6 +564,7 @@
     <string name="prefs_instant_behaviour_title">Arquivo original será…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Armazena em subpastas baseado no ano e mês</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subpastas</string>
+    <string name="prefs_keys_exist">Adicionar criptografia de ponta a ponta a este cliente</string>
     <string name="prefs_license">Licença</string>
     <string name="prefs_lock">Senha do aplicativo</string>
     <string name="prefs_lock_device_credentials_enabled">Credenciais de dispositivo ativadas</string>
@@ -566,6 +575,8 @@
     <string name="prefs_lock_using_passcode">Senha</string>
     <string name="prefs_manage_accounts">Gerenciar contas</string>
     <string name="prefs_recommend">Recomendar a um amigo</string>
+    <string name="prefs_remove_e2e">Remova a criptografia localmente</string>
+    <string name="prefs_setup_e2e">Configurar criptografia de ponta a ponta</string>
     <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
     <string name="prefs_sourcecode">Obter código-fonte</string>
     <string name="prefs_storage_path">Pasta de armazenamento de dados</string>
@@ -593,6 +604,8 @@
     <string name="reload">Recarregar</string>
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">Erro ao encontrar arquivo!</string>
+    <string name="remove_e2e">Você pode remover a criptografia de ponta a ponta localmente neste cliente</string>
+    <string name="remove_e2e_message">Você pode remover a criptografia de ponta a ponta localmente neste cliente. Os arquivos criptografados permanecerão no servidor, mas não será mais sincronizado com este computador.</string>
     <string name="remove_fail_msg">Falha na exclusão</string>
     <string name="remove_notification_failed">Erro ao remover a notificação.</string>
     <string name="remove_push_notification">Remover</string>
@@ -636,6 +649,7 @@
     <string name="set_picture_as">Usar imagem como</string>
     <string name="set_status">Definir status</string>
     <string name="set_status_message">Definir mensagem de status</string>
+    <string name="setup_e2e">Durante a configuração da criptografia de ponta a ponta, você receberá um mnemônico aleatório de 12 palavras, necessário para abrir seus arquivos em outros dispositivos. Isso será armazenado apenas neste dispositivo e poderá ser mostrado novamente nesta tela. Por favor, anote-o em um lugar seguro!</string>
     <string name="share">Compartilhar</string>
     <string name="share_copy_link">Compartilhar &amp; copiar link</string>
     <string name="share_dialog_title">Compartilhamento</string>
