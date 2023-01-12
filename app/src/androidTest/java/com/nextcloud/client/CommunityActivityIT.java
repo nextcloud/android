@@ -24,6 +24,7 @@ package com.nextcloud.client;
 
 import android.app.Activity;
 
+import com.nextcloud.test.GrantStoragePermissionRule;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.ui.activity.CommunityActivity;
 import com.owncloud.android.utils.ScreenshotTest;

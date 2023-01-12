@@ -19,7 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.client
+package com.nextcloud.test
 
 import android.Manifest
 import android.os.Build

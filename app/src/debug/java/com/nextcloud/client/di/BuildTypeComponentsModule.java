@@ -22,7 +22,7 @@
 
 package com.nextcloud.client.di;
 
-import com.nextcloud.client.TestActivity;
+import com.nextcloud.test.TestActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

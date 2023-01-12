@@ -23,9 +23,9 @@
 package com.owncloud.android.authentication
 
 import androidx.test.core.app.launchActivity
-import com.nextcloud.client.TestActivity
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.test.TestActivity
 import com.owncloud.android.ui.activity.SettingsActivity
 import io.mockk.MockKAnnotations
 import io.mockk.every

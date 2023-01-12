@@ -23,7 +23,7 @@ package com.owncloud.android.ui.preview.pdf
 
 import androidx.lifecycle.Lifecycle
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import com.nextcloud.client.TestActivity
+import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.ScreenshotTest

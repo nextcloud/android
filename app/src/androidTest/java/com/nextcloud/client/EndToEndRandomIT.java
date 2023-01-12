@@ -25,6 +25,7 @@ package com.nextcloud.client;
 import android.accounts.AccountManager;
 
 import com.nextcloud.test.RandomStringGenerator;
+import com.nextcloud.test.RetryTestRule;
 import com.owncloud.android.AbstractOnServerIT;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;

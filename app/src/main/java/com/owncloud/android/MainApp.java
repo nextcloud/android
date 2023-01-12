@@ -255,11 +255,14 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
     private void initDagger() {
-        appComponent = DaggerAppComponent.builder()
+        appComponent = buildAppComponent();
+        appComponent.inject(this);
+    }
+
+    protected AppComponent buildAppComponent() {
+        return DaggerAppComponent.builder()
             .application(this)
             .build();
-
-        appComponent.inject(this);
     }
 
     /**
