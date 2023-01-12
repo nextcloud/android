@@ -3,8 +3,10 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author Álvaro Brey
  * Copyright (C) 2019 Tobias Kaminsky
- * Copyright (C) 2019 Nextcloud GmbH
+ * Copyright (C) 2023 Álvaro Brey
+ * Copyright (C) 2023 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,33 +21,25 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.nextcloud.test
 
-package com.nextcloud.test;
+import android.app.Application
+import android.app.Instrumentation
+import android.content.Context
+import android.os.Build
+import com.github.tmurakami.dexopener.DexOpener
+import com.karumi.shot.ShotTestRunner
 
-import android.app.Application;
-import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
-
-import com.facebook.testing.screenshot.ScreenshotRunner;
-import com.github.tmurakami.dexopener.DexOpener;
-
-import com.karumi.shot.ShotTestRunner;
-
-public class ScreenshotTestRunner extends ShotTestRunner {
-
-    @Override
-    public Application newApplication(ClassLoader cl, String className, Context context)
-        throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-
+class ScreenshotTestRunner : ShotTestRunner() {
+    @Throws(ClassNotFoundException::class, IllegalAccessException::class, InstantiationException::class)
+    override fun newApplication(cl: ClassLoader, className: String, context: Context): Application {
         /*
          * Initialize DexOpener only on API below 28 to enable mocking of Kotlin classes.
          * On API 28+ the platform supports mocking natively.
          */
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-            DexOpener.install(this);
+            DexOpener.install(this)
         }
-
-        return super.newApplication(cl, className, context);
+        return Instrumentation.newApplication(TestMainApp::class.java, context)
     }
 }
