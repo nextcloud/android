@@ -25,6 +25,7 @@ import android.content.Intent
 import android.os.PowerManager
 import android.view.View
 import android.view.WindowManager
+import androidx.annotation.VisibleForTesting
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.MainApp
@@ -48,9 +49,12 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
          * the pass code being requested on screen rotations.
          */
         private const val PASS_CODE_TIMEOUT = 5000
+
+        private const val TAG = "PassCodeManager"
     }
 
     private var visibleActivitiesCounter = 0
+    private var lastResumedActivity: Activity? = null
 
     private fun isExemptActivity(activity: Activity): Boolean {
         return exemptOfPasscodeActivities.contains(activity.javaClass)
@@ -64,20 +68,17 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
         if (!isExemptActivity(activity)) {
             val passcodeRequested = passCodeShouldBeRequested(timestamp)
             val credentialsRequested = deviceCredentialsShouldBeRequested(timestamp, activity)
-            if (passcodeRequested || credentialsRequested) {
-                getActivityRootView(activity)?.visibility = View.GONE
-            } else {
-                getActivityRootView(activity)?.visibility = View.VISIBLE
-            }
+            val shouldHideView = passcodeRequested || credentialsRequested
+            toggleActivityVisibility(shouldHideView, activity)
+            askedForPin = shouldHideView
+
             if (passcodeRequested) {
-                askedForPin = true
-                preferences.lockTimestamp = 0
                 requestPasscode(activity)
-            }
-            if (credentialsRequested) {
-                askedForPin = true
-                preferences.lockTimestamp = 0
+            } else if (credentialsRequested) {
                 requestCredentials(activity)
+            }
+            if (askedForPin) {
+                preferences.lockTimestamp = 0
             }
         }
 
@@ -86,10 +87,37 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
         }
 
         if (!isExemptActivity(activity)) {
-            visibleActivitiesCounter++ // keep it AFTER passCodeShouldBeRequested was checked
+            addVisibleActivity(activity) // keep it AFTER passCodeShouldBeRequested was checked
         }
 
         return askedForPin
+    }
+
+    /**
+     * Used to hide root view while transitioning to passcode activity
+     */
+    private fun toggleActivityVisibility(
+        hide: Boolean,
+        activity: Activity
+    ) {
+        if (hide) {
+            getActivityRootView(activity)?.visibility = View.GONE
+        } else {
+            getActivityRootView(activity)?.visibility = View.VISIBLE
+        }
+    }
+
+    private fun addVisibleActivity(activity: Activity) {
+        // don't count the same activity twice
+        if (lastResumedActivity != activity) {
+            visibleActivitiesCounter++
+            lastResumedActivity = activity
+        }
+    }
+
+    private fun removeVisibleActivity() {
+        visibleActivitiesCounter--
+        lastResumedActivity = null
     }
 
     private fun setSecureFlag(activity: Activity) {
@@ -118,7 +146,7 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
 
     fun onActivityStopped(activity: Activity) {
         if (visibleActivitiesCounter > 0 && !isExemptActivity(activity)) {
-            visibleActivitiesCounter--
+            removeVisibleActivity()
         }
         val powerMgr = activity.getSystemService(Context.POWER_SERVICE) as PowerManager
         if ((isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) && !powerMgr.isScreenOn) {
@@ -137,7 +165,8 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
         abs(clock.millisSinceBoot - timestamp) > PASS_CODE_TIMEOUT &&
             visibleActivitiesCounter <= 0
 
-    private fun passCodeShouldBeRequested(timestamp: Long): Boolean {
+    @VisibleForTesting
+    fun passCodeShouldBeRequested(timestamp: Long): Boolean {
         return shouldBeLocked(timestamp) && isPassCodeEnabled()
     }
 
@@ -153,7 +182,7 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
     }
 
     private fun getActivityRootView(activity: Activity): View? {
-        return activity.window.findViewById(android.R.id.content)
-            ?: activity.window.decorView.findViewById(android.R.id.content)
+        return activity.window?.findViewById(android.R.id.content)
+            ?: activity.window?.decorView?.findViewById(android.R.id.content)
     }
 }
