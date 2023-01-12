@@ -96,7 +96,7 @@ android {
         }
 
         // arguments to be passed to functional tests
-        testInstrumentationRunner "com.nextcloud.test.ScreenshotTestRunner"
+        testInstrumentationRunner "com.nextcloud.client.ScreenshotTestRunner"
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "${NC_TEST_SERVER_BASEURL}"
         testInstrumentationRunnerArgument "TEST_SERVER_USERNAME", "${NC_TEST_SERVER_USERNAME}"
         testInstrumentationRunnerArgument "TEST_SERVER_PASSWORD", "${NC_TEST_SERVER_PASSWORD}"
