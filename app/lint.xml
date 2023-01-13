@@ -47,6 +47,7 @@
 
     <issue id="TrustAllX509TrustManager">
         <ignore path="**/bouncycastle/est/jcajce/*.class" />
+        <ignore path="**/bcpkix-jdk15to18-1.72.jar" />
     </issue>
 
     <issue id="RestrictedApi" severity="error">
