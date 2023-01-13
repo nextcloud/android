@@ -24,7 +24,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -32,10 +31,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.webkit.JavascriptInterface;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.widget.Toast;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
@@ -67,7 +62,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Opens document for editing via Richdocuments app in a web view
  */
 public class RichDocumentsEditorWebView extends EditorWebView {
-    public static final int REQUEST_LOCAL_FILE = 101;
     private static final int REQUEST_REMOTE_FILE = 100;
     private static final String URL = "URL";
     private static final String HYPERLINK = "Url";
@@ -75,8 +69,6 @@ public class RichDocumentsEditorWebView extends EditorWebView {
     private static final String PRINT = "print";
     private static final String SLIDESHOW = "slideshow";
     private static final String NEW_NAME = "NewName";
-
-    public ValueCallback<Uri[]> uploadMessage;
 
     @Inject
     protected CurrentAccountProvider currentAccountProvider;
@@ -90,34 +82,6 @@ public class RichDocumentsEditorWebView extends EditorWebView {
         super.postOnCreate();
 
         getWebView().addJavascriptInterface(new RichDocumentsMobileInterface(), "RichDocumentsMobileInterface");
-
-        getWebView().setWebChromeClient(new WebChromeClient() {
-            RichDocumentsEditorWebView activity = RichDocumentsEditorWebView.this;
-
-            @Override
-            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,
-                                             FileChooserParams fileChooserParams) {
-                if (uploadMessage != null) {
-                    uploadMessage.onReceiveValue(null);
-                    uploadMessage = null;
-                }
-
-                activity.uploadMessage = filePathCallback;
-
-                Intent intent = fileChooserParams.createIntent();
-                intent.setType("image/*");
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                try {
-                    activity.startActivityForResult(intent, REQUEST_LOCAL_FILE);
-                } catch (ActivityNotFoundException e) {
-                    uploadMessage = null;
-                    Toast.makeText(getBaseContext(), "Cannot open file chooser", Toast.LENGTH_LONG).show();
-                    return false;
-                }
-
-                return true;
-            }
-        });
 
         // load url in background
         loadUrl(getIntent().getStringExtra(EXTRA_URL));
@@ -135,20 +99,8 @@ public class RichDocumentsEditorWebView extends EditorWebView {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (RESULT_OK != resultCode) {
-            if (requestCode == REQUEST_LOCAL_FILE) {
-                this.uploadMessage.onReceiveValue(null);
-                this.uploadMessage = null;
-            }
-            return;
-        }
-
+    protected void handleActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case REQUEST_LOCAL_FILE:
-                handleLocalFile(data, resultCode);
-                break;
-
             case REQUEST_REMOTE_FILE:
                 handleRemoteFile(data);
                 break;
@@ -158,16 +110,7 @@ public class RichDocumentsEditorWebView extends EditorWebView {
                 break;
         }
 
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void handleLocalFile(Intent data, int resultCode) {
-        if (uploadMessage == null) {
-            return;
-        }
-
-        uploadMessage.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, data));
-        uploadMessage = null;
+        super.handleActivityResult(requestCode, resultCode, data);
     }
 
     private void handleRemoteFile(Intent data) {
