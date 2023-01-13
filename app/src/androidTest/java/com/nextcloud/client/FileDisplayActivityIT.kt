@@ -29,6 +29,7 @@ import androidx.test.espresso.contrib.NavigationViewActions
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.platform.app.InstrumentationRegistry
+import com.nextcloud.test.RetryTestRule
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation

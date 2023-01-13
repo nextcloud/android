@@ -19,19 +19,21 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client.di
 
-package com.nextcloud.client.di;
-
-import com.nextcloud.client.TestActivity;
-
-import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
+import com.nextcloud.test.InjectionTestActivity
+import com.nextcloud.test.TestActivity
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
 /**
  * Register classes that require dependency injection. This class is used by Dagger compiler only.
  */
 @Module
-abstract class BuildTypeComponentsModule {
+interface BuildTypeComponentsModule {
     @ContributesAndroidInjector
-    abstract TestActivity testActivity();
+    fun testActivity(): TestActivity?
+
+    @ContributesAndroidInjector
+    fun injectionTestActivity(): InjectionTestActivity?
 }

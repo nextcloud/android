@@ -2,12 +2,10 @@ package com.owncloud.android.ui.activity;
 
 import android.app.Activity;
 
-import com.nextcloud.client.GrantStoragePermissionRule;
 import com.nextcloud.client.onboarding.WhatsNewActivity;
 import com.owncloud.android.AbstractIT;
 
 import org.junit.Test;
-import org.junit.rules.TestRule;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.platform.app.InstrumentationRegistry;

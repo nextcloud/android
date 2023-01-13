@@ -26,7 +26,7 @@ import android.text.TextUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.nextcloud.client.RetryTestRule;
+import com.nextcloud.test.RetryTestRule;
 import com.nextcloud.test.RandomStringGenerator;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;

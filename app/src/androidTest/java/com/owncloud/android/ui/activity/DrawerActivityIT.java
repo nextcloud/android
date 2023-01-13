@@ -27,7 +27,7 @@ import android.accounts.AccountManager;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.nextcloud.client.RetryTestRule;
+import com.nextcloud.test.RetryTestRule;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
