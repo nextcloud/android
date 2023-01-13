@@ -957,10 +957,6 @@ public class FileDataStorageManager {
             }
         }
 
-//        Log_OC.d(TAG, "createFileInstance - fileName: " + fileEntity.getPathDecrypted() +
-//            " sharees: -->" + (sharees == null ? "<NULL>" : sharees) + "<--" +
-//            " metadataSize: -->" + (metadataSize == null ? "<NULL>" : metadataSize) + "<--");
-
         return ocFile;
     }
 
