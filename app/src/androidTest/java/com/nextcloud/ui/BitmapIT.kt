@@ -26,7 +26,7 @@ import android.graphics.BitmapFactory
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import com.nextcloud.client.TestActivity
+import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.utils.BitmapUtils
