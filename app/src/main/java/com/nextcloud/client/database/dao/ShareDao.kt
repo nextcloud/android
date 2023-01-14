@@ -26,7 +26,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.nextcloud.client.database.entity.ShareEntity
-import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
 @Dao
 interface ShareDao {

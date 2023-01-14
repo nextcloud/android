@@ -64,7 +64,7 @@ interface FileDao {
 
     @Query(
         "UPDATE filelist SET share_by_link = 0, shared_via_users = 0" +
-        " WHERE parent = :parentId AND file_owner = :fileOwner"
+            " WHERE parent = :parentId AND file_owner = :fileOwner"
     )
     fun resetShareFlagsInFolder(parentId: Long, fileOwner: String)
 
