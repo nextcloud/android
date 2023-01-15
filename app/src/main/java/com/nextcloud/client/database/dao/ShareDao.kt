@@ -33,5 +33,5 @@ interface ShareDao {
     fun insertShare(share: ShareEntity)
 
     @Query("DELETE FROM ocshares WHERE path = :path AND owner_share = :shareOwner")
-    fun deleteShare(path: String, shareOwner: String)
+    fun deleteSharesByPath(path: String, shareOwner: String)
 }

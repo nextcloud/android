@@ -1508,7 +1508,7 @@ public class FileDataStorageManager {
             List<OCFile> files = getFolderContent(folder, false);
             for (OCFile file : files) {
                 String path = file.getRemotePath();
-                shareDao.deleteShare(path, shareOwner);
+                shareDao.deleteSharesByPath(path, shareOwner);
             }
         }
     }
