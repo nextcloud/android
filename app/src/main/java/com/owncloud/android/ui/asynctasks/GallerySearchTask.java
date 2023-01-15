@@ -143,56 +143,37 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
 
     private boolean parseMedia(long startDate, long endDate, List<Object> remoteFiles) {
         // retrieve all between startDate and endDate
-        Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(null,
-                                                                                        storageManager.getGalleryItems(startDate * 1000L,
-                                                                                                                       endDate * 1000L));
-        List<OCFile> filesToAdd = new ArrayList<>();
-        List<OCFile> filesToUpdate = new ArrayList<>();
+        Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(null, storageManager.getGalleryItems(startDate * 1000L, endDate * 1000L));
+        int filesAdded = 0, filesUpdated = 0, filesDeleted = 0;
 
-        OCFile localFile;
         for (Object file : remoteFiles) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) file);
-
-            localFile = localFilesMap.remove(ocFile.getRemotePath());
+            OCFile localFile = localFilesMap.remove(ocFile.getRemotePath());
 
             if (localFile == null) {
                 // add new file
-                filesToAdd.add(ocFile);
+                filesAdded++;
             } else if (!localFile.getEtag().equals(ocFile.getEtag())) {
                 // update file
                 ocFile.setLastSyncDateForData(System.currentTimeMillis());
-                filesToUpdate.add(ocFile);
+                filesUpdated++;
             }
+            storageManager.saveFile(ocFile);
         }
 
-        // add new files
-        for (OCFile file : filesToAdd) {
-            storageManager.saveFile(file);
-        }
-
-        // update existing files
-        for (OCFile file : filesToUpdate) {
-            storageManager.saveFile(file);
-        }
-
-        // existing files to remove
-        for (OCFile file : localFilesMap.values()) {
+        filesDeleted = localFilesMap.size();
+        for (OCFile file: localFilesMap.values()) {
             storageManager.removeFile(file, true, true);
         }
 
         Log_OC.d(this, "Gallery search result:" +
-            " new: " + filesToAdd.size() +
-            " updated: " + filesToUpdate.size() +
-            " deleted: " + localFilesMap.size());
+            " new: " + filesAdded +
+            " updated: " + filesUpdated +
+            " deleted: " + filesDeleted);
 
-        return didNotFindNewResults(filesToAdd, filesToUpdate, localFilesMap.values());
+        return filesAdded == 0 && filesUpdated == 0 && filesDeleted == 0;
     }
 
-    private boolean didNotFindNewResults(List<OCFile> filesToAdd,
-                                         List<OCFile> filesToUpdate,
-                                         Collection<OCFile> filesToRemove) {
-        return filesToAdd.isEmpty() && filesToUpdate.isEmpty() && filesToRemove.isEmpty();
-    }
 
     public static class Result {
         public boolean success;
