@@ -183,6 +183,7 @@ class BackgroundJobFactory @Inject constructor(
             resources = resources,
             contentResolver = contentResolver,
             userAccountManager = accountManager,
+            viewThemeUtils = viewThemeUtils.get(),
             preferences = preferences,
             uploadsStorageManager = uploadsStorageManager,
             connectivityService = connectivityService,

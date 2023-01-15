@@ -54,9 +54,11 @@ import org.lukhnos.nnio.file.Path;
 import org.lukhnos.nnio.file.Paths;
 import org.lukhnos.nnio.file.SimpleFileVisitor;
 import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
+import org.lukhnos.nnio.file.impl.FileBasedPathImpl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
@@ -74,7 +76,20 @@ public final class FilesSyncHelper {
         // utility class -> private constructor
     }
 
-    private static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
+    private static int numFilesInPath(Path path) {
+        if (Files.isDirectory(path)) {
+            int numChildFiles = 0;
+            File[] children = path.toFile().listFiles();
+            for (File child : children) {
+                numChildFiles += numFilesInPath(FileBasedPathImpl.get(child));
+            }
+            return numChildFiles + children.length;
+        } else {
+            return 0;
+        }
+    }
+
+    private static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder, FileSyncProgress progress) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
 
@@ -97,6 +112,9 @@ public final class FilesSyncHelper {
                     FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
                     Path path = Paths.get(syncedFolder.getLocalPath());
 
+                    int numChildFiles = numFilesInPath(path);
+                    progress.onStartFolderSync(syncedFolder, numChildFiles);
+
                     Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
                         @Override
                         public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
@@ -105,6 +123,7 @@ public final class FilesSyncHelper {
                                 filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
                                                                               attrs.lastModifiedTime().toMillis(),
                                                                               file.isDirectory(), syncedFolder);
+                                progress.onProgress(path.toAbsolutePath().toString());
                             }
 
                             return FileVisitResult.CONTINUE;
@@ -124,14 +143,15 @@ public final class FilesSyncHelper {
 
     public static void insertAllDBEntries(AppPreferences preferences,
                                           Clock clock,
-                                          boolean skipCustom) {
+                                          boolean skipCustom,
+                                          FileSyncProgress progress) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences, clock);
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled() && (!skipCustom || syncedFolder.getType() != MediaFolderType.CUSTOM)) {
-                insertAllDBEntriesForSyncedFolder(syncedFolder);
+                insertAllDBEntriesForSyncedFolder(syncedFolder, progress);
             }
         }
     }

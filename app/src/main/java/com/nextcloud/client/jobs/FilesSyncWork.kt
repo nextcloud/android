@@ -22,10 +22,15 @@
  */
 package com.nextcloud.client.jobs
 
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
+import android.os.Build
 import android.text.TextUtils
+import androidx.core.app.NotificationCompat
 import androidx.exifinterface.media.ExifInterface
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -46,10 +51,14 @@ import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
+import com.owncloud.android.ui.activity.UploadFilesActivity
+import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.FileSyncProgress
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
@@ -63,6 +72,7 @@ class FilesSyncWork(
     private val resources: Resources,
     private val contentResolver: ContentResolver,
     private val userAccountManager: UserAccountManager,
+    viewThemeUtils: ViewThemeUtils,
     private val preferences: AppPreferences,
     private val uploadsStorageManager: UploadsStorageManager,
     private val connectivityService: ConnectivityService,
@@ -70,10 +80,16 @@ class FilesSyncWork(
     private val clock: Clock
 ) : Worker(context, params) {
 
+    private val notificationBuilder: NotificationCompat.Builder =
+        NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
+    private val notificationManager: NotificationManager =
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
     companion object {
         const val TAG = "FilesSyncJob"
         const val SKIP_CUSTOM = "skipCustom"
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
+        private const val FOREGROUND_SERVICE_ID: Int = 444
     }
 
     override fun doWork(): Result {
@@ -91,7 +107,26 @@ class FilesSyncWork(
             connectivityService,
             powerManagementService
         )
-        FilesSyncHelper.insertAllDBEntries(preferences, clock, skipCustom)
+        var progress = 0
+        var total = 0
+        try {
+            FilesSyncHelper.insertAllDBEntries(preferences, clock, skipCustom, object: FileSyncProgress {
+                override fun onStartFolderSync(syncedFolder: SyncedFolder, totalFiles: Int) {
+                    createNotification(syncedFolder, totalFiles)
+                    progress = 0
+                    total = totalFiles
+                }
+
+                override fun onProgress(path: String?) {
+                    notificationBuilder.setContentText(path)
+                    progress += 1
+                    notificationBuilder.setProgress(total, progress, false)
+                    notificationManager.notify(FOREGROUND_SERVICE_ID, notificationBuilder.build())
+                }
+            })
+        } finally {
+            notificationManager.cancel(FOREGROUND_SERVICE_ID)
+        }
         // Create all the providers we'll need
         val filesystemDataProvider = FilesystemDataProvider(contentResolver)
         val syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
@@ -260,5 +295,35 @@ class FilesSyncWork(
             "LOCAL_BEHAVIOUR_DELETE" -> FileUploader.LOCAL_BEHAVIOUR_DELETE
             else -> FileUploader.LOCAL_BEHAVIOUR_FORGET
         }
+    }
+
+    /**
+     * adapted from [com.owncloud.android.files.services.FileUploader.notifyUploadStart]
+     */
+    private fun createNotification(syncedFolder: SyncedFolder, totalFiles: Int) {
+        notificationBuilder
+            .setOngoing(true)
+            .setSmallIcon(R.drawable.notification_icon)
+            .setTicker("Syncing Auto Upload")
+            .setProgress(totalFiles, 0, false)
+            .setContentTitle(String.format("Sync %s", syncedFolder.localPath))
+            .setContentText("Syncing")
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
+        }
+
+        // includes a pending intent in the notification showing the details
+        val intent = Intent(context, UploadFilesActivity::class.java)
+        notificationBuilder.setContentIntent(
+            PendingIntent.getActivity(
+                context,
+                System.currentTimeMillis().toInt(),
+                intent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
+        )
+
+        notificationManager.notify(FOREGROUND_SERVICE_ID, notificationBuilder.build())
     }
 }
