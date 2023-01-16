@@ -251,6 +251,10 @@ public abstract class AbstractIT {
             }
         }
     }
+    
+    protected static File getDummyFile(DummyFile file) throws IOException {
+        return createFile(file.getFileName(), file.getSize());
+    }
 
     public static File createFile(String name, int iteration) throws IOException {
         File file = new File(FileStorageUtils.getTemporalPath(account.name) + File.separator + name);

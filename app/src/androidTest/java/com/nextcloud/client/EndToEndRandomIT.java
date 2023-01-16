@@ -27,9 +27,11 @@ import android.accounts.AccountManager;
 import com.nextcloud.test.RandomStringGenerator;
 import com.nextcloud.test.RetryTestRule;
 import com.owncloud.android.AbstractOnServerIT;
+import com.owncloud.android.DummyFile;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -478,6 +480,30 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
 
         assertFalse(originalFile.exists());
         assertFalse(new File(uploadedFile.getStoragePath()).exists());
+    }
+
+    @Test
+    public void testUploadWithInterrupt() throws Exception {
+        init();
+
+        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/" + DummyFile.SMALL.getFileName(),
+                                         currentFolder.getRemotePath() + DummyFile.SMALL.getFileName(),
+                                         account.name);
+
+        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_DELETE);
+        
+        assertEquals(UploadsStorageManager.UploadStatus.UPLOAD_FAILED, ocUpload.getUploadStatus());
+        
+        // try it again
+        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_DELETE);
+//        
+//
+//        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/" + DummyFile.SMALL.getFileName());
+//        OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(currentFolder.getRemotePath() +
+//                                                                                      DummyFile.SMALL.getFileName());
+//
+//        assertFalse(originalFile.exists());
+//        assertFalse(new File(uploadedFile.getStoragePath()).exists());
     }
 
     @Test

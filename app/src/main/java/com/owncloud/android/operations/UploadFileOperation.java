@@ -386,7 +386,7 @@ public class UploadFileOperation extends SyncOperation {
     @Override
     @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     protected RemoteOperationResult run(OwnCloudClient client) {
-        mCancellationRequested.set(false);
+        // mCancellationRequested.set(false);
         mUploadStarted.set(true);
 
         updateSize(0);
