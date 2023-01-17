@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Afegeix a %1$s</string>
     <string name="advanced_settings">Paràmetres avançats</string>
     <string name="allow_resharing">Permet compartir de nou</string>
+    <string name="app_widget_description">Mostra un giny del tauler</string>
     <string name="appbar_search_in">Cerca a %s</string>
     <string name="associated_account_not_found">No s\'ha trobat el compte associat!</string>
     <string name="auth_access_failed">No s\'ha tingut accés: %1$s</string>
@@ -87,12 +88,14 @@
     <string name="calendars">Calendaris</string>
     <string name="certificate_load_problem">Hi ha un problema carregant el certificat.</string>
     <string name="changelog_dev_version">Històric de canvis de la versió de desenvolupament</string>
+    <string name="check_back_later_or_reload">Torneu-ho a comprovar més tard o torneu a carregar.</string>
     <string name="checkbox">Casella de selecció</string>
     <string name="choose_local_folder">Escolliu una carpeta local…</string>
     <string name="choose_location">Escull localització</string>
     <string name="choose_remote_folder">Escolliu una carpeta remota…</string>
     <string name="choose_template_helper_text">Trieu una plantilla i introduïu un nom de fitxer.</string>
     <string name="choose_which_file">Trieu quin fixer conservar!</string>
+    <string name="choose_widget">Trieu el giny</string>
     <string name="clear_notifications_failed">No s\'han pogut carregar les notificacions.</string>
     <string name="clear_status_message">Esborrar el missatge d\'estat</string>
     <string name="clear_status_message_after">Esborra el missatge d\'estat després</string>
@@ -144,6 +147,7 @@
     <string name="community_testing_report_text">Informar d\'una incidència a GitHub</string>
     <string name="community_testing_version_text">Interessat en ajudar a provar el que serà la propera versió?</string>
     <string name="configure_new_media_folder_detection_notifications">Configura</string>
+    <string name="confirm_removal">Suprimeix el xifratge local</string>
     <string name="confirmation_remove_file_alert">Esteu segur que voleu suprimir%1$s?</string>
     <string name="confirmation_remove_files_alert">Esteu segur que voleu suprimir els elements seleccionats?</string>
     <string name="confirmation_remove_folder_alert">Esteu segur que voleu suprimir %1$s i els seus continguts?</string>
@@ -203,6 +207,7 @@
     <string name="disable_new_media_folder_detection_notifications">Desactiva</string>
     <string name="dismiss">Descarta</string>
     <string name="dismiss_notification_description">Descarta la notificació</string>
+    <string name="displays_mnemonic">Mostra la vostra contrasenya de 12 paraules</string>
     <string name="dnd">No molesteu</string>
     <string name="dontClear">No esborrar</string>
     <string name="download_latest_dev_version">Baixa la darrera versió de desenvolupament</string>
@@ -234,6 +239,7 @@
     <string name="drawer_quota">%1$s de %2$s en ús</string>
     <string name="drawer_quota_unlimited">%1$s en ús</string>
     <string name="drawer_synced_folders">Càrrega automàtica</string>
+    <string name="e2e_not_yet_setup">E2E encara no està configurat</string>
     <string name="encrypted">Activa el xifrat</string>
     <string name="end_to_end_encryption_confirm_button">Arranja el xifrat</string>
     <string name="end_to_end_encryption_decrypting">S\'està desxifrant...</string>
@@ -258,11 +264,13 @@
     <string name="error_comment_file">S\'ha produït un error comentant un fitxer</string>
     <string name="error_crash_title">S\'ha interromput %1$s</string>
     <string name="error_creating_file_from_template">S\'ha produït un error en crear el fitxer des de la plantilla</string>
+    <string name="error_file_actions">S\'ha produït un error en mostrar les accions del fitxer</string>
     <string name="error_file_lock">Error canviant l\'estat de blocatge del fitxer</string>
     <string name="error_report_issue_action">Informar</string>
     <string name="error_report_issue_text">Informa d\'un problema al seguidor? (requereix un compte de GitHub)</string>
     <string name="error_retrieving_file">S\'ha produït un error mentre es recuperava el fitxer</string>
     <string name="error_retrieving_templates">S\'ha produït un error recuperant les plantilles</string>
+    <string name="error_showing_encryption_dialog">S\'ha produït un error en mostrar el diàleg de xifratge</string>
     <string name="error_starting_direct_camera_upload">S\'ha produït un error iniciant la càmera</string>
     <string name="error_starting_scan_doc">S\'ha produït un error en utilitzar l\'exploració del document</string>
     <string name="etm_accounts">Comptes</string>
@@ -387,6 +395,9 @@
     <string name="hint_password">Contrasenya</string>
     <string name="host_not_available">Els servidor no està disponible</string>
     <string name="host_your_own_server">Allotgeu el vostre propi servidor</string>
+    <string name="icon_for_empty_list">Icona per a la llista buida</string>
+    <string name="icon_of_dashboard_widget">Icona del giny del tauler</string>
+    <string name="icon_of_widget_entry">Icona de l\'entrada del giny</string>
     <string name="in_folder">en la carpeta %1$s</string>
     <string name="instant_upload_existing">També pujar fitxers existents</string>
     <string name="instant_upload_on_charging">Carrega només durant la càrrega de bateria</string>
@@ -465,6 +476,7 @@
     <string name="no_browser_available">No hi ha cap aplicació disponible per manegar els enllaços</string>
     <string name="no_calendar_exists">No existeix el calendari</string>
     <string name="no_email_app_available">No hi ha cap aplicació disponible per gestionar l\'adreça de correu</string>
+    <string name="no_items">No hi ha cap element</string>
     <string name="no_mutliple_accounts_allowed">Només es permet un compte.</string>
     <string name="no_pdf_app_available">No hi ha cap aplicació disponible per manegar els PDF</string>
     <string name="no_send_app">No hi ha cap aplicació disponible per enviar els fitxers seleccionats</string>
@@ -508,6 +520,8 @@
     <string name="permission_deny">Denega</string>
     <string name="permission_storage_access">Es necessiten permisos addicionals per carregar i descarregar fitxers.</string>
     <string name="picture_set_as_no_app">No s\'ha trobat cap aplicació per establir-hi la foto</string>
+    <string name="pin_home">Ancora a la pantalla d\'inici</string>
+    <string name="pin_shortcut_label">Obre %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -537,6 +551,8 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Més</string>
     <string name="prefs_daily_backup_summary">Còpia de seguretat diària dels vostres contactes del calendari &amp;</string>
+    <string name="prefs_davx5_setup_error">S\'ha produït un error inesperat en configurar DAVx5 (anteriorment anomenat DAVdroid)</string>
+    <string name="prefs_e2e_active">S\'ha configurat el xifratge d\'extrem a extrem</string>
     <string name="prefs_e2e_mnemonic">E2E mnemònic</string>
     <string name="prefs_e2e_no_device_credentials">Per mostrar els mnemònics, si us plau activeu les credencials del dispositiu.</string>
     <string name="prefs_enable_media_scan_notifications">Mostra notificacions de cerca de mitjans</string>
@@ -548,6 +564,7 @@
     <string name="prefs_instant_behaviour_title">El fitxer original serà…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Emmagatzema a subcarpetes ordenades per any i mes</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Feu servir subcarpetes</string>
+    <string name="prefs_keys_exist">Afegeix el xifratge d\'extrem a extrem a aquest client</string>
     <string name="prefs_license">Llicència</string>
     <string name="prefs_lock">Codi d\'accés aplicació</string>
     <string name="prefs_lock_device_credentials_enabled">Credencials del dispositiu activades</string>
@@ -558,6 +575,8 @@
     <string name="prefs_lock_using_passcode">Codi d\'accés</string>
     <string name="prefs_manage_accounts">Gestió de comptes</string>
     <string name="prefs_recommend">Recomanar a una amistat</string>
+    <string name="prefs_remove_e2e">Suprimeix el xifratge localment</string>
+    <string name="prefs_setup_e2e">Configureu el xifratge d\'extrem a extrem</string>
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
     <string name="prefs_sourcecode">Aconseguiu el codi font</string>
     <string name="prefs_storage_path">Carpeta de dades</string>
@@ -581,9 +600,12 @@
     <string name="recommend_subject">Proveu %1$s al vostre dispositiu!</string>
     <string name="recommend_text">Us vull convidar a fer servir %1$s al vostre dispositiu.\nDescarregueu-lo d\'aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="refresh_content">Actualitza el contingut</string>
     <string name="reload">Recarrega</string>
     <string name="remote">(remot)</string>
     <string name="remote_file_fetch_failed">No s\'ha pogut trobar l\'arxiu!</string>
+    <string name="remove_e2e">Podeu suprimir el xifratge d\'extrem a extrem localment en aquest client</string>
+    <string name="remove_e2e_message">Podeu suprimir el xifratge d\'extrem a extrem localment en aquest client. Els fitxers xifrats romandran al servidor, però ja no se sincronitzaran amb aquest ordinador.</string>
     <string name="remove_fail_msg">No s\'ha pogut completar l\'eliminació</string>
     <string name="remove_notification_failed">Ha fallat la supressió de la notificació.</string>
     <string name="remove_push_notification">Suprimeix</string>
@@ -627,6 +649,7 @@
     <string name="set_picture_as">Fes servir la foto com</string>
     <string name="set_status">Estableix l\'estat</string>
     <string name="set_status_message">Estableix un missatge d\'estat</string>
+    <string name="setup_e2e">Durant la configuració del xifratge d\'extrem a extrem, rebreu un mnemotècnic de 12 paraules a l\'atzar, que necessitareu per obrir els vostres fitxers en altres dispositius. Només s\'emmagatzemarà en aquest dispositiu i es podrà tornar a mostrar en aquesta pantalla. Apunteu-vos-el en un lloc segur!</string>
     <string name="share">Comparteix</string>
     <string name="share_copy_link">Compartir &amp;copia enllaç</string>
     <string name="share_dialog_title">S\'està compartint</string>
@@ -872,6 +895,7 @@
     <string name="userinfo_no_info_text">Afegiu el nom, foto i detalls de contacte a la vostra pàgina de perfil.</string>
     <string name="username">Nom d\'usuari</string>
     <string name="version_dev_download">Descarrega</string>
+    <string name="video_overlay_icon">Icona de superposició de vídeo</string>
     <string name="wait_a_moment">Espereu un moment…</string>
     <string name="wait_checking_credentials">S\'estan comprovant les credencials emmagatzemades</string>
     <string name="wait_for_tmp_copy_from_private_storage">S\'està copiant el fitxer des de l\'emmagatzematge privat</string>
@@ -879,6 +903,7 @@
     <string name="whats_new_skip">Omet</string>
     <string name="whats_new_title">Nou a %1$s</string>
     <string name="whats_your_status">Quin és el vostre estat?</string>
+    <string name="widgets_not_available">Els ginys només estan disponibles a %1$s 25 o una versió posterior</string>
     <string name="widgets_not_available_title">No disponible</string>
     <string name="write_email">Enviar correu</string>
     <string name="wrong_storage_path">La carpeta de dades no existeix!</string>
