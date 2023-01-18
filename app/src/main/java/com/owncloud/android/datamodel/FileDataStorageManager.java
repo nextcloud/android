@@ -88,7 +88,8 @@ public class FileDataStorageManager {
     private static final String EXCEPTION_MSG = "Exception in batch of operations ";
 
     public static final int ROOT_PARENT_ID = 0;
-    public static final String NULL_STRING = "null";
+    private static final String JSON_NULL_STRING = "null";
+    private static final String JSON_EMPTY_ARRAY = "[]";
 
     private final ContentResolver contentResolver;
     private final ContentProviderClient contentProviderClient;
@@ -931,7 +932,10 @@ public class FileDataStorageManager {
         ocFile.setLockToken(fileEntity.getLockToken());
 
         String sharees = fileEntity.getSharees();
-        if (sharees == null || NULL_STRING.equals(sharees) || sharees.isEmpty()) {
+        // Surprisingly JSON deserialization causes significant overhead.
+        // Avoid it in common, trivial cases (null/empty).
+        if (sharees == null || sharees.isEmpty() ||
+            JSON_NULL_STRING.equals(sharees) || JSON_EMPTY_ARRAY.equals(sharees)) {
             ocFile.setSharees(new ArrayList<>());
         } else {
             try {
@@ -944,9 +948,13 @@ public class FileDataStorageManager {
         }
 
         String metadataSize = fileEntity.getMetadataSize();
-        ImageDimension imageDimension = gson.fromJson(metadataSize, ImageDimension.class);
-        if (imageDimension != null) {
-            ocFile.setImageDimension(imageDimension);
+        // Surprisingly JSON deserialization causes significant overhead.
+        // Avoid it in common, trivial cases (null/empty).
+        if (!(metadataSize == null || metadataSize.isEmpty() || JSON_NULL_STRING.equals(metadataSize))) {
+            ImageDimension imageDimension = gson.fromJson(metadataSize, ImageDimension.class);
+            if (imageDimension != null) {
+                ocFile.setImageDimension(imageDimension);
+            }
         }
 
         return ocFile;
