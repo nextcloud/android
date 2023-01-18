@@ -33,6 +33,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import org.junit.runners.Suite
+import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.any
@@ -84,7 +85,7 @@ class DeckApiTest {
 
         @Before
         fun setUp() {
-            whenever(packageManager.resolveActivity(any(), any())).thenAnswer {
+            whenever(packageManager.resolveActivity(any(), anyInt())).thenAnswer {
                 val intent = it.getArgument<Intent>(0)
                 return@thenAnswer if (intent.component?.packageName == installedDeckPackage) {
                     ResolveInfo()
@@ -124,7 +125,7 @@ class DeckApiTest {
             // THEN
             //      deck application is not being resolved
             //      open action is not created
-            verify(packageManager, never()).resolveActivity(anyOrNull(), anyOrNull())
+            verify(packageManager, never()).resolveActivity(anyOrNull(), anyOrNull<Int>())
             assertFalse(openDeckActionIntent.isPresent)
         }
     }
@@ -133,7 +134,7 @@ class DeckApiTest {
 
         @Before
         fun setUp() {
-            whenever(packageManager.resolveActivity(any(), any())).thenReturn(null)
+            whenever(packageManager.resolveActivity(any(), anyInt())).thenReturn(null)
         }
 
         @Test
@@ -151,7 +152,8 @@ class DeckApiTest {
             // THEN
             //      deck application is being resolved using all known packages
             //      open action is not created
-            verify(packageManager, times(DeckApiImpl.DECK_APP_PACKAGES.size)).resolveActivity(anyOrNull(), anyOrNull())
+            verify(packageManager, times(DeckApiImpl.DECK_APP_PACKAGES.size))
+                .resolveActivity(anyOrNull(), anyOrNull<Int>())
             assertFalse(openDeckActionIntent.isPresent)
         }
 
@@ -170,7 +172,7 @@ class DeckApiTest {
             // THEN
             //      deck application is not being resolved
             //      open action is not created
-            verify(packageManager, never()).resolveActivity(anyOrNull(), anyOrNull())
+            verify(packageManager, never()).resolveActivity(anyOrNull(), anyOrNull<Int>())
             assertFalse(openDeckActionIntent.isPresent)
         }
     }
