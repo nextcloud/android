@@ -25,12 +25,19 @@ package com.nextcloud.client.database.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.nextcloud.client.database.entity.ShareEntity
 
 @Dao
 interface ShareDao {
+    @Query("SELECT * FROM ocshares WHERE id_remote_shared = :remoteId AND owner_share = :shareOwner LIMIT 1")
+    fun getShareByRemoteId(remoteId: Long, shareOwner: String): ShareEntity?
+
     @Insert
-    fun insertShare(share: ShareEntity)
+    fun insertShare(share: ShareEntity): Long
+
+    @Update
+    fun updateShare(share: ShareEntity)
 
     @Query("DELETE FROM ocshares WHERE path = :path AND owner_share = :shareOwner")
     fun deleteSharesByPath(path: String, shareOwner: String)

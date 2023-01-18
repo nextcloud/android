@@ -997,43 +997,29 @@ public class FileDataStorageManager {
         return ocFile;
     }
 
+    private long insertShare(OCShare share) {
+        Long newId = shareDao.insertShare(createShareEntity(null, share));
+        if (share.getShareType() == ShareType.PUBLIC_LINK) {
+            fileDao.setSharedViaLink(share.getPath(), user.getAccountName());
+        } else {
+            fileDao.setSharedWithSharee(share.getPath(), user.getAccountName());
+        }
+        return newId;
+    }
+
     public boolean saveShare(OCShare share) {
         boolean overridden = false;
 
-        ContentValues contentValues = createContentValueForShare(share);
-
-        if (shareExistsForRemoteId(share.getRemoteId())) {// for renamed files; no more delete and create
+        ShareEntity shareEntity = shareDao.getShareByRemoteId(share.getRemoteId(), user.getAccountName());
+        if (shareEntity != null) {// for renamed files; no more delete and create
             overridden = true;
-            if (getContentResolver() != null) {
-                getContentResolver().update(ProviderTableMeta.CONTENT_URI_SHARE,
-                                            contentValues,
-                                            ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?",
-                                            new String[]{String.valueOf(share.getRemoteId())});
-            } else {
-                try {
-                    getContentProviderClient().update(ProviderTableMeta.CONTENT_URI_SHARE,
-                                                      contentValues,
-                                                      ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?",
-                                                      new String[]{String.valueOf(share.getRemoteId())});
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
-                }
-            }
+            ShareEntity newShareEntity = createShareEntity(shareEntity.getId(), share);
+            shareDao.updateShare(newShareEntity);
+            Log_OC.d(TAG, "saveShare - after update - id: " + shareEntity.getId() + " path: " + share.getPath());
         } else {
-            Uri result_uri = null;
-            if (getContentResolver() != null) {
-                result_uri = getContentResolver().insert(ProviderTableMeta.CONTENT_URI_SHARE, contentValues);
-            } else {
-                try {
-                    result_uri = getContentProviderClient().insert(ProviderTableMeta.CONTENT_URI_SHARE, contentValues);
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
-                }
-            }
-            if (result_uri != null) {
-                long new_id = Long.parseLong(result_uri.getPathSegments().get(1));
-                share.setId(new_id);
-            }
+            Long newId = insertShare(share);
+            share.setId(newId);
+            Log_OC.d(TAG, "saveShare - after insert - id: " + newId + " path: " + share.getPath());
         }
 
         return overridden;
@@ -1202,9 +1188,9 @@ public class FileDataStorageManager {
         return shares;
     }
 
-    private ShareEntity createShareEntity(OCShare share) {
+    private ShareEntity createShareEntity(Integer id, OCShare share) {
         return new ShareEntity(
-            null,
+            id,
             share.getFileSource(),
             share.getItemSource(),
             share.getShareType().getValue(),
@@ -1467,12 +1453,7 @@ public class FileDataStorageManager {
     private void insertShares(Iterable<OCShare> shares)
     {
         for (OCShare share : shares) {
-            shareDao.insertShare(createShareEntity(share));
-            if (share.getShareType() == ShareType.PUBLIC_LINK) {
-                fileDao.setSharedViaLink(share.getPath(), user.getAccountName());
-            } else {
-                fileDao.setSharedWithSharee(share.getPath(), user.getAccountName());
-            }
+            insertShare(share);
         }
     }
 
