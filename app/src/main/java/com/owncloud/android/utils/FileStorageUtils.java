@@ -222,6 +222,7 @@ public final class FileStorageUtils {
         file.setEtag(remote.getEtag());
         file.setPermissions(remote.getPermissions());
         file.setRemoteId(remote.getRemoteId());
+        file.setLocalId(remote.getLocalId());
         file.setFavorite(remote.isFavorite());
         if (file.isFolder()) {
             file.setEncrypted(remote.isEncrypted());

@@ -64,6 +64,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.FragmentManager;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class PreviewTextFileFragment extends PreviewTextFragment {
     private static final String EXTRA_FILE = "FILE";
@@ -228,6 +229,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         }
 
         @Override
+        @SuppressFBWarnings("STT")
         protected void onPostExecute(final StringWriter stringWriter) {
             final TextView textView = textViewReference.get();
 

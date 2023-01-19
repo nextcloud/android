@@ -52,10 +52,10 @@ class GalleryFragmentIT : AbstractIT() {
     fun before() {
         activity = testActivityRule.launchActivity(null)
 
-        createImage(1, true, 700, 300)
-        createImage(2, true, 500, 300)
+        createImage(10000001, true, 700, 300)
+        createImage(10000002, true, 500, 300)
 
-        createImage(7, true, 300, 400)
+        createImage(10000007, true, 300, 400)
     }
 
     @After
@@ -73,14 +73,14 @@ class GalleryFragmentIT : AbstractIT() {
         longSleep()
     }
 
-    private fun createImage(int: Int, createPreview: Boolean = true, width: Int? = null, height: Int? = null) {
+    private fun createImage(id: Int, createPreview: Boolean = true, width: Int? = null, height: Int? = null) {
         val defaultSize = ThumbnailsCacheManager.getThumbnailDimension().toFloat()
-        val file = OCFile("/$int.png").apply {
-            fileId = int.toLong()
-            remoteId = "$int"
+        val file = OCFile("/$id.png").apply {
+            fileId = id.toLong()
+            remoteId = "$id"
             mimeType = "image/png"
             isPreviewAvailable = true
-            modificationTimestamp = (1658475504 + int.toLong()) * 1000
+            modificationTimestamp = (1658475504 + id.toLong()) * 1000
             imageDimension = ImageDimension(width?.toFloat() ?: defaultSize, height?.toFloat() ?: defaultSize)
             storageManager.saveFile(this)
         }
@@ -116,6 +116,6 @@ class GalleryFragmentIT : AbstractIT() {
 
         assertNotNull(ThumbnailsCacheManager.getBitmapFromDiskCache(PREFIX_RESIZED_IMAGE + file.remoteId))
 
-        Log_OC.d("Gallery_thumbnail", "created $int with ${bitmap.width} x ${bitmap.height}")
+        Log_OC.d("Gallery_thumbnail", "created $id with ${bitmap.width} x ${bitmap.height}")
     }
 }

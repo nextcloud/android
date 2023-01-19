@@ -99,7 +99,7 @@ services:
       - su www-data -c "php /var/www/html/occ group:adduser users user2"
       - su www-data -c "git clone -b master https://github.com/nextcloud/activity.git /var/www/html/apps/activity/"
       - su www-data -c "php /var/www/html/occ app:enable activity"
-      - su www-data -c "git clone -b master https://github.com/nextcloud/text.git /var/www/html/apps/text/"
+      - su www-data -c "git clone -b main https://github.com/nextcloud/text.git /var/www/html/apps/text/"
       - su www-data -c "php /var/www/html/occ app:enable text"
       - su www-data -c "git clone -b master https://github.com/nextcloud/end_to_end_encryption/  /var/www/html/apps/end_to_end_encryption/"
       - su www-data -c "php /var/www/html/occ app:enable end_to_end_encryption"

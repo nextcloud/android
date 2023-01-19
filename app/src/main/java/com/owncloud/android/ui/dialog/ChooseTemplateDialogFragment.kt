@@ -251,7 +251,11 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         if (positiveButton != null) {
             val selectedTemplate = adapter!!.selectedTemplate
             val name = binding.filename.text.toString().trim()
-            val isNameEmpty = name.isEmpty() || name.equals(DOT + selectedTemplate.extension, ignoreCase = true)
+            val isNameJustExtension = selectedTemplate != null && name.equals(
+                DOT + selectedTemplate.extension,
+                ignoreCase = true
+            )
+            val isNameEmpty = name.isEmpty() || isNameJustExtension
             val state = selectedTemplate != null && !isNameEmpty && !fileNames.contains(name)
 
             positiveButton?.isEnabled = state

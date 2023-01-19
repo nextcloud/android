@@ -88,7 +88,8 @@ public class FileDataStorageManager {
     private static final String EXCEPTION_MSG = "Exception in batch of operations ";
 
     public static final int ROOT_PARENT_ID = 0;
-    public static final String NULL_STRING = "null";
+    private static final String JSON_NULL_STRING = "null";
+    private static final String JSON_EMPTY_ARRAY = "[]";
 
     private final ContentResolver contentResolver;
     private final ContentProviderClient contentProviderClient;
@@ -457,6 +458,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, fileOrFolder.isSharedWithSharee() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_PERMISSIONS, fileOrFolder.getPermissions());
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, fileOrFolder.getRemoteId());
+        cv.put(ProviderTableMeta.FILE_LOCAL_ID, fileOrFolder.getLocalId());
         cv.put(ProviderTableMeta.FILE_FAVORITE, fileOrFolder.isFavorite());
         cv.put(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT, fileOrFolder.getUnreadCommentsCount());
         cv.put(ProviderTableMeta.FILE_OWNER_ID, fileOrFolder.getOwnerId());
@@ -902,6 +904,7 @@ public class FileDataStorageManager {
         ocFile.setSharedWithSharee(nullToZero(fileEntity.getSharedWithSharee()) == 1);
         ocFile.setPermissions(fileEntity.getPermissions());
         ocFile.setRemoteId(fileEntity.getRemoteId());
+        ocFile.setLocalId(fileEntity.getLocalId());
         ocFile.setUpdateThumbnailNeeded(nullToZero(fileEntity.getUpdateThumbnail()) == 1);
         ocFile.setDownloading(nullToZero(fileEntity.isDownloading()) == 1);
         ocFile.setEtagInConflict(fileEntity.getEtagInConflict());
@@ -931,7 +934,10 @@ public class FileDataStorageManager {
         ocFile.setLockToken(fileEntity.getLockToken());
 
         String sharees = fileEntity.getSharees();
-        if (sharees == null || NULL_STRING.equals(sharees) || sharees.isEmpty()) {
+        // Surprisingly JSON deserialization causes significant overhead.
+        // Avoid it in common, trivial cases (null/empty).
+        if (sharees == null || sharees.isEmpty() ||
+            JSON_NULL_STRING.equals(sharees) || JSON_EMPTY_ARRAY.equals(sharees)) {
             ocFile.setSharees(new ArrayList<>());
         } else {
             try {
@@ -944,9 +950,13 @@ public class FileDataStorageManager {
         }
 
         String metadataSize = fileEntity.getMetadataSize();
-        ImageDimension imageDimension = gson.fromJson(metadataSize, ImageDimension.class);
-        if (imageDimension != null) {
-            ocFile.setImageDimension(imageDimension);
+        // Surprisingly JSON deserialization causes significant overhead.
+        // Avoid it in common, trivial cases (null/empty).
+        if (!(metadataSize == null || metadataSize.isEmpty() || JSON_NULL_STRING.equals(metadataSize))) {
+            ImageDimension imageDimension = gson.fromJson(metadataSize, ImageDimension.class);
+            if (imageDimension != null) {
+                ocFile.setImageDimension(imageDimension);
+            }
         }
 
         return ocFile;

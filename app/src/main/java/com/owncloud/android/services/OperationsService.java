@@ -721,7 +721,7 @@ public class OperationsService extends Service {
 
                     case ACTION_RESTORE_VERSION:
                         FileVersion fileVersion = operationIntent.getParcelableExtra(EXTRA_FILE_VERSION);
-                        operation = new RestoreFileVersionRemoteOperation(fileVersion.getRemoteId(),
+                        operation = new RestoreFileVersionRemoteOperation(fileVersion.getLocalId(),
                                                                           fileVersion.getFileName());
                         break;
 
