@@ -18,152 +18,132 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.dialog
 
-package com.owncloud.android.ui.dialog;
+import android.app.Activity
+import android.app.Dialog
+import android.content.DialogInterface
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.nextcloud.client.di.Injectable
+import com.owncloud.android.R
+import com.owncloud.android.databinding.DurationPickerBinding
+import com.owncloud.android.utils.TimeUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.os.Bundle;
-import android.view.View;
+class DurationPickerDialogFragment : DialogFragment(), Injectable {
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.nextcloud.client.di.Injectable;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.DurationPickerBinding;
-import com.owncloud.android.utils.TimeUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
+    private var _binding: DurationPickerBinding? = null
+    private val binding get() = _binding!!
+    private var resultListener: Listener? = null
 
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
-
-import static com.owncloud.android.utils.TimeUtils.getDurationParts;
-
-public class DurationPickerDialogFragment extends DialogFragment implements Injectable {
-    private static final int MAX_DAYS_VALUE = 30;
-    private static final int MAX_HOURS_VALUE = 24;
-    private static final int MAX_MINUTES_VALUE = 59;
-
-    private static final String DURATION = "DURATION";
-    private static final String DIALOG_TITLE = "TITLE";
-    private static final String HINT_MESSAGE = "HINT";
-
-    @Inject ViewThemeUtils viewThemeUtils;
-
-    private DurationPickerBinding binding;
-
-    public Listener resultListener;
-
-    public static DurationPickerDialogFragment newInstance(long duration, String title, String hintMessage) {
-        Bundle args = new Bundle();
-        args.putLong(DURATION, duration);
-        args.putString(HINT_MESSAGE, hintMessage);
-        args.putString(DIALOG_TITLE, title);
-
-        DurationPickerDialogFragment dialogFragment = new DurationPickerDialogFragment();
-        dialogFragment.setArguments(args);
-        dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog);
-
-        return dialogFragment;
-    }
-
-    public void setListener(Listener listener) {
-        resultListener = listener;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        AlertDialog alertDialog = (AlertDialog) getDialog();
-
-        viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                                 alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putLong(DURATION, getDuration());
-    }
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedState) {
-        binding = DurationPickerBinding.inflate(requireActivity().getLayoutInflater(), null, false);
-
-        setupLimits();
-
-        long duration;
-        if (savedState != null) {
-            duration = savedState.getLong(DURATION);
-        } else {
-            duration = requireArguments().getLong(DURATION);
+    private var duration: Long
+        private get() = TimeUnit.DAYS.toMillis(binding.daysPicker.value.toLong()) +
+            TimeUnit.HOURS.toMillis(binding.hoursPicker.value.toLong()) +
+            TimeUnit.MINUTES.toMillis(binding.minutesPicker.value.toLong())
+        private set(duration) {
+            val durationParts = TimeUtils.getDurationParts(duration)
+            binding.daysPicker.value = durationParts.days
+            binding.hoursPicker.value = durationParts.hours
+            binding.minutesPicker.value = durationParts.minutes
         }
-        setDuration(duration);
 
-        String hintMessage = requireArguments().getString(HINT_MESSAGE);
-        setHintMessage(hintMessage);
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
-        binding.clear.setOnClickListener(view -> {
-            binding.daysPicker.setValue(0);
-            binding.hoursPicker.setValue(0);
-            binding.minutesPicker.setValue(0);
-        });
+    fun setListener(listener: Listener?) {
+        resultListener = listener
+    }
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(binding.getRoot().getContext());
-        String dialogTitle = requireArguments().getString(DIALOG_TITLE);
-        builder.setTitle(dialogTitle);
-        builder.setView(binding.getRoot());
-        builder.setPositiveButton(R.string.common_save, (dialog, whichButton) -> {
+    override fun onStart() {
+        super.onStart()
+        val alertDialog = dialog as AlertDialog
+        viewThemeUtils.platform.colorTextButtons(
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+        )
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putLong(DURATION, duration)
+    }
+
+    override fun onCreateDialog(savedState: Bundle?): Dialog {
+        _binding = DurationPickerBinding.inflate(requireActivity().layoutInflater, null, false)
+
+        setupLimits()
+
+        this.duration = savedState?.getLong(DURATION) ?: requireArguments().getLong(DURATION)
+
+        setHintMessage(requireArguments().getString(HINT_MESSAGE))
+
+        binding.clear.setOnClickListener { view: View? ->
+            binding.daysPicker.value = 0
+            binding.hoursPicker.value = 0
+            binding.minutesPicker.value = 0
+        }
+
+        val builder = MaterialAlertDialogBuilder(binding.root.context)
+        val dialogTitle = requireArguments().getString(DIALOG_TITLE)
+        builder.setTitle(dialogTitle)
+        builder.setView(binding.root)
+        builder.setPositiveButton(R.string.common_save) { dialog: DialogInterface?, whichButton: Int ->
             if (resultListener != null) {
-                resultListener.onDurationPickerResult(Activity.RESULT_OK, getDuration());
+                resultListener!!.onDurationPickerResult(Activity.RESULT_OK, this.duration)
             }
-        });
-        builder.setNegativeButton(R.string.common_cancel, (dialog, whichButton) -> {
+        }
+        builder.setNegativeButton(R.string.common_cancel) { dialog: DialogInterface?, whichButton: Int ->
             if (resultListener != null) {
-                resultListener.onDurationPickerResult(Activity.RESULT_CANCELED, 0);
+                resultListener!!.onDurationPickerResult(Activity.RESULT_CANCELED, 0)
             }
-        });
-
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.getRoot().getContext(), builder);
-
-        return builder.create();
+        }
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding!!.root.context, builder)
+        return builder.create()
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
-    private void setupLimits() {
-        binding.daysPicker.setMaxValue(MAX_DAYS_VALUE);
-        binding.hoursPicker.setMaxValue(MAX_HOURS_VALUE);
-        binding.minutesPicker.setMaxValue(MAX_MINUTES_VALUE);
+    private fun setupLimits() {
+        binding.daysPicker.maxValue = MAX_DAYS_VALUE
+        binding.hoursPicker.maxValue = MAX_HOURS_VALUE
+        binding.minutesPicker.maxValue = MAX_MINUTES_VALUE
     }
 
-    private long getDuration() {
-        return TimeUnit.DAYS.toMillis(binding.daysPicker.getValue()) +
-            TimeUnit.HOURS.toMillis(binding.hoursPicker.getValue()) +
-            TimeUnit.MINUTES.toMillis(binding.minutesPicker.getValue());
-    }
-
-    private void setDuration(long duration) {
-        TimeUtils.DurationParts durationParts = getDurationParts(duration);
-        binding.daysPicker.setValue(durationParts.getDays());
-        binding.hoursPicker.setValue(durationParts.getHours());
-        binding.minutesPicker.setValue(durationParts.getMinutes());
-    }
-
-    private void setHintMessage(String hintMessage) {
-        binding.pickerHint.setVisibility(hintMessage != null ? View.VISIBLE : View.GONE);
-        binding.pickerHint.setText(hintMessage);
+    private fun setHintMessage(hintMessage: String?) {
+        binding.pickerHint.visibility = if (hintMessage != null) View.VISIBLE else View.GONE
+        binding.pickerHint.text = hintMessage
     }
 
     interface Listener {
-        void onDurationPickerResult(int resultCode, long duration);
+        fun onDurationPickerResult(resultCode: Int, duration: Long)
+    }
+
+    companion object {
+        private const val MAX_DAYS_VALUE = 30
+        private const val MAX_HOURS_VALUE = 24
+        private const val MAX_MINUTES_VALUE = 59
+        private const val DURATION = "DURATION"
+        private const val DIALOG_TITLE = "TITLE"
+        private const val HINT_MESSAGE = "HINT"
+
+        fun newInstance(duration: Long, title: String?, hintMessage: String?): DurationPickerDialogFragment {
+            val args = Bundle()
+            args.putLong(DURATION, duration)
+            args.putString(HINT_MESSAGE, hintMessage)
+            args.putString(DIALOG_TITLE, title)
+            val dialogFragment = DurationPickerDialogFragment()
+            dialogFragment.arguments = args
+            dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog)
+            return dialogFragment
+        }
     }
 }
