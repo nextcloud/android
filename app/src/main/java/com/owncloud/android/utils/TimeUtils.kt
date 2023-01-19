@@ -18,46 +18,19 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.utils
 
-package com.owncloud.android.utils;
+import java.util.concurrent.TimeUnit
 
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
+object TimeUtils {
 
-public class TimeUtils {
-
-    private TimeUtils() {
-        // utility class -> private constructor
+    @JvmStatic
+    fun getDurationParts(duration: Long): DurationParts {
+        val days = TimeUnit.MILLISECONDS.toDays(duration).toInt()
+        val hours = TimeUnit.MILLISECONDS.toHours(duration).toInt() - days * 24
+        val minutes = (TimeUnit.MILLISECONDS.toMinutes(duration) - TimeUnit.MILLISECONDS.toHours(duration) * 60).toInt()
+        return DurationParts(days, hours, minutes)
     }
 
-    public static DurationParts getDurationParts(long duration) {
-        int days = (int) MILLISECONDS.toDays(duration);
-        int hours = (int) MILLISECONDS.toHours(duration) - (days * 24);
-        int minutes = (int) (MILLISECONDS.toMinutes(duration) - (MILLISECONDS.toHours(duration) * 60));
-        return new DurationParts(days, hours, minutes);
-    }
-
-    public static class DurationParts {
-        private int days;
-        private int hours;
-        private int minutes;
-
-        public DurationParts(int days, int hours, int minutes) {
-            this.days = days;
-            this.hours = hours;
-            this.minutes = minutes;
-        }
-
-        public int getDays() {
-            return days;
-        }
-
-        public int getHours() {
-            return hours;
-        }
-
-        public int getMinutes() {
-            return minutes;
-        }
-    }
-
+    class DurationParts(val days: Int, val hours: Int, val minutes: Int)
 }

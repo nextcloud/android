@@ -496,7 +496,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     }
 
     private void showUploadDelayDialog() {
-        DurationPickerDialogFragment dialog = DurationPickerDialogFragment.newInstance(
+        DurationPickerDialogFragment dialog = DurationPickerDialogFragment.Companion.newInstance(
             mSyncedFolder.getUploadDelayTimeMs(),
             getString(R.string.pref_instant_upload_delay_dialogTitle),
             getString(R.string.pref_instant_upload_delay_hint));

@@ -1,38 +1,32 @@
-package com.owncloud.android.ui.dialog;
+package com.owncloud.android.ui.dialog
 
-import com.nextcloud.test.TestActivity;
-import com.owncloud.android.AbstractIT;
+import androidx.test.espresso.intent.rule.IntentsTestRule
+import com.nextcloud.test.TestActivity
+import com.owncloud.android.AbstractIT
+import org.junit.Rule
+import org.junit.Test
+import java.util.concurrent.TimeUnit
 
-import org.junit.Rule;
-import org.junit.Test;
+class DurationPickerDialogFragmentIT : AbstractIT() {
 
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
-
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-
-public class DurationPickerDialogFragmentIT extends AbstractIT {
-    @Rule public IntentsTestRule<TestActivity> testActivityRule = new IntentsTestRule<>(TestActivity.class,
-                                                                                               true, false);
+    @get:Rule
+    val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
 
     @Test
-    public void showSyncDelayDurationDialog() {
-        TestActivity test = testActivityRule.launchActivity(null);
-        FragmentManager fm = test.getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.addToBackStack(null);
+    fun showSyncDelayDurationDialog() {
+        val activity = testActivityRule.launchActivity(null)
 
-        DurationPickerDialogFragment dialog = DurationPickerDialogFragment.newInstance(TimeUnit.HOURS.toMillis(5),
-                                                                                       "Dialog title", "Hint message");
-        dialog.show(ft, "DURATION_DIALOG");
+        val fm = activity.supportFragmentManager
+        val ft = fm.beginTransaction()
+        ft.addToBackStack(null)
 
-        getInstrumentation().waitForIdleSync();
+        val dialog = DurationPickerDialogFragment.newInstance(
+            TimeUnit.HOURS.toMillis(5),
+            "Dialog title", "Hint message"
+        )
+        dialog.show(ft, "DURATION_DIALOG")
 
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
+        waitForIdleSync()
+        screenshot(dialog.requireDialog().window!!.decorView)
     }
-
 }
