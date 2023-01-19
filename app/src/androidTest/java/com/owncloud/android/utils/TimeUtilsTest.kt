@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit
 
 @RunWith(AndroidJUnit4::class)
 class TimeUtilsTest {
+
     @Test
     fun shouldGetDurationParts() {
         val days = 5
