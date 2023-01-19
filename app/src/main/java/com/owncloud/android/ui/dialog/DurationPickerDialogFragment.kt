@@ -147,4 +147,3 @@ class DurationPickerDialogFragment : DialogFragment(), Injectable {
         }
     }
 }
-
