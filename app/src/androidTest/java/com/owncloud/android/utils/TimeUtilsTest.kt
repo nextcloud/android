@@ -1,32 +1,27 @@
-package com.owncloud.android.utils;
+package com.owncloud.android.utils
 
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.owncloud.android.utils.TimeUtils.getDurationParts
+import org.junit.Assert.assertEquals
+import org.junit.Test
+import org.junit.runner.RunWith
+import java.util.concurrent.TimeUnit
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import java.util.concurrent.TimeUnit;
-
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-
-import static java.util.concurrent.TimeUnit.DAYS;
-import static java.util.concurrent.TimeUnit.HOURS;
-import static java.util.concurrent.TimeUnit.MINUTES;
-import static junit.framework.TestCase.assertEquals;
-
-@RunWith(AndroidJUnit4.class)
-public class TimeUtilsTest {
-
+@RunWith(AndroidJUnit4::class)
+class TimeUtilsTest {
     @Test
-    public void shouldGetDurationParts() {
-        int days = 5;
-        int hours = 10;
-        int minutes = 30;
+    fun shouldGetDurationParts() {
+        val days = 5
+        val hours = 10
+        val minutes = 30
+        val duration = TimeUnit.DAYS.toMillis(days.toLong()) +
+            TimeUnit.HOURS.toMillis(hours.toLong()) +
+            TimeUnit.MINUTES.toMillis(minutes.toLong())
 
-        TimeUtils.DurationParts durationParts = TimeUtils.getDurationParts(
-            DAYS.toMillis(days) + HOURS.toMillis(hours) + MINUTES.toMillis(minutes));
+        val durationParts = getDurationParts(duration)
 
-        assertEquals(days, durationParts.getDays());
-        assertEquals(hours, durationParts.getHours());
-        assertEquals(minutes, durationParts.getMinutes());
+        assertEquals(days, durationParts.days)
+        assertEquals(hours, durationParts.hours)
+        assertEquals(minutes, durationParts.minutes)
     }
 }
