@@ -1696,7 +1696,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void encryptFolder(String localId, String remoteId, String remotePath, boolean shouldBeEncrypted) {
+    private void encryptFolder(long localId, String remoteId, String remotePath, boolean shouldBeEncrypted) {
         try {
             User user = accountManager.getUser();
             OwnCloudClient client = clientFactory.create(user);

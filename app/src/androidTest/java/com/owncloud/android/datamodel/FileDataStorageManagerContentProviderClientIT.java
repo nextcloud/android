@@ -24,9 +24,12 @@ package com.owncloud.android.datamodel;
 
 import com.owncloud.android.db.ProviderMeta;
 
-public class FileDataStorageManagerContentProviderClientIT extends FileDataStorageManagerIT {
+import org.junit.Test;
 
-    @Override
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+public class FileDataStorageManagerContentProviderClientIT extends FileDataStorageManagerIT {
     public void before() {
         sut = new FileDataStorageManager(user,
                                          targetContext
@@ -35,5 +38,25 @@ public class FileDataStorageManagerContentProviderClientIT extends FileDataStora
         );
 
         super.before();
+    }
+
+    @Test
+    public void saveFile() {
+
+        String path = "/1.txt";
+        OCFile file = new OCFile(path);
+        file.setRemoteId("00000008ocjycgrudn78");
+
+        // TODO check via reflection that every parameter is set
+
+        file.setFileLength(1024000);
+        file.setModificationTimestamp(1582019340);
+        sut.saveNewFile(file);
+
+
+        OCFile read = sut.getFileByPath(path);
+        assertNotNull(read);
+
+        assertEquals(file.getRemotePath(), read.getRemotePath());
     }
 }
