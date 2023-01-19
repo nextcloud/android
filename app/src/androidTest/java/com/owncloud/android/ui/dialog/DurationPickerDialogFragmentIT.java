@@ -1,10 +1,7 @@
 package com.owncloud.android.ui.dialog;
 
-import com.nextcloud.client.TestActivity;
+import com.nextcloud.test.TestActivity;
 import com.owncloud.android.AbstractIT;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
