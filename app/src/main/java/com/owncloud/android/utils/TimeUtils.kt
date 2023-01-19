@@ -20,16 +20,18 @@
  */
 package com.owncloud.android.utils
 
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeUnit.DAYS
+import java.util.concurrent.TimeUnit.HOURS
+import java.util.concurrent.TimeUnit.MILLISECONDS
 
 object TimeUtils {
 
     @JvmStatic
     fun getDurationParts(duration: Long): DurationParts {
-        val days = TimeUnit.MILLISECONDS.toDays(duration).toInt()
-        val hours = TimeUnit.MILLISECONDS.toHours(duration).toInt() - days * 24
-        val minutes = (TimeUnit.MILLISECONDS.toMinutes(duration) - TimeUnit.MILLISECONDS.toHours(duration) * 60).toInt()
-        return DurationParts(days, hours, minutes)
+        val days = MILLISECONDS.toDays(duration)
+        val hours = MILLISECONDS.toHours(duration) - DAYS.toHours(days)
+        val minutes = MILLISECONDS.toMinutes(duration) - HOURS.toMinutes(MILLISECONDS.toHours(duration))
+        return DurationParts(days.toInt(), hours.toInt(), minutes.toInt())
     }
 
     class DurationParts(val days: Int, val hours: Int, val minutes: Int)
