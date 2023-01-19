@@ -22,7 +22,8 @@ class DurationPickerDialogFragmentIT : AbstractIT() {
 
         val dialog = DurationPickerDialogFragment.newInstance(
             TimeUnit.HOURS.toMillis(5),
-            "Dialog title", "Hint message"
+            "Dialog title",
+            "Hint message"
         )
         dialog.show(ft, "DURATION_DIALOG")
 

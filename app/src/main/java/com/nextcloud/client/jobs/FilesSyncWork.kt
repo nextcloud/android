@@ -262,5 +262,4 @@ class FilesSyncWork(
             else -> FileUploader.LOCAL_BEHAVIOUR_FORGET
         }
     }
-
 }

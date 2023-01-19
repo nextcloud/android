@@ -659,12 +659,12 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         if (durationParts.getDays() > 0) {
             durationSummary.append(durationParts.getDays());
             durationSummary.append(getString(R.string.common_days_short));
-            durationSummary.append(" ");
+            durationSummary.append(' ');
         }
         if (durationParts.getHours() > 0) {
             durationSummary.append(durationParts.getHours());
             durationSummary.append(getString(R.string.common_hours_short));
-            durationSummary.append(" ");
+            durationSummary.append(' ');
         }
         if (durationParts.getMinutes() > 0) {
             durationSummary.append(durationParts.getMinutes());
