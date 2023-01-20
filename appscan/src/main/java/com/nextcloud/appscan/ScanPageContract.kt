@@ -20,13 +20,12 @@
  *
  */
 
-package com.nextcloud.client.documentscan
+package com.nextcloud.appscan
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContract
-import com.owncloud.android.ui.activity.AppScanActivity
 
 class ScanPageContract : ActivityResultContract<Unit, String?>() {
     override fun createIntent(context: Context, input: Unit): Intent {
