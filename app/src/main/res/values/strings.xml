@@ -1068,10 +1068,10 @@
     <string name="prefs_keys_exist">Add end-to-end encryption to this client</string>
     <string name="scan_page">Scan page</string>
     <string name="done">Done</string>
-    <string name="document_scan_pdf_generation_in_progress">Generating PDF...</string>
+    <string name="document_scan_pdf_generation_in_progress">Generating PDF…</string>
     <string name="error_starting_doc_scan">Error starting document scan</string>
     <string name="document_scan_pdf_generation_failed">PDF generation failed</string>
     <string name="document_scan_export_dialog_title">Choose export type</string>
-    <string name="document_scan_export_dialog_pdf">PDF</string>
+    <string name="document_scan_export_dialog_pdf">PDF file</string>
     <string name="document_scan_export_dialog_images">Multiple images</string>
 </resources>
