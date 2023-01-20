@@ -49,7 +49,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="42dp"
+            android:layout_marginStart="42dp"
             android:text="@string/common_days_short"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/days_picker"
@@ -67,7 +67,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="42dp"
+            android:layout_marginStart="42dp"
             android:text="@string/common_hours_short"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -84,7 +84,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="42dp"
+            android:layout_marginStart="42dp"
             android:text="@string/common_minutes_short"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -99,6 +99,7 @@
             android:padding="@dimen/standard_half_padding"
             android:src="@drawable/ic_action_cancel_grey"
             android:background="@color/transparent"
+            android:contentDescription="@string/common_clear"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/minutes_picker"
             app:layout_constraintTop_toTopOf="parent" />
