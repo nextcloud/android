@@ -893,7 +893,7 @@ public class FileDataStorageManager {
             }
         }
         ocFile.setFileLength(nullToZero(fileEntity.getContentLength()));
-        ocFile.setCreationTimestamp(nullToZero(fileEntity.getCreation()));
+        ocFile.setCreationTimestamp(nullToZero(fileEntity.getCreated()));
         ocFile.setModificationTimestamp(nullToZero(fileEntity.getModified()));
         ocFile.setModificationTimestampAtLastSyncForData(nullToZero(fileEntity.getModifiedAtLastSyncForData()));
         ocFile.setLastSyncDateForProperties(nullToZero(fileEntity.getLastSyncDate()));

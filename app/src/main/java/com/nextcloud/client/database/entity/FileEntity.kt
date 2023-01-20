@@ -43,7 +43,7 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_PARENT)
     val parent: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_CREATION)
-    val creation: Long?,
+    val created: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_MODIFIED)
     val modified: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_CONTENT_TYPE)

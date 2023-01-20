@@ -121,12 +121,6 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
 
             photoFragment.setLoading(false);
             photoFragment.searchCompleted(result.emptySearch, result.lastTimestamp);
-
-            if (result.success && photoFragment.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
-                photoFragment.showAllGalleryItems();
-            } else {
-                photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH);
-            }
         }
     }
 
@@ -146,52 +140,39 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(null,
                                                                                         storageManager.getGalleryItems(startDate * 1000L,
                                                                                                                        endDate * 1000L));
-        List<OCFile> filesToAdd = new ArrayList<>();
-        List<OCFile> filesToUpdate = new ArrayList<>();
+        long filesAdded = 0, filesUpdated = 0, filesDeleted = 0, unchangedFiles = 0;
 
-        OCFile localFile;
         for (Object file : remoteFiles) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) file);
-
-            localFile = localFilesMap.remove(ocFile.getRemotePath());
+            OCFile localFile = localFilesMap.remove(ocFile.getRemotePath());
 
             if (localFile == null) {
                 // add new file
-                filesToAdd.add(ocFile);
+                filesAdded++;
             } else if (!localFile.getEtag().equals(ocFile.getEtag())) {
                 // update file
                 ocFile.setLastSyncDateForData(System.currentTimeMillis());
-                filesToUpdate.add(ocFile);
+                filesUpdated++;
+            } else {
+                unchangedFiles++;
             }
-        }
-
-        // add new files
-        for (OCFile file : filesToAdd) {
-            storageManager.saveFile(file);
-        }
-
-        // update existing files
-        for (OCFile file : filesToUpdate) {
-            storageManager.saveFile(file);
+            storageManager.saveFile(ocFile);
         }
 
         // existing files to remove
+        filesDeleted = localFilesMap.values().size();
+
         for (OCFile file : localFilesMap.values()) {
             storageManager.removeFile(file, true, true);
         }
 
         Log_OC.d(this, "Gallery search result:" +
-            " new: " + filesToAdd.size() +
-            " updated: " + filesToUpdate.size() +
-            " deleted: " + localFilesMap.size());
+            " new: " + filesAdded +
+            " updated: " + filesUpdated +
+            " deleted: " + filesDeleted +
+            " unchanged: " + unchangedFiles);
 
-        return didNotFindNewResults(filesToAdd, filesToUpdate, localFilesMap.values());
-    }
-
-    private boolean didNotFindNewResults(List<OCFile> filesToAdd,
-                                         List<OCFile> filesToUpdate,
-                                         Collection<OCFile> filesToRemove) {
-        return filesToAdd.isEmpty() && filesToUpdate.isEmpty() && filesToRemove.isEmpty();
+        return  (filesAdded + filesUpdated + filesDeleted + unchangedFiles > 0) ? false : true;
     }
 
     public static class Result {
