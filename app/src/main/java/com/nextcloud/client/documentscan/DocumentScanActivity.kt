@@ -23,13 +23,13 @@
 package com.nextcloud.client.documentscan
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.logger.Logger
@@ -128,23 +128,44 @@ class DocumentScanActivity : ToolbarActivity(), Injectable {
     }
 
     private fun handleState(state: DocumentScanViewModel.UIState) {
+        logger.d(TAG, "handleState: called with $state")
         when (state) {
-            is DocumentScanViewModel.UIState.NormalState -> {
-                val pageList = state.pageList
-                Log.d(
-                    TAG,
-                    "handleState: NormalState with ${pageList.size} pages, isProcessing: ${state.isProcessing}"
-                )
-                updateRecycler(pageList)
-                updateButtonsEnabled(state.isProcessing)
-                if (state.shouldRequestScan) {
-                    startPageScan()
+            is DocumentScanViewModel.UIState.BaseState -> when (state) {
+                is DocumentScanViewModel.UIState.NormalState -> {
+                    updateButtonsEnabled(true)
+                    val pageList = state.pageList
+                    updateRecycler(pageList)
+                    if (state.shouldRequestScan) {
+                        startPageScan()
+                    }
+                }
+                is DocumentScanViewModel.UIState.RequestExportState -> {
+                    updateButtonsEnabled(false)
+                    if (state.shouldRequestExportType) {
+                        showExportDialog()
+                    }
                 }
             }
             DocumentScanViewModel.UIState.DoneState -> {
                 finish()
             }
         }
+    }
+
+    private fun showExportDialog() {
+        // TODO better dialog
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.document_scan_export_dialog_title)
+            .setPositiveButton(R.string.document_scan_export_dialog_pdf) { _, _ ->
+                viewModel.onExportTypeSelected(DocumentScanViewModel.ExportType.PDF)
+            }
+            .setNeutralButton(R.string.document_scan_export_dialog_images) { _, _ ->
+                viewModel.onExportTypeSelected(DocumentScanViewModel.ExportType.IMAGES)
+            }
+            .setNegativeButton(R.string.common_cancel) { _, _ ->
+                viewModel.onExportCanceled()
+            }
+            .show()
     }
 
     private fun updateRecycler(pageList: List<String>) {
@@ -154,8 +175,8 @@ class DocumentScanActivity : ToolbarActivity(), Injectable {
         (binding.pagesRecycler.adapter as? DocumentPageListAdapter)?.submitList(pageList)
     }
 
-    private fun updateButtonsEnabled(processing: Boolean) {
-        binding.fab.isEnabled = !processing
+    private fun updateButtonsEnabled(enabled: Boolean) {
+        binding.fab.isEnabled = enabled
     }
 
     private fun startPageScan() {
