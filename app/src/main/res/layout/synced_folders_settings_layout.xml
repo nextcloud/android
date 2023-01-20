@@ -458,7 +458,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="Without delay"
+                    android:text="@string/pref_instant_upload_delay_disabled"
                     android:textColor="?android:attr/textColorSecondary" />
             </LinearLayout>
         </LinearLayout>

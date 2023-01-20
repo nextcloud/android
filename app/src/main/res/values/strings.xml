@@ -217,6 +217,7 @@
     <string name="common_share">Share</string>
     <string name="common_skip">Skip</string>
     <string name="common_copy">Copy</string>
+    <string name="common_clear">Clear</string>
     <string name="common_days_short">d</string>
     <string name="common_hours_short">h</string>
     <string name="common_minutes_short">m</string>
