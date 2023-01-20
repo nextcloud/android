@@ -48,8 +48,8 @@ interface FileDao {
     fun getFolderContent(parentId: Long): List<FileEntity>
 
     @Query(
-        "SELECT * FROM filelist WHERE modified >= :startDate" +
-            " AND modified < :endDate" +
+        "SELECT * FROM filelist WHERE created >= :startDate" +
+            " AND created < :endDate" +
             " AND (content_type LIKE 'image/%' OR content_type LIKE 'video/%')" +
             " AND file_owner = :fileOwner" +
             " ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}"

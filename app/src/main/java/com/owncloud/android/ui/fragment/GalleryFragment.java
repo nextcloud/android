@@ -232,16 +232,17 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @SuppressLint("NotifyDataSetChanged")
     public void searchCompleted(boolean emptySearch, long lastTimeStamp) {
         photoSearchQueryRunning = false;
-        mAdapter.notifyDataSetChanged();
 
-        if (mAdapter.isEmpty()) {
+        if (emptySearch && mAdapter.isEmpty()) {
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
-        }
-
-        if (emptySearch && mAdapter.getItemCount() > 0) {
-            Log_OC.d(this, "End gallery search");
             return;
         }
+        if(!emptySearch) {
+            mAdapter.notifyDataSetChanged();
+            this.showAllGalleryItems();
+            return;
+        }
+
         if (daySpan == 30) {
             daySpan = 90;
         } else if (daySpan == 90) {
