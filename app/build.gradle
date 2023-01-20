@@ -244,7 +244,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'com.jakewharton:disklrucache:2.0.2'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation 'androidx.webkit:webkit:1.5.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.exifinterface:exifinterface:1.3.5'
@@ -276,9 +276,9 @@ dependencies {
     implementation "com.github.nextcloud-deps.hwsecurity:hwsecurity-fido2:$fidoVersion"
 
     // document scanner not available on FDroid (generic) due to OpenCV binaries
-    gplayImplementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"
-    huaweiImplementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"
-    qaImplementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"
+    gplayImplementation project(':appscan')
+    huaweiImplementation project(':appscan')
+    qaImplementation project(':appscan')
 
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'

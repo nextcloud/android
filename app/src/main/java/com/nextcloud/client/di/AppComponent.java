@@ -55,6 +55,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
     ThemeModule.class,
     DatabaseModule.class,
     DispatcherModule.class,
+    VariantModule.class
 })
 @Singleton
 public interface AppComponent {

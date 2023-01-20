@@ -26,6 +26,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.ViewModelProvider
@@ -39,7 +40,6 @@ import com.owncloud.android.databinding.ActivityDocumentScanBinding
 import com.owncloud.android.databinding.DialogScanExportTypeBinding
 import com.owncloud.android.ui.activity.ToolbarActivity
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import com.zynksoftware.documentscanner.ui.DocumentScanner
 import javax.inject.Inject
 
 class DocumentScanActivity : ToolbarActivity(), Injectable {
@@ -53,16 +53,21 @@ class DocumentScanActivity : ToolbarActivity(), Injectable {
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
+    @Inject
+    lateinit var appScanOptionalFeature: AppScanOptionalFeature
+
     lateinit var binding: ActivityDocumentScanBinding
 
     lateinit var viewModel: DocumentScanViewModel
 
-    private val scanPage = registerForActivityResult(ScanPageContract()) { result ->
-        viewModel.onScanPageResult(result)
-    }
+    private var scanPage: ActivityResultLauncher<Unit>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        scanPage = registerForActivityResult(appScanOptionalFeature.getScanContract()) { result ->
+            viewModel.onScanPageResult(result)
+        }
 
         val folder = intent.extras?.getString(EXTRA_FOLDER)
         require(folder != null) { "Folder must be provided for upload" }
@@ -71,8 +76,6 @@ class DocumentScanActivity : ToolbarActivity(), Injectable {
         viewModel.setUploadFolder(folder)
 
         setupViews()
-
-        DocumentScanner.init(this) // TODO this should go back to AppScanActivity, it needs the lib!
 
         observeState()
     }
@@ -203,7 +206,7 @@ class DocumentScanActivity : ToolbarActivity(), Injectable {
     private fun startPageScan() {
         logger.d(TAG, "startPageScan() called")
         viewModel.onScanRequestHandled()
-        scanPage.launch(Unit)
+        scanPage!!.launch(Unit)
     }
 
     companion object {
