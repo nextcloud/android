@@ -95,8 +95,6 @@ class DocumentScanViewModel @Inject constructor(
                 val pageList = state.pageList.toMutableList()
                 pageList.add(newPath)
                 _uiState.postValue(UIState.NormalState(pageList))
-            } else {
-                // TODO
             }
         }
 

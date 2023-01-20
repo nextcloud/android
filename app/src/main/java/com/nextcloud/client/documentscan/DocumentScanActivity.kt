@@ -148,6 +148,7 @@ class DocumentScanActivity : ToolbarActivity(), Injectable {
                     updateButtonsEnabled(false)
                     if (state.shouldRequestExportType) {
                         showExportDialog()
+                        viewModel.onRequestTypeHandled()
                     }
                 }
             }
