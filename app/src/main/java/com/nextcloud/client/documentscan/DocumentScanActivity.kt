@@ -26,6 +26,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -35,6 +36,7 @@ import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.logger.Logger
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityDocumentScanBinding
+import com.owncloud.android.databinding.DialogScanExportTypeBinding
 import com.owncloud.android.ui.activity.ToolbarActivity
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import com.zynksoftware.documentscanner.ui.DocumentScanner
@@ -153,19 +155,38 @@ class DocumentScanActivity : ToolbarActivity(), Injectable {
     }
 
     private fun showExportDialog() {
-        // TODO better dialog
-        MaterialAlertDialogBuilder(this)
+        val dialogBinding = DialogScanExportTypeBinding.inflate(layoutInflater)
+
+        val dialog = MaterialAlertDialogBuilder(this)
             .setTitle(R.string.document_scan_export_dialog_title)
-            .setPositiveButton(R.string.document_scan_export_dialog_pdf) { _, _ ->
-                viewModel.onExportTypeSelected(DocumentScanViewModel.ExportType.PDF)
-            }
-            .setNeutralButton(R.string.document_scan_export_dialog_images) { _, _ ->
-                viewModel.onExportTypeSelected(DocumentScanViewModel.ExportType.IMAGES)
-            }
+            .setCancelable(true)
+            .setView(dialogBinding.root)
             .setNegativeButton(R.string.common_cancel) { _, _ ->
                 viewModel.onExportCanceled()
             }
-            .show()
+            .setOnCancelListener { viewModel.onExportCanceled() }
+            .also {
+                viewThemeUtils.dialog.colorMaterialAlertDialogBackground(this@DocumentScanActivity, it)
+            }
+            .create()
+
+        viewThemeUtils.platform.colorTextButtons(dialogBinding.btnPdf, dialogBinding.btnImages)
+
+        dialogBinding.btnPdf.setOnClickListener {
+            viewModel.onExportTypeSelected(DocumentScanViewModel.ExportType.PDF)
+            dialog.dismiss()
+        }
+        dialogBinding.btnImages.setOnClickListener {
+            viewModel.onExportTypeSelected(DocumentScanViewModel.ExportType.IMAGES)
+            dialog.dismiss()
+        }
+
+        dialog.setOnShowListener {
+            val alertDialog = it as AlertDialog
+            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE))
+        }
+
+        dialog.show()
     }
 
     private fun updateRecycler(pageList: List<String>) {
