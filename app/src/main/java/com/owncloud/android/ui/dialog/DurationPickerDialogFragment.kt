@@ -43,7 +43,7 @@ class DurationPickerDialogFragment : DialogFragment(), Injectable {
     private var resultListener: Listener? = null
 
     private var duration: Long
-        private get() = TimeUnit.DAYS.toMillis(binding.daysPicker.value.toLong()) +
+        get() = TimeUnit.DAYS.toMillis(binding.daysPicker.value.toLong()) +
             TimeUnit.HOURS.toMillis(binding.hoursPicker.value.toLong()) +
             TimeUnit.MINUTES.toMillis(binding.minutesPicker.value.toLong())
         private set(duration) {
@@ -83,7 +83,7 @@ class DurationPickerDialogFragment : DialogFragment(), Injectable {
 
         setHintMessage(requireArguments().getString(HINT_MESSAGE))
 
-        binding.clear.setOnClickListener { view: View? ->
+        binding.clear.setOnClickListener {
             binding.daysPicker.value = 0
             binding.hoursPicker.value = 0
             binding.minutesPicker.value = 0
@@ -93,17 +93,17 @@ class DurationPickerDialogFragment : DialogFragment(), Injectable {
         val dialogTitle = requireArguments().getString(DIALOG_TITLE)
         builder.setTitle(dialogTitle)
         builder.setView(binding.root)
-        builder.setPositiveButton(R.string.common_save) { dialog: DialogInterface?, whichButton: Int ->
+        builder.setPositiveButton(R.string.common_save) { _, _ ->
             if (resultListener != null) {
                 resultListener!!.onDurationPickerResult(Activity.RESULT_OK, this.duration)
             }
         }
-        builder.setNegativeButton(R.string.common_cancel) { dialog: DialogInterface?, whichButton: Int ->
+        builder.setNegativeButton(R.string.common_cancel) { _, _ ->
             if (resultListener != null) {
                 resultListener!!.onDurationPickerResult(Activity.RESULT_CANCELED, 0)
             }
         }
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding!!.root.context, builder)
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.root.context, builder)
         return builder.create()
     }
 
