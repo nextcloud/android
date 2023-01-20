@@ -31,7 +31,12 @@ import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.IoDispatcher
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.logger.Logger
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.files.services.FileUploader
+import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.helpers.FileOperationsHelper
+import com.owncloud.android.utils.MimeType
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -51,14 +56,20 @@ class DocumentScanViewModel @Inject constructor(
     }
 
     sealed interface UIState {
-        data class NormalState(
-            val pageList: List<String> = emptyList(),
-            val isProcessing: Boolean = false,
-            val shouldRequestScan: Boolean = false
-        ) : UIState {
+        sealed class BaseState(val pageList: List<String>) : UIState {
             val isEmpty: Boolean
                 get() = pageList.isEmpty()
         }
+
+        class NormalState(
+            pageList: List<String> = emptyList(),
+            val shouldRequestScan: Boolean = false
+        ) : BaseState(pageList)
+
+        class RequestExportState(
+            pageList: List<String> = emptyList(),
+            val shouldRequestExportType: Boolean = true
+        ) : BaseState(pageList)
 
         object DoneState : UIState
     }
@@ -80,11 +91,10 @@ class DocumentScanViewModel @Inject constructor(
 
         viewModelScope.launch(ioDispatcher) {
             if (result != null) {
-                _uiState.postValue(state.copy(pageList = state.pageList, isProcessing = true))
                 val newPath = renameCapturedImage(result)
                 val pageList = state.pageList.toMutableList()
                 pageList.add(newPath)
-                _uiState.postValue(UIState.NormalState(pageList, isProcessing = false))
+                _uiState.postValue(UIState.NormalState(pageList))
             } else {
                 // TODO
             }
@@ -113,33 +123,21 @@ class DocumentScanViewModel @Inject constructor(
         val state = uiState.value
         require(state is UIState.NormalState)
 
-        _uiState.postValue(state.copy(shouldRequestScan = false))
+        _uiState.postValue(UIState.NormalState(state.pageList, shouldRequestScan = false))
     }
 
     fun onAddPageClicked() {
         val state = uiState.value
         require(state is UIState.NormalState)
         if (!state.shouldRequestScan) {
-            _uiState.postValue(state.copy(shouldRequestScan = true))
+            _uiState.postValue(UIState.NormalState(state.pageList, shouldRequestScan = true))
         }
     }
 
     fun onClickDone() {
-        // TODO dialog to choose pictures or PDF
-        val genPath =
-            getApplication<Application>().cacheDir.path + File.separator + FileOperationsHelper.getTimestampedFileName(
-                ".pdf"
-            )
         val state = _uiState.value
-        if (state is UIState.NormalState && !state.isEmpty && !state.isProcessing) {
-            backgroundJobManager.startPdfGenerateAndUploadWork(
-                currentAccountProvider.user,
-                uploadFolder!!,
-                state.pageList,
-                genPath
-            )
-            // after job is started, finish the application.
-            _uiState.postValue(UIState.DoneState)
+        if (state is UIState.BaseState && !state.isEmpty) {
+            _uiState.postValue(UIState.RequestExportState(state.pageList))
         }
     }
 
@@ -147,7 +145,80 @@ class DocumentScanViewModel @Inject constructor(
         this.uploadFolder = folder
     }
 
+    fun onRequestTypeHandled() {
+        val state = _uiState.value
+        require(state is UIState.RequestExportState)
+        _uiState.postValue(UIState.RequestExportState(state.pageList, false))
+    }
+
+    fun onExportTypeSelected(exportType: ExportType) {
+        val state = _uiState.value
+        require(state is UIState.RequestExportState)
+        when (exportType) {
+            ExportType.PDF -> {
+                exportToPdf(state.pageList)
+            }
+            ExportType.IMAGES -> {
+                exportToImages(state.pageList)
+            }
+        }
+        _uiState.postValue(UIState.DoneState)
+    }
+
+    private fun exportToPdf(pageList: List<String>) {
+        val genPath =
+            getApplication<Application>().cacheDir.path + File.separator + FileOperationsHelper.getTimestampedFileName(
+                ".pdf"
+            )
+        backgroundJobManager.startPdfGenerateAndUploadWork(
+            currentAccountProvider.user,
+            uploadFolder!!,
+            pageList,
+            genPath
+        )
+        // after job is started, finish the application.
+        _uiState.postValue(UIState.DoneState)
+    }
+
+    private fun exportToImages(pageList: List<String>) {
+        val uploadPaths = pageList.map {
+            uploadFolder + OCFile.PATH_SEPARATOR + File(it).name
+        }.toTypedArray()
+
+        val mimetypes = pageList.map {
+            MimeType.JPEG
+        }.toTypedArray()
+
+        FileUploader.uploadNewFile(
+            getApplication(),
+            currentAccountProvider.user,
+            pageList.toTypedArray(),
+            uploadPaths,
+            mimetypes,
+            FileUploader.LOCAL_BEHAVIOUR_DELETE,
+            true,
+            UploadFileOperation.CREATED_BY_USER,
+            false,
+            false,
+            NameCollisionPolicy.ASK_USER
+        )
+    }
+
+    fun onExportCanceled() {
+        val state = _uiState.value
+        if (state is UIState.BaseState) {
+            _uiState.postValue(UIState.NormalState(state.pageList))
+        }
+    }
+
+    private
+
     companion object {
         private const val TAG = "DocumentScanViewModel"
+    }
+
+    enum class ExportType {
+        PDF,
+        IMAGES
     }
 }
