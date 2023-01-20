@@ -22,7 +22,6 @@ package com.owncloud.android.ui.dialog
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
