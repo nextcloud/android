@@ -344,7 +344,7 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
                                               targetContext).execute(client).isSuccess());
 
         OCFile newFile = new OCFile("/1/1/1.txt");
-        newFile.setRemoteId("123");
+        newFile.setRemoteId("12345678");
 
         sut.saveNewFile(newFile);
     }
@@ -369,4 +369,5 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
         assertEquals(capability.getUserStatus(), newCapability.getUserStatus());
     }
+
 }

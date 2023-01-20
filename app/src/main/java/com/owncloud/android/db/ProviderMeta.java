@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 66;
+    public static final int DB_VERSION = 67;
 
     private ProviderMeta() {
         // No instance
@@ -101,6 +101,7 @@ public class ProviderMeta {
         public static final String FILE_SHARED_VIA_LINK = "share_by_link";
         public static final String FILE_SHARED_WITH_SHAREE = "shared_via_users";
         public static final String FILE_PERMISSIONS = "permissions";
+        public static final String FILE_LOCAL_ID = "local_id";
         public static final String FILE_REMOTE_ID = "remote_id";
         public static final String FILE_UPDATE_THUMBNAIL = "update_thumbnail";
         public static final String FILE_IS_DOWNLOADING = "is_downloading";
@@ -148,6 +149,7 @@ public class ProviderMeta {
             FILE_SHARED_WITH_SHAREE,
             FILE_PERMISSIONS,
             FILE_REMOTE_ID,
+            FILE_LOCAL_ID,
             FILE_UPDATE_THUMBNAIL,
             FILE_IS_DOWNLOADING,
             FILE_ETAG_IN_CONFLICT,

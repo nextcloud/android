@@ -23,12 +23,12 @@ package com.owncloud.android.ui.events;
  * Event for set folder as encrypted/decrypted
  */
 public class EncryptionEvent {
-    public final String localId;
+    public final long localId;
     public final String remotePath;
     public final String remoteId;
     public final boolean shouldBeEncrypted;
 
-    public EncryptionEvent(String localId, String remoteId, String remotePath, boolean shouldBeEncrypted) {
+    public EncryptionEvent(long localId, String remoteId, String remotePath, boolean shouldBeEncrypted) {
         this.localId = localId;
         this.remoteId = remoteId;
         this.remotePath = remotePath;

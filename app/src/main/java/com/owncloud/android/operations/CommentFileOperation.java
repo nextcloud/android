@@ -33,14 +33,14 @@ import com.owncloud.android.lib.resources.comments.CommentFileRemoteOperation;
 public class CommentFileOperation extends RemoteOperation {
 
     private final String message;
-    private final String fileId;
+    private final long fileId;
 
     /**
      * Constructor
      *
      * @param message Comment to store
      */
-    public CommentFileOperation(String message, String fileId) {
+    public CommentFileOperation(String message, long fileId) {
         this.message = message;
         this.fileId = fileId;
     }

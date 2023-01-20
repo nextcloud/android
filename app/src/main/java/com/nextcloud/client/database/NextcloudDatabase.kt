@@ -58,7 +58,8 @@ import com.owncloud.android.db.ProviderMeta
     ],
     version = ProviderMeta.DB_VERSION,
     autoMigrations = [
-        AutoMigration(from = 65, to = 66)
+        AutoMigration(from = 65, to = 66),
+        AutoMigration(from = 66, to = 67)
     ],
     exportSchema = true
 )

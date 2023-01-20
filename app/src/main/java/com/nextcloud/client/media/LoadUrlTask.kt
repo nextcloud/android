@@ -28,7 +28,7 @@ import com.owncloud.android.lib.common.OwnCloudClient
 
 internal class LoadUrlTask(
     private val client: OwnCloudClient,
-    private val fileId: String,
+    private val fileId: Long,
     private val onResult: (String?) -> Unit
 ) : AsyncTask<Void, Void, String>() {
 

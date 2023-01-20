@@ -70,6 +70,8 @@ data class FileEntity(
     val permissions: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_REMOTE_ID)
     val remoteId: String?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_LOCAL_ID)
+    val localId: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_UPDATE_THUMBNAIL)
     val updateThumbnail: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_IS_DOWNLOADING)
