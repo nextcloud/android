@@ -148,15 +148,16 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
 
             if (localFile == null) {
                 // add new file
+                storageManager.saveFile(ocFile);
                 filesAdded++;
             } else if (!localFile.getEtag().equals(ocFile.getEtag())) {
                 // update file
                 ocFile.setLastSyncDateForData(System.currentTimeMillis());
+                storageManager.saveFile(ocFile);
                 filesUpdated++;
             } else {
                 unchangedFiles++;
             }
-            storageManager.saveFile(ocFile);
         }
 
         // existing files to remove
