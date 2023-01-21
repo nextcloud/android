@@ -5,7 +5,9 @@ import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import org.junit.Rule
 import org.junit.Test
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeUnit.DAYS
+import java.util.concurrent.TimeUnit.HOURS
+import java.util.concurrent.TimeUnit.MINUTES
 
 class DurationPickerDialogFragmentIT : AbstractIT() {
 
@@ -14,6 +16,7 @@ class DurationPickerDialogFragmentIT : AbstractIT() {
 
     @Test
     fun showSyncDelayDurationDialog() {
+        val initialDuration = DAYS.toMillis(2) + HOURS.toMillis(8) + MINUTES.toMillis(15)
         val activity = testActivityRule.launchActivity(null)
 
         val fm = activity.supportFragmentManager
@@ -21,7 +24,7 @@ class DurationPickerDialogFragmentIT : AbstractIT() {
         ft.addToBackStack(null)
 
         val dialog = DurationPickerDialogFragment.newInstance(
-            TimeUnit.HOURS.toMillis(5),
+            initialDuration,
             "Dialog title",
             "Hint message"
         )
