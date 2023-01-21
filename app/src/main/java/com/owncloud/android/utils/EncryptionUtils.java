@@ -30,6 +30,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.account.User;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
@@ -664,8 +665,7 @@ public final class EncryptionUtils {
      */
 
     public static List<String> getRandomWords(int count, Context context) throws IOException {
-        InputStream ins = context.getResources().openRawResource(context.getResources()
-                .getIdentifier("encryption_key_words", "raw", context.getPackageName()));
+        InputStream ins = context.getResources().openRawResource(R.raw.encryption_key_words);
 
         InputStreamReader inputStreamReader = new InputStreamReader(ins);
 
