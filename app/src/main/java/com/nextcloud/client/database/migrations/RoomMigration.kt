@@ -25,6 +25,9 @@ package com.nextcloud.client.database.migrations
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.nextcloud.client.database.NextcloudDatabase
+import com.nextcloud.client.database.migrations.DatabaseMigrationUtil.TYPE_INTEGER
+import com.nextcloud.client.database.migrations.DatabaseMigrationUtil.TYPE_INTEGER_PRIMARY_KEY
+import com.nextcloud.client.database.migrations.DatabaseMigrationUtil.TYPE_TEXT
 
 class RoomMigration : Migration(NextcloudDatabase.FIRST_ROOM_DB_VERSION - 1, NextcloudDatabase.FIRST_ROOM_DB_VERSION) {
 
@@ -50,7 +53,7 @@ class RoomMigration : Migration(NextcloudDatabase.FIRST_ROOM_DB_VERSION - 1, Nex
             "modified_at" to TYPE_INTEGER
         )
 
-        migrateTable(database, "filesystem", newColumns)
+        DatabaseMigrationUtil.migrateTable(database, "filesystem", newColumns)
     }
 
     /**
@@ -76,7 +79,7 @@ class RoomMigration : Migration(NextcloudDatabase.FIRST_ROOM_DB_VERSION - 1, Nex
             "folder_unlock_token" to TYPE_TEXT
         )
 
-        migrateTable(database, "list_of_uploads", newColumns)
+        DatabaseMigrationUtil.migrateTable(database, "list_of_uploads", newColumns)
     }
 
     /**
@@ -134,7 +137,7 @@ class RoomMigration : Migration(NextcloudDatabase.FIRST_ROOM_DB_VERSION - 1, Nex
             "files_locking_version" to TYPE_TEXT
         )
 
-        migrateTable(database, "capabilities", newColumns)
+        DatabaseMigrationUtil.migrateTable(database, "capabilities", newColumns)
     }
 
     /**
@@ -186,52 +189,6 @@ class RoomMigration : Migration(NextcloudDatabase.FIRST_ROOM_DB_VERSION - 1, Nex
             "lock_timeout" to TYPE_INTEGER,
             "lock_token" to TYPE_TEXT
         )
-        migrateTable(database, "filelist", newColumns)
-    }
-
-    private fun migrateTable(database: SupportSQLiteDatabase, tableName: String, newColumns: Map<String, String>) {
-        require(newColumns.isNotEmpty())
-        val newTableTempName = "${tableName}_new"
-        createNewTable(database, newTableTempName, newColumns)
-        copyData(database, tableName, newTableTempName, newColumns.keys)
-        replaceTable(database, tableName, newTableTempName)
-    }
-
-    private fun createNewTable(
-        database: SupportSQLiteDatabase,
-        newTableName: String,
-        columns: Map<String, String>
-    ) {
-        val columnsString = columns.entries.joinToString(",") { "${it.key} ${it.value}" }
-        database.execSQL("CREATE TABLE $newTableName ($columnsString)")
-    }
-
-    private fun copyData(
-        database: SupportSQLiteDatabase,
-        tableName: String,
-        newTableName: String,
-        columnNames: Iterable<String>
-    ) {
-        val columnsString = columnNames.joinToString(",")
-
-        database.execSQL(
-            "INSERT INTO $newTableName ($columnsString) " +
-                "SELECT $columnsString FROM $tableName"
-        )
-    }
-
-    private fun replaceTable(
-        database: SupportSQLiteDatabase,
-        tableName: String,
-        newTableTempName: String
-    ) {
-        database.execSQL("DROP TABLE $tableName")
-        database.execSQL("ALTER TABLE $newTableTempName RENAME TO $tableName")
-    }
-
-    companion object {
-        private const val TYPE_TEXT = "TEXT"
-        private const val TYPE_INTEGER = "INTEGER"
-        private const val TYPE_INTEGER_PRIMARY_KEY = "INTEGER PRIMARY KEY"
+        DatabaseMigrationUtil.migrateTable(database, "filelist", newColumns)
     }
 }
