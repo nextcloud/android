@@ -152,7 +152,7 @@ class DocumentScanActivity : ToolbarActivity(), Injectable {
                     }
                 }
             }
-            DocumentScanViewModel.UIState.DoneState -> {
+            DocumentScanViewModel.UIState.DoneState, DocumentScanViewModel.UIState.CanceledState -> {
                 finish()
             }
         }
