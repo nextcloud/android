@@ -57,7 +57,7 @@ class QuickSharingPermissionsAdapter(
         private val viewThemeUtils: ViewThemeUtils
     ) :
         RecyclerView
-        .ViewHolder(itemView) {
+            .ViewHolder(itemView) {
 
         fun bindData(quickPermissionModel: QuickPermissionModel) {
             binding.tvQuickShareName.text = quickPermissionModel.permissionName

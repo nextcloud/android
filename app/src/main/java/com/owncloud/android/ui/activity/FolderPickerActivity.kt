@@ -513,9 +513,9 @@ open class FolderPickerActivity :
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED == event && !syncResult.isSuccess
                         ) {
                             if (ResultCode.UNAUTHORIZED == syncResult.code || (
-                                syncResult.isException &&
-                                    syncResult.exception is AuthenticatorException
-                                )
+                                    syncResult.isException &&
+                                        syncResult.exception is AuthenticatorException
+                                    )
                             ) {
                                 requestCredentialsUpdate(context)
                             } else if (ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED == syncResult.code) {
