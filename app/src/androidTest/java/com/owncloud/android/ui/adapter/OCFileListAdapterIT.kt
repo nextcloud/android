@@ -46,28 +46,28 @@ class OCFileListAdapterIT : AbstractIT() {
 
         OCFile("/image.png").apply {
             mimeType = "image/png"
-            modificationTimestamp = 1000000
+            creationTimestamp = 1000000
         }.let {
             storageManager.saveFile(it)
         }
 
         OCFile("/image2.png").apply {
             mimeType = "image/png"
-            modificationTimestamp = 1000050
+            creationTimestamp = 1000050
         }.let {
             storageManager.saveFile(it)
         }
 
         OCFile("/video.mpg").apply {
             mimeType = "video/mpg"
-            modificationTimestamp = 1000045
+            creationTimestamp = 1000045
         }.let {
             storageManager.saveFile(it)
         }
 
         OCFile("/video2.avi").apply {
             mimeType = "video/avi"
-            modificationTimestamp = endDate + 10
+            creationTimestamp = endDate + 10
         }.let {
             storageManager.saveFile(it)
         }
