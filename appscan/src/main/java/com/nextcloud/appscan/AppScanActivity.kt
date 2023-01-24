@@ -24,6 +24,7 @@ package com.nextcloud.appscan
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import com.zynksoftware.documentscanner.ScanActivity
 import com.zynksoftware.documentscanner.model.DocumentScannerErrorModel
@@ -40,6 +41,7 @@ class AppScanActivity : ScanActivity() {
 
     override fun onError(error: DocumentScannerErrorModel) {
         // TODO pass this from app somehow?
+        println(error)
     }
 
     override fun onSuccess(scannerResults: ScannerResults) {
@@ -55,7 +57,17 @@ class AppScanActivity : ScanActivity() {
     }
 
     override fun onClose() {
+        setResult(Activity.RESULT_CANCELED)
         finish()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (permissions.contains(android.Manifest.permission.CAMERA) &&
+            (grantResults.isEmpty() || grantResults[0] == PackageManager.PERMISSION_DENIED)
+        ) {
+            onClose()
+        }
     }
 
     companion object {

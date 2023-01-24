@@ -72,6 +72,7 @@ class DocumentScanViewModel @Inject constructor(
         ) : BaseState(pageList)
 
         object DoneState : UIState
+        object CanceledState : UIState
     }
 
     private var uploadFolder: String? = null
@@ -95,13 +96,13 @@ class DocumentScanViewModel @Inject constructor(
                 val pageList = state.pageList.toMutableList()
                 pageList.add(newPath)
                 _uiState.postValue(UIState.NormalState(pageList))
+            } else {
+                // result == null means cancellation or error
+                if (state.isEmpty) {
+                    // close only if no pages have been added yet
+                    _uiState.postValue(UIState.CanceledState)
+                }
             }
-        }
-
-        if (result != null) {
-            val pageList = (uiState.value as UIState.NormalState).pageList.toMutableList()
-            pageList.add(result)
-            _uiState.value = UIState.NormalState(pageList)
         }
     }
 
