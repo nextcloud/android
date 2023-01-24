@@ -264,7 +264,6 @@
     <string name="error_retrieving_file">Fejl ved modtagelse af fil</string>
     <string name="error_retrieving_templates">Fejl ved indlæsning af modeller</string>
     <string name="error_starting_direct_camera_upload">Fejl ved start af kamera</string>
-    <string name="error_starting_scan_doc">Fejl ved brug af dokumentscanning</string>
     <string name="etm_accounts">Konti</string>
     <string name="etm_background_job_name">Job navn</string>
     <string name="etm_background_job_progress">Progress</string>

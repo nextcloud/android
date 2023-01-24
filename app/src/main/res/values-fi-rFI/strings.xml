@@ -271,7 +271,6 @@
     <string name="error_retrieving_templates">Tapahtui virhe mallien lataamisessa</string>
     <string name="error_showing_encryption_dialog">Virhe näytettäessä asennuksen salauksen valintaikkunaa!</string>
     <string name="error_starting_direct_camera_upload">Virhe kameraa käynnistäessä</string>
-    <string name="error_starting_scan_doc">Virhe dokumentin skannauksessa</string>
     <string name="etm_accounts">Tilit</string>
     <string name="etm_background_job_name">Työn nimi</string>
     <string name="etm_background_job_progress">Edistyminen</string>

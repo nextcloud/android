@@ -274,7 +274,6 @@ Attention la suppression est irréversible.</string>
     <string name="error_retrieving_templates">Erreur lors de la récupération des modèles</string>
     <string name="error_showing_encryption_dialog">Erreur d\'affichage de la boîte de dialogue de configuration du chiffrement !</string>
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
-    <string name="error_starting_scan_doc">Erreur lors de la numérisation de documents</string>
     <string name="etm_accounts">Comptes</string>
     <string name="etm_background_job_name">Nom de la tâche </string>
     <string name="etm_background_job_progress">Progression</string>
