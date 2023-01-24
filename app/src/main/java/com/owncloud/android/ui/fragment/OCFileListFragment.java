@@ -826,6 +826,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mOriginalMenuItems.add(menu.findItem(R.id.action_search));
         }
 
+        if(menuItemAddRemoveValue == MenuItemAddRemove.REMOVE_GRID_AND_SORT){
+            menu.removeItem(R.id.action_search);
+        }
+
+        updateSortAndGridMenuItems();
+    }
+
+    private void updateSortAndGridMenuItems() {
         switch (menuItemAddRemoveValue) {
             case ADD_GRID_AND_SORT_WITH_SEARCH:
                 mSwitchGridViewButton.setVisibility(View.VISIBLE);
@@ -837,7 +845,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 break;
 
             case REMOVE_GRID_AND_SORT:
-                menu.removeItem(R.id.action_search);
                 mSortButton.setVisibility(View.GONE);
                 mSwitchGridViewButton.setVisibility(View.GONE);
                 break;
@@ -851,10 +858,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     /**
      * Call this, when the user presses the up button.
-     *
-     * Tries to move up the current folder one level. If the parent folder was removed from the
-     * database, it continues browsing up until finding an existing folders.
-     *
+     * <p>
+     * Tries to move up the current folder one level. If the parent folder was removed from the database, it continues
+     * browsing up until finding an existing folders.
+     * <p>
      * return       Count of folder levels browsed up.
      */
     public int onBrowseUp() {
@@ -972,11 +979,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                               R.string.copy_move_to_encrypted_folder_not_supported,
                                               Snackbar.LENGTH_LONG).show();
                             } else {
-                                listDirectory(file, MainApp.isOnlyOnDevice(), false);
-                                // then, notify parent activity to let it update its state and view
-                                mContainerActivity.onBrowsedDownTo(file);
-                                // save index and top position
-                                saveIndexAndTopPosition(position);
+                                browseToFolder(file, position);
                             }
                         } else {
                             Log_OC.d(TAG, "no public key for " + user.getAccountName());
@@ -994,11 +997,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         // update state and view of this fragment
                         searchFragment = false;
                         setEmptyListLoadingMessage();
-                        listDirectory(file, MainApp.isOnlyOnDevice(), false);
-                        // then, notify parent activity to let it update its state and view
-                        mContainerActivity.onBrowsedDownTo(file);
-                        // save index and top position
-                        saveIndexAndTopPosition(position);
+                        browseToFolder(file, position);
                     }
 
                 } else if (mFileSelectable) {
@@ -1064,9 +1063,25 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         }
                     }
                 }
-        } else {
+            } else {
                 Log_OC.d(TAG, "Null object in ListAdapter!");
             }
+        }
+    }
+
+    private void browseToFolder(OCFile file, int position) {
+        resetSearchIfBrowsingFromFavorites();
+        listDirectory(file, MainApp.isOnlyOnDevice(), false);
+        // then, notify parent activity to let it update its state and view
+        mContainerActivity.onBrowsedDownTo(file);
+        // save index and top position
+        saveIndexAndTopPosition(position);
+    }
+
+    private void resetSearchIfBrowsingFromFavorites() {
+        if (currentSearchType == FAVORITE_SEARCH) {
+            resetSearchAttributes();
+            resetMenuItems();
         }
     }
 
@@ -1330,6 +1345,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 } else if (previousDirectory == null || !previousDirectory.equals(directory)) {
                     getRecyclerView().scrollToPosition(0);
                 }
+
             }
         } else if (isSearchEventSet(searchEvent)) {
             handleSearchEvent(searchEvent);
@@ -1531,11 +1547,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
-        searchFragment = false;
-        searchEvent = null;
-        currentSearchType = SearchType.NO_SEARCH;
+        resetSearchAttributes();
 
-        menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
+        resetMenuItems();
         Activity activity = getActivity();
         if (activity != null) {
             activity.invalidateOptionsMenu();
@@ -1554,6 +1568,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         setFabVisible(true);
+    }
+
+    private void resetMenuItems() {
+        menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
+        updateSortAndGridMenuItems();
+    }
+
+    private void resetSearchAttributes() {
+        searchFragment = false;
+        searchEvent = null;
+        currentSearchType = SearchType.NO_SEARCH;
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
@@ -1671,7 +1696,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void encryptFolder(String localId, String remoteId, String remotePath, boolean shouldBeEncrypted) {
+    private void encryptFolder(long localId, String remoteId, String remotePath, boolean shouldBeEncrypted) {
         try {
             User user = accountManager.getUser();
             OwnCloudClient client = clientFactory.create(user);

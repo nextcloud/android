@@ -62,12 +62,12 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
     private static final int REMOVE_READ_TIMEOUT = 30000;
     private static final int REMOVE_CONNECTION_TIMEOUT = 5000;
 
-    private String remotePath;
-    private String parentId;
+    private final String remotePath;
+    private final long parentId;
     private User user;
 
-    private ArbitraryDataProvider arbitraryDataProvider;
-    private String fileName;
+    private final ArbitraryDataProvider arbitraryDataProvider;
+    private final String fileName;
 
     /**
      * Constructor
@@ -76,7 +76,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
      * @param parentId   local id of parent folder
      */
     RemoveRemoteEncryptedFileOperation(String remotePath,
-                                       String parentId,
+                                       long parentId,
                                        User user,
                                        Context context,
                                        String fileName) {

@@ -51,10 +51,10 @@ public class RichDocumentsUrlOperation extends RemoteOperation {
     private static final String NODE_URL = "url";
     private static final String JSON_FORMAT = "?format=json";
 
-    private String fileID;
+    private final long fileId;
 
-    public RichDocumentsUrlOperation(String fileID) {
-        this.fileID = fileID;
+    public RichDocumentsUrlOperation(long fileID) {
+        this.fileId = fileID;
     }
 
     @NextcloudServer(max = 18)
@@ -64,7 +64,7 @@ public class RichDocumentsUrlOperation extends RemoteOperation {
 
         try {
             postMethod = new Utf8PostMethod(client.getBaseUri() + DOCUMENT_URL + JSON_FORMAT);
-            postMethod.setParameter(FILE_ID, fileID);
+            postMethod.setParameter(FILE_ID, String.valueOf(fileId));
 
             // remote request
             postMethod.addRequestHeader(OCS_API_HEADER, OCS_API_HEADER_VALUE);
@@ -86,7 +86,7 @@ public class RichDocumentsUrlOperation extends RemoteOperation {
             }
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log_OC.e(TAG, "Get rich document url for file with id " + fileID + " failed: " + result.getLogMessage(),
+            Log_OC.e(TAG, "Get rich document url for file with id " + fileId + " failed: " + result.getLogMessage(),
                      result.getException());
         } finally {
             if (postMethod != null) {

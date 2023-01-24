@@ -11,7 +11,6 @@
 package com.owncloud.android.utils.svg;
 
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.widget.ImageView;
 
 import com.bumptech.glide.request.RequestListener;
@@ -23,9 +22,8 @@ public class SvgSoftwareLayerSetter<T> implements RequestListener<T, Drawable> {
     @Override
     public boolean onException(Exception e, T model, Target<Drawable> target, boolean isFirstResource) {
         ImageView view = ((ImageViewTarget<?>) target).getView();
-        if (Build.VERSION_CODES.HONEYCOMB <= Build.VERSION.SDK_INT) {
-            view.setLayerType(ImageView.LAYER_TYPE_NONE, null);
-        }
+        view.setLayerType(ImageView.LAYER_TYPE_NONE, null);
+
         return false;
     }
 
@@ -33,9 +31,8 @@ public class SvgSoftwareLayerSetter<T> implements RequestListener<T, Drawable> {
     public boolean onResourceReady(Drawable resource, T model, Target<Drawable> target,
                                    boolean isFromMemoryCache, boolean isFirstResource) {
         ImageView view = ((ImageViewTarget<?>) target).getView();
-        if (Build.VERSION_CODES.HONEYCOMB <= Build.VERSION.SDK_INT) {
-            view.setLayerType(ImageView.LAYER_TYPE_SOFTWARE, null);
-        }
+        view.setLayerType(ImageView.LAYER_TYPE_SOFTWARE, null);
+
         return false;
     }
 }
