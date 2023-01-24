@@ -1,8 +1,9 @@
 /*
  * Nextcloud Android client application
  *
- * @author Chris Narkiewicz
- * Copyright (C) 2919 Chris Narkiewicz <hello@ezaquarii.com>
+ *  @author Álvaro Brey
+ *  Copyright (C) 2023 Álvaro Brey
+ *  Copyright (C) 2023 Nextcloud GmbH
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -16,6 +17,7 @@
  *
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 package com.nextcloud.client.di
 
