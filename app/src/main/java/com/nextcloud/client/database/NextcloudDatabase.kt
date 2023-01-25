@@ -40,6 +40,7 @@ import com.nextcloud.client.database.entity.ShareEntity
 import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.VirtualEntity
+import com.nextcloud.client.database.migrations.Migration67to68
 import com.nextcloud.client.database.migrations.RoomMigration
 import com.nextcloud.client.database.migrations.addLegacyMigrations
 import com.owncloud.android.db.ProviderMeta
@@ -88,6 +89,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
                     .allowMainThreadQueries()
                     .addLegacyMigrations(clock)
                     .addMigrations(RoomMigration())
+                    .addMigrations(Migration67to68())
                     .fallbackToDestructiveMigration()
                     .build()
             }
