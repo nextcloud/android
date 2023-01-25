@@ -92,6 +92,7 @@
     <string name="choose_remote_folder">Izberi oddaljeno mapo…</string>
     <string name="choose_template_helper_text">Izbrati je treba predlogo in vpisati ime datoteke.</string>
     <string name="choose_which_file">Izberite, katero datoteko želite obdržati!</string>
+    <string name="choose_widget">Izbor gradnika</string>
     <string name="clear_notifications_failed">Počiščenje obvestil je spodletelo.</string>
     <string name="clear_status_message">Počisti sporočilo stanja</string>
     <string name="clear_status_message_after">Počisti sporočilo stanja po</string>
@@ -143,6 +144,7 @@
     <string name="community_testing_report_text">Prijava težave na GitHub</string>
     <string name="community_testing_version_text">Ali bi morda želeli sodelovati pri preizkušanju razvojne različice?</string>
     <string name="configure_new_media_folder_detection_notifications">Nastavi</string>
+    <string name="confirm_removal">Odstrani krajevno šifriranje</string>
     <string name="confirmation_remove_file_alert">Ali res želite izbrisati %1$s?</string>
     <string name="confirmation_remove_files_alert">Ali res želite izbrisati izbrane predmete?</string>
     <string name="confirmation_remove_folder_alert">Ali res želite izbrisati %1$s skupaj z vsebino?</string>
@@ -202,6 +204,7 @@
     <string name="disable_new_media_folder_detection_notifications">Onemogoči</string>
     <string name="dismiss">Opusti</string>
     <string name="dismiss_notification_description">Opusti obvestilo</string>
+    <string name="displays_mnemonic">Pokaži 12 besedno šifrirno geslo</string>
     <string name="dnd">Ne moti</string>
     <string name="dontClear">ne počisti</string>
     <string name="download_latest_dev_version">Prejmi najnovejšo razvojno različico</string>
@@ -256,11 +259,15 @@
     <string name="error_choosing_date">Napaka izbora datuma</string>
     <string name="error_comment_file">Napaka dodajanja opombe k datoteki</string>
     <string name="error_crash_title">Program %1$s se je sesul.</string>
+    <string name="error_creating_file_from_template">Napaka ustvarjanja datoteke iz predloge</string>
+    <string name="error_file_actions">Napaka prikazovanja dejanj datoteke</string>
+    <string name="error_file_lock">Napaka spreminjanja stanja zaklepa datoteke</string>
     <string name="error_report_issue_action">Poročilo</string>
     <string name="error_report_issue_text">Ali želite poslati poročilo na sledilnik (zahteva račun Github)?</string>
     <string name="error_retrieving_file">Pridobivanje datoteke je spodletelo</string>
     <string name="error_retrieving_templates">Napaka pridobivanja predlog</string>
     <string name="error_starting_direct_camera_upload">Napaka začenjanja kamere</string>
+    <string name="error_starting_scan_doc">Napaka uporabe preverjanja dokumenta</string>
     <string name="etm_accounts">Računi</string>
     <string name="etm_background_job_name">Ime opravila</string>
     <string name="etm_background_job_progress">Napredek pošiljanja</string>
@@ -291,6 +298,7 @@
     <string name="failed_update_ui">Posodabljanje uporabniškega vmesnika je spodletelo</string>
     <string name="favorite">Dodaj med priljubljene</string>
     <string name="favorite_icon">Priljubljeno</string>
+    <string name="file_already_exists">Ime datoteke že obstaja</string>
     <string name="file_delete">Izbriši</string>
     <string name="file_detail_activity_error">Napaka pridobivanja dejavnosti za datoteko</string>
     <string name="file_details_no_content">Nalaganje podrobnosti je spodletelo.</string>
@@ -299,6 +307,7 @@
     <string name="file_list_empty">Pošljite nekaj datotek v oblak, ali pa uskladite vsebino z drugimi napravami.</string>
     <string name="file_list_empty_favorite_headline">Ni datotek, označenih kot priljubljene</string>
     <string name="file_list_empty_favorites_filter_list">Datoteke ali mape, označene kot priljubljene, bodo zbrane na tem mestu.</string>
+    <string name="file_list_empty_gallery">Ni najdenih slik ali videoposnetkov</string>
     <string name="file_list_empty_headline">Ni datotek</string>
     <string name="file_list_empty_headline_search">V tej mapi ni rezultatov</string>
     <string name="file_list_empty_headline_server_search">Ni rezultatov</string>
@@ -376,6 +385,8 @@
     <string name="hint_password">Geslo</string>
     <string name="host_not_available">Strežnik ni na voljo</string>
     <string name="host_your_own_server">Gostite osebni strežnik</string>
+    <string name="icon_for_empty_list">Ikona za prazen seznam</string>
+    <string name="icon_of_dashboard_widget">Ikona gradnika nadzorne plošče</string>
     <string name="in_folder">v mapi %1$s</string>
     <string name="instant_upload_existing">Pošlji tudi obstoječe datoteke</string>
     <string name="instant_upload_on_charging">Usklajuj le med polnjenjem naprave</string>
@@ -396,6 +407,8 @@
     <string name="local_file_not_found_message">Na krajevnem sistemu datoteke ni mogoče najti</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Ni drugih map.</string>
+    <string name="locate_folder">Določi mapo</string>
+    <string name="lock_expiration_info">Preteče: %1$s</string>
     <string name="lock_file">Zakleni datoteko</string>
     <string name="log_send_mail_subject">%1$s dnevniki programa</string>
     <string name="log_send_no_mail_app">Ni nameščenega programa za pošiljanje dnevnikov. Namestiti je treba program za elektronsko pošto.</string>
@@ -450,6 +463,7 @@
     <string name="no_browser_available">Ni nameščenega programa, ki upravlja s povezavami</string>
     <string name="no_calendar_exists">Ni nobenega koledarja</string>
     <string name="no_email_app_available">Ni nameščenega programa, ki upravlja elektronskimi naslovi.</string>
+    <string name="no_items">Ni predmetov</string>
     <string name="no_mutliple_accounts_allowed">Dovoljen je le en račun</string>
     <string name="no_pdf_app_available">Ni nameščenega programa za odpiranje datotek PDF</string>
     <string name="note_confirm">Pošlji</string>
@@ -490,6 +504,8 @@
     <string name="permission_deny">Zavrni</string>
     <string name="permission_storage_access">Za prejemanje oziroma pošiljanje datotek v oblak so zahtevana dodatna dovoljenja.</string>
     <string name="picture_set_as_no_app">Ni najdenega programa za nastavitev slike</string>
+    <string name="pin_home">Pripni na osnovni zaslon</string>
+    <string name="pin_shortcut_label">Odpri %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">vsebnik.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -539,6 +555,7 @@
     <string name="prefs_lock_using_passcode">Koda PIN</string>
     <string name="prefs_manage_accounts">Upravljanje z računi</string>
     <string name="prefs_recommend">Priporoči prijatelju</string>
+    <string name="prefs_remove_e2e">Odstrani šifriranje krajevno</string>
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
     <string name="prefs_storage_path">Mapa podatkovne shrambe</string>
@@ -562,6 +579,7 @@
     <string name="recommend_subject">Poskusite %1$s na vaši napravi!</string>
     <string name="recommend_text">Želim priporočiti program %1$s!\nPrejeti ga je mogoče prek: %2$s</string>
     <string name="recommend_urls">%1$s ali %2$s</string>
+    <string name="refresh_content">Osveži vsebino</string>
     <string name="reload">Ponovno naloži</string>
     <string name="remote">(oddaljeno) </string>
     <string name="remote_file_fetch_failed">Iskanje datoteke je spodletelo!</string>
@@ -596,6 +614,7 @@
     <string name="screenshot_06_davdroid_subline">Uskladi z DAVx5</string>
     <string name="search_error">Napaka pridobivanja zadetkov iskanja</string>
     <string name="select_all">Izberi vse</string>
+    <string name="select_media_folder">Nastavi mapo predstavne vsebine</string>
     <string name="select_one_template">Izbor predloge</string>
     <string name="select_template">Izbor predloge</string>
     <string name="send">Pošlji</string>
@@ -647,6 +666,8 @@
     <string name="shared_icon_shared_via_link">v souporabi s povezavo</string>
     <string name="shared_with_you_by">Souporabo omogoča %1$s</string>
     <string name="sharee_add_failed">Dodajanje souporabnika je spodletelo</string>
+    <string name="show_images">Pokaži fotografije</string>
+    <string name="show_video">Pokaži posnetke</string>
     <string name="signup_with_provider">Prijava prek ponudnika</string>
     <string name="single_sign_on_request_token" formatted="true">Ali dovolite uporabniku %1$s dostop do računa Nextcloud %2$s?</string>
     <string name="sort_by">Razvrsti</string>
@@ -702,6 +723,8 @@
     <string name="strict_mode">Strogi način: povezave HTTP niso dovoljene!</string>
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
     <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
+    <string name="subtitle_photos_only">Le slike</string>
+    <string name="subtitle_videos_only">Le posnetki</string>
     <string name="suggest">Predlagaj</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
     <string name="sync_current_folder_was_removed">Mapa %1$s ne obstaja več</string>
@@ -842,6 +865,7 @@
     <string name="userinfo_no_info_text">Dodajte ime, slike in podrobnosti na profilno stran.</string>
     <string name="username">Uporabniško ime</string>
     <string name="version_dev_download">Prejmi</string>
+    <string name="video_overlay_icon">Prekrivna ikona posnetka</string>
     <string name="wait_a_moment">Počakajte trenutek …</string>
     <string name="wait_checking_credentials">Poteka preverjanje shranjenih poveril</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
@@ -864,6 +888,12 @@
         <item quantity="two">Spodletelo je kopiranje %1$d datotek iz mape %2$s v</item>
         <item quantity="few">Spodletelo je kopiranje %1$d datotek iz mape %2$s v</item>
         <item quantity="other">Spodletelo je kopiranje %1$d datotek iz mape %2$s v</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="one">Najden je %d podvojen vnos.</item>
+        <item quantity="two">Najdena sta %d podvojena vnosa.</item>
+        <item quantity="few">Najdeni so %d podvojeni vnosi.</item>
+        <item quantity="other">Najdenih je %d podvojenih vnosov.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mapa</item>
