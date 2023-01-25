@@ -259,7 +259,7 @@ end
 
 desc "check if screenshots exists and exit"
 private_lane :checkIfScreenshotsExist do
-    sh(" if [ -e  metadata/android/*/images ] ; then echo 'Screenshots in fastlane folder exist; aborting!' ; exit 1 ; fi")
+    sh(" if [ $(find metadata/android/*/images -type f -not -name icon.png  | grep -c . ) -gt 0 ] ; then echo 'Screenshots in fastlane folder exist; aborting!' ; exit 1 ; fi")
 end
 
 private_lane :tag do |options|
