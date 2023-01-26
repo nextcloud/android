@@ -1,3 +1,12 @@
+## 3.24.0 RC1 (January 25, 2022)
+
+- Several performance optimizations by @starypatyk
+- Many small bugfixes and improvements
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/78
+
 ## 3.23.1 (December 21, 2022)
 
 - Bug fixes
