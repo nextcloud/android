@@ -265,7 +265,7 @@
     <string name="error_crash_title">S\'ha interromput %1$s</string>
     <string name="error_creating_file_from_template">S\'ha produït un error en crear el fitxer des de la plantilla</string>
     <string name="error_file_actions">S\'ha produït un error en mostrar les accions del fitxer</string>
-    <string name="error_file_lock">Error canviant l\'estat de blocatge del fitxer</string>
+    <string name="error_file_lock">Error canviant el fitxer de l\'estat de blocatge</string>
     <string name="error_report_issue_action">Informar</string>
     <string name="error_report_issue_text">Informa d\'un problema al seguidor? (requereix un compte de GitHub)</string>
     <string name="error_retrieving_file">S\'ha produït un error mentre es recuperava el fitxer</string>
