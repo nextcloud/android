@@ -147,6 +147,7 @@
     <string name="community_testing_report_text">Raportează o problemă pe Github</string>
     <string name="community_testing_version_text">Vrei să ne ajuți în testarea următoarei versiuni?</string>
     <string name="configure_new_media_folder_detection_notifications">Configurează</string>
+    <string name="confirm_removal">Elimină criptarea locală</string>
     <string name="confirmation_remove_file_alert">Chiar doriți să ștergeți %1$s?</string>
     <string name="confirmation_remove_files_alert">Doriți să ștergeți elementele selectate?</string>
     <string name="confirmation_remove_folder_alert">Sigur vreți să eliminați %1$s și conținutul său?</string>
@@ -206,6 +207,7 @@
     <string name="disable_new_media_folder_detection_notifications">Dezactivează</string>
     <string name="dismiss">Elimină</string>
     <string name="dismiss_notification_description">Elimină notificarea</string>
+    <string name="displays_mnemonic">Afișează fraza de acces din 12 cuvinte</string>
     <string name="dnd">Nu deranja</string>
     <string name="dontClear">Nu curăța</string>
     <string name="download_latest_dev_version">Descarcă ultima versiune dezvoltator</string>
@@ -262,6 +264,7 @@
     <string name="error_comment_file">Eroare la comentarea fișierului</string>
     <string name="error_crash_title">%1$s a căzut</string>
     <string name="error_creating_file_from_template">Eroare la crearea fișierului după model</string>
+    <string name="error_file_actions">A apărut o eroare la afișarea acțiunilor fișierului</string>
     <string name="error_file_lock">Eroare la schimbarea stării de blocare a fișierelor</string>
     <string name="error_report_issue_action">Raport</string>
     <string name="error_report_issue_text">Raportați problema ? (necesită un cont de GitHub)</string>
@@ -516,6 +519,8 @@
     <string name="permission_deny">Refuzați</string>
     <string name="permission_storage_access">Sunt necesare drepturi adiționale pentru a încărca și descărca fișiere.</string>
     <string name="picture_set_as_no_app">Nu a fost găsită o aplicație pentru a seta imaginea</string>
+    <string name="pin_home">Fixați pe ecranul de pornire</string>
+    <string name="pin_shortcut_label">Deschide %1$s</string>
     <string name="placeholder_fileSize">389 KO</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
