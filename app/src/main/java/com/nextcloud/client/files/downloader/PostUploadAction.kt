@@ -25,5 +25,5 @@ enum class PostUploadAction(val value: Int) {
     NONE(FileUploader.LOCAL_BEHAVIOUR_FORGET),
     COPY_TO_APP(FileUploader.LOCAL_BEHAVIOUR_COPY),
     MOVE_TO_APP(FileUploader.LOCAL_BEHAVIOUR_MOVE),
-    DELETE_SOURCE(FileUploader.LOCAL_BEHAVIOUR_DELETE);
+    DELETE_SOURCE(FileUploader.LOCAL_BEHAVIOUR_DELETE)
 }

@@ -73,6 +73,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.net.URLEncoder;
@@ -944,7 +945,7 @@ public final class ThumbnailsCacheManager {
                     } finally {
                         try {
                             retriever.release();
-                        } catch (RuntimeException ex) {
+                        } catch (RuntimeException | IOException ex) {
                             // Ignore failure at this point.
                             Log_OC.w(TAG, "Failed release MediaMetadataRetriever for " + file.getAbsolutePath());
                         }

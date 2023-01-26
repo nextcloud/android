@@ -208,7 +208,7 @@ class FileMenuFilterIT : AbstractIT() {
                 sut = filterFactory.newInstance(encryptedEmptyFolder, mockComponentsGetter, true, user)
                 toHide = sut.getToHide(false)
 
-                assertFalse(toHide.contains(R.id.action_unset_encrypted))
+                assertTrue(toHide.contains(R.id.action_unset_encrypted))
                 assertTrue(toHide.contains(R.id.action_remove_file))
                 assertTrue(toHide.contains(R.id.action_encrypted))
 

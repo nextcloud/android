@@ -882,7 +882,10 @@ public class FileDataStorageManager {
         ocFile.setParentId(nullToZero(fileEntity.getParent()));
         ocFile.setMimeType(fileEntity.getContentType());
         ocFile.setStoragePath(fileEntity.getStoragePath());
-        if (ocFile.getStoragePath() == null) {
+        if (ocFile.getStoragePath() == null && ocFile.isFolder()) {
+            // Apparently storagePath is filled only for regular files - even in the current (Jan 2022) implementation.
+            // Check below is still required for directories.
+            //
             // try to find existing file and bind it with current account;
             // with the current update of SynchronizeFolderOperation, this won't be
             // necessary anymore after a full synchronization of the account

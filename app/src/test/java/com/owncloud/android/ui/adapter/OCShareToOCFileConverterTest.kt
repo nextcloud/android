@@ -23,7 +23,7 @@ package com.owncloud.android.ui.adapter
 
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class OCShareToOCFileConverterTest {
@@ -34,16 +34,18 @@ class OCShareToOCFileConverterTest {
             OCShare("/foo")
                 .apply {
                     shareType = ShareType.PUBLIC_LINK
+                    isFavorite = true
                 }
         )
 
         val result = OCShareToOCFileConverter.buildOCFilesFromShares(shares)
 
-        Assert.assertEquals("Wrong file list size", 1, result.size)
+        assertEquals("Wrong file list size", 1, result.size)
         val ocFile = result[0]
-        Assert.assertEquals("Wrong file path", "/foo", ocFile.remotePath)
-        Assert.assertEquals("File should have link attribute", true, ocFile.isSharedViaLink)
-        Assert.assertEquals("File should not have sharee attribute", false, ocFile.isSharedWithSharee)
+        assertEquals("Wrong file path", "/foo", ocFile.remotePath)
+        assertEquals("File should have link attribute", true, ocFile.isSharedViaLink)
+        assertEquals("File should not have sharee attribute", false, ocFile.isSharedWithSharee)
+        assertEquals("Wrong favorite status", true, ocFile.isFavorite)
     }
 
     @Test
@@ -70,13 +72,14 @@ class OCShareToOCFileConverterTest {
 
         val result = OCShareToOCFileConverter.buildOCFilesFromShares(shares)
 
-        Assert.assertEquals("Wrong file list size", 1, result.size)
+        assertEquals("Wrong file list size", 1, result.size)
         val ocFile = result[0]
-        Assert.assertEquals("Wrong file path", "/foo", ocFile.remotePath)
-        Assert.assertEquals("File should have link attribute", true, ocFile.isSharedViaLink)
-        Assert.assertEquals("File should have sharee attribute", true, ocFile.isSharedWithSharee)
-        Assert.assertEquals("Wrong name of sharees", 1, ocFile.sharees.size)
-        Assert.assertEquals("Wrong shared timestamp", 10000, ocFile.firstShareTimestamp)
+        assertEquals("Wrong file path", "/foo", ocFile.remotePath)
+        assertEquals("File should have link attribute", true, ocFile.isSharedViaLink)
+        assertEquals("File should have sharee attribute", true, ocFile.isSharedWithSharee)
+        assertEquals("Wrong name of sharees", 1, ocFile.sharees.size)
+        assertEquals("Wrong shared timestamp", 10000, ocFile.firstShareTimestamp)
+        assertEquals("Wrong favorite status", false, ocFile.isFavorite)
     }
 
     @Test
@@ -112,18 +115,18 @@ class OCShareToOCFileConverterTest {
 
         val result = OCShareToOCFileConverter.buildOCFilesFromShares(shares)
 
-        Assert.assertEquals("Wrong file list size", 2, result.size)
+        assertEquals("Wrong file list size", 2, result.size)
 
         val ocFile = result[0]
-        Assert.assertEquals("Wrong file path", "/foo", ocFile.remotePath)
-        Assert.assertEquals("File should have no link attribute", false, ocFile.isSharedViaLink)
-        Assert.assertEquals("File should have sharee attribute", true, ocFile.isSharedWithSharee)
-        Assert.assertEquals("Wrong name of sharees", 3, ocFile.sharees.size)
-        Assert.assertEquals("Wrong shared timestamp", 10000, ocFile.firstShareTimestamp)
+        assertEquals("Wrong file path", "/foo", ocFile.remotePath)
+        assertEquals("File should have no link attribute", false, ocFile.isSharedViaLink)
+        assertEquals("File should have sharee attribute", true, ocFile.isSharedWithSharee)
+        assertEquals("Wrong name of sharees", 3, ocFile.sharees.size)
+        assertEquals("Wrong shared timestamp", 10000, ocFile.firstShareTimestamp)
 
         val ocFile2 = result[1]
-        Assert.assertEquals("Wrong file path", "/bar", ocFile2.remotePath)
-        Assert.assertEquals("File should have link attribute", true, ocFile2.isSharedViaLink)
-        Assert.assertEquals("File should have no sharee attribute", false, ocFile2.isSharedWithSharee)
+        assertEquals("Wrong file path", "/bar", ocFile2.remotePath)
+        assertEquals("File should have link attribute", true, ocFile2.isSharedViaLink)
+        assertEquals("File should have no sharee attribute", false, ocFile2.isSharedWithSharee)
     }
 }

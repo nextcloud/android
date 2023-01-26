@@ -252,7 +252,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             mStorageManager.saveFile(mLocalFolder);
         }
 
-        if (!mSyncFullAccount) {
+        if (!mSyncFullAccount && mRemoteFolderChanged) {
             sendLocalBroadcast(
                 EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result
             );
