@@ -52,7 +52,8 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
     private final WeakReference<GalleryFragment> photoFragmentWeakReference;
     private final FileDataStorageManager storageManager;
     private final int limit;
-    private final long startDate;
+    @Deprecated
+    private final long startDate = 0; // we don't use startDate anymore, only endDate and limit
     private final long endDate;
 
     public GallerySearchTask(GalleryFragment photoFragment,
@@ -64,7 +65,6 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         this.user = user;
         this.photoFragmentWeakReference = new WeakReference<>(photoFragment);
         this.storageManager = storageManager;
-        this.startDate = startDate;
         this.endDate = endDate;
         this.limit = limit;
     }
@@ -104,9 +104,6 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
                 if (result.isSuccess()) {
                     boolean emptySearch = parseMedia(startDate, endDate, result.getData());
                     long lastTimeStamp = findLastTimestamp(result.getData());
-
-
-
                     return new Result(result.isSuccess(), emptySearch, lastTimeStamp);
                 } else {
                     return new Result(false, false, -1);

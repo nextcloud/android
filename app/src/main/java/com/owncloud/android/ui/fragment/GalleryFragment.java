@@ -65,8 +65,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     private boolean photoSearchQueryRunning = false;
     private AsyncTask<Void, Void, GallerySearchTask.Result> photoSearchTask;
-    private long startDate;
+    @Deprecated
+    private long startDate = 0; // we don't use the startDate anymore, we use only endDate and row limit
     private long endDate;
+    @Deprecated
     private long daySpan = 30;
     private int limit = 300;
     private GalleryAdapter mAdapter;
@@ -218,14 +220,16 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     private void searchAndDisplay() {
-        // first: always search from now to -30 days
         if (!photoSearchQueryRunning) {
-            photoSearchQueryRunning = true;
 
-            startDate = (System.currentTimeMillis() / 1000) - 30 * 24 * 60 * 60;
-            endDate = System.currentTimeMillis() / 1000;
-
-            runGallerySearchTask();
+            // fix an issue when the method is called after loading the gallery and pressing play on a movie
+            // to avoid reloading the gallery, check if endDate has already a value which is not -1 or 0 (which generally means some kind of reset/init)
+            if (this.endDate <= 0) {
+                endDate = System.currentTimeMillis() / 1000;
+                photoSearchQueryRunning = true;
+                runGallerySearchTask();
+                return;
+            }
         }
     }
 
@@ -233,36 +237,22 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void searchCompleted(boolean emptySearch, long lastTimeStamp) {
         photoSearchQueryRunning = false;
 
-        if (emptySearch && mAdapter.isEmpty()) {
-            setEmptyListMessage(SearchType.GALLERY_SEARCH);
-            return;
-        }
-        if(!emptySearch) {
-            mAdapter.notifyDataSetChanged();
-            this.showAllGalleryItems();
-            return;
-        }
-
-        if (daySpan == 30) {
-            daySpan = 90;
-        } else if (daySpan == 90) {
-            daySpan = 180;
-        } else if (daySpan == 180) {
-            daySpan = 999;
-        } else if (daySpan == 999 && limit > 0) {
-            limit = -1; // no limit
-        } else {
-            Log_OC.d(this, "End gallery search");
-            return;
-        }
-
         if (lastTimeStamp > -1) {
             endDate = lastTimeStamp;
         }
 
-        startDate = endDate - (daySpan * 24 * 60 * 60);
+        if (mAdapter.isEmpty()) {
+            setEmptyListMessage(SearchType.GALLERY_SEARCH);
+        }
 
-        runGallerySearchTask();
+        if(!emptySearch) {
+            mAdapter.notifyDataSetChanged();
+            this.showAllGalleryItems();
+        }
+
+        Log_OC.d(this, "End gallery search");
+        return;
+
     }
 
     @Override
@@ -316,6 +306,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     private void runGallerySearchTask() {
         if (mContainerActivity != null) {
+            photoSearchQueryRunning = true;
             photoSearchTask = new GallerySearchTask(this,
                                                     accountManager.getUser(),
                                                     mContainerActivity.getStorageManager(),
@@ -356,7 +347,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
                     daySpan = 30;
                     endDate = lastFile.getModificationTimestamp() / 1000;
-                    startDate = endDate - (daySpan * 24 * 60 * 60);
 
                     photoSearchQueryRunning = true;
                     runGallerySearchTask();
