@@ -272,7 +272,6 @@
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
     <string name="error_showing_encryption_dialog">Chyba při zobrazování dialogu por nastavení šifrování!</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
-    <string name="error_starting_scan_doc">Chyb při použití skenování dokumentů</string>
     <string name="etm_accounts">Účty</string>
     <string name="etm_background_job_name">Název úlohy</string>
     <string name="etm_background_job_progress">Průběh</string>

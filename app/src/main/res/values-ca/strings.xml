@@ -272,7 +272,6 @@
     <string name="error_retrieving_templates">S\'ha produït un error recuperant les plantilles</string>
     <string name="error_showing_encryption_dialog">S\'ha produït un error en mostrar el diàleg de configuració de xifratge</string>
     <string name="error_starting_direct_camera_upload">S\'ha produït un error iniciant la càmera</string>
-    <string name="error_starting_scan_doc">S\'ha produït un error en utilitzar l\'exploració del document</string>
     <string name="etm_accounts">Comptes</string>
     <string name="etm_background_job_name">Nom de la tasca</string>
     <string name="etm_background_job_progress">Progrés</string>

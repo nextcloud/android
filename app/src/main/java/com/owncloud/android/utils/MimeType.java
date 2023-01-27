@@ -27,6 +27,7 @@ public final class MimeType {
     public static final String TIFF = "image/tiff";
     public static final String TEXT_PLAIN = "text/plain";
     public static final String FILE = "application/octet-stream";
+    public static final String PDF = "application/pdf";
 
     private MimeType() {
         // No instance

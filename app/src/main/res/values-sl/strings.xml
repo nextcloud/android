@@ -267,7 +267,6 @@
     <string name="error_retrieving_file">Pridobivanje datoteke je spodletelo</string>
     <string name="error_retrieving_templates">Napaka pridobivanja predlog</string>
     <string name="error_starting_direct_camera_upload">Napaka začenjanja kamere</string>
-    <string name="error_starting_scan_doc">Napaka uporabe preverjanja dokumenta</string>
     <string name="etm_accounts">Računi</string>
     <string name="etm_background_job_name">Ime opravila</string>
     <string name="etm_background_job_progress">Napredek pošiljanja</string>

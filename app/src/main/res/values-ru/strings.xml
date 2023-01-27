@@ -269,7 +269,6 @@
     <string name="error_retrieving_file">Ошибка при получении файла</string>
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
-    <string name="error_starting_scan_doc">Ошибка при сканировании документа</string>
     <string name="etm_accounts">Аккаунты</string>
     <string name="etm_background_job_name">Имя задания</string>
     <string name="etm_background_job_progress">Прогресс</string>
