@@ -207,7 +207,7 @@
     <string name="disable_new_media_folder_detection_notifications">Wyłącz</string>
     <string name="dismiss">Odrzuć</string>
     <string name="dismiss_notification_description">Odrzuć powiadomienie</string>
-    <string name="displays_mnemonic">Wyświetla 12-wyrazowe hasło</string>
+    <string name="displays_mnemonic">Wyświetla hasło składające się z 12-stu słów</string>
     <string name="dnd">Nie przeszkadzać</string>
     <string name="dontClear">Nie czyść</string>
     <string name="download_latest_dev_version">Pobierz najnowszą wersję dev</string>
@@ -247,9 +247,9 @@
     <string name="end_to_end_encryption_enter_password">Wprowadź hasło, aby odszyfrować klucz prywatny.</string>
     <string name="end_to_end_encryption_folder_not_empty">Ten katalog nie jest pusty.</string>
     <string name="end_to_end_encryption_generating_keys">Generowanie nowych kluczy</string>
-    <string name="end_to_end_encryption_keywords_description">Wszystkie 12 słów utworzy bardzo trudne hasło, które pozwoli na przeglądanie i korzystanie z zaszyfrowanych plików. Zapisz je i przechowuj w bezpiecznym miejscu.</string>
+    <string name="end_to_end_encryption_keywords_description">Wszystkie 12-stu słów utworzy bardzo trudne hasło, które pozwoli na przeglądanie i korzystanie z zaszyfrowanych plików. Zapisz je i przechowuj w bezpiecznym miejscu.</string>
     <string name="end_to_end_encryption_not_enabled">Szyfrowanie End-to-End wyłączone po stronie serwera.</string>
-    <string name="end_to_end_encryption_passphrase_title">Zapisz swoje 12-sto znakowe hasło szyfrujące</string>
+    <string name="end_to_end_encryption_passphrase_title">Zapisz swoje hasło do szyfrowania składające się z 12-stu słów</string>
     <string name="end_to_end_encryption_password">Hasło…</string>
     <string name="end_to_end_encryption_retrieving_keys">Pobieranie kluczy…</string>
     <string name="end_to_end_encryption_storing_keys">Przechowywanie kluczy</string>
@@ -649,7 +649,7 @@
     <string name="set_picture_as">Użyj obrazu jako</string>
     <string name="set_status">Ustaw status</string>
     <string name="set_status_message">Ustaw komunikat statusu</string>
-    <string name="setup_e2e">Podczas konfiguracji szyfrowania end-to-end otrzymasz losowy 12-wyrazowy mnemonik, który będzie potrzebny do otwierania plików na innych urządzeniach. Będzie on przechowywany tylko na tym urządzeniu i można go ponownie wyświetlić na tym ekranie. Zapisz go w bezpiecznym miejscu!</string>
+    <string name="setup_e2e">Podczas konfigurowania szyfrowania typu end-to-end otrzymasz losowy mnemonik składający się z 12-stu słów, który będzie potrzebny do otwierania plików na innych urządzeniach. Będzie on przechowywany tylko na tym urządzeniu i można go ponownie wyświetlić na tym ekranie. Zapisz go w bezpiecznym miejscu!</string>
     <string name="share">Udostępnij</string>
     <string name="share_copy_link">Udostępnij i skopiuj link</string>
     <string name="share_dialog_title">Udostępnianie</string>

@@ -830,7 +830,7 @@
     <string name="upload_local_storage_not_copied">無法複製檔案到近端資料夾</string>
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
     <string name="upload_old_android">加密功能只適用於 Android 5.0 及以上版本</string>
-    <string name="upload_query_move_foreign_files">空間不足會無法將所選檔案複製到 %1$s 資料夾中。是否要改成移動它們？</string>
+    <string name="upload_query_move_foreign_files">空間不足導致無法將所選檔案複製到 %1$s 資料夾中。您想改為將檔案移到那裡嗎？</string>
     <string name="upload_scan_doc_upload">使用相機掃描文件</string>
     <string name="upload_sync_conflict">同步發生抵觸，請手動處理</string>
     <string name="upload_unknown_error">未知的錯誤</string>
@@ -839,7 +839,7 @@
     <string name="uploader_error_message_no_file_to_upload">接收的資料不包含任何有效的檔案</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s 不允許讀取接收的檔案</string>
     <string name="uploader_error_message_source_file_not_copied">複製檔案到暫存資料夾時發生錯誤，請再試一次</string>
-    <string name="uploader_error_message_source_file_not_found">該位置無法找到要上傳的檔案，請檢查該檔案是否存在</string>
+    <string name="uploader_error_message_source_file_not_found">找不到要上傳的檔案。請檢查該檔案存在與否。</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">無法上傳此檔案</string>
     <string name="uploader_error_title_no_file_to_upload">沒有要上傳的檔案</string>
     <string name="uploader_info_dirname">資料夾名稱</string>
