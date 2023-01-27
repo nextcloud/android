@@ -66,6 +66,7 @@ import android.util.AndroidRuntimeException;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.ClientCertRequest;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebResourceRequest;
@@ -102,6 +103,7 @@ import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
+import com.owncloud.android.lib.common.network.AdvancedX509KeyManager;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -132,6 +134,8 @@ import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Locale;
@@ -470,6 +474,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 }
             }
 
+            @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
                 accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
@@ -480,7 +485,24 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (!customError.isEmpty()) {
                     accountSetupWebviewBinding.loginWebview.loadData(customError, "text/html; charset=UTF-8", null);
                 }
+
+                if (errorCode >= 400 && errorCode < 500) {
+                    Log_OC.w(TAG, "WebView failed with error code " + errorCode + "; remove key chain aliases");
+                    // chosen client certificate alias does not seem to work -> discard it
+                    try {
+                        URL url = new URL(failingUrl);
+                        new AdvancedX509KeyManager(getApplicationContext()).removeKeys(url.getHost(), url.getPort());
+                    } catch (MalformedURLException e) {
+                        Log_OC.e(TAG, "Malformed URL: " + failingUrl);
+                    }
+                }
             }
+
+            @Override
+            public void onReceivedClientCertRequest(WebView view, ClientCertRequest request) {
+                new AdvancedX509KeyManager(getApplicationContext()).handleWebViewClientCertRequest(request);
+            }
+
         });
     }
 
