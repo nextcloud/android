@@ -142,6 +142,7 @@
     <string name="digest_algorithm_not_available">Este algoritmo de verificación no está disponible en tu teléfono</string>
     <string name="disable_new_media_folder_detection_notifications">Deshabilitar</string>
     <string name="dismiss">Descartar</string>
+    <string name="done">Terminado</string>
     <string name="downloader_download_failed_content">No fue posible descargar %1$s</string>
     <string name="downloader_download_failed_credentials_error">La descarga falló, inicia sesión de nuevo</string>
     <string name="downloader_download_failed_ticker">Falla en la descarga</string>

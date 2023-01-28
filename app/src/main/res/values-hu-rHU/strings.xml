@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Értesítés mellőzése</string>
     <string name="displays_mnemonic">Megjeleníti a 12 szavas jelmondatát</string>
     <string name="dnd">Ne zavarjanak</string>
+    <string name="done">Kész</string>
     <string name="dontClear">Ne törölje</string>
     <string name="download_latest_dev_version">A legfrissebb fejlesztői verzió letöltése</string>
     <string name="downloader_download_failed_content">%1$s letöltése sikertelen</string>

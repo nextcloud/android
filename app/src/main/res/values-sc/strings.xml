@@ -193,6 +193,7 @@
     <string name="dismiss">Iscarta</string>
     <string name="dismiss_notification_description">Iscarta notìfica</string>
     <string name="dnd">No istorbes</string>
+    <string name="done">Fatu</string>
     <string name="dontClear">Non nche ddu lìmpies</string>
     <string name="download_latest_dev_version">Iscàrriga s\'ùrtima versione dispositivu</string>
     <string name="downloader_download_failed_content">Impossìbile a iscarrigare %1$s</string>

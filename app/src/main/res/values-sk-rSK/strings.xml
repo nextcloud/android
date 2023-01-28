@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Odmietnuť upozornenie</string>
     <string name="displays_mnemonic">Zobrazí vaše prístupové heslo o 12-tich slovách</string>
     <string name="dnd">Nerušiť</string>
+    <string name="done">Hotové</string>
     <string name="dontClear">Nemazať</string>
     <string name="download_latest_dev_version">Stiahnuť poslednú vývojársku verziu</string>
     <string name="downloader_download_failed_content">Nepodarilo sa stiahnuť %1$s</string>

@@ -207,6 +207,7 @@
     <string name="dismiss">Weigeren</string>
     <string name="dismiss_notification_description">Handel melding af</string>
     <string name="dnd">Niet storen</string>
+    <string name="done">Klaar</string>
     <string name="dontClear">Niet opruimen</string>
     <string name="download_latest_dev_version">Downloaden laatste dev versie</string>
     <string name="downloader_download_failed_content">Kon %1$s niet downloaden</string>

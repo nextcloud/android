@@ -197,6 +197,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="dismiss">Batal</string>
     <string name="dismiss_notification_description">Abaikan notifikasi</string>
     <string name="dnd">Jangan diganggu</string>
+    <string name="done">Selesai</string>
     <string name="dontClear">Jangan dihapus</string>
     <string name="downloader_download_failed_content">Tidak bisa mengunduh %1$s</string>
     <string name="downloader_download_failed_credentials_error">Unduhan gagal, coba masuk kembali</string>

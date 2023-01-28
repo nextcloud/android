@@ -208,6 +208,7 @@
     <string name="dismiss">Annulla</string>
     <string name="dismiss_notification_description">Cancella notifica</string>
     <string name="dnd">Non disturbare</string>
+    <string name="done">Fatto</string>
     <string name="dontClear">Non togliere</string>
     <string name="download_latest_dev_version">Scarica l\'ultima versione di sviluppo</string>
     <string name="downloader_download_failed_content">Impossibile scaricare %1$s</string>

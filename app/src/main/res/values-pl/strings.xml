@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Odrzuć powiadomienie</string>
     <string name="displays_mnemonic">Wyświetla hasło składające się z 12-stu słów</string>
     <string name="dnd">Nie przeszkadzać</string>
+    <string name="done">Zrobione</string>
     <string name="dontClear">Nie czyść</string>
     <string name="download_latest_dev_version">Pobierz najnowszą wersję dev</string>
     <string name="downloader_download_failed_content">Nie udało się pobrać %1$s</string>

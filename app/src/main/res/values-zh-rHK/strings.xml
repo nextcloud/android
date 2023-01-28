@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">撤銷通告</string>
     <string name="displays_mnemonic">顯示您的 12 字密碼片語</string>
     <string name="dnd">請勿打擾</string>
+    <string name="done">完成</string>
     <string name="dontClear">不要清空</string>
     <string name="download_latest_dev_version">下載最新開發的版本</string>
     <string name="downloader_download_failed_content">下載 %1$s 無法完成 </string>

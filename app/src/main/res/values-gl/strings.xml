@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Rexeitar a notificación</string>
     <string name="displays_mnemonic">Mostra a túa frase de contrasinal de 12 palabras</string>
     <string name="dnd">Non molestar</string>
+    <string name="done">Feito</string>
     <string name="dontClear">Non limpar</string>
     <string name="download_latest_dev_version">Descargar a última versión de desenvolvemento</string>
     <string name="downloader_download_failed_content">Non foi posíbel descargar %1$s</string>

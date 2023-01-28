@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">忽略通知</string>
     <string name="displays_mnemonic">显示您的12字密语</string>
     <string name="dnd">请勿打扰</string>
+    <string name="done">完成</string>
     <string name="dontClear">不要清除</string>
     <string name="download_latest_dev_version">下载最新的开发版本</string>
     <string name="downloader_download_failed_content">无法下载 %1$s</string>

@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Benachrichtigung verwerfen</string>
     <string name="displays_mnemonic">Zeigt Ihre 12-Wörter-Passphrase an</string>
     <string name="dnd">Bitte nicht stören</string>
+    <string name="done">Fertig</string>
     <string name="dontClear">Nicht löschen</string>
     <string name="download_latest_dev_version">Die neueste Entwicklerversion herunterladen</string>
     <string name="downloader_download_failed_content">Konnte %1$s nicht herunterladen</string>

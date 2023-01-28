@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Dismiss notification</string>
     <string name="displays_mnemonic">Displays your 12 word passphrase</string>
     <string name="dnd">Do not disturb</string>
+    <string name="done">Done</string>
     <string name="dontClear">Don\'t clear</string>
     <string name="download_latest_dev_version">Download latest dev version</string>
     <string name="downloader_download_failed_content">Could not download %1$s</string>

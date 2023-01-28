@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Zahodit upozornění</string>
     <string name="displays_mnemonic">Zobrazí vaší 12 slovnou heslovou frázi</string>
     <string name="dnd">Nerušit</string>
+    <string name="done">Hotovo</string>
     <string name="dontClear">Nikdy</string>
     <string name="download_latest_dev_version">Stáhnout si nejnovější vývojářskou verzi</string>
     <string name="downloader_download_failed_content">Nepodařilo se stáhnout %1$s</string>

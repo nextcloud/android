@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Hylkää ilmoitus</string>
     <string name="displays_mnemonic">Näyttää 12-sanaisen tunnuslauseen</string>
     <string name="dnd">Älä häiritse</string>
+    <string name="done">Valmis</string>
     <string name="dontClear">Älä tyhjennä</string>
     <string name="download_latest_dev_version">Lataa viimeisin kehitysversio</string>
     <string name="downloader_download_failed_content">Ei voitu ladata %1$s</string>

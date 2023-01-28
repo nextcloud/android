@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Bildirimi yok say</string>
     <string name="displays_mnemonic">12 sözcüklü parolanızı görüntüler</string>
     <string name="dnd">Rahatsız etmeyin</string>
+    <string name="done">Tamam</string>
     <string name="dontClear">Kaldırılmasın</string>
     <string name="download_latest_dev_version">Son geliştirici sürümünü indirin</string>
     <string name="downloader_download_failed_content">%1$s indirmesi tamamlanamadı</string>

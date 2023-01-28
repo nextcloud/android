@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Dispensar notificação</string>
     <string name="displays_mnemonic">Exibe sua frase secreta de 12 palavras</string>
     <string name="dnd">Não perturbe</string>
+    <string name="done">Concluído</string>
     <string name="dontClear">Não limpar</string>
     <string name="download_latest_dev_version">Baixar a última versão dev</string>
     <string name="downloader_download_failed_content">Não foi possível baixar %1$s</string>
