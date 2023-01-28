@@ -27,6 +27,7 @@ import androidx.fragment.app.DialogFragment
 import com.nextcloud.client.account.User
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.documentscan.AppScanOptionalFeature
 import com.nextcloud.utils.EditorUtils
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileActivity
@@ -51,6 +52,9 @@ class OCFileListBottomSheetDialogFragment(
     @Inject
     lateinit var editorUtils: EditorUtils
 
+    @Inject
+    lateinit var appScanOptionalFeature: AppScanOptionalFeature
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return OCFileListBottomSheetDialog(
             fileActivity,
@@ -60,7 +64,8 @@ class OCFileListBottomSheetDialogFragment(
             file,
             themeUtils,
             viewThemeUtils,
-            editorUtils
+            editorUtils,
+            appScanOptionalFeature
         )
     }
 }

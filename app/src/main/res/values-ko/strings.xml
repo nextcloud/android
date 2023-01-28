@@ -272,7 +272,6 @@
     <string name="error_retrieving_templates">템플릿 검색 중 오류 발생</string>
     <string name="error_showing_encryption_dialog">암호화 다이얼로그 설정을 나타내는 에러!</string>
     <string name="error_starting_direct_camera_upload">카메라 시작 중 오류 발생</string>
-    <string name="error_starting_scan_doc">문서 스캔 중 오류 발생</string>
     <string name="etm_accounts">계정</string>
     <string name="etm_background_job_name">작업 이름</string>
     <string name="etm_background_job_progress">진행 상황</string>
