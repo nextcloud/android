@@ -1216,7 +1216,7 @@ public class FileDataStorageManager {
             share.getToken(),
             share.getSharedWithDisplayName(),
             share.isFolder() ? 1 : 0,
-            0, // TODO - share.getUserId()? Data coming from the server does not match local DB
+            share.getUserId(),
             share.getRemoteId(),
             user.getAccountName(),
             share.isPasswordProtected() ? 1 : 0,

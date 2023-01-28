@@ -55,7 +55,7 @@ data class ShareEntity(
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_IS_DIRECTORY)
     val isDirectory: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_USER_ID)
-    val userId: Int?,
+    val userId: String?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED)
     val idRemoteShared: Long?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER)
