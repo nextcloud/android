@@ -192,6 +192,7 @@
     <string name="dismiss">Hafna</string>
     <string name="dismiss_notification_description">Afgreiða tilkynningu</string>
     <string name="dnd">Ónáðið ekki</string>
+    <string name="done">Lokið</string>
     <string name="dontClear">Ekki hreinsa</string>
     <string name="download_latest_dev_version">Sækja nýjustu þróunarútgáfuna</string>
     <string name="downloader_download_failed_content">Gat ekki sótt %1$s</string>

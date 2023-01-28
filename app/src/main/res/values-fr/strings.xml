@@ -211,6 +211,7 @@ Attention la suppression est irréversible.</string>
     <string name="dismiss_notification_description">Ignorer la notification</string>
     <string name="displays_mnemonic">Affiche votre phrase secrète à 12 mots</string>
     <string name="dnd">Ne pas déranger</string>
+    <string name="done">Terminé</string>
     <string name="dontClear">Ne pas effacer</string>
     <string name="download_latest_dev_version">Télécharger la dernière version de développement</string>
     <string name="downloader_download_failed_content">Impossible de télécharger %1$s</string>

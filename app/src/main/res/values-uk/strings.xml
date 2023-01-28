@@ -208,6 +208,7 @@
     <string name="dismiss">Припинити</string>
     <string name="dismiss_notification_description">Скасувати сповіщення</string>
     <string name="dnd">Не турбувати</string>
+    <string name="done">Готово</string>
     <string name="dontClear">Не очистувати</string>
     <string name="download_latest_dev_version">Звантажити останню версію для розробників</string>
     <string name="downloader_download_failed_content">Не можливо вивантажити %1$s</string>

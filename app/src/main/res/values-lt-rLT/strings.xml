@@ -203,6 +203,7 @@
     <string name="dismiss">Atmesti</string>
     <string name="dismiss_notification_description">Atmesti pranešimą</string>
     <string name="dnd">Netrukdyti</string>
+    <string name="done">Atlikta</string>
     <string name="dontClear">Neišvalyti</string>
     <string name="download_latest_dev_version">Parsisiųsti naujausią dev versiją</string>
     <string name="downloader_download_failed_content">Nepavyko atsisiųsti %1$s</string>

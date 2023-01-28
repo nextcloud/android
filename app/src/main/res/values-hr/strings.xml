@@ -204,6 +204,7 @@
     <string name="dismiss">Zanemari</string>
     <string name="dismiss_notification_description">Zanemari obavijest</string>
     <string name="dnd">Ne ometaj</string>
+    <string name="done">Gotovo</string>
     <string name="dontClear">Ne briši</string>
     <string name="download_latest_dev_version">Preuzmi najnoviju razvojnu inačicu</string>
     <string name="downloader_download_failed_content">Nije moguće preuzeti %1$s</string>

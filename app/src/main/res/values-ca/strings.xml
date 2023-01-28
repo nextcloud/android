@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Descarta la notificació</string>
     <string name="displays_mnemonic">Mostra la vostra contrasenya de 12 paraules</string>
     <string name="dnd">No molesteu</string>
+    <string name="done">Fet</string>
     <string name="dontClear">No esborrar</string>
     <string name="download_latest_dev_version">Baixa la darrera versió de desenvolupament</string>
     <string name="downloader_download_failed_content">No s\'ha pogut baixar%1$s</string>

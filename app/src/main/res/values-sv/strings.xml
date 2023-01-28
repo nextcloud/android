@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Avfärda notifiering</string>
     <string name="displays_mnemonic">Visar din 12-ord långa lösenordsfras</string>
     <string name="dnd">Stör ej</string>
+    <string name="done">Klar</string>
     <string name="dontClear">Rensa inte</string>
     <string name="download_latest_dev_version">Hämta senaste utvecklingsversionen</string>
     <string name="downloader_download_failed_content">Kunde inte hämta %1$s</string>

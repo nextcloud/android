@@ -203,6 +203,7 @@
     <string name="dismiss">閉じる</string>
     <string name="dismiss_notification_description">通知を閉じる</string>
     <string name="dnd">取り込み中</string>
+    <string name="done">完了</string>
     <string name="dontClear">消去しない</string>
     <string name="download_latest_dev_version">最新の開発バージョンをダウンロード</string>
     <string name="downloader_download_failed_content">%1$sをダウンロードできませんでした</string>

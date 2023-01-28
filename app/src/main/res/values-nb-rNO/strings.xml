@@ -207,6 +207,7 @@
     <string name="dismiss">Forkast</string>
     <string name="dismiss_notification_description">Ingen varsel</string>
     <string name="dnd">Ikke forstyrr</string>
+    <string name="done">Ferdig</string>
     <string name="dontClear">Ikke fjern</string>
     <string name="download_latest_dev_version">Last ned det nyeste dev versjon</string>
     <string name="downloader_download_failed_content">Kunne ikke laste ned %1$s</string>
