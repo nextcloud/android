@@ -207,6 +207,11 @@
     <string name="dismiss">Αποδέσμευση</string>
     <string name="dismiss_notification_description">Αποδέσμευση ειδοποίησης</string>
     <string name="dnd">Μην ενοχλείτε</string>
+    <string name="document_scan_export_dialog_images">Πολλαπλές εικόνες</string>
+    <string name="document_scan_export_dialog_pdf">αρχείο PDF</string>
+    <string name="document_scan_export_dialog_title">Επιλέξτε τύπο εξαγωγής</string>
+    <string name="document_scan_pdf_generation_failed">Η δημιουργία PDF απέτυχε</string>
+    <string name="document_scan_pdf_generation_in_progress">Δημιουργία PDF…</string>
     <string name="done">Ολοκληρώθηκε</string>
     <string name="dontClear">Να μη γίνεται εκκαθάριση</string>
     <string name="download_latest_dev_version">Λήψη της τελευταίας έκδοσης προγραμματιστή</string>
@@ -270,6 +275,7 @@
     <string name="error_retrieving_file">Σφάλμα ανάκτησης αρχείου</string>
     <string name="error_retrieving_templates">Σφάλμα λήψης προτύπων</string>
     <string name="error_starting_direct_camera_upload">Σφάλμα κατά την εκκίνηση της κάμερας</string>
+    <string name="error_starting_doc_scan">Σφάλμα σάρωσης εγγράφων</string>
     <string name="error_starting_scan_doc">Σφάλμα κατά τη σάρωση εγγράφου</string>
     <string name="etm_accounts">Λογαριασμοί</string>
     <string name="etm_background_job_name">Όνομα εργασίας</string>
@@ -612,6 +618,7 @@
     <string name="retrieving_file">Ανάκτηση αρχείου…</string>
     <string name="richdocuments_failed_to_load_document">Αποτυχία φόρτωσης εγγράφου!</string>
     <string name="scanQR_description">Είσοδος μέσω κωδικού QR</string>
+    <string name="scan_page">Σάρωση σελίδας</string>
     <string name="screenshot_01_gridView_heading">Προστασία των δεδομένων σας</string>
     <string name="screenshot_01_gridView_subline">αυτόνομη λειτουργία</string>
     <string name="screenshot_02_listView_heading">Περιήγηση και διαμοιρασμός</string>
