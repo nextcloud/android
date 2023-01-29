@@ -182,6 +182,7 @@
     <string name="disable_new_media_folder_detection_notifications">Искључи</string>
     <string name="dismiss">Одбаци</string>
     <string name="dismiss_notification_description">Уклони обавештење</string>
+    <string name="done">Готово</string>
     <string name="download_latest_dev_version">Преузмите најновију развојну верзију</string>
     <string name="downloader_download_failed_content">Не могу да преузмем %1$s</string>
     <string name="downloader_download_failed_credentials_error">Неуспешно преузимање. Поново се пријавите</string>

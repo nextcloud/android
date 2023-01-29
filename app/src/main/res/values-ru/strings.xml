@@ -207,6 +207,7 @@
     <string name="dismiss">Отклонить</string>
     <string name="dismiss_notification_description">Скрыть уведомление</string>
     <string name="dnd">Не беспокоить</string>
+    <string name="done">Готово</string>
     <string name="dontClear">Не очищать</string>
     <string name="download_latest_dev_version">Скачать последнюю версию для разработчиков</string>
     <string name="downloader_download_failed_content">Скачивание %1$s не может быть завершено</string>

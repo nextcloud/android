@@ -162,6 +162,7 @@
     <string name="disable_new_media_folder_detection_notifications">Deaktivēt</string>
     <string name="dismiss">Atmest</string>
     <string name="dismiss_notification_description">Noraidīt paziņojumu</string>
+    <string name="done">Pabeigts</string>
     <string name="downloader_download_failed_content">Nevarēja lejupielādēt %1$s</string>
     <string name="downloader_download_failed_credentials_error">Lejupielāde neizdevās, piesakieties vēlreiz.</string>
     <string name="downloader_download_failed_ticker">Neizdevās lejupielādēt</string>

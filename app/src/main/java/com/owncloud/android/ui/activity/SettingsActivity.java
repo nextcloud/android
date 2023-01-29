@@ -280,7 +280,7 @@ public class SettingsActivity extends PreferenceActivity
                         String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(privacyUrl.getLastPathSegment());
 
                         Intent intent;
-                        if ("application/pdf".equals(mimeType)) {
+                        if (MimeTypeUtil.isPDF(mimeType)) {
                             intent = new Intent(Intent.ACTION_VIEW, privacyUrl);
                             DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_pdf_app_available);
                         } else {
