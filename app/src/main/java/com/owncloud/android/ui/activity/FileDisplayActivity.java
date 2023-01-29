@@ -430,15 +430,6 @@ public class FileDisplayActivity extends FileActivity
                     // toggle on is save since this is the only scenario this code gets accessed
                 }
                 break;
-            case PermissionUtil.PERMISSIONS_SCAN_DOCUMENT:
-                // If request is cancelled, result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted
-                    AppScanActivity.scanFromCamera(
-                        this,
-                        FileDisplayActivity.REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA);
-                }
-                break;
             case PermissionUtil.PERMISSIONS_CAMERA:
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -854,35 +845,6 @@ public class FileDisplayActivity extends FileActivity
                     }
                 }
             }, new String[]{FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath()}).execute();
-        } else if (requestCode == REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA &&
-            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
-            Uri fileUri = Uri.parse(data.getStringExtra("file"));
-
-            new CheckAvailableSpaceTask(new CheckAvailableSpaceTask.CheckAvailableSpaceListener() {
-                @Override
-                public void onCheckAvailableSpaceStart() {
-                    Log_OC.d(this, "onCheckAvailableSpaceStart");
-                }
-
-                @Override
-                public void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String... filesToUpload) {
-                    Log_OC.d(this, "onCheckAvailableSpaceFinish");
-
-                    if (hasEnoughSpaceAvailable) {
-                        File file = new File(filesToUpload[0]);
-                        File renamedFile = new File(file.getParent() + PATH_SEPARATOR + FileOperationsHelper.getCapturedImageName());
-
-                        if (!file.renameTo(renamedFile)) {
-                            DisplayUtils.showSnackMessage(getActivity(), "Fail to upload taken image!");
-                            return;
-                        }
-
-                        requestUploadOfFilesFromFileSystem(renamedFile.getParentFile().getAbsolutePath(),
-                                                           new String[]{renamedFile.getAbsolutePath()},
-                                                           FileUploader.LOCAL_BEHAVIOUR_DELETE);
-                    }
-                }
-            }, new String[]{fileUri.getPath()}).execute();
         } else if (requestCode == REQUEST_CODE__MOVE_FILES && resultCode == RESULT_OK) {
             exitSelectionMode();
             final Intent fData = data;

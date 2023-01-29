@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.documentscan.AppScanOptionalFeature;
 import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorBinding;
@@ -38,7 +39,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.ui.activity.AppScanActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
@@ -59,6 +59,8 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
     private final ViewThemeUtils viewThemeUtils;
     private final EditorUtils editorUtils;
 
+    private final AppScanOptionalFeature appScanOptionalFeature;
+
 
     public OCFileListBottomSheetDialog(FileActivity fileActivity,
                                        OCFileListBottomSheetActions actions,
@@ -67,7 +69,8 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
                                        OCFile file,
                                        ThemeUtils themeUtils,
                                        ViewThemeUtils viewThemeUtils,
-                                       EditorUtils editorUtils) {
+                                       EditorUtils editorUtils,
+                                       AppScanOptionalFeature appScanOptionalFeature) {
         super(fileActivity);
         this.actions = actions;
         this.fileActivity = fileActivity;
@@ -77,6 +80,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         this.themeUtils = themeUtils;
         this.viewThemeUtils = viewThemeUtils;
         this.editorUtils = editorUtils;
+        this.appScanOptionalFeature = appScanOptionalFeature;
     }
 
     @Override
@@ -189,12 +193,12 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
             dismiss();
         });
 
-        if(AppScanActivity.getEnabled()) {
+        if (appScanOptionalFeature.isAvailable()) {
             binding.menuScanDocUpload.setOnClickListener(v -> {
                 actions.scanDocUpload();
                 dismiss();
             });
-        }else {
+        } else {
             binding.menuScanDocUpload.setVisibility(View.GONE);
         }
 

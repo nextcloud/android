@@ -30,6 +30,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
@@ -105,6 +106,9 @@ class BackgroundJobFactoryTest {
     @Mock
     private lateinit var localBroadcastManager: LocalBroadcastManager
 
+    @Mock
+    private lateinit var generatePDFUseCase: GeneratePDFUseCase
+
     private lateinit var factory: BackgroundJobFactory
 
     @Before
@@ -127,7 +131,8 @@ class BackgroundJobFactoryTest {
             eventBus,
             deckApi,
             { viewThemeUtils },
-            { localBroadcastManager }
+            { localBroadcastManager },
+            generatePDFUseCase
         )
     }
 

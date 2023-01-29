@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Baztertu jakinarazpena</string>
     <string name="displays_mnemonic">Zure 12 hitzeko pasahitza erakusten dizu</string>
     <string name="dnd">Ez molestatu</string>
+    <string name="done">Egina</string>
     <string name="dontClear">Ez garbitu</string>
     <string name="download_latest_dev_version">Deskargatu azken garapen bertsioa</string>
     <string name="downloader_download_failed_content">Ezin izan da %1$s deskargatu</string>

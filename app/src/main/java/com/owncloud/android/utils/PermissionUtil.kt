@@ -52,7 +52,6 @@ object PermissionUtil {
     const val PERMISSIONS_CAMERA = 5
     const val PERMISSIONS_READ_CALENDAR_AUTOMATIC = 6
     const val PERMISSIONS_WRITE_CALENDAR = 7
-    const val PERMISSIONS_SCAN_DOCUMENT = 6
 
     const val REQUEST_CODE_MANAGE_ALL_FILES = 19203
 

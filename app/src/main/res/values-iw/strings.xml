@@ -200,6 +200,7 @@
     <string name="dismiss">התעלמות</string>
     <string name="dismiss_notification_description">התעלמות מהתראה</string>
     <string name="dnd">לא להפריע</string>
+    <string name="done">הסתיים</string>
     <string name="download_latest_dev_version">הורדת גרסת הפיתוח האחרונה</string>
     <string name="downloader_download_failed_content">לא ניתן להוריד את %1$s</string>
     <string name="downloader_download_failed_credentials_error">ההורדה נכשלה, יש להיכנס שוב</string>

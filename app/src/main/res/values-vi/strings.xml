@@ -203,6 +203,7 @@
     <string name="dismiss">Bỏ qua</string>
     <string name="dismiss_notification_description">Bỏ qua thông báo </string>
     <string name="dnd">Không làm phiền</string>
+    <string name="done">Hoàn thành</string>
     <string name="dontClear">Không xoá</string>
     <string name="download_latest_dev_version">Tải xuống phiên bản dev mới nhất</string>
     <string name="downloader_download_failed_content">Không thể tải về %1$s</string>
