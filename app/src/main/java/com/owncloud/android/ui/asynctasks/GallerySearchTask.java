@@ -37,6 +37,7 @@ import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -51,7 +52,8 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
     private final WeakReference<GalleryFragment> photoFragmentWeakReference;
     private final FileDataStorageManager storageManager;
     private final int limit;
-    private final long startDate;
+    @Deprecated
+    private final long startDate = 0; // we don't use startDate anymore, only endDate and limit
     private final long endDate;
 
     public GallerySearchTask(GalleryFragment photoFragment,
@@ -63,7 +65,6 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         this.user = user;
         this.photoFragmentWeakReference = new WeakReference<>(photoFragment);
         this.storageManager = storageManager;
-        this.startDate = startDate;
         this.endDate = endDate;
         this.limit = limit;
     }
@@ -90,20 +91,21 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
             searchRemoteOperation.setStartDate(startDate);
             searchRemoteOperation.setEndDate(endDate);
 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
             if (photoFragment.getContext() != null) {
                 Log_OC.d(this,
-                         "Start gallery search with " + new Date(startDate * 1000L) +
-                             " - " + new Date(endDate * 1000L) +
+                         "Start gallery search with " + dateFormat.format(new Date(startDate * 1000L)) +
+                             " - " + dateFormat.format(new Date(endDate * 1000L)) +
                              " with limit: " + limit);
 
                 RemoteOperationResult result = searchRemoteOperation.execute(user, photoFragment.getContext());
 
                 if (result.isSuccess()) {
-                    boolean emptySearch = parseMedia(startDate, endDate, result.getData());
                     long lastTimeStamp = findLastTimestamp(result.getData());
 
-
-
+                    //query the local storage based on the lastTimeStamp retrieved, not by 1970-01-01
+                    boolean emptySearch = parseMedia(lastTimeStamp, this.endDate, result.getData());
                     return new Result(result.isSuccess(), emptySearch, lastTimeStamp);
                 } else {
                     return new Result(false, false, -1);
@@ -118,15 +120,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
     protected void onPostExecute(GallerySearchTask.Result result) {
         if (photoFragmentWeakReference.get() != null) {
             GalleryFragment photoFragment = photoFragmentWeakReference.get();
-
-            photoFragment.setLoading(false);
             photoFragment.searchCompleted(result.emptySearch, result.lastTimestamp);
-
-            if (result.success && photoFragment.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
-                photoFragment.showAllGalleryItems();
-            } else {
-                photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH);
-            }
         }
     }
 
@@ -143,55 +137,54 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
 
     private boolean parseMedia(long startDate, long endDate, List<Object> remoteFiles) {
         // retrieve all between startDate and endDate
-        Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(null,
-                                                                                        storageManager.getGalleryItems(startDate * 1000L,
-                                                                                                                       endDate * 1000L));
-        List<OCFile> filesToAdd = new ArrayList<>();
-        List<OCFile> filesToUpdate = new ArrayList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Log_OC.d(this, "parseMedia - start: " + dateFormat.format(new Date(startDate * 1000L)) + " - " + dateFormat.format(new Date(endDate * 1000L)));
 
-        OCFile localFile;
+        List<OCFile> localFiles = storageManager.getGalleryItems(startDate * 1000L, endDate * 1000L);
+
+        for (OCFile localFile: localFiles) {
+            Log_OC.d(this, "local file: modified: " + dateFormat.format(new Date(localFile.getModificationTimestamp())) + " path: " + localFile.getRemotePath());
+        }
+
+        Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(null, localFiles);
+
+        long filesAdded = 0, filesUpdated = 0, filesDeleted = 0, unchangedFiles = 0;
+
         for (Object file : remoteFiles) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) file);
-
-            localFile = localFilesMap.remove(ocFile.getRemotePath());
+            Log_OC.d(this, "remote file: modified: " + dateFormat.format(new Date(ocFile.getModificationTimestamp())) + " path: " + ocFile.getRemotePath());
+            OCFile localFile = localFilesMap.remove(ocFile.getRemotePath());
 
             if (localFile == null) {
                 // add new file
-                filesToAdd.add(ocFile);
+                storageManager.saveFile(ocFile);
+                filesAdded++;
             } else if (!localFile.getEtag().equals(ocFile.getEtag())) {
                 // update file
                 ocFile.setLastSyncDateForData(System.currentTimeMillis());
-                filesToUpdate.add(ocFile);
+                storageManager.saveFile(ocFile);
+                filesUpdated++;
+            } else {
+                unchangedFiles++;
             }
         }
 
-        // add new files
-        for (OCFile file : filesToAdd) {
-            storageManager.saveFile(file);
-        }
-
-        // update existing files
-        for (OCFile file : filesToUpdate) {
-            storageManager.saveFile(file);
-        }
-
         // existing files to remove
+        filesDeleted = localFilesMap.values().size();
+
         for (OCFile file : localFilesMap.values()) {
+            Log_OC.d(this, "Gallery Sync: File deleted " + file.getRemotePath());
             storageManager.removeFile(file, true, true);
         }
 
         Log_OC.d(this, "Gallery search result:" +
-            " new: " + filesToAdd.size() +
-            " updated: " + filesToUpdate.size() +
-            " deleted: " + localFilesMap.size());
+            " new: " + filesAdded +
+            " updated: " + filesUpdated +
+            " deleted: " + filesDeleted +
+            " unchanged: " + unchangedFiles);
 
-        return didNotFindNewResults(filesToAdd, filesToUpdate, localFilesMap.values());
-    }
-
-    private boolean didNotFindNewResults(List<OCFile> filesToAdd,
-                                         List<OCFile> filesToUpdate,
-                                         Collection<OCFile> filesToRemove) {
-        return filesToAdd.isEmpty() && filesToUpdate.isEmpty() && filesToRemove.isEmpty();
+        final long totalFiles = filesAdded + filesUpdated + filesDeleted + unchangedFiles;
+        return totalFiles <= 0;
     }
 
     public static class Result {
