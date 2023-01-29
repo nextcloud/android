@@ -209,6 +209,11 @@
     <string name="dismiss_notification_description">Bildirimi yok say</string>
     <string name="displays_mnemonic">12 sözcüklü parolanızı görüntüler</string>
     <string name="dnd">Rahatsız etmeyin</string>
+    <string name="document_scan_export_dialog_images">Çok sayıda görsel</string>
+    <string name="document_scan_export_dialog_pdf">PDF dosyası</string>
+    <string name="document_scan_export_dialog_title">Dışa aktarma türünü seçin</string>
+    <string name="document_scan_pdf_generation_failed">PDF dosyası oluşturulamadı</string>
+    <string name="document_scan_pdf_generation_in_progress">PDF oluşturuluyor…</string>
     <string name="done">Tamam</string>
     <string name="dontClear">Kaldırılmasın</string>
     <string name="download_latest_dev_version">Son geliştirici sürümünü indirin</string>
@@ -273,6 +278,7 @@
     <string name="error_retrieving_templates">Kalıplar alınırken sorun çıktı</string>
     <string name="error_showing_encryption_dialog">Şifreleme kurulumu sayfası görüntülenirken sorun çıktı!</string>
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>
+    <string name="error_starting_doc_scan">Belge taramasına başlanırken sorun çıktı</string>
     <string name="error_starting_scan_doc">Belge taraması sırasında sorun çıktı</string>
     <string name="etm_accounts">Hesaplar</string>
     <string name="etm_background_job_name">Görev adı</string>
@@ -624,6 +630,7 @@
     <string name="retrieving_file">Dosya alınıyor …</string>
     <string name="richdocuments_failed_to_load_document">Belge yüklenemedi!</string>
     <string name="scanQR_description">QR kodu ile oturum aç</string>
+    <string name="scan_page">Sayfayı tara</string>
     <string name="screenshot_01_gridView_heading">Verilerinizi korumak</string>
     <string name="screenshot_01_gridView_subline">sizin barındırdığınız üretkenlik</string>
     <string name="screenshot_02_listView_heading">Göz at ve paylaş</string>

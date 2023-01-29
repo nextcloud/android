@@ -209,6 +209,11 @@
     <string name="dismiss_notification_description">撤銷通告</string>
     <string name="displays_mnemonic">顯示您的 12 字密碼片語</string>
     <string name="dnd">請勿打擾</string>
+    <string name="document_scan_export_dialog_images">多個圖像</string>
+    <string name="document_scan_export_dialog_pdf">PDF 檔案</string>
+    <string name="document_scan_export_dialog_title">選擇導出類型</string>
+    <string name="document_scan_pdf_generation_failed">PDF 産生失敗</string>
+    <string name="document_scan_pdf_generation_in_progress">正在產生 PDF …</string>
     <string name="done">完成</string>
     <string name="dontClear">不要清空</string>
     <string name="download_latest_dev_version">下載最新開發的版本</string>
@@ -273,6 +278,7 @@
     <string name="error_retrieving_templates">取得範本時發生錯誤</string>
     <string name="error_showing_encryption_dialog">顯示設置加密對話框時出錯！</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
+    <string name="error_starting_doc_scan">文件掃描開始時出錯</string>
     <string name="error_starting_scan_doc">使用文件掃描時出錯</string>
     <string name="etm_accounts">賬戶</string>
     <string name="etm_background_job_name">工作名稱</string>
@@ -624,6 +630,7 @@
     <string name="retrieving_file">正在檢索檔案…</string>
     <string name="richdocuments_failed_to_load_document">無法加載文件！</string>
     <string name="scanQR_description">使用 QR Code 登入</string>
+    <string name="scan_page">掃描頁面</string>
     <string name="screenshot_01_gridView_heading">保護您的資料</string>
     <string name="screenshot_01_gridView_subline">自建且具生產力</string>
     <string name="screenshot_02_listView_heading">瀏覽與分享</string>

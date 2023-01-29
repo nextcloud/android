@@ -209,6 +209,11 @@
     <string name="dismiss_notification_description">Dismiss notification</string>
     <string name="displays_mnemonic">Displays your 12 word passphrase</string>
     <string name="dnd">Do not disturb</string>
+    <string name="document_scan_export_dialog_images">Multiple images</string>
+    <string name="document_scan_export_dialog_pdf">PDF file</string>
+    <string name="document_scan_export_dialog_title">Choose export type</string>
+    <string name="document_scan_pdf_generation_failed">PDF generation failed</string>
+    <string name="document_scan_pdf_generation_in_progress">Generating PDF…</string>
     <string name="done">Done</string>
     <string name="dontClear">Don\'t clear</string>
     <string name="download_latest_dev_version">Download latest dev version</string>
@@ -273,6 +278,7 @@
     <string name="error_retrieving_templates">Error retrieving templates</string>
     <string name="error_showing_encryption_dialog">Error showing setup encryption dialogue!</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
+    <string name="error_starting_doc_scan">Error starting document scan</string>
     <string name="error_starting_scan_doc">Error using document scanning</string>
     <string name="etm_accounts">Accounts</string>
     <string name="etm_background_job_name">Job name</string>
@@ -624,6 +630,7 @@
     <string name="retrieving_file">Retrieving file…</string>
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
     <string name="scanQR_description">Login via QR code</string>
+    <string name="scan_page">Scan page</string>
     <string name="screenshot_01_gridView_heading">Protecting your data</string>
     <string name="screenshot_01_gridView_subline">self-hosted productivity</string>
     <string name="screenshot_02_listView_heading">Browse and share</string>

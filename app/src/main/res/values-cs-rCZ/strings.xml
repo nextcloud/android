@@ -209,6 +209,9 @@
     <string name="dismiss_notification_description">Zahodit upozornění</string>
     <string name="displays_mnemonic">Zobrazí vaší 12 slovnou heslovou frázi</string>
     <string name="dnd">Nerušit</string>
+    <string name="document_scan_export_dialog_images">Vícero obrázků</string>
+    <string name="document_scan_export_dialog_pdf">PDF soubor</string>
+    <string name="document_scan_export_dialog_title">Zvolte typ exportu</string>
     <string name="done">Hotovo</string>
     <string name="dontClear">Nikdy</string>
     <string name="download_latest_dev_version">Stáhnout si nejnovější vývojářskou verzi</string>

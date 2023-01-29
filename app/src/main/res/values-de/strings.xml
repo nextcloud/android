@@ -209,6 +209,11 @@
     <string name="dismiss_notification_description">Benachrichtigung verwerfen</string>
     <string name="displays_mnemonic">Zeigt Ihre 12-Wörter-Passphrase an</string>
     <string name="dnd">Bitte nicht stören</string>
+    <string name="document_scan_export_dialog_images">Mehrere Bilder</string>
+    <string name="document_scan_export_dialog_pdf">PDF-Datei</string>
+    <string name="document_scan_export_dialog_title">Exporttyp wählen</string>
+    <string name="document_scan_pdf_generation_failed">PDF-Erstellung fehgeschlagen</string>
+    <string name="document_scan_pdf_generation_in_progress">Erstelle PDF…</string>
     <string name="done">Fertig</string>
     <string name="dontClear">Nicht löschen</string>
     <string name="download_latest_dev_version">Die neueste Entwicklerversion herunterladen</string>
@@ -273,6 +278,7 @@
     <string name="error_retrieving_templates">Fehler beim Laden der Vorlagen</string>
     <string name="error_showing_encryption_dialog">Fehler beim Anzeigen des Setup-Verschlüsselungsdialogs!</string>
     <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
+    <string name="error_starting_doc_scan">Start des Dokumentenscans fehlgeschlagen</string>
     <string name="error_starting_scan_doc">Fehler beim Scannen von Dokumenten</string>
     <string name="etm_accounts">Konten</string>
     <string name="etm_background_job_name">Aufgabenname</string>
@@ -624,6 +630,7 @@
     <string name="retrieving_file">Abrufen der Datei…</string>
     <string name="richdocuments_failed_to_load_document">Laden des Dokuments fehlgeschlagen!</string>
     <string name="scanQR_description">Anmelden mit QR-Code</string>
+    <string name="scan_page">Seite scannen</string>
     <string name="screenshot_01_gridView_heading">Schützt Ihre Daten</string>
     <string name="screenshot_01_gridView_subline">Selbst gehostete Produktivität</string>
     <string name="screenshot_02_listView_heading">Durchsuchen und teilen</string>
