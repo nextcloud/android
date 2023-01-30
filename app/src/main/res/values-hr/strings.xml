@@ -204,6 +204,7 @@
     <string name="dismiss">Zanemari</string>
     <string name="dismiss_notification_description">Zanemari obavijest</string>
     <string name="dnd">Ne ometaj</string>
+    <string name="done">Gotovo</string>
     <string name="dontClear">Ne briši</string>
     <string name="download_latest_dev_version">Preuzmi najnoviju razvojnu inačicu</string>
     <string name="downloader_download_failed_content">Nije moguće preuzeti %1$s</string>
@@ -264,6 +265,7 @@
     <string name="error_retrieving_file">Pogreška pri dohvaćanju datoteke</string>
     <string name="error_retrieving_templates">Pogreška pri dohvaćanju predložaka</string>
     <string name="error_starting_direct_camera_upload">Pogreška pri pokretanju kamere</string>
+    <string name="error_starting_scan_doc">Pogreška kod upotrebe skeniranja dokumenta</string>
     <string name="etm_accounts">Računi</string>
     <string name="etm_background_job_name">Naziv zadatka</string>
     <string name="etm_background_job_progress">Napredak</string>

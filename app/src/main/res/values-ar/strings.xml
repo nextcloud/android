@@ -204,6 +204,7 @@
     <string name="dismiss">تراجع</string>
     <string name="dismiss_notification_description">تجاهل الإشعار</string>
     <string name="dnd">عدم الإزعاج</string>
+    <string name="done">أُنجز</string>
     <string name="dontClear">غير واضح</string>
     <string name="download_latest_dev_version">حمّل آخر إصدار الخاص بالمطورين</string>
     <string name="downloader_download_failed_content">تعذر تنزيل %1$s</string>
@@ -264,6 +265,7 @@
     <string name="error_retrieving_file">خطأ في استيراد الملف</string>
     <string name="error_retrieving_templates">خطأ في استيراد القوالب</string>
     <string name="error_starting_direct_camera_upload">خطأ في تشغيل الكاميرا</string>
+    <string name="error_starting_scan_doc">خطأ في استخدام المسح الضوئي للمستند</string>
     <string name="etm_accounts">الحسابات</string>
     <string name="etm_background_job_name">إسم المهمة</string>
     <string name="etm_background_job_progress">التقدم</string>

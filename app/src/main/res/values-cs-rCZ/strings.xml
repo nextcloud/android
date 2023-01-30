@@ -209,6 +209,10 @@
     <string name="dismiss_notification_description">Zahodit upozornění</string>
     <string name="displays_mnemonic">Zobrazí vaší 12 slovnou heslovou frázi</string>
     <string name="dnd">Nerušit</string>
+    <string name="document_scan_export_dialog_images">Vícero obrázků</string>
+    <string name="document_scan_export_dialog_pdf">PDF soubor</string>
+    <string name="document_scan_export_dialog_title">Zvolte typ exportu</string>
+    <string name="done">Hotovo</string>
     <string name="dontClear">Nikdy</string>
     <string name="download_latest_dev_version">Stáhnout si nejnovější vývojářskou verzi</string>
     <string name="downloader_download_failed_content">Nepodařilo se stáhnout %1$s</string>
@@ -272,6 +276,7 @@
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
     <string name="error_showing_encryption_dialog">Chyba při zobrazování dialogu por nastavení šifrování!</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
+    <string name="error_starting_scan_doc">Chyb při použití skenování dokumentů</string>
     <string name="etm_accounts">Účty</string>
     <string name="etm_background_job_name">Název úlohy</string>
     <string name="etm_background_job_progress">Průběh</string>

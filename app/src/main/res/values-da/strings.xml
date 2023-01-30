@@ -204,6 +204,7 @@
     <string name="dismiss">Afvis</string>
     <string name="dismiss_notification_description">Fjern notifikation</string>
     <string name="dnd">Forstyr ikke</string>
+    <string name="done">Færdig</string>
     <string name="dontClear">Ryd ikke</string>
     <string name="download_latest_dev_version">Hent seneste udiklingsversion</string>
     <string name="downloader_download_failed_content">Kunne ikke hente %1$s</string>
@@ -264,6 +265,7 @@
     <string name="error_retrieving_file">Fejl ved modtagelse af fil</string>
     <string name="error_retrieving_templates">Fejl ved indlæsning af modeller</string>
     <string name="error_starting_direct_camera_upload">Fejl ved start af kamera</string>
+    <string name="error_starting_scan_doc">Fejl ved brug af dokumentscanning</string>
     <string name="etm_accounts">Konti</string>
     <string name="etm_background_job_name">Job navn</string>
     <string name="etm_background_job_progress">Progress</string>

@@ -207,6 +207,7 @@
     <string name="dismiss">Отклонить</string>
     <string name="dismiss_notification_description">Скрыть уведомление</string>
     <string name="dnd">Не беспокоить</string>
+    <string name="done">Готово</string>
     <string name="dontClear">Не очищать</string>
     <string name="download_latest_dev_version">Скачать последнюю версию для разработчиков</string>
     <string name="downloader_download_failed_content">Скачивание %1$s не может быть завершено</string>
@@ -269,6 +270,7 @@
     <string name="error_retrieving_file">Ошибка при получении файла</string>
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
+    <string name="error_starting_scan_doc">Ошибка при сканировании документа</string>
     <string name="etm_accounts">Аккаунты</string>
     <string name="etm_background_job_name">Имя задания</string>
     <string name="etm_background_job_progress">Прогресс</string>

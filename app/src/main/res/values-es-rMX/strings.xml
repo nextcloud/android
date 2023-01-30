@@ -192,6 +192,7 @@
     <string name="dismiss">Descartar</string>
     <string name="dismiss_notification_description">Descartar notificación</string>
     <string name="dnd">No molestar</string>
+    <string name="done">Terminado</string>
     <string name="dontClear">No borrar</string>
     <string name="download_latest_dev_version">Descargar última versión de desarrollo</string>
     <string name="downloader_download_failed_content">No fue posible descargar %1$s</string>

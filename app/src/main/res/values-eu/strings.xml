@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Baztertu jakinarazpena</string>
     <string name="displays_mnemonic">Zure 12 hitzeko pasahitza erakusten dizu</string>
     <string name="dnd">Ez molestatu</string>
+    <string name="done">Egina</string>
     <string name="dontClear">Ez garbitu</string>
     <string name="download_latest_dev_version">Deskargatu azken garapen bertsioa</string>
     <string name="downloader_download_failed_content">Ezin izan da %1$s deskargatu</string>
@@ -272,6 +273,7 @@
     <string name="error_retrieving_templates">Errorea txantiloiak berreskuratzean</string>
     <string name="error_showing_encryption_dialog">Errore bat gertatu da konfigurazio enkriptatzearen elkarrizketa-koadroa erakustean!</string>
     <string name="error_starting_direct_camera_upload">Errorea kamera abiaraztean</string>
+    <string name="error_starting_scan_doc">Errorea dokumentu eskaneatzailea erabiltzerakoan</string>
     <string name="etm_accounts">Kontuak</string>
     <string name="etm_background_job_name">Lanaren izena</string>
     <string name="etm_background_job_progress">Aurrerapena</string>

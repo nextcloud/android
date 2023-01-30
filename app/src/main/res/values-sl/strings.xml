@@ -206,6 +206,7 @@
     <string name="dismiss_notification_description">Opusti obvestilo</string>
     <string name="displays_mnemonic">Pokaži 12 besedno šifrirno geslo</string>
     <string name="dnd">Ne moti</string>
+    <string name="done">Končano</string>
     <string name="dontClear">ne počisti</string>
     <string name="download_latest_dev_version">Prejmi najnovejšo razvojno različico</string>
     <string name="downloader_download_failed_content">Ni mogoče prejeti %1$s</string>
@@ -267,6 +268,7 @@
     <string name="error_retrieving_file">Pridobivanje datoteke je spodletelo</string>
     <string name="error_retrieving_templates">Napaka pridobivanja predlog</string>
     <string name="error_starting_direct_camera_upload">Napaka začenjanja kamere</string>
+    <string name="error_starting_scan_doc">Napaka uporabe preverjanja dokumenta</string>
     <string name="etm_accounts">Računi</string>
     <string name="etm_background_job_name">Ime opravila</string>
     <string name="etm_background_job_progress">Napredek pošiljanja</string>

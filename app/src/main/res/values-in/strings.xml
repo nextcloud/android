@@ -197,6 +197,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="dismiss">Batal</string>
     <string name="dismiss_notification_description">Abaikan notifikasi</string>
     <string name="dnd">Jangan diganggu</string>
+    <string name="done">Selesai</string>
     <string name="dontClear">Jangan dihapus</string>
     <string name="downloader_download_failed_content">Tidak bisa mengunduh %1$s</string>
     <string name="downloader_download_failed_credentials_error">Unduhan gagal, coba masuk kembali</string>
@@ -249,6 +250,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="error_retrieving_file">Galat saat menerima file</string>
     <string name="error_retrieving_templates">Error saat mengambil template</string>
     <string name="error_starting_direct_camera_upload">Galat saat mengaktifkan kamera</string>
+    <string name="error_starting_scan_doc">Error saat menggunakan pemindaian dokumen</string>
     <string name="etm_accounts">Akun</string>
     <string name="etm_background_job_name">Nama pekerjaan</string>
     <string name="etm_background_job_progress">Kemajuan</string>

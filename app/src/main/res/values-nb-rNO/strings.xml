@@ -207,6 +207,7 @@
     <string name="dismiss">Forkast</string>
     <string name="dismiss_notification_description">Ingen varsel</string>
     <string name="dnd">Ikke forstyrr</string>
+    <string name="done">Ferdig</string>
     <string name="dontClear">Ikke fjern</string>
     <string name="download_latest_dev_version">Last ned det nyeste dev versjon</string>
     <string name="downloader_download_failed_content">Kunne ikke laste ned %1$s</string>
@@ -268,6 +269,7 @@
     <string name="error_retrieving_file">Oppstod feil med å få tilbake filen</string>
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
+    <string name="error_starting_scan_doc">Feil ved bruk av dokument skanning</string>
     <string name="etm_accounts">Kontoer</string>
     <string name="etm_background_job_name">Jobbnavn</string>
     <string name="etm_background_job_progress">Fremgang</string>

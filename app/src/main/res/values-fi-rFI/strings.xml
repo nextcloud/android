@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Hylkää ilmoitus</string>
     <string name="displays_mnemonic">Näyttää 12-sanaisen tunnuslauseen</string>
     <string name="dnd">Älä häiritse</string>
+    <string name="done">Valmis</string>
     <string name="dontClear">Älä tyhjennä</string>
     <string name="download_latest_dev_version">Lataa viimeisin kehitysversio</string>
     <string name="downloader_download_failed_content">Ei voitu ladata %1$s</string>
@@ -271,6 +272,7 @@
     <string name="error_retrieving_templates">Tapahtui virhe mallien lataamisessa</string>
     <string name="error_showing_encryption_dialog">Virhe näytettäessä asennuksen salauksen valintaikkunaa!</string>
     <string name="error_starting_direct_camera_upload">Virhe kameraa käynnistäessä</string>
+    <string name="error_starting_scan_doc">Virhe dokumentin skannauksessa</string>
     <string name="etm_accounts">Tilit</string>
     <string name="etm_background_job_name">Työn nimi</string>
     <string name="etm_background_job_progress">Edistyminen</string>

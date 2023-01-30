@@ -211,6 +211,7 @@ Attention la suppression est irréversible.</string>
     <string name="dismiss_notification_description">Ignorer la notification</string>
     <string name="displays_mnemonic">Affiche votre phrase secrète à 12 mots</string>
     <string name="dnd">Ne pas déranger</string>
+    <string name="done">Terminé</string>
     <string name="dontClear">Ne pas effacer</string>
     <string name="download_latest_dev_version">Télécharger la dernière version de développement</string>
     <string name="downloader_download_failed_content">Impossible de télécharger %1$s</string>
@@ -274,6 +275,7 @@ Attention la suppression est irréversible.</string>
     <string name="error_retrieving_templates">Erreur lors de la récupération des modèles</string>
     <string name="error_showing_encryption_dialog">Erreur d\'affichage de la boîte de dialogue de configuration du chiffrement !</string>
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
+    <string name="error_starting_scan_doc">Erreur lors de la numérisation de documents</string>
     <string name="etm_accounts">Comptes</string>
     <string name="etm_background_job_name">Nom de la tâche </string>
     <string name="etm_background_job_progress">Progression</string>

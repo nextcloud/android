@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">Értesítés mellőzése</string>
     <string name="displays_mnemonic">Megjeleníti a 12 szavas jelmondatát</string>
     <string name="dnd">Ne zavarjanak</string>
+    <string name="done">Kész</string>
     <string name="dontClear">Ne törölje</string>
     <string name="download_latest_dev_version">A legfrissebb fejlesztői verzió letöltése</string>
     <string name="downloader_download_failed_content">%1$s letöltése sikertelen</string>
@@ -272,6 +273,7 @@
     <string name="error_retrieving_templates">Hiba történt a sablonok lékérésekor</string>
     <string name="error_showing_encryption_dialog">Hiba a titkosítás beállítóablakának megjelenítése során!</string>
     <string name="error_starting_direct_camera_upload">Hiba a kamera indításakor</string>
+    <string name="error_starting_scan_doc">Hiba a dokumentumbeolvasás használata sorá</string>
     <string name="etm_accounts">Fiókok</string>
     <string name="etm_background_job_name">Feladat neve</string>
     <string name="etm_background_job_progress">Folyamat</string>

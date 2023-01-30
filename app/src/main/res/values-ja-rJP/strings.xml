@@ -203,6 +203,7 @@
     <string name="dismiss">閉じる</string>
     <string name="dismiss_notification_description">通知を閉じる</string>
     <string name="dnd">取り込み中</string>
+    <string name="done">完了</string>
     <string name="dontClear">消去しない</string>
     <string name="download_latest_dev_version">最新の開発バージョンをダウンロード</string>
     <string name="downloader_download_failed_content">%1$sをダウンロードできませんでした</string>
@@ -263,6 +264,7 @@
     <string name="error_retrieving_file">ファイルの取得中にエラーが発生しました</string>
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
     <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>
+    <string name="error_starting_scan_doc">ドキュメントスキャナーの使用エラー</string>
     <string name="etm_accounts">アカウント</string>
     <string name="etm_background_job_name">ジョブの名前</string>
     <string name="etm_background_job_progress">進捗状況</string>

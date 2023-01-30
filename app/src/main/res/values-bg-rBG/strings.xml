@@ -210,6 +210,7 @@
     <string name="dismiss_notification_description">Спри известията</string>
     <string name="displays_mnemonic">Показва вашата парола, която се състои от 12 думи</string>
     <string name="dnd">Не безпокой</string>
+    <string name="done">Завършено</string>
     <string name="dontClear">Не изчиствай</string>
     <string name="download_latest_dev_version">Сваляне на най-новата dev версия</string>
     <string name="downloader_download_failed_content">%1$sне може да бъде изтеглен</string>
@@ -273,6 +274,7 @@
     <string name="error_retrieving_templates">Грешка при извличане на шаблони</string>
     <string name="error_showing_encryption_dialog">Грешка при показване на диалогов прозорец за настройка на криптирането!</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартирането на камерата</string>
+    <string name="error_starting_scan_doc">Грешка при използване на сканирането на документи</string>
     <string name="etm_accounts">Профили</string>
     <string name="etm_background_job_name">Име на процеса</string>
     <string name="etm_background_job_progress">Прогрес</string>
