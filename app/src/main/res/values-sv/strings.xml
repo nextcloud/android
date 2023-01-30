@@ -273,7 +273,6 @@
     <string name="error_retrieving_templates">Fel vid hämtning av mallar</string>
     <string name="error_showing_encryption_dialog">Fel vid visning av dialogruta för uppsättning av kryptering!</string>
     <string name="error_starting_direct_camera_upload">Fel vid start av kamera</string>
-    <string name="error_starting_scan_doc">Fel vid dokumentskanning</string>
     <string name="etm_accounts">Konton</string>
     <string name="etm_background_job_name">Uppdragsnamn</string>
     <string name="etm_background_job_progress">Status</string>

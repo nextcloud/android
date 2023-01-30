@@ -263,7 +263,6 @@
     <string name="error_retrieving_file">Lỗi khi truy xuất tệp</string>
     <string name="error_retrieving_templates">Lỗi khi truy xuất mẫu</string>
     <string name="error_starting_direct_camera_upload">Lỗi khởi động máy ảnh</string>
-    <string name="error_starting_scan_doc">Lỗi khi sử dụng quét tài liệu</string>
     <string name="etm_accounts">Tài khoản</string>
     <string name="etm_background_job_name">Tên công việc</string>
     <string name="etm_background_job_progress">Tiến trình</string>
