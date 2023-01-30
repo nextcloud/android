@@ -524,6 +524,8 @@
     <string name="permission_deny">Απόρριψη</string>
     <string name="permission_storage_access">Επιπλέον διακαιώματα απαιτούνται για μεταφόρτωση και λήψη αρχείων.</string>
     <string name="picture_set_as_no_app">Δεν βρέθηκε εφαρμογή για τον ορισμό φωτογραφίας</string>
+    <string name="pin_home">Καρφίτσωμα στην αρχική οθόνη</string>
+    <string name="pin_shortcut_label">Άνοιγμα %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
