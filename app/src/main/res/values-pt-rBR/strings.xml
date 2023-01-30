@@ -273,7 +273,6 @@
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
     <string name="error_showing_encryption_dialog">Erro ao mostrar a caixa de diálogo de criptografia de configuração!</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
-    <string name="error_starting_scan_doc">Erro ao usar a digitalização de documentos</string>
     <string name="etm_accounts">Contas</string>
     <string name="etm_background_job_name">Nome da tarefa</string>
     <string name="etm_background_job_progress">Progresso</string>

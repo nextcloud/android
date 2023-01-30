@@ -279,7 +279,6 @@
     <string name="error_showing_encryption_dialog">Şifreleme kurulumu sayfası görüntülenirken sorun çıktı!</string>
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>
     <string name="error_starting_doc_scan">Belge taramasına başlanırken sorun çıktı</string>
-    <string name="error_starting_scan_doc">Belge taraması sırasında sorun çıktı</string>
     <string name="etm_accounts">Hesaplar</string>
     <string name="etm_background_job_name">Görev adı</string>
     <string name="etm_background_job_progress">İlerleme</string>

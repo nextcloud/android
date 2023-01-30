@@ -269,7 +269,6 @@
     <string name="error_retrieving_file">Oppstod feil med å få tilbake filen</string>
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
-    <string name="error_starting_scan_doc">Feil ved bruk av dokument skanning</string>
     <string name="etm_accounts">Kontoer</string>
     <string name="etm_background_job_name">Jobbnavn</string>
     <string name="etm_background_job_progress">Fremgang</string>

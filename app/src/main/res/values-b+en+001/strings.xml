@@ -279,7 +279,6 @@
     <string name="error_showing_encryption_dialog">Error showing setup encryption dialogue!</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="error_starting_doc_scan">Error starting document scan</string>
-    <string name="error_starting_scan_doc">Error using document scanning</string>
     <string name="etm_accounts">Accounts</string>
     <string name="etm_background_job_name">Job name</string>
     <string name="etm_background_job_progress">Progress</string>

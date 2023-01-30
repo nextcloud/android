@@ -273,7 +273,6 @@
     <string name="error_retrieving_templates">Błąd podczas pobierania szablonów</string>
     <string name="error_showing_encryption_dialog">Błąd podczas wyświetlania okna dialogowego konfiguracji szyfrowania!</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania aparatu</string>
-    <string name="error_starting_scan_doc">Błąd podczas skanowania dokumentów</string>
     <string name="etm_accounts">Konta</string>
     <string name="etm_background_job_name">Nazwa zadania</string>
     <string name="etm_background_job_progress">Postęp</string>
