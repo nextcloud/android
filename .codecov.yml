@@ -2,6 +2,8 @@ codecov:
   branch: master
   ci:
     - drone.nextcloud.com
+  notify:
+    after_n_builds: 2
 
 coverage:
   precision: 2
