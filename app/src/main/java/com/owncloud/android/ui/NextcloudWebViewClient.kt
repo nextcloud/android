@@ -3,15 +3,20 @@ package com.owncloud.android.ui
 import android.annotation.SuppressLint
 import android.net.http.SslCertificate
 import android.net.http.SslError
+import android.webkit.ClientCertRequest
 import android.webkit.SslErrorHandler
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.FragmentManager
 import com.owncloud.android.authentication.AuthenticatorActivity
+import com.owncloud.android.lib.common.network.AdvancedX509KeyManager
 import com.owncloud.android.lib.common.network.NetworkUtils
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog
 import java.io.ByteArrayInputStream
+import java.net.MalformedURLException
 import java.security.cert.CertificateException
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
@@ -77,5 +82,37 @@ open class NextcloudWebViewClient(val supportFragmentManager: FragmentManager) :
         val ft = fm.beginTransaction()
         ft.addToBackStack(null)
         dialog.show(ft, AuthenticatorActivity.UNTRUSTED_CERT_DIALOG_TAG)
+    }
+
+    /**
+     * Handle request for a TLS client certificate.
+     */
+    override fun onReceivedClientCertRequest(view: WebView?, request: ClientCertRequest?) {
+        if (view == null || request == null) {
+            return
+        }
+        AdvancedX509KeyManager(view.context).handleWebViewClientCertRequest(request)
+    }
+
+    /**
+     * Handle HTTP errors.
+     *
+     * We might receive an HTTP status code 400 (bad request), which probably tells us that our certificate
+     * is not valid (anymore), e.g. because it expired. In that case we forget the selected client certificate,
+     * so it can be re-selected.
+     */
+    override fun onReceivedHttpError(
+        view: WebView?,
+        request: WebResourceRequest?,
+        errorResponse: WebResourceResponse?
+    ) {
+        val errorCode = errorResponse?.statusCode ?: return
+        if (errorCode == 400) {
+            Log_OC.w(tag, "WebView failed with error code $errorCode; remove key chain aliases")
+            // chosen client certificate alias does not seem to work -> discard it
+            val failingUrl = request?.url ?: return
+            val context = view?.context ?: return
+            AdvancedX509KeyManager(context).removeKeys(failingUrl.host, failingUrl.port)
+        }
     }
 }
