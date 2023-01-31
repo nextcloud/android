@@ -209,6 +209,11 @@
     <string name="dismiss_notification_description">Odrzuć powiadomienie</string>
     <string name="displays_mnemonic">Wyświetla hasło składające się z 12-stu słów</string>
     <string name="dnd">Nie przeszkadzać</string>
+    <string name="document_scan_export_dialog_images">Wiele obrazów</string>
+    <string name="document_scan_export_dialog_pdf">Plik PDF</string>
+    <string name="document_scan_export_dialog_title">Wybierz typ eksportu</string>
+    <string name="document_scan_pdf_generation_failed">Generowanie pliku PDF nie powiodło się</string>
+    <string name="document_scan_pdf_generation_in_progress">Generowanie pliku PDF…</string>
     <string name="done">Zrobione</string>
     <string name="dontClear">Nie czyść</string>
     <string name="download_latest_dev_version">Pobierz najnowszą wersję dev</string>
@@ -273,6 +278,7 @@
     <string name="error_retrieving_templates">Błąd podczas pobierania szablonów</string>
     <string name="error_showing_encryption_dialog">Błąd podczas wyświetlania okna dialogowego konfiguracji szyfrowania!</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania aparatu</string>
+    <string name="error_starting_doc_scan">Błąd podczas uruchamiania skanowania dokumentu</string>
     <string name="error_starting_scan_doc">Błąd podczas skanowania dokumentów</string>
     <string name="etm_accounts">Konta</string>
     <string name="etm_background_job_name">Nazwa zadania</string>
@@ -624,6 +630,7 @@
     <string name="retrieving_file">Pobieranie pliku…</string>
     <string name="richdocuments_failed_to_load_document">Nie udało się pobrać dokumentu</string>
     <string name="scanQR_description">Zaloguj się za pomocą kodu QR</string>
+    <string name="scan_page">Zeskanuj stronę</string>
     <string name="screenshot_01_gridView_heading">Ochrona Twoich danych</string>
     <string name="screenshot_01_gridView_subline">oprogramowanie biurowe uruchamiane na własnym hostingu</string>
     <string name="screenshot_02_listView_heading">Przeglądaj i udostępniaj</string>

@@ -212,6 +212,8 @@
     <string name="document_scan_export_dialog_images">Vícero obrázků</string>
     <string name="document_scan_export_dialog_pdf">PDF soubor</string>
     <string name="document_scan_export_dialog_title">Zvolte typ exportu</string>
+    <string name="document_scan_pdf_generation_failed">Vytvoření PDF se nezdařilo</string>
+    <string name="document_scan_pdf_generation_in_progress">Vytváření PDF…</string>
     <string name="done">Hotovo</string>
     <string name="dontClear">Nikdy</string>
     <string name="download_latest_dev_version">Stáhnout si nejnovější vývojářskou verzi</string>
@@ -276,6 +278,7 @@
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
     <string name="error_showing_encryption_dialog">Chyba při zobrazování dialogu por nastavení šifrování!</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
+    <string name="error_starting_doc_scan">Chyba při spouštění skenu dokumentu</string>
     <string name="error_starting_scan_doc">Chyb při použití skenování dokumentů</string>
     <string name="etm_accounts">Účty</string>
     <string name="etm_background_job_name">Název úlohy</string>
@@ -627,6 +630,7 @@
     <string name="retrieving_file">Získávání souboru…</string>
     <string name="richdocuments_failed_to_load_document">Dokument se nepodařilo načíst!</string>
     <string name="scanQR_description">Přihlášení prostřednictvím QR kódu</string>
+    <string name="scan_page">Naskenovat stránku</string>
     <string name="screenshot_01_gridView_heading">Ochrana vašich dat</string>
     <string name="screenshot_01_gridView_subline">nástroje pro produktivitu, hostované u vás</string>
     <string name="screenshot_02_listView_heading">Procházet a sdílet</string>
