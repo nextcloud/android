@@ -211,6 +211,11 @@ Attention la suppression est irréversible.</string>
     <string name="dismiss_notification_description">Ignorer la notification</string>
     <string name="displays_mnemonic">Affiche votre phrase secrète à 12 mots</string>
     <string name="dnd">Ne pas déranger</string>
+    <string name="document_scan_export_dialog_images">Images multiples</string>
+    <string name="document_scan_export_dialog_pdf">Fichier PDF</string>
+    <string name="document_scan_export_dialog_title">Choisir le type d\'export</string>
+    <string name="document_scan_pdf_generation_failed">La génération du PDF a échoué</string>
+    <string name="document_scan_pdf_generation_in_progress">Génération du PDF...</string>
     <string name="done">Terminé</string>
     <string name="dontClear">Ne pas effacer</string>
     <string name="download_latest_dev_version">Télécharger la dernière version de développement</string>
@@ -275,6 +280,7 @@ Attention la suppression est irréversible.</string>
     <string name="error_retrieving_templates">Erreur lors de la récupération des modèles</string>
     <string name="error_showing_encryption_dialog">Erreur d\'affichage de la boîte de dialogue de configuration du chiffrement !</string>
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
+    <string name="error_starting_doc_scan">Erreur au démarrage du scan du document</string>
     <string name="error_starting_scan_doc">Erreur lors de la numérisation de documents</string>
     <string name="etm_accounts">Comptes</string>
     <string name="etm_background_job_name">Nom de la tâche </string>
@@ -626,6 +632,7 @@ Attention la suppression est irréversible.</string>
     <string name="retrieving_file">Téléchargement en cours…</string>
     <string name="richdocuments_failed_to_load_document">Impossible de charger le document !</string>
     <string name="scanQR_description">Connexion par code QR</string>
+    <string name="scan_page">Scanner la page</string>
     <string name="screenshot_01_gridView_heading">Protection de vos données</string>
     <string name="screenshot_01_gridView_subline">productivité auto-hébergée</string>
     <string name="screenshot_02_listView_heading">Parcourir et partager</string>
