@@ -38,6 +38,7 @@
             android:id="@+id/drawer_quota"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/appbar"
             android:layout_gravity="bottom"
             android:clickable="false"
             android:orientation="vertical"
