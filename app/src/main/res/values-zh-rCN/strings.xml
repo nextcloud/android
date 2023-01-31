@@ -273,6 +273,7 @@
     <string name="error_retrieving_templates">检索模板时出错</string>
     <string name="error_showing_encryption_dialog">显示设置加密对话框时出错！</string>
     <string name="error_starting_direct_camera_upload">开启相机时发生错误</string>
+    <string name="error_starting_scan_doc">使用文档扫描时出错</string>
     <string name="etm_accounts">账号</string>
     <string name="etm_background_job_name">工作名称</string>
     <string name="etm_background_job_progress">进度</string>

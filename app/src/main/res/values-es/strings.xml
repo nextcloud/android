@@ -272,6 +272,7 @@
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
     <string name="error_showing_encryption_dialog">¡Error al mostrar el diálogo de configuración del cifrado!</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
+    <string name="error_starting_scan_doc">Error al usar el escaner de documentos</string>
     <string name="etm_accounts">Cuentas</string>
     <string name="etm_background_job_name">Nombre del trabajo</string>
     <string name="etm_background_job_progress">Progreso</string>

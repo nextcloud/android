@@ -273,6 +273,7 @@
     <string name="error_retrieving_templates">Errorea txantiloiak berreskuratzean</string>
     <string name="error_showing_encryption_dialog">Errore bat gertatu da konfigurazio enkriptatzearen elkarrizketa-koadroa erakustean!</string>
     <string name="error_starting_direct_camera_upload">Errorea kamera abiaraztean</string>
+    <string name="error_starting_scan_doc">Errorea dokumentu eskaneatzailea erabiltzerakoan</string>
     <string name="etm_accounts">Kontuak</string>
     <string name="etm_background_job_name">Lanaren izena</string>
     <string name="etm_background_job_progress">Aurrerapena</string>

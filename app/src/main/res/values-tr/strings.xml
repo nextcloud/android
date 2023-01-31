@@ -279,6 +279,7 @@
     <string name="error_showing_encryption_dialog">Şifreleme kurulumu sayfası görüntülenirken sorun çıktı!</string>
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>
     <string name="error_starting_doc_scan">Belge taramasına başlanırken sorun çıktı</string>
+    <string name="error_starting_scan_doc">Belge taraması sırasında sorun çıktı</string>
     <string name="etm_accounts">Hesaplar</string>
     <string name="etm_background_job_name">Görev adı</string>
     <string name="etm_background_job_progress">İlerleme</string>
@@ -443,7 +444,7 @@
     <string name="logs_title">Günlükler</string>
     <string name="maintenance_mode">Sunucu bakım kipinde</string>
     <string name="manage_space_clear_data">Verileri temizle</string>
-    <string name="manage_space_description">%1$s verilerinden ayarlar, veritabanı ve sunucu sertifikaları kalıcı olarak silinecek. \n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
+    <string name="manage_space_description">%1$s verilerinden ayarlar, veri tabanı ve sunucu sertifikaları kalıcı olarak silinecek. \n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
     <string name="manage_space_title">Alan yönetimi</string>
     <string name="media_err_invalid_progressive_playback">Ortam dosyası akışı sağlanamadı</string>
     <string name="media_err_io">Ortam dosyası okunamadı</string>

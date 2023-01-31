@@ -265,6 +265,7 @@
     <string name="error_retrieving_file">خطأ في استيراد الملف</string>
     <string name="error_retrieving_templates">خطأ في استيراد القوالب</string>
     <string name="error_starting_direct_camera_upload">خطأ في تشغيل الكاميرا</string>
+    <string name="error_starting_scan_doc">خطأ في استخدام المسح الضوئي للمستند</string>
     <string name="etm_accounts">الحسابات</string>
     <string name="etm_background_job_name">إسم المهمة</string>
     <string name="etm_background_job_progress">التقدم</string>

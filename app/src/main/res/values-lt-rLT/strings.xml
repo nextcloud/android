@@ -262,6 +262,7 @@
     <string name="error_retrieving_file">Klaida gaunant failą</string>
     <string name="error_retrieving_templates">Klaida gaunant šablonus</string>
     <string name="error_starting_direct_camera_upload">Klaida paleidžiant kamerą</string>
+    <string name="error_starting_scan_doc">Klaida naudojant dokumento skenavimą</string>
     <string name="etm_accounts">Paskyros</string>
     <string name="etm_background_job_name">Užduoties pavadinimas</string>
     <string name="etm_background_job_progress">Eiga</string>

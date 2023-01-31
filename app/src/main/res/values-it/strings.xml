@@ -272,6 +272,7 @@
     <string name="error_retrieving_templates">Errore durante il recupero dei modelli</string>
     <string name="error_showing_encryption_dialog">Errore nel mostrare il messaggio di cifratura impostata!</string>
     <string name="error_starting_direct_camera_upload">Errore  di avvio della fotocamera</string>
+    <string name="error_starting_scan_doc">Errore durante l\'utilizzo della scansione del documento</string>
     <string name="etm_accounts">Account</string>
     <string name="etm_background_job_name">Nome operazione</string>
     <string name="etm_background_job_progress">Avanzamento</string>

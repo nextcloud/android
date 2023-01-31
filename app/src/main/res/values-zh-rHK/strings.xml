@@ -279,6 +279,7 @@
     <string name="error_showing_encryption_dialog">顯示設置加密對話框時出錯！</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
     <string name="error_starting_doc_scan">文件掃描開始時出錯</string>
+    <string name="error_starting_scan_doc">使用文件掃描時出錯</string>
     <string name="etm_accounts">賬戶</string>
     <string name="etm_background_job_name">工作名稱</string>
     <string name="etm_background_job_progress">進度</string>
