@@ -56,7 +56,7 @@ object OCShareToOCFileConverter {
             mimeType = firstShare.mimetype
             note = firstShare.note
             fileId = firstShare.fileSource
-            remoteId = firstShare.remoteId.toString()
+            remoteId = "-1" // remoteId is not given from server
             // use first share timestamp as timestamp
             firstShareTimestamp = shares.minOf { it.sharedDate * MILLIS_PER_SECOND }
             // don't have file length or mod timestamp

@@ -25,11 +25,9 @@ package com.owncloud.android.ui.events;
 public class FavoriteEvent {
     public final String remotePath;
     public final boolean shouldFavorite;
-    public final String remoteId;
 
-    public FavoriteEvent(String remotePath, boolean shouldFavorite, String remoteId) {
+    public FavoriteEvent(String remotePath, boolean shouldFavorite) {
         this.remotePath = remotePath;
         this.shouldFavorite = shouldFavorite;
-        this.remoteId = remoteId;
     }
 }
