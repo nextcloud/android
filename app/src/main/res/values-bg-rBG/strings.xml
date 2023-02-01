@@ -210,6 +210,11 @@
     <string name="dismiss_notification_description">Спри известията</string>
     <string name="displays_mnemonic">Показва вашата парола, която се състои от 12 думи</string>
     <string name="dnd">Не безпокой</string>
+    <string name="document_scan_export_dialog_images">Множество снимки</string>
+    <string name="document_scan_export_dialog_pdf">PDF файл</string>
+    <string name="document_scan_export_dialog_title">Избор на тип експортиране</string>
+    <string name="document_scan_pdf_generation_failed">PDF генерирането е неуспешно</string>
+    <string name="document_scan_pdf_generation_in_progress">Генериране на PDF...</string>
     <string name="done">Завършено</string>
     <string name="dontClear">Не изчиствай</string>
     <string name="download_latest_dev_version">Сваляне на най-новата dev версия</string>
@@ -274,6 +279,7 @@
     <string name="error_retrieving_templates">Грешка при извличане на шаблони</string>
     <string name="error_showing_encryption_dialog">Грешка при показване на диалогов прозорец за настройка на криптирането!</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартирането на камерата</string>
+    <string name="error_starting_doc_scan">Грешка при стартирането на сканиране на документ</string>
     <string name="error_starting_scan_doc">Грешка при използване на сканирането на документи</string>
     <string name="etm_accounts">Профили</string>
     <string name="etm_background_job_name">Име на процеса</string>
@@ -625,6 +631,7 @@
     <string name="retrieving_file">Извличане на файл...</string>
     <string name="richdocuments_failed_to_load_document">Неуспешно зареждане на документ</string>
     <string name="scanQR_description">Логване с QR код</string>
+    <string name="scan_page">Сканиране на страница</string>
     <string name="screenshot_01_gridView_heading">Защита на вашите данни</string>
     <string name="screenshot_01_gridView_subline">Продуктивност на самостоятелно хостване</string>
     <string name="screenshot_02_listView_heading">Преглеждане и споделяне</string>
