@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Dodaj v %1$s</string>
     <string name="advanced_settings">Napredne nastavitve</string>
     <string name="allow_resharing">Dovoli nadaljnje omogočanje souporabe</string>
+    <string name="app_widget_description">Pokaži en gradnik iz nadzorne plošče</string>
     <string name="appbar_search_in">Poišči v %s</string>
     <string name="associated_account_not_found">Povezanega računa ni mogoče najti!</string>
     <string name="auth_access_failed">Dostop je spodletel: %1$s</string>
@@ -77,6 +78,7 @@
     <string name="avatar">Avatar</string>
     <string name="away">Ne spremljam</string>
     <string name="backup_settings">Nastavitve varnostnega kopiranja</string>
+    <string name="backup_title">Varnostno kopiranje kontaktov &amp; koledarja</string>
     <string name="battery_optimization_close">Zapri</string>
     <string name="battery_optimization_disable">Onemogoči</string>
     <string name="battery_optimization_message">Naprava ima najverjetneje omogočeno možnost optimizacije porabe baterije. Program AutoUpload pravilno deluje le, če je izvzet iz nje.</string>
@@ -86,6 +88,7 @@
     <string name="calendars">Koledarji</string>
     <string name="certificate_load_problem">Prišlo je do težav med nalaganjem potrdila.</string>
     <string name="changelog_dev_version">Dnevnik razvojne različice</string>
+    <string name="check_back_later_or_reload">Preverite kasneje ali ponovno naložite</string>
     <string name="checkbox">Izbirno polje</string>
     <string name="choose_local_folder">Izberi krajevno mapo…</string>
     <string name="choose_location">Izberi mesto</string>
@@ -204,8 +207,13 @@
     <string name="disable_new_media_folder_detection_notifications">Onemogoči</string>
     <string name="dismiss">Opusti</string>
     <string name="dismiss_notification_description">Opusti obvestilo</string>
-    <string name="displays_mnemonic">Pokaži 12 besedno šifrirno geslo</string>
+    <string name="displays_mnemonic">Pokaže 12 besedno šifrirno geslo</string>
     <string name="dnd">Ne moti</string>
+    <string name="document_scan_export_dialog_images">Več slik</string>
+    <string name="document_scan_export_dialog_pdf">Datoteka PDF</string>
+    <string name="document_scan_export_dialog_title">Izbor vrste izvoza</string>
+    <string name="document_scan_pdf_generation_failed">Ustvarjanje datoteke PDF je spodletelo</string>
+    <string name="document_scan_pdf_generation_in_progress">Ustvarjanje datoteke PDF ...</string>
     <string name="done">Končano</string>
     <string name="dontClear">ne počisti</string>
     <string name="download_latest_dev_version">Prejmi najnovejšo razvojno različico</string>
@@ -237,6 +245,7 @@
     <string name="drawer_quota">%1$s od %2$s uporabljeno</string>
     <string name="drawer_quota_unlimited">Skupaj %1$s</string>
     <string name="drawer_synced_folders">Samodejno pošiljanje</string>
+    <string name="e2e_not_yet_setup">Celovito šifriranje E2E ni še nastavljeno.</string>
     <string name="encrypted">Nastavi kot šifrirano</string>
     <string name="end_to_end_encryption_confirm_button">Nastavitev šifriranja</string>
     <string name="end_to_end_encryption_decrypting">Poteka odšifriranje…</string>
@@ -267,7 +276,9 @@
     <string name="error_report_issue_text">Ali želite poslati poročilo na sledilnik (zahteva račun Github)?</string>
     <string name="error_retrieving_file">Pridobivanje datoteke je spodletelo</string>
     <string name="error_retrieving_templates">Napaka pridobivanja predlog</string>
+    <string name="error_showing_encryption_dialog">Napaka pri prikazu nastavitev šifriranja!</string>
     <string name="error_starting_direct_camera_upload">Napaka začenjanja kamere</string>
+    <string name="error_starting_doc_scan">Napaka pri začetku preverjanja dokumenta</string>
     <string name="error_starting_scan_doc">Napaka uporabe preverjanja dokumenta</string>
     <string name="etm_accounts">Računi</string>
     <string name="etm_background_job_name">Ime opravila</string>
@@ -318,11 +329,15 @@
     <string name="file_list_empty_search">Mogoče v drugi mapi?</string>
     <string name="file_list_empty_shared">Datoteke in mape v souporabi bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_shared_headline">Ni še datotek v souporabi</string>
+    <string name="file_list_empty_unified_search_no_results">Vaša poizvedba ni vrnila rezultatov</string>
     <string name="file_list_folder">mapa</string>
     <string name="file_list_loading">Poteka nalaganje …</string>
     <string name="file_list_no_app_for_file_type">Ni določenega programa za odpiranje te vrste datotek.</string>
     <string name="file_list_seconds_ago">pred nekaj sekundami</string>
     <string name="file_management_permission">Zahtevana so posebna dovoljenja</string>
+    <string name="file_management_permission_optional">Dovoljenje shrambe</string>
+    <string name="file_management_permission_optional_text">%1$s deluje najbolje z dostopom do shrambe. Lahko izberete popoln dostop do vseh datotek, ali samo bralni dostop do fotografij in videoposnetkov.  </string>
+    <string name="file_management_permission_text">%1$s potrebuje dovoljenje za upravljanje z datotekami, da lahko naloži datoteke. Lahko izberete popoln dostop do vseh datotek, ali samo bralni dostop do fotografij in videoposnetkov.</string>
     <string name="file_migration_checking_destination">Poteka preverjanje cilja …</string>
     <string name="file_migration_cleaning">Poteka čiščenje …</string>
     <string name="file_migration_dialog_title">Poteka osodabljanje podatkovne mape</string>
@@ -388,6 +403,7 @@
     <string name="host_your_own_server">Gostite osebni strežnik</string>
     <string name="icon_for_empty_list">Ikona za prazen seznam</string>
     <string name="icon_of_dashboard_widget">Ikona gradnika nadzorne plošče</string>
+    <string name="icon_of_widget_entry">Ikona vnosa gradnikov</string>
     <string name="in_folder">v mapi %1$s</string>
     <string name="instant_upload_existing">Pošlji tudi obstoječe datoteke</string>
     <string name="instant_upload_on_charging">Usklajuj le med polnjenjem naprave</string>
@@ -411,6 +427,8 @@
     <string name="locate_folder">Določi mapo</string>
     <string name="lock_expiration_info">Preteče: %1$s</string>
     <string name="lock_file">Zakleni datoteko</string>
+    <string name="locked_by">Zaklenjeno s strani %1$s</string>
+    <string name="locked_by_app">Zaklenjeno s strani %1$s</string>
     <string name="log_send_mail_subject">%1$s dnevniki programa</string>
     <string name="log_send_no_mail_app">Ni nameščenega programa za pošiljanje dnevnikov. Namestiti je treba program za elektronsko pošto.</string>
     <string name="login">Prijava</string>
@@ -467,6 +485,8 @@
     <string name="no_items">Ni predmetov</string>
     <string name="no_mutliple_accounts_allowed">Dovoljen je le en račun</string>
     <string name="no_pdf_app_available">Ni nameščenega programa za odpiranje datotek PDF</string>
+    <string name="no_send_app">Nobena aplikacija ni primerna za pošiljanje izbranih datotek</string>
+    <string name="no_share_permission_selected">Prosim izberite vsaj eno dovoljenje za souporabo.</string>
     <string name="note_confirm">Pošlji</string>
     <string name="note_could_not_sent">Sporočilca ni mogoče poslati</string>
     <string name="note_icon_hint">Ikona opombe</string>
@@ -501,6 +521,7 @@
     <string name="pass_code_removed">Koda PIN je izbrisana</string>
     <string name="pass_code_stored">Koda PIN je shranjena</string>
     <string name="pass_code_wrong">Napačna koda PIN</string>
+    <string name="pdf_zoom_tip">Kliknite na stran za približanje</string>
     <string name="permission_allow">Dovoli</string>
     <string name="permission_deny">Zavrni</string>
     <string name="permission_storage_access">Za prejemanje oziroma pošiljanje datotek v oblak so zahtevana dodatna dovoljenja.</string>
@@ -535,6 +556,9 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
+    <string name="prefs_daily_backup_summary">Dnevno varnostno kopiranje vašega koledarja &amp; stikov </string>
+    <string name="prefs_davx5_setup_error">Nepričakovana napaka pri nastavljanju DAVx5 (prej poznano kot DAVdroid)</string>
+    <string name="prefs_e2e_active">Celovito šifriranje »end-to-end« je nastavljeno!</string>
     <string name="prefs_e2e_mnemonic">Mnemonika E2E</string>
     <string name="prefs_e2e_no_device_credentials">Za prikaz mnemonike izberite poverila naprave.</string>
     <string name="prefs_enable_media_scan_notifications">Pokaži obvestila iskanja predstavnih vsebin</string>
@@ -546,6 +570,7 @@
     <string name="prefs_instant_behaviour_title">Izvorna datoteka bo…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Shrani v podmape kot leto in mesec</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Uporabi podmape</string>
+    <string name="prefs_keys_exist">Dodaj celovito šifriranje »end-to-end« na to napravo</string>
     <string name="prefs_license">Dovoljenje</string>
     <string name="prefs_lock">Koda PIN programa</string>
     <string name="prefs_lock_device_credentials_enabled">Poverila naprave so omogočena</string>
@@ -557,6 +582,7 @@
     <string name="prefs_manage_accounts">Upravljanje z računi</string>
     <string name="prefs_recommend">Priporoči prijatelju</string>
     <string name="prefs_remove_e2e">Odstrani šifriranje krajevno</string>
+    <string name="prefs_setup_e2e">Nastavi celovito šifriranje »end-to-end«</string>
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
     <string name="prefs_storage_path">Mapa podatkovne shrambe</string>
@@ -584,6 +610,7 @@
     <string name="reload">Ponovno naloži</string>
     <string name="remote">(oddaljeno) </string>
     <string name="remote_file_fetch_failed">Iskanje datoteke je spodletelo!</string>
+    <string name="remove_e2e">Lahko odstranite lokalno celovito šifriranje »end-to-end« na tej napravi</string>
     <string name="remove_fail_msg">Brisanje je spodletelo</string>
     <string name="remove_notification_failed">Odstranjevanje obvestil je spodletelo.</string>
     <string name="remove_push_notification">Odstrani</string>
@@ -601,6 +628,7 @@
     <string name="retrieving_file">Poteka pridobivanje datoteke…</string>
     <string name="richdocuments_failed_to_load_document">Nalaganje dokumenta je spodletelo!</string>
     <string name="scanQR_description">Prijava s kodo QR</string>
+    <string name="scan_page">Optično preberi stran</string>
     <string name="screenshot_01_gridView_heading">Zaščita podatkov</string>
     <string name="screenshot_01_gridView_subline">zasebno produkcijsko okolje</string>
     <string name="screenshot_02_listView_heading">Brskanje in souporaba</string>
@@ -627,6 +655,7 @@
     <string name="set_status">Nastavi stanje</string>
     <string name="set_status_message">Nastavi sporočilo stanja</string>
     <string name="share">Souporaba</string>
+    <string name="share_copy_link">Omogoči souporabo &amp; Kopiraj povezavo</string>
     <string name="share_dialog_title">Souporaba</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Preteče %1$s</string>
@@ -648,6 +677,7 @@
     <string name="share_no_password_title">Nastavi geslo</string>
     <string name="share_password_title">Zaščiteno z geslom</string>
     <string name="share_permission_can_edit">Lahko ureja</string>
+    <string name="share_permission_file_drop">Poteg datotek</string>
     <string name="share_permission_view_only">Le ogled</string>
     <string name="share_permissions">Dovoljenja souporabe</string>
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
@@ -713,6 +743,7 @@
     <string name="storage_movies">Video</string>
     <string name="storage_music">Glasba</string>
     <string name="storage_permission_full_access">Poln dostop</string>
+    <string name="storage_permission_media_read_only">Predstavna vsebina samo za branje</string>
     <string name="storage_pictures">Slike</string>
     <string name="store_full_desc">Okolje, ki gostuje, kjer vi želite, in vam omogoča popoln nadzor.\n\n Možnosti:\n* Enostaven za uporabo in sodoben vmesnik, ki je skladen z vašim strežnikom\n* Omogoča nalaganje datotek v oblak Nextcloud\n* Omogoča izmenjavo datotek z drugimi\n* Ohrani vaše datoteke in mape vedno usklajene\n * Podpira iskanje po vseh dodeljenih mapah na strežniku\n * Podpira samodejno nalaganje fotografij in videoposnetkov z naprave\n * Usklajuje in posreduje obvestila\n * Podpora je uporaba več računov\n* Zagotavlja varen dostop do podatkov s prstnim odtisom ali kodo PIN\n * Izvorno podpira sistem DAVx5 (poznan kot DAVdroid) za enostavno nastavitev usklajevanja koledarja in stikov\n\nPoročila o težavah je mogoče poslati na https://github.com/nextcloud/android/isissue in o programu razpravljati na https://help.nextcloud.com/c/clients/android\n\nAli šele spoznavate oblak Nextcloud? To je je zasebni strežnik za usklajevanje in sporočanje. Je brezplačna programska oprema, ki jo lahko namestite na svojem strežniku ali gostujete pri številnih ponudnikih. Vedno imate nadzor nad fotografijami, koledarjem in podatki stikov, nad dokumenti in vsem drugim.\n\nVse o Nextcloud izveste na https://nextcloud.com.</string>
     <string name="store_full_dev_desc">Okolje, ki vam omogoči popoln nadzor nad datotekami.\nUporabljate uradno razvojno različico, ki omogoča zagon nepreizkušene, dnevno spreminjajoče se kode, ta pa lahko povzroči nestabilnost in izgubo podatkov. Program je namenjen uporabnikom, ki so pripravljeni preizkušati novosti, poročati o težavah in iskati napake. Programa ni priporočljivo uporabiti za resno delo!\n\nObe različici, stabilna in razvojna, sta na voljo na F-droid in ju je mogoče uporabljati nameščeni sočasno.</string>
@@ -725,6 +756,7 @@
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
     <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
     <string name="subtitle_photos_only">Le slike</string>
+    <string name="subtitle_photos_videos">Slike &amp; videoposnetki</string>
     <string name="subtitle_videos_only">Le posnetki</string>
     <string name="suggest">Predlagaj</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
@@ -803,6 +835,7 @@
     <string name="upload_lock_failed">Zaklepanje mape je spodletelo</string>
     <string name="upload_old_android">Šifriranje je podprto z različico &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali želiš datoteke premakniti na novo mesto?</string>
+    <string name="upload_scan_doc_upload">Optično preberi dokument s fotoaparatom</string>
     <string name="upload_sync_conflict">Zaznan je spor usklajevanja, ki ga je treba razrešiti ročno</string>
     <string name="upload_unknown_error">Neznana napaka</string>
     <string name="uploader_btn_alternative_text">Izberi</string>
@@ -874,6 +907,7 @@
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo v %1$s</string>
     <string name="whats_your_status">Kako želite nastaviti stanje?</string>
+    <string name="widgets_not_available">Gradniki so na voljo samo na %1$s 25 ali pozneje</string>
     <string name="widgets_not_available_title">Ni na voljo</string>
     <string name="write_email">Pošlji elektronsko sporočilo</string>
     <string name="wrong_storage_path">Podatkovna mapa ne obstaja!</string>

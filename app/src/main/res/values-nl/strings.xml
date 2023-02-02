@@ -10,7 +10,7 @@
     <string name="action_clear_failed_uploads">Wis mislukte uploads</string>
     <string name="action_edit">Bewerken</string>
     <string name="action_empty_notifications">Handel alle meldingen af</string>
-    <string name="action_empty_trashbin">Legen prullebak</string>
+    <string name="action_empty_trashbin">Prullenbak legen</string>
     <string name="action_send_share">Versturen/Delen</string>
     <string name="action_switch_grid_view">Rasterindeling </string>
     <string name="action_switch_list_view">Lijstindeling</string>
@@ -78,7 +78,7 @@
     <string name="avatar">Avatar</string>
     <string name="away">Afwezig</string>
     <string name="backup_settings">Back-up instellingen </string>
-    <string name="backup_title">Back-up contacten &amp;agenda</string>
+    <string name="backup_title">Back-up van contacten &amp; agenda</string>
     <string name="battery_optimization_close">Sluiten</string>
     <string name="battery_optimization_disable">Uitschakelen</string>
     <string name="battery_optimization_message">Op je toestel kan batterij optimalisatie ingeschakeld zijn. AutoUpload werkt alleen als je dat voor deze app uitschakelt.</string>
@@ -313,7 +313,7 @@
     <string name="file_list_empty_headline_search">Geen resultaten in deze map</string>
     <string name="file_list_empty_headline_server_search">Geen resultaten</string>
     <string name="file_list_empty_moving">Het is hier leeg. Je kan een map toevoegen!</string>
-    <string name="file_list_empty_on_device">Gedownloade bestanden en folders zie je hier.</string>
+    <string name="file_list_empty_on_device">Gedownloade bestanden en mappen zie je hier.</string>
     <string name="file_list_empty_recently_modified">Geen bestanden gevonden die de afgelopen 7 dagen zijn gewijzigd</string>
     <string name="file_list_empty_search">Misschien staat het in een andere map?</string>
     <string name="file_list_empty_shared">Bestanden en mappen die je deelt, worden hier getoond.</string>
@@ -325,7 +325,7 @@
     <string name="file_list_seconds_ago">seconden geleden</string>
     <string name="file_management_permission">Machtigingen nodig</string>
     <string name="file_management_permission_optional">Opslagmachtigingen</string>
-    <string name="file_management_permission_optional_text">%1$s werkt het best met opslagmachtigingen. Je kan kiezen tussel volledige toegang tot alle bestanden, of alleen lezen toegang tot foto\'s en videos.</string>
+    <string name="file_management_permission_optional_text">%1$s werkt het best met opslagmachtigingen. Je kan kiezen tussen volledige toegang tot alle bestanden, of alleen lezen toegang tot foto\'s en video\'s.</string>
     <string name="file_management_permission_text">%1$s heeft bestandsbeheer machtiging nodig om bestanden te uploaden. Je kan kiezen tussel volledige toegang tot alle bestanden, of alleen lezen toegang tot foto\'s en videos.</string>
     <string name="file_migration_checking_destination">Doelmap controleren…</string>
     <string name="file_migration_cleaning">Opruimen…</string>
@@ -515,6 +515,7 @@
     <string name="permission_deny">Weigeren</string>
     <string name="permission_storage_access">Aanvullende machtigingen vereist voor het uploaden en downloaden van bestanden.</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
+    <string name="pin_home">Toevoegen aan startscherm</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">plaatshouder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -568,7 +569,7 @@
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_sourcecode">Krijg broncode</string>
     <string name="prefs_storage_path">Gegevensopslagmap</string>
-    <string name="prefs_sycned_folders_summary">Beheren mappen voor auto-upload</string>
+    <string name="prefs_sycned_folders_summary">Mappen beheren voor automatisch uploaden</string>
     <string name="prefs_synced_folders_local_path_title">Lokale map</string>
     <string name="prefs_synced_folders_remote_path_title">Externe map</string>
     <string name="prefs_theme_title">Thema</string>

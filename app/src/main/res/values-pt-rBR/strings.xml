@@ -209,6 +209,11 @@
     <string name="dismiss_notification_description">Dispensar notificação</string>
     <string name="displays_mnemonic">Exibe sua frase secreta de 12 palavras</string>
     <string name="dnd">Não perturbe</string>
+    <string name="document_scan_export_dialog_images">Imagens múltiplas</string>
+    <string name="document_scan_export_dialog_pdf">Arquivo PDF</string>
+    <string name="document_scan_export_dialog_title">Escolha o tipo de exportação</string>
+    <string name="document_scan_pdf_generation_failed">Falha na geração do PDF</string>
+    <string name="document_scan_pdf_generation_in_progress">Gerando PDF…</string>
     <string name="done">Concluído</string>
     <string name="dontClear">Não limpar</string>
     <string name="download_latest_dev_version">Baixar a última versão dev</string>
@@ -273,6 +278,7 @@
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
     <string name="error_showing_encryption_dialog">Erro ao mostrar a caixa de diálogo de criptografia de configuração!</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
+    <string name="error_starting_doc_scan">Erro ao iniciar a digitalização do documento</string>
     <string name="error_starting_scan_doc">Erro ao usar a digitalização de documentos</string>
     <string name="etm_accounts">Contas</string>
     <string name="etm_background_job_name">Nome da tarefa</string>
@@ -624,6 +630,7 @@
     <string name="retrieving_file">Recuperando arquivo…</string>
     <string name="richdocuments_failed_to_load_document">Falhou ao carregar documento!</string>
     <string name="scanQR_description">Entrar via código QR</string>
+    <string name="scan_page">Digitalizar página</string>
     <string name="screenshot_01_gridView_heading">Protegendo seus dados</string>
     <string name="screenshot_01_gridView_subline">produtividade auto hospedada</string>
     <string name="screenshot_02_listView_heading">Navegar e compartilhar</string>

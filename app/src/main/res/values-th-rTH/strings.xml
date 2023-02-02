@@ -132,6 +132,7 @@
     <string name="community_beta_text">รุ่นนี้มีทุกคุณสมบัติที่จะมีในอนาคตและอยู่ระหว่างการพัฒนา ข้อบกพร่อง/ข้อผิดพลาดอาจเกิดขึ้นได้ หากพบ กรุณารายงานปัญหาที่พบด้วย</string>
     <string name="community_contribute_forum_forum">ฟอรัม</string>
     <string name="community_contribute_forum_text">ช่วยเหลือผู้อื่นบน</string>
+    <string name="community_contribute_github_text">ตรวจสอบ แก้ไข และเขียนโค้ด ดูรายละเอียดได้ที่ %1$s</string>
     <string name="community_contribute_headline">มีส่วนร่วมเป็นประจำ</string>
     <string name="community_contribute_translate_text">แอป</string>
     <string name="community_contribute_translate_translate">แปลภาษา</string>
@@ -380,6 +381,7 @@
     <string name="logs_title">บันทึก</string>
     <string name="maintenance_mode">เซิร์ฟเวอร์อยู่ในโหมดการบำรุงรักษา</string>
     <string name="manage_space_clear_data">ล้างข้อมูล</string>
+    <string name="manage_space_description">การตั้งค่า ฐานข้อมูล และใบรับรองเซิร์ฟเวอร์จากข้อมูลของ %1$s จะถูกลบอย่างถาวร \n\nไฟล์ที่ดาวน์โหลดแล้วจะไม่มีการแตะต้อง\n\nกระบวนการนี้อาจใช้เวลาสักครู่</string>
     <string name="manage_space_title">จัดการพื้นที่</string>
     <string name="media_err_invalid_progressive_playback">ไม่สามารถสตรีมไฟล์สื่อ</string>
     <string name="media_err_io">ไม่สามารถอ่านไฟล์สื่อ</string>
