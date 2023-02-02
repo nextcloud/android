@@ -99,10 +99,6 @@ open class FileSortOrder(@JvmField var name: String, var isAscending: Boolean) {
         }
     }
 
-    open fun sortSharedFiles(files: MutableList<OCFile>): List<OCFile> {
-        return files.sortedByDescending { it.firstShareTimestamp }
-    }
-
     open fun sortCloudFiles(files: MutableList<OCFile>): List<OCFile> {
         return sortCloudFilesByFavourite(files)
     }
