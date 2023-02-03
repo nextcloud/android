@@ -209,6 +209,12 @@
     <string name="dismiss_notification_description">Descartar notificación</string>
     <string name="displays_mnemonic">Muestra su contraseña de cifrado de 12 palabras</string>
     <string name="dnd">No molestar</string>
+    <string name="document_scan_export_dialog_images">Múltiples imágenes</string>
+    <string name="document_scan_export_dialog_pdf">Archivo PDF</string>
+    <string name="document_scan_export_dialog_title">Seleccione el tipo de exportación</string>
+    <string name="document_scan_pdf_generation_failed">La generación del PDF falló</string>
+    <string name="document_scan_pdf_generation_in_progress">Generando PDF...</string>
+    <string name="done">Hecho</string>
     <string name="dontClear">No eliminar</string>
     <string name="download_latest_dev_version">Descargar la última versión de desarrollo</string>
     <string name="downloader_download_failed_content">No se ha podido descargar %1$s</string>
@@ -272,6 +278,7 @@
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
     <string name="error_showing_encryption_dialog">¡Error al mostrar el diálogo de configuración del cifrado!</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
+    <string name="error_starting_doc_scan">Error al iniciar el escaneo del documento</string>
     <string name="error_starting_scan_doc">Error al usar el escaner de documentos</string>
     <string name="etm_accounts">Cuentas</string>
     <string name="etm_background_job_name">Nombre del trabajo</string>
@@ -623,6 +630,7 @@
     <string name="retrieving_file">Recuperando archivo…</string>
     <string name="richdocuments_failed_to_load_document">Fallo al cargar el documento.</string>
     <string name="scanQR_description">Entrar vía código QR</string>
+    <string name="scan_page">Escanear página</string>
     <string name="screenshot_01_gridView_heading">Protegiendo sus datos</string>
     <string name="screenshot_01_gridView_subline">plataforma de productividad autoalojada</string>
     <string name="screenshot_02_listView_heading">Navegar y compartir</string>
