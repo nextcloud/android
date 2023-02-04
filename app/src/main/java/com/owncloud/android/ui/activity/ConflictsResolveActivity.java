@@ -81,6 +81,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
             intent.setFlags(intent.getFlags() | flag);
         }
         intent.putExtra(EXTRA_FILE, file);
+        intent.putExtra(EXTRA_EXISTING_FILE, file);
         intent.putExtra(EXTRA_USER, user);
         intent.putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId);
 
@@ -141,6 +142,9 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                     uploadsStorageManager.removeUpload(upload);
                     break;
                 case KEEP_SERVER: // Download
+                    if (newFile.isEncrypted()) {
+                        return;
+                    }
                     if (!shouldDeleteLocal()) {
                         // Overwrite local file
                         Intent intent = new Intent(getBaseContext(), FileDownloader.class);
@@ -231,7 +235,9 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
             fragmentTransaction.remove(prev);
         }
 
-        if (existingFile != null && getStorageManager().fileExists(newFile.getRemotePath())) {
+        // TODO renaming does not work?
+        // TODO check all three conflict options
+        if (existingFile != null && getStorageManager().getFileByDecryptedRemotePath(newFile.getRemotePath()) != null) {
             ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
                                                                                newFile,
                                                                                userOptional.get());
