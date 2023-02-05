@@ -209,6 +209,11 @@
     <string name="dismiss_notification_description">Értesítés mellőzése</string>
     <string name="displays_mnemonic">Megjeleníti a 12 szavas jelmondatát</string>
     <string name="dnd">Ne zavarjanak</string>
+    <string name="document_scan_export_dialog_images">Több kép</string>
+    <string name="document_scan_export_dialog_pdf">PDF-fájl</string>
+    <string name="document_scan_export_dialog_title">Válasszon exportálási típust</string>
+    <string name="document_scan_pdf_generation_failed">A PDF előállítása sikertelen</string>
+    <string name="document_scan_pdf_generation_in_progress">PDF előállítása…</string>
     <string name="done">Kész</string>
     <string name="dontClear">Ne törölje</string>
     <string name="download_latest_dev_version">A legfrissebb fejlesztői verzió letöltése</string>
@@ -273,6 +278,7 @@
     <string name="error_retrieving_templates">Hiba történt a sablonok lékérésekor</string>
     <string name="error_showing_encryption_dialog">Hiba a titkosítás beállítóablakának megjelenítése során!</string>
     <string name="error_starting_direct_camera_upload">Hiba a kamera indításakor</string>
+    <string name="error_starting_doc_scan">Hiba a dokumentumbeolvasás elindítása során</string>
     <string name="error_starting_scan_doc">Hiba a dokumentumbeolvasás használata sorá</string>
     <string name="etm_accounts">Fiókok</string>
     <string name="etm_background_job_name">Feladat neve</string>
@@ -624,6 +630,7 @@
     <string name="retrieving_file">Fájl lekérése…</string>
     <string name="richdocuments_failed_to_load_document">A dokumentum betöltése sikertelen!</string>
     <string name="scanQR_description">Belépés QR-kóddal</string>
+    <string name="scan_page">Kép szkennelése</string>
     <string name="screenshot_01_gridView_heading">Az adatai védelme</string>
     <string name="screenshot_01_gridView_subline">saját üzemeltetésű irodai platform</string>
     <string name="screenshot_02_listView_heading">Tallózás és megosztás</string>
