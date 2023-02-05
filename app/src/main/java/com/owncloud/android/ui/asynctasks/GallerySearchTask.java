@@ -24,6 +24,7 @@ package com.owncloud.android.ui.asynctasks;
 import android.os.AsyncTask;
 
 import com.nextcloud.client.account.User;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -52,14 +53,11 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
     private final WeakReference<GalleryFragment> photoFragmentWeakReference;
     private final FileDataStorageManager storageManager;
     private final int limit;
-    @Deprecated
-    private final long startDate = 0; // we don't use startDate anymore, only endDate and limit
     private final long endDate;
 
     public GallerySearchTask(GalleryFragment photoFragment,
                              User user,
                              FileDataStorageManager storageManager,
-                             long startDate,
                              long endDate,
                              int limit) {
         this.user = user;
@@ -86,19 +84,17 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
                                                                                     false,
                                                                                     ocCapability);
 
-
             searchRemoteOperation.setLimit(limit);
-            searchRemoteOperation.setStartDate(startDate);
             searchRemoteOperation.setEndDate(endDate);
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //workaround to keep SearchRemoteOperation functioning correctly even if we don't actively use startDate
+            searchRemoteOperation.setStartDate(0L);
 
             if (photoFragment.getContext() != null) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Log_OC.d(this,
-                         "Start gallery search with " + dateFormat.format(new Date(startDate * 1000L)) +
-                             " - " + dateFormat.format(new Date(endDate * 1000L)) +
+                         "Start gallery search since " + dateFormat.format(new Date(endDate * 1000L)) +
                              " with limit: " + limit);
-
                 RemoteOperationResult result = searchRemoteOperation.execute(user, photoFragment.getContext());
 
                 if (result.isSuccess()) {
@@ -136,14 +132,16 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
     }
 
     private boolean parseMedia(long startDate, long endDate, List<Object> remoteFiles) {
-        // retrieve all between startDate and endDate
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Log_OC.d(this, "parseMedia - start: " + dateFormat.format(new Date(startDate * 1000L)) + " - " + dateFormat.format(new Date(endDate * 1000L)));
 
         List<OCFile> localFiles = storageManager.getGalleryItems(startDate * 1000L, endDate * 1000L);
 
-        for (OCFile localFile: localFiles) {
-            Log_OC.d(this, "local file: modified: " + dateFormat.format(new Date(localFile.getModificationTimestamp())) + " path: " + localFile.getRemotePath());
+        if (BuildConfig.DEBUG) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Log_OC.d(this, "parseMedia - start: " + dateFormat.format(new Date(startDate * 1000L)) + " - " + dateFormat.format(new Date(endDate * 1000L)));
+
+            for (OCFile localFile : localFiles) {
+                Log_OC.d(this, "local file: modified: " + dateFormat.format(new Date(localFile.getModificationTimestamp())) + " path: " + localFile.getRemotePath());
+            }
         }
 
         Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(null, localFiles);
@@ -152,7 +150,12 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
 
         for (Object file : remoteFiles) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) file);
-            Log_OC.d(this, "remote file: modified: " + dateFormat.format(new Date(ocFile.getModificationTimestamp())) + " path: " + ocFile.getRemotePath());
+
+            if (BuildConfig.DEBUG) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Log_OC.d(this, "remote file: modified: " + dateFormat.format(new Date(ocFile.getModificationTimestamp())) + " path: " + ocFile.getRemotePath());
+            }
+
             OCFile localFile = localFilesMap.remove(ocFile.getRemotePath());
 
             if (localFile == null) {
@@ -173,16 +176,20 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         filesDeleted = localFilesMap.values().size();
 
         for (OCFile file : localFilesMap.values()) {
-            Log_OC.d(this, "Gallery Sync: File deleted " + file.getRemotePath());
+            if (BuildConfig.DEBUG) {
+                Log_OC.d(this, "Gallery Sync: File deleted " + file.getRemotePath());
+            }
+
             storageManager.removeFile(file, true, true);
         }
 
-        Log_OC.d(this, "Gallery search result:" +
-            " new: " + filesAdded +
-            " updated: " + filesUpdated +
-            " deleted: " + filesDeleted +
-            " unchanged: " + unchangedFiles);
-
+        if (BuildConfig.DEBUG) {
+            Log_OC.d(this, "Gallery search result:" +
+                " new: " + filesAdded +
+                " updated: " + filesUpdated +
+                " deleted: " + filesDeleted +
+                " unchanged: " + unchangedFiles);
+        }
         final long totalFiles = filesAdded + filesUpdated + filesDeleted + unchangedFiles;
         return totalFiles <= 0;
     }
