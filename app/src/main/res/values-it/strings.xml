@@ -207,7 +207,13 @@
     <string name="disable_new_media_folder_detection_notifications">Disabilita</string>
     <string name="dismiss">Annulla</string>
     <string name="dismiss_notification_description">Cancella notifica</string>
+    <string name="displays_mnemonic">Visualizza la tua frase segreta di 12 parole</string>
     <string name="dnd">Non disturbare</string>
+    <string name="document_scan_export_dialog_images">Immagini multiple</string>
+    <string name="document_scan_export_dialog_pdf">File PDF</string>
+    <string name="document_scan_export_dialog_title">Scegli il tipo di esportazione</string>
+    <string name="document_scan_pdf_generation_failed">Generazione PDF non riuscita</string>
+    <string name="document_scan_pdf_generation_in_progress">Generazione PDF...</string>
     <string name="done">Fatto</string>
     <string name="dontClear">Non togliere</string>
     <string name="download_latest_dev_version">Scarica l\'ultima versione di sviluppo</string>
@@ -272,6 +278,7 @@
     <string name="error_retrieving_templates">Errore durante il recupero dei modelli</string>
     <string name="error_showing_encryption_dialog">Errore nel mostrare il messaggio di cifratura impostata!</string>
     <string name="error_starting_direct_camera_upload">Errore  di avvio della fotocamera</string>
+    <string name="error_starting_doc_scan">Errore all\'avvio della scansione del documento</string>
     <string name="error_starting_scan_doc">Errore durante l\'utilizzo della scansione del documento</string>
     <string name="etm_accounts">Account</string>
     <string name="etm_background_job_name">Nome operazione</string>
@@ -418,7 +425,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Non ci sono ulteriori cartelle.</string>
     <string name="locate_folder">Trova cartella</string>
+    <string name="lock_expiration_info">Scade: %1$s</string>
     <string name="lock_file">Blocca file</string>
+    <string name="locked_by">Bloccato da %1$s</string>
+    <string name="locked_by_app">Bloccato dall\'app %1$s </string>
     <string name="log_send_mail_subject">Registri applicazione %1$s Android</string>
     <string name="log_send_no_mail_app">Non è stata trovata alcuna applicazione per inviare i log. Installa un client di posta elettronica.</string>
     <string name="login">Accedi</string>
