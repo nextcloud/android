@@ -21,14 +21,14 @@ jobs:
             -   uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
 
             -   name: Gradle cache
-                uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 # v3
+                uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3
                 with:
                     path: |
                         ~/.gradle/caches
                         ~/.gradle/wrapper
                     key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
             -   name: AVD cache
-                uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 # v3
+                uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3
                 id: avd-cache
                 with:
                     path: |
