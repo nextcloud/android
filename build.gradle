@@ -8,7 +8,7 @@ buildscript {
         daggerVersion = "2.44.2"
         markwonVersion = "4.6.2"
         prismVersion = "2.0.0"
-        androidLibraryVersion ="01fcd84ecd9e9aef888ebcf96017d3aa6d59acfa"
+        androidLibraryVersion ="4cf2f754969617ed51e50e5c66ae1bcc686cd479"
         mockitoVersion = "4.11.0"
         mockitoKotlinVersion = "4.1.0"
         mockkVersion = "1.13.3"
@@ -16,7 +16,7 @@ buildscript {
         workRuntime = "2.7.1"
         fidoVersion = "4.1.0-patch1"
         checkerVersion = "3.21.2"
-        exoplayerVersion = "2.18.1"
+        exoplayerVersion = "2.18.2"
         documentScannerVersion = "1.0.1"
         roomVersion = "2.5.0"
 

@@ -17,7 +17,7 @@ buildscript {
 }
 
 plugins {
-    id "com.diffplug.spotless" version "6.14.0"
+    id "com.diffplug.spotless" version "6.14.1"
 }
 
 apply plugin: 'com.android.application'
@@ -145,8 +145,8 @@ android {
             versionDev {
                 applicationId "com.nextcloud.android.beta"
                 dimension "default"
-                versionCode 20230203
-                versionName "20230203"
+                versionCode 20230207
+                versionName "20230207"
             }
 
             qa {
@@ -245,7 +245,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'com.jakewharton:disklrucache:2.0.2'
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
-    implementation 'androidx.webkit:webkit:1.5.0'
+    implementation 'androidx.webkit:webkit:1.6.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.exifinterface:exifinterface:1.3.5'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
