@@ -74,6 +74,11 @@ internal class MaterialSchemesProviderImpl @Inject constructor(
         return MaterialSchemes.fromColor(primaryColor)
     }
 
+    override fun getMaterialSchemesForPrimaryBackground(): MaterialSchemes {
+        val primaryColor = ContextCompat.getColor(context, R.color.primary)
+        return MaterialSchemes.withPrimaryAsBackground(primaryColor)
+    }
+
     companion object {
         private val TAG = MaterialSchemesProviderImpl::class.java.simpleName
     }
