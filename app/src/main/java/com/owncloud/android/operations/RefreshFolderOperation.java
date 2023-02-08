@@ -420,24 +420,6 @@ public class RefreshFolderOperation extends RemoteOperation {
         return result;
     }
 
-    private RemoteOperationResult updateE2eMetadata(OwnCloudClient client) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeySpecException, InvalidKeyException {
-        RemoteOperationResult result = new GetMetadataRemoteOperation(mLocalFolder.getLocalId()).execute(client);
-
-        String serializedEncryptedMetadata = (String) result.getData().get(0);
-
-
-        EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
-            serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadata>() {
-            });
-
-
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(mContext);
-        String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
-        DecryptedFolderMetadata metadata = EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata, privateKey);
-
-        return result;
-    }
-
     private void removeLocalFolder() {
         if (mStorageManager.fileExists(mLocalFolder.getFileId())) {
             String currentSavePath = FileStorageUtils.getSavePath(user.getAccountName());

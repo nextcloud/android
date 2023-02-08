@@ -14,7 +14,6 @@ import android.view.View;
 
 import com.facebook.testing.screenshot.Screenshot;
 import com.facebook.testing.screenshot.internal.TestNameDetector;
-import com.nextcloud.test.GrantStoragePermissionRule;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
@@ -26,6 +25,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.test.GrantStoragePermissionRule;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -123,14 +123,11 @@ public abstract class AbstractIT {
 
             client = OwnCloudClientFactory.createOwnCloudClient(account, targetContext);
             nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, targetContext);
-        } catch (OperationCanceledException e) {
-            e.printStackTrace();
-        } catch (AuthenticatorException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (AccountUtils.AccountNotFoundException e) {
-            e.printStackTrace();
+        } catch (OperationCanceledException |
+                 IOException |
+                 AccountUtils.AccountNotFoundException |
+                 AuthenticatorException e) {
+            throw new RuntimeException("Error setting up clients", e);
         }
 
         Bundle arguments = androidx.test.platform.app.InstrumentationRegistry.getArguments();

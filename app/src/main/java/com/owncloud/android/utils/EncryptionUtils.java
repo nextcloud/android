@@ -270,35 +270,6 @@ public final class EncryptionUtils {
             }
         }
 
-        Map<String, EncryptedFolderMetadata.EncryptedFile> fileDrop = encryptedFolderMetadata.getFiledrop();
-
-        if (fileDrop == null) {
-            return decryptedFolderMetadata;
-        }
-
-        for (Map.Entry<String, EncryptedFolderMetadata.EncryptedFile> entry : fileDrop.entrySet()) {
-            String key = entry.getKey();
-            EncryptedFolderMetadata.EncryptedFile encryptedFile = entry.getValue();
-
-                DecryptedFolderMetadata.DecryptedFile decryptedFile = new DecryptedFolderMetadata.DecryptedFile();
-                decryptedFile.setInitializationVector(encryptedFile.getInitializationVector());
-                decryptedFile.setMetadataKey(encryptedFile.getMetadataKey());
-                decryptedFile.setAuthenticationTag(encryptedFile.getAuthenticationTag());
-
-                // decrypt
-                String dataJson = EncryptionUtils.decryptStringAsymmetric(encryptedFile.getEncrypted(), privateKey);
-
-                decryptedFile.setEncrypted(EncryptionUtils.deserializeJSON(dataJson,
-                                                                           new TypeToken<DecryptedFolderMetadata.Data>() {
-                                                                           }));
-
-                files.put(key, decryptedFile);
-
-                // remove from filedrop
-                fileDrop.remove(key);
-            }
-        }
-
         return decryptedFolderMetadata;
     }
 

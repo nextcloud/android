@@ -94,6 +94,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             user = optionalUser.orElseThrow(IllegalAccessError::new);
 
             client = OwnCloudClientFactory.createOwnCloudClient(account, targetContext);
+            nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, targetContext);
 
             createDummyFiles();
 
@@ -101,14 +102,11 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
             deleteAllFilesOnServer(); // makes sure that no file/folder is in root
 
-        } catch (OperationCanceledException e) {
-            e.printStackTrace();
-        } catch (AuthenticatorException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (AccountUtils.AccountNotFoundException e) {
-            e.printStackTrace();
+        } catch (OperationCanceledException |
+                 IOException |
+                 AccountUtils.AccountNotFoundException |
+                 AuthenticatorException e) {
+            throw new RuntimeException("Error setting up clients", e);
         }
     }
 

@@ -22,6 +22,7 @@ package com.owncloud.android.ui.dialog;
 
 import android.accounts.AccountManager;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -289,13 +290,19 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
 
         @Override
         protected String doInBackground(Void... voids) {
+            Context context = getContext();
+
+            if (context == null) {
+                return null;
+            }
             // fetch private/public key
             // if available
             //  - store public key
             //  - decrypt private key, store unencrypted private key in database
 
             GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();
-            RemoteOperationResult<String> publicKeyResult = publicKeyOperation.execute(user, getContext());
+            RemoteOperationResult<String> publicKeyResult = publicKeyOperation.executeNextcloudClient(user,
+                                                                                                      context);
 
             if (publicKeyResult.isSuccess()) {
                 Log_OC.d(TAG, "public key successful downloaded for " + user.getAccountName());
@@ -309,7 +316,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
             }
 
             RemoteOperationResult<com.owncloud.android.lib.ocs.responses.PrivateKey> privateKeyResult =
-                new GetPrivateKeyOperation().execute(user, getContext());
+                new GetPrivateKeyOperation().executeNextcloudClient(user, context);
 
             if (privateKeyResult.isSuccess()) {
                 Log_OC.d(TAG, "private key successful downloaded for " + user.getAccountName());

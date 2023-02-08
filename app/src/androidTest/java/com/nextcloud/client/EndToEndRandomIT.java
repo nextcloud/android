@@ -80,21 +80,10 @@ import static org.junit.Assume.assumeTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class EndToEndRandomIT extends AbstractOnServerIT {
-    public enum Action {
-        CREATE_FOLDER,
-        GO_INTO_FOLDER,
-        GO_UP,
-        UPLOAD_FILE,
-        DOWNLOAD_FILE,
-        DELETE_FILE,
-    }
-
     private static ArbitraryDataProvider arbitraryDataProvider;
-
     private OCFile currentFolder;
-    private int actionCount = 20;
+    private final int actionCount = 20;
     private String rootEncFolder = "/e/";
-
     @Rule
     public RetryTestRule retryTestRule = new RetryTestRule();
 
@@ -130,7 +119,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
         init();
 
         for (int i = 0; i < actionCount; i++) {
-            Action nextAction = Action.values()[new Random().nextInt(Action.values().length)];
+            EndToEndAction nextAction = EndToEndAction.values()[new Random().nextInt(EndToEndAction.values().length)];
 
             switch (nextAction) {
                 case CREATE_FOLDER:
@@ -493,10 +482,10 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
         String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, userId);
 
         SendCSROperation operation = new SendCSROperation(urlEncoded);
-        RemoteOperationResult result = operation.execute(account, targetContext);
+        RemoteOperationResult<String> result = operation.executeNextcloudClient(account, targetContext);
 
         assertTrue(result.isSuccess());
-        String publicKeyString = (String) result.getData().get(0);
+        String publicKeyString = result.getResultData();
 
         // check key
         RSAPrivateCrtKey privateKey = (RSAPrivateCrtKey) keyPair.getPrivate();
@@ -565,7 +554,8 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     private void useExistingKeys() throws Exception {
         // download them from server
         GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();
-        RemoteOperationResult<String> publicKeyResult = publicKeyOperation.execute(account, targetContext);
+        RemoteOperationResult<String> publicKeyResult = publicKeyOperation.executeNextcloudClient(account,
+                                                                                                  targetContext);
 
         assertTrue("Result code:" + publicKeyResult.getHttpCode(), publicKeyResult.isSuccess());
 
@@ -574,8 +564,8 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
                                                     EncryptionUtils.PUBLIC_KEY,
                                                     publicKeyFromServer);
 
-        RemoteOperationResult<PrivateKey> privateKeyResult = new GetPrivateKeyOperation().execute(account,
-                                                                                                  targetContext);
+        RemoteOperationResult<PrivateKey> privateKeyResult = new GetPrivateKeyOperation()
+            .executeNextcloudClient(account, targetContext);
         assertTrue(privateKeyResult.isSuccess());
 
         PrivateKey privateKey = privateKeyResult.getResultData();
@@ -608,10 +598,10 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
         String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, userId);
 
         SendCSROperation operation = new SendCSROperation(urlEncoded);
-        RemoteOperationResult result = operation.execute(account, targetContext);
+        RemoteOperationResult<String> result = operation.executeNextcloudClient(account, targetContext);
 
         if (result.isSuccess()) {
-            publicKeyString = (String) result.getData().get(0);
+            publicKeyString = result.getResultData();
 
             // check key
             RSAPrivateCrtKey privateKey = (RSAPrivateCrtKey) keyPair.getPrivate();
@@ -649,17 +639,21 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
     }
 
     private static void deleteKeys() {
-        RemoteOperationResult<PrivateKey> privateKeyRemoteOperationResult = new GetPrivateKeyOperation().execute(client);
-        RemoteOperationResult<String> publicKeyRemoteOperationResult = new GetPublicKeyOperation().execute(client);
+        RemoteOperationResult<PrivateKey> privateKeyRemoteOperationResult =
+            new GetPrivateKeyOperation().execute(nextcloudClient);
+        RemoteOperationResult<String> publicKeyRemoteOperationResult =
+            new GetPublicKeyOperation().execute(nextcloudClient);
 
         if (privateKeyRemoteOperationResult.isSuccess() || publicKeyRemoteOperationResult.isSuccess()) {
             // delete keys
-            assertTrue(new DeletePrivateKeyOperation().execute(client).isSuccess());
-            assertTrue(new DeletePublicKeyOperation().execute(client).isSuccess());
+            assertTrue(new DeletePrivateKeyOperation().execute(nextcloudClient).isSuccess());
+            assertTrue(new DeletePublicKeyOperation().execute(nextcloudClient).isSuccess());
 
             arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PRIVATE_KEY);
             arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PUBLIC_KEY);
             arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.MNEMONIC);
+        } else {
+            throw new RuntimeException("Error fetching keys");
         }
     }
 
