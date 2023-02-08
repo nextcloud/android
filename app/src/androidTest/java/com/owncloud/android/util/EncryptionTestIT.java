@@ -26,8 +26,8 @@ import android.text.TextUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.nextcloud.test.RetryTestRule;
 import com.nextcloud.test.RandomStringGenerator;
+import com.nextcloud.test.RetryTestRule;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -56,6 +56,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -87,6 +88,7 @@ import static com.owncloud.android.utils.EncryptionUtils.verifySHA512;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(AndroidJUnit4.class)
 public class EncryptionTestIT {
@@ -404,6 +406,58 @@ public class EncryptionTestIT {
             assertEquals(i + 3, decryptedFolderMetadata1.getFiles().size());
             assertEquals(i + 3, decryptedFolderMetadata2.getFiles().size());
         }
+    }
+
+    @Test
+    public void filedrop() throws Exception {
+        DecryptedFolderMetadata decryptedFolderMetadata1 = generateFolderMetadata();
+
+        // add filedrop
+        Map<String, DecryptedFolderMetadata.DecryptedFile> filesdrop = new HashMap<>();
+
+        DecryptedFolderMetadata.Data data = new DecryptedFolderMetadata.Data();
+        data.setKey("9dfzbIYDt28zTyZfbcll+g==");
+        data.setFilename("test2.txt");
+        data.setVersion(1);
+
+        DecryptedFolderMetadata.DecryptedFile file = new DecryptedFolderMetadata.DecryptedFile();
+        file.setInitializationVector("hnJLF8uhDvDoFK4ajuvwrg==");
+        file.setEncrypted(data);
+        file.setMetadataKey(0);
+        file.setAuthenticationTag("qOQZdu5soFO77Y7y4rAOVA==");
+
+        filesdrop.put("eie8iaeiaes8e87td6", file);
+
+        decryptedFolderMetadata1.setFiledrop(filesdrop);
+
+        // encrypt
+        EncryptedFolderMetadata encryptedFolderMetadata1 = encryptFolderMetadata(
+            decryptedFolderMetadata1,
+            privateKey
+                                                                                );
+        EncryptionUtils.encryptFileDropFiles(decryptedFolderMetadata1, encryptedFolderMetadata1, cert);
+
+        // serialize
+        String encryptedJson = serializeJSON(encryptedFolderMetadata1);
+
+        // de-serialize
+        EncryptedFolderMetadata encryptedFolderMetadata2 = deserializeJSON(encryptedJson,
+                                                                           new TypeToken<EncryptedFolderMetadata>() {
+                                                                           });
+
+        // decrypt
+        DecryptedFolderMetadata decryptedFolderMetadata2 = decryptFolderMetaData(
+            encryptedFolderMetadata2, privateKey);
+
+        // compare
+        assertFalse(compareJsonStrings(serializeJSON(decryptedFolderMetadata1),
+                                       serializeJSON(decryptedFolderMetadata2)));
+
+        assertEquals(decryptedFolderMetadata1.getFiles().size() + decryptedFolderMetadata1.getFiledrop().size(),
+                     decryptedFolderMetadata2.getFiles().size());
+
+        // no filedrop content means null
+        assertNull(decryptedFolderMetadata2.getFiledrop());
     }
 
     private void addFile(DecryptedFolderMetadata decryptedFolderMetadata, int counter) {

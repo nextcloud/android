@@ -420,13 +420,12 @@ public class RefreshFolderOperation extends RemoteOperation {
         return result;
     }
 
-
     private void removeLocalFolder() {
         if (mStorageManager.fileExists(mLocalFolder.getFileId())) {
             String currentSavePath = FileStorageUtils.getSavePath(user.getAccountName());
             mStorageManager.removeFolder(
-                    mLocalFolder,
-                    true,
+                mLocalFolder,
+                true,
                     mLocalFolder.isDown() && mLocalFolder.getStoragePath().startsWith(currentSavePath)
             );
         }

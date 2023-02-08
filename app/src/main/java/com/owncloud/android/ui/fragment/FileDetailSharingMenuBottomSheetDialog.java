@@ -31,6 +31,7 @@ import com.owncloud.android.databinding.FileDetailsSharingMenuBottomSheetFragmen
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 /**
@@ -41,7 +42,6 @@ public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
     private final FileDetailsSharingMenuBottomSheetActions actions;
     private final OCShare ocShare;
     private final ViewThemeUtils viewThemeUtils;
-
     public FileDetailSharingMenuBottomSheetDialog(FileActivity fileActivity,
                                                   FileDetailsSharingMenuBottomSheetActions actions,
                                                   OCShare ocShare,
@@ -87,6 +87,11 @@ public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
         } else {
             binding.menuShareAddAnotherLink.setVisibility(View.GONE);
             binding.menuShareSendLink.setVisibility(View.GONE);
+        }
+
+        if (SharingMenuHelper.isSecureFileDrop(ocShare)) {
+            binding.menuShareAdvancedPermissions.setVisibility(View.GONE);
+            binding.menuShareAddAnotherLink.setVisibility(View.GONE);
         }
     }
 

@@ -76,22 +76,28 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
                 String text = String.format(context.getString(R.string.share_link_with_label), publicShare.getLabel());
                 binding.name.setText(text);
             } else {
-                binding.name.setText(R.string.share_link);
+                if (SharingMenuHelper.isSecureFileDrop(publicShare)) {
+                    binding.name.setText(context.getResources().getString(R.string.share_permission_secure_file_drop));
+                } else {
+                    binding.name.setText(R.string.share_link);
+                }
             }
 
             viewThemeUtils.platform.colorImageViewBackgroundAndIcon(binding.icon);
         }
 
         String permissionName = SharingMenuHelper.getPermissionName(context, publicShare);
-        setPermissionName(permissionName);
+        setPermissionName(publicShare, permissionName);
 
         binding.copyLink.setOnClickListener(v -> listener.copyLink(publicShare));
         binding.overflowMenu.setOnClickListener(v -> listener.showSharingMenuActionSheet(publicShare));
-        binding.shareByLinkContainer.setOnClickListener(v -> listener.showPermissionsDialog(publicShare));
+        if (!SharingMenuHelper.isSecureFileDrop(publicShare)) {
+            binding.shareByLinkContainer.setOnClickListener(v -> listener.showPermissionsDialog(publicShare));
+        }
     }
 
-    private void setPermissionName(String permissionName) {
-        if (!TextUtils.isEmpty(permissionName)) {
+    private void setPermissionName(OCShare publicShare, String permissionName) {
+        if (!TextUtils.isEmpty(permissionName) && !SharingMenuHelper.isSecureFileDrop(publicShare)) {
             binding.permissionName.setText(permissionName);
             binding.permissionName.setVisibility(View.VISIBLE);
             viewThemeUtils.androidx.colorPrimaryTextViewElement(binding.permissionName);
