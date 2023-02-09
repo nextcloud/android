@@ -67,6 +67,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         setContentView(binding.getRoot());
 
         viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
+        viewThemeUtils.platform.themeStatusBar(this, ColorRole.PRIMARY);
 
         
         String[] urls = getResources().getStringArray(R.array.whatsnew_urls);

@@ -79,6 +79,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
 
         super.onCreate(savedInstanceState);
         defaultViewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
+        defaultViewThemeUtils.platform.themeStatusBar(this, ColorRole.PRIMARY);
         this.binding = FirstRunActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

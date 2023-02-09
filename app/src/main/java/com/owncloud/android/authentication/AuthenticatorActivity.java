@@ -264,6 +264,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
+        viewThemeUtils.platform.themeStatusBar(this, ColorRole.PRIMARY);
+
 
         Uri data = getIntent().getData();
         boolean directLogin = data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme));
