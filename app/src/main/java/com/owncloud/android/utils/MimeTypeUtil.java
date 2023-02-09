@@ -148,14 +148,14 @@ public final class MimeTypeUtil {
                                              ViewThemeUtils viewThemeUtils) {
         int drawableId;
 
-        if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder) {
+        if (isEncrypted) {
+            drawableId = R.drawable.folder_encrypted; // most important info
+        } else if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder) {
             drawableId = R.drawable.folder_group;
-        } else if (isSharedViaLink && !isEncrypted) {
+        } else if (isSharedViaLink) {
             drawableId = R.drawable.folder_shared_link;
         } else if (isSharedViaUsers) {
             drawableId = R.drawable.folder_shared_users;
-        } else if (isEncrypted) {
-            drawableId = R.drawable.folder_encrypted;
         } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
             drawableId = R.drawable.folder_external;
         } else {
