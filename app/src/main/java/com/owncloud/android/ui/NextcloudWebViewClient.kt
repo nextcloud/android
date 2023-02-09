@@ -16,7 +16,6 @@ import com.owncloud.android.lib.common.network.NetworkUtils
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog
 import java.io.ByteArrayInputStream
-import java.net.MalformedURLException
 import java.security.cert.CertificateException
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
@@ -112,7 +111,7 @@ open class NextcloudWebViewClient(val supportFragmentManager: FragmentManager) :
             // chosen client certificate alias does not seem to work -> discard it
             val failingUrl = request?.url ?: return
             val context = view?.context ?: return
-            AdvancedX509KeyManager(context).removeKeys(failingUrl.host, failingUrl.port)
+            AdvancedX509KeyManager(context).removeKeys(failingUrl)
         }
     }
 }
