@@ -500,6 +500,15 @@ public class FileOperationsHelper {
         }
     }
 
+    public void shareFolderViaSecureFileDrop(@NonNull OCFile file) {
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+        Intent service = new Intent(fileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_CREATE_SECURE_FILE_DROP);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+    }
+
     public void getFileWithLink(@NonNull OCFile file, final ViewThemeUtils viewThemeUtils) {
         List<OCShare> shares = fileActivity.getStorageManager().getSharesByPathAndType(file.getRemotePath(),
                                                                                        ShareType.PUBLIC_LINK,
@@ -906,7 +915,7 @@ public class FileOperationsHelper {
 
     public void toggleFavoriteFile(OCFile file, boolean shouldBeFavorite) {
         if (file.isFavorite() != shouldBeFavorite) {
-            EventBus.getDefault().post(new FavoriteEvent(file.getRemotePath(), shouldBeFavorite, file.getRemoteId()));
+            EventBus.getDefault().post(new FavoriteEvent(file.getRemotePath(), shouldBeFavorite));
         }
     }
 

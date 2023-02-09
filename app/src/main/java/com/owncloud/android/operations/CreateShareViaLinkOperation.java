@@ -40,12 +40,18 @@ public class CreateShareViaLinkOperation extends SyncOperation {
 
     private String path;
     private String password;
+    private int permissions = OCShare.NO_PERMISSION;
 
     public CreateShareViaLinkOperation(String path, String password, FileDataStorageManager storageManager) {
         super(storageManager);
 
         this.path = path;
         this.password = password;
+    }
+
+    public CreateShareViaLinkOperation(String path, FileDataStorageManager storageManager, int permissions) {
+        this(path, null, storageManager);
+        this.permissions = permissions;
     }
 
     @Override
@@ -55,7 +61,7 @@ public class CreateShareViaLinkOperation extends SyncOperation {
                                                                              "",
                                                                              false,
                                                                              password,
-                                                                             OCShare.NO_PERMISSION);
+                                                                             permissions);
         createOp.setGetShareDetails(true);
         RemoteOperationResult result = createOp.execute(client);
 

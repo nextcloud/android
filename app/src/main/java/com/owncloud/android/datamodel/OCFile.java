@@ -602,7 +602,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public long getLocalId() {
         if (localId > 0) {
             return localId;
-        } else if (remoteId != null) {
+        } else if (remoteId != null && remoteId.length() > 8) {
             return Long.parseLong(remoteId.substring(0, 8).replaceAll("^0*", ""));
         } else {
             return -1;

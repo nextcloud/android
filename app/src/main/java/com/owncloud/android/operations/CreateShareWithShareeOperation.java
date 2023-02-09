@@ -68,7 +68,8 @@ public class CreateShareWithShareeOperation extends SyncOperation {
      * @param shareeName  User or group name of the target sharee.
      * @param shareType   Type of share determines type of sharee; {@link ShareType#USER} and {@link ShareType#GROUP}
      *                    are the only valid values for the moment.
-     * @param permissions Share permissions key as detailed in https://doc.owncloud.org/server/8.2/developer_manual/core/ocs-share-api.html
+     * @param permissions Share permissions key as detailed in
+     *                    https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-share-api.html#create-a-new-share
      *                    .
      */
     public CreateShareWithShareeOperation(String path,

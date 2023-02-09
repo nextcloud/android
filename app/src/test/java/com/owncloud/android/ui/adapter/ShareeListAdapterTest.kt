@@ -87,7 +87,8 @@ class ShareeListAdapterTest {
             null,
             user.accountName,
             user,
-            viewThemeUtils
+            viewThemeUtils,
+            false
         )
         sut.sortShares()
 

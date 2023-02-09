@@ -156,13 +156,13 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             // return success
             return result;
         } catch (NoSuchAlgorithmException |
-            IOException |
-            InvalidKeyException |
-            InvalidAlgorithmParameterException |
-            NoSuchPaddingException |
-            BadPaddingException |
-            IllegalBlockSizeException |
-            InvalidKeySpecException e) {
+                 IOException |
+                 InvalidKeyException |
+                 InvalidAlgorithmParameterException |
+                 NoSuchPaddingException |
+                 BadPaddingException |
+                 IllegalBlockSizeException |
+                 InvalidKeySpecException e) {
             result = new RemoteOperationResult(e);
             Log_OC.e(TAG, "Remove " + remotePath + ": " + result.getLogMessage(), e);
 
