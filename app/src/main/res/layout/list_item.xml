@@ -29,7 +29,7 @@
         android:layout_width="@dimen/standard_list_item_size"
         android:layout_height="@dimen/standard_list_item_size"
         android:layout_marginStart="@dimen/zero"
-        android:layout_marginEnd="@dimen/standard_quarter_padding"
+        android:layout_marginEnd="@dimen/standard_padding"
         android:layout_marginBottom="@dimen/standard_padding">
 
         <FrameLayout
