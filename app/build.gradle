@@ -367,7 +367,7 @@ dependencies {
     // upon each update first test: new registration, receive push
     gplayImplementation "com.google.firebase:firebase-messaging:23.1.1"
 
-    implementation 'com.github.nextcloud.android-common:ui:088a72f5475f347eaa2e37813923aebad29b77c4'
+    implementation 'com.github.nextcloud.android-common:ui:6d93ba277bff75dec2220263566886fb2160d73b'
 
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
