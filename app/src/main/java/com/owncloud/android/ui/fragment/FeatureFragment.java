@@ -58,7 +58,9 @@ public class FeatureFragment extends Fragment implements Injectable {
         ImageView whatsNewImage = view.findViewById(R.id.whatsNewImage);
         if (item.shouldShowImage()) {
             final Drawable image = ResourcesCompat.getDrawable(getResources(), item.getImage(), null);
-            whatsNewImage.setImageDrawable(viewThemeUtils.platform.tintDrawable(getContext(), image, ColorRole.ON_PRIMARY));
+            if (image != null) {
+                whatsNewImage.setImageDrawable(viewThemeUtils.platform.tintDrawable(requireContext(), image, ColorRole.ON_PRIMARY));
+            }
         }
 
         TextView whatsNewTitle = view.findViewById(R.id.whatsNewTitle);
@@ -76,14 +78,14 @@ public class FeatureFragment extends Fragment implements Injectable {
                 String[] texts = getText(item.getContentText()).toString().split("\n");
 
                 for (String text : texts) {
-                    TextView textView = generateTextView(text, getContext(),
+                    TextView textView = generateTextView(text, requireContext(),
                                                          item.shouldContentCentered(), true);
 
                     linearLayout.addView(textView);
                 }
             } else {
                 TextView textView = generateTextView(getText(item.getContentText()).toString(),
-                                                     getContext(), item.shouldContentCentered(), false);
+                                                     requireContext(), item.shouldContentCentered(), false);
 
                 linearLayout.addView(textView);
             }
