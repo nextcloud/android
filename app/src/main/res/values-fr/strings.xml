@@ -32,6 +32,7 @@
     <string name="activity_icon">Activité</string>
     <string name="add_another_public_share_link">Ajouter un autre lien</string>
     <string name="add_new_public_share">Ajouter un nouveau lien de partage public</string>
+    <string name="add_new_secure_file_drop">Ajouter un nouveau dépôt de fichier sécurisé</string>
     <string name="add_to_cloud">Ajouter à %1$s</string>
     <string name="advanced_settings">Paramètres avancés</string>
     <string name="allow_resharing">Autoriser le repartage</string>
@@ -684,6 +685,7 @@ Attention la suppression est irréversible.</string>
     <string name="share_password_title">Protégé par mot de passe</string>
     <string name="share_permission_can_edit">Peut modifier</string>
     <string name="share_permission_file_drop">Dépôt de fichier</string>
+    <string name="share_permission_secure_file_drop">Dépôt sécurisé de fichiers</string>
     <string name="share_permission_view_only">Afficher seulement</string>
     <string name="share_permissions">Autorisations pour le partage</string>
     <string name="share_remote_clarification">%1$s (distant)</string>

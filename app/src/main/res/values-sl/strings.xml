@@ -329,7 +329,7 @@
     <string name="file_list_empty_search">Mogoče v drugi mapi?</string>
     <string name="file_list_empty_shared">Datoteke in mape v souporabi bodo zbrane na tem mestu.</string>
     <string name="file_list_empty_shared_headline">Ni še datotek v souporabi</string>
-    <string name="file_list_empty_unified_search_no_results">Vaša poizvedba ni vrnila rezultatov</string>
+    <string name="file_list_empty_unified_search_no_results">Poizvedba ni vrnila rezultatov</string>
     <string name="file_list_folder">mapa</string>
     <string name="file_list_loading">Poteka nalaganje …</string>
     <string name="file_list_no_app_for_file_type">Ni določenega programa za odpiranje te vrste datotek.</string>

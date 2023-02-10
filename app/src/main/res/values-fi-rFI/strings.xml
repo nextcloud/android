@@ -209,6 +209,11 @@
     <string name="dismiss_notification_description">Hylkää ilmoitus</string>
     <string name="displays_mnemonic">Näyttää 12-sanaisen tunnuslauseen</string>
     <string name="dnd">Älä häiritse</string>
+    <string name="document_scan_export_dialog_images">Useita kuvia</string>
+    <string name="document_scan_export_dialog_pdf">PDF-tiedosto</string>
+    <string name="document_scan_export_dialog_title">Valitse viennin tyyppi</string>
+    <string name="document_scan_pdf_generation_failed">PDF:n luominen epäonnistui</string>
+    <string name="document_scan_pdf_generation_in_progress">Luodaan PDF:ää…</string>
     <string name="done">Valmis</string>
     <string name="dontClear">Älä tyhjennä</string>
     <string name="download_latest_dev_version">Lataa viimeisin kehitysversio</string>
@@ -624,6 +629,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="retrieving_file">Noudetaan tiedostoa…</string>
     <string name="richdocuments_failed_to_load_document">Asiakirjaa ei voitu lataa!</string>
     <string name="scanQR_description">Kirjaudu QR-koodilla</string>
+    <string name="scan_page">Skannaa sivu</string>
     <string name="screenshot_01_gridView_heading">Tietojasi suojaten</string>
     <string name="screenshot_01_gridView_subline">itse-ylläpidettävä tuottavuus</string>
     <string name="screenshot_02_listView_heading">Selaa ja jaa</string>
