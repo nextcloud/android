@@ -5,7 +5,7 @@ buildscript {
         jacoco_version = '0.8.8'
         kotlin_version = '1.7.22'
         androidxTestVersion = "1.4.0"
-        daggerVersion = "2.44.2"
+        daggerVersion = "2.45"
         markwonVersion = "4.6.2"
         prismVersion = "2.0.0"
         androidLibraryVersion = "master-SNAPSHOT"
