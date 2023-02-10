@@ -93,6 +93,7 @@
     <string name="choose_remote_folder">Escolher pasta remota…</string>
     <string name="choose_template_helper_text">Por favor, escolha um modelo e insira um nome de ficheiro.</string>
     <string name="choose_which_file">Escolha o ficheiro a manter!</string>
+    <string name="choose_widget">Escolher widget</string>
     <string name="clear_notifications_failed">Falha ao limpar notificações.</string>
     <string name="clear_status_message">Limpar mensagem de estado</string>
     <string name="clear_status_message_after">Limpar mensagem de estado após</string>
@@ -144,6 +145,7 @@
     <string name="community_testing_report_text">Reportar um problema no Github</string>
     <string name="community_testing_version_text">Interessado em ajudar a testar o que será a próxima versão?</string>
     <string name="configure_new_media_folder_detection_notifications">Configure</string>
+    <string name="confirm_removal">Remove localmente a criptografia</string>
     <string name="confirmation_remove_file_alert">Deseja realmente apagar %1$s?</string>
     <string name="confirmation_remove_files_alert">Quer realmente remover os itens seleccionados?</string>
     <string name="confirmation_remove_folder_alert">Deseja realmente apagar %1$s e o seu conteúdo?</string>
@@ -153,6 +155,7 @@
     <string name="conflict_file_headline">Ficheiro em conflito %1$s</string>
     <string name="conflict_local_file">Ficheiro local</string>
     <string name="conflict_message_description">Se selecionou ambas as versões, o ficheiro local terá um número acrescentado ao seu nome.</string>
+    <string name="conflict_server_file">Arquivo do servidor</string>
     <string name="contactlist_item_icon">Ícone de utilizador de lista de contactos</string>
     <string name="contactlist_no_permission">Sem permissão concedida, nada para importar.</string>
     <string name="contacts">Contactos</string>
@@ -190,6 +193,7 @@
     <string name="delete_entries">Apagar entradas</string>
     <string name="delete_link">Eliminar hiperligação</string>
     <string name="deselect_all">Desseleccionado tudo</string>
+    <string name="destination_filename">Nome do arquivo de destino</string>
     <string name="dev_version_new_version_available">Nova versão disponível</string>
     <string name="dev_version_no_information_available">Nenhuma informação disponível.</string>
     <string name="dev_version_no_new_version_available">Nenhuma nova versão disponível</string>

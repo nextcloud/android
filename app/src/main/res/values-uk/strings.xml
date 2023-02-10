@@ -33,6 +33,7 @@
     <string name="activity_icon">Ваші дії</string>
     <string name="add_another_public_share_link">Додати інше посилання</string>
     <string name="add_new_public_share">Додати нове публічне посилання</string>
+    <string name="add_new_secure_file_drop">додайте нове безпечне додавання файлу</string>
     <string name="add_to_cloud">Додати на хмару %1$s</string>
     <string name="advanced_settings">Додаткові налаштування</string>
     <string name="allow_resharing">Можете ділитися</string>
@@ -148,6 +149,7 @@
     <string name="community_testing_report_text">Повідомити про помилку на GitHub</string>
     <string name="community_testing_version_text">Ви зацікавлені у допомозі з тестуванням функцій, які будуть доступні у наступній версії?</string>
     <string name="configure_new_media_folder_detection_notifications">Налаштування</string>
+    <string name="confirm_removal">Вилучити шифрування на пристрої</string>
     <string name="confirmation_remove_file_alert">Ви справді бажаєте вилучити %1$s?</string>
     <string name="confirmation_remove_files_alert">Дійсно вилучити вибрані об\'єкти?</string>
     <string name="confirmation_remove_folder_alert">Ви справді бажаєте вилучити %1$s та його вміст?</string>
@@ -207,7 +209,13 @@
     <string name="disable_new_media_folder_detection_notifications">Вимкнути</string>
     <string name="dismiss">Припинити</string>
     <string name="dismiss_notification_description">Скасувати сповіщення</string>
+    <string name="displays_mnemonic">Показати вашу парольну празу з 12 слів</string>
     <string name="dnd">Не турбувати</string>
+    <string name="document_scan_export_dialog_images">Кілька сторінок</string>
+    <string name="document_scan_export_dialog_pdf">Файл PDF</string>
+    <string name="document_scan_export_dialog_title">Вибрати тип експорту</string>
+    <string name="document_scan_pdf_generation_failed">Не вдалося зґенерувати PDF</string>
+    <string name="document_scan_pdf_generation_in_progress">Створення PDF...</string>
     <string name="done">Готово</string>
     <string name="dontClear">Не очистувати</string>
     <string name="download_latest_dev_version">Звантажити останню версію для розробників</string>
@@ -239,6 +247,7 @@
     <string name="drawer_quota">Використано %1$s із %2$s</string>
     <string name="drawer_quota_unlimited">%1$sвикористано</string>
     <string name="drawer_synced_folders">Автоматичне завантаження</string>
+    <string name="e2e_not_yet_setup">Наскрізне шифруванння ще не налаштовано</string>
     <string name="encrypted">Позначити як зашифроване</string>
     <string name="end_to_end_encryption_confirm_button">Налаштування шифрування</string>
     <string name="end_to_end_encryption_decrypting">Розшифровування...</string>
@@ -263,12 +272,15 @@
     <string name="error_comment_file">Помилка з додаванням коментаря до файлу</string>
     <string name="error_crash_title">Відмова в обслуговуванні %1$s</string>
     <string name="error_creating_file_from_template">Помилка створення файлу з шаблону</string>
+    <string name="error_file_actions">Помилка з показом дій з файлами</string>
     <string name="error_file_lock">Помилка зміни статусу блокування файлу</string>
     <string name="error_report_issue_action">Звіт</string>
     <string name="error_report_issue_text">Надіслати звіт про ваду (потрібна обліковка у GitHub)</string>
     <string name="error_retrieving_file">Помилка під час отримання файлу</string>
     <string name="error_retrieving_templates">Помилка під час отримання шаблонів</string>
+    <string name="error_showing_encryption_dialog">Помилка з показом діалогу налаштування шифрування!</string>
     <string name="error_starting_direct_camera_upload">Помилка під час запуску камери</string>
+    <string name="error_starting_doc_scan">Помилка під час сканування документу</string>
     <string name="error_starting_scan_doc">Помилка сканування документу</string>
     <string name="etm_accounts">Облікові записи</string>
     <string name="etm_background_job_name">Назва завдання</string>
@@ -392,6 +404,7 @@
     <string name="hint_password">Пароль</string>
     <string name="host_not_available">Сервер недоступний</string>
     <string name="host_your_own_server">Розмістити на власному сервері</string>
+    <string name="icon_for_empty_list">Піктограма порожнього списку</string>
     <string name="icon_of_dashboard_widget">Піктограма віджету панелі</string>
     <string name="icon_of_widget_entry">Піктограма запису віджету</string>
     <string name="in_folder">в папці %1$s</string>
@@ -517,6 +530,7 @@
     <string name="permission_storage_access">Додаткові дозволи потрібні для завантаження та звантаження файлів.</string>
     <string name="picture_set_as_no_app">Не знайдено застосунків для встановлення зображення для</string>
     <string name="pin_home">Закріпити на Домівці</string>
+    <string name="pin_shortcut_label">Відкрити %1$s</string>
     <string name="placeholder_fileSize">389 КБ</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -546,6 +560,8 @@
     <string name="prefs_category_general">Основне</string>
     <string name="prefs_category_more">Більше</string>
     <string name="prefs_daily_backup_summary">Щоденне створення резервних копій календарів та контактів</string>
+    <string name="prefs_davx5_setup_error">Неочікувана помилка під час налаштування DAVx5 (раніше відомого як DAVdroid)</string>
+    <string name="prefs_e2e_active">Наскрізне шифрування налаштовано!</string>
     <string name="prefs_e2e_mnemonic">Мнемоніка E2E</string>
     <string name="prefs_e2e_no_device_credentials">Щоб показати мнемоніку, будь ласка, активуйте дані авторизації пристрою</string>
     <string name="prefs_enable_media_scan_notifications">Cповіщення про сканування зображень та відео</string>
@@ -557,6 +573,7 @@
     <string name="prefs_instant_behaviour_title">Початковий файл буде...</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Зберігати у підкаталогах за часом створення</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Використовувати підкаталоги</string>
+    <string name="prefs_keys_exist">Додати наскрізне шифрування для цього клієнта</string>
     <string name="prefs_license">Ліцензія</string>
     <string name="prefs_lock">Пароль на застосунок</string>
     <string name="prefs_lock_device_credentials_enabled">Облікові дані пристрою увімкнено</string>
@@ -567,6 +584,8 @@
     <string name="prefs_lock_using_passcode">Пароль на застосунок</string>
     <string name="prefs_manage_accounts">Облікові записи</string>
     <string name="prefs_recommend">Рекомендувати застосунок</string>
+    <string name="prefs_remove_e2e">Вилучити шифрування на пристрої</string>
+    <string name="prefs_setup_e2e">Налаштувати наскрізне шифрування</string>
     <string name="prefs_show_hidden_files">Показувати приховані файли</string>
     <string name="prefs_sourcecode">Отримати вихідний код</string>
     <string name="prefs_storage_path">Місце збереження файлів</string>
@@ -594,6 +613,8 @@
     <string name="reload">Перезавантажити</string>
     <string name="remote">(віддалено)</string>
     <string name="remote_file_fetch_failed">Не знайдено файл!</string>
+    <string name="remove_e2e">Ви можете вилучити наскрізне шифрування на пристрої на цьому клієнті</string>
+    <string name="remove_e2e_message">Ви можете вилучити наскрізне шифрування на пристрої на цьому клієнті. Зашифровані файли залишатимуться на сервері, але більше не синхронізуватимуться з цим комп\'ютером.</string>
     <string name="remove_fail_msg">Помилка під час вилучення</string>
     <string name="remove_notification_failed">Неможливо зняти сповіщення.</string>
     <string name="remove_push_notification">Вилучити</string>
@@ -611,6 +632,7 @@
     <string name="retrieving_file">Отримання файлу...</string>
     <string name="richdocuments_failed_to_load_document">Неможливо завантажити документ!</string>
     <string name="scanQR_description">Вхід з QR-кодом</string>
+    <string name="scan_page">Сканувати сторінку</string>
     <string name="screenshot_01_gridView_heading">Захист ваших даних</string>
     <string name="screenshot_01_gridView_subline">рішення з власним хостинґом</string>
     <string name="screenshot_02_listView_heading">Переглянути та поділитися</string>
@@ -637,6 +659,7 @@
     <string name="set_picture_as">Використати як</string>
     <string name="set_status">Встановити статус</string>
     <string name="set_status_message">Встановити повідомлення про стан</string>
+    <string name="setup_e2e">Під час налаштування наскрізного шифрування ви отримаєте парольну фразу з 12 слів, за допомогою якої ви зможете відкривати ваші файлі на інших пристроях. Її буде збережено лише на цьому пристрої та буде показано знову на цьому екрані. Будь ласка, занотуйте цю фразу та збережіть у безпеченому місці!</string>
     <string name="share">Спільний доступ</string>
     <string name="share_copy_link">Поділитися &amp; Копіювати посилання</string>
     <string name="share_dialog_title">Спільний доступ</string>
@@ -661,6 +684,7 @@
     <string name="share_password_title">Захищено паролем</string>
     <string name="share_permission_can_edit">Можна редагувати</string>
     <string name="share_permission_file_drop">Відкинути файл</string>
+    <string name="share_permission_secure_file_drop">Безпечне додавання файлу</string>
     <string name="share_permission_view_only">Лише перегляд</string>
     <string name="share_permissions">Поділитися дозволами</string>
     <string name="share_remote_clarification">%1$s (віддалено)</string>
@@ -882,6 +906,7 @@
     <string name="userinfo_no_info_text">Додайте назву, зображення та деталі контакту на сторінці вашого профілю.</string>
     <string name="username">Ім\'я користувача</string>
     <string name="version_dev_download">Звантажити</string>
+    <string name="video_overlay_icon">Піктограма відеонакладання</string>
     <string name="wait_a_moment">Зачекайте трохи…</string>
     <string name="wait_checking_credentials">Перевірка збережених даних авторизації</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копіювання файлу з приватного сховища</string>

@@ -32,6 +32,7 @@
     <string name="activity_icon">Atividade</string>
     <string name="add_another_public_share_link">Adicionar outro link</string>
     <string name="add_new_public_share">Adicionar novo link de compartilhamento público</string>
+    <string name="add_new_secure_file_drop">adicionar novo descarte de arquivo seguro</string>
     <string name="add_to_cloud">Adicionar em %1$s</string>
     <string name="advanced_settings">Configurações avançadas </string>
     <string name="allow_resharing">Permitir recompartilhamento</string>
@@ -682,6 +683,7 @@
     <string name="share_password_title">Protegido por senha</string>
     <string name="share_permission_can_edit">Pode editar</string>
     <string name="share_permission_file_drop">Baixar Arquivo </string>
+    <string name="share_permission_secure_file_drop">Descarte de arquivo seguro</string>
     <string name="share_permission_view_only">Somente visualização </string>
     <string name="share_permissions">Permissões de compartilhamento </string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
