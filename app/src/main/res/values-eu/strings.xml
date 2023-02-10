@@ -209,6 +209,9 @@
     <string name="dismiss_notification_description">Baztertu jakinarazpena</string>
     <string name="displays_mnemonic">Zure 12 hitzeko pasahitza erakusten dizu</string>
     <string name="dnd">Ez molestatu</string>
+    <string name="document_scan_export_dialog_pdf">PDF fitxategia</string>
+    <string name="document_scan_pdf_generation_failed">PDFaren sorrerak huts egin du</string>
+    <string name="document_scan_pdf_generation_in_progress">PDFa sortzen...</string>
     <string name="done">Egina</string>
     <string name="dontClear">Ez garbitu</string>
     <string name="download_latest_dev_version">Deskargatu azken garapen bertsioa</string>
@@ -273,6 +276,7 @@
     <string name="error_retrieving_templates">Errorea txantiloiak berreskuratzean</string>
     <string name="error_showing_encryption_dialog">Errore bat gertatu da konfigurazio enkriptatzearen elkarrizketa-koadroa erakustean!</string>
     <string name="error_starting_direct_camera_upload">Errorea kamera abiaraztean</string>
+    <string name="error_starting_doc_scan">Errorea dokumentuen eskaneatzea abiaraztean</string>
     <string name="error_starting_scan_doc">Errorea dokumentu eskaneatzailea erabiltzerakoan</string>
     <string name="etm_accounts">Kontuak</string>
     <string name="etm_background_job_name">Lanaren izena</string>
@@ -624,6 +628,7 @@
     <string name="retrieving_file">Fitxategia berreskuratzen ...</string>
     <string name="richdocuments_failed_to_load_document">Huts egin du dokumentua kargatzean!</string>
     <string name="scanQR_description">Hasi saioa QR kode bidez</string>
+    <string name="scan_page">Eskaneatu orria</string>
     <string name="screenshot_01_gridView_heading">Zure datuak babesten</string>
     <string name="screenshot_01_gridView_subline">norberak ostatatutako produktibitatea</string>
     <string name="screenshot_02_listView_heading">Arakatu eta partekatu</string>
