@@ -32,6 +32,7 @@
     <string name="activity_icon">Aktivitäten</string>
     <string name="add_another_public_share_link">Weiteren Link hinzufügen</string>
     <string name="add_new_public_share">Öffentlichen Link zum Teilen hinzufügen</string>
+    <string name="add_new_secure_file_drop">Neue sichere Dateiablage hinzufügen</string>
     <string name="add_to_cloud">Hinzufügen zu %1$s</string>
     <string name="advanced_settings">Erweiterte Einstellungen</string>
     <string name="allow_resharing">Weiterteilen erlauben</string>
@@ -682,6 +683,7 @@
     <string name="share_password_title">Passwortgeschützt</string>
     <string name="share_permission_can_edit">Kann bearbeiten</string>
     <string name="share_permission_file_drop">Dateiablage</string>
+    <string name="share_permission_secure_file_drop">Sichere Dateiablage</string>
     <string name="share_permission_view_only">Nur anzeigen</string>
     <string name="share_permissions">Berechtigungen zum Teilen</string>
     <string name="share_remote_clarification">%1$s (remote)</string>

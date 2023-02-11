@@ -32,6 +32,7 @@
     <string name="activity_icon">Aktivita</string>
     <string name="add_another_public_share_link">Přidat další odkaz</string>
     <string name="add_new_public_share">Přidat nový veřejný odkaz na sdílení</string>
+    <string name="add_new_secure_file_drop">přidat nový bezpečný příjem souboru</string>
     <string name="add_to_cloud">Přidat k %1$s</string>
     <string name="advanced_settings">Pokročilá nastavení</string>
     <string name="allow_resharing">Povolit sdílet dál dalším</string>
@@ -682,6 +683,7 @@
     <string name="share_password_title">Chráněno heslem</string>
     <string name="share_permission_can_edit">Může upravovat</string>
     <string name="share_permission_file_drop">Upuštění souboru</string>
+    <string name="share_permission_secure_file_drop">Bezpečný příjem souboru</string>
     <string name="share_permission_view_only">Pouze prohlížet</string>
     <string name="share_permissions">Oprávnění pro sdílení</string>
     <string name="share_remote_clarification">%1$s (vzdálený)</string>

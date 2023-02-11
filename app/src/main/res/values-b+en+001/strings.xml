@@ -32,6 +32,7 @@
     <string name="activity_icon">Activity</string>
     <string name="add_another_public_share_link">Add another link</string>
     <string name="add_new_public_share">Add new public share link</string>
+    <string name="add_new_secure_file_drop">add new secure file drop</string>
     <string name="add_to_cloud">Add to %1$s</string>
     <string name="advanced_settings">Advanced Settings</string>
     <string name="allow_resharing">Allow resharing</string>
@@ -682,6 +683,7 @@
     <string name="share_password_title">Password-protected</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_file_drop">File drop</string>
+    <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">View only</string>
     <string name="share_permissions">Share Permissions</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
