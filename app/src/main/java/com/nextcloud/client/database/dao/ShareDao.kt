@@ -39,6 +39,9 @@ interface ShareDao {
     @Update
     fun updateShare(share: ShareEntity)
 
+    @Query("DELETE FROM ocshares WHERE owner_share = :shareOwner")
+    fun deleteShares(shareOwner: String)
+
     @Query("DELETE FROM ocshares WHERE path = :path AND owner_share = :shareOwner")
     fun deleteSharesByPath(path: String, shareOwner: String)
 }

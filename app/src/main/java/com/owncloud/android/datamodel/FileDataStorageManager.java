@@ -1306,19 +1306,7 @@ public class FileDataStorageManager {
 
     @VisibleForTesting
     public void cleanShares() {
-        String where = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
-        String[] whereArgs = new String[]{user.getAccountName()};
-
-        if (getContentResolver() != null) {
-            getContentResolver().delete(ProviderTableMeta.CONTENT_URI_SHARE, where, whereArgs);
-
-        } else {
-            try {
-                getContentProviderClient().delete(ProviderTableMeta.CONTENT_URI_SHARE, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in cleanShares" + e.getMessage(), e);
-            }
-        }
+        shareDao.deleteShares(user.getAccountName());
     }
 
     // TODO shares null?
