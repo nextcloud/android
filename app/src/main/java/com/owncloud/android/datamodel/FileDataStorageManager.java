@@ -1323,48 +1323,16 @@ public class FileDataStorageManager {
 
     // TODO shares null?
     public void saveShares(List<OCShare> shares) {
-        cleanShares();
-        ArrayList<ContentProviderOperation> operations = new ArrayList<>(shares.size());
+        Log_OC.d(TAG, "saveShares - start");
 
-        // prepare operations to insert or update files to save in the given folder
-        for (OCShare share : shares) {
-            ContentValues contentValues = createContentValueForShare(share);
-
-            if (shareExistsForRemoteId(share.getRemoteId())) {
-                // updating an existing file
-                operations.add(
-                    ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI_SHARE)
-                        .withValues(contentValues)
-                        .withSelection(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + " = ?",
-                                       new String[]{String.valueOf(share.getRemoteId())})
-                        .build());
-            } else {
-                // adding a new file
-                operations.add(
-                    ContentProviderOperation.newInsert(ProviderTableMeta.CONTENT_URI_SHARE)
-                        .withValues(contentValues)
-                        .build()
-                );
+        nextcloudDatabase.runInTransaction(() -> {
+            cleanShares();
+            for (OCShare share : shares) {
+               saveShare(share);
             }
-        }
+        });
 
-        // apply operations in batch
-        if (operations.size() > 0) {
-            @SuppressWarnings("unused")
-            ContentProviderResult[] results = null;
-            Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-            try {
-                if (getContentResolver() != null) {
-                    results = getContentResolver().applyBatch(MainApp.getAuthority(),
-                                                              operations);
-                } else {
-                    results = getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
-            }
-        }
+        Log_OC.d(TAG, "saveShares - finish");
     }
 
     public void removeShare(OCShare share) {
