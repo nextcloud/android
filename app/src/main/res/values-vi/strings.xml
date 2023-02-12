@@ -35,6 +35,7 @@
     <string name="add_to_cloud">Thêm vào %1$s</string>
     <string name="advanced_settings">Cài đặt nâng cao</string>
     <string name="allow_resharing">Cho phép chia sẻ lại</string>
+    <string name="app_widget_description">Hiện thị lối tắt từ dashboard</string>
     <string name="appbar_search_in">Tìm kiếm trong %s</string>
     <string name="associated_account_not_found">Không tìm thấy tài khoản được liên kết!</string>
     <string name="auth_access_failed">Lỗi truy cập: %1$s</string>
