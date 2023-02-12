@@ -32,6 +32,7 @@
     <string name="activity_icon">Jarduera</string>
     <string name="add_another_public_share_link">Gehitu beste esteka bat</string>
     <string name="add_new_public_share">Gehitu partekatzeko esteka berria</string>
+    <string name="add_new_secure_file_drop">gehitu fitxategi-jartze seguru berria</string>
     <string name="add_to_cloud">Gehitu %1$s</string>
     <string name="advanced_settings">Ezarpen aurreratuak</string>
     <string name="allow_resharing">Baimendu birpartekatzea</string>
@@ -209,7 +210,9 @@
     <string name="dismiss_notification_description">Baztertu jakinarazpena</string>
     <string name="displays_mnemonic">Zure 12 hitzeko pasahitza erakusten dizu</string>
     <string name="dnd">Ez molestatu</string>
+    <string name="document_scan_export_dialog_images">Irudi anitz</string>
     <string name="document_scan_export_dialog_pdf">PDF fitxategia</string>
+    <string name="document_scan_export_dialog_title">Aukeratu esportazio mota</string>
     <string name="document_scan_pdf_generation_failed">PDFaren sorrerak huts egin du</string>
     <string name="document_scan_pdf_generation_in_progress">PDFa sortzen...</string>
     <string name="done">Egina</string>
@@ -680,6 +683,7 @@
     <string name="share_password_title">Pasahitzez babestua</string>
     <string name="share_permission_can_edit">Editatu dezake</string>
     <string name="share_permission_file_drop">Fitxategiak jaregin</string>
+    <string name="share_permission_secure_file_drop">Fitxategi-jartze segurua</string>
     <string name="share_permission_view_only">Ikusi soilik</string>
     <string name="share_permissions">Partekatze baimenak</string>
     <string name="share_remote_clarification">%1$s (urrunekoa)</string>
