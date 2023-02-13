@@ -15,6 +15,7 @@ import com.owncloud.android.lib.common.network.AdvancedX509KeyManager
 import com.owncloud.android.lib.common.network.NetworkUtils
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog
+import org.apache.commons.httpclient.HttpStatus
 import java.io.ByteArrayInputStream
 import java.security.cert.CertificateException
 import java.security.cert.CertificateFactory
@@ -106,7 +107,7 @@ open class NextcloudWebViewClient(val supportFragmentManager: FragmentManager) :
         errorResponse: WebResourceResponse?
     ) {
         val errorCode = errorResponse?.statusCode ?: return
-        if (errorCode == 400) {
+        if (errorCode == HttpStatus.SC_BAD_REQUEST) {
             Log_OC.w(tag, "WebView failed with error code $errorCode; remove key chain aliases")
             // chosen client certificate alias does not seem to work -> discard it
             val failingUrl = request?.url ?: return
