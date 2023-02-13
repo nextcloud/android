@@ -1,16 +1,30 @@
-name: Auto approve
+# synced from @nextcloud/android-config
+name: Auto approve dependabot
+
 on:
-    pull_request_target:
-        branches: [ master, stable-* ]
+  pull_request_target:
+    branches:
+      - main
+      - master
+      - stable-*
 
 permissions:
-    pull-requests: write
+  contents: read
+
+concurrency:
+  group: dependabot-approve-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
-    auto-approve:
-        runs-on: ubuntu-latest
-        steps:
-            -   uses: hmarr/auto-approve-action@de8ae18c173c131e182d4adf2c874d8d2308a85b # v3.1.0
-                if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
-                with:
-                    github-token: "${{ secrets.GITHUB_TOKEN }}"
+  auto-approve:
+    name: Auto approve dependabot
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    permissions:
+      # needed to approve the PR
+      pull-requests: write
+
+    steps:
+      - uses: hmarr/auto-approve-action@de8ae18c173c131e182d4adf2c874d8d2308a85b # v3.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
