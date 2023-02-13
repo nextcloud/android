@@ -1,19 +1,29 @@
 # synced from @nextcloud/android-config
-name: Auto approve
+name: Auto approve sync
 on:
   pull_request_target:
     branches:
       - master
       - main
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - labeled
+
+concurrency:
+  group: sync-approve-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 permissions:
   pull-requests: write
 
 jobs:
   auto-approve:
+    name: Auto approve sync
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'sync') && github.actor == 'nextcloud-android-bot' }}
     steps:
       - uses: hmarr/auto-approve-action@de8ae18c173c131e182d4adf2c874d8d2308a85b # v3.1.0
-        if: ${{ contains(github.event.pull_request.labels.*.name, 'sync') && github.actor == 'nextcloud-android-bot' }}
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
