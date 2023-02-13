@@ -29,11 +29,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.WhatsNewActivityBinding;
 import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
 import com.owncloud.android.ui.adapter.FeaturesWebViewAdapter;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
@@ -49,24 +52,24 @@ import androidx.viewpager.widget.ViewPager;
  */
 public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, Injectable {
 
-    private ImageButton mForwardFinishButton;
-    private Button mSkipButton;
-    private ProgressIndicator mProgress;
-    private ViewPager mPager;
     @Inject AppPreferences preferences;
     @Inject AppInfo appInfo;
     @Inject OnboardingService onboarding;
-    @Inject ViewThemeUtils viewThemeUtils;
+    @Inject ViewThemeUtils.Factory viewThemeUtilsFactory;
+    private ViewThemeUtils viewThemeUtils;
+    
+    private WhatsNewActivityBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.whats_new_activity);
+        binding = WhatsNewActivityBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        int fontColor = getResources().getColor(R.color.login_text_color);
+        viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
+        viewThemeUtils.platform.themeStatusBar(this, ColorRole.PRIMARY);
 
-        mProgress = findViewById(R.id.progressIndicator);
-        mPager = findViewById(R.id.contentPanel);
+        
         String[] urls = getResources().getStringArray(R.array.whatsnew_urls);
 
         boolean showWebView = urls.length > 0;
@@ -74,24 +77,23 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         if (showWebView) {
             FeaturesWebViewAdapter featuresWebViewAdapter = new FeaturesWebViewAdapter(getSupportFragmentManager(),
                                                                                        urls);
-            mProgress.setNumberOfSteps(featuresWebViewAdapter.getCount());
-            mPager.setAdapter(featuresWebViewAdapter);
+            binding.progressIndicator.setNumberOfSteps(featuresWebViewAdapter.getCount());
+            binding.contentPanel.setAdapter(featuresWebViewAdapter);
         } else {
             FeaturesViewAdapter featuresViewAdapter = new FeaturesViewAdapter(getSupportFragmentManager(),
                                                                               onboarding.getWhatsNew());
-            mProgress.setNumberOfSteps(featuresViewAdapter.getCount());
-            mPager.setAdapter(featuresViewAdapter);
+            binding.progressIndicator.setNumberOfSteps(featuresViewAdapter.getCount());
+            binding.contentPanel.setAdapter(featuresViewAdapter);
         }
 
-        mPager.addOnPageChangeListener(this);
+        binding.contentPanel.addOnPageChangeListener(this);
 
-        mForwardFinishButton = findViewById(R.id.forward);
-        viewThemeUtils.platform.colorImageButton(mForwardFinishButton, fontColor);
+        viewThemeUtils.platform.colorImageView(binding.forward, ColorRole.ON_PRIMARY);
 
-        mForwardFinishButton.setOnClickListener(view -> {
-            if (mProgress.hasNextStep()) {
-                mPager.setCurrentItem(mPager.getCurrentItem() + 1, true);
-                mProgress.animateToStep(mPager.getCurrentItem() + 1);
+        binding.forward.setOnClickListener(view -> {
+            if (binding.progressIndicator.hasNextStep()) {
+                binding.contentPanel.setCurrentItem(binding.contentPanel.getCurrentItem() + 1, true);
+                binding.progressIndicator.animateToStep(binding.contentPanel.getCurrentItem() + 1);
             } else {
                 onFinish();
                 finish();
@@ -99,21 +101,20 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             updateNextButtonIfNeeded();
         });
 
-        mForwardFinishButton.setBackground(null);
+        binding.forward.setBackground(null);
 
-        mSkipButton = findViewById(R.id.skip);
-        mSkipButton.setTextColor(fontColor);
-        mSkipButton.setOnClickListener(view -> {
+        viewThemeUtils.platform.colorTextView(binding.skip, ColorRole.ON_PRIMARY);
+        binding.skip.setOnClickListener(view -> {
             onFinish();
             finish();
         });
 
-        TextView tv = findViewById(R.id.welcomeText);
+        viewThemeUtils.platform.colorTextView(binding.welcomeText, ColorRole.ON_PRIMARY);
 
         if (showWebView) {
-            tv.setText(R.string.app_name);
+            binding.welcomeText.setText(R.string.app_name);
         } else {
-            tv.setText(String.format(getString(R.string.whats_new_title), appInfo.getVersionName()));
+            binding.welcomeText.setText(String.format(getString(R.string.whats_new_title), appInfo.getVersionName()));
         }
 
         updateNextButtonIfNeeded();
@@ -126,12 +127,12 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     }
 
     private void updateNextButtonIfNeeded() {
-        if (!mProgress.hasNextStep()) {
-            mForwardFinishButton.setImageResource(R.drawable.ic_ok);
-            mSkipButton.setVisibility(View.INVISIBLE);
+        if (!binding.progressIndicator.hasNextStep()) {
+            binding.forward.setImageResource(R.drawable.ic_ok);
+            binding.skip.setVisibility(View.INVISIBLE);
         } else {
-            mForwardFinishButton.setImageResource(R.drawable.arrow_right);
-            mSkipButton.setVisibility(View.VISIBLE);
+            binding.forward.setImageResource(R.drawable.arrow_right);
+            binding.skip.setVisibility(View.VISIBLE);
         }
     }
 
@@ -146,7 +147,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
     @Override
     public void onPageSelected(int position) {
-        mProgress.animateToStep(position + 1);
+        binding.progressIndicator.animateToStep(position + 1);
         updateNextButtonIfNeeded();
     }
 
