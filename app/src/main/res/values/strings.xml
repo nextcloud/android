@@ -1066,7 +1066,7 @@
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="error_showing_encryption_dialog">Error showing setup encryption dialog!</string>
     <string name="prefs_keys_exist">Add end-to-end encryption to this client</string>
-    <string name="add_new_secure_file_drop">add new secure file drop</string>
+    <string name="add_new_secure_file_drop">Add new secure file drop</string>
     <string name="scan_page">Scan page</string>
     <string name="done">Done</string>
     <string name="document_scan_pdf_generation_in_progress">Generating PDF…</string>
