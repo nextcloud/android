@@ -147,6 +147,7 @@
     <string name="community_testing_report_text">Сообщить о проблеме на GitHub</string>
     <string name="community_testing_version_text">Хотите помочь проверкой новых функций,  разрабатываемых для следующей версии?</string>
     <string name="configure_new_media_folder_detection_notifications">Настроить</string>
+    <string name="confirm_removal">Отключить шифрование на устройстве</string>
     <string name="confirmation_remove_file_alert">Действительно удалить «%1$s»?</string>
     <string name="confirmation_remove_files_alert">Действительно удалить выбранные объекты?</string>
     <string name="confirmation_remove_folder_alert">Действительно удалить «%1$s» и его содержимое?</string>
@@ -207,6 +208,11 @@
     <string name="dismiss">Отклонить</string>
     <string name="dismiss_notification_description">Скрыть уведомление</string>
     <string name="dnd">Не беспокоить</string>
+    <string name="document_scan_export_dialog_images">Несколько изображений</string>
+    <string name="document_scan_export_dialog_pdf">Файл в формате PDF</string>
+    <string name="document_scan_export_dialog_title">Выберите тип экспорта</string>
+    <string name="document_scan_pdf_generation_failed">Ошибка при создании файла PDF</string>
+    <string name="document_scan_pdf_generation_in_progress">Сохранение в PDF…</string>
     <string name="done">Готово</string>
     <string name="dontClear">Не очищать</string>
     <string name="download_latest_dev_version">Скачать последнюю версию для разработчиков</string>
@@ -269,7 +275,9 @@
     <string name="error_report_issue_text">Сообщить о проблеме? (требуется учётная запись на GitHub)</string>
     <string name="error_retrieving_file">Ошибка при получении файла</string>
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
+    <string name="error_showing_encryption_dialog">Ошибка при подготовке диалога настройки шифрования</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
+    <string name="error_starting_doc_scan">Ошибка во время запуска сканирования</string>
     <string name="error_starting_scan_doc">Ошибка при сканировании документа</string>
     <string name="etm_accounts">Аккаунты</string>
     <string name="etm_background_job_name">Имя задания</string>
@@ -519,6 +527,8 @@
     <string name="permission_deny">Запретить</string>
     <string name="permission_storage_access">Для отправки и скачивания файлов требуются дополнительные права доступа.</string>
     <string name="picture_set_as_no_app">Не найдено приложений для обработки изображений</string>
+    <string name="pin_home">Закрепить на начальном экране</string>
+    <string name="pin_shortcut_label">Открыть %1$s</string>
     <string name="placeholder_fileSize">389 Кбайт</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -548,6 +558,7 @@
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
     <string name="prefs_daily_backup_summary">Ежедневное резервное копирование календаря</string>
+    <string name="prefs_e2e_active">Сквозное шифрование настроено.</string>
     <string name="prefs_e2e_mnemonic">Мнемофраза E2E</string>
     <string name="prefs_e2e_no_device_credentials">Для просмотра мнемофразы включите системную защитную блокировку.</string>
     <string name="prefs_enable_media_scan_notifications">Показывать уведомления о сканировании медиафайлов</string>
