@@ -78,7 +78,7 @@
     <string name="avatar">Avatar</string>
     <string name="away">Ne spremljam</string>
     <string name="backup_settings">Nastavitve varnostnega kopiranja</string>
-    <string name="backup_title">Varnostno kopiranje kontaktov &amp; koledarja</string>
+    <string name="backup_title">Varnostno kopiranje stikov koledarja &amp;</string>
     <string name="battery_optimization_close">Zapri</string>
     <string name="battery_optimization_disable">Onemogoči</string>
     <string name="battery_optimization_message">Naprava ima najverjetneje omogočeno možnost optimizacije porabe baterije. Program AutoUpload pravilno deluje le, če je izvzet iz nje.</string>
@@ -276,9 +276,9 @@
     <string name="error_report_issue_text">Ali želite poslati poročilo na sledilnik (zahteva račun Github)?</string>
     <string name="error_retrieving_file">Pridobivanje datoteke je spodletelo</string>
     <string name="error_retrieving_templates">Napaka pridobivanja predlog</string>
-    <string name="error_showing_encryption_dialog">Napaka pri prikazu nastavitev šifriranja!</string>
+    <string name="error_showing_encryption_dialog">Napaka pri prikazu pogovornega okna nastavitev šifriranja!</string>
     <string name="error_starting_direct_camera_upload">Napaka začenjanja kamere</string>
-    <string name="error_starting_doc_scan">Napaka pri začetku preverjanja dokumenta</string>
+    <string name="error_starting_doc_scan">Napaka pri začenjanju preverjanja dokumenta</string>
     <string name="error_starting_scan_doc">Napaka uporabe preverjanja dokumenta</string>
     <string name="etm_accounts">Računi</string>
     <string name="etm_background_job_name">Ime opravila</string>
@@ -485,8 +485,8 @@
     <string name="no_items">Ni predmetov</string>
     <string name="no_mutliple_accounts_allowed">Dovoljen je le en račun</string>
     <string name="no_pdf_app_available">Ni nameščenega programa za odpiranje datotek PDF</string>
-    <string name="no_send_app">Nobena aplikacija ni primerna za pošiljanje izbranih datotek</string>
-    <string name="no_share_permission_selected">Prosim izberite vsaj eno dovoljenje za souporabo.</string>
+    <string name="no_send_app">Na voljo ni nobenega programa za pošiljanje izbranih datotek</string>
+    <string name="no_share_permission_selected">Izbrati je treba vsaj eno dovoljenje za souporabo.</string>
     <string name="note_confirm">Pošlji</string>
     <string name="note_could_not_sent">Sporočilca ni mogoče poslati</string>
     <string name="note_icon_hint">Ikona opombe</string>
@@ -533,8 +533,8 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">To je vsebnik predmetov</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
-    <string name="player_stop">končaj</string>
-    <string name="player_toggle">preklop</string>
+    <string name="player_stop">ustavi</string>
+    <string name="player_toggle">preklopi</string>
     <string name="power_save_check_dialog_message">Onemogočanje varčevanja lahko povzroči pošiljanje datotek, ko je napetost baterije že nizka!</string>
     <string name="pref_behaviour_entries_delete_file">izbrisano</string>
     <string name="pref_behaviour_entries_keep_file">ohranjeno v izvorni mapi</string>
@@ -556,9 +556,9 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
-    <string name="prefs_daily_backup_summary">Dnevno varnostno kopiranje vašega koledarja &amp; stikov </string>
+    <string name="prefs_daily_backup_summary">Dnevno varnostno kopiranje koledarja &amp; stikov</string>
     <string name="prefs_davx5_setup_error">Nepričakovana napaka pri nastavljanju DAVx5 (prej poznano kot DAVdroid)</string>
-    <string name="prefs_e2e_active">Celovito šifriranje »end-to-end« je nastavljeno!</string>
+    <string name="prefs_e2e_active">Celovito šifriranje E2E je nastavljeno!</string>
     <string name="prefs_e2e_mnemonic">Mnemonika E2E</string>
     <string name="prefs_e2e_no_device_credentials">Za prikaz mnemonike izberite poverila naprave.</string>
     <string name="prefs_enable_media_scan_notifications">Pokaži obvestila iskanja predstavnih vsebin</string>
@@ -581,8 +581,8 @@
     <string name="prefs_lock_using_passcode">Koda PIN</string>
     <string name="prefs_manage_accounts">Upravljanje z računi</string>
     <string name="prefs_recommend">Priporoči prijatelju</string>
-    <string name="prefs_remove_e2e">Odstrani šifriranje krajevno</string>
-    <string name="prefs_setup_e2e">Nastavi celovito šifriranje »end-to-end«</string>
+    <string name="prefs_remove_e2e">Krajevno odstrani šifriranje</string>
+    <string name="prefs_setup_e2e">Nastavi celovito šifriranje E2E</string>
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
     <string name="prefs_storage_path">Mapa podatkovne shrambe</string>
@@ -924,11 +924,29 @@
         <item quantity="few">Spodletelo je kopiranje %1$d datotek iz mape %2$s v</item>
         <item quantity="other">Spodletelo je kopiranje %1$d datotek iz mape %2$s v</item>
     </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="one">Ustvarjeno je %1$d novo določilo UID</item>
+        <item quantity="two">Ustvarjeni sta %1$d novi določili UID</item>
+        <item quantity="few">Ustvarjena so %1$d nova določila UID</item>
+        <item quantity="other">Ustvarjenih je %1$d novih določil UID</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="one">Obdelan je %d vnos.</item>
+        <item quantity="two">Obdelana sta %d vnosa.</item>
+        <item quantity="few">Obdelani so %d vnosi.</item>
+        <item quantity="other">Obdelanih je %d vnosov.</item>
+    </plurals>
     <plurals name="found_n_duplicates">
         <item quantity="one">Najden je %d podvojen vnos.</item>
         <item quantity="two">Najdena sta %d podvojena vnosa.</item>
         <item quantity="few">Najdeni so %d podvojeni vnosi.</item>
         <item quantity="other">Najdenih je %d podvojenih vnosov.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Izvožena je %d datoteka.</item>
+        <item quantity="two">Izvoženi sta %d datoteki.</item>
+        <item quantity="few">Izvožene so %d datoteke.</item>
+        <item quantity="other">Izvoženih je %d datotek.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mapa</item>
