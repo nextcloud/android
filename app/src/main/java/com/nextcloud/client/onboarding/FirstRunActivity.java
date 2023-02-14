@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.Injectable;
@@ -47,6 +48,7 @@ import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 
@@ -66,13 +68,18 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     @Inject AppInfo appInfo;
     @Inject OnboardingService onboarding;
 
+    @Inject ViewThemeUtils.Factory viewThemeUtilsFactory;
+
     private FirstRunActivityBinding binding;
+    private ViewThemeUtils defaultViewThemeUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         enableAccountHandling = false;
 
         super.onCreate(savedInstanceState);
+        defaultViewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
+        defaultViewThemeUtils.platform.themeStatusBar(this, ColorRole.PRIMARY);
         this.binding = FirstRunActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -81,9 +88,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         setSlideshowSize(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
 
 
-        binding.login.setBackgroundColor(getResources().getColor(R.color.login_btn_tint));
-        binding.login.setTextColor(getResources().getColor(R.color.primary));
-
+        defaultViewThemeUtils.material.colorMaterialButtonFilledOnPrimary(binding.login);
         binding.login.setOnClickListener(v -> {
             if (getIntent().getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
                 Intent authenticatorActivityIntent = new Intent(this, AuthenticatorActivity.class);
@@ -95,8 +100,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         });
 
 
-        binding.signup.setBackgroundColor(getResources().getColor(R.color.primary));
-        binding.signup.setTextColor(getResources().getColor(R.color.login_text_color));
+        defaultViewThemeUtils.material.colorMaterialButtonOutlinedOnPrimary(binding.signup);
         binding.signup.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
         binding.signup.setOnClickListener(v -> {
             Intent authenticatorActivityIntent = new Intent(this, AuthenticatorActivity.class);
@@ -110,7 +114,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
             }
         });
 
-        binding.hostOwnServer.setTextColor(getResources().getColor(R.color.login_text_color));
+        defaultViewThemeUtils.platform.colorTextView(binding.hostOwnServer, ColorRole.ON_PRIMARY);
         binding.hostOwnServer.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
 
         if (!isProviderOrOwnInstallationVisible) {
@@ -230,9 +234,9 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
 
     public static FeatureItem[] getFirstRun() {
         return new FeatureItem[]{
-                new FeatureItem(R.drawable.logo, R.string.first_run_1_text, R.string.empty, true, false),
-                new FeatureItem(R.drawable.first_run_files, R.string.first_run_2_text, R.string.empty, true, false),
-                new FeatureItem(R.drawable.first_run_groupware, R.string.first_run_3_text, R.string.empty, true, false),
-                new FeatureItem(R.drawable.first_run_talk, R.string.first_run_4_text, R.string.empty, true, false)};
+            new FeatureItem(R.drawable.logo, R.string.first_run_1_text, R.string.empty, true, false),
+            new FeatureItem(R.drawable.first_run_files, R.string.first_run_2_text, R.string.empty, true, false),
+            new FeatureItem(R.drawable.first_run_groupware, R.string.first_run_3_text, R.string.empty, true, false),
+            new FeatureItem(R.drawable.first_run_talk, R.string.first_run_4_text, R.string.empty, true, false)};
     }
 }

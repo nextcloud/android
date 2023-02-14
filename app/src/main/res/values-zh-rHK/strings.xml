@@ -32,6 +32,7 @@
     <string name="activity_icon">動態</string>
     <string name="add_another_public_share_link">添加另一個連結</string>
     <string name="add_new_public_share">添加一個新的公共連結</string>
+    <string name="add_new_secure_file_drop">添加新的安全檔案投放</string>
     <string name="add_to_cloud">添加到 %1$s </string>
     <string name="advanced_settings">進階設定</string>
     <string name="allow_resharing">允許轉貼分享</string>
@@ -682,6 +683,7 @@
     <string name="share_password_title">受密碼保護</string>
     <string name="share_permission_can_edit">可編輯</string>
     <string name="share_permission_file_drop">檔案拖放</string>
+    <string name="share_permission_secure_file_drop">安全檔案投放</string>
     <string name="share_permission_view_only">僅檢視</string>
     <string name="share_permissions">分享權限</string>
     <string name="share_remote_clarification">%1$s（遠端）</string>

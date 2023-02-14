@@ -64,5 +64,9 @@ class ViewThemeUtils @Inject constructor(
         fun withDefaultSchemes(): ViewThemeUtils {
             return withSchemes(schemesProvider.getDefaultMaterialSchemes())
         }
+
+        fun withPrimaryAsBackground(): ViewThemeUtils {
+            return withSchemes(schemesProvider.getMaterialSchemesForPrimaryBackground())
+        }
     }
 }

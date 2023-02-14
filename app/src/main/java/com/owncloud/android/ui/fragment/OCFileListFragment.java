@@ -1605,6 +1605,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             if (remoteOperationResult.isSuccess()) {
                 boolean removeFromList = currentSearchType == SearchType.FAVORITE_SEARCH && !event.shouldFavorite;
+                setEmptyListMessage(SearchType.FAVORITE_SEARCH);
                 mAdapter.setFavoriteAttributeForItemID(event.remotePath, event.shouldFavorite, removeFromList);
             }
 

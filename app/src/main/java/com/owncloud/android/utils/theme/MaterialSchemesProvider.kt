@@ -35,4 +35,10 @@ interface MaterialSchemesProvider {
      * Color schemes for when there's no logged in user
      */
     fun getDefaultMaterialSchemes(): MaterialSchemes
+
+    /**
+     * Color schemes for views where we want the primary color to be the background, and to be unchanged
+     * (for brand purposes). For example, this includes the login screen and the first run activity
+     */
+    fun getMaterialSchemesForPrimaryBackground(): MaterialSchemes
 }
