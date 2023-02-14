@@ -326,7 +326,8 @@ public final class ErrorMessageAdapter {
         } else {
             if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 return res.getString(R.string.downloader_download_file_not_found);
-
+            } else if (result.getCode() == ResultCode.CANNOT_CREATE_FILE) {
+                return res.getString(R.string.download_cannot_create_file);
             }
         }
         return null;

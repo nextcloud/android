@@ -1075,4 +1075,5 @@
     <string name="document_scan_export_dialog_title">Choose export type</string>
     <string name="document_scan_export_dialog_pdf">PDF file</string>
     <string name="document_scan_export_dialog_images">Multiple images</string>
+    <string name="download_cannot_create_file">Cannot create local file</string>
 </resources>
