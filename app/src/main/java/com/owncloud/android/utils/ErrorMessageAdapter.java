@@ -26,6 +26,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.files.CreateLocalFileException;
+import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
@@ -324,10 +326,13 @@ public final class ErrorMessageAdapter {
                 new File(operation.getSavePath()).getName());
 
         } else {
-            if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                return res.getString(R.string.downloader_download_file_not_found);
-            } else if (result.getCode() == ResultCode.CANNOT_CREATE_FILE) {
-                return res.getString(R.string.download_cannot_create_file);
+            switch (result.getCode()) {
+                case FILE_NOT_FOUND:
+                    return res.getString(R.string.downloader_download_file_not_found);
+                case CANNOT_CREATE_FILE:
+                    return res.getString(R.string.download_cannot_create_file);
+                case INVALID_LOCAL_FILE_NAME:
+                    return res.getString(R.string.download_download_invalid_local_file_name);
             }
         }
         return null;
