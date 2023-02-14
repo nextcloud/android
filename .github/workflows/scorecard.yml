@@ -1,0 +1,38 @@
+# synced from @nextcloud/android-config
+name: Scorecard supply-chain security
+on:
+  branch_protection_rule:
+  schedule:
+    - cron: '32 23 * * 4'
+  push:
+    branches: [ "main", "master" ]
+
+# Declare default permissions as read only.
+permissions: read-all
+
+jobs:
+  analysis:
+    name: Scorecard analysis
+    runs-on: ubuntu-latest
+    permissions:
+      # Needed to upload the results to code-scanning dashboard.
+      security-events: write
+
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # v3.1.0
+        with:
+          persist-credentials: false
+
+      - name: "Run analysis"
+        uses: ossf/scorecard-action@99c53751e09b9529366343771cc321ec74e9bd3d # v2.0.6
+        with:
+          results_file: results.sarif
+          results_format: sarif
+          publish_results: false
+
+      # Upload the results to GitHub's code scanning dashboard.
+      - name: "Upload to code-scanning"
+        uses: github/codeql-action/upload-sarif@807578363a7869ca324a79039e6db9c843e0e100 # v2.1.27
+        with:
+          sarif_file: results.sarif
