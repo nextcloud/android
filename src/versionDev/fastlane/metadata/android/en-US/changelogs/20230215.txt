@@ -1,0 +1,4 @@
+Build(deps): Bump daggerVersion from 2.44.2 to 2.45
+Build(deps): Bump com.android.tools.build:gradle from 7.4.0 to 7.4.1
+Update Nextcloud Android library
+Update 3rd-party dependencies
