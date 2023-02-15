@@ -32,6 +32,7 @@
     <string name="activity_icon">Aktywność</string>
     <string name="add_another_public_share_link">Dodaj kolejny link</string>
     <string name="add_new_public_share">Dodaj nowy link publiczny do udostępnienia</string>
+    <string name="add_new_secure_file_drop">dodaj nowy bezpiecznie upuszczony plik</string>
     <string name="add_to_cloud">Dodaj do %1$s</string>
     <string name="advanced_settings">Ustawienia zaawansowane</string>
     <string name="allow_resharing">Zezwalaj na udostępnianie dalej</string>
@@ -253,9 +254,9 @@
     <string name="end_to_end_encryption_enter_password">Wprowadź hasło, aby odszyfrować klucz prywatny.</string>
     <string name="end_to_end_encryption_folder_not_empty">Ten katalog nie jest pusty.</string>
     <string name="end_to_end_encryption_generating_keys">Generowanie nowych kluczy</string>
-    <string name="end_to_end_encryption_keywords_description">Wszystkie 12-stu słów utworzy bardzo trudne hasło, które pozwoli na przeglądanie i korzystanie z zaszyfrowanych plików. Zapisz je i przechowuj w bezpiecznym miejscu.</string>
+    <string name="end_to_end_encryption_keywords_description">Wszystkie 12-ście słów utworzy bardzo trudne hasło, które pozwoli na przeglądanie i korzystanie z zaszyfrowanych plików. Zapisz je i przechowuj w bezpiecznym miejscu.</string>
     <string name="end_to_end_encryption_not_enabled">Szyfrowanie End-to-End wyłączone po stronie serwera.</string>
-    <string name="end_to_end_encryption_passphrase_title">Zapisz swoje hasło do szyfrowania składające się z 12-stu słów</string>
+    <string name="end_to_end_encryption_passphrase_title">Zapisz swoje hasło do szyfrowania z 12-stu słów</string>
     <string name="end_to_end_encryption_password">Hasło…</string>
     <string name="end_to_end_encryption_retrieving_keys">Pobieranie kluczy…</string>
     <string name="end_to_end_encryption_storing_keys">Przechowywanie kluczy</string>
@@ -682,6 +683,7 @@
     <string name="share_password_title">Zabezpieczone hasłem</string>
     <string name="share_permission_can_edit">Może edytować</string>
     <string name="share_permission_file_drop">Upuść plik</string>
+    <string name="share_permission_secure_file_drop">Bezpieczne upuszczenie pliku</string>
     <string name="share_permission_view_only">Tylko podgląd</string>
     <string name="share_permissions">Uprawnienia udostępniania</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
