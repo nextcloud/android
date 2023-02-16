@@ -27,8 +27,8 @@ import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.DecryptedFolderMetadata;
-import com.owncloud.android.datamodel.EncryptedFolderMetadata;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFile;
+import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -96,7 +96,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
         RemoteOperationResult result;
         DeleteMethod delete = null;
         String token = null;
-        DecryptedFolderMetadata metadata;
+        DecryptedFolderMetadataFile metadata;
 
         String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
 
@@ -119,13 +119,13 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
                 // decrypt metadata
                 String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
 
-                EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
-                        serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadata>() {
-                        });
+                EncryptedFolderMetadataFile encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
+                    serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadataFile>() {
+                    });
 
                 metadata = EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata, privateKey);
             } else {
-                throw new RemoteOperationFailedException("No Metadata found!");
+                throw new RemoteOperationFailedException("No DecryptedMetadata found!");
             }
 
             // delete file remote
@@ -140,8 +140,8 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             // remove file from metadata
             metadata.getFiles().remove(fileName);
 
-            EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
-                    privateKey);
+            EncryptedFolderMetadataFile encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
+                                                                                                        privateKey);
             String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
 
             // upload metadata
@@ -150,7 +150,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
                                                   serializedFolderMetadata, token).execute(client);
 
             if (!uploadMetadataOperationResult.isSuccess()) {
-                throw new RemoteOperationFailedException("Metadata not uploaded!");
+                throw new RemoteOperationFailedException("DecryptedMetadata not uploaded!");
             }
 
             // return success

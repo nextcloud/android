@@ -50,11 +50,11 @@ import com.owncloud.android.databinding.GridItemBinding;
 import com.owncloud.android.databinding.ListFooterBinding;
 import com.owncloud.android.databinding.ListHeaderBinding;
 import com.owncloud.android.databinding.ListItemBinding;
-import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -762,7 +762,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 OCFile parentFolder = mStorageManager.getFileById(ocFile.getParentId());
                 if (parentFolder != null && (ocFile.isEncrypted() || parentFolder.isEncrypted())) {
-                    DecryptedFolderMetadata metadata = RefreshFolderOperation.getDecryptedFolderMetadata(
+                    DecryptedFolderMetadataFile metadata = RefreshFolderOperation.getDecryptedFolderMetadata(
                         true,
                         parentFolder,
                         OwnCloudClientFactory.createOwnCloudClient(user.toPlatformAccount(), activity),

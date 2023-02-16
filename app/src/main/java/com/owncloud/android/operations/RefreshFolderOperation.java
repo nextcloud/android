@@ -29,9 +29,9 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
@@ -470,11 +470,11 @@ public class RefreshFolderOperation extends RemoteOperation {
         // update size
         mLocalFolder.setFileLength(remoteFolder.getFileLength());
 
-        DecryptedFolderMetadata metadata = getDecryptedFolderMetadata(encryptedAncestor,
-                                                                      mLocalFolder,
-                                                                      getClient(),
-                                                                      user,
-                                                                      mContext);
+        DecryptedFolderMetadataFile metadata = getDecryptedFolderMetadata(encryptedAncestor,
+                                                                          mLocalFolder,
+                                                                          getClient(),
+                                                                          user,
+                                                                          mContext);
 
         // get current data about local contents of the folder to synchronize
         Map<String, OCFile> localFilesMap = prefillLocalFilesMap(metadata,
@@ -540,12 +540,12 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     @Nullable
-    public static DecryptedFolderMetadata getDecryptedFolderMetadata(boolean encryptedAncestor,
-                                                                     OCFile localFolder,
-                                                                     OwnCloudClient client,
-                                                                     User user,
-                                                                     Context context) {
-        DecryptedFolderMetadata metadata;
+    public static DecryptedFolderMetadataFile getDecryptedFolderMetadata(boolean encryptedAncestor,
+                                                                         OCFile localFolder,
+                                                                         OwnCloudClient client,
+                                                                         User user,
+                                                                         Context context) {
+        DecryptedFolderMetadataFile metadata;
         if (encryptedAncestor) {
             metadata = EncryptionUtils.downloadFolderMetadata(localFolder, client, context, user);
         } else {
@@ -555,7 +555,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     public static void updateFileNameForEncryptedFile(FileDataStorageManager storageManager,
-                                                      @NonNull DecryptedFolderMetadata metadata,
+                                                      @NonNull DecryptedFolderMetadataFile metadata,
                                                       OCFile updatedFile) {
         try {
             String decryptedFileName = metadata.getFiles().get(updatedFile.getFileName()).getEncrypted()
@@ -580,7 +580,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 updatedFile.setMimeType(mimetype);
             }
         } catch (NullPointerException e) {
-            Log_OC.e(TAG, "Metadata for file " + updatedFile.getFileId() + " not found!");
+            Log_OC.e(TAG, "DecryptedMetadata for file " + updatedFile.getFileId() + " not found!");
         }
     }
 
@@ -634,7 +634,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     @NonNull
-    public static Map<String, OCFile> prefillLocalFilesMap(DecryptedFolderMetadata metadata, List<OCFile> localFiles) {
+    public static Map<String, OCFile> prefillLocalFilesMap(DecryptedFolderMetadataFile metadata, List<OCFile> localFiles) {
         Map<String, OCFile> localFilesMap = Maps.newHashMapWithExpectedSize(localFiles.size());
 
         for (OCFile file : localFiles) {

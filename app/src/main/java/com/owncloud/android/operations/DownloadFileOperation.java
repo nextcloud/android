@@ -26,9 +26,9 @@ import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.nextcloud.client.account.User;
-import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
@@ -197,20 +197,20 @@ public class DownloadFileOperation extends RemoteOperation {
 
                 OCFile parent = fileDataStorageManager.getFileByPath(file.getParentRemotePath());
 
-                DecryptedFolderMetadata metadata = EncryptionUtils.downloadFolderMetadata(parent,
-                                                                                          client,
-                                                                                          context,
-                                                                                          user);
+                DecryptedFolderMetadataFile metadata = EncryptionUtils.downloadFolderMetadata(parent,
+                                                                                              client,
+                                                                                              context,
+                                                                                              user);
 
                 if (metadata == null) {
                     return new RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND);
                 }
                 byte[] key = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                        .get(file.getEncryptedFileName()).getEncrypted().getKey());
+                                                                           .get(file.getEncryptedFileName()).getEncrypted().getKey());
                 byte[] iv = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                        .get(file.getEncryptedFileName()).getInitializationVector());
+                                                                          .get(file.getEncryptedFileName()).getInitializationVector());
                 byte[] authenticationTag = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                        .get(file.getEncryptedFileName()).getAuthenticationTag());
+                                                                                         .get(file.getEncryptedFileName()).getAuthenticationTag());
 
                 try {
                     byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile, key, iv, authenticationTag);

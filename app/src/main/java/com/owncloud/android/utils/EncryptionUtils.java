@@ -33,9 +33,12 @@ import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.DecryptedFolderMetadata;
-import com.owncloud.android.datamodel.EncryptedFolderMetadata;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.Data;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFile;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedMetadata;
+import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -82,6 +85,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -98,6 +102,7 @@ import javax.crypto.spec.SecretKeySpec;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.Triple;
 
 /**
  * Utils for encryption
@@ -145,29 +150,29 @@ public final class EncryptionUtils {
      * Encrypt folder metaData
      *
      * @param decryptedFolderMetadata folder metaData to encrypt
-     * @return EncryptedFolderMetadata encrypted folder metadata
+     * @return EncryptedFolderMetadataFile encrypted folder metadata
      */
-    public static EncryptedFolderMetadata encryptFolderMetadata(DecryptedFolderMetadata decryptedFolderMetadata,
-                                                                String privateKey
-                                                               )
+    public static EncryptedFolderMetadataFile encryptFolderMetadata(DecryptedFolderMetadataFile decryptedFolderMetadata,
+                                                                    String privateKey
+                                                                   )
         throws NoSuchAlgorithmException, InvalidKeyException,
         InvalidAlgorithmParameterException, NoSuchPaddingException, BadPaddingException,
         IllegalBlockSizeException, InvalidKeySpecException {
 
-        HashMap<String, EncryptedFolderMetadata.EncryptedFile> files = new HashMap<>();
-        HashMap<String, EncryptedFolderMetadata.EncryptedFile> filesdrop = new HashMap<>();
-        EncryptedFolderMetadata encryptedFolderMetadata = new EncryptedFolderMetadata(decryptedFolderMetadata
-                                                                                          .getMetadata(),
-                                                                                      files,
-                                                                                      filesdrop);
+        HashMap<String, EncryptedFolderMetadataFile.EncryptedFile> files = new HashMap<>();
+        HashMap<String, EncryptedFolderMetadataFile.EncryptedFile> filesdrop = new HashMap<>();
+        EncryptedFolderMetadataFile encryptedFolderMetadata = new EncryptedFolderMetadataFile(decryptedFolderMetadata
+                                                                                                  .getMetadata(),
+                                                                                              files,
+                                                                                              filesdrop);
 
         // Encrypt each file in "files"
-        for (Map.Entry<String, DecryptedFolderMetadata.DecryptedFile> entry : decryptedFolderMetadata
+        for (Map.Entry<String, DecryptedFile> entry : decryptedFolderMetadata
             .getFiles().entrySet()) {
             String key = entry.getKey();
-            DecryptedFolderMetadata.DecryptedFile decryptedFile = entry.getValue();
+            DecryptedFile decryptedFile = entry.getValue();
 
-            EncryptedFolderMetadata.EncryptedFile encryptedFile = new EncryptedFolderMetadata.EncryptedFile();
+            EncryptedFolderMetadataFile.EncryptedFile encryptedFile = new EncryptedFolderMetadataFile.EncryptedFile();
             encryptedFile.setInitializationVector(decryptedFile.getInitializationVector());
             encryptedFile.setMetadataKey(decryptedFile.getMetadataKey());
             encryptedFile.setAuthenticationTag(decryptedFile.getAuthenticationTag());
@@ -187,14 +192,14 @@ public final class EncryptionUtils {
     }
 
     @VisibleForTesting
-    public static void encryptFileDropFiles(DecryptedFolderMetadata decryptedFolderMetadata, EncryptedFolderMetadata encryptedFolderMetadata, String cert) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, CertificateException {
-        final Map<String, EncryptedFolderMetadata.EncryptedFile> filesdrop = encryptedFolderMetadata.getFiledrop();
-        for (Map.Entry<String, DecryptedFolderMetadata.DecryptedFile> entry : decryptedFolderMetadata
+    public static void encryptFileDropFiles(DecryptedFolderMetadataFile decryptedFolderMetadata, EncryptedFolderMetadataFile encryptedFolderMetadata, String cert) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, CertificateException {
+        final Map<String, EncryptedFolderMetadataFile.EncryptedFile> filesdrop = encryptedFolderMetadata.getFiledrop();
+        for (Map.Entry<String, DecryptedFile> entry : decryptedFolderMetadata
             .getFiledrop().entrySet()) {
             String key = entry.getKey();
-            DecryptedFolderMetadata.DecryptedFile decryptedFile = entry.getValue();
+            DecryptedFile decryptedFile = entry.getValue();
 
-            EncryptedFolderMetadata.EncryptedFile encryptedFile = new EncryptedFolderMetadata.EncryptedFile();
+            EncryptedFolderMetadataFile.EncryptedFile encryptedFile = new EncryptedFolderMetadataFile.EncryptedFile();
             encryptedFile.setInitializationVector(decryptedFile.getInitializationVector());
             encryptedFile.setMetadataKey(decryptedFile.getMetadataKey());
             encryptedFile.setAuthenticationTag(decryptedFile.getAuthenticationTag());
@@ -210,22 +215,22 @@ public final class EncryptionUtils {
     /*
      * decrypt folder metaData with private key
      */
-    public static DecryptedFolderMetadata decryptFolderMetaData(EncryptedFolderMetadata encryptedFolderMetadata,
-                                                                String privateKey)
+    public static DecryptedFolderMetadataFile decryptFolderMetaData(EncryptedFolderMetadataFile encryptedFolderMetadata,
+                                                                    String privateKey)
         throws NoSuchAlgorithmException, InvalidKeyException,
         InvalidAlgorithmParameterException, NoSuchPaddingException, BadPaddingException,
         IllegalBlockSizeException, InvalidKeySpecException {
 
-        HashMap<String, DecryptedFolderMetadata.DecryptedFile> files = new HashMap<>();
-        DecryptedFolderMetadata decryptedFolderMetadata = new DecryptedFolderMetadata(
+        HashMap<String, DecryptedFile> files = new HashMap<>();
+        DecryptedFolderMetadataFile decryptedFolderMetadata = new DecryptedFolderMetadataFile(
             encryptedFolderMetadata.getMetadata(), files);
 
-        for (Map.Entry<String, EncryptedFolderMetadata.EncryptedFile> entry : encryptedFolderMetadata
+        for (Map.Entry<String, EncryptedFolderMetadataFile.EncryptedFile> entry : encryptedFolderMetadata
             .getFiles().entrySet()) {
             String key = entry.getKey();
-            EncryptedFolderMetadata.EncryptedFile encryptedFile = entry.getValue();
+            EncryptedFolderMetadataFile.EncryptedFile encryptedFile = entry.getValue();
 
-            DecryptedFolderMetadata.DecryptedFile decryptedFile = new DecryptedFolderMetadata.DecryptedFile();
+            DecryptedFile decryptedFile = new DecryptedFile();
             decryptedFile.setInitializationVector(encryptedFile.getInitializationVector());
             decryptedFile.setMetadataKey(encryptedFile.getMetadataKey());
             decryptedFile.setAuthenticationTag(encryptedFile.getAuthenticationTag());
@@ -238,20 +243,20 @@ public final class EncryptionUtils {
             // decrypt
             String dataJson = EncryptionUtils.decryptStringSymmetric(encryptedFile.getEncrypted(), decryptedMetadataKey);
             decryptedFile.setEncrypted(EncryptionUtils.deserializeJSON(dataJson,
-                                                                       new TypeToken<DecryptedFolderMetadata.Data>() {
+                                                                       new TypeToken<Data>() {
                                                                        }));
 
             files.put(key, decryptedFile);
         }
 
-        Map<String, EncryptedFolderMetadata.EncryptedFile> fileDrop = encryptedFolderMetadata.getFiledrop();
+        Map<String, EncryptedFolderMetadataFile.EncryptedFile> fileDrop = encryptedFolderMetadata.getFiledrop();
 
         if (fileDrop != null) {
-            for (Map.Entry<String, EncryptedFolderMetadata.EncryptedFile> entry : fileDrop.entrySet()) {
+            for (Map.Entry<String, EncryptedFolderMetadataFile.EncryptedFile> entry : fileDrop.entrySet()) {
                 String key = entry.getKey();
-                EncryptedFolderMetadata.EncryptedFile encryptedFile = entry.getValue();
+                EncryptedFolderMetadataFile.EncryptedFile encryptedFile = entry.getValue();
 
-                DecryptedFolderMetadata.DecryptedFile decryptedFile = new DecryptedFolderMetadata.DecryptedFile();
+                DecryptedFile decryptedFile = new DecryptedFile();
                 decryptedFile.setInitializationVector(encryptedFile.getInitializationVector());
                 decryptedFile.setMetadataKey(encryptedFile.getMetadataKey());
                 decryptedFile.setAuthenticationTag(encryptedFile.getAuthenticationTag());
@@ -260,7 +265,7 @@ public final class EncryptionUtils {
                 String dataJson = EncryptionUtils.decryptStringAsymmetric(encryptedFile.getEncrypted(), privateKey);
 
                 decryptedFile.setEncrypted(EncryptionUtils.deserializeJSON(dataJson,
-                                                                           new TypeToken<DecryptedFolderMetadata.Data>() {
+                                                                           new TypeToken<Data>() {
                                                                            }));
 
                 files.put(key, decryptedFile);
@@ -279,10 +284,10 @@ public final class EncryptionUtils {
      * @return decrypted metadata or null
      */
     public static @Nullable
-    DecryptedFolderMetadata downloadFolderMetadata(OCFile folder,
-                                                   OwnCloudClient client,
-                                                   Context context,
-                                                   User user) {
+    DecryptedFolderMetadataFile downloadFolderMetadata(OCFile folder,
+                                                       OwnCloudClient client,
+                                                       Context context,
+                                                       User user) {
         RemoteOperationResult getMetadataOperationResult = new GetMetadataRemoteOperation(folder.getLocalId())
             .execute(client);
 
@@ -295,8 +300,8 @@ public final class EncryptionUtils {
         String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
         String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
 
-        EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
-            serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadata>() {
+        EncryptedFolderMetadataFile encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
+            serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadataFile>() {
             });
 
         try {
@@ -304,7 +309,7 @@ public final class EncryptionUtils {
             if (encryptedFolderMetadata.getFiledrop() != null) {
                 filesDropCountBefore = encryptedFolderMetadata.getFiledrop().size();
             }
-            DecryptedFolderMetadata decryptedFolderMetadata = EncryptionUtils.decryptFolderMetaData(
+            DecryptedFolderMetadataFile decryptedFolderMetadata = EncryptionUtils.decryptFolderMetaData(
                 encryptedFolderMetadata,
                 privateKey);
 
@@ -316,8 +321,8 @@ public final class EncryptionUtils {
                 String token = EncryptionUtils.lockFolder(folder, client);
 
                 // upload metadata
-                EncryptedFolderMetadata encryptedFolderMetadataNew = encryptFolderMetadata(decryptedFolderMetadata,
-                                                                                           privateKey);
+                EncryptedFolderMetadataFile encryptedFolderMetadataNew = encryptFolderMetadata(decryptedFolderMetadata,
+                                                                                               privateKey);
 
                 String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadataNew);
 
@@ -417,7 +422,8 @@ public final class EncryptionUtils {
 
         byte[] cryptedBytes = cipher.doFinal(fileBytes);
         String authenticationTag = encodeBytesToBase64String(Arrays.copyOfRange(cryptedBytes,
-                                                                                cryptedBytes.length - (128 / 8), cryptedBytes.length));
+                                                                                cryptedBytes.length - (128 / 8),
+                                                                                cryptedBytes.length));
 
         return new EncryptedFile(cryptedBytes, authenticationTag);
     }
@@ -446,7 +452,8 @@ public final class EncryptionUtils {
 
         // check authentication tag
         byte[] extractedAuthenticationTag = Arrays.copyOfRange(fileBytes,
-                                                               fileBytes.length - (128 / 8), fileBytes.length);
+                                                               fileBytes.length - (128 / 8),
+                                                               fileBytes.length);
 
         if (!Arrays.equals(extractedAuthenticationTag, authenticationTag)) {
             throw new SecurityException("Tag not correct");
@@ -540,6 +547,14 @@ public final class EncryptionUtils {
         return decodeBase64BytesToString(encodedBytes);
     }
 
+    /**
+     * Decrypt string with RSA algorithm, ECB mode, OAEPWithSHA-256AndMGF1 padding Asymmetric encryption, with private
+     * and public key
+     *
+     * @param string     string to decrypt
+     * @param privateKey private key
+     * @return decrypted string
+     */
     public static String decryptStringAsymmetric(String string, PrivateKey privateKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         Cipher cipher = Cipher.getInstance(RSA_CIPHER);
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
@@ -551,12 +566,11 @@ public final class EncryptionUtils {
     }
 
     /**
-     * Encrypt string with RSA algorithm, ECB mode, OAEPWithSHA-256AndMGF1 padding Asymmetric encryption, with private
-     * and public key
+     * Decrypt string with AES/GCM/NoPadding
      *
-     * @param string             String to encrypt
-     * @param encryptionKeyBytes key, either from metadata or {@link EncryptionUtils#generateKey()}
-     * @return encrypted string
+     * @param string             string to decrypt
+     * @param encryptionKeyBytes key from metadata
+     * @return decrypted string
      */
     public static String encryptStringSymmetric(String string, byte[] encryptionKeyBytes)
         throws NoSuchPaddingException,
@@ -579,6 +593,13 @@ public final class EncryptionUtils {
         return encryptStringSymmetric(string, encryptionKeyBytes, ivDelimiterOld);
     }
 
+    /**
+     * Encrypt string with AES/GCM/NoPadding
+     *
+     * @param string             string to encrypt
+     * @param encryptionKeyBytes key from metadata
+     * @return decrypted string
+     */
     private static String encryptStringSymmetric(String string,
                                                  byte[] encryptionKeyBytes,
                                                  String delimiter)
@@ -605,16 +626,68 @@ public final class EncryptionUtils {
         return encodedCryptedBytes + delimiter + encodedIV;
     }
 
+    /**
+     * Encrypt string with AES/GCM/NoPadding
+     *
+     * @param string             string to encrypt
+     * @param encryptionKeyBytes key from metadata
+     * @return decrypted string
+     */
+    public static Triple<String, String, String> encryptStringSymmetricWithIVandAuthTag(
+        String string,
+        byte[] encryptionKeyBytes)
+        throws NoSuchAlgorithmException,
+        InvalidAlgorithmParameterException,
+        NoSuchPaddingException,
+        InvalidKeyException,
+        BadPaddingException,
+        IllegalBlockSizeException {
+
+        Cipher cipher = Cipher.getInstance(AES_CIPHER);
+        byte[] iv = randomBytes(ivLength);
+
+        Key key = new SecretKeySpec(encryptionKeyBytes, AES);
+        GCMParameterSpec spec = new GCMParameterSpec(128, iv);
+        cipher.init(Cipher.ENCRYPT_MODE, key, spec);
+
+        byte[] bytes = encodeStringToBase64Bytes(string);
+        byte[] cryptedBytes = cipher.doFinal(bytes);
+
+        String encodedCryptedBytes = encodeBytesToBase64String(cryptedBytes);
+        String encodedIV = encodeBytesToBase64String(iv);
+        String authenticationTag = encodeBytesToBase64String(Arrays.copyOfRange(cryptedBytes,
+                                                                                cryptedBytes.length - (128 / 8),
+                                                                                cryptedBytes.length));
+
+        return new Triple<>(encodedCryptedBytes + ivDelimiter + encodedIV, encodedIV, authenticationTag);
+    }
 
     /**
-     * Decrypt string with RSA algorithm, ECB mode, OAEPWithSHA-256AndMGF1 padding Asymmetric encryption, with private
-     * and public key
+     * Decrypt string with AES/GCM/NoPadding
      *
      * @param string             string to decrypt
      * @param encryptionKeyBytes key from metadata
      * @return decrypted string
      */
-    public static String decryptStringSymmetric(String string, byte[] encryptionKeyBytes)
+    public static String decryptStringSymmetric(String string,
+                                                byte[] encryptionKeyBytes)
+        throws NoSuchAlgorithmException,
+        InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
+        BadPaddingException, IllegalBlockSizeException {
+        return decryptStringSymmetric(string, encryptionKeyBytes, null);
+    }
+
+    /**
+     * Decrypt string with AES/GCM/NoPadding
+     *
+     * @param string             string to decrypt
+     * @param encryptionKeyBytes key from metadata
+     * @param authenticationTag  auth tag to check
+     * @return decrypted string
+     */
+    public static String decryptStringSymmetric(String string,
+                                                byte[] encryptionKeyBytes,
+                                                String authenticationTag)
         throws NoSuchAlgorithmException,
         InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
         BadPaddingException, IllegalBlockSizeException {
@@ -642,6 +715,19 @@ public final class EncryptionUtils {
         cipher.init(Cipher.DECRYPT_MODE, key, spec);
 
         byte[] bytes = decodeStringToBase64Bytes(cipherString);
+
+        // check authentication tag
+        if (authenticationTag != null) {
+            byte[] authenticationTagBytes = decodeStringToBase64Bytes(authenticationTag);
+            byte[] extractedAuthenticationTag = Arrays.copyOfRange(bytes,
+                                                                   bytes.length - (128 / 8),
+                                                                   bytes.length);
+
+            if (!Arrays.equals(extractedAuthenticationTag, authenticationTagBytes)) {
+                throw new SecurityException("Tag not correct");
+            }
+        }
+
         byte[] encodedBytes = cipher.doFinal(bytes);
 
         return decodeBase64BytesToString(encodedBytes);
@@ -782,12 +868,22 @@ public final class EncryptionUtils {
         return outputLines;
     }
 
+    /**
+     * Generates private/public key pair, used for asymmetric encryption
+     *
+     * @return KeyPair
+     */
     public static KeyPair generateKeyPair() throws NoSuchAlgorithmException {
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance(RSA);
         keyGen.initialize(2048, new SecureRandom());
         return keyGen.generateKeyPair();
     }
 
+    /**
+     * Generates key for symmetric encryption
+     *
+     * @return byte[] byteArray of key
+     */
     public static byte[] generateKey() {
         KeyGenerator keyGenerator;
         try {
@@ -800,6 +896,15 @@ public final class EncryptionUtils {
         }
 
         return null;
+    }
+
+    /**
+     * Generates key for symmetric encryption
+     *
+     * @return String String base64 encoded key
+     */
+    public static String generateKeyString() {
+        return EncryptionUtils.encodeBytesToBase64String(generateKey());
     }
 
     public static byte[] randomBytes(int size) {
@@ -880,32 +985,32 @@ public final class EncryptionUtils {
      * @param parentFile file metadata should be retrieved for
      * @return Pair: boolean: true: metadata already exists, false: metadata new created
      */
-    public static Pair<Boolean, DecryptedFolderMetadata> retrieveMetadata(OCFile parentFile,
-                                                                          OwnCloudClient client,
-                                                                          String privateKey,
-                                                                          String publicKey) throws UploadException,
+    public static Pair<Boolean, DecryptedFolderMetadataFile> retrieveMetadata(OCFile parentFile,
+                                                                              OwnCloudClient client,
+                                                                              String privateKey,
+                                                                              String publicKey) throws UploadException,
         InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException,
         IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException, CertificateException {
         GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(parentFile.getLocalId());
         RemoteOperationResult getMetadataOperationResult = getMetadataOperation.execute(client);
 
-        DecryptedFolderMetadata metadata;
+        DecryptedFolderMetadataFile metadata;
 
         if (getMetadataOperationResult.isSuccess()) {
             // decrypt metadata
             String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
 
 
-            EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
-                serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadata>() {
+            EncryptedFolderMetadataFile encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
+                serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadataFile>() {
                 });
 
             return new Pair<>(Boolean.TRUE, EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata, privateKey));
 
         } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND) {
             // new metadata
-            metadata = new DecryptedFolderMetadata();
-            metadata.setMetadata(new DecryptedFolderMetadata.Metadata());
+            metadata = new DecryptedFolderMetadataFile();
+            metadata.setMetadata(new DecryptedMetadata());
             metadata.getMetadata().setMetadataKeys(new HashMap<>());
             String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
             String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
@@ -983,5 +1088,9 @@ public final class EncryptionUtils {
         return file.isEncrypted() &&
             file.isFolder() &&
             user.getServer().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_26);
+    }
+
+    public static String generateUid() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 }

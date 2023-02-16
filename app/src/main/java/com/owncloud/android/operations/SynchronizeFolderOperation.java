@@ -25,9 +25,9 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
-import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
@@ -281,11 +281,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
         // update richWorkspace
         mLocalFolder.setRichWorkspace(remoteFolder.getRichWorkspace());
 
-        DecryptedFolderMetadata metadata = RefreshFolderOperation.getDecryptedFolderMetadata(encryptedAncestor,
-                                                                                             mLocalFolder,
-                                                                                             getClient(),
-                                                                                             user,
-                                                                                             mContext);
+        DecryptedFolderMetadataFile metadata = RefreshFolderOperation.getDecryptedFolderMetadata(encryptedAncestor,
+                                                                                                 mLocalFolder,
+                                                                                                 getClient(),
+                                                                                                 user,
+                                                                                                 mContext);
 
         // get current data about local contents of the folder to synchronize
         Map<String, OCFile> localFilesMap =

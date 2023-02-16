@@ -27,10 +27,12 @@ import android.util.Pair;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.DecryptedFolderMetadata;
-import com.owncloud.android.datamodel.EncryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.Data;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFile;
+import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -113,7 +115,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
         String token = null;
         Boolean metadataExists;
-        DecryptedFolderMetadata metadata;
+        DecryptedFolderMetadataFile metadata;
         String encryptedRemotePath = null;
 
         String filename = new File(remotePath).getName();
@@ -123,10 +125,10 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             token = EncryptionUtils.lockFolder(parent, client);
 
             // get metadata
-            Pair<Boolean, DecryptedFolderMetadata> metadataPair = EncryptionUtils.retrieveMetadata(parent,
-                                                                                                   client,
-                                                                                                   privateKey,
-                                                                                                   publicKey);
+            Pair<Boolean, DecryptedFolderMetadataFile> metadataPair = EncryptionUtils.retrieveMetadata(parent,
+                                                                                                       client,
+                                                                                                       privateKey,
+                                                                                                       publicKey);
 
             metadataExists = metadataPair.first;
             metadata = metadataPair.second;
@@ -149,8 +151,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                 // update metadata
                 metadata.getFiles().put(encryptedFileName, createDecryptedFile(filename));
 
-                EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
-                                                                                                        privateKey);
+                EncryptedFolderMetadataFile encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
+                                                                                                            privateKey);
                 String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
 
                 // upload metadata
@@ -227,9 +229,9 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         }
     }
 
-    private boolean isFileExisting(DecryptedFolderMetadata metadata, String filename) {
+    private boolean isFileExisting(DecryptedFolderMetadataFile metadata, String filename) {
         for (String key : metadata.getFiles().keySet()) {
-            DecryptedFolderMetadata.DecryptedFile file = metadata.getFiles().get(key);
+            DecryptedFile file = metadata.getFiles().get(key);
 
             if (file != null && filename.equalsIgnoreCase(file.getEncrypted().getFilename())) {
                 return true;
@@ -254,15 +256,15 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     }
 
     @NonNull
-    private DecryptedFolderMetadata.DecryptedFile createDecryptedFile(String filename) {
+    private DecryptedFile createDecryptedFile(String filename) {
         // Key, always generate new one
         byte[] key = EncryptionUtils.generateKey();
 
         // IV, always generate new one
         byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
 
-        DecryptedFolderMetadata.DecryptedFile decryptedFile = new DecryptedFolderMetadata.DecryptedFile();
-        DecryptedFolderMetadata.Data data = new DecryptedFolderMetadata.Data();
+        DecryptedFile decryptedFile = new DecryptedFile();
+        Data data = new Data();
         data.setFilename(filename);
         data.setMimetype(MimeType.WEBDAV_FOLDER);
         data.setKey(EncryptionUtils.encodeBytesToBase64String(key));
@@ -274,7 +276,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     }
 
     @NonNull
-    private String createRandomFileName(DecryptedFolderMetadata metadata) {
+    private String createRandomFileName(DecryptedFolderMetadataFile metadata) {
         String encryptedFileName = UUID.randomUUID().toString().replaceAll("-", "");
 
         while (metadata.getFiles().get(encryptedFileName) != null) {
