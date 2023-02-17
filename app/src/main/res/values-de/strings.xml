@@ -213,7 +213,7 @@
     <string name="document_scan_export_dialog_images">Mehrere Bilder</string>
     <string name="document_scan_export_dialog_pdf">PDF-Datei</string>
     <string name="document_scan_export_dialog_title">Exporttyp wählen</string>
-    <string name="document_scan_pdf_generation_failed">PDF-Erstellung fehgeschlagen</string>
+    <string name="document_scan_pdf_generation_failed">PDF-Erstellung fehlgeschlagen</string>
     <string name="document_scan_pdf_generation_in_progress">Erstelle PDF…</string>
     <string name="done">Fertig</string>
     <string name="dontClear">Nicht löschen</string>
