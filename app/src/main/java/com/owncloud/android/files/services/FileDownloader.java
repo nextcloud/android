@@ -54,7 +54,6 @@ import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.CreateLocalFileException;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.operations.DownloadType;
