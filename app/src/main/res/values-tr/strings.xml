@@ -32,6 +32,7 @@
     <string name="activity_icon">İşlem</string>
     <string name="add_another_public_share_link">Başka bir bağlantı ekle</string>
     <string name="add_new_public_share">Yeni herkese açık paylaşım bağlantısı ekle</string>
+    <string name="add_new_secure_file_drop">güvenli dosya bırakma ekle</string>
     <string name="add_to_cloud">%1$s üzerine ekle</string>
     <string name="advanced_settings">Gelişmiş ayarlar</string>
     <string name="allow_resharing">Yeniden paylaşılabilsin</string>
@@ -682,6 +683,7 @@
     <string name="share_password_title">Parola korumalı</string>
     <string name="share_permission_can_edit">Düzenleyebilir</string>
     <string name="share_permission_file_drop">Dosya bırakma</string>
+    <string name="share_permission_secure_file_drop">Güvenli dosya bırakma</string>
     <string name="share_permission_view_only">Yalnızca görüntüleme</string>
     <string name="share_permissions">İzinleri paylaş</string>
     <string name="share_remote_clarification">%1$s (uzak)</string>
