@@ -190,7 +190,7 @@
     <string name="delete_account">Fjern konto</string>
     <string name="delete_account_warning">Slet konto %s og slet alle filer lokalt?\n\nDu kan ikke fortryde en sletning.</string>
     <string name="delete_entries">Slet poster</string>
-    <string name="delete_link">Slet Link</string>
+    <string name="delete_link">Slet link</string>
     <string name="deselect_all">Fravælg alle</string>
     <string name="destination_filename">Destinations filnavn</string>
     <string name="dev_version_new_version_available">Ny version tilgængelig.</string>

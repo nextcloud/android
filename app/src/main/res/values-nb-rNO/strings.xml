@@ -32,6 +32,7 @@
     <string name="activity_icon">Aktivitet</string>
     <string name="add_another_public_share_link">Legg til en lenke til</string>
     <string name="add_new_public_share">Legg til ny offentlig delt lenke</string>
+    <string name="add_new_secure_file_drop">legg til ny sikker filkasse</string>
     <string name="add_to_cloud">Legg til %1$s</string>
     <string name="advanced_settings">Avanserte innstillinger</string>
     <string name="allow_resharing">TIllat videre deling</string>
@@ -147,6 +148,7 @@
     <string name="community_testing_report_text">Rapporter en feil på GitHub</string>
     <string name="community_testing_version_text">Interessert i å prøve ut det som kommer til å bli neste versjon?</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurer</string>
+    <string name="confirm_removal">Fjern lokal kryptering</string>
     <string name="confirmation_remove_file_alert">Ønsker du virkelig å slette %1$s?</string>
     <string name="confirmation_remove_files_alert">Vil du virkelig fjerne de valgte elementene?</string>
     <string name="confirmation_remove_folder_alert">Ønsker du virkelig å slette %1$s og dets innhold?</string>
@@ -206,7 +208,13 @@
     <string name="disable_new_media_folder_detection_notifications">Deaktiver</string>
     <string name="dismiss">Forkast</string>
     <string name="dismiss_notification_description">Ingen varsel</string>
+    <string name="displays_mnemonic">Viser ditt 12-ords-krypteringspassord</string>
     <string name="dnd">Ikke forstyrr</string>
+    <string name="document_scan_export_dialog_images">Flere bilder</string>
+    <string name="document_scan_export_dialog_pdf">PDF-fil</string>
+    <string name="document_scan_export_dialog_title">Velg eksport-type</string>
+    <string name="document_scan_pdf_generation_failed">PDF-generering feilet</string>
+    <string name="document_scan_pdf_generation_in_progress">Generer PDF...</string>
     <string name="done">Ferdig</string>
     <string name="dontClear">Ikke fjern</string>
     <string name="download_latest_dev_version">Last ned det nyeste dev versjon</string>
@@ -248,7 +256,7 @@
     <string name="end_to_end_encryption_generating_keys">Genererer nye nøkler…</string>
     <string name="end_to_end_encryption_keywords_description">Alle 12 ordene sammen utgjør et veldig sterkt passord, som lar bare deg vise og gjøre bruk av dine krypterte filer. Skriv det ned og oppbevar det på en trygg plass.</string>
     <string name="end_to_end_encryption_not_enabled">Ende-til-ende -kryptering avskrudd på serveren.</string>
-    <string name="end_to_end_encryption_passphrase_title">Merk deg dit 12-ords-krypteringspassord</string>
+    <string name="end_to_end_encryption_passphrase_title">Merk deg ditt 12-ords-krypteringspassord</string>
     <string name="end_to_end_encryption_password">Passord…</string>
     <string name="end_to_end_encryption_retrieving_keys">Henter nøkler…</string>
     <string name="end_to_end_encryption_storing_keys">Lagrer nøkler</string>
@@ -268,6 +276,7 @@
     <string name="error_report_issue_text">Rapporter feil? (Krever GitHub konto.)</string>
     <string name="error_retrieving_file">Oppstod feil med å få tilbake filen</string>
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
+    <string name="error_showing_encryption_dialog">Feilet under visning av krypteringsoppsett!</string>
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
     <string name="error_starting_scan_doc">Feil ved bruk av dokument skanning</string>
     <string name="etm_accounts">Kontoer</string>
@@ -517,6 +526,8 @@
     <string name="permission_deny">ikke tillatt</string>
     <string name="permission_storage_access">Flere tillatelser trengs for å laste opp og ned filer.</string>
     <string name="picture_set_as_no_app">Fant ikke noe app å sette bilde med.</string>
+    <string name="pin_home">Fest til hjemmeskjermen</string>
+    <string name="pin_shortcut_label">Åpne %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">plassholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -546,6 +557,7 @@
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_daily_backup_summary">Daglig backup av din kaleder &amp; kontakter</string>
+    <string name="prefs_e2e_active">Ende-til-ende -kryptering er satt opp!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic (hjelper for ende-til-ende kryptering til å huske legitimasjon)</string>
     <string name="prefs_e2e_no_device_credentials">For å vise mnemonic, ver vennlig å aktiver enhet legitimasjon.</string>
     <string name="prefs_enable_media_scan_notifications">Vis mediaskannvarsler</string>
@@ -557,6 +569,7 @@
     <string name="prefs_instant_behaviour_title">Opprinnelig fil vil bli…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Lagre filer i undermapper basert på år og måned</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Bruk undermapper</string>
+    <string name="prefs_keys_exist">Legg til ende-til-ende -kryptering på denne klienten</string>
     <string name="prefs_license">Lisens</string>
     <string name="prefs_lock">Appsikkerhet</string>
     <string name="prefs_lock_device_credentials_enabled">Enhetens legitimasjon er aktivert</string>
@@ -567,6 +580,8 @@
     <string name="prefs_lock_using_passcode">Passord</string>
     <string name="prefs_manage_accounts">Håndter kontoer</string>
     <string name="prefs_recommend">Anbefal til en venn</string>
+    <string name="prefs_remove_e2e">Fjern kryptering lokalt</string>
+    <string name="prefs_setup_e2e">Sett opp ende-til-ende -kryptering</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_sourcecode">Hent kildekode</string>
     <string name="prefs_storage_path">Datalagringsmappe</string>
@@ -594,6 +609,8 @@
     <string name="reload">Last inn på nytt</string>
     <string name="remote">(ekstern)</string>
     <string name="remote_file_fetch_failed">Kunne ikke finne filen!</string>
+    <string name="remove_e2e">Du kan fjerne ende-til-ende -kryptering lokalt på denne klienten</string>
+    <string name="remove_e2e_message">Du kan fjerne ende-til-ende -kryptering lokalt på denne klienten. De krypterte filene vil forbli på serveren, men vil ikke bli synkronisert til denne maskinen lengre.</string>
     <string name="remove_fail_msg">Sletting mislyktes</string>
     <string name="remove_notification_failed">Kunne ikke fjerne meldingen.</string>
     <string name="remove_push_notification">Fjern</string>
@@ -611,6 +628,7 @@
     <string name="retrieving_file">Får tilbake fil</string>
     <string name="richdocuments_failed_to_load_document">Feil i lasting av dokument!</string>
     <string name="scanQR_description">Legg inn med QR-kode</string>
+    <string name="scan_page">Skann side</string>
     <string name="screenshot_01_gridView_heading">Beskytter din data</string>
     <string name="screenshot_01_gridView_subline">produktivitet på egen tjener</string>
     <string name="screenshot_02_listView_heading">Bla gjennom og del</string>
@@ -637,6 +655,7 @@
     <string name="set_picture_as">Bruk bilde som</string>
     <string name="set_status">Velg status</string>
     <string name="set_status_message">Velg statusmelding</string>
+    <string name="setup_e2e">Under oppsett av ende-til-ende -kryptering så vil du motta et tilfeldig 12-ord-krypteringspassord, som du vil trenge for å få åpner filene dine på andre enheter. Dette vil bare bli lagret på denne enheten. og kan bli vist igjen på denne siden. Vennligst noter det ned på et sikkert sted!</string>
     <string name="share">Del</string>
     <string name="share_copy_link">Del &amp; kopier lenke</string>
     <string name="share_dialog_title">Deling</string>
@@ -660,7 +679,8 @@
     <string name="share_no_password_title">Velg passord</string>
     <string name="share_password_title">Passordbeskyttet</string>
     <string name="share_permission_can_edit">Kan endre</string>
-    <string name="share_permission_file_drop">Fil mottak</string>
+    <string name="share_permission_file_drop">Filkasse</string>
+    <string name="share_permission_secure_file_drop">Sikker filkasse</string>
     <string name="share_permission_view_only">Kun se</string>
     <string name="share_permissions">Rettigheter for deling</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
@@ -922,6 +942,10 @@
     <plurals name="export_successful">
         <item quantity="one">Eksporterte %d fil</item>
         <item quantity="other">Eksporterte %d filer</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%d fil vil bli eksportert. Se varsel for detaljer</item>
+        <item quantity="other">%d filer vil bli eksportert. Se varsel for detaljer</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$dmappe</item>
