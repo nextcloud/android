@@ -18,7 +18,7 @@ jobs:
                 color: [ blue ]
                 api-level: [ 27 ]
         steps:
-            -   uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
+            -   uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
 
             -   name: Gradle cache
                 uses: actions/cache@6998d139ddd3e68c71e9e398d8e40b71a2f39812 # v3
