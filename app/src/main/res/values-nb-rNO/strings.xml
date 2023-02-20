@@ -667,7 +667,7 @@
     <string name="share_internal_link_to_file_text">Intern dele-link virker bare for brukere med tilgang til til denne filen</string>
     <string name="share_internal_link_to_folder_text">Intern dele-link virker bare for brukere med tilgang til til denne mappen</string>
     <string name="share_known_remote_on_clarification">på %1$s</string>
-    <string name="share_link">Share link</string>
+    <string name="share_link">Del lenke</string>
     <string name="share_link_empty_password">Du må skrive inn ett passord</string>
     <string name="share_link_file_error">Det skjedde en feil under deling av denne filen eller mappen.</string>
     <string name="share_link_file_no_exist">Kan ikke dele. Sjekk om filen eksisterer.</string>
@@ -699,7 +699,6 @@
     <string name="shared_icon_shared">delt</string>
     <string name="shared_icon_shared_via_link">del via lenke</string>
     <string name="shared_with_you_by">Delt med deg av %1$s</string>
-    <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="show_images">Vis bilder</string>
     <string name="show_video">Vis videoer</string>
     <string name="signup_with_provider">Logg på med tilbyder</string>
