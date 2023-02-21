@@ -271,6 +271,7 @@
     <string name="error_comment_file">Feil ved kommentering av fil</string>
     <string name="error_crash_title">%1$s kræsjet</string>
     <string name="error_creating_file_from_template">Feil ved oppretting av fil fra mal</string>
+    <string name="error_file_actions">Feil under visning av filvalg</string>
     <string name="error_file_lock">Feil ved endring av fillåsstatus</string>
     <string name="error_report_issue_action">Rapporter</string>
     <string name="error_report_issue_text">Rapporter feil? (Krever GitHub konto.)</string>
@@ -278,6 +279,7 @@
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
     <string name="error_showing_encryption_dialog">Feilet under visning av krypteringsoppsett!</string>
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
+    <string name="error_starting_doc_scan">Feil ved start av dokumentskanning</string>
     <string name="error_starting_scan_doc">Feil ved bruk av dokument skanning</string>
     <string name="etm_accounts">Kontoer</string>
     <string name="etm_background_job_name">Jobbnavn</string>
@@ -557,6 +559,7 @@
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_daily_backup_summary">Daglig backup av din kaleder &amp; kontakter</string>
+    <string name="prefs_davx5_setup_error">Uventet feil under oppsett av DAVx5 (tidligere kjent som DAVdroid)</string>
     <string name="prefs_e2e_active">Ende-til-ende -kryptering er satt opp!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic (hjelper for ende-til-ende kryptering til å huske legitimasjon)</string>
     <string name="prefs_e2e_no_device_credentials">For å vise mnemonic, ver vennlig å aktiver enhet legitimasjon.</string>
@@ -699,6 +702,7 @@
     <string name="shared_icon_shared">delt</string>
     <string name="shared_icon_shared_via_link">del via lenke</string>
     <string name="shared_with_you_by">Delt med deg av %1$s</string>
+    <string name="sharee_add_failed">Deling feilet</string>
     <string name="show_images">Vis bilder</string>
     <string name="show_video">Vis videoer</string>
     <string name="signup_with_provider">Logg på med tilbyder</string>
@@ -941,6 +945,14 @@
     <plurals name="export_successful">
         <item quantity="one">Eksporterte %d fil</item>
         <item quantity="other">Eksporterte %d filer</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Eksportering av %d fil feilet</item>
+        <item quantity="other">Eksportering av %d filer feilet</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Eksporterte %d fil, hoppet over resten på grunn av feil</item>
+        <item quantity="other">Eksporterte %d filer, hoppet over resten på grunn av feil</item>
     </plurals>
     <plurals name="export_start">
         <item quantity="one">%d fil vil bli eksportert. Se varsel for detaljer</item>
