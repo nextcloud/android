@@ -257,19 +257,19 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
 
         initTargetFolder();
+        browseToFolderIfItExists();
+    }
+
+    private void browseToFolderIfItExists() {
         String full_path = generatePath(mParents);
         final OCFile fileByPath = getStorageManager().getFileByPath(full_path);
         if (fileByPath != null) {
             startSyncFolderOperation(fileByPath);
             populateDirectoryList();
         } else {
-            handleNonExistingFolder();
+            browseToRoot();
+            preferences.setLastUploadPath(OCFile.ROOT_PATH);
         }
-    }
-
-    private void handleNonExistingFolder() {
-        browseToRoot();
-        preferences.setLastUploadPath(OCFile.ROOT_PATH);
     }
 
     @Override
@@ -634,14 +634,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             super.onBackPressed();
         } else {
             mParents.pop();
-            String full_path = generatePath(mParents);
-            final OCFile fileByPath = getStorageManager().getFileByPath(full_path);
-            if (fileByPath != null) {
-                startSyncFolderOperation(fileByPath);
-                populateDirectoryList();
-            } else {
-                handleNonExistingFolder();
-            }
+            browseToFolderIfItExists();
         }
     }
 
