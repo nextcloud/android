@@ -263,8 +263,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
             startSyncFolderOperation(fileByPath);
             populateDirectoryList();
         } else {
-            browseToRoot();
+            handleNonExistingFolder();
         }
+    }
+
+    private void handleNonExistingFolder() {
+        browseToRoot();
+        preferences.setLastUploadPath(OCFile.ROOT_PATH);
     }
 
     @Override
@@ -635,7 +640,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 startSyncFolderOperation(fileByPath);
                 populateDirectoryList();
             } else {
-                browseToRoot();
+                handleNonExistingFolder();
             }
         }
     }
