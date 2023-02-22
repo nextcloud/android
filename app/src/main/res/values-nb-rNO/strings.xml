@@ -63,8 +63,8 @@
     <string name="auth_trying_to_login">Prøver å logge inn…</string>
     <string name="auth_unauthorized">Feil brukernavn eller passord</string>
     <string name="auth_unknown_error_exception_title">Ukjent feil: %1$s</string>
-    <string name="auth_unknown_error_http_title">Ukjent HTTP feil oppstod!</string>
-    <string name="auth_unknown_error_title">Ukjent feil oppstod!</string>
+    <string name="auth_unknown_error_http_title">Ukjent HTTP feil oppsto!</string>
+    <string name="auth_unknown_error_title">Ukjent feil oppsto!</string>
     <string name="auth_unknown_host_title">Fant ikke vert</string>
     <string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
     <string name="auth_wrong_connection_title">Klarte ikke å opprette tilkobling</string>
@@ -168,7 +168,7 @@
     <string name="contacts_preferences_no_file_found">Ingen fil funnet</string>
     <string name="contacts_preferences_something_strange_happened">Fant ikke siste sikkerhetskopi.</string>
     <string name="copied_to_clipboard">Kopiert til utklippstavlen</string>
-    <string name="copy_file_error">En feil oppstod ved kopiering av denne filen eller mappen</string>
+    <string name="copy_file_error">En feil oppsto ved kopiering av denne filen eller mappen</string>
     <string name="copy_file_invalid_into_descendent">Det er ikke mulig å kopiere en mappe inn i sin egen undermappe</string>
     <string name="copy_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
     <string name="copy_file_not_found">Kan ikke kopiere. Sjekk om filen eksisterer.</string>
@@ -275,7 +275,7 @@
     <string name="error_file_lock">Feil ved endring av fillåsstatus</string>
     <string name="error_report_issue_action">Rapporter</string>
     <string name="error_report_issue_text">Rapporter feil? (Krever GitHub konto.)</string>
-    <string name="error_retrieving_file">Oppstod feil med å få tilbake filen</string>
+    <string name="error_retrieving_file">Oppsto feil med å få tilbake filen</string>
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
     <string name="error_showing_encryption_dialog">Feilet under visning av krypteringsoppsett!</string>
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
@@ -465,7 +465,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Største først</string>
     <string name="menu_item_sort_by_size_smallest_first">Minste først</string>
     <string name="more">Mer</string>
-    <string name="move_file_error">En feil oppstod ved flytting av denne filen eller mappen</string>
+    <string name="move_file_error">En feil oppsto ved flytting av denne filen eller mappen</string>
     <string name="move_file_invalid_into_descendent">Det er ikke mulig å flytte en mappe inn i sin egen undermappe</string>
     <string name="move_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
     <string name="move_file_not_found">Kan ikke flytte filen. Sjekk om den eksisterer.</string>
@@ -811,12 +811,12 @@
     <string name="unread_comments">Det er uleste kommentarer</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
     <string name="unset_favorite">Fjern fra favoritter</string>
-    <string name="unshare_link_file_error">Det oppstod en feil under oppheving av deling av denne filen eller mappen.</string>
+    <string name="unshare_link_file_error">Det oppsto en feil under oppheving av deling av denne filen eller mappen.</string>
     <string name="unshare_link_file_no_exist">Kan ikke oppheve deling. Sjekk om filen eksisterer.</string>
     <string name="unshare_link_forbidden_permissions">å oppheve deling av denne filen</string>
     <string name="unsharing_failed">Fjerning av deling feilet</string>
     <string name="untrusted_domain">Tilgang gjennom ubetrodd domene. Sjekk dokumentasjonen for mer informasjon.</string>
-    <string name="update_link_file_error">Det oppstod en feil under oppdatering av delingen.</string>
+    <string name="update_link_file_error">Det oppsto en feil under oppdatering av delingen.</string>
     <string name="update_link_file_no_exist">Kan ikke oppdatere. Sjekk om filen eksisterer.</string>
     <string name="update_link_forbidden_permissions">å oppdatere denne delingen</string>
     <string name="updating_share_failed">Oppdatering av deling feilet</string>
