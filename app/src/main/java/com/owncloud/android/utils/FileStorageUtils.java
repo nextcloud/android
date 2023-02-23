@@ -466,7 +466,7 @@ public final class FileStorageUtils {
             return true;
         }
 
-        while (!OCFile.ROOT_PATH.equals(file.getDecryptedRemotePath())) {
+        while (file != null && !OCFile.ROOT_PATH.equals(file.getDecryptedRemotePath())) {
             if (file.isEncrypted()) {
                 return true;
             }

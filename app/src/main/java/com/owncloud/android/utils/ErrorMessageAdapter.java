@@ -324,9 +324,13 @@ public final class ErrorMessageAdapter {
                 new File(operation.getSavePath()).getName());
 
         } else {
-            if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                return res.getString(R.string.downloader_download_file_not_found);
-
+            switch (result.getCode()) {
+                case FILE_NOT_FOUND:
+                    return res.getString(R.string.downloader_download_file_not_found);
+                case CANNOT_CREATE_FILE:
+                    return res.getString(R.string.download_cannot_create_file);
+                case INVALID_LOCAL_FILE_NAME:
+                    return res.getString(R.string.download_download_invalid_local_file_name);
             }
         }
         return null;

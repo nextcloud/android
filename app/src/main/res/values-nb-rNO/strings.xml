@@ -63,8 +63,8 @@
     <string name="auth_trying_to_login">Prøver å logge inn…</string>
     <string name="auth_unauthorized">Feil brukernavn eller passord</string>
     <string name="auth_unknown_error_exception_title">Ukjent feil: %1$s</string>
-    <string name="auth_unknown_error_http_title">Ukjent HTTP feil oppstod!</string>
-    <string name="auth_unknown_error_title">Ukjent feil oppstod!</string>
+    <string name="auth_unknown_error_http_title">Ukjent HTTP feil oppsto!</string>
+    <string name="auth_unknown_error_title">Ukjent feil oppsto!</string>
     <string name="auth_unknown_host_title">Fant ikke vert</string>
     <string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
     <string name="auth_wrong_connection_title">Klarte ikke å opprette tilkobling</string>
@@ -168,7 +168,7 @@
     <string name="contacts_preferences_no_file_found">Ingen fil funnet</string>
     <string name="contacts_preferences_something_strange_happened">Fant ikke siste sikkerhetskopi.</string>
     <string name="copied_to_clipboard">Kopiert til utklippstavlen</string>
-    <string name="copy_file_error">En feil oppstod ved kopiering av denne filen eller mappen</string>
+    <string name="copy_file_error">En feil oppsto ved kopiering av denne filen eller mappen</string>
     <string name="copy_file_invalid_into_descendent">Det er ikke mulig å kopiere en mappe inn i sin egen undermappe</string>
     <string name="copy_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
     <string name="copy_file_not_found">Kan ikke kopiere. Sjekk om filen eksisterer.</string>
@@ -271,13 +271,15 @@
     <string name="error_comment_file">Feil ved kommentering av fil</string>
     <string name="error_crash_title">%1$s kræsjet</string>
     <string name="error_creating_file_from_template">Feil ved oppretting av fil fra mal</string>
+    <string name="error_file_actions">Feil under visning av filvalg</string>
     <string name="error_file_lock">Feil ved endring av fillåsstatus</string>
     <string name="error_report_issue_action">Rapporter</string>
     <string name="error_report_issue_text">Rapporter feil? (Krever GitHub konto.)</string>
-    <string name="error_retrieving_file">Oppstod feil med å få tilbake filen</string>
+    <string name="error_retrieving_file">Oppsto feil med å få tilbake filen</string>
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
     <string name="error_showing_encryption_dialog">Feilet under visning av krypteringsoppsett!</string>
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
+    <string name="error_starting_doc_scan">Feil ved start av dokumentskanning</string>
     <string name="error_starting_scan_doc">Feil ved bruk av dokument skanning</string>
     <string name="etm_accounts">Kontoer</string>
     <string name="etm_background_job_name">Jobbnavn</string>
@@ -463,7 +465,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Største først</string>
     <string name="menu_item_sort_by_size_smallest_first">Minste først</string>
     <string name="more">Mer</string>
-    <string name="move_file_error">En feil oppstod ved flytting av denne filen eller mappen</string>
+    <string name="move_file_error">En feil oppsto ved flytting av denne filen eller mappen</string>
     <string name="move_file_invalid_into_descendent">Det er ikke mulig å flytte en mappe inn i sin egen undermappe</string>
     <string name="move_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
     <string name="move_file_not_found">Kan ikke flytte filen. Sjekk om den eksisterer.</string>
@@ -557,6 +559,7 @@
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_daily_backup_summary">Daglig backup av din kaleder &amp; kontakter</string>
+    <string name="prefs_davx5_setup_error">Uventet feil under oppsett av DAVx5 (tidligere kjent som DAVdroid)</string>
     <string name="prefs_e2e_active">Ende-til-ende -kryptering er satt opp!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic (hjelper for ende-til-ende kryptering til å huske legitimasjon)</string>
     <string name="prefs_e2e_no_device_credentials">For å vise mnemonic, ver vennlig å aktiver enhet legitimasjon.</string>
@@ -699,6 +702,7 @@
     <string name="shared_icon_shared">delt</string>
     <string name="shared_icon_shared_via_link">del via lenke</string>
     <string name="shared_with_you_by">Delt med deg av %1$s</string>
+    <string name="sharee_add_failed">Deling feilet</string>
     <string name="show_images">Vis bilder</string>
     <string name="show_video">Vis videoer</string>
     <string name="signup_with_provider">Logg på med tilbyder</string>
@@ -807,12 +811,12 @@
     <string name="unread_comments">Det er uleste kommentarer</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
     <string name="unset_favorite">Fjern fra favoritter</string>
-    <string name="unshare_link_file_error">Det oppstod en feil under oppheving av deling av denne filen eller mappen.</string>
+    <string name="unshare_link_file_error">Det oppsto en feil under oppheving av deling av denne filen eller mappen.</string>
     <string name="unshare_link_file_no_exist">Kan ikke oppheve deling. Sjekk om filen eksisterer.</string>
     <string name="unshare_link_forbidden_permissions">å oppheve deling av denne filen</string>
     <string name="unsharing_failed">Fjerning av deling feilet</string>
     <string name="untrusted_domain">Tilgang gjennom ubetrodd domene. Sjekk dokumentasjonen for mer informasjon.</string>
-    <string name="update_link_file_error">Det oppstod en feil under oppdatering av delingen.</string>
+    <string name="update_link_file_error">Det oppsto en feil under oppdatering av delingen.</string>
     <string name="update_link_file_no_exist">Kan ikke oppdatere. Sjekk om filen eksisterer.</string>
     <string name="update_link_forbidden_permissions">å oppdatere denne delingen</string>
     <string name="updating_share_failed">Oppdatering av deling feilet</string>
@@ -941,6 +945,14 @@
     <plurals name="export_successful">
         <item quantity="one">Eksporterte %d fil</item>
         <item quantity="other">Eksporterte %d filer</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Eksportering av %d fil feilet</item>
+        <item quantity="other">Eksportering av %d filer feilet</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Eksporterte %d fil, hoppet over resten på grunn av feil</item>
+        <item quantity="other">Eksporterte %d filer, hoppet over resten på grunn av feil</item>
     </plurals>
     <plurals name="export_start">
         <item quantity="one">%d fil vil bli eksportert. Se varsel for detaljer</item>

@@ -564,7 +564,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                                                                      newFilePath,
                                                                      mimeType,
                                                                      "",
-                                                                     String.valueOf(System.currentTimeMillis() / 1000),
+                                                                     System.currentTimeMillis() / 1000,
                                                                      FileUtil.getCreationTimestamp(emptyFile),
                                                                      false)
             .execute(client);

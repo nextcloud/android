@@ -32,6 +32,7 @@
     <string name="activity_icon">Активност</string>
     <string name="add_another_public_share_link">Добави още една връзка</string>
     <string name="add_new_public_share">Добавете нова връзка за публично споделяне</string>
+    <string name="add_new_secure_file_drop">добавяне на нов, защитено пускане на файлове</string>
     <string name="add_to_cloud">Добави към %1$s</string>
     <string name="advanced_settings">Допълнителни настройки</string>
     <string name="allow_resharing">Може да споделя повторно</string>
@@ -683,6 +684,7 @@
     <string name="share_password_title">Защитена с парола</string>
     <string name="share_permission_can_edit">Може да редактира</string>
     <string name="share_permission_file_drop">Изпускане/Преместване/ на файл</string>
+    <string name="share_permission_secure_file_drop">Защитено пускане на файлове</string>
     <string name="share_permission_view_only">Само изглед</string>
     <string name="share_permissions">Права за споделяне</string>
     <string name="share_remote_clarification">%1$s (отдалечен)</string>
