@@ -269,7 +269,7 @@ dependencies {
         exclude group: "com.android.support"
     }
     implementation 'com.caverock:androidsvg:1.4'
-    implementation 'androidx.annotation:annotation:1.5.0'
+    implementation 'androidx.annotation:annotation:1.6.0'
     implementation 'com.vanniktech:emoji-google:0.9.0'
 
     implementation "com.github.nextcloud-deps.hwsecurity:hwsecurity-fido:$fidoVersion"
