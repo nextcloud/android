@@ -326,7 +326,7 @@ dependencies {
     testImplementation "androidx.test:core:$androidxTestVersion"
     testImplementation 'org.json:json:20220924'
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
-    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
     testImplementation "io.mockk:mockk:$mockkVersion"
     testImplementation "io.mockk:mockk-android:$mockkVersion"
 
@@ -352,7 +352,7 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
     androidTestImplementation("org.mockito:mockito-android:$mockitoVersion")
     androidTestImplementation "io.mockk:mockk-android:$mockkVersion"
-    androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
+    androidTestImplementation 'androidx.arch.core:core-testing:2.2.0'
     androidTestImplementation "com.facebook.testing.screenshot:core:0.15.0"
 
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
