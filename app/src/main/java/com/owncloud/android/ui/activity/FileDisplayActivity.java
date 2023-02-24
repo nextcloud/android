@@ -254,16 +254,7 @@ public class FileDisplayActivity extends FileActivity
 
         /// USER INTERFACE
         initLayout();
-        
-        // setup toolbar
-        setupHomeSearchToolbarWithSortAndListButtons();
-
-        mMenuButton.setOnClickListener(v -> openDrawer());
-
-        mSwitchAccountButton.setOnClickListener(v -> showManageAccountsDialog());
-
-
-        fastScrollUtils.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout);
+        initUI();
 
 
         // Init Fragment without UI to retain AsyncTask across configuration changes
@@ -305,6 +296,13 @@ public class FileDisplayActivity extends FileActivity
         // Inflate and set the layout view
         binding = FilesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+    }
+
+    private void initUI() {
+        setupHomeSearchToolbarWithSortAndListButtons();
+        mMenuButton.setOnClickListener(v -> openDrawer());
+        mSwitchAccountButton.setOnClickListener(v -> showManageAccountsDialog());
+        fastScrollUtils.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout);
     }
 
     private void checkStoragePath() {
