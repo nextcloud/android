@@ -6,6 +6,7 @@
  * @author Andy Scherzinger
  * @author Chris Narkiewicz
  * @author TSI-mc
+ * @author Archontis E. Kostis
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
