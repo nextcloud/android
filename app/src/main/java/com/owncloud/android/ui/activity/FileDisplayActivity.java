@@ -251,12 +251,10 @@ public class FileDisplayActivity extends FileActivity
 
         super.onCreate(savedInstanceState);
         loadSavedInstanceState(savedInstanceState);
+
         /// USER INTERFACE
-
-        // Inflate and set the layout view
-        binding = FilesBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
+        initLayout();
+        
         // setup toolbar
         setupHomeSearchToolbarWithSortAndListButtons();
 
@@ -301,6 +299,12 @@ public class FileDisplayActivity extends FileActivity
             mSyncInProgress = false;
             mWaitingToSend = null;
         }
+    }
+
+    private void initLayout() {
+        // Inflate and set the layout view
+        binding = FilesBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
     }
 
     private void checkStoragePath() {
