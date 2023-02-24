@@ -250,19 +250,7 @@ public class FileDisplayActivity extends FileActivity
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
 
         super.onCreate(savedInstanceState);
-        /// Load of saved instance state
-        if (savedInstanceState != null) {
-            mWaitingToPreview = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
-            mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
-            mWaitingToSend = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
-            searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
-            searchOpen = savedInstanceState.getBoolean(FileDisplayActivity.KEY_IS_SEARCH_OPEN, false);
-        } else {
-            mWaitingToPreview = null;
-            mSyncInProgress = false;
-            mWaitingToSend = null;
-        }
-
+        loadSavedInstanceState(savedInstanceState);
         /// USER INTERFACE
 
         // Inflate and set the layout view
@@ -299,6 +287,20 @@ public class FileDisplayActivity extends FileActivity
         checkStoragePath();
 
         initSyncBroadcastReceiver();
+    }
+
+    private void loadSavedInstanceState(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            mWaitingToPreview = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
+            mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
+            mWaitingToSend = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
+            searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
+            searchOpen = savedInstanceState.getBoolean(FileDisplayActivity.KEY_IS_SEARCH_OPEN, false);
+        } else {
+            mWaitingToPreview = null;
+            mSyncInProgress = false;
+            mWaitingToSend = null;
+        }
     }
 
     private void checkStoragePath() {
