@@ -6,6 +6,7 @@
  * @author Andy Scherzinger
  * @author Chris Narkiewicz
  * @author TSI-mc
+ * @author Archontis E. Kostis
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
@@ -250,7 +251,25 @@ public class FileDisplayActivity extends FileActivity
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
 
         super.onCreate(savedInstanceState);
-        /// Load of saved instance state
+        loadSavedInstanceState(savedInstanceState);
+
+        /// USER INTERFACE
+        initLayout();
+        initUI();
+        initTaskRetainerFragment();
+
+        if (Intent.ACTION_VIEW.equals(getIntent().getAction())) {
+            handleOpenFileViaIntent(getIntent());
+        }
+
+        mPlayerConnection = new PlayerServiceConnection(this);
+
+        checkStoragePath();
+
+        initSyncBroadcastReceiver();
+    }
+
+    private void loadSavedInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             mWaitingToPreview = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
@@ -262,24 +281,22 @@ public class FileDisplayActivity extends FileActivity
             mSyncInProgress = false;
             mWaitingToSend = null;
         }
+    }
 
-        /// USER INTERFACE
-
+    private void initLayout() {
         // Inflate and set the layout view
         binding = FilesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+    }
 
-        // setup toolbar
+    private void initUI() {
         setupHomeSearchToolbarWithSortAndListButtons();
-
         mMenuButton.setOnClickListener(v -> openDrawer());
-
         mSwitchAccountButton.setOnClickListener(v -> showManageAccountsDialog());
-
-
         fastScrollUtils.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout);
+    }
 
-
+    private void initTaskRetainerFragment() {
         // Init Fragment without UI to retain AsyncTask across configuration changes
         FragmentManager fm = getSupportFragmentManager();
         TaskRetainerFragment taskRetainerFragment =
@@ -289,16 +306,6 @@ public class FileDisplayActivity extends FileActivity
             fm.beginTransaction()
                 .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
         }   // else, Fragment already created and retained across configuration change
-
-        if (Intent.ACTION_VIEW.equals(getIntent().getAction())) {
-            handleOpenFileViaIntent(getIntent());
-        }
-
-        mPlayerConnection = new PlayerServiceConnection(this);
-
-        checkStoragePath();
-
-        initSyncBroadcastReceiver();
     }
 
     private void checkStoragePath() {
