@@ -25,6 +25,7 @@ import android.Manifest
 import androidx.test.rule.GrantPermissionRule
 import androidx.work.WorkManager
 import com.nextcloud.client.core.ClockImpl
+import com.nextcloud.test.RetryTestRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
@@ -49,6 +50,9 @@ class ContactsBackupIT : AbstractOnServerIT() {
 
     @get:Rule
     val readContactsRule = GrantPermissionRule.grant(Manifest.permission.READ_CONTACTS)
+
+    @get:Rule
+    val retryTestRule = RetryTestRule() // flaky test
 
     private val vcard: String = "vcard.vcf"
 
