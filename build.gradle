@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        androidPluginVersion = '7.4.1'
+        androidPluginVersion = '7.4.2'
         appCompatVersion = '1.6.1'
         jacoco_version = '0.8.8'
         kotlin_version = '1.7.22'
