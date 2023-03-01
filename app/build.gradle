@@ -17,7 +17,7 @@ buildscript {
 }
 
 plugins {
-    id "com.diffplug.spotless" version "6.15.0"
+    id "com.diffplug.spotless" version "6.16.0"
 }
 
 apply plugin: 'com.android.application'
@@ -324,7 +324,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "androidx.test:core:$androidxTestVersion"
-    testImplementation 'org.json:json:20220924'
+    testImplementation 'org.json:json:20230227'
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
     testImplementation "io.mockk:mockk:$mockkVersion"
