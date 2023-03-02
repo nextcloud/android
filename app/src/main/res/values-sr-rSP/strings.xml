@@ -162,6 +162,7 @@
     <string name="dismiss">Odbaci</string>
     <string name="dismiss_notification_description">Skloni obaveštenje</string>
     <string name="done">Gotovo</string>
+    <string name="download_cannot_create_file">Ne mogu da napravim lokalni fajl</string>
     <string name="download_latest_dev_version">Preuzmite najnoviju razvojnu verziju</string>
     <string name="downloader_download_failed_content">Ne mogu da preuzmem %1$s</string>
     <string name="downloader_download_failed_credentials_error">Neuspešno skidanje, ponovo se prijavite</string>

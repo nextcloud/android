@@ -164,6 +164,7 @@
     <string name="dismiss">Preterpasi</string>
     <string name="dismiss_notification_description">Forsendi sciigon</string>
     <string name="done">Farita</string>
+    <string name="download_cannot_create_file">Ne eblas krei lokan dosieron</string>
     <string name="downloader_download_failed_content">Ne eblis elŝuti %1$s</string>
     <string name="downloader_download_failed_credentials_error">Elŝuto malsukcesis, bonvolu re-ensaluti</string>
     <string name="downloader_download_failed_ticker">Elŝuto malsukcesis</string>

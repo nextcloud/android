@@ -216,6 +216,7 @@
     <string name="document_scan_pdf_generation_in_progress">Ustvarjanje datoteke PDF ...</string>
     <string name="done">Končano</string>
     <string name="dontClear">ne počisti</string>
+    <string name="download_cannot_create_file">Krajevne datoteke ni mogoče ustvariti</string>
     <string name="download_latest_dev_version">Prejmi najnovejšo razvojno različico</string>
     <string name="downloader_download_failed_content">Ni mogoče prejeti %1$s</string>
     <string name="downloader_download_failed_credentials_error">Prejemanje je spodletelo; zahtevana je ponovna prijava.</string>
@@ -276,7 +277,6 @@
     <string name="error_report_issue_text">Ali želite poslati poročilo na sledilnik (zahteva račun Github)?</string>
     <string name="error_retrieving_file">Pridobivanje datoteke je spodletelo</string>
     <string name="error_retrieving_templates">Napaka pridobivanja predlog</string>
-    <string name="error_showing_encryption_dialog">Napaka pri prikazu pogovornega okna nastavitev šifriranja!</string>
     <string name="error_starting_direct_camera_upload">Napaka začenjanja kamere</string>
     <string name="error_starting_doc_scan">Napaka pri začenjanju preverjanja dokumenta</string>
     <string name="error_starting_scan_doc">Napaka uporabe preverjanja dokumenta</string>

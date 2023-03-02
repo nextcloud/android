@@ -194,6 +194,7 @@
     <string name="dnd">Ónáðið ekki</string>
     <string name="done">Lokið</string>
     <string name="dontClear">Ekki hreinsa</string>
+    <string name="download_cannot_create_file">Get ekki búið til skrá á tölvu</string>
     <string name="download_latest_dev_version">Sækja nýjustu þróunarútgáfuna</string>
     <string name="downloader_download_failed_content">Gat ekki sótt %1$s</string>
     <string name="downloader_download_failed_credentials_error">Niðurhal mistókst, skráðu þig inn aftur</string>

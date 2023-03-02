@@ -209,8 +209,14 @@
     <string name="dismiss_notification_description">Rexeitar a notificación</string>
     <string name="displays_mnemonic">Mostra a túa frase de contrasinal de 12 palabras</string>
     <string name="dnd">Non molestar</string>
+    <string name="document_scan_export_dialog_images">Múltiples imaxes</string>
+    <string name="document_scan_export_dialog_pdf">Arquivo PDF</string>
+    <string name="document_scan_export_dialog_title">Escolla o tipo de exportación</string>
+    <string name="document_scan_pdf_generation_failed">Produciuse un erro na xeración de PDF</string>
+    <string name="document_scan_pdf_generation_in_progress">Xerando PDF…</string>
     <string name="done">Feito</string>
     <string name="dontClear">Non limpar</string>
+    <string name="download_cannot_create_file">Non é posíbel crear o ficheiro local</string>
     <string name="download_latest_dev_version">Descargar a última versión de desenvolvemento</string>
     <string name="downloader_download_failed_content">Non foi posíbel descargar %1$s</string>
     <string name="downloader_download_failed_credentials_error">Produciuse un fallo na descarga, acceda de novo.</string>
@@ -271,8 +277,8 @@
     <string name="error_report_issue_text">Informar dun problema ao rastreador? (require unha conta de GitHub)</string>
     <string name="error_retrieving_file">Produciuse un erro ao recuperar o ficheiro</string>
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
-    <string name="error_showing_encryption_dialog">Produciuse un erro ao mostrar o diálogo de configuración de cifrado.</string>
     <string name="error_starting_direct_camera_upload">Produciuse un erro ao iniciar a cámara</string>
+    <string name="error_starting_doc_scan">Erro ao iniciar o escaneado do documento</string>
     <string name="error_starting_scan_doc">Produciuse un erro ao escanear o documento</string>
     <string name="etm_accounts">Contas</string>
     <string name="etm_background_job_name">Nome do traballo</string>
@@ -625,6 +631,7 @@
     <string name="retrieving_file">Recuperando o ficheiro…</string>
     <string name="richdocuments_failed_to_load_document">Produciuse un fallo ao cargar o documento!</string>
     <string name="scanQR_description">Acceder cun código QR</string>
+    <string name="scan_page">Escanear páxina</string>
     <string name="screenshot_01_gridView_heading">Protexendo os seus datos</string>
     <string name="screenshot_01_gridView_subline">produtividade en aloxamento autónomo</string>
     <string name="screenshot_02_listView_heading">Navegar e compartir</string>
@@ -676,6 +683,7 @@
     <string name="share_password_title">Protexido con contrasinal</string>
     <string name="share_permission_can_edit">Pode editar</string>
     <string name="share_permission_file_drop">Solta de ficheiro</string>
+    <string name="share_permission_secure_file_drop">Descarga segura de ficheiros</string>
     <string name="share_permission_view_only">Só ver</string>
     <string name="share_permissions">Compartir Permisos</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
@@ -917,6 +925,38 @@
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="one">Produciuse un fallo ao copiar%1$d ficheiro do cartafol %2$s en</item>
         <item quantity="other">Produciuse un fallo ao copiar%1$d ficheiros do cartafol %2$s en</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="one">Escribiu %1$d evento para %2$s</item>
+        <item quantity="other">Escribiu %1$d eventos para %2$s</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="one">Creouse %1$d UID novo</item>
+        <item quantity="other">Creáronse %1$d UID novos</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="one">%d entrada procesada.</item>
+        <item quantity="other">%d entradas procesadas.</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="one">Atopouse %d entrada duplicada.</item>
+        <item quantity="other">Atopáronse %d entradas duplicadas.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">%d  ficheiro exportado</item>
+        <item quantity="other">%d ficheiros exportados</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Produciuse un erro ao exportar %d ficheiro</item>
+        <item quantity="other">Produciuse un erro ao exportar %d ficheiros</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Exportouse %d ficheiro, omitiuse o descanso debido a un erro</item>
+        <item quantity="other">Exportáronse %d ficheiros, omitiuse o descanso debido a un erro</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">Exportarase %d ficheiro. Consulte a notificación para obter máis información.</item>
+        <item quantity="other">Exportaranse %d ficheiros. Consulte a notificación para obter máis información.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d cartafol</item>

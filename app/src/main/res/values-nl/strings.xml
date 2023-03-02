@@ -209,6 +209,7 @@
     <string name="dnd">Niet storen</string>
     <string name="done">Klaar</string>
     <string name="dontClear">Niet opruimen</string>
+    <string name="download_cannot_create_file">Kan geen lokaal bestand aanmaken</string>
     <string name="download_latest_dev_version">Downloaden laatste dev versie</string>
     <string name="downloader_download_failed_content">Kon %1$s niet downloaden</string>
     <string name="downloader_download_failed_credentials_error">Downloaden mislukt, je moet opnieuw inloggen</string>

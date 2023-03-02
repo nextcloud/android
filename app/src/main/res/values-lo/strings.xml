@@ -191,6 +191,7 @@
     <string name="dnd">ຫ້າມລົບກວນ</string>
     <string name="done">ສໍາເລັດ</string>
     <string name="dontClear">ບໍ່ຈະແຈ້ງ</string>
+    <string name="download_cannot_create_file">ບໍ່ສາມາດສ້າງຟາຍໄດ້</string>
     <string name="download_latest_dev_version">ດາວໂຫຼດເວີຊັ້ນ  dev ລຸ້ນລ່າສຸດ</string>
     <string name="downloader_download_failed_content">ໂຫຼດບໍ່ໄດ້%1$s</string>
     <string name="downloader_download_failed_credentials_error">ໂຫຼດບໍ່ໄດ້, ເຂົ້າລະບົບໃໝ່ອີກຄັ້ງ</string>

@@ -198,6 +198,7 @@
     <string name="dnd">Не вознемирувај</string>
     <string name="done">Готово</string>
     <string name="dontClear">Не го тргај</string>
+    <string name="download_cannot_create_file">Неможе да се креира локална датотека</string>
     <string name="download_latest_dev_version">Download latest dev version</string>
     <string name="downloader_download_failed_content">%1$s неможе да се превземе</string>
     <string name="downloader_download_failed_credentials_error">Преземањето не беше успешно, најавете се повторно</string>

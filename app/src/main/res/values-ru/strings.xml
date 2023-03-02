@@ -215,6 +215,7 @@
     <string name="document_scan_pdf_generation_in_progress">Сохранение в PDF…</string>
     <string name="done">Готово</string>
     <string name="dontClear">Не очищать</string>
+    <string name="download_cannot_create_file">Невозможно создать локальный файл</string>
     <string name="download_latest_dev_version">Скачать последнюю версию для разработчиков</string>
     <string name="downloader_download_failed_content">Скачивание %1$s не может быть завершено</string>
     <string name="downloader_download_failed_credentials_error">Ошибка скачивания, необходимо авторизоваться</string>
@@ -275,7 +276,6 @@
     <string name="error_report_issue_text">Сообщить о проблеме? (требуется учётная запись на GitHub)</string>
     <string name="error_retrieving_file">Ошибка при получении файла</string>
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
-    <string name="error_showing_encryption_dialog">Ошибка при подготовке диалога настройки шифрования</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
     <string name="error_starting_doc_scan">Ошибка во время запуска сканирования</string>
     <string name="error_starting_scan_doc">Ошибка при сканировании документа</string>

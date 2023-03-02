@@ -213,6 +213,7 @@
     <string name="document_scan_pdf_generation_in_progress">Đang tạo tập tin PDF</string>
     <string name="done">Hoàn thành</string>
     <string name="dontClear">Không xoá</string>
+    <string name="download_cannot_create_file">Không thể tạo tệp trên máy</string>
     <string name="download_latest_dev_version">Tải xuống phiên bản dev mới nhất</string>
     <string name="downloader_download_failed_content">Không thể tải về %1$s</string>
     <string name="downloader_download_failed_credentials_error">Lỗi tải về, đăng nhập lại</string>

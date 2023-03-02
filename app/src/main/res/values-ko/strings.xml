@@ -211,6 +211,7 @@
     <string name="dnd">방해 금지</string>
     <string name="done">완료</string>
     <string name="dontClear">지우지 않음</string>
+    <string name="download_cannot_create_file">로컬 파일을 만들 수 없음</string>
     <string name="download_latest_dev_version">최신 개발 버전 다운로드</string>
     <string name="downloader_download_failed_content">%1$s을(를) 다운로드할 수 없습니다</string>
     <string name="downloader_download_failed_credentials_error">다운로드 실패, 다시 로그인하십시오</string>
@@ -271,7 +272,6 @@
     <string name="error_report_issue_text">트래커에 문제를 보고하시겠습니까? (GitHub 계정 필요함)</string>
     <string name="error_retrieving_file">파일 가져오는 중 오류 발생</string>
     <string name="error_retrieving_templates">템플릿 검색 중 오류 발생</string>
-    <string name="error_showing_encryption_dialog">암호화 다이얼로그 설정을 나타내는 에러!</string>
     <string name="error_starting_direct_camera_upload">카메라 시작 중 오류 발생</string>
     <string name="error_starting_scan_doc">문서 스캔 중 오류 발생</string>
     <string name="etm_accounts">계정</string>

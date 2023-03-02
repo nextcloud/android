@@ -211,6 +211,7 @@
     <string name="dnd">No molesteu</string>
     <string name="done">Fet</string>
     <string name="dontClear">No esborrar</string>
+    <string name="download_cannot_create_file">No s\'ha pogut crear el fitxer local</string>
     <string name="download_latest_dev_version">Baixa la darrera versió de desenvolupament</string>
     <string name="downloader_download_failed_content">No s\'ha pogut baixar%1$s</string>
     <string name="downloader_download_failed_credentials_error">La baixada ha fallat, torneu a iniciar la sessió</string>
@@ -271,7 +272,6 @@
     <string name="error_report_issue_text">Informa d\'un problema al seguidor? (requereix un compte de GitHub)</string>
     <string name="error_retrieving_file">S\'ha produït un error mentre es recuperava el fitxer</string>
     <string name="error_retrieving_templates">S\'ha produït un error recuperant les plantilles</string>
-    <string name="error_showing_encryption_dialog">S\'ha produït un error en mostrar el diàleg de configuració de xifratge</string>
     <string name="error_starting_direct_camera_upload">S\'ha produït un error iniciant la càmera</string>
     <string name="error_starting_scan_doc">S\'ha produït un error en utilitzar l\'exploració del document</string>
     <string name="etm_accounts">Comptes</string>

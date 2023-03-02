@@ -32,7 +32,6 @@
     <string name="activity_icon">Активност</string>
     <string name="add_another_public_share_link">Добави още една връзка</string>
     <string name="add_new_public_share">Добавете нова връзка за публично споделяне</string>
-    <string name="add_new_secure_file_drop">добавяне на нов, защитено пускане на файлове</string>
     <string name="add_to_cloud">Добави към %1$s</string>
     <string name="advanced_settings">Допълнителни настройки</string>
     <string name="allow_resharing">Може да споделя повторно</string>
@@ -218,6 +217,7 @@
     <string name="document_scan_pdf_generation_in_progress">Генериране на PDF...</string>
     <string name="done">Завършено</string>
     <string name="dontClear">Не изчиствай</string>
+    <string name="download_cannot_create_file">Не е възможно създаването на локален файл</string>
     <string name="download_latest_dev_version">Сваляне на най-новата dev версия</string>
     <string name="downloader_download_failed_content">%1$sне може да бъде изтеглен</string>
     <string name="downloader_download_failed_credentials_error">Неуспешно качване, нужно е да се впишете отново</string>
@@ -278,7 +278,6 @@
     <string name="error_report_issue_text">Подаване на сигнал за проблем към тракера? (изисква се профил в Github)</string>
     <string name="error_retrieving_file">Грешка при извличане на файл</string>
     <string name="error_retrieving_templates">Грешка при извличане на шаблони</string>
-    <string name="error_showing_encryption_dialog">Грешка при показване на диалогов прозорец за настройка на криптирането!</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартирането на камерата</string>
     <string name="error_starting_doc_scan">Грешка при стартирането на сканиране на документ</string>
     <string name="error_starting_scan_doc">Грешка при използване на сканирането на документи</string>
@@ -683,7 +682,7 @@
     <string name="share_no_password_title">Задайте парола</string>
     <string name="share_password_title">Защитена с парола</string>
     <string name="share_permission_can_edit">Може да редактира</string>
-    <string name="share_permission_file_drop">Изпускане/Преместване/ на файл</string>
+    <string name="share_permission_file_drop">Пускане/Преместване/ на файл</string>
     <string name="share_permission_secure_file_drop">Защитено пускане на файлове</string>
     <string name="share_permission_view_only">Само изглед</string>
     <string name="share_permissions">Права за споделяне</string>

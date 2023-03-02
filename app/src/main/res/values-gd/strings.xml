@@ -187,6 +187,7 @@
     <string name="dismiss_notification_description">Leig seachad am brath</string>
     <string name="dnd">Na bris a-steach orm</string>
     <string name="dontClear">Na falamhaich</string>
+    <string name="download_cannot_create_file">Chan urrainn dhuinn am faidhle ionadail a chruthachadh</string>
     <string name="download_latest_dev_version">Luchdaich a-nuas an tionndadh leasachaidh as ùire</string>
     <string name="downloader_download_failed_content">Cha b’ urrainn dhuinn %1$s a luchdadh a-nuas</string>
     <string name="downloader_download_failed_credentials_error">Dh’fhàillig an luchdadh a-nuas, clàraich a-steach a-rithist</string>

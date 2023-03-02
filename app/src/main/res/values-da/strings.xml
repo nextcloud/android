@@ -206,6 +206,7 @@
     <string name="dnd">Forstyr ikke</string>
     <string name="done">Færdig</string>
     <string name="dontClear">Ryd ikke</string>
+    <string name="download_cannot_create_file">Kan ikke oprette filen lokalt</string>
     <string name="download_latest_dev_version">Hent seneste udiklingsversion</string>
     <string name="downloader_download_failed_content">Kunne ikke hente %1$s</string>
     <string name="downloader_download_failed_credentials_error">Overførelse fejlede, log ind igen</string>
