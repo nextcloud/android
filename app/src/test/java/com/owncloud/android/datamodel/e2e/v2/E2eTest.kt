@@ -80,6 +80,7 @@ class E2eTest {
 
     @Test
     fun createMetadataFile() {
+        throw NotImplementedError()
         // val decryptedFolderMetadataFile = DecryptedFolderMetadataFile(
         //     DecryptedMetadata(),
         //     listOf(User("enc1", enc1_cert, "encKey")),

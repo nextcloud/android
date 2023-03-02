@@ -31,7 +31,8 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFile;
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile;
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.DirectEditing;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
@@ -547,7 +548,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                                                                          Context context) {
         DecryptedFolderMetadataFile metadata;
         if (encryptedAncestor) {
-            metadata = EncryptionUtils.downloadFolderMetadata(localFolder, client, context, user);
+            metadata = EncryptionUtils.downloadFolderMetadata(localFolder, client, context, user, null);
         } else {
             metadata = null;
         }
@@ -558,9 +559,9 @@ public class RefreshFolderOperation extends RemoteOperation {
                                                       @NonNull DecryptedFolderMetadataFile metadata,
                                                       OCFile updatedFile) {
         try {
-            String decryptedFileName = metadata.getFiles().get(updatedFile.getFileName()).getEncrypted()
-                .getFilename();
-            String mimetype = metadata.getFiles().get(updatedFile.getFileName()).getEncrypted().getMimetype();
+            DecryptedFile decryptedFile = metadata.getMetadata().getFiles().get(updatedFile.getFileName());
+            String decryptedFileName = decryptedFile.getFilename();
+            String mimetype = decryptedFile.getMimetype();
 
             OCFile parentFile = storageManager.getFileById(updatedFile.getParentId());
             String decryptedRemotePath = parentFile.getDecryptedRemotePath() + decryptedFileName;

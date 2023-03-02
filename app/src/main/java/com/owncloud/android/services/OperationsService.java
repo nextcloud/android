@@ -608,7 +608,9 @@ public class OperationsService extends Service {
                                                                    sharePassword,
                                                                    expirationDateInMillis,
                                                                    hideFileDownload,
-                                                                   fileDataStorageManager);
+                                                                   fileDataStorageManager,
+                                                                   getApplicationContext(),
+                                                                   user);
 
                             if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_LABEL)) {
                                 createShareWithShareeOperation.setLabel(operationIntent.getStringExtra(EXTRA_SHARE_PUBLIC_LABEL));

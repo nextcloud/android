@@ -24,6 +24,8 @@ package com.owncloud.android.utils
 
 import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
+import com.nextcloud.client.account.MockUser
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedUser
@@ -82,7 +84,8 @@ class EncryptionUtilsV2 {
 
     @Throws(IllegalStateException::class)
     fun decryptFolderMetadataFile(
-        metadataFile: EncryptedFolderMetadataFile, currentUser: com.nextcloud.client.account.User,
+        metadataFile: EncryptedFolderMetadataFile,
+        currentUser: com.nextcloud.client.account.User,
         privateKey: String
     ): DecryptedFolderMetadataFile {
         val user = metadataFile.users.find { it.userId == currentUser.accountName }
@@ -90,7 +93,7 @@ class EncryptionUtilsV2 {
 
         val decryptedMetadataKey = decryptMetadataKey(user, privateKey)
 
-        val users = metadataFile.users.map { transformUser(it) }
+        val users = metadataFile.users.map { transformUser(it) }.toMutableList()
 
         val decryptedMetadata = decryptMetadata(metadataFile.metadata, decryptedMetadataKey)
 
@@ -156,5 +159,65 @@ class EncryptionUtilsV2 {
         }
 
         return stringBuilder.toString()
+    }
+
+    fun addShareeToMetadata(
+        metadataFile: DecryptedFolderMetadataFile,
+        enc2: MockUser,
+        enc2Cert: String
+    ): DecryptedFolderMetadataFile {
+        metadataFile.users.add(DecryptedUser(enc2.accountName, enc2Cert))
+        metadataFile.metadata.metadataKey = EncryptionUtils.generateKeyString()
+
+        return metadataFile
+    }
+
+    fun removeShareeFromMetadata() {
+        // TODO
+    }
+
+    fun addFileToMetadata() {
+        // TODO
+    }
+
+    fun removeFileFromMetadata() {
+        // TODO
+    }
+
+    @Throws(IllegalStateException::class)
+    fun migrateV1ToV2(
+        v1: com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFile,
+        userId: String,
+        cert: String
+    ): DecryptedFolderMetadataFile {
+
+        // create new metadata
+        val metadataV2 = DecryptedMetadata(
+            emptyList(),
+            false,
+            0,
+            emptyMap(),
+            v1.files.mapValues { migrateDecryptedFileV1ToV2(it.value) },
+            v1.metadata.metadataKeys[0] ?: throw IllegalStateException("Metadata key not found!")
+        )
+
+        // upon migration there can only be one user, as there is no sharing yet in place
+        val users = mutableListOf(DecryptedUser(userId, cert))
+
+        // TODO
+        val filedrop = emptyMap<String, DecryptedFile>()
+
+        return DecryptedFolderMetadataFile(metadataV2, users, filedrop)
+    }
+
+    @VisibleForTesting
+    fun migrateDecryptedFileV1ToV2(v1: com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile): DecryptedFile {
+        return DecryptedFile(
+            v1.encrypted.filename,
+            v1.encrypted.mimetype,
+            v1.initializationVector,
+            v1.authenticationTag ?: "",
+            v1.encrypted.key
+        )
     }
 }

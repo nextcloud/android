@@ -108,7 +108,7 @@ import kotlin.Triple;
  * Utils for encryption
  */
 public final class EncryptionUtils {
-    private static String TAG = EncryptionUtils.class.getSimpleName();
+    private static final String TAG = EncryptionUtils.class.getSimpleName();
 
     public static final String PUBLIC_KEY = "PUBLIC_KEY";
     public static final String PRIVATE_KEY = "PRIVATE_KEY";
@@ -279,16 +279,19 @@ public final class EncryptionUtils {
     }
 
     /**
-     * Download metadata for folder and decrypt it
+     * Download metadata (v1 or v2) for folder and decrypt it
      *
-     * @return decrypted metadata or null
+     * @return decrypted v2 metadata or null
      */
     public static @Nullable
-    DecryptedFolderMetadataFile downloadFolderMetadata(OCFile folder,
-                                                       OwnCloudClient client,
-                                                       Context context,
-                                                       User user) {
-        RemoteOperationResult getMetadataOperationResult = new GetMetadataRemoteOperation(folder.getLocalId())
+    com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
+    downloadFolderMetadata(OCFile folder,
+                           OwnCloudClient client,
+                           Context context,
+                           User user,
+                           @Nullable String existingLockToken
+                          ) {
+        RemoteOperationResult<String> getMetadataOperationResult = new GetMetadataRemoteOperation(folder.getLocalId())
             .execute(client);
 
         if (!getMetadataOperationResult.isSuccess()) {
@@ -297,56 +300,94 @@ public final class EncryptionUtils {
 
         // decrypt metadata
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
-        String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
+        String serializedEncryptedMetadata = getMetadataOperationResult.getResultData();
         String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
+        EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
 
-        EncryptedFolderMetadataFile encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
-            serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadataFile>() {
-            });
-
-        try {
-            int filesDropCountBefore = 0;
-            if (encryptedFolderMetadata.getFiledrop() != null) {
-                filesDropCountBefore = encryptedFolderMetadata.getFiledrop().size();
+        com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile v2 = EncryptionUtils.deserializeJSON(
+            serializedEncryptedMetadata, new TypeToken<com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile>() {
             }
-            DecryptedFolderMetadataFile decryptedFolderMetadata = EncryptionUtils.decryptFolderMetaData(
-                encryptedFolderMetadata,
+                                                                                                                        );
+        com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile decryptedFolderMetadata;
+        if (v2.getVersion() == 2) {
+            decryptedFolderMetadata = encryptionUtilsV2.decryptFolderMetadataFile(
+                v2,
+                user,
                 privateKey);
+        } else {
+            // try to deserialize v1
+            EncryptedFolderMetadataFile v1 = EncryptionUtils.deserializeJSON(
+                serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadataFile>() {
+                });
 
-            boolean transferredFiledrop = filesDropCountBefore > 0 && decryptedFolderMetadata.getFiles().size() ==
-                encryptedFolderMetadata.getFiles().size() + filesDropCountBefore;
+            // decrypt
+            try {
+                DecryptedFolderMetadataFile decryptedV1 = EncryptionUtils.decryptFolderMetaData(v1, privateKey);
 
-            if (transferredFiledrop) {
-                // lock folder
-                String token = EncryptionUtils.lockFolder(folder, client);
+                String publicKey = arbitraryDataProvider.getValue(user.getAccountName(),
+                                                                  EncryptionUtils.PUBLIC_KEY);
 
-                // upload metadata
-                EncryptedFolderMetadataFile encryptedFolderMetadataNew = encryptFolderMetadata(decryptedFolderMetadata,
-                                                                                               privateKey);
-
-                String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadataNew);
-
-                EncryptionUtils.uploadMetadata(folder,
-                                               serializedFolderMetadata,
-                                               token,
-                                               client,
-                                               true);
-
-                // unlock folder
-                RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(folder, client, token);
-
-                if (!unlockFolderResult.isSuccess()) {
-                    Log_OC.e(TAG, unlockFolderResult.getMessage());
-
-                    return null;
-                }
+                // migrate to v2
+                decryptedFolderMetadata = encryptionUtilsV2.migrateV1ToV2(decryptedV1,
+                                                                          client.getUserIdPlain(),
+                                                                          publicKey);
+            } catch (Exception e) {
+                // TODO do better
+                return null;
             }
-
-            return decryptedFolderMetadata;
-        } catch (Exception e) {
-            Log_OC.e(TAG, e.getMessage());
-            return null;
         }
+
+        return decryptedFolderMetadata;
+
+        // handle filesDrops
+        // TODO re-add
+//        try {
+//            int filesDropCountBefore = encryptedFolderMetadata.getFiledrop().size();
+//            DecryptedFolderMetadataFile decryptedFolderMetadata = new EncryptionUtilsV2().decryptFolderMetadataFile(
+//                encryptedFolderMetadata,
+//                privateKey);
+//
+//            boolean transferredFiledrop = filesDropCountBefore > 0 && decryptedFolderMetadata.getFiles().size() ==
+//                encryptedFolderMetadata.getFiles().size() + filesDropCountBefore;
+//
+//            if (transferredFiledrop) {
+//                // lock folder, only if not already locked
+//                String token;
+//                if (existingLockToken == null) {
+//                    token = EncryptionUtils.lockFolder(folder, client);
+//                } else {
+//                    token = existingLockToken;
+//                }
+//
+//                // upload metadata
+//                EncryptedFolderMetadataFile encryptedFolderMetadataNew = encryptFolderMetadata(decryptedFolderMetadata,
+//                                                                                               privateKey);
+//
+//                String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadataNew);
+//
+//                EncryptionUtils.uploadMetadata(folder,
+//                                               serializedFolderMetadata,
+//                                               token,
+//                                               client,
+//                                               true);
+//
+//                // unlock folder, only if not previously locked
+//                if (existingLockToken == null) {
+//                    RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(folder, client, token);
+//
+//                    if (!unlockFolderResult.isSuccess()) {
+//                        Log_OC.e(TAG, unlockFolderResult.getMessage());
+//
+//                        return null;
+//                    }
+//                }
+//            }
+//
+//            return decryptedFolderMetadata;
+//        } catch (Exception e) {
+//            Log_OC.e(TAG, e.getMessage());
+//            return null;
+//        }
     }
 
     /*
@@ -969,11 +1010,11 @@ public final class EncryptionUtils {
     public static String lockFolder(OCFile parentFile, OwnCloudClient client) throws UploadException {
         // Lock folder
         LockFileRemoteOperation lockFileOperation = new LockFileRemoteOperation(parentFile.getLocalId());
-        RemoteOperationResult lockFileOperationResult = lockFileOperation.execute(client);
+        RemoteOperationResult<String> lockFileOperationResult = lockFileOperation.execute(client);
 
         if (lockFileOperationResult.isSuccess() &&
-            !TextUtils.isEmpty((String) lockFileOperationResult.getData().get(0))) {
-            return (String) lockFileOperationResult.getData().get(0);
+            !TextUtils.isEmpty(lockFileOperationResult.getResultData())) {
+            return lockFileOperationResult.getResultData();
         } else if (lockFileOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
             throw new UploadException("Forbidden! Please try again later.)");
         } else {
@@ -992,13 +1033,13 @@ public final class EncryptionUtils {
         InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException,
         IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException, CertificateException {
         GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(parentFile.getLocalId());
-        RemoteOperationResult getMetadataOperationResult = getMetadataOperation.execute(client);
+        RemoteOperationResult<String> getMetadataOperationResult = getMetadataOperation.execute(client);
 
         DecryptedFolderMetadataFile metadata;
 
         if (getMetadataOperationResult.isSuccess()) {
             // decrypt metadata
-            String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
+            String serializedEncryptedMetadata = getMetadataOperationResult.getResultData();
 
 
             EncryptedFolderMetadataFile encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
@@ -1028,7 +1069,7 @@ public final class EncryptionUtils {
                                       String token,
                                       OwnCloudClient client,
                                       boolean metadataExists) throws UploadException {
-        RemoteOperationResult uploadMetadataOperationResult;
+        RemoteOperationResult<String> uploadMetadataOperationResult;
         if (metadataExists) {
             // update metadata
             UpdateMetadataRemoteOperation storeMetadataOperation = new UpdateMetadataRemoteOperation(
@@ -1046,11 +1087,11 @@ public final class EncryptionUtils {
         }
     }
 
-    public static RemoteOperationResult unlockFolder(OCFile parentFolder, OwnCloudClient client, String token) {
+    public static RemoteOperationResult<Void> unlockFolder(OCFile parentFolder, OwnCloudClient client, String token) {
         if (token != null) {
             return new UnlockFileRemoteOperation(parentFolder.getLocalId(), token).execute(client);
         } else {
-            return new RemoteOperationResult(new Exception("No token available"));
+            return new RemoteOperationResult<>(new Exception("No token available"));
         }
     }
 

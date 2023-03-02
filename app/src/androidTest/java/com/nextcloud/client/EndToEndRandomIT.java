@@ -625,7 +625,8 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
 
         // upload encryptedPrivateKey
         StorePrivateKeyOperation storePrivateKeyOperation = new StorePrivateKeyOperation(encryptedPrivateKey);
-        RemoteOperationResult storePrivateKeyResult = storePrivateKeyOperation.execute(account, targetContext);
+        RemoteOperationResult storePrivateKeyResult = storePrivateKeyOperation.executeNextcloudClient(account,
+                                                                                                      targetContext);
 
         if (storePrivateKeyResult.isSuccess()) {
             arbitraryDataProvider.storeOrUpdateKeyValue(account.name, EncryptionUtils.PRIVATE_KEY,

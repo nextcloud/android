@@ -28,7 +28,8 @@ import android.webkit.MimeTypeMap;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFile;
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile;
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
@@ -46,6 +47,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import static com.owncloud.android.utils.EncryptionUtils.decodeStringToBase64Bytes;
 
 /**
  * Remote DownloadOperation performing the download of a file to an ownCloud server
@@ -200,17 +203,21 @@ public class DownloadFileOperation extends RemoteOperation {
                 DecryptedFolderMetadataFile metadata = EncryptionUtils.downloadFolderMetadata(parent,
                                                                                               client,
                                                                                               context,
-                                                                                              user);
+                                                                                              user,
+                                                                                              null);
 
                 if (metadata == null) {
                     return new RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND);
                 }
-                byte[] key = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                                                                           .get(file.getEncryptedFileName()).getEncrypted().getKey());
-                byte[] iv = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                                                                          .get(file.getEncryptedFileName()).getInitializationVector());
-                byte[] authenticationTag = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                                                                                         .get(file.getEncryptedFileName()).getAuthenticationTag());
+                DecryptedFile decryptedFile = metadata.getMetadata().getFiles().get(file.getEncryptedFileName());
+
+                if (decryptedFile == null) {
+                    return new RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND);
+                }
+
+                byte[] key = decodeStringToBase64Bytes(decryptedFile.getKey());
+                byte[] iv = decodeStringToBase64Bytes(decryptedFile.getInitializationVector());
+                byte[] authenticationTag = decodeStringToBase64Bytes(decryptedFile.getAuthenticationTag());
 
                 try {
                     byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile, key, iv, authenticationTag);

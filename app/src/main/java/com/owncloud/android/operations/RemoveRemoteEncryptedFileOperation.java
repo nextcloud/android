@@ -102,10 +102,10 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
 
         try {
             // Lock folder
-            RemoteOperationResult lockFileOperationResult = new LockFileRemoteOperation(parentId).execute(client);
+            RemoteOperationResult<String> lockFileOperationResult = new LockFileRemoteOperation(parentId).execute(client);
 
             if (lockFileOperationResult.isSuccess()) {
-                token = (String) lockFileOperationResult.getData().get(0);
+                token = lockFileOperationResult.getResultData();
             } else if (lockFileOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
                 throw new RemoteOperationFailedException("Forbidden! Please try again later.)");
             } else {
@@ -113,11 +113,12 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             }
 
             // refresh metadata
-            RemoteOperationResult getMetadataOperationResult = new GetMetadataRemoteOperation(parentId).execute(client);
+            RemoteOperationResult<String> getMetadataOperationResult =
+                new GetMetadataRemoteOperation(parentId).execute(client);
 
             if (getMetadataOperationResult.isSuccess()) {
                 // decrypt metadata
-                String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
+                String serializedEncryptedMetadata = getMetadataOperationResult.getResultData();
 
                 EncryptedFolderMetadataFile encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
                     serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadataFile>() {
@@ -134,7 +135,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             int status = client.executeMethod(delete, REMOVE_READ_TIMEOUT, REMOVE_CONNECTION_TIMEOUT);
 
             delete.getResponseBodyAsString();   // exhaust the response, although not interesting
-            result = new RemoteOperationResult(delete.succeeded() || status == HttpStatus.SC_NOT_FOUND, delete);
+            result = new RemoteOperationResult<>(delete.succeeded() || status == HttpStatus.SC_NOT_FOUND, delete);
             Log_OC.i(TAG, "Remove " + remotePath + ": " + result.getLogMessage());
 
             // remove file from metadata
@@ -145,7 +146,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
 
             // upload metadata
-            RemoteOperationResult uploadMetadataOperationResult =
+            RemoteOperationResult<String> uploadMetadataOperationResult =
                 new UpdateMetadataRemoteOperation(parentId,
                                                   serializedFolderMetadata, token).execute(client);
 
@@ -163,7 +164,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
                  BadPaddingException |
                  IllegalBlockSizeException |
                  InvalidKeySpecException e) {
-            result = new RemoteOperationResult(e);
+            result = new RemoteOperationResult<>(e);
             Log_OC.e(TAG, "Remove " + remotePath + ": " + result.getLogMessage(), e);
 
         } finally {
@@ -173,7 +174,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
 
             // unlock file
             if (token != null) {
-                RemoteOperationResult unlockFileOperationResult = new UnlockFileRemoteOperation(parentId, token)
+                RemoteOperationResult<Void> unlockFileOperationResult = new UnlockFileRemoteOperation(parentId, token)
                     .execute(client);
 
                 if (!unlockFileOperationResult.isSuccess()) {
