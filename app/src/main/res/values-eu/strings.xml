@@ -32,7 +32,6 @@
     <string name="activity_icon">Jarduera</string>
     <string name="add_another_public_share_link">Gehitu beste esteka bat</string>
     <string name="add_new_public_share">Gehitu partekatzeko esteka berria</string>
-    <string name="add_new_secure_file_drop">gehitu fitxategi-jartze seguru berria</string>
     <string name="add_to_cloud">Gehitu %1$s</string>
     <string name="advanced_settings">Ezarpen aurreratuak</string>
     <string name="allow_resharing">Baimendu birpartekatzea</string>
@@ -217,6 +216,7 @@
     <string name="document_scan_pdf_generation_in_progress">PDFa sortzen...</string>
     <string name="done">Egina</string>
     <string name="dontClear">Ez garbitu</string>
+    <string name="download_cannot_create_file">Ezin da sortu fitxategi lokala</string>
     <string name="download_latest_dev_version">Deskargatu azken garapen bertsioa</string>
     <string name="downloader_download_failed_content">Ezin izan da %1$s deskargatu</string>
     <string name="downloader_download_failed_credentials_error">Deskargak huts egin du, hasi saioa berriz</string>
@@ -277,7 +277,6 @@
     <string name="error_report_issue_text">Arazoaren berri eman nahi duzu? (GitHub kontua beharko duzu)</string>
     <string name="error_retrieving_file">Errorea fitxategia berreskuratzean</string>
     <string name="error_retrieving_templates">Errorea txantiloiak berreskuratzean</string>
-    <string name="error_showing_encryption_dialog">Errore bat gertatu da konfigurazio enkriptatzearen elkarrizketa-koadroa erakustean!</string>
     <string name="error_starting_direct_camera_upload">Errorea kamera abiaraztean</string>
     <string name="error_starting_doc_scan">Errorea dokumentuen eskaneatzea abiaraztean</string>
     <string name="error_starting_scan_doc">Errorea dokumentu eskaneatzailea erabiltzerakoan</string>

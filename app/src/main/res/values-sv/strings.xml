@@ -209,8 +209,14 @@
     <string name="dismiss_notification_description">Avfärda notifiering</string>
     <string name="displays_mnemonic">Visar din 12-ord långa lösenordsfras</string>
     <string name="dnd">Stör ej</string>
+    <string name="document_scan_export_dialog_images">Flera bilder</string>
+    <string name="document_scan_export_dialog_pdf">PDF-fil</string>
+    <string name="document_scan_export_dialog_title">Välj exporttyp</string>
+    <string name="document_scan_pdf_generation_failed">PDF-generering misslyckades</string>
+    <string name="document_scan_pdf_generation_in_progress">Skapar PDF...</string>
     <string name="done">Klar</string>
     <string name="dontClear">Rensa inte</string>
+    <string name="download_cannot_create_file">Kan inte skapa lokal fil</string>
     <string name="download_latest_dev_version">Hämta senaste utvecklingsversionen</string>
     <string name="downloader_download_failed_content">Kunde inte hämta %1$s</string>
     <string name="downloader_download_failed_credentials_error">Hämtningen misslyckades, logga in igen</string>
@@ -271,8 +277,8 @@
     <string name="error_report_issue_text">Rapportera fel till Tracker? (kräver ett konto hos GitHub)</string>
     <string name="error_retrieving_file">Fel vid mottagning av fil</string>
     <string name="error_retrieving_templates">Fel vid hämtning av mallar</string>
-    <string name="error_showing_encryption_dialog">Fel vid visning av dialogruta för uppsättning av kryptering!</string>
     <string name="error_starting_direct_camera_upload">Fel vid start av kamera</string>
+    <string name="error_starting_doc_scan">Fel vid start av dokumentskanning</string>
     <string name="error_starting_scan_doc">Fel vid dokumentskanning</string>
     <string name="etm_accounts">Konton</string>
     <string name="etm_background_job_name">Uppdragsnamn</string>
@@ -625,6 +631,7 @@
     <string name="retrieving_file">Tar emot fil…</string>
     <string name="richdocuments_failed_to_load_document">Kunde inte läsa in dokument!</string>
     <string name="scanQR_description">Logga in via QR-kod</string>
+    <string name="scan_page">Skanna sida</string>
     <string name="screenshot_01_gridView_heading">Skydda dina data</string>
     <string name="screenshot_01_gridView_subline">egenhyst produktivitet</string>
     <string name="screenshot_02_listView_heading">Bläddra och dela</string>
@@ -675,7 +682,8 @@
     <string name="share_no_password_title">Sätt lösenord</string>
     <string name="share_password_title">Lösenordsskyddad</string>
     <string name="share_permission_can_edit">Kan ändra</string>
-    <string name="share_permission_file_drop">Släpp fil</string>
+    <string name="share_permission_file_drop">Göm fillista</string>
+    <string name="share_permission_secure_file_drop">Säker gömd fillista</string>
     <string name="share_permission_view_only">Skrivskyddat läge</string>
     <string name="share_permissions">Dela behörigheter</string>
     <string name="share_remote_clarification">%1$s (extern)</string>

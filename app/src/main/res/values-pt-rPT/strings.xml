@@ -206,6 +206,7 @@
     <string name="dnd">Não incomodar</string>
     <string name="done">Concluído</string>
     <string name="dontClear">Não limpar</string>
+    <string name="download_cannot_create_file">Não é possível criar ficheiro local</string>
     <string name="download_latest_dev_version">Transferir a última versão de desenvolvimento</string>
     <string name="downloader_download_failed_content">Não foi possível transferir %1$s</string>
     <string name="downloader_download_failed_credentials_error">A transferência falhou, inicie novamente a sessão</string>

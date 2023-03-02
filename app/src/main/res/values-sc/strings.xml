@@ -195,6 +195,7 @@
     <string name="dnd">No istorbes</string>
     <string name="done">Fatu</string>
     <string name="dontClear">Non nche ddu lìmpies</string>
+    <string name="download_cannot_create_file">No at fatu a creare s\'archìviu locale</string>
     <string name="download_latest_dev_version">Iscàrriga s\'ùrtima versione dispositivu</string>
     <string name="downloader_download_failed_content">Impossìbile a iscarrigare %1$s</string>
     <string name="downloader_download_failed_credentials_error">Iscarrigamentu faddidu, torra a intrare</string>

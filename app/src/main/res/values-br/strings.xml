@@ -183,6 +183,7 @@
     <string name="dismiss_notification_description">Arrest ar gemenadennoù</string>
     <string name="dnd">Na rannit ket</string>
     <string name="done">Graet</string>
+    <string name="download_cannot_create_file">Dibosupl kroui ur restr diabarzh</string>
     <string name="download_latest_dev_version">Pellgargañ ar stumm arnodañ diwezhañ</string>
     <string name="downloader_download_failed_content">Ne oa ket posuple pellgargañ %1$s</string>
     <string name="downloader_download_failed_credentials_error">Pellgargañ c\'hwitet, kit-tre adarre</string>

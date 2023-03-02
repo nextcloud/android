@@ -32,7 +32,6 @@
     <string name="activity_icon">Aktivita</string>
     <string name="add_another_public_share_link">Přidat další odkaz</string>
     <string name="add_new_public_share">Přidat nový veřejný odkaz na sdílení</string>
-    <string name="add_new_secure_file_drop">přidat nový bezpečný příjem souboru</string>
     <string name="add_to_cloud">Přidat k %1$s</string>
     <string name="advanced_settings">Pokročilá nastavení</string>
     <string name="allow_resharing">Povolit sdílet dál dalším</string>
@@ -217,6 +216,7 @@
     <string name="document_scan_pdf_generation_in_progress">Vytváření PDF…</string>
     <string name="done">Hotovo</string>
     <string name="dontClear">Nikdy</string>
+    <string name="download_cannot_create_file">Nedaří se vytvořit místní soubor</string>
     <string name="download_latest_dev_version">Stáhnout si nejnovější vývojářskou verzi</string>
     <string name="downloader_download_failed_content">Nepodařilo se stáhnout %1$s</string>
     <string name="downloader_download_failed_credentials_error">Stahování se nezdařilo, přihlaste se znovu</string>
@@ -277,7 +277,6 @@
     <string name="error_report_issue_text">Nahlásit problém? (vyžaduje GitHub účet)</string>
     <string name="error_retrieving_file">Chyba při získávání souboru</string>
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
-    <string name="error_showing_encryption_dialog">Chyba při zobrazování dialogu por nastavení šifrování!</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
     <string name="error_starting_doc_scan">Chyba při spouštění skenu dokumentu</string>
     <string name="error_starting_scan_doc">Chyb při použití skenování dokumentů</string>

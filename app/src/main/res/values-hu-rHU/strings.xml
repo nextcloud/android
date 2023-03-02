@@ -216,6 +216,7 @@
     <string name="document_scan_pdf_generation_in_progress">PDF előállítása…</string>
     <string name="done">Kész</string>
     <string name="dontClear">Ne törölje</string>
+    <string name="download_cannot_create_file">A helyi fájlt nem lehet létrehozni</string>
     <string name="download_latest_dev_version">A legfrissebb fejlesztői verzió letöltése</string>
     <string name="downloader_download_failed_content">%1$s letöltése sikertelen</string>
     <string name="downloader_download_failed_credentials_error">Letöltés sikertelen, jelentkezzen be újra</string>
@@ -276,7 +277,6 @@
     <string name="error_report_issue_text">Jelenti a hibát a követőbe? (GitHub-fiók szükséges)</string>
     <string name="error_retrieving_file">Hiba a fájl lekérésekor</string>
     <string name="error_retrieving_templates">Hiba történt a sablonok lékérésekor</string>
-    <string name="error_showing_encryption_dialog">Hiba a titkosítás beállítóablakának megjelenítése során!</string>
     <string name="error_starting_direct_camera_upload">Hiba a kamera indításakor</string>
     <string name="error_starting_doc_scan">Hiba a dokumentumbeolvasás elindítása során</string>
     <string name="error_starting_scan_doc">Hiba a dokumentumbeolvasás használata sorá</string>

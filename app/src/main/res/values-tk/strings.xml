@@ -186,6 +186,7 @@
     <string name="dismiss_notification_description">Duýduryşy ýapyň</string>
     <string name="dnd">Bimaza etmäň</string>
     <string name="dontClear">Arassalama</string>
+    <string name="download_cannot_create_file">Ýerli faýl döredip bolmaýar</string>
     <string name="download_latest_dev_version">Iň soňky wersiýasyny ýükläp alyň</string>
     <string name="downloader_download_failed_content">%1$sGöçürip alyp bolmaýar</string>
     <string name="downloader_download_failed_credentials_error">Ýüklemek şowsuz, gaýtadan giriň </string>

@@ -207,6 +207,7 @@
     <string name="dnd">مزاحم نشوید</string>
     <string name="done">انجام شد</string>
     <string name="dontClear">پاک نکن</string>
+    <string name="download_cannot_create_file">پرونده محلی ایجاد نمی شود</string>
     <string name="download_latest_dev_version">آخرین نسخه dev را دریافت کنید</string>
     <string name="downloader_download_failed_content">%1$s دانلود نشد</string>
     <string name="downloader_download_failed_credentials_error">بارگیری شکست خورد. دوباره وارد شوید</string>

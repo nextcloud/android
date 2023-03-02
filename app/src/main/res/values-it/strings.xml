@@ -216,6 +216,7 @@
     <string name="document_scan_pdf_generation_in_progress">Generazione PDF...</string>
     <string name="done">Fatto</string>
     <string name="dontClear">Non togliere</string>
+    <string name="download_cannot_create_file">Impossibile creare il file locale</string>
     <string name="download_latest_dev_version">Scarica l\'ultima versione di sviluppo</string>
     <string name="downloader_download_failed_content">Impossibile scaricare %1$s</string>
     <string name="downloader_download_failed_credentials_error">Scaricamento non riuscito, effettua nuovamente l\'accesso</string>
@@ -276,7 +277,6 @@
     <string name="error_report_issue_text">Segnalare problemi al sistema di tracciamento? (richiede un account GitHub)</string>
     <string name="error_retrieving_file">Errore durante il recupero del file</string>
     <string name="error_retrieving_templates">Errore durante il recupero dei modelli</string>
-    <string name="error_showing_encryption_dialog">Errore nel mostrare il messaggio di cifratura impostata!</string>
     <string name="error_starting_direct_camera_upload">Errore  di avvio della fotocamera</string>
     <string name="error_starting_doc_scan">Errore all\'avvio della scansione del documento</string>
     <string name="error_starting_scan_doc">Errore durante l\'utilizzo della scansione del documento</string>

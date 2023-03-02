@@ -211,6 +211,7 @@
     <string name="dnd">请勿打扰</string>
     <string name="done">完成</string>
     <string name="dontClear">不要清除</string>
+    <string name="download_cannot_create_file">无法新建本地文件</string>
     <string name="download_latest_dev_version">下载最新的开发版本</string>
     <string name="downloader_download_failed_content">无法下载 %1$s</string>
     <string name="downloader_download_failed_credentials_error">下载失败，请重新登录</string>
@@ -271,7 +272,6 @@
     <string name="error_report_issue_text">是否向跟踪器报告问题？（需要GitHub账号）</string>
     <string name="error_retrieving_file">获取文件时遇到错误</string>
     <string name="error_retrieving_templates">检索模板时出错</string>
-    <string name="error_showing_encryption_dialog">显示设置加密对话框时出错！</string>
     <string name="error_starting_direct_camera_upload">开启相机时发生错误</string>
     <string name="error_starting_scan_doc">使用文档扫描时出错</string>
     <string name="etm_accounts">账号</string>

@@ -214,6 +214,7 @@
     <string name="document_scan_pdf_generation_in_progress">Δημιουργία PDF…</string>
     <string name="done">Ολοκληρώθηκε</string>
     <string name="dontClear">Να μη γίνεται εκκαθάριση</string>
+    <string name="download_cannot_create_file">Αδυναμία δημιουργίας τοπικού αρχείου</string>
     <string name="download_latest_dev_version">Λήψη της τελευταίας έκδοσης προγραμματιστή</string>
     <string name="downloader_download_failed_content">Η λήψη του %1$s δεν μπόρεσε να ολοκληρωθεί</string>
     <string name="downloader_download_failed_credentials_error">Η λήψη απέτυχε, συνδεθείτε ξανά</string>

@@ -32,7 +32,6 @@
     <string name="activity_icon">動態</string>
     <string name="add_another_public_share_link">添加另一個連結</string>
     <string name="add_new_public_share">添加一個新的公共連結</string>
-    <string name="add_new_secure_file_drop">添加新的安全檔案投放</string>
     <string name="add_to_cloud">添加到 %1$s </string>
     <string name="advanced_settings">進階設定</string>
     <string name="allow_resharing">允許轉貼分享</string>
@@ -217,6 +216,7 @@
     <string name="document_scan_pdf_generation_in_progress">正在產生 PDF …</string>
     <string name="done">完成</string>
     <string name="dontClear">不要清空</string>
+    <string name="download_cannot_create_file">無法建立近端檔案</string>
     <string name="download_latest_dev_version">下載最新開發的版本</string>
     <string name="downloader_download_failed_content">下載 %1$s 無法完成 </string>
     <string name="downloader_download_failed_credentials_error">下載失敗，再重新登入</string>
@@ -277,7 +277,6 @@
     <string name="error_report_issue_text">想舉報問題？（需要GitHub賬戶）</string>
     <string name="error_retrieving_file">檢索檔案時發生錯誤</string>
     <string name="error_retrieving_templates">取得範本時發生錯誤</string>
-    <string name="error_showing_encryption_dialog">顯示設置加密對話框時出錯！</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
     <string name="error_starting_doc_scan">文件掃描開始時出錯</string>
     <string name="error_starting_scan_doc">使用文件掃描時出錯</string>

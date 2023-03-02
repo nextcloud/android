@@ -32,7 +32,6 @@
     <string name="activity_icon">Activity</string>
     <string name="add_another_public_share_link">Add another link</string>
     <string name="add_new_public_share">Add new public share link</string>
-    <string name="add_new_secure_file_drop">add new secure file drop</string>
     <string name="add_to_cloud">Add to %1$s</string>
     <string name="advanced_settings">Advanced Settings</string>
     <string name="allow_resharing">Allow resharing</string>
@@ -217,6 +216,7 @@
     <string name="document_scan_pdf_generation_in_progress">Generating PDF…</string>
     <string name="done">Done</string>
     <string name="dontClear">Don\'t clear</string>
+    <string name="download_cannot_create_file">Cannot create local file</string>
     <string name="download_latest_dev_version">Download latest dev version</string>
     <string name="downloader_download_failed_content">Could not download %1$s</string>
     <string name="downloader_download_failed_credentials_error">Download failed, log in again</string>
@@ -277,7 +277,6 @@
     <string name="error_report_issue_text">Report issue to tracker? (requires a GitHub account)</string>
     <string name="error_retrieving_file">Error retrieving file</string>
     <string name="error_retrieving_templates">Error retrieving templates</string>
-    <string name="error_showing_encryption_dialog">Error showing setup encryption dialogue!</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="error_starting_doc_scan">Error starting document scan</string>
     <string name="error_starting_scan_doc">Error using document scanning</string>
