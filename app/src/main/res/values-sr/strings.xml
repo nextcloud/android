@@ -32,6 +32,7 @@
     <string name="activity_icon">Активност</string>
     <string name="add_another_public_share_link">Додај још једну везу</string>
     <string name="add_new_public_share">Додај везу новог јавног дељења</string>
+    <string name="add_new_secure_file_drop">Додај ново безбедно место за спуштање фајлова</string>
     <string name="add_to_cloud">Додај у %1$s</string>
     <string name="advanced_settings">Напредне поставке</string>
     <string name="allow_resharing">Дозволи дељење даље</string>
@@ -217,6 +218,7 @@
     <string name="done">Готово</string>
     <string name="dontClear">Не бриши</string>
     <string name="download_cannot_create_file">Не могу да направим локални фајл</string>
+    <string name="download_download_invalid_local_file_name">Неисправно име за локални фајл</string>
     <string name="download_latest_dev_version">Преузмите најновију развојну верзију</string>
     <string name="downloader_download_failed_content">Не могу да преузмем %1$s</string>
     <string name="downloader_download_failed_credentials_error">Неуспешно преузимање. Поново се пријавите</string>
@@ -277,6 +279,7 @@
     <string name="error_report_issue_text">Да пријавим проблем пратиоцу? (потребан је GitHub  налог)</string>
     <string name="error_retrieving_file">Грешка при добављању фајла</string>
     <string name="error_retrieving_templates">Грешка при добављању шаблона</string>
+    <string name="error_showing_encryption_dialog">Грешка приликом приказа дијалога за подешавање шифрирања!</string>
     <string name="error_starting_direct_camera_upload">Грешка при покретању камере</string>
     <string name="error_starting_doc_scan">Грешка приликом почетка скенирања документа</string>
     <string name="error_starting_scan_doc">Грешка при употреби скенирања документа</string>
