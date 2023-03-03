@@ -33,6 +33,7 @@ import android.graphics.BitmapFactory
 import android.media.RingtoneManager
 import android.text.TextUtils
 import android.util.Base64
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.Worker
@@ -88,6 +89,7 @@ class NotificationWork constructor(
         private const val KEY_NOTIFICATION_ACTION_TYPE = "KEY_NOTIFICATION_ACTION_TYPE"
         private const val PUSH_NOTIFICATION_ID = "PUSH_NOTIFICATION_ID"
         private const val NUMERIC_NOTIFICATION_ID = "NUMERIC_NOTIFICATION_ID"
+        private const val UNENCRYPTED_NOTIFICATION_SUBJECT = "NEW_NOTIFICATION"
     }
 
     @Suppress("TooGenericExceptionCaught", "NestedBlockDepth", "ComplexMethod", "LongMethod") // legacy code
@@ -135,7 +137,6 @@ class NotificationWork constructor(
         return Result.success()
     }
 
-    @Suppress("LongMethod") // legacy code
     private fun sendNotification(notification: Notification, user: User) {
         val randomId = SecureRandom()
         val file = notification.subjectRichParameters["file"]
@@ -165,6 +166,35 @@ class NotificationWork constructor(
         }
 
         val pushNotificationId = randomId.nextInt()
+
+        if (notification.getSubject() == UNENCRYPTED_NOTIFICATION_SUBJECT &&
+            notification.getMessage() == UNENCRYPTED_NOTIFICATION_SUBJECT
+        ) {
+            Log.w(TAG, "sendNotification: notification failed to decrypt")
+            sendNotificationMissingDecryption(user, pendingIntent, notification)
+        } else {
+            sendNotificationNormally(user, notification, pendingIntent, pushNotificationId, randomId)
+        }
+    }
+
+    private fun sendNotificationMissingDecryption(
+        user: User,
+        pendingIntent: PendingIntent,
+        notification: Notification
+    ) {
+        val publicNotification = getPublicNotification(user, pendingIntent)
+        val notificationManager = NotificationManagerCompat.from(context)
+        notificationManager.notify(notification.getNotificationId(), publicNotification)
+    }
+
+    @Suppress("LongMethod") // legacy code
+    private fun sendNotificationNormally(
+        user: User,
+        notification: Notification,
+        pendingIntent: PendingIntent,
+        pushNotificationId: Int,
+        randomId: SecureRandom
+    ) {
         val notificationBuilder = NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_PUSH)
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
@@ -223,23 +253,27 @@ class NotificationWork constructor(
             }
         }
         notificationBuilder.setPublicVersion(
-            NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_PUSH)
-                .setSmallIcon(R.drawable.notification_icon)
-                .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-                .setShowWhen(true)
-                .setSubText(user.accountName)
-                .setContentTitle(context.getString(R.string.new_notification))
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setAutoCancel(true)
-                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setContentIntent(pendingIntent)
-                .also {
-                    viewThemeUtils.androidx.themeNotificationCompatBuilder(context, it)
-                }
-                .build()
+            getPublicNotification(user, pendingIntent)
         )
         val notificationManager = NotificationManagerCompat.from(context)
         notificationManager.notify(notification.getNotificationId(), notificationBuilder.build())
+    }
+
+    private fun getPublicNotification(user: User, pendingIntent: PendingIntent): android.app.Notification {
+        return NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_PUSH)
+            .setSmallIcon(R.drawable.notification_icon)
+            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
+            .setShowWhen(true)
+            .setSubText(user.accountName)
+            .setContentTitle(context.getString(R.string.new_notification))
+            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+            .setAutoCancel(true)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setContentIntent(pendingIntent)
+            .also {
+                viewThemeUtils.androidx.themeNotificationCompatBuilder(context, it)
+            }
+            .build()
     }
 
     @Suppress("TooGenericExceptionCaught") // legacy code
