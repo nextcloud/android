@@ -32,6 +32,7 @@
     <string name="activity_icon">Aktivita</string>
     <string name="add_another_public_share_link">Přidat další odkaz</string>
     <string name="add_new_public_share">Přidat nový veřejný odkaz na sdílení</string>
+    <string name="add_new_secure_file_drop">Přidat nový bezpečný příjem souboru</string>
     <string name="add_to_cloud">Přidat k %1$s</string>
     <string name="advanced_settings">Pokročilá nastavení</string>
     <string name="allow_resharing">Povolit sdílet dál dalším</string>
@@ -277,6 +278,7 @@
     <string name="error_report_issue_text">Nahlásit problém? (vyžaduje GitHub účet)</string>
     <string name="error_retrieving_file">Chyba při získávání souboru</string>
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
+    <string name="error_showing_encryption_dialog">Chyba při zobrazování dialogu pro nastavení šifrování!</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
     <string name="error_starting_doc_scan">Chyba při spouštění skenu dokumentu</string>
     <string name="error_starting_scan_doc">Chyb při použití skenování dokumentů</string>

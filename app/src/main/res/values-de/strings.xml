@@ -32,6 +32,7 @@
     <string name="activity_icon">Aktivitäten</string>
     <string name="add_another_public_share_link">Weiteren Link hinzufügen</string>
     <string name="add_new_public_share">Öffentlichen Link zum Teilen hinzufügen</string>
+    <string name="add_new_secure_file_drop">Neue sichere Dateiablage hinzufügen</string>
     <string name="add_to_cloud">Hinzufügen zu %1$s</string>
     <string name="advanced_settings">Erweiterte Einstellungen</string>
     <string name="allow_resharing">Weiterteilen erlauben</string>
@@ -217,6 +218,7 @@
     <string name="done">Fertig</string>
     <string name="dontClear">Nicht löschen</string>
     <string name="download_cannot_create_file">Datei kann lokal nicht erstellt werden</string>
+    <string name="download_download_invalid_local_file_name">Ungültiger Dateiname für lokale Datei</string>
     <string name="download_latest_dev_version">Die neueste Entwicklerversion herunterladen</string>
     <string name="downloader_download_failed_content">Konnte %1$s nicht herunterladen</string>
     <string name="downloader_download_failed_credentials_error">Herunterladen fehlgeschlagen, erneute Anmeldung erforderlich</string>
@@ -277,6 +279,7 @@
     <string name="error_report_issue_text">Problem melden? (benötigt ein GitHub-Konto)</string>
     <string name="error_retrieving_file">Fehler beim Abruf der Datei</string>
     <string name="error_retrieving_templates">Fehler beim Laden der Vorlagen</string>
+    <string name="error_showing_encryption_dialog">Fehler beim Anzeigen des Verschlüsselungs-Setup-Dialogs!</string>
     <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
     <string name="error_starting_doc_scan">Start des Dokumentenscans fehlgeschlagen</string>
     <string name="error_starting_scan_doc">Fehler beim Scannen von Dokumenten</string>
