@@ -209,6 +209,46 @@ class EncryptionUtilsV2IT {
         assertEquals(metadataFile, decrypted)
     }
 
+    @Test
+    fun addFile() {
+        throw NotImplementedError()
+    }
+
+    @Test
+    fun removeFile() {
+        throw NotImplementedError()
+    }
+
+    @Test
+    fun addFolder() {
+        throw NotImplementedError()
+    }
+
+    @Test
+    fun removeFolder() {
+        throw NotImplementedError()
+    }
+
+    @Test
+    fun renameFile() {
+        throw NotImplementedError()
+    }
+
+    @Test
+    fun updateFile() {
+        throw NotImplementedError()
+    }
+
+    @Test
+    fun signMetadata() {
+        throw NotImplementedError()
+    }
+
+    @Test
+    fun verifyMetadata() {
+        throw NotImplementedError()
+    }
+
     private fun generateDecryptedFileV1(): com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile {
         return com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile().apply {
             encrypted = Data().apply {
