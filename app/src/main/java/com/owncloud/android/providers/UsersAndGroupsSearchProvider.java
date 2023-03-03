@@ -34,6 +34,7 @@ import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
@@ -116,6 +117,8 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     @Inject
     protected UserAccountManager accountManager;
+    @Inject
+    protected UsersAndGroupsSearchConfig searchConfig;
 
     private static final Map<String, ShareType> sShareTypes = new HashMap<>();
 
@@ -193,6 +196,10 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     }
 
     private Cursor searchForUsersOrGroups(Uri uri) {
+
+        // TODO check searchConfig and filter results
+        Log.d(TAG, "searchForUsersOrGroups: searchConfig only users: " + searchConfig.getSearchOnlyUsers());
+
         String lastPathSegment = uri.getLastPathSegment();
 
         if (lastPathSegment == null) {

@@ -51,6 +51,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ShareeListAdapter;
@@ -98,6 +99,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject ViewThemeUtils viewThemeUtils;
+    @Inject UsersAndGroupsSearchConfig searchConfig;
 
     public static FileDetailSharingFragment newInstance(OCFile file, User user) {
         FileDetailSharingFragment fragment = new FileDetailSharingFragment();
@@ -189,6 +191,19 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         } catch (Exception ignored) {
             throw new IllegalArgumentException("Calling activity must implement the interface", ignored);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // TODO check if E2E to figure out if this should be done. Use different lifecycle hooks if it makes more sense.
+        searchConfig.setSearchOnlyUsers(true);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        searchConfig.reset();
     }
 
     private void setupView() {
