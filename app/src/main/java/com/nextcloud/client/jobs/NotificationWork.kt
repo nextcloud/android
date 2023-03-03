@@ -167,14 +167,17 @@ class NotificationWork constructor(
 
         val pushNotificationId = randomId.nextInt()
 
-        if (notification.getSubject() == UNENCRYPTED_NOTIFICATION_SUBJECT &&
-            notification.getMessage() == UNENCRYPTED_NOTIFICATION_SUBJECT
-        ) {
+        if (isFailedToDecrypt(notification)) {
             Log.w(TAG, "sendNotification: notification failed to decrypt")
             sendNotificationMissingDecryption(user, pendingIntent, notification)
         } else {
             sendNotificationNormally(user, notification, pendingIntent, pushNotificationId, randomId)
         }
+    }
+
+    private fun isFailedToDecrypt(notification: Notification): Boolean {
+        return notification.getSubject() == UNENCRYPTED_NOTIFICATION_SUBJECT &&
+            (notification.getMessage().isNullOrEmpty() || notification.getMessage() == UNENCRYPTED_NOTIFICATION_SUBJECT)
     }
 
     private fun sendNotificationMissingDecryption(
