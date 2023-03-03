@@ -33,7 +33,6 @@ import android.graphics.BitmapFactory
 import android.media.RingtoneManager
 import android.text.TextUtils
 import android.util.Base64
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.Worker
@@ -168,7 +167,7 @@ class NotificationWork constructor(
         val pushNotificationId = randomId.nextInt()
 
         if (isFailedToDecrypt(notification)) {
-            Log.w(TAG, "sendNotification: notification failed to decrypt")
+            Log_OC.w(TAG, "sendNotification: notification failed to decrypt")
             sendNotificationMissingDecryption(user, pendingIntent, notification)
         } else {
             sendNotificationNormally(user, notification, pendingIntent, pushNotificationId, randomId)
