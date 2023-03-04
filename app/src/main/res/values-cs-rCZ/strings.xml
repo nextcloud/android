@@ -218,6 +218,7 @@
     <string name="done">Hotovo</string>
     <string name="dontClear">Nikdy</string>
     <string name="download_cannot_create_file">Nedaří se vytvořit místní soubor</string>
+    <string name="download_download_invalid_local_file_name">Neplatný název pro lokální soubor</string>
     <string name="download_latest_dev_version">Stáhnout si nejnovější vývojářskou verzi</string>
     <string name="downloader_download_failed_content">Nepodařilo se stáhnout %1$s</string>
     <string name="downloader_download_failed_credentials_error">Stahování se nezdařilo, přihlaste se znovu</string>
