@@ -32,6 +32,7 @@
     <string name="activity_icon">Aktivitet</string>
     <string name="add_another_public_share_link">Lägg till en annan länk</string>
     <string name="add_new_public_share">Lägg till en ny publik delad länk</string>
+    <string name="add_new_secure_file_drop">Lägg till ny säker gömd fillista</string>
     <string name="add_to_cloud">Lägg till %1$s</string>
     <string name="advanced_settings">Avancerade inställningar</string>
     <string name="allow_resharing">Tillåt dela vidare</string>
@@ -217,6 +218,7 @@
     <string name="done">Klar</string>
     <string name="dontClear">Rensa inte</string>
     <string name="download_cannot_create_file">Kan inte skapa lokal fil</string>
+    <string name="download_download_invalid_local_file_name">Ogiltigt filnamn för lokal fil</string>
     <string name="download_latest_dev_version">Hämta senaste utvecklingsversionen</string>
     <string name="downloader_download_failed_content">Kunde inte hämta %1$s</string>
     <string name="downloader_download_failed_credentials_error">Hämtningen misslyckades, logga in igen</string>
@@ -277,6 +279,7 @@
     <string name="error_report_issue_text">Rapportera fel till Tracker? (kräver ett konto hos GitHub)</string>
     <string name="error_retrieving_file">Fel vid mottagning av fil</string>
     <string name="error_retrieving_templates">Fel vid hämtning av mallar</string>
+    <string name="error_showing_encryption_dialog">Det gick inte att visa dialogrutan för krypteringsinställningar!</string>
     <string name="error_starting_direct_camera_upload">Fel vid start av kamera</string>
     <string name="error_starting_doc_scan">Fel vid start av dokumentskanning</string>
     <string name="error_starting_scan_doc">Fel vid dokumentskanning</string>

@@ -279,7 +279,7 @@
     <string name="error_report_issue_text">Problem melden? (benötigt ein GitHub-Konto)</string>
     <string name="error_retrieving_file">Fehler beim Abruf der Datei</string>
     <string name="error_retrieving_templates">Fehler beim Laden der Vorlagen</string>
-    <string name="error_showing_encryption_dialog">Fehler beim Anzeigen des Verschlüsselungs-Setup-Dialogs!</string>
+    <string name="error_showing_encryption_dialog">Fehler beim Anzeigen des Setup-Dialogs für Verschlüsselung!</string>
     <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
     <string name="error_starting_doc_scan">Start des Dokumentenscans fehlgeschlagen</string>
     <string name="error_starting_scan_doc">Fehler beim Scannen von Dokumenten</string>
