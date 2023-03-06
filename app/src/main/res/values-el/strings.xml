@@ -147,6 +147,7 @@
     <string name="community_testing_report_text">Ανέφερε ένα ζήτημα στο GitHub</string>
     <string name="community_testing_version_text">Σας ενδιαφέρει να μας βοηθήσετε να δοκιμάσουμε την επόμενη έκδοση;</string>
     <string name="configure_new_media_folder_detection_notifications">Ρύθμιση</string>
+    <string name="confirm_removal">Αφαίρεση τοπικής κρυπτογράφησης</string>
     <string name="confirmation_remove_file_alert">Θέλετε σίγουρα να διαγράψετε το %1$s;</string>
     <string name="confirmation_remove_files_alert">Θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα;</string>
     <string name="confirmation_remove_folder_alert">Θέλετε σίγουρα να διαγράψετε το %1$s και τα περιεχόμενά του;</string>
@@ -215,6 +216,7 @@
     <string name="done">Ολοκληρώθηκε</string>
     <string name="dontClear">Να μη γίνεται εκκαθάριση</string>
     <string name="download_cannot_create_file">Αδυναμία δημιουργίας τοπικού αρχείου</string>
+    <string name="download_download_invalid_local_file_name">Μη έγκυρο όνομα τοπικού αρχείου</string>
     <string name="download_latest_dev_version">Λήψη της τελευταίας έκδοσης προγραμματιστή</string>
     <string name="downloader_download_failed_content">Η λήψη του %1$s δεν μπόρεσε να ολοκληρωθεί</string>
     <string name="downloader_download_failed_credentials_error">Η λήψη απέτυχε, συνδεθείτε ξανά</string>
@@ -275,6 +277,7 @@
     <string name="error_report_issue_text">Αναφορά προβλήματος στο tracker; (απαιτείται λογαριασμός GitHub)</string>
     <string name="error_retrieving_file">Σφάλμα ανάκτησης αρχείου</string>
     <string name="error_retrieving_templates">Σφάλμα λήψης προτύπων</string>
+    <string name="error_showing_encryption_dialog">Σφάλμα εμφάνισης διαλόγου ρύθμισης κρυπτογράφησης!</string>
     <string name="error_starting_direct_camera_upload">Σφάλμα κατά την εκκίνηση της κάμερας</string>
     <string name="error_starting_doc_scan">Σφάλμα σάρωσης εγγράφων</string>
     <string name="error_starting_scan_doc">Σφάλμα κατά τη σάρωση εγγράφου</string>
@@ -556,6 +559,7 @@
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
     <string name="prefs_daily_backup_summary">Ημερήσιο αντίγραφο ασφαλείας του ημερολογίου &amp; επαφών σας </string>
+    <string name="prefs_e2e_active">Η κρυπτογράφηση από άκρο σε άκρο έχει ρυθμιστεί!</string>
     <string name="prefs_e2e_mnemonic">E2E μνήμη</string>
     <string name="prefs_e2e_no_device_credentials">Για την εμφάνιση της μνήμης παρακαλούμε ενεργοποιήστε τα διαπιστευτήρια συσκευής.</string>
     <string name="prefs_enable_media_scan_notifications">  Εμφάνιση ειδοποιήσεων σάρωσης πολυμέσων</string>
@@ -567,6 +571,7 @@
     <string name="prefs_instant_behaviour_title">Το αρχικό αρχείο θα…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Αποθήκευση σε υποφακέλους με βάση το χρόνο και μήνα</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Χρήση υποφακέλων</string>
+    <string name="prefs_keys_exist">Προσθήκη κρυπτογράφησης από άκρο σε άκρο σε αυτή τη συσκευή</string>
     <string name="prefs_license">Άδεια χρήσης</string>
     <string name="prefs_lock">Κωδικός πρόσβασης εφαρμογής</string>
     <string name="prefs_lock_device_credentials_enabled">Ενεργοποιημένα διαπιστευτήρια συσκευής</string>
@@ -577,6 +582,8 @@
     <string name="prefs_lock_using_passcode">Κωδικός πρόσβασης</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
     <string name="prefs_recommend">Σύστησε σε ένα φίλο</string>
+    <string name="prefs_remove_e2e">Αφαίρεση κρυπτογράφησης τοπικά</string>
+    <string name="prefs_setup_e2e">Ρύθμιση κρυπτογράφησης από άκρο σε άκρο</string>
     <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <string name="prefs_sourcecode">Λήψη πηγαίου κώδικα</string>
     <string name="prefs_storage_path">Φάκελος αποθήκευσης δεδομένων</string>
@@ -604,6 +611,8 @@
     <string name="reload">Επαναφόρτωση</string>
     <string name="remote">(εξ αποστάσεως)</string>
     <string name="remote_file_fetch_failed">Η εύρεση αρχείου απέτυχε!</string>
+    <string name="remove_e2e">Μπορείτε να αφαιρέσετε την κρυπτογράφηση άκρο-άκρο τοπικά σε αυτή τη συσκευή</string>
+    <string name="remove_e2e_message">Μπορείτε να αφαιρέσετε την κρυπτογράφηση άκρο-άκρο τοπικά σε αυτή τη συσκευή. Τα κρυπρογραφημένα αρχεία θα παραμείνουν στον διακομιστή, αλλά δε θα συγχρονίζονται πλέον σε αυτόν τον υπολογιστή</string>
     <string name="remove_fail_msg">Αποτυχία διαγραφής</string>
     <string name="remove_notification_failed">Αποτυχία αφαίρεσης της ειδοποίησης.</string>
     <string name="remove_push_notification">Αφαίρεση</string>
