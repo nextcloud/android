@@ -168,7 +168,7 @@
     <string name="contacts_preferences_no_file_found">Файл не знайдено</string>
     <string name="contacts_preferences_something_strange_happened">Неможливо знайти вашу останню резервну копію</string>
     <string name="copied_to_clipboard">Скопійовано</string>
-    <string name="copy_file_error">Виникла помилка під час спроби скопіювати цей файл або каталог</string>
+    <string name="copy_file_error">Виникла помилка під час спроби копіювати цей файл або каталог</string>
     <string name="copy_file_invalid_into_descendent">Неможливо скопіювати каталог до одного із вкладених підкаталогів</string>
     <string name="copy_file_invalid_overwrite">Файл вже присутній у каталозі призначення</string>
     <string name="copy_file_not_found">Неможливо скопіювати. Будь ласка, перевірте, чи файл існує.</string>
@@ -345,7 +345,7 @@
     <string name="file_migration_directory_already_exists">Каталог з даними вже існує. Виберіть один з таких:</string>
     <string name="file_migration_failed_dir_already_exists">Каталог сервера Nextcloud вже існує</string>
     <string name="file_migration_failed_not_enough_space">Потрібно більше місця</string>
-    <string name="file_migration_failed_not_readable">Неможливо прочитати початковий файл</string>
+    <string name="file_migration_failed_not_readable">Неможливо прочитати вихідний файл</string>
     <string name="file_migration_failed_not_writable">Неможливо записати до файлу призначення</string>
     <string name="file_migration_failed_while_coping">Помилка під час міграції</string>
     <string name="file_migration_failed_while_updating_index">Неможливо оновити індекс</string>
@@ -383,7 +383,7 @@
     <string name="folder_list_empty_headline">Тут немає папок</string>
     <string name="folder_picker_choose_button_text">Вибрати</string>
     <string name="forbidden_permissions">У вас відсутні повноваження %s</string>
-    <string name="forbidden_permissions_copy">скопіювати даний файл</string>
+    <string name="forbidden_permissions_copy">скопіювати цей файл</string>
     <string name="forbidden_permissions_create">щоб створити цей файл</string>
     <string name="forbidden_permissions_delete">щоби вилучити цей файл</string>
     <string name="forbidden_permissions_move">перемістити цей файл</string>
@@ -568,8 +568,8 @@
     <string name="prefs_gpl_v2">GNU General Public License, версія 2</string>
     <string name="prefs_help">Допомога</string>
     <string name="prefs_imprint">Відбиток</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Початковий файл буде...</string>
-    <string name="prefs_instant_behaviour_title">Початковий файл буде...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Вихідний файл буде...</string>
+    <string name="prefs_instant_behaviour_title">Вихідний файл буде...</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Зберігати у підкаталогах за часом створення</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Використовувати підкаталоги</string>
     <string name="prefs_keys_exist">Додати наскрізне шифрування для цього клієнта</string>
