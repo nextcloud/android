@@ -22,11 +22,13 @@
 
 package com.owncloud.android.datamodel.e2e.v2.decrypted
 
+import com.owncloud.android.utils.EncryptionUtils
+
 data class DecryptedMetadata(
-    val keyChecksums: List<String>,
-    val deleted: Boolean,
-    val counter: Int,
-    val folders: Map<String, String>,
-    val files: Map<String, DecryptedFile>,
-    var metadataKey: String
+    val keyChecksums: List<String> = listOf(),
+    val deleted: Boolean = false,
+    val counter: Int = 0,
+    val folders: Map<String, String> = mapOf(),
+    val files: Map<String, DecryptedFile> = mapOf(),
+    var metadataKey: String = EncryptionUtils.generateKeyString()
 )

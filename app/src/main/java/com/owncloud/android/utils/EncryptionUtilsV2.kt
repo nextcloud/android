@@ -24,7 +24,6 @@ package com.owncloud.android.utils
 
 import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
-import com.nextcloud.client.account.MockUser
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata
@@ -85,10 +84,10 @@ class EncryptionUtilsV2 {
     @Throws(IllegalStateException::class)
     fun decryptFolderMetadataFile(
         metadataFile: EncryptedFolderMetadataFile,
-        currentUser: com.nextcloud.client.account.User,
+        userId: String,
         privateKey: String
     ): DecryptedFolderMetadataFile {
-        val user = metadataFile.users.find { it.userId == currentUser.accountName }
+        val user = metadataFile.users.find { it.userId == userId }
             ?: throw IllegalStateException("User not found!")
 
         val decryptedMetadataKey = decryptMetadataKey(user, privateKey)
@@ -163,17 +162,30 @@ class EncryptionUtilsV2 {
 
     fun addShareeToMetadata(
         metadataFile: DecryptedFolderMetadataFile,
-        enc2: MockUser,
-        enc2Cert: String
+        userId: String,
+        cert: String
     ): DecryptedFolderMetadataFile {
-        metadataFile.users.add(DecryptedUser(enc2.accountName, enc2Cert))
+        metadataFile.users.add(DecryptedUser(userId, cert))
         metadataFile.metadata.metadataKey = EncryptionUtils.generateKeyString()
 
         return metadataFile
     }
 
-    fun removeShareeFromMetadata() {
-        // TODO
+    @Throws(RuntimeException::class)
+    fun removeShareeFromMetadata(
+        metadataFile: DecryptedFolderMetadataFile,
+        userIdToRemove: String
+    ): DecryptedFolderMetadataFile {
+        val remove = metadataFile.users.remove(metadataFile.users.find { it.userId == userIdToRemove })
+
+        if (!remove) {
+            throw java.lang.RuntimeException("Removal of user $userIdToRemove failed!")
+        }
+
+        metadataFile.metadata.metadataKey = EncryptionUtils.generateKeyString()
+        // TODO add to keyChecksum array
+
+        return metadataFile
     }
 
     fun addFileToMetadata() {

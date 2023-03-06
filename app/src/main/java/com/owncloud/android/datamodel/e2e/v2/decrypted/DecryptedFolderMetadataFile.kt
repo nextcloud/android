@@ -25,8 +25,8 @@ package com.owncloud.android.datamodel.e2e.v2.decrypted
  * Decrypted class representation of metadata json of folder metadata.
  */
 data class DecryptedFolderMetadataFile(
-    val metadata: DecryptedMetadata,
-    val users: MutableList<DecryptedUser>,
-    val filedrop: Map<String, DecryptedFile>,
+    val metadata: DecryptedMetadata = DecryptedMetadata(),
+    val users: MutableList<DecryptedUser> = mutableListOf(),
+    val filedrop: Map<String, DecryptedFile> = HashMap(),
     val version: Int = 2
-)
+) 

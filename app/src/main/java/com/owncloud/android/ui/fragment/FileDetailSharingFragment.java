@@ -210,22 +210,24 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         setShareWithYou();
 
         OCFile parentFile = fileDataStorageManager.getFileById(file.getParentId());
-        if (file.isEncrypted() && (parentFile == null || parentFile.isEncrypted())) {
-            binding.searchContainer.setVisibility(View.GONE);
-        } else {
-            FileDetailSharingFragmentHelper.setupSearchView(
-                (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
-                binding.searchView,
-                fileActivity.getComponentName());
-            viewThemeUtils.androidx.themeToolbarSearchView(binding.searchView);
 
-            if (file.canReshare()) {
-                binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
+        FileDetailSharingFragmentHelper.setupSearchView(
+            (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
+            binding.searchView,
+            fileActivity.getComponentName());
+        viewThemeUtils.androidx.themeToolbarSearchView(binding.searchView);
+
+
+        if (file.canReshare()) {
+            if (file.isEncrypted() || (parentFile != null && parentFile.isEncrypted())) {
+                binding.searchView.setQueryHint(getResources().getString(R.string.secure_share_search));
             } else {
-                binding.searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
-                binding.searchView.setInputType(InputType.TYPE_NULL);
-                disableSearchView(binding.searchView);
+                binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
             }
+        } else {
+            binding.searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
+            binding.searchView.setInputType(InputType.TYPE_NULL);
+            disableSearchView(binding.searchView);
         }
     }
 

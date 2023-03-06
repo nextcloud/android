@@ -654,7 +654,11 @@ public class OperationsService extends Service {
                         shareId = operationIntent.getLongExtra(EXTRA_SHARE_ID, -1);
 
                         if (shareId > 0) {
-                            operation = new UnshareOperation(remotePath, shareId, fileDataStorageManager);
+                            operation = new UnshareOperation(remotePath,
+                                                             shareId,
+                                                             fileDataStorageManager,
+                                                             user,
+                                                             getApplicationContext());
                         }
                         break;
 

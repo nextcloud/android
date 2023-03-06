@@ -213,15 +213,14 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         String userQuery = lastPathSegment.toLowerCase(Locale.ROOT);
 
         // request to the OC server about users and groups matching userQuery
-        GetShareesRemoteOperation searchRequest = new GetShareesRemoteOperation(userQuery, REQUESTED_PAGE,
+        GetShareesRemoteOperation searchRequest = new GetShareesRemoteOperation(userQuery,
+                                                                                REQUESTED_PAGE,
                                                                                 RESULTS_PER_PAGE);
-        RemoteOperationResult result = searchRequest.execute(user, getContext());
+        RemoteOperationResult<ArrayList<JSONObject>> result = searchRequest.execute(user, getContext());
         List<JSONObject> names = new ArrayList<>();
 
         if (result.isSuccess()) {
-            for (Object o : result.getData()) {
-                names.add((JSONObject) o);
-            }
+            names = result.getResultData();
         } else {
             showErrorMessage(result);
         }
@@ -277,6 +276,11 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                             statusObject.isNull(PROPERTY_CLEAR_AT) ? -1 : statusObject.getLong(PROPERTY_CLEAR_AT));
                     } else {
                         status = new Status(StatusType.OFFLINE, "", "", -1);
+                    }
+
+                    if (searchConfig.getSearchOnlyUsers() && type != ShareType.USER) {
+                        // skip all types but users, as E2E secure share is only allowed to users on same server
+                        continue;
                     }
 
                     switch (type) {

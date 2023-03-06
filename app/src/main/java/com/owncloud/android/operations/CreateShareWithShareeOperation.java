@@ -27,16 +27,22 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedUser;
+import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.shares.CreateShareRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.EncryptionUtils;
+import com.owncloud.android.utils.EncryptionUtilsV2;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -74,7 +80,9 @@ public class CreateShareWithShareeOperation extends SyncOperation {
      * @param shareType   Type of share determines type of sharee; {@link ShareType#USER} and {@link ShareType#GROUP}
      *                    are the only valid values for the moment.
      * @param permissions Share permissions key as detailed in
-     *                    <a href="https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-share-api.html">OCS Share API</a>.
+     *                    <a
+     *                    href="https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-share-api.html">OCS
+     *                    Share API</a>.
      */
     public CreateShareWithShareeOperation(String path,
                                           String shareeName,
@@ -109,6 +117,20 @@ public class CreateShareWithShareeOperation extends SyncOperation {
         OCFile folder = getStorageManager().getFileByDecryptedRemotePath(path);
         boolean isEncrypted = folder != null && folder.isEncrypted();
         String token = null;
+        RemoteOperationResult<String> keyResult = null;
+
+        // first check if sharee is using E2E
+        if (isEncrypted) {
+            keyResult = new GetPublicKeyRemoteOperation(shareeName).executeNextcloudClient(user, context);
+
+            if (!keyResult.isSuccess()) {
+                RemoteOperationResult errorResult = new RemoteOperationResult<>(new RuntimeException());
+                errorResult.setMessage(context.getString(R.string.user_not_using_e2e));
+
+                return errorResult;
+            }
+        }
+
 
         // E2E: lock folder
         if (isEncrypted) {
@@ -128,43 +150,78 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             permissions
         );
         operation.setGetShareDetails(true);
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperationResult shareResult = operation.execute(client);
 
-        if (!result.isSuccess() || result.getData().size() == 0) {
+        if (!shareResult.isSuccess() || shareResult.getData().size() == 0) {
             // something went wrong
-            return result;
+            return shareResult;
         }
 
         // E2E: update metadata
         if (isEncrypted) {
-            EncryptionUtils.downloadFolderMetadata(folder, client, context, user, token);
-        }
+            DecryptedFolderMetadataFile metadata = EncryptionUtils.downloadFolderMetadata(folder,
+                                                                                          client,
+                                                                                          context,
+                                                                                          user,
+                                                                                          token);
 
-        // E2E: unlock folder
-        if (isEncrypted) {
-            RemoteOperationResult unlockResult = EncryptionUtils.unlockFolder(folder, client, token);
+            boolean metadataExists;
+            if (metadata == null) {
+                String cert = EncryptionUtils.retrievePublicKeyForUser(user, context);
+                metadata = new DecryptedFolderMetadataFile();
+                metadata.getUsers().add(new DecryptedUser(client.getUserId(), cert));
+
+                metadataExists = false;
+            } else {
+                metadataExists = true;
+            }
+
+            EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
+
+            // add sharee to metadata
+            DecryptedFolderMetadataFile newMetadata = encryptionUtilsV2.addShareeToMetadata(metadata,
+                                                                                            shareeName,
+                                                                                            keyResult.getResultData());
+
+            EncryptedFolderMetadataFile encryptedFolderMetadata = encryptionUtilsV2.encryptFolderMetadataFile(newMetadata);
+            String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
+
+            // upload metadata
+            OCFile parent = getStorageManager().getFileByDecryptedRemotePath(path);
+            try {
+                EncryptionUtils.uploadMetadata(parent,
+                                               serializedFolderMetadata,
+                                               token,
+                                               client,
+                                               metadataExists);
+            } catch (UploadException e) {
+                return new RemoteOperationResult<>(new RuntimeException("Uploading metadata failed"));
+            }
+
+            // E2E: unlock folder
+            RemoteOperationResult<Void> unlockResult = EncryptionUtils.unlockFolder(folder, client, token);
             if (!unlockResult.isSuccess()) {
-                return new RemoteOperationResult(new RuntimeException("Unlock failed"));
+                return new RemoteOperationResult<>(new RuntimeException("Unlock failed"));
             }
         }
 
-        OCShare share = (OCShare) result.getData().get(0);
+        OCShare share = (OCShare) shareResult.getData().get(0);
 
-        //once creating share link update other information
+        // once creating share link update other information
         UpdateShareInfoOperation updateShareInfoOperation = new UpdateShareInfoOperation(share, getStorageManager());
         updateShareInfoOperation.setExpirationDateInMillis(expirationDateInMillis);
         updateShareInfoOperation.setHideFileDownload(hideFileDownload);
         updateShareInfoOperation.setNote(noteMessage);
         updateShareInfoOperation.setLabel(label);
 
-        //execute and save the result in database
+        // execute and save the result in database
         RemoteOperationResult updateShareInfoResult = updateShareInfoOperation.execute(client);
         if (updateShareInfoResult.isSuccess() && updateShareInfoResult.getData().size() > 0) {
             OCShare shareUpdated = (OCShare) updateShareInfoResult.getData().get(0);
             updateData(shareUpdated);
         }
 
-        return result;
+        return shareResult;
     }
 
     private void updateData(OCShare share) {

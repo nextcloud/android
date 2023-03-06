@@ -40,12 +40,12 @@ import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.lib.resources.users.DeletePrivateKeyOperation;
-import com.owncloud.android.lib.resources.users.DeletePublicKeyOperation;
-import com.owncloud.android.lib.resources.users.GetPrivateKeyOperation;
-import com.owncloud.android.lib.resources.users.GetPublicKeyOperation;
-import com.owncloud.android.lib.resources.users.SendCSROperation;
-import com.owncloud.android.lib.resources.users.StorePrivateKeyOperation;
+import com.owncloud.android.lib.resources.users.DeletePrivateKeyRemoteOperation;
+import com.owncloud.android.lib.resources.users.DeletePublicKeyRemoteOperation;
+import com.owncloud.android.lib.resources.users.GetPrivateKeyRemoteOperation;
+import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation;
+import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation;
+import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation;
 import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.operations.GetCapabilitiesOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
@@ -481,7 +481,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
         String userId = accountManager.getUserData(account, AccountUtils.Constants.KEY_USER_ID);
         String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, userId);
 
-        SendCSROperation operation = new SendCSROperation(urlEncoded);
+        SendCSRRemoteOperation operation = new SendCSRRemoteOperation(urlEncoded);
         RemoteOperationResult<String> result = operation.executeNextcloudClient(account, targetContext);
 
         assertTrue(result.isSuccess());
@@ -553,7 +553,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
 
     private void useExistingKeys() throws Exception {
         // download them from server
-        GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();
+        GetPublicKeyRemoteOperation publicKeyOperation = new GetPublicKeyRemoteOperation();
         RemoteOperationResult<String> publicKeyResult = publicKeyOperation.executeNextcloudClient(account,
                                                                                                   targetContext);
 
@@ -564,7 +564,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
                                                     EncryptionUtils.PUBLIC_KEY,
                                                     publicKeyFromServer);
 
-        RemoteOperationResult<PrivateKey> privateKeyResult = new GetPrivateKeyOperation()
+        RemoteOperationResult<PrivateKey> privateKeyResult = new GetPrivateKeyRemoteOperation()
             .executeNextcloudClient(account, targetContext);
         assertTrue(privateKeyResult.isSuccess());
 
@@ -597,7 +597,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
         String userId = accountManager.getUserData(account, AccountUtils.Constants.KEY_USER_ID);
         String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, userId);
 
-        SendCSROperation operation = new SendCSROperation(urlEncoded);
+        SendCSRRemoteOperation operation = new SendCSRRemoteOperation(urlEncoded);
         RemoteOperationResult<String> result = operation.executeNextcloudClient(account, targetContext);
 
         if (result.isSuccess()) {
@@ -624,7 +624,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
                                                                        generateMnemonicString());
 
         // upload encryptedPrivateKey
-        StorePrivateKeyOperation storePrivateKeyOperation = new StorePrivateKeyOperation(encryptedPrivateKey);
+        StorePrivateKeyRemoteOperation storePrivateKeyOperation = new StorePrivateKeyRemoteOperation(encryptedPrivateKey);
         RemoteOperationResult storePrivateKeyResult = storePrivateKeyOperation.executeNextcloudClient(account,
                                                                                                       targetContext);
 
@@ -641,14 +641,14 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
 
     private static void deleteKeys() {
         RemoteOperationResult<PrivateKey> privateKeyRemoteOperationResult =
-            new GetPrivateKeyOperation().execute(nextcloudClient);
+            new GetPrivateKeyRemoteOperation().execute(nextcloudClient);
         RemoteOperationResult<String> publicKeyRemoteOperationResult =
-            new GetPublicKeyOperation().execute(nextcloudClient);
+            new GetPublicKeyRemoteOperation().execute(nextcloudClient);
 
         if (privateKeyRemoteOperationResult.isSuccess() || publicKeyRemoteOperationResult.isSuccess()) {
             // delete keys
-            assertTrue(new DeletePrivateKeyOperation().execute(nextcloudClient).isSuccess());
-            assertTrue(new DeletePublicKeyOperation().execute(nextcloudClient).isSuccess());
+            assertTrue(new DeletePrivateKeyRemoteOperation().execute(nextcloudClient).isSuccess());
+            assertTrue(new DeletePublicKeyRemoteOperation().execute(nextcloudClient).isSuccess());
 
             arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PRIVATE_KEY);
             arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PUBLIC_KEY);

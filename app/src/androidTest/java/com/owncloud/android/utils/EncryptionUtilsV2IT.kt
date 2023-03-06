@@ -204,7 +204,7 @@ class EncryptionUtilsV2IT {
         val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
 
         val encrypted = encryptionUtilsV2.encryptFolderMetadataFile(metadataFile)
-        val decrypted = encryptionUtilsV2.decryptFolderMetadataFile(encrypted, enc1, enc1PrivateKey)
+        val decrypted = encryptionUtilsV2.decryptFolderMetadataFile(encrypted, enc1.accountName, enc1PrivateKey)
 
         assertEquals(metadataFile, decrypted)
     }
@@ -311,15 +311,39 @@ class EncryptionUtilsV2IT {
         val enc2 = MockUser("enc2", "Nextcloud")
         var metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
 
-        metadataFile = encryptionUtilsV2.addShareeToMetadata(metadataFile, enc2, enc2Cert)
+        metadataFile = encryptionUtilsV2.addShareeToMetadata(metadataFile, enc2.accountName, enc2Cert)
 
         val encryptedMetadataFile = encryptionUtilsV2.encryptFolderMetadataFile(metadataFile)
 
-        val decryptedByEnc1 = encryptionUtilsV2.decryptFolderMetadataFile(encryptedMetadataFile, enc1, enc1PrivateKey)
+        val decryptedByEnc1 = encryptionUtilsV2.decryptFolderMetadataFile(
+            encryptedMetadataFile,
+            enc1.accountName,
+            enc1PrivateKey
+        )
         assertEquals(metadataFile.metadata, decryptedByEnc1.metadata)
 
-        val decryptedByEnc2 = encryptionUtilsV2.decryptFolderMetadataFile(encryptedMetadataFile, enc2, enc2PrivateKey)
+        val decryptedByEnc2 = encryptionUtilsV2.decryptFolderMetadataFile(
+            encryptedMetadataFile,
+            enc2.accountName,
+            enc2PrivateKey
+        )
         assertEquals(metadataFile.metadata, decryptedByEnc2.metadata)
+    }
+
+    @Test
+    fun removeSharee() {
+        val encryptionUtilsV2 = EncryptionUtilsV2()
+
+        val enc1 = MockUser("enc1", "Nextcloud")
+        val enc2 = MockUser("enc2", "Nextcloud")
+        var metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
+        metadataFile = encryptionUtilsV2.addShareeToMetadata(metadataFile, enc2.accountName, enc2Cert)
+
+        assertEquals(2, metadataFile.users.size)
+
+        metadataFile = encryptionUtilsV2.removeShareeFromMetadata(metadataFile, enc2.accountName)
+
+        assertEquals(1, metadataFile.users.size)
     }
 
     private fun generateDecryptedFolderMetadataFile(user: User, cert: String): DecryptedFolderMetadataFile {
