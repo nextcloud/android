@@ -32,7 +32,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedUser;
-import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.FileUtils;
@@ -79,8 +78,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
      * @param shareeName  User or group name of the target sharee.
      * @param shareType   Type of share determines type of sharee; {@link ShareType#USER} and {@link ShareType#GROUP}
      *                    are the only valid values for the moment.
-     * @param permissions Share permissions key as detailed in
-     *                    <a
+     * @param permissions Share permissions key as detailed in <a
      *                    href="https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-share-api.html">OCS
      *                    Share API</a>.
      */
@@ -183,17 +181,14 @@ public class CreateShareWithShareeOperation extends SyncOperation {
                                                                                             shareeName,
                                                                                             keyResult.getResultData());
 
-            EncryptedFolderMetadataFile encryptedFolderMetadata = encryptionUtilsV2.encryptFolderMetadataFile(newMetadata);
-            String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
-
             // upload metadata
             OCFile parent = getStorageManager().getFileByDecryptedRemotePath(path);
             try {
-                EncryptionUtils.uploadMetadata(parent,
-                                               serializedFolderMetadata,
-                                               token,
-                                               client,
-                                               metadataExists);
+                encryptionUtilsV2.serializeAndUploadMetadata(parent,
+                                                             newMetadata,
+                                                             token,
+                                                             client,
+                                                             metadataExists);
             } catch (UploadException e) {
                 return new RemoteOperationResult<>(new RuntimeException("Uploading metadata failed"));
             }

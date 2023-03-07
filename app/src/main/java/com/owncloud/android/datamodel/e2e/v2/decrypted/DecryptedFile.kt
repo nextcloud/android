@@ -22,7 +22,7 @@
 package com.owncloud.android.datamodel.e2e.v2.decrypted
 
 data class DecryptedFile(
-    val filename: String,
+    var filename: String,
     val mimetype: String,
     val initializationVector: String,
     val authenticationTag: String,

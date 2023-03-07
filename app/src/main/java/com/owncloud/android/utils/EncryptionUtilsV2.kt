@@ -22,8 +22,14 @@
 
 package com.owncloud.android.utils
 
+import android.accounts.AccountManager
+import android.content.Context
 import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
+import com.nextcloud.client.account.User
+import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata
@@ -31,6 +37,13 @@ import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedUser
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedMetadata
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedUser
+import com.owncloud.android.lib.common.OwnCloudClient
+import com.owncloud.android.lib.common.accounts.AccountUtils
+import com.owncloud.android.lib.resources.e2ee.GetMetadataRemoteOperation
+import com.owncloud.android.lib.resources.e2ee.StoreMetadataRemoteOperation
+import com.owncloud.android.lib.resources.e2ee.UpdateMetadataRemoteOperation
+import com.owncloud.android.operations.UploadException
+import org.apache.commons.httpclient.HttpStatus
 import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
 import java.io.InputStreamReader
@@ -188,12 +201,189 @@ class EncryptionUtilsV2 {
         return metadataFile
     }
 
-    fun addFileToMetadata() {
-        // TODO
+    fun addFileToMetadata(
+        encryptedFileName: String,
+        ocFile: OCFile,
+        initializationVector: ByteArray,
+        authenticationTag: String,
+        key: ByteArray,
+        metadataFile: DecryptedFolderMetadataFile
+    ): DecryptedFolderMetadataFile {
+        val decryptedFile = DecryptedFile(
+            ocFile.decryptedFileName,
+            ocFile.mimeType,
+            EncryptionUtils.encodeBytesToBase64String(initializationVector),
+            authenticationTag,
+            EncryptionUtils.encodeBytesToBase64String(key)
+        )
+
+        metadataFile.metadata.files[encryptedFileName] = decryptedFile
+
+        return metadataFile
     }
 
-    fun removeFileFromMetadata() {
-        // TODO
+    @Throws(IllegalStateException::class)
+    fun removeFileFromMetadata(
+        fileName: String,
+        metadata: DecryptedFolderMetadataFile
+    ) {
+        metadata.metadata.files.remove(fileName)
+            ?: throw IllegalStateException("File $fileName not found in metadata!")
+    }
+
+    @Throws(IllegalStateException::class)
+    fun renameFile(
+        key: String,
+        newName: String,
+        metadataFile: DecryptedFolderMetadataFile
+    ) {
+        if (!metadataFile.metadata.files.containsKey(key)) {
+            throw IllegalStateException("File with key $key not found in metadata!")
+        }
+
+        metadataFile.metadata.files[key]!!.filename = newName
+    }
+
+    @Throws(UploadException::class)
+    fun retrieveMetadata(
+        parentFile: OCFile,
+        client: OwnCloudClient,
+        user: User,
+        context: Context
+    ): Pair<Boolean, DecryptedFolderMetadataFile> {
+        val getMetadataOperationResult = GetMetadataRemoteOperation(parentFile.localId).execute(client)
+
+        return if (getMetadataOperationResult.isSuccess) {
+            // decrypt metadata
+            val serializedEncryptedMetadata = getMetadataOperationResult.resultData
+            val metadata = parseAnyMetadata(
+                serializedEncryptedMetadata,
+                user,
+                client,
+                context
+            )
+
+            Pair(true, metadata)
+        } else if (getMetadataOperationResult.httpCode == HttpStatus.SC_NOT_FOUND) {
+            // new metadata
+            val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
+            val publicKey: String = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PUBLIC_KEY)
+
+            val metadata = DecryptedFolderMetadataFile(
+                users = mutableListOf(DecryptedUser(client.userId, publicKey))
+            )
+
+            Pair(false, metadata)
+        } else {
+            // TODO error
+            throw UploadException("something wrong")
+        }
+    }
+
+    @Throws(IllegalStateException::class)
+    fun parseAnyMetadata(
+        serializedEncryptedMetadata: String,
+        user: User,
+        client: OwnCloudClient,
+        context: Context
+    ): DecryptedFolderMetadataFile {
+        val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
+        val privateKey: String = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
+
+        val v2 = EncryptionUtils.deserializeJSON(
+            serializedEncryptedMetadata, object : TypeToken<EncryptedFolderMetadataFile>() {}
+        )
+
+        val decryptedFolderMetadata = if (v2.version == 2) {
+            val userId = AccountManager.get(context).getUserData(
+                user.toPlatformAccount(),
+                AccountUtils.Constants.KEY_USER_ID
+            )
+            decryptFolderMetadataFile(
+                v2,
+                userId,
+                privateKey
+            )
+        } else {
+            // try to deserialize v1
+            val v1 = EncryptionUtils.deserializeJSON(
+                serializedEncryptedMetadata,
+                object : TypeToken<com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFile?>() {})
+
+            // decrypt
+            try {
+
+                // decrypt metadata
+
+                val decryptedV1 = EncryptionUtils.decryptFolderMetaData(v1, privateKey)
+                val publicKey: String = arbitraryDataProvider.getValue(
+                    user.accountName,
+                    EncryptionUtils.PUBLIC_KEY
+                )
+
+                // migrate to v2
+                migrateV1ToV2(
+                    decryptedV1,
+                    client.userIdPlain,
+                    publicKey
+                )
+            } catch (e: Exception) {
+                // TODO do better
+                throw IllegalStateException("Cannot decrypt metadata")
+            }
+        }
+
+        return decryptedFolderMetadata
+
+        // handle filesDrops
+        // TODO re-add
+//        try {
+//            int filesDropCountBefore = encryptedFolderMetadata.getFiledrop().size();
+//            DecryptedFolderMetadataFile decryptedFolderMetadata = new EncryptionUtilsV2().decryptFolderMetadataFile(
+//                encryptedFolderMetadata,
+//                privateKey);
+//
+//            boolean transferredFiledrop = filesDropCountBefore > 0 && decryptedFolderMetadata.getFiles().size() ==
+//                encryptedFolderMetadata.getFiles().size() + filesDropCountBefore;
+//
+//            if (transferredFiledrop) {
+//                // lock folder, only if not already locked
+//                String token;
+//                if (existingLockToken == null) {
+//                    token = EncryptionUtils.lockFolder(folder, client);
+//                } else {
+//                    token = existingLockToken;
+//                }
+//
+//                // upload metadata
+//                EncryptedFolderMetadataFile encryptedFolderMetadataNew = encryptFolderMetadata(decryptedFolderMetadata,
+//                                                                                               privateKey);
+//
+//                String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadataNew);
+//
+//                EncryptionUtils.uploadMetadata(folder,
+//                                               serializedFolderMetadata,
+//                                               token,
+//                                               client,
+//                                               true);
+//
+//                // unlock folder, only if not previously locked
+//                if (existingLockToken == null) {
+//                    RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(folder, client, token);
+//
+//                    if (!unlockFolderResult.isSuccess()) {
+//                        Log_OC.e(TAG, unlockFolderResult.getMessage());
+//
+//                        return null;
+//                    }
+//                }
+//            }
+//
+//            return decryptedFolderMetadata;
+//        } catch (Exception e) {
+//            Log_OC.e(TAG, e.getMessage());
+//            return null;
+//        }
     }
 
     @Throws(IllegalStateException::class)
@@ -209,7 +399,7 @@ class EncryptionUtilsV2 {
             false,
             0,
             emptyMap(),
-            v1.files.mapValues { migrateDecryptedFileV1ToV2(it.value) },
+            v1.files.mapValues { migrateDecryptedFileV1ToV2(it.value) }.toMutableMap(),
             v1.metadata.metadataKeys[0] ?: throw IllegalStateException("Metadata key not found!")
         )
 
@@ -231,5 +421,36 @@ class EncryptionUtilsV2 {
             v1.authenticationTag ?: "",
             v1.encrypted.key
         )
+    }
+
+    @Throws(UploadException::class)
+    fun serializeAndUploadMetadata(
+        parentFile: OCFile,
+        metadata: DecryptedFolderMetadataFile,
+        token: String,
+        client: OwnCloudClient,
+        metadataExists: Boolean
+    ) {
+        val encryptedFolderMetadata = encryptFolderMetadataFile(metadata)
+        val serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata)
+        val uploadMetadataOperationResult = if (metadataExists) {
+            // update metadata
+            UpdateMetadataRemoteOperation(
+                parentFile.localId,
+                serializedFolderMetadata,
+                token
+            )
+                .execute(client)
+        } else {
+            // store metadata
+            StoreMetadataRemoteOperation(
+                parentFile.localId,
+                serializedFolderMetadata
+            )
+                .execute(client)
+        }
+        if (!uploadMetadataOperationResult.isSuccess) {
+            throw UploadException("Storing/updating metadata was not successful")
+        }
     }
 }

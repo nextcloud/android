@@ -23,35 +23,23 @@ package com.owncloud.android.operations;
 
 import android.content.Context;
 
-import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFile;
-import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFile;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.e2ee.GetMetadataRemoteOperation;
-import com.owncloud.android.lib.resources.e2ee.LockFileRemoteOperation;
-import com.owncloud.android.lib.resources.e2ee.UnlockFileRemoteOperation;
-import com.owncloud.android.lib.resources.e2ee.UpdateMetadataRemoteOperation;
 import com.owncloud.android.utils.EncryptionUtils;
+import com.owncloud.android.utils.EncryptionUtilsV2;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 
-import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import kotlin.Pair;
 
 /**
  * Remote operation performing the removal of a remote encrypted file or folder
@@ -63,27 +51,29 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
     private static final int REMOVE_CONNECTION_TIMEOUT = 5000;
 
     private final String remotePath;
-    private final long parentId;
+    private final OCFile parentFolder;
     private User user;
 
     private final ArbitraryDataProvider arbitraryDataProvider;
     private final String fileName;
+    private final Context context;
 
     /**
      * Constructor
      *
-     * @param remotePath RemotePath of the remote file or folder to remove from the server
-     * @param parentId   local id of parent folder
+     * @param remotePath   RemotePath of the remote file or folder to remove from the server
+     * @param parentFolder parent folder
      */
     RemoveRemoteEncryptedFileOperation(String remotePath,
-                                       long parentId,
                                        User user,
                                        Context context,
-                                       String fileName) {
+                                       String fileName,
+                                       OCFile parentFolder) {
         this.remotePath = remotePath;
-        this.parentId = parentId;
         this.user = user;
         this.fileName = fileName;
+        this.context = context;
+        this.parentFolder = parentFolder;
 
         arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
     }
@@ -96,38 +86,15 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
         RemoteOperationResult result;
         DeleteMethod delete = null;
         String token = null;
-        DecryptedFolderMetadataFile metadata;
-
-        String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
 
         try {
             // Lock folder
-            RemoteOperationResult<String> lockFileOperationResult = new LockFileRemoteOperation(parentId).execute(client);
+            token = EncryptionUtils.lockFolder(parentFolder, client);
 
-            if (lockFileOperationResult.isSuccess()) {
-                token = lockFileOperationResult.getResultData();
-            } else if (lockFileOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
-                throw new RemoteOperationFailedException("Forbidden! Please try again later.)");
-            } else {
-                throw new RemoteOperationFailedException("Unknown error!");
-            }
-
-            // refresh metadata
-            RemoteOperationResult<String> getMetadataOperationResult =
-                new GetMetadataRemoteOperation(parentId).execute(client);
-
-            if (getMetadataOperationResult.isSuccess()) {
-                // decrypt metadata
-                String serializedEncryptedMetadata = getMetadataOperationResult.getResultData();
-
-                EncryptedFolderMetadataFile encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
-                    serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadataFile>() {
-                    });
-
-                metadata = EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata, privateKey);
-            } else {
-                throw new RemoteOperationFailedException("No DecryptedMetadata found!");
-            }
+            EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
+            Pair<Boolean, DecryptedFolderMetadataFile> pair = encryptionUtilsV2.retrieveMetadata(parentFolder, client, user, context);
+            boolean metadataExists = pair.getFirst();
+            DecryptedFolderMetadataFile metadata = pair.getSecond();
 
             // delete file remote
             delete = new DeleteMethod(client.getFilesDavUri(remotePath));
@@ -138,32 +105,18 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             result = new RemoteOperationResult<>(delete.succeeded() || status == HttpStatus.SC_NOT_FOUND, delete);
             Log_OC.i(TAG, "Remove " + remotePath + ": " + result.getLogMessage());
 
-            // remove file from metadata
-            metadata.getFiles().remove(fileName);
-
-            EncryptedFolderMetadataFile encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
-                                                                                                        privateKey);
-            String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
+            encryptionUtilsV2.removeFileFromMetadata(fileName, metadata);
 
             // upload metadata
-            RemoteOperationResult<String> uploadMetadataOperationResult =
-                new UpdateMetadataRemoteOperation(parentId,
-                                                  serializedFolderMetadata, token).execute(client);
-
-            if (!uploadMetadataOperationResult.isSuccess()) {
-                throw new RemoteOperationFailedException("DecryptedMetadata not uploaded!");
-            }
+            encryptionUtilsV2.serializeAndUploadMetadata(parentFolder,
+                                                         metadata,
+                                                         token,
+                                                         client,
+                                                         metadataExists);
 
             // return success
             return result;
-        } catch (NoSuchAlgorithmException |
-                 IOException |
-                 InvalidKeyException |
-                 InvalidAlgorithmParameterException |
-                 NoSuchPaddingException |
-                 BadPaddingException |
-                 IllegalBlockSizeException |
-                 InvalidKeySpecException e) {
+        } catch (Exception e) {
             result = new RemoteOperationResult<>(e);
             Log_OC.e(TAG, "Remove " + remotePath + ": " + result.getLogMessage(), e);
 
@@ -174,11 +127,12 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
 
             // unlock file
             if (token != null) {
-                RemoteOperationResult<Void> unlockFileOperationResult = new UnlockFileRemoteOperation(parentId, token)
-                    .execute(client);
+                RemoteOperationResult<Void> unlockFileOperationResult = EncryptionUtils.unlockFolder(parentFolder,
+                                                                                                     client,
+                                                                                                     token);
 
                 if (!unlockFileOperationResult.isSuccess()) {
-                    Log_OC.e(TAG, "Failed to unlock " + parentId);
+                    Log_OC.e(TAG, "Failed to unlock " + parentFolder.getLocalId());
                 }
             }
         }

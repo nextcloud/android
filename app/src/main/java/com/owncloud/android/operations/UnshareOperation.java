@@ -27,7 +27,6 @@ import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
-import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -103,16 +102,13 @@ public class UnshareOperation extends SyncOperation {
                 DecryptedFolderMetadataFile newMetadata = encryptionUtilsV2.removeShareeFromMetadata(metadata,
                                                                                                      share.getShareWith());
 
-                EncryptedFolderMetadataFile encryptedFolderMetadata = encryptionUtilsV2.encryptFolderMetadataFile(newMetadata);
-                String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
-
                 // upload metadata
                 try {
-                    EncryptionUtils.uploadMetadata(file,
-                                                   serializedFolderMetadata,
-                                                   token,
-                                                   client,
-                                                   true);
+                    encryptionUtilsV2.serializeAndUploadMetadata(file,
+                                                                 newMetadata,
+                                                                 token,
+                                                                 client,
+                                                                 true);
                 } catch (UploadException e) {
                     return new RemoteOperationResult(new RuntimeException("Upload of metadata failed!"));
                 }

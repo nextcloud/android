@@ -29,6 +29,6 @@ data class DecryptedMetadata(
     val deleted: Boolean = false,
     val counter: Int = 0,
     val folders: Map<String, String> = mapOf(),
-    val files: Map<String, DecryptedFile> = mapOf(),
+    val files: MutableMap<String, DecryptedFile> = mutableMapOf(),
     var metadataKey: String = EncryptionUtils.generateKeyString()
 )

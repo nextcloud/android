@@ -104,10 +104,10 @@ public class RemoveFileOperation extends SyncOperation {
             if (fileToRemove.isEncrypted()) {
                 OCFile parent = getStorageManager().getFileByPath(fileToRemove.getParentRemotePath());
                 operation = new RemoveRemoteEncryptedFileOperation(fileToRemove.getRemotePath(),
-                                                                   parent.getLocalId(),
                                                                    user,
                                                                    context,
-                                                                   fileToRemove.getEncryptedFileName());
+                                                                   fileToRemove.getEncryptedFileName(),
+                                                                   parent);
             } else {
                 operation = new RemoveFileRemoteOperation(fileToRemove.getRemotePath());
             }

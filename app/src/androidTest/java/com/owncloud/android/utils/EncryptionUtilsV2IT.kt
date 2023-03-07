@@ -24,6 +24,7 @@ package com.owncloud.android.utils
 
 import com.nextcloud.client.account.MockUser
 import com.nextcloud.common.User
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.e2e.v1.decrypted.Data
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
@@ -152,7 +153,7 @@ class EncryptionUtilsV2IT {
                 Pair(EncryptionUtils.generateUid(), "Folder 2"),
                 Pair(EncryptionUtils.generateUid(), "Folder 3")
             ),
-            mapOf(
+            mutableMapOf(
                 Pair(
                     EncryptionUtils.generateUid(),
                     DecryptedFile(
@@ -211,12 +212,51 @@ class EncryptionUtilsV2IT {
 
     @Test
     fun addFile() {
-        throw NotImplementedError()
+        val encryptionUtilsV2 = EncryptionUtilsV2()
+
+        val enc1 = MockUser("enc1", "Nextcloud")
+        val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
+        assertEquals(2, metadataFile.metadata.files.size)
+
+        val updatedMetadata = encryptionUtilsV2.addFileToMetadata(
+            EncryptionUtils.generateUid(),
+            OCFile("/test.jpg").apply {
+                mimeType = MimeType.JPEG
+            },
+            EncryptionUtils.generateIV(),
+            EncryptionUtils.generateUid(), // random string, not real tag,
+            EncryptionUtils.generateKey(),
+            metadataFile
+        )
+
+        assertEquals(3, updatedMetadata.metadata.files.size)
     }
 
     @Test
     fun removeFile() {
-        throw NotImplementedError()
+        val encryptionUtilsV2 = EncryptionUtilsV2()
+
+        val enc1 = MockUser("enc1", "Nextcloud")
+        val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
+        assertEquals(2, metadataFile.metadata.files.size)
+
+        val filename = metadataFile.metadata.files.keys.first()
+
+        encryptionUtilsV2.removeFileFromMetadata(filename, metadataFile)
+
+        assertEquals(1, metadataFile.metadata.files.size)
+    }
+
+    @Test
+    fun renameFile() {
+        val encryptionUtilsV2 = EncryptionUtilsV2()
+
+        val enc1 = MockUser("enc1", "Nextcloud")
+        val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
+        assertEquals(2, metadataFile.metadata.files.size)
+
+        val key = metadataFile.metadata.files.keys.first()
+        val decryptedFile = metadataFile.metadata.files[key]
     }
 
     @Test
@@ -229,15 +269,6 @@ class EncryptionUtilsV2IT {
         throw NotImplementedError()
     }
 
-    @Test
-    fun renameFile() {
-        throw NotImplementedError()
-    }
-
-    @Test
-    fun updateFile() {
-        throw NotImplementedError()
-    }
 
     @Test
     fun signMetadata() {
@@ -356,7 +387,7 @@ class EncryptionUtilsV2IT {
                 Pair(EncryptionUtils.generateUid(), "Folder 2"),
                 Pair(EncryptionUtils.generateUid(), "Folder 3")
             ),
-            mapOf(
+            mutableMapOf(
                 Pair(
                     EncryptionUtils.generateUid(),
                     DecryptedFile(
