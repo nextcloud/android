@@ -277,6 +277,7 @@
     <string name="error_report_issue_text">Reportar problema ao rastreador? (requer uma conta GitHub)</string>
     <string name="error_retrieving_file">Erro ao recuperar o arquivo</string>
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
+    <string name="error_showing_encryption_dialog">Erro ao mostrar o diálogo de configuração de criptografia!</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
     <string name="error_starting_doc_scan">Erro ao iniciar a digitalização do documento</string>
     <string name="error_starting_scan_doc">Erro ao usar a digitalização de documentos</string>
