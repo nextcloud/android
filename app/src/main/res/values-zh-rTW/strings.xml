@@ -32,6 +32,7 @@
     <string name="activity_icon">活動</string>
     <string name="add_another_public_share_link">加入另一個連結</string>
     <string name="add_new_public_share">增加一個新的公開連結</string>
+    <string name="add_new_secure_file_drop">新增安全檔案投放</string>
     <string name="add_to_cloud">新增到 %1$s </string>
     <string name="advanced_settings">進階設定</string>
     <string name="allow_resharing">允許轉貼分享</string>
@@ -209,8 +210,15 @@
     <string name="dismiss_notification_description">清除通知</string>
     <string name="displays_mnemonic">顯示您的 12 字通關密語</string>
     <string name="dnd">請勿打擾</string>
+    <string name="document_scan_export_dialog_images">多重影像</string>
+    <string name="document_scan_export_dialog_pdf">PDF 檔案</string>
+    <string name="document_scan_export_dialog_title">選擇匯出類型</string>
+    <string name="document_scan_pdf_generation_failed">PDF 產生失敗</string>
+    <string name="document_scan_pdf_generation_in_progress">正在產生 PDF……</string>
     <string name="done">完成</string>
     <string name="dontClear">不要清空</string>
+    <string name="download_cannot_create_file">無法建立本機檔案</string>
+    <string name="download_download_invalid_local_file_name">本機檔案有無效的檔案名稱</string>
     <string name="download_latest_dev_version">下載最新開發的版本</string>
     <string name="downloader_download_failed_content">下載 %1$s 無法完成 </string>
     <string name="downloader_download_failed_credentials_error">下載失敗，再重新登入</string>
@@ -271,8 +279,9 @@
     <string name="error_report_issue_text">要回報議題至追蹤程式？（需要 GitHub 帳號）</string>
     <string name="error_retrieving_file">擷取檔案時發生錯誤</string>
     <string name="error_retrieving_templates">擷取範本時發生錯誤</string>
-    <string name="error_showing_encryption_dialog">顯示設定加密對話方塊時發生錯誤！</string>
+    <string name="error_showing_encryption_dialog">顯示加密設定對話方塊時發生錯誤！</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
+    <string name="error_starting_doc_scan">開始文件掃描時發生錯誤</string>
     <string name="error_starting_scan_doc">使用文件掃描時發生錯誤</string>
     <string name="etm_accounts">帳戶</string>
     <string name="etm_background_job_name">工作名稱</string>
@@ -624,6 +633,7 @@
     <string name="retrieving_file">正在擷取檔案……</string>
     <string name="richdocuments_failed_to_load_document">載入文件失敗！</string>
     <string name="scanQR_description">透過 QR Code 登入</string>
+    <string name="scan_page">掃描頁面</string>
     <string name="screenshot_01_gridView_heading">保護您的資料</string>
     <string name="screenshot_01_gridView_subline">自建且具生產力</string>
     <string name="screenshot_02_listView_heading">瀏覽與分享</string>
@@ -674,7 +684,8 @@
     <string name="share_no_password_title">設定密碼</string>
     <string name="share_password_title">受密碼保護</string>
     <string name="share_permission_can_edit">可以編輯</string>
-    <string name="share_permission_file_drop">檔案投遞</string>
+    <string name="share_permission_file_drop">檔案投放</string>
+    <string name="share_permission_secure_file_drop">安全檔案投放</string>
     <string name="share_permission_view_only">僅檢視</string>
     <string name="share_permissions">分享權限</string>
     <string name="share_remote_clarification">%1$s（遠端）</string>

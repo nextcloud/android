@@ -1,11 +1,11 @@
 buildscript {
     ext {
-        androidPluginVersion = '7.4.0'
-        appCompatVersion = '1.6.0'
+        androidPluginVersion = '7.4.2'
+        appCompatVersion = '1.6.1'
         jacoco_version = '0.8.8'
         kotlin_version = '1.7.22'
         androidxTestVersion = "1.4.0"
-        daggerVersion = "2.44.2"
+        daggerVersion = "2.45"
         markwonVersion = "4.6.2"
         prismVersion = "2.0.0"
         androidLibraryVersion = "master-SNAPSHOT"
@@ -13,10 +13,10 @@ buildscript {
         mockitoKotlinVersion = "4.1.0"
         mockkVersion = "1.13.3"
         espressoVersion = "3.5.1"
-        workRuntime = "2.7.1"
+        workRuntime = "2.8.0"
         fidoVersion = "4.1.0-patch1"
         checkerVersion = "3.21.2"
-        exoplayerVersion = "2.18.1"
+        exoplayerVersion = "2.18.4"
         documentScannerVersion = "1.0.1"
         roomVersion = "2.5.0"
 

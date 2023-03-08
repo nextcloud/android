@@ -32,6 +32,7 @@
     <string name="activity_icon">Aktywność</string>
     <string name="add_another_public_share_link">Dodaj kolejny link</string>
     <string name="add_new_public_share">Dodaj nowy link publiczny do udostępnienia</string>
+    <string name="add_new_secure_file_drop">Dodaj nowe bezpieczne zrzuty plików</string>
     <string name="add_to_cloud">Dodaj do %1$s</string>
     <string name="advanced_settings">Ustawienia zaawansowane</string>
     <string name="allow_resharing">Zezwalaj na udostępnianie dalej</string>
@@ -209,8 +210,15 @@
     <string name="dismiss_notification_description">Odrzuć powiadomienie</string>
     <string name="displays_mnemonic">Wyświetla hasło składające się z 12-stu słów</string>
     <string name="dnd">Nie przeszkadzać</string>
+    <string name="document_scan_export_dialog_images">Wiele obrazów</string>
+    <string name="document_scan_export_dialog_pdf">Plik PDF</string>
+    <string name="document_scan_export_dialog_title">Wybierz typ eksportu</string>
+    <string name="document_scan_pdf_generation_failed">Generowanie pliku PDF nie powiodło się</string>
+    <string name="document_scan_pdf_generation_in_progress">Generowanie pliku PDF…</string>
     <string name="done">Zrobione</string>
     <string name="dontClear">Nie czyść</string>
+    <string name="download_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
+    <string name="download_download_invalid_local_file_name">Nieprawidłowa nazwa pliku lokalnego</string>
     <string name="download_latest_dev_version">Pobierz najnowszą wersję dev</string>
     <string name="downloader_download_failed_content">Nie udało się pobrać %1$s</string>
     <string name="downloader_download_failed_credentials_error">Pobieranie nieudane, zaloguj się ponownie</string>
@@ -248,9 +256,9 @@
     <string name="end_to_end_encryption_enter_password">Wprowadź hasło, aby odszyfrować klucz prywatny.</string>
     <string name="end_to_end_encryption_folder_not_empty">Ten katalog nie jest pusty.</string>
     <string name="end_to_end_encryption_generating_keys">Generowanie nowych kluczy</string>
-    <string name="end_to_end_encryption_keywords_description">Wszystkie 12-stu słów utworzy bardzo trudne hasło, które pozwoli na przeglądanie i korzystanie z zaszyfrowanych plików. Zapisz je i przechowuj w bezpiecznym miejscu.</string>
+    <string name="end_to_end_encryption_keywords_description">Wszystkie 12-ście słów utworzy bardzo trudne hasło, które pozwoli na przeglądanie i korzystanie z zaszyfrowanych plików. Zapisz je i przechowuj w bezpiecznym miejscu.</string>
     <string name="end_to_end_encryption_not_enabled">Szyfrowanie End-to-End wyłączone po stronie serwera.</string>
-    <string name="end_to_end_encryption_passphrase_title">Zapisz swoje hasło do szyfrowania składające się z 12-stu słów</string>
+    <string name="end_to_end_encryption_passphrase_title">Zapisz swoje hasło do szyfrowania z 12-stu słów</string>
     <string name="end_to_end_encryption_password">Hasło…</string>
     <string name="end_to_end_encryption_retrieving_keys">Pobieranie kluczy…</string>
     <string name="end_to_end_encryption_storing_keys">Przechowywanie kluczy</string>
@@ -273,6 +281,7 @@
     <string name="error_retrieving_templates">Błąd podczas pobierania szablonów</string>
     <string name="error_showing_encryption_dialog">Błąd podczas wyświetlania okna dialogowego konfiguracji szyfrowania!</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania aparatu</string>
+    <string name="error_starting_doc_scan">Błąd podczas uruchamiania skanowania dokumentu</string>
     <string name="error_starting_scan_doc">Błąd podczas skanowania dokumentów</string>
     <string name="etm_accounts">Konta</string>
     <string name="etm_background_job_name">Nazwa zadania</string>
@@ -624,6 +633,7 @@
     <string name="retrieving_file">Pobieranie pliku…</string>
     <string name="richdocuments_failed_to_load_document">Nie udało się pobrać dokumentu</string>
     <string name="scanQR_description">Zaloguj się za pomocą kodu QR</string>
+    <string name="scan_page">Zeskanuj stronę</string>
     <string name="screenshot_01_gridView_heading">Ochrona Twoich danych</string>
     <string name="screenshot_01_gridView_subline">oprogramowanie biurowe uruchamiane na własnym hostingu</string>
     <string name="screenshot_02_listView_heading">Przeglądaj i udostępniaj</string>
@@ -675,6 +685,7 @@
     <string name="share_password_title">Zabezpieczone hasłem</string>
     <string name="share_permission_can_edit">Może edytować</string>
     <string name="share_permission_file_drop">Upuść plik</string>
+    <string name="share_permission_secure_file_drop">Bezpieczne upuszczenie pliku</string>
     <string name="share_permission_view_only">Tylko podgląd</string>
     <string name="share_permissions">Uprawnienia udostępniania</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>

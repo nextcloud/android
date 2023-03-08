@@ -62,8 +62,8 @@
     <string name="auth_trying_to_login">Prøver å logge inn…</string>
     <string name="auth_unauthorized">Feil brukernavn eller passord</string>
     <string name="auth_unknown_error_exception_title">Ukjent feil: %1$s</string>
-    <string name="auth_unknown_error_http_title">Ukjent HTTP feil oppstod!</string>
-    <string name="auth_unknown_error_title">Ukjent feil oppstod!</string>
+    <string name="auth_unknown_error_http_title">Ukjent HTTP feil oppsto!</string>
+    <string name="auth_unknown_error_title">Ukjent feil oppsto!</string>
     <string name="auth_unknown_host_title">Fant ikke vert</string>
     <string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
     <string name="auth_wrong_connection_title">Klarte ikke å opprette tilkobling</string>
@@ -147,6 +147,7 @@
     <string name="community_testing_report_text">Rapporter en feil på GitHub</string>
     <string name="community_testing_version_text">Interessert i å prøve ut det som kommer til å bli neste versjon?</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurer</string>
+    <string name="confirm_removal">Fjern lokal kryptering</string>
     <string name="confirmation_remove_file_alert">Ønsker du virkelig å slette %1$s?</string>
     <string name="confirmation_remove_files_alert">Vil du virkelig fjerne de valgte elementene?</string>
     <string name="confirmation_remove_folder_alert">Ønsker du virkelig å slette %1$s og dets innhold?</string>
@@ -166,7 +167,7 @@
     <string name="contacts_preferences_no_file_found">Ingen fil funnet</string>
     <string name="contacts_preferences_something_strange_happened">Fant ikke siste sikkerhetskopi.</string>
     <string name="copied_to_clipboard">Kopiert til utklippstavlen</string>
-    <string name="copy_file_error">En feil oppstod ved kopiering av denne filen eller mappen</string>
+    <string name="copy_file_error">En feil oppsto ved kopiering av denne filen eller mappen</string>
     <string name="copy_file_invalid_into_descendent">Det er ikke mulig å kopiere en mappe inn i sin egen undermappe</string>
     <string name="copy_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
     <string name="copy_file_not_found">Kan ikke kopiere. Sjekk om filen eksisterer.</string>
@@ -206,9 +207,16 @@
     <string name="disable_new_media_folder_detection_notifications">Deaktiver</string>
     <string name="dismiss">Forkast</string>
     <string name="dismiss_notification_description">Ingen varsel</string>
+    <string name="displays_mnemonic">Viser ditt 12-ords-krypteringspassord</string>
     <string name="dnd">Ikke forstyrr</string>
+    <string name="document_scan_export_dialog_images">Flere bilder</string>
+    <string name="document_scan_export_dialog_pdf">PDF-fil</string>
+    <string name="document_scan_export_dialog_title">Velg eksport-type</string>
+    <string name="document_scan_pdf_generation_failed">PDF-generering feilet</string>
+    <string name="document_scan_pdf_generation_in_progress">Generer PDF...</string>
     <string name="done">Ferdig</string>
     <string name="dontClear">Ikke fjern</string>
+    <string name="download_cannot_create_file">Kan ikke opprette lokal fil</string>
     <string name="download_latest_dev_version">Last ned det nyeste dev versjon</string>
     <string name="downloader_download_failed_content">Kunne ikke laste ned %1$s</string>
     <string name="downloader_download_failed_credentials_error">Nedlasting mislyktes, prøv igjen</string>
@@ -248,7 +256,7 @@
     <string name="end_to_end_encryption_generating_keys">Genererer nye nøkler…</string>
     <string name="end_to_end_encryption_keywords_description">Alle 12 ordene sammen utgjør et veldig sterkt passord, som lar bare deg vise og gjøre bruk av dine krypterte filer. Skriv det ned og oppbevar det på en trygg plass.</string>
     <string name="end_to_end_encryption_not_enabled">Ende-til-ende -kryptering avskrudd på serveren.</string>
-    <string name="end_to_end_encryption_passphrase_title">Merk deg dit 12-ords-krypteringspassord</string>
+    <string name="end_to_end_encryption_passphrase_title">Merk deg ditt 12-ords-krypteringspassord</string>
     <string name="end_to_end_encryption_password">Passord…</string>
     <string name="end_to_end_encryption_retrieving_keys">Henter nøkler…</string>
     <string name="end_to_end_encryption_storing_keys">Lagrer nøkler</string>
@@ -263,12 +271,14 @@
     <string name="error_comment_file">Feil ved kommentering av fil</string>
     <string name="error_crash_title">%1$s kræsjet</string>
     <string name="error_creating_file_from_template">Feil ved oppretting av fil fra mal</string>
+    <string name="error_file_actions">Feil under visning av filvalg</string>
     <string name="error_file_lock">Feil ved endring av fillåsstatus</string>
     <string name="error_report_issue_action">Rapporter</string>
     <string name="error_report_issue_text">Rapporter feil? (Krever GitHub konto.)</string>
-    <string name="error_retrieving_file">Oppstod feil med å få tilbake filen</string>
+    <string name="error_retrieving_file">Oppsto feil med å få tilbake filen</string>
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
+    <string name="error_starting_doc_scan">Feil ved start av dokumentskanning</string>
     <string name="error_starting_scan_doc">Feil ved bruk av dokument skanning</string>
     <string name="etm_accounts">Kontoer</string>
     <string name="etm_background_job_name">Jobbnavn</string>
@@ -454,7 +464,7 @@
     <string name="menu_item_sort_by_size_biggest_first">Største først</string>
     <string name="menu_item_sort_by_size_smallest_first">Minste først</string>
     <string name="more">Mer</string>
-    <string name="move_file_error">En feil oppstod ved flytting av denne filen eller mappen</string>
+    <string name="move_file_error">En feil oppsto ved flytting av denne filen eller mappen</string>
     <string name="move_file_invalid_into_descendent">Det er ikke mulig å flytte en mappe inn i sin egen undermappe</string>
     <string name="move_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
     <string name="move_file_not_found">Kan ikke flytte filen. Sjekk om den eksisterer.</string>
@@ -517,13 +527,15 @@
     <string name="permission_deny">ikke tillatt</string>
     <string name="permission_storage_access">Flere tillatelser trengs for å laste opp og ned filer.</string>
     <string name="picture_set_as_no_app">Fant ikke noe app å sette bilde med.</string>
+    <string name="pin_home">Fest til hjemmeskjermen</string>
+    <string name="pin_shortcut_label">Åpne %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">plassholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Dette er en plassholder</string>
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="player_stop">stopp</string>
-    <string name="player_toggle">veksle</string>
+    <string name="player_toggle">av/på</string>
     <string name="power_save_check_dialog_message">Deaktivering av strømsparingsmodus vil resultere til at filene blir lastet selv om det er lavt batteri!</string>
     <string name="pref_behaviour_entries_delete_file">slettet</string>
     <string name="pref_behaviour_entries_keep_file">beholdt i opprinnelig mappe</string>
@@ -546,6 +558,8 @@
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_daily_backup_summary">Daglig backup av din kaleder &amp; kontakter</string>
+    <string name="prefs_davx5_setup_error">Uventet feil under oppsett av DAVx5 (tidligere kjent som DAVdroid)</string>
+    <string name="prefs_e2e_active">Ende-til-ende -kryptering er satt opp!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic (hjelper for ende-til-ende kryptering til å huske legitimasjon)</string>
     <string name="prefs_e2e_no_device_credentials">For å vise mnemonic, ver vennlig å aktiver enhet legitimasjon.</string>
     <string name="prefs_enable_media_scan_notifications">Vis mediaskannvarsler</string>
@@ -557,6 +571,7 @@
     <string name="prefs_instant_behaviour_title">Opprinnelig fil vil bli…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Lagre filer i undermapper basert på år og måned</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Bruk undermapper</string>
+    <string name="prefs_keys_exist">Legg til ende-til-ende -kryptering på denne klienten</string>
     <string name="prefs_license">Lisens</string>
     <string name="prefs_lock">Appsikkerhet</string>
     <string name="prefs_lock_device_credentials_enabled">Enhetens legitimasjon er aktivert</string>
@@ -567,6 +582,8 @@
     <string name="prefs_lock_using_passcode">Passord</string>
     <string name="prefs_manage_accounts">Håndter kontoer</string>
     <string name="prefs_recommend">Anbefal til en venn</string>
+    <string name="prefs_remove_e2e">Fjern kryptering lokalt</string>
+    <string name="prefs_setup_e2e">Sett opp ende-til-ende -kryptering</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_sourcecode">Hent kildekode</string>
     <string name="prefs_storage_path">Datalagringsmappe</string>
@@ -594,6 +611,8 @@
     <string name="reload">Last inn på nytt</string>
     <string name="remote">(ekstern)</string>
     <string name="remote_file_fetch_failed">Kunne ikke finne filen!</string>
+    <string name="remove_e2e">Du kan fjerne ende-til-ende -kryptering lokalt på denne klienten</string>
+    <string name="remove_e2e_message">Du kan fjerne ende-til-ende -kryptering lokalt på denne klienten. De krypterte filene vil forbli på serveren, men vil ikke bli synkronisert til denne maskinen lengre.</string>
     <string name="remove_fail_msg">Sletting mislyktes</string>
     <string name="remove_notification_failed">Kunne ikke fjerne meldingen.</string>
     <string name="remove_push_notification">Fjern</string>
@@ -611,6 +630,7 @@
     <string name="retrieving_file">Får tilbake fil</string>
     <string name="richdocuments_failed_to_load_document">Feil i lasting av dokument!</string>
     <string name="scanQR_description">Legg inn med QR-kode</string>
+    <string name="scan_page">Skann side</string>
     <string name="screenshot_01_gridView_heading">Beskytter din data</string>
     <string name="screenshot_01_gridView_subline">produktivitet på egen tjener</string>
     <string name="screenshot_02_listView_heading">Bla gjennom og del</string>
@@ -637,6 +657,7 @@
     <string name="set_picture_as">Bruk bilde som</string>
     <string name="set_status">Velg status</string>
     <string name="set_status_message">Velg statusmelding</string>
+    <string name="setup_e2e">Under oppsett av ende-til-ende -kryptering så vil du motta et tilfeldig 12-ord-krypteringspassord, som du vil trenge for å få åpner filene dine på andre enheter. Dette vil bare bli lagret på denne enheten. og kan bli vist igjen på denne siden. Vennligst noter det ned på et sikkert sted!</string>
     <string name="share">Del</string>
     <string name="share_copy_link">Del &amp; kopier lenke</string>
     <string name="share_dialog_title">Deling</string>
@@ -648,7 +669,7 @@
     <string name="share_internal_link_to_file_text">Intern dele-link virker bare for brukere med tilgang til til denne filen</string>
     <string name="share_internal_link_to_folder_text">Intern dele-link virker bare for brukere med tilgang til til denne mappen</string>
     <string name="share_known_remote_on_clarification">på %1$s</string>
-    <string name="share_link">Share link</string>
+    <string name="share_link">Del lenke</string>
     <string name="share_link_empty_password">Du må skrive inn ett passord</string>
     <string name="share_link_file_error">Det skjedde en feil under deling av denne filen eller mappen.</string>
     <string name="share_link_file_no_exist">Kan ikke dele. Sjekk om filen eksisterer.</string>
@@ -660,7 +681,8 @@
     <string name="share_no_password_title">Velg passord</string>
     <string name="share_password_title">Passordbeskyttet</string>
     <string name="share_permission_can_edit">Kan endre</string>
-    <string name="share_permission_file_drop">Fil mottak</string>
+    <string name="share_permission_file_drop">Filkasse</string>
+    <string name="share_permission_secure_file_drop">Sikker filkasse</string>
     <string name="share_permission_view_only">Kun se</string>
     <string name="share_permissions">Rettigheter for deling</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
@@ -679,7 +701,7 @@
     <string name="shared_icon_shared">delt</string>
     <string name="shared_icon_shared_via_link">del via lenke</string>
     <string name="shared_with_you_by">Delt med deg av %1$s</string>
-    <string name="sharee_add_failed">Adding sharee failed</string>
+    <string name="sharee_add_failed">Deling feilet</string>
     <string name="show_images">Vis bilder</string>
     <string name="show_video">Vis videoer</string>
     <string name="signup_with_provider">Logg på med tilbyder</string>
@@ -788,12 +810,12 @@
     <string name="unread_comments">Det er uleste kommentarer</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
     <string name="unset_favorite">Fjern fra favoritter</string>
-    <string name="unshare_link_file_error">Det oppstod en feil under oppheving av deling av denne filen eller mappen.</string>
+    <string name="unshare_link_file_error">Det oppsto en feil under oppheving av deling av denne filen eller mappen.</string>
     <string name="unshare_link_file_no_exist">Kan ikke oppheve deling. Sjekk om filen eksisterer.</string>
     <string name="unshare_link_forbidden_permissions">å oppheve deling av denne filen</string>
     <string name="unsharing_failed">Fjerning av deling feilet</string>
     <string name="untrusted_domain">Tilgang gjennom ubetrodd domene. Sjekk dokumentasjonen for mer informasjon.</string>
-    <string name="update_link_file_error">Det oppstod en feil under oppdatering av delingen.</string>
+    <string name="update_link_file_error">Det oppsto en feil under oppdatering av delingen.</string>
     <string name="update_link_file_no_exist">Kan ikke oppdatere. Sjekk om filen eksisterer.</string>
     <string name="update_link_forbidden_permissions">å oppdatere denne delingen</string>
     <string name="updating_share_failed">Oppdatering av deling feilet</string>
@@ -922,6 +944,18 @@
     <plurals name="export_successful">
         <item quantity="one">Eksporterte %d fil</item>
         <item quantity="other">Eksporterte %d filer</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Eksportering av %d fil feilet</item>
+        <item quantity="other">Eksportering av %d filer feilet</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Eksporterte %d fil, hoppet over resten på grunn av feil</item>
+        <item quantity="other">Eksporterte %d filer, hoppet over resten på grunn av feil</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%d fil vil bli eksportert. Se varsel for detaljer</item>
+        <item quantity="other">%d filer vil bli eksportert. Se varsel for detaljer</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$dmappe</item>

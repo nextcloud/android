@@ -104,20 +104,20 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
         assertTrue(new UploadFileRemoteOperation(getDummyFile("chunkedFile.txt").getAbsolutePath(),
                                                  "/1/1/chunkedFile.txt",
                                                  "text/plain",
-                                                 String.valueOf(System.currentTimeMillis() / 1000))
+                                                 System.currentTimeMillis() / 1000)
                        .execute(client).isSuccess());
 
         assertTrue(new UploadFileRemoteOperation(getDummyFile("chunkedFile.txt").getAbsolutePath(),
                                                  "/1/1/chunkedFile2.txt",
                                                  "text/plain",
-                                                 String.valueOf(System.currentTimeMillis() / 1000))
+                                                 System.currentTimeMillis() / 1000)
                        .execute(client).isSuccess());
 
         File imageFile = getFile("imageFile.png");
         assertTrue(new UploadFileRemoteOperation(imageFile.getAbsolutePath(),
                                                  "/1/1/imageFile.png",
                                                  "image/png",
-                                                 String.valueOf(System.currentTimeMillis() / 1000))
+                                                 System.currentTimeMillis() / 1000)
                        .execute(client).isSuccess());
 
         // sync
@@ -166,7 +166,7 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
         assertTrue(new UploadFileRemoteOperation(imageFile.getAbsolutePath(),
                                                  remotePath,
                                                  "image/png",
-                                                 String.valueOf(System.currentTimeMillis() / 1000))
+                                                 System.currentTimeMillis() / 1000)
                        .execute(client).isSuccess());
 
         assertNull(sut.getFileByDecryptedRemotePath(remotePath));
@@ -240,7 +240,7 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
         assertTrue(new UploadFileRemoteOperation(imageFile.getAbsolutePath(),
                                                  imagePath,
                                                  "image/png",
-                                                 String.valueOf((System.currentTimeMillis() - 10000) / 1000))
+                                                 (System.currentTimeMillis() - 10000) / 1000)
                        .execute(client).isSuccess());
 
         // Check that file does not yet exist in local database
@@ -251,7 +251,7 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
         assertTrue(new UploadFileRemoteOperation(videoFile.getAbsolutePath(),
                                                  videoPath,
                                                  "video/mpeg",
-                                                 String.valueOf((System.currentTimeMillis() + 10000) / 1000))
+                                                 (System.currentTimeMillis() + 10000) / 1000)
                        .execute(client).isSuccess());
 
         // Check that file does not yet exist in local database

@@ -30,9 +30,14 @@ public class EncryptedFolderMetadata {
     private DecryptedFolderMetadata.Metadata metadata;
     private Map<String, EncryptedFile> files;
 
-    public EncryptedFolderMetadata(DecryptedFolderMetadata.Metadata metadata, Map<String, EncryptedFile> files) {
+    private Map<String, EncryptedFile> filedrop;
+
+    public EncryptedFolderMetadata(DecryptedFolderMetadata.Metadata metadata,
+                                   Map<String, EncryptedFile> files,
+                                   Map<String, EncryptedFile> filesdrop) {
         this.metadata = metadata;
         this.files = files;
+        this.filedrop = filesdrop;
     }
 
     public DecryptedFolderMetadata.Metadata getMetadata() {
@@ -40,7 +45,11 @@ public class EncryptedFolderMetadata {
     }
 
     public Map<String, EncryptedFile> getFiles() {
-        return this.files;
+        return files;
+    }
+
+    public Map<String, EncryptedFile> getFiledrop() {
+        return filedrop;
     }
 
     public void setMetadata(DecryptedFolderMetadata.Metadata metadata) {
@@ -58,19 +67,19 @@ public class EncryptedFolderMetadata {
         private int metadataKey;
 
         public String getEncrypted() {
-            return this.encrypted;
+            return encrypted;
         }
 
         public String getInitializationVector() {
-            return this.initializationVector;
+            return initializationVector;
         }
 
         public String getAuthenticationTag() {
-            return this.authenticationTag;
+            return authenticationTag;
         }
 
         public int getMetadataKey() {
-            return this.metadataKey;
+            return metadataKey;
         }
 
         public void setEncrypted(String encrypted) {

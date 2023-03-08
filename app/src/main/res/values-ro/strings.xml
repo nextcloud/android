@@ -211,6 +211,7 @@
     <string name="dnd">Nu deranja</string>
     <string name="done">Realizat</string>
     <string name="dontClear">Nu curăța</string>
+    <string name="download_cannot_create_file">Nu se poate creea un fisier local</string>
     <string name="download_latest_dev_version">Descarcă ultima versiune dezvoltator</string>
     <string name="downloader_download_failed_content">Nu s-a putut descărca %1$s</string>
     <string name="downloader_download_failed_credentials_error">Descărcarea a eșuat, autentificați-vă din nou</string>

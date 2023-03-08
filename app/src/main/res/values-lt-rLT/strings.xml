@@ -205,6 +205,7 @@
     <string name="dnd">Netrukdyti</string>
     <string name="done">Atlikta</string>
     <string name="dontClear">Neišvalyti</string>
+    <string name="download_cannot_create_file">Nepavyksta sukurti vietinį failą</string>
     <string name="download_latest_dev_version">Parsisiųsti naujausią dev versiją</string>
     <string name="downloader_download_failed_content">Nepavyko atsisiųsti %1$s</string>
     <string name="downloader_download_failed_credentials_error">Atsiuntimas nepavyko, prisijunkite dar kartą</string>

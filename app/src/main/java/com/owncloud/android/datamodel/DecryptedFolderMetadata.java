@@ -24,12 +24,16 @@ package com.owncloud.android.datamodel;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.VisibleForTesting;
+
 /**
  * Decrypted class representation of metadata json of folder metadata.
  */
 public class DecryptedFolderMetadata {
     private Metadata metadata;
     private Map<String, DecryptedFile> files;
+
+    private Map<String, DecryptedFile> filedrop;
 
     public DecryptedFolderMetadata() {
         this.metadata = new Metadata();
@@ -55,6 +59,15 @@ public class DecryptedFolderMetadata {
 
     public void setFiles(Map<String, DecryptedFile> files) {
         this.files = files;
+    }
+
+    @VisibleForTesting
+    public void setFiledrop(Map<String, DecryptedFile> filedrop) {
+        this.filedrop = filedrop;
+    }
+
+    public Map<String, DecryptedFile> getFiledrop() {
+        return filedrop;
     }
 
     public static class Metadata {

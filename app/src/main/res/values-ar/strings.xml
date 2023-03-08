@@ -206,6 +206,7 @@
     <string name="dnd">عدم الإزعاج</string>
     <string name="done">أُنجز</string>
     <string name="dontClear">غير واضح</string>
+    <string name="download_cannot_create_file">لا يمكن إنشاء ملف محلي</string>
     <string name="download_latest_dev_version">حمّل آخر إصدار الخاص بالمطورين</string>
     <string name="downloader_download_failed_content">تعذر تنزيل %1$s</string>
     <string name="downloader_download_failed_credentials_error">فشل التنزيل، قم بتسجيل الدخول مرة أخرى</string>

@@ -74,7 +74,7 @@ if git log --pretty='format:%an' HEAD "^$lastBuildTag" | grep -q dependabot; the
 fi
 
 # changelog
-echo "$changelog" > app/src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
+echo "$changelog" > src/versionDev/fastlane/metadata/android/en-US/changelogs/$date.txt
 
 git add .
 git commit -m "daily dev $date" -m "$changelog"

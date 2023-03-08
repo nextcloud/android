@@ -176,6 +176,7 @@
     <string name="dismiss">Hiq</string>
     <string name="dismiss_notification_description">Hiq lajmërimin</string>
     <string name="done">U krye</string>
+    <string name="download_cannot_create_file">Nuk mund të krijohet skedar lokal</string>
     <string name="download_latest_dev_version">Shkarkoni versionin më të fundit dev</string>
     <string name="downloader_download_failed_content">S\'mund të shkarkohej %1$s</string>
     <string name="downloader_download_failed_credentials_error">Shkarkimi dështoi, hyni përsëri</string>

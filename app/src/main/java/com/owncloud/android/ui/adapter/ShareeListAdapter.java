@@ -35,6 +35,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareInternalShareLinkBinding;
 import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
 import com.owncloud.android.databinding.FileDetailsSharePublicLinkAddNewItemBinding;
+import com.owncloud.android.databinding.FileDetailsShareSecureFileDropAddNewItemBinding;
 import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -62,19 +63,22 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final String userId;
     private final User user;
     private final ViewThemeUtils viewThemeUtils;
+    private final boolean encrypted;
 
     public ShareeListAdapter(FileActivity fileActivity,
                              List<OCShare> shares,
                              ShareeListAdapterListener listener,
                              String userId,
                              User user,
-                             final ViewThemeUtils viewThemeUtils) {
+                             final ViewThemeUtils viewThemeUtils,
+                             boolean encrypted) {
         this.fileActivity = fileActivity;
         this.shares = shares;
         this.listener = listener;
         this.userId = userId;
         this.user = user;
         this.viewThemeUtils = viewThemeUtils;
+        this.encrypted = encrypted;
 
         avatarRadiusDimension = fileActivity.getResources().getDimension(R.dimen.user_icon_radius);
 
@@ -99,11 +103,19 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     fileActivity,
                     viewThemeUtils);
             case NEW_PUBLIC_LINK:
-                return new NewLinkShareViewHolder(
-                    FileDetailsSharePublicLinkAddNewItemBinding.inflate(LayoutInflater.from(fileActivity),
-                                                                        parent,
-                                                                        false)
-                );
+                if (encrypted) {
+                    return new NewSecureFileDropViewHolder(
+                        FileDetailsShareSecureFileDropAddNewItemBinding.inflate(LayoutInflater.from(fileActivity),
+                                                                                parent,
+                                                                                false)
+                    );
+                } else {
+                    return new NewLinkShareViewHolder(
+                        FileDetailsSharePublicLinkAddNewItemBinding.inflate(LayoutInflater.from(fileActivity),
+                                                                            parent,
+                                                                            false)
+                    );
+                }
             case INTERNAL:
                 return new InternalShareViewHolder(
                     FileDetailsShareInternalShareLinkBinding.inflate(LayoutInflater.from(fileActivity), parent, false),
@@ -135,6 +147,9 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else if (holder instanceof NewLinkShareViewHolder) {
             NewLinkShareViewHolder newLinkShareViewHolder = (NewLinkShareViewHolder) holder;
             newLinkShareViewHolder.bind(listener);
+        } else if (holder instanceof NewSecureFileDropViewHolder) {
+            NewSecureFileDropViewHolder newSecureFileDropViewHolder = (NewSecureFileDropViewHolder) holder;
+            newSecureFileDropViewHolder.bind(listener);
         } else {
             ShareViewHolder userViewHolder = (ShareViewHolder) holder;
             userViewHolder.bind(share, listener, this, userId, avatarRadiusDimension);
@@ -202,9 +217,11 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         shares.addAll(users);
 
         // add internal share link at end
-        final OCShare ocShare = new OCShare();
-        ocShare.setShareType(ShareType.INTERNAL);
-        shares.add(ocShare);
+        if (!encrypted) {
+            final OCShare ocShare = new OCShare();
+            ocShare.setShareType(ShareType.INTERNAL);
+            shares.add(ocShare);
+        }
     }
 
     public List<OCShare> getShares() {
