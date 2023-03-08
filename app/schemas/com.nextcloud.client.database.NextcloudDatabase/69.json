@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 69,
-    "identityHash": "a1109dc4523fc0a958b4f482e691e808",
+    "identityHash": "a8d449e8a08677f013768a1eb607ec78",
     "entities": [
       {
         "tableName": "arbitrary_data",
@@ -34,10 +34,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -342,10 +342,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -398,10 +398,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -677,10 +677,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -739,10 +739,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -873,17 +873,17 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
       },
       {
         "tableName": "synced_folders",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `local_path` TEXT, `remote_path` TEXT, `wifi_only` INTEGER, `charging_only` INTEGER, `existing` INTEGER, `enabled` INTEGER, `enabled_timestamp_ms` INTEGER, `subfolder_by_date` INTEGER, `account` TEXT, `upload_option` INTEGER, `name_collision_policy` INTEGER, `upload_delay_time_ms` INTEGER, `type` INTEGER, `hidden` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `local_path` TEXT, `remote_path` TEXT, `wifi_only` INTEGER, `charging_only` INTEGER, `existing` INTEGER, `enabled` INTEGER, `enabled_timestamp_ms` INTEGER, `subfolder_by_date` INTEGER, `account` TEXT, `upload_option` INTEGER, `name_collision_policy` INTEGER, `upload_delay_time_ms` INTEGER NOT NULL DEFAULT 0, `type` INTEGER, `hidden` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -961,7 +961,8 @@
             "fieldPath": "uploadDelayTimeMs",
             "columnName": "upload_delay_time_ms",
             "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true,
+            "defaultValue": "0"
           },
           {
             "fieldPath": "type",
@@ -977,10 +978,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -1087,10 +1088,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -1119,10 +1120,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -1131,7 +1132,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a1109dc4523fc0a958b4f482e691e808')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a8d449e8a08677f013768a1eb607ec78')"
     ]
   }
 }
