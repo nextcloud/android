@@ -39,8 +39,8 @@ data class SyncedFolderEntity(
     val uploadAction: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY)
     val nameCollisionPolicy: Int?,
-    @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_UPLOAD_DELAY_TIME_MS)
-    val uploadDelayTimeMs: Int?,
+    @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_UPLOAD_DELAY_TIME_MS, defaultValue = "0")
+    val uploadDelayTimeMs: Long,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_TYPE)
     val type: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_HIDDEN)
