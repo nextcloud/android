@@ -33,7 +33,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.zip.CRC32;
 
@@ -74,22 +76,27 @@ public class FilesystemDataProvider {
         );
     }
 
-    public Set<String> getFilesForUpload(String localPath, String syncedFolderId, long uploadDelayTimeMs) {
+    public Set<String> getFilesForUpload(String localPath, String syncedFolderId, long minFileAge) {
         Set<String> localPathsToUpload = new HashSet<>();
 
+        String query = ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ? and " +
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ? and " +
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?";
         String likeParam = localPath + "%";
+        List<String> queryParams = Arrays.asList(likeParam, syncedFolderId, "0", "0");
 
-        long olderThanParam = (System.currentTimeMillis() - uploadDelayTimeMs) / 1000;
+        if (minFileAge > 0) {
+            query += " and " + ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED + " <= ?";
+            long olderThanParam = (System.currentTimeMillis() - minFileAge) / 1000;
+            queryParams.add(Long.toString(olderThanParam));
+        }
 
         Cursor cursor = contentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
                 null,
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ? and " +
-                        ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ? and " +
-                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
-                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ? and " +
-                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED + " <= ?",
-                new String[]{likeParam, syncedFolderId, "0", "0", Long.toString(olderThanParam)},
+                query,
+                queryParams.toArray(new String[0]),
                 null);
 
         if (cursor != null) {
