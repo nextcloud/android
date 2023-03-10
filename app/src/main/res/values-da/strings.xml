@@ -204,6 +204,8 @@
     <string name="dismiss">Afvis</string>
     <string name="dismiss_notification_description">Fjern notifikation</string>
     <string name="dnd">Forstyr ikke</string>
+    <string name="document_scan_export_dialog_pdf">PDF fil</string>
+    <string name="document_scan_pdf_generation_in_progress">Genererer PDF…</string>
     <string name="done">Færdig</string>
     <string name="dontClear">Ryd ikke</string>
     <string name="download_cannot_create_file">Kan ikke oprette filen lokalt</string>
@@ -585,6 +587,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="recommend_subject">Prøv %1$s på din enhed!</string>
     <string name="recommend_text">Jeg ønsker at invitere dig til at bruge %1$s på din smartphone!\nHent den her: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="refresh_content">Genopfrisk indhold</string>
     <string name="reload">Genindlæs</string>
     <string name="remote">(fjernt)</string>
     <string name="remote_file_fetch_failed">Kunne ikke finde fil!</string>
