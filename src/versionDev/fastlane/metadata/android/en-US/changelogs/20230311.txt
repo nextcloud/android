@@ -1,0 +1,4 @@
+Build(deps): Bump com.google.firebase:firebase-messaging
+Build(deps): Bump exoplayerVersion from 2.18.3 to 2.18.4
+Update Nextcloud Android library
+Update 3rd-party dependencies
