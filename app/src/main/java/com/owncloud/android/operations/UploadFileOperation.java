@@ -623,7 +623,10 @@ public class UploadFileOperation extends SyncOperation {
                                                              metadata,
                                                              token,
                                                              client,
-                                                             metadataExists);
+                                                             getStorageManager(),
+                                                             metadataExists,
+                                                             mContext,
+                                                             user);
 
                 // unlock
                 result = EncryptionUtils.unlockFolder(parentFile, client, token);

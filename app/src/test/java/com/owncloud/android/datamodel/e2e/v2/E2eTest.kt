@@ -22,6 +22,7 @@
 
 package com.owncloud.android.datamodel.e2e.v2
 
+import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.EncryptionUtilsV2
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
@@ -99,7 +100,11 @@ class E2eTest {
 
         """.trimIndent()
 
-        val gzipped = encryptionUtilsV2.gZipCompress(string)
+        val string2 = "this is a test."
+
+        val gzipped = encryptionUtilsV2.gZipCompress(string2)
+        val gzipBase64 = EncryptionUtils.encodeBytesToBase64String(gzipped)
+
         val result = encryptionUtilsV2.gZipDecompress(gzipped)
 
         assertEquals(string, result)

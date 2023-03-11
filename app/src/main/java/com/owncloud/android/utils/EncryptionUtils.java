@@ -301,7 +301,8 @@ public final class EncryptionUtils {
         return encryptionUtilsV2.parseAnyMetadata(serializedEncryptedMetadata,
                                                   user,
                                                   client,
-                                                  context);
+                                                  context,
+                                                  folder);
     }
 
     /*
@@ -584,12 +585,12 @@ public final class EncryptionUtils {
     /**
      * Encrypt string with AES/GCM/NoPadding
      *
-     * @param string             string to encrypt
+     * @param gzip               gzipped byte array
      * @param encryptionKeyBytes key from metadata
      * @return decrypted string
      */
     public static Triple<String, String, String> encryptStringSymmetricWithIVandAuthTag(
-        String string,
+        byte[] gzip,
         byte[] encryptionKeyBytes)
         throws NoSuchAlgorithmException,
         InvalidAlgorithmParameterException,
@@ -605,8 +606,7 @@ public final class EncryptionUtils {
         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
         cipher.init(Cipher.ENCRYPT_MODE, key, spec);
 
-        byte[] bytes = encodeStringToBase64Bytes(string);
-        byte[] cryptedBytes = cipher.doFinal(bytes);
+        byte[] cryptedBytes = cipher.doFinal(gzip);
 
         String encodedCryptedBytes = encodeBytesToBase64String(cryptedBytes);
         String encodedIV = encodeBytesToBase64String(iv);
@@ -629,7 +629,8 @@ public final class EncryptionUtils {
         throws NoSuchAlgorithmException,
         InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
         BadPaddingException, IllegalBlockSizeException {
-        return decryptStringSymmetric(string, encryptionKeyBytes, null);
+        byte[] decryptedBytes = decryptStringSymmetric(string, encryptionKeyBytes, null);
+        return decodeBase64BytesToString(decryptedBytes);
     }
 
     /**
@@ -640,7 +641,7 @@ public final class EncryptionUtils {
      * @param authenticationTag  auth tag to check
      * @return decrypted string
      */
-    public static String decryptStringSymmetric(String string,
+    public static byte[] decryptStringSymmetric(String string,
                                                 byte[] encryptionKeyBytes,
                                                 String authenticationTag)
         throws NoSuchAlgorithmException,
@@ -671,6 +672,12 @@ public final class EncryptionUtils {
 
         byte[] bytes = decodeStringToBase64Bytes(cipherString);
 
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) {
+            sb.append(String.format("%02X ", b));
+        }
+        String out = sb.toString();
+
         // check authentication tag
         if (authenticationTag != null) {
             byte[] authenticationTagBytes = decodeStringToBase64Bytes(authenticationTag);
@@ -685,7 +692,14 @@ public final class EncryptionUtils {
 
         byte[] encodedBytes = cipher.doFinal(bytes);
 
-        return decodeBase64BytesToString(encodedBytes);
+        StringBuilder sb2 = new StringBuilder();
+        for (byte b : encodedBytes) {
+            sb.append(String.format("%02X ", b));
+        }
+        String out2 = sb.toString();
+
+
+        return encodedBytes;
     }
 
     /**

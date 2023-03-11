@@ -166,7 +166,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             boolean metadataExists;
             if (metadata == null) {
                 String cert = EncryptionUtils.retrievePublicKeyForUser(user, context);
-                metadata = new DecryptedFolderMetadataFile();
+                metadata = new EncryptionUtilsV2().createDecryptedFolderMetadataFile();
                 metadata.getUsers().add(new DecryptedUser(client.getUserId(), cert));
 
                 metadataExists = false;
@@ -188,7 +188,10 @@ public class CreateShareWithShareeOperation extends SyncOperation {
                                                              newMetadata,
                                                              token,
                                                              client,
-                                                             metadataExists);
+                                                             getStorageManager(),
+                                                             metadataExists,
+                                                             context,
+                                                             user);
             } catch (UploadException e) {
                 return new RemoteOperationResult<>(new RuntimeException("Uploading metadata failed"));
             }

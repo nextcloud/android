@@ -24,7 +24,6 @@ import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
-import com.owncloud.android.utils.EncryptionUtils;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -36,15 +35,23 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
  */
 public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
     private final OCFile file;
+    private final OCFile parentFolder;
     private final User user;
+    private boolean showSharingTab;
 
     private FileDetailSharingFragment fileDetailSharingFragment;
     private FileDetailActivitiesFragment fileDetailActivitiesFragment;
 
-    public FileDetailTabAdapter(FragmentManager fm, OCFile file, User user) {
+    public FileDetailTabAdapter(FragmentManager fm,
+                                OCFile file,
+                                OCFile parentFolder,
+                                User user,
+                                boolean showSharingTab) {
         super(fm);
         this.file = file;
+        this.parentFolder = parentFolder;
         this.user = user;
+        this.showSharingTab = showSharingTab;
     }
 
     @NonNull
@@ -71,16 +78,10 @@ public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        if (file.isEncrypted()) {
-            if (EncryptionUtils.supportsSecureFiledrop(file, user)) {
-                return 2;
-            } else {
-                // sharing not allowed for encrypted files, thus only show first tab (activities)
-                return 1;
-            }
-        } else {
-            // unencrypted files/folders
+        if (showSharingTab) {
             return 2;
+        } else {
+            return 1;
         }
     }
 }

@@ -130,11 +130,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * @param user         Currently active user
      * @return New fragment with arguments set
      */
-    public static FileDetailFragment newInstance(OCFile fileToDetail, OCFile parentFile, User user) {
+    public static FileDetailFragment newInstance(OCFile fileToDetail, OCFile parentFolder, User user) {
         FileDetailFragment frag = new FileDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, fileToDetail);
-        args.putParcelable(ARG_PARENT_FOLDER, parentFile);
+        args.putParcelable(ARG_PARENT_FOLDER, parentFolder);
         args.putParcelable(ARG_USER, user);
         frag.setArguments(args);
         return frag;
@@ -275,13 +275,17 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities).setIcon(R.drawable.ic_activity));
 
 
-        if (!getFile().isEncrypted() || EncryptionUtils.supportsSecureFiledrop(getFile(), user)) {
+        if (showSharingTab()) {
             binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.shared_via_users));
         }
 
         viewThemeUtils.material.themeTabLayout(binding.tabLayout);
 
-        final FileDetailTabAdapter adapter = new FileDetailTabAdapter(getFragmentManager(), getFile(), user);
+        final FileDetailTabAdapter adapter = new FileDetailTabAdapter(getFragmentManager(),
+                                                                      getFile(),
+                                                                      storageManager.getFileById(getFile().getParentId()),
+                                                                      user,
+                                                                      showSharingTab());
         binding.pager.setAdapter(adapter);
         binding.pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout) {
             @Override
@@ -758,6 +762,24 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
         } catch (ClientFactory.CreationException e) {
             Log_OC.e(TAG, "Error processing event", e);
+        }
+    }
+
+    private boolean showSharingTab() {
+        if (getFile().isEncrypted()) {
+            if (parentFolder == null) {
+                parentFolder = storageManager.getFileById(getFile().getParentId());
+            }
+            if (EncryptionUtils.supportsSecureFiledrop(getFile(), user) && !parentFolder.isEncrypted()) {
+                return true;
+            } else {
+                // sharing not allowed for encrypted files, thus only show first tab (activities)
+                // sharing not allowed for encrypted subfolders
+                return false;
+            }
+        } else {
+            // unencrypted files/folders
+            return true;
         }
     }
 

@@ -114,6 +114,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String lockToken;
     @Nullable
     private ImageDimension imageDimension;
+    private long e2eCounter = 0;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to {@link
@@ -965,5 +966,17 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Nullable
     public ImageDimension getImageDimension() {
         return imageDimension;
+    }
+
+    public long getE2eCounter() {
+        return e2eCounter;
+    }
+
+    public void setE2eCounter(@Nullable Long e2eCounter) {
+        if (e2eCounter == null) {
+            this.e2eCounter = 0;
+        } else {
+            this.e2eCounter = e2eCounter;
+        }
     }
 }

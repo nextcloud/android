@@ -559,9 +559,18 @@ public class RefreshFolderOperation extends RemoteOperation {
                                                       @NonNull DecryptedFolderMetadataFile metadata,
                                                       OCFile updatedFile) {
         try {
-            DecryptedFile decryptedFile = metadata.getMetadata().getFiles().get(updatedFile.getFileName());
-            String decryptedFileName = decryptedFile.getFilename();
-            String mimetype = decryptedFile.getMimetype();
+            String decryptedFileName;
+            String mimetype;
+
+            if (updatedFile.isFolder()) {
+                decryptedFileName = metadata.getMetadata().getFolders().get(updatedFile.getFileName());
+                mimetype = MimeType.DIRECTORY;
+            } else {
+                DecryptedFile decryptedFile = metadata.getMetadata().getFiles().get(updatedFile.getFileName());
+                decryptedFileName = decryptedFile.getFilename();
+                mimetype = decryptedFile.getMimetype();
+            }
+
 
             OCFile parentFile = storageManager.getFileById(updatedFile.getParentId());
             String decryptedRemotePath = parentFile.getDecryptedRemotePath() + decryptedFileName;

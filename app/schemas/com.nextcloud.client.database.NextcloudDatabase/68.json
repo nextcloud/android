@@ -1,28 +1,28 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 68,
-    "identityHash": "aae2b31e197f961249b1ecd2cb13cbd1",
-    "entities": [
-      {
-        "tableName": "arbitrary_data",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `cloud_id` TEXT, `key` TEXT, `value` TEXT)",
-        "fields": [
+      "version": 68,
+      "identityHash": "1da8304f2254315ea8efc4be6014a7d6",
+      "entities": [
           {
-            "fieldPath": "id",
-            "columnName": "_id",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "cloudId",
-            "columnName": "cloud_id",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "key",
-            "columnName": "key",
+              "tableName": "arbitrary_data",
+              "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `cloud_id` TEXT, `key` TEXT, `value` TEXT)",
+              "fields": [
+                  {
+                      "fieldPath": "id",
+                      "columnName": "_id",
+                      "affinity": "INTEGER",
+                      "notNull": false
+                  },
+                  {
+                      "fieldPath": "cloudId",
+                      "columnName": "cloud_id",
+                      "affinity": "TEXT",
+                      "notNull": false
+                  },
+                  {
+                      "fieldPath": "key",
+                      "columnName": "key",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -34,10 +34,10 @@
           }
         ],
         "primaryKey": {
-          "columnNames": [
-            "_id"
-          ],
-          "autoGenerate": true
+            "autoGenerate": true,
+            "columnNames": [
+                "_id"
+            ]
         },
         "indices": [],
         "foreignKeys": []
@@ -342,10 +342,10 @@
           }
         ],
         "primaryKey": {
-          "columnNames": [
-            "_id"
-          ],
-          "autoGenerate": true
+            "autoGenerate": true,
+            "columnNames": [
+                "_id"
+            ]
         },
         "indices": [],
         "foreignKeys": []
@@ -397,38 +397,38 @@
             "notNull": false
           }
         ],
-        "primaryKey": {
-          "columnNames": [
-            "_id"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [],
-        "foreignKeys": []
+          "primaryKey": {
+              "autoGenerate": true,
+              "columnNames": [
+                  "_id"
+              ]
+          },
+          "indices": [],
+          "foreignKeys": []
       },
-      {
-        "tableName": "filelist",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `filename` TEXT, `encrypted_filename` TEXT, `path` TEXT, `path_decrypted` TEXT, `parent` INTEGER, `created` INTEGER, `modified` INTEGER, `content_type` TEXT, `content_length` INTEGER, `media_path` TEXT, `file_owner` TEXT, `last_sync_date` INTEGER, `last_sync_date_for_data` INTEGER, `modified_at_last_sync_for_data` INTEGER, `etag` TEXT, `etag_on_server` TEXT, `share_by_link` INTEGER, `permissions` TEXT, `remote_id` TEXT, `local_id` INTEGER NOT NULL DEFAULT -1, `update_thumbnail` INTEGER, `is_downloading` INTEGER, `favorite` INTEGER, `is_encrypted` INTEGER, `etag_in_conflict` TEXT, `shared_via_users` INTEGER, `mount_type` INTEGER, `has_preview` INTEGER, `unread_comments_count` INTEGER, `owner_id` TEXT, `owner_display_name` TEXT, `note` TEXT, `sharees` TEXT, `rich_workspace` TEXT, `metadata_size` TEXT, `locked` INTEGER, `lock_type` INTEGER, `lock_owner` TEXT, `lock_owner_display_name` TEXT, `lock_owner_editor` TEXT, `lock_timestamp` INTEGER, `lock_timeout` INTEGER, `lock_token` TEXT)",
-        "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "_id",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "name",
-            "columnName": "filename",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "encryptedName",
-            "columnName": "encrypted_filename",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
+              "tableName": "filelist",
+              "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `filename` TEXT, `encrypted_filename` TEXT, `path` TEXT, `path_decrypted` TEXT, `parent` INTEGER, `created` INTEGER, `modified` INTEGER, `content_type` TEXT, `content_length` INTEGER, `media_path` TEXT, `file_owner` TEXT, `last_sync_date` INTEGER, `last_sync_date_for_data` INTEGER, `modified_at_last_sync_for_data` INTEGER, `etag` TEXT, `etag_on_server` TEXT, `share_by_link` INTEGER, `permissions` TEXT, `remote_id` TEXT, `local_id` INTEGER NOT NULL DEFAULT -1, `update_thumbnail` INTEGER, `is_downloading` INTEGER, `favorite` INTEGER, `is_encrypted` INTEGER, `etag_in_conflict` TEXT, `shared_via_users` INTEGER, `mount_type` INTEGER, `has_preview` INTEGER, `unread_comments_count` INTEGER, `owner_id` TEXT, `owner_display_name` TEXT, `note` TEXT, `sharees` TEXT, `rich_workspace` TEXT, `metadata_size` TEXT, `locked` INTEGER, `lock_type` INTEGER, `lock_owner` TEXT, `lock_owner_display_name` TEXT, `lock_owner_editor` TEXT, `lock_timestamp` INTEGER, `lock_timeout` INTEGER, `lock_token` TEXT, `e2e_counter` INTEGER)",
+              "fields": [
+                  {
+                      "fieldPath": "id",
+                      "columnName": "_id",
+                      "affinity": "INTEGER",
+                      "notNull": false
+                  },
+                  {
+                      "fieldPath": "name",
+                      "columnName": "filename",
+                      "affinity": "TEXT",
+                      "notNull": false
+                  },
+                  {
+                      "fieldPath": "encryptedName",
+                      "columnName": "encrypted_filename",
+                      "affinity": "TEXT",
+                      "notNull": false
+                  },
+                  {
             "fieldPath": "path",
             "columnName": "path",
             "affinity": "TEXT",
@@ -659,32 +659,38 @@
           },
           {
             "fieldPath": "lockTimestamp",
-            "columnName": "lock_timestamp",
-            "affinity": "INTEGER",
-            "notNull": false
+              "columnName": "lock_timestamp",
+              "affinity": "INTEGER",
+              "notNull": false
           },
-          {
-            "fieldPath": "lockTimeout",
-            "columnName": "lock_timeout",
-            "affinity": "INTEGER",
-            "notNull": false
+                  {
+                      "fieldPath": "lockTimeout",
+                      "columnName": "lock_timeout",
+                      "affinity": "INTEGER",
+                      "notNull": false
+                  },
+                  {
+                      "fieldPath": "lockToken",
+                      "columnName": "lock_token",
+                      "affinity": "TEXT",
+                      "notNull": false
+                  },
+                  {
+                      "fieldPath": "e2eCounter",
+                      "columnName": "e2e_counter",
+                      "affinity": "INTEGER",
+                      "notNull": false
+                  }
+              ],
+              "primaryKey": {
+                  "autoGenerate": true,
+                  "columnNames": [
+                      "_id"
+                  ]
+              },
+              "indices": [],
+              "foreignKeys": []
           },
-          {
-            "fieldPath": "lockToken",
-            "columnName": "lock_token",
-            "affinity": "TEXT",
-            "notNull": false
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "_id"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
       {
         "tableName": "filesystem",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `local_path` TEXT, `is_folder` INTEGER, `found_at` INTEGER, `upload_triggered` INTEGER, `syncedfolder_id` TEXT, `crc32` TEXT, `modified_at` INTEGER)",
@@ -739,10 +745,10 @@
           }
         ],
         "primaryKey": {
-          "columnNames": [
-            "_id"
-          ],
-          "autoGenerate": true
+            "autoGenerate": true,
+            "columnNames": [
+                "_id"
+            ]
         },
         "indices": [],
         "foreignKeys": []
@@ -873,10 +879,10 @@
           }
         ],
         "primaryKey": {
-          "columnNames": [
-            "_id"
-          ],
-          "autoGenerate": true
+            "autoGenerate": true,
+            "columnNames": [
+                "_id"
+            ]
         },
         "indices": [],
         "foreignKeys": []
@@ -971,10 +977,10 @@
           }
         ],
         "primaryKey": {
-          "columnNames": [
-            "_id"
-          ],
-          "autoGenerate": true
+            "autoGenerate": true,
+            "columnNames": [
+                "_id"
+            ]
         },
         "indices": [],
         "foreignKeys": []
@@ -1081,10 +1087,10 @@
           }
         ],
         "primaryKey": {
-          "columnNames": [
-            "_id"
-          ],
-          "autoGenerate": true
+            "autoGenerate": true,
+            "columnNames": [
+                "_id"
+            ]
         },
         "indices": [],
         "foreignKeys": []
@@ -1113,10 +1119,10 @@
           }
         ],
         "primaryKey": {
-          "columnNames": [
-            "_id"
-          ],
-          "autoGenerate": true
+            "autoGenerate": true,
+            "columnNames": [
+                "_id"
+            ]
         },
         "indices": [],
         "foreignKeys": []
@@ -1125,7 +1131,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aae2b31e197f961249b1ecd2cb13cbd1')"
+        "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1da8304f2254315ea8efc4be6014a7d6')"
     ]
   }
 }

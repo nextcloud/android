@@ -54,8 +54,8 @@ import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 
 /**
- * Access to remote operation performing the creation of a new folder in the ownCloud server.
- * Save the new folder in Database.
+ * Access to remote operation performing the creation of a new folder in the ownCloud server. Save the new folder in
+ * Database.
  */
 public class CreateFolderOperation extends SyncOperation implements OnRemoteOperationListener {
 
@@ -108,8 +108,6 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
     private RemoteOperationResult encryptedCreate(OCFile parent, OwnCloudClient client) {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
-        String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
-        String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
 
         String token = null;
         Boolean metadataExists;
@@ -148,14 +146,19 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
             if (result.isSuccess()) {
                 // update metadata
-                metadata.getMetadata().getFiles().put(encryptedFileName, createDecryptedFolder(filename));
+                DecryptedFolderMetadataFile updatedMetadataFile = encryptionUtilsV2.addFolderToMetadata(encryptedFileName,
+                                                                                                        filename,
+                                                                                                        metadata);
 
                 // upload metadata
                 encryptionUtilsV2.serializeAndUploadMetadata(parent,
-                                                             metadata,
+                                                             updatedMetadataFile,
                                                              token,
                                                              client,
-                                                             metadataExists);
+                                                             getStorageManager(),
+                                                             metadataExists,
+                                                             context,
+                                                             user);
 
                 // unlock folder
                 if (token != null) {
@@ -202,7 +205,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                                                             user,
                                                                                             context,
                                                                                             filename,
-                                                                                            parent).execute(client);
+                                                                                            parent,
+                                                                                            true).execute(client);
 
                 if (!removeResult.isSuccess()) {
                     throw new RuntimeException("Could not clean up after failing folder creation!");

@@ -24,8 +24,7 @@ package com.owncloud.android.operations;
 import android.content.Context;
 
 import com.nextcloud.client.account.User;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -44,19 +43,16 @@ import kotlin.Pair;
 /**
  * Remote operation performing the removal of a remote encrypted file or folder
  */
-public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
+public class RemoveRemoteEncryptedFileOperation extends RemoteOperation<Void> {
     private static final String TAG = RemoveRemoteEncryptedFileOperation.class.getSimpleName();
-
     private static final int REMOVE_READ_TIMEOUT = 30000;
     private static final int REMOVE_CONNECTION_TIMEOUT = 5000;
-
     private final String remotePath;
     private final OCFile parentFolder;
-    private User user;
-
-    private final ArbitraryDataProvider arbitraryDataProvider;
+    private final User user;
     private final String fileName;
     private final Context context;
+    private final boolean isFolder;
 
     /**
      * Constructor
@@ -68,22 +64,22 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
                                        User user,
                                        Context context,
                                        String fileName,
-                                       OCFile parentFolder) {
+                                       OCFile parentFolder,
+                                       boolean isFolder) {
         this.remotePath = remotePath;
         this.user = user;
         this.fileName = fileName;
         this.context = context;
         this.parentFolder = parentFolder;
-
-        arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
+        this.isFolder = isFolder;
     }
 
     /**
      * Performs the remove operation.
      */
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result;
+    protected RemoteOperationResult<Void> run(OwnCloudClient client) {
+        RemoteOperationResult<Void> result;
         DeleteMethod delete = null;
         String token = null;
 
@@ -105,14 +101,21 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             result = new RemoteOperationResult<>(delete.succeeded() || status == HttpStatus.SC_NOT_FOUND, delete);
             Log_OC.i(TAG, "Remove " + remotePath + ": " + result.getLogMessage());
 
-            encryptionUtilsV2.removeFileFromMetadata(fileName, metadata);
+            if (isFolder) {
+                encryptionUtilsV2.removeFolderFromMetadata(fileName, metadata);
+            } else {
+                encryptionUtilsV2.removeFileFromMetadata(fileName, metadata);
+            }
 
             // upload metadata
             encryptionUtilsV2.serializeAndUploadMetadata(parentFolder,
                                                          metadata,
                                                          token,
                                                          client,
-                                                         metadataExists);
+                                                         new FileDataStorageManager(user, context.getContentResolver()),
+                                                         metadataExists,
+                                                         context,
+                                                         user);
 
             // return success
             return result;

@@ -24,6 +24,7 @@ package com.owncloud.android.utils
 
 import com.nextcloud.client.account.MockUser
 import com.nextcloud.common.User
+import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.e2e.v1.decrypted.Data
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile
@@ -31,10 +32,11 @@ import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFi
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedUser
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertTrue
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
-class EncryptionUtilsV2IT {
+class EncryptionUtilsV2IT : AbstractIT() {
     private val enc1UserId = "enc1"
     private val enc1PrivateKey = """
         MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAo
@@ -145,10 +147,10 @@ class EncryptionUtilsV2IT {
         val metadataKey = EncryptionUtils.generateKeyString()
 
         val metadata = DecryptedMetadata(
-            listOf("hash1", "hash of key 2"),
+            mutableListOf("hash1", "hash of key 2"),
             false,
             1,
-            mapOf(
+            mutableMapOf(
                 Pair(EncryptionUtils.generateUid(), "Folder 1"),
                 Pair(EncryptionUtils.generateUid(), "Folder 2"),
                 Pair(EncryptionUtils.generateUid(), "Folder 3")
@@ -177,7 +179,7 @@ class EncryptionUtilsV2IT {
             ),
             metadataKey
         )
-        val encrypted = encryptionUtilsV2.encryptMetadata(metadata)
+        val encrypted = encryptionUtilsV2.encryptMetadata(metadata, metadataKey)
         val decrypted = encryptionUtilsV2.decryptMetadata(encrypted, metadataKey)
 
         assertEquals(metadata, decrypted)
@@ -202,10 +204,25 @@ class EncryptionUtilsV2IT {
         val encryptionUtilsV2 = EncryptionUtilsV2()
 
         val enc1 = MockUser("enc1", "Nextcloud")
+        val folder = OCFile("/enc")
         val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
 
-        val encrypted = encryptionUtilsV2.encryptFolderMetadataFile(metadataFile)
-        val decrypted = encryptionUtilsV2.decryptFolderMetadataFile(encrypted, enc1.accountName, enc1PrivateKey)
+        val encrypted = encryptionUtilsV2.encryptFolderMetadataFile(
+            metadataFile,
+            folder,
+            storageManager,
+            client,
+            client.userId,
+            enc1PrivateKey
+        )
+        val decrypted = encryptionUtilsV2.decryptFolderMetadataFile(
+            encrypted,
+            enc1.accountName,
+            enc1PrivateKey,
+            folder,
+            storageManager,
+            client
+        )
 
         assertEquals(metadataFile, decrypted)
     }
@@ -217,6 +234,7 @@ class EncryptionUtilsV2IT {
         val enc1 = MockUser("enc1", "Nextcloud")
         val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
         assertEquals(2, metadataFile.metadata.files.size)
+        assertEquals(0, metadataFile.metadata.counter)
 
         val updatedMetadata = encryptionUtilsV2.addFileToMetadata(
             EncryptionUtils.generateUid(),
@@ -230,6 +248,7 @@ class EncryptionUtilsV2IT {
         )
 
         assertEquals(3, updatedMetadata.metadata.files.size)
+        assertEquals(1, updatedMetadata.metadata.counter)
     }
 
     @Test
@@ -257,18 +276,62 @@ class EncryptionUtilsV2IT {
 
         val key = metadataFile.metadata.files.keys.first()
         val decryptedFile = metadataFile.metadata.files[key]
+        val filename = decryptedFile?.filename
+        val newFilename = "New File 1"
+
+        encryptionUtilsV2.renameFile(key, newFilename, metadataFile)
+
+        assertEquals(newFilename, metadataFile.metadata.files[key]?.filename)
+        assertNotEquals(filename, newFilename)
+        assertNotEquals(filename, metadataFile.metadata.files[key]?.filename)
     }
 
     @Test
     fun addFolder() {
-        throw NotImplementedError()
+        val encryptionUtilsV2 = EncryptionUtilsV2()
+
+        val enc1 = MockUser("enc1", "Nextcloud")
+        val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
+        assertEquals(2, metadataFile.metadata.files.size)
+        assertEquals(0, metadataFile.metadata.folders.size)
+
+        val updatedMetadata = encryptionUtilsV2.addFolderToMetadata(
+            EncryptionUtils.generateUid(),
+            "new subfolder",
+            metadataFile
+        )
+
+        assertEquals(2, updatedMetadata.metadata.files.size)
+        assertEquals(1, updatedMetadata.metadata.folders.size)
     }
 
     @Test
     fun removeFolder() {
-        throw NotImplementedError()
-    }
+        val encryptionUtilsV2 = EncryptionUtilsV2()
 
+        val enc1 = MockUser("enc1", "Nextcloud")
+        val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
+        assertEquals(2, metadataFile.metadata.files.size)
+        assertEquals(0, metadataFile.metadata.folders.size)
+
+        val encryptedFileName = EncryptionUtils.generateUid()
+        var updatedMetadata = encryptionUtilsV2.addFolderToMetadata(
+            encryptedFileName,
+            "new subfolder",
+            metadataFile
+        )
+
+        assertEquals(2, updatedMetadata.metadata.files.size)
+        assertEquals(1, updatedMetadata.metadata.folders.size)
+
+        updatedMetadata = encryptionUtilsV2.removeFolderFromMetadata(
+            encryptedFileName,
+            updatedMetadata
+        )
+
+        assertEquals(2, updatedMetadata.metadata.files.size)
+        assertEquals(0, updatedMetadata.metadata.folders.size)
+    }
 
     @Test
     fun signMetadata() {
@@ -277,7 +340,12 @@ class EncryptionUtilsV2IT {
 
     @Test
     fun verifyMetadata() {
-        throw NotImplementedError()
+        val encryptionUtilsV2 = EncryptionUtilsV2()
+
+        val enc1 = MockUser("enc1", "Nextcloud")
+        val metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
+
+        assertTrue(encryptionUtilsV2.verifyMetadata(metadataFile))
     }
 
     private fun generateDecryptedFileV1(): com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile {
@@ -340,23 +408,37 @@ class EncryptionUtilsV2IT {
 
         val enc1 = MockUser("enc1", "Nextcloud")
         val enc2 = MockUser("enc2", "Nextcloud")
+        val folder = OCFile("/enc/")
         var metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
 
         metadataFile = encryptionUtilsV2.addShareeToMetadata(metadataFile, enc2.accountName, enc2Cert)
 
-        val encryptedMetadataFile = encryptionUtilsV2.encryptFolderMetadataFile(metadataFile)
+        val encryptedMetadataFile = encryptionUtilsV2.encryptFolderMetadataFile(
+            metadataFile,
+            folder,
+            storageManager,
+            client,
+            client.userId,
+            enc1PrivateKey
+        )
 
         val decryptedByEnc1 = encryptionUtilsV2.decryptFolderMetadataFile(
             encryptedMetadataFile,
             enc1.accountName,
-            enc1PrivateKey
+            enc1PrivateKey,
+            folder,
+            storageManager,
+            client
         )
         assertEquals(metadataFile.metadata, decryptedByEnc1.metadata)
 
         val decryptedByEnc2 = encryptionUtilsV2.decryptFolderMetadataFile(
             encryptedMetadataFile,
             enc2.accountName,
-            enc2PrivateKey
+            enc2PrivateKey,
+            folder,
+            storageManager,
+            client
         )
         assertEquals(metadataFile.metadata, decryptedByEnc2.metadata)
     }
@@ -378,11 +460,13 @@ class EncryptionUtilsV2IT {
     }
 
     private fun generateDecryptedFolderMetadataFile(user: User, cert: String): DecryptedFolderMetadataFile {
+        val encryptionUtilsV2 = EncryptionUtilsV2()
+
         val metadata = DecryptedMetadata(
-            listOf("hash1", "hash of key 2"),
+            mutableListOf("hash1", "hash of key 2"),
             false,
             1,
-            mapOf(
+            mutableMapOf(
                 Pair(EncryptionUtils.generateUid(), "Folder 1"),
                 Pair(EncryptionUtils.generateUid(), "Folder 2"),
                 Pair(EncryptionUtils.generateUid(), "Folder 3")
@@ -416,6 +500,41 @@ class EncryptionUtilsV2IT {
             DecryptedUser(user.accountName, cert)
         )
 
+        metadata.keyChecksums.add(encryptionUtilsV2.hashMetadataKey(metadata.metadataKey))
+
         return DecryptedFolderMetadataFile(metadata, users, emptyMap())
+    }
+
+    @Test
+    fun testGZip() {
+        val encryptionUtilsV2 = EncryptionUtilsV2()
+
+        val string = """
+            This is a test.
+            This is a test.
+            This is a test.
+            This is a test.
+            This is a test.
+            This is a test.
+            This is a test.
+            This is a test.
+            This is a test.
+            This is a test.
+            This is a test.
+            This is a test.
+            This is a test.
+            It contains linewraps and special characters:
+            $$|²›³¥!’‘‘
+
+        """.trimIndent()
+
+        val string2 = "this is a test."
+
+        val gzipped = encryptionUtilsV2.gZipCompress(string)
+        val gzipBase64 = EncryptionUtils.encodeBytesToBase64String(gzipped)
+
+        val result = encryptionUtilsV2.gZipDecompress(gzipped)
+
+        assertEquals(string, result)
     }
 }
