@@ -35,7 +35,20 @@ subprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://jitpack.io" }
+        maven {
+            url "https://jitpack.io"
+            content {
+                includeGroup "com.github.chrisbanes"
+                includeGroup "com.github.nextcloud"
+                includeGroup "com.github.nextcloud.android-common"
+                includeGroup "com.github.nextcloud-deps"
+                includeGroup "com.github.nextcloud-deps.hwsecurity"
+                includeGroup "com.github.tbruyelle"
+                includeGroup "com.github.tmurakami"
+                includeGroup "com.github.zynkware"
+                includeGroup "com.gitlab.bitfireAT"
+            }
+        }
     }
 }
 
