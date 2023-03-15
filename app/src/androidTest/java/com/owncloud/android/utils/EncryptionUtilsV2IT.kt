@@ -33,8 +33,16 @@ import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedUser
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
+import org.apache.commons.codec.binary.Base64
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
+import java.io.ByteArrayInputStream
+import java.io.InputStream
+import java.nio.charset.StandardCharsets
+import java.security.KeyFactory
+import java.security.cert.CertificateFactory
+import java.security.cert.X509Certificate
+import java.security.spec.PKCS8EncodedKeySpec
 
 class EncryptionUtilsV2IT : AbstractIT() {
     private val enc1UserId = "enc1"
@@ -465,7 +473,7 @@ class EncryptionUtilsV2IT : AbstractIT() {
         val metadata = DecryptedMetadata(
             mutableListOf("hash1", "hash of key 2"),
             false,
-            1,
+            0,
             mutableMapOf(
                 Pair(EncryptionUtils.generateUid(), "Folder 1"),
                 Pair(EncryptionUtils.generateUid(), "Folder 2"),
@@ -536,5 +544,64 @@ class EncryptionUtilsV2IT : AbstractIT() {
         val result = encryptionUtilsV2.gZipDecompress(gzipped)
 
         assertEquals(string, result)
+    }
+    
+    @Test
+    fun gunzip() {
+        val encryptionUtilsV2 = EncryptionUtilsV2()
+        
+        val string = "H4sICNVkD2QAAwArycgsVgCiRIWS1OISPQDD9wZODwAAAA=="
+        val decoded = EncryptionUtils.decodeStringToBase64Bytes(string)
+        val gunzip = encryptionUtilsV2.gZipDecompress(decoded)
+        
+        assertEquals("this is a test.\n", gunzip)
+    }
+
+    @Test
+    fun sign() {
+        val encryptionUtilsV2 = EncryptionUtilsV2()
+        val enc1 = MockUser("enc1", "Nextcloud")
+        val sut = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
+        val json = EncryptionUtils.serializeJSON(sut)
+
+        val privateKeyBytes = EncryptionUtils.decodeStringToBase64Bytes(enc1PrivateKey)
+        val keySpec = PKCS8EncodedKeySpec(privateKeyBytes)
+        val kf = KeyFactory.getInstance(EncryptionUtils.RSA)
+        val privateKey = kf.generatePrivate(keySpec)
+
+        val trimmedCert: String = enc1Cert.replace("-----BEGIN CERTIFICATE-----\n", "")
+            .replace("-----END CERTIFICATE-----\n", "")
+        val encodedCert = trimmedCert.toByteArray(StandardCharsets.UTF_8)
+        val decodedCert = Base64.decodeBase64(encodedCert)
+
+        val certFactory = CertificateFactory.getInstance("X.509")
+        val input: InputStream = ByteArrayInputStream(decodedCert)
+        val certificate = certFactory.generateCertificate(input) as X509Certificate
+
+        
+        val signed = encryptionUtilsV2.signMessageSimple(
+            certificate,
+            privateKey,
+            json.toByteArray()
+        )
+        
+       assertTrue(encryptionUtilsV2.verifySignedMessage(signed, certificate))
+    }
+    
+    @Test
+    fun decrypt2() {
+        val test = "123456789012345678901234"
+        val metadataKey = "123456789012345678901234" // EncryptionUtils.generateKeyString()
+        val encryptedData = EncryptionUtils.encryptStringSymmetricWithIVandAuthTag(
+            test.toByteArray(),
+            metadataKey.toByteArray()
+        )
+        
+        val decrypted = EncryptionUtils.decryptStringSymmetric(
+            encryptedData.first, 
+            metadataKey.toByteArray(),
+            encryptedData.third)
+        
+        assertEquals(test, EncryptionUtilsV2().gZipDecompress(decrypted))
     }
 }

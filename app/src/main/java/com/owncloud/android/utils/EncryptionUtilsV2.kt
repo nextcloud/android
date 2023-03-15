@@ -45,21 +45,35 @@ import com.owncloud.android.lib.resources.e2ee.StoreMetadataRemoteOperation
 import com.owncloud.android.lib.resources.e2ee.UpdateMetadataRemoteOperation
 import com.owncloud.android.operations.UploadException
 import org.apache.commons.httpclient.HttpStatus
+import org.bouncycastle.cms.CMSProcessableByteArray
+import org.bouncycastle.cms.CMSSignedData
+import org.bouncycastle.cms.CMSSignedDataGenerator
+import org.bouncycastle.cms.CMSTypedData
+import org.bouncycastle.cms.SignerInformation
+import org.bouncycastle.cms.jcajce.JcaSignerInfoGeneratorBuilder
+import org.bouncycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder
+import org.bouncycastle.jce.provider.BouncyCastleProvider
+import org.bouncycastle.operator.ContentSigner
+import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder
+import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder
 import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
 import java.io.InputStreamReader
 import java.math.BigInteger
 import java.security.MessageDigest
-import java.util.zip.GZIPInputStream
+import java.security.PrivateKey
+import java.security.Security
+import java.security.Signature
+import java.security.cert.X509Certificate
 import java.util.zip.GZIPOutputStream
 
 class EncryptionUtilsV2 {
     @VisibleForTesting
     fun encryptMetadata(metadata: DecryptedMetadata, metadataKey: String): EncryptedMetadata {
         val json = EncryptionUtils.serializeJSON(metadata)
-        val gzip = gZipCompress(json)
+        //val gzip = gZipCompress(json)
         val encryptedData = EncryptionUtils.encryptStringSymmetricWithIVandAuthTag(
-            gzip,
+            json.toByteArray(),
             metadataKey.toByteArray()
         )
 
@@ -268,7 +282,8 @@ class EncryptionUtilsV2 {
     @VisibleForTesting
     fun gZipDecompress(compressed: ByteArray): String {
         val stringBuilder = StringBuilder()
-        val inputStream = GZIPInputStream(compressed.inputStream())
+        //val inputStream = GZIPInputStream(compressed.inputStream())
+        val inputStream = compressed.inputStream()
         val bufferedReader = BufferedReader(InputStreamReader(inputStream))
 
         val sb = java.lang.StringBuilder()
@@ -654,5 +669,48 @@ class EncryptionUtilsV2 {
             .digest(metadataKey.toByteArray())
 
         return BigInteger(1, bytes).toString(16).padStart(32, '0')
+    }
+
+    fun signer(data: ByteArray, key: PrivateKey): ByteArray {
+        val signer = Signature.getInstance("SHA256WithRSA", "BC")
+        signer.initSign(key)
+        signer.update(data)
+        return signer.sign()
+    }
+
+    fun signMessageSimple(cert: X509Certificate, key: PrivateKey, data: ByteArray): CMSSignedData {
+        /*
+         * Sign data with the private key, but does not embed the certificate
+         * Still need the certificate to identify signer
+         */
+        Security.addProvider(BouncyCastleProvider())
+        val content: CMSTypedData = CMSProcessableByteArray(data)
+
+        val signGen = CMSSignedDataGenerator()
+        val sha1signer: ContentSigner = JcaContentSignerBuilder("SHA1withRSA").setProvider("BC").build(key)
+        signGen.addSignerInfoGenerator(
+            JcaSignerInfoGeneratorBuilder(JcaDigestCalculatorProviderBuilder().build())
+                .build(
+                    sha1signer,
+                    cert
+                )
+        )
+        return signGen.generate(
+            content,
+            true
+        )
+    }
+
+    fun verifySignedMessage(data: CMSSignedData, cert: X509Certificate?): Boolean {
+        /*
+         * Verify the signature but does not use the certificate in the signed object
+         */
+
+        val signer: SignerInformation = data.signerInfos.signers.iterator().next() as SignerInformation
+        if (signer.verify(JcaSimpleSignerInfoVerifierBuilder().setProvider("BC").build(cert))) {
+            //return data.signedContent.content
+            return true
+        }
+        return false
     }
 }

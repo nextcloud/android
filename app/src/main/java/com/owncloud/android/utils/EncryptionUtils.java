@@ -119,8 +119,8 @@ public final class EncryptionUtils {
     private static final int keyStrength = 256;
     private static final String AES_CIPHER = "AES/GCM/NoPadding";
     private static final String AES = "AES";
-    private static final String RSA_CIPHER = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
-    private static final String RSA = "RSA";
+    public static final String RSA_CIPHER = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
+    public static final String RSA = "RSA";
 
     private EncryptionUtils() {
         // utility class -> private constructor
@@ -600,13 +600,24 @@ public final class EncryptionUtils {
         IllegalBlockSizeException {
 
         Cipher cipher = Cipher.getInstance(AES_CIPHER);
-        byte[] iv = randomBytes(ivLength);
+//        byte[] iv = randomBytes(ivLength);
+        byte[] iv = decodeStringToBase64Bytes("1234567890123456");
 
+        // key
+        String outKey = EncryptionUtils.byteToHex(encryptionKeyBytes);
+        String dataHex = EncryptionUtils.byteToHex(gzip);
+        String ivHex = EncryptionUtils.byteToHex(iv);
+        
+        
         Key key = new SecretKeySpec(encryptionKeyBytes, AES);
         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
         cipher.init(Cipher.ENCRYPT_MODE, key, spec);
 
+        String gzipHex = EncryptionUtils.byteToHex(gzip);
+
         byte[] cryptedBytes = cipher.doFinal(gzip);
+
+        String outCrypt = EncryptionUtils.byteToHex(cryptedBytes);
 
         String encodedCryptedBytes = encodeBytesToBase64String(cryptedBytes);
         String encodedIV = encodeBytesToBase64String(iv);
@@ -665,6 +676,12 @@ public final class EncryptionUtils {
 
         byte[] iv = new IvParameterSpec(decodeStringToBase64Bytes(ivString)).getIV();
 
+        StringBuilder ivSb = new StringBuilder();
+        for (byte b : iv) {
+            ivSb.append(String.format("%02X ", b));
+        }
+        String outIV = ivSb.toString();
+
         Key key = new SecretKeySpec(encryptionKeyBytes, AES);
 
         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
@@ -690,16 +707,16 @@ public final class EncryptionUtils {
             }
         }
 
-        byte[] encodedBytes = cipher.doFinal(bytes);
+        byte[] decodedBytes = cipher.doFinal(bytes);
 
         StringBuilder sb2 = new StringBuilder();
-        for (byte b : encodedBytes) {
-            sb.append(String.format("%02X ", b));
+        for (byte b : decodedBytes) {
+            sb2.append(String.format("%02X ", b));
         }
-        String out2 = sb.toString();
+        String out2 = sb2.toString();
 
 
-        return encodedBytes;
+        return decodedBytes;
     }
 
     /**
@@ -1004,5 +1021,13 @@ public final class EncryptionUtils {
 
     public static byte[] generateIV() {
         return EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
+    }
+    
+    public static String byteToHex(byte[] bytes) {
+        StringBuilder sbKey = new StringBuilder();
+        for (byte b : bytes) {
+            sbKey.append(String.format("%02X ", b));
+        }
+        return sbKey.toString();
     }
 }
