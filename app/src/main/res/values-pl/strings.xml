@@ -109,7 +109,7 @@
     <string name="common_cancel_sync">Anuluj synchronizację</string>
     <string name="common_choose_account">Wybierz konto</string>
     <string name="common_confirm">Potwierdź</string>
-    <string name="common_copy">Kopiuj</string>
+    <string name="common_copy">Skopiuj</string>
     <string name="common_delete">Usuń</string>
     <string name="common_error">Błąd</string>
     <string name="common_error_out_memory">Brak wystarczającej pamięci</string>
@@ -683,7 +683,7 @@
     <string name="share_no_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_no_password_title">Ustaw hasło</string>
     <string name="share_password_title">Zabezpieczone hasłem</string>
-    <string name="share_permission_can_edit">Może edytować</string>
+    <string name="share_permission_can_edit">Może modyfikować</string>
     <string name="share_permission_file_drop">Upuść plik</string>
     <string name="share_permission_secure_file_drop">Bezpieczne upuszczenie pliku</string>
     <string name="share_permission_view_only">Tylko podgląd</string>
