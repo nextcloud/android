@@ -1,3 +1,4 @@
-Kompletní privátní řešení pro všechy vaše soubory, fotky, kalendáře a kontakty. 
-Toto je oficiální vývojová verze aktualizovaná denně. Obsahuje nejnovější fukce, ale může být nestabilní a ohrozit vaše data. Je pro uživatele, kteří jsou ochotni testovat a hlásit chyby na které narazí. Nepoužívejte ji pro svoje produkční prostředí.
-Jak vývojová tak produkční verze je k dispozici na F-droid a mohou být nainstalovány souběžně.
+Platforma pro produktivitu hostovaná u vás, kde vaše data jsou opravdu vaše.
+Toto je oficiální vývojová verze, sloužící jako denně aktualizovaná ukázka nových nevyzkoušených funkcí, což může způsobovat nestabilitu a ztráty dat. Je určeno pro uživatele, kteří jsou ochotní testovat a hlásit chyby na které narazí. Nepoužívejte pro svou produktivní práci!
+
+Jak vývojová tak produkční verze jsou k dispozici na F-droid a mohou být nainstalovány souběžně.
