@@ -43,7 +43,7 @@
     <string name="auth_account_not_the_same">Pengguna yang dimasukkan tidak cocok dengan pengguna akun ini</string>
     <string name="auth_bad_oc_version_title">Versi server tidak dikenal</string>
     <string name="auth_connection_established">Sambungan dibuat</string>
-    <string name="auth_fail_get_user_name">Server anda tidak membalas dengan ID pengguna yang benar, silahkan kontak admin</string>
+    <string name="auth_fail_get_user_name">Server Anda tidak membalas dengan ID pengguna yang benar, silakan kontak admin</string>
     <string name="auth_host_url">Alamat server https://…</string>
     <string name="auth_incorrect_address_title">Format alamat server salah</string>
     <string name="auth_incorrect_path_title">Server tidak ditemukan</string>
@@ -77,11 +77,11 @@
     <string name="avatar">Avatar</string>
     <string name="away">Jauh</string>
     <string name="backup_settings">Pengaturan Pencadangan</string>
-    <string name="backup_title">Kontak &amp; backup kalender</string>
+    <string name="backup_title">Cadangan kontak &amp; kalender</string>
     <string name="battery_optimization_close">Tutup</string>
     <string name="battery_optimization_disable">Nonaktifkan</string>
-    <string name="battery_optimization_message">Optimisasi baterai perangkat anda mungkin sedang aktif.
-Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini dari itu.</string>
+    <string name="battery_optimization_message">Optimisasi baterai perangkat Anda mungkin sedang aktif.
+Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini dari itu.</string>
     <string name="battery_optimization_title">Optimisasi baterai</string>
     <string name="brute_force_delay">Ditahan karena terlalu banyak percobaan gagal</string>
     <string name="calendar">Kalender</string>
@@ -138,7 +138,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="community_rc_fdroid">Dapatkan kandidat rilis dari aplikasi F-Droid</string>
     <string name="community_rc_play_store">Dapatkan kandidat rilis dari Google Play</string>
     <string name="community_release_candidate_headline">Kandidat rilis</string>
-    <string name="community_release_candidate_text">Kandidat rilis (RC) adalah potret rilis berikutnya dan diharapkan menjadi rilis stabil. Uji pengaturan pribadi anda dapat membantu untuk memastikan hal ini. Daftar untuk menguji di Play Store atau secara manual lihat di seksi \"versi\" di F-Droid.</string>
+    <string name="community_release_candidate_text">Kandidat rilis (RC) adalah potret rilis berikutnya dan diharapkan menjadi rilis stabil. Uji pengaturan pribadi Anda dapat membantu untuk memastikan hal ini. Daftar untuk menguji di Play Store atau secara manual lihat di seksi \"versi\" di F-Droid.</string>
     <string name="community_testing_bug_text">Menemukan kesalahan?</string>
     <string name="community_testing_headline">Bantu dengan menguji.</string>
     <string name="community_testing_report_text">Laporkan di GitHub</string>
@@ -171,7 +171,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="could_not_retrieve_url">Tidak dapat mengambil URL</string>
     <string name="create">Buat</string>
     <string name="create_dir_fail_msg">Folder tidak dapat dibuat</string>
-    <string name="create_new">Buat baru</string>
+    <string name="create_new">Buat</string>
     <string name="create_new_document">Buat dokumen baru</string>
     <string name="create_new_folder">Buat direktori baru</string>
     <string name="create_new_presentation">Buat presentasi baru</string>
@@ -235,7 +235,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="end_to_end_encryption_confirm_button">Buat enkripsi</string>
     <string name="end_to_end_encryption_decrypting">Mendekripsi...</string>
     <string name="end_to_end_encryption_dialog_close">Tutup</string>
-    <string name="end_to_end_encryption_enter_password">Silahkan masukkan password untuk mendekripsi kunci pribadi</string>
+    <string name="end_to_end_encryption_enter_password">Silakan masukkan password untuk mendekripsi kunci pribadi</string>
     <string name="end_to_end_encryption_folder_not_empty">Folder ini tidak kosong.</string>
     <string name="end_to_end_encryption_generating_keys">Membuat kunci baru...</string>
     <string name="end_to_end_encryption_not_enabled">Enkripsi end-to-end dinonaktifkan di server</string>
@@ -281,7 +281,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="file_keep">Simpan</string>
     <string name="file_list_empty">Unggah beberapa berkas atau sinkronisasi dengan perangkat anda.</string>
     <string name="file_list_empty_favorite_headline">Belum ada yang disukai.</string>
-    <string name="file_list_empty_favorites_filter_list">Berkas dan folder yang Anda tandai sebagai favorit akan ditampilkan disini.</string>
+    <string name="file_list_empty_favorites_filter_list">Berkas dan folder yang Anda tandai sebagai favorit akan ditampilkan di sini.</string>
     <string name="file_list_empty_headline">Tidak ada berkas</string>
     <string name="file_list_empty_headline_search">Tidak ada hasil di folder ini</string>
     <string name="file_list_empty_headline_server_search">Tidak ada hasil.</string>
@@ -359,6 +359,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="load_more_results">Muat lebih banyak hasil</string>
     <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
     <string name="local_file_not_found_message">Berkas tidak ditemukan di sistem berkas lokal</string>
+    <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Tidak ada folder lagi.</string>
     <string name="log_send_mail_subject">%1$s Android apl log</string>
     <string name="login">Masuk</string>
@@ -423,6 +424,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="permission_allow">Izinkan</string>
     <string name="permission_deny">Tolak</string>
     <string name="permission_storage_access">Diperlukan ijin tambahan untuk mengunggah dan mengunduh berkas.</string>
+    <string name="pin_home">Sematkan ke layar Beranda</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -435,12 +437,15 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="pref_instant_name_collision_policy_entries_cancel">Lewati unggah</string>
     <string name="prefs_add_account">Tambah akun</string>
     <string name="prefs_calendar_contacts">Sinkronkan kalender &amp; kontak</string>
+    <string name="prefs_calendar_contacts_summary">Siapkan DAVx⁵ (sebelumnya DAVdroid) (v1.3.0+) untuk akun saat ini</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Pemasangan kalender &amp; kontak</string>
     <string name="prefs_category_about">Tentang</string>
     <string name="prefs_category_details">Rincian</string>
     <string name="prefs_category_dev">Pengembang</string>
     <string name="prefs_category_general">Umum</string>
     <string name="prefs_category_more">Lainnya</string>
+    <string name="prefs_daily_backup_summary">Cadangan harian kalender &amp; kontak Anda</string>
+    <string name="prefs_davx5_setup_error">Terjadi kesalahan saat menyiapkan DAVx⁵ (sebelumnya DAVdroid)</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_gpl_v2">GNU General Public License, versi 2</string>
     <string name="prefs_help">Bantuan</string>
@@ -450,6 +455,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="prefs_instant_upload_path_use_subfolders_summary">Simpan dalam subfolder berdasarkan tahun dan bulan</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gunakan subfolder</string>
     <string name="prefs_license">Lisensi</string>
+    <string name="prefs_lock">Kode sandi aplikasi</string>
     <string name="prefs_lock_none">Tidak ada</string>
     <string name="prefs_lock_using_device_credentials">Credentials perangkat</string>
     <string name="prefs_lock_using_passcode">Kunci kode sandi</string>
@@ -457,16 +463,19 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="prefs_recommend">Rekomendasikan ke teman</string>
     <string name="prefs_show_hidden_files">Lihat berkas tersembunyi</string>
     <string name="prefs_sourcecode">Dapatkan kode sumber</string>
+    <string name="prefs_sycned_folders_summary">Kelola folder untuk pengunggahan otomatis</string>
     <string name="prefs_synced_folders_local_path_title">Berkas lokal</string>
     <string name="prefs_synced_folders_remote_path_title">Folder remot</string>
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_value_theme_dark">Gelap</string>
     <string name="prefs_value_theme_light">Terang</string>
+    <string name="prefs_value_theme_system">Ikuti sistem</string>
     <string name="preview_image_description">Pratilik gambar</string>
     <string name="preview_image_error_unknown_format">Gambar ini tidak dapat ditampilkan</string>
     <string name="preview_sorry">Maaf</string>
     <string name="privacy">Privasi</string>
     <string name="public_share_name">Nama baru</string>
+    <string name="push_notifications_not_implemented">Notifikasi push dinonaktifkan karena ketergantungan pada layanan Google Play bersumber tertutup.</string>
     <string name="recommend_subject">Coba %1$s di perangkat mu!</string>
     <string name="recommend_text">Saya ingin mengundang anda untuk menggunakan %1$s di perangkat anda. \nUnduh disini %2$s</string>
     <string name="recommend_urls">%1$s atau %2$s</string>
@@ -480,6 +489,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="reshare_not_allowed">Berbagi ulang tidak diijinkan.</string>
     <string name="resharing_is_not_allowed">Berbagi ulang tidak diijinkan.</string>
     <string name="restore">Pulihkan berkas</string>
+    <string name="restore_backup">Pulihkan cadangan</string>
     <string name="restore_button_description">Pulihkan berkas yang terhapus</string>
     <string name="richdocuments_failed_to_load_document">Gagal memuat dokumen!</string>
     <string name="select_all">Pilih semua</string>
@@ -496,6 +506,9 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="share_expiration_date_label">Kadaluarsa %1$s</string>
     <string name="share_file">Bagikan %1$s</string>
     <string name="share_group_clarification">%1$s (grup)</string>
+    <string name="share_internal_link">Bagikan tautan internal</string>
+    <string name="share_internal_link_to_file_text">Tautan berbagi internal hanya bekerja untuk pengguna dengan akses ke berkas ini</string>
+    <string name="share_internal_link_to_folder_text">Tautan berbagi internal hanya bekerja untuk pengguna dengan akses ke folder ini</string>
     <string name="share_link">Bagi tautan</string>
     <string name="share_link_empty_password">Anda harus memasukkan kata sandi</string>
     <string name="share_link_forbidden_permissions">untuk membagikan berkas ini</string>
@@ -505,6 +518,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="share_password_title">Sandi dilindungi</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
+    <string name="share_search">Nama, ID Awan Federasi, atau alamat surel…</string>
     <string name="share_send_note">Catatan untuk penerima</string>
     <string name="share_settings">Setelan</string>
     <string name="share_via_link_hide_download">Sembunyikan unduhan</string>
@@ -513,6 +527,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="share_with_title">Bagikan dengan…</string>
     <string name="shared_icon_share">bagikan</string>
     <string name="shared_icon_shared">dibagikan</string>
+    <string name="shared_with_you_by">Dibagikan dengan Anda oleh %1$s</string>
     <string name="single_sign_on_request_token" formatted="true">Izinkan %1$s untuk mengakses akun NextCloud %2$s?</string>
     <string name="sort_by">Urut berdasarkan</string>
     <string name="sort_by_modification_date_ascending">Terbaru</string>
@@ -584,6 +599,7 @@ Otomatis unggah hanya bekerja dengan baik apabila anda mengeluarkan aplikasi ini
     <string name="update_link_forbidden_permissions">untuk memperbarui pembagian ini</string>
     <string name="upload_chooser_title">Unggah dari…</string>
     <string name="upload_content_from_other_apps">Unggah konten dari aplikasi lain</string>
+    <string name="upload_direct_camera_upload">Unggah dari kamera</string>
     <string name="upload_file_dialog_filename">Nama berkas</string>
     <string name="upload_file_dialog_filetype">Tipe berkas</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Berkas pintasan Google Maps(%s)</string>
