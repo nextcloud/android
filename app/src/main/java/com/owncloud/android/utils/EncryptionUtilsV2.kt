@@ -65,15 +65,16 @@ import java.security.PrivateKey
 import java.security.Security
 import java.security.Signature
 import java.security.cert.X509Certificate
+import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
 
 class EncryptionUtilsV2 {
     @VisibleForTesting
     fun encryptMetadata(metadata: DecryptedMetadata, metadataKey: String): EncryptedMetadata {
         val json = EncryptionUtils.serializeJSON(metadata)
-        //val gzip = gZipCompress(json)
+        val gzip = gZipCompress(json)
         val encryptedData = EncryptionUtils.encryptStringSymmetricWithIVandAuthTag(
-            json.toByteArray(),
+            gzip,
             metadataKey.toByteArray()
         )
 
@@ -84,8 +85,9 @@ class EncryptionUtilsV2 {
     fun decryptMetadata(metadata: EncryptedMetadata, metadataKey: String): DecryptedMetadata {
         val decrypted = EncryptionUtils.decryptStringSymmetric(
             metadata.ciphertext,
-            metadataKey.toByteArray(),
-            metadata.authenticationTag
+            EncryptionUtils.decodeStringToBase64Bytes(metadataKey),
+            metadata.authenticationTag,
+            metadata.nonce
         )
         val json = gZipDecompress(decrypted)
 
@@ -262,7 +264,7 @@ class EncryptionUtilsV2 {
     @VisibleForTesting
     fun decryptMetadataKey(user: EncryptedUser, privateKey: String): String {
         return EncryptionUtils.decryptStringAsymmetric(
-            user.encryptedKey,
+            user.encryptedMetadataKey,
             privateKey
         )
     }
@@ -282,8 +284,8 @@ class EncryptionUtilsV2 {
     @VisibleForTesting
     fun gZipDecompress(compressed: ByteArray): String {
         val stringBuilder = StringBuilder()
-        //val inputStream = GZIPInputStream(compressed.inputStream())
-        val inputStream = compressed.inputStream()
+        val inputStream = GZIPInputStream(compressed.inputStream())
+        //val inputStream = compressed.inputStream()
         val bufferedReader = BufferedReader(InputStreamReader(inputStream))
 
         val sb = java.lang.StringBuilder()

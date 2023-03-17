@@ -25,5 +25,5 @@ package com.owncloud.android.datamodel.e2e.v2.encrypted
 data class EncryptedUser(
     val userId: String,
     val certificate: String,
-    val encryptedKey: String
+    val encryptedMetadataKey: String
 )
