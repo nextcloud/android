@@ -25,6 +25,6 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: hmarr/auto-approve-action@0902bf83c300168cda5cd6856731a0fcb0e731c2 # v3.2.0
+      - uses: hmarr/auto-approve-action@44888193675f29a83e04faf4002fa8c0b537b1e4 # v3.2.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
