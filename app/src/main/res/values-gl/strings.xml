@@ -503,8 +503,8 @@
     <string name="notification_channel_general_name">Notificacións xerais</string>
     <string name="notification_channel_media_description">Progreso do reprodutor de música</string>
     <string name="notification_channel_media_name">Reprodutor de medios</string>
-    <string name="notification_channel_push_description">Amosa as notificacións enviadas polo servidor: mencións en comentarios, recepción de novos ficheiros compartidos remotos, anuncios publicados por un administrador, etc.</string>
-    <string name="notification_channel_push_name">Notificacións do servidor</string>
+    <string name="notification_channel_push_description">Amosar as notificacións automáticas: mencións en comentarios, recepción de novos ficheiros compartidos remotos, anuncios publicados por un administrador, etc.</string>
+    <string name="notification_channel_push_name">Notificacións automáticas</string>
     <string name="notification_channel_upload_description">Amosa o progreso do envío</string>
     <string name="notification_channel_upload_name_short">Envíos</string>
     <string name="notification_icon">Icona de notificación</string>
@@ -604,9 +604,9 @@
     <string name="preview_sorry">Desculpe.</string>
     <string name="privacy">Privacidade</string>
     <string name="public_share_name">Nome novo</string>
-    <string name="push_notifications_not_implemented">Foron desactivadas as notificacións do servidor por depender de servizos propietarios de Google Play.</string>
-    <string name="push_notifications_old_login">Non hai notificacións do servidor por mor dun acceso á sesión caducado. Considere volver engadir a súa conta.</string>
-    <string name="push_notifications_temp_error">Actualmente non están dispoñíbeis as notificacións do servidor.</string>
+    <string name="push_notifications_not_implemented">Foron desactivadas as notificacións automáticas por depender de servizos propietarios de Google Play.</string>
+    <string name="push_notifications_old_login">Non dispón de notificacións automáticas por mor dun acceso á sesión caducado. Considere volver engadir a súa conta.</string>
+    <string name="push_notifications_temp_error">Actualmente non están dispoñíbeis as notificacións automáticas.</string>
     <string name="qr_could_not_be_read">Non foi posíbel ler o código QR.</string>
     <string name="recommend_subject">Probe %1$s no seu dispositivo!</string>
     <string name="recommend_text">Quixera convidalo a usar %1$s no seu dispositivo.\nDescargueo aquí: %2$s</string>
