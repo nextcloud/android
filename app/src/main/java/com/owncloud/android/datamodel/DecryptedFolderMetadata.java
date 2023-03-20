@@ -71,9 +71,9 @@ public class DecryptedFolderMetadata {
     }
 
     public static class Metadata {
-        private Map<Integer, String> metadataKeys; // each keys is encrypted on its own, decrypt on use
-        private Sharing sharing;
-        private int version;
+        private Map<Integer, String> metadataKeys; // outdated with v1.1
+        private String metadataKey;
+        private double version;
 
         @Override
         public String toString() {
@@ -84,11 +84,7 @@ public class DecryptedFolderMetadata {
             return this.metadataKeys;
         }
 
-        public Sharing getSharing() {
-            return this.sharing;
-        }
-
-        public int getVersion() {
+        public double getVersion() {
             return this.version;
         }
 
@@ -96,12 +92,20 @@ public class DecryptedFolderMetadata {
             this.metadataKeys = metadataKeys;
         }
 
-        public void setSharing(Sharing sharing) {
-            this.sharing = sharing;
+        public void setVersion(double version) {
+            this.version = version;
         }
 
-        public void setVersion(int version) {
-            this.version = version;
+        public String getMetadataKey() {
+            if (metadataKey == null) {
+                // fallback to old keys array
+                return metadataKeys.get(0);
+            }
+            return metadataKey;
+        }
+
+        public void setMetadataKey(String metadataKey) {
+            this.metadataKey = metadataKey;
         }
     }
 
@@ -114,27 +118,6 @@ public class DecryptedFolderMetadata {
 
         public void setMetadataKeys(Map<Integer, String> metadataKeys) {
             this.metadataKeys = metadataKeys;
-        }
-    }
-
-    public static class Sharing {
-        private Map<String, String> recipient;
-        private String signature;
-
-        public Map<String, String> getRecipient() {
-            return this.recipient;
-        }
-
-        public String getSignature() {
-            return this.signature;
-        }
-
-        public void setRecipient(Map<String, String> recipient) {
-            this.recipient = recipient;
-        }
-
-        public void setSignature(String signature) {
-            this.signature = signature;
         }
     }
 

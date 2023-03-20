@@ -88,12 +88,13 @@ import static com.owncloud.android.utils.EncryptionUtils.verifySHA512;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 
 @RunWith(AndroidJUnit4.class)
 public class EncryptionTestIT {
     @Rule public RetryTestRule retryTestRule = new RetryTestRule();
-    
+
     private String privateKey = "MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAo" +
         "IBAQDsn0JKS/THu328z1IgN0VzYU53HjSX03WJIgWkmyTaxbiKpoJaKbksXmfSpgzV" +
         "GzKFvGfZ03fwFrN7Q8P8R2e8SNiell7mh1TDw9/0P7Bt/ER8PJrXORo+GviKHxaLr7" +
@@ -104,44 +105,44 @@ public class EncryptionTestIT {
         "SYk2jjjWVSXRNmex+V6+Y/jBRT2mvAgm8J+7LPwFdatE+lz0aZrMRD2gCWYF6Itpda" +
         "90OlLkmQPVWWtGTgX2ta2tF5r2iSGzk0IdoL8zw98Q2UzpOcw30KnWtFMxuxWk0mHq" +
         "pgp00g80cDWg3+RPbWOhdLp5bflQ36fKDfmjq05cGlIk6unnVyC5HXpvh4d4k2EWlX" +
-            "rjGsndVBPCjGkZePlLRgDHxT06r+5XdJ+1CBDZgCsmjGz3M8uOHyCfVW0WhB7ynzDT" +
-            "agVgz0iqpuhAi9sPt6iWWwpAnRw8cQgqEKw9bvKKECgYEA/WPi2PJtL6u/xlysh/H7" +
-            "A717CId6fPHCMDace39ZNtzUzc0nT5BemlcF0wZ74NeJSur3Q395YzB+eBMLs5p8mA" +
-            "95wgGvJhM65/J+HX+k9kt6Z556zLMvtG+j1yo4D0VEwm3xahB4SUUP+1kD7dNvo4+8" +
-            "xeSCyjzNllvYZZC0DrECgYEA7w8pEqhHHn0a+twkPCZJS+gQTB9Rm+FBNGJqB3XpWs" +
-            "TeLUxYRbVGk0iDve+eeeZ41drxcdyWP+WcL34hnrjgI1Fo4mK88saajpwUIYMy6+qM" +
-            "LY+jC2NRSBox56eH7nsVYvQQK9eKqv9wbB+PF9SwOIvuETN7fd8mAY02UnoaaU8CgY" +
-            "BoHRKocXPLkpZJuuppMVQiRUi4SHJbxDo19Tp2w+y0TihiJ1lvp7I3WGpcOt3LlMQk" +
-            "tEbExSvrRZGxZKH6Og/XqwQsYuTEkEIz679F/5yYVosE6GkskrOXQAfh8Mb3/04xVV" +
-            "tMaVgDQw0+CWVD4wyL+BNofGwBDNqsXTCdCsfxAQKBgQCDv2EtbRw0y1HRKv21QIxo" +
-            "ju5cZW4+cDfVPN+eWPdQFOs1H7wOPsc0aGRiiupV2BSEF3O1ApKziEE5U1QH+29bR4" +
-            "R8L1pemeGX8qCNj5bCubKjcWOz5PpouDcEqimZ3q98p3E6GEHN15UHoaTkx0yO/V8o" +
-            "j6zhQ9fYRxDHB5ACtQKBgQCOO7TJUO1IaLTjcrwS4oCfJyRnAdz49L1AbVJkIBK0fh" +
-            "JLecOFu3ZlQl/RStQb69QKb5MNOIMmQhg8WOxZxHcpmIDbkDAm/J/ovJXFSoBdOr5o" +
-            "uQsYsDZhsWW97zvLMzg5pH9/3/1BNz5q3Vu4HgfBSwWGt4E2NENj+XA+QAVmGA==";
+        "rjGsndVBPCjGkZePlLRgDHxT06r+5XdJ+1CBDZgCsmjGz3M8uOHyCfVW0WhB7ynzDT" +
+        "agVgz0iqpuhAi9sPt6iWWwpAnRw8cQgqEKw9bvKKECgYEA/WPi2PJtL6u/xlysh/H7" +
+        "A717CId6fPHCMDace39ZNtzUzc0nT5BemlcF0wZ74NeJSur3Q395YzB+eBMLs5p8mA" +
+        "95wgGvJhM65/J+HX+k9kt6Z556zLMvtG+j1yo4D0VEwm3xahB4SUUP+1kD7dNvo4+8" +
+        "xeSCyjzNllvYZZC0DrECgYEA7w8pEqhHHn0a+twkPCZJS+gQTB9Rm+FBNGJqB3XpWs" +
+        "TeLUxYRbVGk0iDve+eeeZ41drxcdyWP+WcL34hnrjgI1Fo4mK88saajpwUIYMy6+qM" +
+        "LY+jC2NRSBox56eH7nsVYvQQK9eKqv9wbB+PF9SwOIvuETN7fd8mAY02UnoaaU8CgY" +
+        "BoHRKocXPLkpZJuuppMVQiRUi4SHJbxDo19Tp2w+y0TihiJ1lvp7I3WGpcOt3LlMQk" +
+        "tEbExSvrRZGxZKH6Og/XqwQsYuTEkEIz679F/5yYVosE6GkskrOXQAfh8Mb3/04xVV" +
+        "tMaVgDQw0+CWVD4wyL+BNofGwBDNqsXTCdCsfxAQKBgQCDv2EtbRw0y1HRKv21QIxo" +
+        "ju5cZW4+cDfVPN+eWPdQFOs1H7wOPsc0aGRiiupV2BSEF3O1ApKziEE5U1QH+29bR4" +
+        "R8L1pemeGX8qCNj5bCubKjcWOz5PpouDcEqimZ3q98p3E6GEHN15UHoaTkx0yO/V8o" +
+        "j6zhQ9fYRxDHB5ACtQKBgQCOO7TJUO1IaLTjcrwS4oCfJyRnAdz49L1AbVJkIBK0fh" +
+        "JLecOFu3ZlQl/RStQb69QKb5MNOIMmQhg8WOxZxHcpmIDbkDAm/J/ovJXFSoBdOr5o" +
+        "uQsYsDZhsWW97zvLMzg5pH9/3/1BNz5q3Vu4HgfBSwWGt4E2NENj+XA+QAVmGA==";
 
     private String cert = "-----BEGIN CERTIFICATE-----\n" +
-            "MIIDpzCCAo+gAwIBAgIBADANBgkqhkiG9w0BAQUFADBuMRowGAYDVQQDDBF3d3cu\n" +
-            "bmV4dGNsb3VkLmNvbTESMBAGA1UECgwJTmV4dGNsb3VkMRIwEAYDVQQHDAlTdHV0\n" +
-            "dGdhcnQxGzAZBgNVBAgMEkJhZGVuLVd1ZXJ0dGVtYmVyZzELMAkGA1UEBhMCREUw\n" +
-            "HhcNMTcwOTI2MTAwNDMwWhcNMzcwOTIxMTAwNDMwWjBuMRowGAYDVQQDDBF3d3cu\n" +
-            "bmV4dGNsb3VkLmNvbTESMBAGA1UECgwJTmV4dGNsb3VkMRIwEAYDVQQHDAlTdHV0\n" +
-            "dGdhcnQxGzAZBgNVBAgMEkJhZGVuLVd1ZXJ0dGVtYmVyZzELMAkGA1UEBhMCREUw\n" +
-            "ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDsn0JKS/THu328z1IgN0Vz\n" +
-            "YU53HjSX03WJIgWkmyTaxbiKpoJaKbksXmfSpgzVGzKFvGfZ03fwFrN7Q8P8R2e8\n" +
-            "SNiell7mh1TDw9/0P7Bt/ER8PJrXORo+GviKHxaLr7Y0BJX9i/nW/L0L/VaE8CZT\n" +
-            "AqYBdcSJGgHJjY4UMf892ZPTa9T2Dl3ggdMZ7BQ2kiCiCC3qV99b0igRJGmmLQaG\n" +
-            "iAflhFzuDQPMifUMq75wI8RSRPdxUAtjTfkl68QHu7Umyeyy33OQgdUKaTl5zcS3\n" +
-            "VSQbNjveVCNM4RDH1RlEc+7Wf1BY8APqT6jbiBcROJD2CeoLH2eiIJCi+61ZkSGf\n" +
-            "AgMBAAGjUDBOMB0GA1UdDgQWBBTFrXz2tk1HivD9rQ75qeoyHrAgIjAfBgNVHSME\n" +
-            "GDAWgBTFrXz2tk1HivD9rQ75qeoyHrAgIjAMBgNVHRMEBTADAQH/MA0GCSqGSIb3\n" +
-            "DQEBBQUAA4IBAQARQTX21QKO77gAzBszFJ6xVnjfa23YZF26Z4X1KaM8uV8TGzuN\n" +
-            "JA95XmReeP2iO3r8EWXS9djVCD64m2xx6FOsrUI8HZaw1JErU8mmOaLAe8q9RsOm\n" +
-            "9Eq37e4vFp2YUEInYUqs87ByUcA4/8g3lEYeIUnRsRsWsA45S3wD7wy07t+KAn7j\n" +
-            "yMmfxdma6hFfG9iN/egN6QXUAyIPXvUvlUuZ7/BhWBj/3sHMrF9quy9Q2DOI8F3t\n" +
-            "1wdQrkq4BtStKhciY5AIXz9SqsctFHTv4Lwgtkapoel4izJnO0ZqYTXVe7THwri9\n" +
-            "H/gua6uJDWH9jk2/CiZDWfsyFuNUuXvDSp05\n" +
-            "-----END CERTIFICATE-----";
+        "MIIDpzCCAo+gAwIBAgIBADANBgkqhkiG9w0BAQUFADBuMRowGAYDVQQDDBF3d3cu\n" +
+        "bmV4dGNsb3VkLmNvbTESMBAGA1UECgwJTmV4dGNsb3VkMRIwEAYDVQQHDAlTdHV0\n" +
+        "dGdhcnQxGzAZBgNVBAgMEkJhZGVuLVd1ZXJ0dGVtYmVyZzELMAkGA1UEBhMCREUw\n" +
+        "HhcNMTcwOTI2MTAwNDMwWhcNMzcwOTIxMTAwNDMwWjBuMRowGAYDVQQDDBF3d3cu\n" +
+        "bmV4dGNsb3VkLmNvbTESMBAGA1UECgwJTmV4dGNsb3VkMRIwEAYDVQQHDAlTdHV0\n" +
+        "dGdhcnQxGzAZBgNVBAgMEkJhZGVuLVd1ZXJ0dGVtYmVyZzELMAkGA1UEBhMCREUw\n" +
+        "ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDsn0JKS/THu328z1IgN0Vz\n" +
+        "YU53HjSX03WJIgWkmyTaxbiKpoJaKbksXmfSpgzVGzKFvGfZ03fwFrN7Q8P8R2e8\n" +
+        "SNiell7mh1TDw9/0P7Bt/ER8PJrXORo+GviKHxaLr7Y0BJX9i/nW/L0L/VaE8CZT\n" +
+        "AqYBdcSJGgHJjY4UMf892ZPTa9T2Dl3ggdMZ7BQ2kiCiCC3qV99b0igRJGmmLQaG\n" +
+        "iAflhFzuDQPMifUMq75wI8RSRPdxUAtjTfkl68QHu7Umyeyy33OQgdUKaTl5zcS3\n" +
+        "VSQbNjveVCNM4RDH1RlEc+7Wf1BY8APqT6jbiBcROJD2CeoLH2eiIJCi+61ZkSGf\n" +
+        "AgMBAAGjUDBOMB0GA1UdDgQWBBTFrXz2tk1HivD9rQ75qeoyHrAgIjAfBgNVHSME\n" +
+        "GDAWgBTFrXz2tk1HivD9rQ75qeoyHrAgIjAMBgNVHRMEBTADAQH/MA0GCSqGSIb3\n" +
+        "DQEBBQUAA4IBAQARQTX21QKO77gAzBszFJ6xVnjfa23YZF26Z4X1KaM8uV8TGzuN\n" +
+        "JA95XmReeP2iO3r8EWXS9djVCD64m2xx6FOsrUI8HZaw1JErU8mmOaLAe8q9RsOm\n" +
+        "9Eq37e4vFp2YUEInYUqs87ByUcA4/8g3lEYeIUnRsRsWsA45S3wD7wy07t+KAn7j\n" +
+        "yMmfxdma6hFfG9iN/egN6QXUAyIPXvUvlUuZ7/BhWBj/3sHMrF9quy9Q2DOI8F3t\n" +
+        "1wdQrkq4BtStKhciY5AIXz9SqsctFHTv4Lwgtkapoel4izJnO0ZqYTXVe7THwri9\n" +
+        "H/gua6uJDWH9jk2/CiZDWfsyFuNUuXvDSp05\n" +
+        "-----END CERTIFICATE-----";
 
     @Test
     public void encryptStringAsymmetric() throws Exception {
@@ -288,8 +289,8 @@ public class EncryptionTestIT {
     }
 
     /**
-     * DecryptedFolderMetadata -> EncryptedFolderMetadata -> JSON -> encrypt
-     * -> decrypt -> JSON -> EncryptedFolderMetadata -> DecryptedFolderMetadata
+     * DecryptedFolderMetadata -> EncryptedFolderMetadata -> JSON -> encrypt -> decrypt -> JSON ->
+     * EncryptedFolderMetadata -> DecryptedFolderMetadata
      */
     @Test
     public void encryptionMetadata() throws Exception {
@@ -297,7 +298,7 @@ public class EncryptionTestIT {
 
         // encrypt
         EncryptedFolderMetadata encryptedFolderMetadata1 = encryptFolderMetadata(
-                decryptedFolderMetadata1, privateKey);
+            decryptedFolderMetadata1, privateKey, cert);
 
         // serialize
         String encryptedJson = serializeJSON(encryptedFolderMetadata1);
@@ -305,15 +306,58 @@ public class EncryptionTestIT {
         // de-serialize
         EncryptedFolderMetadata encryptedFolderMetadata2 = deserializeJSON(encryptedJson,
                                                                            new TypeToken<EncryptedFolderMetadata>() {
-                });
+                                                                           });
 
         // decrypt
         DecryptedFolderMetadata decryptedFolderMetadata2 = decryptFolderMetaData(
-                encryptedFolderMetadata2, privateKey);
+            encryptedFolderMetadata2, privateKey);
 
         // compare
         assertTrue(compareJsonStrings(serializeJSON(decryptedFolderMetadata1),
                                       serializeJSON(decryptedFolderMetadata2)));
+    }
+
+    @Test
+    public void testChangedMetadataKey() throws Exception {
+        DecryptedFolderMetadata decryptedFolderMetadata1 = generateFolderMetadata();
+
+        // encrypt
+        EncryptedFolderMetadata encryptedFolderMetadata1 = encryptFolderMetadata(
+            decryptedFolderMetadata1, privateKey, cert);
+
+        // store metadata key
+        String oldMetadataKey = encryptedFolderMetadata1.getMetadata().getMetadataKey();
+
+        // do it again
+        // encrypt
+        EncryptedFolderMetadata encryptedFolderMetadata2 = encryptFolderMetadata(
+            decryptedFolderMetadata1, privateKey, cert);
+
+        String newMetadataKey = encryptedFolderMetadata2.getMetadata().getMetadataKey();
+
+        assertNotEquals(oldMetadataKey, newMetadataKey);
+    }
+
+    @Test
+    public void testMigrateMetadataKey() throws Exception {
+        DecryptedFolderMetadata decryptedFolderMetadata1 = generateFolderMetadata();
+
+        // encrypt
+        EncryptedFolderMetadata encryptedFolderMetadata1 = encryptFolderMetadata(
+            decryptedFolderMetadata1, privateKey, cert);
+
+        // reset new metadata key, to mimic old version
+        encryptedFolderMetadata1.getMetadata().setMetadataKey(null);
+        String oldMetadataKey = encryptedFolderMetadata1.getMetadata().getMetadataKey();
+
+        // do it again
+        // encrypt
+        EncryptedFolderMetadata encryptedFolderMetadata2 = encryptFolderMetadata(
+            decryptedFolderMetadata1, privateKey, cert);
+
+        String newMetadataKey = encryptedFolderMetadata2.getMetadata().getMetadataKey();
+
+        assertNotEquals(oldMetadataKey, newMetadataKey);
     }
 
     @Test
@@ -333,21 +377,21 @@ public class EncryptionTestIT {
         assertTrue(cryptFile("ia7OEEEyXMoRa1QWQk8r",
                              "78f42172166f9dc8fd1a7156b1753353",
                              decodeStringToBase64Bytes(metadata.getFiles().get("ia7OEEEyXMoRa1QWQk8r")
-                        .getEncrypted().getKey()),
+                                                           .getEncrypted().getKey()),
                              decodeStringToBase64Bytes(metadata.getFiles().get("ia7OEEEyXMoRa1QWQk8r")
-                        .getInitializationVector()),
+                                                           .getInitializationVector()),
                              decodeStringToBase64Bytes(metadata.getFiles().get("ia7OEEEyXMoRa1QWQk8r")
-                        .getAuthenticationTag())));
+                                                           .getAuthenticationTag())));
 
         // n9WXAIXO2wRY4R8nXwmo
         assertTrue(cryptFile("n9WXAIXO2wRY4R8nXwmo",
                              "825143ed1f21ebb0c3b3c3f005b2f5db",
                              decodeStringToBase64Bytes(metadata.getFiles().get("n9WXAIXO2wRY4R8nXwmo")
-                        .getEncrypted().getKey()),
+                                                           .getEncrypted().getKey()),
                              decodeStringToBase64Bytes(metadata.getFiles().get("n9WXAIXO2wRY4R8nXwmo")
-                        .getInitializationVector()),
+                                                           .getInitializationVector()),
                              decodeStringToBase64Bytes(metadata.getFiles().get("n9WXAIXO2wRY4R8nXwmo")
-                        .getAuthenticationTag())));
+                                                           .getAuthenticationTag())));
     }
 
     @Test
@@ -356,7 +400,7 @@ public class EncryptionTestIT {
 
         // encrypt
         EncryptedFolderMetadata encryptedFolderMetadata1 = encryptFolderMetadata(
-            decryptedFolderMetadata1, privateKey);
+            decryptedFolderMetadata1, privateKey, cert);
 
         // serialize
         String encryptedJson = serializeJSON(encryptedFolderMetadata1);
@@ -386,7 +430,7 @@ public class EncryptionTestIT {
             addFile(decryptedFolderMetadata1, i);
 
             // encrypt
-            encryptedFolderMetadata1 = encryptFolderMetadata(decryptedFolderMetadata1, privateKey);
+            encryptedFolderMetadata1 = encryptFolderMetadata(decryptedFolderMetadata1, privateKey, cert);
 
             // serialize
             encryptedJson = serializeJSON(encryptedFolderMetadata1);
@@ -433,8 +477,8 @@ public class EncryptionTestIT {
         // encrypt
         EncryptedFolderMetadata encryptedFolderMetadata1 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            privateKey
-                                                                                );
+            privateKey,
+            cert);
         EncryptionUtils.encryptFileDropFiles(decryptedFolderMetadata1, encryptedFolderMetadata1, cert);
 
         // serialize
@@ -561,15 +605,7 @@ public class EncryptionTestIT {
 
         DecryptedFolderMetadata.Metadata metadata1 = new DecryptedFolderMetadata.Metadata();
         metadata1.setMetadataKeys(metadataKeys);
-        metadata1.setVersion(1);
-
-        DecryptedFolderMetadata.Sharing sharing = new DecryptedFolderMetadata.Sharing();
-        sharing.setSignature("HMACOFRECIPIENTANDNEWESTMETADATAKEY");
-        HashMap<String, String> recipient = new HashMap<>();
-        recipient.put("blah@schiessle.org", "PUBLIC KEY");
-        recipient.put("bjoern@schiessle.org", "PUBLIC KEY");
-        sharing.setRecipient(recipient);
-        metadata1.setSharing(sharing);
+        metadata1.setVersion(1.1);
 
         HashMap<String, DecryptedFolderMetadata.DecryptedFile> files = new HashMap<>();
 
@@ -603,7 +639,7 @@ public class EncryptionTestIT {
     }
 
     private boolean cryptFile(String fileName, String md5, byte[] key, byte[] iv, byte[] expectedAuthTag)
-            throws Exception {
+        throws Exception {
         File file = getFile(fileName);
         assertEquals(md5, getMD5Sum(file));
 

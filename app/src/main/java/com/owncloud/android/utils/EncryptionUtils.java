@@ -148,11 +148,12 @@ public final class EncryptionUtils {
      * @return EncryptedFolderMetadata encrypted folder metadata
      */
     public static EncryptedFolderMetadata encryptFolderMetadata(DecryptedFolderMetadata decryptedFolderMetadata,
-                                                                String privateKey
+                                                                String privateKey,
+                                                                String publicKey
                                                                )
         throws NoSuchAlgorithmException, InvalidKeyException,
         InvalidAlgorithmParameterException, NoSuchPaddingException, BadPaddingException,
-        IllegalBlockSizeException, InvalidKeySpecException {
+        IllegalBlockSizeException, InvalidKeySpecException, CertificateException {
 
         HashMap<String, EncryptedFolderMetadata.EncryptedFile> files = new HashMap<>();
         HashMap<String, EncryptedFolderMetadata.EncryptedFile> filesdrop = new HashMap<>();
@@ -160,6 +161,13 @@ public final class EncryptionUtils {
                                                                                           .getMetadata(),
                                                                                       files,
                                                                                       filesdrop);
+
+        // set new metadata key
+        byte[] metadataKeyBytes = EncryptionUtils.generateKey();
+        String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(
+            EncryptionUtils.encodeBytesToBase64String(metadataKeyBytes),
+            publicKey);
+        encryptedFolderMetadata.getMetadata().setMetadataKey(encryptedMetadataKey);
 
         // Encrypt each file in "files"
         for (Map.Entry<String, DecryptedFolderMetadata.DecryptedFile> entry : decryptedFolderMetadata
@@ -169,16 +177,11 @@ public final class EncryptionUtils {
 
             EncryptedFolderMetadata.EncryptedFile encryptedFile = new EncryptedFolderMetadata.EncryptedFile();
             encryptedFile.setInitializationVector(decryptedFile.getInitializationVector());
-            encryptedFile.setMetadataKey(decryptedFile.getMetadataKey());
             encryptedFile.setAuthenticationTag(decryptedFile.getAuthenticationTag());
-
-            byte[] decryptedMetadataKey = EncryptionUtils.decodeStringToBase64Bytes(EncryptionUtils.decryptStringAsymmetric(
-                decryptedFolderMetadata.getMetadata().getMetadataKeys().get(encryptedFile.getMetadataKey()),
-                privateKey));
 
             // encrypt
             String dataJson = EncryptionUtils.serializeJSON(decryptedFile.getEncrypted());
-            encryptedFile.setEncrypted(EncryptionUtils.encryptStringSymmetric(dataJson, decryptedMetadataKey));
+            encryptedFile.setEncrypted(EncryptionUtils.encryptStringSymmetric(dataJson, metadataKeyBytes));
 
             files.put(key, encryptedFile);
         }
@@ -196,7 +199,6 @@ public final class EncryptionUtils {
 
             EncryptedFolderMetadata.EncryptedFile encryptedFile = new EncryptedFolderMetadata.EncryptedFile();
             encryptedFile.setInitializationVector(decryptedFile.getInitializationVector());
-            encryptedFile.setMetadataKey(decryptedFile.getMetadataKey());
             encryptedFile.setAuthenticationTag(decryptedFile.getAuthenticationTag());
 
             // encrypt
@@ -220,6 +222,16 @@ public final class EncryptionUtils {
         DecryptedFolderMetadata decryptedFolderMetadata = new DecryptedFolderMetadata(
             encryptedFolderMetadata.getMetadata(), files);
 
+        byte[] decryptedMetadataKey = null;
+
+        String encryptedMetadataKey = decryptedFolderMetadata.getMetadata().getMetadataKey();
+
+        if (encryptedMetadataKey != null) {
+            decryptedMetadataKey = decodeStringToBase64Bytes(
+                decryptStringAsymmetric(encryptedMetadataKey, privateKey));
+        }
+
+
         for (Map.Entry<String, EncryptedFolderMetadata.EncryptedFile> entry : encryptedFolderMetadata
             .getFiles().entrySet()) {
             String key = entry.getKey();
@@ -230,10 +242,12 @@ public final class EncryptionUtils {
             decryptedFile.setMetadataKey(encryptedFile.getMetadataKey());
             decryptedFile.setAuthenticationTag(encryptedFile.getAuthenticationTag());
 
-            byte[] decryptedMetadataKey = EncryptionUtils.decodeStringToBase64Bytes(
-                EncryptionUtils.decryptStringAsymmetric(decryptedFolderMetadata.getMetadata()
-                                                            .getMetadataKeys().get(encryptedFile.getMetadataKey()),
-                                                        privateKey));
+            if (decryptedMetadataKey == null) {
+                decryptedMetadataKey = EncryptionUtils.decodeStringToBase64Bytes(
+                    decryptStringAsymmetric(decryptedFolderMetadata.getMetadata()
+                                                .getMetadataKeys().get(encryptedFile.getMetadataKey()),
+                                            privateKey));
+            }
 
             // decrypt
             String dataJson = EncryptionUtils.decryptStringSymmetric(encryptedFile.getEncrypted(), decryptedMetadataKey);
@@ -294,6 +308,7 @@ public final class EncryptionUtils {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
         String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
         String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
+        String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
 
         EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
             serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadata>() {
@@ -317,7 +332,8 @@ public final class EncryptionUtils {
 
                 // upload metadata
                 EncryptedFolderMetadata encryptedFolderMetadataNew = encryptFolderMetadata(decryptedFolderMetadata,
-                                                                                           privateKey);
+                                                                                           privateKey,
+                                                                                           publicKey);
 
                 String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadataNew);
 
@@ -909,7 +925,7 @@ public final class EncryptionUtils {
             metadata.getMetadata().setMetadataKeys(new HashMap<>());
             String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
             String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
-            metadata.getMetadata().getMetadataKeys().put(0, encryptedMetadataKey);
+            metadata.getMetadata().setMetadataKey(encryptedMetadataKey);
 
             return new Pair<>(Boolean.FALSE, metadata);
         } else {

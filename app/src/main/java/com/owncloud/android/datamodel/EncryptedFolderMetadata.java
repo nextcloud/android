@@ -93,9 +93,5 @@ public class EncryptedFolderMetadata {
         public void setAuthenticationTag(String authenticationTag) {
             this.authenticationTag = authenticationTag;
         }
-
-        public void setMetadataKey(int metadataKey) {
-            this.metadataKey = metadataKey;
-        }
     }
 }
