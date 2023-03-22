@@ -200,7 +200,7 @@ class EncryptionUtilsV2IT : AbstractIT() {
         val user = DecryptedUser("enc1", enc1Cert)
 
         val encryptedUser = encryptionUtilsV2.encryptUser(user, metadataKey)
-        assertNotEquals(encryptedUser.encryptedKey, metadataKey)
+        assertNotEquals(encryptedUser.encryptedMetadataKey, metadataKey)
 
         val decryptedMetadataKey = encryptionUtilsV2.decryptMetadataKey(encryptedUser, enc1PrivateKey)
 
@@ -578,30 +578,30 @@ class EncryptionUtilsV2IT : AbstractIT() {
         val input: InputStream = ByteArrayInputStream(decodedCert)
         val certificate = certFactory.generateCertificate(input) as X509Certificate
 
-        
-        val signed = encryptionUtilsV2.signMessageSimple(
+        val signedSimple = encryptionUtilsV2.signMessageSimple(
             certificate,
             privateKey,
             json.toByteArray()
         )
-        
-       assertTrue(encryptionUtilsV2.verifySignedMessage(signed, certificate))
-    }
-    
-    @Test
-    fun decrypt2() {
-        val test = "123456789012345678901234"
-        val metadataKey = "123456789012345678901234" // EncryptionUtils.generateKeyString()
-        val encryptedData = EncryptionUtils.encryptStringSymmetricWithIVandAuthTag(
-            test.toByteArray(),
-            metadataKey.toByteArray()
+
+        val signed = encryptionUtilsV2.signMessage(
+            certificate,
+            privateKey,
+            json.toByteArray()
         )
-        
-        val decrypted = EncryptionUtils.decryptStringSymmetric(
-            encryptedData.first, 
-            metadataKey.toByteArray(),
-            encryptedData.third)
-        
-        assertEquals(test, EncryptionUtilsV2().gZipDecompress(decrypted))
+
+        val ans = signed.getEncoded("BER")
+        val base64Ans = EncryptionUtils.encodeBytesToBase64String(ans)
+
+        //signed.toASN1Structure().
+
+        // val base64signed = EncryptionUtils.encodeBytesToBase64String(signed)
+
+        assertTrue(encryptionUtilsV2.verifySignedMessage(signedSimple, certificate))
+
+        assertTrue(encryptionUtilsV2.verifySignedMessage(signed, certificate))
+
+        // val decodedAns = EncryptionUtils.decodeStringToBase64Bytes(base64Ans)
+        // assertTrue(encryptionUtilsV2.verifySignedMessage(ans, certificate))
     }
 }

@@ -45,6 +45,7 @@ import com.owncloud.android.lib.resources.e2ee.StoreMetadataRemoteOperation
 import com.owncloud.android.lib.resources.e2ee.UpdateMetadataRemoteOperation
 import com.owncloud.android.operations.UploadException
 import org.apache.commons.httpclient.HttpStatus
+import org.bouncycastle.cert.jcajce.JcaCertStore
 import org.bouncycastle.cms.CMSProcessableByteArray
 import org.bouncycastle.cms.CMSSignedData
 import org.bouncycastle.cms.CMSSignedDataGenerator
@@ -63,7 +64,6 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.PrivateKey
 import java.security.Security
-import java.security.Signature
 import java.security.cert.X509Certificate
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
@@ -673,11 +673,27 @@ class EncryptionUtilsV2 {
         return BigInteger(1, bytes).toString(16).padStart(32, '0')
     }
 
-    fun signer(data: ByteArray, key: PrivateKey): ByteArray {
-        val signer = Signature.getInstance("SHA256WithRSA", "BC")
-        signer.initSign(key)
-        signer.update(data)
-        return signer.sign()
+    fun signMessage(cert: X509Certificate, key: PrivateKey, data: ByteArray): CMSSignedData {
+        /*
+         * Sign the data with key, and embed the certificate associated within the CMSSignedData
+         */
+        val content: CMSTypedData = CMSProcessableByteArray(data)
+        val certList = ArrayList<Any>()
+        certList.add(cert)
+        val certs = JcaCertStore(certList)
+        val signGen = CMSSignedDataGenerator()
+        val sha1signer = JcaContentSignerBuilder("SHA1withRSA").setProvider("BC").build(key)
+        signGen.addSignerInfoGenerator(
+            JcaSignerInfoGeneratorBuilder(JcaDigestCalculatorProviderBuilder().build()).build(
+                sha1signer,
+                cert
+            )
+        )
+        signGen.addCertificates(certs)
+        return signGen.generate(
+            content,
+            true
+        ) //content could have been the content of File zip = new File("fichier.zip"); CMSProcessableFile content = new CMSProcessableFile(zip);
     }
 
     fun signMessageSimple(cert: X509Certificate, key: PrivateKey, data: ByteArray): CMSSignedData {
