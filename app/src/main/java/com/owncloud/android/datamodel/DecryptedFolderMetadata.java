@@ -71,9 +71,10 @@ public class DecryptedFolderMetadata {
     }
 
     public static class Metadata {
+        transient
         private Map<Integer, String> metadataKeys; // outdated with v1.1
         private String metadataKey;
-        private double version;
+        private double version = 1.2;
 
         @Override
         public String toString() {
@@ -125,7 +126,7 @@ public class DecryptedFolderMetadata {
         private Data encrypted;
         private String initializationVector;
         private String authenticationTag;
-        private int metadataKey;
+        transient private int metadataKey;
 
         public Data getEncrypted() {
             return this.encrypted;
@@ -164,7 +165,7 @@ public class DecryptedFolderMetadata {
         private String key;
         private String filename;
         private String mimetype;
-        private int version;
+        transient private int version;
 
         public String getKey() {
             return this.key;

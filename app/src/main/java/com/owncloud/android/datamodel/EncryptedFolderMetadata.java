@@ -64,7 +64,7 @@ public class EncryptedFolderMetadata {
         private String encrypted;
         private String initializationVector;
         private String authenticationTag;
-        private int metadataKey;
+        transient private int metadataKey;
 
         public String getEncrypted() {
             return encrypted;

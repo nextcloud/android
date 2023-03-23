@@ -28,6 +28,7 @@ import android.util.Pair;
 
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
@@ -133,8 +134,16 @@ public final class EncryptionUtils {
         return new Gson().fromJson(json, type.getType());
     }
 
+    public static String serializeJSON(Object data, boolean excludeTransient) {
+        if (excludeTransient) {
+            return new Gson().toJson(data);
+        } else {
+            return new GsonBuilder().excludeFieldsWithModifiers(0).create().toJson(data);
+        }
+    }
+
     public static String serializeJSON(Object data) {
-        return new Gson().toJson(data);
+        return serializeJSON(data, false);
     }
 
     /*

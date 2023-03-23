@@ -576,6 +576,17 @@ public class EncryptionTestIT {
         assertTrue(verifySHA512(hashedToken, token));
     }
 
+    @Test
+    public void testExcludeGSON() throws Exception {
+        DecryptedFolderMetadata metadata = generateFolderMetadata();
+
+        String jsonWithKeys = serializeJSON(metadata);
+        String jsonWithoutKeys = serializeJSON(metadata, true);
+
+        assertTrue(jsonWithKeys.contains("metadataKeys"));
+        assertFalse(jsonWithoutKeys.contains("metadataKeys"));
+    }
+
 
     // Helper
     private boolean compareJsonStrings(String expected, String actual) {

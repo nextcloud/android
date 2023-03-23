@@ -619,7 +619,15 @@ public class UploadFileOperation extends SyncOperation {
                 EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
                                                                                                         privateKey,
                                                                                                         publicKey);
-                String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
+
+                String serializedFolderMetadata;
+
+                // check if we need metadataKeys
+                if (metadata.getMetadata().getMetadataKey() != null) {
+                    serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata, true);
+                } else {
+                    serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
+                }
 
                 // upload metadata
                 EncryptionUtils.uploadMetadata(parentFile,
