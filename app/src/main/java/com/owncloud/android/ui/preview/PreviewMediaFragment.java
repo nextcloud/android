@@ -409,7 +409,8 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 R.id.action_move,
                 R.id.action_copy,
                 R.id.action_favorite,
-                R.id.action_unset_favorite
+                R.id.action_unset_favorite,
+                R.id.action_rotate_image
                          ));
         if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
             additionalFilter.add(R.id.action_send_share_file);

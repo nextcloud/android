@@ -180,6 +180,8 @@ public class FileMenuFilter {
         filterLock(toHide, fileLockingEnabled);
         filterUnlock(toHide, fileLockingEnabled);
         filterPinToHome(toHide);
+        //always hidden for other overflow options
+        toHide.add(R.id.action_rotate_image);
 
         return toHide;
     }
