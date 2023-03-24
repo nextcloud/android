@@ -57,7 +57,7 @@ class UploadImagesWorker constructor(
             val fileNameWithoutExt: String = fileName.replace(extension, "")
 
             //if extension is jpg then save the image as jpg
-            if (extension == ".jpg"  || extension == ".jpeg") {
+            if (extension.lowercase() == ".jpg"  || extension.lowercase() == ".jpeg") {
                 val jpgFile = FileUtils.saveJpgImage(context, value.bitmap, fileNameWithoutExt, IMAGE_COMPRESSION_PERCENTAGE)
 
                 //if file is available on local then rewrite the file as well
@@ -67,7 +67,7 @@ class UploadImagesWorker constructor(
                 onImageSaveSuccess(value, jpgFile)
 
                 //if extension is png then save the image as png
-            } else if (extension == ".png") {
+            } else if (extension.lowercase() == ".png") {
                 val pngFile = FileUtils.savePngImage(context, value.bitmap, fileNameWithoutExt, IMAGE_COMPRESSION_PERCENTAGE)
 
                 //if file is available on local then rewrite the file as well
@@ -82,7 +82,7 @@ class UploadImagesWorker constructor(
         notificationManager.cancel(pushNotificationId)
 
         //upload image files
-        if (!savedFiles.isNullOrEmpty() && !remotePaths.isNullOrEmpty()) {
+        if (savedFiles.isNotEmpty() && remotePaths.isNotEmpty()) {
             uploadImageFiles()
         }
 

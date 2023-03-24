@@ -274,7 +274,9 @@ public class PreviewImageActivity extends FileActivity implements
 
     @Override
     public void onImageLoadCompleted() {
-        mViewPager.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
+        if (mViewPager != null) {
+            mViewPager.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
+        }
     }
 
     /**

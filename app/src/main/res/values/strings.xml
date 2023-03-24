@@ -688,6 +688,8 @@
     <string name="notification_channel_media_description">Music player progress</string>
     <string name="notification_channel_file_sync_name">File sync</string>
     <string name="notification_channel_file_sync_description">Shows file sync progress and results</string>
+    <string name="notification_channel_scan_doc_save">Save scanned documents notification channel</string>
+    <string name="notification_channel_scan_doc_save_description">Shows save progress</string>
 
     <string name="account_not_found">Account not found!</string>
 

@@ -144,8 +144,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     private int currentIndex;
     private boolean isRotationInProgress;
     private boolean isImageLoadingFailed;//flag to check if image loading is failed or not
-    private ExecutorService rotationExecutorService = Executors.newSingleThreadExecutor();
-    private Handler rotationHandler = HandlerCompat.createAsync(Looper.getMainLooper());
+    private final ExecutorService rotationExecutorService = Executors.newSingleThreadExecutor();
+    private final Handler rotationHandler = HandlerCompat.createAsync(Looper.getMainLooper());
 
     /**
      * Public factory method to create a new fragment that previews an image.
@@ -444,8 +444,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         //get the rotated bitmap from hashmap
         if (requireActivity() instanceof PreviewImageActivity) {
             Bitmap rotatedBitmap = ((PreviewImageActivity) requireActivity()).getCurrentBitmap(currentIndex);
-            //check if it should not be null
-            if (rotatedBitmap != null) {
+            //check if bitmap is null then hide the share menu
+            if (rotatedBitmap == null) {
                 additionalFilter.add(R.id.action_send_share_file);
             }
         }
@@ -454,8 +454,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         //enable rotate functionality if image is png or jpg
         //we are not rotating svg, gif or any other format of images
         //image loading should not be failed to show rotate images
-        if (!getFile().isEncrypted() && MimeTypeUtil.isJpgOrPngFile(getFile().getFileName())
-            && !isImageLoadingFailed && binding.emptyListProgress.getVisibility() == View.GONE) {
+        if (getFile().isEncrypted() || !MimeTypeUtil.isJpgOrPngFile(getFile().getFileName())
+            || isImageLoadingFailed || binding.emptyListProgress.getVisibility() == View.VISIBLE) {
             additionalFilter.add(R.id.action_rotate_image);
         }
 
@@ -521,6 +521,24 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             //make copy of rotated bitmap to avoid issue during recycle
             bitmap = rotatedBitmap.copy(rotatedBitmap.getConfig(), true);
+
+            //rotate the cached thumbnail for this image
+
+            //1. Get the thumbnail
+            Bitmap thumbnailBitmap = getThumbnailBitmap(getFile());
+            if (thumbnailBitmap != null) {
+                //2. Rotate the thumbnail
+                Bitmap rotatedThumbBitmap = Bitmap.createBitmap(thumbnailBitmap, 0, 0, thumbnailBitmap.getWidth(), thumbnailBitmap.getHeight(),
+                                                                matrix, true);
+
+                //3. Add the rotated thumbnail back to cache
+                ThumbnailsCacheManager.addBitmapToCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId(), rotatedThumbBitmap);
+            }
+
+            //if image resized is enabled then add the current rotated bitmap image to cache
+            if (showResizedImage) {
+                ThumbnailsCacheManager.addBitmapToCache(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId(), rotatedBitmap);
+            }
 
             rotationHandler.post(() -> {
                 //set the rotated bitmap to image view
