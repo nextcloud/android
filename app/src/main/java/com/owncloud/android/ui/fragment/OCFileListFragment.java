@@ -124,7 +124,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -609,8 +611,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public void openActionsMenu(final int filesCount, final Set<OCFile> checkedFiles, final boolean isOverflow) {
         throttler.run("overflowClick", () -> {
+            final List<Integer> additionalFilter = new ArrayList<>(
+                Collections.singletonList(R.id.action_rotate_image));
             final FragmentManager childFragmentManager = getChildFragmentManager();
-            FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow)
+            FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow, additionalFilter)
                 .setResultListener(childFragmentManager, this, (id) -> {
                     onFileActionChosen(id, checkedFiles);
                 })
