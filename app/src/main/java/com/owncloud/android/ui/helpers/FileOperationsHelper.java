@@ -38,7 +38,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
@@ -849,13 +848,9 @@ public class FileOperationsHelper {
                 if (file.isDown()) {
                     File externalFile = new File(file.getStoragePath());
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        uri = FileProvider.getUriForFile(context,
-                                                         context.getResources().getString(R.string.file_provider_authority), externalFile);
-                    } else {
-                        uri = Uri.fromFile(externalFile);
-                    }
+                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    uri = FileProvider.getUriForFile(context,
+                                                     context.getResources().getString(R.string.file_provider_authority), externalFile);
                 } else {
                     uri = Uri.parse(UriUtils.URI_CONTENT_SCHEME +
                                         context.getResources().getString(R.string.image_cache_provider_authority) +

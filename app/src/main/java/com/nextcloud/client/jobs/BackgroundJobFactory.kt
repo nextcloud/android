@@ -24,8 +24,6 @@ import android.app.NotificationManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Resources
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
@@ -89,8 +87,7 @@ class BackgroundJobFactory @Inject constructor(
             null
         }
 
-        // ContentObserverWork requires N
-        return if (deviceInfo.apiLevel >= Build.VERSION_CODES.N && workerClass == ContentObserverWork::class) {
+        return if (workerClass == ContentObserverWork::class) {
             createContentObserverJob(context, workerParameters)
         } else {
             when (workerClass) {
@@ -127,19 +124,14 @@ class BackgroundJobFactory @Inject constructor(
     private fun createContentObserverJob(
         context: Context,
         workerParameters: WorkerParameters
-    ): ListenableWorker? {
-        @RequiresApi(Build.VERSION_CODES.N)
-        if (deviceInfo.apiLevel >= Build.VERSION_CODES.N) {
-            return ContentObserverWork(
-                context,
-                workerParameters,
-                syncedFolderProvider,
-                powerManagementService,
-                backgroundJobManager.get()
-            )
-        } else {
-            return null
-        }
+    ): ListenableWorker {
+        return ContentObserverWork(
+            context,
+            workerParameters,
+            SyncedFolderProvider(contentResolver, preferences, clock),
+            powerManagementService,
+            backgroundJobManager.get()
+        )
     }
 
     private fun createContactsBackupWork(context: Context, params: WorkerParameters): ContactsBackupWork {

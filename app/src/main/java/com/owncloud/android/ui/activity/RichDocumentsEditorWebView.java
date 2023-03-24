@@ -235,10 +235,8 @@ public class RichDocumentsEditorWebView extends EditorWebView {
         @JavascriptInterface
         public void paste() {
             // Javascript cannot do this by itself, so help out.
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                getWebView().dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_PASTE));
-                getWebView().dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_PASTE));
-            }
+            getWebView().dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_PASTE));
+            getWebView().dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_PASTE));
         }
 
         @JavascriptInterface

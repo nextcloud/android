@@ -108,7 +108,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -325,14 +324,13 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             Log_OC.d("Debug", "start logging");
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            try {
-                Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
-                m.invoke(null);
-            } catch (Exception e) {
-                Log_OC.d("Debug", "Failed to disable uri exposure");
-            }
+        try {
+            Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
+            m.invoke(null);
+        } catch (Exception e) {
+            Log_OC.d("Debug", "Failed to disable uri exposure");
         }
+
         initSyncOperations(preferences,
                            uploadsStorageManager,
                            accountManager,
@@ -613,7 +611,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private static void createChannel(NotificationManager notificationManager,
                                       String channelId, int channelName,
                                       int channelDescription, Context context) {

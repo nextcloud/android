@@ -28,7 +28,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
 
 import com.nextcloud.client.account.UserAccountManager;
@@ -243,7 +242,7 @@ public final class FilesSyncHelper {
 
     public static void scheduleFilesSyncIfNeeded(Context context, BackgroundJobManager jobManager) {
         jobManager.schedulePeriodicFilesSyncJob();
-        if (context != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (context != null) {
             jobManager.scheduleContentObserverJob();
         }
     }
