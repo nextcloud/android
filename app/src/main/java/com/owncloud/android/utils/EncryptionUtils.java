@@ -80,6 +80,7 @@ import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -1008,5 +1009,43 @@ public final class EncryptionUtils {
         return file.isEncrypted() &&
             file.isFolder() &&
             user.getServer().getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_26);
+    }
+
+    public static String generateChecksum(DecryptedFolderMetadata metadata,
+                                          String mnemonic) throws NoSuchAlgorithmException {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(mnemonic.replaceAll(" ", ""));
+
+        ArrayList<String> keys = new ArrayList<>(metadata.getFiles().keySet());
+        Collections.sort(keys);
+
+        for (String key : keys) {
+            stringBuilder.append(key);
+        }
+
+        stringBuilder.append(metadata.getMetadata().getMetadataKey());
+
+        // sha256 hashsum
+        return sha256(stringBuilder.toString());
+    }
+
+    /**
+     * SHA-256 hash of metadata-key
+     */
+    public static String sha256(String string) throws NoSuchAlgorithmException {
+        byte[] bytes = MessageDigest
+            .getInstance("SHA-256")
+            .digest(string.getBytes(StandardCharsets.UTF_8));
+
+        return bytesToHex(bytes);
+    }
+
+    public static String bytesToHex(byte[] bytes) {
+        StringBuilder result = new StringBuilder();
+        for (byte individualByte : bytes) {
+            result.append(Integer.toString((individualByte & 0xff) + 0x100, 16)
+                              .substring(1));
+        }
+        return result.toString();
     }
 }

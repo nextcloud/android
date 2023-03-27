@@ -76,6 +76,7 @@ import static com.owncloud.android.utils.EncryptionUtils.deserializeJSON;
 import static com.owncloud.android.utils.EncryptionUtils.encodeBytesToBase64String;
 import static com.owncloud.android.utils.EncryptionUtils.encryptFile;
 import static com.owncloud.android.utils.EncryptionUtils.encryptFolderMetadata;
+import static com.owncloud.android.utils.EncryptionUtils.generateChecksum;
 import static com.owncloud.android.utils.EncryptionUtils.generateKey;
 import static com.owncloud.android.utils.EncryptionUtils.generateSHA512;
 import static com.owncloud.android.utils.EncryptionUtils.ivDelimiter;
@@ -585,6 +586,34 @@ public class EncryptionTestIT {
 
         assertTrue(jsonWithKeys.contains("metadataKeys"));
         assertFalse(jsonWithoutKeys.contains("metadataKeys"));
+    }
+
+    @Test
+    public void testChecksum() throws Exception {
+        DecryptedFolderMetadata metadata = new DecryptedFolderMetadata();
+        String mnemonic = "chimney potato joke science ridge trophy result estate spare vapor much room";
+
+        metadata.getFiles().put("n9WXAIXO2wRY4R8nXwmo", new DecryptedFolderMetadata.DecryptedFile());
+        metadata.getFiles().put("ia7OEEEyXMoRa1QWQk8r", new DecryptedFolderMetadata.DecryptedFile());
+
+        String encryptedMetadataKey = "GuFPAULudgD49S4+VDFck3LiqQ8sx4zmbrBtdpCSGcT+T0W0z4F5gYQYPlzTG6WOkdW5LJZK/";
+        metadata.getMetadata().setMetadataKey(encryptedMetadataKey);
+
+        String checksum = generateChecksum(metadata, mnemonic);
+
+        String expectedChecksum = "002cefa6493f2efb0192247a34bb1b16d391aefee968fd3d4225c4ec3cd56436";
+        assertEquals(expectedChecksum, checksum);
+
+        // change something
+        String newMnemonic = mnemonic + "1";
+
+        String newChecksum = generateChecksum(metadata, newMnemonic);
+        assertNotEquals(expectedChecksum, newChecksum);
+
+        metadata.getFiles().put("aeb34yXMoRa1QWQk8r", new DecryptedFolderMetadata.DecryptedFile());
+
+        newChecksum = generateChecksum(metadata, mnemonic);
+        assertNotEquals(expectedChecksum, newChecksum);
     }
 
 

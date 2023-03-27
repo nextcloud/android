@@ -94,20 +94,11 @@ public final class PushUtils {
         try {
             messageDigest = MessageDigest.getInstance("SHA-512");
             messageDigest.update(pushToken.getBytes());
-            return bytesToHex(messageDigest.digest());
+            return EncryptionUtils.bytesToHex(messageDigest.digest());
         } catch (NoSuchAlgorithmException e) {
             Log_OC.d(TAG, "SHA-512 algorithm not supported");
         }
         return "";
-    }
-
-    public static String bytesToHex(byte[] bytes) {
-        StringBuilder result = new StringBuilder();
-        for (byte individualByte : bytes) {
-            result.append(Integer.toString((individualByte & 0xff) + 0x100, 16)
-                    .substring(1));
-        }
-        return result.toString();
     }
 
     private static int generateRsa2048KeyPair() {
