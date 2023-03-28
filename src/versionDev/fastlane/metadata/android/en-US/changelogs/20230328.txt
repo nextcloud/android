@@ -1,0 +1,5 @@
+Build(deps): Bump androidx.webkit:webkit from 1.6.0 to 1.6.1
+Build(deps): Bump com.github.nextcloud.android-common:ui
+Build(deps): Bump androidx.fragment:fragment-ktx from 1.5.5 to 1.5.6
+Update Nextcloud Android library
+Update 3rd-party dependencies
