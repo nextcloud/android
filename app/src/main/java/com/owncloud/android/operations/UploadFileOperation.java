@@ -471,7 +471,9 @@ public class UploadFileOperation extends SyncOperation {
             Pair<Boolean, DecryptedFolderMetadata> metadataPair = EncryptionUtils.retrieveMetadata(parentFile,
                                                                                                    client,
                                                                                                    privateKey,
-                                                                                                   publicKey);
+                                                                                                   publicKey,
+                                                                                                   arbitraryDataProvider,
+                                                                                                   user);
 
             metadataExists = metadataPair.first;
             DecryptedFolderMetadata metadata = metadataPair.second;
@@ -618,7 +620,9 @@ public class UploadFileOperation extends SyncOperation {
 
                 EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
                                                                                                         privateKey,
-                                                                                                        publicKey);
+                                                                                                        publicKey,
+                                                                                                        arbitraryDataProvider,
+                                                                                                        user);
 
                 String serializedFolderMetadata;
 

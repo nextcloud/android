@@ -74,6 +74,7 @@ public class DecryptedFolderMetadata {
         transient
         private Map<Integer, String> metadataKeys; // outdated with v1.1
         private String metadataKey;
+        private String checksum;
         private double version = 1.2;
 
         @Override
@@ -107,6 +108,14 @@ public class DecryptedFolderMetadata {
 
         public void setMetadataKey(String metadataKey) {
             this.metadataKey = metadataKey;
+        }
+
+        public String getChecksum() {
+            return checksum;
+        }
+
+        public void setChecksum(String checksum) {
+            this.checksum = checksum;
         }
     }
 

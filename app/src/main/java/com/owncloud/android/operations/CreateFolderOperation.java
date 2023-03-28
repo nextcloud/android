@@ -126,7 +126,9 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             Pair<Boolean, DecryptedFolderMetadata> metadataPair = EncryptionUtils.retrieveMetadata(parent,
                                                                                                    client,
                                                                                                    privateKey,
-                                                                                                   publicKey);
+                                                                                                   publicKey,
+                                                                                                   arbitraryDataProvider,
+                                                                                                   user);
 
             metadataExists = metadataPair.first;
             metadata = metadataPair.second;
@@ -151,7 +153,9 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
                 EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
                                                                                                         privateKey,
-                                                                                                        publicKey);
+                                                                                                        publicKey,
+                                                                                                        arbitraryDataProvider,
+                                                                                                        user);
                 String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
 
                 // upload metadata

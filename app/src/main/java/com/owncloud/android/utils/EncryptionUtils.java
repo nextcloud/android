@@ -159,7 +159,9 @@ public final class EncryptionUtils {
      */
     public static EncryptedFolderMetadata encryptFolderMetadata(DecryptedFolderMetadata decryptedFolderMetadata,
                                                                 String privateKey,
-                                                                String publicKey
+                                                                String publicKey,
+                                                                ArbitraryDataProvider arbitraryDataProvider,
+                                                                User user
                                                                )
         throws NoSuchAlgorithmException, InvalidKeyException,
         InvalidAlgorithmParameterException, NoSuchPaddingException, BadPaddingException,
@@ -196,6 +198,11 @@ public final class EncryptionUtils {
             files.put(key, encryptedFile);
         }
 
+        // set checksum
+        String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
+        String checksum = EncryptionUtils.generateChecksum(decryptedFolderMetadata, mnemonic);
+        encryptedFolderMetadata.getMetadata().setChecksum(checksum);
+
         return encryptedFolderMetadata;
     }
 
@@ -223,7 +230,9 @@ public final class EncryptionUtils {
      * decrypt folder metaData with private key
      */
     public static DecryptedFolderMetadata decryptFolderMetaData(EncryptedFolderMetadata encryptedFolderMetadata,
-                                                                String privateKey)
+                                                                String privateKey,
+                                                                ArbitraryDataProvider arbitraryDataProvider,
+                                                                User user)
         throws NoSuchAlgorithmException, InvalidKeyException,
         InvalidAlgorithmParameterException, NoSuchPaddingException, BadPaddingException,
         IllegalBlockSizeException, InvalidKeySpecException {
@@ -266,6 +275,14 @@ public final class EncryptionUtils {
                                                                        }));
 
             files.put(key, decryptedFile);
+        }
+
+        // verify checksum
+        String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
+        String checksum = EncryptionUtils.generateChecksum(decryptedFolderMetadata, mnemonic);
+
+        if (!checksum.equals("") && !decryptedFolderMetadata.getMetadata().getChecksum().equals(checksum)) {
+            throw new IllegalStateException("Wrong checksum!");
         }
 
         Map<String, EncryptedFolderMetadata.EncryptedFile> fileDrop = encryptedFolderMetadata.getFiledrop();
@@ -331,7 +348,9 @@ public final class EncryptionUtils {
             }
             DecryptedFolderMetadata decryptedFolderMetadata = EncryptionUtils.decryptFolderMetaData(
                 encryptedFolderMetadata,
-                privateKey);
+                privateKey,
+                arbitraryDataProvider,
+                user);
 
             boolean transferredFiledrop = filesDropCountBefore > 0 && decryptedFolderMetadata.getFiles().size() ==
                 encryptedFolderMetadata.getFiles().size() + filesDropCountBefore;
@@ -343,7 +362,9 @@ public final class EncryptionUtils {
                 // upload metadata
                 EncryptedFolderMetadata encryptedFolderMetadataNew = encryptFolderMetadata(decryptedFolderMetadata,
                                                                                            privateKey,
-                                                                                           publicKey);
+                                                                                           publicKey,
+                                                                                           arbitraryDataProvider,
+                                                                                           user);
 
                 String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadataNew);
 
@@ -909,7 +930,10 @@ public final class EncryptionUtils {
     public static Pair<Boolean, DecryptedFolderMetadata> retrieveMetadata(OCFile parentFile,
                                                                           OwnCloudClient client,
                                                                           String privateKey,
-                                                                          String publicKey) throws UploadException,
+                                                                          String publicKey,
+                                                                          ArbitraryDataProvider arbitraryDataProvider,
+                                                                          User user)
+        throws UploadException,
         InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException,
         IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException, CertificateException {
         GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(parentFile.getLocalId());
@@ -926,7 +950,10 @@ public final class EncryptionUtils {
                 serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadata>() {
                 });
 
-            return new Pair<>(Boolean.TRUE, EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata, privateKey));
+            return new Pair<>(Boolean.TRUE, EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata,
+                                                                                  privateKey,
+                                                                                  arbitraryDataProvider,
+                                                                                  user));
 
         } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND) {
             // new metadata
@@ -1025,7 +1052,7 @@ public final class EncryptionUtils {
 
         stringBuilder.append(metadata.getMetadata().getMetadataKey());
 
-        // sha256 hashsum
+        // sha256 hash-sum
         return sha256(stringBuilder.toString());
     }
 

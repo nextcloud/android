@@ -33,6 +33,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -65,6 +66,8 @@ import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.DecryptedFolderMetadata;
+import com.owncloud.android.datamodel.EncryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
@@ -1687,11 +1690,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
         String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
         String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
 
+        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+        OCFile file = storageManager.getFileByRemoteId(event.remoteId);
+
         if (publicKey.isEmpty() || privateKey.isEmpty()) {
             Log_OC.d(TAG, "no public key for " + user.getAccountName());
 
-            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-            OCFile file = storageManager.getFileByRemoteId(event.remoteId);
             int position = -1;
             if (file != null) {
                 position = mAdapter.getItemPosition(file);
@@ -1700,11 +1704,23 @@ public class OCFileListFragment extends ExtendedListFragment implements
             dialog.setTargetFragment(this, SETUP_ENCRYPTION_REQUEST_CODE);
             dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
         } else {
-            encryptFolder(event.localId, event.remoteId, event.remotePath, event.shouldBeEncrypted);
+            encryptFolder(file,
+                          event.localId,
+                          event.remoteId,
+                          event.remotePath,
+                          event.shouldBeEncrypted,
+                          publicKey,
+                          privateKey);
         }
     }
 
-    private void encryptFolder(long localId, String remoteId, String remotePath, boolean shouldBeEncrypted) {
+    private void encryptFolder(OCFile folder,
+                               long localId,
+                               String remoteId,
+                               String remotePath,
+                               boolean shouldBeEncrypted,
+                               String publicKey,
+                               String privateKey) {
         try {
             User user = accountManager.getUser();
             OwnCloudClient client = clientFactory.create(user);
@@ -1714,6 +1730,45 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 .execute(client);
 
             if (remoteOperationResult.isSuccess()) {
+                // lock folder
+                String token = EncryptionUtils.lockFolder(folder, client);
+
+                // Update metadata
+                Pair<Boolean, DecryptedFolderMetadata> metadataPair = EncryptionUtils.retrieveMetadata(folder,
+                                                                                                       client,
+                                                                                                       privateKey,
+                                                                                                       publicKey,
+                                                                                                       arbitraryDataProvider,
+                                                                                                       user);
+
+                boolean metadataExists = metadataPair.first;
+                DecryptedFolderMetadata metadata = metadataPair.second;
+
+                EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
+                                                                                                        privateKey,
+                                                                                                        publicKey,
+                                                                                                        arbitraryDataProvider,
+                                                                                                        user);
+
+                String serializedFolderMetadata;
+
+                // check if we need metadataKeys
+                if (metadata.getMetadata().getMetadataKey() != null) {
+                    serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata, true);
+                } else {
+                    serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
+                }
+
+                // upload metadata
+                EncryptionUtils.uploadMetadata(folder,
+                                               serializedFolderMetadata,
+                                               token,
+                                               client,
+                                               metadataExists);
+
+                // unlock folder
+                EncryptionUtils.unlockFolder(folder, client, token);
+
                 mAdapter.setEncryptionAttributeForItemID(remoteId, shouldBeEncrypted);
             } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
                 Snackbar.make(getRecyclerView(),
@@ -1725,8 +1780,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                               Snackbar.LENGTH_LONG).show();
             }
 
-        } catch (ClientFactory.CreationException e) {
-            Log_OC.e(TAG, "Cannot create client", e);
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error creating encrypted folder", e);
         }
     }
 
