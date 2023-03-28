@@ -10,7 +10,7 @@
     <string name="action_clear_failed_uploads">Fjern fejlede uploads</string>
     <string name="action_edit">Redigér</string>
     <string name="action_empty_notifications">Ryd alle notifikationer</string>
-    <string name="action_empty_trashbin">Tom papirkurv</string>
+    <string name="action_empty_trashbin">Tøm papirkurv</string>
     <string name="action_send_share">Send/Del</string>
     <string name="action_switch_grid_view">Grid visning</string>
     <string name="action_switch_list_view">List visning</string>
@@ -540,7 +540,7 @@
     <string name="prefs_category_dev">Udvikling</string>
     <string name="prefs_category_general">Generel</string>
     <string name="prefs_category_more">Mere</string>
-    <string name="prefs_daily_backup_summary">Daglig backup af din kalender &amp;kontakter</string>
+    <string name="prefs_daily_backup_summary">Daglig backup af din kalender &amp; kontakter</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">For at vise mnemonic venligst aktiver enhedens brugeroplysninger</string>
     <string name="prefs_enable_media_scan_notifications">Vis media scan notifikationer</string>

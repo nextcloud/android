@@ -21,14 +21,14 @@ jobs:
             -   uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3
 
             -   name: Gradle cache
-                uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # v3
+                uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
                 with:
                     path: |
                         ~/.gradle/caches
                         ~/.gradle/wrapper
                     key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
             -   name: AVD cache
-                uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # v3
+                uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
                 id: avd-cache
                 with:
                     path: |
@@ -43,7 +43,7 @@ jobs:
 
             -   name: create AVD and generate snapshot for caching
                 if: steps.avd-cache.outputs.cache-hit != 'true'
-                uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # v2
+                uses: reactivecircus/android-emulator-runner@d94c3fbe4fe6a29e4a5ba47c12fb47677c73656b # v2
                 with:
                     api-level: ${{ matrix.api-level }}
                     force-avd-creation: false
@@ -69,7 +69,7 @@ jobs:
                 run: scripts/deleteOldComments.sh "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}}
 
             -   name: Run screenshot tests
-                uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # v2
+                uses: reactivecircus/android-emulator-runner@d94c3fbe4fe6a29e4a5ba47c12fb47677c73656b # v2
                 with:
                     api-level: ${{ matrix.api-level }}
                     force-avd-creation: false
