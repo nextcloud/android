@@ -270,7 +270,7 @@ dependencies {
     }
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'androidx.annotation:annotation:1.6.0'
-    implementation 'com.vanniktech:emoji-google:0.9.0'
+    implementation 'com.vanniktech:emoji-google:0.16.0'
 
     implementation "com.github.nextcloud-deps.hwsecurity:hwsecurity-fido:$fidoVersion"
     implementation "com.github.nextcloud-deps.hwsecurity:hwsecurity-fido2:$fidoVersion"
