@@ -354,7 +354,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="label_empty">Label tidak boleh kosong</string>
     <string name="link">Tautan</string>
     <string name="link_share_allow_upload_and_editing">Izinkan pengunggahan dan penyuntingan</string>
-    <string name="link_share_file_drop">Berkas jatuh (hanya unggah)</string>
+    <string name="link_share_file_drop">Ungga File (hanya upload)</string>
     <string name="list_layout">Daftar tampilan</string>
     <string name="load_more_results">Muat lebih banyak hasil</string>
     <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
