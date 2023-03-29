@@ -122,6 +122,8 @@ public final class EncryptionUtils {
     private static final String AES = "AES";
     private static final String RSA_CIPHER = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
     private static final String RSA = "RSA";
+    @VisibleForTesting
+    public static final String MIGRATED_FOLDER_IDS = "MIGRATED_FOLDER_IDS";
 
     private EncryptionUtils() {
         // utility class -> private constructor
@@ -161,7 +163,8 @@ public final class EncryptionUtils {
                                                                 String privateKey,
                                                                 String publicKey,
                                                                 ArbitraryDataProvider arbitraryDataProvider,
-                                                                User user
+                                                                User user,
+                                                                long parentId
                                                                )
         throws NoSuchAlgorithmException, InvalidKeyException,
         InvalidAlgorithmParameterException, NoSuchPaddingException, BadPaddingException,
@@ -180,6 +183,9 @@ public final class EncryptionUtils {
             EncryptionUtils.encodeBytesToBase64String(metadataKeyBytes),
             publicKey);
         encryptedFolderMetadata.getMetadata().setMetadataKey(encryptedMetadataKey);
+
+        // store that this folder has  been migrated
+        addIdToMigratedIds(parentId, user, arbitraryDataProvider);
 
         // Encrypt each file in "files"
         for (Map.Entry<String, DecryptedFolderMetadata.DecryptedFile> entry : decryptedFolderMetadata
@@ -232,7 +238,8 @@ public final class EncryptionUtils {
     public static DecryptedFolderMetadata decryptFolderMetaData(EncryptedFolderMetadata encryptedFolderMetadata,
                                                                 String privateKey,
                                                                 ArbitraryDataProvider arbitraryDataProvider,
-                                                                User user)
+                                                                User user,
+                                                                long remoteId)
         throws NoSuchAlgorithmException, InvalidKeyException,
         InvalidAlgorithmParameterException, NoSuchPaddingException, BadPaddingException,
         IllegalBlockSizeException, InvalidKeySpecException {
@@ -280,8 +287,14 @@ public final class EncryptionUtils {
         // verify checksum
         String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
         String checksum = EncryptionUtils.generateChecksum(decryptedFolderMetadata, mnemonic);
+        String decryptedFolderChecksum = decryptedFolderMetadata.getMetadata().getChecksum();
 
-        if (!checksum.equals("") && !decryptedFolderMetadata.getMetadata().getChecksum().equals(checksum)) {
+        if (decryptedFolderChecksum.equals("") &&
+            isFolderMigrated(remoteId, user, arbitraryDataProvider)) {
+            throw new IllegalStateException("Possible downgrade attack");
+        }
+
+        if (!decryptedFolderChecksum.equals("") && !decryptedFolderChecksum.equals(checksum)) {
             throw new IllegalStateException("Wrong checksum!");
         }
 
@@ -350,7 +363,8 @@ public final class EncryptionUtils {
                 encryptedFolderMetadata,
                 privateKey,
                 arbitraryDataProvider,
-                user);
+                user,
+                folder.getLocalId());
 
             boolean transferredFiledrop = filesDropCountBefore > 0 && decryptedFolderMetadata.getFiles().size() ==
                 encryptedFolderMetadata.getFiles().size() + filesDropCountBefore;
@@ -364,7 +378,8 @@ public final class EncryptionUtils {
                                                                                            privateKey,
                                                                                            publicKey,
                                                                                            arbitraryDataProvider,
-                                                                                           user);
+                                                                                           user,
+                                                                                           folder.getLocalId());
 
                 String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadataNew);
 
@@ -953,7 +968,8 @@ public final class EncryptionUtils {
             return new Pair<>(Boolean.TRUE, EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata,
                                                                                   privateKey,
                                                                                   arbitraryDataProvider,
-                                                                                  user));
+                                                                                  user,
+                                                                                  parentFile.getLocalId()));
 
         } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND) {
             // new metadata
@@ -1074,5 +1090,37 @@ public final class EncryptionUtils {
                               .substring(1));
         }
         return result.toString();
+    }
+
+    public static void addIdToMigratedIds(long id,
+                                          User user,
+                                          ArbitraryDataProvider arbitraryDataProvider) {
+        Gson gson = new Gson();
+        String ids = arbitraryDataProvider.getValue(user, MIGRATED_FOLDER_IDS);
+
+        ArrayList<Long> arrayList = gson.fromJson(ids, ArrayList.class);
+
+        if (arrayList == null) {
+            arrayList = new ArrayList<>();
+        }
+
+        arrayList.add(id);
+
+        String json = gson.toJson(arrayList);
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
+                                                    MIGRATED_FOLDER_IDS,
+                                                    json);
+    }
+
+    public static boolean isFolderMigrated(long id,
+                                           User user,
+                                           ArbitraryDataProvider arbitraryDataProvider) {
+        Gson gson = new Gson();
+        String ids = arbitraryDataProvider.getValue(user, MIGRATED_FOLDER_IDS);
+
+        ArrayList<Long> arrayList = gson.fromJson(ids, new TypeToken<List<Long>>() {
+        }.getType());
+
+        return arrayList.contains(id);
     }
 }

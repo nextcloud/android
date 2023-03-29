@@ -622,7 +622,8 @@ public class UploadFileOperation extends SyncOperation {
                                                                                                         privateKey,
                                                                                                         publicKey,
                                                                                                         arbitraryDataProvider,
-                                                                                                        user);
+                                                                                                        user,
+                                                                                                        parentFile.getLocalId());
 
                 String serializedFolderMetadata;
 

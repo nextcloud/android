@@ -128,7 +128,8 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
                 metadata = EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata,
                                                                  privateKey,
                                                                  arbitraryDataProvider,
-                                                                 user);
+                                                                 user,
+                                                                 parentId);
             } else {
                 throw new RemoteOperationFailedException("No Metadata found!");
             }
@@ -150,7 +151,8 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
                 privateKey,
                 publicKey,
                 arbitraryDataProvider,
-                user);
+                user,
+                parentId);
             String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
 
             // upload metadata

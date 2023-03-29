@@ -1748,7 +1748,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                                                                         privateKey,
                                                                                                         publicKey,
                                                                                                         arbitraryDataProvider,
-                                                                                                        user);
+                                                                                                        user,
+                                                                                                        folder.getLocalId());
 
                 String serializedFolderMetadata;
 

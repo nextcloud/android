@@ -155,7 +155,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                                                                                                         privateKey,
                                                                                                         publicKey,
                                                                                                         arbitraryDataProvider,
-                                                                                                        user);
+                                                                                                        user,
+                                                                                                        parent.getLocalId());
                 String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
 
                 // upload metadata
