@@ -30,11 +30,11 @@ public class EncryptedFolderMetadata {
     private DecryptedFolderMetadata.Metadata metadata;
     private Map<String, EncryptedFile> files;
 
-    private Map<String, EncryptedFile> filedrop;
+    private Map<String, EncryptedFiledrop> filedrop;
 
     public EncryptedFolderMetadata(DecryptedFolderMetadata.Metadata metadata,
                                    Map<String, EncryptedFile> files,
-                                   Map<String, EncryptedFile> filesdrop) {
+                                   Map<String, EncryptedFiledrop> filesdrop) {
         this.metadata = metadata;
         this.files = files;
         this.filedrop = filesdrop;
@@ -48,7 +48,7 @@ public class EncryptedFolderMetadata {
         return files;
     }
 
-    public Map<String, EncryptedFile> getFiledrop() {
+    public Map<String, EncryptedFiledrop> getFiledrop() {
         return filedrop;
     }
 

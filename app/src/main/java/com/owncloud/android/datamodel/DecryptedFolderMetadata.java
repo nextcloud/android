@@ -174,7 +174,7 @@ public class DecryptedFolderMetadata {
         private String key;
         private String filename;
         private String mimetype;
-        transient private int version;
+        transient private double version;
 
         public String getKey() {
             return this.key;
@@ -188,7 +188,7 @@ public class DecryptedFolderMetadata {
             return this.mimetype;
         }
 
-        public int getVersion() {
+        public double getVersion() {
             return this.version;
         }
 
