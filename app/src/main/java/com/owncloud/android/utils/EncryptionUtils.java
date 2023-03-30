@@ -1112,6 +1112,11 @@ public final class EncryptionUtils {
             arrayList = new ArrayList<>();
         }
 
+        if (arrayList.contains(id)) {
+            // nothing to do here
+            return;
+        }
+
         arrayList.add(id);
 
         String json = gson.toJson(arrayList);
