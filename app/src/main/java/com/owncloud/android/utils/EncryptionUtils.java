@@ -291,7 +291,7 @@ public final class EncryptionUtils {
 
         if (decryptedFolderChecksum.equals("") &&
             isFolderMigrated(remoteId, user, arbitraryDataProvider)) {
-            throw new IllegalStateException("Possible downgrade attack");
+            throw new IllegalStateException("Possible downgrade attack detected!");
         }
 
         if (!decryptedFolderChecksum.equals("") && !decryptedFolderChecksum.equals(checksum)) {
