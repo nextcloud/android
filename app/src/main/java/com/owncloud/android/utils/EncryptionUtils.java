@@ -133,8 +133,16 @@ public final class EncryptionUtils {
     JSON
      */
 
+    public static <T> T deserializeJSON(String json, TypeToken<T> type, boolean excludeTransient) {
+        if (excludeTransient) {
+            return new Gson().fromJson(json, type.getType());
+        } else {
+            return new GsonBuilder().excludeFieldsWithModifiers(0).create().fromJson(json, type.getType());
+        }
+    }
+
     public static <T> T deserializeJSON(String json, TypeToken<T> type) {
-        return new Gson().fromJson(json, type.getType());
+        return deserializeJSON(json, type, false);
     }
 
     public static String serializeJSON(Object data, boolean excludeTransient) {
@@ -289,12 +297,12 @@ public final class EncryptionUtils {
         String checksum = EncryptionUtils.generateChecksum(decryptedFolderMetadata, mnemonic);
         String decryptedFolderChecksum = decryptedFolderMetadata.getMetadata().getChecksum();
 
-        if (decryptedFolderChecksum.equals("") &&
+        if (TextUtils.isEmpty(decryptedFolderChecksum) &&
             isFolderMigrated(remoteId, user, arbitraryDataProvider)) {
             throw new IllegalStateException("Possible downgrade attack detected!");
         }
 
-        if (!decryptedFolderChecksum.equals("") && !decryptedFolderChecksum.equals(checksum)) {
+        if (!TextUtils.isEmpty(decryptedFolderChecksum) && !decryptedFolderChecksum.equals(checksum)) {
             throw new IllegalStateException("Wrong checksum!");
         }
 
@@ -1120,6 +1128,10 @@ public final class EncryptionUtils {
 
         ArrayList<Long> arrayList = gson.fromJson(ids, new TypeToken<List<Long>>() {
         }.getType());
+
+        if (arrayList == null) {
+            return false;
+        }
 
         return arrayList.contains(id);
     }
