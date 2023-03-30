@@ -1,0 +1,5 @@
+## 3.24.2 (March 31, 2023)
+
+- E2E file drop
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
