@@ -167,6 +167,7 @@ public class SyncedFoldersActivityTest {
                                            true,
                                            true,
                                            true,
+                                           1,
                                            "test@nextcloud.com",
                                            FileUploader.LOCAL_BEHAVIOUR_MOVE,
                                            NameCollisionPolicy.ASK_USER.serialize(),

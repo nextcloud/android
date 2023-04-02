@@ -304,6 +304,91 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/setting_instant_upload_path_use_subfolders_granularity_label_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/standard_padding">
+                    <TextView
+                        android:id="@+id/setting_instant_upload_path_use_subfolders_granularity_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Subfolder Granularity:" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/setting_instant_upload_path_use_subfolders_granularity_radio_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/standard_padding">
+
+                    <RadioGroup
+                        android:id="@+id/setting_instant_upload_path_use_subfolders_granularity_radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" >
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <RadioButton
+                            android:id="@+id/setting_instant_upload_path_use_subfolders_granularity_radio_button_year"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Year" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <RadioButton
+                            android:id="@+id/setting_instant_upload_path_use_subfolders_granularity_radio_button_month"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Month" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <RadioButton
+                            android:id="@+id/setting_instant_upload_path_use_subfolders_granularity_radio_button_day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Day" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                    </RadioGroup>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/setting_instant_behaviour_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

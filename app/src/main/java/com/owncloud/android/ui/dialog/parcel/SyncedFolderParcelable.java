@@ -40,6 +40,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private boolean existing = true;
     private boolean enabled = false;
     private boolean subfolderByDate = false;
+    private int subfolderGranularity = 1;
     private Integer uploadAction;
     private NameCollisionPolicy nameCollisionPolicy = NameCollisionPolicy.ASK_USER;
     private MediaFolderType type;
@@ -58,6 +59,7 @@ public class SyncedFolderParcelable implements Parcelable {
         existing = syncedFolderDisplayItem.isExisting();
         enabled = syncedFolderDisplayItem.isEnabled();
         subfolderByDate = syncedFolderDisplayItem.isSubfolderByDate();
+        subfolderGranularity = syncedFolderDisplayItem.getSubfolderGranularity();
         type = syncedFolderDisplayItem.getType();
         account = syncedFolderDisplayItem.getAccount();
         uploadAction = syncedFolderDisplayItem.getUploadAction();
@@ -77,6 +79,7 @@ public class SyncedFolderParcelable implements Parcelable {
         existing = read.readInt() != 0;
         enabled = read.readInt() != 0;
         subfolderByDate = read.readInt() != 0;
+        subfolderGranularity = read.readInt();
         type = MediaFolderType.getById(read.readInt());
         account = read.readString();
         uploadAction = read.readInt();
@@ -100,6 +103,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(existing ? 1 : 0);
         dest.writeInt(enabled ? 1 : 0);
         dest.writeInt(subfolderByDate ? 1 : 0);
+        dest.writeInt(subfolderGranularity);
         dest.writeInt(type.getId());
         dest.writeString(account);
         dest.writeInt(uploadAction);
@@ -188,6 +192,10 @@ public class SyncedFolderParcelable implements Parcelable {
         return this.subfolderByDate;
     }
 
+    public int getSubfolderGranularity() {
+        return this.subfolderGranularity;
+    }
+
     public Integer getUploadAction() {
         return this.uploadAction;
     }
@@ -246,6 +254,10 @@ public class SyncedFolderParcelable implements Parcelable {
 
     public void setSubfolderByDate(boolean subfolderByDate) {
         this.subfolderByDate = subfolderByDate;
+    }
+
+    public void setSubfolderGranularity(int subfolderGranularity) {
+        this.subfolderGranularity = subfolderGranularity;
     }
 
     public void setNameCollisionPolicy(NameCollisionPolicy nameCollisionPolicy) {

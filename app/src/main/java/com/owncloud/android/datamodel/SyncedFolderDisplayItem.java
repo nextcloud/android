@@ -41,7 +41,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
      * @param wifiOnly        upload on wifi only flag
      * @param chargingOnly    upload on charging only
      * @param existing        also upload existing
-     * @param subfolderByDate create sub-folders by date (month)
+     * @param subfolderByDate create sub-folders by granularity below
+     * @param subfolderGranularity set subfolder granulariy (YYYY vs YYYY/MM vs YYYY/MM/DD)
      * @param account         the account owning the synced folder
      * @param uploadAction    the action to be done after the upload
      * @param enabled         flag if synced folder config is active
@@ -58,6 +59,7 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    boolean chargingOnly,
                                    boolean existing,
                                    boolean subfolderByDate,
+                                   int subfolderGranularity,
                                    String account,
                                    int uploadAction,
                                    int nameCollisionPolicy,
@@ -75,6 +77,7 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
               chargingOnly,
               existing,
               subfolderByDate,
+              subfolderGranularity,
               account,
               uploadAction,
               nameCollisionPolicy,
@@ -94,6 +97,7 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    boolean chargingOnly,
                                    boolean existing,
                                    boolean subfolderByDate,
+                                   int subfolderGranularity,
                                    String account,
                                    int uploadAction,
                                    int nameCollisionPolicy,
@@ -109,6 +113,7 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
               chargingOnly,
               existing,
               subfolderByDate,
+              subfolderGranularity,
               account,
               uploadAction,
               nameCollisionPolicy,
