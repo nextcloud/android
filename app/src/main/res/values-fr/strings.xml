@@ -163,7 +163,7 @@
     <string name="contactlist_no_permission">Pas de permission donnée, rien n\'a été importé.</string>
     <string name="contacts">Contacts</string>
     <string name="contacts_backup_button">Sauvegarder maintenant</string>
-    <string name="contacts_preferences_backup_scheduled">La sauvegarde est planifiée et va bientôt démarrer</string>
+    <string name="contacts_preferences_backup_scheduled">La sauvegarde est planifiée et démarrera bientôt</string>
     <string name="contacts_preferences_import_scheduled">L\'import est planifié et va démarrer</string>
     <string name="contacts_preferences_no_file_found">Aucun fichier trouvé</string>
     <string name="contacts_preferences_something_strange_happened">Impossible de trouver la dernière sauvegarde !</string>
