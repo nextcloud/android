@@ -238,7 +238,7 @@ class GalleryFastScrollViewHelper(
         return if (position == RecyclerView.NO_POSITION) {
             null
         } else {
-            popupTextProvider.getPopupText(position)
+            popupTextProvider.getPopupText(position).toString()
         }
     }
 

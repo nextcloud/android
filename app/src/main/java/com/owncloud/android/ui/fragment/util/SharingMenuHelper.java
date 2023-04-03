@@ -122,11 +122,21 @@ public final class SharingMenuHelper {
         return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == CREATE_PERMISSION_FLAG;
     }
 
+    public static boolean isSecureFileDrop(OCShare share) {
+        if (share.getPermissions() == NO_PERMISSION) {
+            return false;
+        }
+
+        return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == CREATE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
+    }
+
     public static String getPermissionName(Context context, OCShare share) {
         if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
             return context.getResources().getString(R.string.share_permission_can_edit);
         } else if (SharingMenuHelper.isReadOnly(share)) {
             return context.getResources().getString(R.string.share_permission_view_only);
+        } else if (SharingMenuHelper.isSecureFileDrop(share)) {
+            return context.getResources().getString(R.string.share_permission_secure_file_drop);
         } else if (SharingMenuHelper.isFileDrop(share)) {
             return context.getResources().getString(R.string.share_permission_file_drop);
         }

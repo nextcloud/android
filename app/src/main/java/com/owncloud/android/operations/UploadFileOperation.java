@@ -51,7 +51,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.e2ee.UnlockFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.ChunkedFileUploadRemoteOperation;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
@@ -419,18 +418,6 @@ public class UploadFileOperation extends SyncOperation {
 
         mFile.setParentId(parent.getFileId());
 
-        // try to unlock folder with stored token, e.g. when upload needs to be resumed or app crashed
-        // the parent folder should exist as it is a resume of a broken upload
-        if (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty()) {
-            UnlockFileRemoteOperation unlockFileOperation = new UnlockFileRemoteOperation(parent.getLocalId(),
-                mFolderUnlockToken);
-            RemoteOperationResult unlockFileOperationResult = unlockFileOperation.execute(client);
-
-            if (!unlockFileOperationResult.isSuccess()) {
-                return unlockFileOperationResult;
-            }
-        }
-
         // check if any parent is encrypted
         encryptedAncestor = FileStorageUtils.checkEncryptionStatus(parent, getStorageManager());
         mFile.setEncrypted(encryptedAncestor);
@@ -470,16 +457,23 @@ public class UploadFileOperation extends SyncOperation {
             }
             /***** E2E *****/
 
-            token = EncryptionUtils.lockFolder(parentFile, client);
-            // immediately store it
-            mUpload.setFolderUnlockToken(token);
-            uploadsStorageManager.updateUpload(mUpload);
+            // we might have an old token from interrupted upload
+            if (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty()) {
+                token = mFolderUnlockToken;
+            } else {
+                token = EncryptionUtils.lockFolder(parentFile, client);
+                // immediately store it
+                mUpload.setFolderUnlockToken(token);
+                uploadsStorageManager.updateUpload(mUpload);
+            }
 
             // Update metadata
             Pair<Boolean, DecryptedFolderMetadata> metadataPair = EncryptionUtils.retrieveMetadata(parentFile,
                                                                                                    client,
                                                                                                    privateKey,
-                                                                                                   publicKey);
+                                                                                                   publicKey,
+                                                                                                   arbitraryDataProvider,
+                                                                                                   user);
 
             metadataExists = metadataPair.first;
             DecryptedFolderMetadata metadata = metadataPair.second;
@@ -625,8 +619,20 @@ public class UploadFileOperation extends SyncOperation {
                 metadata.getFiles().put(encryptedFileName, decryptedFile);
 
                 EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
-                                                                                                        privateKey);
-                String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
+                                                                                                        privateKey,
+                                                                                                        publicKey,
+                                                                                                        arbitraryDataProvider,
+                                                                                                        user,
+                                                                                                        parentFile.getLocalId());
+
+                String serializedFolderMetadata;
+
+                // check if we need metadataKeys
+                if (metadata.getMetadata().getMetadataKey() != null) {
+                    serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata, true);
+                } else {
+                    serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
+                }
 
                 // upload metadata
                 EncryptionUtils.uploadMetadata(parentFile,
@@ -1172,6 +1178,7 @@ public class UploadFileOperation extends SyncOperation {
                 Log_OC.d(TAG, "Cancelling upload during upload preparations.");
                 mCancellationRequested.set(true);
             } else {
+                mCancellationRequested.set(true);
                 Log_OC.e(TAG, "No upload in progress. This should not happen.");
             }
         } else {

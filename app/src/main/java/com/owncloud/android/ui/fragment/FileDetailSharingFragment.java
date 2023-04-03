@@ -163,7 +163,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                             this,
                                                             userId,
                                                             user,
-                                                            viewThemeUtils));
+                                                            viewThemeUtils,
+                                                            file.isEncrypted()));
         binding.sharesList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         setupView();
@@ -193,18 +194,22 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private void setupView() {
         setShareWithYou();
 
-        FileDetailSharingFragmentHelper.setupSearchView(
-            (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
-            binding.searchView,
-            fileActivity.getComponentName());
-        viewThemeUtils.androidx.themeToolbarSearchView(binding.searchView);
-
-        if (file.canReshare()) {
-            binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
+        if (file.isEncrypted()) {
+            binding.searchContainer.setVisibility(View.GONE);
         } else {
-            binding.searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
-            binding.searchView.setInputType(InputType.TYPE_NULL);
-            disableSearchView(binding.searchView);
+            FileDetailSharingFragmentHelper.setupSearchView(
+                (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
+                binding.searchView,
+                fileActivity.getComponentName());
+            viewThemeUtils.androidx.themeToolbarSearchView(binding.searchView);
+
+            if (file.canReshare()) {
+                binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
+            } else {
+                binding.searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
+                binding.searchView.setInputType(InputType.TYPE_NULL);
+                disableSearchView(binding.searchView);
+            }
         }
     }
 
@@ -275,6 +280,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             // create without password if not enforced by server or we don't know if enforced;
             fileOperationsHelper.shareFileViaPublicShare(file, null);
         }
+    }
+
+    @Override
+    public void createSecureFileDrop() {
+        fileOperationsHelper.shareFolderViaSecureFileDrop(file);
     }
 
     private void showSendLinkTo(OCShare publicShare) {
@@ -425,6 +435,19 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                                                    ShareType.PUBLIC_LINK,
                                                                                    "");
 
+//
+//        boolean supportsSecureFiledrop = file.isEncrypted() &&
+//            capabilities.getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_26);
+//
+//        if (publicShares.isEmpty() &&
+//            containsNoNewPublicShare(adapter.getShares()) &&
+//            (!file.isEncrypted() || supportsSecureFiledrop)) {
+//            final OCShare ocShare = new OCShare();
+//            ocShare.setShareType(ShareType.NEW_PUBLIC_LINK);
+//            publicShares.add(ocShare);
+//        } else {
+//            adapter.removeNewPublicShare();
+//        }
 
         if (publicShares.isEmpty() && containsNoNewPublicShare(adapter.getShares())) {
             final OCShare ocShare = new OCShare();

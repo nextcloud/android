@@ -150,7 +150,7 @@ public final class MimeTypeUtil {
 
         if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder) {
             drawableId = R.drawable.folder_group;
-        } else if (isSharedViaLink) {
+        } else if (isSharedViaLink && !isEncrypted) {
             drawableId = R.drawable.folder_shared_link;
         } else if (isSharedViaUsers) {
             drawableId = R.drawable.folder_shared_users;

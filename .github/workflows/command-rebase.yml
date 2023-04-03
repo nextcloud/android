@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   rebase:
-    runs-on: ubuntu-latest
+      runs-on: ubuntu-latest
     permissions:
       contents: none
 
@@ -22,30 +22,30 @@ jobs:
     if: github.event.issue.pull_request != '' && startsWith(github.event.comment.body, '/rebase')
 
     steps:
-      - name: Add reaction on start
-        uses: peter-evans/create-or-update-comment@5adcb0bb0f9fb3f95ef05400558bdb3f329ee808 # v2
-        with:
-          token: ${{ secrets.COMMAND_BOT_PAT }}
-          repository: ${{ github.event.repository.full_name }}
-          comment-id: ${{ github.event.comment.id }}
-          reaction-type: "+1"
+        -   name: Add reaction on start
+            uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d # v2
+            with:
+                token: ${{ secrets.COMMAND_BOT_PAT }}
+                repository: ${{ github.event.repository.full_name }}
+                comment-id: ${{ github.event.comment.id }}
+                reaction-type: "+1"
 
-      - name: Checkout the latest code
-        uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.COMMAND_BOT_PAT }}
+        -   name: Checkout the latest code
+            uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3
+            with:
+                fetch-depth: 0
+                token: ${{ secrets.COMMAND_BOT_PAT }}
 
-      - name: Automatic Rebase
-        uses: cirrus-actions/rebase@b87d48154a87a85666003575337e27b8cd65f691 # 1.8
-        env:
-          GITHUB_TOKEN: ${{ secrets.COMMAND_BOT_PAT }}
+        -   name: Automatic Rebase
+            uses: cirrus-actions/rebase@b87d48154a87a85666003575337e27b8cd65f691 # 1.8
+            env:
+                GITHUB_TOKEN: ${{ secrets.COMMAND_BOT_PAT }}
 
-      - name: Add reaction on failure
-        uses: peter-evans/create-or-update-comment@5adcb0bb0f9fb3f95ef05400558bdb3f329ee808 # v2
-        if: failure()
-        with:
-          token: ${{ secrets.COMMAND_BOT_PAT }}
-          repository: ${{ github.event.repository.full_name }}
-          comment-id: ${{ github.event.comment.id }}
-          reaction-type: "-1"
+        -   name: Add reaction on failure
+            uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d # v2
+            if: failure()
+            with:
+                token: ${{ secrets.COMMAND_BOT_PAT }}
+                repository: ${{ github.event.repository.full_name }}
+                comment-id: ${{ github.event.comment.id }}
+                reaction-type: "-1"

@@ -45,6 +45,7 @@ import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
@@ -237,7 +238,11 @@ class OCFileListDelegate(
         bindGridMetadataViews(file, gridViewHolder)
 
         // shares
-        val shouldHideShare = gridView || hideItemOptions || file.isFolder && !file.canReshare() || file.isEncrypted ||
+        val shouldHideShare = gridView ||
+            hideItemOptions ||
+            file.isFolder && !file.canReshare() ||
+            !file.isFolder && file.isEncrypted ||
+            file.isEncrypted && !EncryptionUtils.supportsSecureFiledrop(file, user) ||
             searchType == SearchType.FAVORITE_SEARCH
         if (shouldHideShare) {
             gridViewHolder.shared.visibility = View.GONE

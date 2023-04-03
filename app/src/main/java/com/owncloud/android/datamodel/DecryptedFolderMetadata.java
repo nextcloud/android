@@ -24,12 +24,16 @@ package com.owncloud.android.datamodel;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.VisibleForTesting;
+
 /**
  * Decrypted class representation of metadata json of folder metadata.
  */
 public class DecryptedFolderMetadata {
     private Metadata metadata;
     private Map<String, DecryptedFile> files;
+
+    private Map<String, DecryptedFile> filedrop;
 
     public DecryptedFolderMetadata() {
         this.metadata = new Metadata();
@@ -57,10 +61,21 @@ public class DecryptedFolderMetadata {
         this.files = files;
     }
 
+    @VisibleForTesting
+    public void setFiledrop(Map<String, DecryptedFile> filedrop) {
+        this.filedrop = filedrop;
+    }
+
+    public Map<String, DecryptedFile> getFiledrop() {
+        return filedrop;
+    }
+
     public static class Metadata {
-        private Map<Integer, String> metadataKeys; // each keys is encrypted on its own, decrypt on use
-        private Sharing sharing;
-        private int version;
+        transient
+        private Map<Integer, String> metadataKeys; // outdated with v1.1
+        private String metadataKey;
+        private String checksum;
+        private double version = 1.2;
 
         @Override
         public String toString() {
@@ -71,11 +86,7 @@ public class DecryptedFolderMetadata {
             return this.metadataKeys;
         }
 
-        public Sharing getSharing() {
-            return this.sharing;
-        }
-
-        public int getVersion() {
+        public double getVersion() {
             return this.version;
         }
 
@@ -83,12 +94,28 @@ public class DecryptedFolderMetadata {
             this.metadataKeys = metadataKeys;
         }
 
-        public void setSharing(Sharing sharing) {
-            this.sharing = sharing;
+        public void setVersion(double version) {
+            this.version = version;
         }
 
-        public void setVersion(int version) {
-            this.version = version;
+        public String getMetadataKey() {
+            if (metadataKey == null) {
+                // fallback to old keys array
+                return metadataKeys.get(0);
+            }
+            return metadataKey;
+        }
+
+        public void setMetadataKey(String metadataKey) {
+            this.metadataKey = metadataKey;
+        }
+
+        public String getChecksum() {
+            return checksum;
+        }
+
+        public void setChecksum(String checksum) {
+            this.checksum = checksum;
         }
     }
 
@@ -104,32 +131,11 @@ public class DecryptedFolderMetadata {
         }
     }
 
-    public static class Sharing {
-        private Map<String, String> recipient;
-        private String signature;
-
-        public Map<String, String> getRecipient() {
-            return this.recipient;
-        }
-
-        public String getSignature() {
-            return this.signature;
-        }
-
-        public void setRecipient(Map<String, String> recipient) {
-            this.recipient = recipient;
-        }
-
-        public void setSignature(String signature) {
-            this.signature = signature;
-        }
-    }
-
     public static class DecryptedFile {
         private Data encrypted;
         private String initializationVector;
         private String authenticationTag;
-        private int metadataKey;
+        transient private int metadataKey;
 
         public Data getEncrypted() {
             return this.encrypted;
@@ -168,7 +174,7 @@ public class DecryptedFolderMetadata {
         private String key;
         private String filename;
         private String mimetype;
-        private int version;
+        transient private double version;
 
         public String getKey() {
             return this.key;
@@ -182,7 +188,7 @@ public class DecryptedFolderMetadata {
             return this.mimetype;
         }
 
-        public int getVersion() {
+        public double getVersion() {
             return this.version;
         }
 

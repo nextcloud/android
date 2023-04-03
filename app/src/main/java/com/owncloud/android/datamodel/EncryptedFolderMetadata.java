@@ -30,9 +30,14 @@ public class EncryptedFolderMetadata {
     private DecryptedFolderMetadata.Metadata metadata;
     private Map<String, EncryptedFile> files;
 
-    public EncryptedFolderMetadata(DecryptedFolderMetadata.Metadata metadata, Map<String, EncryptedFile> files) {
+    private Map<String, EncryptedFiledrop> filedrop;
+
+    public EncryptedFolderMetadata(DecryptedFolderMetadata.Metadata metadata,
+                                   Map<String, EncryptedFile> files,
+                                   Map<String, EncryptedFiledrop> filesdrop) {
         this.metadata = metadata;
         this.files = files;
+        this.filedrop = filesdrop;
     }
 
     public DecryptedFolderMetadata.Metadata getMetadata() {
@@ -40,7 +45,11 @@ public class EncryptedFolderMetadata {
     }
 
     public Map<String, EncryptedFile> getFiles() {
-        return this.files;
+        return files;
+    }
+
+    public Map<String, EncryptedFiledrop> getFiledrop() {
+        return filedrop;
     }
 
     public void setMetadata(DecryptedFolderMetadata.Metadata metadata) {
@@ -55,22 +64,22 @@ public class EncryptedFolderMetadata {
         private String encrypted;
         private String initializationVector;
         private String authenticationTag;
-        private int metadataKey;
+        transient private int metadataKey;
 
         public String getEncrypted() {
-            return this.encrypted;
+            return encrypted;
         }
 
         public String getInitializationVector() {
-            return this.initializationVector;
+            return initializationVector;
         }
 
         public String getAuthenticationTag() {
-            return this.authenticationTag;
+            return authenticationTag;
         }
 
         public int getMetadataKey() {
-            return this.metadataKey;
+            return metadataKey;
         }
 
         public void setEncrypted(String encrypted) {
@@ -83,10 +92,6 @@ public class EncryptedFolderMetadata {
 
         public void setAuthenticationTag(String authenticationTag) {
             this.authenticationTag = authenticationTag;
-        }
-
-        public void setMetadataKey(int metadataKey) {
-            this.metadataKey = metadataKey;
         }
     }
 }
