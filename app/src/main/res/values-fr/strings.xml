@@ -164,7 +164,7 @@
     <string name="contacts">Contacts</string>
     <string name="contacts_backup_button">Sauvegarder maintenant</string>
     <string name="contacts_preferences_backup_scheduled">La sauvegarde est planifiée et démarrera bientôt</string>
-    <string name="contacts_preferences_import_scheduled">L\'import est planifié et va démarrer</string>
+    <string name="contacts_preferences_import_scheduled">L\'import est planifié et démarrera bientôt</string>
     <string name="contacts_preferences_no_file_found">Aucun fichier trouvé</string>
     <string name="contacts_preferences_something_strange_happened">Impossible de trouver la dernière sauvegarde !</string>
     <string name="copied_to_clipboard">Copié dans le presse-papier</string>
