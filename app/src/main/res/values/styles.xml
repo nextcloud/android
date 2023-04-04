@@ -486,6 +486,18 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <!-- Splash screen style attributes: https://developer.android.com/develop/ui/views/launch/splash-screen#set-theme -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Set the splash screen background color -->
+        <item name="windowSplashScreenBackground">@color/primary</item>
 
+        <!-- Set the splash screen animated icon  -->
+        <!-- Setting a transparent icon because of branding reason, showing icon is not accepted -->
+        <item name="windowSplashScreenAnimatedIcon">@android:color/transparent</item>
+
+        <!-- Set the theme of the Activity that directly follows your splash screen. -->
+        <!-- Required -->
+        <item name="postSplashScreenTheme">@style/Theme.ownCloud.Launcher</item>
+    </style>
 
 </resources>

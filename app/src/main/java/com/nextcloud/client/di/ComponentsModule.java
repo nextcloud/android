@@ -36,7 +36,7 @@ import com.nextcloud.client.widget.DashboardWidgetService;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.SetStatusDialogFragment;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
-import com.nmc.android.ui.SplashActivity;
+import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.DeepLinkLoginActivity;
@@ -469,6 +469,6 @@ abstract class ComponentsModule {
     abstract GroupfolderListFragment groupfolderListFragment();
 
     @ContributesAndroidInjector
-    abstract SplashActivity splashActivity();
+    abstract LauncherActivity launcherActivity();
 
 }

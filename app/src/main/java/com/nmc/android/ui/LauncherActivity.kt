@@ -3,6 +3,7 @@ package com.nmc.android.ui
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
@@ -12,7 +13,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.StringUtils
 import javax.inject.Inject
 
-class SplashActivity : BaseActivity() {
+class LauncherActivity : BaseActivity() {
 
     companion object {
         const val SPLASH_DURATION = 1500L
@@ -24,6 +25,9 @@ class SplashActivity : BaseActivity() {
     lateinit var appPreferences: AppPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //Mandatory to call this before super method to show system launch screen for api level 31+
+        installSplashScreen()
+
         //flag to avoid redirection to AuthenticatorActivity
         //as we need this activity to be shown
         //Note: Should be kept before super() method
