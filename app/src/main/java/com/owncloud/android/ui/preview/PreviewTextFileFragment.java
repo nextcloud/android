@@ -40,6 +40,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
+import com.owncloud.android.ui.fragment.util.FileActionsBottomSheetHelper;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -72,6 +73,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     private static final String EXTRA_OPEN_SEARCH = "SEARCH";
     private static final String EXTRA_SEARCH_QUERY = "SEARCH_QUERY";
 
+    private static final String TAG_ACTIONS_SHEET = "actions";
     private static final String TAG = PreviewTextFileFragment.class.getSimpleName();
 
     private TextLoadAsyncTask textLoadAsyncTask;
@@ -143,6 +145,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
 
         handler = new Handler();
         setFile(file);
+
+        FileActionsBottomSheetHelper.trySetResultListener(this, TAG_ACTIONS_SHEET, this::onFileActionChosen);
     }
 
     /**
@@ -312,7 +316,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         final FragmentManager fragmentManager = getChildFragmentManager();
         FileActionsBottomSheet.newInstance(file, false, additionalFilter)
             .setResultListener(fragmentManager, this, this::onFileActionChosen)
-            .show(fragmentManager, "actions");
+            .show(fragmentManager, TAG_ACTIONS_SHEET);
     }
 
     private void onFileActionChosen(final int itemId) {

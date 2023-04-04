@@ -63,6 +63,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.util.FileActionsBottomSheetHelper;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeType;
@@ -102,6 +103,8 @@ import static com.owncloud.android.datamodel.ThumbnailsCacheManager.PREFIX_THUMB
  * instantiation too.
  */
 public class PreviewImageFragment extends FileFragment implements Injectable {
+
+    private static final String TAG_ACTIONS_SHEET = "actions";
 
     private static final String EXTRA_FILE = "FILE";
     private static final String EXTRA_ZOOM = "ZOOM";
@@ -186,6 +189,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         ignoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
         showResizedImage = args.getBoolean(ARG_SHOW_RESIZED_IMAGE);
         setHasOptionsMenu(true);
+
+        FileActionsBottomSheetHelper.trySetResultListener(this, TAG_ACTIONS_SHEET, this::onFileActionChosen);
     }
 
     @Override
@@ -387,7 +392,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         final FragmentManager fragmentManager = getChildFragmentManager();
         FileActionsBottomSheet.newInstance(file, false, additionalFilter)
             .setResultListener(fragmentManager, this, this::onFileActionChosen)
-            .show(fragmentManager, "actions");
+            .show(fragmentManager, TAG_ACTIONS_SHEET);
     }
 
     /**
