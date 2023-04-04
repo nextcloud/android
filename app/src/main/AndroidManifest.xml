@@ -102,11 +102,6 @@
             android:launchMode="singleTop"
             android:theme="@style/Theme.ownCloud.Launcher">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
             <intent-filter>
@@ -490,6 +485,18 @@
             android:name="com.nextcloud.client.documentscan.DocumentScanActivity"
             android:exported="false"
             android:theme="@style/Theme.ownCloud.Toolbar" />
+
+        <activity
+            android:name="com.nmc.android.ui.SplashActivity"
+            android:theme="@style/Theme.ownCloud.Launcher"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
     <queries>
