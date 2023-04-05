@@ -40,7 +40,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
-import com.owncloud.android.ui.fragment.util.FileActionsBottomSheetHelper;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -146,7 +145,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         handler = new Handler();
         setFile(file);
 
-        FileActionsBottomSheetHelper.trySetResultListener(this, TAG_ACTIONS_SHEET, this::onFileActionChosen);
+        trySetFileActionsResultListener(this, TAG_ACTIONS_SHEET, this::onFileActionChosen);
     }
 
     /**

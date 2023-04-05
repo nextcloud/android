@@ -25,6 +25,7 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -32,6 +33,7 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_FILE;
 
@@ -119,6 +121,21 @@ public class FileFragment extends Fragment {
         super.onDetach();
     }
 
+    /**
+     * Checks the parent Fragment's child FragmentManager for a {@link FileActionsBottomSheet} with the provided tag.
+     * If a {@link FileActionsBottomSheet} is found, listener will be set on it with the parent Fragment's lifecycle.
+     */
+    public static void trySetFileActionsResultListener(
+        Fragment parentFragment,
+        String childFragmentTag,
+        FileActionsBottomSheet.ResultListener resultListener
+    ) {
+        FragmentManager fragmentManager = parentFragment.getChildFragmentManager();
+        FileActionsBottomSheet bottomSheet = (FileActionsBottomSheet) fragmentManager.findFragmentByTag(childFragmentTag);
+        if (bottomSheet != null) {
+            bottomSheet.setResultListener(fragmentManager, parentFragment, resultListener);
+        }
+    }
 
     /**
      * Interface to implement by any Activity that includes some instance of FileListFragment

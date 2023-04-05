@@ -72,7 +72,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.ui.fragment.util.FileActionsBottomSheetHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.lang.ref.WeakReference;
@@ -188,7 +187,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         autoplay = bundle.getBoolean(AUTOPLAY);
         mediaPlayerServiceConnection = new PlayerServiceConnection(getContext());
 
-        FileActionsBottomSheetHelper.trySetResultListener(this, TAG_ACTIONS_SHEET, this::onFileActionChosen);
+        trySetFileActionsResultListener(this, TAG_ACTIONS_SHEET, this::onFileActionChosen);
     }
 
     @Override

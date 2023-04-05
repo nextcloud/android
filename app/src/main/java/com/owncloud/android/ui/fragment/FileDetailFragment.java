@@ -69,7 +69,6 @@ import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.events.FavoriteEvent;
-import com.owncloud.android.ui.fragment.util.FileActionsBottomSheetHelper;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -246,7 +245,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             updateFileDetails(false, false);
         }
 
-        FileActionsBottomSheetHelper.trySetResultListener(this, TAG_ACTIONS_SHEET, this::optionsItemSelected);
+        trySetFileActionsResultListener(this, TAG_ACTIONS_SHEET, this::optionsItemSelected);
     }
 
     private void onOverflowIconClicked() {
