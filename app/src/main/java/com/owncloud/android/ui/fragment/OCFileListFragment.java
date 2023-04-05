@@ -158,6 +158,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     OCFileListBottomSheetActions,
     Injectable {
 
+    private static final String TAG_ACTIONS_SHEET = "actions";
     protected static final String TAG = OCFileListFragment.class.getSimpleName();
 
     private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ?
@@ -181,6 +182,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public static final String SEARCH_EVENT = "SEARCH_EVENT";
 
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
+    private static final String KEY_ACTIVE_CHECKED_FILES = MY_PACKAGE + ".extra.ACTIVE_CHECKED_FILES";
 
     protected static final String KEY_CURRENT_SEARCH_TYPE = "CURRENT_SEARCH_TYPE";
 
@@ -235,6 +237,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
+    private Set<OCFile> activeActionCheckedFiles;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -245,9 +249,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
             currentSearchType = savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE);
             searchEvent = savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT);
             mFile = savedInstanceState.getParcelable(KEY_FILE);
+
+            ArrayList<OCFile> checkedFiles = savedInstanceState.getParcelableArrayList(KEY_ACTIVE_CHECKED_FILES);
+            if (checkedFiles != null) {
+                activeActionCheckedFiles = new HashSet<>(checkedFiles);
+            }
         }
 
         searchFragment = currentSearchType != null && isSearchEventSet(searchEvent);
+
+        FileFragment.trySetFileActionsResultListener(this, TAG_ACTIONS_SHEET, this::onFileActionChosen);
     }
 
     @Override
@@ -591,11 +602,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void openActionsMenu(final int filesCount, final Set<OCFile> checkedFiles, final boolean isOverflow) {
         throttler.run("overflowClick", () -> {
             final FragmentManager childFragmentManager = getChildFragmentManager();
+            activeActionCheckedFiles = checkedFiles;
             FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow)
-                .setResultListener(childFragmentManager, this, (id) -> {
-                    onFileActionChosen(id, checkedFiles);
-                })
-                .show(childFragmentManager, "actions");
+                .setResultListener(childFragmentManager, this, this::onFileActionChosen)
+                .show(childFragmentManager, TAG_ACTIONS_SHEET);
             ;
         });
     }
@@ -822,6 +832,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (isSearchEventSet(searchEvent)) {
                 outState.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent);
             }
+        }
+        if (activeActionCheckedFiles != null) {
+            outState.putParcelableArrayList(KEY_ACTIVE_CHECKED_FILES, new ArrayList<>(activeActionCheckedFiles));
         }
         mMultiChoiceModeListener.storeStateIn(outState);
     }
@@ -1121,11 +1134,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
     /**
      * Start the appropriate action(s) on the currently selected files given menu selected by the user.
      *
-     * @param checkedFiles List of files selected by the user on which the action should be performed
      * @return 'true' if the menu selection started any action, 'false' otherwise.
      */
-    public boolean onFileActionChosen(@IdRes final int itemId, Set<OCFile> checkedFiles) {
-        if (checkedFiles.isEmpty()) {
+    public boolean onFileActionChosen(@IdRes final int itemId) {
+        Set<OCFile> checkedFiles = activeActionCheckedFiles;
+        activeActionCheckedFiles = null;
+        if (checkedFiles == null || checkedFiles.isEmpty()) {
             return false;
         }
 
