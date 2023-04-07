@@ -570,7 +570,7 @@
     <string name="prefs_instant_behaviour_title">Izvorna datoteka bo…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Shrani v podmape kot leto in mesec</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Uporabi podmape</string>
-    <string name="prefs_keys_exist">Dodaj celovito šifriranje »end-to-end« na to napravo</string>
+    <string name="prefs_keys_exist">Dodaj celovito šifriranje E2E na to napravo</string>
     <string name="prefs_license">Dovoljenje</string>
     <string name="prefs_lock">Koda PIN programa</string>
     <string name="prefs_lock_device_credentials_enabled">Poverila naprave so omogočena</string>
@@ -610,7 +610,7 @@
     <string name="reload">Ponovno naloži</string>
     <string name="remote">(oddaljeno) </string>
     <string name="remote_file_fetch_failed">Iskanje datoteke je spodletelo!</string>
-    <string name="remove_e2e">Lahko odstranite lokalno celovito šifriranje »end-to-end« na tej napravi</string>
+    <string name="remove_e2e">Na tej napravi lahko odstranite krajevno celovito šifriranje E2E</string>
     <string name="remove_fail_msg">Brisanje je spodletelo</string>
     <string name="remove_notification_failed">Odstranjevanje obvestil je spodletelo.</string>
     <string name="remove_push_notification">Odstrani</string>
