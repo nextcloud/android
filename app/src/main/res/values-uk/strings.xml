@@ -337,7 +337,7 @@
     <string name="file_list_folder">каталог</string>
     <string name="file_list_loading">Завантаження…</string>
     <string name="file_list_no_app_for_file_type">Відсутній застосунок для відкриття файлу такого типу.</string>
-    <string name="file_list_seconds_ago">секунди тому</string>
+    <string name="file_list_seconds_ago">кілька секунд тому</string>
     <string name="file_management_permission">Потрібні дозволи</string>
     <string name="file_management_permission_optional">Доступ до пам\'яти</string>
     <string name="file_management_permission_optional_text">%1$s Найкраще працює з дозволами для доступу до зберігання. Ви можете вибрати повний доступ до всіх файлів або доступ лише для читання до фотографій і відео.</string>

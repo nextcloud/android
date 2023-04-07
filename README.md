@@ -18,7 +18,7 @@ height="80">](https://f-droid.org/packages/com.nextcloud.client/)
 If you want to [contribute](https://nextcloud.com/contribute/) to Nextcloud, you are very welcome:
 
 *   our forum at https://help.nextcloud.com
-*   for translations of the app on [Transifex](https://www.transifex.com/nextcloud/nextcloud/android/)
+*   for translations of the app on [Transifex](https://app.transifex.com/nextcloud/nextcloud/android/)
 *   opening issues and PRs (including a corresponding issue)
 
 ## Contribution Guidelines & License :scroll:
