@@ -337,7 +337,7 @@
     <string name="file_management_permission">Zahtevana so posebna dovoljenja</string>
     <string name="file_management_permission_optional">Dovoljenje shrambe</string>
     <string name="file_management_permission_optional_text">%1$s deluje najbolje z dostopom do shrambe. Lahko izberete popoln dostop do vseh datotek, ali samo bralni dostop do fotografij in videoposnetkov.  </string>
-    <string name="file_management_permission_text">%1$s potrebuje dovoljenje za upravljanje z datotekami, da lahko naloži datoteke. Lahko izberete popoln dostop do vseh datotek, ali samo bralni dostop do fotografij in videoposnetkov.</string>
+    <string name="file_management_permission_text">%1$s potrebuje dovoljenje za upravljanje z datotekami, da lahko pošlje datoteke. Na voljo sta možnosti popolnega dostopa do vseh datotek in dostop le za branje in ogled fotografij oziroma videoposnetkov.</string>
     <string name="file_migration_checking_destination">Poteka preverjanje cilja …</string>
     <string name="file_migration_cleaning">Poteka čiščenje …</string>
     <string name="file_migration_dialog_title">Poteka osodabljanje podatkovne mape</string>
