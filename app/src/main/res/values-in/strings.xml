@@ -156,7 +156,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="contactlist_no_permission">Tidak ada perizinan diberikan, tidak ada yang terimpor</string>
     <string name="contacts">Kontak</string>
     <string name="contacts_backup_button">Cadangkan sekarang.</string>
-    <string name="contacts_preferences_backup_scheduled">Jadwalkan pencadangan dan jalankan sebentar lagi.</string>
+    <string name="contacts_preferences_backup_scheduled">Cadangan dijadwalkan dan akan dijalankan</string>
     <string name="contacts_preferences_import_scheduled">Impor jadwal dan jalankan sebentar lagi.</string>
     <string name="contacts_preferences_no_file_found">Tidak ada berkas ditemukan.</string>
     <string name="contacts_preferences_something_strange_happened">Tidak dapat menemukan pencadangan terakhir kamu!</string>
@@ -457,7 +457,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="prefs_license">Lisensi</string>
     <string name="prefs_lock">Kode sandi aplikasi</string>
     <string name="prefs_lock_none">Tidak ada</string>
-    <string name="prefs_lock_using_device_credentials">Credentials perangkat</string>
+    <string name="prefs_lock_using_device_credentials">Kredensial perangkat</string>
     <string name="prefs_lock_using_passcode">Kunci kode sandi</string>
     <string name="prefs_manage_accounts">Kelola akun</string>
     <string name="prefs_recommend">Rekomendasikan ke teman</string>

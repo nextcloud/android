@@ -87,7 +87,7 @@
     <string name="calendars">Kalendere</string>
     <string name="certificate_load_problem">Der er et problem med lagring af certificering.</string>
     <string name="changelog_dev_version">Changelog udviklingsversion</string>
-    <string name="checkbox">Afkrydsningsfeldt</string>
+    <string name="checkbox">Afkrydsningsfelt</string>
     <string name="choose_local_folder">Vælg lokal mappe...</string>
     <string name="choose_location">Vælg placering</string>
     <string name="choose_remote_folder">Vælg ekstern mappe...</string>
