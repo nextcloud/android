@@ -28,6 +28,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -227,16 +228,16 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         } else {
             binding.emptyList.emptyListView.setVisibility(View.GONE);
         }
-        
+
         if (getFile().getTags().isEmpty()) {
             binding.tagsGroup.setVisibility(View.GONE);
         } else {
-            for (String tag: getFile().getTags()) {
+            for (String tag : getFile().getTags()) {
                 Chip chip = new Chip(getContext());
                 chip.setText(tag);
-                chip.setBackgroundColor(getResources().getColor(R.color.bg_default,
-                                                                getContext().getTheme()));
-                chip.setTextColor(getResources().getColor(R.color.list_item_lastmod_and_filesize_text, 
+                chip.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.bg_default,
+                                                                                           getContext().getTheme())));
+                chip.setTextColor(getResources().getColor(R.color.list_item_lastmod_and_filesize_text,
                                                           getContext().getTheme()));
                 binding.tagsGroup.addView(chip);
             }
