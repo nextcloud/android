@@ -104,6 +104,7 @@
                 android:textSize="@dimen/two_line_secondary_text_size"
                 app:chipStartPadding="@dimen/standard_eighth_margin"
                 app:chipEndPadding="@dimen/standard_eighth_margin"
+                app:chipBackgroundColor="@color/bg_default"
                 android:checkable="false"
                 android:ellipsize="middle" />
 
