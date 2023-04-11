@@ -37,6 +37,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.nextcloud.client.account.User;
@@ -225,6 +226,20 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             showEmptyContent();
         } else {
             binding.emptyList.emptyListView.setVisibility(View.GONE);
+        }
+        
+        if (getFile().getTags().isEmpty()) {
+            binding.tagsGroup.setVisibility(View.GONE);
+        } else {
+            for (String tag: getFile().getTags()) {
+                Chip chip = new Chip(getContext());
+                chip.setText(tag);
+                chip.setBackgroundColor(getResources().getColor(R.color.bg_default,
+                                                                getContext().getTheme()));
+                chip.setTextColor(getResources().getColor(R.color.list_item_lastmod_and_filesize_text, 
+                                                          getContext().getTheme()));
+                binding.tagsGroup.addView(chip);
+            }
         }
 
         return view;

@@ -112,6 +112,12 @@
 
             </LinearLayout>
 
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/tagsGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
