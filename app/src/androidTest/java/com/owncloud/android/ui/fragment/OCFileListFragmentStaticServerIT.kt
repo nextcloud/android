@@ -48,20 +48,23 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     fun showFiles() {
         val sut = testActivityRule.launchActivity(null)
 
-        val textFile = OCFile("/1.png")
-        textFile.mimeType = "image/png"
-        textFile.fileLength = 1024000
-        textFile.modificationTimestamp = 1188206955000
-        textFile.parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
-        sut.storageManager.saveFile(textFile)
+        OCFile("/1.png").apply {
+            mimeType = "image/png"
+            fileLength = 1024000
+            modificationTimestamp = 1188206955000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            sut.storageManager.saveFile(this)
+        }
 
-        val imageFile = OCFile("/image.png")
-        imageFile.mimeType = "image/png"
-        imageFile.isPreviewAvailable = false
-        imageFile.fileLength = 3072000
-        imageFile.modificationTimestamp = 746443755000
-        imageFile.parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
-        sut.storageManager.saveFile(imageFile)
+        OCFile("/image.png").apply {
+            mimeType = "image/png"
+            isPreviewAvailable = false
+            fileLength = 3072000
+            modificationTimestamp = 746443755000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            tags = listOf("Top secret")
+            sut.storageManager.saveFile(this)
+        }
 
         OCFile("/video.mp4").apply {
             mimeType = "video/mp4"
@@ -69,6 +72,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             fileLength = 12092000
             modificationTimestamp = 746143952000
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            tags = listOf("Confidential", "+5")
             sut.storageManager.saveFile(this)
         }
 

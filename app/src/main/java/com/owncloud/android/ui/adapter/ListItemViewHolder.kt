@@ -32,4 +32,6 @@ internal interface ListItemViewHolder : ListGridItemViewHolder {
     val lastModification: TextView
     val overflowMenu: ImageView
     val sharedAvatars: AvatarGroupLayout
+    val tag: TextView
+    val tagMore: TextView
 }

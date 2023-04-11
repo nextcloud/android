@@ -95,33 +95,65 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/file_size"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/placeholder_fileSize"
+                android:layout_marginEnd="@dimen/standard_eighth_margin"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:textSize="@dimen/two_line_secondary_text_size" />
+                android:textSize="@dimen/two_line_secondary_text_size"
+                app:chipStartPadding="@dimen/standard_eighth_margin"
+                app:chipEndPadding="@dimen/standard_eighth_margin"
+                android:checkable="false"
+                android:ellipsize="middle" />
 
-            <TextView
-                android:id="@+id/file_separator"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tag_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:paddingStart="@dimen/zero"
-                android:paddingEnd="@dimen/standard_quarter_padding"
-                android:text="@string/info_separator"
+                android:layout_marginStart="@dimen/standard_eighth_margin"
+                android:layout_marginEnd="@dimen/standard_eighth_margin"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:textSize="@dimen/two_line_secondary_text_size" />
+                android:textSize="@dimen/two_line_secondary_text_size"
+                app:chipStartPadding="@dimen/standard_eighth_margin"
+                app:chipEndPadding="@dimen/standard_eighth_margin"
+                app:chipBackgroundColor="@color/bg_default"
+                android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/last_mod"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:text="@string/placeholder_media_time"
-                android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:textSize="@dimen/two_line_secondary_text_size" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/file_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_fileSize"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="@dimen/two_line_secondary_text_size" />
+
+                <TextView
+                    android:id="@+id/file_separator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:paddingStart="@dimen/zero"
+                    android:paddingEnd="@dimen/standard_quarter_padding"
+                    android:text="@string/info_separator"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="@dimen/two_line_secondary_text_size" />
+
+                <TextView
+                    android:id="@+id/last_mod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="@string/placeholder_media_time"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="@dimen/two_line_secondary_text_size" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -161,9 +193,9 @@
         <com.owncloud.android.ui.AvatarGroupLayout
             android:id="@+id/sharedAvatars"
             android:layout_width="100dp"
-            android:gravity="center_vertical"
             android:layout_height="@dimen/file_icon_size"
             android:contentDescription="@string/shared_avatar_desc"
+            android:gravity="center_vertical"
             android:visibility="visible" />
 
         <ImageView

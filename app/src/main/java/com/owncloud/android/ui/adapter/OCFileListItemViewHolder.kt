@@ -48,6 +48,10 @@ internal class OCFileListItemViewHolder(private var binding: ListItemBinding) :
         get() = binding.Filename
     override val thumbnail: ImageView
         get() = binding.thumbnailLayout.thumbnail
+    override val tag: TextView
+        get() = binding.tag
+    override val tagMore: TextView
+        get() = binding.tagMore
 
     override fun showVideoOverlay() {
         binding.thumbnailLayout.videoOverlay.visibility = View.VISIBLE

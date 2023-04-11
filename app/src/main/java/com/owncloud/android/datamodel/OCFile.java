@@ -114,6 +114,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String lockToken;
     @Nullable
     private ImageDimension imageDimension;
+    private List<String> tags;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to {@link
@@ -965,5 +966,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Nullable
     public ImageDimension getImageDimension() {
         return imageDimension;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 }

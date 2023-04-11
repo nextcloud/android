@@ -34,6 +34,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 
 import java.io.File;
@@ -233,7 +234,7 @@ public final class FileStorageUtils {
         file.setOwnerId(remote.getOwnerId());
         file.setOwnerDisplayName(remote.getOwnerDisplayName());
         file.setNote(remote.getNote());
-        file.setSharees(new ArrayList<>(Arrays.asList(remote.getSharees())));
+        file.setSharees(new ArrayList<ShareeUser>(Arrays.asList(remote.getSharees())));
         file.setRichWorkspace(remote.getRichWorkspace());
         file.setLocked(remote.isLocked());
         file.setLockType(remote.getLockType());
@@ -243,6 +244,7 @@ public final class FileStorageUtils {
         file.setLockTimestamp(remote.getLockTimestamp());
         file.setLockTimeout(remote.getLockTimeout());
         file.setLockToken(remote.getLockToken());
+        file.setTags(new ArrayList<String>(Arrays.asList(remote.getTags())));
 
         return file;
     }
