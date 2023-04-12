@@ -1186,7 +1186,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             } else if (itemId == R.id.action_unlock_file) {
                 mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, false);
             } else if (itemId == R.id.action_pin_to_homescreen) {
-                shortcutUtil.addShortcutToHomescreen(singleFile, viewThemeUtils);
+                shortcutUtil.addShortcutToHomescreen(singleFile, viewThemeUtils, accountManager.getUser(), syncedFolderProvider);
                 return true;
             }
         }
