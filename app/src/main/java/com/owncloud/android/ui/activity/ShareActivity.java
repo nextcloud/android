@@ -26,10 +26,12 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ShareActivityBinding;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -43,6 +45,8 @@ import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
+import javax.inject.Inject;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -55,12 +59,19 @@ public class ShareActivity extends FileActivity {
 
     static final String TAG_SHARE_FRAGMENT = "SHARE_FRAGMENT";
 
+    private SyncedFolderProvider syncedFolderProvider;
+
+    @Inject
+    Clock clock;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         ShareActivityBinding binding = ShareActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        syncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
 
         OCFile file = getFile();
         Optional<User> optionalUser = getUser();
@@ -75,6 +86,7 @@ public class ShareActivity extends FileActivity {
                                                                                       file.isSharedWithSharee(),
                                                                                   file.isSharedViaLink(),
                                                                                   file.isEncrypted(),
+                                                                                  syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), optionalUser.get()),
                                                                                   file.isGroupFolder(),
                                                                                   file.getMountType(),
                                                                                   this,

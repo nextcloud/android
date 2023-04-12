@@ -50,6 +50,7 @@ import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.documentscan.DocumentScanActivity;
@@ -67,6 +68,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -202,6 +204,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject FastScrollUtils fastScrollUtils;
     @Inject EditorUtils editorUtils;
     @Inject ShortcutUtil shortcutUtil;
+    @Inject Clock clock;
+
+    private SyncedFolderProvider syncedFolderProvider;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -324,6 +329,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             viewThemeUtils.material.themeFAB(mFabMain);
         }
 
+        syncedFolderProvider = new SyncedFolderProvider(requireActivity().getContentResolver(), preferences, clock);
+
         Log_OC.i(TAG, "onCreateView() end");
         return v;
     }
@@ -422,6 +429,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity(),
             accountManager.getUser(),
             preferences,
+            syncedFolderProvider,
             mContainerActivity,
             this,
             hideItemOptions,

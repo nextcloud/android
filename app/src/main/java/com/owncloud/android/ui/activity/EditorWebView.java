@@ -39,13 +39,18 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.core.Clock;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+
+import javax.inject.Inject;
 
 public abstract class EditorWebView extends ExternalSiteWebView {
     public static final int REQUEST_LOCAL_FILE = 101;
@@ -55,6 +60,11 @@ public abstract class EditorWebView extends ExternalSiteWebView {
     protected String fileName;
 
     RichdocumentsWebviewBinding binding;
+
+    private SyncedFolderProvider syncedFolderProvider;
+
+    @Inject
+    Clock clock;
 
     protected void loadUrl(String url) {
         onUrlLoaded(url);
@@ -154,6 +164,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
             finish();
             return;
         }
+        syncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
         initLoadingScreen(user.get());
     }
 
@@ -225,6 +236,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                                                                                   file.isSharedWithSharee(),
                                                                               file.isSharedViaLink(),
                                                                               file.isEncrypted(),
+                                                                              syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user),
                                                                               file.isGroupFolder(),
                                                                               file.getMountType(),
                                                                               this,
