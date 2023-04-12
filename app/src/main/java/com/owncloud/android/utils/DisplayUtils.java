@@ -72,6 +72,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -845,13 +846,15 @@ public final class DisplayUtils {
                                     Context context,
                                     LoaderImageView shimmerThumbnail,
                                     AppPreferences preferences,
-                                    ViewThemeUtils viewThemeUtils) {
+                                    ViewThemeUtils viewThemeUtils,
+                                    SyncedFolderProvider syncedFolderProvider) {
         if (file.isFolder()) {
             stopShimmer(shimmerThumbnail, thumbnailView);
             thumbnailView.setImageDrawable(MimeTypeUtil
                                                .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
                                                                   file.isSharedViaLink(),
                                                                   file.isEncrypted(),
+                                                                  syncedFolderProvider != null && syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user),
                                                                   file.isGroupFolder(),
                                                                   file.getMountType(),
                                                                   context,

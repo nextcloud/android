@@ -142,6 +142,7 @@ public final class MimeTypeUtil {
     public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
                                              boolean isSharedViaLink,
                                              boolean isEncrypted,
+                                             boolean isAutoUploadFolder,
                                              boolean isGroupFolder,
                                              WebdavEntry.MountType mountType,
                                              Context context,
@@ -156,6 +157,8 @@ public final class MimeTypeUtil {
             drawableId = R.drawable.folder_shared_users;
         } else if (isEncrypted) {
             drawableId = R.drawable.folder_encrypted;
+        } else if (isAutoUploadFolder) {
+            drawableId = R.drawable.folder_photo;
         } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
             drawableId = R.drawable.folder_external;
         } else {
@@ -170,6 +173,7 @@ public final class MimeTypeUtil {
     public static Drawable getDefaultFolderIcon(Context context,
                                                 ViewThemeUtils viewThemeUtils) {
         return getFolderTypeIcon(false,
+                                 false,
                                  false,
                                  false,
                                  false,
