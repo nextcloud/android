@@ -31,11 +31,14 @@ import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ConflictResolveDialogBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
@@ -71,6 +74,10 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
     private final List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
     private Button positiveButton;
     @Inject ViewThemeUtils viewThemeUtils;
+    @Inject AppPreferences preferences;
+    @Inject Clock clock;
+
+    private SyncedFolderProvider syncedFolderProvider;
 
     private static final String KEY_NEW_FILE = "file";
     private static final String KEY_EXISTING_FILE = "ocfile";
@@ -155,6 +162,8 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
         // Inflate the layout for the dialog
         binding = ConflictResolveDialogBinding.inflate(requireActivity().getLayoutInflater());
 
+        syncedFolderProvider = new SyncedFolderProvider(requireContext().getContentResolver(), preferences, clock);
+
         viewThemeUtils.platform.themeCheckbox(binding.newCheckbox);
         viewThemeUtils.platform.themeCheckbox(binding.existingCheckbox);
 
@@ -212,7 +221,8 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
                                   getContext(),
                                   null,
                                   null,
-                                  viewThemeUtils);
+                                  viewThemeUtils,
+                                  syncedFolderProvider);
 
         View.OnClickListener checkBoxClickListener = v ->
             positiveButton.setEnabled(binding.newCheckbox.isChecked() || binding.existingCheckbox.isChecked());

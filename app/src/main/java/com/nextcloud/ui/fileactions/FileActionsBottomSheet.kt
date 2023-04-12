@@ -43,13 +43,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
@@ -72,6 +75,14 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
     @Inject
     lateinit var storageManager: FileDataStorageManager
 
+    @Inject
+    lateinit var preferences: AppPreferences
+
+    @Inject
+    lateinit var clock: Clock
+
+    lateinit var syncedFolderProvider: SyncedFolderProvider
+
     lateinit var viewModel: FileActionsViewModel
 
     private var _binding: FileActionsBottomSheetBinding? = null
@@ -89,6 +100,8 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         viewModel = ViewModelProvider(this, vmFactory)[FileActionsViewModel::class.java]
         _binding = FileActionsBottomSheetBinding.inflate(inflater, container, false)
+
+        syncedFolderProvider = SyncedFolderProvider(requireContext().contentResolver, preferences, clock)
 
         viewModel.uiState.observe(viewLifecycleOwner, this::handleState)
 
@@ -141,7 +154,8 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
                 context,
                 binding.thumbnailLayout.thumbnailShimmer,
                 null,
-                viewThemeUtils
+                viewThemeUtils,
+                syncedFolderProvider
             )
         }
     }
