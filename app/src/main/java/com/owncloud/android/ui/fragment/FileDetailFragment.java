@@ -228,17 +228,22 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         } else {
             binding.emptyList.emptyListView.setVisibility(View.GONE);
         }
+        
+        Context context = getContext();
+        if (context == null) {
+            return null;
+        }
 
         if (getFile().getTags().isEmpty()) {
             binding.tagsGroup.setVisibility(View.GONE);
         } else {
             for (String tag : getFile().getTags()) {
-                Chip chip = new Chip(getContext());
+                Chip chip = new Chip(context);
                 chip.setText(tag);
                 chip.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.bg_default,
-                                                                                           getContext().getTheme())));
+                                                                                           context.getTheme())));
                 chip.setTextColor(getResources().getColor(R.color.list_item_lastmod_and_filesize_text,
-                                                          getContext().getTheme()));
+                                                          context.getTheme()));
                 binding.tagsGroup.addView(chip);
             }
         }
@@ -332,7 +337,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             }
         });
 
-        binding.tabLayout.getTabAt(activeTab).select();
+        TabLayout.Tab tab = binding.tabLayout.getTabAt(activeTab);
+        if (tab != null) {
+            tab.select();
+        }
     }
 
     @Override
@@ -575,7 +583,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         Bitmap resizedImage;
 
         if (toolbarActivity != null && MimeTypeUtil.isImage(file)) {
-            String tagId = String.valueOf(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId());
+            String tagId = ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId();
             resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
 
             if (resizedImage != null && !file.isUpdateThumbnailNeeded()) {
@@ -584,7 +592,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             } else {
                 // show thumbnail while loading resized image
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        String.valueOf(ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId()));
+                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId());
 
                 if (thumbnail != null) {
                     toolbarActivity.setPreviewImageBitmap(thumbnail);
@@ -602,7 +610,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                                                               containerActivity.getStorageManager(),
                                                                               connectivityService,
                                                                               containerActivity.getStorageManager().getUser(),
-                                                                              getResources().getColor(R.color.background_color_inverse)
+                                                                              getResources().getColor(R.color.background_color_inverse,
+                                                                                                      requireContext().getTheme())
                         );
 
                     if (resizedImage == null) {
