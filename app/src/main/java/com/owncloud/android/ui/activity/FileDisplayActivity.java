@@ -2009,7 +2009,7 @@ public class FileDisplayActivity extends FileActivity
 
         // the execution is slightly delayed to allow the activity get the window focus if it's being started
         // or if the method is called from a dialog that is being dismissed
-        if (TextUtils.isEmpty(searchQuery)) {
+        if (TextUtils.isEmpty(searchQuery) && getUser().isPresent()) {
             getHandler().postDelayed(
                 new Runnable() {
                     @Override
