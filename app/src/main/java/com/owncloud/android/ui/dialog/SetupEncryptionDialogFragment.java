@@ -22,6 +22,7 @@ package com.owncloud.android.ui.dialog;
 
 import android.accounts.AccountManager;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -50,6 +51,7 @@ import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.util.ArrayList;
@@ -129,7 +131,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
             viewThemeUtils.platform.colorTextButtons(positiveButton, neutralButton);
         }
 
-        task = new DownloadKeysAsyncTask();
+        task = new DownloadKeysAsyncTask(requireContext());
         task.execute();
     }
 
@@ -239,7 +241,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
                         neutralButton.setVisibility(View.GONE);
                         getDialog().setTitle(R.string.end_to_end_encryption_storing_keys);
 
-                        GenerateNewKeysAsyncTask newKeysTask = new GenerateNewKeysAsyncTask();
+                        GenerateNewKeysAsyncTask newKeysTask = new GenerateNewKeysAsyncTask(requireContext());
                         newKeysTask.execute();
                         break;
 
@@ -293,6 +295,12 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
     }
 
     public class DownloadKeysAsyncTask extends AsyncTask<Void, Void, String> {
+        private final WeakReference<Context> mWeakContext;
+
+        public DownloadKeysAsyncTask(Context context) {
+            mWeakContext = new WeakReference<>(context);
+        }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -303,47 +311,58 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
 
         @Override
         protected String doInBackground(Void... voids) {
+            Context context = mWeakContext.get();
             // fetch private/public key
             // if available
             //  - store public key
             //  - decrypt private key, store unencrypted private key in database
 
             GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();
-            RemoteOperationResult<String> publicKeyResult = publicKeyOperation.execute(user, getContext());
+            if (user != null) {
+                RemoteOperationResult<String> publicKeyResult = publicKeyOperation.execute(user, context);
 
-            if (publicKeyResult.isSuccess()) {
-                Log_OC.d(TAG, "public key successful downloaded for " + user.getAccountName());
+                if (publicKeyResult.isSuccess()) {
+                    Log_OC.d(TAG, "public key successful downloaded for " + user.getAccountName());
 
-                String publicKeyFromServer = publicKeyResult.getResultData();
-                arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
-                                                            EncryptionUtils.PUBLIC_KEY,
-                                                            publicKeyFromServer);
-            } else {
-                return null;
+                    String publicKeyFromServer = publicKeyResult.getResultData();
+                    if (arbitraryDataProvider != null) {
+                        arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(),
+                                                                    EncryptionUtils.PUBLIC_KEY,
+                                                                    publicKeyFromServer);
+                    } else {
+                        return null;
+                    }
+                } else {
+                    return null;
+                }
+
+                RemoteOperationResult<com.owncloud.android.lib.ocs.responses.PrivateKey> privateKeyResult =
+                    new GetPrivateKeyOperation().execute(user, context);
+
+                if (privateKeyResult.isSuccess()) {
+                    Log_OC.d(TAG, "private key successful downloaded for " + user.getAccountName());
+
+                    keyResult = KEY_EXISTING_USED;
+                    return privateKeyResult.getResultData().getKey();
+                }
             }
-
-            RemoteOperationResult<com.owncloud.android.lib.ocs.responses.PrivateKey> privateKeyResult =
-                new GetPrivateKeyOperation().execute(user, getContext());
-
-            if (privateKeyResult.isSuccess()) {
-                Log_OC.d(TAG, "private key successful downloaded for " + user.getAccountName());
-
-                keyResult = KEY_EXISTING_USED;
-                return privateKeyResult.getResultData().getKey();
-            } else {
-                return null;
-            }
+            return null;
         }
 
         @Override
         protected void onPostExecute(String privateKey) {
             super.onPostExecute(privateKey);
+            Context context = mWeakContext.get();
+            if (context == null) {
+                Log_OC.e(TAG, "Context lost after fetching private keys.");
+                return;
+            }
 
             if (privateKey == null) {
                 // first show info
                 try {
                     if (keyWords == null || keyWords.isEmpty()) {
-                        keyWords = EncryptionUtils.getRandomWords(12, requireContext());
+                        keyWords = EncryptionUtils.getRandomWords(12, context);
                     }
                     showMnemonicInfo();
                 } catch (IOException e) {
@@ -360,6 +379,13 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
     }
 
     public class GenerateNewKeysAsyncTask extends AsyncTask<Void, Void, String> {
+
+        private final WeakReference<Context> mWeakContext;
+
+        public GenerateNewKeysAsyncTask(Context context) {
+            mWeakContext = new WeakReference<>(context);
+        }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -373,18 +399,20 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
             //  - encrypt private key, push key to server, store unencrypted private key in database
 
             try {
+                Context context  = mWeakContext.get();
+
                 String publicKeyString;
 
                 // Create public/private key pair
                 KeyPair keyPair = EncryptionUtils.generateKeyPair();
 
                 // create CSR
-                AccountManager accountManager = AccountManager.get(getContext());
+                AccountManager accountManager = AccountManager.get(context);
                 String userId = accountManager.getUserData(user.toPlatformAccount(), AccountUtils.Constants.KEY_USER_ID);
                 String urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, userId);
 
                 SendCSROperation operation = new SendCSROperation(urlEncoded);
-                RemoteOperationResult result = operation.execute(user, getContext());
+                RemoteOperationResult result = operation.execute(user, context);
 
                 if (result.isSuccess()) {
                     publicKeyString = (String) result.getData().get(0);
@@ -407,7 +435,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
 
                 // upload encryptedPrivateKey
                 StorePrivateKeyOperation storePrivateKeyOperation = new StorePrivateKeyOperation(encryptedPrivateKey);
-                RemoteOperationResult storePrivateKeyResult = storePrivateKeyOperation.execute(user, getContext());
+                RemoteOperationResult storePrivateKeyResult = storePrivateKeyOperation.execute(user, context);
 
                 if (storePrivateKeyResult.isSuccess()) {
                     Log_OC.d(TAG, "private key success");
@@ -426,7 +454,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
                     return (String) storePrivateKeyResult.getData().get(0);
                 } else {
                     DeletePublicKeyOperation deletePublicKeyOperation = new DeletePublicKeyOperation();
-                    deletePublicKeyOperation.execute(user, getContext());
+                    deletePublicKeyOperation.execute(user, context);
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, e.getMessage());
@@ -440,9 +468,20 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
+            Context context = mWeakContext.get();
+            if (context == null) {
+                Log_OC.e(TAG, "Context lost after generating new private keys.");
+                return;
+            }
+
             if (s.isEmpty()) {
                 errorSavingKeys();
             } else {
+                if (getDialog() == null) {
+                    Log_OC.e(TAG, "Dialog is null cannot proceed further.");
+                    return;
+                }
+
                 requireDialog().dismiss();
                 notifyResult();
             }
@@ -464,6 +503,10 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
 
     @VisibleForTesting
     public void showMnemonicInfo() {
+        if (getDialog() == null) {
+            Log_OC.e(TAG, "Dialog is null cannot proceed further.");
+            return;
+        }
         requireDialog().setTitle(R.string.end_to_end_encryption_passphrase_title);
 
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_keywords_description);
@@ -483,6 +526,11 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
 
     @VisibleForTesting
     public void errorSavingKeys() {
+        if (getDialog() == null) {
+            Log_OC.e(TAG, "Dialog is null cannot proceed further.");
+            return;
+        }
+
         keyResult = KEY_FAILED;
 
         requireDialog().setTitle(R.string.common_error);
