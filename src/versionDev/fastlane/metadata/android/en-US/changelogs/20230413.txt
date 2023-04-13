@@ -1,0 +1,3 @@
+Build(deps): Bump kotlin_version from 1.7.22 to 1.8.10
+Update Nextcloud Android library
+Update 3rd-party dependencies
