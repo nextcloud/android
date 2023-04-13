@@ -941,6 +941,7 @@
     <string name="version_dev_download">Herunterladen</string>
     <string name="video_overlay_icon">Video Überlagerungsicon</string>
     <string name="wait_a_moment">Bitte warten…</string>
+    <string name="camera_permission_rationale">Bitte geben Sie unter Apps &amp; Benachrichtigungen in den Einstellungen manuell die Erlaubnis.</string>
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei von privatem Speicher</string>
     <string name="webview_version_check_alert_dialog_message">Bitte aktualisieren Sie die Android System WebView-App für eine Anmeldung</string>

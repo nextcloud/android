@@ -1021,6 +1021,7 @@
     <string name="link_name">Link Name</string>
     <string name="delete_link">Delete Link</string>
     <string name="share_settings">Settings</string>
+    <string name="camera_permission_rationale">Please navigate to App info in settings and give permission manually.</string>
     <string name="common_confirm">Confirm</string>
     <string name="strict_mode">Strict mode: no HTTP connection allowed!</string>
     <string name="destination_filename">Destination filename</string>
