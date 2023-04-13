@@ -23,6 +23,7 @@ package com.owncloud.android.ui.adapter
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.owncloud.android.ui.AvatarGroupLayout
 
@@ -32,6 +33,8 @@ internal interface ListItemViewHolder : ListGridItemViewHolder {
     val lastModification: TextView
     val overflowMenu: ImageView
     val sharedAvatars: AvatarGroupLayout
-    val tag: TextView
+    val firstTag: TextView
+    val secondTag: TextView
     val tagMore: TextView
+    val fileDetailGroup: LinearLayout
 }

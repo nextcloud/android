@@ -417,19 +417,27 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         // tags
         if (file.getTags().isEmpty()) {
-            holder.getTag().setVisibility(View.GONE);
+            holder.getFirstTag().setVisibility(View.GONE);
+            holder.getSecondTag().setVisibility(View.GONE);
             holder.getTagMore().setVisibility(View.GONE);
+            holder.getFileDetailGroup().setVisibility(View.VISIBLE);
         } else {
-            holder.getTag().setVisibility(View.VISIBLE);
+            holder.getFileDetailGroup().setVisibility(View.GONE);
+            holder.getSecondTag().setVisibility(View.GONE);
+            holder.getTagMore().setVisibility(View.GONE);
+            holder.getFirstTag().setVisibility(View.VISIBLE);
 
-            holder.getTag().setText(file.getTags().get(0));
-
+            holder.getFirstTag().setText(file.getTags().get(0));
+            
             if (file.getTags().size() > 1) {
+                holder.getSecondTag().setVisibility(View.VISIBLE);
+                holder.getSecondTag().setText(file.getTags().get(1));
+            }
+
+            if (file.getTags().size() > 2) {
                 holder.getTagMore().setVisibility(View.VISIBLE);
                 holder.getTagMore().setText(String.format(activity.getString(R.string.tags_more),
-                                                          (file.getTags().size() - 1)));
-            } else {
-                holder.getTagMore().setVisibility(View.GONE);
+                                                          (file.getTags().size() - 2)));
             }
         }
 
