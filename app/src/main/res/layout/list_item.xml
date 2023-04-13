@@ -95,42 +95,48 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/firstTag"
-                android:layout_width="wrap_content"
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checkable="false"
-                android:ellipsize="middle"
-                android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:textSize="@dimen/two_line_secondary_text_size"
-                app:chipBackgroundColor="@color/bg_default"
-                app:chipEndPadding="@dimen/standard_eighth_margin"
-                app:chipStartPadding="@dimen/standard_eighth_margin" />
+                app:singleLine="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/secondTag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_eighth_margin"
-                android:checkable="false"
-                android:ellipsize="middle"
-                android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:textSize="@dimen/two_line_secondary_text_size"
-                app:chipBackgroundColor="@color/bg_default"
-                app:chipEndPadding="@dimen/standard_eighth_margin"
-                app:chipStartPadding="@dimen/standard_eighth_margin" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/firstTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="false"
+                    android:ellipsize="middle"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="@dimen/two_line_secondary_text_size"
+                    app:chipBackgroundColor="@color/bg_default"
+                    app:chipEndPadding="@dimen/standard_eighth_margin"
+                    app:chipStartPadding="@dimen/standard_eighth_margin" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/tag_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_eighth_margin"
-                android:checkable="false"
-                android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:textSize="@dimen/two_line_secondary_text_size"
-                app:chipBackgroundColor="@color/bg_default"
-                app:chipEndPadding="@dimen/standard_eighth_margin"
-                app:chipStartPadding="@dimen/standard_eighth_margin" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/secondTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="false"
+                    android:ellipsize="middle"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="@dimen/two_line_secondary_text_size"
+                    app:chipBackgroundColor="@color/bg_default"
+                    app:chipEndPadding="@dimen/standard_eighth_margin"
+                    app:chipStartPadding="@dimen/standard_eighth_margin" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/tag_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="false"
+                    android:ellipsize="none"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="@dimen/two_line_secondary_text_size"
+                    app:chipBackgroundColor="@color/bg_default"
+                    app:chipEndPadding="@dimen/standard_eighth_margin"
+                    app:chipStartPadding="@dimen/standard_eighth_margin" />
+
+            </com.google.android.material.chip.ChipGroup>
 
             <LinearLayout
                 android:id="@+id/file_detail_group"
