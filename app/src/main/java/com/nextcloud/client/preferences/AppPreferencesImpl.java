@@ -25,9 +25,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
+import com.nmc.android.app_review.AppReviewShownModel;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -39,6 +41,7 @@ import com.owncloud.android.utils.FileSortOrder;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
@@ -115,6 +118,7 @@ public final class AppPreferencesImpl implements AppPreferences {
             this.preferences = preferences;
             this.listeners = new CopyOnWriteArraySet<>();
         }
+        private static final String PREF__IN_APP_REVIEW_DATA = "in_app_review_data";
 
         void add(@Nullable final Listener listener) {
             if (listener != null) {
@@ -709,5 +713,19 @@ public final class AppPreferencesImpl implements AppPreferences {
     @VisibleForTesting
     public int computeBruteForceDelay(int count) {
         return (int) Math.min(count / 3d, 10);
+    }
+    @Override
+    public void setInAppReviewData(@NonNull AppReviewShownModel appReviewShownModel) {
+        Gson gson = new Gson();
+        String json = gson.toJson(appReviewShownModel);
+        preferences.edit().putString(PREF__IN_APP_REVIEW_DATA, json).apply();
+    }
+
+    @Nullable
+    @Override
+    public AppReviewShownModel getInAppReviewData() {
+        Gson gson = new Gson();
+        String json = preferences.getString(PREF__IN_APP_REVIEW_DATA, "");
+        return gson.fromJson(json, AppReviewShownModel.class);
     }
 }

@@ -28,6 +28,7 @@ import com.nextcloud.client.device.DeviceModule;
 import com.nextcloud.client.integrations.IntegrationsModule;
 import com.nextcloud.client.jobs.JobsModule;
 import com.nextcloud.client.network.NetworkModule;
+import com.nmc.android.app_review.InAppReviewModule;
 import com.nextcloud.client.onboarding.OnboardingModule;
 import com.nextcloud.client.preferences.PreferencesModule;
 import com.owncloud.android.MainApp;
@@ -53,6 +54,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
     ViewModelModule.class,
     JobsModule.class,
     IntegrationsModule.class,
+    InAppReviewModule.class,
     ThemeModule.class,
     DatabaseModule.class,
     DispatcherModule.class,
