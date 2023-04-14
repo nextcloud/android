@@ -57,6 +57,7 @@ import android.view.WindowManager;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
+import com.nmc.android.app_review.InAppReviewHelper;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.di.Injectable;
@@ -233,6 +234,9 @@ public class FileDisplayActivity extends FileActivity
 
     @Inject
     ConnectivityService connectivityService;
+
+    @Inject
+    InAppReviewHelper inAppReviewHelper;
 
     @Inject
     FastScrollUtils fastScrollUtils;
@@ -1160,6 +1164,8 @@ public class FileDisplayActivity extends FileActivity
         if (ocFileListFragment instanceof GalleryFragment) {
             updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
         }
+        //show in-app review dialog to user
+        inAppReviewHelper.showInAppReview(this);
 
         Log_OC.v(TAG, "onResume() end");
     }

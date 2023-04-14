@@ -22,7 +22,7 @@ package com.nextcloud.client.preferences;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.FileSortOrder;
-
+import com.nmc.android.app_review.AppReviewShownModel;
 import androidx.annotation.Nullable;
 
 /**
@@ -377,4 +377,6 @@ public interface AppPreferences {
     boolean isStoragePermissionRequested();
 
     void setStoragePermissionRequested(boolean value);
+    void setHideVideoClicked(boolean isHideVideoClicked);
+    boolean getHideVideoClicked();
 }
