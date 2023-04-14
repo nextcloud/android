@@ -62,6 +62,7 @@ public class CreateFolderDialogFragment
     extends DialogFragment implements DialogInterface.OnClickListener, Injectable {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
+    private static final String ARG_ENCRYPTED = "ENCRYPTED";
 
     public static final String CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT";
 
@@ -70,8 +71,9 @@ public class CreateFolderDialogFragment
     @Inject KeyboardUtils keyboardUtils;
 
 
-    private OCFile mParentFolder;
+    private OCFile parentFolder;
     private Button positiveButton;
+    private boolean encrypted;
 
 
     private EditBoxDialogBinding binding;
@@ -83,12 +85,16 @@ public class CreateFolderDialogFragment
      * @return Dialog ready to show.
      */
     public static CreateFolderDialogFragment newInstance(OCFile parentFolder) {
+        return newInstance(parentFolder, false);
+    }
+
+    public static CreateFolderDialogFragment newInstance(OCFile parentFolder, boolean encrypted) {
         CreateFolderDialogFragment frag = new CreateFolderDialogFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_PARENT_FOLDER, parentFolder);
+        args.putBoolean(ARG_ENCRYPTED, encrypted);
         frag.setArguments(args);
         return frag;
-
     }
 
     @Override
@@ -114,7 +120,8 @@ public class CreateFolderDialogFragment
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mParentFolder = getArguments().getParcelable(ARG_PARENT_FOLDER);
+        parentFolder = getArguments().getParcelable(ARG_PARENT_FOLDER);
+        encrypted = getArguments().getBoolean(ARG_ENCRYPTED);
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -204,9 +211,9 @@ public class CreateFolderDialogFragment
                 return;
             }
 
-            String path = mParentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
+            String path = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
 
-            ((ComponentsGetter) getActivity()).getFileOperationsHelper().createFolder(path);
+            ((ComponentsGetter) getActivity()).getFileOperationsHelper().createFolder(path, encrypted);
         }
     }
 }

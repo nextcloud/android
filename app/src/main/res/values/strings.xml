@@ -742,6 +742,7 @@
     <string name="upload_scan_doc_upload">Scan document from camera</string>
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
     <string name="create_new_folder">Create new folder</string>
+    <string name="create_new_encrypted_folder">Create new encrypted folder</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
     <string name="tags">Tags</string>
     <string name="sharee_add_failed">Adding sharee failed</string>
