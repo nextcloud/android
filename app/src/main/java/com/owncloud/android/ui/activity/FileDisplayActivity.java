@@ -99,13 +99,13 @@ import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment;
-import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
+import com.owncloud.android.ui.fragment.GroupfolderListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.fragment.SharedListFragment;
@@ -164,6 +164,7 @@ public class FileDisplayActivity extends FileActivity
 
     public static final String RESTART = "RESTART";
     public static final String ALL_FILES = "ALL_FILES";
+    public static final String LIST_GROUPFOLDERS = "LIST_GROUPFOLDERS";
     public static final String PHOTO_SEARCH = "PHOTO_SEARCH";
     public static final int SINGLE_USER_SIZE = 1;
     public static final String OPEN_FILE = "NC_OPEN_FILE";
@@ -551,6 +552,11 @@ public class FileDisplayActivity extends FileActivity
                 setLeftFragment(new OCFileListFragment());
                 getSupportFragmentManager().executePendingTransactions();
                 browseToRoot();
+            } else if (LIST_GROUPFOLDERS.equals(intent.getAction())) {
+                Log_OC.d(this, "Switch to list groupfolders fragment");
+
+                setLeftFragment(new GroupfolderListFragment());
+                getSupportFragmentManager().executePendingTransactions();
             }
     }
 

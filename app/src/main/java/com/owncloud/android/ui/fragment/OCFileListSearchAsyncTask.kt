@@ -61,7 +61,13 @@ class OCFileListSearchAsyncTask(
         }
 
         fragment.setTitle()
-        val remoteOperationResult = remoteOperation.execute(currentUser, fragment.context)
+        lateinit var remoteOperationResult: RemoteOperationResult<List<Any>>
+        try {
+            remoteOperationResult = remoteOperation.execute(currentUser, fragment.context)
+        } catch (e: UnsupportedOperationException) {
+            remoteOperationResult = remoteOperation.executeNextcloudClient(currentUser, fragment.requireContext())
+        }
+
         if (remoteOperationResult.hasSuccessfulResult() && !isCancelled && fragment.searchFragment) {
             fragment.searchEvent = event
             if (remoteOperationResult.resultData.isNullOrEmpty()) {
