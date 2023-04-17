@@ -586,7 +586,7 @@
     <string name="prefs_manage_accounts">Управљање налозима</string>
     <string name="prefs_recommend">Препоручи пријатељу</string>
     <string name="prefs_remove_e2e">Локално уклони шифрирање</string>
-    <string name="prefs_setup_e2e">Подешавање шифрирања од почетка-до-краја</string>
+    <string name="prefs_setup_e2e">Подешавање шифровања од-краја-до-краја</string>
     <string name="prefs_show_hidden_files">Прикажи скривене фајлове</string>
     <string name="prefs_sourcecode">Узми изворни кôд</string>
     <string name="prefs_storage_path">Фасцикла за податке</string>
