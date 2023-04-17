@@ -24,6 +24,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.google.common.collect.ObjectArrays;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.SyncedFolderUtils;
@@ -33,9 +34,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.zip.CRC32;
 
@@ -84,19 +83,19 @@ public class FilesystemDataProvider {
             ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
             ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?";
         String likeParam = localPath + "%";
-        List<String> queryParams = Arrays.asList(likeParam, syncedFolderId, "0", "0");
+        String[] queryParams = new String[]{likeParam, syncedFolderId, "0", "0"};
 
         if (minFileAge > 0) {
             query += " and " + ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED + " <= ?";
             long olderThanParam = (System.currentTimeMillis() - minFileAge) / 1000;
-            queryParams.add(Long.toString(olderThanParam));
+            queryParams = ObjectArrays.concat(queryParams, Long.toString(olderThanParam));
         }
 
         Cursor cursor = contentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
                 null,
                 query,
-                queryParams.toArray(new String[0]),
+                queryParams,
                 null);
 
         if (cursor != null) {
