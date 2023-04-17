@@ -32,6 +32,7 @@
     <string name="activity_icon">النشاط</string>
     <string name="add_another_public_share_link">إضافة رابط مشاركة آخر</string>
     <string name="add_new_public_share">إضافة رابط مشاركة عام جديد</string>
+    <string name="add_new_secure_file_drop">أضف ملف ألاصل </string>
     <string name="add_to_cloud">أضفه إلى %1$s</string>
     <string name="advanced_settings">الإعدادات المتقدمة</string>
     <string name="allow_resharing">السماح بإعادة المشاركة </string>
@@ -93,6 +94,7 @@
     <string name="choose_remote_folder">اختر مجلد عن بُعد…</string>
     <string name="choose_template_helper_text">اختر قالب وادخل اسم الملف</string>
     <string name="choose_which_file">اختر أي من أياً من الملفات التالية التي تريد الإحتفاظ بها!</string>
+    <string name="choose_widget">أختر عنصر الواجهه</string>
     <string name="clear_notifications_failed">فشلت عملية إزالة التنبيهات.</string>
     <string name="clear_status_message">مسح رسالة الحالة</string>
     <string name="clear_status_message_after">مسح رسالة الحالة بعد</string>
