@@ -795,16 +795,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
 
                 if (!onlyMedia || MimeTypeUtil.isImage(ocFile) || MimeTypeUtil.isVideo(ocFile)) {
-
-                    //handling duplicacy for favorites section
-                    if (mFiles.isEmpty()) {
-                        mFiles.add(ocFile);
-                    } else {
-                        for (OCFile file : mFiles) {
-                            if (file.getFileId() == ocFile.getFileId()) {
-                                return;
-                            }
-                        }
+                    //handling duplicates for favorites section
+                    if (mFiles.isEmpty() || !mFiles.contains(ocFile)) {
                         mFiles.add(ocFile);
                     }
                 }
