@@ -244,7 +244,7 @@ public final class FileStorageUtils {
         file.setLockTimestamp(remote.getLockTimestamp());
         file.setLockTimeout(remote.getLockTimeout());
         file.setLockToken(remote.getLockToken());
-        file.setTags(new ArrayList<String>(Arrays.asList(remote.getTags())));
+        file.setTags(new ArrayList<>(Arrays.asList(remote.getTags())));
 
         return file;
     }
