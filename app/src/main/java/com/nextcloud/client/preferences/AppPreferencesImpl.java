@@ -100,6 +100,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__PDF_ZOOM_TIP_SHOWN = "pdf_zoom_tip_shown";
 
     private static final String PREF__STORAGE_PERMISSION_REQUESTED = "storage_permission_requested";
+    private static final String PREF__IN_APP_REVIEW_DATA = "in_app_review_data";
 
     private final Context context;
     private final SharedPreferences preferences;
@@ -118,7 +119,6 @@ public final class AppPreferencesImpl implements AppPreferences {
             this.preferences = preferences;
             this.listeners = new CopyOnWriteArraySet<>();
         }
-        private static final String PREF__IN_APP_REVIEW_DATA = "in_app_review_data";
 
         void add(@Nullable final Listener listener) {
             if (listener != null) {
