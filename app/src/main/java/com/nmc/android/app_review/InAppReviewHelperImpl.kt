@@ -109,9 +109,4 @@ class InAppReviewHelperImpl(val appPreferences: AppPreferences) : InAppReviewHel
         const val MIN_APP_RESTARTS_REQ = 10 //minimum app restarts required to ask the review
         const val MAX_DISPLAY_PER_YEAR = 15 //maximum times to ask review in a year
     }
-
-}
-
-
-
 }
