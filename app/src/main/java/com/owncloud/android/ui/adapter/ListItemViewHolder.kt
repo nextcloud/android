@@ -25,6 +25,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.google.android.material.chip.ChipGroup
 import com.owncloud.android.ui.AvatarGroupLayout
 
 internal interface ListItemViewHolder : ListGridItemViewHolder {
@@ -33,6 +34,7 @@ internal interface ListItemViewHolder : ListGridItemViewHolder {
     val lastModification: TextView
     val overflowMenu: ImageView
     val sharedAvatars: AvatarGroupLayout
+    val tagsGroup: ChipGroup
     val firstTag: TextView
     val secondTag: TextView
     val tagMore: TextView

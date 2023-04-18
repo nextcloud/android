@@ -96,6 +96,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/tagsGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:singleLine="true">
