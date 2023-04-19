@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:text="@string/splashScreenBold"
             android:textColor="@color/white"
+            android:textStyle="bold"
             android:textSize="@dimen/txt_size_20sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
