@@ -7,7 +7,6 @@ import android.text.TextUtils
 import android.view.View
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.nextcloud.client.preferences.AppPreferences
-import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.databinding.ActivitySplashBinding
 import com.owncloud.android.ui.activity.BaseActivity
