@@ -41,7 +41,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
@@ -54,7 +53,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -108,7 +106,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private View view;
     private User user;
     private OCFile parentFolder;
-    private SyncedFolderProvider syncedFolderProvider;
     private boolean previewLoaded;
 
     private FileDetailsFragmentBinding binding;
@@ -123,7 +120,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Inject FileDataStorageManager storageManager;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject BackgroundJobManager backgroundJobManager;
-    @Inject Clock clock;
 
     /**
      * Public factory method to create new FileDetailFragment instances.
@@ -211,8 +207,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (arguments == null) {
             throw new IllegalArgumentException("Arguments may not be null");
         }
-
-        syncedFolderProvider =new SyncedFolderProvider(requireActivity().getContentResolver(), preferences, clock);
 
         setFile(arguments.getParcelable(ARG_FILE));
         parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER);
