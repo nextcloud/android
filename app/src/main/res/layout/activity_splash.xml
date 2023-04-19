@@ -12,13 +12,13 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_magentacloud_splash_logo" />
+        app:srcCompat="@drawable/nextcloud_logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_horizontal"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline">
@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:text="@string/splashScreenBold"
             android:textColor="@color/white"
+            android:textStyle="bold"
             android:textSize="@dimen/txt_size_20sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -39,7 +40,6 @@
             android:textColor="@color/white"
             android:textSize="@dimen/txt_size_20sp" />
     </LinearLayout>
-
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
