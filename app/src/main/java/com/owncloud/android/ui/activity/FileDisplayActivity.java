@@ -59,9 +59,11 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
+import com.nextcloud.client.core.AsyncRunner;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.DeepLinkHandler;
 import com.nextcloud.client.media.PlayerServiceConnection;
+import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
@@ -78,6 +80,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.files.services.NameCollisionPolicy;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -96,6 +99,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
+import com.owncloud.android.ui.asynctasks.GetRemoteFileTask;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment;
@@ -150,6 +154,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.Unit;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.utils.PermissionUtil.PERMISSION_CHOICE_DIALOG_TAG;
@@ -181,6 +186,7 @@ public class FileDisplayActivity extends FileActivity
     public static final String TAG_PUBLIC_LINK = "PUBLIC_LINK";
     public static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
     public static final String KEY_FILE_ID = "KEY_FILE_ID";
+    public static final String KEY_FILE_PATH = "KEY_FILE_PATH";
     public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
 
 
@@ -237,6 +243,7 @@ public class FileDisplayActivity extends FileActivity
 
     @Inject
     FastScrollUtils fastScrollUtils;
+    @Inject AsyncRunner asyncRunner;
 
     public static Intent openFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
@@ -2439,13 +2446,21 @@ public class FileDisplayActivity extends FileActivity
 
         String userName = intent.getStringExtra(KEY_ACCOUNT);
         String fileId = intent.getStringExtra(KEY_FILE_ID);
+        String filePath = intent.getStringExtra(KEY_FILE_PATH);
 
         if (userName == null && fileId == null && intent.getData() != null) {
             openDeepLink(intent.getData());
         } else {
             Optional<User> optionalUser = userName == null ? getUser() : getUserAccountManager().getUser(userName);
             if (optionalUser.isPresent()) {
-                openFile(optionalUser.get(), fileId);
+                if (!TextUtils.isEmpty(fileId)) {
+                    openFile(optionalUser.get(), fileId);
+                } else if (!TextUtils.isEmpty(filePath)) {
+                    openFileByPath(optionalUser.get(), filePath);
+                } else {
+                    dismissLoadingDialog();
+                    DisplayUtils.showSnackMessage(this, getString(R.string.file_not_found));
+                }
             } else {
                 dismissLoadingDialog();
                 DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
@@ -2507,7 +2522,51 @@ public class FileDisplayActivity extends FileActivity
                                                                           storageManager,
                                                                           this);
         fetchRemoteFileTask.execute();
+    }
 
+    private void openFileByPath(User user, String filepath) {
+        setUser(user);
+
+        if (filepath == null) {
+            dismissLoadingDialog();
+            DisplayUtils.showSnackMessage(this, getString(R.string.error_retrieving_file));
+            return;
+        }
+
+        FileDataStorageManager storageManager = getStorageManager();
+
+        if (storageManager == null) {
+            storageManager = new FileDataStorageManager(user, getContentResolver());
+        }
+
+        OwnCloudClient client;
+        try {
+            client = clientFactory.create(user);
+        } catch (ClientFactory.CreationException e) {
+            dismissLoadingDialog();
+            DisplayUtils.showSnackMessage(this, getString(R.string.error_retrieving_file));
+            return;
+        }
+
+        GetRemoteFileTask getRemoteFileTask = new GetRemoteFileTask(this,
+                                                                    filepath,
+                                                                    client,
+                                                                    storageManager,
+                                                                    user);
+        asyncRunner.postQuickTask(getRemoteFileTask, this::onFileRequestResult, null);
+    }
+
+    private Unit onFileRequestResult(GetRemoteFileTask.Result result) {
+        setFile(result.getFile());
+
+        OCFileListFragment fileFragment = new OCFileListFragment();
+        setLeftFragment(fileFragment);
+        //fileFragment.onItemClicked(result.getFile());
+
+        fileFragment.listDirectory(result.getFile(), false, false);
+
+        dismissLoadingDialog();
+        return null;
     }
 
     public void performUnifiedSearch(String query) {

@@ -71,6 +71,7 @@ class EtmActivity : ToolbarActivity(), Injectable {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         if (!vm.onBackPressed()) {
             super.onBackPressed()

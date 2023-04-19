@@ -21,17 +21,18 @@
 package com.owncloud.android.ui.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.Intent.ACTION_VIEW
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nextcloud.android.lib.resources.groupfolders.Groupfolder
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.logger.Logger
+import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.activity.FileDisplayActivity
@@ -146,48 +147,20 @@ class GroupfolderListFragment : OCFileListFragment(), Injectable, GroupfolderLis
         }
     }
 
-    override fun onShareIconClick(file: OCFile) {
-        fetchFileAndRun(file) { fetched ->
-            super.onShareIconClick(fetched)
-        }
-    }
-
-    override fun showShareDetailView(file: OCFile) {
-        fetchFileAndRun(file) { fetched ->
-            super.showShareDetailView(fetched)
-        }
-    }
-
-    override fun showActivityDetailView(file: OCFile) {
-        fetchFileAndRun(file) { fetched ->
-            super.showActivityDetailView(fetched)
-        }
-    }
-
-    override fun onOverflowIconClicked(file: OCFile, view: View?) {
-        fetchFileAndRun(file) { fetched ->
-            super.onOverflowIconClicked(fetched, view)
-        }
-    }
-
-    override fun onItemClicked(file: OCFile) {
-        fetchFileAndRun(file) { fetched ->
-            super.onItemClicked(fetched)
-        }
-    }
-
-    override fun onLongItemClicked(file: OCFile): Boolean {
-        fetchFileAndRun(file) { fetched ->
-            super.onLongItemClicked(fetched)
-        }
-        return true
-    }
-
     companion object {
         private val SHARED_TAG = GroupfolderListFragment::class.java.simpleName
     }
 
     override fun onFolderClick(path: String) {
-        Log_OC.d("groupfolder", path)
+        MainApp.showOnlyFilesOnDevice(false)
+        Intent(
+            context,
+            FileDisplayActivity::class.java
+        ).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            action = ACTION_VIEW
+            putExtra(FileDisplayActivity.KEY_FILE_PATH, path)
+            startActivity(this)
+        }
     }
 }

@@ -38,7 +38,7 @@ import java.io.File
 class GroupfolderListAdapter(
     val context: Context,
     val viewThemeUtils: ViewThemeUtils,
-    val groupfolderListInterface: GroupfolderListInterface
+    private val groupfolderListInterface: GroupfolderListInterface
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var list: List<Groupfolder>
