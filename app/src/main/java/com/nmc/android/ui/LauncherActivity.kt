@@ -3,6 +3,8 @@ package com.nmc.android.ui
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.text.TextUtils
+import android.view.View
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
@@ -10,7 +12,6 @@ import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.databinding.ActivitySplashBinding
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.utils.StringUtils
 import javax.inject.Inject
 
 class LauncherActivity : BaseActivity() {
@@ -37,14 +38,15 @@ class LauncherActivity : BaseActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        setSplashTitle()
+        updateBoldTitleVisibility()
         scheduleSplashScreen()
     }
 
-    private fun setSplashTitle() {
-        val appName = resources.getString(R.string.app_name)
-        val textToBold = resources.getString(R.string.project_name)
-        binding.tvSplash.text = StringUtils.makeTextBold(appName, textToBold)
+    private fun updateBoldTitleVisibility() {
+        //For NC this will be empty so to handle that case we have added this check
+        if (TextUtils.isEmpty(resources.getString(R.string.splashScreenBold))) {
+            binding.splashScreenBold.visibility = View.GONE
+        }
     }
 
     private fun scheduleSplashScreen() {

@@ -6,7 +6,7 @@
 
     <!-- App name  and other strings-->
     <string name="app_name">Nextcloud</string>
-    <!-- required for NMC and will change to Magenta once branding changes applied -->
+    <!-- required for NMC -->
     <string name="splashScreenBold">Magenta</string>
     <string name="splashScreenNormal">CLOUD</string>
     <string name="account_type">nextcloud</string>     <!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
