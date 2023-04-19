@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import androidx.lifecycle.Lifecycle;
@@ -91,10 +92,12 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
             searchRemoteOperation.setStartDate(0L);
 
             if (photoFragment.getContext() != null) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
                 Log_OC.d(this,
-                         "Start gallery search since " + dateFormat.format(new Date(endDate * 1000L)) +
-                             " with limit: " + limit);
+                         "Start gallery search since "
+                             + dateFormat.format(new Date(endDate * 1000L))
+                             + " with limit: "
+                             + limit);
                 RemoteOperationResult result = searchRemoteOperation.execute(user, photoFragment.getContext());
 
                 if (result.isSuccess()) {
@@ -136,11 +139,19 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         List<OCFile> localFiles = storageManager.getGalleryItems(startDate * 1000L, endDate * 1000L);
 
         if (BuildConfig.DEBUG) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Log_OC.d(this, "parseMedia - start: " + dateFormat.format(new Date(startDate * 1000L)) + " - " + dateFormat.format(new Date(endDate * 1000L)));
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+            Log_OC.d(this,
+                     "parseMedia - start: "
+                         + dateFormat.format(new Date(startDate * 1000L))
+                         + " - "
+                         + dateFormat.format(new Date(endDate * 1000L)));
 
             for (OCFile localFile : localFiles) {
-                Log_OC.d(this, "local file: modified: " + dateFormat.format(new Date(localFile.getModificationTimestamp())) + " path: " + localFile.getRemotePath());
+                Log_OC.d(this,
+                         "local file: modified: "
+                             + dateFormat.format(new Date(localFile.getModificationTimestamp()))
+                             + " path: "
+                             + localFile.getRemotePath());
             }
         }
 
@@ -152,8 +163,12 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) file);
 
             if (BuildConfig.DEBUG) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Log_OC.d(this, "remote file: modified: " + dateFormat.format(new Date(ocFile.getModificationTimestamp())) + " path: " + ocFile.getRemotePath());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+                Log_OC.d(this,
+                         "remote file: modified: "
+                             + dateFormat.format(new Date(ocFile.getModificationTimestamp()))
+                             + " path: "
+                             + ocFile.getRemotePath());
             }
 
             OCFile localFile = localFilesMap.remove(ocFile.getRemotePath());

@@ -45,6 +45,7 @@ import com.owncloud.android.utils.KeyboardUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -194,19 +195,19 @@ public class CreateFolderDialogFragment
                     .getText().toString().trim();
 
             if (TextUtils.isEmpty(newFolderName)) {
-                DisplayUtils.showSnackMessage(getActivity(), R.string.filename_empty);
+                DisplayUtils.showSnackMessage(requireActivity(), R.string.filename_empty);
                 return;
             }
 
             if (!FileUtils.isValidName(newFolderName)) {
-                DisplayUtils.showSnackMessage(getActivity(), R.string.filename_forbidden_charaters_from_server);
+                DisplayUtils.showSnackMessage(requireActivity(), R.string.filename_forbidden_charaters_from_server);
 
                 return;
             }
 
             String path = mParentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
 
-            ((ComponentsGetter) getActivity()).getFileOperationsHelper().createFolder(path);
+            ((ComponentsGetter) requireActivity()).getFileOperationsHelper().createFolder(path);
         }
     }
 }
