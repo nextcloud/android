@@ -1,3 +1,24 @@
+/*
+ * Nextcloud Android client application
+ *
+ * @author Tobias Kaminsky
+ * Copyright (C) 2023 Tobias Kaminsky
+ * Copyright (C) 2023 Nextcloud GmbH
+ *  
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *  
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *  
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.nmc.android.app_review
 
 import androidx.appcompat.app.AppCompatActivity
@@ -29,11 +50,9 @@ class InAppReviewHelperImpl(val appPreferences: AppPreferences) : InAppReviewHel
             } else {
                 resetReviewShownModel()
             }
-
         } else {
             resetReviewShownModel()
         }
-
     }
 
     private fun resetReviewShownModel() {
@@ -56,7 +75,6 @@ class InAppReviewHelperImpl(val appPreferences: AppPreferences) : InAppReviewHel
             }
         }
     }
-
 
     private fun doAppReview(activity: AppCompatActivity) {
         val manager = ReviewManagerFactory.create(activity)
@@ -98,9 +116,7 @@ class InAppReviewHelperImpl(val appPreferences: AppPreferences) : InAppReviewHel
             it.lastReviewShownDate = System.currentTimeMillis().getFormattedStringDate(DATE_TIME_FORMAT)
             appPreferences.setInAppReviewData(it)
         }
-
     }
-
 
     companion object {
         private val TAG = InAppReviewHelperImpl::class.java.simpleName
