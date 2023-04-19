@@ -95,6 +95,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__PIN_BRUTE_FORCE_COUNT = "pin_brute_force_count";
     private static final String PREF__UID_PID = "uid_pid";
 
+    private static final String PREF__CALENDAR_AUTOMATIC_BACKUP = "calendar_automatic_backup";
     private static final String PREF__CALENDAR_LAST_BACKUP = "calendar_last_backup";
 
     private static final String PREF__PDF_ZOOM_TIP_SHOWN = "pdf_zoom_tip_shown";
