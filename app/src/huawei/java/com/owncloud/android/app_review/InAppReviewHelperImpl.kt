@@ -22,6 +22,7 @@
 package com.owncloud.android.app_review
 
 import androidx.appcompat.app.AppCompatActivity
+import com.nextcloud.app_review.InAppReviewHelper
 import com.nextcloud.client.preferences.AppPreferences
 
 class InAppReviewHelperImpl(appPreferences: AppPreferences) :

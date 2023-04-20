@@ -20,9 +20,9 @@
 
 package com.nextcloud.client.preferences;
 
+import com.nextcloud.app_review.AppReviewShownModel;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.FileSortOrder;
-import com.nmc.android.app_review.AppReviewShownModel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

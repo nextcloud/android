@@ -19,7 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nmc.android.app_review
+package com.owncloud.android.app_review
 
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.Task
@@ -28,9 +28,11 @@ import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.android.play.core.review.model.ReviewErrorCode
+import com.nextcloud.app_review.AppReviewShownModel
+import com.nextcloud.app_review.InAppReviewHelper
 import com.nextcloud.client.preferences.AppPreferences
-import com.nmc.android.utils.getFormattedStringDate
-import com.nmc.android.utils.isCurrentYear
+import com.nextcloud.utils.getFormattedStringDate
+import com.nextcloud.utils.isCurrentYear
 import com.owncloud.android.lib.common.utils.Log_OC
 
 //Reference: https://developer.android.com/guide/playcore/in-app-review
@@ -68,10 +70,14 @@ class InAppReviewHelperImpl(val appPreferences: AppPreferences) : InAppReviewHel
         appReviewShownModel?.let {
             if (it.appRestartCount >= MIN_APP_RESTARTS_REQ
                 && currentTimeMills.isCurrentYear(it.firstShowYear)
-                && it.reviewShownCount < MAX_DISPLAY_PER_YEAR) {
+                && it.reviewShownCount < MAX_DISPLAY_PER_YEAR
+            ) {
                 doAppReview(activity)
             } else {
-                Log_OC.d(TAG, "Yearly limit has been reached or minimum app restarts are not completed: $appReviewShownModel")
+                Log_OC.d(
+                    TAG,
+                    "Yearly limit has been reached or minimum app restarts are not completed: $appReviewShownModel"
+                )
             }
         }
     }

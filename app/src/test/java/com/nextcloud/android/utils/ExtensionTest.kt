@@ -1,5 +1,7 @@
-package com.nmc.android.utils
+package com.nextcloud.android.utils
 
+import com.nextcloud.utils.getFormattedStringDate
+import com.nextcloud.utils.isCurrentYear
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
