@@ -2557,15 +2557,17 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private Unit onFileRequestResult(GetRemoteFileTask.Result result) {
+        dismissLoadingDialog();
+
         setFile(result.getFile());
 
         OCFileListFragment fileFragment = new OCFileListFragment();
         setLeftFragment(fileFragment);
-        //fileFragment.onItemClicked(result.getFile());
 
-        fileFragment.listDirectory(result.getFile(), false, false);
+        getSupportFragmentManager().executePendingTransactions();
 
-        dismissLoadingDialog();
+        fileFragment.onItemClicked(result.getFile());
+
         return null;
     }
 
