@@ -327,7 +327,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
             val fragment = chooseTemplateDialogFragmentWeakReference.get()
             if (fragment != null && fragment.isAdded) {
                 if (url.isEmpty()) {
-                    DisplayUtils.showSnackMessage(fragment.binding.list, "Error creating file from template")
+                    DisplayUtils.showSnackMessage(fragment.binding.list, R.string.error_creating_file_from_template)
                 } else {
                     val editorWebView = Intent(MainApp.getAppContext(), TextEditorWebView::class.java)
                     editorWebView.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text")

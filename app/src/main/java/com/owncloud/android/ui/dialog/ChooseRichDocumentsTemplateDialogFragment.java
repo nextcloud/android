@@ -86,6 +86,8 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     private static final String DOT = ".";
     public static final int SINGLE_TEMPLATE = 1;
 
+    private Set<String> fileNames;
+
     @Inject CurrentAccountProvider currentAccount;
     @Inject ClientFactory clientFactory;
     @Inject ViewThemeUtils viewThemeUtils;
@@ -156,7 +158,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
         parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER);
         List<OCFile> folderContent = fileDataStorageManager.getFolderContent(parentFolder, false);
-        Set<String> fileNames = Sets.newHashSetWithExpectedSize(folderContent.size());
+        fileNames = Sets.newHashSetWithExpectedSize(folderContent.size());
 
         for (OCFile file : folderContent) {
             fileNames.add(file.getFileName());
@@ -188,31 +190,14 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
             }
 
-            /**
-             * When user enters an already taken file name, a message is shown. Otherwise, the
-             * message is ensured to be hidden.
-             */
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String newFileName = "";
-                if (binding.filename.getText() != null) {
-                    newFileName = binding.filename.getText().toString().trim();
-                }
-
-                if (fileNames.contains(newFileName)) {
-                    binding.filenameContainer.setError(getText(R.string.file_already_exists));
-                    positiveButton.setEnabled(false);
-                } else if (binding.filenameContainer.getError() != null) {
-                    binding.filenameContainer.setError(null);
-                    // Called to remove extra padding
-                    binding.filenameContainer.setErrorEnabled(false);
-                    positiveButton.setEnabled(true);
-                }
+                // not needed
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                checkEnablingCreateButton();
             }
         });
 
@@ -297,11 +282,28 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     }
 
     private void checkEnablingCreateButton() {
-        Template selectedTemplate = adapter.getSelectedTemplate();
-        String name = Objects.requireNonNull(binding.filename.getText()).toString();
+        if (positiveButton != null) {
+            Template selectedTemplate = adapter.getSelectedTemplate();
+            String name = Objects.requireNonNull(binding.filename.getText()).toString();
+            boolean isNameJustExtension = selectedTemplate != null && name.equalsIgnoreCase(
+                DOT + selectedTemplate.getExtension());
+            boolean isNameEmpty = name.isEmpty() || isNameJustExtension;
+            boolean state = selectedTemplate != null && !isNameEmpty && !fileNames.contains(name);
 
-        positiveButton.setEnabled(selectedTemplate != null && !name.isEmpty() &&
-                                      !name.equalsIgnoreCase(DOT + selectedTemplate.getExtension()));
+            positiveButton.setEnabled(selectedTemplate != null && !name.isEmpty() &&
+                                          !name.equalsIgnoreCase(DOT + selectedTemplate.getExtension()));
+            positiveButton.setEnabled(state);
+            positiveButton.setClickable(state);
+            binding.filenameContainer.setErrorEnabled(!state);
+
+            if (!state) {
+                if (isNameEmpty) {
+                    binding.filenameContainer.setError(getText(R.string.filename_empty));
+                } else {
+                    binding.filenameContainer.setError(getText(R.string.file_already_exists));
+                }
+            }
+        }
     }
 
     private static class CreateFileFromTemplateTask extends AsyncTask<Void, Void, String> {
