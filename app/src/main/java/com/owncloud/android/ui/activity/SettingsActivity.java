@@ -561,6 +561,13 @@ public class SettingsActivity extends PreferenceActivity
     private void setupBackupPreference() {
         Preference pContactsBackup = findPreference("backup");
         if (pContactsBackup != null) {
+            boolean showCalendarBackup = getResources().getBoolean(R.bool.show_calendar_backup);
+            pContactsBackup.setTitle(showCalendarBackup
+                                         ? getString(R.string.backup_title)
+                                         : getString(R.string.contact_backup_title));
+            pContactsBackup.setSummary(showCalendarBackup
+                                           ? getString(R.string.prefs_daily_backup_summary)
+                                           : getString(R.string.prefs_daily_contact_backup_summary));
             pContactsBackup.setOnPreferenceClickListener(preference -> {
                 ContactsPreferenceActivity.startActivityWithoutSidebar(this);
                 return true;
