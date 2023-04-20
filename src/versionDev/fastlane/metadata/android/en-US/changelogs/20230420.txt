@@ -1,0 +1,4 @@
+Build(deps): Bump com.mebigfatguy.fb-contrib:fb-contrib
+Build(deps): Bump exoplayerVersion from 2.18.4 to 2.18.5
+Update Nextcloud Android library
+Update 3rd-party dependencies
