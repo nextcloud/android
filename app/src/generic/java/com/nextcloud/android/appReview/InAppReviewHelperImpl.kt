@@ -20,10 +20,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.app_review
+package com.nextcloud.android.appReview
 
 import androidx.appcompat.app.AppCompatActivity
-import com.nextcloud.app_review.InAppReviewHelper
+import com.nextcloud.appReview.InAppReviewHelper
 import com.nextcloud.client.preferences.AppPreferences
 
 class InAppReviewHelperImpl(appPreferences: AppPreferences) :

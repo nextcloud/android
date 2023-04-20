@@ -45,7 +45,7 @@ fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
                 textPaint.color = textPaint.linkColor
                 // toggle below value to enable/disable
                 // the underline shown below the clickable text
-                //textPaint.isUnderlineText = true
+                // textPaint.isUnderlineText = true
             }
 
             override fun onClick(view: View) {
@@ -56,7 +56,9 @@ fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
         }
         startIndexOfLink = this.text.toString().indexOf(link.first, startIndexOfLink + 1)
         spannableString.setSpan(
-            clickableSpan, startIndexOfLink, startIndexOfLink + link.first.length,
+            clickableSpan,
+            startIndexOfLink,
+            startIndexOfLink + link.first.length,
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
     }

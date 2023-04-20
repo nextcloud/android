@@ -20,21 +20,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.app_review
+package com.nextcloud.android.appReview
 
+import androidx.appcompat.app.AppCompatActivity
+import com.nextcloud.appReview.InAppReviewHelper
 import com.nextcloud.client.preferences.AppPreferences
-import com.owncloud.android.app_review.InAppReviewHelperImpl
-// import com.owncloud.android.app_review.InAppReviewHelperImpl
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
 
-@Module
-class InAppReviewModule {
+class InAppReviewHelperImpl(appPreferences: AppPreferences) :
+    InAppReviewHelper {
+    override fun resetAndIncrementAppRestartCounter() {
+    }
 
-    @Provides
-    @Singleton
-    internal fun providesInAppReviewHelper(appPreferences: AppPreferences): InAppReviewHelper {
-        return InAppReviewHelperImpl(appPreferences)
+    override fun showInAppReview(activity: AppCompatActivity) {
     }
 }

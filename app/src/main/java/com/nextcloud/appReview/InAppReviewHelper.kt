@@ -20,7 +20,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.app_review
+package com.nextcloud.appReview
 
 import androidx.appcompat.app.AppCompatActivity
 
@@ -30,7 +30,8 @@ interface InAppReviewHelper {
      * method to be called from Application onCreate() method to work properly
      * since we have to capture the app restarts Application is the best place to do that
      * this method will do the following:
-     * 1. Reset the @see AppReviewModel with the current year (yyyy) if the app is launched first time or if the year has changed.
+     * 1. Reset the @see AppReviewModel with the current year (yyyy),
+     * if the app is launched first time or if the year has changed.
      * 2. If the year is same then it will only increment the appRestartCount
      */
     fun resetAndIncrementAppRestartCounter()

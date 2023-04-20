@@ -20,7 +20,7 @@
 
 package com.nextcloud.client.preferences;
 
-import com.nextcloud.app_review.AppReviewShownModel;
+import com.nextcloud.appReview.AppReviewShownModel;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.FileSortOrder;
 

@@ -20,11 +20,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.app_review
+package com.nextcloud.android.appReview
 
-data class AppReviewShownModel(
-    var firstShowYear: String?,
-    var appRestartCount: Int,
-    var reviewShownCount: Int,
-    var lastReviewShownDate: String?
-)
+import androidx.appcompat.app.AppCompatActivity
+import com.nextcloud.appReview.InAppReviewHelper
+import com.nextcloud.client.preferences.AppPreferences
+
+class InAppReviewHelperImpl(appPreferences: AppPreferences) :
+    InAppReviewHelper {
+    override fun resetAndIncrementAppRestartCounter() {
+    }
+
+    override fun showInAppReview(activity: AppCompatActivity) {
+    }
+}
