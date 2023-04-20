@@ -64,6 +64,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -297,7 +298,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
     private void checkEnablingCreateButton() {
         Template selectedTemplate = adapter.getSelectedTemplate();
-        String name = binding.filename.getText().toString();
+        String name = Objects.requireNonNull(binding.filename.getText()).toString();
 
         positiveButton.setEnabled(selectedTemplate != null && !name.isEmpty() &&
                                       !name.equalsIgnoreCase(DOT + selectedTemplate.getExtension()));
