@@ -16,7 +16,7 @@ buildscript {
         workRuntime = "2.8.1"
         fidoVersion = "4.1.0-patch1"
         checkerVersion = "3.21.2"
-        exoplayerVersion = "2.18.4"
+        exoplayerVersion = "2.18.5"
         documentScannerVersion = "1.0.1"
         roomVersion = "2.5.0"
 

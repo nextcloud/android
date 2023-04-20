@@ -163,7 +163,7 @@ public class SendShareDialog extends BottomSheetDialogFragment implements Inject
 
         List<SendButtonData> sendButtonDataList = setupSendButtonData(sendIntent);
 
-        if ("off".equalsIgnoreCase(getContext().getString(R.string.send_files_to_other_apps))) {
+        if ("off".equalsIgnoreCase(requireContext().getString(R.string.send_files_to_other_apps))) {
             sharePeopleText.setVisibility(View.GONE);
         }
 
@@ -184,13 +184,13 @@ public class SendShareDialog extends BottomSheetDialogFragment implements Inject
 
     private void shareByLink() {
         if (file.isSharedViaLink()) {
-            ((FileActivity) getActivity()).getFileOperationsHelper().getFileWithLink(file, viewThemeUtils);
+            ((FileActivity) requireActivity()).getFileOperationsHelper().getFileWithLink(file, viewThemeUtils);
         } else if (sharingPublicPasswordEnforced || sharingPublicAskForPassword) {
             // password enforced by server, request to the user before trying to create
             requestPasswordForShareViaLink();
         } else {
             // create without password if not enforced by server or we don't know if enforced;
-            ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaPublicShare(file, null);
+            ((FileActivity) requireActivity()).getFileOperationsHelper().shareFileViaPublicShare(file, null);
         }
 
         this.dismiss();
@@ -235,11 +235,11 @@ public class SendShareDialog extends BottomSheetDialogFragment implements Inject
                 // Obtain the file
                 if (file.isDown()) {
                     sendIntent.setComponent(new ComponentName(packageName, activityName));
-                    getActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)));
+                    requireActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)));
                 } else {  // Download the file
                     Log_OC.d(TAG, file.getRemotePath() + ": File must be downloaded");
-                    ((SendShareDialog.SendShareDialogDownloader) getActivity()).downloadFile(file, packageName,
-                            activityName);
+                    ((SendShareDialog.SendShareDialogDownloader) requireActivity())
+                        .downloadFile(file, packageName, activityName);
                 }
             }
 
