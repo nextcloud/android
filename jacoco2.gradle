@@ -1,0 +1,34 @@
+task jacocoTestReport(type: JacocoReport,
+    dependsOn: ['testGplayDebugUnitTest',
+                'createGplayDebugCoverageReport']) {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+
+    reports {
+        //xml.enabled = true
+        // html.enabled = true
+    }
+
+    def fileFilter = ['androidx/**/*.*',
+                      '**/view/*.*',
+                      '**/data/*.*',
+                      '**/data/model/*.*',
+                      '**/generated/callback/*.*',
+                      '**/lambda$*.class',
+                      '**/lambda.class',
+                      '**/*lambda.class',
+                      '**/*lambda*.class']
+
+    def debugTree = fileTree(dir:
+        "${buildDir}/intermediates/javac/debug/classes",
+        excludes: fileFilter
+    )
+
+    def mainSrc = "/src/main/java"
+
+    // sourceDirectories = files([mainSrc])
+
+    //  classDirectories = files([debugTree])
+//    executionData = fileTree(dir: "${buildDir}", includes:[
+//        "/jacoco/testDebugUnitTest.exec"])
+}

@@ -29,7 +29,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -43,8 +42,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
@@ -84,7 +81,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -352,22 +348,22 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
     private void setupVideoView() {
         binding.exoplayerView.setPlayer(exoPlayer);
-        LinearLayout linearLayout = binding.exoplayerView.findViewById(R.id.exo_center_controls);
-
-        if (linearLayout.getChildCount() == 5) {
-            AppCompatImageButton fullScreenButton = new AppCompatImageButton(requireContext());
-            fullScreenButton.setImageResource(R.drawable.exo_styled_controls_fullscreen_exit);
-            fullScreenButton.setLayoutParams(new LinearLayout.LayoutParams(143, 143));
-            fullScreenButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            fullScreenButton.setBackgroundColor(Color.TRANSPARENT);
-
-            fullScreenButton.setOnClickListener(l -> {
-                startFullScreenVideo();
-            });
-
-            linearLayout.addView(fullScreenButton);
-            linearLayout.invalidate();
-        }
+//        LinearLayout linearLayout = binding.exoplayerView.findViewById(R.id.exo_center_controls);
+//
+//        if (linearLayout.getChildCount() == 5) {
+//            AppCompatImageButton fullScreenButton = new AppCompatImageButton(requireContext());
+//            fullScreenButton.setImageResource(R.drawable.exo_styled_controls_fullscreen_exit);
+//            fullScreenButton.setLayoutParams(new LinearLayout.LayoutParams(143, 143));
+//            fullScreenButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+//            fullScreenButton.setBackgroundColor(Color.TRANSPARENT);
+//
+//            fullScreenButton.setOnClickListener(l -> {
+//                startFullScreenVideo();
+//            });
+//
+//            linearLayout.addView(fullScreenButton);
+//            linearLayout.invalidate();
+//        }
     }
 
     private void stopAudio() {

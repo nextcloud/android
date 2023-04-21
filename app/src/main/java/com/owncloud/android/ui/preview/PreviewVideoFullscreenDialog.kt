@@ -131,9 +131,9 @@ class PreviewVideoFullscreenDialog(
 
     private fun setListeners() {
         binding.root.findViewById<View>(R.id.exo_exit_fs).setOnClickListener { onBackPressed() }
-        val pauseButton: View = binding.root.findViewById(R.id.exo_pause)
+        val pauseButton: View = binding.root.findViewById(com.google.android.exoplayer2.R.id.exo_pause)
         pauseButton.setOnClickListener { sourceExoPlayer.pause() }
-        val playButton: View = binding.root.findViewById(R.id.exo_play)
+        val playButton: View = binding.root.findViewById(com.google.android.exoplayer2.R.id.exo_play)
         playButton.setOnClickListener { sourceExoPlayer.play() }
 
         val playListener = object : Player.Listener {

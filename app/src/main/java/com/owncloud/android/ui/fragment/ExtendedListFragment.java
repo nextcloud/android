@@ -230,7 +230,7 @@ public class ExtendedListFragment extends Fragment implements
             }
         });
 
-        LinearLayout searchBar = searchView.findViewById(R.id.search_bar);
+        LinearLayout searchBar = searchView.findViewById(androidx.appcompat.R.id.search_bar);
         searchBar.setLayoutTransition(new LayoutTransition());
     }
 
