@@ -3,10 +3,8 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
- * @author TSI-mc
  * Copyright (C) 2021 Tobias Kaminsky
  * Copyright (C) 2021 Nextcloud GmbH
- * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -31,7 +29,6 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.preferences.AppPreferences
-import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import third_parties.sufficientlysecure.AndroidCalendar
 import third_parties.sufficientlysecure.SaveCalendar
@@ -53,12 +50,6 @@ class CalendarBackupWork(
     }
 
     override fun doWork(): Result {
-        val showCalendarBackup = applicationContext.resources.getBoolean(R.bool.show_calendar_backup)
-        if (!showCalendarBackup) {
-            Log_OC.d(TAG, "Calendar backup is disabled.")
-            return Result.success()
-        }
-
         val accountName = inputData.getString(ACCOUNT) ?: ""
         val optionalUser = accountManager.getUser(accountName)
         if (!optionalUser.isPresent || TextUtils.isEmpty(accountName)) { // no account provided
