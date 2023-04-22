@@ -443,9 +443,9 @@ Attention la suppression est irréversible.</string>
     <string name="logs_menu_refresh">Actualiser</string>
     <string name="logs_menu_search">Chercher dans les journaux</string>
     <string name="logs_menu_send">Envoyer logs par e-mail</string>
-    <string name="logs_status_filtered">Journaux: %1$d ko, %2$d / %3$d résultats en %4$d ms</string>
+    <string name="logs_status_filtered">Journaux: %1$d Ko, %2$d / %3$d résultats en %4$d ms</string>
     <string name="logs_status_loading">Chargement…</string>
-    <string name="logs_status_not_filtered">Journaux: %1$d ko, pas de filtre</string>
+    <string name="logs_status_not_filtered">Journaux: %1$d Ko, pas de filtre</string>
     <string name="logs_title">Journaux</string>
     <string name="maintenance_mode">Le serveur est en maintenance.</string>
     <string name="manage_space_clear_data">Effacer les données</string>
