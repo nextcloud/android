@@ -32,6 +32,7 @@
     <string name="activity_icon">Attività</string>
     <string name="add_another_public_share_link">Aggiungi un altro collegamento</string>
     <string name="add_new_public_share">Aggiungi nuovo collegamento pubblico di condivisione</string>
+    <string name="add_new_secure_file_drop">Aggiungi un nuovo drop file sicuro</string>
     <string name="add_to_cloud">Aggiungi a %1$s</string>
     <string name="advanced_settings">Impostazioni avanzate</string>
     <string name="allow_resharing">Consenti la ri-condivisione</string>
@@ -217,6 +218,7 @@
     <string name="done">Fatto</string>
     <string name="dontClear">Non togliere</string>
     <string name="download_cannot_create_file">Impossibile creare il file locale</string>
+    <string name="download_download_invalid_local_file_name">Nome file non valido per il file locale</string>
     <string name="download_latest_dev_version">Scarica l\'ultima versione di sviluppo</string>
     <string name="downloader_download_failed_content">Impossibile scaricare %1$s</string>
     <string name="downloader_download_failed_credentials_error">Scaricamento non riuscito, effettua nuovamente l\'accesso</string>
@@ -277,6 +279,7 @@
     <string name="error_report_issue_text">Segnalare problemi al sistema di tracciamento? (richiede un account GitHub)</string>
     <string name="error_retrieving_file">Errore durante il recupero del file</string>
     <string name="error_retrieving_templates">Errore durante il recupero dei modelli</string>
+    <string name="error_showing_encryption_dialog">Errore durante la visualizzazione della finestra di dialogo per l\'impostazione della crittografia!</string>
     <string name="error_starting_direct_camera_upload">Errore  di avvio della fotocamera</string>
     <string name="error_starting_doc_scan">Errore all\'avvio della scansione del documento</string>
     <string name="error_starting_scan_doc">Errore durante l\'utilizzo della scansione del documento</string>
@@ -404,6 +407,7 @@
     <string name="host_your_own_server">Ospita il tuo server</string>
     <string name="icon_for_empty_list">Icona per lista vuota</string>
     <string name="icon_of_dashboard_widget">Icona per widget della dashboard</string>
+    <string name="icon_of_widget_entry">Icona della voce del widget</string>
     <string name="in_folder">nella cartella %1$s</string>
     <string name="instant_upload_existing">Carica anche i file esistenti</string>
     <string name="instant_upload_on_charging">Carica solo durante la ricarica</string>
@@ -527,6 +531,7 @@
     <string name="permission_storage_access">Permessi aggiuntivi richiesti per caricare e scaricare i file.</string>
     <string name="picture_set_as_no_app">Nessuna applicazione trovata per impostare un\'immagine</string>
     <string name="pin_home">Appunta alla schermata iniziale</string>
+    <string name="pin_shortcut_label">Apri %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">segnaposto.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -628,6 +633,7 @@
     <string name="retrieving_file">Recupero file…</string>
     <string name="richdocuments_failed_to_load_document">Caricamento del documento non riuscito!</string>
     <string name="scanQR_description">Accedi tramite codice QR</string>
+    <string name="scan_page">Scansiona la pagina</string>
     <string name="screenshot_01_gridView_heading">Proteggere i tuoi dati</string>
     <string name="screenshot_01_gridView_subline">produttività auto-gestita</string>
     <string name="screenshot_02_listView_heading">Sfoglia e condividi</string>
@@ -642,6 +648,7 @@
     <string name="screenshot_06_davdroid_subline">Sincronizza con DAVx5</string>
     <string name="search_error">Errore nel recuperare i risultati della ricerca</string>
     <string name="select_all">Seleziona tutto</string>
+    <string name="select_media_folder">Imposta cartella multimediale</string>
     <string name="select_one_template">Scegli un modello</string>
     <string name="select_template">Seleziona modello</string>
     <string name="send">Invia</string>
@@ -678,6 +685,7 @@
     <string name="share_password_title">Protetta da password</string>
     <string name="share_permission_can_edit">Può modificare</string>
     <string name="share_permission_file_drop">Elimina file</string>
+    <string name="share_permission_secure_file_drop">File drop sicuro</string>
     <string name="share_permission_view_only">Sola lettura</string>
     <string name="share_permissions">Condividi permessi</string>
     <string name="share_remote_clarification">%1$s (remota)</string>
@@ -756,6 +764,7 @@
     <string name="subject_shared_with_you">\"%1$s\" è stato condiviso con te</string>
     <string name="subject_user_shared_with_you">%1$s ha condiviso \"%2$s\" con te</string>
     <string name="subtitle_photos_only">Solo foto</string>
+    <string name="subtitle_photos_videos">Foto &amp; video</string>
     <string name="subtitle_videos_only">Solo video</string>
     <string name="suggest">Suggerisci</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitti rilevati</string>
@@ -898,6 +907,7 @@
     <string name="userinfo_no_info_text">Aggiungi nome, immagine e dettagli di contatto sulla tua pagina di profilo.</string>
     <string name="username">Nome utente</string>
     <string name="version_dev_download">Scarica</string>
+    <string name="video_overlay_icon">Icona di sovrapposizione video</string>
     <string name="wait_a_moment">Attendi…</string>
     <string name="wait_checking_credentials">Controllo delle credenziali memorizzate</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copia file dall\'archiviazione privata</string>
@@ -905,6 +915,7 @@
     <string name="whats_new_skip">Salta</string>
     <string name="whats_new_title">Prima volta su %1$s</string>
     <string name="whats_your_status">Qual è il tuo stato?</string>
+    <string name="widgets_not_available">I widget sono disponibili solo su %1$s 25 o dopo </string>
     <string name="widgets_not_available_title">Non disponibile</string>
     <string name="write_email">Invia email</string>
     <string name="wrong_storage_path">La cartella di archiviazione dei dati non esiste!</string>
@@ -938,6 +949,26 @@
         <item quantity="one">Trovata %d voce duplicata</item>
         <item quantity="many">Trovate %d voci duplicate</item>
         <item quantity="other">Trovate %d voci duplicate</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">%d File esportato</item>
+        <item quantity="many">%d file esportati</item>
+        <item quantity="other">%d file esportati</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Esportazione fallita di %d file</item>
+        <item quantity="many">Esportazione fallita di %d files</item>
+        <item quantity="other">Esportazione fallita di %d files</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Esportato %dfile , il resto saltato a causa di un errore</item>
+        <item quantity="many">Esportati %d files, il resto saltato a causa di un errore</item>
+        <item quantity="other">Esportati %d files, il resto saltato a causa di un errore</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%dfile verrà esportato. Vedere la notifica per i dettagli.</item>
+        <item quantity="many">%dfiles verranno esportati. Vedere la notifica per i dettagli.</item>
+        <item quantity="other">%d files verranno esportati. Vedere la notifica per i dettagli.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d cartella</item>
