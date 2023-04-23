@@ -227,7 +227,7 @@
     <string name="downloader_download_file_not_found">Файл більше не доступний на сервері</string>
     <string name="downloader_download_in_progress_content">%1$d%% Зкачування %2$s</string>
     <string name="downloader_download_in_progress_ticker">Завантаження…</string>
-    <string name="downloader_download_succeeded_content">%1$s завантажено</string>
+    <string name="downloader_download_succeeded_content">%1$s звантажено</string>
     <string name="downloader_download_succeeded_ticker">Вивантажені</string>
     <string name="downloader_not_downloaded_yet">Ще не завантажене</string>
     <string name="drawer_close">Закрити бічну панель</string>
@@ -448,7 +448,7 @@
     <string name="logs_title">Журнал подій</string>
     <string name="maintenance_mode">Сервер у режимі обслуговування</string>
     <string name="manage_space_clear_data">Очистити дані</string>
-    <string name="manage_space_description">Налаштування, база даних та дані сертифікатів серверу від %1$s буде вилучено без можливості відновлення.\n\nФайли, які було завантажено, буде збережено.\n\nЦей процес триватиме певний час.</string>
+    <string name="manage_space_description">Налаштування, база даних та дані сертифікатів серверу від %1$s буде вилучено без можливості відновлення.\n\nФайли, які було звантажено, буде збережено.\n\nЦей процес триватиме певний час.</string>
     <string name="manage_space_title">Керувати простором</string>
     <string name="media_err_invalid_progressive_playback">Неможливо транслювати мультимедійний файл</string>
     <string name="media_err_io">Неможливо відкрити мультимедійний файл</string>
@@ -870,7 +870,7 @@
     <string name="uploader_upload_forbidden_permissions">завантажити до цього каталогу</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Завантаження %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Завантаження…</string>
-    <string name="uploader_upload_succeeded_content_single">%1$s завантажено</string>
+    <string name="uploader_upload_succeeded_content_single">%1$s звантажено</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Вийти</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Налаштування</string>
     <string name="uploader_wrn_no_account_text">На вашому пристрої немає %1$s облікових записів. Будь ласка, спочатку створіть обліковий запис.</string>
