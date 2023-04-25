@@ -1,0 +1,63 @@
+<!--
+ Nextcloud Android client application
+
+ @author TSI-mc
+ Copyright (C) 2023 TSI-mc
+ Copyright (C) 2023 Nextcloud GmbH
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+    <path
+        android:pathData="M58.29,17.14V61.71A2.3,2.3 0,0 1,56 64H8a2.3,2.3 0,0 1,-2.29 -2.29V2.29A2.3,2.3 0,0 1,8 0H41.14Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="32"
+                android:startY="64"
+                android:endX="32"
+                android:endY="0"
+                android:type="linear">
+                <item android:offset="0" android:color="#FFDDD6D3"/>
+                <item android:offset="0.39" android:color="#FFE9E4E2"/>
+                <item android:offset="1" android:color="#FFE9E4E2"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M58.29,17.14H43.43a2.29,2.29 0,0 1,-2.29 -2.28V0Z"
+        android:strokeAlpha="0.7"
+        android:fillColor="#b9ada7"
+        android:fillAlpha="0.7"/>
+    <path
+        android:pathData="M34.29,40h4.57L38.86,52.57L34.29,52.57ZM25.14,35.43h4.57L29.71,52.57L25.14,52.57ZM43.43,35.43L48,35.43L48,52.57L43.43,52.57ZM16,43.43h4.57v9.14L16,52.57Z"
+        android:fillColor="#529ad6"/>
+    <path
+        android:pathData="M18.29,37.6a1.2,1.2 0,0 1,-0.8 -0.34,1.23 1.23,0 0,1 -0.12,-1.6L27.2,24.57l9.37,7L45,25.14A1.14,1.14 0,0 1,46.4 27l-9.83,7.32 -9,-6.75L19.09,37A0.91,0.91 0,0 1,18.29 37.6Z"
+        android:fillColor="#a4a4a4"/>
+    <path
+        android:pathData="M29.83,26.17a2.4,2.4 0,1 1,-2.4 -2.4A2.41,2.41 0,0 1,29.83 26.17ZM48.11,26.17a2.4,2.4 0,1 1,-2.4 -2.4A2.41,2.41 0,0 1,48.11 26.17Z"
+        android:fillColor="#6c6c6c"/>
+    <path
+        android:pathData="M36.57,33.03m-2.4,0a2.4,2.4 0,1 1,4.8 0a2.4,2.4 0,1 1,-4.8 0"
+        android:fillColor="#6c6c6c"/>
+    <path
+        android:pathData="M20.69,36.46a2.4,2.4 0,1 1,-2.4 -2.4A2.42,2.42 0,0 1,20.69 36.46Z"
+        android:fillColor="#6c6c6c"/>
+</vector>
