@@ -145,6 +145,7 @@
     <string name="copy_file_error">Se presentó un error al intentar copiar este archivo o carpeta</string>
     <string name="copy_file_invalid_into_descendent">No es posible copiar una carpeta dentro de una de sus sub carpetas</string>
     <string name="copy_file_invalid_overwrite">El archivo ya existe en la carpeta destino</string>
+    <string name="copy_file_not_found">No fue posible copiar. Por favor revisa si el archivo ya existe.</string>
     <string name="copy_link">Copiar enlace</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/ mover a la carpeta encriptada no se encuentra soportado por el momento.</string>
     <string name="copy_to">Copiar a…</string>
@@ -287,6 +288,7 @@
     <string name="local_file_not_found_message">No se encontró el archivo en el sistema de archivos local</string>
     <string name="local_folder_list_empty">No hay más carpetas.</string>
     <string name="log_send_mail_subject"> %1$s bitácora de aplicación Android</string>
+    <string name="log_send_no_mail_app">No se ha encontrado una app para enviar los registros. Por favor, instale un cliente de correo electrónico.</string>
     <string name="login">Iniciar sesión</string>
     <string name="logs_menu_refresh">Actualizar</string>
     <string name="logs_status_loading">Cargando...</string>
@@ -369,6 +371,7 @@
     <string name="prefs_license">Licencia</string>
     <string name="prefs_lock_none">Ninguno</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
+    <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_sourcecode">Obtener el código fuente</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
@@ -547,6 +550,7 @@
     <string name="uploads_view_upload_status_virus_detected">Virus detectado. ¡La carga no puede ser completada!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando a salir de modo de conservación de energía</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Aguardando la recarga del dispositivo </string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Esperando a una Wi-Fi de uso no medido</string>
     <string name="user_icon">Usuario</string>
     <string name="user_info_address">Dirección</string>
     <string name="user_info_email">Correo electrónico</string>
