@@ -47,7 +47,7 @@ class GroupfolderListAdapter(
         context,
         AppCompatResources.getDrawable(
             context,
-            R.drawable.folder_shared_users
+            R.drawable.folder_group
         )
     )
 
