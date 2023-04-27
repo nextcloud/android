@@ -24,6 +24,8 @@ package com.owncloud.android.ui.fragment
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +44,7 @@ import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -108,6 +111,8 @@ class FileDetailsSharingProcessFragment :
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
+    @Inject
+    lateinit var keyboardUtils: KeyboardUtils
 
     private lateinit var onEditShareListener: FileDetailSharingFragment.OnEditShareListener
 
@@ -125,6 +130,7 @@ class FileDetailsSharingProcessFragment :
     private var share: OCShare? = null
     private var isReshareShown: Boolean = true // show or hide reshare option
     private var isExpDateShown: Boolean = true // show or hide expiry date option
+    private var isDownloadCountFetched: Boolean = false
 
     private var expirationDatePickerFragment: ExpirationDatePickerDialogFragment? = null
 
@@ -191,9 +197,11 @@ class FileDetailsSharingProcessFragment :
         viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessSetExpDateSwitch)
         viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessHideDownloadCheckbox)
         viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessChangeNameSwitch)
+        viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessDownloadLimitSwitch)
 
         viewThemeUtils.material.colorTextInputLayout(binding.shareProcessEnterPasswordContainer)
         viewThemeUtils.material.colorTextInputLayout(binding.shareProcessChangeNameContainer)
+        viewThemeUtils.material.colorTextInputLayout(binding.shareProcessDownloadLimitContainer)
         viewThemeUtils.material.colorTextInputLayout(binding.noteContainer)
 
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.shareProcessBtnNext)
@@ -284,8 +292,7 @@ class FileDetailsSharingProcessFragment :
     private fun updateViewForShareType() {
         // external share
         if (shareType == ShareType.EMAIL) {
-            binding.shareProcessChangeNameSwitch.visibility = View.GONE
-            binding.shareProcessChangeNameContainer.visibility = View.GONE
+            hideLinkLabelViews()
             updateViewForExternalAndLinkShare()
         }
         // link share
@@ -297,11 +304,27 @@ class FileDetailsSharingProcessFragment :
                 binding.shareProcessChangeNameSwitch.isChecked = !TextUtils.isEmpty(share?.label)
             }
             showChangeNameInput(binding.shareProcessChangeNameSwitch.isChecked)
+
+            //download limit will only be available for files
+            if (share?.isFolder == false || file?.isFolder == false) {
+                binding.shareProcessDownloadLimitSwitch.visibility = View.VISIBLE
+
+                //fetch the download limit for link share
+                fetchDownloadLimitForShareLink()
+            } else {
+                binding.shareProcessDownloadLimitSwitch.visibility = View.GONE
+            }
+
+            //the input for download limit will be hidden initially
+            //and can be visible back or no depending on the api result
+            //from the download limit api
+            binding.shareProcessDownloadLimitContainer.visibility = View.GONE
+            binding.shareProcessRemainingDownloadCountTv.visibility = View.GONE
+
         }
         // internal share
         else {
-            binding.shareProcessChangeNameSwitch.visibility = View.GONE
-            binding.shareProcessChangeNameContainer.visibility = View.GONE
+            hideLinkLabelViews()
             binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
             binding.shareProcessAllowResharingCheckbox.visibility = View.VISIBLE
             binding.shareProcessSetPasswordSwitch.visibility = View.GONE
@@ -314,6 +337,14 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
+    private fun hideLinkLabelViews() {
+        binding.shareProcessChangeNameSwitch.visibility = View.GONE
+        binding.shareProcessChangeNameContainer.visibility = View.GONE
+
+        binding.shareProcessDownloadLimitSwitch.visibility = View.GONE
+        binding.shareProcessDownloadLimit.visibility = View.GONE
+        binding.shareProcessRemainingDownloadCountTv.visibility = View.GONE
+    }
     /**
      * update views where share type external or link share
      */
@@ -402,6 +433,10 @@ class FileDetailsSharingProcessFragment :
         binding.shareProcessSelectExpDate.setOnClickListener {
             showExpirationDateDialog()
         }
+        binding.shareProcessDownloadLimitSwitch.setOnCheckedChangeListener { _, isChecked ->
+            showDownloadLimitInput(isChecked)
+        }
+
     }
 
     private fun showExpirationDateDialog(chosenDateInMillis: Long = chosenExpDateInMills) {
@@ -420,6 +455,20 @@ class FileDetailsSharingProcessFragment :
         binding.shareProcessChangeNameContainer.visibility = if (isChecked) View.VISIBLE else View.GONE
         if (!isChecked) {
             binding.shareProcessChangeName.setText("")
+        }
+    }
+
+    private fun showDownloadLimitInput(isChecked: Boolean) {
+        binding.shareProcessDownloadLimitContainer.visibility = if (isChecked) View.VISIBLE else View.GONE
+        binding.shareProcessRemainingDownloadCountTv.visibility = if (isChecked) View.VISIBLE else View.GONE
+        if (!isChecked) {
+            binding.shareProcessDownloadLimit.setText("")
+            if (!isDownloadCountFetched) {
+                binding.shareProcessRemainingDownloadCountTv.text =
+                    String.format(resources.getString(R.string.download_text), "0")
+            }
+            //hide keyboard when user unchecks
+            hideKeyboard()
         }
     }
 
@@ -456,6 +505,12 @@ class FileDetailsSharingProcessFragment :
         // reset the password if switch is unchecked
         if (!isChecked) {
             binding.shareProcessEnterPassword.setText("")
+        }
+    }
+
+    private fun hideKeyboard() {
+        if (this::binding.isInitialized) {
+            keyboardUtils.hideKeyboardFrom(requireContext(), binding.root)
         }
     }
 
@@ -502,6 +557,17 @@ class FileDetailsSharingProcessFragment :
             return
         }
 
+        if (binding.shareProcessDownloadLimitSwitch.isChecked) {
+            val downloadLimit = binding.shareProcessDownloadLimit.text?.trim()
+            if (downloadLimit.isNullOrEmpty()) {
+                DisplayUtils.showSnackMessage(binding.root, R.string.download_limit_empty)
+                return
+            } else if (downloadLimit.toString().toLong() <= 0) {
+                DisplayUtils.showSnackMessage(binding.root, R.string.download_limit_zero)
+                return
+            }
+        }
+
         // if modifying existing share information then execute the process
         if (share != null) {
             updateShare()
@@ -533,7 +599,8 @@ class FileDetailsSharingProcessFragment :
             binding.shareProcessHideDownloadCheckbox.isChecked,
             binding.shareProcessEnterPassword.text.toString().trim(),
             chosenExpDateInMills,
-            binding.shareProcessChangeName.text.toString().trim()
+            binding.shareProcessChangeName.text.toString().trim(),
+            binding.shareProcessDownloadLimit.text.toString().trim()
         )
         // copy the share link if available
         if (!TextUtils.isEmpty(share?.shareLink)) {
@@ -568,6 +635,19 @@ class FileDetailsSharingProcessFragment :
     }
 
     /**
+     * fetch the download limit for the link share
+     * the response will be received in FileActivity --> onRemoteOperationFinish() method
+     */
+    private fun fetchDownloadLimitForShareLink() {
+        //need to call this method in handler else to show progress dialog it will throw exception
+        Handler(Looper.getMainLooper()).post {
+            share?.let {
+                fileOperationsHelper?.getShareDownloadLimit(it.token)
+            }
+        }
+    }
+
+    /**
      * method will be called from DrawerActivity on back press to handle screen backstack
      */
     fun onBackPressed() {
@@ -586,5 +666,17 @@ class FileDetailsSharingProcessFragment :
 
     override fun onDateUnSet() {
         binding.shareProcessSetExpDateSwitch.isChecked = false
+    }
+
+    /**
+     * will be called when download limit is fetched
+     */
+    fun onLinkShareDownloadLimitFetched(downloadLimit: Long, downloadCount: Long) {
+        binding.shareProcessDownloadLimitSwitch.isChecked = downloadLimit > 0
+        showDownloadLimitInput(binding.shareProcessDownloadLimitSwitch.isChecked)
+        binding.shareProcessDownloadLimit.setText(if (downloadLimit > 0) downloadLimit.toString() else "")
+        binding.shareProcessRemainingDownloadCountTv.text =
+            String.format(resources.getString(R.string.download_text), downloadCount.toString())
+        isDownloadCountFetched = true
     }
 }

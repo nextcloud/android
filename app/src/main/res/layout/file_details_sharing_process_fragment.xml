@@ -227,6 +227,60 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/share_process_download_limit_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_half_margin"
+                android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:text="@string/link_download_limit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_change_name_container" />
+
+            <!--  Limiting to max 18 input size to avoid taking more input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/share_process_download_limit_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_download_limit"
+                android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_download_limit_switch"
+                tools:visibility="visible">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/share_process_download_limit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="0123456789"
+                    android:gravity="top"
+                    android:imeOptions="actionDone"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="18"
+                    android:maxLines="1">
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/share_process_remaining_download_count_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_half_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/share_process_download_limit_container"
+                tools:text="@string/download_text"
+                tools:visibility="visible" />
+
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/share_process_group_one"
                 android:layout_width="wrap_content"
@@ -238,7 +292,8 @@
                 share_process_allow_resharing_checkbox, share_process_set_password_switch,
                 share_process_set_exp_date_switch, share_process_enter_password_container,
                 share_process_select_exp_date, share_process_change_name_switch,
-                share_process_change_name_container" />
+                share_process_change_name_container, share_process_download_limit_switch,
+                share_process_download_limit_container, share_process_remaining_download_count_tv" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/share_process_message_title"

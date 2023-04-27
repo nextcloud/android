@@ -22,7 +22,9 @@
 
 package com.owncloud.android.utils
 
+import android.app.Activity
 import android.content.Context
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import javax.inject.Inject
@@ -39,6 +41,12 @@ class KeyboardUtils @Inject constructor() {
                 inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
             }
         }, SHOW_INPUT_DELAY_MILLIS)
+    }
+
+    fun hideKeyboardFrom(context: Context, view: View) {
+        view.clearFocus()
+        val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     companion object {
