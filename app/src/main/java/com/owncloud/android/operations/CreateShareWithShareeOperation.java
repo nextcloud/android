@@ -147,6 +147,9 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             updateShareInfoOperation.setHideFileDownload(hideFileDownload);
             updateShareInfoOperation.setLabel(label);
 
+            //update permissions for external share (will otherwise default to read-only)
+            updateShareInfoOperation.setPermissions(permissions);
+
             //execute and save the result in database
             RemoteOperationResult updateShareInfoResult = updateShareInfoOperation.execute(client);
             if (updateShareInfoResult.isSuccess() && updateShareInfoResult.getData().size() > 0) {
