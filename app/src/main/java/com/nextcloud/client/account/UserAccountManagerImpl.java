@@ -340,7 +340,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
     @Override
     public  boolean accountOwnsFile(OCFile file, Account account) {
         final String ownerId = file.getOwnerId();
-        return TextUtils.isEmpty(ownerId) || account.name.split("@")[0].equals(ownerId);
+        return TextUtils.isEmpty(ownerId) || account.name.split("@")[0].equalsIgnoreCase(ownerId);
     }
 
     @Override
