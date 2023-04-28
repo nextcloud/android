@@ -51,7 +51,7 @@
         <item
             android:id="@+id/nav_groupfolders"
             android:orderInCategory="0"
-            android:icon="@drawable/nav_shared"
+            android:icon="@drawable/ic_group"
             android:title="@string/drawer_item_groupfolders" />
         <item
             android:id="@+id/nav_on_device"
