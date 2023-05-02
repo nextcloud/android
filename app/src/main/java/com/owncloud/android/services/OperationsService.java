@@ -52,6 +52,7 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.download_limit.GetShareDownloadLimitOperation;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -73,7 +74,6 @@ import com.owncloud.android.operations.UpdateNoteForShareOperation;
 import com.owncloud.android.operations.UpdateShareInfoOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
-import com.owncloud.android.operations.download_limit.GetShareDownloadLimitOperation;
 
 import java.io.IOException;
 import java.util.Iterator;
