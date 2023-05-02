@@ -11,7 +11,7 @@
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
  * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- * Copyright (C) 2021 TSI-mc
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -800,7 +800,9 @@ public class FileOperationsHelper {
         OCCapability capability = fileActivity.getStorageManager().getCapability(fileActivity.getAccount().name);
         SendShareDialog mSendShareDialog = SendShareDialog.newInstance(file, hideNcSharingOptions, capability);
         mSendShareDialog.setFileOperationsHelper(this);
-        mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
+        if (fm.findFragmentByTag("TAG_SEND_SHARE_DIALOG") == null) {
+            mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
+        }
     }
 
     public void sendFiles(Set<OCFile> files) {
