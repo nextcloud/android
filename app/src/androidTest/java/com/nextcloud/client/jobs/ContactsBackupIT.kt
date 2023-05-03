@@ -36,7 +36,9 @@ import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
+import java.io.BufferedInputStream
 import java.io.File
+import java.io.FileInputStream
 
 class ContactsBackupIT : AbstractOnServerIT() {
     val workmanager = WorkManager.getInstance(targetContext)
@@ -82,13 +84,15 @@ class ContactsBackupIT : AbstractOnServerIT() {
         assertTrue(DownloadFileOperation(user, backupOCFile, AbstractIT.targetContext).execute(client).isSuccess)
 
         val backupFile = File(backupOCFile.storagePath)
+        val vcardInputStream = BufferedInputStream(FileInputStream(getFile(vcard)))
+        val backupFileInputStream = BufferedInputStream(FileInputStream(backupFile))
 
         // verify same
         val originalCards: ArrayList<VCard> = ArrayList()
-        originalCards.addAll(Ezvcard.parse(getFile(vcard)).all())
+        originalCards.addAll(Ezvcard.parse(vcardInputStream).all())
 
         val backupCards: ArrayList<VCard> = ArrayList()
-        backupCards.addAll(Ezvcard.parse(backupFile).all())
+        backupCards.addAll(Ezvcard.parse(backupFileInputStream).all())
 
         assertEquals(originalCards.size, backupCards.size)
         assertEquals(originalCards[0].formattedName.toString(), backupCards[0].formattedName.toString())
