@@ -5,9 +5,11 @@
  * @author David A. Velasco
  * @author masensio
  * @author Mario Danic
+ * @author TSI-mc
  * Copyright (C) 2012  Bartek Przybylski
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2017 Mario Danic
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -1379,6 +1381,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * server.
      */
     private void showServerStatus() {
+        if (accountSetupBinding == null) return;
+
         if (mServerStatusIcon == NO_ICON && EMPTY_STRING.equals(mServerStatusText)) {
             accountSetupBinding.serverStatusText.setVisibility(View.INVISIBLE);
         } else {
