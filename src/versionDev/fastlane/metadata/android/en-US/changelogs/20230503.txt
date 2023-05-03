@@ -1,0 +1,4 @@
+Build(deps): Bump kotlin_version from 1.8.10 to 1.8.21
+Build(deps): Bump androidx.fragment:fragment-ktx from 1.5.6 to 1.5.7
+Update Nextcloud Android library
+Update 3rd-party dependencies
