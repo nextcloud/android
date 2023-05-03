@@ -39,6 +39,7 @@ import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -114,7 +115,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String lockToken;
     @Nullable
     private ImageDimension imageDimension;
-    private List<String> tags;
+    private List<String> tags = new ArrayList<>();
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to {@link
