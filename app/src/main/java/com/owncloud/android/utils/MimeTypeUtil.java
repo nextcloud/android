@@ -160,7 +160,7 @@ public final class MimeTypeUtil {
         } else if (isEncrypted) {
             drawableId = R.drawable.folder_encrypted;
         } else if (isAutoUploadFolder) {
-            drawableId = R.drawable.folder_photo;
+            drawableId = R.drawable.folder_auto_upload;
         } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
             drawableId = R.drawable.folder_external;
         } else {
