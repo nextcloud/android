@@ -2,7 +2,9 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2019 Chris Narkiewicz
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -340,7 +342,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
     @Override
     public  boolean accountOwnsFile(OCFile file, Account account) {
         final String ownerId = file.getOwnerId();
-        return TextUtils.isEmpty(ownerId) || account.name.split("@")[0].equals(ownerId);
+        return TextUtils.isEmpty(ownerId) || account.name.split("@")[0].equalsIgnoreCase(ownerId);
     }
 
     @Override

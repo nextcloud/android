@@ -209,6 +209,7 @@
     <string name="dismiss_notification_description">忽略通知</string>
     <string name="displays_mnemonic">显示您的12字密语</string>
     <string name="dnd">请勿打扰</string>
+    <string name="document_scan_export_dialog_pdf">PDF文件</string>
     <string name="done">完成</string>
     <string name="dontClear">不要清除</string>
     <string name="download_cannot_create_file">无法新建本地文件</string>
