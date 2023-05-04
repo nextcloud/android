@@ -412,7 +412,7 @@ public class SyncedFolderProvider extends Observable {
      *
      * @param remotePath to be check
      * @param user       for which we are looking
-     * @return
+     * @return <code>true</code> if exist, <code>false</code> otherwise
      */
     public boolean findByRemotePathAndAccount(String remotePath, User user) {
         boolean result = false;
