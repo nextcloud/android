@@ -6,9 +6,8 @@
 
     <!-- App name  and other strings-->
     <string name="app_name">Nextcloud</string>
-    <!-- required for NMC -->
-    <string name="splashScreenBold">Magenta</string>
-    <string name="splashScreenNormal">CLOUD</string>
+    <string name="splashScreenBold"></string>
+    <string name="splashScreenNormal">Nextcloud</string>
     <string name="account_type">nextcloud</string>     <!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
     <string name="authority">org.nextcloud</string>    <!-- better if was the app package with ".provider" appended ; it identifies the provider -->
     <string name="users_and_groups_search_authority">com.nextcloud.android.providers.UsersAndGroupsSearchProvider</string>
