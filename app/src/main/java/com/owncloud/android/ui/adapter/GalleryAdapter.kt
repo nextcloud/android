@@ -195,14 +195,14 @@ class GalleryAdapter(
 
         if (finalSortedList.isEmpty()) {
             photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
+        } else {
+            files = finalSortedList
+                .groupBy { firstOfMonth(it.modificationTimestamp) }
+                .map { GalleryItems(it.key, transformToRows(it.value)) }
+                .sortedBy { it.date }.reversed()
+
+            Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
         }
-
-        files = finalSortedList
-            .groupBy { firstOfMonth(it.modificationTimestamp) }
-            .map { GalleryItems(it.key, transformToRows(it.value)) }
-            .sortedBy { it.date }.reversed()
-
-        Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
     }
 
     private fun transformToRows(list: List<OCFile>): List<GalleryRow> {
