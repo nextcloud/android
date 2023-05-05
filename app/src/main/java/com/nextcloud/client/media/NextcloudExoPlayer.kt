@@ -29,6 +29,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSource
 import com.nextcloud.common.NextcloudClient
 
 object NextcloudExoPlayer {
+    private const val FIVE_SECONDS_IN_MILLIS = 5000L
 
     /**
      * Creates an [ExoPlayer] that uses [NextcloudClient] for HTTP connections, thus respecting redirections,
@@ -44,6 +45,10 @@ object NextcloudExoPlayer {
                 okHttpDataSourceFactory
             )
         )
-        return ExoPlayer.Builder(context).setMediaSourceFactory(mediaSourceFactory).build()
+        return ExoPlayer
+            .Builder(context)
+            .setMediaSourceFactory(mediaSourceFactory)
+            .setSeekForwardIncrementMs(FIVE_SECONDS_IN_MILLIS)
+            .build()
     }
 }
