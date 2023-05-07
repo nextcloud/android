@@ -170,6 +170,7 @@ public class SyncedFoldersActivityTest {
                                            "test@nextcloud.com",
                                            FileUploader.LOCAL_BEHAVIOUR_MOVE,
                                            NameCollisionPolicy.ASK_USER.serialize(),
+                                           0,
                                            enabled,
                                            System.currentTimeMillis(),
                                            new ArrayList<String>(),
