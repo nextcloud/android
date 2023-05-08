@@ -44,6 +44,7 @@ import android.widget.AbsListView;
 import android.widget.Toast;
 
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
@@ -53,6 +54,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.documentscan.AppScanOptionalFeature;
 import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
@@ -204,8 +206,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject FastScrollUtils fastScrollUtils;
     @Inject EditorUtils editorUtils;
     @Inject ShortcutUtil shortcutUtil;
-    @Inject Clock clock;
     @Inject SyncedFolderProvider syncedFolderProvider;
+    @Inject AppScanOptionalFeature appScanOptionalFeature;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -477,13 +479,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (mFabMain != null) { // is not available in FolderPickerActivity
             viewThemeUtils.material.themeFAB(mFabMain);
             mFabMain.setOnClickListener(v -> {
-                final OCFileListBottomSheetDialogFragment dialog =
-                    new OCFileListBottomSheetDialogFragment(activity,
-                                                            this,
-                                                            deviceInfo,
-                                                            accountManager.getUser(),
-                                                            getCurrentFile());
-                dialog.show(getActivity().getSupportFragmentManager(), DIALOG_BOTTOM_SHEET);
+                final OCFileListBottomSheetDialog dialog =
+                    new OCFileListBottomSheetDialog(activity,
+                                                    this,
+                                                    deviceInfo,
+                                                    accountManager.getUser(),
+                                                    getCurrentFile(),
+                                                    themeUtils,
+                                                    viewThemeUtils,
+                                                    editorUtils,
+                                                    appScanOptionalFeature);
+
+                dialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+                dialog.show();
             });
         }
     }

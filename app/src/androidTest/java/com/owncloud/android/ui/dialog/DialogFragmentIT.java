@@ -34,8 +34,10 @@ import android.webkit.SslErrorHandler;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
+import com.nextcloud.android.common.ui.color.ColorUtil;
+import com.nextcloud.android.common.ui.theme.MaterialSchemes;
+import com.nextcloud.android.common.ui.theme.MaterialSchemesImpl;
 import com.nextcloud.android.lib.resources.profile.Action;
 import com.nextcloud.android.lib.resources.profile.HoverCard;
 import com.nextcloud.client.account.RegisteredUser;
@@ -43,10 +45,13 @@ import com.nextcloud.client.account.Server;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
+import com.nextcloud.client.documentscan.AppScanOptionalFeature;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -64,11 +69,13 @@ import com.owncloud.android.lib.resources.users.Status;
 import com.owncloud.android.lib.resources.users.StatusType;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetActions;
-import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialogFragment;
+import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
 import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ScreenshotTest;
 import com.owncloud.android.utils.theme.CapabilityUtils;
+import com.owncloud.android.utils.theme.MaterialSchemesProvider;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.junit.After;
 import org.junit.Rule;
@@ -81,8 +88,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import kotlin.Unit;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
@@ -346,7 +356,7 @@ public class DialogFragmentIT extends AbstractIT {
 
             @Override
             public void scanDocUpload() {
-                
+
             }
 
             @Override
@@ -369,31 +379,31 @@ public class DialogFragmentIT extends AbstractIT {
         // add direct editing info
         DirectEditing directEditing = new DirectEditing();
         directEditing.getCreators().put("1", new Creator("1",
-                                                    "text",
-                                                    "text file",
-                                                    ".md",
-                                                    "application/octet-stream",
-                                                    false));
+                                                         "text",
+                                                         "text file",
+                                                         ".md",
+                                                         "application/octet-stream",
+                                                         false));
 
         directEditing.getCreators().put("2", new Creator("2",
-                                                    "md",
-                                                    "markdown file",
-                                                    ".md",
-                                                    "application/octet-stream",
-                                                    false));
+                                                         "md",
+                                                         "markdown file",
+                                                         ".md",
+                                                         "application/octet-stream",
+                                                         false));
 
         directEditing.getEditors().put("text",
-                                  new Editor("1",
-                                             "Text",
-                                             new ArrayList<>(Collections.singletonList(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)),
-                                             new ArrayList<>(),
-                                             false));
+                                       new Editor("1",
+                                                  "Text",
+                                                  new ArrayList<>(Collections.singletonList(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)),
+                                                  new ArrayList<>(),
+                                                  false));
 
         String json = new Gson().toJson(directEditing);
 
         new ArbitraryDataProviderImpl(targetContext).storeOrUpdateKeyValue(user.getAccountName(),
-                                                                                                ArbitraryDataProvider.DIRECT_EDITING,
-                                                                                                json);
+                                                                           ArbitraryDataProvider.DIRECT_EDITING,
+                                                                           json);
 
         // activate templates
         OCCapability capability = fda.getCapabilities();
@@ -404,26 +414,76 @@ public class DialogFragmentIT extends AbstractIT {
 
         CapabilityUtils.updateCapability(capability);
 
-        OCFileListBottomSheetDialogFragment sut = new OCFileListBottomSheetDialogFragment(fda,
-                                                                                  action,
-                                                                                  info,
-                                                                                  user,
-                                                                                  ocFile);
+        AppScanOptionalFeature appScanOptionalFeature = new AppScanOptionalFeature() {
+            @NonNull
+            @Override
+            public ActivityResultContract<Unit, String> getScanContract() {
+                throw new UnsupportedOperationException("Document scan is not available");
+            }
+        };
 
-        sut.show(fda.getSupportFragmentManager(), "");
+        MaterialSchemesProvider materialSchemesProvider = new MaterialSchemesProvider() {
+            @NonNull
+            @Override
+            public MaterialSchemes getMaterialSchemesForUser(@NonNull User user) {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public MaterialSchemes getMaterialSchemesForCapability(@NonNull OCCapability capability) {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public MaterialSchemes getMaterialSchemesForCurrentUser() {
+                return new MaterialSchemesImpl(R.color.primary, false);
+            }
+
+            @NonNull
+            @Override
+            public MaterialSchemes getDefaultMaterialSchemes() {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public MaterialSchemes getMaterialSchemesForPrimaryBackground() {
+                return null;
+            }
+        };
+
+        ViewThemeUtils viewThemeUtils = new ViewThemeUtils(materialSchemesProvider.getMaterialSchemesForCurrentUser(),
+                                                           new ColorUtil(targetContext));
+
+        EditorUtils editorUtils = new EditorUtils(new ArbitraryDataProviderImpl(targetContext));
+
+
+        OCFileListBottomSheetDialog sut = new OCFileListBottomSheetDialog(fda,
+                                                                          action,
+                                                                          info,
+                                                                          user,
+                                                                          ocFile,
+                                                                          fda.themeUtils,
+                                                                          viewThemeUtils,
+                                                                          editorUtils,
+                                                                          appScanOptionalFeature);
+
+        fda.runOnUiThread(sut::show);
 
         getInstrumentation().waitForIdleSync();
         shortSleep();
 
-        ((BottomSheetDialog) sut.requireDialog()).getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+        sut.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
 
         getInstrumentation().waitForIdleSync();
         shortSleep();
 
-        ViewGroup viewGroup = sut.requireDialog().getWindow().findViewById(android.R.id.content);
+        ViewGroup viewGroup = sut.getWindow().findViewById(android.R.id.content);
         hideCursors(viewGroup);
 
-        screenshot(Objects.requireNonNull(sut.requireDialog().getWindow()).getDecorView());
+        screenshot(Objects.requireNonNull(sut.getWindow()).getDecorView());
 
     }
 
