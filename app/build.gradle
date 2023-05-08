@@ -4,7 +4,6 @@ import org.gradle.internal.jvm.Jvm
 buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$androidPluginVersion"
-        classpath 'com.hiya:jacoco-android:0.2'
         classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.14'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.0"
@@ -27,7 +26,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
-apply plugin: 'com.hiya.jacoco-android'
+apply from: "$rootProject.projectDir/jacoco.gradle"
 apply plugin: 'com.github.spotbugs'
 apply plugin: 'io.gitlab.arturbosch.detekt'
 apply plugin: 'shot'
