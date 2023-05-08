@@ -206,7 +206,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject FastScrollUtils fastScrollUtils;
     @Inject EditorUtils editorUtils;
     @Inject ShortcutUtil shortcutUtil;
-    @Inject Clock clock;
     @Inject SyncedFolderProvider syncedFolderProvider;
     @Inject AppScanOptionalFeature appScanOptionalFeature;
 
