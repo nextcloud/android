@@ -440,6 +440,7 @@ public class FileDataStorageManager {
      */
     private ContentValues createContentValuesBase(OCFile fileOrFolder) {
         final ContentValues cv = new ContentValues();
+        final Gson gson = new Gson();
         cv.put(ProviderTableMeta.FILE_MODIFIED, fileOrFolder.getModificationTimestamp());
         cv.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, fileOrFolder.getModificationTimestampAtLastSyncForData());
         cv.put(ProviderTableMeta.FILE_PARENT, fileOrFolder.getParentId());
@@ -464,7 +465,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_OWNER_ID, fileOrFolder.getOwnerId());
         cv.put(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME, fileOrFolder.getOwnerDisplayName());
         cv.put(ProviderTableMeta.FILE_NOTE, fileOrFolder.getNote());
-        cv.put(ProviderTableMeta.FILE_SHAREES, new Gson().toJson(fileOrFolder.getSharees()));
+        cv.put(ProviderTableMeta.FILE_SHAREES, gson.toJson(fileOrFolder.getSharees()));
+        cv.put(ProviderTableMeta.FILE_TAGS, gson.toJson(fileOrFolder.getTags()));
         cv.put(ProviderTableMeta.FILE_RICH_WORKSPACE, fileOrFolder.getRichWorkspace());
         return cv;
     }
@@ -949,6 +951,20 @@ public class FileDataStorageManager {
             } catch (JsonSyntaxException e) {
                 // ignore saved value due to api change
                 ocFile.setSharees(new ArrayList<>());
+            }
+        }
+
+        String tags = fileEntity.getTags();
+        if (tags == null || tags.isEmpty() ||
+            JSON_NULL_STRING.equals(tags) || JSON_EMPTY_ARRAY.equals(tags)) {
+            ocFile.setTags(new ArrayList<>());
+        } else {
+            try {
+                String[] tagsArray = gson.fromJson(tags, String[].class);
+                ocFile.setTags(new ArrayList<>(Arrays.asList(tagsArray)));
+            } catch (JsonSyntaxException e) {
+                // ignore saved value due to api change
+                ocFile.setTags(new ArrayList<>());
             }
         }
 

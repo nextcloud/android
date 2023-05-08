@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 68;
+    public static final int DB_VERSION = 69;
 
     private ProviderMeta() {
         // No instance
@@ -125,6 +125,7 @@ public class ProviderMeta {
         public static final String FILE_LOCK_TIMESTAMP = "lock_timestamp";
         public static final String FILE_LOCK_TIMEOUT = "lock_timeout";
         public static final String FILE_LOCK_TOKEN = "lock_token";
+        public static final String FILE_TAGS = "tags";
 
         public static final List<String> FILE_ALL_COLUMNS = Collections.unmodifiableList(Arrays.asList(
             _ID,
@@ -171,7 +172,8 @@ public class ProviderMeta {
             FILE_LOCK_TIMESTAMP,
             FILE_LOCK_TIMEOUT,
             FILE_LOCK_TOKEN,
-            FILE_METADATA_SIZE));
+            FILE_METADATA_SIZE,
+            FILE_TAGS));
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
 
         // Columns of ocshares table

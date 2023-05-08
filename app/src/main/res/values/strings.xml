@@ -1077,4 +1077,5 @@
     <string name="document_scan_export_dialog_images">Multiple images</string>
     <string name="download_cannot_create_file">Cannot create local file</string>
     <string name="download_download_invalid_local_file_name">Invalid filename for local file</string>
+    <string name="tags_more">+%1$d</string>
 </resources>

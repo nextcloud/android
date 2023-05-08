@@ -418,6 +418,31 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getSharedAvatars().removeAllViews();
         }
 
+        // tags
+        if (file.getTags().isEmpty()) {
+            holder.getTagsGroup().setVisibility(View.GONE);
+            holder.getFileDetailGroup().setVisibility(View.VISIBLE);
+        } else {
+            holder.getTagsGroup().setVisibility(View.VISIBLE);
+            holder.getFileDetailGroup().setVisibility(View.GONE);
+            holder.getFirstTag().setVisibility(View.VISIBLE);
+            holder.getSecondTag().setVisibility(View.GONE);
+            holder.getTagMore().setVisibility(View.GONE);
+
+            holder.getFirstTag().setText(file.getTags().get(0));
+            
+            if (file.getTags().size() > 1) {
+                holder.getSecondTag().setVisibility(View.VISIBLE);
+                holder.getSecondTag().setText(file.getTags().get(1));
+            }
+
+            if (file.getTags().size() > 2) {
+                holder.getTagMore().setVisibility(View.VISIBLE);
+                holder.getTagMore().setText(String.format(activity.getString(R.string.tags_more),
+                                                          (file.getTags().size() - 2)));
+            }
+        }
+
         // npe fix: looks like file without local storage path somehow get here
         final String storagePath = file.getStoragePath();
         if (onlyOnDevice && storagePath != null) {
