@@ -4,11 +4,13 @@
  *   @author Bartek Przybylski
  *   @author David A. Velasco
  *   @author Chris Narkiewicz
+ *   @author TSI-mc
  *
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2016 ownCloud Inc.
  *   Copyright (C) 2016 Nextcloud
  *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ *   Copyright (C) 2023 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -561,6 +563,13 @@ public class SettingsActivity extends PreferenceActivity
     private void setupBackupPreference() {
         Preference pContactsBackup = findPreference("backup");
         if (pContactsBackup != null) {
+            boolean showCalendarBackup = getResources().getBoolean(R.bool.show_calendar_backup);
+            pContactsBackup.setTitle(showCalendarBackup
+                                         ? getString(R.string.backup_title)
+                                         : getString(R.string.contact_backup_title));
+            pContactsBackup.setSummary(showCalendarBackup
+                                           ? getString(R.string.prefs_daily_backup_summary)
+                                           : getString(R.string.prefs_daily_contact_backup_summary));
             pContactsBackup.setOnPreferenceClickListener(preference -> {
                 ContactsPreferenceActivity.startActivityWithoutSidebar(this);
                 return true;
