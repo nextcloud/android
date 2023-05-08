@@ -52,8 +52,10 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
      * @param file The file/folder to which a pinned shortcut should be added to the home screen.
      */
     fun addShortcutToHomescreen(
-        file: OCFile, viewThemeUtils: ViewThemeUtils,
-        user: User, syncedFolderProvider: SyncedFolderProvider
+        file: OCFile,
+        viewThemeUtils: ViewThemeUtils,
+        user: User,
+        syncedFolderProvider: SyncedFolderProvider
     ) {
         if (ShortcutManagerCompat.isRequestPinShortcutSupported(mContext)) {
             val intent = Intent(mContext, FileDisplayActivity::class.java)

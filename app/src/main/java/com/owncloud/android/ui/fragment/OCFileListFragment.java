@@ -205,8 +205,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject EditorUtils editorUtils;
     @Inject ShortcutUtil shortcutUtil;
     @Inject Clock clock;
-
-    private SyncedFolderProvider syncedFolderProvider;
+    @Inject SyncedFolderProvider syncedFolderProvider;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -328,8 +327,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (mFabMain != null) { // is not available in FolderPickerActivity
             viewThemeUtils.material.themeFAB(mFabMain);
         }
-
-        syncedFolderProvider = new SyncedFolderProvider(requireActivity().getContentResolver(), preferences, clock);
 
         Log_OC.i(TAG, "onCreateView() end");
         return v;

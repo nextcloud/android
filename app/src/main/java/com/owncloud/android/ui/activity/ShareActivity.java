@@ -26,7 +26,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.core.Clock;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ShareActivityBinding;
@@ -59,10 +58,8 @@ public class ShareActivity extends FileActivity {
 
     static final String TAG_SHARE_FRAGMENT = "SHARE_FRAGMENT";
 
-    private SyncedFolderProvider syncedFolderProvider;
-
     @Inject
-    Clock clock;
+    SyncedFolderProvider syncedFolderProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +67,6 @@ public class ShareActivity extends FileActivity {
 
         ShareActivityBinding binding = ShareActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        syncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
 
         OCFile file = getFile();
         Optional<User> optionalUser = getUser();
