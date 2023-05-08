@@ -34,6 +34,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncGalleryImageDrawable
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.GalleryImageGenerationTask
@@ -61,7 +62,8 @@ class OCFileListDelegate(
     private val transferServiceGetter: ComponentsGetter,
     private val showMetadata: Boolean,
     private var showShareAvatar: Boolean,
-    private var viewThemeUtils: ViewThemeUtils
+    private var viewThemeUtils: ViewThemeUtils,
+    private val syncFolderProvider: SyncedFolderProvider? = null
 ) {
     private val checkedFiles: MutableSet<OCFile> = HashSet()
     private var highlightedItem: OCFile? = null
@@ -216,7 +218,8 @@ class OCFileListDelegate(
             context,
             gridViewHolder.shimmerThumbnail,
             preferences,
-            viewThemeUtils
+            viewThemeUtils,
+            syncFolderProvider
         )
         // item layout + click listeners
         bindGridItemLayout(file, gridViewHolder)

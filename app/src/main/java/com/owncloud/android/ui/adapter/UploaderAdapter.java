@@ -34,6 +34,7 @@ import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncThumbnailDrawable;
 import com.owncloud.android.utils.DisplayUtils;
@@ -51,6 +52,7 @@ public class UploaderAdapter extends SimpleAdapter {
     private final FileDataStorageManager mStorageManager;
     private final LayoutInflater inflater;
     private final ViewThemeUtils viewThemeUtils;
+    private SyncedFolderProvider syncedFolderProvider;
 
     public UploaderAdapter(Context context,
                            List<? extends Map<String, ?>> data,
@@ -59,11 +61,13 @@ public class UploaderAdapter extends SimpleAdapter {
                            int[] to,
                            FileDataStorageManager storageManager,
                            User user,
+                           SyncedFolderProvider syncedFolderProvider,
                            ViewThemeUtils viewThemeUtils) {
         super(context, data, resource, from, to);
         this.user = user;
         mStorageManager = storageManager;
         mContext = context;
+        this.syncedFolderProvider = syncedFolderProvider;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.viewThemeUtils = viewThemeUtils;
     }
@@ -104,6 +108,7 @@ public class UploaderAdapter extends SimpleAdapter {
             final Drawable icon = MimeTypeUtil.getFolderTypeIcon(isShared,
                                                                  file.isSharedViaLink(),
                                                                  file.isEncrypted(),
+                                                                 syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user),
                                                                  file.isGroupFolder(),
                                                                  file.getMountType(),
                                                                  mContext,

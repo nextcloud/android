@@ -160,9 +160,11 @@ class SyncedFoldersActivity :
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
+    @Inject
+    lateinit var syncedFolderProvider: SyncedFolderProvider
+
     private lateinit var binding: SyncedFoldersLayoutBinding
     private lateinit var adapter: SyncedFolderAdapter
-    private lateinit var syncedFolderProvider: SyncedFolderProvider
 
     private var syncedFolderPreferencesDialogFragment: SyncedFolderPreferencesDialogFragment? = null
     private var path: String? = null
@@ -256,7 +258,6 @@ class SyncedFoldersActivity :
             lightVersion,
             viewThemeUtils
         )
-        syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders)
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.emptyList.emptyListViewAction)
         val lm = GridLayoutManager(this, gridWidth)

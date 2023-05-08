@@ -33,8 +33,10 @@ import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
+import com.nextcloud.client.account.User
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
@@ -49,7 +51,12 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
      *
      * @param file The file/folder to which a pinned shortcut should be added to the home screen.
      */
-    fun addShortcutToHomescreen(file: OCFile, viewThemeUtils: ViewThemeUtils) {
+    fun addShortcutToHomescreen(
+        file: OCFile,
+        viewThemeUtils: ViewThemeUtils,
+        user: User,
+        syncedFolderProvider: SyncedFolderProvider
+    ) {
         if (ShortcutManagerCompat.isRequestPinShortcutSupported(mContext)) {
             val intent = Intent(mContext, FileDisplayActivity::class.java)
             intent.action = FileDisplayActivity.OPEN_FILE
@@ -68,6 +75,7 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
                     file.isSharedWithMe || file.isSharedWithSharee,
                     file.isSharedViaLink,
                     file.isEncrypted,
+                    syncedFolderProvider.findByRemotePathAndAccount(file.remotePath, user),
                     file.isGroupFolder,
                     file.mountType,
                     mContext,

@@ -50,6 +50,7 @@ import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.documentscan.DocumentScanActivity;
@@ -67,6 +68,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -202,6 +204,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject FastScrollUtils fastScrollUtils;
     @Inject EditorUtils editorUtils;
     @Inject ShortcutUtil shortcutUtil;
+    @Inject Clock clock;
+    @Inject SyncedFolderProvider syncedFolderProvider;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -422,6 +426,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity(),
             accountManager.getUser(),
             preferences,
+            syncedFolderProvider,
             mContainerActivity,
             this,
             hideItemOptions,
@@ -1178,7 +1183,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             } else if (itemId == R.id.action_unlock_file) {
                 mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, false);
             } else if (itemId == R.id.action_pin_to_homescreen) {
-                shortcutUtil.addShortcutToHomescreen(singleFile, viewThemeUtils);
+                shortcutUtil.addShortcutToHomescreen(singleFile, viewThemeUtils, accountManager.getUser(), syncedFolderProvider);
                 return true;
             }
         }

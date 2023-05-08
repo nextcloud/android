@@ -50,6 +50,7 @@ import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
@@ -71,6 +72,9 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
 
     @Inject
     lateinit var storageManager: FileDataStorageManager
+
+    @Inject
+    lateinit var syncedFolderProvider: SyncedFolderProvider
 
     lateinit var viewModel: FileActionsViewModel
 
@@ -141,7 +145,8 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
                 context,
                 binding.thumbnailLayout.thumbnailShimmer,
                 null,
-                viewThemeUtils
+                viewThemeUtils,
+                syncedFolderProvider
             )
         }
     }

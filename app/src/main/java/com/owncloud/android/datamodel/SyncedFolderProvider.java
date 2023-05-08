@@ -20,6 +20,7 @@
  */
 package com.owncloud.android.datamodel;
 
+import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -404,5 +405,48 @@ public class SyncedFolderProvider extends Observable {
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN, syncedFolder.isHidden());
 
         return cv;
+    }
+
+    /**
+     * method to check if sync folder for the remote path exist in table or not
+     *
+     * @param remotePath to be check
+     * @param user       for which we are looking
+     * @return <code>true</code> if exist, <code>false</code> otherwise
+     */
+    public boolean findByRemotePathAndAccount(String remotePath, User user) {
+        boolean result = false;
+
+        //if path ends with / then remove the last / to work the query right way
+        //because the sub folders of synced folders will not have the slash at the end
+        if (remotePath.endsWith("/")) {
+            remotePath = remotePath.substring(0, remotePath.length() - 1);
+        }
+
+        Cursor cursor = mContentResolver.query(
+            ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+            null,
+            ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH + " LIKE ? AND " +
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " =? ",
+            new String[]{"%" + remotePath + "%", user.getAccountName()},
+            null);
+
+        if (cursor != null && cursor.getCount() >= 1) {
+            result = true;
+        } else {
+            if (cursor == null) {
+                Log_OC.e(TAG, "Sync folder db cursor for remote path = " + remotePath + " in NULL.");
+            } else {
+                Log_OC.e(TAG, cursor.getCount() + " items for remote path = " + remotePath
+                    + " available in sync folder db. Expected 1 or greater than 1. Failed to update sync folder db.");
+            }
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        return result;
+
     }
 }

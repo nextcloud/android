@@ -43,9 +43,12 @@ import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+
+import javax.inject.Inject;
 
 public abstract class EditorWebView extends ExternalSiteWebView {
     public static final int REQUEST_LOCAL_FILE = 101;
@@ -55,6 +58,8 @@ public abstract class EditorWebView extends ExternalSiteWebView {
     protected String fileName;
 
     RichdocumentsWebviewBinding binding;
+
+    @Inject SyncedFolderProvider syncedFolderProvider;
 
     protected void loadUrl(String url) {
         onUrlLoaded(url);
@@ -225,6 +230,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                                                                                   file.isSharedWithSharee(),
                                                                               file.isSharedViaLink(),
                                                                               file.isEncrypted(),
+                                                                              syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user),
                                                                               file.isGroupFolder(),
                                                                               file.getMountType(),
                                                                               this,

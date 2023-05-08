@@ -72,7 +72,8 @@ class BackgroundJobFactory @Inject constructor(
     private val deckApi: DeckApi,
     private val viewThemeUtils: Provider<ViewThemeUtils>,
     private val localBroadcastManager: Provider<LocalBroadcastManager>,
-    private val generatePdfUseCase: GeneratePDFUseCase
+    private val generatePdfUseCase: GeneratePDFUseCase,
+    private val syncedFolderProvider: SyncedFolderProvider
 ) : WorkerFactory() {
 
     @SuppressLint("NewApi")
@@ -90,7 +91,7 @@ class BackgroundJobFactory @Inject constructor(
 
         // ContentObserverWork requires N
         return if (deviceInfo.apiLevel >= Build.VERSION_CODES.N && workerClass == ContentObserverWork::class) {
-            createContentObserverJob(context, workerParameters, clock)
+            createContentObserverJob(context, workerParameters)
         } else {
             when (workerClass) {
                 ContactsBackupWork::class -> createContactsBackupWork(context, workerParameters)
@@ -125,16 +126,14 @@ class BackgroundJobFactory @Inject constructor(
 
     private fun createContentObserverJob(
         context: Context,
-        workerParameters: WorkerParameters,
-        clock: Clock
+        workerParameters: WorkerParameters
     ): ListenableWorker? {
-        val folderResolver = SyncedFolderProvider(contentResolver, preferences, clock)
         @RequiresApi(Build.VERSION_CODES.N)
         if (deviceInfo.apiLevel >= Build.VERSION_CODES.N) {
             return ContentObserverWork(
                 context,
                 workerParameters,
-                folderResolver,
+                syncedFolderProvider,
                 powerManagementService,
                 backgroundJobManager.get()
             )
@@ -186,14 +185,12 @@ class BackgroundJobFactory @Inject constructor(
         return FilesSyncWork(
             context = context,
             params = params,
-            resources = resources,
             contentResolver = contentResolver,
             userAccountManager = accountManager,
-            preferences = preferences,
             uploadsStorageManager = uploadsStorageManager,
             connectivityService = connectivityService,
             powerManagementService = powerManagementService,
-            clock = clock
+            syncedFolderProvider = syncedFolderProvider
         )
     }
 
@@ -217,7 +214,8 @@ class BackgroundJobFactory @Inject constructor(
             accountManager,
             preferences,
             clock,
-            viewThemeUtils.get()
+            viewThemeUtils.get(),
+            syncedFolderProvider
         )
     }
 
@@ -241,7 +239,8 @@ class BackgroundJobFactory @Inject constructor(
             backgroundJobManager.get(),
             clock,
             eventBus,
-            preferences
+            preferences,
+            syncedFolderProvider
         )
     }
 
