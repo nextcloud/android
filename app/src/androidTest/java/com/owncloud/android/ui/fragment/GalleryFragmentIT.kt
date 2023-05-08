@@ -87,6 +87,7 @@ class GalleryFragmentIT : AbstractIT() {
         activity.addFragment(sut)
 
         waitForIdleSync()
+        shortSleep()
         screenshot(activity)
     }
 
