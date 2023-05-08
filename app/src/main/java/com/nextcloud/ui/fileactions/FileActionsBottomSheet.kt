@@ -43,10 +43,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
-import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
-import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
@@ -76,11 +74,6 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
     lateinit var storageManager: FileDataStorageManager
 
     @Inject
-    lateinit var preferences: AppPreferences
-
-    @Inject
-    lateinit var clock: Clock
-
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
     lateinit var viewModel: FileActionsViewModel
@@ -100,8 +93,6 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         viewModel = ViewModelProvider(this, vmFactory)[FileActionsViewModel::class.java]
         _binding = FileActionsBottomSheetBinding.inflate(inflater, container, false)
-
-        syncedFolderProvider = SyncedFolderProvider(requireContext().contentResolver, preferences, clock)
 
         viewModel.uiState.observe(viewLifecycleOwner, this::handleState)
 

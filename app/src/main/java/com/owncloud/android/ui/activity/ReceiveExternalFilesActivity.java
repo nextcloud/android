@@ -59,7 +59,6 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -145,7 +144,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     @Inject AppPreferences preferences;
     @Inject LocalBroadcastManager localBroadcastManager;
-    @Inject Clock clock;
+    @Inject SyncedFolderProvider syncedFolderProvider;
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
     private List<Parcelable> mStreamsToUpload;
@@ -154,8 +153,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private boolean mSyncInProgress;
-
-    private SyncedFolderProvider syncedFolderProvider;
 
     private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
 
@@ -193,8 +190,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
         super.onCreate(savedInstanceState);
         binding = ReceiveExternalFilesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        syncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
 
         // Listen for sync messages
         IntentFilter syncIntentFilter = new IntentFilter(RefreshFolderOperation.

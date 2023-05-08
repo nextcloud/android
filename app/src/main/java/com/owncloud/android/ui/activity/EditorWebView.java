@@ -39,8 +39,6 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.core.Clock;
-import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
@@ -61,10 +59,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
 
     RichdocumentsWebviewBinding binding;
 
-    private SyncedFolderProvider syncedFolderProvider;
-
-    @Inject
-    Clock clock;
+    @Inject SyncedFolderProvider syncedFolderProvider;
 
     protected void loadUrl(String url) {
         onUrlLoaded(url);
@@ -164,7 +159,6 @@ public abstract class EditorWebView extends ExternalSiteWebView {
             finish();
             return;
         }
-        syncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
         initLoadingScreen(user.get());
     }
 

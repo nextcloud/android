@@ -30,10 +30,8 @@ import androidx.exifinterface.media.ExifInterface
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
-import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
@@ -60,14 +58,12 @@ import java.util.TimeZone
 class FilesSyncWork(
     private val context: Context,
     params: WorkerParameters,
-    private val resources: Resources,
     private val contentResolver: ContentResolver,
     private val userAccountManager: UserAccountManager,
-    private val preferences: AppPreferences,
     private val uploadsStorageManager: UploadsStorageManager,
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
-    private val clock: Clock
+    private val syncedFolderProvider: SyncedFolderProvider
 ) : Worker(context, params) {
 
     companion object {
@@ -91,10 +87,9 @@ class FilesSyncWork(
             connectivityService,
             powerManagementService
         )
-        FilesSyncHelper.insertAllDBEntries(preferences, clock, skipCustom)
+        FilesSyncHelper.insertAllDBEntries(skipCustom, syncedFolderProvider)
         // Create all the providers we'll need
         val filesystemDataProvider = FilesystemDataProvider(contentResolver)
-        val syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
         val currentLocale = resources.configuration.locale
         val dateFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale)
         dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)

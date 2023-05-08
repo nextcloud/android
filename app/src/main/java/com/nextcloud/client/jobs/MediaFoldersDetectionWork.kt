@@ -68,7 +68,8 @@ class MediaFoldersDetectionWork constructor(
     private val userAccountManager: UserAccountManager,
     private val preferences: AppPreferences,
     private val clock: Clock,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val syncedFolderProvider: SyncedFolderProvider
 ) : Worker(context, params) {
 
     companion object {
@@ -86,7 +87,6 @@ class MediaFoldersDetectionWork constructor(
     @Suppress("LongMethod", "ComplexMethod", "NestedBlockDepth") // legacy code
     override fun doWork(): Result {
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
-        val syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
         val gson = Gson()
         val mediaFoldersModel: MediaFoldersModel
         val imageMediaFolders = MediaProvider.getImageFolders(
