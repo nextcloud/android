@@ -75,7 +75,7 @@ class GroupfolderListFragment : OCFileListFragment(), Injectable, GroupfolderLis
         search()
     }
 
-    override fun setAdapter(args: Bundle?) {
+    public override fun setAdapter(args: Bundle?) {
         adapter = GroupfolderListAdapter(requireContext(), viewThemeUtils, this)
         setRecyclerViewAdapter(adapter)
 
