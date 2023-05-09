@@ -558,6 +558,7 @@
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_daily_backup_summary">Daglig backup av din kaleder &amp; kontakter</string>
+    <string name="prefs_daily_contact_backup_summary">Daglig sikkerhetskopiering av kontakter</string>
     <string name="prefs_davx5_setup_error">Uventet feil under oppsett av DAVx5 (tidligere kjent som DAVdroid)</string>
     <string name="prefs_e2e_active">Ende-til-ende -kryptering er satt opp!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic (hjelper for ende-til-ende kryptering til å huske legitimasjon)</string>

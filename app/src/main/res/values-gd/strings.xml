@@ -488,6 +488,7 @@
     <string name="prefs_category_dev">Leasachadh</string>
     <string name="prefs_category_general">Coitcheann</string>
     <string name="prefs_category_more">Barrachd</string>
+    <string name="prefs_daily_contact_backup_summary">Lethbhreac-glèidhidh làitheil dhan luchd-aithne agad</string>
     <string name="prefs_e2e_mnemonic">Gleus cuimhneachaidh E2E</string>
     <string name="prefs_e2e_no_device_credentials">Cuir an comas teisteas an uidheim airson an gleus cuimhneachaidh a shealltainn.</string>
     <string name="prefs_enable_media_scan_notifications">Seall brathan air sganadh mheadhanan</string>

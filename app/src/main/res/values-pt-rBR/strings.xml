@@ -561,6 +561,7 @@
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
     <string name="prefs_daily_backup_summary">Backup diário de seu calendário &amp; contatos</string>
+    <string name="prefs_daily_contact_backup_summary">Backup diário de seus contatos</string>
     <string name="prefs_davx5_setup_error">Erro inesperado ao configurar o DAVx5 (anteriormente conhecido como DAVdroid)</string>
     <string name="prefs_e2e_active">A criptografia de ponta a ponta está configurada!</string>
     <string name="prefs_e2e_mnemonic">Mnemônico E2E</string>

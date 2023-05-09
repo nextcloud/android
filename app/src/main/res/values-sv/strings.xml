@@ -561,6 +561,7 @@
     <string name="prefs_category_general">Allmänt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_daily_backup_summary">Daglig backup av din kalender &amp; dina kontakter </string>
+    <string name="prefs_daily_contact_backup_summary">Daglig backup av dina kontakter</string>
     <string name="prefs_davx5_setup_error">Oväntat fel vid installation av DAVx5 (tidigare känd som DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end-kryptering är inställd!</string>
     <string name="prefs_e2e_mnemonic">E2E krypteringsord</string>

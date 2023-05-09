@@ -496,6 +496,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Општо</string>
     <string name="prefs_category_more">Повеќе</string>
+    <string name="prefs_daily_contact_backup_summary">Дневна резервна копија на вашите контакти</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
     <string name="prefs_enable_media_scan_notifications">Прикажи известување за медиуми</string>

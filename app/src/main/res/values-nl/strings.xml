@@ -546,6 +546,7 @@
     <string name="prefs_category_general">Algemeen</string>
     <string name="prefs_category_more">Meer</string>
     <string name="prefs_daily_backup_summary">Dagelijkse back-up van je agenda &amp;contactpersonen </string>
+    <string name="prefs_daily_contact_backup_summary">Dagelijkse back-up van je contactpersonen</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Om de mnemonic te tonen moet je apparaatinloggegevens inschakelen.</string>
     <string name="prefs_enable_media_scan_notifications">Tonen mediascan meldingen</string>

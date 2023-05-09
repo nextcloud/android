@@ -443,6 +443,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
+    <string name="prefs_daily_contact_backup_summary">Backup i përditshëm i kontakteve</string>
     <string name="prefs_e2e_mnemonic">E2E i kujtesës</string>
     <string name="prefs_e2e_no_device_credentials">Për të shfaqur kujtesën, ju lutemi aktivizoni kredencialet e pajisje.</string>
     <string name="prefs_enable_media_scan_notifications">Shfaqni njoftimet e skanimit të medias</string>
