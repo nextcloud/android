@@ -23,7 +23,6 @@
 
 package com.owncloud.android.ui.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;

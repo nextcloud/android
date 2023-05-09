@@ -100,6 +100,7 @@ import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
+import com.owncloud.android.ui.fragment.GroupfolderListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SharedListFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
@@ -398,6 +399,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerMenuUtil.filterSearchMenuItems(menu, user, getResources());
         DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
+        DrawerMenuUtil.filterGroupfoldersMenuItem(menu, capability);
 
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
 
@@ -422,6 +424,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             if (this instanceof FileDisplayActivity &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof SharedListFragment) &&
+                !(((FileDisplayActivity) this).getLeftFragment() instanceof GroupfolderListFragment) &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof PreviewTextStringFragment)) {
                 showFiles(false);
                 ((FileDisplayActivity) this).browseToRoot();
@@ -465,6 +468,13 @@ public abstract class DrawerActivity extends ToolbarActivity
             startSharedSearch(menuItem);
         } else if (itemId == R.id.nav_recently_modified) {
             startRecentlyModifiedSearch(menuItem);
+        } else if (itemId == R.id.nav_groupfolders) {
+            MainApp.showOnlyFilesOnDevice(false);
+            Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setAction(FileDisplayActivity.LIST_GROUPFOLDERS);
+            intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
+            startActivity(intent);
         } else {
             if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
                 menuItem.getItemId() <= MENU_ITEM_EXTERNAL_LINK + 100) {

@@ -109,6 +109,7 @@ import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog;
+import com.owncloud.android.ui.fragment.GroupfolderListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -462,4 +463,7 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract DocumentScanActivity documentScanActivity();
+
+    @ContributesAndroidInjector
+    abstract GroupfolderListFragment groupfolderListFragment();
 }

@@ -13,5 +13,6 @@ enum class SearchType : Parcelable {
     RECENTLY_MODIFIED_SEARCH,
 
     // not a real filter, but nevertheless
-    SHARED_FILTER
+    SHARED_FILTER,
+    GROUPFOLDER
 }
