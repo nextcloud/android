@@ -494,6 +494,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">ທົ່ວໄປ</string>
     <string name="prefs_category_more">ເພີ່ມເຕີມ</string>
+    <string name="prefs_daily_contact_backup_summary">ສໍາຮອງປະຈໍາວັນຂອງການຕິດຕໍ່</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">ເພື່ອສະແດງ mnemonic ກະລຸນາເປິດຂໍ້ມູນປະຈຳຕົວຂອງອຸປະກອນ.</string>
     <string name="prefs_enable_media_scan_notifications">ສະແດງການແຈ້ງເຕືຶອນສື່ ມວນ ຊົນ</string>

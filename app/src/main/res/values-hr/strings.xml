@@ -539,6 +539,7 @@
     <string name="prefs_category_general">Općenito</string>
     <string name="prefs_category_more">Više</string>
     <string name="prefs_daily_backup_summary">Svakodnevno sigurnosno kopiranje vašeg kalendara i kontakata</string>
+    <string name="prefs_daily_contact_backup_summary">Svakodnevno sigurnosno kopiranje vaših kontakata</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonička oznaka</string>
     <string name="prefs_e2e_no_device_credentials">Omogućite vjerodajnice uređaja kako biste prikazali mnemoničku oznaku.</string>
     <string name="prefs_enable_media_scan_notifications">Prikaži obavijesti o skeniranju medija</string>

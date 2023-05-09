@@ -445,6 +445,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="prefs_category_general">Umum</string>
     <string name="prefs_category_more">Lainnya</string>
     <string name="prefs_daily_backup_summary">Cadangan harian kalender &amp; kontak Anda</string>
+    <string name="prefs_daily_contact_backup_summary">Cadangkan kontak harian</string>
     <string name="prefs_davx5_setup_error">Terjadi kesalahan saat menyiapkan DAVx⁵ (sebelumnya DAVdroid)</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_gpl_v2">GNU General Public License, versi 2</string>

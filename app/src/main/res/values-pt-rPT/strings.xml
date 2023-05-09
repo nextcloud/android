@@ -519,6 +519,7 @@
     <string name="prefs_category_dev">Desenvolvimento</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
+    <string name="prefs_daily_contact_backup_summary">Cópia de segurança diária dos seus contactos</string>
     <string name="prefs_e2e_mnemonic">Mnemónica E2</string>
     <string name="prefs_e2e_no_device_credentials">Para mostrar a mnemónica, por favor, ative as credenciais do dispositivo.</string>
     <string name="prefs_enable_media_scan_notifications">Mostrar notificações de análise de multimédia</string>

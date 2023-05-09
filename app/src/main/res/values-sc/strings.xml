@@ -501,6 +501,7 @@
     <string name="prefs_category_dev">Dispositivu</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Àteru</string>
+    <string name="prefs_daily_contact_backup_summary">Còpia de seguresa de is cuntatos ònnia die</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Pro mustrare sa menmònica ativa is credentziales de su dispositivu.</string>
     <string name="prefs_enable_media_scan_notifications">Mustra is notìficas de iscansione de is media</string>

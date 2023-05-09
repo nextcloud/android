@@ -562,6 +562,7 @@
     <string name="prefs_category_general">Основне</string>
     <string name="prefs_category_more">Більше</string>
     <string name="prefs_daily_backup_summary">Щоденне створення резервних копій календарів та контактів</string>
+    <string name="prefs_daily_contact_backup_summary">Щоденне резервне копіювання ваших контактів</string>
     <string name="prefs_davx5_setup_error">Неочікувана помилка під час налаштування DAVx5 (раніше відомого як DAVdroid)</string>
     <string name="prefs_e2e_active">Наскрізне шифрування налаштовано!</string>
     <string name="prefs_e2e_mnemonic">Мнемоніка E2E</string>

@@ -480,6 +480,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Esasy</string>
     <string name="prefs_category_more">Has köp</string>
+    <string name="prefs_daily_contact_backup_summary">Kontaktlaryňyzyň gündelik ätiýaçlyk nusgasy</string>
     <string name="prefs_e2e_mnemonic">e2e ýatlatma</string>
     <string name="prefs_e2e_no_device_credentials">Mnemonik görkezmek üçin enjam şahsyýet maglumatlaryny açmagyňyzy haýyş edýäris.</string>
     <string name="prefs_enable_media_scan_notifications">Mediýa skaner habarnamalaryny görkeziň</string>

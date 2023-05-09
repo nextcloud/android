@@ -518,6 +518,7 @@
     <string name="prefs_category_dev">توسعه</string>
     <string name="prefs_category_general">عمومی</string>
     <string name="prefs_category_more">بیش‌تر</string>
+    <string name="prefs_daily_contact_backup_summary">پشتیبان گیری روزانه از مخاطبین شما</string>
     <string name="prefs_e2e_mnemonic">E2E حفظی</string>
     <string name="prefs_e2e_no_device_credentials">برای نمایش mnemonic ، مجوز دستگاه را فعال کنید.</string>
     <string name="prefs_enable_media_scan_notifications">نمایش اعلان‌های مربوط به اسکن رسانه</string>

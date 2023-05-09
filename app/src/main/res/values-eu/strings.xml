@@ -561,6 +561,7 @@
     <string name="prefs_category_general">Orokorra</string>
     <string name="prefs_category_more">Gehiago</string>
     <string name="prefs_daily_backup_summary">Eguneroko babeskopia zure egutegi eta kontaktuentzat</string>
+    <string name="prefs_daily_contact_backup_summary">Zure kontaktuen eguneroko babeskopia</string>
     <string name="prefs_davx5_setup_error">Ustekabeko errorea DAVx5 konfiguratzean (lehen DAVdroid izenez ezagutzen zena)</string>
     <string name="prefs_e2e_active">Muturretik muturrerako enkriptatzea konfiguratuta dago!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemoteknikoa</string>

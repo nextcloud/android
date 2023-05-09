@@ -553,6 +553,7 @@
     <string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_daily_backup_summary">每天备份日历 &amp; 联系人</string>
+    <string name="prefs_daily_contact_backup_summary">每日备份您的联系人</string>
     <string name="prefs_davx5_setup_error">设置 DAVx5（以前为 DAVdroid）时出现意外错误</string>
     <string name="prefs_e2e_active">端对端加密已设置完成</string>
     <string name="prefs_e2e_mnemonic">端到端加密</string>

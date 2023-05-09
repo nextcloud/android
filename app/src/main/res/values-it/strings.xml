@@ -561,6 +561,7 @@
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
     <string name="prefs_daily_backup_summary">Backup quotidiano del tuo calendario e dei contatti</string>
+    <string name="prefs_daily_contact_backup_summary">Backup giornaliero dei tuoi contatti</string>
     <string name="prefs_davx5_setup_error">Errore inaspettato nella configurazione di Davx5 (precedentemente DAVdroid)</string>
     <string name="prefs_e2e_active">La cifratura end-to-end è impostata!</string>
     <string name="prefs_e2e_mnemonic">Codice mnemonico E2E</string>
