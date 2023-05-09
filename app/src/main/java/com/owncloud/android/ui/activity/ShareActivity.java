@@ -30,6 +30,7 @@ import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ShareActivityBinding;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -43,6 +44,8 @@ import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
+import javax.inject.Inject;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -54,6 +57,9 @@ public class ShareActivity extends FileActivity {
     private static final String TAG = ShareActivity.class.getSimpleName();
 
     static final String TAG_SHARE_FRAGMENT = "SHARE_FRAGMENT";
+
+    @Inject
+    SyncedFolderProvider syncedFolderProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +81,7 @@ public class ShareActivity extends FileActivity {
                                                                                       file.isSharedWithSharee(),
                                                                                   file.isSharedViaLink(),
                                                                                   file.isEncrypted(),
+                                                                                  syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), optionalUser.get()),
                                                                                   file.isGroupFolder(),
                                                                                   file.getMountType(),
                                                                                   this,

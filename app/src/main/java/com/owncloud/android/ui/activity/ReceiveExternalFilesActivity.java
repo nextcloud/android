@@ -66,6 +66,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.ReceiveExternalFilesBinding;
 import com.owncloud.android.databinding.UploadFileDialogBinding;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -143,6 +144,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     @Inject AppPreferences preferences;
     @Inject LocalBroadcastManager localBroadcastManager;
+    @Inject SyncedFolderProvider syncedFolderProvider;
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
     private List<Parcelable> mStreamsToUpload;
@@ -772,6 +774,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                          new int[]{R.id.filename},
                                                          getStorageManager(),
                                                          getUser().get(),
+                                                         syncedFolderProvider,
                                                          viewThemeUtils);
 
                 binding.list.setAdapter(sa);

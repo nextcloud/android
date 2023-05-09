@@ -510,6 +510,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             itemView.findViewById(R.id.sharedAvatars).setVisibility(View.GONE);
             itemView.findViewById(R.id.overflow_menu).setVisibility(View.GONE);
+            itemView.findViewById(R.id.tagsGroup).setVisibility(View.GONE);
         }
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Beta indicator -->
-    <bool name="is_beta">false</bool>
+    <bool name="is_beta">true</bool>
     <bool name="dev_version_direct_download_enabled">false</bool>
 
     <!-- App name  and other strings-->
@@ -36,6 +36,8 @@
     <string name="contacts_backup_folder">/.Contacts-Backup</string>
     <integer name="contacts_backup_expire">-1</integer>
     <string name="calendar_backup_folder">/.Calendar-Backup</string>
+    <!-- flag to enable/disable contact backup -->
+    <bool name="show_calendar_backup">true</bool>
 
     <!-- What's new -->
     <bool name="show_whats_new">true</bool>

@@ -54,6 +54,7 @@ import com.owncloud.android.databinding.ListItemBinding;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.db.ProviderMeta;
@@ -136,6 +137,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         Activity activity,
         @NonNull User user,
         AppPreferences preferences,
+        SyncedFolderProvider syncedFolderProvider,
         ComponentsGetter transferServiceGetter,
         OCFileListFragmentInterface ocFileListFragmentInterface,
         boolean argHideItemOptions,
@@ -173,7 +175,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                         .getCapability(activity)
                                                         .getVersion()
                                                         .isShareesOnDavSupported(),
-                                                    viewThemeUtils);
+                                                    viewThemeUtils,
+                                                    syncedFolderProvider);
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -413,6 +416,31 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else {
             holder.getSharedAvatars().setVisibility(View.GONE);
             holder.getSharedAvatars().removeAllViews();
+        }
+
+        // tags
+        if (file.getTags().isEmpty()) {
+            holder.getTagsGroup().setVisibility(View.GONE);
+            holder.getFileDetailGroup().setVisibility(View.VISIBLE);
+        } else {
+            holder.getTagsGroup().setVisibility(View.VISIBLE);
+            holder.getFileDetailGroup().setVisibility(View.GONE);
+            holder.getFirstTag().setVisibility(View.VISIBLE);
+            holder.getSecondTag().setVisibility(View.GONE);
+            holder.getTagMore().setVisibility(View.GONE);
+
+            holder.getFirstTag().setText(file.getTags().get(0));
+            
+            if (file.getTags().size() > 1) {
+                holder.getSecondTag().setVisibility(View.VISIBLE);
+                holder.getSecondTag().setText(file.getTags().get(1));
+            }
+
+            if (file.getTags().size() > 2) {
+                holder.getTagMore().setVisibility(View.VISIBLE);
+                holder.getTagMore().setText(String.format(activity.getString(R.string.tags_more),
+                                                          (file.getTags().size() - 2)));
+            }
         }
 
         // npe fix: looks like file without local storage path somehow get here

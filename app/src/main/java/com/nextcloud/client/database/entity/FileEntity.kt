@@ -117,5 +117,7 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TIMEOUT)
     val lockTimeout: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TOKEN)
-    val lockToken: String?
+    val lockToken: String?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_TAGS)
+    val tags: String?
 )

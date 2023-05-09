@@ -32,12 +32,10 @@ import android.os.Build;
 import android.provider.MediaStore;
 
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.MediaFolderType;
@@ -122,13 +120,8 @@ public final class FilesSyncHelper {
         }
     }
 
-    public static void insertAllDBEntries(AppPreferences preferences,
-                                          Clock clock,
-                                          boolean skipCustom) {
-        final Context context = MainApp.getAppContext();
-        final ContentResolver contentResolver = context.getContentResolver();
-        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences, clock);
-
+    public static void insertAllDBEntries(boolean skipCustom,
+                                          SyncedFolderProvider syncedFolderProvider) {
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled() && (!skipCustom || syncedFolder.getType() != MediaFolderType.CUSTOM)) {
                 insertAllDBEntriesForSyncedFolder(syncedFolder);

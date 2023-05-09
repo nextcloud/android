@@ -2,8 +2,10 @@
  * Nextcloud Android client application
  *
  * @author Mario Danic
+ * @author TSI-mc
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2017 Nextcloud GmbH.
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -102,7 +104,8 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
     private CompoundButton.OnCheckedChangeListener calendarCheckedListener;
     private User user;
     private boolean showSidebar = true;
-
+    //flag to check if calendar backup should be shown and backup should be done or not
+    private boolean showCalendarBackup = true;
     public static BackupFragment create(boolean showSidebar) {
         BackupFragment fragment = new BackupFragment();
         Bundle bundle = new Bundle();
@@ -144,6 +147,8 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
             showSidebar = getArguments().getBoolean(ARG_SHOW_SIDEBAR);
         }
 
+        showCalendarBackup = requireContext().getResources().getBoolean(R.bool.show_calendar_backup);
+
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
         user = contactsPreferenceActivity.getUser().orElseThrow(RuntimeException::new);
 
@@ -151,7 +156,8 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
 
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            viewThemeUtils.files.themeActionBar(requireContext(), actionBar, R.string.backup_title);
+            viewThemeUtils.files.themeActionBar(requireContext(), actionBar,
+                                                showCalendarBackup ? R.string.backup_title : R.string.contact_backup_title);
         }
 
 
@@ -164,6 +170,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         binding.contacts.setChecked(isContactsBackupEnabled() && checkContactBackupPermission());
         binding.calendar.setChecked(isCalendarBackupEnabled() && checkCalendarBackupPermission(getContext()));
 
+        binding.calendar.setVisibility(showCalendarBackup ? View.VISIBLE : View.GONE);
 
         setupCheckListeners();
 
@@ -395,7 +402,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
             startContactsBackupJob();
         }
 
-        if (isCalendarBackupEnabled() && checkCalendarBackupPermission(requireContext())) {
+        if (showCalendarBackup && isCalendarBackupEnabled() && checkCalendarBackupPermission(requireContext())) {
             startCalendarBackupJob();
         }
 
@@ -651,7 +658,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
                 }
 
                 // calendars
-                if (MimeTypeUtil.isCalendar(file)) {
+                if (showCalendarBackup && MimeTypeUtil.isCalendar(file)) {
                     calendarBackupsToRestore.add(file);
                 }
             }
