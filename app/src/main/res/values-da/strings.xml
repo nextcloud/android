@@ -541,6 +541,7 @@
     <string name="prefs_category_general">Generel</string>
     <string name="prefs_category_more">Mere</string>
     <string name="prefs_daily_backup_summary">Daglig backup af din kalender &amp; kontakter</string>
+    <string name="prefs_daily_contact_backup_summary">Daglig backup af dine kontakter</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">For at vise mnemonic venligst aktiver enhedens brugeroplysninger</string>
     <string name="prefs_enable_media_scan_notifications">Vis media scan notifikationer</string>

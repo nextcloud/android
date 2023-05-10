@@ -159,6 +159,7 @@
     <string name="conflict_local_file">Local file</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
     <string name="conflict_server_file">Server file</string>
+    <string name="contact_backup_title">Contacts backup</string>
     <string name="contactlist_item_icon">User icon for contact list</string>
     <string name="contactlist_no_permission">No permission given, nothing imported.</string>
     <string name="contacts">Contacts</string>
@@ -561,6 +562,7 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_daily_backup_summary">Daily backup of your calendar &amp; contacts</string>
+    <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
     <string name="prefs_davx5_setup_error">Unexpected error while setting up DAVx5 (formerly known as DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end encryption is set up!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
@@ -794,6 +796,7 @@
     <string name="synced_folders_type">Type</string>
     <string name="synced_icon">Synced</string>
     <string name="tags">Tags</string>
+    <string name="tags_more">+%1$d</string>
     <string name="test_server_button">Test server connection</string>
     <string name="thirtyMinutes">30 minutes</string>
     <string name="thisWeek">This week</string>
