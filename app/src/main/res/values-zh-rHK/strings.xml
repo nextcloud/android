@@ -237,6 +237,7 @@
     <string name="drawer_item_all_files">所有檔案</string>
     <string name="drawer_item_favorites">最愛</string>
     <string name="drawer_item_gallery">多媒體</string>
+    <string name="drawer_item_groupfolders">群組資料夾</string>
     <string name="drawer_item_home">主頁</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">在裝置上</string>
