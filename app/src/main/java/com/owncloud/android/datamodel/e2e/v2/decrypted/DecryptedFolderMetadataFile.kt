@@ -29,4 +29,4 @@ data class DecryptedFolderMetadataFile(
     var users: MutableList<DecryptedUser> = mutableListOf(),
     val filedrop: Map<String, DecryptedFile> = HashMap(),
     val version: Int = 2
-) 
+)

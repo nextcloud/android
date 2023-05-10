@@ -45,16 +45,15 @@ import com.owncloud.android.lib.resources.e2ee.StoreMetadataRemoteOperation
 import com.owncloud.android.lib.resources.e2ee.UpdateMetadataRemoteOperation
 import com.owncloud.android.operations.UploadException
 import org.apache.commons.httpclient.HttpStatus
+import org.bouncycastle.asn1.ASN1Sequence
+import org.bouncycastle.asn1.cms.ContentInfo
 import org.bouncycastle.cert.jcajce.JcaCertStore
 import org.bouncycastle.cms.CMSProcessableByteArray
 import org.bouncycastle.cms.CMSSignedData
 import org.bouncycastle.cms.CMSSignedDataGenerator
-import org.bouncycastle.cms.CMSTypedData
 import org.bouncycastle.cms.SignerInformation
 import org.bouncycastle.cms.jcajce.JcaSignerInfoGeneratorBuilder
 import org.bouncycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder
-import org.bouncycastle.jce.provider.BouncyCastleProvider
-import org.bouncycastle.operator.ContentSigner
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder
 import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder
 import java.io.BufferedReader
@@ -63,7 +62,6 @@ import java.io.InputStreamReader
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.PrivateKey
-import java.security.Security
 import java.security.cert.X509Certificate
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
@@ -223,7 +221,8 @@ class EncryptionUtilsV2 {
 
         if (result.isSuccess) {
             val v2 = EncryptionUtils.deserializeJSON(
-                result.resultData, object : TypeToken<EncryptedFolderMetadataFile>() {}
+                result.resultData,
+                object : TypeToken<EncryptedFolderMetadataFile>() {}
             )
 
             return decryptFolderMetadataFile(
@@ -257,7 +256,7 @@ class EncryptionUtilsV2 {
     fun transformUser(user: EncryptedUser): DecryptedUser {
         return DecryptedUser(
             user.userId,
-            user.certificate,
+            user.certificate
         )
     }
 
@@ -285,7 +284,7 @@ class EncryptionUtilsV2 {
     fun gZipDecompress(compressed: ByteArray): String {
         val stringBuilder = StringBuilder()
         val inputStream = GZIPInputStream(compressed.inputStream())
-        //val inputStream = compressed.inputStream()
+        // val inputStream = compressed.inputStream()
         val bufferedReader = BufferedReader(InputStreamReader(inputStream))
 
         val sb = java.lang.StringBuilder()
@@ -453,7 +452,8 @@ class EncryptionUtilsV2 {
         val storageManager = FileDataStorageManager(user, context.contentResolver)
 
         val v2 = EncryptionUtils.deserializeJSON(
-            serializedEncryptedMetadata, object : TypeToken<EncryptedFolderMetadataFile>() {}
+            serializedEncryptedMetadata,
+            object : TypeToken<EncryptedFolderMetadataFile>() {}
         )
 
         val decryptedFolderMetadata = if (v2.version == 2) {
@@ -473,7 +473,8 @@ class EncryptionUtilsV2 {
             // try to deserialize v1
             val v1 = EncryptionUtils.deserializeJSON(
                 serializedEncryptedMetadata,
-                object : TypeToken<com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFile?>() {})
+                object : TypeToken<com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFile?>() {}
+            )
 
             // decrypt
             try {
@@ -560,7 +561,6 @@ class EncryptionUtilsV2 {
         userId: String,
         cert: String
     ): DecryptedFolderMetadataFile {
-
         // create new metadata
         val metadataV2 = DecryptedMetadata(
             mutableListOf(),
@@ -639,7 +639,7 @@ class EncryptionUtilsV2 {
     @VisibleForTesting
     fun verifyMetadata(metadata: DecryptedFolderMetadataFile): Boolean {
         // check counter
-        //metadata.metadata.counter
+        // metadata.metadata.counter
 
         // check signature
 
@@ -673,62 +673,54 @@ class EncryptionUtilsV2 {
         return BigInteger(1, bytes).toString(16).padStart(32, '0')
     }
 
+    /**
+     * Sign the data with key, embed the certificate associated within the CMSSignedData
+     * detached data not possible, as to restore asn.1
+     */
     fun signMessage(cert: X509Certificate, key: PrivateKey, data: ByteArray): CMSSignedData {
-        /*
-         * Sign the data with key, and embed the certificate associated within the CMSSignedData
-         */
-        val content: CMSTypedData = CMSProcessableByteArray(data)
-        val certList = ArrayList<Any>()
-        certList.add(cert)
-        val certs = JcaCertStore(certList)
-        val signGen = CMSSignedDataGenerator()
+        val content = CMSProcessableByteArray(data)
+        val certs = JcaCertStore(listOf(cert))
+
         val sha1signer = JcaContentSignerBuilder("SHA1withRSA").setProvider("BC").build(key)
-        signGen.addSignerInfoGenerator(
-            JcaSignerInfoGeneratorBuilder(JcaDigestCalculatorProviderBuilder().build()).build(
-                sha1signer,
-                cert
-            )
-        )
-        signGen.addCertificates(certs)
-        return signGen.generate(
-            content,
-            true
-        ) //content could have been the content of File zip = new File("fichier.zip"); CMSProcessableFile content = new CMSProcessableFile(zip);
-    }
-
-    fun signMessageSimple(cert: X509Certificate, key: PrivateKey, data: ByteArray): CMSSignedData {
-        /*
-         * Sign data with the private key, but does not embed the certificate
-         * Still need the certificate to identify signer
-         */
-        Security.addProvider(BouncyCastleProvider())
-        val content: CMSTypedData = CMSProcessableByteArray(data)
-
-        val signGen = CMSSignedDataGenerator()
-        val sha1signer: ContentSigner = JcaContentSignerBuilder("SHA1withRSA").setProvider("BC").build(key)
-        signGen.addSignerInfoGenerator(
-            JcaSignerInfoGeneratorBuilder(JcaDigestCalculatorProviderBuilder().build())
-                .build(
+        val signGen = CMSSignedDataGenerator().apply {
+            addSignerInfoGenerator(
+                JcaSignerInfoGeneratorBuilder(JcaDigestCalculatorProviderBuilder().build()).build(
                     sha1signer,
                     cert
                 )
-        )
+            )
+            addCertificates(certs)
+        }
         return signGen.generate(
             content,
-            true
+            false
         )
     }
 
-    fun verifySignedMessage(data: CMSSignedData, cert: X509Certificate?): Boolean {
-        /*
-         * Verify the signature but does not use the certificate in the signed object
-         */
-
+    /**
+     * Verify the signature but does not use the certificate in the signed object
+     */
+    fun verifySignedMessage(data: CMSSignedData, certs: List<X509Certificate>): Boolean {
         val signer: SignerInformation = data.signerInfos.signers.iterator().next() as SignerInformation
-        if (signer.verify(JcaSimpleSignerInfoVerifierBuilder().setProvider("BC").build(cert))) {
-            //return data.signedContent.content
-            return true
+
+        certs.forEach {
+            if (signer.verify(JcaSimpleSignerInfoVerifierBuilder().setProvider("BC").build(it))) {
+                return true
+            }
         }
+
         return false
+    }
+
+    /**
+     * Verify the signature but does not use the certificate in the signed object
+     */
+    fun verifySignedMessage(base64encodedAns: String, originalMessage: String, certs: List<X509Certificate>): Boolean {
+        val ans = EncryptionUtils.decodeStringToBase64Bytes(base64encodedAns)
+        val contentInfo = ContentInfo.getInstance(ASN1Sequence.fromByteArray(ans))
+        val content = CMSProcessableByteArray(originalMessage.toByteArray())
+        val sig = CMSSignedData(content, contentInfo)
+
+        return verifySignedMessage(sig, certs)
     }
 }

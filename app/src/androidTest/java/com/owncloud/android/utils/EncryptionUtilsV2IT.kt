@@ -33,15 +33,9 @@ import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedUser
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
-import org.apache.commons.codec.binary.Base64
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
-import java.io.ByteArrayInputStream
-import java.io.InputStream
-import java.nio.charset.StandardCharsets
 import java.security.KeyFactory
-import java.security.cert.CertificateFactory
-import java.security.cert.X509Certificate
 import java.security.spec.PKCS8EncodedKeySpec
 
 class EncryptionUtilsV2IT : AbstractIT() {
@@ -97,7 +91,7 @@ class EncryptionUtilsV2IT : AbstractIT() {
         1wdQrkq4BtStKhciY5AIXz9SqsctFHTv4Lwgtkapoel4izJnO0ZqYTXVe7THwri9
         H/gua6uJDWH9jk2/CiZDWfsyFuNUuXvDSp05
         -----END CERTIFICATE-----
-        """.trimIndent()
+    """.trimIndent()
 
     private val enc2Cert = """
         -----BEGIN CERTIFICATE-----
@@ -536,24 +530,21 @@ class EncryptionUtilsV2IT : AbstractIT() {
 
         """.trimIndent()
 
-        val string2 = "this is a test."
-
         val gzipped = encryptionUtilsV2.gZipCompress(string)
-        val gzipBase64 = EncryptionUtils.encodeBytesToBase64String(gzipped)
 
         val result = encryptionUtilsV2.gZipDecompress(gzipped)
 
         assertEquals(string, result)
     }
-    
+
     @Test
     fun gunzip() {
         val encryptionUtilsV2 = EncryptionUtilsV2()
-        
+
         val string = "H4sICNVkD2QAAwArycgsVgCiRIWS1OISPQDD9wZODwAAAA=="
         val decoded = EncryptionUtils.decodeStringToBase64Bytes(string)
         val gunzip = encryptionUtilsV2.gZipDecompress(decoded)
-        
+
         assertEquals("this is a test.\n", gunzip)
     }
 
@@ -569,20 +560,7 @@ class EncryptionUtilsV2IT : AbstractIT() {
         val kf = KeyFactory.getInstance(EncryptionUtils.RSA)
         val privateKey = kf.generatePrivate(keySpec)
 
-        val trimmedCert: String = enc1Cert.replace("-----BEGIN CERTIFICATE-----\n", "")
-            .replace("-----END CERTIFICATE-----\n", "")
-        val encodedCert = trimmedCert.toByteArray(StandardCharsets.UTF_8)
-        val decodedCert = Base64.decodeBase64(encodedCert)
-
-        val certFactory = CertificateFactory.getInstance("X.509")
-        val input: InputStream = ByteArrayInputStream(decodedCert)
-        val certificate = certFactory.generateCertificate(input) as X509Certificate
-
-        val signedSimple = encryptionUtilsV2.signMessageSimple(
-            certificate,
-            privateKey,
-            json.toByteArray()
-        )
+        val certificate = EncryptionUtils.convertCertFromString(enc1Cert)
 
         val signed = encryptionUtilsV2.signMessage(
             certificate,
@@ -593,15 +571,12 @@ class EncryptionUtilsV2IT : AbstractIT() {
         val ans = signed.getEncoded("BER")
         val base64Ans = EncryptionUtils.encodeBytesToBase64String(ans)
 
-        //signed.toASN1Structure().
-
-        // val base64signed = EncryptionUtils.encodeBytesToBase64String(signed)
-
-        assertTrue(encryptionUtilsV2.verifySignedMessage(signedSimple, certificate))
-
-        assertTrue(encryptionUtilsV2.verifySignedMessage(signed, certificate))
-
-        // val decodedAns = EncryptionUtils.decodeStringToBase64Bytes(base64Ans)
-        // assertTrue(encryptionUtilsV2.verifySignedMessage(ans, certificate))
+        // verify
+        val certs = listOf(
+            EncryptionUtils.convertCertFromString(enc2Cert),
+            certificate
+        )
+        assertTrue(encryptionUtilsV2.verifySignedMessage(signed, certs))
+        assertTrue(encryptionUtilsV2.verifySignedMessage(base64Ans, json, certs))
     }
 }

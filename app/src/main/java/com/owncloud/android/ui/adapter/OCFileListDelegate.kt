@@ -245,7 +245,7 @@ class OCFileListDelegate(
             !file.isFolder && file.isEncrypted ||
             file.isEncrypted && !EncryptionUtils.supportsSecureFiledrop(file, user) ||
             searchType == SearchType.FAVORITE_SEARCH ||
-            file.isFolder && currentDirectory.isEncrypted // sharing an encrypted subfolder is not possible 
+            file.isFolder && currentDirectory.isEncrypted // sharing an encrypted subfolder is not possible
         if (shouldHideShare) {
             gridViewHolder.shared.visibility = View.GONE
         } else {

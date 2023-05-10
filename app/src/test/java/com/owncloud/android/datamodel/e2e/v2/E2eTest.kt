@@ -77,7 +77,7 @@ class E2eTest {
         1wdQrkq4BtStKhciY5AIXz9SqsctFHTv4Lwgtkapoel4izJnO0ZqYTXVe7THwri9
         H/gua6uJDWH9jk2/CiZDWfsyFuNUuXvDSp05
         -----END CERTIFICATE-----
-        """.trimIndent()
+    """.trimIndent()
 
     @Test
     fun createMetadataFile() {

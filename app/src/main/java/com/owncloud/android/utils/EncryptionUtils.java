@@ -977,7 +977,7 @@ public final class EncryptionUtils {
         }
     }
 
-    public static RSAPublicKey convertPublicKeyFromString(String string) throws CertificateException {
+    public static X509Certificate convertCertFromString(String string) throws CertificateException {
         String trimmedCert = string.replace("-----BEGIN CERTIFICATE-----\n", "")
             .replace("-----END CERTIFICATE-----\n", "");
         byte[] encodedCert = trimmedCert.getBytes(StandardCharsets.UTF_8);
@@ -985,8 +985,11 @@ public final class EncryptionUtils {
 
         CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
         InputStream in = new ByteArrayInputStream(decodedCert);
-        X509Certificate certificate = (X509Certificate) certFactory.generateCertificate(in);
-        return (RSAPublicKey) certificate.getPublicKey();
+        return (X509Certificate) certFactory.generateCertificate(in);
+    }
+
+    public static RSAPublicKey convertPublicKeyFromString(String string) throws CertificateException {
+        return (RSAPublicKey) convertCertFromString(string).getPublicKey();
     }
 
     public static void removeE2E(ArbitraryDataProvider arbitraryDataProvider, User user) {
