@@ -1,0 +1,2 @@
+Build(deps): Bump com.github.nextcloud.android-common:ui
+Update 3rd-party dependencies
