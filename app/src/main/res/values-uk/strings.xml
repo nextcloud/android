@@ -160,6 +160,7 @@
     <string name="conflict_local_file">Файл на пристрої</string>
     <string name="conflict_message_description">Якщо ви виберете обидві версії, то до назви локального файлу буде додано порядковий номер.</string>
     <string name="conflict_server_file">Файл сервера</string>
+    <string name="contact_backup_title">Резервне копіювання контактів</string>
     <string name="contactlist_item_icon">Іконка списку контактів</string>
     <string name="contactlist_no_permission">Не надано дозволів, дані не імпортовано</string>
     <string name="contacts">Контакти</string>
@@ -237,6 +238,7 @@
     <string name="drawer_item_all_files">Усі файли</string>
     <string name="drawer_item_favorites">Із зірочкою</string>
     <string name="drawer_item_gallery">Зображення та відео</string>
+    <string name="drawer_item_groupfolders">Групові папки</string>
     <string name="drawer_item_home">Старт</string>
     <string name="drawer_item_notifications">Сповіщення</string>
     <string name="drawer_item_on_device">На пристрої</string>

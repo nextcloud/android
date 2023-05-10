@@ -237,6 +237,7 @@
     <string name="drawer_item_all_files">Alla filer</string>
     <string name="drawer_item_favorites">Favoriter</string>
     <string name="drawer_item_gallery">Media</string>
+    <string name="drawer_item_groupfolders">Gruppmappar</string>
     <string name="drawer_item_home">Hem</string>
     <string name="drawer_item_notifications">Aviseringar</string>
     <string name="drawer_item_on_device">Filer på enheten</string>
@@ -797,7 +798,6 @@
     <string name="synced_folders_type">Typ</string>
     <string name="synced_icon">Synkroniserad</string>
     <string name="tags">Taggar</string>
-    <string name="tags_more">+%1$d</string>
     <string name="test_server_button">Testa serveranslutning</string>
     <string name="thirtyMinutes">30 minuter</string>
     <string name="thisWeek">Denna vecka</string>
