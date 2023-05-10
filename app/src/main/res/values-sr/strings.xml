@@ -561,6 +561,7 @@
     <string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
     <string name="prefs_daily_backup_summary">Дневна резервна копија контаката вашег календара &amp;</string>
+    <string name="prefs_daily_contact_backup_summary">Дневно архивирање ваших контаката</string>
     <string name="prefs_davx5_setup_error">Неочекивана грешка приликом подешавања DAVx5 (раније познатог под именом DAVdroid)</string>
     <string name="prefs_e2e_active">Подешено је шифрирање од почетка-до-краја!</string>
     <string name="prefs_e2e_mnemonic">Е2Е мнемоник</string>

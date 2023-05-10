@@ -524,6 +524,7 @@
     <string name="prefs_category_general">Bendra</string>
     <string name="prefs_category_more">Daugiau</string>
     <string name="prefs_daily_backup_summary">Kasdienė jūsų adresatų ir kalendoriaus atsarginė kopija</string>
+    <string name="prefs_daily_contact_backup_summary">Kasdieninė Jūsų kontaktų atsarginė kopija</string>
     <string name="prefs_e2e_mnemonic">E2E mnemoninis</string>
     <string name="prefs_e2e_no_device_credentials">Norėdami parodyti \"mnemoniką\", įjunkite įrenginio prisijungimo duomenis.</string>
     <string name="prefs_enable_media_scan_notifications">Rodyti medijos nuskaitymo pranešimus</string>

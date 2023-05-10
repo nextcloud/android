@@ -557,6 +557,7 @@
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
     <string name="prefs_daily_backup_summary">Dnevno varnostno kopiranje koledarja &amp; stikov</string>
+    <string name="prefs_daily_contact_backup_summary">Dnevno usklajevanje stikov</string>
     <string name="prefs_davx5_setup_error">Nepričakovana napaka pri nastavljanju DAVx5 (prej poznano kot DAVdroid)</string>
     <string name="prefs_e2e_active">Celovito šifriranje E2E je nastavljeno!</string>
     <string name="prefs_e2e_mnemonic">Mnemonika E2E</string>

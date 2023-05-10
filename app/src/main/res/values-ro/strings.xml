@@ -552,6 +552,7 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Mai mult</string>
     <string name="prefs_daily_backup_summary">Salvarea zilnică a calendarului &amp;a contactelor</string>
+    <string name="prefs_daily_contact_backup_summary">Salvarea zilnică a contactelor dvs.</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Pentru a arăta fraza de memorare (mnemonic) vă rugăm activați acreditările dispozitivului.</string>
     <string name="prefs_enable_media_scan_notifications">Afișează notificări despre scanarea media</string>

@@ -483,6 +483,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
+    <string name="prefs_daily_contact_backup_summary">Backup diario de tus contactos</string>
     <string name="prefs_e2e_mnemonic">E2E mnemotécnico</string>
     <string name="prefs_e2e_no_device_credentials">Para mostrar mnemónico por favor habilite las credenciales del dispositivo.</string>
     <string name="prefs_enable_media_scan_notifications">Mostrar notificaciones de escaneo de medios</string>

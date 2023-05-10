@@ -107,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:paddingTop="@dimen/standard_quarter_padding"
+                android:visibility="gone"
                 app:chipSpacingVertical="@dimen/standard_quarter_padding">
 
                 <com.google.android.material.chip.Chip

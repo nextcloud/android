@@ -561,6 +561,7 @@
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
     <string name="prefs_daily_backup_summary">달력 &amp; 의 연락처 매일 백업</string>
+    <string name="prefs_daily_contact_backup_summary">연락처 일간 백업</string>
     <string name="prefs_davx5_setup_error">DAVx5를 설정하는 동안 발생한 예기치 못한 에러</string>
     <string name="prefs_e2e_active">종단간 암호화가 설정됩니다!</string>
     <string name="prefs_e2e_mnemonic">E2E 연상 기호</string>

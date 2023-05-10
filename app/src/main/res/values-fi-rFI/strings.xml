@@ -556,6 +556,7 @@
     <string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
     <string name="prefs_daily_backup_summary">Päivittäinen kalenterin &amp; yhteystietojen varmuuskopio</string>
+    <string name="prefs_daily_contact_backup_summary">Päivittäinen varmuuskopio yhteystiedoistasi</string>
     <string name="prefs_davx5_setup_error">Odottamaton virhe määritettäessä DAVx5:tä (aiemmin DAVdroid)</string>
     <string name="prefs_e2e_active">Päästä päähän -salaus on määritetty!</string>
     <string name="prefs_e2e_mnemonic">E2E-avainkoodi</string>

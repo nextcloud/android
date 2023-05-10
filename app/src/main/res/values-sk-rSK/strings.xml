@@ -552,6 +552,7 @@
     <string name="prefs_category_general">Všeobecné</string>
     <string name="prefs_category_more">Viac</string>
     <string name="prefs_daily_backup_summary">Denná záloha vašeho kalendára &amp; kontaktov</string>
+    <string name="prefs_daily_contact_backup_summary">Denná záloha vašich kontaktov</string>
     <string name="prefs_e2e_active">End-to-end šifrovanie je nastavené!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemotechnické</string>
     <string name="prefs_e2e_no_device_credentials">Pre zobrazenie mnemotechnické, zapnite prihlasovacie údaje zariadenia.</string>

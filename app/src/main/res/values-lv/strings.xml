@@ -345,6 +345,7 @@
     <string name="prefs_category_details">Detaļas</string>
     <string name="prefs_category_general">Vispārīgi</string>
     <string name="prefs_category_more">Vairāk</string>
+    <string name="prefs_daily_contact_backup_summary">Ikdieniška kontaktu dublēšana</string>
     <string name="prefs_enable_media_scan_notifications">Rādīt mediju skenēšanas paziņojumus</string>
     <string name="prefs_enable_media_scan_notifications_summary">Paziņt par jaunas mediju mapes atrašanu</string>
     <string name="prefs_help">Palīdzība</string>

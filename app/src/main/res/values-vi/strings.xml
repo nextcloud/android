@@ -544,6 +544,7 @@
     <string name="prefs_category_general">Tổng hợp</string>
     <string name="prefs_category_more">hơn</string>
     <string name="prefs_daily_backup_summary">Sao lưu hàng ngày lịch &amp; danh bạ của bạn</string>
+    <string name="prefs_daily_contact_backup_summary">Sao lưu hàng ngày danh bạn của bạn</string>
     <string name="prefs_e2e_active">Mã hoá đầu cuối đã được thiết lập</string>
     <string name="prefs_e2e_mnemonic">E2E ghi nhớ</string>
     <string name="prefs_e2e_no_device_credentials">Để hiển thị ghi nhớ, vui lòng bật thông tin đăng nhập thiết bị.</string>

@@ -491,6 +491,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
+    <string name="prefs_daily_contact_backup_summary">Daglegt öryggisafrit af tengiliðum</string>
     <string name="prefs_e2e_mnemonic">E2E minnistækni</string>
     <string name="prefs_e2e_no_device_credentials">Til að birta minnishjálp skaltu virkja auðkenningu tækisins.</string>
     <string name="prefs_enable_media_scan_notifications">Birta tilkynningar vegna skönnunar eftir margmiðlunarefni</string>
