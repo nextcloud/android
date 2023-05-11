@@ -559,6 +559,7 @@
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
     <string name="prefs_daily_backup_summary">Ημερήσιο αντίγραφο ασφαλείας του ημερολογίου &amp; επαφών σας </string>
+    <string name="prefs_daily_contact_backup_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
     <string name="prefs_e2e_active">Η κρυπτογράφηση από άκρο σε άκρο έχει ρυθμιστεί!</string>
     <string name="prefs_e2e_mnemonic">E2E μνήμη</string>
     <string name="prefs_e2e_no_device_credentials">Για την εμφάνιση της μνήμης παρακαλούμε ενεργοποιήστε τα διαπιστευτήρια συσκευής.</string>

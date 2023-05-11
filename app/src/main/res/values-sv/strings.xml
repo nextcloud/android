@@ -159,6 +159,7 @@
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
     <string name="conflict_server_file">Serverfil</string>
+    <string name="contact_backup_title">Backup av kontakter</string>
     <string name="contactlist_item_icon">Användarikon för kontaktlista</string>
     <string name="contactlist_no_permission">Ingen tillstått givet, ingen importerat!</string>
     <string name="contacts">Kontakter</string>
@@ -236,6 +237,7 @@
     <string name="drawer_item_all_files">Alla filer</string>
     <string name="drawer_item_favorites">Favoriter</string>
     <string name="drawer_item_gallery">Media</string>
+    <string name="drawer_item_groupfolders">Gruppmappar</string>
     <string name="drawer_item_home">Hem</string>
     <string name="drawer_item_notifications">Aviseringar</string>
     <string name="drawer_item_on_device">Filer på enheten</string>

@@ -468,6 +468,7 @@
     <string name="prefs_category_dev">Diorenn</string>
     <string name="prefs_category_general">Hollek</string>
     <string name="prefs_category_more">Muioc\'h</string>
+    <string name="prefs_daily_contact_backup_summary">Enrolladur deizek eus o darempredoù</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Evit diskwell mnemonic, aotreit titouroù identitelez o ardivink mar-plij.</string>
     <string name="prefs_enable_media_scan_notifications">Diskouezit scan kemenadennoù ar media</string>

@@ -159,6 +159,7 @@
     <string name="conflict_local_file">Локални фајл</string>
     <string name="conflict_message_description">Ако изаберете обе верзије, локални фајл имаће број придодат свом називу.</string>
     <string name="conflict_server_file">Серверски фајл</string>
+    <string name="contact_backup_title">Резервна копија контаката</string>
     <string name="contactlist_item_icon">Икона корисника за листу контаката</string>
     <string name="contactlist_no_permission">Није дата дозвола. Ништа није увезено.</string>
     <string name="contacts">Контакти</string>
@@ -236,6 +237,7 @@
     <string name="drawer_item_all_files">Сви фајлови</string>
     <string name="drawer_item_favorites">Омиљено</string>
     <string name="drawer_item_gallery">Медији</string>
+    <string name="drawer_item_groupfolders">Фолдери групе</string>
     <string name="drawer_item_home">Почетна</string>
     <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_item_on_device">На уређају</string>

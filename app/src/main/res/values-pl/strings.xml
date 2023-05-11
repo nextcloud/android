@@ -159,6 +159,7 @@
     <string name="conflict_local_file">Plik lokalny</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
     <string name="conflict_server_file">Plik z serwera</string>
+    <string name="contact_backup_title">Kopia zapasowa kontaktów</string>
     <string name="contactlist_item_icon">Ikona użytkownika w liście kontaktów</string>
     <string name="contactlist_no_permission">Brak nadanych uprawnień, nic nie zaimportowano.</string>
     <string name="contacts">Kontakty</string>
@@ -236,6 +237,7 @@
     <string name="drawer_item_all_files">Wszystkie pliki</string>
     <string name="drawer_item_favorites">Ulubione</string>
     <string name="drawer_item_gallery">Media</string>
+    <string name="drawer_item_groupfolders">Katalog grupowy</string>
     <string name="drawer_item_home">Start</string>
     <string name="drawer_item_notifications">Powiadomienia</string>
     <string name="drawer_item_on_device">Na urządzeniu</string>
