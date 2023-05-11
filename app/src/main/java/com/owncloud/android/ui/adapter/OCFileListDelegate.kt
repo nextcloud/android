@@ -36,10 +36,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncGalleryImageDrawable
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.GalleryImageGenerationTask
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.GalleryImageGenerationTask.GalleryListener
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.fragment.SearchType
@@ -68,7 +65,7 @@ class OCFileListDelegate(
     private val checkedFiles: MutableSet<OCFile> = HashSet()
     private var highlightedItem: OCFile? = null
     var isMultiSelect = false
-    private val asyncTasks: MutableList<ThumbnailGenerationTask> = ArrayList()
+    private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
     private val asyncGalleryTasks: MutableList<ThumbnailsCacheManager.GalleryImageGenerationTask> = ArrayList()
     fun setHighlightedItem(highlightedItem: OCFile?) {
         this.highlightedItem = highlightedItem
@@ -139,7 +136,7 @@ class OCFileListDelegate(
                 }
             }
             try {
-                val task = GalleryImageGenerationTask(
+                val task = ThumbnailsCacheManager.GalleryImageGenerationTask(
                     thumbnailView,
                     user,
                     storageManager,
@@ -164,7 +161,7 @@ class OCFileListDelegate(
                     drawable = ColorDrawable(Color.GRAY)
                 }
                 val thumbnail = BitmapUtils.drawableToBitmap(drawable, width / 2, width / 2)
-                val asyncDrawable = AsyncGalleryImageDrawable(
+                val asyncDrawable = ThumbnailsCacheManager.AsyncGalleryImageDrawable(
                     context.resources,
                     thumbnail,
                     task
@@ -243,7 +240,6 @@ class OCFileListDelegate(
         // shares
         val shouldHideShare = gridView ||
             hideItemOptions ||
-            file.isFolder && !file.canReshare() ||
             !file.isFolder && file.isEncrypted ||
             file.isEncrypted && !EncryptionUtils.supportsSecureFiledrop(file, user) ||
             searchType == SearchType.FAVORITE_SEARCH
