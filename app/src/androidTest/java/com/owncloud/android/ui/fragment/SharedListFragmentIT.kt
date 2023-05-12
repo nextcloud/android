@@ -112,6 +112,7 @@ internal class SharedListFragmentIT : AbstractIT() {
                 permissions = OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
                 userId = getUserId(user)
                 sharedDate = 1188206955
+                mimetype = "image/png"
                 sut.storageManager.saveShare(this)
             },
 
@@ -122,6 +123,7 @@ internal class SharedListFragmentIT : AbstractIT() {
                 permissions = OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
                 userId = getUserId(user)
                 sharedDate = 1188206955
+                mimetype = "image/png"
                 sut.storageManager.saveShare(this)
             },
 
@@ -130,6 +132,7 @@ internal class SharedListFragmentIT : AbstractIT() {
                 shareType = ShareType.PUBLIC_LINK
                 label = "Customer"
                 sharedDate = 1188206955
+                mimetype = "image/png"
                 sut.storageManager.saveShare(this)
             },
 
@@ -140,6 +143,7 @@ internal class SharedListFragmentIT : AbstractIT() {
                 permissions = OCShare.SHARE_PERMISSION_FLAG
                 userId = getUserId(user)
                 sharedDate = 1188206955
+                mimetype = "image/png"
                 sut.storageManager.saveShare(this)
             },
 
@@ -150,6 +154,7 @@ internal class SharedListFragmentIT : AbstractIT() {
                 permissions = OCShare.SHARE_PERMISSION_FLAG
                 userId = getUserId(user)
                 sharedDate = 1188206955
+                mimetype = "image/png"
                 sut.storageManager.saveShare(this)
             }
         )
