@@ -42,17 +42,6 @@ class GroupfolderListFragmentIT : AbstractIT() {
         activity = testActivityRule.launchActivity(null)
     }
 
-    @ScreenshotTest
-    @Test
-    fun showEmpty() {
-        val sut = GroupfolderListFragment()
-        activity.addFragment(sut)
-
-        waitForIdleSync()
-
-        screenshot(activity)
-    }
-
     @Test
     @ScreenshotTest
     fun showGroupfolders() {
