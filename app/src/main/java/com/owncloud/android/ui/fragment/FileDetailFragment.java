@@ -242,8 +242,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 chip.setText(tag);
                 chip.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.bg_default,
                                                                                            context.getTheme())));
-                chip.setTextColor(getResources().getColor(R.color.list_item_lastmod_and_filesize_text,
-                                                          context.getTheme()));
+                chip.setShapeAppearanceModel(chip.getShapeAppearanceModel().toBuilder().setAllCornerSizes((100.0f))
+                                                 .build());
+                chip.setEnsureMinTouchTargetSize(false);
+                chip.setClickable(false);
+                viewThemeUtils.material.themeChipSuggestion(chip);
                 binding.tagsGroup.addView(chip);
             }
         }
