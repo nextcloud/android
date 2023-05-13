@@ -27,6 +27,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
+import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.owncloud.android.databinding.ListItemBinding
 import com.owncloud.android.ui.AvatarGroupLayout
@@ -52,11 +53,11 @@ internal class OCFileListItemViewHolder(private var binding: ListItemBinding) :
         get() = binding.thumbnailLayout.thumbnail
     override val tagsGroup: ChipGroup
         get() = binding.tagsGroup
-    override val firstTag: TextView
+    override val firstTag: Chip
         get() = binding.firstTag
-    override val secondTag: TextView
+    override val secondTag: Chip
         get() = binding.secondTag
-    override val tagMore: TextView
+    override val tagMore: Chip
         get() = binding.tagMore
     override val fileDetailGroup: LinearLayout
         get() = binding.fileDetailGroup

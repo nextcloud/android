@@ -242,7 +242,7 @@ dependencies {
     implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.5' // remove after entire switch to lib v2
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'com.jakewharton:disklrucache:2.0.2'
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation 'androidx.webkit:webkit:1.6.1'
@@ -367,7 +367,7 @@ dependencies {
     // upon each update first test: new registration, receive push
     gplayImplementation "com.google.firebase:firebase-messaging:23.1.2"
 
-    implementation 'com.github.nextcloud.android-common:ui:0.8.0'
+    implementation 'com.github.nextcloud.android-common:ui:0.10.0'
 
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
