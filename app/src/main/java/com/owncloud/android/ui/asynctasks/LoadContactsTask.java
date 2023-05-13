@@ -23,15 +23,19 @@
 package com.owncloud.android.ui.asynctasks;
 
 import android.os.AsyncTask;
+import android.os.Build;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.VCardComparator;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -61,7 +65,11 @@ public class LoadContactsTask extends AsyncTask<Void, Void, Boolean> {
         if (!isCancelled()) {
             File file = new File(ocFile.getStoragePath());
             try {
-                vCards.addAll(Ezvcard.parse(file).all());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vCards.addAll(Ezvcard.parse(new BufferedInputStream(Files.newInputStream(file.toPath()))).all());
+                } else {
+                    vCards.addAll(Ezvcard.parse(new BufferedInputStream(new FileInputStream((file)))).all());
+                }
                 Collections.sort(vCards, new VCardComparator());
             } catch (IOException e) {
                 Log_OC.e(this, "IO Exception: " + file.getAbsolutePath());

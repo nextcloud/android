@@ -256,7 +256,7 @@ dependencies {
     compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'org.greenrobot:eventbus:3.3.1'
-    implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.3'
+    implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.0'
     implementation 'org.lukhnos:nnio:0.2'
     implementation 'org.bouncycastle:bcpkix-jdk15to18:1.72'
     implementation 'com.google.code.gson:gson:2.10.1'

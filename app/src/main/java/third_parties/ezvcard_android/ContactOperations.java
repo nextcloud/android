@@ -14,8 +14,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -478,7 +478,7 @@ public class ContactOperations {
         @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         for (Birthday birthday : vcard.getBirthdays()) {
-            Date date = birthday.getDate();
+            Temporal date = birthday.getDate();
             if (date == null) {
                 continue;
             }

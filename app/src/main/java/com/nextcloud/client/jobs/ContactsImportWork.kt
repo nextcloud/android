@@ -34,9 +34,9 @@ import com.owncloud.android.ui.fragment.contactsbackup.VCardComparator
 import ezvcard.Ezvcard
 import ezvcard.VCard
 import third_parties.ezvcard_android.ContactOperations
-import java.io.File
+import java.io.BufferedInputStream
+import java.io.FileInputStream
 import java.io.IOException
-import java.util.ArrayList
 import java.util.Collections
 import java.util.TreeMap
 
@@ -62,14 +62,14 @@ class ContactsImportWork(
         val contactsAccountType = inputData.getString(ACCOUNT_TYPE)
         val selectedContactsIndices = inputData.getIntArray(SELECTED_CONTACTS_INDICES) ?: IntArray(0)
 
-        val file = File(vCardFilePath)
+        val inputStream = BufferedInputStream(FileInputStream(vCardFilePath))
         val vCards = ArrayList<VCard>()
 
         var cursor: Cursor? = null
         @Suppress("TooGenericExceptionCaught") // legacy code
         try {
             val operations = ContactOperations(applicationContext, contactsAccountName, contactsAccountType)
-            vCards.addAll(Ezvcard.parse(file).all())
+            vCards.addAll(Ezvcard.parse(inputStream).all())
             Collections.sort(
                 vCards,
                 VCardComparator()
@@ -108,6 +108,12 @@ class ContactsImportWork(
             logger.e(TAG, "${e.message}", e)
         } finally {
             cursor?.close()
+        }
+
+        try {
+            inputStream.close()
+        } catch (e: IOException) {
+            logger.e(TAG, "Error closing vCard stream", e)
         }
 
         return Result.success()
