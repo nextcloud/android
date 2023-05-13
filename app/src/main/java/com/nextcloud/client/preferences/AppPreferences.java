@@ -20,9 +20,11 @@
 
 package com.nextcloud.client.preferences;
 
+import com.nextcloud.appReview.AppReviewShownModel;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.FileSortOrder;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
@@ -377,4 +379,9 @@ public interface AppPreferences {
     boolean isStoragePermissionRequested();
 
     void setStoragePermissionRequested(boolean value);
+
+    void setInAppReviewData(@NonNull AppReviewShownModel appReviewShownModel);
+
+    @Nullable
+    AppReviewShownModel getInAppReviewData();
 }
