@@ -34,19 +34,15 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.fragment.GalleryFragment;
-import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import androidx.lifecycle.Lifecycle;
 
 public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.Result> {
 
@@ -221,3 +217,4 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         }
     }
 }
+

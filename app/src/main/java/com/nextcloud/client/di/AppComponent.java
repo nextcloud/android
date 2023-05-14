@@ -22,6 +22,7 @@ package com.nextcloud.client.di;
 
 import android.app.Application;
 
+import com.nextcloud.appReview.InAppReviewModule;
 import com.nextcloud.client.appinfo.AppInfoModule;
 import com.nextcloud.client.database.DatabaseModule;
 import com.nextcloud.client.device.DeviceModule;
@@ -53,6 +54,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
     ViewModelModule.class,
     JobsModule.class,
     IntegrationsModule.class,
+    InAppReviewModule.class,
     ThemeModule.class,
     DatabaseModule.class,
     DispatcherModule.class,

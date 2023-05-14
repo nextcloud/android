@@ -40,6 +40,7 @@ import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
+import com.nextcloud.appReview.InAppReviewHelper;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -178,6 +179,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     MigrationsManager migrationsManager;
 
     @Inject
+    InAppReviewHelper inAppReviewHelper;
+
+    @Inject
     PassCodeManager passCodeManager;
 
     @Inject WalledCheckCache walledCheckCache;
@@ -292,6 +296,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         initSecurityKeyManager();
 
         registerActivityLifecycleCallbacks(new ActivityInjector());
+
+        //update the app restart count when app is launched by the user
+        inAppReviewHelper.resetAndIncrementAppRestartCounter();
 
         int startedMigrationsCount = migrationsManager.startMigration();
         logger.i(TAG, String.format(Locale.US, "Started %d migrations", startedMigrationsCount));
