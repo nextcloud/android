@@ -146,7 +146,7 @@ class FileDetailsSharingProcessFragment :
             if (it.containsKey(ARG_SHARE_TYPE)) {
                 shareType = it.getSerializable(ARG_SHARE_TYPE) as ShareType
             } else if (share != null) {
-                shareType = share!!.shareType
+                shareType = share!!.shareType!!
             }
 
             shareProcessStep = it.getInt(ARG_SCREEN_TYPE, SCREEN_TYPE_PERMISSION)
