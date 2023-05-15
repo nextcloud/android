@@ -146,7 +146,6 @@
     <string name="community_testing_bug_text">Našli jste chybu? Něco podivného?</string>
     <string name="community_testing_headline">Pomozte testováním</string>
     <string name="community_testing_report_text">Nahlásit problém prostřednictvím portálu Github</string>
-    <string name="community_testing_version_text">Chcete nám pomoci zkoušet nadcházející verzi?</string>
     <string name="configure_new_media_folder_detection_notifications">Nastavit</string>
     <string name="confirm_removal">Odebrat lokální šifrování</string>
     <string name="confirmation_remove_file_alert">Opravdu chcete %1$s odstranit?</string>
@@ -159,6 +158,7 @@
     <string name="conflict_local_file">Místní soubor</string>
     <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>
     <string name="conflict_server_file">Soubor na serveru</string>
+    <string name="contact_backup_title">Záloha kontaktů</string>
     <string name="contactlist_item_icon">Ikona uživatele v seznamu kontaktů</string>
     <string name="contactlist_no_permission">Nejsou udělena oprávnění, proto nebylo nic naimportováno.</string>
     <string name="contacts">Kontakty</string>
@@ -190,7 +190,6 @@
     <string name="credentials_disabled">Přihlašovací údaje znepřístupněny</string>
     <string name="daily_backup">Každodenní záloha</string>
     <string name="data_to_back_up">Data k zálohování</string>
-    <string name="date_unknown">Neznámé</string>
     <string name="default_credentials_wrong">Neplatné přihlašovací údaje</string>
     <string name="delete_account">Odebrat účet</string>
     <string name="delete_account_warning">Odebrat účet %s a smazat všechny místní soubory?\n\nTuto akci nelze vzít zpět.</string>
@@ -236,6 +235,7 @@
     <string name="drawer_item_all_files">Všechny soubory</string>
     <string name="drawer_item_favorites">Oblíbené</string>
     <string name="drawer_item_gallery">Média</string>
+    <string name="drawer_item_groupfolders">Skupinové složky</string>
     <string name="drawer_item_home">Domů</string>
     <string name="drawer_item_notifications">Upozornění</string>
     <string name="drawer_item_on_device">Na přístroji</string>
@@ -282,7 +282,6 @@
     <string name="error_showing_encryption_dialog">Chyba při zobrazování dialogu pro nastavení šifrování!</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
     <string name="error_starting_doc_scan">Chyba při spouštění skenu dokumentu</string>
-    <string name="error_starting_scan_doc">Chyb při použití skenování dokumentů</string>
     <string name="etm_accounts">Účty</string>
     <string name="etm_background_job_name">Název úlohy</string>
     <string name="etm_background_job_progress">Průběh</string>
@@ -551,7 +550,6 @@
     <string name="pref_instant_name_collision_policy_title">Co udělat pokud soubor už existuje?</string>
     <string name="prefs_add_account">Přidat účet</string>
     <string name="prefs_calendar_contacts">Synchronizovat kalendář a kontakty</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Adresu serveru pro účet se pro DAVx5 (dříve známé pod názvem DAVdroid) nepodařilo přeložit</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ani Google Play není nainstalováno</string>
     <string name="prefs_calendar_contacts_summary">Nastavit pro stávající účet DAVx5 (dříve známé pod názvem DAVdroid) (verze 1.3.0 a novější)</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizace kalendáře a kontaktů úspěšně dokončena</string>
@@ -801,7 +799,6 @@
     <string name="thumbnail">Náhled</string>
     <string name="thumbnail_for_existing_file_description">Náhled pro existující soubor</string>
     <string name="thumbnail_for_new_file_desc">Náhled pro nový soubor</string>
-    <string name="timeout_richDocuments">Načítání trvá velmi dlouho…</string>
     <string name="today">Dnes</string>
     <string name="trashbin_activity_title">Smazané soubory</string>
     <string name="trashbin_empty_headline">Žádné smazané soubory</string>

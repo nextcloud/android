@@ -101,7 +101,6 @@
     <string name="community_testing_bug_text">იპოვეთ შეცდომა? უცნაურობა?</string>
     <string name="community_testing_headline">დაგვეხმარეთ შემოწმებით</string>
     <string name="community_testing_report_text">დაამატეთ მოხსენიება GitHub-ზე</string>
-    <string name="community_testing_version_text">დაინტერესებული ხართ დაგვეხმაროთ შემდეგი ვერსიის შემოწმებაში?</string>
     <string name="confirmation_remove_file_alert">ნამდვილად გსურთ %1$s-ის გაუქმება?</string>
     <string name="confirmation_remove_files_alert">დარწმუნებული ხართ, რომ გსურთ არჩეული ჩანაწერების გაუქმება?</string>
     <string name="confirmation_remove_folder_alert">ნამდვილად გსურთ %1$s-ის და შემცველობის გაუქმება?</string>
@@ -123,7 +122,6 @@
     <string name="copy_move_to_encrypted_folder_not_supported">ამჟამად კოპირება/გადატანა დაშიფრულ დირექტორიაში არაა მხარდაჭერილი.</string>
     <string name="create">შექმნა</string>
     <string name="create_dir_fail_msg">დირექტორია ვერ შეიქმნა</string>
-    <string name="date_unknown">ამოუცნობი</string>
     <string name="delete_account">ანგარიშის გაუქმება</string>
     <string name="delete_account_warning">გავაუქმოთ ანგარიში %s და ყველა ლოკალური ფაილი?\n\nგაუქმება ვერ იქნება უკუბრუნებული.</string>
     <string name="deselect_all">ყველას წაშლა</string>

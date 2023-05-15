@@ -145,7 +145,6 @@
     <string name="community_testing_bug_text">Ali ste našli hrošča, neustrezno delovanje?</string>
     <string name="community_testing_headline">Pomoč s preizkušanjem</string>
     <string name="community_testing_report_text">Prijava težave na GitHub</string>
-    <string name="community_testing_version_text">Ali bi morda želeli sodelovati pri preizkušanju razvojne različice?</string>
     <string name="configure_new_media_folder_detection_notifications">Nastavi</string>
     <string name="confirm_removal">Odstrani krajevno šifriranje</string>
     <string name="confirmation_remove_file_alert">Ali res želite izbrisati %1$s?</string>
@@ -189,7 +188,6 @@
     <string name="credentials_disabled">Poverila so onemogočena</string>
     <string name="daily_backup">Dnevna varnostna kopija</string>
     <string name="data_to_back_up">Podatki za varnostno kopiranje</string>
-    <string name="date_unknown">Neznano</string>
     <string name="default_credentials_wrong">Nepravilna poverila</string>
     <string name="delete_account">Odstrani račun</string>
     <string name="delete_account_warning">Ali želite odstraniti račun %s z vsemi krajevnimi datotekami?\n\nBrisanja kasneje ni mogoče razveljaviti.</string>
@@ -279,7 +277,6 @@
     <string name="error_retrieving_templates">Napaka pridobivanja predlog</string>
     <string name="error_starting_direct_camera_upload">Napaka začenjanja kamere</string>
     <string name="error_starting_doc_scan">Napaka pri začenjanju preverjanja dokumenta</string>
-    <string name="error_starting_scan_doc">Napaka uporabe preverjanja dokumenta</string>
     <string name="etm_accounts">Računi</string>
     <string name="etm_background_job_name">Ime opravila</string>
     <string name="etm_background_job_progress">Napredek pošiljanja</string>
@@ -547,7 +544,6 @@
     <string name="pref_instant_name_collision_policy_title">Kaj storiti, če datoteka že obstaja?</string>
     <string name="prefs_add_account">Dodaj račun</string>
     <string name="prefs_calendar_contacts">Uskladi koledar in stike</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Strežniškega naslova računa za DAVx5 (posodobljena različica DAVdroid) ni mogoče razrešiti</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni nameščenega ne programa F-Droid ne Google Play</string>
     <string name="prefs_calendar_contacts_summary">Nastavitev DAVx5 (prej znan kot DAVdroid) (v1.3.0+) za trenutni račun</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Nastavitev sinhronizacije koledarja&amp; stikov</string>
@@ -793,7 +789,6 @@
     <string name="thumbnail">Sličica</string>
     <string name="thumbnail_for_existing_file_description">Sličica obstoječe datoteke</string>
     <string name="thumbnail_for_new_file_desc">Sličica za novo datoteko</string>
-    <string name="timeout_richDocuments">Nalaganje poteka nepričakovano dolgo…</string>
     <string name="today">enkrat danes</string>
     <string name="trashbin_activity_title">Izbrisane datoteke</string>
     <string name="trashbin_empty_headline">Ni izbrisanih datotek</string>

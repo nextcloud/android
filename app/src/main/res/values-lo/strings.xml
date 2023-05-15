@@ -142,7 +142,6 @@
     <string name="community_testing_bug_text">ພົບຂໍ້ຜິດພາດບໍ? </string>
     <string name="community_testing_headline">ການຊ່ວຍເຫຼືອ ໂດຍການທົດສອບ</string>
     <string name="community_testing_report_text">ລາຍງານບັນຫາກ່ຽວກັບ GitHub</string>
-    <string name="community_testing_version_text">ສົນໃຈທີ່ຈະຊ່ວຍເຫຼືອໂດຍການທົດສອບສິ່ງທີ່ຈະເປັນເວີຊັ້ນຕໍ່ໄປ?</string>
     <string name="configure_new_media_folder_detection_notifications">ຕັ້ງຄ່າຄອຍຟິກ</string>
     <string name="confirmation_remove_file_alert">ທ່ານຕ້ອງການລືບແທ້ບໍ %1$s?</string>
     <string name="confirmation_remove_files_alert">ທ່ານຕ້ອງການລືບລາຍການທີ່ເລືອກໄວບໍ?</string>
@@ -181,7 +180,6 @@
     <string name="create_rich_workspace">ເພີ່ມຂໍ້ມູນໂຟນເດີ</string>
     <string name="creates_rich_workspace">ສ້າງໂຟນເດີຂໍ້ມຸນ</string>
     <string name="credentials_disabled">ຂໍ້ມູນປະຈໍາຕົວຖືກປິດ</string>
-    <string name="date_unknown">ບໍ່ຮູ້</string>
     <string name="default_credentials_wrong">ການຢັ້ງຢືນຕົວຕົນທີ່ບໍ່ຖືກຕ້ອງ</string>
     <string name="delete_account">ຍ້າຍບັນຊີ</string>
     <string name="delete_account_warning">ລຶບບັນຊີ %sແລະ ລຶບຟາຍໃນຊ່ອງເກັບທັງຫມົດ?\n\nDeletion ບໍ່ສາມາດລົບລ້າງໄດ້.</string>
@@ -485,7 +483,6 @@
     <string name="pref_instant_name_collision_policy_title">ຈະເຮັດແນວໃດຖ້າຟາຍມີຢູ່ແລ້ວ?</string>
     <string name="prefs_add_account">ເພີ່ມບັນຊີ</string>
     <string name="prefs_calendar_contacts">Sync ການຕິດຕໍ່ &amp;ປະຕິທິນ</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">ທີ່ຢູ່ເຊີເວີບໍ່ສາມາດແກ້ໄຂໄດ້ ສໍາລັບ DAVx5 (ທີ່ເຄີຍເປັນທີ່ຮູ້ຈັກໃນຊື່ DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">ທັງ F-Droid ແລະ Google Play ບໍ່ໄດ້ຖືກຕິດຕັ້ງ</string>
     <string name="prefs_calendar_contacts_summary">ຕັ້ງ DAVx5 (ເຄີຍເປັນທີ່ຮູ້ຈັກໃນຊື່ DAVdroid) (v1.3.0+) ສໍາລັບບັນຊີປະຈຸບັນ</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">  ຕັ້ງຄ່າການຕິດຕໍ່ sync ການຕິດຕໍ່&amp;ປະຕິທິປະຕິທິນ</string>
@@ -700,7 +697,6 @@
     <string name="thumbnail">ຮຸບຂະໜາດຫຍໍ້</string>
     <string name="thumbnail_for_existing_file_description">ຮຸບຂະໜາດຫຍໍ້ຂອງຟາຍທີ່ມີຢູ່</string>
     <string name="thumbnail_for_new_file_desc">ຮຸບຂະໜາດຫຍໍ້ຂອງຟາຍໃໝ່</string>
-    <string name="timeout_richDocuments">ການໂຫຼດມໃຊ້ເວລາດົນ...</string>
     <string name="today">ມື້ນີ້</string>
     <string name="trashbin_activity_title">ຟາຍທີ່ ຖືກ ລຶບ</string>
     <string name="trashbin_empty_headline">ບໍ່ມີຟາຍທີ່ຖືກລຶບອອກ</string>

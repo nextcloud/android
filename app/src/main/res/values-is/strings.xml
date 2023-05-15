@@ -137,7 +137,6 @@
     <string name="community_testing_bug_text">Fannstu villu? Skringilegheit?</string>
     <string name="community_testing_headline">Hjálpaðu til við prófanir</string>
     <string name="community_testing_report_text">Tilkynntu um vandamál á GitHub</string>
-    <string name="community_testing_version_text">Hefurðu áhuga á að hjálpa til við að prófa næstu útgáfu?</string>
     <string name="configure_new_media_folder_detection_notifications">Stilla</string>
     <string name="confirmation_remove_file_alert">Viltu virkilega eyða \'%s\'?</string>
     <string name="confirmation_remove_files_alert">Ertu viss um að þú viljir eyða völdum atriðum?</string>
@@ -177,7 +176,6 @@
     <string name="create_rich_workspace">Bæta við upplýsingum möppu</string>
     <string name="creates_rich_workspace">býr til upplýsingar um möppu</string>
     <string name="credentials_disabled">Auðkenni óvirk</string>
-    <string name="date_unknown">Óþekkt</string>
     <string name="default_credentials_wrong">Röng auðkenni</string>
     <string name="delete_account">Fjarlægja reikning</string>
     <string name="delete_account_warning">Fjarlægja notandaaðgang %s og eyða öllum staðværum skrám?\n\nEkki er hægt að afturkalla aðgerðina.</string>
@@ -482,7 +480,6 @@
     <string name="pref_instant_name_collision_policy_title">Hvað á að gera ef skráin er þegar til staðar?</string>
     <string name="prefs_add_account">Bæta við notandaaðgangi</string>
     <string name="prefs_calendar_contacts">Samstilla dagatal &amp; tengiliði</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Ekki var hægt að leysa vistfang aðgangsins fyrir DAVx5 (áður þekkt sem DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Hvorki F-Droid né Google Play eru uppsett</string>
     <string name="prefs_calendar_contacts_summary">Setja upp DAVx5 (áður þekkt sem DAVdroid) (v1.3.0+) fyrir þennan aðgang</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Samstillingar dagatals 1&amp; tengiliða eru uppsettar</string>
@@ -690,7 +687,6 @@
     <string name="thumbnail">Smámynd</string>
     <string name="thumbnail_for_existing_file_description">Smámynd fyrirliggjandi skráar</string>
     <string name="thumbnail_for_new_file_desc">Smámynd nýrrar skráar</string>
-    <string name="timeout_richDocuments">Hleðsla tekur langan tíma …</string>
     <string name="today">Í dag</string>
     <string name="trashbin_activity_title">eyddar skrár</string>
     <string name="trashbin_empty_headline">Engar eyddar skrár</string>

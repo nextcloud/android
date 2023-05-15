@@ -138,7 +138,6 @@
     <string name="community_testing_bug_text">Најдовте грешка? </string>
     <string name="community_testing_headline">Помогни со тестирање</string>
     <string name="community_testing_report_text">Пријави проблем на GitHub</string>
-    <string name="community_testing_version_text">Дали сте заинтересирани за тестирање на тоа што ќе биде во новата верзија?</string>
     <string name="configure_new_media_folder_detection_notifications">Конфигурирај</string>
     <string name="confirmation_remove_file_alert">Дали си сигурен дека сакаш да ја избришеш %1$s?</string>
     <string name="confirmation_remove_files_alert">Дали си сигурен дека сакаш да ја избришеш означената ставка?</string>
@@ -180,7 +179,6 @@
     <string name="creates_rich_workspace">креира инфо за папката</string>
     <string name="credentials_disabled">Акредитивите се оневозможени</string>
     <string name="daily_backup">Дневена резервна копија</string>
-    <string name="date_unknown">Непознат</string>
     <string name="default_credentials_wrong">Погрешни акредитиви</string>
     <string name="delete_account">Отстрани сметка</string>
     <string name="delete_account_warning">Избриши ја сметката %s и избриши ги локалните датотеки?\n\nПозсле бришењето на датотеките неможат да се вратат.</string>
@@ -487,7 +485,6 @@
     <string name="pref_instant_name_collision_policy_title">Што ако датотеката веќе постои?</string>
     <string name="prefs_add_account">Додади сметка</string>
     <string name="prefs_calendar_contacts">Синхронизирај календар &amp; контакти</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Адресата на серверот за сметката неможе да разреши за DAVx5 (поранешно познат како DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_summary">Подеси DAVx5 (Порано познат под името DAVdroid) (v1.3.0+) за оваа сметка</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Подесување за календар &amp; контакти</string>
@@ -691,7 +688,6 @@
     <string name="thirtyMinutes">30 минути</string>
     <string name="thisWeek">Оваа недела</string>
     <string name="thumbnail">Мали слики</string>
-    <string name="timeout_richDocuments">Вчитувањето трае премногу долго…</string>
     <string name="today">Денес</string>
     <string name="trashbin_activity_title">Избришани датотеки</string>
     <string name="trashbin_empty_headline">Нема избришани датотеки</string>

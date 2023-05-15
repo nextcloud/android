@@ -138,7 +138,6 @@
     <string name="community_testing_bug_text">As agatadu un\'errore? Cosas istranas?</string>
     <string name="community_testing_headline">Agiuda·nos cun una proa</string>
     <string name="community_testing_report_text">Sinnala unu problema in GitHub</string>
-    <string name="community_testing_version_text">T\'interessat a nos agiudare faghende una proa de sa versione imbeniente?</string>
     <string name="configure_new_media_folder_detection_notifications">Cunfigura</string>
     <string name="confirmation_remove_file_alert">A beru boles cantzellare %1$s?</string>
     <string name="confirmation_remove_files_alert">A beru boles cantzellare s\'elementu seberadu?</string>
@@ -177,7 +176,6 @@
     <string name="create_rich_workspace">Agiunghe informatziones de sa cartella</string>
     <string name="creates_rich_workspace">creat informatziones de sa cartella</string>
     <string name="credentials_disabled">Credentziales disativadas</string>
-    <string name="date_unknown">Non connotu</string>
     <string name="default_credentials_wrong">Credentziales isballiadas</string>
     <string name="delete_account">Boga·nche su contu</string>
     <string name="delete_account_warning">Bogare su contu %s e cantzellare is documentos locales?\n\nSa cantzelladura non faghet a dd\'annullare.</string>
@@ -492,7 +490,6 @@
     <string name="pref_instant_name_collision_policy_title">Ite fàghere si su documentu esistit giai?</string>
     <string name="prefs_add_account">Agiunghe contu</string>
     <string name="prefs_calendar_contacts">Sincroniza calendàriu &amp; cuntatos</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">S\'indiritzu de su serbidore pro su contu non s\'est pòdidu resòlvere pro more de DAVx5 (antis connotu comente DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Nen F-Droid nen Google Play sunt installados</string>
     <string name="prefs_calendar_contacts_summary">Cunfigura DAVx5 (antis connotu comente DAVdroid) (v1.3.0+) pro custu contu</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizatzione de is cuntatos de Calendàriu &amp; impostada</string>
@@ -710,7 +707,6 @@
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura pro is archìvios chi esistint giai</string>
     <string name="thumbnail_for_new_file_desc">Miniatura pro archìviu nou</string>
-    <string name="timeout_richDocuments">Su carrigamentu istentat meda...</string>
     <string name="today">Oe</string>
     <string name="trashbin_activity_title">Archìvios cantzellados</string>
     <string name="trashbin_empty_headline">Archìvios no cantzellados</string>

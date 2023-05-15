@@ -120,7 +120,6 @@
     <string name="community_testing_bug_text">Ĉu vi trovis eraron? Ion stranga?</string>
     <string name="community_testing_headline">Helpi per testado</string>
     <string name="community_testing_report_text">Raporti problemon per GitHub</string>
-    <string name="community_testing_version_text">Ĉu vi pretas helpi testante la proksiman version?</string>
     <string name="configure_new_media_folder_detection_notifications">Agordi</string>
     <string name="confirmation_remove_file_alert">Ĉu vi ja volas forigi %1$s?</string>
     <string name="confirmation_remove_files_alert">Ĉu vi ja volas forigi la elektitajn elementojn?</string>
@@ -149,7 +148,6 @@
     <string name="create_new_presentation">Krei novan prezentaĵon</string>
     <string name="create_new_spreadsheet">Krei novan kalkultabelon</string>
     <string name="credentials_disabled">Akreditiloj estas malebligitaj</string>
-    <string name="date_unknown">Nekonata</string>
     <string name="default_credentials_wrong">Malĝustaj akreditiloj</string>
     <string name="delete_account">Forigi konton</string>
     <string name="delete_account_warning">Ĉu forigi la konton %s kaj forigi ĉiujn lokajn dosierojn?\n\nMalfari la forigadon tute ne eblas.</string>
@@ -391,7 +389,6 @@
     <string name="pref_behaviour_entries_move">movita al aplikaĵa dosierujo</string>
     <string name="prefs_add_account">Aldoni konton</string>
     <string name="prefs_calendar_contacts">Sinkronigi kalendaron kaj kontaktaron</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">La adreson de la servilo el la nuna konto ne trovis la aplikaĵo DAVx5 (eks-DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Nek „F-Droid“ nek „Google Play“ estas instalita</string>
     <string name="prefs_calendar_contacts_summary">Agordi aplikaĵon DAVx5 (eks-DAVdroid) (versio 1.3.0 kaj posta) por la nuna konto</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendara kaj kontaktara sinkronigo agordita</string>
@@ -565,7 +562,6 @@
     <string name="tags">Etikedoj</string>
     <string name="test_server_button">Testi konekton al servilo</string>
     <string name="thumbnail">Miniaturo</string>
-    <string name="timeout_richDocuments">Ŝargo daŭras longe...</string>
     <string name="today">Hodiaŭ</string>
     <string name="trashbin_activity_title">Forigitaj dosieroj</string>
     <string name="trashbin_empty_headline">Neniu forigita dosiero</string>

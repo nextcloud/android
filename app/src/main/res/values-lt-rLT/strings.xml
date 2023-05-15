@@ -142,7 +142,6 @@
     <string name="community_testing_bug_text">Radote klaidą? Netikslumą?</string>
     <string name="community_testing_headline">Pagalba testuojant</string>
     <string name="community_testing_report_text">Pranešti apie problemą per „GitHub“</string>
-    <string name="community_testing_version_text">Norite padėti testuoti ir išbandyti, kokia bus kita versija?</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigūruoti</string>
     <string name="confirmation_remove_file_alert">Ar tikrai norite ištrinti %1$s?</string>
     <string name="confirmation_remove_files_alert">Ar tikrai norite ištrinti pažymėtus elementus?</string>
@@ -185,7 +184,6 @@
     <string name="credentials_disabled">Prisijungimo duomenys išjungti</string>
     <string name="daily_backup">Kasdienės atsarginės kopijos</string>
     <string name="data_to_back_up">Duomenys, kurių atsarginę kopiją daryti</string>
-    <string name="date_unknown">Nežinoma</string>
     <string name="default_credentials_wrong">Neteisingi prisijungimo duomenys</string>
     <string name="delete_account">Šalinti paskyrą</string>
     <string name="delete_account_warning">Pašalinti paskyrą %s ir ištrinti visus vietinius failus?\n\nIštrynimo nebegalima bus atšaukti.</string>
@@ -263,7 +261,6 @@
     <string name="error_retrieving_file">Klaida gaunant failą</string>
     <string name="error_retrieving_templates">Klaida gaunant šablonus</string>
     <string name="error_starting_direct_camera_upload">Klaida paleidžiant kamerą</string>
-    <string name="error_starting_scan_doc">Klaida naudojant dokumento skenavimą</string>
     <string name="etm_accounts">Paskyros</string>
     <string name="etm_background_job_name">Užduoties pavadinimas</string>
     <string name="etm_background_job_progress">Eiga</string>
@@ -514,7 +511,6 @@
     <string name="pref_instant_name_collision_policy_title">Ką daryti, jei failas jau yra?</string>
     <string name="prefs_add_account">Pridėti paskyrą</string>
     <string name="prefs_calendar_contacts">Sinchronizuoti kalendorių ir adresatus</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Nepavyko išspręsti paskyros serverio adreso, skirto „DAVx5“ (anksčiau vadintam „DAVdroid“)</string>
     <string name="prefs_calendar_contacts_no_store_error">Nėra įdiegta nei F-Droid, nei Google Play</string>
     <string name="prefs_calendar_contacts_summary">Dabartinei paskyrai nustatykite „DAVx5“ (anksčiau žinomą kaip „DAVdroid“) (v1.3.0 +)</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendoriaus ir adresatų sinchronizavimas nustatytas</string>
@@ -743,7 +739,6 @@
     <string name="thumbnail">Miniatiūra</string>
     <string name="thumbnail_for_existing_file_description">Miniatiūra egsiztuojantiems failams</string>
     <string name="thumbnail_for_new_file_desc">Miniatiūra naujiems failams</string>
-    <string name="timeout_richDocuments">Įkėlimas užtrunka labai ilgai…</string>
     <string name="today">Šiandien</string>
     <string name="trashbin_activity_title">Ištrinti failai</string>
     <string name="trashbin_empty_headline">Ištrintų failų nėra</string>

@@ -116,7 +116,6 @@
     <string name="community_testing_bug_text">Atradi kļūdu vai nepilnību?</string>
     <string name="community_testing_headline">Palīdzi testējot</string>
     <string name="community_testing_report_text">Ziņojiet par problēmu Github</string>
-    <string name="community_testing_version_text">Interesēts mums palīdzēt izmēģinot jauno testēšanas versiju?</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurēt</string>
     <string name="confirmation_remove_file_alert">Vai tiešām vēlaties izdzēst %1$s?</string>
     <string name="confirmation_remove_files_alert">Vai tiešām vēlies dzēst izvēlētos objektus?</string>
@@ -148,7 +147,6 @@
     <string name="create_rich_workspace">Pievienot mapes informāciju</string>
     <string name="creates_rich_workspace">pievieno mapes informāciju</string>
     <string name="credentials_disabled">Akreditācijas dati atspējoti</string>
-    <string name="date_unknown">Nezināms</string>
     <string name="default_credentials_wrong">Nepareizi akreditācijas dati</string>
     <string name="delete_account">Noņemt kontu</string>
     <string name="delete_account_warning">Noņemt kontu %s un izdzēst visas vietēji saglabātās datnes?\n\nDzēšanu nevar atsaukt.</string>

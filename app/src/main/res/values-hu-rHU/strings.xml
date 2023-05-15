@@ -146,7 +146,6 @@
     <string name="community_testing_bug_text">Hibát talált? Vagy furcsaságot?</string>
     <string name="community_testing_headline">Segítsen a teszteléssel</string>
     <string name="community_testing_report_text">Jelentse az esetet a GitHubon</string>
-    <string name="community_testing_version_text">Segítene a következő verzió tesztelésében?</string>
     <string name="configure_new_media_folder_detection_notifications">Beállítás</string>
     <string name="confirm_removal">Helyi titkosítás eltávolítása</string>
     <string name="confirmation_remove_file_alert">Biztos, hogy törli ezt: %1$s?</string>
@@ -190,7 +189,6 @@
     <string name="credentials_disabled">Hitelesítő adatok letiltva</string>
     <string name="daily_backup">Napi biztonsági mentés</string>
     <string name="data_to_back_up">Mentendő adatok</string>
-    <string name="date_unknown">Ismeretlen</string>
     <string name="default_credentials_wrong">Hibás hitelesítési adatok</string>
     <string name="delete_account">Fiók eltávolítása</string>
     <string name="delete_account_warning">A(z) %s fiók törlése az összes helyi fájlal együtt?\n\nA törlés nem vonható vissza.</string>
@@ -282,7 +280,6 @@
     <string name="error_showing_encryption_dialog">Hiba a titkosítás beállítóablakának megjelenítése során!</string>
     <string name="error_starting_direct_camera_upload">Hiba a kamera indításakor</string>
     <string name="error_starting_doc_scan">Hiba a dokumentumbeolvasás elindítása során</string>
-    <string name="error_starting_scan_doc">Hiba a dokumentumbeolvasás használata sorá</string>
     <string name="etm_accounts">Fiókok</string>
     <string name="etm_background_job_name">Feladat neve</string>
     <string name="etm_background_job_progress">Folyamat</string>
@@ -551,7 +548,6 @@
     <string name="pref_instant_name_collision_policy_title">Mit tegyen, ha a fájl már létezik?</string>
     <string name="prefs_add_account">Fiók hozzáadása</string>
     <string name="prefs_calendar_contacts">Naptár és névjegyek szinkronizálása</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">A fiók kiszolgálócíme nem oldható fel a DAVx5 (régi nevén DAVdroid) számára</string>
     <string name="prefs_calendar_contacts_no_store_error">Sem az F-Droid, sem a Google Play nincs telepítve</string>
     <string name="prefs_calendar_contacts_summary">DAVx5 (régi nevén DAVdroid) (v1.3.0+) beállítása a jelenlegi fiókhoz</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Szinkronizálás beállítva a naptárhoz és a névjegyekhez</string>
@@ -819,7 +815,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="thumbnail">Bélyegkép</string>
     <string name="thumbnail_for_existing_file_description">Létező fájl bélyegképe</string>
     <string name="thumbnail_for_new_file_desc">Új fájl bélyegképe</string>
-    <string name="timeout_richDocuments">A betöltés sokáig tart…</string>
     <string name="today">Ma</string>
     <string name="trashbin_activity_title">Törölt fájlok</string>
     <string name="trashbin_empty_headline">Nincs törölt fájl</string>

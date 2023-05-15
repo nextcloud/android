@@ -146,7 +146,6 @@
     <string name="community_testing_bug_text">Открили сте грешка? Нещо странно?</string>
     <string name="community_testing_headline">Помогни с тестването</string>
     <string name="community_testing_report_text">Докладвайте за проблем чрез Github</string>
-    <string name="community_testing_version_text">Желаете ли се да помогнете с тестването на следващата версия?</string>
     <string name="configure_new_media_folder_detection_notifications">Настройки</string>
     <string name="confirm_removal">Премахване на локалното криптиране</string>
     <string name="confirmation_remove_file_alert">Наистина ли желаете %1$s да бъде изтрит?</string>
@@ -191,7 +190,6 @@
     <string name="credentials_disabled">Потребителските данни са спрени</string>
     <string name="daily_backup">Ежедневно архивиране</string>
     <string name="data_to_back_up">Данни за архивиране</string>
-    <string name="date_unknown">Неизвестен</string>
     <string name="default_credentials_wrong">Грешни данни за вход</string>
     <string name="delete_account">Изтриване</string>
     <string name="delete_account_warning">Изтриване на профила %s и всички локални файлове?\n\nИзтриването е необратима операция.</string>
@@ -283,7 +281,6 @@
     <string name="error_showing_encryption_dialog">Грешка при показване на диалогов прозорец за настройка на криптирането!</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартирането на камерата</string>
     <string name="error_starting_doc_scan">Грешка при стартирането на сканиране на документ</string>
-    <string name="error_starting_scan_doc">Грешка при използване на сканирането на документи</string>
     <string name="etm_accounts">Профили</string>
     <string name="etm_background_job_name">Име на процеса</string>
     <string name="etm_background_job_progress">Прогрес</string>
@@ -552,7 +549,6 @@
     <string name="pref_instant_name_collision_policy_title">Какво да направите, ако файлът вече съществува?</string>
     <string name="prefs_add_account">Добавяне на профил</string>
     <string name="prefs_calendar_contacts">Синхронизиране на календар и контакти</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Адресът на сървъра за профил не може да бъде разрешен за DAVx5 (преди известен, като DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Нито F-Droid, нито Google play са инсталирани</string>
     <string name="prefs_calendar_contacts_summary">Настройка на DAVx5 (преди известен като DAVdroid) (v1.3.0+) за текущ профил</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Календар &amp; синхронизацията на контакти е настроена</string>
@@ -802,7 +798,6 @@
     <string name="thumbnail">Миниатюра</string>
     <string name="thumbnail_for_existing_file_description">Миниатюра за съществуващ файл</string>
     <string name="thumbnail_for_new_file_desc">Миниатюра за нов файл</string>
-    <string name="timeout_richDocuments">Зареждането отнема много време ...</string>
     <string name="today">Днес</string>
     <string name="trashbin_activity_title">Изтрити файлове</string>
     <string name="trashbin_empty_headline">Няма изтрити файлове</string>

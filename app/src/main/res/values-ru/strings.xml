@@ -145,7 +145,6 @@
     <string name="community_testing_bug_text">Нашли ошибку? Заметили необычное поведение программы?</string>
     <string name="community_testing_headline">Помогите нам в тестировании</string>
     <string name="community_testing_report_text">Сообщить о проблеме на GitHub</string>
-    <string name="community_testing_version_text">Хотите помочь проверкой новых функций,  разрабатываемых для следующей версии?</string>
     <string name="configure_new_media_folder_detection_notifications">Настроить</string>
     <string name="confirm_removal">Отключить шифрование на устройстве</string>
     <string name="confirmation_remove_file_alert">Действительно удалить «%1$s»?</string>
@@ -189,7 +188,6 @@
     <string name="credentials_disabled">Учётная запись отключена</string>
     <string name="daily_backup">Ежедневное резервное копирование</string>
     <string name="data_to_back_up">Данные для резервного копирования</string>
-    <string name="date_unknown">Неизвестно</string>
     <string name="default_credentials_wrong">Неверные учётные данные</string>
     <string name="delete_account">Удалить аккаунт</string>
     <string name="delete_account_warning">Удалить аккаунт %s и все связанные с ним файлы?\n\nУдаление не может быть отменено.</string>
@@ -281,7 +279,6 @@
     <string name="error_showing_encryption_dialog">Ошибка при отображении диалога настройки шифрования!</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
     <string name="error_starting_doc_scan">Ошибка во время запуска сканирования</string>
-    <string name="error_starting_scan_doc">Ошибка при сканировании документа</string>
     <string name="etm_accounts">Аккаунты</string>
     <string name="etm_background_job_name">Имя задания</string>
     <string name="etm_background_job_progress">Прогресс</string>
@@ -551,7 +548,6 @@
     <string name="pref_instant_name_collision_policy_title">Действие в случае, если файл уже существует</string>
     <string name="prefs_add_account">Добавить аккаунт</string>
     <string name="prefs_calendar_contacts">Синхронизировать календарь и контакты</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Не удалось определить адрес сервера этой учётной записи для его передачи в приложение  DAVx5 (ранее называвшееся DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Ни F-Droid, ни Google Play не установлены</string>
     <string name="prefs_calendar_contacts_summary">Настроить DAVx5 (ранее называвшийся DAVdroid) (v1.3.0+) для текущей учётной записи</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Настройка синхронизации календаря &amp; контактов выполнена успешно.</string>
@@ -800,7 +796,6 @@
     <string name="thumbnail">Миниатюра</string>
     <string name="thumbnail_for_existing_file_description">Миниатюра существующего файла</string>
     <string name="thumbnail_for_new_file_desc">Миниатюра нового файла</string>
-    <string name="timeout_richDocuments">Загрузка выполняется очень долго…</string>
     <string name="today">Сегодня</string>
     <string name="trashbin_activity_title">Удалённые файлы</string>
     <string name="trashbin_empty_headline">Нет удалённых файлов</string>

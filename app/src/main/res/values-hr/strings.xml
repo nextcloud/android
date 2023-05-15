@@ -142,7 +142,6 @@
     <string name="community_testing_bug_text">Pronašli ste nedostatak? Pogrešku u radu?</string>
     <string name="community_testing_headline">Pomozite nam testiranjem</string>
     <string name="community_testing_report_text">Prijavite problem na GitHubu</string>
-    <string name="community_testing_version_text">Jeste li zainteresirani da nam pomognete testiranjem sljedeće inačice?</string>
     <string name="configure_new_media_folder_detection_notifications">Konfiguriraj</string>
     <string name="confirmation_remove_file_alert">Želite li zaista izbrisati %1$s?</string>
     <string name="confirmation_remove_files_alert">Želite li zaista izbrisati odabrane stavke?</string>
@@ -185,7 +184,6 @@
     <string name="credentials_disabled">Vjerodajnice onemogućene</string>
     <string name="daily_backup">Svakodnevno sigurnosno kopiranje</string>
     <string name="data_to_back_up">Podaci za sigurnosno kopiranje</string>
-    <string name="date_unknown">Nepoznato</string>
     <string name="default_credentials_wrong">Netočne vjerodajnice</string>
     <string name="delete_account">Izbriši račun</string>
     <string name="delete_account_warning">Želite li ukloniti račun %s i izbrisati sve lokalne datoteke?\n\nBrisanje se ne može poništiti.</string>
@@ -266,7 +264,6 @@
     <string name="error_retrieving_file">Pogreška pri dohvaćanju datoteke</string>
     <string name="error_retrieving_templates">Pogreška pri dohvaćanju predložaka</string>
     <string name="error_starting_direct_camera_upload">Pogreška pri pokretanju kamere</string>
-    <string name="error_starting_scan_doc">Pogreška kod upotrebe skeniranja dokumenta</string>
     <string name="etm_accounts">Računi</string>
     <string name="etm_background_job_name">Naziv zadatka</string>
     <string name="etm_background_job_progress">Napredak</string>
@@ -529,7 +526,6 @@
     <string name="pref_instant_name_collision_policy_title">Što učiniti ako datoteka već postoji?</string>
     <string name="prefs_add_account">Dodaj račun</string>
     <string name="prefs_calendar_contacts">Sinkroniziraj kalendar i kontakte</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Adresa poslužitelja za račun nije razlučena za DAVx5 (ranije poznat kao DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Nisu instalirani F-Droid ni Google Play</string>
     <string name="prefs_calendar_contacts_summary">Postavite DAVx5 (ranije poznat kao DAVdroid) (v1.3.0+) za predmetni račun</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Postavljena sinkronizacija kalendara i kontakata</string>
@@ -768,7 +764,6 @@
     <string name="thumbnail">Umanjeni prikaz</string>
     <string name="thumbnail_for_existing_file_description">Umanjeni prikaz postojeće datoteke</string>
     <string name="thumbnail_for_new_file_desc">Umanjeni prikaz nove datoteke</string>
-    <string name="timeout_richDocuments">Učitavanje traje jako dugo...</string>
     <string name="today">Danas</string>
     <string name="trashbin_activity_title">Izbrisane datoteke</string>
     <string name="trashbin_empty_headline">Nema izbrisanih datoteka</string>

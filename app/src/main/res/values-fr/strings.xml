@@ -146,7 +146,6 @@
     <string name="community_testing_bug_text">Vous avez trouvé un bug ? Quelque chose vous semble étrange ?</string>
     <string name="community_testing_headline">Aidez en réalisant des tests</string>
     <string name="community_testing_report_text">Signaler un problème sur Github</string>
-    <string name="community_testing_version_text">Êtes-vous intéressé pour nous aider en testant la prochaine version ?</string>
     <string name="configure_new_media_folder_detection_notifications">Configurer</string>
     <string name="confirm_removal">Retirer le chiffrement local</string>
     <string name="confirmation_remove_file_alert">Souhaitez-vous vraiment supprimer %1$s ?</string>
@@ -190,7 +189,6 @@
     <string name="credentials_disabled">Informations d\'identification désactivées</string>
     <string name="daily_backup">Sauvegarde journalière</string>
     <string name="data_to_back_up">Données à sauvegarder</string>
-    <string name="date_unknown">Inconnu</string>
     <string name="default_credentials_wrong">Informations d\'identification erronées</string>
     <string name="delete_account">Supprimer le compte</string>
     <string name="delete_account_warning">Supprimer le compte %s et supprimer tous les fichiers locaux ?
@@ -284,7 +282,6 @@ Attention la suppression est irréversible.</string>
     <string name="error_showing_encryption_dialog">Erreur d\'affichage de la boîte de dialogue de configuration du chiffrement !</string>
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
     <string name="error_starting_doc_scan">Erreur lors de la numérisation du document</string>
-    <string name="error_starting_scan_doc">Erreur lors de la numérisation de documents</string>
     <string name="etm_accounts">Comptes</string>
     <string name="etm_background_job_name">Nom de la tâche </string>
     <string name="etm_background_job_progress">Progression</string>
@@ -553,7 +550,6 @@ Attention la suppression est irréversible.</string>
     <string name="pref_instant_name_collision_policy_title">Que faire si le fichier existe déjà ?</string>
     <string name="prefs_add_account">Ajouter un compte</string>
     <string name="prefs_calendar_contacts">Synchroniser les contacts &amp; l\'agenda</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">L\'adresse du serveur pour le compte n\'a pas pu être résolu pour DAVx5 (autrefois connu comme DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni Google Play Store ou F-Droid ne sont installés</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVx5 (autrefois connu comme DAVdroid) (v1.3.0+) pour le compte actuel</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisation de l\'agenda &amp; des contacts configurée</string>
@@ -802,7 +798,6 @@ Attention la suppression est irréversible.</string>
     <string name="thumbnail">Miniature</string>
     <string name="thumbnail_for_existing_file_description">Vignette pour fichier existant</string>
     <string name="thumbnail_for_new_file_desc">Vignette pour nouveau fichier</string>
-    <string name="timeout_richDocuments">Le chargement est très long ...</string>
     <string name="today">Aujourd\'hui</string>
     <string name="trashbin_activity_title">Fichiers supprimés</string>
     <string name="trashbin_empty_headline">Aucun fichier supprimé</string>

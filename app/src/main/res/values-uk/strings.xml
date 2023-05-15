@@ -147,7 +147,6 @@
     <string name="community_testing_bug_text">Помітили ваду чи помилку?</string>
     <string name="community_testing_headline">Допомогти з тестуванням</string>
     <string name="community_testing_report_text">Повідомити про помилку на GitHub</string>
-    <string name="community_testing_version_text">Ви зацікавлені у допомозі з тестуванням функцій, які будуть доступні у наступній версії?</string>
     <string name="configure_new_media_folder_detection_notifications">Налаштування</string>
     <string name="confirm_removal">Вилучити шифрування на пристрої</string>
     <string name="confirmation_remove_file_alert">Ви справді бажаєте вилучити %1$s?</string>
@@ -192,7 +191,6 @@
     <string name="credentials_disabled">Дані авторизації не активні</string>
     <string name="daily_backup">Щоденне резервне збереження</string>
     <string name="data_to_back_up">Дані користувача для резервного збереження</string>
-    <string name="date_unknown">Невідомо</string>
     <string name="default_credentials_wrong">Неправильні дані авторизації</string>
     <string name="delete_account">Вилучити обліковий запис</string>
     <string name="delete_account_warning">Вилучити обліковий запис %s і знищити всі локальні файли?\n\nВилучення неможливо буде скасувати.</string>
@@ -285,7 +283,6 @@
     <string name="error_showing_encryption_dialog">Помилка з показом діалогу налаштування шифрування!</string>
     <string name="error_starting_direct_camera_upload">Помилка під час запуску камери</string>
     <string name="error_starting_doc_scan">Помилка під час сканування документу</string>
-    <string name="error_starting_scan_doc">Помилка сканування документу</string>
     <string name="etm_accounts">Облікові записи</string>
     <string name="etm_background_job_name">Назва завдання</string>
     <string name="etm_background_job_progress">Перебіг</string>
@@ -554,7 +551,6 @@
     <string name="pref_instant_name_collision_policy_title">Що робити, якщо такий файл вже присутній?</string>
     <string name="prefs_add_account">Додати обліковий запис</string>
     <string name="prefs_calendar_contacts">Синхронізація календарів та контактів</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Адресу сервера цього облікового запису неможливо визначити для DAVx5 (раніше відомого як DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Не встановлено ані F-Droid, ані Google Play</string>
     <string name="prefs_calendar_contacts_summary">Встановити DAVx5 (раніше відомий як DAVdroid) (v1.3.0+) для цього облікового запису</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Налаштування синхронізації календаря та контактів</string>
@@ -804,7 +800,6 @@
     <string name="thumbnail">Ескіз</string>
     <string name="thumbnail_for_existing_file_description">Ескіз існуючого файлу</string>
     <string name="thumbnail_for_new_file_desc">Ескіз нового файлу</string>
-    <string name="timeout_richDocuments">Завантаження триває досить довго...</string>
     <string name="today">Сьогодні</string>
     <string name="trashbin_activity_title">Кошик</string>
     <string name="trashbin_empty_headline">Кошик порожній</string>

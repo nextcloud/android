@@ -139,7 +139,6 @@
     <string name="community_testing_bug_text">מצאת תקלה? התנהגות חריגה?</string>
     <string name="community_testing_headline">עזרה בבדיקות</string>
     <string name="community_testing_report_text">דיווח על תקלה ב־GitHub</string>
-    <string name="community_testing_version_text">מעניין אותך לסייע לנו על ידי בדיקת איכות לגרסה הבאה?</string>
     <string name="configure_new_media_folder_detection_notifications">הגדרה</string>
     <string name="confirmation_remove_file_alert">למחוק את %1$s?</string>
     <string name="confirmation_remove_files_alert">למחוק את הפריטים הנבחרים?</string>
@@ -181,7 +180,6 @@
     <string name="credentials_disabled">פרטי גישה מושבתים</string>
     <string name="daily_backup">גיבוי יומי</string>
     <string name="data_to_back_up">נתונים לגיבוי</string>
-    <string name="date_unknown">לא ידוע</string>
     <string name="default_credentials_wrong">פרטי הגישה שגויים</string>
     <string name="delete_account">הסרת חשבון</string>
     <string name="delete_account_warning">להסיר את החשבון %s ולמחוק את כל הקבצים המקומיים?\n\nלא ניתן לבטל מחיקה.</string>
@@ -477,7 +475,6 @@
     <string name="pref_instant_name_collision_policy_title">מה לעשות אם הקובץ כבר קיים?מה לעשות אם הקובץ קיים?</string>
     <string name="prefs_add_account">הוספת חשבון</string>
     <string name="prefs_calendar_contacts">סנכרון לוח שנה ואנשי קשר</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">לא ניתן לפתור את כתובת השרת לחשבון עבור DAVx5 (לשעבר DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">לא מותקנים F-Droid או Google Play</string>
     <string name="prefs_calendar_contacts_summary">הגדרת DAVx5 (לשעבר DAVdroid) (v1.3.0+‎) לחשבון הנוכחי</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">הגדרת סנכרון לוח שנה ואנשי קשר</string>
@@ -703,7 +700,6 @@
     <string name="thumbnail">תמונה ממוזערת</string>
     <string name="thumbnail_for_existing_file_description">תמונה ממוזערת לקובץ קיים</string>
     <string name="thumbnail_for_new_file_desc">תמונה ממוזערת לקובץ חדש</string>
-    <string name="timeout_richDocuments">הטעינה אורכת זמן רב…</string>
     <string name="today">היום</string>
     <string name="trashbin_activity_title">קבצים שנמחקו</string>
     <string name="trashbin_empty_headline">אין קבצים שנמחקו</string>

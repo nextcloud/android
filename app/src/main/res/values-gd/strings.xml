@@ -132,7 +132,6 @@
     <string name="community_testing_bug_text">Na lorg thu buga? Rud neònach?</string>
     <string name="community_testing_headline">Cuidich leinn le deuchainnean</string>
     <string name="community_testing_report_text">Dèan aithris air duilgheadas air GitHub</string>
-    <string name="community_testing_version_text">Am bu mhiann leat cuideachadh le cur fo dheuchainn an tionndaidh ri thighinn?</string>
     <string name="configure_new_media_folder_detection_notifications">Rèitich</string>
     <string name="confirmation_remove_file_alert">A bheil thu cinnteach gu bheil thu airson %1$s a sguabadh às?</string>
     <string name="confirmation_remove_files_alert">A bheil thu cinnteach gu bheil thu airson na nithean a thagh thu a sguabadh às?</string>
@@ -170,7 +169,6 @@
     <string name="create_rich_workspace">Cuir fiosrachadh pasgain ris</string>
     <string name="creates_rich_workspace">cruthaichidh seo fiosrachadh pasgain</string>
     <string name="credentials_disabled">Chaidh an teisteas a chur à comas</string>
-    <string name="date_unknown">Chan eil fhios</string>
     <string name="default_credentials_wrong">Teisteas ceàrr</string>
     <string name="delete_account">Thoir air falbh an cunntas</string>
     <string name="delete_account_warning">A bheil thu airson cunntas %s a thoirt air falbh ’s na faidhlichean ionadail uile a sguabadh às?\n\Cha ghabh an sguabadh às a neo-dhèanamh.</string>
@@ -479,7 +477,6 @@
     <string name="pref_instant_name_collision_policy_title">Dè nì sinn nuair a bhios faidhle ann mu thràth?</string>
     <string name="prefs_add_account">Cuir cunntas ris</string>
     <string name="prefs_calendar_contacts">Sioncronaich am mìosachan ⁊ an luchd-aithne</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Cha b’ urrainn dhuinn seòladh an fhrithealaiche fhuasgladh dha DAVx5 (air a bhiodh DAVdroid) airson a’ chunntais</string>
     <string name="prefs_calendar_contacts_no_store_error">Cha deach F-Droid no Google Play a stàladh</string>
     <string name="prefs_calendar_contacts_summary">Suidhich DAVx5 (air a bhiodh DAVdroid) (v1.3.0+) dhan chunntas làithreach</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Suidheachadh sioncronachadh a’ mhìosachain ⁊ an luchd-aithne</string>
@@ -694,7 +691,6 @@
     <string name="thumbnail">Dealbhag</string>
     <string name="thumbnail_for_existing_file_description">Dealbhag an fhaidhle a tha ann</string>
     <string name="thumbnail_for_new_file_desc">Dealbhag an fhaidhle ùir</string>
-    <string name="timeout_richDocuments">Tha an luchdadh a’ toirt glè fhada…</string>
     <string name="today">An-diugh</string>
     <string name="trashbin_activity_title">Faidhlichean air an sguabadh às</string>
     <string name="trashbin_empty_headline">Cha deach faidhle a sguabadh às</string>

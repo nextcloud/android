@@ -118,7 +118,6 @@
     <string name="community_testing_bug_text">Našli ste grešku? Nešto čudno?</string>
     <string name="community_testing_headline">Pomozi testirajući</string>
     <string name="community_testing_report_text">Prijavite problem na GitHub-u</string>
-    <string name="community_testing_version_text">Zainteresovani da pomognete tako što ćete testirati šta će biti u narednoj verziji?</string>
     <string name="configure_new_media_folder_detection_notifications">Podesi</string>
     <string name="confirmation_remove_file_alert">Da li stvarno želite da obrišete %1$s?</string>
     <string name="confirmation_remove_files_alert">Da li stvarno želite da obrišete označene stavke?</string>
@@ -147,7 +146,6 @@
     <string name="create_new_presentation">Napravi novu prezentaciju</string>
     <string name="create_new_spreadsheet">Napravi novu tabelu</string>
     <string name="credentials_disabled">Akreditivi isključeni</string>
-    <string name="date_unknown">Nepoznato</string>
     <string name="default_credentials_wrong">Neispravni akreditivi</string>
     <string name="delete_account">Ukloni nalog</string>
     <string name="delete_account_warning">Uklonite nalog %s i izbrišite sve lokalne fajlove?\n\nBrisanje ne može da se povrati.</string>
@@ -400,7 +398,6 @@
     <string name="pref_behaviour_entries_move">premešten u fasciklu aplikacije</string>
     <string name="prefs_add_account">Dodaj nalog</string>
     <string name="prefs_calendar_contacts">Sinhronizuj kalendar i kontakte</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">DAVx5 (ranije znan i kao DAVdroid) ne može da razluči adresu servera ovog naloga</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-droid ni Gugl plej prodavnica nisu instalirane</string>
     <string name="prefs_calendar_contacts_summary">Podesi DAVx5 (ranije znan i kao DAVdroid) (v1.3.0+) za trenutni nalog</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendar i sinhronizacija kontakata podešeni</string>
@@ -593,7 +590,6 @@
     <string name="thirtyMinutes">30 minuta</string>
     <string name="thisWeek">Ove sedmice</string>
     <string name="thumbnail">Sličica</string>
-    <string name="timeout_richDocuments">Učitavanje traje predugo…</string>
     <string name="today">Danas</string>
     <string name="trashbin_activity_title">Obrisani fajlovi</string>
     <string name="trashbin_empty_headline">Nema obrisanih fajlova</string>

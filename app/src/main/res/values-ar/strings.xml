@@ -144,7 +144,6 @@
     <string name="community_testing_bug_text">هل وجدت خطأ برمجي أو شيء ناقص؟</string>
     <string name="community_testing_headline">ساعدنا بالتجريب</string>
     <string name="community_testing_report_text">إرسل تقرير أخطاء على GitHub</string>
-    <string name="community_testing_version_text">هل ترغب في المساعدة بتجريب النسخة القادمة؟</string>
     <string name="configure_new_media_folder_detection_notifications">إعداد</string>
     <string name="confirmation_remove_file_alert">هل توَدُّ حقاً حذف %1$s؟</string>
     <string name="confirmation_remove_files_alert">هل توَدُّ حقاً حذف العناصر المختارة؟</string>
@@ -187,7 +186,6 @@
     <string name="credentials_disabled">التصريح غير مفعل</string>
     <string name="daily_backup">النسخ الاحتياطي اليومي</string>
     <string name="data_to_back_up">البيانات التي سيتم نسخها احتياطيا</string>
-    <string name="date_unknown">غير معروف</string>
     <string name="default_credentials_wrong">التصريح خاطئ</string>
     <string name="delete_account">حذف الحساب</string>
     <string name="delete_account_warning">حذف الحساب %s وحذف جميع الملفات المحلية؟\n\nعملية الحذف لا يمكن التراجع عنها.</string>
@@ -268,7 +266,6 @@
     <string name="error_retrieving_file">خطأ في استيراد الملف</string>
     <string name="error_retrieving_templates">خطأ في استيراد القوالب</string>
     <string name="error_starting_direct_camera_upload">خطأ في تشغيل الكاميرا</string>
-    <string name="error_starting_scan_doc">خطأ في استخدام المسح الضوئي للمستند</string>
     <string name="etm_accounts">الحسابات</string>
     <string name="etm_background_job_name">إسم المهمة</string>
     <string name="etm_background_job_progress">التقدم</string>
@@ -531,7 +528,6 @@
     <string name="pref_instant_name_collision_policy_title">ماذا تفعل إذا كان الملف موجودًا مسبقاً؟</string>
     <string name="prefs_add_account">أضف حساباً</string>
     <string name="prefs_calendar_contacts">مزامنة التقويم &amp; جهات الاتصال</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">لم يتم العثور على عنوان الخادم الخاص بـ DAVx5 للحساب (المعروف مسبقاً بـDAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">كلا من تطبيقي أف-دويد و متجر غوغل عير منصبين</string>
     <string name="prefs_calendar_contacts_summary">قم بإعداد DAVx5 (المعروف سابقًا باسم DAVdroid) (v1.3.0 +) للحساب الجاري</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">التقويم &amp; إعداد مزامنة الأسماء</string>
@@ -772,7 +768,6 @@
     <string name="thumbnail">صورة مصغّرة</string>
     <string name="thumbnail_for_existing_file_description">صورة مصغرة للملف الموجود</string>
     <string name="thumbnail_for_new_file_desc">صورة مصغرة للملف الجديد</string>
-    <string name="timeout_richDocuments">التحميل يستغرق وقتًا طويلاً…</string>
     <string name="today">اليوم</string>
     <string name="trashbin_activity_title">الملفات المحذوفة</string>
     <string name="trashbin_empty_headline">لا يوجد ملفات محذوفة</string>

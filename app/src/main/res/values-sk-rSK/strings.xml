@@ -145,7 +145,6 @@
     <string name="community_testing_bug_text">Našli ste chybu? Niečo nefunguje?</string>
     <string name="community_testing_headline">Pomôžte s testovaním</string>
     <string name="community_testing_report_text">Nahlásiť chybu na Githube</string>
-    <string name="community_testing_version_text">Máte záujem pomôcť nám s testovaním ďalšej Verzie?</string>
     <string name="configure_new_media_folder_detection_notifications">Nastaviť</string>
     <string name="confirm_removal">Odstrániť lokálne šifrovanie</string>
     <string name="confirmation_remove_file_alert">Naozaj chcete odstrániť %1$s?</string>
@@ -189,7 +188,6 @@
     <string name="credentials_disabled">Prihlasovacie údaje zakázané</string>
     <string name="daily_backup">Denná záloha</string>
     <string name="data_to_back_up">Dáta pre zálohovanie</string>
-    <string name="date_unknown">Neznámy</string>
     <string name="default_credentials_wrong">Nesprávne prihlasovacie údaje</string>
     <string name="delete_account">Odstrániť účet</string>
     <string name="delete_account_warning">Zmazať účet %s a zmazať všetky lokálne súbory?\n\nZmazanie nebude možné vrátiť späť.</string>
@@ -273,7 +271,6 @@
     <string name="error_retrieving_file">Chyba pri získavaní súboru</string>
     <string name="error_retrieving_templates">Chyba pri načítaní šablón</string>
     <string name="error_starting_direct_camera_upload">Chyba pri otváraní fotoaparátu</string>
-    <string name="error_starting_scan_doc">Chyba pri skenovaní dokumentov</string>
     <string name="etm_accounts">Účty</string>
     <string name="etm_background_job_name">Názov úlohy</string>
     <string name="etm_background_job_progress">Pokrok</string>
@@ -542,7 +539,6 @@
     <string name="pref_instant_name_collision_policy_title">Čo urobiť, ak súbor už existuje?</string>
     <string name="prefs_add_account">Pridať účet</string>
     <string name="prefs_calendar_contacts">Synchronizovať kalendár &amp; kontakty</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Nepodarilo sa zistiť adresu účtu pre DAVx5 (predtým známy ako DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ani Google Play nie sú nainštalované</string>
     <string name="prefs_calendar_contacts_summary">Nastaviť DAVx5 (predtým známy ako DAVdroid) (v1.3.0+) pre tento účet</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizácia kalendára &amp; kontaktov úspešne dokončená</string>
@@ -786,7 +782,6 @@
     <string name="thumbnail">Náhľad</string>
     <string name="thumbnail_for_existing_file_description">Náhľad existujúceho súboru</string>
     <string name="thumbnail_for_new_file_desc">Náhľad nového súboru</string>
-    <string name="timeout_richDocuments">Načítanie trvá veľmi dlho…</string>
     <string name="today">Dnes</string>
     <string name="trashbin_activity_title">Zmazané súbory</string>
     <string name="trashbin_empty_headline">Žiadne zmazané súbory</string>

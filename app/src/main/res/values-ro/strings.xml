@@ -145,7 +145,6 @@
     <string name="community_testing_bug_text">Ai găsit un bug? Se întâmplă ceva ciudat?</string>
     <string name="community_testing_headline">Ajută-ne să testăm</string>
     <string name="community_testing_report_text">Raportează o problemă pe Github</string>
-    <string name="community_testing_version_text">Vrei să ne ajuți în testarea următoarei versiuni?</string>
     <string name="configure_new_media_folder_detection_notifications">Configurează</string>
     <string name="confirm_removal">Elimină criptarea locală</string>
     <string name="confirmation_remove_file_alert">Chiar doriți să ștergeți %1$s?</string>
@@ -189,7 +188,6 @@
     <string name="credentials_disabled">Autentificare dezactivată</string>
     <string name="daily_backup">Copie de rezervă zilnică</string>
     <string name="data_to_back_up">Date pentru copia de rezervă</string>
-    <string name="date_unknown">Necunoscut</string>
     <string name="default_credentials_wrong">Date de autentificare incorecte</string>
     <string name="delete_account">Sterge contul</string>
     <string name="delete_account_warning">Eliminați contul %s și ștergeți toate fișierele locale?\n\nȘtergerea nu poate fi anulată.</string>
@@ -273,7 +271,6 @@
     <string name="error_retrieving_file">Eroare la obținerea fișierului</string>
     <string name="error_retrieving_templates">Eroare la obținerea șabloanelor</string>
     <string name="error_starting_direct_camera_upload">Eroare la pornirea camerei</string>
-    <string name="error_starting_scan_doc">Eroare la utilizarea scanării documentelor</string>
     <string name="etm_accounts">Conturi</string>
     <string name="etm_background_job_name">Numele serviciului</string>
     <string name="etm_background_job_progress">Progres</string>
@@ -542,7 +539,6 @@
     <string name="pref_instant_name_collision_policy_title">Ce să facem dacă fișierul deja există?</string>
     <string name="prefs_add_account">Adaugă cont</string>
     <string name="prefs_calendar_contacts">Sincronizați calendarul și contactele</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Adresa de server a contului nu a putut fi soluționată pentru DAVx5 (cunoscut în trecut ca DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Nici F-Droid, nici Google Play nu sunt instalate</string>
     <string name="prefs_calendar_contacts_summary">Setează DAVx5 (cunoscut în trecut ca DAVdroid) (v1.3.0+) pentru acest cont</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizarea calendarului și a contactelor a fost configurată</string>
@@ -782,7 +778,6 @@
     <string name="thumbnail">Miniatură</string>
     <string name="thumbnail_for_existing_file_description">Thumbnail pentru fișierele existente</string>
     <string name="thumbnail_for_new_file_desc">Thumbnail pentru fișiere noi</string>
-    <string name="timeout_richDocuments">Încărcarea ține foarte mult timp...</string>
     <string name="today">Astăzi</string>
     <string name="trashbin_activity_title">Fișiere șterse</string>
     <string name="trashbin_empty_headline">Nu sunt fișiere șterse</string>

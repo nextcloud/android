@@ -121,7 +121,6 @@
     <string name="community_testing_bug_text">¿Encontraste una falla? ¿Hay algo raro?</string>
     <string name="community_testing_headline">Ayúdanos probando</string>
     <string name="community_testing_report_text">Reporta un tema en GitHub</string>
-    <string name="community_testing_version_text">¿Te interesaría ayudarnos a probar lo que viene en la siguiente versión?</string>
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
     <string name="confirmation_remove_file_alert">¿Realmente deseas elminiar %1$s?</string>
     <string name="confirmation_remove_files_alert">¿Realmente deseas borrar los elementos seleccionados?</string>
@@ -146,7 +145,6 @@
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
     <string name="create_new_folder">Crear nueva carpeta</string>
-    <string name="date_unknown">Desconocido</string>
     <string name="delete_account">Cerrar sesión</string>
     <string name="delete_account_warning">¿Borrar la cuenta %s y borrar todos los archivos localeS?\n\nEl borrado no se puede deshacer</string>
     <string name="deselect_all">Deseleccionar todo</string>

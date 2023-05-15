@@ -146,7 +146,6 @@
     <string name="community_testing_bug_text">Znalazłeś błąd? Jest coś, co chciałbyś poprawić?</string>
     <string name="community_testing_headline">Pomóż nam testować</string>
     <string name="community_testing_report_text">Zgłoś problem na GitHubie</string>
-    <string name="community_testing_version_text">Chcesz pomóc nam w testowaniu następnej wersji?</string>
     <string name="configure_new_media_folder_detection_notifications">Konfiguruj</string>
     <string name="confirm_removal">Usuń szyfrowanie lokalne</string>
     <string name="confirmation_remove_file_alert">Czy na pewno chcesz usunąć %1$s?</string>
@@ -191,7 +190,6 @@
     <string name="credentials_disabled">Poświadczenia wyłączone</string>
     <string name="daily_backup">Codzienna kopia zapasowa</string>
     <string name="data_to_back_up">Dane dla kopii zapasowej</string>
-    <string name="date_unknown">Nieznane</string>
     <string name="default_credentials_wrong">Błedne poświadczenia</string>
     <string name="delete_account">Usuń konto</string>
     <string name="delete_account_warning">Usunąć konto %s i wszystkie jego pliki lokalne? Usunięcia nie będzie można cofnąć.</string>
@@ -284,7 +282,6 @@
     <string name="error_showing_encryption_dialog">Błąd podczas wyświetlania okna dialogowego konfiguracji szyfrowania!</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania aparatu</string>
     <string name="error_starting_doc_scan">Błąd podczas uruchamiania skanowania dokumentu</string>
-    <string name="error_starting_scan_doc">Błąd podczas skanowania dokumentów</string>
     <string name="etm_accounts">Konta</string>
     <string name="etm_background_job_name">Nazwa zadania</string>
     <string name="etm_background_job_progress">Postęp</string>
@@ -553,7 +550,6 @@
     <string name="pref_instant_name_collision_policy_title">Co zrobić, jeśli plik już istnieje?</string>
     <string name="prefs_add_account">Dodaj konto</string>
     <string name="prefs_calendar_contacts">Synchronizuj kalendarz i kontakty</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Adres serwera skojarzony z tym kontem nie został rozpoznany przez DAVx5 (wcześniej znanego jako DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Brak w systemie F-Droid i Google Play</string>
     <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVx5 (wcześniej znany jako DAVdroid) (v1.3.0 +) dla bieżącego konta</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów i kalendarza została skonfigurowana pomyślnie</string>
@@ -803,7 +799,6 @@
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniaturka dla istniejącego pliku</string>
     <string name="thumbnail_for_new_file_desc">Miniaturka dla nowego pliku</string>
-    <string name="timeout_richDocuments">Wczytywanie potrwa bardzo długo…</string>
     <string name="today">Dzisiaj</string>
     <string name="trashbin_activity_title">Usunięte pliki</string>
     <string name="trashbin_empty_headline">Brak usuniętych plików</string>

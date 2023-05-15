@@ -143,7 +143,6 @@
     <string name="community_testing_bug_text">Encontrou um erro? Ocorrências estranhas?</string>
     <string name="community_testing_headline">Ajude-nos, testando</string>
     <string name="community_testing_report_text">Reportar um problema no Github</string>
-    <string name="community_testing_version_text">Interessado em ajudar a testar o que será a próxima versão?</string>
     <string name="configure_new_media_folder_detection_notifications">Configure</string>
     <string name="confirm_removal">Remove localmente a criptografia</string>
     <string name="confirmation_remove_file_alert">Deseja realmente apagar %1$s?</string>
@@ -186,7 +185,6 @@
     <string name="creates_rich_workspace">cria informação sobre a pasta</string>
     <string name="credentials_disabled">Credenciais desativadas</string>
     <string name="daily_backup">Cópia de segurança diária </string>
-    <string name="date_unknown">Desconhecido</string>
     <string name="default_credentials_wrong">Credenciais incorretas</string>
     <string name="delete_account">Remover conta</string>
     <string name="delete_account_warning">Excluir a conta %s e remover todos os ficheiros locais?\n\nEsta exclusão não pode ser desfeita.</string>
@@ -510,7 +508,6 @@
     <string name="pref_instant_name_collision_policy_title">Como proceder se o ficheiro já existir?</string>
     <string name="prefs_add_account">Adicionar conta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendário e contactos</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">O endereço do servidor da conta não pôde ser resolvido pelo DAVx5 (anteriormente conhecido como DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">As aplicações F-Droid e Google Play não estão instaladas</string>
     <string name="prefs_calendar_contacts_summary">Confirgurar DAVx5 (anteriormente conhecido como DAVdroid) (v1.3.0+) para a conta atual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configurar sincronização de calendário e contactos</string>
@@ -736,7 +733,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura para ficheiro existente</string>
     <string name="thumbnail_for_new_file_desc">Miniatura para novo ficheiro</string>
-    <string name="timeout_richDocuments">O carregamento é demorado...</string>
     <string name="today">Hoje</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="trashbin_empty_headline">Sem ficheiros eliminados.</string>

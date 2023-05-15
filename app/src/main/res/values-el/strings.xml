@@ -145,7 +145,6 @@
     <string name="community_testing_bug_text">Βρήκατε σφάλμα; Κάτι σας φαίνεται παράξενο;</string>
     <string name="community_testing_headline">Βοήθησε δοκιμάζοντας</string>
     <string name="community_testing_report_text">Ανέφερε ένα ζήτημα στο GitHub</string>
-    <string name="community_testing_version_text">Σας ενδιαφέρει να μας βοηθήσετε να δοκιμάσουμε την επόμενη έκδοση;</string>
     <string name="configure_new_media_folder_detection_notifications">Ρύθμιση</string>
     <string name="confirm_removal">Αφαίρεση τοπικής κρυπτογράφησης</string>
     <string name="confirmation_remove_file_alert">Θέλετε σίγουρα να διαγράψετε το %1$s;</string>
@@ -189,7 +188,6 @@
     <string name="credentials_disabled">Απενεργοποιημένα διαπιστευτήρια</string>
     <string name="daily_backup">Ημερήσιο αντίγραφο ασφαλείας</string>
     <string name="data_to_back_up">Δεδομένα για δημιουργία αντιγράφου ασφαλείας</string>
-    <string name="date_unknown">Άγνωστο</string>
     <string name="default_credentials_wrong">Λανθασμένα διαπιστευτήρια</string>
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
     <string name="delete_account_warning">Κατάργηση λογαριασμού %s και διαγραφή όλων των τοπικών αρχείων; \ n \ nΗ διαγραφή δεν μπορεί να ανακληθεί.</string>
@@ -280,7 +278,6 @@
     <string name="error_showing_encryption_dialog">Σφάλμα εμφάνισης διαλόγου ρύθμισης κρυπτογράφησης!</string>
     <string name="error_starting_direct_camera_upload">Σφάλμα κατά την εκκίνηση της κάμερας</string>
     <string name="error_starting_doc_scan">Σφάλμα σάρωσης εγγράφων</string>
-    <string name="error_starting_scan_doc">Σφάλμα κατά τη σάρωση εγγράφου</string>
     <string name="etm_accounts">Λογαριασμοί</string>
     <string name="etm_background_job_name">Όνομα εργασίας</string>
     <string name="etm_background_job_progress">Πρόοδος</string>
@@ -549,7 +546,6 @@
     <string name="pref_instant_name_collision_policy_title">Τι να κάνετε όταν το αρχείο υπάρχει ήδη;</string>
     <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
     <string name="prefs_calendar_contacts">Συγχρονισμός ημερολογίου &amp; επαφών</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Η διεύθυνση του διακομιστή για τον λογαριασμό δεν επαληθεύεται για DAVx5 (γνωστό και ως DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Δεν είναι εγκατεστημένο το Google Play ή το F-Droid</string>
     <string name="prefs_calendar_contacts_summary">Ρύθμιση του DAVx5 (γνωστό και ως DAVdroid) (v1.3.0+) για τον παρόν λογαριασμό</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Επιτυχής ρύθμιση συγχρονισμού ημερολογίου &amp; επαφών</string>
@@ -796,7 +792,6 @@
     <string name="thumbnail">Μικρογραφία</string>
     <string name="thumbnail_for_existing_file_description">Μικρογραφία υπάρχοντος αρχείου</string>
     <string name="thumbnail_for_new_file_desc">Μικρογραφία νέου αρχείου</string>
-    <string name="timeout_richDocuments">Η φόρτωση διαρκεί πολύ…</string>
     <string name="today">Σήμερα</string>
     <string name="trashbin_activity_title">Διεγραμμένα αρχεία</string>
     <string name="trashbin_empty_headline">Κανένα διαγεγραμμένο αρχείο</string>

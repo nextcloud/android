@@ -146,7 +146,6 @@
     <string name="community_testing_bug_text">Atopaches un fallo? hai algo estraño?</string>
     <string name="community_testing_headline">Axudanos facendo probas</string>
     <string name="community_testing_report_text">Informe dun incidente no GitHub</string>
-    <string name="community_testing_version_text">Interesaríalle axudarnos a probar como será próxima versión?</string>
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
     <string name="confirm_removal">Eliminar o cifrado local</string>
     <string name="confirmation_remove_file_alert">Confirma que quere eliminar %1$s?</string>
@@ -190,7 +189,6 @@
     <string name="credentials_disabled">Credenciais eliminadas</string>
     <string name="daily_backup">Copia de seguridade diaria</string>
     <string name="data_to_back_up">Datos para facer copia de seguranza</string>
-    <string name="date_unknown">Descoñecido</string>
     <string name="default_credentials_wrong">Credenciais incorrectas</string>
     <string name="delete_account">Eliminar conta</string>
     <string name="delete_account_warning">Retirar a conta %s e eliminar os ficheiros locais?\n\n Esta eliminación non pode desfacerse.</string>
@@ -282,7 +280,6 @@
     <string name="error_showing_encryption_dialog">Produciuse un erro ao amosar o diálogo de configuración do cifrado!</string>
     <string name="error_starting_direct_camera_upload">Produciuse un erro ao iniciar a cámara</string>
     <string name="error_starting_doc_scan">Produciuse un erro ao iniciar o escaneado do documento</string>
-    <string name="error_starting_scan_doc">Produciuse un erro ao escanear o documento</string>
     <string name="etm_accounts">Contas</string>
     <string name="etm_background_job_name">Nome do traballo</string>
     <string name="etm_background_job_progress">Progreso</string>
@@ -551,7 +548,6 @@
     <string name="pref_instant_name_collision_policy_title">Que facer se o ficheiro xa existe?</string>
     <string name="prefs_add_account">Engadir unha conta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario e contactos</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Non foi posíbel resolver o enderezo do servidor para a conta de DAVx5 (anteriormente coñecido como DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Nin F-Droid nin Google Play están instalados</string>
     <string name="prefs_calendar_contacts_summary">Estabelecer DAVx5 (anteriormente coñecido como DAVdroid) (v1.3.0 +) para a conta actual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Estabelecida a sincronización do calendario e dos contactos</string>
@@ -801,7 +797,6 @@
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura do ficheiro existente</string>
     <string name="thumbnail_for_new_file_desc">Miniatura do novo ficheiro</string>
-    <string name="timeout_richDocuments">A carga tarda moito…</string>
     <string name="today">Hoxe</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="trashbin_empty_headline">Non hai ficheiros eliminados</string>

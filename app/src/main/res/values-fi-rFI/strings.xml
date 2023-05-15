@@ -145,7 +145,6 @@
     <string name="community_testing_bug_text">Löysitkö bugin tai jotain muuta outoa?</string>
     <string name="community_testing_headline">Auta testaamalla</string>
     <string name="community_testing_report_text">Ilmoita ongelmasta GitHubissa</string>
-    <string name="community_testing_version_text">Oletko kiinnostunut auttamaan testaamalla seuraavaa versiota?</string>
     <string name="configure_new_media_folder_detection_notifications">Asetukset</string>
     <string name="confirm_removal">Poista paikallinen salaus</string>
     <string name="confirmation_remove_file_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
@@ -189,7 +188,6 @@
     <string name="credentials_disabled">Kirjautumistiedot poistettu käytöstä</string>
     <string name="daily_backup">Päivittäinen varmuuskopio</string>
     <string name="data_to_back_up">Varmuuskopioitavat tiedot</string>
-    <string name="date_unknown">Tuntematon</string>
     <string name="default_credentials_wrong">Virheelliset kirjautumistiedot</string>
     <string name="delete_account">Poista tili</string>
     <string name="delete_account_warning">Poistetaanko tili %s ja kaikki sen paikalliset tiedostot?\n\nPoistamista ei voi perua.</string>
@@ -277,7 +275,6 @@
     <string name="error_retrieving_file">Tiedoston noudossa tapahtui virhe</string>
     <string name="error_retrieving_templates">Tapahtui virhe mallien lataamisessa</string>
     <string name="error_starting_direct_camera_upload">Virhe kameraa käynnistäessä</string>
-    <string name="error_starting_scan_doc">Virhe dokumentin skannauksessa</string>
     <string name="etm_accounts">Tilit</string>
     <string name="etm_background_job_name">Työn nimi</string>
     <string name="etm_background_job_progress">Edistyminen</string>
@@ -546,7 +543,6 @@
     <string name="pref_instant_name_collision_policy_title">Mitä tehdään, jos tiedosto on jo olemassa?</string>
     <string name="prefs_add_account">Lisää tili</string>
     <string name="prefs_calendar_contacts">Synkronoi kalenteri &amp; kontaktit</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Palvelimen osoitetta ei voitu selvittää DAVx5 sovellukselle (tunnettu nimellä DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Sekä F-Droid että Google Play asentamatta</string>
     <string name="prefs_calendar_contacts_summary">Aseta DAVx5 (tunnettu nimellä DAVdroid) (v1.3.0+) nykyiselle tilille</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalenterin &amp; yhteystieto synkronointi asetettu</string>
@@ -794,7 +790,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="thumbnail">Esikatselukuva</string>
     <string name="thumbnail_for_existing_file_description">Esikatselu olemassa olevalle tiedostolle</string>
     <string name="thumbnail_for_new_file_desc">Esikatselu uudelle tiedostolle</string>
-    <string name="timeout_richDocuments">Lataaminen vie paljon aikaa...</string>
     <string name="today">Tänään</string>
     <string name="trashbin_activity_title">Poistetut tiedostot</string>
     <string name="trashbin_empty_headline">Ei poistettuja tiedostoja</string>

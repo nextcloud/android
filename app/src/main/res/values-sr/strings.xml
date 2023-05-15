@@ -146,7 +146,6 @@
     <string name="community_testing_bug_text">Нашли сте грешку? Нешто чудно?</string>
     <string name="community_testing_headline">Помози тестирајући</string>
     <string name="community_testing_report_text">Пријавите проблем на Гитхабу</string>
-    <string name="community_testing_version_text">Заинтересовани сте да помогнете тестирајући кандидате за званично издање?</string>
     <string name="configure_new_media_folder_detection_notifications">Подеси</string>
     <string name="confirm_removal">Уклони локално шифровање</string>
     <string name="confirmation_remove_file_alert">Заиста желите да обришете %1$s?</string>
@@ -191,7 +190,6 @@
     <string name="credentials_disabled">Акредитиви искључени</string>
     <string name="daily_backup">Дневна резервна копија</string>
     <string name="data_to_back_up">Подаци који се чувају</string>
-    <string name="date_unknown">Непознато</string>
     <string name="default_credentials_wrong">Неисправни акредитиви</string>
     <string name="delete_account">Уклони налог</string>
     <string name="delete_account_warning">Уклонити налог %s и избрисати све локалне фајлове?\n\nБрисање се не може опозвати.</string>
@@ -284,7 +282,6 @@
     <string name="error_showing_encryption_dialog">Грешка приликом приказа дијалога за подешавање шифрирања!</string>
     <string name="error_starting_direct_camera_upload">Грешка при покретању камере</string>
     <string name="error_starting_doc_scan">Грешка приликом почетка скенирања документа</string>
-    <string name="error_starting_scan_doc">Грешка при употреби скенирања документа</string>
     <string name="etm_accounts">Налози</string>
     <string name="etm_background_job_name">Назив посла</string>
     <string name="etm_background_job_progress">Напредак</string>
@@ -553,7 +550,6 @@
     <string name="pref_instant_name_collision_policy_title">Шта радити ако фајл већ постоји?</string>
     <string name="prefs_add_account">Додај налог</string>
     <string name="prefs_calendar_contacts">Синхронизуј календар и контакте</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">DAVx5 (раније знан и као ДАВдроид) не може да разлучи адресу сервера овог налога</string>
     <string name="prefs_calendar_contacts_no_store_error">Ни Ф-дроид ни Гугл плеј продавница нису инсталиране</string>
     <string name="prefs_calendar_contacts_summary">Подеси DAVx5 (раније знан и као ДАВдроид) (в1.3.0+) за тренутни налог</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Синхронизација контаката и календара подешена</string>
@@ -803,7 +799,6 @@
     <string name="thumbnail">Сличица</string>
     <string name="thumbnail_for_existing_file_description">Сличица за постојећи фајл</string>
     <string name="thumbnail_for_new_file_desc">Сличица за нови фајл</string>
-    <string name="timeout_richDocuments">Учитавање траје предуго…</string>
     <string name="today">Данас</string>
     <string name="trashbin_activity_title">Обрисани фајлови</string>
     <string name="trashbin_empty_headline">Нема обрисаних фајлова</string>

@@ -145,7 +145,6 @@
     <string name="community_testing_bug_text">Funnet en feil? Føles noe rart?</string>
     <string name="community_testing_headline">Hjelp oss å teste</string>
     <string name="community_testing_report_text">Rapporter en feil på GitHub</string>
-    <string name="community_testing_version_text">Interessert i å prøve ut det som kommer til å bli neste versjon?</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurer</string>
     <string name="confirm_removal">Fjern lokal kryptering</string>
     <string name="confirmation_remove_file_alert">Ønsker du virkelig å slette %1$s?</string>
@@ -189,7 +188,6 @@
     <string name="credentials_disabled">Legitimasjon deaktivert</string>
     <string name="daily_backup">Daglig sikkerhetskopi</string>
     <string name="data_to_back_up">Data å sikkerhetskopiere</string>
-    <string name="date_unknown">Ukjent</string>
     <string name="default_credentials_wrong">Feil legitimasjon</string>
     <string name="delete_account">Fjern konto</string>
     <string name="delete_account_warning">Fjern kontoen %s og slett alle lokale filer?\n\nSletting kan ikke angres.</string>
@@ -279,7 +277,6 @@
     <string name="error_retrieving_templates">Feil ved henting av mal</string>
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
     <string name="error_starting_doc_scan">Feil ved start av dokumentskanning</string>
-    <string name="error_starting_scan_doc">Feil ved bruk av dokument skanning</string>
     <string name="etm_accounts">Kontoer</string>
     <string name="etm_background_job_name">Jobbnavn</string>
     <string name="etm_background_job_progress">Fremgang</string>
@@ -548,7 +545,6 @@
     <string name="pref_instant_name_collision_policy_title">Hva skal gjøres om filen finnes?</string>
     <string name="prefs_add_account">Legg til en konto</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Adresse til server kan ikke nås for DAVx5 (tidligere DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Hverken F-Droid eller Google Play er installert</string>
     <string name="prefs_calendar_contacts_summary">Konfigurer DAVx5 (tidligere DAVdroid) (v1.3.0+)  for gjeldende konto</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; kontaktsynkronisering ble satt opp</string>
@@ -798,7 +794,6 @@
     <string name="thumbnail">Miniatyrbilde</string>
     <string name="thumbnail_for_existing_file_description">Miniatyrbilde for eksisterende fil</string>
     <string name="thumbnail_for_new_file_desc">Miniatyrbilde for ny fil</string>
-    <string name="timeout_richDocuments">Lasting tar lang tid...</string>
     <string name="today">I dag</string>
     <string name="trashbin_activity_title">Slettede filer</string>
     <string name="trashbin_empty_headline">Ingen slettede filer</string>

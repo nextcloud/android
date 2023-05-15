@@ -146,7 +146,6 @@
     <string name="community_testing_bug_text">發現問題或瑕疵？</string>
     <string name="community_testing_headline">協助測試</string>
     <string name="community_testing_report_text">在 GitHub 上舉報問題</string>
-    <string name="community_testing_version_text">有興趣幫我們測試下一個版本嗎？</string>
     <string name="configure_new_media_folder_detection_notifications">設定</string>
     <string name="confirm_removal">移除近端加密</string>
     <string name="confirmation_remove_file_alert">你真的想要刪除 %1$s？</string>
@@ -191,7 +190,6 @@
     <string name="credentials_disabled">認證方式已取消</string>
     <string name="daily_backup">每日備份</string>
     <string name="data_to_back_up">要備份的數據</string>
-    <string name="date_unknown">不詳</string>
     <string name="default_credentials_wrong">不正確的認證方式</string>
     <string name="delete_account">刪除賬戶</string>
     <string name="delete_account_warning">移除賬戶%s並刪除所有近端檔案?\n\n刪除後將無法恢復。</string>
@@ -284,7 +282,6 @@
     <string name="error_showing_encryption_dialog">顯示加密設定對話方塊時發生錯誤！</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
     <string name="error_starting_doc_scan">文件掃描開始時出錯</string>
-    <string name="error_starting_scan_doc">使用文件掃描時出錯</string>
     <string name="etm_accounts">賬戶</string>
     <string name="etm_background_job_name">工作名稱</string>
     <string name="etm_background_job_progress">進度</string>
@@ -553,7 +550,6 @@
     <string name="pref_instant_name_collision_policy_title">當檔案已經存在時我該怎麼做?</string>
     <string name="prefs_add_account">新增賬戶</string>
     <string name="prefs_calendar_contacts">同步日曆&amp;通訊錄</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">此賬戶的伺服器位址無法被 DAVx5（以前稱為DAVdroid）解析</string>
     <string name="prefs_calendar_contacts_no_store_error">尚未安裝 F-Droid 或 Google Play</string>
     <string name="prefs_calendar_contacts_summary">為目前用戶賬戶設定 DAVx5 協定（以前稱為 DAVdroid）（版本 v1.3.0 以上）</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日曆 &amp; 聯絡人同步設定</string>
@@ -803,7 +799,6 @@
     <string name="thumbnail">縮圖</string>
     <string name="thumbnail_for_existing_file_description">現有檔案的縮圖</string>
     <string name="thumbnail_for_new_file_desc">新增檔案的縮圖</string>
-    <string name="timeout_richDocuments">載入需要花一段時間…</string>
     <string name="today">今日</string>
     <string name="trashbin_activity_title">已刪除檔案</string>
     <string name="trashbin_empty_headline">無已刪除檔案</string>

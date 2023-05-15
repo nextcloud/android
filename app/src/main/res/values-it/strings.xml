@@ -146,7 +146,6 @@
     <string name="community_testing_bug_text">Trovato un bug? Stranezze?</string>
     <string name="community_testing_headline">Aiutaci nella fase di test</string>
     <string name="community_testing_report_text">Segnala un problema su GitHub</string>
-    <string name="community_testing_version_text">Sei interessato ad aiutarci a provare la nostra prossima versione?</string>
     <string name="configure_new_media_folder_detection_notifications">Configura</string>
     <string name="confirm_removal">Rimuovi la cifratura locale</string>
     <string name="confirmation_remove_file_alert">Vuoi davvero eliminare %1$s?</string>
@@ -190,7 +189,6 @@
     <string name="credentials_disabled">Credenziali disabilitate</string>
     <string name="daily_backup">Backup giornaliero</string>
     <string name="data_to_back_up">Dati di cui eseguire il backup</string>
-    <string name="date_unknown">Sconosciuta</string>
     <string name="default_credentials_wrong">Credenziali non corrette</string>
     <string name="delete_account">Rimuovi account</string>
     <string name="delete_account_warning">Rimuovere l\'account %s e tutti i file salvati localmente?\n\nIl processo non può essere annullato.</string>
@@ -282,7 +280,6 @@
     <string name="error_showing_encryption_dialog">Errore durante la visualizzazione della finestra di dialogo per l\'impostazione della crittografia!</string>
     <string name="error_starting_direct_camera_upload">Errore  di avvio della fotocamera</string>
     <string name="error_starting_doc_scan">Errore all\'avvio della scansione del documento</string>
-    <string name="error_starting_scan_doc">Errore durante l\'utilizzo della scansione del documento</string>
     <string name="etm_accounts">Account</string>
     <string name="etm_background_job_name">Nome operazione</string>
     <string name="etm_background_job_progress">Avanzamento</string>
@@ -551,7 +548,6 @@
     <string name="pref_instant_name_collision_policy_title">Cosa fare se il file esiste già?</string>
     <string name="prefs_add_account">Aggiungi account</string>
     <string name="prefs_calendar_contacts">Sincronizza calendario e contatti</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">L\'indirizzo del server per l\'account non può essere risolto per DAVx5 (conosciuto originariamente come DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid o Google Play non installato</string>
     <string name="prefs_calendar_contacts_summary">Configura DAVx5 (originariamente conosciuto come DAVdroid) (v1.3.0+) per l\'account corrente</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizzazione calendario e contatti configurata</string>
@@ -801,7 +797,6 @@
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura per il file esistente</string>
     <string name="thumbnail_for_new_file_desc">Miniatura per il nuovo file</string>
-    <string name="timeout_richDocuments">Il caricamento richiede molto tempo…</string>
     <string name="today">Oggi</string>
     <string name="trashbin_activity_title">File eliminati</string>
     <string name="trashbin_empty_headline">Nessun file eliminato</string>

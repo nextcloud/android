@@ -146,7 +146,6 @@
     <string name="community_testing_bug_text">Errore bat topatu duzu? Gauza arraroren bat?</string>
     <string name="community_testing_headline">Lagundu probatzen</string>
     <string name="community_testing_report_text">Jakinarazi arazoa GitHub-en</string>
-    <string name="community_testing_version_text">Hurrengo bertsioa probatzen lagundu nahi gaituzu?</string>
     <string name="configure_new_media_folder_detection_notifications">Konfiguratu</string>
     <string name="confirm_removal">Kendu enkriptatze lokala</string>
     <string name="confirmation_remove_file_alert">Ziur zaude %1$s ezabatu nahi duzula?</string>
@@ -190,7 +189,6 @@
     <string name="credentials_disabled">Kredentzialak desgaituta</string>
     <string name="daily_backup">Eguneko babeskopia</string>
     <string name="data_to_back_up">Babesteko datuak</string>
-    <string name="date_unknown">Ezezaguna</string>
     <string name="default_credentials_wrong">Kredentzial okerrak</string>
     <string name="delete_account">Ezabatu kontua</string>
     <string name="delete_account_warning">%s kontua kendu eta fitxategi lokal guztiak ezabatu?\n\nBehin ezabatuta ezin da atzera egin.</string>
@@ -282,7 +280,6 @@
     <string name="error_showing_encryption_dialog">Errore bat gertatu da enkriptatzea konfiguratzeko elkarrizketa-koadroa erakustean!</string>
     <string name="error_starting_direct_camera_upload">Errorea kamera abiaraztean</string>
     <string name="error_starting_doc_scan">Errorea dokumentuen eskaneatzea abiaraztean</string>
-    <string name="error_starting_scan_doc">Errorea dokumentu eskaneatzailea erabiltzerakoan</string>
     <string name="etm_accounts">Kontuak</string>
     <string name="etm_background_job_name">Lanaren izena</string>
     <string name="etm_background_job_progress">Aurrerapena</string>
@@ -551,7 +548,6 @@
     <string name="pref_instant_name_collision_policy_title">Zer egin fitxategia dagoeneko existitzen bada?</string>
     <string name="prefs_add_account">Gehitu kontua</string>
     <string name="prefs_calendar_contacts">Sinkronizatu egutegia eta kontaktuak</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Kontuaren zerbitzariaren helbidea ezin izan da ebatzi DAVx5-rentzat (lehenago DAVdroid izenarekin ezagutzen zena)</string>
     <string name="prefs_calendar_contacts_no_store_error">Ez F-Droid, ez Google Play, ez daude instalatuta</string>
     <string name="prefs_calendar_contacts_summary">Konfiguratu DAVx5 (lehen DAVdroid izenarekin ezagutzen zena) (v1.3.0+) kontu honetarako</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Egutegiaren eta kontaktuen sinkronizazioa konfiguratuta</string>
@@ -801,7 +797,6 @@
     <string name="thumbnail">Koadro txikia</string>
     <string name="thumbnail_for_existing_file_description">Existitzen den fitxategiaren koadro txikia</string>
     <string name="thumbnail_for_new_file_desc">Fitxategi berriaren koadro txikia</string>
-    <string name="timeout_richDocuments">Karga luze jotzen ari da</string>
     <string name="today">Gaur</string>
     <string name="trashbin_activity_title">Ezabatutako fitxategiak</string>
     <string name="trashbin_empty_headline">Ezabatutako fitxategirik ez</string>

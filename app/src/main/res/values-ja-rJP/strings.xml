@@ -141,7 +141,6 @@
     <string name="community_testing_bug_text">バグがありましたか? 問題がありますか?</string>
     <string name="community_testing_headline">テストによるヘルプ</string>
     <string name="community_testing_report_text">Githubでエラーを報告する</string>
-    <string name="community_testing_version_text">次のバージョンのテストを手伝ってください。</string>
     <string name="configure_new_media_folder_detection_notifications">構成</string>
     <string name="confirmation_remove_file_alert">本当に %1$s を削除しますか？</string>
     <string name="confirmation_remove_files_alert">本当に選択したアイテムを削除しますか？</string>
@@ -184,7 +183,6 @@
     <string name="credentials_disabled">資格情報が無効です</string>
     <string name="daily_backup">毎日のバックアップ</string>
     <string name="data_to_back_up">バックアップするデータ</string>
-    <string name="date_unknown">不明</string>
     <string name="default_credentials_wrong">不正な資格情報</string>
     <string name="delete_account">アカウント削除</string>
     <string name="delete_account_warning">アカウント %s のファイルとアカウントを削除しますか？\n\n削除すると復元はできません。</string>
@@ -265,7 +263,6 @@
     <string name="error_retrieving_file">ファイルの取得中にエラーが発生しました</string>
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
     <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>
-    <string name="error_starting_scan_doc">ドキュメントスキャナーの使用エラー</string>
     <string name="etm_accounts">アカウント</string>
     <string name="etm_background_job_name">ジョブの名前</string>
     <string name="etm_background_job_progress">進捗状況</string>
@@ -526,7 +523,6 @@
     <string name="pref_instant_name_collision_policy_title">ファイルがすでに存在するときの対応</string>
     <string name="prefs_add_account">アカウントを追加</string>
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">このアカウントのDAVx5 (f旧称 DAVdroid)用サーバアドレスが解決できませんでした</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid も Google Play もインストールされていません</string>
     <string name="prefs_calendar_contacts_summary">DAVx5 (旧称 DAVdroid) (v1.3.0+) を現在のアカウントに設定する</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">カレンダー &amp; 連絡先の同期設定しました</string>
@@ -759,7 +755,6 @@
     <string name="thumbnail">サムネイル</string>
     <string name="thumbnail_for_existing_file_description">既存ファイルのサムネイル</string>
     <string name="thumbnail_for_new_file_desc">新規ファイルのサムネイル</string>
-    <string name="timeout_richDocuments">ローディング中 時間がかかります...</string>
     <string name="today">今日</string>
     <string name="trashbin_activity_title">ゴミ箱</string>
     <string name="trashbin_empty_headline">削除されたファイルはありません</string>

@@ -145,7 +145,6 @@
     <string name="community_testing_bug_text">Heu trobat cap error? Alguna cosa fora del corrent?</string>
     <string name="community_testing_headline">Ajudar fent proves</string>
     <string name="community_testing_report_text">Informar d\'una incidència a GitHub</string>
-    <string name="community_testing_version_text">Interessat en ajudar a provar el que serà la següent versió?</string>
     <string name="configure_new_media_folder_detection_notifications">Configura</string>
     <string name="confirm_removal">Suprimeix el xifratge local</string>
     <string name="confirmation_remove_file_alert">Esteu segur que voleu suprimir%1$s?</string>
@@ -189,7 +188,6 @@
     <string name="credentials_disabled">Credencials inhabilitades</string>
     <string name="daily_backup">Còpia de seguretat diària</string>
     <string name="data_to_back_up">Dades a fer una còpia de seguretat</string>
-    <string name="date_unknown">Desconegut</string>
     <string name="default_credentials_wrong">Credencials incorrectes</string>
     <string name="delete_account">Suprimeix el compte</string>
     <string name="delete_account_warning">Suprimeix el compte %s i tots els fitxers locals?\n\nAquesta acció no es pot desfer.</string>
@@ -273,7 +271,6 @@
     <string name="error_retrieving_file">S\'ha produït un error mentre es recuperava el fitxer</string>
     <string name="error_retrieving_templates">S\'ha produït un error recuperant les plantilles</string>
     <string name="error_starting_direct_camera_upload">S\'ha produït un error iniciant la càmera</string>
-    <string name="error_starting_scan_doc">S\'ha produït un error en utilitzar l\'exploració del document</string>
     <string name="etm_accounts">Comptes</string>
     <string name="etm_background_job_name">Nom de la tasca</string>
     <string name="etm_background_job_progress">Progrés</string>
@@ -542,7 +539,6 @@
     <string name="pref_instant_name_collision_policy_title">Què s\'ha de fer si el fitxer ja existeix?</string>
     <string name="prefs_add_account">Afegeix compte</string>
     <string name="prefs_calendar_contacts">Sincronitza el calendari &amp; i els contactes</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">L\'adreça del servidor per al compte no s\'ha pogut resoldre per DAVx5 (conegut anteriorment com a DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-Droid ni Google Play estan instal·lats</string>
     <string name="prefs_calendar_contacts_summary">Arranja DAVx5 (conegut anterioment com a DAVdroid) (v1.3.0+) per al compte actual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuració de sincronització de contactes de calendari &amp;</string>
@@ -790,7 +786,6 @@
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura pel fitxer existent</string>
     <string name="thumbnail_for_new_file_desc">Miniatura pel nou fitxer</string>
-    <string name="timeout_richDocuments">La càrrega triga molt…</string>
     <string name="today">Avui</string>
     <string name="trashbin_activity_title">Fitxers suprimits</string>
     <string name="trashbin_empty_headline">No hi ha cap fitxer suprimit</string>

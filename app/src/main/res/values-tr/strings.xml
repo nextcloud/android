@@ -146,7 +146,6 @@
     <string name="community_testing_bug_text">Bir hata mı buldunuz? Bir gariplik mi var?</string>
     <string name="community_testing_headline">Deneyerek bize yardımcı olun</string>
     <string name="community_testing_report_text">GitHub üzerinden sorun bildirin</string>
-    <string name="community_testing_version_text">Sonraki sürümü deneyerek bize yardımcı olmak ister misiniz?</string>
     <string name="configure_new_media_folder_detection_notifications">Yapılandır</string>
     <string name="confirm_removal">Yerel şifrelemeyi kaldır</string>
     <string name="confirmation_remove_file_alert">%1$s dosyasını silmek istediğinize emin misiniz?</string>
@@ -159,6 +158,7 @@
     <string name="conflict_local_file">Yerel dosya</string>
     <string name="conflict_message_description">İki sürümü de saklamayı seçerseniz, yerel dosyanın adına bir numara eklenecek.</string>
     <string name="conflict_server_file">Sunucu dosyası</string>
+    <string name="contact_backup_title">Kişiler yedeği</string>
     <string name="contactlist_item_icon">Kişi listesi kullanıcı simgesi</string>
     <string name="contactlist_no_permission">Herhangi bir izin verilmemiş olduğundan hiçbir şey içe aktarılamadı.</string>
     <string name="contacts">Kişiler</string>
@@ -190,7 +190,6 @@
     <string name="credentials_disabled">Kimlik doğrulama bilgileri kullanılmıyor</string>
     <string name="daily_backup">Günlük yedek</string>
     <string name="data_to_back_up">Yedeklenecek veriler</string>
-    <string name="date_unknown">Bilinmiyor</string>
     <string name="default_credentials_wrong">Kimlik doğrulama bilgileri hatalı</string>
     <string name="delete_account">Hesabı kaldır</string>
     <string name="delete_account_warning">%s hesabı ve tüm yerel dosyalar kaldırılsın mı?\n\nSilme işlemi geri alınamaz.</string>
@@ -236,6 +235,7 @@
     <string name="drawer_item_all_files">Tüm dosyalar</string>
     <string name="drawer_item_favorites">Sık kullanılanlar</string>
     <string name="drawer_item_gallery">Ortam</string>
+    <string name="drawer_item_groupfolders">Grup klasörleri</string>
     <string name="drawer_item_home">Giriş</string>
     <string name="drawer_item_notifications">Bildirimler</string>
     <string name="drawer_item_on_device">Aygıt üzerinde</string>
@@ -282,7 +282,6 @@
     <string name="error_showing_encryption_dialog">Şifreleme kurulumu penceresi görüntülenirken sorun çıktı!</string>
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>
     <string name="error_starting_doc_scan">Belge taramasına başlanırken sorun çıktı</string>
-    <string name="error_starting_scan_doc">Belge taraması sırasında sorun çıktı</string>
     <string name="etm_accounts">Hesaplar</string>
     <string name="etm_background_job_name">Görev adı</string>
     <string name="etm_background_job_progress">İlerleme</string>
@@ -551,7 +550,6 @@
     <string name="pref_instant_name_collision_policy_title">Dosya zaten varsa ne yapılsın?</string>
     <string name="prefs_add_account">Hesap ekle</string>
     <string name="prefs_calendar_contacts">Takvim ve kişi eşitleme</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">DAVx5 (eski adı DAVdroid) sunucu adı ya da adresi çözümlenemedi</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ya da Google Play kurulmamış</string>
     <string name="prefs_calendar_contacts_summary">Geçerli hesap için DAVx5 (eski adı DAVdroid) (v1.3.0+) kurulumu</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitleme ayarları</string>
@@ -801,7 +799,6 @@
     <string name="thumbnail">Küçük görsel</string>
     <string name="thumbnail_for_existing_file_description">Var olan dosyanın küçük görseli</string>
     <string name="thumbnail_for_new_file_desc">Yeni dosyanın küçük görseli</string>
-    <string name="timeout_richDocuments">Yükleme işlemi çok zaman alıyor …</string>
     <string name="today">Bugün</string>
     <string name="trashbin_activity_title">Silinmiş dosyalar</string>
     <string name="trashbin_empty_headline">Silinmiş bir dosya yok</string>

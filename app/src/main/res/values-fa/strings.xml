@@ -144,7 +144,6 @@
     <string name="community_testing_bug_text">خطایی پیدا کردید؟ عجیب و غریب؟</string>
     <string name="community_testing_headline">با آزمایش کردن کمک کنید</string>
     <string name="community_testing_report_text">گزارش یک مورد در GitHub</string>
-    <string name="community_testing_version_text">آیا شماعلاقه‌‌مند به کمک رسانی به ما با امتحان کردن نسخه بعدی هستید؟</string>
     <string name="configure_new_media_folder_detection_notifications">" پیکربندی"</string>
     <string name="confirmation_remove_file_alert">آیا واقعا می‌خواهید %1$s را حذف کنید؟</string>
     <string name="confirmation_remove_files_alert">آیا واقعاً می‌خواهید موارد انتخاب شده را حذف کنید؟</string>
@@ -187,7 +186,6 @@
     <string name="credentials_disabled">اعتبارنامه غیرفعال است</string>
     <string name="daily_backup">پشتیبان روزانه</string>
     <string name="data_to_back_up">داده برای پشتیبان‌گیری</string>
-    <string name="date_unknown">ناشناخته</string>
     <string name="default_credentials_wrong">اعتبارنامه نادرست است</string>
     <string name="delete_account">حذف حساب کاربری</string>
     <string name="delete_account_warning">برداشتن حساب %s و حذف تمام پرونده‌ّای محلّی؟\n\nحذف قابل بازگردانی نیست.</string>
@@ -509,7 +507,6 @@
     <string name="pref_instant_name_collision_policy_title">در صورت وجود فایل چه کاری انجام شود؟</string>
     <string name="prefs_add_account">ایحاد حساب کاربری</string>
     <string name="prefs_calendar_contacts"> همگام سازی تقویم &amp; مخاطبین</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">آدرس سرور برای این حساب، قابل نگاشت به DAVx5 نیست ( قبلاً با نام  DAVdroid شناخته می‌شد)</string>
     <string name="prefs_calendar_contacts_no_store_error">" هیچ‌کدام از برنامک‌های F-Droid و Google Play نصب نشده‌اند."</string>
     <string name="prefs_calendar_contacts_summary">" تنظیم DAVx5 برای حساب جاری(که قبلاً با نام DAVdroid شناخته می‌شد) (v1.3.0 +) "</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">تقویم &amp; همگام سازی مخاطبین تنظیم شده است</string>
@@ -736,7 +733,6 @@
     <string name="thumbnail">بند انگشتی</string>
     <string name="thumbnail_for_existing_file_description">تصویر کوچک برای فایل موجود</string>
     <string name="thumbnail_for_new_file_desc">تصویر کوچک برای فایل جدید</string>
-    <string name="timeout_richDocuments">بارگیری بسیار طول می کشد...</string>
     <string name="today">امروز</string>
     <string name="trashbin_activity_title">فایل های حذف شده</string>
     <string name="trashbin_empty_headline">هیچ فایل حذف شده‌ای وجود ندارد</string>

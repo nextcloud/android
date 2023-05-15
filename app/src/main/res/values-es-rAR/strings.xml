@@ -133,7 +133,6 @@
     <string name="community_testing_bug_text">¿Encontró una falla? ¿Hay algo raro?</string>
     <string name="community_testing_headline">Ayúdenos probando</string>
     <string name="community_testing_report_text">Reportar un error en GitHub</string>
-    <string name="community_testing_version_text">¿Interesado en ayudar probando cuál será la próxima versión?</string>
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
     <string name="confirmation_remove_file_alert">¿Realmente quieres eliminar %1$s?</string>
     <string name="confirmation_remove_files_alert">¿Realmente quieres borrar los elementos seleccionados?</string>
@@ -172,7 +171,6 @@
     <string name="create_rich_workspace">Agregar información de carpeta</string>
     <string name="creates_rich_workspace">Crear información de carpeta</string>
     <string name="credentials_disabled">Contraseña deshabilitada</string>
-    <string name="date_unknown">Desconocido</string>
     <string name="default_credentials_wrong">Contraseña incorrecta</string>
     <string name="delete_account">Eliminar cuenta</string>
     <string name="delete_account_warning">¿Deseas eliminar la cuenta %s y eliminar todos los archivos locales?\n\nLa eliminación no se puede deshacer.</string>
@@ -474,7 +472,6 @@
     <string name="pref_instant_name_collision_policy_title">¿Qué hacer si el archivo ya existe?</string>
     <string name="prefs_add_account">Agregar cuenta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario  &amp; contactos</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">La dirección del servidor para la cuenta no se pudo resolver para DAVx5 (anteriormente conocido como DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-Droid ni Google Play están instalados</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVx5 (anteriormente conocido como DAVdroid) (v1.3.0 +) para la cuenta actual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuración de la sincronización del calendario &amp; contactos </string>
@@ -688,7 +685,6 @@
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura para archivo existente</string>
     <string name="thumbnail_for_new_file_desc">Miniatura para nuevo archivo</string>
-    <string name="timeout_richDocuments">La carga lleva mucho tiempo...</string>
     <string name="today">Hoy</string>
     <string name="trashbin_activity_title">Archivos borrados</string>
     <string name="trashbin_empty_headline">No hay archivos borrados</string>

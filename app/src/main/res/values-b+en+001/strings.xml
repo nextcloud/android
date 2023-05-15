@@ -146,7 +146,6 @@
     <string name="community_testing_bug_text">Found a bug? Oddments?</string>
     <string name="community_testing_headline">Help by testing</string>
     <string name="community_testing_report_text">Report an issue on GitHub</string>
-    <string name="community_testing_version_text">Interested in helping out by testing what will be the next version?</string>
     <string name="configure_new_media_folder_detection_notifications">Configure</string>
     <string name="confirm_removal">Remove local encryption</string>
     <string name="confirmation_remove_file_alert">Do you really want to delete %1$s?</string>
@@ -191,7 +190,6 @@
     <string name="credentials_disabled">Credentials disabled</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>
-    <string name="date_unknown">Unknown</string>
     <string name="default_credentials_wrong">Incorrect credentials</string>
     <string name="delete_account">Remove account</string>
     <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
@@ -284,7 +282,6 @@
     <string name="error_showing_encryption_dialog">Error showing encryption setup dialog!</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="error_starting_doc_scan">Error starting document scan</string>
-    <string name="error_starting_scan_doc">Error using document scanning</string>
     <string name="etm_accounts">Accounts</string>
     <string name="etm_background_job_name">Job name</string>
     <string name="etm_background_job_progress">Progress</string>
@@ -553,7 +550,6 @@
     <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
     <string name="prefs_add_account">Add account</string>
     <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Server address for the account could not be resolved for DAVx5 (formerly known as DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_summary">Set up DAVx5 (formerly known as DAVdroid) (v1.3.0+) for current account</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up</string>
@@ -803,7 +799,6 @@
     <string name="thumbnail">Thumbnail</string>
     <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
     <string name="thumbnail_for_new_file_desc">Thumbnail for new file</string>
-    <string name="timeout_richDocuments">Loading takes very long…</string>
     <string name="today">Today</string>
     <string name="trashbin_activity_title">Deleted files</string>
     <string name="trashbin_empty_headline">No deleted files</string>

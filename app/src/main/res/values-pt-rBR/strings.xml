@@ -146,7 +146,6 @@
     <string name="community_testing_bug_text">Encontrou um erro? Algo estranho?</string>
     <string name="community_testing_headline">Ajude testando</string>
     <string name="community_testing_report_text">Reporte um problema no GitHub</string>
-    <string name="community_testing_version_text">Interessado em ajudar testando a próxima versão?</string>
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
     <string name="confirm_removal">Remover criptografia local</string>
     <string name="confirmation_remove_file_alert">Quer realmente excluir %1$s?</string>
@@ -190,7 +189,6 @@
     <string name="credentials_disabled">Credenciais desabilitadas</string>
     <string name="daily_backup">Backup diário </string>
     <string name="data_to_back_up">Dados para backup </string>
-    <string name="date_unknown">Desconhecido</string>
     <string name="default_credentials_wrong">Credenciais incorretas</string>
     <string name="delete_account">Remover conta</string>
     <string name="delete_account_warning">Excluir a conta %s e remover todos os arquivos locais?\n\nEsta exclusão não pode ser desfeita.</string>
@@ -282,7 +280,6 @@
     <string name="error_showing_encryption_dialog">Erro ao mostrar o diálogo de configuração de criptografia!</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
     <string name="error_starting_doc_scan">Erro ao iniciar a digitalização do documento</string>
-    <string name="error_starting_scan_doc">Erro ao usar a digitalização de documentos</string>
     <string name="etm_accounts">Contas</string>
     <string name="etm_background_job_name">Nome da tarefa</string>
     <string name="etm_background_job_progress">Progresso</string>
@@ -551,7 +548,6 @@
     <string name="pref_instant_name_collision_policy_title">O que fazer se o arquivo já existir?</string>
     <string name="prefs_add_account">Adicionar uma conta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendário &amp; contatos</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">O endereço do servidor para a conta não pôde ser encontrado para DAVx5 (conhecido como DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Nem o F-Droid nem o Google Play estão instalados</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVx5 (conhecido como DAVdroid) (v1.3.0+) para a conta atual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuração da sincronização de calendário &amp; contatos</string>
@@ -801,7 +797,6 @@
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura para arquivo existente</string>
     <string name="thumbnail_for_new_file_desc">Miniatura para arquivo novo</string>
-    <string name="timeout_richDocuments">O carregamento demora muito…</string>
     <string name="today">Hoje</string>
     <string name="trashbin_activity_title">Arquivos excluídos</string>
     <string name="trashbin_empty_headline">Nenhum arquivo excluído</string>
