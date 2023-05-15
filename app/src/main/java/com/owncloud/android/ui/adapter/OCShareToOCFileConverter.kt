@@ -38,7 +38,9 @@ object OCShareToOCFileConverter {
      */
     @JvmStatic
     fun buildOCFilesFromShares(shares: List<OCShare>): List<OCFile> {
-        val groupedByPath: Map<String, List<OCShare>> = shares.groupBy { it.path }
+        val groupedByPath: Map<String, List<OCShare>> = shares
+            .filter { it.path != null }
+            .groupBy { it.path!! }
         return groupedByPath
             .map { (path: String, shares: List<OCShare>) -> buildOcFile(path, shares) }
             .sortedByDescending { it.firstShareTimestamp }
