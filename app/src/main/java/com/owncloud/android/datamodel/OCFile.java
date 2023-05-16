@@ -600,6 +600,9 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return !TextUtils.isEmpty(getFileName()) && getFileName().charAt(0) == '.';
     }
 
+    /**
+     * unique fileId for the file within the instance
+     */
     @SuppressFBWarnings("STT")
     public long getLocalId() {
         if (localId > 0) {
@@ -648,6 +651,9 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         }
     };
 
+    /**
+     * Android's internal ID of the file
+     */
     public long getFileId() {
         return this.fileId;
     }
