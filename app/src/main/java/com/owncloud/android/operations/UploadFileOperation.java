@@ -471,7 +471,9 @@ public class UploadFileOperation extends SyncOperation {
             Pair<Boolean, DecryptedFolderMetadata> metadataPair = EncryptionUtils.retrieveMetadata(parentFile,
                                                                                                    client,
                                                                                                    privateKey,
-                                                                                                   publicKey);
+                                                                                                   publicKey,
+                                                                                                   arbitraryDataProvider,
+                                                                                                   user);
 
             metadataExists = metadataPair.first;
             DecryptedFolderMetadata metadata = metadataPair.second;
@@ -495,7 +497,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // Get the last modification date of the file from the file system
-            long lastModifiedTimestamp = originalFile.lastModified() / 1000;
+            String lastModifiedTimestamp = Long.toString(originalFile.lastModified() / 1000);
 
             Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
@@ -617,8 +619,20 @@ public class UploadFileOperation extends SyncOperation {
                 metadata.getFiles().put(encryptedFileName, decryptedFile);
 
                 EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
-                                                                                                        privateKey);
-                String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
+                                                                                                        privateKey,
+                                                                                                        publicKey,
+                                                                                                        arbitraryDataProvider,
+                                                                                                        user,
+                                                                                                        parentFile.getLocalId());
+
+                String serializedFolderMetadata;
+
+                // check if we need metadataKeys
+                if (metadata.getMetadata().getMetadataKey() != null) {
+                    serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata, true);
+                } else {
+                    serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
+                }
 
                 // upload metadata
                 EncryptionUtils.uploadMetadata(parentFile,
@@ -759,7 +773,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // Get the last modification date of the file from the file system
-            long lastModifiedTimestamp = originalFile.lastModified() / 1000;
+            String lastModifiedTimestamp = Long.toString(originalFile.lastModified() / 1000);
 
             final Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 

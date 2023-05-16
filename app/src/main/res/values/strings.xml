@@ -1068,6 +1068,8 @@
     <string name="error_showing_encryption_dialog">Error showing encryption setup dialog!</string>
     <string name="prefs_keys_exist">Add end-to-end encryption to this client</string>
     <string name="add_new_secure_file_drop">Add new secure file drop</string>
+    <string name="download_cannot_create_file">Cannot create local file</string>
+    <string name="download_download_invalid_local_file_name">Invalid filename for local file</string>
     <string name="scan_page">Scan page</string>
     <string name="done">Done</string>
     <string name="document_scan_pdf_generation_in_progress">Generating PDF…</string>

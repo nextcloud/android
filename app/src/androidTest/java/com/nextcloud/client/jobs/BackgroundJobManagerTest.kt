@@ -122,8 +122,7 @@ class BackgroundJobManagerTest {
             Data.Builder().build(),
             listOf(BackgroundJobManagerImpl.formatTimeTag(1581820284000)),
             Data.Builder().build(),
-            1,
-            0
+            1
         )
     }
 

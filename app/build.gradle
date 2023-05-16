@@ -3,9 +3,9 @@ import org.gradle.internal.jvm.Jvm
 
 buildscript {
     dependencies {
-        classpath "com.android.tools.build:gradle:$androidPluginVersion"
+        classpath 'com.android.tools.build:gradle:7.4.0'
         classpath 'com.hiya:jacoco-android:0.2'
-        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.14'
+        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.13'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.22.0"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -58,9 +58,9 @@ configurations.configureEach {
 
 // semantic versioning for version code
 def versionMajor = 3
-def versionMinor = 25
-def versionPatch = 0
-def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionMinor = 24
+def versionPatch = 2
+def versionBuild = 90 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 
 def ndkEnv = new HashMap<String, String>()
@@ -245,9 +245,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'com.jakewharton:disklrucache:2.0.2'
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
-    implementation 'androidx.webkit:webkit:1.6.1'
+    implementation 'androidx.webkit:webkit:1.5.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.exifinterface:exifinterface:1.3.6'
+    implementation 'androidx.exifinterface:exifinterface:1.3.5'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation "androidx.work:work-runtime:$workRuntime"
     implementation "androidx.work:work-runtime-ktx:$workRuntime"
@@ -269,8 +269,8 @@ dependencies {
         exclude group: "com.android.support"
     }
     implementation 'com.caverock:androidsvg:1.4'
-    implementation 'androidx.annotation:annotation:1.6.0'
-    implementation 'com.vanniktech:emoji-google:0.16.0'
+    implementation 'androidx.annotation:annotation:1.5.0'
+    implementation 'com.vanniktech:emoji-google:0.9.0'
 
     implementation "com.github.nextcloud-deps.hwsecurity:hwsecurity-fido:$fidoVersion"
     implementation "com.github.nextcloud-deps.hwsecurity:hwsecurity-fido2:$fidoVersion"
@@ -294,7 +294,7 @@ dependencies {
     implementation "com.google.android.exoplayer:exoplayer:$exoplayerVersion"
     implementation "com.google.android.exoplayer:extension-okhttp:$exoplayerVersion"
 
-    implementation 'me.zhanghai.android.fastscroll:library:1.2.0'
+    implementation 'me.zhanghai.android.fastscroll:library:1.1.8'
 
     // Shimmer animation
     implementation 'io.github.elye:loaderviewlibrary:3.0.0'
@@ -324,9 +324,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "androidx.test:core:$androidxTestVersion"
-    testImplementation 'org.json:json:20230227'
+    testImplementation 'org.json:json:20220924'
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
-    testImplementation 'androidx.arch.core:core-testing:2.2.0'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation "io.mockk:mockk:$mockkVersion"
     testImplementation "io.mockk:mockk-android:$mockkVersion"
 
@@ -352,7 +352,7 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
     androidTestImplementation("org.mockito:mockito-android:$mockitoVersion")
     androidTestImplementation "io.mockk:mockk-android:$mockkVersion"
-    androidTestImplementation 'androidx.arch.core:core-testing:2.2.0'
+    androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
     androidTestImplementation "com.facebook.testing.screenshot:core:0.15.0"
 
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
