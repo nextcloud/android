@@ -497,7 +497,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // Get the last modification date of the file from the file system
-            String lastModifiedTimestamp = Long.toString(originalFile.lastModified() / 1000);
+            long lastModifiedTimestamp = originalFile.lastModified() / 1000;
 
             Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
@@ -773,7 +773,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // Get the last modification date of the file from the file system
-            String lastModifiedTimestamp = Long.toString(originalFile.lastModified() / 1000);
+            long lastModifiedTimestamp = originalFile.lastModified() / 1000;
 
             final Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 

@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   rebase:
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: none
 
@@ -36,10 +36,10 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.COMMAND_BOT_PAT }}
 
-        -   name: Automatic Rebase
-            uses: cirrus-actions/rebase@b87d48154a87a85666003575337e27b8cd65f691 # 1.8
-            env:
-                GITHUB_TOKEN: ${{ secrets.COMMAND_BOT_PAT }}
+      - name: Automatic Rebase
+        uses: cirrus-actions/rebase@b87d48154a87a85666003575337e27b8cd65f691 # 1.8
+        env:
+          GITHUB_TOKEN: ${{ secrets.COMMAND_BOT_PAT }}
 
       - name: Add reaction on failure
         uses: peter-evans/create-or-update-comment@ca08ebd5dc95aa0cd97021e9708fcd6b87138c9b # v3.0.1

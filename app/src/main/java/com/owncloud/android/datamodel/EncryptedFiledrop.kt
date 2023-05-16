@@ -28,4 +28,4 @@ data class EncryptedFiledrop(
     val encryptedKey: String,
     val encryptedTag: String,
     val encryptedInitializationVector: String
-) 
+)
