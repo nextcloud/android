@@ -799,6 +799,7 @@
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura para el archivo existente</string>
     <string name="thumbnail_for_new_file_desc">Miniatura para el archivo nuevo</string>
+    <string name="timeout_richDocuments">La carga está tardando más de lo esperado</string>
     <string name="today">Hoy</string>
     <string name="trashbin_activity_title">Archivos eliminados</string>
     <string name="trashbin_empty_headline">No hay archivos eliminados</string>

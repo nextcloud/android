@@ -799,6 +799,7 @@
     <string name="thumbnail">縮圖</string>
     <string name="thumbnail_for_existing_file_description">現有檔案的縮圖</string>
     <string name="thumbnail_for_new_file_desc">新增檔案的縮圖</string>
+    <string name="timeout_richDocuments">載入時間比預期久</string>
     <string name="today">今天</string>
     <string name="trashbin_activity_title">回收桶</string>
     <string name="trashbin_empty_headline">無已刪除檔案</string>

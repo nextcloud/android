@@ -800,6 +800,7 @@
     <string name="thumbnail">Vorschaubild</string>
     <string name="thumbnail_for_existing_file_description">Miniaturbild für vorhandene Datei</string>
     <string name="thumbnail_for_new_file_desc">Miniaturbild für neue Datei</string>
+    <string name="timeout_richDocuments">Laden dauert länger als erwartet</string>
     <string name="today">Heute</string>
     <string name="trashbin_activity_title">Gelöschte Dateien</string>
     <string name="trashbin_empty_headline">Keine gelöschten Dateien</string>
