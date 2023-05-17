@@ -17,7 +17,7 @@ buildscript {
 }
 
 plugins {
-    id "com.diffplug.spotless" version "6.17.0"
+    id "com.diffplug.spotless" version "6.18.0"
 }
 
 apply plugin: 'com.android.application'
@@ -366,7 +366,7 @@ dependencies {
 
     // upon each update first test: new registration, receive push
     gplayImplementation "com.google.firebase:firebase-messaging:23.1.2"
-    gplayImplementation 'com.google.android.play:review-ktx:2.0.0'
+    gplayImplementation 'com.google.android.play:review-ktx:2.0.1'
 
     implementation 'com.github.nextcloud.android-common:ui:0.10.0'
 

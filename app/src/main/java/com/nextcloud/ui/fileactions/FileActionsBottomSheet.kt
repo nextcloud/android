@@ -59,7 +59,7 @@ import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment(), Injectable {
+class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
@@ -189,7 +189,7 @@ class FileActionsBottomSheet private constructor() : BottomSheetDialogFragment()
         if (state is FileActionsViewModel.UiState.Loading) {
             binding.bottomSheetLoading.isVisible = true
             binding.bottomSheetContent.isVisible = false
-            viewThemeUtils.platform.colorCircularProgressBar(binding.bottomSheetLoading)
+            viewThemeUtils.platform.colorCircularProgressBar(binding.bottomSheetLoading, ColorRole.PRIMARY)
         } else {
             binding.bottomSheetLoading.isVisible = false
             binding.bottomSheetContent.isVisible = true
