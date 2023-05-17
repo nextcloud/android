@@ -426,8 +426,8 @@ public class RefreshFolderOperation extends RemoteOperation {
             mStorageManager.removeFolder(
                 mLocalFolder,
                 true,
-                    mLocalFolder.isDown() && mLocalFolder.getStoragePath().startsWith(currentSavePath)
-            );
+                mLocalFolder.isDown() && mLocalFolder.getStoragePath().startsWith(currentSavePath)
+                                        );
         }
     }
 
