@@ -220,22 +220,47 @@ public final class EncryptionUtils {
         return encryptedFolderMetadata;
     }
 
+    /**
+     * normally done on server only internal test
+     */
     @VisibleForTesting
     public static void encryptFileDropFiles(DecryptedFolderMetadata decryptedFolderMetadata,
-                                            EncryptedFolderMetadata encryptedFolderMetadata) {
+                                            EncryptedFolderMetadata encryptedFolderMetadata,
+                                            String cert) throws NoSuchPaddingException, IllegalBlockSizeException, CertificateException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, InvalidAlgorithmParameterException {
         final Map<String, EncryptedFiledrop> filesdrop = encryptedFolderMetadata.getFiledrop();
         for (Map.Entry<String, DecryptedFolderMetadata.DecryptedFile> entry : decryptedFolderMetadata
             .getFiledrop().entrySet()) {
             String key = entry.getKey();
             DecryptedFolderMetadata.DecryptedFile decryptedFile = entry.getValue();
 
+            byte[] byt = generateKey();
+            String metadataKey0 = encodeBytesToBase64String(byt);
+            String enc = encryptStringAsymmetric(metadataKey0, cert);
+
             String dataJson = EncryptionUtils.serializeJSON(decryptedFile.getEncrypted());
-            EncryptedFiledrop encryptedFile = new EncryptedFiledrop(dataJson,
+
+            String encJson = encryptStringSymmetric(dataJson, byt);
+
+            int delimiterPosition = encJson.lastIndexOf(ivDelimiter);
+            String encryptedInitializationVector = encJson.substring(delimiterPosition + ivDelimiter.length());
+            String encodedCryptedBytes = encJson.substring(0, delimiterPosition);
+
+
+            byte[] bytes = decodeStringToBase64Bytes(encodedCryptedBytes);
+
+            // check authentication tag
+            byte[] extractedAuthenticationTag = Arrays.copyOfRange(bytes,
+                                                                   bytes.length - (128 / 8),
+                                                                   bytes.length);
+
+            String encryptedTag = encodeBytesToBase64String(extractedAuthenticationTag);
+
+            EncryptedFiledrop encryptedFile = new EncryptedFiledrop(encodedCryptedBytes,
                                                                     decryptedFile.getInitializationVector(),
                                                                     decryptedFile.getAuthenticationTag(),
-                                                                    "123",
-                                                                    "123",
-                                                                    "123");
+                                                                    enc,
+                                                                    encryptedTag,
+                                                                    encryptedInitializationVector);
 
             filesdrop.put(key, encryptedFile);
         }
