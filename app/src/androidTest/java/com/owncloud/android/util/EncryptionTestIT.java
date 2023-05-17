@@ -533,7 +533,7 @@ public class EncryptionTestIT extends AbstractIT {
             arbitraryDataProvider,
             user,
             folderID);
-        EncryptionUtils.encryptFileDropFiles(decryptedFolderMetadata1, encryptedFolderMetadata1);
+        EncryptionUtils.encryptFileDropFiles(decryptedFolderMetadata1, encryptedFolderMetadata1, cert);
 
         // serialize
         String encryptedJson = serializeJSON(encryptedFolderMetadata1);
