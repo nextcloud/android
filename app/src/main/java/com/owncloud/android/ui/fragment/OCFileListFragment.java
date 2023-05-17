@@ -1757,7 +1757,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 DecryptedFolderMetadata metadata = metadataPair.second;
 
                 EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
-                                                                                                        privateKey,
                                                                                                         publicKey,
                                                                                                         arbitraryDataProvider,
                                                                                                         user,

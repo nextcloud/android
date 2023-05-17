@@ -152,7 +152,6 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                 metadata.getFiles().put(encryptedFileName, createDecryptedFile(filename));
 
                 EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
-                                                                                                        privateKey,
                                                                                                         publicKey,
                                                                                                         arbitraryDataProvider,
                                                                                                         user,

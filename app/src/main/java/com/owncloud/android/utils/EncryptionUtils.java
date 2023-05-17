@@ -106,7 +106,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Utils for encryption
  */
 public final class EncryptionUtils {
-    private static String TAG = EncryptionUtils.class.getSimpleName();
+    private static final String TAG = EncryptionUtils.class.getSimpleName();
 
     public static final String PUBLIC_KEY = "PUBLIC_KEY";
     public static final String PRIVATE_KEY = "PRIVATE_KEY";
@@ -169,7 +169,6 @@ public final class EncryptionUtils {
      * @return EncryptedFolderMetadata encrypted folder metadata
      */
     public static EncryptedFolderMetadata encryptFolderMetadata(DecryptedFolderMetadata decryptedFolderMetadata,
-                                                                String privateKey,
                                                                 String publicKey,
                                                                 ArbitraryDataProvider arbitraryDataProvider,
                                                                 User user,
@@ -222,14 +221,14 @@ public final class EncryptionUtils {
     }
 
     @VisibleForTesting
-    public static void encryptFileDropFiles(DecryptedFolderMetadata decryptedFolderMetadata, EncryptedFolderMetadata encryptedFolderMetadata, String cert) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, CertificateException {
+    public static void encryptFileDropFiles(DecryptedFolderMetadata decryptedFolderMetadata,
+                                            EncryptedFolderMetadata encryptedFolderMetadata) {
         final Map<String, EncryptedFiledrop> filesdrop = encryptedFolderMetadata.getFiledrop();
         for (Map.Entry<String, DecryptedFolderMetadata.DecryptedFile> entry : decryptedFolderMetadata
             .getFiledrop().entrySet()) {
             String key = entry.getKey();
             DecryptedFolderMetadata.DecryptedFile decryptedFile = entry.getValue();
 
-            // TODO
             String dataJson = EncryptionUtils.serializeJSON(decryptedFile.getEncrypted());
             EncryptedFiledrop encryptedFile = new EncryptedFiledrop(dataJson,
                                                                     decryptedFile.getInitializationVector(),
@@ -237,12 +236,6 @@ public final class EncryptionUtils {
                                                                     "123",
                                                                     "123",
                                                                     "123");
-//            encryptedFile.setInitializationVector(decryptedFile.getInitializationVector());
-//            encryptedFile.setAuthenticationTag(decryptedFile.getAuthenticationTag());
-
-            // encrypt
-
-//            encryptedFile.setEncrypted(EncryptionUtils.encryptStringAsymmetric(dataJson, cert));
 
             filesdrop.put(key, encryptedFile);
         }
@@ -401,7 +394,6 @@ public final class EncryptionUtils {
 
                 // upload metadata
                 EncryptedFolderMetadata encryptedFolderMetadataNew = encryptFolderMetadata(decryptedFolderMetadata,
-                                                                                           privateKey,
                                                                                            publicKey,
                                                                                            arbitraryDataProvider,
                                                                                            user,
@@ -1007,7 +999,9 @@ public final class EncryptionUtils {
         throws UploadException,
         InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException,
         IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException, CertificateException {
-        GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(parentFile.getLocalId());
+        long localId = parentFile.getLocalId();
+
+        GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(localId);
         RemoteOperationResult getMetadataOperationResult = getMetadataOperation.execute(client);
 
         DecryptedFolderMetadata metadata;
@@ -1021,11 +1015,11 @@ public final class EncryptionUtils {
                 serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadata>() {
                 });
 
-            return new Pair<>(Boolean.TRUE, EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata,
-                                                                                  privateKey,
-                                                                                  arbitraryDataProvider,
-                                                                                  user,
-                                                                                  parentFile.getLocalId()));
+            return new Pair<>(Boolean.TRUE, decryptFolderMetaData(encryptedFolderMetadata,
+                                                                  privateKey,
+                                                                  arbitraryDataProvider,
+                                                                  user,
+                                                                  localId));
 
         } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND) {
             // new metadata

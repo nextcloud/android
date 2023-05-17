@@ -303,7 +303,6 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadata encryptedFolderMetadata1 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            privateKey,
             cert,
             arbitraryDataProvider,
             user,
@@ -339,7 +338,6 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadata encryptedFolderMetadata1 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            privateKey,
             cert,
             arbitraryDataProvider,
             user,
@@ -352,7 +350,6 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadata encryptedFolderMetadata2 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            privateKey,
             cert,
             arbitraryDataProvider,
             user,
@@ -372,7 +369,6 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadata encryptedFolderMetadata1 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            privateKey,
             cert,
             arbitraryDataProvider,
             user,
@@ -386,7 +382,6 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadata encryptedFolderMetadata2 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            privateKey,
             cert,
             arbitraryDataProvider,
             user,
@@ -440,7 +435,6 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadata encryptedFolderMetadata1 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            privateKey,
             cert,
             arbitraryDataProvider,
             user,
@@ -479,7 +473,6 @@ public class EncryptionTestIT extends AbstractIT {
 
             // encrypt
             encryptedFolderMetadata1 = encryptFolderMetadata(decryptedFolderMetadata1,
-                                                             privateKey,
                                                              cert,
                                                              arbitraryDataProvider,
                                                              user,
@@ -536,12 +529,11 @@ public class EncryptionTestIT extends AbstractIT {
         // encrypt
         EncryptedFolderMetadata encryptedFolderMetadata1 = encryptFolderMetadata(
             decryptedFolderMetadata1,
-            privateKey,
             cert,
             arbitraryDataProvider,
             user,
             folderID);
-        EncryptionUtils.encryptFileDropFiles(decryptedFolderMetadata1, encryptedFolderMetadata1, cert);
+        EncryptionUtils.encryptFileDropFiles(decryptedFolderMetadata1, encryptedFolderMetadata1);
 
         // serialize
         String encryptedJson = serializeJSON(encryptedFolderMetadata1);
