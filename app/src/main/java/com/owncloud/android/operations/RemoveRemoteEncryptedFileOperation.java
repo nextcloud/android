@@ -148,7 +148,6 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
 
             EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(
                 metadata,
-                privateKey,
                 publicKey,
                 arbitraryDataProvider,
                 user,
