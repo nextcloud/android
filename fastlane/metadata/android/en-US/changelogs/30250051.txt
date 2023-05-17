@@ -1,0 +1,8 @@
+## 3.25.0 RC1 (May 17, 2023)
+
+- show Groupfolder
+- Tag in file listing
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/81
