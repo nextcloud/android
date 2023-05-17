@@ -800,6 +800,7 @@
     <string name="thumbnail">Ikon</string>
     <string name="thumbnail_for_existing_file_description">Miniatyrbild för befintlig fil</string>
     <string name="thumbnail_for_new_file_desc">Miniatyrbild för ny fil</string>
+    <string name="timeout_richDocuments">Inläsningen tar längre tid än förväntat</string>
     <string name="today">Idag</string>
     <string name="trashbin_activity_title">Borttagna filer</string>
     <string name="trashbin_empty_headline">Inga borttagna filer</string>
