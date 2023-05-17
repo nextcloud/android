@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 import java.security.spec.InvalidKeySpecException;
 
 import javax.crypto.BadPaddingException;
@@ -99,6 +100,7 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
         DecryptedFolderMetadata metadata;
 
         String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
+        String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
 
         try {
             // Lock folder
@@ -120,10 +122,14 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
                 String serializedEncryptedMetadata = (String) getMetadataOperationResult.getData().get(0);
 
                 EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
-                        serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadata>() {
-                        });
+                    serializedEncryptedMetadata, new TypeToken<EncryptedFolderMetadata>() {
+                    });
 
-                metadata = EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata, privateKey);
+                metadata = EncryptionUtils.decryptFolderMetaData(encryptedFolderMetadata,
+                                                                 privateKey,
+                                                                 arbitraryDataProvider,
+                                                                 user,
+                                                                 parentId);
             } else {
                 throw new RemoteOperationFailedException("No Metadata found!");
             }
@@ -140,8 +146,12 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
             // remove file from metadata
             metadata.getFiles().remove(fileName);
 
-            EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
-                    privateKey);
+            EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(
+                metadata,
+                publicKey,
+                arbitraryDataProvider,
+                user,
+                parentId);
             String serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
 
             // upload metadata
@@ -155,14 +165,9 @@ public class RemoveRemoteEncryptedFileOperation extends RemoteOperation {
 
             // return success
             return result;
-        } catch (NoSuchAlgorithmException |
-                 IOException |
-                 InvalidKeyException |
-                 InvalidAlgorithmParameterException |
-                 NoSuchPaddingException |
-                 BadPaddingException |
-                 IllegalBlockSizeException |
-                 InvalidKeySpecException e) {
+        } catch (NoSuchAlgorithmException | IOException | InvalidKeyException | InvalidAlgorithmParameterException |
+                 NoSuchPaddingException | BadPaddingException | IllegalBlockSizeException | InvalidKeySpecException |
+                 CertificateException e) {
             result = new RemoteOperationResult(e);
             Log_OC.e(TAG, "Remove " + remotePath + ": " + result.getLogMessage(), e);
 

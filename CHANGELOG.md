@@ -4,7 +4,7 @@
 
 Minimum: NC 16 Server, Android 6.0 Marshmallow
 
-## 3.24.0 (February 13, 2022)
+## 3.24.0 (February 13, 2023)
 
 - Several performance optimizations by @starypatyk
 - Support multi-page document scanning and exporting to PDF
