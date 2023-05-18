@@ -799,6 +799,7 @@
     <string name="thumbnail">Náhled</string>
     <string name="thumbnail_for_existing_file_description">Náhled pro existující soubor</string>
     <string name="thumbnail_for_new_file_desc">Náhled pro nový soubor</string>
+    <string name="timeout_richDocuments">Načítání trvá déle než obvykle</string>
     <string name="today">Dnes</string>
     <string name="trashbin_activity_title">Smazané soubory</string>
     <string name="trashbin_empty_headline">Žádné smazané soubory</string>
