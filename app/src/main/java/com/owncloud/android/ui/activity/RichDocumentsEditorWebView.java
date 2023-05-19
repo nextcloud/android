@@ -145,13 +145,6 @@ public class RichDocumentsEditorWebView extends EditorWebView {
     }
 
     @Override
-    protected void onDestroy() {
-        getWebView().destroy();
-
-        super.onDestroy();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
 
