@@ -799,6 +799,7 @@
     <string name="thumbnail">Thumbnail</string>
     <string name="thumbnail_for_existing_file_description">Thumbnail for existing file</string>
     <string name="thumbnail_for_new_file_desc">Thumbnail for new file</string>
+    <string name="timeout_richDocuments">Loading is taking longer than expected</string>
     <string name="today">Today</string>
     <string name="trashbin_activity_title">Deleted files</string>
     <string name="trashbin_empty_headline">No deleted files</string>
