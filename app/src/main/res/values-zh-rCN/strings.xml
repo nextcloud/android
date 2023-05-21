@@ -268,7 +268,7 @@
     <string name="error_file_actions">显示文件操作时出错</string>
     <string name="error_file_lock">修改文件锁定状态时发生错误</string>
     <string name="error_report_issue_action">报告</string>
-    <string name="error_report_issue_text">是否向跟踪器报告问题？（需要GitHub账号）</string>
+    <string name="error_report_issue_text">是否向议题跟踪器报告问题？（需要GitHub账号）</string>
     <string name="error_retrieving_file">获取文件时遇到错误</string>
     <string name="error_retrieving_templates">检索模板时出错</string>
     <string name="error_starting_direct_camera_upload">开启相机时发生错误</string>
@@ -298,7 +298,7 @@
     <string name="fab_label">添加或上传</string>
     <string name="failed_to_download">无法将文件传递给下载管理器</string>
     <string name="failed_to_print">打印文件已失败</string>
-    <string name="failed_to_start_editor">无法启动编辑器</string>
+    <string name="failed_to_start_editor">启动编辑器失败</string>
     <string name="failed_update_ui">更新用户界面失败</string>
     <string name="favorite">添加到收藏夹</string>
     <string name="favorite_icon">收藏</string>

@@ -799,6 +799,7 @@
     <string name="thumbnail">Küçük görsel</string>
     <string name="thumbnail_for_existing_file_description">Var olan dosyanın küçük görseli</string>
     <string name="thumbnail_for_new_file_desc">Yeni dosyanın küçük görseli</string>
+    <string name="timeout_richDocuments">Yükleme beklenenden uzun sürüyor</string>
     <string name="today">Bugün</string>
     <string name="trashbin_activity_title">Silinmiş dosyalar</string>
     <string name="trashbin_empty_headline">Silinmiş bir dosya yok</string>

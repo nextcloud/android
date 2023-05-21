@@ -507,7 +507,7 @@
     <string name="pdf_zoom_tip">اضغط على الصفحة لتكبيرها</string>
     <string name="permission_allow">سماح</string>
     <string name="permission_deny">رفض</string>
-    <string name="permission_storage_access">الأذونات الإضافية المطلوبة لتحميل وتنزيل الملفات.</string>
+    <string name="permission_storage_access">الصلاحيات الإضافية المطلوبة لتحميل وتنزيل الملفات.</string>
     <string name="picture_set_as_no_app">لم يتم العثور على تطبيق لتعيين صورة به</string>
     <string name="placeholder_fileSize">389 ك.ب</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -539,7 +539,7 @@
     <string name="prefs_daily_backup_summary">نسخ احتياطي يومي للتقويم &amp;جهات الاتصال</string>
     <string name="prefs_daily_contact_backup_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
     <string name="prefs_e2e_mnemonic">تذكيري ل E2E</string>
-    <string name="prefs_e2e_no_device_credentials">لإظهار الذاكرة ، يرجى تمكين بيانات اعتماد الجهاز.</string>
+    <string name="prefs_e2e_no_device_credentials">لإظهار الذاكرة ، يرجى تمكين معلومات تسجيل الدخول إلى الجهاز.</string>
     <string name="prefs_enable_media_scan_notifications">إظهار إشعارات فحص الوسائط</string>
     <string name="prefs_enable_media_scan_notifications_summary">إعلام حول مجلدات الوسائط التي تم العثور عليها حديثًا</string>
     <string name="prefs_gpl_v2">رخصة جنو العمومية العامة ، الإصدار 2</string>
@@ -551,11 +551,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">استخدم المجلدات الفرعية</string>
     <string name="prefs_license">الرخصة</string>
     <string name="prefs_lock">الرمز السري للتطبيق</string>
-    <string name="prefs_lock_device_credentials_enabled">تم تمكين بيانات اعتماد الجهاز</string>
-    <string name="prefs_lock_device_credentials_not_setup">لم يتم إعداد بيانات اعتماد الجهاز.</string>
+    <string name="prefs_lock_device_credentials_enabled">تم تمكين معلومات تسجيل الدخول إلى الجهاز</string>
+    <string name="prefs_lock_device_credentials_not_setup">لم يتم إعداد معلومات تسجيل الدخول إلى الجهاز.</string>
     <string name="prefs_lock_none">لا شيء</string>
     <string name="prefs_lock_title">احمِ التطبيق بواسطة</string>
-    <string name="prefs_lock_using_device_credentials">بيانات اعتماد الجهاز</string>
+    <string name="prefs_lock_using_device_credentials">معلومات تسجيل الدخول إلى الجهاز</string>
     <string name="prefs_lock_using_passcode">الرمز السري</string>
     <string name="prefs_manage_accounts">إدارة الحسابات</string>
     <string name="prefs_recommend">أوصي به لصديق</string>
@@ -850,7 +850,7 @@
     <string name="uploads_view_upload_status_cancelled">ملغي</string>
     <string name="uploads_view_upload_status_conflict">تعارُض</string>
     <string name="uploads_view_upload_status_failed_connection_error">خطأ اتصال</string>
-    <string name="uploads_view_upload_status_failed_credentials_error">خطأ في بيانات الاعتماد</string>
+    <string name="uploads_view_upload_status_failed_credentials_error">خطأ في معلومات تسجيل الدخول</string>
     <string name="uploads_view_upload_status_failed_file_error">خطأ في الملف</string>
     <string name="uploads_view_upload_status_failed_folder_error">خطأ في المجلّد</string>
     <string name="uploads_view_upload_status_failed_localfile_error">لم يتم العثور على الملف المحلّي</string>
@@ -876,7 +876,7 @@
     <string name="username">اسم المستخدم</string>
     <string name="version_dev_download">تنزيل</string>
     <string name="wait_a_moment">انتظر لحظة…</string>
-    <string name="wait_checking_credentials">التحقق من أوراق الاعتماد المخزنة</string>
+    <string name="wait_checking_credentials">التحقق من معلومات تسجيل الدخول المخزنة</string>
     <string name="wait_for_tmp_copy_from_private_storage">نسخ الملف من التخزين الخاص</string>
     <string name="what_s_new_image">ما هي الصورة الجديدة</string>
     <string name="whats_new_skip">تخطى</string>
