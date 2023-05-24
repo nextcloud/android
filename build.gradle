@@ -5,7 +5,7 @@ buildscript {
         jacoco_version = '0.8.10'
         kotlin_version = '1.8.21'
         androidxTestVersion = "1.4.0"
-        daggerVersion = "2.45"
+        daggerVersion = "2.46.1"
         markwonVersion = "4.6.2"
         prismVersion = "2.0.0"
         androidLibraryVersion ="7204aad64eea8c828d956e2e26314be320bdd146"
@@ -16,7 +16,7 @@ buildscript {
         workRuntime = "2.8.1"
         fidoVersion = "4.1.0-patch1"
         checkerVersion = "3.21.2"
-        exoplayerVersion = "2.18.6"
+        exoplayerVersion = "2.18.7"
         documentScannerVersion = "1.0.1"
         roomVersion = "2.5.1"
 

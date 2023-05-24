@@ -789,6 +789,7 @@
     <string name="thumbnail">Sličica</string>
     <string name="thumbnail_for_existing_file_description">Sličica obstoječe datoteke</string>
     <string name="thumbnail_for_new_file_desc">Sličica za novo datoteko</string>
+    <string name="timeout_richDocuments">Nalaganje traja dlje, kot je bilo pričakovano.</string>
     <string name="today">enkrat danes</string>
     <string name="trashbin_activity_title">Izbrisane datoteke</string>
     <string name="trashbin_empty_headline">Ni izbrisanih datotek</string>
