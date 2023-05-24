@@ -199,11 +199,11 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
     private fun displayActions(
         actions: List<FileAction>
     ) {
-        binding.fileActionsList.removeAllViews()
-
-        actions.forEach { action ->
-            val view = inflateActionView(action)
-            binding.fileActionsList.addView(view)
+        if (binding.fileActionsList.isEmpty()) {
+            actions.forEach { action ->
+                val view = inflateActionView(action)
+                binding.fileActionsList.addView(view)
+            }
         }
     }
 
