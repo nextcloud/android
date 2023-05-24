@@ -154,6 +154,12 @@ public class ExternalSiteWebView extends FileActivity {
         getWebView().loadUrl(url);
     }
 
+    @Override
+    protected void onDestroy() {
+        getWebView().destroy();
+        super.onDestroy();
+    }
+
     protected void bindView() {
         binding = ExternalsiteWebviewBinding.inflate(getLayoutInflater());
     }
