@@ -41,11 +41,16 @@ import com.google.gson.Gson
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.integrations.deck.DeckApi
+import com.nextcloud.common.NextcloudClient
+import com.nextcloud.common.OkHttpMethodBase
+import com.nextcloud.operations.DeleteMethod
+import com.nextcloud.operations.GetMethod
+import com.nextcloud.operations.PutMethod
+import com.nextcloud.operations.Utf8PostMethod
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.DecryptedPushMessage
-import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
-import com.owncloud.android.lib.common.operations.RemoteOperation
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.notifications.DeleteNotificationRemoteOperation
 import com.owncloud.android.lib.resources.notifications.GetNotificationRemoteOperation
@@ -56,12 +61,7 @@ import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.PushUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dagger.android.AndroidInjection
-import org.apache.commons.httpclient.HttpMethod
 import org.apache.commons.httpclient.HttpStatus
-import org.apache.commons.httpclient.methods.DeleteMethod
-import org.apache.commons.httpclient.methods.GetMethod
-import org.apache.commons.httpclient.methods.PutMethod
-import org.apache.commons.httpclient.methods.Utf8PostMethod
 import java.io.IOException
 import java.security.GeneralSecurityException
 import java.security.PrivateKey
@@ -251,12 +251,11 @@ class NotificationWork constructor(
         val user = optionalUser.get()
         try {
             val client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                .getClientFor(user.toOwnCloudAccount(), context)
-            val result = GetNotificationRemoteOperation(decryptedPushMessage.nid)
-                .execute(client)
+                .getNextcloudClientFor(user.toOwnCloudAccount(), context)
+            val result: RemoteOperationResult<Notification> =
+                GetNotificationRemoteOperation(decryptedPushMessage.nid).execute(client)
             if (result.isSuccess) {
-                val notification = result.notificationData[0]
-                sendNotification(notification, account)
+                sendNotification(result.resultData, account)
             }
         } catch (e: Exception) {
             Log_OC.e(this, "Error creating account", e)
@@ -300,7 +299,7 @@ class NotificationWork constructor(
                             if (optionalUser.isPresent) {
                                 val user = optionalUser.get()
                                 val client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                                    .getClientFor(user.toOwnCloudAccount(), context)
+                                    .getNextcloudClientFor(user.toOwnCloudAccount(), context)
                                 val actionType = intent.getStringExtra(KEY_NOTIFICATION_ACTION_TYPE)
                                 val actionLink = intent.getStringExtra(KEY_NOTIFICATION_ACTION_LINK)
                                 val success: Boolean = if (!actionType.isNullOrEmpty() && !actionLink.isNullOrEmpty()) {
@@ -331,18 +330,17 @@ class NotificationWork constructor(
         }
 
         @Suppress("ReturnCount") // legacy code
-        private fun executeAction(actionType: String, actionLink: String, client: OwnCloudClient): Int {
-            val method: HttpMethod
+        private fun executeAction(actionType: String, actionLink: String, client: NextcloudClient): Int {
+            val method: OkHttpMethodBase
             method = when (actionType) {
-                "GET" -> GetMethod(actionLink)
-                "POST" -> Utf8PostMethod(actionLink)
-                "DELETE" -> DeleteMethod(actionLink)
-                "PUT" -> PutMethod(actionLink)
+                "GET" -> GetMethod(actionLink, true)
+                "POST" -> Utf8PostMethod(actionLink, true, null)
+                "DELETE" -> DeleteMethod(actionLink, true)
+                "PUT" -> PutMethod(actionLink, true, null)
                 else -> return 0 // do nothing
             }
-            method.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE)
             try {
-                return client.executeMethod(method)
+                return client.execute(method)
             } catch (e: IOException) {
                 Log_OC.e(TAG, "Execution of notification action failed: $e")
             }

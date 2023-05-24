@@ -2,31 +2,30 @@ package com.owncloud.android.ui.asynctasks;
 
 import android.os.AsyncTask;
 
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.common.OkHttpMethodBase;
+import com.nextcloud.operations.DeleteMethod;
+import com.nextcloud.operations.GetMethod;
+import com.nextcloud.operations.PutMethod;
+import com.nextcloud.operations.Utf8PostMethod;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.models.Action;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.ui.adapter.NotificationListAdapter;
 
-import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.DeleteMethod;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PutMethod;
-import org.apache.commons.httpclient.methods.Utf8PostMethod;
 
 import java.io.IOException;
 
 public class NotificationExecuteActionTask extends AsyncTask<Action, Void, Boolean> {
 
     private NotificationListAdapter.NotificationViewHolder holder;
-    private OwnCloudClient client;
+    private NextcloudClient client;
     private Notification notification;
     private NotificationsActivity notificationsActivity;
 
-    public NotificationExecuteActionTask(OwnCloudClient client,
+    public NotificationExecuteActionTask(NextcloudClient client,
                                          NotificationListAdapter.NotificationViewHolder holder,
                                          Notification notification,
                                          NotificationsActivity notificationsActivity) {
@@ -38,24 +37,29 @@ public class NotificationExecuteActionTask extends AsyncTask<Action, Void, Boole
 
     @Override
     protected Boolean doInBackground(Action... actions) {
-        HttpMethod method;
+        OkHttpMethodBase method;
         Action action = actions[0];
+
+        if (action.link == null) {
+            Log_OC.e(this, "Link is empty!");
+            return Boolean.FALSE;
+        }
 
         switch (action.type) {
             case "GET":
-                method = new GetMethod(action.link);
+                method = new GetMethod(action.link, true);
                 break;
 
             case "POST":
-                method = new Utf8PostMethod(action.link);
+                method = new Utf8PostMethod(action.link, true, null);
                 break;
 
             case "DELETE":
-                method = new DeleteMethod(action.link);
+                method = new DeleteMethod(action.link, true);
                 break;
 
             case "PUT":
-                method = new PutMethod(action.link);
+                method = new PutMethod(action.link, true, null);
                 break;
 
             default:
@@ -63,11 +67,9 @@ public class NotificationExecuteActionTask extends AsyncTask<Action, Void, Boole
                 return Boolean.FALSE;
         }
 
-        method.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
-
         int status;
         try {
-            status = client.executeMethod(method);
+            status = client.execute(method);
         } catch (IOException e) {
             Log_OC.e(this, "Execution of notification action failed: " + e);
             return Boolean.FALSE;
