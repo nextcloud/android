@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   Nextcloud Android client application
 
   Copyright (C) 2018 Andy Scherzinger
@@ -50,7 +51,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
 
             <LinearLayout
                 android:id="@+id/menu_upload_files"
