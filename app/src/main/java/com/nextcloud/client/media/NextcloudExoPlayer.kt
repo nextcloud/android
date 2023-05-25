@@ -22,12 +22,12 @@
 package com.nextcloud.client.media
 
 import android.content.Context
-import com.owncloud.android.MainApp;
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.ext.okhttp.OkHttpDataSource
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
 import com.google.android.exoplayer2.upstream.DefaultDataSource
 import com.nextcloud.common.NextcloudClient
+import com.owncloud.android.MainApp
 
 object NextcloudExoPlayer {
     private const val FIVE_SECONDS_IN_MILLIS = 5000L
