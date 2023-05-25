@@ -140,7 +140,6 @@ import androidx.fragment.app.Fragment;
  */
 public abstract class DrawerActivity extends ToolbarActivity
     implements DisplayUtils.AvatarGenerationListener, Injectable {
-
     private static final String TAG = DrawerActivity.class.getSimpleName();
     private static final String KEY_IS_ACCOUNT_CHOOSER_ACTIVE = "IS_ACCOUNT_CHOOSER_ACTIVE";
     private static final String KEY_CHECKED_MENU_ITEM = "CHECKED_MENU_ITEM";

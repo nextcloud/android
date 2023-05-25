@@ -45,6 +45,7 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.databinding.FirstRunActivityBinding;
 import com.owncloud.android.features.FeatureItem;
 import com.owncloud.android.ui.activity.BaseActivity;
+import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
 import com.owncloud.android.utils.DisplayUtils;
@@ -164,6 +165,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     public void onBackPressed() {
         onFinish();
         finishAffinity();
+
     }
 
     private void onFinish() {
