@@ -25,7 +25,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
@@ -72,8 +71,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -451,10 +448,10 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         }
 
         //rotate functionality will not be available for encrypted files
-        //enable rotate functionality if image is png or jpg
-        //we are not rotating svg, gif or any other format of images
+        //enable rotate functionality if mime type is image
+        //bitmap should be available to rotate the image
         //image loading should not be failed to show rotate images
-        if (getFile().isEncrypted() || !MimeTypeUtil.isJpgOrPngFile(getFile().getFileName())
+        if (bitmap == null || getFile().isEncrypted() || !MimeTypeUtil.isImage(getFile())
             || isImageLoadingFailed || binding.emptyListProgress.getVisibility() == View.VISIBLE) {
             additionalFilter.add(R.id.action_rotate_image);
         }
@@ -509,7 +506,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         if (System.currentTimeMillis() - lastRotationEventTs < 350) {
             return;
         }
-
         showHideViewDuringRotation(true);
 
         //execute the rotation task in background

@@ -66,13 +66,19 @@ class UploadImagesWorker constructor(
                 }
                 onImageSaveSuccess(value, jpgFile)
 
-                //if extension is png then save the image as png
-            } else if (extension.lowercase() == ".png") {
-                val pngFile = FileUtils.savePngImage(context, value.bitmap, fileNameWithoutExt, IMAGE_COMPRESSION_PERCENTAGE)
+                //if extension is other than jpg/jpeg save the image as png
+            } else {
+                val pngFile =
+                    FileUtils.savePngImage(context, value.bitmap, fileNameWithoutExt, IMAGE_COMPRESSION_PERCENTAGE)
 
                 //if file is available on local then rewrite the file as well
                 if (value.ocFile.isDown) {
-                    FileUtils.savePngImage(context, value.bitmap, File(value.ocFile.storagePath), IMAGE_COMPRESSION_PERCENTAGE)
+                    FileUtils.savePngImage(
+                        context,
+                        value.bitmap,
+                        File(value.ocFile.storagePath),
+                        IMAGE_COMPRESSION_PERCENTAGE
+                    )
                 }
                 onImageSaveSuccess(value, pngFile)
             }
