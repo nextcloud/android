@@ -163,16 +163,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     @Override
     public void onBackPressed() {
         onFinish();
-
-        if (getIntent().getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
-            super.onBackPressed();
-        } else {
-            Intent intent = new Intent(getApplicationContext(), AuthenticatorActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra(EXTRA_EXIT, true);
-            startActivity(intent);
-            finish();
-        }
+        finishAffinity();
     }
 
     private void onFinish() {
