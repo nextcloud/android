@@ -27,6 +27,7 @@ import com.google.android.exoplayer2.ext.okhttp.OkHttpDataSource
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
 import com.google.android.exoplayer2.upstream.DefaultDataSource
 import com.nextcloud.common.NextcloudClient
+import com.owncloud.android.MainApp
 
 object NextcloudExoPlayer {
     private const val FIVE_SECONDS_IN_MILLIS = 5000L
@@ -39,6 +40,7 @@ object NextcloudExoPlayer {
     @JvmStatic
     fun createNextcloudExoplayer(context: Context, nextcloudClient: NextcloudClient): ExoPlayer {
         val okHttpDataSourceFactory = OkHttpDataSource.Factory(nextcloudClient.client)
+        okHttpDataSourceFactory.setUserAgent(MainApp.getUserAgent())
         val mediaSourceFactory = DefaultMediaSourceFactory(
             DefaultDataSource.Factory(
                 context,
