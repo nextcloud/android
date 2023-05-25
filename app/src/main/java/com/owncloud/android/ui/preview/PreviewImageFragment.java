@@ -451,8 +451,10 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         //enable rotate functionality if mime type is image
         //bitmap should be available to rotate the image
         //image loading should not be failed to show rotate images
+        //only applicable to files which are available offline
         if (bitmap == null || getFile().isEncrypted() || !MimeTypeUtil.isImage(getFile())
-            || isImageLoadingFailed || binding.emptyListProgress.getVisibility() == View.VISIBLE) {
+            || isImageLoadingFailed || binding.emptyListProgress.getVisibility() == View.VISIBLE
+            || !getFile().isDown()) {
             additionalFilter.add(R.id.action_rotate_image);
         }
 

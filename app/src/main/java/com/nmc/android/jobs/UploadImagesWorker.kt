@@ -123,7 +123,7 @@ class UploadImagesWorker constructor(
             savedFiles.toTypedArray(),
             remotePaths.toTypedArray(),
             null,  // MIME type will be detected from file name
-            FileUploader.LOCAL_BEHAVIOUR_DELETE,
+            FileUploader.LOCAL_BEHAVIOUR_MOVE, //move the local file to make file offline available
             false,  // do not create parent folder if not existent
             UploadFileOperation.CREATED_BY_USER,
             false,
