@@ -33,9 +33,9 @@ project.afterEvaluate { project ->
     task "$taskName"(type: JacocoReport, dependsOn: "test${variant.capitalize()}UnitTest") {
 
         reports {
-            csv.required = false
-            xml.required = true
-            html.required = true
+            csv.required = Boolean.FALSE
+            xml.required = Boolean.TRUE
+            html.required = Boolean.TRUE
         }
 
         final fileFilter = [
