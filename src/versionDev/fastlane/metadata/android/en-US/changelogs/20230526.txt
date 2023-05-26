@@ -1,0 +1,6 @@
+Build(deps): Bump androidx.lifecycle:lifecycle-viewmodel-ktx
+Build(deps): Bump io.coil-kt:coil from 2.2.2 to 2.4.0
+Build(deps): Bump io.gitlab.arturbosch.detekt:detekt-gradle-plugin
+Build(deps): Bump commons-io:commons-io from 2.11.0 to 2.12.0
+Update Nextcloud Android library
+Update 3rd-party dependencies
