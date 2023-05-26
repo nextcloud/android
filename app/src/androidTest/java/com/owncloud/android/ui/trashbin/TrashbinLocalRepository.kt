@@ -44,7 +44,7 @@ class TrashbinLocalRepository(val testCase: TrashbinActivityIT.TestCase) : Trash
         when (testCase) {
             TrashbinActivityIT.TestCase.ERROR -> callback?.onError(R.string.trashbin_loading_failed)
             TrashbinActivityIT.TestCase.FILES -> {
-                val files = ArrayList<Any>()
+                val files = ArrayList<TrashbinFile>()
                 files.add(
                     TrashbinFile(
                         "test.png",
@@ -78,7 +78,7 @@ class TrashbinLocalRepository(val testCase: TrashbinActivityIT.TestCase) : Trash
 
                 callback?.onSuccess(files)
             }
-            TrashbinActivityIT.TestCase.EMPTY -> callback?.onSuccess(ArrayList<Any>())
+            TrashbinActivityIT.TestCase.EMPTY -> callback?.onSuccess(ArrayList<TrashbinFile>())
         }
     }
 }
