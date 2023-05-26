@@ -70,7 +70,7 @@ public class TrashbinPresenter implements TrashbinContract.Presenter {
     public void loadFolder() {
         trashbinRepository.getFolder(currentPath, new TrashbinRepository.LoadFolderCallback() {
             @Override
-            public void onSuccess(List<Object> files) {
+            public void onSuccess(List<TrashbinFile> files) {
                 trashbinView.showTrashbinFolder(files);
             }
 
