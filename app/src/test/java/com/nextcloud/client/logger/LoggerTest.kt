@@ -224,7 +224,7 @@ class LoggerTest {
         //      logger event loop is no running
 
         // WHEN
-        //      queue is filled up to it's capacity
+        //      queue is filled up to its capacity
         for (i in 0 until QUEUE_CAPACITY + 1) {
             logger.d("tag", "Message $i")
         }

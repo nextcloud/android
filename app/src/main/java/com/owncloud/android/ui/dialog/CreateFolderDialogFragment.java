@@ -45,7 +45,6 @@ import com.owncloud.android.utils.KeyboardUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -96,9 +95,15 @@ public class CreateFolderDialogFragment
     public void onStart() {
         super.onStart();
 
-        AlertDialog alertDialog = (AlertDialog) getDialog();
+        bindButton();
+    }
 
-        if (alertDialog != null) {
+    private void bindButton() {
+        Dialog dialog = getDialog();
+
+        if (dialog instanceof AlertDialog) {
+            AlertDialog alertDialog = (AlertDialog) dialog;
+
             positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
 
             viewThemeUtils.platform.colorTextButtons(positiveButton,
@@ -109,6 +114,8 @@ public class CreateFolderDialogFragment
     @Override
     public void onResume() {
         super.onResume();
+
+        bindButton();
         keyboardUtils.showKeyboardForEditText(binding.userInput);
     }
 
@@ -159,6 +166,9 @@ public class CreateFolderDialogFragment
                     binding.userInputContainer.setError(getText(R.string.hidden_file_name_warning));
                 } else if (TextUtils.isEmpty(newFileName)) {
                     binding.userInputContainer.setError(getString(R.string.filename_empty));
+                    if (positiveButton == null) {
+                        bindButton();
+                    }
                     positiveButton.setEnabled(false);
                 } else if (!FileUtils.isValidName(newFileName)) {
                     binding.userInputContainer.setError(getString(R.string.filename_forbidden_charaters_from_server));

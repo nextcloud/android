@@ -23,7 +23,7 @@ import android.os.Build
 import android.provider.MediaStore
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import androidx.work.Constraints
 import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -193,7 +193,7 @@ internal class BackgroundJobManagerImpl(
 
     private fun WorkManager.getJobInfo(id: UUID): LiveData<JobInfo?> {
         val workInfo = getWorkInfoByIdLiveData(id)
-        return Transformations.map(workInfo) { fromWorkInfo(it) }
+        return workInfo.map { fromWorkInfo(it) }
     }
 
     /**
@@ -208,9 +208,7 @@ internal class BackgroundJobManagerImpl(
     override val jobs: LiveData<List<JobInfo>>
         get() {
             val workInfo = workManager.getWorkInfosByTagLiveData("*")
-            return Transformations.map(workInfo) {
-                it.map { fromWorkInfo(it) ?: JobInfo() }.sortedBy { it.started }.reversed()
-            }
+            return workInfo.map { it -> it.map { fromWorkInfo(it) ?: JobInfo() }.sortedBy { it.started }.reversed() }
         }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -463,9 +461,7 @@ internal class BackgroundJobManagerImpl(
 
     override fun getFileUploads(user: User): LiveData<List<JobInfo>> {
         val workInfo = workManager.getWorkInfosByTagLiveData(formatNameTag(JOB_FILES_UPLOAD, user))
-        return Transformations.map(workInfo) {
-            it.map { fromWorkInfo(it) ?: JobInfo() }
-        }
+        return workInfo.map { it -> it.map { fromWorkInfo(it) ?: JobInfo() } }
     }
 
     override fun startPdfGenerateAndUploadWork(
