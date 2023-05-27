@@ -182,7 +182,7 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
         private String remotePath;
         private User user;
         private ClientFactory clientFactory;
-        private List<Object> trashbinFiles;
+        private List<TrashbinFile> trashbinFiles;
         private LoadFolderCallback callback;
 
         private ReadRemoteTrashbinFolderTask(String remotePath, User user, ClientFactory clientFactory,
@@ -197,9 +197,10 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
         protected Boolean doInBackground(Void... voids) {
             try {
                 OwnCloudClient client = clientFactory.create(user);
-                RemoteOperationResult result = new ReadTrashbinFolderRemoteOperation(remotePath).execute(client);
+                RemoteOperationResult<List<TrashbinFile>> result =
+                    new ReadTrashbinFolderRemoteOperation(remotePath).execute(client);
                 if (result.isSuccess()) {
-                    trashbinFiles = result.getData();
+                    trashbinFiles = result.getResultData();
                     return Boolean.TRUE;
                 } else {
                     return Boolean.FALSE;

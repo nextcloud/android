@@ -65,7 +65,7 @@ public final class DrawerMenuUtil {
     }
 
     public static void filterGroupfoldersMenuItem(Menu menu, @Nullable OCCapability capability) {
-        if (capability != null && capability.getGroupfolders().isFalse()) {
+        if (capability != null && !capability.getGroupfolders().isTrue()) {
             filterMenuItems(menu, R.id.nav_groupfolders);
         }
     }
