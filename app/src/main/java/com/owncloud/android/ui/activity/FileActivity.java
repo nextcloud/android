@@ -823,7 +823,8 @@ public abstract class FileActivity extends DrawerActivity
                 // Was tried without password, but not sure that it's optional.
 
                 // Try with password before giving up; see also ShareFileFragment#OnShareViaLinkListener
-                if (sharingFragment != null && sharingFragment.isAdded()) { // only if added to the view hierarchy
+                if (sharingFragment != null && sharingFragment.isAdded()) {
+                    // only if added to the view hierarchy
 
                     sharingFragment.requestPasswordForShareViaLink(true,
                                                                    getCapabilities().getFilesSharingPublicAskForOptionalPassword()

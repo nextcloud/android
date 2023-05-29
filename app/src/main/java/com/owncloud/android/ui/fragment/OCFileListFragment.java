@@ -328,7 +328,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         mFabMain = requireActivity().findViewById(R.id.fab_main);
 
-        if (mFabMain != null) { // is not available in FolderPickerActivity
+        if (mFabMain != null) {
+            // is not available in FolderPickerActivity
             viewThemeUtils.material.themeFAB(mFabMain);
         }
 
@@ -387,7 +388,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             registerFabListener();
         }
 
-        if (!searchFragment) { // do not touch search event if previously searched
+        if (!searchFragment) {
+            // do not touch search event if previously searched
             if (getArguments() == null) {
                 searchEvent = null;
             } else {
@@ -478,7 +480,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void registerFabListener() {
         FileActivity activity = (FileActivity) getActivity();
 
-        if (mFabMain != null) { // is not available in FolderPickerActivity
+        if (mFabMain != null) {
+            // is not available in FolderPickerActivity
             viewThemeUtils.material.themeFAB(mFabMain);
             mFabMain.setOnClickListener(v -> {
                 final OCFileListBottomSheetDialog dialog =
@@ -1028,7 +1031,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     intent.putExtra(FolderPickerActivity.EXTRA_FILES, file);
                     getActivity().setResult(Activity.RESULT_OK, intent);
                     getActivity().finish();
-                } else if (!mOnlyFoldersClickable) { // Click on a file
+                } else if (!mOnlyFoldersClickable) {
+                    // Click on a file
                     if (PreviewImageFragment.canBePreviewed(file)) {
                         // preview image - it handles the download, if needed
                         if (searchFragment) {

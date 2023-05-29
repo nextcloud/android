@@ -336,7 +336,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                     saveFolderInDB();
                 }
             }
-        } else { // Create directory on DB
+        } else {
+            // Create directory on DB
             OCFile newDir = new OCFile(remotePath);
             newDir.setMimeType(MimeType.DIRECTORY);
             long parentId = getStorageManager().getFileByPath(FileStorageUtils.getParentPath(remotePath)).getFileId();

@@ -320,7 +320,8 @@ open class FolderPickerActivity :
 
     fun browseToRoot() {
         val listOfFiles = listOfFilesFragment
-        if (listOfFiles != null) { // should never be null, indeed
+        if (listOfFiles != null) {
+            // should never be null, indeed
             val root = storageManager.getFileByPath(OCFile.ROOT_PATH)
             listOfFiles.listDirectory(root, false, false)
             file = listOfFiles.currentFile
@@ -331,7 +332,8 @@ open class FolderPickerActivity :
 
     override fun onBackPressed() {
         val listOfFiles = listOfFilesFragment
-        if (listOfFiles != null) { // should never be null, indeed
+        if (listOfFiles != null) {
+            // should never be null, indeed
             val levelsUp = listOfFiles.onBrowseUp()
             if (levelsUp == 0) {
                 finish()

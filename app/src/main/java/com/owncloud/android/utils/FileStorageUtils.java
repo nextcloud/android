@@ -583,7 +583,8 @@ public final class FileStorageUtils {
         }
 
         FileStorageUtils.StandardDirectory standardDirectory = FileStorageUtils.StandardDirectory.fromPath(storageFolder);
-        if (standardDirectory != null) { // Friendly name of standard directory
+        if (standardDirectory != null) {
+            // Friendly name of standard directory
             storageFolder = " " + resources.getString(standardDirectory.getDisplayName());
         }
 

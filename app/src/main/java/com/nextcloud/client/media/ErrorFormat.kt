@@ -67,21 +67,21 @@ object ErrorFormat {
             /*  Added in API level 17
                 Some operation takes too long to complete, usually more than 3-5 seconds.
                 Constant Value: -110 (0xffffff92)
-            */
+             */
             messageId = R.string.media_err_timeout
         } else if (what == MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK) {
             /*  Added in API level 3
                 The video is streamed and its container is not valid for progressive playback i.e the video's index
                 (e.g moov atom) is not at the start of the file.
                 Constant Value: 200 (0x000000c8)
-            */
+             */
             messageId = R.string.media_err_invalid_progressive_playback
         } else {
             /*  MediaPlayer.MEDIA_ERROR_UNKNOWN
                 Added in API level 1
                 Unspecified media player error.
                 Constant Value: 1 (0x00000001)
-            */
+             */
             /*  MediaPlayer.MEDIA_ERROR_SERVER_DIED)
                 Added in API level 1
                 Media server died. In this case, the application must release the MediaPlayer

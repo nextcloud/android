@@ -210,9 +210,7 @@ class DocumentScanViewModel @Inject constructor(
         }
     }
 
-    private
-
-    companion object {
+    private companion object {
         private const val TAG = "DocumentScanViewModel"
     }
 

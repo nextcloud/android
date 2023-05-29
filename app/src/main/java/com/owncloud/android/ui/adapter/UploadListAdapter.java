@@ -497,7 +497,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         String remotePath = item.getRemotePath();
         OCFile ocFile = storageManager.getFileByPath(remotePath);
 
-        if (ocFile == null) { // Remote file doesn't exist, try to refresh folder
+        if (ocFile == null) {
+            // Remote file doesn't exist, try to refresh folder
             OCFile folder = storageManager.getFileByPath(new File(remotePath).getParent() + "/");
             if (folder != null && folder.isFolder()) {
                 this.refreshFolder(itemViewHolder, user, folder, (caller, result) -> {

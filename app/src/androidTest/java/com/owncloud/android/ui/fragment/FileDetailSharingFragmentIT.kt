@@ -352,7 +352,8 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         val secondary = FileDetailFragment.newInstance(file, parentFolder, user)
         activity.addSecondaryFragment(secondary, FileDisplayActivity.TAG_LIST_OF_FILES)
         activity.addView(
-            FloatingActionButton(activity).apply { // needed for some reason
+            FloatingActionButton(activity).apply {
+                // needed for some reason
                 visibility = View.GONE
                 id = R.id.fab_main
             }

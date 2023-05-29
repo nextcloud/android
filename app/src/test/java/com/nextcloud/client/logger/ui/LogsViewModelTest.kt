@@ -69,7 +69,8 @@ class LogsViewModelTest {
 
         override val lostEntries: Boolean = false
         override fun load(onLoaded: OnLogsLoaded) { this.onLoadedCallback = onLoaded; loadRequestCount++ }
-        override fun deleteAll() { /* no implementation neeeded */
+        override fun deleteAll() {
+            /* no implementation needed */
         }
     }
 

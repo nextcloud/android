@@ -81,11 +81,13 @@ class AccountRemovalWork(
     @Suppress("ReturnCount") // legacy code
     override fun doWork(): Result {
         val accountName = inputData.getString(ACCOUNT) ?: ""
-        if (TextUtils.isEmpty(accountName)) { // didn't receive account to delete
+        if (TextUtils.isEmpty(accountName)) {
+            // didn't receive account to delete
             return Result.failure()
         }
         val optionalUser = userAccountManager.getUser(accountName)
-        if (!optionalUser.isPresent) { // trying to delete non-existing user
+        if (!optionalUser.isPresent) {
+            // trying to delete non-existing user
             return Result.failure()
         }
         val remoteWipe = inputData.getBoolean(REMOTE_WIPE, false)

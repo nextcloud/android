@@ -433,13 +433,15 @@ public class ProcessVEvent {
             //        - Check the calendars max number of alarms
             if (t.getDateTime() != null) {
                 alarmMs = t.getDateTime().getTime(); // Absolute
-            } else if (t.getDuration() != null && t.getDuration().isNegative()) { //alarm trigger before start of event
+            } else if (t.getDuration() != null && t.getDuration().isNegative()) {
+                //alarm trigger before start of event
                 Related rel = (Related) t.getParameter(Parameter.RELATED);
                 if (rel != null && rel == Related.END) {
                     alarmStartMs = e.getEndDate().getDate().getTime();
                 }
                 alarmMs = alarmStartMs - durationToMs(t.getDuration()); // Relative "-"
-            } else if (t.getDuration() != null && !t.getDuration().isNegative()) { //alarm trigger after start of event
+            } else if (t.getDuration() != null && !t.getDuration().isNegative()) {
+                //alarm trigger after start of event
                 Related rel = (Related) t.getParameter(Parameter.RELATED);
                 if (rel != null && rel == Related.END) {
                     alarmStartMs = e.getEndDate().getDate().getTime();
