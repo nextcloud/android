@@ -113,7 +113,7 @@
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">Memòria insuficient</string>
     <string name="common_error_unknown">Error desconegut</string>
-    <string name="common_loading">S\'està carregant...</string>
+    <string name="common_loading">S\'està carregant…</string>
     <string name="common_next">Següent</string>
     <string name="common_no">No</string>
     <string name="common_ok">D\'acord</string>
@@ -242,7 +242,7 @@
     <string name="e2e_not_yet_setup">E2E encara no està configurat</string>
     <string name="encrypted">Activa el xifrat</string>
     <string name="end_to_end_encryption_confirm_button">Arranjament de xifrat</string>
-    <string name="end_to_end_encryption_decrypting">S\'està desxifrant...</string>
+    <string name="end_to_end_encryption_decrypting">S\'està desxifrant…</string>
     <string name="end_to_end_encryption_dialog_close">Tanca</string>
     <string name="end_to_end_encryption_enter_password">Si us plau, introduïu la contrasenya per desxifrar la clau privada.</string>
     <string name="end_to_end_encryption_folder_not_empty">Aquesta carpeta no és buida.</string>
@@ -873,7 +873,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">No s\'ha trobat el fitxer local</string>
     <string name="uploads_view_upload_status_failed_permission_error">Error de permisos</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificat de servidor no fiable</string>
-    <string name="uploads_view_upload_status_fetching_server_version">Obtenint la versió del servidor...</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Obtenint la versió del servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">L\'aplicació s\'ha tancat</string>
     <string name="uploads_view_upload_status_succeeded">Completat</string>
     <string name="uploads_view_upload_status_unknown_fail">Error desconegut</string>
