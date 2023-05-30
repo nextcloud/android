@@ -1080,4 +1080,5 @@
     <string name="download_download_invalid_local_file_name">Invalid filename for local file</string>
     <string name="drawer_item_groupfolders">Groupfolders</string>
     <string name="tags_more" translatable="false">+%1$d</string>
+    <string name="pdf_password_protected">Unable to open password-protected PDF. Please use an external PDF viewer.</string>
 </resources>
