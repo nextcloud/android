@@ -37,6 +37,7 @@ import com.nextcloud.utils.MenuUtils
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPdfFragmentBinding
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.preview.PreviewBitmapActivity
 import com.owncloud.android.utils.DisplayUtils
@@ -75,7 +76,13 @@ class PreviewPdfFragment : Fragment(), Injectable {
         setupObservers()
 
         file = requireArguments().getParcelable(ARG_FILE)!!
-        viewModel.process(file)
+        try {
+            viewModel.process(file)
+        } catch (e: SecurityException) {
+            Log_OC.e(this, "onViewCreated: trying to open password protected PDF", e)
+            parentFragmentManager.popBackStack()
+            DisplayUtils.showSnackMessage(binding.root, R.string.pdf_password_protected)
+        }
     }
 
     private fun setupObservers() {

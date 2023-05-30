@@ -66,6 +66,9 @@ class PreviewPdfViewModel @Inject constructor(val appPreferences: AppPreferences
         }
     }
 
+    /**
+     * @throws SecurityException if file points to a password-protected document
+     */
     fun process(file: OCFile) {
         closeRenderer()
         _pdfRenderer.value =
