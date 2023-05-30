@@ -184,7 +184,9 @@ internal class PlayerStateMachine(initialState: State, private val delegate: Del
             .onExit(Action { delegate.onAudioDuck(false) })
 
         stateMachine = StateMachine(initialState, config)
-        stateMachine.onUnhandledTrigger { _, _ -> /* ignore unhandled event */ }
+        stateMachine.onUnhandledTrigger { _, _ ->
+            /* ignore unhandled event */
+        }
     }
 
     private fun immediateTransition() {

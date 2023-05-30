@@ -332,13 +332,15 @@ public class FileUploader extends Service
         boolean onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, false);
         boolean whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
 
-        if (retry) { // Retry uploads
+        if (retry) {
+            // Retry uploads
             if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_RETRY_UPLOAD)) {
                 Log_OC.e(TAG, "Not enough information provided in intent: no KEY_RETRY_UPLOAD_KEY");
                 return START_NOT_STICKY;
             }
             retryUploads(intent, user, requestedUploads);
-        } else { // Start new uploads
+        } else {
+            // Start new uploads
             if (!(intent.hasExtra(KEY_LOCAL_FILE) || intent.hasExtra(KEY_FILE))) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
                 return Service.START_NOT_STICKY;
@@ -793,7 +795,8 @@ public class FileUploader extends Service
             boolean needsToUpdateCredentials = uploadResult.getCode() == ResultCode.UNAUTHORIZED;
             if (needsToUpdateCredentials) {
                 tickerId = R.string.uploader_upload_failed_credentials_error;
-            } else if (uploadResult.getCode() == ResultCode.SYNC_CONFLICT) { // check file conflict
+            } else if (uploadResult.getCode() == ResultCode.SYNC_CONFLICT) {
+                // check file conflict
                 tickerId = R.string.uploader_upload_failed_sync_conflict_error;
             }
 

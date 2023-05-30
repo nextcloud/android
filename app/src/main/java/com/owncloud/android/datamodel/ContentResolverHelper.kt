@@ -91,8 +91,12 @@ object ContentResolverHelper {
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    private fun
-    getQueryArgsBundle(selection: String?, sortColumn: String?, sortDirection: String?, limit: Int?): Bundle {
+    private fun getQueryArgsBundle(
+        selection: String?,
+        sortColumn: String?,
+        sortDirection: String?,
+        limit: Int?
+    ): Bundle {
         return Bundle().apply {
             if (selection != null) {
                 putString(ContentResolver.QUERY_ARG_SQL_SELECTION, selection)

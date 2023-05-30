@@ -198,7 +198,8 @@ class NotificationWork constructor(
                     disableIntent
                 )
             )
-        } else { // Actions
+        } else {
+            // Actions
             for (action in notification.getActions()) {
                 val actionIntent = Intent(context, NotificationReceiver::class.java)
                 actionIntent.putExtra(NUMERIC_NOTIFICATION_ID, notification.getNotificationId())
