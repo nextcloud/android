@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 69;
+    public static final int DB_VERSION = 70;
 
     private ProviderMeta() {
         // No instance
@@ -256,6 +256,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_ETAG = "etag";
         public static final String CAPABILITIES_USER_STATUS = "user_status";
         public static final String CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI = "user_status_supports_emoji";
+        public static final String CAPABILITIES_GROUPFOLDERS = "groupfolders";
 
         //Columns of Uploads table
         public static final String UPLOADS_LOCAL_PATH = "local_path";
