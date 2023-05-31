@@ -127,5 +127,7 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_ETAG)
     val etag: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION)
-    val filesLockingVersion: String?
+    val filesLockingVersion: String?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_GROUPFOLDERS)
+    val groupfolders: Int?
 )
