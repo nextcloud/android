@@ -1,0 +1,2 @@
+Build(deps): Bump com.diffplug.spotless from 6.18.0 to 6.19.0
+Update 3rd-party dependencies
