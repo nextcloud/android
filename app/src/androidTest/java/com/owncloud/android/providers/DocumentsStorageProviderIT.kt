@@ -76,8 +76,8 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         val file1 = rootDir.createFile(type1, name1)!!
 
         // check assumptions
-        @Suppress("ForbiddenComment")
-        file1.assertRegularFile(name1, 0L, null/* FIXME: type1 */, rootDir)
+        /* FIXME: mimeType */
+        file1.assertRegularFile(name1, 0L, null, rootDir)
         file1.assertRecentlyModified()
 
         // file1 is found in root

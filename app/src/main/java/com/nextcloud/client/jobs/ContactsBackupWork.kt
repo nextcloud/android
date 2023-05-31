@@ -81,7 +81,8 @@ class ContactsBackupWork(
     @Suppress("ReturnCount") // pre-existing issue
     override fun doWork(): Result {
         val accountName = inputData.getString(KEY_ACCOUNT) ?: ""
-        if (TextUtils.isEmpty(accountName)) { // no account provided
+        if (TextUtils.isEmpty(accountName)) {
+            // no account provided
             return Result.failure()
         }
         val optionalUser = accountManager.getUser(accountName)
@@ -175,7 +176,8 @@ class ContactsBackupWork(
         connection.enqueue(request)
     }
 
-    private fun expireFiles(daysToExpire: Int, backupFolderString: String, user: User) { // -1 disables expiration
+    private fun expireFiles(daysToExpire: Int, backupFolderString: String, user: User) {
+        // -1 disables expiration
         if (daysToExpire > -1) {
             val storageManager = FileDataStorageManager(
                 user,

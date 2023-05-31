@@ -28,13 +28,39 @@ import android.os.Bundle
  * a mix-in.
  */
 interface ActivityMixin {
-    fun onNewIntent(intent: Intent) { /* no-op */ }
-    fun onSaveInstanceState(outState: Bundle) { /* no-op */ }
-    fun onCreate(savedInstanceState: Bundle?) { /* no-op */ }
-    fun onRestart() { /* no-op */ }
-    fun onStart() { /* no-op */ }
-    fun onResume() { /* no-op */ }
-    fun onPause() { /* no-op */ }
-    fun onStop() { /* no-op */ }
-    fun onDestroy() { /* no-op */ }
+    fun onNewIntent(intent: Intent) {
+        /* no-op */
+    }
+
+    fun onSaveInstanceState(outState: Bundle) {
+        /* no-op */
+    }
+
+    fun onCreate(savedInstanceState: Bundle?) {
+        /* no-op */
+    }
+
+    fun onRestart() {
+        /* no-op */
+    }
+
+    fun onStart() {
+        /* no-op */
+    }
+
+    fun onResume() {
+        /* no-op */
+    }
+
+    fun onPause() {
+        /* no-op */
+    }
+
+    fun onStop() {
+        /* no-op */
+    }
+
+    fun onDestroy() {
+        /* no-op */
+    }
 }

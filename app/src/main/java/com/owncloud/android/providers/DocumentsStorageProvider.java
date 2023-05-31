@@ -260,7 +260,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             Handler handler = new Handler(context.getMainLooper());
             try {
                 return ParcelFileDescriptor.open(file, accessMode, handler, error -> {
-                    if (error == null) { // no error
+                    if (error == null) {
+                        // no error
                         // As we can't upload the file synchronously, let's at least update its metadata here already.
                         ocFile.setFileLength(file.length());
                         ocFile.setModificationTimestamp(System.currentTimeMillis());
@@ -275,7 +276,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                             LOCAL_BEHAVIOUR_DELETE,
                             NameCollisionPolicy.OVERWRITE,
                             false);
-                    } else { // error, no upload needed
+                    } else {
+                        // error, no upload needed
                         Log_OC.e(TAG, "File was closed with an error: " + ocFile.getFileName(), error);
                     }
                 });

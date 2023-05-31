@@ -32,6 +32,7 @@
     <string name="activity_icon">События</string>
     <string name="add_another_public_share_link">Добавить другую ссылку</string>
     <string name="add_new_public_share">Добавить новую общедоступную ссылку</string>
+    <string name="add_new_secure_file_drop">Добавить новый защищенный очиститель файлов</string>
     <string name="add_to_cloud">Добавить в %1$s</string>
     <string name="advanced_settings">Дополнительные настройки</string>
     <string name="allow_resharing">Разрешить повторную публикацию</string>
@@ -157,6 +158,7 @@
     <string name="conflict_local_file">Локальный файл</string>
     <string name="conflict_message_description">Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
     <string name="conflict_server_file">Файл с сервера</string>
+    <string name="contact_backup_title">Резервная копия контактов</string>
     <string name="contactlist_item_icon">Значок пользователя в списке контактов</string>
     <string name="contactlist_no_permission">Отсутствуют разрешения, ничего не импортировано.</string>
     <string name="contacts">Контакты</string>
@@ -233,6 +235,7 @@
     <string name="drawer_item_all_files">Все файлы</string>
     <string name="drawer_item_favorites">Избранное</string>
     <string name="drawer_item_gallery">Медиа</string>
+    <string name="drawer_item_groupfolders">Групповые папки</string>
     <string name="drawer_item_home">Главная</string>
     <string name="drawer_item_notifications">Уведомления</string>
     <string name="drawer_item_on_device">На устройстве</string>
@@ -682,6 +685,7 @@
     <string name="share_password_title">Защищено паролем</string>
     <string name="share_permission_can_edit">Можно редактировать</string>
     <string name="share_permission_file_drop">Принимать файлы</string>
+    <string name="share_permission_secure_file_drop">Защищенный очиститель файлов</string>
     <string name="share_permission_view_only">Только просмотр</string>
     <string name="share_permissions">Права на публикацию</string>
     <string name="share_remote_clarification">%1$s (на сервере)</string>
@@ -796,6 +800,7 @@
     <string name="thumbnail">Миниатюра</string>
     <string name="thumbnail_for_existing_file_description">Миниатюра существующего файла</string>
     <string name="thumbnail_for_new_file_desc">Миниатюра нового файла</string>
+    <string name="timeout_richDocuments">Загрузка занимает больше времени, чем ожидалось</string>
     <string name="today">Сегодня</string>
     <string name="trashbin_activity_title">Удалённые файлы</string>
     <string name="trashbin_empty_headline">Нет удалённых файлов</string>
