@@ -39,13 +39,7 @@
         android:icon="@drawable/ic_action_create_dir"
         android:orderInCategory="1"
         android:title="@string/actionbar_mkdir"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/action_select_all"
-        android:contentDescription="@string/select_all"
-        android:icon="@drawable/ic_select_all"
-        android:orderInCategory="1"
-        android:title="@string/select_all"
+        app:iconTint="?attr/colorOnSurface"
         app:showAsAction="never"/>
 
 </menu>
