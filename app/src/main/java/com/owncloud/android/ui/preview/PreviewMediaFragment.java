@@ -424,7 +424,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             Arrays.asList(
                 R.id.action_rename_file,
                 R.id.action_sync_file,
-                R.id.action_select_all,
                 R.id.action_move,
                 R.id.action_copy,
                 R.id.action_favorite,
