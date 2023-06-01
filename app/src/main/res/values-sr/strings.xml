@@ -524,6 +524,7 @@
     <string name="pass_code_removed">Кôд обрисан</string>
     <string name="pass_code_stored">Код је сачуван</string>
     <string name="pass_code_wrong">Неисправан код</string>
+    <string name="pdf_password_protected">Не може да се отвори PDF заштићен лозинком. Молимо вас да употребите спољни PDF приказивач.</string>
     <string name="pdf_zoom_tip">Тапните на страницу да је зумирате</string>
     <string name="permission_allow">Дозволи</string>
     <string name="permission_deny">Одбиј</string>
