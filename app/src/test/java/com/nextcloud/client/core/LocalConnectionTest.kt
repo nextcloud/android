@@ -65,7 +65,7 @@ class LocalConnectionTest {
 
         // THEN
         //      no binding is performed
-        verify(exactly = 0) { context.bindService(any(), any(), any()) }
+        verify(exactly = 0) { context.bindService(mockIntent, any(), any()) }
     }
 
     @Test
