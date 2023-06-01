@@ -26,7 +26,7 @@ import android.content.Intent.ACTION_VIEW
 import android.os.Bundle
 import android.os.Handler
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.nextcloud.android.lib.resources.groupfolders.Groupfolder
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.logger.Logger
@@ -35,6 +35,7 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.ui.EmptyRecyclerView
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.GroupfolderListAdapter
 import com.owncloud.android.ui.asynctasks.GroupfoldersSearchTask
@@ -65,6 +66,7 @@ class GroupfolderListFragment : OCFileListFragment(), Injectable, GroupfolderLis
         searchFragment = true
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -79,8 +81,9 @@ class GroupfolderListFragment : OCFileListFragment(), Injectable, GroupfolderLis
         adapter = GroupfolderListAdapter(requireContext(), viewThemeUtils, this)
         setRecyclerViewAdapter(adapter)
 
-        val layoutManager = GridLayoutManager(context, 1)
+        val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
+        (recyclerView as EmptyRecyclerView).setHasFooter(false)
     }
 
     private fun search() {
@@ -102,6 +105,12 @@ class GroupfolderListFragment : OCFileListFragment(), Injectable, GroupfolderLis
                 fileDisplayActivity.setMainFabVisible(false)
             }
         }
+    }
+
+    override fun onRefresh() {
+        super.onRefresh()
+
+        search()
     }
 
     @SuppressLint("NotifyDataSetChanged")
