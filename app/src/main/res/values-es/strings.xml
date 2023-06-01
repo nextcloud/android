@@ -524,6 +524,7 @@
     <string name="pass_code_removed">Código de acceso borrado</string>
     <string name="pass_code_stored">Código de acceso almacenado</string>
     <string name="pass_code_wrong">Código de acceso incorrecto</string>
+    <string name="pdf_password_protected">No es posible abrir archivos PDF protegidos por contraseñas. Por favor, usa un visor PDF externo.</string>
     <string name="pdf_zoom_tip">Toca sobre una página para hacer zoom</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Denegar</string>

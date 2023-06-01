@@ -524,6 +524,7 @@
     <string name="pass_code_removed">Lösenord raderat</string>
     <string name="pass_code_stored">Kod sparad</string>
     <string name="pass_code_wrong">Ogiltigt lösenord</string>
+    <string name="pdf_password_protected">Kan inte öppna lösenordsskyddad PDF. Använd en extern PDF-läsare.</string>
     <string name="pdf_zoom_tip">Tryck på sidan för zoomning</string>
     <string name="permission_allow">Tillåt</string>
     <string name="permission_deny">Neka</string>

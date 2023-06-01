@@ -524,6 +524,7 @@
     <string name="pass_code_removed">PIN gelöscht</string>
     <string name="pass_code_stored">PIN gespeichert</string>
     <string name="pass_code_wrong">PIN nicht korrekt</string>
+    <string name="pdf_password_protected">Passwortgeschützte PDF-Datei konnte nicht geöffnet werden. Bitte verwenden Sie einen externen PDF-Viewer.</string>
     <string name="pdf_zoom_tip">Auf eine Seite klicken um hereinzuzoomen</string>
     <string name="permission_allow">Zulassen</string>
     <string name="permission_deny">Ablehnen</string>
