@@ -35,6 +35,7 @@ import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.os.bundleOf
+import androidx.core.view.isEmpty
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
@@ -199,9 +200,11 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
     private fun displayActions(
         actions: List<FileAction>
     ) {
-        actions.forEach { action ->
-            val view = inflateActionView(action)
-            binding.fileActionsList.addView(view)
+        if (binding.fileActionsList.isEmpty()) {
+            actions.forEach { action ->
+                val view = inflateActionView(action)
+                binding.fileActionsList.addView(view)
+            }
         }
     }
 
