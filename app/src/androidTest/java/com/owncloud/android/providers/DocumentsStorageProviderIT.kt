@@ -218,4 +218,38 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         val bytes = contentResolver.openInputStream(file1.uri)?.readBytes() ?: ByteArray(0)
         assertEquals(String(content2), String(bytes))
     }
+
+    @Test
+    fun testServerSuccessive() {
+        // create random file
+        val file1 = rootDir.createFile("text/plain", RandomStringGenerator.make())!!
+        file1.assertRegularFile(size = 0L)
+
+        val createdETag = file1.getOCFile(storageManager)!!.etagOnServer
+
+        assertTrue(createdETag.isNotEmpty())
+
+        val content1 = "initial content".toByteArray()
+
+        // write content bytes to file
+        contentResolver.openOutputStream(file1.uri, "wt").use {
+            it!!.write(content1)
+        }
+
+        // refresh
+        while (file1.getOCFile(storageManager)!!.etagOnServer == createdETag) {
+            shortSleep()
+            rootDir.listFiles()
+        }
+
+        val content2 = "new content".toByteArray()
+
+        contentResolver.openOutputStream(file1.uri, "wt").use {
+            it!!.write(content2)
+        }
+
+        // read back content bytes
+        val bytes = contentResolver.openInputStream(file1.uri)?.readBytes() ?: ByteArray(0)
+        assertEquals(String(content2), String(bytes))
+    }
 }
