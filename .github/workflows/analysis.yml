@@ -19,21 +19,21 @@ jobs:
                 run: |
                     if [ -z "$GITHUB_HEAD_REF" ]; then
                         # push
-                        echo "::set-output name=branch::$GITHUB_REF_NAME"
-                        echo "::set-output name=pr::$GITHUB_RUN_ID"
-                        echo "::set-output name=repo::${{ github.repository }}"
+                        echo "branch=$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
+                        echo "pr=$GITHUB_RUN_ID" >> "$GITHUB_OUTPUT"
+                        echo "repo=${{ github.repository }}" >> "$GITHUB_OUTPUT"
                     else
                         # pull request
-                        echo "::set-output name=branch::$GITHUB_HEAD_REF"
-                        echo "::set-output name=pr::${{ github.event.pull_request.number }}"
-                        echo "::set-output name=repo::${{ github.event.pull_request.head.repo.full_name }}"
+                        echo "branch=$GITHUB_HEAD_REF" >> "$GITHUB_OUTPUT"
+                        echo "pr=${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
+                        echo "repo=${{ github.event.pull_request.head.repo.full_name }}" >> "$GITHUB_OUTPUT"
                     fi
-            -   uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
+            -   uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
                 with:
                     repository: ${{ steps.get-vars.outputs.repo }}
                     ref: ${{ steps.get-vars.outputs.branch }}
             -   name: Set up JDK 11
-                uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2 # v3
+                uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2 # v3.11.0
                 with:
                     distribution: "temurin"
                     java-version: 11
