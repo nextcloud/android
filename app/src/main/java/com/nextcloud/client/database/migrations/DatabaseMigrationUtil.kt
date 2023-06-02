@@ -53,6 +53,10 @@ object DatabaseMigrationUtil {
         replaceTable(database, tableName, newTableTempName)
     }
 
+    fun resetCapabilities(database: SupportSQLiteDatabase) {
+        database.execSQL("UPDATE capabilities SET etag = '' WHERE 1=1")
+    }
+
     /**
      * Utility method to create a new table with the given columns
      */
