@@ -44,11 +44,33 @@ class GroupfolderListFragmentIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
+    fun showGroupfolder() {
+        val sut = GroupfolderListFragment()
+        activity.addFragment(sut)
+
+        shortSleep() // to let async task finish
+
+        activity.runOnUiThread {
+            sut.setAdapter(null)
+            sut.setData(
+                mapOf(
+                    Pair("2", Groupfolder(2, "/subfolder/group"))
+                )
+            )
+        }
+
+        waitForIdleSync()
+        shortSleep()
+        screenshot(activity)
+    }
+
+    @Test
+    @ScreenshotTest
     fun showGroupfolders() {
         val sut = GroupfolderListFragment()
         activity.addFragment(sut)
 
-        waitForIdleSync()
+        shortSleep() // to let async task finish
 
         activity.runOnUiThread {
             sut.setAdapter(null)
