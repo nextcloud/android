@@ -524,6 +524,7 @@
     <string name="pass_code_removed">Passcode deleted</string>
     <string name="pass_code_stored">Passcode stored</string>
     <string name="pass_code_wrong">Incorrect passcode</string>
+    <string name="pdf_password_protected">Unable to open password-protected PDF. Please use an external PDF viewer.</string>
     <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
     <string name="permission_allow">Allow</string>
     <string name="permission_deny">Deny</string>
