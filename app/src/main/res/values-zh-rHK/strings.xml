@@ -524,6 +524,7 @@
     <string name="pass_code_removed">通行碼已刪除</string>
     <string name="pass_code_stored">通行碼已儲存</string>
     <string name="pass_code_wrong">通行碼錯誤</string>
+    <string name="pdf_password_protected">無法開啟密碼保護的 PDF。請使用外部 PDF 檢視程式。</string>
     <string name="pdf_zoom_tip">點擊頁面放大</string>
     <string name="permission_allow">允許</string>
     <string name="permission_deny">拒絕</string>
