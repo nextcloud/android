@@ -524,6 +524,7 @@
     <string name="pass_code_removed">Parola kodu silindi</string>
     <string name="pass_code_stored">Parola depolandı</string>
     <string name="pass_code_wrong">Parola yanlış</string>
+    <string name="pdf_password_protected">Parola ile korunmuş PDF dosyaları açılamıyor. Lütfen bir dış PDF görüntüleyici kullanın.</string>
     <string name="pdf_zoom_tip">Yakınlaştırmak için sayfanın üzerine dokunun</string>
     <string name="permission_allow">İzin ver</string>
     <string name="permission_deny">Reddet</string>
