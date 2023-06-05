@@ -23,7 +23,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -68,6 +67,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -151,9 +151,13 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             notificationsActivity.getResources().getConfiguration().uiMode
                 & Configuration.UI_MODE_NIGHT_MASK;
         if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
-            holder.binding.icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+            holder.binding.icon.setColorFilter(ResourcesCompat.getColor(notificationsActivity.getResources(),
+                                                                        R.color.grey_30, null),
+                                               PorterDuff.Mode.SRC_IN);
         } else {
-            holder.binding.icon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+            holder.binding.icon.setColorFilter(ResourcesCompat.getColor(notificationsActivity.getResources(),
+                                                                        R.color.text_color, null),
+                                               PorterDuff.Mode.SRC_IN);
         }
 
         setButtons(holder, notification);
@@ -172,7 +176,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                                                                          LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(
-            resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
+            resources.getDimensionPixelOffset(R.dimen.standard_quarter_margin),
             0,
             resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
             0);
@@ -260,9 +264,15 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 final MaterialButton button = new MaterialButton(notificationsActivity);
 
                 if (action.primary) {
-                    viewThemeUtils.material.colorMaterialButtonPrimaryFilled(button);
+                    button.setBackgroundColor(ResourcesCompat.getColor(resources,
+                                                                       R.color.notification_action_btn_color, null));
+                    button.setTextColor(ResourcesCompat.getColor(resources,
+                                                                 R.color.white, null));
                 } else {
-                    viewThemeUtils.material.colorMaterialButtonPrimaryTonal(button);
+                    button.setBackgroundColor(ResourcesCompat.getColor(resources,
+                                                                       android.R.color.transparent, null));
+                    button.setTextColor(ResourcesCompat.getColor(resources,
+                                                                 R.color.notification_action_btn_color, null));
                 }
 
                 button.setAllCaps(false);
@@ -271,7 +281,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 button.setCornerRadiusResource(R.dimen.button_corner_radius);
 
                 button.setLayoutParams(params);
-                button.setGravity(Gravity.CENTER);
 
                 button.setOnClickListener(v -> {
                     setButtonEnabled(holder, false);
