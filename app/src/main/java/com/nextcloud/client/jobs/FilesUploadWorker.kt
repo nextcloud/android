@@ -22,6 +22,7 @@
 
 package com.nextcloud.client.jobs
 
+import android.accounts.Account
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -37,6 +38,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.utils.FileUploaderDelegate
 import com.owncloud.android.R
+import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -45,13 +47,17 @@ import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.FileUtils
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.ui.activity.UploadListActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
+import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
+import java.security.SecureRandom
 
 @Suppress("LongParameterList")
 class FilesUploadWorker(
@@ -168,6 +174,9 @@ class FilesUploadWorker(
         } finally {
             uploadsStorageManager.updateDatabaseUploadResult(uploadResult, uploadFileOperation)
 
+            // / notify result
+            notifyUploadResult(uploadFileOperation, uploadResult)
+
             // cancel notification
             notificationManager.cancel(FOREGROUND_SERVICE_ID)
         }
@@ -218,6 +227,113 @@ class FilesUploadWorker(
 
         // due to lack of Wifi, no notification is shown
         // TODO generalize for automated uploads
+    }
+
+    /**
+     * adapted from [com.owncloud.android.files.services.FileUploader.notifyUploadResult]
+     */
+    private fun notifyUploadResult(
+        uploadFileOperation: UploadFileOperation,
+        uploadResult: RemoteOperationResult<Any?>
+    ) {
+        Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.code)
+        // Only notify if the upload fails
+        if (uploadResult.isSuccess || uploadResult.isCancelled) {
+            return
+        }
+
+        val notDelayed = uploadResult.code != ResultCode.DELAYED_FOR_WIFI &&
+            uploadResult.code != ResultCode.DELAYED_FOR_CHARGING &&
+            uploadResult.code != ResultCode.DELAYED_IN_POWER_SAVE_MODE
+
+        if (notDelayed &&
+            uploadResult.code != ResultCode.LOCAL_FILE_NOT_FOUND &&
+            uploadResult.code != ResultCode.LOCK_FAILED
+        ) {
+            var tickerId = R.string.uploader_upload_failed_ticker
+
+            // check credentials error
+            val needsToUpdateCredentials = uploadResult.code == ResultCode.UNAUTHORIZED
+            if (needsToUpdateCredentials) {
+                tickerId = R.string.uploader_upload_failed_credentials_error
+            } else if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
+                // check file conflict
+                tickerId = R.string.uploader_upload_failed_sync_conflict_error
+            }
+            notificationBuilder
+                .setTicker(context.getString(tickerId))
+                .setContentTitle(context.getString(tickerId))
+                .setAutoCancel(true)
+                .setOngoing(false)
+                .setProgress(0, 0, false)
+
+            val content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, uploadFileOperation, context.resources)
+
+            if (needsToUpdateCredentials) {
+                createUpdateCredentialsNotification(uploadFileOperation.user.toPlatformAccount())
+            } else {
+                val intent = if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
+                    createResolveConflictIntent(uploadFileOperation)
+                } else {
+                    createUploadListIntent(uploadFileOperation)
+                }
+                notificationBuilder.setContentIntent(
+                    PendingIntent.getActivity(
+                        context,
+                        System.currentTimeMillis().toInt(),
+                        intent,
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
+                )
+            }
+            notificationBuilder.setContentText(content)
+            if (!uploadResult.isSuccess) {
+                notificationManager.notify(SecureRandom().nextInt(), notificationBuilder.build())
+            }
+        }
+    }
+
+    private fun createUploadListIntent(uploadFileOperation: UploadFileOperation): Intent {
+        return UploadListActivity.createIntent(
+            uploadFileOperation.file,
+            uploadFileOperation.user,
+            Intent.FLAG_ACTIVITY_CLEAR_TOP,
+            context
+        )
+    }
+
+    private fun createResolveConflictIntent(uploadFileOperation: UploadFileOperation): Intent {
+        return ConflictsResolveActivity.createIntent(
+            uploadFileOperation.file,
+            uploadFileOperation.user,
+            uploadFileOperation.ocUploadId,
+            Intent.FLAG_ACTIVITY_CLEAR_TOP,
+            context
+        )
+    }
+
+    private fun createUpdateCredentialsNotification(account: Account) {
+        // let the user update credentials with one click
+        val updateAccountCredentials = Intent(context, AuthenticatorActivity::class.java)
+        updateAccountCredentials.putExtra(
+            AuthenticatorActivity.EXTRA_ACCOUNT,
+            account
+        )
+        updateAccountCredentials.putExtra(
+            AuthenticatorActivity.EXTRA_ACTION,
+            AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
+        )
+        updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
+        updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND)
+        notificationBuilder.setContentIntent(
+            PendingIntent.getActivity(
+                context,
+                System.currentTimeMillis().toInt(),
+                updateAccountCredentials,
+                PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            )
+        )
     }
 
     /**
