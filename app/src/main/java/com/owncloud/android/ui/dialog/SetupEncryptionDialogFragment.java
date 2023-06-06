@@ -52,8 +52,8 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import java.io.IOException;
 import java.security.KeyPair;
 import java.security.PrivateKey;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -64,6 +64,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import static com.owncloud.android.utils.EncryptionUtils.MNEMONIC;
 import static com.owncloud.android.utils.EncryptionUtils.decodeStringToBase64Bytes;
 import static com.owncloud.android.utils.EncryptionUtils.decryptStringAsymmetric;
 import static com.owncloud.android.utils.EncryptionUtils.encodeBytesToBase64String;
@@ -99,7 +100,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
     private Button neutralButton;
     private DownloadKeysAsyncTask task;
     private String keyResult;
-    private List<String> keyWords;
+    private ArrayList<String> keyWords;
     private SetupEncryptionDialogBinding binding;
 
     /**
@@ -135,12 +136,19 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        if (getArguments() == null) {
+            throw new IllegalStateException("Arguments may not be null");
+        }
         user = getArguments().getParcelable(ARG_USER);
+
+        if (savedInstanceState != null) {
+            keyWords = savedInstanceState.getStringArrayList(MNEMONIC);
+        }
 
         arbitraryDataProvider = new ArbitraryDataProviderImpl(getContext());
 
         // Inflate the layout for the dialog
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
         binding = SetupEncryptionDialogBinding.inflate(inflater, null, false);
 
         // Setup layout
@@ -278,6 +286,12 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
         getParentFragmentManager().setFragmentResult(RESULT_REQUEST_KEY, bundle);
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putStringArrayList(MNEMONIC, keyWords);
+        super.onSaveInstanceState(outState);
+    }
+
     public class DownloadKeysAsyncTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
@@ -328,7 +342,9 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
             if (privateKey == null) {
                 // first show info
                 try {
-                    keyWords = EncryptionUtils.getRandomWords(12, requireContext());
+                    if (keyWords == null || keyWords.isEmpty()) {
+                        keyWords = EncryptionUtils.getRandomWords(12, requireContext());
+                    }
                     showMnemonicInfo();
                 } catch (IOException e) {
                     binding.encryptionStatus.setText(R.string.common_error);
@@ -478,7 +494,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
     }
 
     @VisibleForTesting
-    public void setMnemonic(List<String> keyWords) {
+    public void setMnemonic(ArrayList<String> keyWords) {
         this.keyWords = keyWords;
     }
 }
