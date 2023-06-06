@@ -47,6 +47,7 @@ import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
 import com.google.android.material.button.MaterialButton;
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.NotificationListItemBinding;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -149,18 +150,11 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             downloadIcon(notification.getIcon(), holder.binding.icon, notificationsActivity);
         }
 
-        int nightModeFlag =
-            notificationsActivity.getResources().getConfiguration().uiMode
-                & Configuration.UI_MODE_NIGHT_MASK;
-        if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
-            holder.binding.icon.setColorFilter(ResourcesCompat.getColor(notificationsActivity.getResources(),
-                                                                        R.color.grey_30, null),
-                                               PorterDuff.Mode.SRC_IN);
-        } else {
-            holder.binding.icon.setColorFilter(ResourcesCompat.getColor(notificationsActivity.getResources(),
-                                                                        R.color.text_color, null),
-                                               PorterDuff.Mode.SRC_IN);
-        }
+        viewThemeUtils.platform.colorImageView(holder.binding.icon, ColorRole.ON_SURFACE_VARIANT);
+        viewThemeUtils.platform.colorImageView(holder.binding.dismiss, ColorRole.ON_SURFACE_VARIANT);
+        viewThemeUtils.platform.colorTextView(holder.binding.subject, ColorRole.ON_SURFACE);
+        viewThemeUtils.platform.colorTextView(holder.binding.message, ColorRole.ON_SURFACE_VARIANT);
+        viewThemeUtils.platform.colorTextView(holder.binding.datetime, ColorRole.ON_SURFACE_VARIANT);
 
         setButtons(holder, notification);
 

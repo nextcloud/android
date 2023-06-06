@@ -4,9 +4,10 @@
 
   @author Tobias Kaminsky
   @author TSI-mc
-  Copyright (C) 2018 Tobias Kaminsky
-  Copyright (C) 2018 Nextcloud GmbH.
+  Copyright (C) 2023 Andy Scherzinger
   Copyright (C) 2023 TSI-mc
+  Copyright (C) 2018 Tobias Kaminsky
+  Copyright (C) 2018 Nextcloud GmbH
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -22,15 +23,15 @@
   along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/notification_row_item_height"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:paddingStart="@dimen/standard_padding"
     android:paddingTop="@dimen/standard_padding"
-    android:paddingRight="@dimen/standard_padding"
+    android:paddingEnd="@dimen/standard_padding"
     android:paddingBottom="@dimen/standard_padding"
-    android:paddingLeft="@dimen/standard_padding"
     tools:ignore="UseCompoundDrawables">
 
     <ImageView
@@ -45,9 +46,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_alignTop="@id/icon"
-        android:layout_toEndOf="@id/icon">
+        android:layout_toEndOf="@id/icon"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,19 +60,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="@dimen/txt_size_16sp"
                 android:ellipsize="end"
-                android:textColor="@color/text_color"
                 android:textAppearance="?android:attr/textAppearanceListItem"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_16sp"
+                android:paddingBottom="@dimen/standard_half_padding"
                 tools:text="@string/placeholder_filename" />
 
             <ImageView
                 android:id="@+id/dismiss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:tint="@color/secondary_text_color"
-                android:src="@drawable/ic_close"
-                android:contentDescription="@string/dismiss_notification_description" />
+                android:contentDescription="@string/dismiss_notification_description"
+                android:src="@drawable/ic_close" />
         </LinearLayout>
 
         <TextView
@@ -79,19 +80,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:textAppearance="?android:attr/textAppearanceListItem"
             android:textColor="@color/secondary_text_color"
             android:textSize="@dimen/txt_size_14sp"
-            tools:text="@string/placeholder_sentence"
-            android:textAppearance="?android:attr/textAppearanceListItem"/>
+            tools:text="@string/placeholder_sentence" />
 
         <LinearLayout
             android:id="@+id/buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_marginEnd="@dimen/notification_list_item_grid_layout_left_start_margin"
             android:layout_marginTop="@dimen/alternate_half_margin"
-            android:layout_marginStart="@dimen/notification_list_item_grid_layout_left_start_margin"
             android:columnCount="3"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
 
         <TextView
             android:id="@+id/datetime"
@@ -99,9 +101,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:ellipsize="end"
+            android:textColor="@color/secondary_text_color"
             android:textSize="@dimen/text_size_13sp"
-            tools:text="@string/placeholder_sentence"
-            android:textColor="@color/secondary_text_color"/>
+            tools:text="@string/placeholder_sentence" />
 
     </LinearLayout>
 
