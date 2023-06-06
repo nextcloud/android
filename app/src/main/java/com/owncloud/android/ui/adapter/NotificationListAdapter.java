@@ -266,15 +266,12 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 final MaterialButton button = new MaterialButton(notificationsActivity);
 
                 if (action.primary) {
-                    button.setBackgroundColor(ResourcesCompat.getColor(resources,
-                                                                       R.color.notification_action_btn_color, null));
-                    button.setTextColor(ResourcesCompat.getColor(resources,
-                                                                 R.color.white, null));
+                    viewThemeUtils.material.colorMaterialButtonPrimaryFilled(button);
                 } else {
                     button.setBackgroundColor(ResourcesCompat.getColor(resources,
-                                                                       android.R.color.transparent, null));
-                    button.setTextColor(ResourcesCompat.getColor(resources,
-                                                                 R.color.notification_action_btn_color, null));
+                                                                       android.R.color.transparent,
+                                                                       null));
+                    viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(button);
                 }
 
                 button.setAllCaps(false);

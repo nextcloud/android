@@ -69,7 +69,7 @@
                 android:id="@+id/dismiss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:tint="@color/notification_sublime_color"
+                app:tint="@color/secondary_text_color"
                 android:src="@drawable/ic_close"
                 android:contentDescription="@string/dismiss_notification_description" />
         </LinearLayout>
@@ -79,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:textColor="@color/notification_sublime_color"
+            android:textColor="@color/secondary_text_color"
             android:textSize="@dimen/txt_size_14sp"
             tools:text="@string/placeholder_sentence"
             android:textAppearance="?android:attr/textAppearanceListItem"/>
@@ -101,7 +101,7 @@
             android:ellipsize="end"
             android:textSize="@dimen/text_size_13sp"
             tools:text="@string/placeholder_sentence"
-            android:textColor="@color/notification_sublime_color"/>
+            android:textColor="@color/secondary_text_color"/>
 
     </LinearLayout>
 
