@@ -5,7 +5,7 @@ name: tests-stable
 
 steps:
   - name: gplay
-    image: ghcr.io/nextcloud/continuous-integration-android8:2
+    image: ghcr.io/nextcloud/continuous-integration-android8:3
     privileged: true
     environment:
       LOG_USERNAME:
@@ -65,7 +65,7 @@ name: tests-master
 
 steps:
   - name: gplay
-    image: ghcr.io/nextcloud/continuous-integration-android8:2
+    image: ghcr.io/nextcloud/continuous-integration-android8:3
     privileged: true
     environment:
       LOG_USERNAME:
@@ -120,7 +120,7 @@ name: allScreenshots
 
 steps:
   - name: runAllScreenshots
-    image: ghcr.io/nextcloud/continuous-integration-android8:2
+    image: ghcr.io/nextcloud/continuous-integration-android8:3
     privileged: true
     environment:
       GIT_USERNAME:

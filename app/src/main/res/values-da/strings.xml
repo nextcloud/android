@@ -139,7 +139,7 @@
     <string name="community_rc_play_store">Hent kanditat til frigivelse fra Google Play store</string>
     <string name="community_release_candidate_headline">Release candidate</string>
     <string name="community_release_candidate_text">Denne kandidat til frigivelse (RC) er et snapshot af den kommende version og forventes at være stabil. Testing af dit individuelle miljø kan hjælpe med at sikre dette.  Indskriv dig til testing i Play Store eller led manuelt i \"Version\"s afdelingen af F-Droid.</string>
-    <string name="community_testing_bug_text">Fundet en bug? Mærkværdighed?</string>
+    <string name="community_testing_bug_text">Fundet en fejl? Mærkværdighed?</string>
     <string name="community_testing_headline">Hjælp med at test</string>
     <string name="community_testing_report_text">Rapporter et problem på Github</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurer</string>
@@ -360,7 +360,7 @@
     <string name="filename_forbidden_charaters_from_server">Filnavnet indeholder mindst ét ugyldigt tegn</string>
     <string name="filename_hint">Filnavn</string>
     <string name="first_run_1_text">Bevar dine data i sikkerhed og under din kontrol</string>
-    <string name="first_run_2_text">Sikker kollaboration&amp; fil udveksling</string>
+    <string name="first_run_2_text">Sikker kollaboration &amp; fil udveksling</string>
     <string name="first_run_3_text">Nemt at bruge web mail, kalender &amp; kontakter</string>
     <string name="first_run_4_text">Skærmdeling, onlinemøder &amp; web konferencer</string>
     <string name="folder_already_exists">Mappe findes allerede</string>
@@ -509,6 +509,8 @@
     <string name="permission_deny">Afvis</string>
     <string name="permission_storage_access">Yderligere tilladelser nødvendige for at hente og sende filer.</string>
     <string name="picture_set_as_no_app">Ingen apps fundet til at vælge et billede med</string>
+    <string name="pin_home">Fastgør til hjemmeskærm</string>
+    <string name="pin_shortcut_label">Åbn %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">pladsholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -909,6 +911,10 @@ Enheds legitimationsoplysninger er sat op
     <plurals name="found_n_duplicates">
         <item quantity="one">Fundet %d dubletpost.</item>
         <item quantity="other">Fundet %d duplikerede poster.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Eksporteret %d fil  </item>
+        <item quantity="other">Eksporteret %d filer</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappe</item>
