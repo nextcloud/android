@@ -42,8 +42,8 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun openMultiAccount() {
-        val secondUser = getUser(createAccount("secondtest@https://nextcloud.localhost"))
+        val secondAccount = createAccount("secondtest@https://nextcloud.localhost")
         open()
-        removeUser(secondUser)
+        removeAccount(secondAccount)
     }
 }

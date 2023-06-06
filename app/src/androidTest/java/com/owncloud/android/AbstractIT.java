@@ -458,8 +458,8 @@ public abstract class AbstractIT {
         return account;
     }
 
-    protected static boolean removeUser(User user) {
-        return UserAccountManagerImpl.fromContext(targetContext).removeUser(user);
+    protected static boolean removeAccount(Account account) {
+        return AccountManager.get(targetContext).removeAccountExplicitly(account);
     }
 
 }
