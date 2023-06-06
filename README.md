@@ -1,6 +1,7 @@
 # [Nextcloud](https://nextcloud.com) Android app :iphone:
 
 [![Build Status](https://drone.nextcloud.com/api/badges/nextcloud/android/status.svg)](https://drone.nextcloud.com/nextcloud/android) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/80401cb343854343b4d94acbfb72d3ec)](https://www.codacy.com/app/Nextcloud/android?utm_source=github.com\&utm_medium=referral\&utm_content=nextcloud/android\&utm_campaign=Badge_Grade) [![Releases](https://img.shields.io/github/release/nextcloud/android.svg)](https://github.com/nextcloud/android/releases/latest)
+[![PocketHub for GitHub Downloads](https://www.appbrain.com/shield/com.github.pockethub.android.svg)](https://www.appbrain.com/app/pockethub-for-github/com.github.pockethub.android)
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" 
 alt="Download from Google Play" 
