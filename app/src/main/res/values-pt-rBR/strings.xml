@@ -524,6 +524,7 @@
     <string name="pass_code_removed">Frase secreta excluída</string>
     <string name="pass_code_stored">Código de acesso salvo</string>
     <string name="pass_code_wrong">Código de acesso incorreto</string>
+    <string name="pdf_password_protected">Não foi possível abrir PDF protegido por senha. Por favor utilize um visualizador de PDF externo.</string>
     <string name="pdf_zoom_tip">Toque em uma página para ampliar</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Negar</string>
