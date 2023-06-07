@@ -23,7 +23,6 @@
   along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -80,30 +79,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:paddingBottom="@dimen/standard_quarter_padding"
             android:textAppearance="?android:attr/textAppearanceListItem"
             android:textColor="@color/secondary_text_color"
             android:textSize="@dimen/txt_size_14sp"
+            tools:text="@string/placeholder_sentence" />
+
+        <TextView
+            android:id="@+id/datetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:textColor="@color/secondary_text_color"
+            android:textSize="@dimen/text_size_13sp"
             tools:text="@string/placeholder_sentence" />
 
         <LinearLayout
             android:id="@+id/buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
+            android:layout_marginTop="@dimen/standard_quarter_margin"
             android:layout_marginEnd="@dimen/notification_list_item_grid_layout_left_start_margin"
-            android:layout_marginTop="@dimen/alternate_half_margin"
             android:columnCount="3"
+            android:gravity="start"
             android:orientation="horizontal" />
-
-        <TextView
-            android:id="@+id/datetime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:ellipsize="end"
-            android:textColor="@color/secondary_text_color"
-            android:textSize="@dimen/text_size_13sp"
-            tools:text="@string/placeholder_sentence" />
 
     </LinearLayout>
 

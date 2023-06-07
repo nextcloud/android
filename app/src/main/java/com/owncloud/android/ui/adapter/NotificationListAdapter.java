@@ -36,6 +36,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -144,7 +145,12 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             }
         }
 
-        holder.binding.message.setText(notification.getMessage());
+        if (notification.getMessage() != null && !notification.getMessage().isEmpty()) {
+            holder.binding.message.setText(notification.getMessage());
+            holder.binding.message.setVisibility(View.VISIBLE);
+        } else {
+            holder.binding.message.setVisibility(View.GONE);
+        }
 
         if (!TextUtils.isEmpty(notification.getIcon())) {
             downloadIcon(notification.getIcon(), holder.binding.icon, notificationsActivity);
@@ -178,6 +184,12 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             0);
 
         List<Action> overflowActions = new ArrayList<>();
+
+        if (notification.getActions().size() > 0) {
+            holder.binding.buttons.setVisibility(View.VISIBLE);
+        } else {
+            holder.binding.buttons.setVisibility(View.GONE);
+        }
 
         if (notification.getActions().size() > 2) {
             for (Action action : notification.getActions()) {

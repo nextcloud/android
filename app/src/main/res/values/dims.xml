@@ -100,7 +100,7 @@
     <dimen name="activity_row_layout_height">48dp</dimen>
     <dimen name="notification_icon_width">24dp</dimen>
     <dimen name="notification_icon_height">24dp</dimen>
-    <dimen name="notification_icon_layout_right_end_margin">22dp</dimen>
+    <dimen name="notification_icon_layout_right_end_margin">21dp</dimen>
     <dimen name="notification_list_item_grid_layout_left_start_margin">-8dp</dimen>
     <dimen name="uploader_list_separator_height">1dp</dimen>
     <dimen name="contactlist_item_icon_layout_width">40dp</dimen>
