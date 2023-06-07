@@ -74,6 +74,7 @@ if [[ $4 = "all" ]]; then
     scripts/runAllScreenshotCombinations "noCI" "$1" "-Pandroid.testInstrumentationRunnerArguments.class=$class$method"
 else
     ./gradlew --offline gplayDebugExecuteScreenshotTests $record \
+    -Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED" \
     -Pscreenshot=true \
     -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
     -Pandroid.testInstrumentationRunnerArguments.class=$class$method \
