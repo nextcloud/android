@@ -42,7 +42,7 @@ class SetupEncryptionDialogFragmentIT : AbstractIT() {
 
         sut.show(activity.supportFragmentManager, "1")
 
-        val keyWords = listOf(
+        val keyWords = arrayListOf(
             "ability",
             "able",
             "about",

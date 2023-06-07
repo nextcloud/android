@@ -893,7 +893,7 @@ public final class EncryptionUtils {
     Helper
      */
 
-    public static List<String> getRandomWords(int count, Context context) throws IOException {
+    public static ArrayList<String> getRandomWords(int count, Context context) throws IOException {
         InputStream ins = context.getResources().openRawResource(R.raw.encryption_key_words);
 
         InputStreamReader inputStreamReader = new InputStreamReader(ins);
@@ -908,7 +908,7 @@ public final class EncryptionUtils {
 
         SecureRandom random = new SecureRandom();
 
-        List<String> outputLines = Lists.newArrayListWithCapacity(count);
+        ArrayList<String> outputLines = Lists.newArrayListWithCapacity(count);
         for (int i = 0; i < count; i++) {
             int randomLine = random.nextInt(lines.size());
             outputLines.add(lines.get(randomLine));

@@ -192,6 +192,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.activity.SetupEncryptionActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:theme="@style/Theme.NoBackground"
             android:exported="false" />
         <activity
