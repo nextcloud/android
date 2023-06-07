@@ -754,7 +754,7 @@
     <string name="host_your_own_server">Host your own server</string>
     <string name="first_run_1_text">Keep your data secure and under your control</string>
     <string name="first_run_2_text">Secure collaboration &amp; file exchange</string>
-    <string name="first_run_3_text">Easy-to-use web mail, calendering &amp; contacts</string>
+    <string name="first_run_3_text">Easy-to-use webmail, calendar &amp; contacts</string>
     <string name="first_run_4_text">Screensharing, online meetings &amp; web conferences</string>
     <string name="restore_button_description">Restore deleted file</string>
     <string name="restore">Restore file</string>
