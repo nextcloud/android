@@ -8,6 +8,10 @@ permissions:
     pull-requests: write
     contents: read
 
+concurrency: 
+    group: qu-build-${{ github.head_ref || github.run_id }}
+    cancel-in-progress: true
+
 jobs:
     qa:
         runs-on: ubuntu-latest

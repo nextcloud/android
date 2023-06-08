@@ -7,6 +7,10 @@ on:
 # Declare default permissions as read only.
 permissions: read-all
 
+concurrency:
+    group: assemble-flavors-${{ github.head_ref || github.run_id }}
+    cancel-in-progress: true
+
 jobs:
     flavor:
         runs-on: ubuntu-latest

@@ -7,6 +7,10 @@ on:
 # Declare default permissions as read only.
 permissions: read-all
 
+concurrency:
+    group: check-kotlin-${{ github.head_ref || github.run_id }}
+    cancel-in-progress: true
+
 jobs:
     check:
         runs-on: ubuntu-latest

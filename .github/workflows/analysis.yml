@@ -10,6 +10,10 @@ permissions:
     pull-requests: write
     contents: write
 
+concurrency:
+    group: analysis-wrapper-${{ github.head_ref || github.run_id }}
+    cancel-in-progress: true
+
 jobs:
     analysis:
         runs-on: ubuntu-latest
