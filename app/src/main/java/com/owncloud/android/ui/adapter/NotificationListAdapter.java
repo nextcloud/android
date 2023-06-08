@@ -23,9 +23,7 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -229,7 +227,10 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
             // further actions
             final MaterialButton moreButton = new MaterialButton(notificationsActivity);
-            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(moreButton);
+            moreButton.setBackgroundColor(ResourcesCompat.getColor(resources,
+                                                               android.R.color.transparent,
+                                                               null));
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(moreButton);
 
             moreButton.setAllCaps(false);
 
