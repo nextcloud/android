@@ -5,7 +5,7 @@
  *   @author David A. Velasco
  *   @author TSI-mc
  *   Copyright (C) 2015 ownCloud Inc.
- *   Copyright (C) 2021 TSI-mc
+ *   Copyright (C) 2023 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -131,7 +131,8 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             shareeName,
             false,
             sharePassword,
-            permissions
+            permissions,
+            noteMessage
         );
         operation.setGetShareDetails(true);
         RemoteOperationResult result = operation.execute(client);
@@ -144,7 +145,6 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             UpdateShareInfoOperation updateShareInfoOperation = new UpdateShareInfoOperation(share, getStorageManager());
             updateShareInfoOperation.setExpirationDateInMillis(expirationDateInMillis);
             updateShareInfoOperation.setHideFileDownload(hideFileDownload);
-            updateShareInfoOperation.setNote(noteMessage);
             updateShareInfoOperation.setLabel(label);
 
             //execute and save the result in database

@@ -28,7 +28,10 @@ scripts/wait_for_server.sh "server"
 adb logcat -c
 adb logcat > logcat.txt &
 LOGCAT_PID=$!
-./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest
+./gradlew createGplayDebugCoverageReport \
+-Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest \
+-Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED"
+
 stat=$?
 # stop saving logcat
 kill $LOGCAT_PID
