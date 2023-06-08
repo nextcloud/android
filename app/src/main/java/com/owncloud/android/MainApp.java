@@ -4,8 +4,10 @@
  * @author masensio
  * @author David A. Velasco
  * @author Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -60,6 +62,7 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -365,7 +368,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             @Override
             public void onActivityResumed(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onResume() starting");
-                passCodeManager.onActivityResumed(activity);
+                // we are checking activity is not launcher activity because there is timer in launcher
+                // which will reopen the passcode screen
+                if (!(activity instanceof LauncherActivity)) {
+                    passCodeManager.onActivityResumed(activity);
+                }
             }
 
             @Override
@@ -376,7 +383,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             @Override
             public void onActivityStopped(@NonNull Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending");
-                passCodeManager.onActivityStopped(activity);
+                // since we are not showing passcode on launch activity
+                // so we don't need to call the stopped method as well
+                if (!(activity instanceof LauncherActivity)) {
+                    passCodeManager.onActivityStopped(activity);
+                }
             }
 
             @Override
