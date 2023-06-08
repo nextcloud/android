@@ -526,6 +526,7 @@ Attention la suppression est irréversible.</string>
     <string name="pass_code_removed">Code de sécurité supprimé</string>
     <string name="pass_code_stored">Code de sécurité enregistré</string>
     <string name="pass_code_wrong">Code de sécurité incorrect</string>
+    <string name="pdf_password_protected">Impossible d\'ouvrir un PDF protégé par un mot de passe. Veuillez utiliser une visionneuse PDF externe.</string>
     <string name="pdf_zoom_tip">Appuyez sur une page pour zoomer</string>
     <string name="permission_allow">Accepter</string>
     <string name="permission_deny">Refuser</string>
