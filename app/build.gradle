@@ -382,7 +382,7 @@ dependencies {
     implementation "io.coil-kt:coil:2.4.0"
 
     //splash screen dependency ref: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
-    implementation 'androidx.core:core-splashscreen:1.0.0'
+    implementation 'androidx.core:core-splashscreen:1.0.1'
 }
 
 configurations.all {
