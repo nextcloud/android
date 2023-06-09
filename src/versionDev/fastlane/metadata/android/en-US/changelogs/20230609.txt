@@ -1,0 +1,5 @@
+Build(deps): Bump commons-io:commons-io from 2.12.0 to 2.13.0
+Build(deps): Bump kotlin_version from 1.8.21 to 1.8.22
+Build(deps): Bump androidx.fragment:fragment-ktx from 1.5.7 to 1.6.0
+Update Nextcloud Android library
+Update 3rd-party dependencies
