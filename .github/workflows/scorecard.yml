@@ -10,6 +10,10 @@ on:
 # Declare default permissions as read only.
 permissions: read-all
 
+concurrency: 
+  group: scorecard-supply-chain-security-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   analysis:
     name: Scorecard analysis

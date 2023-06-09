@@ -232,6 +232,7 @@
     <string name="drawer_item_all_files">Kaikki tiedostot</string>
     <string name="drawer_item_favorites">Suosikit</string>
     <string name="drawer_item_gallery">Media</string>
+    <string name="drawer_item_groupfolders">Ryhmäkansiot</string>
     <string name="drawer_item_home">Koti</string>
     <string name="drawer_item_notifications">Ilmoitukset</string>
     <string name="drawer_item_on_device">Laitteessa</string>

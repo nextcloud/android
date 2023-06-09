@@ -56,6 +56,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.etm.EtmActivity;
 import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
@@ -148,6 +149,7 @@ public class SettingsActivity extends PreferenceActivity
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject ViewThemeUtils viewThemeUtils;
+    @Inject ConnectivityService connectivityService;
 
 
     @SuppressWarnings("deprecation")
@@ -436,10 +438,14 @@ public class SettingsActivity extends PreferenceActivity
                 preferenceCategoryMore.removePreference(preference);
             } else {
                 preference.setOnPreferenceClickListener(p -> {
-                    Intent i = new Intent(MainApp.getAppContext(), SetupEncryptionActivity.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    i.putExtra("EXTRA_USER", user);
-                    startActivityForResult(i, ACTION_E2E);
+                    if (connectivityService.getConnectivity().isConnected()) {
+                        Intent i = new Intent(MainApp.getAppContext(), SetupEncryptionActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        i.putExtra("EXTRA_USER", user);
+                        startActivityForResult(i, ACTION_E2E);
+                    } else {
+                        DisplayUtils.showSnackMessage(this, R.string.e2e_offline);
+                    }
 
                     return true;
                 });
