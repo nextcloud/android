@@ -375,7 +375,6 @@
     <string name="filename_hint">Fájlnév</string>
     <string name="first_run_1_text">Tartsa az adatait biztonságban és a saját felügyelete alatt</string>
     <string name="first_run_2_text">Biztonságos csoportmunka és fájlmegosztás</string>
-    <string name="first_run_3_text">Könnyen használható webes levelezés, naptárkezelés és névjegyek</string>
     <string name="first_run_4_text">Képernyőmegosztás, online megbeszélések és webes konferenciák</string>
     <string name="folder_already_exists">A mappa már létezik</string>
     <string name="folder_confirm_create">Létrehozás</string>

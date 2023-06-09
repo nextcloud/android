@@ -317,7 +317,6 @@
     <string name="filename_hint">ชื่อไฟล์</string>
     <string name="first_run_1_text">ให้ข้อมูลของคุณปลอดภัยและควบคุมโดยคุณ</string>
     <string name="first_run_2_text">การทำงานร่วมกันและแลกเปลี่ยนไฟล์อย่างปลอดภัย</string>
-    <string name="first_run_3_text">เว็บเมล รายชื่อ และปฏิทินที่ใช้งานง่าย</string>
     <string name="first_run_4_text">การแชร์หน้าจอ ประชุมออนไลน์ และประชุมผ่านเว็บ</string>
     <string name="folder_already_exists">โฟลเดอร์มีอยู่แล้ว</string>
     <string name="folder_confirm_create">สร้าง</string>

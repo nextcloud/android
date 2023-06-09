@@ -377,7 +377,6 @@
     <string name="filename_hint">Filnamn</string>
     <string name="first_run_1_text">Håll dina data säkra och under din kontroll</string>
     <string name="first_run_2_text">Säkert samarbete och filutbyte</string>
-    <string name="first_run_3_text">Lättanvänd webmail, kalender och kontakter</string>
     <string name="first_run_4_text">Skärmdelning, onlinemöten och webbkonferenser</string>
     <string name="folder_already_exists">Mapp finns redan</string>
     <string name="folder_confirm_create">Skapa</string>

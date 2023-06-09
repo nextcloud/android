@@ -378,7 +378,6 @@
     <string name="filename_hint">Имя файла</string>
     <string name="first_run_1_text">Храните свои данные в безопасности и под своим контролем</string>
     <string name="first_run_2_text">Защищённая совместная работа &amp;обмен файлами</string>
-    <string name="first_run_3_text">Простые в использовании приложения для работы с почтой, календарями и контактами</string>
     <string name="first_run_4_text">Доступ к изображению на экране, онлайн общение и веб-конференции</string>
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="folder_confirm_create">Создать</string>
@@ -525,6 +524,7 @@
     <string name="pass_code_removed">Код удалён</string>
     <string name="pass_code_stored">Код сохранён</string>
     <string name="pass_code_wrong">Некорректный код</string>
+    <string name="pdf_password_protected">Невозможно открыть защищенный паролем PDF-файл. Воспользуйтесь сторонним просмотрщиком PDF.</string>
     <string name="pdf_zoom_tip">Нажмите на страницу, чтобы увеличить</string>
     <string name="permission_allow">Разрешить</string>
     <string name="permission_deny">Запретить</string>

@@ -367,7 +367,6 @@
     <string name="filename_hint">文件名</string>
     <string name="first_run_1_text">保证您的数据安全并处于您的控制之下</string>
     <string name="first_run_2_text">安全协作和文件交换</string>
-    <string name="first_run_3_text">易于使用的网页邮件、日历和联系人</string>
     <string name="first_run_4_text">屏幕共享，线上见面和网络会议</string>
     <string name="folder_already_exists">目录已经存在</string>
     <string name="folder_confirm_create">创建</string>

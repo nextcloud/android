@@ -378,7 +378,6 @@
     <string name="filename_hint">Ім\'я файлу</string>
     <string name="first_run_1_text">Зберігайте власні дані у безпечному місці під вашим контролем</string>
     <string name="first_run_2_text">Підтримуйте співпрацю та обмінюйтеся файлами безпечно</string>
-    <string name="first_run_3_text">Простий у користуванні поштовий вебклієнт, календар та контакти</string>
     <string name="first_run_4_text">Демонстрація екрану, онлайнові зустрічі та вебконференції</string>
     <string name="folder_already_exists">Каталог вже існує</string>
     <string name="folder_confirm_create">Створити</string>

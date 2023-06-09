@@ -361,7 +361,6 @@
     <string name="filename_hint">اسم الملف</string>
     <string name="first_run_1_text">حافظ على بياناتك آمنة وتحت سيطرتك</string>
     <string name="first_run_2_text">تعاون آمن &amp; تبادل ملف</string>
-    <string name="first_run_3_text">بريد سهل الاستخدام، تقويم &amp; أسماء</string>
     <string name="first_run_4_text">مشاركة للشاشة، اجتماعات على الإنترنت &amp; جلسات</string>
     <string name="folder_already_exists">المجلد موجود مسبقاً</string>
     <string name="folder_confirm_create">إنشاء</string>

@@ -32,9 +32,11 @@
     <string name="activity_icon">Aktivitet</string>
     <string name="add_another_public_share_link">Tilføj et link mere</string>
     <string name="add_new_public_share">Tilføj nyt offentligt link til deling</string>
+    <string name="add_new_secure_file_drop">Tilføj nyt, sikkert fil drop</string>
     <string name="add_to_cloud">Tilføj til %1$s</string>
     <string name="advanced_settings">Avancerede indstillinger</string>
     <string name="allow_resharing">Tillad videredeling</string>
+    <string name="app_widget_description">Viser én widget fra dashboard</string>
     <string name="appbar_search_in">Søg i %s</string>
     <string name="associated_account_not_found">Forbundet konto blev ikke fundet!</string>
     <string name="auth_access_failed">Adgang fejlede: %1$s</string>
@@ -87,12 +89,14 @@
     <string name="calendars">Kalendere</string>
     <string name="certificate_load_problem">Der er et problem med lagring af certificering.</string>
     <string name="changelog_dev_version">Changelog udviklingsversion</string>
+    <string name="check_back_later_or_reload">Kig forbi senere eller genindlæs.</string>
     <string name="checkbox">Afkrydsningsfelt</string>
     <string name="choose_local_folder">Vælg lokal mappe...</string>
     <string name="choose_location">Vælg placering</string>
     <string name="choose_remote_folder">Vælg ekstern mappe...</string>
     <string name="choose_template_helper_text">Vælg en skabelon og indtast et fil navn.</string>
     <string name="choose_which_file">Vælg hvilken fil du ønsker at beholde!</string>
+    <string name="choose_widget">Vælg widget</string>
     <string name="clear_notifications_failed">Rydning af alle notifikationer fejlede</string>
     <string name="clear_status_message">Ryd status notifikation</string>
     <string name="clear_status_message_after">Ryd status notifikationer efter</string>
@@ -143,6 +147,7 @@
     <string name="community_testing_headline">Hjælp med at test</string>
     <string name="community_testing_report_text">Rapporter et problem på Github</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurer</string>
+    <string name="confirm_removal">Fjern lokal kryptering</string>
     <string name="confirmation_remove_file_alert">Er du sikker på at du vil slette %1$s ?</string>
     <string name="confirmation_remove_files_alert">Er du sikker på at du vil slette de valgte artikler?</string>
     <string name="confirmation_remove_folder_alert">Er du sikker på at du vil slette %1$s med indhold?</string>
@@ -153,6 +158,7 @@
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Hvis du vælger begge versioner, vil den lokale fil få tilføjet et nummer til sit navn.</string>
     <string name="conflict_server_file">Server fil</string>
+    <string name="contact_backup_title">Backup af kontakter</string>
     <string name="contactlist_item_icon">Bruger ikon til kontaktliste</string>
     <string name="contactlist_no_permission">Ingen tilladelse givet, intet importeret.</string>
     <string name="contacts">Kontakter</string>
@@ -201,12 +207,17 @@
     <string name="disable_new_media_folder_detection_notifications">Deaktiver</string>
     <string name="dismiss">Afvis</string>
     <string name="dismiss_notification_description">Fjern notifikation</string>
+    <string name="displays_mnemonic">Viser din kodefrase på 12 ord</string>
     <string name="dnd">Forstyr ikke</string>
+    <string name="document_scan_export_dialog_images">Adskillige billeder</string>
     <string name="document_scan_export_dialog_pdf">PDF fil</string>
+    <string name="document_scan_export_dialog_title">Vælg eksporttype</string>
+    <string name="document_scan_pdf_generation_failed">Dannelse af PDF mislykkedes</string>
     <string name="document_scan_pdf_generation_in_progress">Genererer PDF…</string>
     <string name="done">Færdig</string>
     <string name="dontClear">Ryd ikke</string>
     <string name="download_cannot_create_file">Kan ikke oprette filen lokalt</string>
+    <string name="download_download_invalid_local_file_name">Ugyldigt filnavn på lokal fil</string>
     <string name="download_latest_dev_version">Hent seneste udiklingsversion</string>
     <string name="downloader_download_failed_content">Kunne ikke hente %1$s</string>
     <string name="downloader_download_failed_credentials_error">Overførelse fejlede, log ind igen</string>
@@ -224,6 +235,7 @@
     <string name="drawer_item_all_files">Alle filer</string>
     <string name="drawer_item_favorites">Favoritter</string>
     <string name="drawer_item_gallery">Medier</string>
+    <string name="drawer_item_groupfolders">Gruppemapper</string>
     <string name="drawer_item_home">Hjem</string>
     <string name="drawer_item_notifications">Notifikationer</string>
     <string name="drawer_item_on_device">På enhed</string>
@@ -236,6 +248,7 @@
     <string name="drawer_quota">%1$s af %2$s brugt</string>
     <string name="drawer_quota_unlimited">%1$s brugt</string>
     <string name="drawer_synced_folders">Auto upload</string>
+    <string name="e2e_not_yet_setup">E2E er endnu ikke konfigureret</string>
     <string name="encrypted">Angiv som krypteret</string>
     <string name="end_to_end_encryption_confirm_button">Indstil kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer...</string>
@@ -260,12 +273,15 @@
     <string name="error_comment_file">kommentering af fil fejlet</string>
     <string name="error_crash_title">%1$s krakket</string>
     <string name="error_creating_file_from_template">Fejl ved oprettelse af fil fra skabelon</string>
+    <string name="error_file_actions">Fejl under visning af filhandlinger</string>
     <string name="error_file_lock">Fejl ved ændring af status for fillås</string>
     <string name="error_report_issue_action">Rapporter</string>
     <string name="error_report_issue_text">Rapportere problem til tracker? (kræver en GitHub-konto)</string>
     <string name="error_retrieving_file">Fejl ved modtagelse af fil</string>
     <string name="error_retrieving_templates">Fejl ved indlæsning af modeller</string>
+    <string name="error_showing_encryption_dialog">Fejl under visning af dialogboks for opsætning af kryptering!</string>
     <string name="error_starting_direct_camera_upload">Fejl ved start af kamera</string>
+    <string name="error_starting_doc_scan">Fejl ved start af scanning af dokument</string>
     <string name="etm_accounts">Konti</string>
     <string name="etm_background_job_name">Job navn</string>
     <string name="etm_background_job_progress">Progress</string>
@@ -361,7 +377,6 @@
     <string name="filename_hint">Filnavn</string>
     <string name="first_run_1_text">Bevar dine data i sikkerhed og under din kontrol</string>
     <string name="first_run_2_text">Sikker kollaboration &amp; fil udveksling</string>
-    <string name="first_run_3_text">Nemt at bruge web mail, kalender &amp; kontakter</string>
     <string name="first_run_4_text">Skærmdeling, onlinemøder &amp; web konferencer</string>
     <string name="folder_already_exists">Mappe findes allerede</string>
     <string name="folder_confirm_create">Opret</string>
@@ -388,6 +403,9 @@
     <string name="hint_password">Adgangskode</string>
     <string name="host_not_available">Server ikke tilgængelig</string>
     <string name="host_your_own_server">Vær vært for egen server</string>
+    <string name="icon_for_empty_list">Ikon for tom liste</string>
+    <string name="icon_of_dashboard_widget">Ikon for widget til dashboard</string>
+    <string name="icon_of_widget_entry">Ikon for post i widget</string>
     <string name="in_folder">i mappen %1$s</string>
     <string name="instant_upload_existing">Send også eksisterende filer</string>
     <string name="instant_upload_on_charging">Upload kun under opladning</string>
@@ -466,6 +484,7 @@
     <string name="no_browser_available">Ingen App tilgængelig til håndtering af links</string>
     <string name="no_calendar_exists">Ingen kalender eksisterer</string>
     <string name="no_email_app_available">Ingen app tilgængelig til at håndtere mailadresser</string>
+    <string name="no_items">Ingen elementer</string>
     <string name="no_mutliple_accounts_allowed">kun en konto tilladt</string>
     <string name="no_pdf_app_available">Ingen App tilgængelig til håndtering af PDF</string>
     <string name="no_send_app">Der er ingen tilgængelig app til at sende de valgte filer</string>
@@ -504,6 +523,7 @@
     <string name="pass_code_removed">Adgangskode slettet</string>
     <string name="pass_code_stored">Passcode blev gendannet</string>
     <string name="pass_code_wrong">Ukorrekt passcode</string>
+    <string name="pdf_password_protected">Ikke i stand til at åbne kodeordsbeskyttet PDF. Brug venligst en ekstern PDF-fremviser.</string>
     <string name="pdf_zoom_tip">Tryk på en side for at zoome ind</string>
     <string name="permission_allow">Tillad</string>
     <string name="permission_deny">Afvis</string>
@@ -540,6 +560,8 @@
     <string name="prefs_category_more">Mere</string>
     <string name="prefs_daily_backup_summary">Daglig backup af din kalender &amp; kontakter</string>
     <string name="prefs_daily_contact_backup_summary">Daglig backup af dine kontakter</string>
+    <string name="prefs_davx5_setup_error">Uventet fejl under opsætning af DAVx5 (tidligere kendt som DAVdroid)</string>
+    <string name="prefs_e2e_active">End-to-end kryptering er blevet konfigureret!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">For at vise mnemonic venligst aktiver enhedens brugeroplysninger</string>
     <string name="prefs_enable_media_scan_notifications">Vis media scan notifikationer</string>
@@ -551,6 +573,7 @@
     <string name="prefs_instant_behaviour_title">Oprindelig fil vil blive...</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Gem i undermapper baseret på år og måned</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Benyt undermapper</string>
+    <string name="prefs_keys_exist">Tilføj end-to-end kryptering for denne klient</string>
     <string name="prefs_license">Licens</string>
     <string name="prefs_lock">App adgangskode</string>
     <string name="prefs_lock_device_credentials_enabled">Enheds legitimationsoplysninger aktiveret</string>
@@ -563,6 +586,8 @@ Enheds legitimationsoplysninger er sat op
     <string name="prefs_lock_using_passcode">Adgangskode</string>
     <string name="prefs_manage_accounts">Administrer konti</string>
     <string name="prefs_recommend">Foreslå til en ven</string>
+    <string name="prefs_remove_e2e">Fjern kryptering lokalt</string>
+    <string name="prefs_setup_e2e">Opsæt end-to-end kryptering</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_sourcecode">Hent kildetekst</string>
     <string name="prefs_storage_path">Lagringsmappe for data</string>
@@ -590,6 +615,8 @@ Enheds legitimationsoplysninger er sat op
     <string name="reload">Genindlæs</string>
     <string name="remote">(fjernt)</string>
     <string name="remote_file_fetch_failed">Kunne ikke finde fil!</string>
+    <string name="remove_e2e">Du kan fjerne end-to-end kryptering lokalt på denne klient</string>
+    <string name="remove_e2e_message">Du kan fjerne end-to-end kryptering lokalt på denne klient. De krypterede filer vil forblive på serveren, men vil ikke længere blive synkroniseret til denne computer.</string>
     <string name="remove_fail_msg">Sletning fejlede</string>
     <string name="remove_notification_failed">Fjernelse af notifikation fejlede</string>
     <string name="remove_push_notification">Fjern</string>
@@ -607,6 +634,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="retrieving_file">Modtager fil…</string>
     <string name="richdocuments_failed_to_load_document">Fejl ved indlæsning af dokument!</string>
     <string name="scanQR_description">Login med QR kode</string>
+    <string name="scan_page">Scan side</string>
     <string name="screenshot_01_gridView_heading">Beskytter dine data</string>
     <string name="screenshot_01_gridView_subline">egen-vært produktivitet</string>
     <string name="screenshot_02_listView_heading">Defiler og del</string>
@@ -633,6 +661,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="set_picture_as">Benyt billede som</string>
     <string name="set_status">Sæt status</string>
     <string name="set_status_message">Sæt statusbesked</string>
+    <string name="setup_e2e">Undervejs i opsætningen af end-to-end kryptering, så vil du modtage en tilfældig huskeregel på 12 ord, som du får brug for til at åbne dine filer på andre enheder. Denne vil kun blive gemt på denne enhed, og kan blive vist senere i denne visning. Skriv den venligst ned et sikkert sted!</string>
     <string name="share">Del</string>
     <string name="share_copy_link">Del &amp;Kopier Link</string>
     <string name="share_dialog_title">Deling</string>
@@ -657,6 +686,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_password_title">Beskyttet med adgangskode</string>
     <string name="share_permission_can_edit">Kan redigere</string>
     <string name="share_permission_file_drop">Fil drop</string>
+    <string name="share_permission_secure_file_drop">Sikkert fil drop</string>
     <string name="share_permission_view_only">Kun visning</string>
     <string name="share_permissions">Del Tilladelser</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
@@ -771,6 +801,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="thumbnail">Miniature</string>
     <string name="thumbnail_for_existing_file_description">Minitiature til eksistrende fil</string>
     <string name="thumbnail_for_new_file_desc">Minitiature til ny fil</string>
+    <string name="timeout_richDocuments">Indlæsningen tager længere tid en forventet</string>
     <string name="today">I dag</string>
     <string name="trashbin_activity_title">Slettede filer</string>
     <string name="trashbin_empty_headline">Ingen slettede filer</string>
@@ -877,6 +908,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="userinfo_no_info_text">Tilføj navn, billede og kontakt information på din profilside.</string>
     <string name="username">Brugernavn</string>
     <string name="version_dev_download">Hent</string>
+    <string name="video_overlay_icon">Ikon til overlejring af videoer</string>
     <string name="wait_a_moment">Vent et øjeblik...</string>
     <string name="wait_checking_credentials">Undersøger lagrede certificeringer</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager.</string>
@@ -884,6 +916,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="whats_new_skip">Spring over</string>
     <string name="whats_new_title">Nyt i %1$s</string>
     <string name="whats_your_status">Hvad er din status</string>
+    <string name="widgets_not_available">Widgets er kun tilgængelige for %1$s 25 eller senere</string>
     <string name="widgets_not_available_title">Ikke tilgængelig</string>
     <string name="write_email">Send email</string>
     <string name="wrong_storage_path">Datalagrings mappe eksisterer ikke</string>
@@ -915,6 +948,18 @@ Enheds legitimationsoplysninger er sat op
     <plurals name="export_successful">
         <item quantity="one">Eksporteret %d fil  </item>
         <item quantity="other">Eksporteret %d filer</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Mislykkedes med at eksportere %d fil</item>
+        <item quantity="other">Mislykkedes med at eksportere %d filer</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Eksporterede %d fil, og sprang over resten på grund af fejl</item>
+        <item quantity="other">Eksporterede %d filer, og sprang over resten på grund af fejl</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%d fil vil blive eksporteret. Se notifikationen for yderligere oplysninger.</item>
+        <item quantity="other">%d filer vil blive eksporteret. Se notifikationen for yderligere oplysninger.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mappe</item>
