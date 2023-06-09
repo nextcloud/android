@@ -271,7 +271,6 @@
     <string name="filename_hint">Dosiernomo</string>
     <string name="first_run_1_text">Gardu viajn datumojn sekuraj kaj sub via kontrolo</string>
     <string name="first_run_2_text">Sekura kunlaborado kaj dosiera interŝanĝo</string>
-    <string name="first_run_3_text">Faciluza enreta retpoŝtilo, kalendaro kaj kontaktaro</string>
     <string name="first_run_4_text">Ekrandividado, retkunsidoj kaj reta konferencoj</string>
     <string name="folder_already_exists">La dosierujo jam ekzistas</string>
     <string name="folder_confirm_create">Krei</string>

@@ -375,7 +375,6 @@
     <string name="filename_hint">Fitxategi-izena</string>
     <string name="first_run_1_text">Mantendu zure datuak seguru eta zure kontrolpean</string>
     <string name="first_run_2_text">Lankidetza eta fitxategi partekatze segurua</string>
-    <string name="first_run_3_text">Web posta, egutegi eta kontaktu erabilerrazak</string>
     <string name="first_run_4_text">Pantaila partekatzea, online bilerak eta web konferentziak</string>
     <string name="folder_already_exists">Karpeta dagoeneko existitzen da</string>
     <string name="folder_confirm_create">Sortu</string>

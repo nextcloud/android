@@ -327,7 +327,6 @@
     <string name="filename_hint">Ainm an fhaidhle</string>
     <string name="first_run_1_text">Cùm an dàta agad tèarainte is fo do smachd-sa</string>
     <string name="first_run_2_text">Co-obrachadh ⁊ co-roinneadh fhaidhlichean tèarainte</string>
-    <string name="first_run_3_text">Post-lìn, mìosachan ⁊ luchd-aithne a tha furasta cleachdadh</string>
     <string name="first_run_4_text">Co-roinneadh sgrìn, coinneamhan air loidhne ⁊ co-labhairtean-lìn</string>
     <string name="folder_already_exists">Tha am pasgan seo ann mu thràth</string>
     <string name="folder_confirm_create">Cruthaich</string>

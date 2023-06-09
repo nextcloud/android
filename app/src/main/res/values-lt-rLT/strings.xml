@@ -353,7 +353,6 @@
     <string name="filename_hint">Failo pavadinimas</string>
     <string name="first_run_1_text">Saugiai laikykite ir valdykite savo duomenis</string>
     <string name="first_run_2_text">Saugus bendradarbiavimas ir apsikeitimas failais</string>
-    <string name="first_run_3_text">Lengvai naudojamas el. paštas, kalendorius bei adresatai</string>
     <string name="first_run_4_text">Ekrano bendrinimas, internetiniai susitikimai bei konferencijos</string>
     <string name="folder_already_exists">Aplankas jau yra</string>
     <string name="folder_confirm_create">Sukurti</string>
