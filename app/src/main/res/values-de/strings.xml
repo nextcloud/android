@@ -249,6 +249,7 @@
     <string name="drawer_quota_unlimited">%1$s verwendet</string>
     <string name="drawer_synced_folders">Automatisches Hochladen</string>
     <string name="e2e_not_yet_setup">E2E bislang nicht eingerichtet</string>
+    <string name="e2e_offline">Ohne Internetverbindung nicht möglich</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_decrypting">Entschlüssele…</string>
@@ -377,6 +378,7 @@
     <string name="filename_hint">Dateiname</string>
     <string name="first_run_1_text">Halten Sie Ihre Daten sicher und unter Ihrer Kontrolle</string>
     <string name="first_run_2_text">Sichere Zusammenarbeit &amp; Dateiaustausch</string>
+    <string name="first_run_3_text">Benutzerfreundliche Webmailer, Kalender &amp; Kontakte</string>
     <string name="first_run_4_text">Bildschirm teilen, Online-Meetings&amp; Web-Konferenzen</string>
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="folder_confirm_create">Erstellen</string>
