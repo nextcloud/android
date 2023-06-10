@@ -249,6 +249,7 @@
     <string name="drawer_quota_unlimited">%1$s искоришћено</string>
     <string name="drawer_synced_folders">Аутоматска отпремања</string>
     <string name="e2e_not_yet_setup">E2E још увек није подешено</string>
+    <string name="e2e_offline">Није могуће без везе са интернетом</string>
     <string name="encrypted">Постави као шифровано</string>
     <string name="end_to_end_encryption_confirm_button">Подесите шифровање</string>
     <string name="end_to_end_encryption_decrypting">Дешифрујем…</string>
@@ -377,6 +378,7 @@
     <string name="filename_hint">Назив фајла</string>
     <string name="first_run_1_text">Држите податке безбедним и под контролом</string>
     <string name="first_run_2_text">Безбедна сарадња и размена фајлова</string>
+    <string name="first_run_3_text">Веб пошта лака за коришћење, календар &amp; контакти</string>
     <string name="first_run_4_text">Дељење екрана, састанци и веб конференције</string>
     <string name="folder_already_exists">Фасцикла већ постоји</string>
     <string name="folder_confirm_create">Направи</string>
