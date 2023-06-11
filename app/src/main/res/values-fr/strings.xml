@@ -251,6 +251,7 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_quota_unlimited">%1$s utilisé</string>
     <string name="drawer_synced_folders">Téléversement automatique</string>
     <string name="e2e_not_yet_setup">E2E pas encore configuré</string>
+    <string name="e2e_offline">Impossible sans une connexion internet</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_decrypting">Décryptage…</string>

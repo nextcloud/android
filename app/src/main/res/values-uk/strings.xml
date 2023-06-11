@@ -35,7 +35,7 @@
     <string name="add_new_public_share">Додати нове публічне посилання</string>
     <string name="add_new_secure_file_drop">Додайте новий захищений файл</string>
     <string name="add_to_cloud">Додати на хмару %1$s</string>
-    <string name="advanced_settings">Додаткові налаштування</string>
+    <string name="advanced_settings">Розширені</string>
     <string name="allow_resharing">Можете ділитися</string>
     <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
     <string name="appbar_search_in">Пошук у %s</string>
@@ -311,7 +311,7 @@
     <string name="failed_to_print">Не вдалося роздрукувати файл</string>
     <string name="failed_to_start_editor">Не вдалося запустити редактор</string>
     <string name="failed_update_ui">Неможливо оновити інтерфейс</string>
-    <string name="favorite">Вподобати</string>
+    <string name="favorite">Додати зірочку</string>
     <string name="favorite_icon">Улюблений</string>
     <string name="file_already_exists">Файл з таким ім\'ям вже існує</string>
     <string name="file_delete">Вилучити</string>
@@ -810,7 +810,7 @@
     <string name="unlock_file">Розблокувати файл</string>
     <string name="unread_comments">Доступні непрочитані коментарі</string>
     <string name="unset_encrypted">Зняти шифрування</string>
-    <string name="unset_favorite">Прибрати із вподобаного</string>
+    <string name="unset_favorite">Прибрати зірочку</string>
     <string name="unshare_link_file_error">Помилка під час закриття спільного доступу до файлу чи каталогу.</string>
     <string name="unshare_link_file_no_exist">Неможливо закрити спільний доступ. Будь ласка, перевірте, чи файл існує.</string>
     <string name="unshare_link_forbidden_permissions">для закриття доступу до файла</string>
