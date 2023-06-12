@@ -249,6 +249,7 @@
     <string name="drawer_quota_unlimited">%1$s已使用</string>
     <string name="drawer_synced_folders">自動上傳</string>
     <string name="e2e_not_yet_setup">尚未設定端到端加密</string>
+    <string name="e2e_offline">沒有網際網路連線就無法使用</string>
     <string name="encrypted">設為已加密的</string>
     <string name="end_to_end_encryption_confirm_button">設定加密</string>
     <string name="end_to_end_encryption_decrypting">正在解密……</string>
@@ -377,6 +378,7 @@
     <string name="filename_hint">檔案名稱</string>
     <string name="first_run_1_text">保障您的資料安全，且由您掌控</string>
     <string name="first_run_2_text">安全地協作及交換檔案</string>
+    <string name="first_run_3_text">易於使用的網路電子郵件、行事曆與聯絡人</string>
     <string name="first_run_4_text">分享螢幕畫面，線上會議與研討會</string>
     <string name="folder_already_exists">資料夾已存在</string>
     <string name="folder_confirm_create">建立</string>

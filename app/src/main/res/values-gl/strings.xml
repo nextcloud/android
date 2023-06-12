@@ -188,7 +188,7 @@
     <string name="creates_rich_workspace"> crear a información do cartafol </string>
     <string name="credentials_disabled">Credenciais eliminadas</string>
     <string name="daily_backup">Copia de seguridade diaria</string>
-    <string name="data_to_back_up">Datos para facer copia de seguranza</string>
+    <string name="data_to_back_up">Datos para facer a copia de seguridade</string>
     <string name="default_credentials_wrong">Credenciais incorrectas</string>
     <string name="delete_account">Eliminar conta</string>
     <string name="delete_account_warning">Retirar a conta %s e eliminar os ficheiros locais?\n\n Esta eliminación non pode desfacerse.</string>
@@ -424,10 +424,10 @@
     <string name="local_file_not_found_message">Non se atopou o ficheiro no sistema local de ficheiros</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Xa non hai máis cartafoles</string>
-    <string name="locate_folder">Localiza o cartafol</string>
+    <string name="locate_folder">Atopar o cartafol</string>
     <string name="lock_expiration_info">Caduca: %1$s</string>
     <string name="lock_file">Bloquear ficheiro</string>
-    <string name="locked_by">Pechado por %1$s</string>
+    <string name="locked_by">Bloqueado por %1$s</string>
     <string name="locked_by_app">Bloqueado pola aplicación %1$s</string>
     <string name="log_send_mail_subject">Atopáronse %1$s aplicacións de rexistros para Android</string>
     <string name="log_send_no_mail_app">Non se atopou ningunha aplicación para enviar rexistros. Instale un cliente de correo-e.</string>
@@ -644,7 +644,7 @@
     <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx5</string>
     <string name="search_error">Produciuse un erro ao obter os resultados da busca</string>
     <string name="select_all">Seleccionar todo</string>
-    <string name="select_media_folder">Establecer o cartafol multimedia</string>
+    <string name="select_media_folder">Estabelecer o cartafol multimedia</string>
     <string name="select_one_template">Seleccione un modelo</string>
     <string name="select_template">Seleccionar o modelo</string>
     <string name="send">Enviar</string>
@@ -655,7 +655,7 @@
     <string name="set_note">Estabelecer a nota</string>
     <string name="set_picture_as">Usar a imaxe como</string>
     <string name="set_status">Estabelecer o estado</string>
-    <string name="set_status_message">Establecer a mensaxe de estado</string>
+    <string name="set_status_message">Estabelecer a mensaxe de estado</string>
     <string name="setup_e2e">Durante a configuración do cifrado de extremo a extremo, recibirá un mnemotécnico ao chou de 12 palabras, que necesitará para abrir os seus ficheiros noutros dispositivos. Isto só se almacenará neste dispositivo e pódese amosar de novo nesta pantalla. Anóteo nun lugar seguro!</string>
     <string name="share">Compartir</string>
     <string name="share_copy_link">Compartir &amp; copiar a ligazón</string>
