@@ -19,7 +19,6 @@
   ~ License along with this program.  If not, see <http://www.gnu.org/licenses/>.
   ~
   -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -45,7 +44,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottom_sheet_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">
@@ -71,24 +70,22 @@
             android:ellipsize="middle"
             android:lines="1"
             android:padding="@dimen/standard_padding"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/thumbnail_container"
             app:layout_constraintTop_toTopOf="parent"
-            android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
             tools:text="Test file name which is very very very very very long.pdf" />
 
-        <androidx.core.widget.NestedScrollView
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/file_actions_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title">
-
-            <LinearLayout
-                android:id="@+id/file_actions_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </androidx.core.widget.NestedScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:orientation="vertical" />
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>
