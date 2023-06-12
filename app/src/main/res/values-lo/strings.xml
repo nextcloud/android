@@ -336,7 +336,6 @@
     <string name="filename_hint">ຊື່ຟາຍ</string>
     <string name="first_run_1_text">ຮັກສາຂໍ້ມູນຂອງທ່ານໃຫ້ປອດໄພ ແລະ ຢູ່ພາຍໃຕ້ການຄວບຄຸມຂອງທ່ານ</string>
     <string name="first_run_2_text">ການແລກປ່ຽນຟາຍ &amp;ການຮ່ວມມືທີ່ປອດໄພ</string>
-    <string name="first_run_3_text">ເວບເມວ, ປະຕິທິນ &amp;ການຕິດຕໍ່</string>
     <string name="first_run_4_text">ການແບ່ງປັນໜ້າຈໍ, ກອງປະຊຸມອອນລາຍ&amp;</string>
     <string name="folder_already_exists">ໂຟນເດີມີຢຸ່ແລ້ວ</string>
     <string name="folder_confirm_create">ສ້າງ</string>

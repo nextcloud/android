@@ -373,7 +373,6 @@
     <string name="filename_hint">Όνομα αρχείου</string>
     <string name="first_run_1_text">Κρατήστε τα δεδομένα σας ασφαλή και υπό τον έλεγχό σας</string>
     <string name="first_run_2_text">Ασφαλής συνεργασία &amp; ανταλλαγή αρχείων</string>
-    <string name="first_run_3_text">Εύχρηστο web mail, ημερολόγιο &amp; επαφές</string>
     <string name="first_run_4_text">Κοινή χρήση οθόνης, ηλεκτρονικές συναντήσεις &amp; συνέδρια</string>
     <string name="folder_already_exists">Ο φάκελος υπάρχει ήδη</string>
     <string name="folder_confirm_create">Δημιουργία</string>

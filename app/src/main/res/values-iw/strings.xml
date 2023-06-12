@@ -336,7 +336,6 @@
     <string name="filename_hint">שם קובץ</string>
     <string name="first_run_1_text">ניתן להשאיר את הנתונים שלך מאובטחים ותחת שליטה</string>
     <string name="first_run_2_text">שיתוף פעולה והעברת קבצים באופן מאובטח</string>
-    <string name="first_run_3_text">אתר מייל, לוח שנה ואנשי קשר נוחים לשימוש</string>
     <string name="first_run_4_text">שיתוף מסך, פגישות מקוונות וכנסים מקוונים</string>
     <string name="folder_already_exists">התיקייה כבר קיימת</string>
     <string name="folder_confirm_create">יצירה</string>

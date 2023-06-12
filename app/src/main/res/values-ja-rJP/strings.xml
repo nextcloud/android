@@ -357,7 +357,6 @@
     <string name="filename_hint">ファイル名</string>
     <string name="first_run_1_text">あなたのデータをセキュアなままコントロールしましょう</string>
     <string name="first_run_2_text">セキュアなコラボレーションとファイル交換</string>
-    <string name="first_run_3_text">使いやすいWebメールやカレンダーや連絡先</string>
     <string name="first_run_4_text">画面共有やオンラインミーティングやウェブ会議</string>
     <string name="folder_already_exists">フォルダーはすでに存在します</string>
     <string name="folder_confirm_create">作成</string>

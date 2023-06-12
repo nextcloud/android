@@ -249,6 +249,7 @@
     <string name="drawer_quota_unlimited">%1$s använt</string>
     <string name="drawer_synced_folders">Automatisk uppladdning</string>
     <string name="e2e_not_yet_setup">E2E ej inställt än</string>
+    <string name="e2e_offline">Inte möjligt utan internetuppkoppling</string>
     <string name="encrypted">Sätt som krypterad</string>
     <string name="end_to_end_encryption_confirm_button">Aktivera kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterar…</string>
@@ -377,7 +378,7 @@
     <string name="filename_hint">Filnamn</string>
     <string name="first_run_1_text">Håll dina data säkra och under din kontroll</string>
     <string name="first_run_2_text">Säkert samarbete och filutbyte</string>
-    <string name="first_run_3_text">Lättanvänd webmail, kalender och kontakter</string>
+    <string name="first_run_3_text">Lättanvänd webmail, kalender &amp; kontakter</string>
     <string name="first_run_4_text">Skärmdelning, onlinemöten och webbkonferenser</string>
     <string name="folder_already_exists">Mapp finns redan</string>
     <string name="folder_confirm_create">Skapa</string>

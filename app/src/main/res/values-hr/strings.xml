@@ -359,7 +359,6 @@
     <string name="filename_hint">Naziv datoteke</string>
     <string name="first_run_1_text">Čuvajte svoje podatke sigurnim i pod kontrolom</string>
     <string name="first_run_2_text">Sigurna suradnja i razmjena datoteka</string>
-    <string name="first_run_3_text">Jednostavna e-pošta putem interneta, kalendar i kontakti</string>
     <string name="first_run_4_text">Dijeljenje zaslona, sastanci na mreži i web konferencije</string>
     <string name="folder_already_exists">Mapa već postoji</string>
     <string name="folder_confirm_create">Stvori</string>

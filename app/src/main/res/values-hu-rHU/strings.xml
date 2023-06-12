@@ -158,6 +158,7 @@
     <string name="conflict_local_file">Helyi fájl</string>
     <string name="conflict_message_description">Amennyiben mindkét verziót kiválasztja, a helyi fájl nevéhez egy szám lesz hozzáfűzve.</string>
     <string name="conflict_server_file">Kiszolgálón lévő fájl</string>
+    <string name="contact_backup_title">Névjegyek biztonsági mentése</string>
     <string name="contactlist_item_icon">Felhasználó ikon a névjegylistához</string>
     <string name="contactlist_no_permission">Nincs jogosultság megadva, semmi sem lett importálva.</string>
     <string name="contacts">Névjegyek</string>
@@ -234,6 +235,7 @@
     <string name="drawer_item_all_files">Összes fájl</string>
     <string name="drawer_item_favorites">Kedvencek</string>
     <string name="drawer_item_gallery">Média</string>
+    <string name="drawer_item_groupfolders">Csoportmappák</string>
     <string name="drawer_item_home">Saját mappa</string>
     <string name="drawer_item_notifications">Értesítések</string>
     <string name="drawer_item_on_device">Az eszközön</string>
@@ -247,6 +249,7 @@
     <string name="drawer_quota_unlimited">%1$s használt</string>
     <string name="drawer_synced_folders">Automatikus feltöltés</string>
     <string name="e2e_not_yet_setup">A végpontok közti titkosítás még nincs beállítva</string>
+    <string name="e2e_offline">Internetkapcsolat nélkül nem lehetséges</string>
     <string name="encrypted">Titkosítás bekapcsolása</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_decrypting">Visszafejtés…</string>
@@ -375,7 +378,7 @@
     <string name="filename_hint">Fájlnév</string>
     <string name="first_run_1_text">Tartsa az adatait biztonságban és a saját felügyelete alatt</string>
     <string name="first_run_2_text">Biztonságos csoportmunka és fájlmegosztás</string>
-    <string name="first_run_3_text">Könnyen használható webes levelezés, naptárkezelés és névjegyek</string>
+    <string name="first_run_3_text">Könnyen használható webes levelezés, naptár és névjegyek</string>
     <string name="first_run_4_text">Képernyőmegosztás, online megbeszélések és webes konferenciák</string>
     <string name="folder_already_exists">A mappa már létezik</string>
     <string name="folder_confirm_create">Létrehozás</string>
@@ -417,7 +420,7 @@
     <string name="link_name">Hivatkozás neve</string>
     <string name="link_share_allow_upload_and_editing">Feltöltés és szerkesztés engedélyezése</string>
     <string name="link_share_editing">Szerkesztés</string>
-    <string name="link_share_file_drop">Fájllerakat (csak feltöltés)</string>
+    <string name="link_share_file_drop">Fájlelhelyezés (csak feltöltés)</string>
     <string name="link_share_view_only">Csak megtekintés</string>
     <string name="list_layout">Listás elrendezés</string>
     <string name="load_more_results">További találatok betöltése</string>
@@ -522,6 +525,7 @@
     <string name="pass_code_removed">Számkód törölve</string>
     <string name="pass_code_stored">Számkód eltárolva</string>
     <string name="pass_code_wrong">Hibás számkód</string>
+    <string name="pdf_password_protected">A jelszóval védett PDF nem nyitható meg. Használjon külső PDF-megjelenítőt.</string>
     <string name="pdf_zoom_tip">A nagyításhoz koppintson a lapra</string>
     <string name="permission_allow">Engedélyezés</string>
     <string name="permission_deny">Megtagadás</string>
@@ -815,6 +819,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="thumbnail">Bélyegkép</string>
     <string name="thumbnail_for_existing_file_description">Létező fájl bélyegképe</string>
     <string name="thumbnail_for_new_file_desc">Új fájl bélyegképe</string>
+    <string name="timeout_richDocuments">A feladat a vártnál tovább tart</string>
     <string name="today">Ma</string>
     <string name="trashbin_activity_title">Törölt fájlok</string>
     <string name="trashbin_empty_headline">Nincs törölt fájl</string>

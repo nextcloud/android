@@ -371,7 +371,6 @@
     <string name="filename_hint">Tiedostonimi</string>
     <string name="first_run_1_text">Pidä tietosi turvassa ja omassa hallinnassa</string>
     <string name="first_run_2_text">Turvallista yhteistyötä ja tiedostonvaihtoa</string>
-    <string name="first_run_3_text">Helppokäyttöinen selaimessa toimiva sähköposti, kalenteri ja yhteystiedot</string>
     <string name="first_run_4_text">Näytönjakaminen, verkkotapaamiset ja web-konfrenssit</string>
     <string name="folder_already_exists">Kansio on jo olemassa</string>
     <string name="folder_confirm_create">Luo</string>
