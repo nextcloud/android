@@ -250,6 +250,7 @@
     <string name="drawer_quota_unlimited">%1$sвикористано</string>
     <string name="drawer_synced_folders">Автоматичне завантаження</string>
     <string name="e2e_not_yet_setup">Наскрізне шифруванння ще не налаштовано</string>
+    <string name="e2e_offline">Дія не можлива без доступу до мережі Інтернет</string>
     <string name="encrypted">Позначити як зашифроване</string>
     <string name="end_to_end_encryption_confirm_button">Налаштування шифрування</string>
     <string name="end_to_end_encryption_decrypting">Розшифровування...</string>
@@ -378,6 +379,7 @@
     <string name="filename_hint">Ім\'я файлу</string>
     <string name="first_run_1_text">Зберігайте власні дані у безпечному місці під вашим контролем</string>
     <string name="first_run_2_text">Підтримуйте співпрацю та обмінюйтеся файлами безпечно</string>
+    <string name="first_run_3_text">Прості у користуванні застосунки пошти, календаря та контактів</string>
     <string name="first_run_4_text">Демонстрація екрану, онлайнові зустрічі та вебконференції</string>
     <string name="folder_already_exists">Каталог вже існує</string>
     <string name="folder_confirm_create">Створити</string>
@@ -524,6 +526,7 @@
     <string name="pass_code_removed">Пароль вилучено</string>
     <string name="pass_code_stored">Пароль збережено</string>
     <string name="pass_code_wrong">Недійсний пароль</string>
+    <string name="pdf_password_protected">Неможливо відкрити файл PDF, який захищено паролем. Скористайтеся зовнішнім переглядачем PDF.</string>
     <string name="pdf_zoom_tip">Тапніть по сторінці для збільшення</string>
     <string name="permission_allow">Дозволити</string>
     <string name="permission_deny">Заборонити</string>
