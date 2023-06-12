@@ -23,11 +23,9 @@ package com.nextcloud.android.appReview
 
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.Task
-import com.google.android.play.core.review.ReviewException
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.android.play.core.review.model.ReviewErrorCode
 import com.nextcloud.appReview.AppReviewShownModel
 import com.nextcloud.appReview.InAppReviewHelper
 import com.nextcloud.client.preferences.AppPreferences
@@ -96,8 +94,7 @@ class InAppReviewHelperImpl(val appPreferences: AppPreferences) : InAppReviewHel
                 launchAppReviewFlow(manager, activity, reviewInfo)
             } else {
                 // There was some problem, log or handle the error code.
-                @ReviewErrorCode val reviewErrorCode = (task.exception as ReviewException).errorCode
-                Log_OC.e(TAG, "Failed to get ReviewInfo: $reviewErrorCode")
+                Log_OC.e(TAG, "Failed to get ReviewInfo: ${task.exception?.message}")
             }
         }
     }
