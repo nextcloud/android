@@ -496,6 +496,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                     appScanOptionalFeature);
 
                 dialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+                dialog.getBehavior().setSkipCollapsed(true);
                 dialog.show();
             });
         }

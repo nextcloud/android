@@ -41,6 +41,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
@@ -102,6 +104,10 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
         }
 
         viewModel.load(requireArguments(), componentsGetter)
+
+        val bottomSheetDialog = dialog as BottomSheetDialog
+        bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        bottomSheetDialog.behavior.skipCollapsed = true
 
         return binding.root
     }
