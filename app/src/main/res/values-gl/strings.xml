@@ -251,17 +251,17 @@
     <string name="end_to_end_encryption_confirm_button">Estabelecer o cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
     <string name="end_to_end_encryption_dialog_close">Pechar</string>
-    <string name="end_to_end_encryption_enter_password">Introduza o contrasinal para descifrar a clave privada.</string>
+    <string name="end_to_end_encryption_enter_password">Introduza o contrasinal para descifrar a chave privada.</string>
     <string name="end_to_end_encryption_folder_not_empty">Este cartafol non está baleiro</string>
-    <string name="end_to_end_encryption_generating_keys">Xerando claves novas…</string>
+    <string name="end_to_end_encryption_generating_keys">Xerando chave novas…</string>
     <string name="end_to_end_encryption_keywords_description">As 12 palabras xuntas forman un contrasinal moi forte, permitíndolle só a vostede ver e facer uso dos seus  ficheiros cifrados. Escríbaas e mantéñaas nun lugar seguro.</string>
     <string name="end_to_end_encryption_not_enabled">Cifrado de extremo a extremo desactivado no servidor.</string>
     <string name="end_to_end_encryption_passphrase_title">Tome nota do seu contrasinal de 12 palabras</string>
     <string name="end_to_end_encryption_password">Contrasinal…</string>
-    <string name="end_to_end_encryption_retrieving_keys">Recuperando claves…</string>
-    <string name="end_to_end_encryption_storing_keys">Almacenando as claves</string>
+    <string name="end_to_end_encryption_retrieving_keys">Recuperando chaves…</string>
+    <string name="end_to_end_encryption_storing_keys">Almacenando as chaves</string>
     <string name="end_to_end_encryption_title">Estabelecer o cifrado</string>
-    <string name="end_to_end_encryption_unsuccessful">Non foi posíbel gardar as súas claves. Ténteo de novo</string>
+    <string name="end_to_end_encryption_unsuccessful">Non foi posíbel gardar as súas chaves. Ténteo de novo</string>
     <string name="end_to_end_encryption_wrong_password">Produciuse un erro ao descifrar. Contrasinal incorrecto?</string>
     <string name="enter_destination_filename">Introduza o nome do ficheiro de destino</string>
     <string name="enter_filename">Escriba o nome do ficheiro</string>
@@ -375,6 +375,7 @@
     <string name="filename_hint">Nome do ficheiro</string>
     <string name="first_run_1_text">Manteña os seus dados seguros e baixo o seu control</string>
     <string name="first_run_2_text">Colaboración segura e intercambio de ficheiros</string>
+    <string name="first_run_3_text">Correo web, calendario e contactos doados de usar</string>
     <string name="first_run_4_text">Compartir a pantalla, xuntanzas en liña e conferencias web</string>
     <string name="folder_already_exists">Xa existe o cartafol</string>
     <string name="folder_confirm_create">Crear</string>
@@ -838,7 +839,7 @@
     <string name="upload_lock_failed">Produciuse un fallo ao bloquear o cartafol</string>
     <string name="upload_old_android">O cifrado só é posíbel con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. No canto diso, gustaríalle movelos?</string>
-    <string name="upload_scan_doc_upload">Escanear o documento desde a cámara</string>
+    <string name="upload_scan_doc_upload">Escanear o documento dende a cámara</string>
     <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>
     <string name="upload_unknown_error">Erro descoñecido</string>
     <string name="uploader_btn_alternative_text">Escoller</string>
