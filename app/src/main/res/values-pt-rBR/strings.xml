@@ -249,6 +249,7 @@
     <string name="drawer_quota_unlimited">%1$s usados</string>
     <string name="drawer_synced_folders">Autoenvio</string>
     <string name="e2e_not_yet_setup">E2E ainda não configurado</string>
+    <string name="e2e_offline">Não é possível sem conexão com a internet</string>
     <string name="encrypted">Definir como criptografado</string>
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>
     <string name="end_to_end_encryption_decrypting">Descriptografando…</string>
@@ -377,6 +378,7 @@
     <string name="filename_hint">Nome de arquivo</string>
     <string name="first_run_1_text">Mantenha seus dados seguros e sob seu controle</string>
     <string name="first_run_2_text">Colaboração segura &amp; troca de arquivos</string>
+    <string name="first_run_3_text">Webmail, calendário e contatos fáceis de usar &amp; </string>
     <string name="first_run_4_text">Compartilhamento de tela, reuniões online &amp; conferência via web</string>
     <string name="folder_already_exists">Pasta já existe</string>
     <string name="folder_confirm_create">Criar</string>
