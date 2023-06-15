@@ -93,10 +93,10 @@ class FileActionsViewModel @Inject constructor(
         numberOfAllFiles: Int?,
         isOverflow: Boolean?,
         additionalFilter: IntArray?,
-        isSingleFileFragment: Boolean = false
+        inSingleFileFragment: Boolean = false
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val toHide = getHiddenActions(componentsGetter, numberOfAllFiles, files, isOverflow, isSingleFileFragment)
+            val toHide = getHiddenActions(componentsGetter, numberOfAllFiles, files, isOverflow, inSingleFileFragment)
             val availableActions = getActionsToShow(additionalFilter, toHide)
             updateStateLoaded(files, availableActions)
         }
