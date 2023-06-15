@@ -157,6 +157,7 @@
     <string name="conflict_local_file">Fișier local</string>
     <string name="conflict_message_description">Dacă selectezi ambele variante, atunci fișierul local va avea un număr adăugat la numele său.</string>
     <string name="conflict_server_file">Fișier pe server</string>
+    <string name="contact_backup_title">Backup (copie de rezervă) contacte</string>
     <string name="contactlist_item_icon">Iconiță utilizator pentru lista de contacte</string>
     <string name="contactlist_no_permission">Nu sunt acordate permisiuni, nu s-a importat nimic.</string>
     <string name="contacts">Contacte</string>
@@ -207,9 +208,15 @@
     <string name="dismiss_notification_description">Elimină notificarea</string>
     <string name="displays_mnemonic">Afișează fraza de acces din 12 cuvinte</string>
     <string name="dnd">Nu deranja</string>
+    <string name="document_scan_export_dialog_images">Imagini multiple</string>
+    <string name="document_scan_export_dialog_pdf">Fișier PDF</string>
+    <string name="document_scan_export_dialog_title">Alege tipul de export</string>
+    <string name="document_scan_pdf_generation_failed">Generarea fișierului PDF a eșuat</string>
+    <string name="document_scan_pdf_generation_in_progress">Se generează fișierul PDF...</string>
     <string name="done">Realizat</string>
     <string name="dontClear">Nu curăța</string>
     <string name="download_cannot_create_file">Nu se poate creea un fisier local</string>
+    <string name="download_download_invalid_local_file_name">Nume invalid pentru un fișier local</string>
     <string name="download_latest_dev_version">Descarcă ultima versiune dezvoltator</string>
     <string name="downloader_download_failed_content">Nu s-a putut descărca %1$s</string>
     <string name="downloader_download_failed_credentials_error">Descărcarea a eșuat, autentificați-vă din nou</string>
@@ -240,6 +247,7 @@
     <string name="drawer_quota_unlimited">%1$s utilizat</string>
     <string name="drawer_synced_folders">Încărcare automată</string>
     <string name="e2e_not_yet_setup">Criptarea E2E nu este încă setată</string>
+    <string name="e2e_offline">Nu este posibil fără conexiune la internet</string>
     <string name="encrypted">Setați drept criptat</string>
     <string name="end_to_end_encryption_confirm_button">Setează criptarea</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>
@@ -270,7 +278,9 @@
     <string name="error_report_issue_text">Raportați problema ? (necesită un cont de GitHub)</string>
     <string name="error_retrieving_file">Eroare la obținerea fișierului</string>
     <string name="error_retrieving_templates">Eroare la obținerea șabloanelor</string>
+    <string name="error_showing_encryption_dialog">Eroare la afișarea ferestrei de configurare a encripției!</string>
     <string name="error_starting_direct_camera_upload">Eroare la pornirea camerei</string>
+    <string name="error_starting_doc_scan">Eroare la pornirea scanării documentului</string>
     <string name="etm_accounts">Conturi</string>
     <string name="etm_background_job_name">Numele serviciului</string>
     <string name="etm_background_job_progress">Progres</string>
@@ -512,6 +522,7 @@
     <string name="pass_code_removed">Parolă ștearsă</string>
     <string name="pass_code_stored">Parolă stocată</string>
     <string name="pass_code_wrong">Parolă incorectă</string>
+    <string name="pdf_password_protected">Nu s-a putut deschide fisierul PDF protejat cu parolă. Va rugăm folosiți o altă aplicație pentru vizualizarea fișierului PDF.</string>
     <string name="pdf_zoom_tip">Atingeți ușor o pagină pentru a mări imaginea</string>
     <string name="permission_allow">Permiteți</string>
     <string name="permission_deny">Refuzați</string>
@@ -548,6 +559,7 @@
     <string name="prefs_category_more">Mai mult</string>
     <string name="prefs_daily_backup_summary">Salvarea zilnică a calendarului &amp;a contactelor</string>
     <string name="prefs_daily_contact_backup_summary">Salvarea zilnică a contactelor dvs.</string>
+    <string name="prefs_e2e_active">Encripția end-to-end este setata!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Pentru a arăta fraza de memorare (mnemonic) vă rugăm activați acreditările dispozitivului.</string>
     <string name="prefs_enable_media_scan_notifications">Afișează notificări despre scanarea media</string>
@@ -559,6 +571,7 @@
     <string name="prefs_instant_behaviour_title">Fișierul original va fi…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Stocați in subdosar bazat pe an și lună</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Folosește subdosare</string>
+    <string name="prefs_keys_exist">Adaugă encripție end-to-end pentru acest client</string>
     <string name="prefs_license">Licență</string>
     <string name="prefs_lock">PIN aplicație</string>
     <string name="prefs_lock_device_credentials_enabled">Autentificarea dispozitivului activată</string>
@@ -569,6 +582,8 @@
     <string name="prefs_lock_using_passcode">Parolă</string>
     <string name="prefs_manage_accounts">Administrare conturi</string>
     <string name="prefs_recommend">Recomandă unui prieten</string>
+    <string name="prefs_remove_e2e">Elimină encripția locală</string>
+    <string name="prefs_setup_e2e">Configurează encripție end-to-end</string>
     <string name="prefs_show_hidden_files">Arată fișierele ascunse</string>
     <string name="prefs_sourcecode">Obține codul sursă</string>
     <string name="prefs_storage_path">Dosarul de stocare a datelor</string>
@@ -596,6 +611,7 @@
     <string name="reload">Reîncarcă</string>
     <string name="remote">(la distanță)</string>
     <string name="remote_file_fetch_failed">Eșuare în găsirea fișierului!</string>
+    <string name="remove_e2e">Poți elimina encripția end-to-end locală pentru acest client</string>
     <string name="remove_fail_msg">Eliminare eșuată</string>
     <string name="remove_notification_failed">Eșuare în eliminarea notificărilor.</string>
     <string name="remove_push_notification">Șterge</string>
@@ -613,6 +629,7 @@
     <string name="retrieving_file">Recuperearea fișierului...</string>
     <string name="richdocuments_failed_to_load_document">Eroare în încărcarea documentului!</string>
     <string name="scanQR_description">Autentificare cu cod QR</string>
+    <string name="scan_page">Scanează pagina</string>
     <string name="screenshot_01_gridView_heading">Protejează datele tale</string>
     <string name="screenshot_01_gridView_subline">productivitate găzduită de tine</string>
     <string name="screenshot_02_listView_heading">Navighează și partajează</string>
@@ -777,6 +794,7 @@
     <string name="thumbnail">Miniatură</string>
     <string name="thumbnail_for_existing_file_description">Thumbnail pentru fișierele existente</string>
     <string name="thumbnail_for_new_file_desc">Thumbnail pentru fișiere noi</string>
+    <string name="timeout_richDocuments">Încarcarea durează mai mult decât ne așteptam</string>
     <string name="today">Astăzi</string>
     <string name="trashbin_activity_title">Fișiere șterse</string>
     <string name="trashbin_empty_headline">Nu sunt fișiere șterse</string>
