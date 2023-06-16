@@ -31,8 +31,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.operations.LegacyRemoteOperation;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.DownloadFileRemoteOperation;
@@ -50,7 +50,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Remote DownloadOperation performing the download of a file to an ownCloud server
  */
-public class DownloadFileOperation extends RemoteOperation {
+public class DownloadFileOperation extends LegacyRemoteOperation {
     private static final String TAG = DownloadFileOperation.class.getSimpleName();
 
     private User user;

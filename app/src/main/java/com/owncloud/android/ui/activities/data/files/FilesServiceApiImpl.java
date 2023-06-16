@@ -32,7 +32,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.LegacyRemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
@@ -106,13 +106,13 @@ public class FilesServiceApiImpl implements FilesServiceApi {
 
                     if (remoteOcFile.isFolder()) {
                         // perform folder synchronization
-                        RemoteOperation synchFolderOp = new RefreshFolderOperation(remoteOcFile,
-                                                                                   System.currentTimeMillis(),
-                                                                                   false,
-                                                                                   true,
-                                                                                   baseActivity.getStorageManager(),
-                                                                                   baseActivity.getUser().orElseThrow(RuntimeException::new),
-                                                                                   context);
+                        LegacyRemoteOperation synchFolderOp = new RefreshFolderOperation(remoteOcFile,
+                                                                                         System.currentTimeMillis(),
+                                                                                         false,
+                                                                                         true,
+                                                                                         baseActivity.getStorageManager(),
+                                                                                         baseActivity.getUser().orElseThrow(RuntimeException::new),
+                                                                                         context);
                         synchFolderOp.execute(ownCloudClient);
                     }
                 }

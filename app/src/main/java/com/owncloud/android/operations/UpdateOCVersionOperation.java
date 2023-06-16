@@ -20,14 +20,13 @@
 
 package com.owncloud.android.operations;
 
-import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
 
 import com.nextcloud.client.account.User;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.LegacyRemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -42,7 +41,7 @@ import org.json.JSONObject;
 /**
  * Remote operation that checks the version of an ownCloud server and stores it locally
  */
-public class UpdateOCVersionOperation extends RemoteOperation {
+public class UpdateOCVersionOperation extends LegacyRemoteOperation {
 
     private static final String TAG = UpdateOCVersionOperation.class.getSimpleName();
 

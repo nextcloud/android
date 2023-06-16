@@ -122,7 +122,7 @@ class GroupfolderListFragment : OCFileListFragment(), Injectable, GroupfolderLis
     private suspend fun fetchFileData(partialFile: OCFile): OCFile? {
         return withContext(Dispatchers.IO) {
             val user = accountManager.user
-            val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, context)
+            val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, requireContext())
             if (!fetchResult.isSuccess) {
                 logger.e(SHARED_TAG, "Error fetching file")
                 if (fetchResult.isException) {

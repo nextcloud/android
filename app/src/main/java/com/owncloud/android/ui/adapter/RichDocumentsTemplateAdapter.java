@@ -32,8 +32,8 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.TemplateButtonBinding;
-import com.owncloud.android.datamodel.Template;
-import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
+import com.owncloud.android.lib.resources.files.RichDocumentsTemplateType;
+import com.owncloud.android.lib.resources.files.Template;
 import com.owncloud.android.utils.NextcloudServer;
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -52,14 +52,14 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
     private List<Template> templateList = new ArrayList<>();
     private ClickListener clickListener;
     private Context context;
-    private ChooseRichDocumentsTemplateDialogFragment.Type type;
+    private RichDocumentsTemplateType type;
     private CurrentAccountProvider currentAccountProvider;
     private ClientFactory clientFactory;
     private Template selectedTemplate;
     private ViewThemeUtils viewThemeUtils;
 
     public RichDocumentsTemplateAdapter(
-        ChooseRichDocumentsTemplateDialogFragment.Type type,
+        RichDocumentsTemplateType type,
         ClickListener clickListener,
         Context context,
         CurrentAccountProvider currentAccountProvider,

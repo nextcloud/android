@@ -61,8 +61,7 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
 
         if (result.isSuccess()) {
             // Retrieve updated share / save directly with password? -> no; the password is not to be saved
-            RemoteOperation getShareOp = new GetShareRemoteOperation(publicShare.getRemoteId());
-            result = getShareOp.execute(client);
+            result = new GetShareRemoteOperation(publicShare.getRemoteId()).execute(client);
             if (result.isSuccess()) {
                 OCShare share = (OCShare) result.getData().get(0);
                 getStorageManager().saveShare(share);

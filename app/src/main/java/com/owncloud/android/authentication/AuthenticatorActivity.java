@@ -85,6 +85,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -911,10 +912,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 checkBasicAuthorization(webViewUser, webViewPassword);
             } else {
                 new Thread(() -> {
-                    OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mServerInfo.mBaseUrl),
-                                                                                       this,
-                                                                                       true);
-                    RemoteOperationResult remoteOperationResult = new GetCapabilitiesRemoteOperation().execute(client);
+                    NextcloudClient client = OwnCloudClientFactory.createNextcloudClient(Uri.parse(mServerInfo.mBaseUrl),
+                                                                                         "",
+                                                                                         "",
+                                                                                         this,
+                                                                                         true);
+                    RemoteOperationResult<OCCapability> remoteOperationResult = new GetCapabilitiesRemoteOperation().execute(client);
 
                     if (remoteOperationResult.isSuccess() &&
                         remoteOperationResult.getData() != null &&
@@ -1223,7 +1226,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Executors.newSingleThreadExecutor().execute(() -> {
                 try {
                     final FileDataStorageManager storageManager = new FileDataStorageManager(user.get(), getContentResolver());
-                    new GetCapabilitiesOperation(storageManager).execute(MainApp.getAppContext());
+                    NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user.get(), this);
+                    new GetCapabilitiesOperation(storageManager).execute(nextcloudClient);
                     handler.post(this::endSuccess);
                 } catch (Exception e) {
                     Log_OC.e(TAG, "Failed to fetch capabilities", e);

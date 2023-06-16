@@ -29,6 +29,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.logger.Logger
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.operations.LegacyRemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation
@@ -77,14 +78,14 @@ class SharedListFragment : OCFileListFragment(), Injectable {
         }
     }
 
-    override fun getSearchRemoteOperation(currentUser: User?, event: SearchEvent?): RemoteOperation<*> {
+    override fun getSearchRemoteOperation(currentUser: User?, event: SearchEvent?): LegacyRemoteOperation<*> {
         return GetSharesRemoteOperation()
     }
 
     private suspend fun fetchFileData(partialFile: OCFile): OCFile? {
         return withContext(Dispatchers.IO) {
             val user = accountManager.user
-            val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, context)
+            val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, requireContext())
             if (!fetchResult.isSuccess) {
                 logger.e(SHARED_TAG, "Error fetching file")
                 if (fetchResult.isException) {

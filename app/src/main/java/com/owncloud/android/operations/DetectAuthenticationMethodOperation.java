@@ -25,7 +25,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.LegacyRemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
@@ -46,7 +46,7 @@ import java.util.Locale;
  * #onRemoteOperationFinish(RemoteOperation, RemoteOperationResult)} returns in
  * {@link RemoteOperationResult#getData()} a value of {@link AuthenticationMethod}.
  */
-public class DetectAuthenticationMethodOperation extends RemoteOperation {
+public class DetectAuthenticationMethodOperation extends LegacyRemoteOperation {
 
     private static final String TAG = DetectAuthenticationMethodOperation.class.getSimpleName();
 
@@ -84,7 +84,7 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         RemoteOperationResult result = null;
         AuthenticationMethod authMethod = AuthenticationMethod.UNKNOWN;
 
-        RemoteOperation operation = new ExistenceCheckRemoteOperation("", mContext, false);
+        LegacyRemoteOperation operation = new ExistenceCheckRemoteOperation("", mContext, false);
         client.clearCredentials();
         client.setFollowRedirects(false);
 

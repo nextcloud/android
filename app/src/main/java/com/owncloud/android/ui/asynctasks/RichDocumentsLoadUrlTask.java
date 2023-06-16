@@ -21,13 +21,12 @@
  */
 package com.owncloud.android.ui.asynctasks;
 
-import android.accounts.Account;
 import android.os.AsyncTask;
 
 import com.nextcloud.client.account.User;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RichDocumentsUrlOperation;
+import com.owncloud.android.lib.resources.files.RichDocumentsUrlRemoteOperation;
 import com.owncloud.android.ui.activity.EditorWebView;
 
 import java.lang.ref.WeakReference;
@@ -52,7 +51,7 @@ public class RichDocumentsLoadUrlTask extends AsyncTask<Void, Void, String> {
             return "";
         }
 
-        RemoteOperationResult result = new RichDocumentsUrlOperation(file.getLocalId()).execute(user, editorWebView);
+        RemoteOperationResult result = new RichDocumentsUrlRemoteOperation(file.getLocalId()).execute(user, editorWebView);
 
         if (!result.isSuccess()) {
             return "";

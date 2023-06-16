@@ -23,12 +23,13 @@ package com.owncloud.android.operations;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.shares.GetShareRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.UpdateShareRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
+
+import java.util.List;
 
 
 /**
@@ -47,21 +48,20 @@ public class UpdateNoteForShareOperation extends SyncOperation {
     }
 
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
+    protected RemoteOperationResult<List<OCShare>> run(OwnCloudClient client) {
 
         OCShare share = getStorageManager().getShareById(shareId);
 
         if (share == null) {
-            return new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
+            return new RemoteOperationResult<>(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
         }
 
         UpdateShareRemoteOperation updateOperation = new UpdateShareRemoteOperation(share.getRemoteId());
         updateOperation.setNote(note);
-        RemoteOperationResult result = updateOperation.execute(client);
+        RemoteOperationResult<List<OCShare>> result = updateOperation.execute(client);
 
         if (result.isSuccess()) {
-            RemoteOperation getShareOp = new GetShareRemoteOperation(share.getRemoteId());
-            result = getShareOp.execute(client);
+            result = new GetShareRemoteOperation(share.getRemoteId()).execute(client);
             if (result.isSuccess()) {
                 getStorageManager().saveShare((OCShare) result.getData().get(0));
             }

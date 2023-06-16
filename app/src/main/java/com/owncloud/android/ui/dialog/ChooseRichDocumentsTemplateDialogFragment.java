@@ -46,13 +46,14 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.ChooseTemplateBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.Template;
-import com.owncloud.android.files.CreateFileFromTemplateOperation;
-import com.owncloud.android.files.FetchTemplateOperation;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.CreateFileFromTemplateOperation;
+import com.owncloud.android.lib.resources.files.FetchTemplateRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.RichDocumentsTemplateType;
+import com.owncloud.android.lib.resources.files.Template;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.ui.activity.ExternalSiteWebView;
 import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
@@ -102,16 +103,13 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     private Button positiveButton;
     private DialogFragment waitDialog;
 
-    public enum Type {
-        DOCUMENT,
-        SPREADSHEET,
-        PRESENTATION
-    }
+   
 
     ChooseTemplateBinding binding;
 
     @NextcloudServer(max = 18) // will be removed in favor of generic direct editing
-    public static ChooseRichDocumentsTemplateDialogFragment newInstance(OCFile parentFolder, Type type) {
+    public static ChooseRichDocumentsTemplateDialogFragment newInstance(OCFile parentFolder, 
+                                                                        RichDocumentsTemplateType type) {
         ChooseRichDocumentsTemplateDialogFragment frag = new ChooseRichDocumentsTemplateDialogFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_PARENT_FOLDER, parentFolder);
@@ -175,7 +173,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
         viewThemeUtils.material.colorTextInputLayout(binding.filenameContainer);
 
-        Type type = Type.valueOf(arguments.getString(ARG_TYPE));
+        RichDocumentsTemplateType type = RichDocumentsTemplateType.valueOf(arguments.getString(ARG_TYPE));
         new FetchTemplateTask(this, client).execute(type);
 
         binding.list.setHasFixedSize(true);
@@ -217,12 +215,12 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         return builder.create();
     }
 
-    private int getTitle(Type type) {
-        if (type == Type.DOCUMENT) {
+    private int getTitle(RichDocumentsTemplateType type) {
+        if (type == RichDocumentsTemplateType.DOCUMENT) {
             return R.string.create_new_document;
-        } else if (type == Type.SPREADSHEET) {
+        } else if (type == RichDocumentsTemplateType.SPREADSHEET) {
             return R.string.create_new_spreadsheet;
-        } else if (type == Type.PRESENTATION) {
+        } else if (type == RichDocumentsTemplateType.PRESENTATION) {
             return R.string.create_new_presentation;
         }
 
@@ -392,7 +390,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         }
     }
 
-    private static class FetchTemplateTask extends AsyncTask<Type, Void, List<Template>> {
+    private static class FetchTemplateTask extends AsyncTask<RichDocumentsTemplateType, Void, List<Template>> {
 
         private OwnCloudClient client;
         private WeakReference<ChooseRichDocumentsTemplateDialogFragment> chooseTemplateDialogFragmentWeakReference;
@@ -403,8 +401,8 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         }
 
         @Override
-        protected List<Template> doInBackground(Type... type) {
-            FetchTemplateOperation fetchTemplateOperation = new FetchTemplateOperation(type[0]);
+        protected List<Template> doInBackground(RichDocumentsTemplateType... type) {
+            FetchTemplateRemoteOperation fetchTemplateOperation = new FetchTemplateRemoteOperation(type[0]);
             RemoteOperationResult result = fetchTemplateOperation.execute(client);
 
             if (!result.isSuccess()) {

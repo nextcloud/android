@@ -44,7 +44,6 @@ import com.owncloud.android.datamodel.SignatureVerification;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.RegisterAccountDeviceForNotificationsOperation;
@@ -150,11 +149,8 @@ public final class PushUtils {
             OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                     getClientFor(ocAccount, context);
 
-            RemoteOperation unregisterAccountDeviceForNotificationsOperation = new
-                    UnregisterAccountDeviceForNotificationsOperation();
-
-            RemoteOperationResult remoteOperationResult = unregisterAccountDeviceForNotificationsOperation.
-                    execute(mClient);
+            RemoteOperationResult remoteOperationResult = new
+                    UnregisterAccountDeviceForNotificationsOperation().execute(mClient);
 
             if (remoteOperationResult.getHttpCode() == HttpStatus.SC_ACCEPTED) {
                 String arbitraryValue;

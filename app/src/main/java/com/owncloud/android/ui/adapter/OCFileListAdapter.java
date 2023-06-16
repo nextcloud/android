@@ -60,6 +60,7 @@ import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
+import com.owncloud.android.lib.common.operations.LegacyRemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
@@ -822,13 +823,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     // also sync folder content
                     if (ocFile.isFolder()) {
                         long currentSyncTime = System.currentTimeMillis();
-                        RemoteOperation refreshFolderOperation = new RefreshFolderOperation(ocFile,
-                                                                                            currentSyncTime,
-                                                                                            true,
-                                                                                            false,
-                                                                                            mStorageManager,
-                                                                                            user,
-                                                                                            activity);
+                        LegacyRemoteOperation refreshFolderOperation = new RefreshFolderOperation(ocFile,
+                                                                                                  currentSyncTime,
+                                                                                                  true,
+                                                                                                  false,
+                                                                                                  mStorageManager,
+                                                                                                  user,
+                                                                                                  activity);
                         refreshFolderOperation.execute(user, activity);
                     }
                 }
