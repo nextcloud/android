@@ -26,7 +26,6 @@ import android.os.Looper
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.operations.LegacyRemoteOperation
-import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.ui.events.SearchEvent
 import java.lang.ref.WeakReference
@@ -62,8 +61,10 @@ class OCFileListSearchAsyncTask(
         }
 
         fragment.setTitle()
-        var remoteOperationResult: RemoteOperationResult<List<Any>> = remoteOperation.execute(currentUser, fragment.requireContext())
-        
+        var remoteOperationResult: RemoteOperationResult<List<Any>> = remoteOperation.execute(
+            currentUser,
+            fragment.requireContext()
+        )
 
         if (remoteOperationResult.hasSuccessfulResult() && !isCancelled && fragment.searchFragment) {
             fragment.searchEvent = event
