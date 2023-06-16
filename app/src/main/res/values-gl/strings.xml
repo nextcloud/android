@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-    <string name="about_android">Aplicación %1$s Android</string>
+    <string name="about_android">Apli %1$s Android</string>
     <string name="about_title">Sobre</string>
     <string name="about_version">versión %1$s</string>
     <string name="about_version_with_build">versión %1$s, ref. construción%2$s</string>
@@ -78,7 +78,7 @@
     <string name="autoupload_hide_folder">Agochar o cartafol</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
-    <string name="backup_settings">Configuración da copia de seguridade</string>
+    <string name="backup_settings">Axustes da copia de seguridade</string>
     <string name="backup_title">Copia de seguridade do calendario &amp; de contactos</string>
     <string name="battery_optimization_close">Pechar</string>
     <string name="battery_optimization_disable">Desactivar</string>
@@ -158,6 +158,7 @@
     <string name="conflict_local_file">Ficheiro local</string>
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
     <string name="conflict_server_file">Ficheiro do servidor</string>
+    <string name="contact_backup_title">Copia de seguridade dos contactos</string>
     <string name="contactlist_item_icon">Icona do usuario para a lista de contactos</string>
     <string name="contactlist_no_permission">Non se concederon permisos. Non se importou nada!</string>
     <string name="contacts">Contactos</string>
@@ -234,6 +235,7 @@
     <string name="drawer_item_all_files">Todos os ficheiros</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_gallery">Multimedia</string>
+    <string name="drawer_item_groupfolders">Cartafoles de grupo</string>
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificacións</string>
     <string name="drawer_item_on_device">No dispositivo</string>
@@ -247,6 +249,7 @@
     <string name="drawer_quota_unlimited">Usado %1$s</string>
     <string name="drawer_synced_folders">Envío automático</string>
     <string name="e2e_not_yet_setup">E2E aínda non está configurado</string>
+    <string name="e2e_offline">Non é posíbel sen conexión a internet</string>
     <string name="encrypted">Estabelecer como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Estabelecer o cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
@@ -450,7 +453,7 @@
     <string name="media_err_io">Non foi posíbel ler o ficheiro multimedia</string>
     <string name="media_err_malformed">O ficheiro multimedia ten unha codificación incorrecta</string>
     <string name="media_err_timeout">O intento de reproducir o ficheiro esgotou o tempo de espera.</string>
-    <string name="media_err_unknown">O reprodutor incorporado non pode reproducir o ficheiro multimedia</string>
+    <string name="media_err_unknown">O reprodutor incorporado non é quen de reproducir o ficheiro multimedia</string>
     <string name="media_err_unsupported">Códec multimedia non admitido</string>
     <string name="media_forward_description">Botón de avance rápido</string>
     <string name="media_notif_ticker">Reprodutor de música %1$s</string>
@@ -522,6 +525,7 @@
     <string name="pass_code_removed">O código de seguridade foi eliminado</string>
     <string name="pass_code_stored">Gardouse o código de seguridade</string>
     <string name="pass_code_wrong">Código de seguridade incorrecto</string>
+    <string name="pdf_password_protected">Non é posíbel abrir o PDF protexido con contrasinal. Use un visor de PDF externo.</string>
     <string name="pdf_zoom_tip">Toque nunha páxina para ampliala</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Denegar</string>
@@ -557,6 +561,7 @@
     <string name="prefs_category_general">Xeral</string>
     <string name="prefs_category_more">Máis</string>
     <string name="prefs_daily_backup_summary">Copia de seguridade diaria dos contactos do seu calendario &amp;</string>
+    <string name="prefs_daily_contact_backup_summary">Copia de seguridade diaria dos seus contactos</string>
     <string name="prefs_davx5_setup_error">Produciuse un erro non agardado ao configurar DAVx5 (anteriormente coñecido como DAVdroid)</string>
     <string name="prefs_e2e_active">O cifrado de extremo a extremo está configurado.</string>
     <string name="prefs_e2e_mnemonic">Mnemotécnico do cifrado E2E</string>
@@ -730,14 +735,14 @@
     <string name="ssl_validator_label_validity">Validez:</string>
     <string name="ssl_validator_label_validity_from">Dende:</string>
     <string name="ssl_validator_label_validity_to">Ata:</string>
-    <string name="ssl_validator_no_info_about_error">- Non hai información sobre este erro</string>
+    <string name="ssl_validator_no_info_about_error">– Non hai información sobre este erro</string>
     <string name="ssl_validator_not_saved">Non foi posíbel gardar o certificado</string>
     <string name="ssl_validator_null_cert">Non é posíbel amosar o certificado.</string>
     <string name="ssl_validator_question">Aínda así, quere fiar neste certificado igualmente?</string>
-    <string name="ssl_validator_reason_cert_expired">- O certificado do servidor caducou</string>
-    <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor non é de confianza</string>
-    <string name="ssl_validator_reason_cert_not_yet_valid">- As datas de validez do certificado son do futuro</string>
-    <string name="ssl_validator_reason_hostname_not_verified">- O URL non coincide co nome de máquina no certificado</string>
+    <string name="ssl_validator_reason_cert_expired">– O certificado do servidor caducou</string>
+    <string name="ssl_validator_reason_cert_not_trusted">– O certificado do servidor non é de confianza</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">– As datas de validez do certificado son do futuro</string>
+    <string name="ssl_validator_reason_hostname_not_verified">– O URL non coincide co nome de máquina no certificado</string>
     <string name="status_message">Mensaxe de estado</string>
     <string name="storage_camera">Cámara</string>
     <string name="storage_choose_location">Escolla a localización do almacenamento</string>
@@ -797,6 +802,7 @@
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura do ficheiro existente</string>
     <string name="thumbnail_for_new_file_desc">Miniatura do novo ficheiro</string>
+    <string name="timeout_richDocuments">A carga está a levar máis tempo do agardado</string>
     <string name="today">Hoxe</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="trashbin_empty_headline">Non hai ficheiros eliminados</string>
@@ -810,7 +816,7 @@
     <string name="unset_encrypted">Estabelecer como NON cifrado</string>
     <string name="unset_favorite">Retirar dos favoritos</string>
     <string name="unshare_link_file_error">Produciuse un erro ao tentar deixar de compartir este ficheiro ou cartafol.</string>
-    <string name="unshare_link_file_no_exist">Non foi posíbel deixar de compartir. Comprobe que existe o ficheiro.</string>
+    <string name="unshare_link_file_no_exist">Non é posíbel deixar de compartir. Comprobe que existe o ficheiro.</string>
     <string name="unshare_link_forbidden_permissions">para deixar de compartir este ficheiro</string>
     <string name="unsharing_failed">Produciuse un fallo ao deixar de compartir</string>
     <string name="untrusted_domain">Acceder a través dun dominio fiábel. Lea a documentación para obter máis más información.</string>
@@ -915,7 +921,7 @@
     <string name="widgets_not_available_title">Non dispoñíbel</string>
     <string name="write_email">Enviar o correo</string>
     <string name="wrong_storage_path">O cartafol de almacenamento de datos non existe.</string>
-    <string name="wrong_storage_path_desc">Isto pode deberse a unha restauración de copia de seguridade noutro dispositivo. Volvendo ao predeterminado. Comprobe a configuración para axustar o cartafol de almacenamento de datos.</string>
+    <string name="wrong_storage_path_desc">Isto pode deberse a unha restauración de copia de seguridade noutro dispositivo. Volvendo ao predeterminado. Comprobe as opcións para axustar o cartafol de almacenamento de datos.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Non foi posíbel sincronizar  %1$d ficheiro (conflitos: %2$d)</item>
         <item quantity="other">Non foi posíbel sincronizar  %1$d ficheiros (conflitos: %2$d)</item>
