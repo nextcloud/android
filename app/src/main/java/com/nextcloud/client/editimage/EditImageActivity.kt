@@ -22,6 +22,7 @@ package com.nextcloud.client.editimage
 
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -126,11 +127,15 @@ class EditImageActivity: FileActivity(),
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.custom_menu_placeholder, menu)
-        val saveIcon = AppCompatResources.getDrawable(this, R.drawable.ic_check)
-        if (saveIcon != null) {
-            DrawableCompat.setTint(saveIcon, resources.getColor(R.color.white, theme))
+        val saveIcon = AppCompatResources.getDrawable(this, R.drawable.ic_check)?.also {
+            DrawableCompat.setTint(it, resources.getColor(R.color.white, theme))
         }
-        menu?.findItem(R.id.custom_menu_placeholder_item)?.setIcon(saveIcon)
+        menu?.findItem(R.id.custom_menu_placeholder_item)?.apply {
+            icon = saveIcon
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                contentDescription = getString(R.string.common_save)
+            }
+        }
         return true
     }
 
