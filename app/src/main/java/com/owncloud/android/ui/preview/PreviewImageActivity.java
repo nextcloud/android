@@ -29,7 +29,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.MenuItem;
@@ -37,6 +36,7 @@ import android.view.View;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
@@ -57,9 +57,11 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -92,6 +94,7 @@ public class PreviewImageActivity extends FileActivity implements
     private boolean mHasSavedPosition;
     private boolean mRequestWaitingForBinder;
     private DownloadFinishReceiver mDownloadFinishReceiver;
+    private UploadFinishReceiver mUploadFinishReceiver;
     private View mFullScreenAnchorView;
     @Inject AppPreferences preferences;
     @Inject LocalBroadcastManager localBroadcastManager;
@@ -324,10 +327,15 @@ public class PreviewImageActivity extends FileActivity implements
         super.onResume();
 
         mDownloadFinishReceiver = new DownloadFinishReceiver();
+        IntentFilter downloadIntentFilter = new IntentFilter(FileDownloader.getDownloadFinishMessage());
+        downloadIntentFilter.addAction(FileDownloader.getDownloadAddedMessage());
+        localBroadcastManager.registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
 
-        IntentFilter filter = new IntentFilter(FileDownloader.getDownloadFinishMessage());
-        filter.addAction(FileDownloader.getDownloadAddedMessage());
-        localBroadcastManager.registerReceiver(mDownloadFinishReceiver, filter);
+
+        mUploadFinishReceiver = new UploadFinishReceiver();
+        IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.getUploadFinishMessage());
+        uploadIntentFilter.addAction(FileUploader.getUploadFinishMessage());
+        localBroadcastManager.registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
     }
 
     @Override
@@ -367,6 +375,10 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     public void requestForDownload(OCFile file) {
+        requestForDownload(file, null);
+    }
+
+    public void requestForDownload(OCFile file, String downloadBehaviour) {
         if (mDownloaderBinder == null) {
             Log_OC.d(TAG, "requestForDownload called without binder to download service");
 
@@ -375,6 +387,9 @@ public class PreviewImageActivity extends FileActivity implements
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_USER, user);
             i.putExtra(FileDownloader.EXTRA_FILE, file);
+            if (downloadBehaviour != null) {
+                i.putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, downloadBehaviour);
+            }
             startService(i);
         }
     }
@@ -448,18 +463,35 @@ public class PreviewImageActivity extends FileActivity implements
     private class DownloadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
-            String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
-            if (getAccount().name.equals(accountName) &&
-                    downloadedRemotePath != null) {
+            previewNewImage(intent);
+        }
+    }
 
-                OCFile file = getStorageManager().getFileByPath(downloadedRemotePath);
+    private class UploadFinishReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            previewNewImage(intent);
+        }
+    }
+
+    private void previewNewImage(Intent intent) {
+        if (!Objects.equals(intent.getAction(), FileDownloader.getDownloadFinishMessage()) &&
+            !Objects.equals(intent.getAction(), FileUploader.getUploadFinishMessage()) ) {
+            return;
+        }
+
+        String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
+        String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
+        String downloadBehaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
+        if (getAccount().name.equals(accountName) && downloadedRemotePath != null) {
+            OCFile file = getStorageManager().getFileByPath(downloadedRemotePath);
+            boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
+
+            if (Objects.equals(downloadBehaviour, EditImageActivity.OPEN_IMAGE_EDITOR)) {
+                startImageEditor(file);
+            } else {
                 int position = mPreviewImagePagerAdapter.getFilePosition(file);
-                boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
-                //boolean isOffscreen =  Math.abs((mViewPager.getCurrentItem() - position))
-                // <= mViewPager.getOffscreenPageLimit();
-
-                if (position >= 0 && intent.getAction().equals(FileDownloader.getDownloadFinishMessage())) {
+                if (position >= 0) {
                     if (downloadWasFine) {
                         mPreviewImagePagerAdapter.updateFile(position, file);
 
@@ -467,8 +499,12 @@ public class PreviewImageActivity extends FileActivity implements
                         mPreviewImagePagerAdapter.updateWithDownloadError(position);
                     }
                     mPreviewImagePagerAdapter.notifyDataSetChanged();   // will trigger the creation of new fragments
-                } else {
-                    Log_OC.d(TAG, "Download finished, but the fragment is offscreen");
+                } else if (downloadWasFine) {
+                    initViewPager(getUser().get());
+                    int newPosition = mPreviewImagePagerAdapter.getFilePosition(file);
+                    if (newPosition >= 0) {
+                        mViewPager.setCurrentItem(newPosition);
+                    }
                 }
             }
         }
@@ -495,6 +531,16 @@ public class PreviewImageActivity extends FileActivity implements
 
     public void switchToFullScreen() {
         hideSystemUI(mFullScreenAnchorView);
+    }
+
+    public void startImageEditor(OCFile file) {
+        if (file.isDown()) {
+            Intent editImageIntent = new Intent(this, EditImageActivity.class);
+            editImageIntent.putExtra(EditImageActivity.EXTRA_FILE, file);
+            startActivity(editImageIntent);
+        } else {
+            requestForDownload(file, EditImageActivity.OPEN_IMAGE_EDITOR);
+        }
     }
 
     @Override

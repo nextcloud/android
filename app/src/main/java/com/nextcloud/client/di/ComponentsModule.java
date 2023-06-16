@@ -21,6 +21,7 @@
 package com.nextcloud.client.di;
 
 import com.nextcloud.client.documentscan.DocumentScanActivity;
+import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.etm.EtmActivity;
 import com.nextcloud.client.files.downloader.FileTransferService;
 import com.nextcloud.client.jobs.NotificationWork;
@@ -470,5 +471,8 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract LauncherActivity launcherActivity();
+
+    @ContributesAndroidInjector
+    abstract EditImageActivity editImageActivity();
 
 }

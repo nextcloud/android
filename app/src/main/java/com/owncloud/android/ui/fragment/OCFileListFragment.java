@@ -56,6 +56,7 @@ import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.documentscan.AppScanOptionalFeature;
 import com.nextcloud.client.documentscan.DocumentScanActivity;
+import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -1168,6 +1169,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 if (editorUtils.isEditorAvailable(accountManager.getUser(),
                                                   singleFile.getMimeType())) {
                     mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(singleFile, getContext());
+                } else if (EditImageActivity.Companion.canBePreviewed(singleFile)) {
+                    ((FileDisplayActivity) mContainerActivity).startImageEditor(singleFile);
                 } else {
                     mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(singleFile, getContext());
                 }
