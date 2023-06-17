@@ -386,7 +386,7 @@
     <string name="foreign_files_remote_text">远程: %1$s</string>
     <string name="foreign_files_success">所有文件已被移动</string>
     <string name="forward">向前</string>
-    <string name="fourHours">4 小时</string>
+    <string name="fourHours">4小时</string>
     <string name="hidden_file_name_warning">名称会导致隐藏的文件</string>
     <string name="hint_name">名称</string>
     <string name="hint_note">备注</string>
@@ -499,7 +499,7 @@
     <string name="notifications_no_results_headline">没有提示</string>
     <string name="notifications_no_results_message">请稍后核对</string>
     <string name="offline_mode">无网络连接</string>
-    <string name="oneHour">1 小时</string>
+    <string name="oneHour">1小时</string>
     <string name="online">在线</string>
     <string name="online_status">在线状态</string>
     <string name="outdated_server">服务端即将达到使用寿命，请升级！</string>
@@ -784,7 +784,7 @@
     <string name="synced_icon">已同步</string>
     <string name="tags">标签</string>
     <string name="test_server_button">测试服务端连接</string>
-    <string name="thirtyMinutes">30 分钟</string>
+    <string name="thirtyMinutes">30分钟</string>
     <string name="thisWeek">本周</string>
     <string name="thumbnail">缩略图</string>
     <string name="thumbnail_for_existing_file_description">已存在文件的缩略图</string>
