@@ -3,7 +3,7 @@
     <string name="about_android">%1$s تطبيق آندرويد</string>
     <string name="about_title">حول</string>
     <string name="about_version">الإصدار %1$s</string>
-    <string name="about_version_with_build">إصدار %1$s, بنية #%2$s</string>
+    <string name="about_version_with_build">إصدار %1$s, بَتْيَة #%2$s</string>
     <string name="account_creation_failed">فشل إنشاء الحساب</string>
     <string name="account_icon">أيقونة الحساب </string>
     <string name="account_not_found">الحساب غير موجود </string>
@@ -36,6 +36,7 @@
     <string name="add_to_cloud">أضفه إلى %1$s</string>
     <string name="advanced_settings">الإعدادات المتقدمة</string>
     <string name="allow_resharing">السماح بإعادة المشاركة </string>
+    <string name="app_widget_description">عرض أداة واحدة من لوحة القيادة</string>
     <string name="appbar_search_in">بحث في %s</string>
     <string name="associated_account_not_found">الحساب المرتبط غير موجود!</string>
     <string name="auth_access_failed">فشل الوصول لـ: %1$s</string>
@@ -88,6 +89,7 @@
     <string name="calendars">التقاويم</string>
     <string name="certificate_load_problem">هناك مشكلة في تحميل الشهادة</string>
     <string name="changelog_dev_version">المتغيرات في تطبيق المطورين</string>
+    <string name="check_back_later_or_reload">عُد إليه فيما بعد أو أعد تحميله</string>
     <string name="checkbox">مربع تحقق</string>
     <string name="choose_local_folder">اختر المجلد المحلي…</string>
     <string name="choose_location">اختر الموقع</string>
@@ -145,6 +147,7 @@
     <string name="community_testing_headline">ساعدنا بالتجريب</string>
     <string name="community_testing_report_text">إرسل تقرير أخطاء على GitHub</string>
     <string name="configure_new_media_folder_detection_notifications">إعداد</string>
+    <string name="confirm_removal">إلغاء التشفير المحلي</string>
     <string name="confirmation_remove_file_alert">هل توَدُّ حقاً حذف %1$s؟</string>
     <string name="confirmation_remove_files_alert">هل توَدُّ حقاً حذف العناصر المختارة؟</string>
     <string name="confirmation_remove_folder_alert">هل توَدُّ حقاً حذف %1$s وما يحتويه؟</string>
@@ -155,6 +158,7 @@
     <string name="conflict_local_file">ملف محلي</string>
     <string name="conflict_message_description">إذا قمت باختيار كلا الاصدارين, الملف المحلي سيحتوي على رقم ملحق باسم الملف.</string>
     <string name="conflict_server_file">ملف على الخادم</string>
+    <string name="contact_backup_title">نسخ احتياطي لجهات الاتصال</string>
     <string name="contactlist_item_icon">أيقونة المستخدمين المتواجدين في قائمة جهات الإتصال</string>
     <string name="contactlist_no_permission">لا يوجد إذن، لم يتم استيراد أي شيء</string>
     <string name="contacts">جهات الاتصال</string>
@@ -203,10 +207,17 @@
     <string name="disable_new_media_folder_detection_notifications">تعطيل</string>
     <string name="dismiss">تراجع</string>
     <string name="dismiss_notification_description">تجاهل الإشعار</string>
+    <string name="displays_mnemonic">عرض جملتك السرّيّة ذات الـ 12 كلمة</string>
     <string name="dnd">عدم الإزعاج</string>
+    <string name="document_scan_export_dialog_images">صور متعددة</string>
+    <string name="document_scan_export_dialog_pdf">ملف PDF</string>
+    <string name="document_scan_export_dialog_title">اختر نوع التصدير</string>
+    <string name="document_scan_pdf_generation_failed">إخفاق في توليد ملف PDF</string>
+    <string name="document_scan_pdf_generation_in_progress">توليد ملف PDF ...</string>
     <string name="done">أُنجز</string>
     <string name="dontClear">غير واضح</string>
     <string name="download_cannot_create_file">لا يمكن إنشاء ملف محلي</string>
+    <string name="download_download_invalid_local_file_name">اسم الملف المحلي غير مقبول</string>
     <string name="download_latest_dev_version">حمّل آخر إصدار الخاص بالمطورين</string>
     <string name="downloader_download_failed_content">تعذر تنزيل %1$s</string>
     <string name="downloader_download_failed_credentials_error">فشل التنزيل، قم بتسجيل الدخول مرة أخرى</string>
@@ -224,6 +235,7 @@
     <string name="drawer_item_all_files">كل الملفات</string>
     <string name="drawer_item_favorites">المفضلة </string>
     <string name="drawer_item_gallery">الوسائط</string>
+    <string name="drawer_item_groupfolders">المٌجلّدات الجماعية</string>
     <string name="drawer_item_home">الرئيسية</string>
     <string name="drawer_item_notifications">الإخطارات</string>
     <string name="drawer_item_on_device">على الجهاز</string>
@@ -236,6 +248,8 @@
     <string name="drawer_quota">تم استخدام %1$s من %2$s</string>
     <string name="drawer_quota_unlimited">%1$s مُسّتخدم</string>
     <string name="drawer_synced_folders">تحميل تلقائي</string>
+    <string name="e2e_not_yet_setup">التشفير من الحدّ للحدّ E2E غير مُجهّز</string>
+    <string name="e2e_offline">غير ممكن بدون اتصال انترنت</string>
     <string name="encrypted">عيّنه كَمشفر</string>
     <string name="end_to_end_encryption_confirm_button">تنصيب التشفير</string>
     <string name="end_to_end_encryption_decrypting">جارِ فك التشفير …</string>
@@ -260,12 +274,15 @@
     <string name="error_comment_file">خطأ في التعليق على الملف</string>
     <string name="error_crash_title">%1$s فشل</string>
     <string name="error_creating_file_from_template">خطأ عند محاولة إنشاء الملف مِن النموذج</string>
+    <string name="error_file_actions">خطأ في عرض إجراءات الملف</string>
     <string name="error_file_lock">خطأ في تغيير حالة قفل الملف</string>
     <string name="error_report_issue_action">أبلغ عنه</string>
     <string name="error_report_issue_text">بلغ عن المشكلة؟ (تحتاج حساب على Github)</string>
     <string name="error_retrieving_file">خطأ في استيراد الملف</string>
     <string name="error_retrieving_templates">خطأ في استيراد القوالب</string>
+    <string name="error_showing_encryption_dialog">خطأ في عرض حوار تجهيز التشفير</string>
     <string name="error_starting_direct_camera_upload">خطأ في تشغيل الكاميرا</string>
+    <string name="error_starting_doc_scan">خطأ في بدء مسح المستند</string>
     <string name="etm_accounts">الحسابات</string>
     <string name="etm_background_job_name">إسم المهمة</string>
     <string name="etm_background_job_progress">التقدم</string>
@@ -361,6 +378,7 @@
     <string name="filename_hint">اسم الملف</string>
     <string name="first_run_1_text">حافظ على بياناتك آمنة وتحت سيطرتك</string>
     <string name="first_run_2_text">تعاون آمن &amp; تبادل ملف</string>
+    <string name="first_run_3_text">بريد وب سهل الاستعمال، و تقويم &amp;، و جهات اتصال</string>
     <string name="first_run_4_text">مشاركة للشاشة، اجتماعات على الإنترنت &amp; جلسات</string>
     <string name="folder_already_exists">المجلد موجود مسبقاً</string>
     <string name="folder_confirm_create">إنشاء</string>
@@ -381,11 +399,15 @@
     <string name="foreign_files_success">تم نقل كافة الملفات</string>
     <string name="forward">إعادة توجيه </string>
     <string name="fourHours">4 ساعات</string>
+    <string name="hidden_file_name_warning">الاسم سيقود إلى ملف مخفي</string>
     <string name="hint_name">الاسم</string>
     <string name="hint_note">ملاحظة</string>
     <string name="hint_password">كلمة السر</string>
     <string name="host_not_available">الخادم غير متوفر</string>
     <string name="host_your_own_server">استضيفوا خادمكم</string>
+    <string name="icon_for_empty_list">أيقونه لقائمة فارغة</string>
+    <string name="icon_of_dashboard_widget">أيقونة لأداة لوحة القيادة</string>
+    <string name="icon_of_widget_entry">أيقونة لمدخل أداة</string>
     <string name="in_folder">في مجلد %1$s</string>
     <string name="instant_upload_existing">ارفع الملفات الموجودة مسبقاً أيضاً</string>
     <string name="instant_upload_on_charging">ارفع وقت الشحن فقط</string>
@@ -407,7 +429,10 @@
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">لا توجد مجلدات أخرى.</string>
     <string name="locate_folder">حدد موقع المجلد</string>
+    <string name="lock_expiration_info">إنتهاء الصلاحية: %1$s</string>
     <string name="lock_file">أقفل الملف</string>
+    <string name="locked_by">مقفول من قِبل: %1$s</string>
+    <string name="locked_by_app">تمّ إقفاله من التطبيق%1$s </string>
     <string name="log_send_mail_subject">%1$s سجلات تطبيق الأندرويد</string>
     <string name="log_send_no_mail_app">لا يوجد تطبيق لارسال السجلات . الرجاء تثبيت عميل البريد الالكتروني.</string>
     <string name="login">تسجيل الدخول</string>
@@ -465,6 +490,7 @@
     <string name="no_browser_available">لا يوجد تطبيق متاح للتعامل مع الروابط</string>
     <string name="no_calendar_exists">لا يوجد تقويم مسجل</string>
     <string name="no_email_app_available">لا يوجد تطبيق لتعاملات البريد الالكتروني</string>
+    <string name="no_items">لا يوجد أي عنصر</string>
     <string name="no_mutliple_accounts_allowed">يسمح بحساب واحد فقط</string>
     <string name="no_pdf_app_available">لا يوجد تطبيق متاح للتعامل مع PDF</string>
     <string name="no_send_app">لا يوجد تطبيق متاح لإرسال الملفات المحددة</string>
@@ -503,11 +529,14 @@
     <string name="pass_code_removed">تمت إزالة الرمز السري</string>
     <string name="pass_code_stored">رمز المرور المخزن</string>
     <string name="pass_code_wrong">رمز المرور غير صحيح</string>
+    <string name="pdf_password_protected">لم يٌمكن فتح ملف PDF محمي بكلمة سر. رجاءً، استخدم عارض PDF خارجي.</string>
     <string name="pdf_zoom_tip">اضغط على الصفحة لتكبيرها</string>
     <string name="permission_allow">سماح</string>
     <string name="permission_deny">رفض</string>
     <string name="permission_storage_access">الصلاحيات الإضافية المطلوبة لتحميل وتنزيل الملفات.</string>
     <string name="picture_set_as_no_app">لم يتم العثور على تطبيق لتعيين صورة به</string>
+    <string name="pin_home">تثبيت في الشاشة الرئيسية</string>
+    <string name="pin_shortcut_label">فتح %1$s</string>
     <string name="placeholder_fileSize">389 ك.ب</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -537,6 +566,8 @@
     <string name="prefs_category_more">المزيد</string>
     <string name="prefs_daily_backup_summary">نسخ احتياطي يومي للتقويم &amp;جهات الاتصال</string>
     <string name="prefs_daily_contact_backup_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
+    <string name="prefs_davx5_setup_error">خطأ غير متوقع عند تجهيز DAVx5 ( الذي كان معروفاً سابقاً باسم DAVdroid)</string>
+    <string name="prefs_e2e_active">التشفير من الحدّ للحدّ E2E جاهز!</string>
     <string name="prefs_e2e_mnemonic">تذكيري ل E2E</string>
     <string name="prefs_e2e_no_device_credentials">لإظهار الذاكرة ، يرجى تمكين معلومات تسجيل الدخول إلى الجهاز.</string>
     <string name="prefs_enable_media_scan_notifications">إظهار إشعارات فحص الوسائط</string>
@@ -548,6 +579,7 @@
     <string name="prefs_instant_behaviour_title">سيكون الملف الأصلي…</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">تخزين في مجلدات فرعية بناءً على السنة والشهر</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">استخدم المجلدات الفرعية</string>
+    <string name="prefs_keys_exist">أضف التشفير من الحدّ للحدّ لهذا العميل</string>
     <string name="prefs_license">الرخصة</string>
     <string name="prefs_lock">الرمز السري للتطبيق</string>
     <string name="prefs_lock_device_credentials_enabled">تم تمكين معلومات تسجيل الدخول إلى الجهاز</string>
@@ -558,6 +590,8 @@
     <string name="prefs_lock_using_passcode">الرمز السري</string>
     <string name="prefs_manage_accounts">إدارة الحسابات</string>
     <string name="prefs_recommend">أوصي به لصديق</string>
+    <string name="prefs_remove_e2e">إلغ التشفير المحلي</string>
+    <string name="prefs_setup_e2e">تجهيز التشفير من الحدّ للحدّ</string>
     <string name="prefs_show_hidden_files">عرض الملفات المخفية</string>
     <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
     <string name="prefs_storage_path">مجلد تخزين البيانات</string>
@@ -582,9 +616,12 @@
     <string name="recommend_text">أريد أن أدعوك لاستخدام %1$s على جهازك
 التنزيل هنا %2$s</string>
     <string name="recommend_urls">%1$s أو %2$s</string>
+    <string name="refresh_content">تحديث المحتوى</string>
     <string name="reload">إعادة تحميل</string>
     <string name="remote">(عن بعد)</string>
     <string name="remote_file_fetch_failed">فشل في العثور على الملف!</string>
+    <string name="remove_e2e">يُمكنك إلغاء التشفير المحلي لهذا العميل</string>
+    <string name="remove_e2e_message">يُمكنك إلغاء التشفير المحلي لهذا العميل. هذا الملف المُشفّر سوف يبقى على الخادوم لكن لن تتم مزامنته مع هذا الحاسوب بعد الآن.</string>
     <string name="remove_fail_msg">فشلت عملية الحذف</string>
     <string name="remove_notification_failed">فشل في إزالة الإخطار.</string>
     <string name="remove_push_notification">حذف</string>
@@ -602,6 +639,7 @@
     <string name="retrieving_file">جارٍ استرداد الملف…</string>
     <string name="richdocuments_failed_to_load_document">فشل تحميل المستند!</string>
     <string name="scanQR_description">تسجيل الدخول عبر رمز QR</string>
+    <string name="scan_page">مسح الصفحة</string>
     <string name="screenshot_01_gridView_heading">حماية بياناتك</string>
     <string name="screenshot_01_gridView_subline">إنتاجية ذاتية الاستضافة</string>
     <string name="screenshot_02_listView_heading">استكشف وشارك</string>
@@ -628,6 +666,7 @@
     <string name="set_picture_as">استخدم الصورة كـ</string>
     <string name="set_status">تعيين الحالة</string>
     <string name="set_status_message">تعيين رسالة الحالة</string>
+    <string name="setup_e2e">خلال تجهيز التشفير من الحدّ للحدّ، سوف تصلك جملة عشوائية مُكوّنة من 12 كلمة ستحتاج إليها لفتح ملفاتك على الأجهزة الأخرى. هذه الجملة سوف يتم تخزينها على هذا الجهاز فقط و يمكنك عرضها على الشاشة مرة أخرى. رجاءً، دوّنها و احفظها في مكانٍ آمنٍ!</string>
     <string name="share">مشاركة </string>
     <string name="share_copy_link">مشاركة &amp; نسخ الرابط</string>
     <string name="share_dialog_title">مشاركة</string>
@@ -652,6 +691,7 @@
     <string name="share_password_title">محمي بكلمة مرور</string>
     <string name="share_permission_can_edit">يمكن تعديله</string>
     <string name="share_permission_file_drop">اسقاط الملف</string>
+    <string name="share_permission_secure_file_drop">إسقاط آمن للملف</string>
     <string name="share_permission_view_only">للعرض فقط</string>
     <string name="share_permissions">مشاركة الصلاحيات</string>
     <string name="share_remote_clarification">%1$s (بعيد)</string>
@@ -730,6 +770,7 @@
     <string name="subject_shared_with_you">تمت مشاركة \"%1$s\" معك</string>
     <string name="subject_user_shared_with_you">%1$s شارك معك \"%2$s\"</string>
     <string name="subtitle_photos_only">الصور فقط</string>
+    <string name="subtitle_photos_videos"> صور &amp; فيديوهات</string>
     <string name="subtitle_videos_only">مقاطع الفيديو فقط</string>
     <string name="suggest">اقتراح</string>
     <string name="sync_conflicts_in_favourites_ticker">هناك تعارض</string>
@@ -767,6 +808,7 @@
     <string name="thumbnail">صورة مصغّرة</string>
     <string name="thumbnail_for_existing_file_description">صورة مصغرة للملف الموجود</string>
     <string name="thumbnail_for_new_file_desc">صورة مصغرة للملف الجديد</string>
+    <string name="timeout_richDocuments">رفع الملفات أخذ زمناً أكثر من المتوقع</string>
     <string name="today">اليوم</string>
     <string name="trashbin_activity_title">الملفات المحذوفة</string>
     <string name="trashbin_empty_headline">لا يوجد ملفات محذوفة</string>
@@ -874,6 +916,7 @@
     <string name="userinfo_no_info_text">أضف الاسم والصورة وتفاصيل الاتصال في صفحة ملفك الشخصي.</string>
     <string name="username">اسم المستخدم</string>
     <string name="version_dev_download">تنزيل</string>
+    <string name="video_overlay_icon">أيقونة التركيب على الفيديو</string>
     <string name="wait_a_moment">انتظر لحظة…</string>
     <string name="wait_checking_credentials">التحقق من معلومات تسجيل الدخول المخزنة</string>
     <string name="wait_for_tmp_copy_from_private_storage">نسخ الملف من التخزين الخاص</string>
@@ -881,6 +924,7 @@
     <string name="whats_new_skip">تخطى</string>
     <string name="whats_new_title">جديد على %1$s</string>
     <string name="whats_your_status">ماهي حالتك؟</string>
+    <string name="widgets_not_available">الأدوات مُتاحة فقط في %1$s الإصدار 25 و ما بعده  </string>
     <string name="widgets_not_available_title">غير متوفر</string>
     <string name="write_email">إرسال بريد</string>
     <string name="wrong_storage_path">مجلد التخزين غير موجود !</string>
