@@ -45,7 +45,8 @@ import com.owncloud.android.utils.FilesUploadHelper
 import com.owncloud.android.utils.MimeType
 import java.io.File
 
-class EditImageActivity: FileActivity(),
+class EditImageActivity :
+    FileActivity(),
     OnRemoteOperationListener,
     CropImageView.OnSetImageUriCompleteListener,
     CropImageView.OnCropImageCompleteListener,
@@ -126,6 +127,7 @@ class EditImageActivity: FileActivity(),
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // add save button to action bar
         menuInflater.inflate(R.menu.custom_menu_placeholder, menu)
         val saveIcon = AppCompatResources.getDrawable(this, R.drawable.ic_check)?.also {
             DrawableCompat.setTint(it, resources.getColor(R.color.white, theme))
@@ -151,18 +153,26 @@ class EditImageActivity: FileActivity(),
         }
     }
 
+    /**
+     * Set up image cropper and image editor control strip.
+     */
     private fun setupCropper() {
         val cropper = binding.cropImageView
 
+        @Suppress("MagicNumber")
         binding.rotateLeft.setOnClickListener {
             cropper.rotateImage(-90)
         }
+
+        @Suppress("MagicNumber")
         binding.rotateRight.setOnClickListener {
             cropper.rotateImage(90)
         }
+
         binding.flipVertical.setOnClickListener {
             cropper.flipImageVertically()
         }
+
         binding.flipHorizontal.setOnClickListener {
             cropper.flipImageHorizontally()
         }
@@ -171,6 +181,7 @@ class EditImageActivity: FileActivity(),
         cropper.setOnCropImageCompleteListener(this)
         cropper.setImageUriAsync(file.storageUri)
 
+        // determine output file format
         format = when (file.mimeType) {
             MimeType.PNG -> Bitmap.CompressFormat.PNG
             MimeType.WEBP -> Bitmap.CompressFormat.WEBP
