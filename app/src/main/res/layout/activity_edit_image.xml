@@ -49,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_rect"
+        android:backgroundTint="@color/grey_900"
         android:elevation="4dp"
         android:orientation="horizontal"
         android:paddingLeft="8dp"

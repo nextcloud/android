@@ -1513,7 +1513,7 @@ public class FileDisplayActivity extends FileActivity
                 // update file after downloading
                 mWaitingToSend = getStorageManager().getFileByRemoteId(mWaitingToSend.getRemoteId());
                 if (mWaitingToSend != null && mWaitingToSend.isDown() &&
-                    downloadBehaviour.equals(OCFileListFragment.DOWNLOAD_SEND)) {
+                    OCFileListFragment.DOWNLOAD_SEND.equals(downloadBehaviour)) {
                     String packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME);
                     String activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME);
 
@@ -1521,10 +1521,10 @@ public class FileDisplayActivity extends FileActivity
                 }
             }
 
-            if (mWaitingToPreview != null && downloadBehaviour != null) {
+            if (mWaitingToPreview != null) {
                 mWaitingToPreview = getStorageManager().getFileByRemoteId(mWaitingToPreview.getRemoteId());
                 if (mWaitingToPreview != null && mWaitingToPreview.isDown() &&
-                    downloadBehaviour.equals(EditImageActivity.OPEN_IMAGE_EDITOR)) {
+                    EditImageActivity.OPEN_IMAGE_EDITOR.equals(downloadBehaviour)) {
                     startImageEditor(mWaitingToPreview);
                 }
             }

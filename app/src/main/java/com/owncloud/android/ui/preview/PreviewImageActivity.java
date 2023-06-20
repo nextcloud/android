@@ -61,7 +61,6 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -328,13 +327,10 @@ public class PreviewImageActivity extends FileActivity implements
 
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         IntentFilter downloadIntentFilter = new IntentFilter(FileDownloader.getDownloadFinishMessage());
-        downloadIntentFilter.addAction(FileDownloader.getDownloadAddedMessage());
         localBroadcastManager.registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
-
 
         mUploadFinishReceiver = new UploadFinishReceiver();
         IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.getUploadFinishMessage());
-        uploadIntentFilter.addAction(FileUploader.getUploadFinishMessage());
         localBroadcastManager.registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
     }
 
@@ -475,11 +471,6 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     private void previewNewImage(Intent intent) {
-        if (!Objects.equals(intent.getAction(), FileDownloader.getDownloadFinishMessage()) &&
-            !Objects.equals(intent.getAction(), FileUploader.getUploadFinishMessage()) ) {
-            return;
-        }
-
         String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
         String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
         String downloadBehaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
@@ -487,7 +478,7 @@ public class PreviewImageActivity extends FileActivity implements
             OCFile file = getStorageManager().getFileByPath(downloadedRemotePath);
             boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
 
-            if (Objects.equals(downloadBehaviour, EditImageActivity.OPEN_IMAGE_EDITOR)) {
+            if (EditImageActivity.OPEN_IMAGE_EDITOR.equals(downloadBehaviour)) {
                 startImageEditor(file);
             } else {
                 int position = mPreviewImagePagerAdapter.getFilePosition(file);
