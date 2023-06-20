@@ -30,6 +30,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -85,7 +86,9 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -272,7 +275,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                         setThumbnailForAudio(file);
                     }
                 } catch (Throwable t) {
-                    binding.imagePreview.setImageResource(R.drawable.logo);
+                    setGenericThumbnail();
                 }
             }
         }
@@ -285,7 +288,15 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         if (thumbnail != null) {
             binding.imagePreview.setImageBitmap(thumbnail);
         } else {
-            binding.imagePreview.setImageResource(R.drawable.logo);
+            setGenericThumbnail();
+        }
+    }
+
+    private void setGenericThumbnail() {
+        Drawable logo = AppCompatResources.getDrawable(requireContext(), R.drawable.logo);
+        if (logo != null) {
+            DrawableCompat.setTint(logo, getResources().getColor(R.color.primary));
+            binding.imagePreview.setImageDrawable(logo);
         }
     }
 
@@ -489,16 +500,16 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private void playVideoUri(final Uri uri) {
         binding.progress.setVisibility(View.GONE);
 
-        exoPlayer.addMediaItem(MediaItem.fromUri(uri));
+        exoPlayer.setMediaItem(MediaItem.fromUri(uri));
+        exoPlayer.setPlayWhenReady(autoplay);
         exoPlayer.prepare();
 
         if (savedPlaybackPosition >= 0) {
             exoPlayer.seekTo(savedPlaybackPosition);
         }
 
-        if (autoplay) {
-            exoPlayer.play();
-        }
+        // only autoplay video once
+        autoplay = false;
     }
 
     @Override
@@ -660,8 +671,8 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         if (MimeTypeUtil.isAudio(file) && stopAudio) {
             mediaPlayerServiceConnection.pause();
         } else if (MimeTypeUtil.isVideo(file)) {
+            savedPlaybackPosition = exoPlayer.getCurrentPosition();
             exoPlayer.stop();
-            exoPlayer.clearMediaItems();
         }
     }
 
