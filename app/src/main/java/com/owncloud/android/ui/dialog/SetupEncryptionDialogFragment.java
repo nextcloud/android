@@ -313,12 +313,12 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
 
         @Override
         protected String doInBackground(Void... voids) {
-            Context context = mWeakContext.get();
             // fetch private/public key
             // if available
             //  - store public key
             //  - decrypt private key, store unencrypted private key in database
 
+            Context context = mWeakContext.get();
             GetPublicKeyOperation publicKeyOperation = new GetPublicKeyOperation();
             if (user != null) {
                 RemoteOperationResult<String> publicKeyResult = publicKeyOperation.execute(user, context);
@@ -354,6 +354,7 @@ public class SetupEncryptionDialogFragment extends DialogFragment implements Inj
         @Override
         protected void onPostExecute(String privateKey) {
             super.onPostExecute(privateKey);
+
             Context context = mWeakContext.get();
             if (context == null) {
                 Log_OC.e(TAG, "Context lost after fetching private keys.");
