@@ -490,7 +490,7 @@
         <activity
             android:name="com.nextcloud.client.editimage.EditImageActivity"
             android:exported="false"
-            android:theme="@style/Theme.ownCloud.Toolbar" />
+            android:theme="@style/Theme.ownCloud.Toolbar.NullBackground" />
 
         <activity
             android:name="com.nmc.android.ui.LauncherActivity"

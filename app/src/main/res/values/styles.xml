@@ -140,6 +140,11 @@
         <item name="android:navigationBarColor">@color/bg_default</item>
     </style>
 
+    <style name="Theme.ownCloud.Toolbar.NullBackground" parent="BaseTheme.ownCloud.Toolbar">
+        <item name="android:colorBackground">@null</item>
+        <item name="android:background">@null</item>
+    </style>
+
     <style name="Theme.ownCloud.noActionBar.LoginBase" parent="Theme.ownCloud.Toolbar">
         <item name="android:windowBackground">@color/primary</item>
         <item name="colorControlNormal">@color/login_text_color</item>
