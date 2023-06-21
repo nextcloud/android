@@ -380,7 +380,7 @@ public class FileMenuFilter {
     }
 
     private void filterStream(List<Integer> toHide) {
-        if (files.isEmpty() || !isSingleFile() || !isSingleMedia()) {
+        if (files.isEmpty() || !isSingleFile() || !isSingleMedia() || containsEncryptedFile()) {
             toHide.add(R.id.action_stream_media);
         }
     }
