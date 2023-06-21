@@ -27,6 +27,7 @@ import android.os.AsyncTask;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -112,9 +113,9 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
-                OwnCloudClient client = clientFactory.create(user);
+                NextcloudClient client = clientFactory.createNextcloudClient(user);
                 EmptyTrashbinRemoteOperation emptyTrashbinFileOperation = new EmptyTrashbinRemoteOperation();
-                RemoteOperationResult result = emptyTrashbinFileOperation.execute(client);
+                RemoteOperationResult<Boolean> result = emptyTrashbinFileOperation.execute(client);
                 return result.isSuccess();
             } catch (ClientFactory.CreationException e) {
                 Log_OC.e(this, "Cannot create client", e);
