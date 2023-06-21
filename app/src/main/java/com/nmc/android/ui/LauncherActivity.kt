@@ -23,6 +23,7 @@ package com.nmc.android.ui
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.TextUtils
 import android.view.View
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -40,6 +41,17 @@ class LauncherActivity : BaseActivity() {
 
     @Inject
     lateinit var appPreferences: AppPreferences
+
+    private val handler = Handler(Looper.getMainLooper())
+    private val runnable = Runnable {
+        // if user is null then go to authenticator activity
+        if (!user.isPresent) {
+            startActivity(Intent(this, AuthenticatorActivity::class.java))
+        } else {
+            startActivity(Intent(this, FileDisplayActivity::class.java))
+        }
+        finish()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Mandatory to call this before super method to show system launch screen for api level 31+
@@ -64,18 +76,15 @@ class LauncherActivity : BaseActivity() {
     }
 
     private fun scheduleSplashScreen() {
-        Handler().postDelayed(
-            {
-                // if user is null then go to authenticator activity
-                if (!user.isPresent) {
-                    startActivity(Intent(this, AuthenticatorActivity::class.java))
-                } else {
-                    startActivity(Intent(this, FileDisplayActivity::class.java))
-                }
-                finish()
-            },
+        handler.postDelayed(
+            runnable,
             SPLASH_DURATION
         )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(runnable)
     }
 
     companion object {
