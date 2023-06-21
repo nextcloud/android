@@ -165,3 +165,7 @@ trigger:
     - cron
   cron:
     - allscreenshots
+---
+kind: secret
+name: GIT_TOKEN
+data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
