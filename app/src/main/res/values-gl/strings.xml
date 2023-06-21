@@ -207,7 +207,7 @@
     <string name="disable_new_media_folder_detection_notifications">Desactivar</string>
     <string name="dismiss">Rexeitar</string>
     <string name="dismiss_notification_description">Rexeitar a notificación</string>
-    <string name="displays_mnemonic">Amos a súa frase de paso de 12 palabras</string>
+    <string name="displays_mnemonic">Amosa a súa frase de contrasinal de 12 palabras</string>
     <string name="dnd">Non molestar</string>
     <string name="document_scan_export_dialog_images">Múltiples imaxes</string>
     <string name="document_scan_export_dialog_pdf">Ficheiro PDF</string>
