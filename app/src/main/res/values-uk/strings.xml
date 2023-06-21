@@ -73,8 +73,8 @@
     <string name="auto_upload_on_wifi">Завантаження тільки через WiFi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_configure">Налаштування</string>
-    <string name="autoupload_create_new_custom_folder">Налаштування каталогу користувача</string>
-    <string name="autoupload_custom_folder">Налаштування каталогу користувача</string>
+    <string name="autoupload_create_new_custom_folder">Власний каталог користувача</string>
+    <string name="autoupload_custom_folder">Каталог користувача</string>
     <string name="autoupload_disable_power_save_check">Вимкнути перевірку режиму енергозаощадження</string>
     <string name="autoupload_hide_folder">Приховати каталог</string>
     <string name="avatar">Світлина</string>
@@ -255,7 +255,7 @@
     <string name="end_to_end_encryption_confirm_button">Налаштування шифрування</string>
     <string name="end_to_end_encryption_decrypting">Розшифровування...</string>
     <string name="end_to_end_encryption_dialog_close">Закрити</string>
-    <string name="end_to_end_encryption_enter_password">Будь ласка введіть пароль для розшифрування приватних ключів.</string>
+    <string name="end_to_end_encryption_enter_password">Будь ласка, зазначте пароль, щоби розшифрувати приватний ключ.</string>
     <string name="end_to_end_encryption_folder_not_empty">Цей каталог не є порожнім</string>
     <string name="end_to_end_encryption_generating_keys">Створення нових ключів...</string>
     <string name="end_to_end_encryption_keywords_description">Усі 12 слів утворюють разом дуже сильний пароль, який дозволить лише вам переглядати та використовувати зашифровані файли. Будь ласка, занотуйте його та збережіть у безпечному місці.</string>
@@ -574,7 +574,7 @@
     <string name="prefs_imprint">Відбиток</string>
     <string name="prefs_instant_behaviour_dialogTitle">Вихідний файл буде...</string>
     <string name="prefs_instant_behaviour_title">Вихідний файл буде...</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Зберігати у підкаталогах за часом створення</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Зберігати файли у підкаталогах за часом створення</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Використовувати підкаталоги</string>
     <string name="prefs_keys_exist">Додати наскрізне шифрування для цього клієнта</string>
     <string name="prefs_license">Ліцензія</string>
@@ -802,6 +802,7 @@
     <string name="thumbnail">Ескіз</string>
     <string name="thumbnail_for_existing_file_description">Ескіз існуючого файлу</string>
     <string name="thumbnail_for_new_file_desc">Ескіз нового файлу</string>
+    <string name="timeout_richDocuments">Завантаження займає більше часу, ніж очікувалося</string>
     <string name="today">Сьогодні</string>
     <string name="trashbin_activity_title">Кошик</string>
     <string name="trashbin_empty_headline">Кошик порожній</string>

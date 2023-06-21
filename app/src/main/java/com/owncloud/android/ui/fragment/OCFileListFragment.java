@@ -496,6 +496,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                     appScanOptionalFeature);
 
                 dialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+                dialog.getBehavior().setSkipCollapsed(true);
                 dialog.show();
             });
         }
@@ -1123,6 +1124,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             if (file != null) {
                 mContainerActivity.getFileOperationsHelper().toggleEncryption(file, true);
+                mAdapter.setEncryptionAttributeForItemID(file.getRemoteId(), true);
             }
 
             // update state and view of this fragment

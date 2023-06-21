@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-    <string name="about_android">Aplicación %1$s Android</string>
+    <string name="about_android">Apli %1$s Android</string>
     <string name="about_title">Sobre</string>
     <string name="about_version">versión %1$s</string>
     <string name="about_version_with_build">versión %1$s, ref. construción%2$s</string>
@@ -32,7 +32,7 @@
     <string name="activity_icon">Actividade</string>
     <string name="add_another_public_share_link">Engadir outra ligazón</string>
     <string name="add_new_public_share">Engadir unha nova ligazón pública</string>
-    <string name="add_new_secure_file_drop">Engadir un novo arquivo seguro</string>
+    <string name="add_new_secure_file_drop">Engadir unha nova entrega segura de ficheiro</string>
     <string name="add_to_cloud">Engadir en %1$s</string>
     <string name="advanced_settings">Axustes avanzados</string>
     <string name="allow_resharing">Permitir compartir</string>
@@ -78,8 +78,8 @@
     <string name="autoupload_hide_folder">Agochar o cartafol</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
-    <string name="backup_settings">Configuración da copia de seguridade</string>
-    <string name="backup_title">Copia de seguridade do calendario &amp; de contactos</string>
+    <string name="backup_settings">Axustes da copia de seguranza</string>
+    <string name="backup_title">Copia de seguranza do calendario &amp; de contactos</string>
     <string name="battery_optimization_close">Pechar</string>
     <string name="battery_optimization_disable">Desactivar</string>
     <string name="battery_optimization_message">É posíbel que o seu dispositivo teña activada a optimización da batería. O envío automático só funciona correctamente se exclúe esta aplicación.</string>
@@ -158,14 +158,15 @@
     <string name="conflict_local_file">Ficheiro local</string>
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
     <string name="conflict_server_file">Ficheiro do servidor</string>
+    <string name="contact_backup_title">Copia de seguranza dos contactos</string>
     <string name="contactlist_item_icon">Icona do usuario para a lista de contactos</string>
     <string name="contactlist_no_permission">Non se concederon permisos. Non se importou nada!</string>
     <string name="contacts">Contactos</string>
-    <string name="contacts_backup_button">Facer agora a copia de seguridade</string>
-    <string name="contacts_preferences_backup_scheduled">A copia de seguridade está programada e comezará en breve</string>
+    <string name="contacts_backup_button">Facer agora a copia de seguranza</string>
+    <string name="contacts_preferences_backup_scheduled">A copia de seguranza está programada e comezará en breve</string>
     <string name="contacts_preferences_import_scheduled">A importación está programada e comezará en breve</string>
     <string name="contacts_preferences_no_file_found">Non se atopou ningún ficheiro</string>
-    <string name="contacts_preferences_something_strange_happened">Non foi posíbel atopar a súa última copia de seguridade!</string>
+    <string name="contacts_preferences_something_strange_happened">Non foi posíbel atopar a súa última copia de seguranza!</string>
     <string name="copied_to_clipboard">Copiado no portapapeis.</string>
     <string name="copy_file_error">Produciuse un erro ao tentar copiar este ficheiro ou cartafol.</string>
     <string name="copy_file_invalid_into_descendent">Non é posíbel copiar un cartafol nun dos seus propios subcartafoles</string>
@@ -187,8 +188,8 @@
     <string name="create_rich_workspace">Engadir información do  cartafol</string>
     <string name="creates_rich_workspace"> crear a información do cartafol </string>
     <string name="credentials_disabled">Credenciais eliminadas</string>
-    <string name="daily_backup">Copia de seguridade diaria</string>
-    <string name="data_to_back_up">Datos para facer a copia de seguridade</string>
+    <string name="daily_backup">Copia de seguranza diaria</string>
+    <string name="data_to_back_up">Datos para facer a copia de seguranza</string>
     <string name="default_credentials_wrong">Credenciais incorrectas</string>
     <string name="delete_account">Retirar a conta</string>
     <string name="delete_account_warning">Retirar a conta %s e eliminar os ficheiros locais?\n\n Esta eliminación non pode desfacerse.</string>
@@ -234,6 +235,7 @@
     <string name="drawer_item_all_files">Todos os ficheiros</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_gallery">Multimedia</string>
+    <string name="drawer_item_groupfolders">Cartafoles de grupo</string>
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificacións</string>
     <string name="drawer_item_on_device">No dispositivo</string>
@@ -247,21 +249,22 @@
     <string name="drawer_quota_unlimited">Usado %1$s</string>
     <string name="drawer_synced_folders">Envío automático</string>
     <string name="e2e_not_yet_setup">E2E aínda non está configurado</string>
+    <string name="e2e_offline">Non é posíbel sen conexión a internet</string>
     <string name="encrypted">Estabelecer como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Estabelecer o cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
     <string name="end_to_end_encryption_dialog_close">Pechar</string>
-    <string name="end_to_end_encryption_enter_password">Introduza o contrasinal para descifrar a clave privada.</string>
+    <string name="end_to_end_encryption_enter_password">Introduza o contrasinal para descifrar a chave privada.</string>
     <string name="end_to_end_encryption_folder_not_empty">Este cartafol non está baleiro</string>
-    <string name="end_to_end_encryption_generating_keys">Xerando claves novas…</string>
+    <string name="end_to_end_encryption_generating_keys">Xerando chave novas…</string>
     <string name="end_to_end_encryption_keywords_description">As 12 palabras xuntas forman un contrasinal moi forte, permitíndolle só a vostede ver e facer uso dos seus  ficheiros cifrados. Escríbaas e mantéñaas nun lugar seguro.</string>
     <string name="end_to_end_encryption_not_enabled">Cifrado de extremo a extremo desactivado no servidor.</string>
     <string name="end_to_end_encryption_passphrase_title">Tome nota do seu contrasinal de 12 palabras</string>
     <string name="end_to_end_encryption_password">Contrasinal…</string>
-    <string name="end_to_end_encryption_retrieving_keys">Recuperando claves…</string>
-    <string name="end_to_end_encryption_storing_keys">Almacenando as claves</string>
+    <string name="end_to_end_encryption_retrieving_keys">Recuperando chaves…</string>
+    <string name="end_to_end_encryption_storing_keys">Almacenando as chaves</string>
     <string name="end_to_end_encryption_title">Estabelecer o cifrado</string>
-    <string name="end_to_end_encryption_unsuccessful">Non foi posíbel gardar as súas claves. Ténteo de novo</string>
+    <string name="end_to_end_encryption_unsuccessful">Non foi posíbel gardar as súas chaves. Ténteo de novo</string>
     <string name="end_to_end_encryption_wrong_password">Produciuse un erro ao descifrar. Contrasinal incorrecto?</string>
     <string name="enter_destination_filename">Introduza o nome do ficheiro de destino</string>
     <string name="enter_filename">Escriba o nome do ficheiro</string>
@@ -274,7 +277,7 @@
     <string name="error_file_actions">Erro ao amosar as accións do ficheiro</string>
     <string name="error_file_lock">Produciuse un erro ao cambiar o estado do bloqueo do ficheiro</string>
     <string name="error_report_issue_action">Informe</string>
-    <string name="error_report_issue_text">Informar dun problema ao rastrexador? (require unha conta de GitHub)</string>
+    <string name="error_report_issue_text">Informar dunha incidencia no seguimento? (require dunha conta de GitHub)</string>
     <string name="error_retrieving_file">Produciuse un erro ao recuperar o ficheiro</string>
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
     <string name="error_showing_encryption_dialog">Produciuse un erro ao amosar o diálogo de configuración do cifrado!</string>
@@ -375,6 +378,7 @@
     <string name="filename_hint">Nome do ficheiro</string>
     <string name="first_run_1_text">Manteña os seus dados seguros e baixo o seu control</string>
     <string name="first_run_2_text">Colaboración segura e intercambio de ficheiros</string>
+    <string name="first_run_3_text">Correo web, calendario e contactos doados de usar</string>
     <string name="first_run_4_text">Compartir a pantalla, xuntanzas en liña e conferencias web</string>
     <string name="folder_already_exists">Xa existe o cartafol</string>
     <string name="folder_confirm_create">Crear</string>
@@ -393,7 +397,7 @@
     <string name="foreign_files_move">Mover todo</string>
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
     <string name="foreign_files_success">Foron movidos todos os ficheiros</string>
-    <string name="forward">Adiante</string>
+    <string name="forward">Reenviar</string>
     <string name="fourHours">4 horas</string>
     <string name="hidden_file_name_warning">O nome dará lugar a un ficheiro agochado</string>
     <string name="hint_name">Nome</string>
@@ -411,7 +415,7 @@
     <string name="invalid_url">URL incorrecto</string>
     <string name="invisible">Invisíbel</string>
     <string name="label_empty">A etiqueta non pode estar baleira</string>
-    <string name="last_backup">Última copia de seguridade: %1$s</string>
+    <string name="last_backup">Última copia de seguranza: %1$s</string>
     <string name="link">Ligazón</string>
     <string name="link_name">Nome da ligazón</string>
     <string name="link_share_allow_upload_and_editing">Permitir o envío e a edición</string>
@@ -449,7 +453,7 @@
     <string name="media_err_io">Non foi posíbel ler o ficheiro multimedia</string>
     <string name="media_err_malformed">O ficheiro multimedia ten unha codificación incorrecta</string>
     <string name="media_err_timeout">O intento de reproducir o ficheiro esgotou o tempo de espera.</string>
-    <string name="media_err_unknown">O reprodutor incorporado non pode reproducir o ficheiro multimedia</string>
+    <string name="media_err_unknown">O reprodutor incorporado non é quen de reproducir o ficheiro multimedia</string>
     <string name="media_err_unsupported">Códec multimedia non admitido</string>
     <string name="media_forward_description">Botón de avance rápido</string>
     <string name="media_notif_ticker">Reprodutor de música %1$s</string>
@@ -512,15 +516,16 @@
     <string name="online_status">Estado en liña</string>
     <string name="outdated_server">O servidor acadou a fin da súa vida. Anóveo!</string>
     <string name="overflow_menu">Máis menús</string>
-    <string name="pass_code_configure_your_pass_code">Introduza o seu código de seguridade</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Solicitaráselle o código de seguridade cada vez que inicie a aplicación</string>
-    <string name="pass_code_enter_pass_code">Introduza o seu código de seguridade</string>
-    <string name="pass_code_mismatch">Os códigos de seguridade non son iguais</string>
-    <string name="pass_code_reenter_your_pass_code">Introduza de novo o seu código de seguridade</string>
-    <string name="pass_code_remove_your_pass_code">Elimine o seu código de seguridade</string>
-    <string name="pass_code_removed">O código de seguridade foi eliminado</string>
-    <string name="pass_code_stored">Gardouse o código de seguridade</string>
-    <string name="pass_code_wrong">Código de seguridade incorrecto</string>
+    <string name="pass_code_configure_your_pass_code">Introduza o seu código de acceso</string>
+    <string name="pass_code_configure_your_pass_code_explanation">Solicitaráselle o código de acceso cada vez que inicie a aplicación</string>
+    <string name="pass_code_enter_pass_code">Introduza o seu código de acceso</string>
+    <string name="pass_code_mismatch">Os códigos de acceso non son iguais</string>
+    <string name="pass_code_reenter_your_pass_code">Introduza de novo o seu código de acceso</string>
+    <string name="pass_code_remove_your_pass_code">Elimine o seu código de acceso</string>
+    <string name="pass_code_removed">O código de acceso foi eliminado</string>
+    <string name="pass_code_stored">Gardouse o código de acceso</string>
+    <string name="pass_code_wrong">Código de acceso incorrecto</string>
+    <string name="pdf_password_protected">Non é posíbel abrir o PDF protexido con contrasinal. Use un visor de PDF externo.</string>
     <string name="pdf_zoom_tip">Toque nunha páxina para ampliala</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Denegar</string>
@@ -555,7 +560,8 @@
     <string name="prefs_category_dev">Desenvolvemento</string>
     <string name="prefs_category_general">Xeral</string>
     <string name="prefs_category_more">Máis</string>
-    <string name="prefs_daily_backup_summary">Copia de seguridade diaria dos contactos do seu calendario &amp;</string>
+    <string name="prefs_daily_backup_summary">Copia de seguranza diaria dos contactos do seu calendario &amp;</string>
+    <string name="prefs_daily_contact_backup_summary">Copia de seguranza diaria dos seus contactos</string>
     <string name="prefs_davx5_setup_error">Produciuse un erro non agardado ao configurar DAVx5 (anteriormente coñecido como DAVdroid)</string>
     <string name="prefs_e2e_active">O cifrado de extremo a extremo está configurado.</string>
     <string name="prefs_e2e_mnemonic">Mnemotécnico do cifrado E2E</string>
@@ -572,13 +578,13 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcartafoles</string>
     <string name="prefs_keys_exist">Engadir cifrado de extremo a extremo a este cliente</string>
     <string name="prefs_license">Licenza</string>
-    <string name="prefs_lock">Código de seguridade da apli</string>
+    <string name="prefs_lock">Código de acceso da apli</string>
     <string name="prefs_lock_device_credentials_enabled">Credenciais do dispositivo activadas</string>
     <string name="prefs_lock_device_credentials_not_setup">Non foi estabelecida ningunha credencial de dispositivo</string>
     <string name="prefs_lock_none">Ningún</string>
     <string name="prefs_lock_title">Protexer a apli empregando</string>
     <string name="prefs_lock_using_device_credentials">Credenciais do dispositivo</string>
-    <string name="prefs_lock_using_passcode">Código de seguridade</string>
+    <string name="prefs_lock_using_passcode">Código de acceso</string>
     <string name="prefs_manage_accounts">Xestionar contas</string>
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_remove_e2e">Retirar o cifrado localmente</string>
@@ -611,7 +617,7 @@
     <string name="remote">(remoto)</string>
     <string name="remote_file_fetch_failed">Produciuse un fallo ao atopar o ficheiro!</string>
     <string name="remove_e2e">Pode retirar o cifrado de extremo a extremo localmente neste cliente</string>
-    <string name="remove_e2e_message">Pode retirar o cifrado de extremo a extremo localmente neste cliente. Os ficheiros cifrados permanecerán no servidor, mais xa non se sincronizarán con este ordenador.</string>
+    <string name="remove_e2e_message">Pode retirar o cifrado de extremo a extremo localmente neste cliente. Os ficheiros cifrados permanecerán no servidor, mais xa non se sincronizarán con este computador.</string>
     <string name="remove_fail_msg">Produciuse un fallo na eliminación</string>
     <string name="remove_notification_failed">Produciuse un fallo ao retirar a notificación.</string>
     <string name="remove_push_notification">Retirar</string>
@@ -623,7 +629,7 @@
     <string name="resharing_is_not_allowed">Non se permite volver compartir</string>
     <string name="resized_image_not_possible_download">No se dispón da imaxe noutros tamaños. Descargala en tamaño total?</string>
     <string name="restore">Restaurar ficheiro</string>
-    <string name="restore_backup">Restaurar a copia de seguridade</string>
+    <string name="restore_backup">Restaurar a copia de seguranza</string>
     <string name="restore_button_description">Restaurar ficheiro eliminado</string>
     <string name="restore_selected">Restaurar o seleccionado</string>
     <string name="retrieving_file">Recuperando o ficheiro…</string>
@@ -681,7 +687,7 @@
     <string name="share_password_title">Protexido con contrasinal</string>
     <string name="share_permission_can_edit">Pode editar</string>
     <string name="share_permission_file_drop">Soltar o ficheiro</string>
-    <string name="share_permission_secure_file_drop">Descarga segura de ficheiros</string>
+    <string name="share_permission_secure_file_drop">Entrega segura de ficheiros</string>
     <string name="share_permission_view_only">Só ver</string>
     <string name="share_permissions">Permisos ao compartir</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
@@ -704,7 +710,7 @@
     <string name="show_images">Amosar as fotos</string>
     <string name="show_video">Amosar os vídeos</string>
     <string name="signup_with_provider">Rexistrarse cun provedor</string>
-    <string name="single_sign_on_request_token" formatted="true">Permitirlle a %1$s acceder a súa conta %2$s no Nextcloud?</string>
+    <string name="single_sign_on_request_token" formatted="true">Permitirlle a %1$s acceder a súa conta %2$s en Nextcloud?</string>
     <string name="sort_by">Ordenar por</string>
     <string name="sort_by_modification_date_ascending">Primeiro o máis recente</string>
     <string name="sort_by_modification_date_descending">Primeiro o máis antigo</string>
@@ -729,14 +735,14 @@
     <string name="ssl_validator_label_validity">Validez:</string>
     <string name="ssl_validator_label_validity_from">Dende:</string>
     <string name="ssl_validator_label_validity_to">Ata:</string>
-    <string name="ssl_validator_no_info_about_error">- Non hai información sobre este erro</string>
+    <string name="ssl_validator_no_info_about_error">– Non hai información sobre este erro</string>
     <string name="ssl_validator_not_saved">Non foi posíbel gardar o certificado</string>
     <string name="ssl_validator_null_cert">Non é posíbel amosar o certificado.</string>
     <string name="ssl_validator_question">Aínda así, quere fiar neste certificado igualmente?</string>
-    <string name="ssl_validator_reason_cert_expired">- O certificado do servidor caducou</string>
-    <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor non é de confianza</string>
-    <string name="ssl_validator_reason_cert_not_yet_valid">- As datas de validez do certificado son do futuro</string>
-    <string name="ssl_validator_reason_hostname_not_verified">- O URL non coincide co nome de máquina no certificado</string>
+    <string name="ssl_validator_reason_cert_expired">– O certificado do servidor caducou</string>
+    <string name="ssl_validator_reason_cert_not_trusted">– O certificado do servidor non é de confianza</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">– As datas de validez do certificado son do futuro</string>
+    <string name="ssl_validator_reason_hostname_not_verified">– O URL non coincide co nome de máquina no certificado</string>
     <string name="status_message">Mensaxe de estado</string>
     <string name="storage_camera">Cámara</string>
     <string name="storage_choose_location">Escolla a localización do almacenamento</string>
@@ -749,7 +755,7 @@
     <string name="storage_permission_full_access">Acceso completo</string>
     <string name="storage_permission_media_read_only">Medios de só lectura</string>
     <string name="storage_pictures">Imaxes</string>
-    <string name="store_full_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada.\n|nCaracterísticas:\n* Interface doada e moderna, totalmente tematizada ao aliñarse co tema do seu servidor\n* Enviar os seus ficheiros ao seu Nextcloud\n* Compartir os seus ficheiros con outras persoas\n* Conservar os seus ficheiros e cartafoles favoritos sincronizados\n* Buscar en todos os cartafoles do servidor\n* Enviar automaticamente fotos e vídeos feitos no seu dispositivo\n* Estar ao día coas notificacións\n* Admite múltiples contas\n* Acceso seguro aos seus datos con pegada dactilar ou PIN\n* Integración con DAVx5 (anteriormente coñecido como DAVdroid) para facilitar a configuración da sincronización de calendarios e contactos\n\nAgradecémoslle que nos informe de calquera incidente en https://github.com/nextcloud/android/issues, pode conversar sobre esta apli en https://help.nextcloud.com/c/clients/android\n\nE novo no Nextcloud? Nextcloud é un servidor privado para sincronizar e compartir ficheiros. É completamente libre e pode instalalo vostede ou contratar a unha empresa ou cooperativa para que o faga por vostede. É o camiño para que sexa vostede quen teña o control sobre as súas fotos, calendario, caderno de contactos, documentos e todo o demais.\n\nCoñeza o Nextcloud en https://nextcloud.com</string>
+    <string name="store_full_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada.\n|nCaracterísticas:\n* Interface doada e moderna, totalmente tematizada ao aliñarse co tema do seu servidor\n* Enviar os seus ficheiros ao seu Nextcloud\n* Compartir os seus ficheiros con outras persoas\n* Conservar os seus ficheiros e cartafoles favoritos sincronizados\n* Buscar en todos os cartafoles do servidor\n* Enviar automaticamente fotos e vídeos feitos no seu dispositivo\n* Estar ao día coas notificacións\n* Admite múltiples contas\n* Acceso seguro aos seus datos con pegada dactilar ou PIN\n* Integración con DAVx5 (anteriormente coñecido como DAVdroid) para facilitar a configuración da sincronización de calendarios e contactos\n\nAgradecémoslle que nos informe de calquera incidente en https://github.com/nextcloud/android/issues, pode conversar sobre esta apli en https://help.nextcloud.com/c/clients/android\n\nE novo en Nextcloud? Nextcloud é un servidor privado para sincronizar e compartir ficheiros. É completamente libre e pode instalalo vostede ou contratar a unha empresa ou cooperativa para que o faga por vostede. É o camiño para que sexa vostede quen teña o control sobre as súas fotos, calendario, caderno de contactos, documentos e todo o demais.\n\nCoñeza Nextcloud en https://nextcloud.com</string>
     <string name="store_full_dev_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada.\nEsta é a versión oficial de desenvolvemento, que presenta unha mostra diaria de calquera nova funcionalidade aínda non probada, o que pode provocar inestabilidade e perda de datos. Esta aplicación está destinada a usuarios que queren probar e informar de fallos (en caso de producirse). Non a use para o día a día!\n\nTanto a versión oficial de desenvolvemento como a normal están dispoñíbeis no F-Droid e poden instalarse xuntas.</string>
     <string name="store_short_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada</string>
     <string name="store_short_dev_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada (versión de vista previa de desenvolvemento)</string>
@@ -796,6 +802,7 @@
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniatura do ficheiro existente</string>
     <string name="thumbnail_for_new_file_desc">Miniatura do novo ficheiro</string>
+    <string name="timeout_richDocuments">A carga está a levar máis tempo do agardado</string>
     <string name="today">Hoxe</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="trashbin_empty_headline">Non hai ficheiros eliminados</string>
@@ -809,7 +816,7 @@
     <string name="unset_encrypted">Estabelecer como NON cifrado</string>
     <string name="unset_favorite">Retirar dos favoritos</string>
     <string name="unshare_link_file_error">Produciuse un erro ao tentar deixar de compartir este ficheiro ou cartafol.</string>
-    <string name="unshare_link_file_no_exist">Non foi posíbel deixar de compartir. Comprobe que existe o ficheiro.</string>
+    <string name="unshare_link_file_no_exist">Non é posíbel deixar de compartir. Comprobe que existe o ficheiro.</string>
     <string name="unshare_link_forbidden_permissions">para deixar de compartir este ficheiro</string>
     <string name="unsharing_failed">Produciuse un fallo ao deixar de compartir</string>
     <string name="untrusted_domain">Acceder a través dun dominio fiábel. Lea a documentación para obter máis más información.</string>
@@ -838,7 +845,7 @@
     <string name="upload_lock_failed">Produciuse un fallo ao bloquear o cartafol</string>
     <string name="upload_old_android">O cifrado só é posíbel con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. No canto diso, gustaríalle movelos?</string>
-    <string name="upload_scan_doc_upload">Escanear o documento desde a cámara</string>
+    <string name="upload_scan_doc_upload">Escanear o documento dende a cámara</string>
     <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>
     <string name="upload_unknown_error">Erro descoñecido</string>
     <string name="uploader_btn_alternative_text">Escoller</string>
@@ -914,7 +921,7 @@
     <string name="widgets_not_available_title">Non dispoñíbel</string>
     <string name="write_email">Enviar o correo</string>
     <string name="wrong_storage_path">O cartafol de almacenamento de datos non existe.</string>
-    <string name="wrong_storage_path_desc">Isto pode deberse a unha restauración de copia de seguridade noutro dispositivo. Volvendo ao predeterminado. Comprobe a configuración para axustar o cartafol de almacenamento de datos.</string>
+    <string name="wrong_storage_path_desc">Isto pode deberse a unha restauración de copia de seguranza noutro dispositivo. Volvendo ao predeterminado. Comprobe as opcións para axustar o cartafol de almacenamento de datos.</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Non foi posíbel sincronizar  %1$d ficheiro (conflitos: %2$d)</item>
         <item quantity="other">Non foi posíbel sincronizar  %1$d ficheiros (conflitos: %2$d)</item>

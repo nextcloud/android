@@ -251,7 +251,7 @@ Attention la suppression est irréversible.</string>
     <string name="drawer_quota_unlimited">%1$s utilisé</string>
     <string name="drawer_synced_folders">Téléversement automatique</string>
     <string name="e2e_not_yet_setup">E2E pas encore configuré</string>
-    <string name="e2e_offline">Impossible sans une connexion internet</string>
+    <string name="e2e_offline">Impossible sans connexion internet</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_decrypting">Décryptage…</string>
@@ -380,6 +380,7 @@ Attention la suppression est irréversible.</string>
     <string name="filename_hint">Nom du fichier</string>
     <string name="first_run_1_text">Sécurisez et contrôlez vos données</string>
     <string name="first_run_2_text">Collaboration &amp; et échange de fichiers sécurisés</string>
+    <string name="first_run_3_text">Webmail, calendrier &amp; contacts faciles à utiliser</string>
     <string name="first_run_4_text">Partage d\'écran et réunion en ligne</string>
     <string name="folder_already_exists">Le dossier existe déjà</string>
     <string name="folder_confirm_create">Créer</string>
