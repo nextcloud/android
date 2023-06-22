@@ -47,7 +47,7 @@
     <string name="auth_connection_established">Estabeleceuse a conexión</string>
     <string name="auth_fail_get_user_name">O seu servidor non está devolvendo unha identificación de usuario correcta; contacte cun administrador.</string>
     <string name="auth_host_url">Enderezo do servidor https://…</string>
-    <string name="auth_incorrect_address_title">O formato do enderezo do servidor é incorrecto</string>
+    <string name="auth_incorrect_address_title">O formato do enderezo do servidor é erróneo</string>
     <string name="auth_incorrect_path_title">Non se atopou o servidor</string>
     <string name="auth_no_net_conn_title">Sen conexión de rede</string>
     <string name="auth_nossl_plain_ok_title">Non hai conexións seguras dispoñíbeis.</string>
@@ -61,7 +61,7 @@
     <string name="auth_testing_connection">Probando a conexión</string>
     <string name="auth_timeout_title">O servidor tardou de máis en responder</string>
     <string name="auth_trying_to_login">Tentando acceder a…</string>
-    <string name="auth_unauthorized">Nome de usuario ou contrasinal incorrecto</string>
+    <string name="auth_unauthorized">Nome de usuario ou contrasinal erróneo</string>
     <string name="auth_unknown_error_exception_title">Erro descoñecido: %1$s</string>
     <string name="auth_unknown_error_http_title">Produciuse un erro HTTP descoñecido!</string>
     <string name="auth_unknown_error_title">Produciuse un erro descoñecido!</string>
@@ -772,7 +772,7 @@
     <string name="sync_conflicts_in_favourites_ticker">Atopáronse conflitos</string>
     <string name="sync_current_folder_was_removed">O cartafol %1$s xa non existe</string>
     <string name="sync_fail_content">Non foi posíbel sincronizar %1$s</string>
-    <string name="sync_fail_content_unauthorized">Contrasinal incorrecto para %1$s</string>
+    <string name="sync_fail_content_unauthorized">Contrasinal erróneo para %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Produciuse un fallo no mantemento sincronizado de ficheiros</string>
     <string name="sync_fail_ticker">Produciuse un fallo na sincronización</string>
     <string name="sync_fail_ticker_unauthorized">Produciuse un fallo na sincronización, acceda de novo.</string>
