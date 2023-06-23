@@ -79,6 +79,7 @@ import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -638,6 +639,12 @@ public class FileDisplayActivity extends FileActivity
 
     public void updateListOfFilesFragment(boolean fromSearch) {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
+        // notify the adapter when rotate image upload is success
+        // by updating this will refresh the gallery and will avoid creating conflict via etagInConflict
+        if (fileListFragment instanceof GalleryFragment) {
+            ((GalleryFragment) fileListFragment).showAllGalleryItems();
+        }
+
         if (fileListFragment != null) {
             fileListFragment.listDirectory(MainApp.isOnlyOnDevice(), fromSearch);
         }
@@ -1657,7 +1664,7 @@ public class FileDisplayActivity extends FileActivity
             } else if (component.equals(new ComponentName(FileDisplayActivity.this,
                                                           FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
-                mUploaderBinder = (FileUploader.FileUploaderBinder) service;
+                mUploaderBinder = (FileUploaderBinder) service;
             } else {
                 return;
             }

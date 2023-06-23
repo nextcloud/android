@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ownCloud Android client application
 
+  @author TSI-mc
   Copyright (C) 2015  ownCloud Inc.
+  Copyright (C) 2023 TSI-mc
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -28,7 +30,7 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_margin="@dimen/zero"
         android:contentDescription="@string/preview_image_description"
         android:src="@drawable/image_fail" />
 

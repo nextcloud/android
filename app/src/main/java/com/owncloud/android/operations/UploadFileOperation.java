@@ -3,8 +3,10 @@
  *
  * @author David A. Velasco
  * @author Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2016 ownCloud GmbH.
  * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,

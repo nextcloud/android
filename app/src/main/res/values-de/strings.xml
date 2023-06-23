@@ -9,6 +9,7 @@
     <string name="account_not_found">Kein Konto gefunden</string>
     <string name="action_clear_failed_uploads">Fehlgeschlagene Uploads entfernen</string>
     <string name="action_edit">Bearbeiten</string>
+    <string name="action_rotate">Drehen</string>
     <string name="action_empty_notifications">Alle Benachrichtigungen löschen</string>
     <string name="action_empty_trashbin">Papierkorb leeren</string>
     <string name="action_send_share">Senden/Teilen</string>
@@ -508,8 +509,8 @@
     <string name="notification_channel_push_name">Push-Benachrichtigungen</string>
     <string name="notification_channel_upload_description">Zeigt den Hochlade-Fortschritt an</string>
     <string name="notification_channel_upload_name_short">Uploads</string>
-    <string name="notification_channel_scan_doc_save">Gescannte Documente speichern Benachrichtigungskanal</string>
-    <string name="notification_channel_scan_doc_save_description">Speicherprozess zeigen</string>
+    <string name="notification_channel_image_save">Benachrichtigungskanal zum Speichern von Bildern</string>
+    <string name="notification_channel_image_save_description">Zeigt den Fortschritt der Bildspeicherung an</string>
     <string name="notification_icon">Benachrichtigungssymbol</string>
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
@@ -981,100 +982,4 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
-
-    <string name="result_scan_doc_dont_move">Nicht bewegen</string>
-    <string name="result_scan_doc_move_closer">Näher heranbewegen</string>
-    <string name="result_scan_doc_perspective">Perspektive</string>
-    <string name="result_scan_doc_no_doc">Kein Dokument</string>
-    <string name="result_scan_doc_bg_noisy">Hintergrund zu unruhig</string>
-    <string name="result_scan_doc_aspect_ratio">Falsches Bildformat.\nDrehen Sie Ihr Gerät.</string>
-    <string name="result_scan_doc_poor_light">Schwaches Licht</string>
-    <string name="scanned_doc_count">%d von %d</string>
-    <string name="title_edit_scan">Scam Bearbeiten</string>
-    <string name="title_crop_scan">Scan beschneiden</string>
-    <string name="crop_btn_reset_crop_text">Rahmen zurÃ¼cksetzen</string>
-    <string name="crop_btn_detect_doc_text">Dokument erkenne</string>
-    <string name="edit_scan_filter_dialog_title">Filter anwenden</string>
-    <string name="edit_scan_filter_none">Kein Filter</string>
-    <string name="edit_scan_filter_pure_binarized">Whiteboard</string>
-    <string name="edit_scan_filter_color_enhanced">Foto Filter</string>
-    <string name="edit_scan_filter_b_n_w">Black &amp; White</string>
-    <string name="edit_scan_filter_color_document">Dokument Filter</string>
-    <string name="edit_scan_filter_grey">Grau</string>
-    <string name="automatic">Automatisch</string>
-    <string name="flash">Blitz</string>
-    <string name="title_save_as">Speichern unter</string>
-    <string name="scan_save_filename">Dateiname</string>
-    <string name="scan_save_location">Speicherort</string>
-    <string name="scan_save_location_root">/Hauptverzeichnis</string>
-    <string name="scan_save_file_type">Dateityp</string>
-    <string name="scan_save_without_text_recognition">Speichern ohne Texterkennung</string>
-    <string name="scan_save_with_text_recognition">Speichern mit Texterkennung</string>
-    <string name="scan_save_file_type_txt">Textdokument (txt)</string>
-    <string name="scan_save_pdf_password">PDF-Passwort</string>
-    <string name="scan_save_set_password_hint">Passwort setzen</string>
-    <string name="scan_save_no_file_select_toast">Selectieren Sie mindestens einen Dateityp</string>
-    <string name="scan_save_file_type_text">Sie kÃ¶nnen die Datei mit oder ohne Texterkennung abspeichern. Mehrfachauswahl ist erlaubt.</string>
-    <string name="camera_permission_rationale">Bitte geben Sie unter Apps &amp; Benachrichtigungen in den Einstellungen manuell die Erlaubnis.</string>
-    <string name="camera_permission_denied">Sie können keine Dokumente scannen ohne die Erlaubnis die Kamera zu verwenden.</string>
-    <string name="search_result_empty">Eine Datei suchen (mindestens 2 Zeichen)</string>
-    <string name="action_rotate">Drehen</string>
-    <string name="description_add_more_scan">Weiteres Dokument hinzufügen</string>
-    <string name="description_crop_scan">Gescanntes Dokument zuschneiden</string>
-    <string name="description_filter_scan">Gescanntes Dokument filtern</string>
-    <string name="description_rotate_scan">Gescanntes Dokument drehen</string>
-    <string name="description_delete_scan">Gescanntes Dokument löschen</string>
-    <string name="description_edit_filename">Scan-Dateinamen bearbeiten</string>
-    <string name="description_edit_location">Scan-Speicherort bearbeiten</string>
-    <string name="conflict_replace">Ersetzen</string>
-    <string name="conflict_replace_all">Alle ersetzen</string>
-    <string name="conflict_keep_both">Beide behalten</string>
-    <string name="conflict_keep_both_all">Beide Versionen für alle behalten</string>
-    <string name="conflict_more_details">Mehr Details</string>
-    <string name="conflict_cancel_keep_existing">Abbrechen und bestehende Datei behalten</string>
-    <string name="conflict_dialog_title">Dateikonflikt</string>
-    <string name="conflict_dialog_title_multiple">%d Dateikonflikte</string>
-    <string name="conflict_dialog_message">%1$s ist im Zielordner bereits vorhanden. Möchten Sie die bestehende Datei behalten oder überschreiben?</string>
-    <string name="conflict_dialog_message_multiple">Die Dateien sind im Zielordner bereits vorhanden. Möchten Sie die bestehenden Dateien behalten oder überschreiben?</string>
-    <string name="prefs_category_info">Info</string>
-    <string name="sharing_description">Sie können Links erstellen oder Freigaben per Mail versenden. Wenn Sie MagentaCloud Nutzer einladen, bieten sich Ihnen mehr Möglichkeiten der Zusammenarbeit.</string>
-    <string name="your_message">Ihre Nachricht</string>
-    <string name="personal_share_email">persönliche Freigabe per Emai</string>
-    <string name="create_link">Neuen Link erstellen</string>
-    <string name="your_shares">Ihre Freigaben</string>
-    <string name="link_label">Link Label</string>
-    <string name="hint_link_label">Your custom link label</string>
-    <string name="file_drop_info">Bei der Sammelbox ist nur das Hochladen erlaubt. Nur Sie sehen Dateien und Ordner die hochgeladen worden sind.</string>
-    <string name="password_protection">Password Protection</string>
-    <string name="expiration_date">Expiration Date</string>
-    <string name="empty_shares">Noch keine Freigaben erstellt.</string>
-    <string name="prefs_category_data_privacy">Datenschutz</string>
-    <string name="privacy_settings">Datenschutz</string>
-    <string name="privacy_policy">Datenschutzbestimmungen</string>
-    <string name="prefs_open_source">Verwendete OpenSource Software</string>
-    <string name="privacy_settings_intro_text">Zur Optimierung unserer App erfassen wir anonymisierte Daten. Hierzu nutzen wir Software Lösungen verschiedener Partner. Wir möchten Ihnen volle Transparenz und Entscheidungsgewalt über die Verarbeitung und Erfassung Ihrer anonymisierten Nutzungsdaten geben. Ihre Einstellungen können Sie auch später jederzeit in den Einstellungen unter Datenschutz ändern. Bitte beachten Sie jedoch, dass die Datenerfassungen einen erheblichen Beitrag zur Optimierung dieser App leisten und Sie diese Optimierungen durch die Unterbindung der Datenübermittlung verhindern.</string>
-    <string name="required_data_collection">Erfoderliche Datenerfassung</string>
-    <string name="data_collection_info">Die Erfassung dieser Daten ist notwendig, um wesentliche Funktionen der App nutzen zu können.</string>
-    <string name="data_analysis">Analyse-Datenerfassung zur bedarfsgerechten Gestaltung</string>
-    <string name="data_analysis_info">Diese Daten helfen uns, die App Nutzung für Sie zu optimieren und Systemabstürze und Fehler schneller zu identifizieren.</string>
-    <string name="prefs_category_service">Bedienung</string>
-    <string name="allow_resharing_info">Sie teilen mit einer/einem MagentaCLOUD Nutzer(in). Sie können ihr oder ihm erlauben, den Ordner oder die Dateien weiterzuteilen.</string>
-    <string name="login_privacy_settings_intro_text">Diese App verwendet Cookies und ähnliche Technologien (Tools).
-        Mit einem Klick auf Zustimmen akzeptieren Sie die Verarbeitung und auch die Weitergabe Ihrer Daten an
-        Drittanbieter. Die Daten werden für Analysen, Retargeting und zur Ausspielung von personalisierten Inhalten
-        und Werbung auf Seiten der Telekom, sowie auf Drittanbieterseiten genutzt. Weitere Informationen, auch zur
-        Datenverarbeitung durch Drittanbieter, finden Sie in den Einstellungen sowie in unseren %s. Sie können die
-        Verwendung der Tools %s oder jederzeit über ihre %s anpassen.</string>
-    <string name="login_privacy_settings_header">Datenschutz-Einstellungen</string>
-    <string name="common_accept">Akzeptieren</string>
-    <string name="save_settings">Einstellungen speichern</string>
-    <string name="login_privacy_policy">Datenschutzhinweise</string>
-    <string name="login_privacy_reject">ablehnen</string>
-    <string name="login_privacy_settings">Einstellungen</string>
-    <string name="drawer_item_recent_files">Neuste Dateien</string>
-    <string name="dialog_ok">Okay</string>
-    <string name="dialog_save_scan_message">Das Speichern kann einige Minuten in Anspruch nehmen, insbesondere wenn Sie mehrere Seiten und Dateiformate ausgewählt haben.</string>
-    <string name="sharing_email_warning">Der Passwortschutz ist aktiviert. Sie müssen dem Empfänger das Passwort
-        selbst mitteilen.\n\nWenn Sie die Freigabe über die MagentaCLOUD verschicken und das Passwort in den
-        Nachrichtentext eintragen, wird es unverschlüsselt im Klartext übertragen.</string>
 </resources>

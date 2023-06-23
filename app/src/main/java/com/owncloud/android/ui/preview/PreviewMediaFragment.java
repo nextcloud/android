@@ -4,9 +4,11 @@
  *   @author David A. Velasco
  *   @author Chris Narkiewicz
  *   @author Andy Scherzinger
+ *   @author TSI-mc
  *   Copyright (C) 2016 ownCloud Inc.
  *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *   Copyright (C) 2020 Andy Scherzinger
+ *   Copyright (C) 2023 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -408,9 +410,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 R.id.action_select_all,
                 R.id.action_move,
                 R.id.action_copy,
+                R.id.action_rotate_image,
                 R.id.action_favorite,
-                R.id.action_unset_favorite,
-                R.id.action_rotate_image
+                R.id.action_unset_favorite
                          ));
         if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
             additionalFilter.add(R.id.action_send_share_file);

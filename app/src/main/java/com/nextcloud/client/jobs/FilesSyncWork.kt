@@ -3,9 +3,11 @@
  *
  * @author Mario Danic
  * @author Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2017 Nextcloud
  * Copyright (C) 2020 Chris Narkiewicz
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE

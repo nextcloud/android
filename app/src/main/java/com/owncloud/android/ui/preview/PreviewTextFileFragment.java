@@ -3,8 +3,10 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author TSI-mc
  * Copyright (C) 2019 Tobias Kaminsky
  * Copyright (C) 2019 Nextcloud GmbH
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -303,9 +305,9 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                 R.id.action_select_all,
                 R.id.action_move,
                 R.id.action_copy,
+                R.id.action_rotate_image,
                 R.id.action_favorite,
-                R.id.action_unset_favorite,
-                R.id.action_rotate_image
+                R.id.action_unset_favorite
                          ));
         if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
             additionalFilter.add(R.id.action_send_share_file);

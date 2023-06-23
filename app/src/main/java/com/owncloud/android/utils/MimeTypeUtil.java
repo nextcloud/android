@@ -218,14 +218,6 @@ public final class MimeTypeUtil {
         return isImage(file) || isVideo(file);
     }
 
-    //check if file is png or jpg image
-    public static boolean isJpgOrPngFile(String fileName) {
-        String extension = fileName.substring(fileName.lastIndexOf("."));
-        return extension.equalsIgnoreCase(".png")
-            || extension.equalsIgnoreCase(".jpg")
-            || extension.equalsIgnoreCase(".jpeg");
-    }
-
     /**
      * @return 'True' if the mime type defines image
      */

@@ -688,8 +688,8 @@
     <string name="notification_channel_media_description">Music player progress</string>
     <string name="notification_channel_file_sync_name">File sync</string>
     <string name="notification_channel_file_sync_description">Shows file sync progress and results</string>
-    <string name="notification_channel_scan_doc_save">Save scanned documents notification channel</string>
-    <string name="notification_channel_scan_doc_save_description">Shows save progress</string>
+    <string name="notification_channel_image_save">Image save notification channel</string>
+    <string name="notification_channel_image_save_description">Shows image save progress</string>
 
     <string name="account_not_found">Account not found!</string>
 
@@ -909,6 +909,7 @@
     <string name="share_internal_link_to_file_text">Internal share link only works for users with access to this file</string>
     <string name="share_internal_link">Share internal link</string>
     <string name="action_edit">Edit</string>
+    <string name="action_rotate">Rotate</string>
     <string name="failed_to_start_editor">Failed to start editor</string>
     <string name="create_rich_workspace">Add folder info</string>
     <string name="creates_rich_workspace">creates folder info</string>
@@ -1082,10 +1083,6 @@
     <string name="document_scan_export_dialog_images">Multiple images</string>
     <string name="download_cannot_create_file">Cannot create local file</string>
     <string name="download_download_invalid_local_file_name">Invalid filename for local file</string>
-    <string name="camera_permission_rationale">Please navigate to App info in settings and give permission manually.</string>
-    <string name="camera_permission_denied">You cannot scan document without camera permission.</string>
-    <string name="search_result_empty">Search for a file (at least 2 characters)</string>
-    <string name="action_rotate">Rotate</string>
     <string name="drawer_item_groupfolders">Groupfolders</string>
     <string name="tags_more" translatable="false">+%1$d</string>
     <string name="pdf_password_protected">Unable to open password-protected PDF. Please use an external PDF viewer.</string>

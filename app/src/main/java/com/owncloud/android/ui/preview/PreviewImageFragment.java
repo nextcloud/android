@@ -3,9 +3,11 @@
  *
  * @author David A. Velasco
  * @author Chris Narkiewicz
+ * @author TSI-mc
  *
  * Copyright (C) 2015 ownCloud Inc.
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -100,10 +102,12 @@ import static com.owncloud.android.datamodel.ThumbnailsCacheManager.PREFIX_THUMB
 
 /**
  * This fragment shows a preview of a downloaded image.
- * <p>
- * Trying to get an instance with a NULL {@link OCFile} will produce an {@link IllegalStateException}.
- * <p>
- * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on instantiation too.
+ *
+ * Trying to get an instance with a NULL {@link OCFile} will produce an
+ * {@link IllegalStateException}.
+ *
+ * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
+ * instantiation too.
  */
 public class PreviewImageFragment extends FileFragment implements Injectable {
 
@@ -146,15 +150,17 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     /**
      * Public factory method to create a new fragment that previews an image.
-     * <p>
-     * Android strongly recommends keep the empty constructor of fragments as the only public constructor, and use
-     * {@link #setArguments(Bundle)} to set the needed arguments.
-     * <p>
+     *
+     * Android strongly recommends keep the empty constructor of fragments as the only public
+     * constructor, and
+     * use {@link #setArguments(Bundle)} to set the needed arguments.
+     *
      * This method hides to client objects the need of doing the construction in two steps.
      *
      * @param imageFile             An {@link OCFile} to preview as an image in the fragment
-     * @param ignoreFirstSavedState Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter} ;
-     *                              TODO better solution
+     * @param ignoreFirstSavedState Flag to work around an unexpected behaviour of
+     *                              {@link FragmentStatePagerAdapter}
+     *                              ; TODO better solution
      */
     public static PreviewImageFragment newInstance(@NonNull OCFile imageFile,
                                                    boolean ignoreFirstSavedState,
@@ -533,10 +539,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 ThumbnailsCacheManager.addBitmapToCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + getFile().getRemoteId(), rotatedThumbBitmap);
             }
 
-            //if image resized is enabled then add the current rotated bitmap image to cache
-            if (showResizedImage) {
-                ThumbnailsCacheManager.addBitmapToCache(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId(), rotatedBitmap);
-            }
+            //update thumbnail to cache for resized image
+            ThumbnailsCacheManager.addBitmapToCache(ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + getFile().getRemoteId(), rotatedBitmap);
 
             rotationHandler.post(() -> {
                 //set the rotated bitmap to image view
@@ -590,9 +594,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
         /**
          * Weak reference to the target {@link ImageView} where the bitmap will be loaded into.
-         * <p>
-         * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load
-         * finishes.
+         *
+         * Using a weak reference will avoid memory leaks if the target ImageView is retired from
+         * memory before the load finishes.
          */
         private final WeakReference<PhotoView> imageViewRef;
         private final WeakReference<LinearLayout> infoViewRef;
@@ -659,7 +663,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
                         try {
                             bitmapResult = BitmapUtils.decodeSampledBitmapFromFile(storagePath, minWidth,
-                                                                                   minHeight);
+                                    minHeight);
 
                             if (isCancelled()) {
                                 return new LoadImage(bitmapResult, null, ocFile);
@@ -697,7 +701,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             } catch (NoSuchFieldError e) {
                 mErrorMessageId = R.string.common_error_unknown;
                 Log_OC.e(TAG, "Error from access to non-existing field despite protection; file "
-                    + storagePath, e);
+                        + storagePath, e);
 
             } catch (Throwable t) {
                 mErrorMessageId = R.string.common_error_unknown;
@@ -737,7 +741,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             if (imageView != null) {
                 if (bitmap != null) {
                     Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
-                        bitmap.getHeight());
+                            bitmap.getHeight());
 
                     if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType()) ||
                         MIME_TYPE_GIF.equalsIgnoreCase(result.ocFile.getMimeType())) {
@@ -855,7 +859,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                                      Snackbar.LENGTH_INDEFINITE).show();
                                    }
                                }
-                              ).show();
+                    ).show();
             }
         } catch (IllegalArgumentException e) {
             Log_OC.d(TAG, e.getMessage());
@@ -871,7 +875,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     }
 
     /**
-     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment} to be previewed.
+     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment}
+     * to be previewed.
      *
      * @param file File to test if can be previewed.
      * @return 'True' if the file can be handled by the fragment.

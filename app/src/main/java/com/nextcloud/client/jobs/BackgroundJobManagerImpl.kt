@@ -2,7 +2,9 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -40,7 +42,6 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.owncloud.android.datamodel.OCFile
-import com.nmc.android.jobs.UploadImagesWorker
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
@@ -83,10 +84,9 @@ internal class BackgroundJobManagerImpl(
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
         const val JOB_FILES_UPLOAD = "files_upload"
         const val JOB_PDF_GENERATION = "pdf_generation"
+        const val JOB_IMAGE_FILES_UPLOAD = "immediate_image_files_upload"
         const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
         const val JOB_IMMEDIATE_FILES_EXPORT = "immediate_files_export"
-        const val JOB_IMMEDIATE_SCAN_DOC_UPLOAD = "immediate_scan_doc_upload"
-        const val JOB_IMAGE_FILES_UPLOAD = "immediate_image_files_upload"
 
         const val JOB_TEST = "test_job"
 
@@ -467,6 +467,14 @@ internal class BackgroundJobManagerImpl(
         return workInfo.map { it -> it.map { fromWorkInfo(it) ?: JobInfo() } }
     }
 
+    override fun scheduleImmediateUploadImagesJob(): LiveData<JobInfo?> {
+        val request = oneTimeRequestBuilder(UploadImagesWorker::class, JOB_IMAGE_FILES_UPLOAD)
+            .build()
+
+        workManager.enqueueUniqueWork(JOB_IMAGE_FILES_UPLOAD, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
+        return workManager.getJobInfo(request.id)
+    }
+
     override fun startPdfGenerateAndUploadWork(
         user: User,
         uploadFolder: String,
@@ -483,14 +491,6 @@ internal class BackgroundJobManagerImpl(
             .setInputData(data)
             .build()
         workManager.enqueue(request)
-    }
-
-    override fun scheduleImmediateUploadImagesJob(): LiveData<JobInfo?> {
-        val request = oneTimeRequestBuilder(UploadImagesWorker::class, JOB_IMAGE_FILES_UPLOAD)
-            .build()
-
-        workManager.enqueueUniqueWork(JOB_IMAGE_FILES_UPLOAD, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
-        return workManager.getJobInfo(request.id)
     }
 
     override fun scheduleTestJob() {

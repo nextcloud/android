@@ -1,7 +1,10 @@
 /*
  *   ownCloud Android client application
  *
+ *   @author TSI-mc
+ *
  *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2023 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -41,7 +44,7 @@ public final class NotificationUtils {
     public static final String NOTIFICATION_CHANNEL_FILE_SYNC = "NOTIFICATION_CHANNEL_FILE_SYNC";
     public static final String NOTIFICATION_CHANNEL_FILE_OBSERVER = "NOTIFICATION_CHANNEL_FILE_OBSERVER";
     public static final String NOTIFICATION_CHANNEL_PUSH = "NOTIFICATION_CHANNEL_PUSH";
-    public static final String NOTIFICATION_CHANNEL_SCAN_DOC_SAVE = "NOTIFICATION_CHANNEL_SCAN_DOC_SAVE";
+    public static final String NOTIFICATION_CHANNEL_IMAGE_SAVE = "NOTIFICATION_CHANNEL_IMAGE_SAVE";
 
     private NotificationUtils() {
         // utility class -> private constructor

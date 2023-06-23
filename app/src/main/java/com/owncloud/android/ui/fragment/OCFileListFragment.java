@@ -124,9 +124,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -611,8 +609,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public void openActionsMenu(final int filesCount, final Set<OCFile> checkedFiles, final boolean isOverflow) {
         throttler.run("overflowClick", () -> {
-            final List<Integer> additionalFilter = new ArrayList<>(
-                Collections.singletonList(R.id.action_rotate_image));
+            final List<Integer> additionalFilter = new ArrayList<>();
+            //hide the rotate menu for overflow menu
+            additionalFilter.add(R.id.action_rotate_image);
             final FragmentManager childFragmentManager = getChildFragmentManager();
             FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow, additionalFilter)
                 .setResultListener(childFragmentManager, this, (id) -> {
@@ -1384,10 +1383,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mRefreshListLayout.setRefreshing(false);
         }
 
-        //Notify the adapter only for Gallery
-        //this will be used when user rotated the image and come back
-        //so we have to update the thumbnail of the rotated image
         //this method will also be called when uploading of the any file (rotated image) is finished
+        //even though we are updating gallery adapter from FileDisplayActivity.updateListOfFilesFragment we need to update here too
+        //to show the updated thumbnail after user comes back to gallery view from preview page
         if (searchEvent != null && searchEvent.getSearchType() == SearchRemoteOperation.SearchType.PHOTO_SEARCH && getRecyclerView().getAdapter() != null){
              getRecyclerView().getAdapter().notifyDataSetChanged();
         }
