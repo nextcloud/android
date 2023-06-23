@@ -158,6 +158,7 @@
     <string name="conflict_local_file">로컬 파일</string>
     <string name="conflict_message_description">두 버전을 모두 선택하면 기존 파일 이름에 번호가 추가됩니다.</string>
     <string name="conflict_server_file">서버 파일</string>
+    <string name="contact_backup_title">연락처 백업</string>
     <string name="contactlist_item_icon">연락처 목록 사용자 아이콘</string>
     <string name="contactlist_no_permission">권한이 없어서 가져올 수 없습니다.</string>
     <string name="contacts">연락처</string>
@@ -234,6 +235,7 @@
     <string name="drawer_item_all_files">모든 파일</string>
     <string name="drawer_item_favorites">즐겨찾기</string>
     <string name="drawer_item_gallery">미디어</string>
+    <string name="drawer_item_groupfolders">그룹 폴더</string>
     <string name="drawer_item_home">홈</string>
     <string name="drawer_item_notifications">알림</string>
     <string name="drawer_item_on_device">장치</string>
@@ -247,6 +249,7 @@
     <string name="drawer_quota_unlimited">%1$s 사용됨</string>
     <string name="drawer_synced_folders">자동 업로드</string>
     <string name="e2e_not_yet_setup">E2E가 아직 설정되지 않음</string>
+    <string name="e2e_offline">인터넷 연결 없이 불가능</string>
     <string name="encrypted">암호화하도록 설정</string>
     <string name="end_to_end_encryption_confirm_button">암호화 설정</string>
     <string name="end_to_end_encryption_decrypting">복호화중…</string>
