@@ -651,7 +651,7 @@
     <string name="select_one_template">하나의 템플릿을 선택하십시오</string>
     <string name="select_template">템플릿 선택</string>
     <string name="send">보내기</string>
-    <string name="send_note">메모 전달</string>
+    <string name="send_note">받는이에게 메모 보내기</string>
     <string name="send_share">공유 전달 </string>
     <string name="sendbutton_description">보내기 버튼 아이콘</string>
     <string name="set_as">다음으로 설정</string>

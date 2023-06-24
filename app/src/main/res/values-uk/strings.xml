@@ -62,7 +62,7 @@
     <string name="auth_testing_connection">Перевірка з\'єднання</string>
     <string name="auth_timeout_title">Сервер занадто довго не відповідає</string>
     <string name="auth_trying_to_login">Триває авторизація…</string>
-    <string name="auth_unauthorized">Невірне ім\'я користувача або пароль</string>
+    <string name="auth_unauthorized">Недійсне ім\'я користувача або пароль</string>
     <string name="auth_unknown_error_exception_title">Невідома помилка: %1$s</string>
     <string name="auth_unknown_error_http_title">Сталася невідома помилка HTTP!</string>
     <string name="auth_unknown_error_title">Виникла невідома помилка!</string>
