@@ -830,6 +830,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    public void replaceFile(OCFile file) {
+        mFiles.remove(file);
+        mFiles.add(file);
+        mFiles = sortOrder.sortCloudFiles(mFiles);
+        notifyDataSetChanged();
+    }
+
     private void parseShares(List<Object> objects) {
         List<OCShare> shares = new ArrayList<>();
 

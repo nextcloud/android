@@ -813,7 +813,7 @@ public abstract class FileActivity extends DrawerActivity
             }
 
             if (fileListFragment instanceof OCFileListFragment && file != null) {
-                ((OCFileListFragment) fileListFragment).updateOCFile(file);
+                ((OCFileListFragment) fileListFragment).getAdapter().replaceFile(file);
             }
         } else {
             // Detect Failure (403) --> maybe needs password
