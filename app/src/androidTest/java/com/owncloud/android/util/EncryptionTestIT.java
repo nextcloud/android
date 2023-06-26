@@ -35,6 +35,7 @@ import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.EncryptedFolderMetadata;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.CsrHelper;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 
 import org.apache.commons.codec.binary.Hex;
@@ -44,7 +45,6 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.KeyPair;
@@ -65,7 +65,6 @@ import javax.crypto.BadPaddingException;
 
 import androidx.test.runner.AndroidJUnit4;
 
-import static com.owncloud.android.utils.EncryptionUtils.EncryptedFile;
 import static com.owncloud.android.utils.EncryptionUtils.decodeStringToBase64Bytes;
 import static com.owncloud.android.utils.EncryptionUtils.decryptFile;
 import static com.owncloud.android.utils.EncryptionUtils.decryptFolderMetaData;
@@ -91,6 +90,7 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 @RunWith(AndroidJUnit4.class)
@@ -399,6 +399,19 @@ public class EncryptionTestIT extends AbstractIT {
         byte[] authTag = decodeStringToBase64Bytes("PboI9tqHHX3QeAA22PIu4w==");
 
         assertTrue(cryptFile("ia7OEEEyXMoRa1QWQk8r", "78f42172166f9dc8fd1a7156b1753353", key, iv, authTag));
+    }
+
+    @Test
+    public void testLargeFile() throws Exception {
+        byte[] key = decodeStringToBase64Bytes("WANM0gRv+DhaexIsI0T3Lg==");
+        byte[] iv = decodeStringToBase64Bytes("gKm3n+mJzeY26q4OfuZEqg==");
+
+        createFile("large1", 5000000);
+        File file = getDummyFile("large1");
+        String md5 = getMD5Sum(file);
+        Log_OC.d("Large file", "Size: " + DisplayUtils.bytesToHumanReadable(file.length()));
+
+        assertTrue(cryptFile(file, md5, key, iv, null));
     }
 
     @Test
@@ -751,28 +764,34 @@ public class EncryptionTestIT extends AbstractIT {
     private boolean cryptFile(String fileName, String md5, byte[] key, byte[] iv, byte[] expectedAuthTag)
         throws Exception {
         File file = getFile(fileName);
+
+        return cryptFile(file, md5, key, iv, expectedAuthTag);
+    }
+
+    private boolean cryptFile(File file, String md5, byte[] key, byte[] iv, byte[] expectedAuthTag)
+        throws Exception {
         assertEquals(md5, getMD5Sum(file));
 
-        EncryptedFile encryptedFile = encryptFile(file, key, iv);
+        File encryptedLargeTempFile = File.createTempFile("largeEncrypted", "tmp");
+        byte[] authenticationTag = encryptFile(file, encryptedLargeTempFile, key, iv);
 
-        File encryptedTempFile = File.createTempFile("file", "tmp");
-        FileOutputStream fileOutputStream = new FileOutputStream(encryptedTempFile);
-        fileOutputStream.write(encryptedFile.encryptedBytes);
-        fileOutputStream.close();
-
-        byte[] authenticationTag = decodeStringToBase64Bytes(encryptedFile.authenticationTag);
+        assertNotNull(authenticationTag);
 
         // verify authentication tag
-        assertTrue(Arrays.equals(expectedAuthTag, authenticationTag));
+        if (expectedAuthTag != null) {
+            assertEquals(expectedAuthTag, authenticationTag);
+        }
 
-        byte[] decryptedBytes = decryptFile(encryptedTempFile, key, iv, authenticationTag);
+        File decryptedLargeTempFile = File.createTempFile("largeDecrypted", "tmp");
+        assertTrue(decryptFile(encryptedLargeTempFile,
+                               decryptedLargeTempFile,
+                               key,
+                               iv,
+                               authenticationTag
+                              )
+                  );
 
-        File decryptedFile = File.createTempFile("file", "dec");
-        FileOutputStream fileOutputStream1 = new FileOutputStream(decryptedFile);
-        fileOutputStream1.write(decryptedBytes);
-        fileOutputStream1.close();
-
-        return md5.compareTo(getMD5Sum(decryptedFile)) == 0;
+        return md5.compareTo(getMD5Sum(decryptedLargeTempFile)) == 0;
     }
 
     private String getMD5Sum(File file) {

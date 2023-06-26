@@ -54,10 +54,11 @@ import org.apache.commons.httpclient.HttpStatus;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.RandomAccessFile;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
@@ -123,6 +124,7 @@ public final class EncryptionUtils {
     private static final String AES = "AES";
     private static final String RSA_CIPHER = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
     private static final String RSA = "RSA";
+    private static final int AUTHENTICATION_TAG_LENGTH = 16;
     @VisibleForTesting
     public static final String MIGRATED_FOLDER_IDS = "MIGRATED_FOLDER_IDS";
 
@@ -250,7 +252,7 @@ public final class EncryptionUtils {
 
             // check authentication tag
             byte[] extractedAuthenticationTag = Arrays.copyOfRange(bytes,
-                                                                   bytes.length - (128 / 8),
+                                                                   bytes.length - AUTHENTICATION_TAG_LENGTH,
                                                                    bytes.length);
 
             String encryptedTag = encodeBytesToBase64String(extractedAuthenticationTag);
@@ -488,76 +490,173 @@ public final class EncryptionUtils {
      *                           {@link EncryptionUtils#randomBytes(int)}
      * @return encryptedFile with encryptedBytes and authenticationTag
      */
-    public static EncryptedFile encryptFile(OCFile ocFile, byte[] encryptionKeyBytes, byte[] iv)
-        throws NoSuchAlgorithmException,
-        InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
-        BadPaddingException, IllegalBlockSizeException, IOException {
-        File file = new File(ocFile.getStoragePath());
+    public static byte[] encryptFile(OCFile ocFile,
+                                     File outputFile,
+                                     byte[] encryptionKeyBytes,
+                                     byte[] iv) {
+        File inputFile = new File(ocFile.getStoragePath());
 
-        return encryptFile(file, encryptionKeyBytes, iv);
+        return encryptFile(inputFile, outputFile, encryptionKeyBytes, iv);
     }
 
-    /**
-     * @param file               file do crypt
-     * @param encryptionKeyBytes key, either from metadata or {@link EncryptionUtils#generateKey()}
-     * @param iv                 initialization vector, either from metadata or
-     *                           {@link EncryptionUtils#randomBytes(int)}
-     * @return encryptedFile with encryptedBytes and authenticationTag
-     */
-    public static EncryptedFile encryptFile(File file, byte[] encryptionKeyBytes, byte[] iv)
-        throws NoSuchAlgorithmException,
-        InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
-        BadPaddingException, IllegalBlockSizeException, IOException {
+//    /**
+//     * @param file               file do crypt
+//     * @param encryptionKeyBytes key, either from metadata or {@link EncryptionUtils#generateKey()}
+//     * @param iv                 initialization vector, either from metadata or
+//     *                           {@link EncryptionUtils#randomBytes(int)}
+//     * @return encryptedFile with encryptedBytes and authenticationTag
+//     */
+//    public static EncryptedFile encryptFile(File file, byte[] encryptionKeyBytes, byte[] iv)
+//        throws NoSuchAlgorithmException,
+//        InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
+//        BadPaddingException, IllegalBlockSizeException, IOException {
+//
+//        Cipher cipher = Cipher.getInstance(AES_CIPHER);
+//
+//        Key key = new SecretKeySpec(encryptionKeyBytes, AES);
+//
+//        GCMParameterSpec spec = new GCMParameterSpec(128, iv);
+//        cipher.init(Cipher.ENCRYPT_MODE, key, spec);
+//
+//        RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
+//        byte[] fileBytes = new byte[(int) randomAccessFile.length()];
+//        randomAccessFile.readFully(fileBytes);
+//
+//        byte[] cryptedBytes = cipher.doFinal(fileBytes);
+//        String authenticationTag = encodeBytesToBase64String(Arrays.copyOfRange(cryptedBytes,
+//                                                                                cryptedBytes.length - AUTHENTICATION_TAG_LENGTH, 
+//                                                                                cryptedBytes.length));
+//
+//        return new EncryptedFile(cryptedBytes, authenticationTag);
+//    }
 
-        Cipher cipher = Cipher.getInstance(AES_CIPHER);
+    public static byte[] encryptFile(File inputFile,
+                                     File outputFile,
+                                     byte[] encryptionKeyBytes,
+                                     byte[] iv) {
+        // TODO
+        // use https://stackoverflow.com/a/65874176
+        // write test to make sure it is the same
+        // check for storage size
+        // delete copy of file, make sure it is a random file
 
-        Key key = new SecretKeySpec(encryptionKeyBytes, AES);
+        try (FileInputStream inputStream = new FileInputStream(inputFile);
+             FileOutputStream outputStream = new FileOutputStream(outputFile)) {
 
-        GCMParameterSpec spec = new GCMParameterSpec(128, iv);
-        cipher.init(Cipher.ENCRYPT_MODE, key, spec);
+            Cipher cipher = Cipher.getInstance(AES_CIPHER);
+            Key key = new SecretKeySpec(encryptionKeyBytes, AES);
+            GCMParameterSpec spec = new GCMParameterSpec(128, iv);
+            cipher.init(Cipher.ENCRYPT_MODE, key, spec);
 
-        RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
-        byte[] fileBytes = new byte[(int) randomAccessFile.length()];
-        randomAccessFile.readFully(fileBytes);
+            byte[] inputBytes = new byte[4096];
+            for (int n = inputStream.read(inputBytes); n > 0; n = inputStream.read(inputBytes)) {
+                byte[] outputBytes = cipher.update(inputBytes, 0, n);
+                outputStream.write(outputBytes);
+            }
+            byte[] outputBytes = cipher.doFinal();
+            outputStream.write(outputBytes);
 
-        byte[] cryptedBytes = cipher.doFinal(fileBytes);
-        String authenticationTag = encodeBytesToBase64String(Arrays.copyOfRange(cryptedBytes,
-                                                                                cryptedBytes.length - (128 / 8), cryptedBytes.length));
+            // authentication tag
+            byte[] authenticationTag = Arrays.copyOfRange(outputBytes,
+                                                          outputBytes.length - AUTHENTICATION_TAG_LENGTH,
+                                                          outputBytes.length);
 
-        return new EncryptedFile(cryptedBytes, authenticationTag);
+            if (authenticationTag.length != AUTHENTICATION_TAG_LENGTH) {
+                throw new SecurityException("Authentication tag length mismatches!");
+            }
+
+            return authenticationTag;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
+//    /**
+//     * @param file               encrypted file
+//     * @param encryptionKeyBytes key from metadata
+//     * @param iv                 initialization vector from metadata
+//     * @param authenticationTag  authenticationTag from metadata
+//     * @return decrypted byte[]
+//     */
+//    public static byte[] decryptFile(File file, byte[] encryptionKeyBytes, byte[] iv, byte[] authenticationTag)
+//        throws NoSuchAlgorithmException,
+//        InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
+//        BadPaddingException, IllegalBlockSizeException, IOException {
+//
+//
+//        Cipher cipher = Cipher.getInstance(AES_CIPHER);
+//        Key key = new SecretKeySpec(encryptionKeyBytes, AES);
+//        GCMParameterSpec spec = new GCMParameterSpec(128, iv);
+//        cipher.init(Cipher.DECRYPT_MODE, key, spec);
+//
+//        RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
+//        byte[] fileBytes = new byte[(int) randomAccessFile.length()];
+//        randomAccessFile.readFully(fileBytes);
+//
+//        // check authentication tag
+//        byte[] extractedAuthenticationTag = Arrays.copyOfRange(fileBytes,
+//                                                               fileBytes.length - AUTHENTICATION_TAG_LENGTH, 
+//                                                               fileBytes.length);
+//
+//        if (!Arrays.equals(extractedAuthenticationTag, authenticationTag)) {
+//            throw new SecurityException("Tag not correct");
+//        }
+//
+//        return cipher.doFinal(fileBytes);
+//    }
+
     /**
-     * @param file               encrypted file
+     * @param inputFile          encrypted file
+     * @param outputFile         file to store decryptedFile
      * @param encryptionKeyBytes key from metadata
      * @param iv                 initialization vector from metadata
      * @param authenticationTag  authenticationTag from metadata
      * @return decrypted byte[]
      */
-    public static byte[] decryptFile(File file, byte[] encryptionKeyBytes, byte[] iv, byte[] authenticationTag)
-        throws NoSuchAlgorithmException,
-        InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
-        BadPaddingException, IllegalBlockSizeException, IOException {
+    public static boolean decryptFile(File inputFile,
+                                      File outputFile,
+                                      byte[] encryptionKeyBytes,
+                                      byte[] iv,
+                                      byte[] authenticationTag) {
 
+        try (FileInputStream inputStream = new FileInputStream(inputFile);
+             FileOutputStream outputStream = new FileOutputStream(outputFile)) {
 
-        Cipher cipher = Cipher.getInstance(AES_CIPHER);
-        Key key = new SecretKeySpec(encryptionKeyBytes, AES);
-        GCMParameterSpec spec = new GCMParameterSpec(128, iv);
-        cipher.init(Cipher.DECRYPT_MODE, key, spec);
+            Cipher cipher = Cipher.getInstance(AES_CIPHER);
+            Key key = new SecretKeySpec(encryptionKeyBytes, AES);
+            GCMParameterSpec spec = new GCMParameterSpec(128, iv);
+            cipher.init(Cipher.DECRYPT_MODE, key, spec);
 
-        RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
-        byte[] fileBytes = new byte[(int) randomAccessFile.length()];
-        randomAccessFile.readFully(fileBytes);
+            // check authentication tag
+            byte[] extractedAuthenticationTag = new byte[AUTHENTICATION_TAG_LENGTH];
+            inputStream.getChannel().position((int) inputFile.length() - AUTHENTICATION_TAG_LENGTH);
 
-        // check authentication tag
-        byte[] extractedAuthenticationTag = Arrays.copyOfRange(fileBytes,
-                                                               fileBytes.length - (128 / 8), fileBytes.length);
+            int readBytes = inputStream.read(extractedAuthenticationTag,
+                                             0,
+                                             AUTHENTICATION_TAG_LENGTH);
 
-        if (!Arrays.equals(extractedAuthenticationTag, authenticationTag)) {
-            throw new SecurityException("Tag not correct");
+            if (readBytes != AUTHENTICATION_TAG_LENGTH) {
+                throw new SecurityException("Authentication tag length mismatches!");
+            }
+
+            inputStream.getChannel().position(0);
+
+            if (!Arrays.equals(extractedAuthenticationTag, authenticationTag)) {
+                throw new SecurityException("Tag not correct");
+            }
+
+            byte[] inputBytes = new byte[4096];
+            for (int n = inputStream.read(inputBytes); n > 0; n = inputStream.read(inputBytes)) {
+                byte[] outputBytes = cipher.update(inputBytes, 0, n);
+                outputStream.write(outputBytes);
+            }
+            byte[] outputBytes = cipher.doFinal();
+            outputStream.write(outputBytes);
+
+            return true;
+        } catch (Exception e) {
+            return false;
         }
-
-        return cipher.doFinal(fileBytes);
     }
 
     public static class EncryptedFile {
@@ -729,7 +828,7 @@ public final class EncryptionUtils {
 
         // check authentication tag
         byte[] extractedAuthenticationTag = Arrays.copyOfRange(bytes,
-                                                               bytes.length - (128 / 8),
+                                                               bytes.length - AUTHENTICATION_TAG_LENGTH,
                                                                bytes.length);
 
         if (!Arrays.equals(extractedAuthenticationTag, authenticationTag)) {
