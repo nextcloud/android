@@ -137,7 +137,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         vm.query.observe(this) { query ->
             if (activity is FileDisplayActivity) {
                 (activity as FileDisplayActivity)
-                    .updateActionBarTitleAndHomeButtonByString("\"${query}\"")
+                    .updateActionBarTitleAndHomeButtonByString(null)
             }
         }
         vm.browserUri.observe(this) { uri ->
@@ -169,7 +169,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         if (activity is FileDisplayActivity) {
             val fileDisplayActivity = activity as FileDisplayActivity
             fileDisplayActivity.setMainFabVisible(false)
-            fileDisplayActivity.updateActionBarTitleAndHomeButtonByString("\"${vm.query.value!!}\"")
+            fileDisplayActivity.updateActionBarTitleAndHomeButtonByString(null)
         }
 
         val gridLayoutManager = GridLayoutManager(requireContext(), 1)
