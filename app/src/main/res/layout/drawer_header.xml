@@ -19,7 +19,7 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_header_view"
     android:layout_width="match_parent"
@@ -39,11 +39,12 @@
 
     <TextView
         android:id="@+id/drawer_header_server_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:ellipsize="middle"
-        android:gravity="center_vertical"
+        android:gravity="bottom|center_horizontal"
+        android:padding="@dimen/standard_half_padding"
         android:textSize="18sp"
         android:textStyle="bold"
         tools:text="Custom Server Name" />
-</LinearLayout>
+</FrameLayout>
