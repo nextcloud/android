@@ -282,7 +282,7 @@
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
     <string name="error_showing_encryption_dialog">Produciuse un erro ao amosar o diálogo de configuración do cifrado!</string>
     <string name="error_starting_direct_camera_upload">Produciuse un erro ao iniciar a cámara</string>
-    <string name="error_starting_doc_scan">Produciuse un erro ao iniciar o escaneado do documento</string>
+    <string name="error_starting_doc_scan">Produciuse un erro ao iniciar o escaneamento do documento</string>
     <string name="etm_accounts">Contas</string>
     <string name="etm_background_job_name">Nome do traballo</string>
     <string name="etm_background_job_progress">Progreso</string>
@@ -422,7 +422,7 @@
     <string name="link_share_editing">Editando</string>
     <string name="link_share_file_drop">Soltar ficheiro (só envíos) </string>
     <string name="link_share_view_only">Só ver</string>
-    <string name="list_layout">Ver como lista</string>
+    <string name="list_layout">Disposición de lista</string>
     <string name="load_more_results">Cargando máis resultados</string>
     <string name="local_file_list_empty">Non hai ficheiros neste cartafol.</string>
     <string name="local_file_not_found_message">Non se atopou o ficheiro no sistema local de ficheiros</string>
@@ -766,7 +766,7 @@
     <string name="subject_shared_with_you">«%1$s» foi compartido con vostede</string>
     <string name="subject_user_shared_with_you">%1$s compartiu «%2$s» con vostede</string>
     <string name="subtitle_photos_only">Só fotos</string>
-    <string name="subtitle_photos_videos">Fotos &amp; vídeos</string>
+    <string name="subtitle_photos_videos">Fotos e vídeos</string>
     <string name="subtitle_videos_only">Só vídeos</string>
     <string name="suggest">Suxerir</string>
     <string name="sync_conflicts_in_favourites_ticker">Atopáronse conflitos</string>
