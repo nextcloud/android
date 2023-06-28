@@ -372,6 +372,7 @@
     <string name="filename_hint">Ime datoteke</string>
     <string name="first_run_1_text">Hranite podatke varno in pod vašim nadzorom</string>
     <string name="first_run_2_text">Varno sodelovanje in izmenjava datotek</string>
+    <string name="first_run_3_text">Enostavna uporaba spletne pošte, koledarja in stikov</string>
     <string name="first_run_4_text">Souporaba zaslona, spletni sestanki in konference</string>
     <string name="folder_already_exists">Mapa že obstaja</string>
     <string name="folder_confirm_create">Ustvari</string>
@@ -551,7 +552,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
-    <string name="prefs_daily_backup_summary">Dnevno varnostno kopiranje koledarja &amp; stikov</string>
+    <string name="prefs_daily_backup_summary">Dnevno varnostno kopiranje koledarja in stikov</string>
     <string name="prefs_daily_contact_backup_summary">Dnevno usklajevanje stikov</string>
     <string name="prefs_davx5_setup_error">Nepričakovana napaka pri nastavljanju DAVx5 (prej poznano kot DAVdroid)</string>
     <string name="prefs_e2e_active">Celovito šifriranje E2E je nastavljeno!</string>
