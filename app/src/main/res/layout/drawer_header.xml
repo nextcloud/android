@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Nextcloud Android client application
 
   Copyright (C) 2016 Andy Scherzinger
@@ -19,32 +18,82 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_header_view"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/drawer_header_height"
-    android:fitsSystemWindows="true"
-    android:orientation="horizontal"
-    tools:background="@color/primary">
+    android:layout_height="wrap_content"
+    android:background="@color/primary"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/drawer_header_logo"
+    <FrameLayout
+        android:id="@+id/drawer_header_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/standard_margin"
-        android:contentDescription="@null"
-        android:scaleType="fitCenter"
-        android:src="@drawable/nextcloud_logo" />
+        android:layout_height="@dimen/drawer_header_height"
+        android:fitsSystemWindows="true"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/drawer_header_server_name"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:ellipsize="middle"
-        android:gravity="bottom|center_horizontal"
-        android:padding="@dimen/standard_half_padding"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:text="Custom Server Name" />
-</FrameLayout>
+        <ImageView
+            android:id="@+id/drawer_header_logo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/standard_margin"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/nextcloud_logo" />
+
+        <TextView
+            android:id="@+id/drawer_header_server_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:ellipsize="middle"
+            android:fontFamily="sans-serif"
+            android:padding="@dimen/standard_half_padding"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            tools:text="Custom Server Name" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/drawer_ecosystem_apps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/standard_half_margin"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:contentDescription="@string/ecosystem_apps_notes"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_notes"
+            app:tint="@color/white" />
+
+        <ImageButton
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:contentDescription="@string/ecosystem_apps_talk"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_talk"
+            app:tint="@color/white" />
+
+        <ImageButton
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:contentDescription="@string/ecosystem_apps_more"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_more_apps"
+            app:tint="@color/white" />
+
+    </LinearLayout>
+
+</LinearLayout>

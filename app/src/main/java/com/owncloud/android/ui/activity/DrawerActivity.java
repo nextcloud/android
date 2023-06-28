@@ -48,9 +48,8 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.webkit.URLUtil;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -297,6 +296,11 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     public void updateHeader() {
+        // hide ecosystem apps when in branded client
+        if (getResources().getBoolean(R.bool.is_branded_client)) {
+            mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps).setVisibility(View.GONE);
+        }
+
         if (getAccount() != null &&
             getCapabilities().getServerBackground() != null) {
 
@@ -305,7 +309,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             int primaryColor = themeColorUtils.unchangedPrimaryColor(getAccount(), this);
 
             // set background to primary color
-            LinearLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
+            FrameLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
             drawerHeader.setBackgroundColor(primaryColor);
 
             if (!TextUtils.isEmpty(logo) && URLUtil.isValidUrl(logo)) {
@@ -320,7 +324,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     .decoder(new SvgOrImageDecoder());
 
                 // background image
-                SimpleTarget target = new SimpleTarget<Bitmap>() {
+                SimpleTarget<Bitmap> target = new SimpleTarget<>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
 
@@ -355,14 +359,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         imageHeader.setAdjustViewBounds(true);
 
         imageHeader.setMaxWidth(DisplayUtils.convertDpToPixel(100f, this));
-
-        MarginLayoutParams oldParam = (MarginLayoutParams) imageHeader.getLayoutParams();
-        MarginLayoutParams params = new MarginLayoutParams(LayoutParams.WRAP_CONTENT,
-                                                           LayoutParams.MATCH_PARENT);
-        params.leftMargin = oldParam.leftMargin;
-        params.rightMargin = oldParam.rightMargin;
-
-        imageHeader.setLayoutParams(new LinearLayout.LayoutParams(params));
 
         if (!TextUtils.isEmpty(name)) {
             TextView serverName = mNavigationViewHeader.findViewById(R.id.drawer_header_server_name);

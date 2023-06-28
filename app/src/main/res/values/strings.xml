@@ -1088,4 +1088,7 @@
     <string name="image_editor_flip_vertical">Flip vertically</string>
     <string name="image_editor_unable_to_edit_image">Unable to edit image.</string>
     <string name="image_editor_file_edited_suffix">edited</string>
+    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="ecosystem_apps_more">More Nextcloud Apps</string>
 </resources>
