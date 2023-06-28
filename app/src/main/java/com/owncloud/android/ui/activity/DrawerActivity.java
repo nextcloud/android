@@ -296,11 +296,6 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     public void updateHeader() {
-        // hide ecosystem apps when in branded client
-        if (getResources().getBoolean(R.bool.is_branded_client)) {
-            mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps).setVisibility(View.GONE);
-        }
-
         if (getAccount() != null &&
             getCapabilities().getServerBackground() != null) {
 
@@ -349,6 +344,62 @@ public abstract class DrawerActivity extends ToolbarActivity
                     .load(Uri.parse(logo))
                     .into(target);
             }
+        }
+
+        // hide ecosystem apps when in branded client
+        LinearLayout ecosystemApps = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
+        if (getResources().getBoolean(R.bool.is_branded_client)) {
+            ecosystemApps.setVisibility(View.GONE);
+        } else {
+            ecosystemApps.findViewById(R.id.drawer_ecosystem_notes).setOnClickListener(v -> {
+                openAppOrStore("it.niedermann.owncloud.notes",
+                               "it.niedermann.owncloud.notes.main.MainActivity");
+            });
+            ecosystemApps.findViewById(R.id.drawer_ecosystem_talk).setOnClickListener(v -> {
+                openAppOrStore("com.nextcloud.talk2",
+                               "com.nextcloud.talk.activities.MainActivity");
+            });
+            ecosystemApps.findViewById(R.id.drawer_ecosystem_more).setOnClickListener(v -> {
+                openAppStore("Nextcloud", true);
+            });
+        }
+    }
+
+    /**
+     * Open specified app and, if not installed redirect to corresponding download.
+     *
+     * @param packageName of app to be opened
+     * @param className of app for intent to be called
+     */
+    private void openAppOrStore(String packageName, String className) {
+        try {
+            // attempt to open app directly
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setClassName(packageName, className);
+            startActivity(intent);
+        } catch (android.content.ActivityNotFoundException activityNotFoundException) {
+            // attempt to open market (Google Play Store, F-Droid, etc.)
+            openAppStore(packageName, false);
+        }
+    }
+
+    /**
+     *
+     * @param string packageName or url-encoded search string
+     * @param search false -> show app corresponding to packageName; true -> open search for string
+     */
+    private void openAppStore(String string, Boolean search) {
+        String suffix = (search ? "search?q=" : "details?id=") + string;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://" + suffix));
+        try {
+            startActivity(intent);
+        } catch (android.content.ActivityNotFoundException activityNotFoundException1) {
+            // all is lost: open google play store web page for app
+            if (!search) {
+                suffix = "apps/" + suffix;
+            }
+            intent.setData(Uri.parse("https://play.google.com/store/" + suffix));
+            startActivity(intent);
         }
     }
 

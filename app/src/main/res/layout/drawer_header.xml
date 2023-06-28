@@ -65,6 +65,7 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/drawer_ecosystem_notes"
             android:layout_width="@dimen/minimum_size_for_touchable_area"
             android:layout_height="@dimen/minimum_size_for_touchable_area"
             android:background="?android:selectableItemBackgroundBorderless"
@@ -75,6 +76,7 @@
             app:tint="@color/white" />
 
         <ImageButton
+            android:id="@+id/drawer_ecosystem_talk"
             android:layout_width="@dimen/minimum_size_for_touchable_area"
             android:layout_height="@dimen/minimum_size_for_touchable_area"
             android:background="?android:selectableItemBackgroundBorderless"
@@ -85,6 +87,7 @@
             app:tint="@color/white" />
 
         <ImageButton
+            android:id="@+id/drawer_ecosystem_more"
             android:layout_width="@dimen/minimum_size_for_touchable_area"
             android:layout_height="@dimen/minimum_size_for_touchable_area"
             android:background="?android:selectableItemBackgroundBorderless"
