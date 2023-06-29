@@ -97,12 +97,12 @@ class EditImageActivity :
 
     override fun onCropImageComplete(view: CropImageView, result: CropImageView.CropResult) {
         if (!result.isSuccessful) {
-            DisplayUtils.showSnackMessage(this, "Unable to edit image.")
+            DisplayUtils.showSnackMessage(this, getString(R.string.image_editor_unable_to_edit_image))
             return
         }
         val resultUri = result.getUriFilePath(this, false)
         val newFileName = file.fileName.substring(0, file.fileName.lastIndexOf('.')) +
-            " edited" +
+            " " + getString(R.string.image_editor_file_edited_suffix) +
             resultUri?.substring(resultUri.lastIndexOf('.'))
 
         FilesUploadHelper().uploadNewFiles(
@@ -120,7 +120,7 @@ class EditImageActivity :
 
     override fun onSetImageUriComplete(view: CropImageView, uri: Uri, error: Exception?) {
         if (error != null) {
-            DisplayUtils.showSnackMessage(this, "Unable to edit image.")
+            DisplayUtils.showSnackMessage(this, getString(R.string.image_editor_unable_to_edit_image))
             return
         }
         view.visibility = View.VISIBLE
