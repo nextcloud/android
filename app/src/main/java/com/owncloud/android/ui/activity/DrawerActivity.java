@@ -49,7 +49,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.URLUtil;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -304,7 +303,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             int primaryColor = themeColorUtils.unchangedPrimaryColor(getAccount(), this);
 
             // set background to primary color
-            FrameLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
+            LinearLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
             drawerHeader.setBackgroundColor(primaryColor);
 
             if (!TextUtils.isEmpty(logo) && URLUtil.isValidUrl(logo)) {
@@ -403,7 +402,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private void setDrawerHeaderLogo(Drawable drawable, String name) {
+    private void setDrawerHeaderLogo(Drawable drawable, String serverName) {
         ImageView imageHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_logo);
         imageHeader.setImageDrawable(drawable);
         imageHeader.setScaleType(ImageView.ScaleType.FIT_START);
@@ -411,10 +410,11 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         imageHeader.setMaxWidth(DisplayUtils.convertDpToPixel(100f, this));
 
-        if (!TextUtils.isEmpty(name)) {
-            TextView serverName = mNavigationViewHeader.findViewById(R.id.drawer_header_server_name);
-            serverName.setText(name);
-            serverName.setTextColor(themeColorUtils.unchangedFontColor(this));
+        if (!TextUtils.isEmpty(serverName)) {
+            TextView serverNameView = mNavigationViewHeader.findViewById(R.id.drawer_header_server_name);
+            serverNameView.setVisibility(View.VISIBLE);
+            serverNameView.setText(serverName);
+            serverNameView.setTextColor(themeColorUtils.unchangedFontColor(this));
         }
 
     }

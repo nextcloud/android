@@ -21,47 +21,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_header_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/primary"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/drawer_header_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/drawer_header_height"
-        android:fitsSystemWindows="true"
-        android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/standard_margin">
 
         <ImageView
             android:id="@+id/drawer_header_logo"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/standard_margin"
             android:contentDescription="@null"
+            android:maxWidth="96dp"
             android:scaleType="fitCenter"
             android:src="@drawable/nextcloud_logo" />
 
         <TextView
             android:id="@+id/drawer_header_server_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:ellipsize="middle"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/standard_half_margin"
+            android:ellipsize="end"
             android:fontFamily="sans-serif"
-            android:padding="@dimen/standard_half_padding"
+            android:gravity="center_vertical"
+            android:maxLines="2"
             android:textColor="@color/white"
             android:textSize="18sp"
-            tools:text="Custom Server Name" />
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:ignore="RtlHardcoded"
+            tools:text="Nextcloud" />
 
-    </FrameLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/drawer_ecosystem_apps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/standard_half_margin"
+        android:layout_marginBottom="@dimen/standard_half_margin"
         android:orientation="horizontal">
 
         <ImageButton
