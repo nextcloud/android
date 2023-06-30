@@ -351,12 +351,10 @@ public abstract class DrawerActivity extends ToolbarActivity
             ecosystemApps.setVisibility(View.GONE);
         } else {
             ecosystemApps.findViewById(R.id.drawer_ecosystem_notes).setOnClickListener(v -> {
-                openAppOrStore("it.niedermann.owncloud.notes",
-                               "it.niedermann.owncloud.notes.main.MainActivity");
+                openAppOrStore("it.niedermann.owncloud.notes");
             });
             ecosystemApps.findViewById(R.id.drawer_ecosystem_talk).setOnClickListener(v -> {
-                openAppOrStore("com.nextcloud.talk2",
-                               "com.nextcloud.talk.activities.MainActivity");
+                openAppOrStore("com.nextcloud.talk2");
             });
             ecosystemApps.findViewById(R.id.drawer_ecosystem_more).setOnClickListener(v -> {
                 openAppStore("Nextcloud", true);
@@ -368,16 +366,15 @@ public abstract class DrawerActivity extends ToolbarActivity
      * Open specified app and, if not installed redirect to corresponding download.
      *
      * @param packageName of app to be opened
-     * @param className of app for intent to be called
      */
-    private void openAppOrStore(String packageName, String className) {
-        try {
-            // attempt to open app directly
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setClassName(packageName, className);
+    private void openAppOrStore(String packageName) {
+        Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
+        if (intent != null) {
+            // app installed - open directly
+            intent.putExtra(FileDisplayActivity.KEY_ACTIVE_USER, getUser().get().hashCode());
             startActivity(intent);
-        } catch (android.content.ActivityNotFoundException activityNotFoundException) {
-            // attempt to open market (Google Play Store, F-Droid, etc.)
+        } else {
+            // app not found - open market (Google Play Store, F-Droid, etc.)
             openAppStore(packageName, false);
         }
     }

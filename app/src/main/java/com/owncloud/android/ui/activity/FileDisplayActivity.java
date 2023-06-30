@@ -191,6 +191,7 @@ public class FileDisplayActivity extends FileActivity
     public static final String KEY_FILE_ID = "KEY_FILE_ID";
     public static final String KEY_FILE_PATH = "KEY_FILE_PATH";
     public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
+    public static final String KEY_ACTIVE_USER = "KEY_ACTIVE_USER";
 
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
@@ -2491,6 +2492,7 @@ public class FileDisplayActivity extends FileActivity
         String userName = intent.getStringExtra(KEY_ACCOUNT);
         String fileId = intent.getStringExtra(KEY_FILE_ID);
         String filePath = intent.getStringExtra(KEY_FILE_PATH);
+        String activeUser = intent.getStringExtra(KEY_ACTIVE_USER);
 
         if (userName == null && fileId == null && intent.getData() != null) {
             openDeepLink(intent.getData());
