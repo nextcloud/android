@@ -21,18 +21,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_header_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/primary"
+    android:gravity="center"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="64dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/standard_margin">
+        android:id="@+id/drawer_header_view"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:background="@color/primary"
+        android:gravity="center"
+        android:padding="@dimen/standard_padding">
 
         <ImageView
             android:id="@+id/drawer_header_logo"
@@ -52,7 +53,7 @@
             android:fontFamily="sans-serif"
             android:gravity="center_vertical"
             android:maxLines="2"
-            android:textColor="@color/white"
+            android:textColor="@color/text_color_inverse"
             android:textSize="18sp"
             android:textStyle="bold"
             android:visibility="gone"
@@ -65,43 +66,104 @@
         android:id="@+id/drawer_ecosystem_apps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/standard_half_margin"
+        android:layout_margin="@dimen/standard_half_margin"
         android:orientation="horizontal">
 
-        <ImageButton
+        <LinearLayout
             android:id="@+id/drawer_ecosystem_notes"
-            android:layout_width="@dimen/minimum_size_for_touchable_area"
-            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="?android:selectableItemBackgroundBorderless"
-            android:contentDescription="@string/ecosystem_apps_notes"
-            android:padding="8dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_notes"
-            app:tint="@color/white" />
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
 
-        <ImageButton
+            <Button
+                style="?attr/materialIconButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:contentDescription="@string/ecosystem_apps_notes"
+                app:icon="@drawable/ic_notes"
+                app:iconTint="@color/primary"
+                app:strokeColor="@color/primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Notes"
+                android:textAllCaps="true"
+                android:textColor="@color/primary"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/drawer_ecosystem_talk"
-            android:layout_width="@dimen/minimum_size_for_touchable_area"
-            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/standard_double_margin"
             android:background="?android:selectableItemBackgroundBorderless"
-            android:contentDescription="@string/ecosystem_apps_talk"
-            android:padding="8dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_talk"
-            app:tint="@color/white" />
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
 
-        <ImageButton
+            <Button
+                style="?attr/materialIconButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:contentDescription="@string/ecosystem_apps_talk"
+                app:icon="@drawable/ic_talk"
+                app:iconTint="@color/primary"
+                app:strokeColor="@color/primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Talk"
+                android:textAllCaps="true"
+                android:textColor="@color/primary"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/drawer_ecosystem_more"
-            android:layout_width="@dimen/minimum_size_for_touchable_area"
-            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="?android:selectableItemBackgroundBorderless"
-            android:contentDescription="@string/ecosystem_apps_more"
-            android:padding="8dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_more_apps"
-            app:tint="@color/white" />
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <Button
+                style="?attr/materialIconButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:contentDescription="@string/ecosystem_apps_more"
+                app:icon="@drawable/ic_more_apps"
+                app:iconTint="@color/primary"
+                app:strokeColor="@color/primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="More"
+                android:textAllCaps="true"
+                android:textColor="@color/primary"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
