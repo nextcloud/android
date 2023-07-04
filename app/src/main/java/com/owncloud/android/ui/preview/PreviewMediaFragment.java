@@ -30,6 +30,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -64,6 +65,7 @@ import com.owncloud.android.databinding.FragmentPreviewMediaBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.StreamMediaFileOperation;
+import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -84,7 +86,9 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -271,7 +275,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                         setThumbnailForAudio(file);
                     }
                 } catch (Throwable t) {
-                    binding.imagePreview.setImageResource(R.drawable.logo);
+                    setGenericThumbnail();
                 }
             }
         }
@@ -284,7 +288,21 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         if (thumbnail != null) {
             binding.imagePreview.setImageBitmap(thumbnail);
         } else {
-            binding.imagePreview.setImageResource(R.drawable.logo);
+            setGenericThumbnail();
+        }
+    }
+
+    /**
+     * Set generic icon (logo) as placeholder for thumbnail in preview.
+     */
+    private void setGenericThumbnail() {
+        Drawable logo = AppCompatResources.getDrawable(requireContext(), R.drawable.logo);
+        if (logo != null) {
+            if (!getResources().getBoolean(R.bool.is_branded_client)) {
+                // only colour logo of non-branded client
+                DrawableCompat.setTint(logo, getResources().getColor(R.color.primary, requireContext().getTheme()));
+            }
+            binding.imagePreview.setImageDrawable(logo);
         }
     }
 
@@ -395,7 +413,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                     showFileActions(file);
                 }
             }
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -409,7 +426,8 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 R.id.action_move,
                 R.id.action_copy,
                 R.id.action_favorite,
-                R.id.action_unset_favorite
+                R.id.action_unset_favorite,
+                R.id.action_pin_to_homescreen
                          ));
         if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
             additionalFilter.add(R.id.action_send_share_file);
@@ -441,6 +459,13 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                                                                     getContext(),
                                                                     getView(),
                                                                     backgroundJobManager);
+        } else if (itemId == R.id.action_download_file) {
+            if (!containerActivity.getFileDownloaderBinder().isDownloading(user, getFile())) {
+                Intent i = new Intent(requireActivity(), FileDownloader.class);
+                i.putExtra(FileDownloader.EXTRA_USER, user);
+                i.putExtra(FileDownloader.EXTRA_FILE, getFile());
+                requireActivity().startService(i);
+            }
         }
     }
 
@@ -481,16 +506,16 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private void playVideoUri(final Uri uri) {
         binding.progress.setVisibility(View.GONE);
 
-        exoPlayer.addMediaItem(MediaItem.fromUri(uri));
+        exoPlayer.setMediaItem(MediaItem.fromUri(uri));
+        exoPlayer.setPlayWhenReady(autoplay);
         exoPlayer.prepare();
 
         if (savedPlaybackPosition >= 0) {
             exoPlayer.seekTo(savedPlaybackPosition);
         }
 
-        if (autoplay) {
-            exoPlayer.play();
-        }
+        // only autoplay video once
+        autoplay = false;
     }
 
     @Override
@@ -635,7 +660,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private void openFile() {
         stopPreview(true);
         containerActivity.getFileOperationsHelper().openFile(getFile());
-        finishPreview();
     }
 
     /**
@@ -653,17 +677,8 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         if (MimeTypeUtil.isAudio(file) && stopAudio) {
             mediaPlayerServiceConnection.pause();
         } else if (MimeTypeUtil.isVideo(file)) {
-            exoPlayer.stop(true);
-        }
-    }
-
-    /**
-     * Finishes the preview
-     */
-    private void finishPreview() {
-        final Activity activity = getActivity();
-        if (activity != null) {
-            activity.onBackPressed();
+            savedPlaybackPosition = exoPlayer.getCurrentPosition();
+            exoPlayer.stop();
         }
     }
 
