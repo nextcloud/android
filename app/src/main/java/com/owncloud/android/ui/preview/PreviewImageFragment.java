@@ -422,6 +422,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                                                     getContext(),
                                                                     getView(),
                                                                     backgroundJobManager);
+        } else if (itemId == R.id.action_edit) {
+            ((PreviewImageActivity) requireActivity()).startImageEditor(getFile());
         }
     }
 

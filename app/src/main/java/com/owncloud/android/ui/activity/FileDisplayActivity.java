@@ -62,6 +62,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.core.AsyncRunner;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.files.DeepLinkHandler;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
@@ -1511,18 +1512,20 @@ public class FileDisplayActivity extends FileActivity
             if (mWaitingToSend != null) {
                 // update file after downloading
                 mWaitingToSend = getStorageManager().getFileByRemoteId(mWaitingToSend.getRemoteId());
-                if (mWaitingToSend != null && mWaitingToSend.isDown() && downloadBehaviour != null) {
-                    switch (downloadBehaviour) {
-                        case OCFileListFragment.DOWNLOAD_SEND:
-                            String packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME);
-                            String activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME);
+                if (mWaitingToSend != null && mWaitingToSend.isDown() &&
+                    OCFileListFragment.DOWNLOAD_SEND.equals(downloadBehaviour)) {
+                    String packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME);
+                    String activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME);
 
-                            sendDownloadedFile(packageName, activityName);
-                            break;
-                        default:
-                            // do nothing
-                            break;
-                    }
+                    sendDownloadedFile(packageName, activityName);
+                }
+            }
+
+            if (mWaitingToPreview != null) {
+                mWaitingToPreview = getStorageManager().getFileByRemoteId(mWaitingToPreview.getRemoteId());
+                if (mWaitingToPreview != null && mWaitingToPreview.isDown() &&
+                    EditImageActivity.OPEN_IMAGE_EDITOR.equals(downloadBehaviour)) {
+                    startImageEditor(mWaitingToPreview);
                 }
             }
         }
@@ -2273,6 +2276,27 @@ public class FileDisplayActivity extends FileActivity
         requestForDownload();
         updateActionBarTitleAndHomeButton(file);
         setFile(file);
+    }
+
+
+    /**
+     * Opens EditImageActivity with given file loaded. If file is not available locally, it will be synced before
+     * opening the image editor.
+     *
+     * @param file      {@link OCFile} (image) to be loaded into image editor
+     */
+    public void startImageEditor(OCFile file) {
+        if (file.isDown()) {
+            Intent editImageIntent = new Intent(this, EditImageActivity.class);
+            editImageIntent.putExtra(EditImageActivity.EXTRA_FILE, file);
+            startActivity(editImageIntent);
+        } else {
+            mWaitingToPreview = file;
+            requestForDownload(file,EditImageActivity.OPEN_IMAGE_EDITOR, getPackageName(),
+                               this.getClass().getSimpleName());
+            updateActionBarTitleAndHomeButton(file);
+            setFile(file);
+        }
     }
 
 
