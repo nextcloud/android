@@ -32,6 +32,7 @@
     <string name="activity_icon">Dejavnosti</string>
     <string name="add_another_public_share_link">Dodaj novo povezavo</string>
     <string name="add_new_public_share">Nova javna povezava za souporabo</string>
+    <string name="add_new_secure_file_drop">Dodaj novo mesto varnega pošiljanja</string>
     <string name="add_to_cloud">Dodaj v %1$s</string>
     <string name="advanced_settings">Napredne nastavitve</string>
     <string name="allow_resharing">Dovoli nadaljnje omogočanje souporabe</string>
@@ -157,6 +158,7 @@
     <string name="conflict_local_file">Krajevna datoteka</string>
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
     <string name="conflict_server_file">Strežniška datoteka</string>
+    <string name="contact_backup_title">Varnostna kopija stikov</string>
     <string name="contactlist_item_icon">Ikona uporabnika za seznam stikov</string>
     <string name="contactlist_no_permission">Ni ustreznih dovoljenj, uvoz je prekinjen.</string>
     <string name="contacts">Stiki</string>
@@ -215,6 +217,7 @@
     <string name="done">Končano</string>
     <string name="dontClear">ne počisti</string>
     <string name="download_cannot_create_file">Krajevne datoteke ni mogoče ustvariti</string>
+    <string name="download_download_invalid_local_file_name">Neveljavno ime krajevne datoteke</string>
     <string name="download_latest_dev_version">Prejmi najnovejšo razvojno različico</string>
     <string name="downloader_download_failed_content">Ni mogoče prejeti %1$s</string>
     <string name="downloader_download_failed_credentials_error">Prejemanje je spodletelo; zahtevana je ponovna prijava.</string>
@@ -232,6 +235,7 @@
     <string name="drawer_item_all_files">Vse datoteke</string>
     <string name="drawer_item_favorites">Priljubljene</string>
     <string name="drawer_item_gallery">Predstavna vsebina</string>
+    <string name="drawer_item_groupfolders">Skupinske mape</string>
     <string name="drawer_item_home">Začetna stran</string>
     <string name="drawer_item_notifications">Obvestila</string>
     <string name="drawer_item_on_device">Na napravi</string>
@@ -245,6 +249,7 @@
     <string name="drawer_quota_unlimited">Skupaj %1$s</string>
     <string name="drawer_synced_folders">Samodejno pošiljanje</string>
     <string name="e2e_not_yet_setup">Celovito šifriranje E2E ni še nastavljeno.</string>
+    <string name="e2e_offline">Opravila ni mogoče izvesti brez vzpostavljene internetne povezave</string>
     <string name="encrypted">Nastavi kot šifrirano</string>
     <string name="end_to_end_encryption_confirm_button">Nastavitev šifriranja</string>
     <string name="end_to_end_encryption_decrypting">Poteka odšifriranje…</string>
@@ -275,6 +280,7 @@
     <string name="error_report_issue_text">Ali želite poslati poročilo na sledilnik (zahteva račun Github)?</string>
     <string name="error_retrieving_file">Pridobivanje datoteke je spodletelo</string>
     <string name="error_retrieving_templates">Napaka pridobivanja predlog</string>
+    <string name="error_showing_encryption_dialog">Napaka pri prikazu pogovornega okna nastavitev šifriranja!</string>
     <string name="error_starting_direct_camera_upload">Napaka začenjanja kamere</string>
     <string name="error_starting_doc_scan">Napaka pri začenjanju preverjanja dokumenta</string>
     <string name="etm_accounts">Računi</string>
@@ -393,6 +399,7 @@
     <string name="foreign_files_success">Vse datoteke so premaknjene</string>
     <string name="forward">Naprej</string>
     <string name="fourHours">po 4 urah</string>
+    <string name="hidden_file_name_warning">Ima bo označeno kot skrita datoteka</string>
     <string name="hint_name">Ime</string>
     <string name="hint_note">Opomba</string>
     <string name="hint_password">Geslo</string>
@@ -518,6 +525,7 @@
     <string name="pass_code_removed">Koda PIN je izbrisana</string>
     <string name="pass_code_stored">Koda PIN je shranjena</string>
     <string name="pass_code_wrong">Napačna koda PIN</string>
+    <string name="pdf_password_protected">Ni mogoče odpreti z geslom zaščitenega dokumenta PDF. Uporabiti je treba zunanji pregledovalnik.</string>
     <string name="pdf_zoom_tip">Kliknite na stran za približanje</string>
     <string name="permission_allow">Dovoli</string>
     <string name="permission_deny">Zavrni</string>
@@ -675,6 +683,7 @@
     <string name="share_password_title">Zaščiteno z geslom</string>
     <string name="share_permission_can_edit">Lahko ureja</string>
     <string name="share_permission_file_drop">Poteg datotek</string>
+    <string name="share_permission_secure_file_drop">Varno pošiljanje daottek</string>
     <string name="share_permission_view_only">Le ogled</string>
     <string name="share_permissions">Dovoljenja souporabe</string>
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
