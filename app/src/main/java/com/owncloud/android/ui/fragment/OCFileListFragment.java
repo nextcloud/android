@@ -1387,8 +1387,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public void updateOCFile(OCFile file) {
-        mAdapter.getFiles().remove(file);
-        mAdapter.getFiles().add(file);
+        List<OCFile> mFiles = mAdapter.getFiles();
+        mFiles.set(mFiles.indexOf(file), file);
         mAdapter.notifyItemChanged(file);
     }
 
