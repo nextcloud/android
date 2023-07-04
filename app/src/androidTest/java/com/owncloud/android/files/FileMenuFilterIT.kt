@@ -231,6 +231,44 @@ class FileMenuFilterIT : AbstractIT() {
         }
     }
 
+    @Test
+    fun filter_stream() {
+        val capability = OCCapability().apply {
+            endToEndEncryption = CapabilityBooleanType.TRUE
+        }
+
+        val encryptedVideo = OCFile("/e2e/1.mpg").apply {
+            isEncrypted = true
+            mimeType = "video/mpeg"
+        }
+
+        val normalVideo = OCFile("/folder/2.mpg").apply {
+            mimeType = "video/mpeg"
+            fileLength = SecureRandom().nextLong()
+        }
+
+        configureCapability(capability)
+
+        launchActivity<TestActivity>().use {
+            it.onActivity { activity ->
+                val filterFactory =
+                    FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
+
+                var sut = filterFactory.newInstance(encryptedVideo, mockComponentsGetter, true, user)
+                var toHide = sut.getToHide(false)
+
+                // encrypted video, with content
+                assertTrue(toHide.contains(R.id.action_stream_media))
+
+                // regular video, with content
+                sut = filterFactory.newInstance(normalVideo, mockComponentsGetter, true, user)
+                toHide = sut.getToHide(false)
+
+                assertFalse(toHide.contains(R.id.action_stream_media))
+            }
+        }
+    }
+
     private data class ExpectedLockVisibilities(
         val lockFile: Boolean,
         val unlockFile: Boolean
