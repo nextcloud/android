@@ -234,6 +234,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             getFileByDecryptedRemotePath(parentFolder.getDecryptedRemotePath() + uploadedFileName);
 
         assertNotNull(uploadedFile.getRemoteId());
+        assertNotNull(uploadedFile.getPermissions());
 
         if (localBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY ||
             localBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE) {
