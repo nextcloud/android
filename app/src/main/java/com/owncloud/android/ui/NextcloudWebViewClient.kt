@@ -108,10 +108,13 @@ open class NextcloudWebViewClient(val supportFragmentManager: FragmentManager) :
     ) {
         val errorCode = errorResponse?.statusCode ?: return
         if (errorCode == HttpStatus.SC_BAD_REQUEST) {
-            Log_OC.w(tag, "WebView failed with error code $errorCode; remove key chain aliases")
             // chosen client certificate alias does not seem to work -> discard it
-            val failingUrl = request?.url ?: return
-            val context = view?.context ?: return
+            val failingUrl = request?.url
+            val context = view?.context
+            if (failingUrl == null || context == null) {
+                return
+            }
+            Log_OC.w(tag, "WebView failed with error code $errorCode; remove key chain aliases")
             AdvancedX509KeyManager(context).removeKeys(failingUrl)
         }
     }
