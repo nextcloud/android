@@ -406,7 +406,7 @@ public class EncryptionTestIT extends AbstractIT {
         byte[] key = decodeStringToBase64Bytes("WANM0gRv+DhaexIsI0T3Lg==");
         byte[] iv = decodeStringToBase64Bytes("gKm3n+mJzeY26q4OfuZEqg==");
 
-        createFile("large1", 5000000);
+        createFile("large1", 500 * 1024 * 1024L);
         File file = getDummyFile("large1");
         String md5 = getMD5Sum(file);
         Log_OC.d("Large file", "Size: " + DisplayUtils.bytesToHumanReadable(file.length()));

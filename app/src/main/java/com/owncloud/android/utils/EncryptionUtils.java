@@ -629,7 +629,7 @@ public final class EncryptionUtils {
 
             // check authentication tag
             byte[] extractedAuthenticationTag = new byte[AUTHENTICATION_TAG_LENGTH];
-            inputStream.getChannel().position((int) inputFile.length() - AUTHENTICATION_TAG_LENGTH);
+            inputStream.getChannel().position(inputFile.length() - AUTHENTICATION_TAG_LENGTH);
 
             int readBytes = inputStream.read(extractedAuthenticationTag,
                                              0,
