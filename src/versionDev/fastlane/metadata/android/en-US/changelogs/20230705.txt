@@ -1,0 +1,8 @@
+Build(deps): Bump pl.droidsonroids.gif:android-gif-drawable
+Build(deps): Bump org.json:json from 20230227 to 20230618
+Build(deps): Bump pl.droidsonroids.gif:android-gif-drawable
+Build(deps): Bump com.squareup.leakcanary:leakcanary-android
+Build(deps): Bump com.vanniktech:emoji-google from 0.16.0 to 0.17.0
+Build(deps): Bump roomVersion from 2.5.1 to 2.5.2
+Update Nextcloud Android library
+Update 3rd-party dependencies
