@@ -30,6 +30,7 @@ import android.view.Menu;
 
 import com.nextcloud.android.files.FileLockingHelper;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -282,7 +283,8 @@ public class FileMenuFilter {
 
         String mimeType = files.iterator().next().getMimeType();
 
-        if (!isRichDocumentEditingSupported(capability, mimeType) && !editorUtils.isEditorAvailable(user, mimeType)) {
+        if (!isRichDocumentEditingSupported(capability, mimeType) && !editorUtils.isEditorAvailable(user, mimeType) &&
+            !(isSingleImage() && EditImageActivity.Companion.canBePreviewed(files.iterator().next()))) {
             toHide.add(R.id.action_edit);
         }
     }
@@ -380,7 +382,7 @@ public class FileMenuFilter {
     }
 
     private void filterStream(List<Integer> toHide) {
-        if (files.isEmpty() || !isSingleFile() || !isSingleMedia()) {
+        if (files.isEmpty() || !isSingleFile() || !isSingleMedia() || containsEncryptedFile()) {
             toHide.add(R.id.action_stream_media);
         }
     }

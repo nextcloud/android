@@ -34,11 +34,4 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"/>
 
-    <!-- LinearLayout
-        android:id="@+id/fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-            <!- - Preview: layout=@layout/preview_image_fragment - ->
-    </LinearLayout -->
-
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -3,7 +3,7 @@
     <string name="about_android">Apli %1$s Android</string>
     <string name="about_title">Sobre</string>
     <string name="about_version">versión %1$s</string>
-    <string name="about_version_with_build">versión %1$s, ref. construción%2$s</string>
+    <string name="about_version_with_build">versión %1$s, construción nº %2$s</string>
     <string name="account_creation_failed">Produciuse un fallo ao crear a conta</string>
     <string name="account_icon">Icona da conta</string>
     <string name="account_not_found">Non se atopou a conta!</string>
@@ -259,7 +259,7 @@
     <string name="end_to_end_encryption_generating_keys">Xerando chave novas…</string>
     <string name="end_to_end_encryption_keywords_description">As 12 palabras xuntas forman un contrasinal moi forte, permitíndolle só a vostede ver e facer uso dos seus  ficheiros cifrados. Escríbaas e mantéñaas nun lugar seguro.</string>
     <string name="end_to_end_encryption_not_enabled">Cifrado de extremo a extremo desactivado no servidor.</string>
-    <string name="end_to_end_encryption_passphrase_title">Tome nota do seu contrasinal de 12 palabras</string>
+    <string name="end_to_end_encryption_passphrase_title">Tome nota do seu contrasinal de cifrado de 12 palabras</string>
     <string name="end_to_end_encryption_password">Contrasinal…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recuperando chaves…</string>
     <string name="end_to_end_encryption_storing_keys">Almacenando as chaves</string>

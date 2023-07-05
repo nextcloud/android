@@ -2,11 +2,13 @@
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
+ * @author TSI-mc
  * @author Chris Narkiewicz
  *
  * Copyright (C) 2018 Tobias Kaminsky
  * Copyright (C) 2018 Nextcloud GmbH.
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,6 +29,7 @@ import android.os.AsyncTask;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -112,9 +115,9 @@ public class RemoteTrashbinRepository implements TrashbinRepository {
         @Override
         protected Boolean doInBackground(Void... voids) {
             try {
-                OwnCloudClient client = clientFactory.create(user);
+                NextcloudClient client = clientFactory.createNextcloudClient(user);
                 EmptyTrashbinRemoteOperation emptyTrashbinFileOperation = new EmptyTrashbinRemoteOperation();
-                RemoteOperationResult result = emptyTrashbinFileOperation.execute(client);
+                RemoteOperationResult<Boolean> result = emptyTrashbinFileOperation.execute(client);
                 return result.isSuccess();
             } catch (ClientFactory.CreationException e) {
                 Log_OC.e(this, "Cannot create client", e);

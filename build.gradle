@@ -18,7 +18,7 @@ buildscript {
         checkerVersion = "3.21.2"
         exoplayerVersion = "2.18.7"
         documentScannerVersion = "1.0.1"
-        roomVersion = "2.5.1"
+        roomVersion = "2.5.2"
 
         ciBuild = System.getenv("CI") == "true"
     }

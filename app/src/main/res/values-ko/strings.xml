@@ -84,7 +84,7 @@
     <string name="battery_optimization_disable">비활성화</string>
     <string name="battery_optimization_message">기기의 배터리 최적화가 활성화되어있습니다. 자동 업로드는 이 앱을 배터리 최적화에서 제외해야만 정상적으로 동작합니다.</string>
     <string name="battery_optimization_title">배터리 최적화</string>
-    <string name="brute_force_delay">시도 횟수가 너무 많아 기다려야 합니다</string>
+    <string name="brute_force_delay">시도 횟수가 너무 많아 기다려야 합니다.</string>
     <string name="calendar">일정</string>
     <string name="calendars">일정</string>
     <string name="certificate_load_problem">인증서를 불러올 수 없습니다.</string>
@@ -176,8 +176,8 @@
     <string name="copy_move_to_encrypted_folder_not_supported">암호화된 폴더로 복사/이동은 아직 지원하지 않습니다.</string>
     <string name="copy_to">다음으로 복사</string>
     <string name="could_not_download_image">전체 이미지를 다운로드 할 수 없습니다.</string>
-    <string name="could_not_retrieve_shares">공유를 가져올 수 없습니다</string>
-    <string name="could_not_retrieve_url">주소를 불러올 수 없었습니다</string>
+    <string name="could_not_retrieve_shares">공유를 가져올 수 없습니다.</string>
+    <string name="could_not_retrieve_url">주소를 불러올 수 없습니다.</string>
     <string name="create">생성</string>
     <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
     <string name="create_new">새로 만들기</string>
@@ -217,7 +217,7 @@
     <string name="done">완료</string>
     <string name="dontClear">지우지 않음</string>
     <string name="download_cannot_create_file">로컬 파일을 만들 수 없음</string>
-    <string name="download_download_invalid_local_file_name">로컬 저장소에서 사용할 수 없는 파일명입니다</string>
+    <string name="download_download_invalid_local_file_name">로컬 저장소에서 사용할 수 없는 파일명입니다.</string>
     <string name="download_latest_dev_version">최신 개발 버전 다운로드</string>
     <string name="downloader_download_failed_content">%1$s을(를) 다운로드할 수 없습니다</string>
     <string name="downloader_download_failed_credentials_error">다운로드 실패, 다시 로그인하십시오</string>
@@ -398,7 +398,7 @@
     <string name="foreign_files_success">모든 파일이 이동됨</string>
     <string name="forward">앞으로</string>
     <string name="fourHours">4 시간</string>
-    <string name="hidden_file_name_warning">이 이름은 파일을 숨김처리 할 것입니다</string>
+    <string name="hidden_file_name_warning">이 이름은 파일을 숨김처리 할 것입니다.</string>
     <string name="hint_name">이름</string>
     <string name="hint_note">참고</string>
     <string name="hint_password">암호</string>
@@ -413,7 +413,7 @@
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">잘못된 URL</string>
     <string name="invisible">숨겨짐</string>
-    <string name="label_empty">레이블은 비워 둘 수 없습니다</string>
+    <string name="label_empty">레이블은 비워 둘 수 없습니다.</string>
     <string name="last_backup">마지막 백업: %1$s</string>
     <string name="link">링크</string>
     <string name="link_name">링크 이름</string>
@@ -481,7 +481,7 @@
     <string name="new_media_folder_videos">비디오</string>
     <string name="new_notification">새 알림</string>
     <string name="new_version_was_created">새 버전 생성됨</string>
-    <string name="no_actions">이 사용자를 위한 액션이 없음</string>
+    <string name="no_actions">이 사용자를 위한 동작이 없음</string>
     <string name="no_browser_available">이 링크를 실행할 앱이 없습니다.</string>
     <string name="no_calendar_exists">달력 없음</string>
     <string name="no_email_app_available">메일 주소를 처리할 앱이 없음</string>
@@ -609,14 +609,14 @@
     <string name="recommend_subject">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요!</string>
     <string name="recommend_text">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요.\n다운로드 링크: %2$s</string>
     <string name="recommend_urls">%1$s 및 %2$s</string>
-    <string name="refresh_content">컨텐츠 새로고침</string>
+    <string name="refresh_content">콘텐츠 새로고침</string>
     <string name="reload">새로 고침</string>
     <string name="remote">(원격)</string>
     <string name="remote_file_fetch_failed">파일을 찾을 수 없음</string>
     <string name="remove_e2e">당신은 이 고객에 대하여 종단간 암호화를 일부 제거할 수 있습니다.</string>
     <string name="remove_e2e_message">당신은 이 고객에 대하여 종단간 암호화를 일부 제거할 수 있습니다. 암호화된 파일들은 서버에 남아있을 것이지만, 더이상 이 컴퓨터에 동기화 되지 않을 것입니다.</string>
     <string name="remove_fail_msg">삭제할 수 없음</string>
-    <string name="remove_notification_failed">알림을 지우는데 실패했습니다</string>
+    <string name="remove_notification_failed">알림을 지우는데 실패했습니다.</string>
     <string name="remove_push_notification">삭제</string>
     <string name="remove_success_msg">삭제함</string>
     <string name="rename_dialog_title">새 이름 입력</string>
@@ -636,7 +636,7 @@
     <string name="screenshot_01_gridView_heading">데이터 보호</string>
     <string name="screenshot_01_gridView_subline">자체 운영되는 생산성</string>
     <string name="screenshot_02_listView_heading">탐색하고 공유</string>
-    <string name="screenshot_02_listView_subline">모든 터치 액션</string>
+    <string name="screenshot_02_listView_subline">모든 터치 동작</string>
     <string name="screenshot_03_drawer_heading">활동, 공유, ...</string>
     <string name="screenshot_03_drawer_subline">빠르게 접근 가능한 모든 것.</string>
     <string name="screenshot_04_accounts_heading">모든 계정</string>
@@ -648,7 +648,7 @@
     <string name="search_error">검색 결과 조회 오류</string>
     <string name="select_all">모두 선택</string>
     <string name="select_media_folder">미디어 폴더 설정</string>
-    <string name="select_one_template">하나의 템플릿을 선택하십시오</string>
+    <string name="select_one_template">하나의 템플릿을 선택하세요.</string>
     <string name="select_template">템플릿 선택</string>
     <string name="send">보내기</string>
     <string name="send_note">받는이에게 메모 보내기</string>
@@ -705,7 +705,7 @@
     <string name="shared_with_you_by">다음을 이용해 나와 공유됨 %1$s</string>
     <string name="sharee_add_failed">공유사용자 추가 실패</string>
     <string name="show_images">사진 보기</string>
-    <string name="show_video">비디오 접근</string>
+    <string name="show_video">영상 보기</string>
     <string name="signup_with_provider">공급자로 가입</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s가 Nextcloud 계정%2$s에 액세스하도록 허용 하시겠습니까?</string>
     <string name="sort_by">정렬</string>
@@ -863,7 +863,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="upload_old_android">암호화는 안드로이드 5.0 이상 가능합니다</string>
     <string name="upload_query_move_foreign_files">공간이 부족해서 선택한 파일을 %1$s 폴더로 복사할 수 없습니다. 대신 이동하시겠습니까?</string>
     <string name="upload_scan_doc_upload">카메라로부터 문서 스캔</string>
-    <string name="upload_sync_conflict">동기화 충돌, 수동으로 해결해주세요</string>
+    <string name="upload_sync_conflict">동기화 충돌, 수동으로 해결해주세요.</string>
     <string name="upload_unknown_error">알 수 없는 오류</string>
     <string name="uploader_btn_alternative_text">선택</string>
     <string name="uploader_btn_upload_text">업로드</string>
@@ -934,7 +934,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="whats_new_skip">건너뛰기</string>
     <string name="whats_new_title">%1$s의 새로운 것</string>
     <string name="whats_your_status">당신의 상태는?</string>
-    <string name="widgets_not_available">위젯 기능은 %1$s 버전 25 이후부터 사용할 수 있습니다</string>
+    <string name="widgets_not_available">위젯 기능은 %1$s 버전 25 이후부터 사용할 수 있습니다.</string>
     <string name="widgets_not_available_title">사용할 수 없음</string>
     <string name="write_email">이메일 보내기</string>
     <string name="wrong_storage_path">데이터 저장 폴더가 존재하지 않습니다!</string>

@@ -267,7 +267,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.github.nextcloud-deps:sectioned-recyclerview:0.6.1'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.25'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.27'
     implementation 'com.github.nextcloud-deps:qrcodescanner:0.1.2.4' // 'com.github.blikoon:QRCodeScanner:0.1.2'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation('com.github.bumptech.glide:glide:3.8.0') {
@@ -275,7 +275,7 @@ dependencies {
     }
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'androidx.annotation:annotation:1.6.0'
-    implementation 'com.vanniktech:emoji-google:0.16.0'
+    implementation 'com.vanniktech:emoji-google:0.17.0'
 
     implementation "com.github.nextcloud-deps.hwsecurity:hwsecurity-fido:$fidoVersion"
     implementation "com.github.nextcloud-deps.hwsecurity:hwsecurity-fido2:$fidoVersion"
@@ -315,6 +315,9 @@ dependencies {
     implementation "io.noties:prism4j:$prismVersion"
     kapt "io.noties:prism4j-bundler:$prismVersion"
 
+    // dependencies for image cropping and rotation
+    implementation 'com.vanniktech:android-image-cropper:4.5.0'
+
     implementation('org.mnode.ical4j:ical4j:3.0.0') {
         ['org.apache.commons', 'commons-logging'].each {
             exclude group: "$it"
@@ -322,14 +325,14 @@ dependencies {
     }
 
     if (perfAnalysis) {
-        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.11'
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
     }
 
     // dependencies for local unit tests
     testImplementation 'junit:junit:4.13.2'
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "androidx.test:core:$androidxTestVersion"
-    testImplementation 'org.json:json:20230227'
+    testImplementation 'org.json:json:20230618'
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
     testImplementation "io.mockk:mockk:$mockkVersion"
