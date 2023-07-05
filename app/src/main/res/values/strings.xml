@@ -1091,4 +1091,7 @@
     <string name="ecosystem_apps_notes">Nextcloud Notes</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="ecosystem_apps_more">More Nextcloud Apps</string>
+    <string name="ecosystem_apps_display_notes">Notes</string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_display_more">More</string>
 </resources>
