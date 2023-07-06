@@ -95,10 +95,16 @@ object PermissionUtil {
      */
     @JvmStatic
     fun checkExternalStoragePermission(context: Context): Boolean = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> Environment.isExternalStorageManager() || checkSelfPermission(
-            context,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        )
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> Environment.isExternalStorageManager() ||
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) || checkSelfPermission(
+                    context,
+                    Manifest.permission.READ_MEDIA_VIDEO
+                )
+            } else {
+                checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+
         else -> checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
@@ -120,26 +126,13 @@ object PermissionUtil {
         permissionRequired: Boolean = false
     ) {
         if (!checkExternalStoragePermission(activity)) {
-            when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
-                    if (canRequestAllFilesPermission(activity)) {
-                        // can request All Files, show choice
-                        showPermissionChoiceDialog(activity, permissionRequired, viewThemeUtils)
-                    } else {
-                        // can not request all files, request READ_EXTERNAL_STORAGE
-                        requestStoragePermission(
-                            activity,
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            permissionRequired,
-                            viewThemeUtils
-                        )
-                    }
-                }
-                else -> requestStoragePermission(
-                    activity,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    permissionRequired,
-                    viewThemeUtils
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && canRequestAllFilesPermission(activity)) {
+                // can request All Files, show choice
+                showPermissionChoiceDialog(activity, permissionRequired, viewThemeUtils)
+            } else {
+                // can not request all files, request read-only access
+                requestStoragePermission(
+                    activity, Build.VERSION.SDK_INT >= Build.VERSION_CODES.R, permissionRequired, viewThemeUtils
                 )
             }
         }
@@ -150,26 +143,35 @@ object PermissionUtil {
      */
     // TODO inject this class to avoid passing ViewThemeUtils around
     private fun requestStoragePermission(
-        activity: Activity,
-        permission: String,
-        permissionRequired: Boolean,
-        viewThemeUtils: ViewThemeUtils
+        activity: Activity, readOnly: Boolean, permissionRequired: Boolean, viewThemeUtils: ViewThemeUtils
     ) {
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
         val shouldRequestPermission = !preferences.isStoragePermissionRequested || permissionRequired
 
+        // determine required permissions
+        val permissions = if (readOnly && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                // use granular media permissions
+                arrayOf(
+                    Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO
+                )
+            } else {
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+        } else {
+            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+
         fun doRequest() {
             ActivityCompat.requestPermissions(
-                activity,
-                arrayOf(permission),
-                PERMISSIONS_EXTERNAL_STORAGE
+                activity, permissions, PERMISSIONS_EXTERNAL_STORAGE
             )
             preferences.isStoragePermissionRequested = true
         }
 
-        if (shouldRequestPermission) {
+        if (permissions.isNotEmpty() && shouldRequestPermission) {
             // Check if we should show an explanation
-            if (shouldShowRequestPermissionRationale(activity, permission)) {
+            if (permissions.any { shouldShowRequestPermissionRationale(activity, it) }) {
                 // Show explanation to the user and then request permission
                 Snackbar
                     .make(
@@ -232,15 +234,12 @@ object PermissionUtil {
                             val intent = getManageAllFilesIntent(activity)
                             activity.startActivityForResult(intent, REQUEST_CODE_MANAGE_ALL_FILES)
                         }
-                        StoragePermissionDialogFragment.Result.MEDIA_READ_ONLY -> {
-                            requestStoragePermission(
-                                activity,
-                                Manifest.permission.READ_EXTERNAL_STORAGE,
-                                permissionRequired,
-                                viewThemeUtils
-                            )
-                        }
-                        StoragePermissionDialogFragment.Result.CANCEL -> {}
+
+                        StoragePermissionDialogFragment.Result.MEDIA_READ_ONLY -> requestStoragePermission(
+                            activity, true, permissionRequired, viewThemeUtils
+                        )
+
+                        else -> {}
                     }
                 }
             }

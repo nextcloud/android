@@ -41,7 +41,9 @@
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
@@ -64,6 +66,12 @@
     <!-- Apps that target Android 9 (API level 28) or higher and use foreground services
     must request the FOREGROUND_SERVICE permission -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- Runtime permissions introduced in Android 13 (API level 33) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
 
     <!-- Some Chromebooks don't support touch. Although not essential,
          it's a good idea to explicitly include this declaration. -->
