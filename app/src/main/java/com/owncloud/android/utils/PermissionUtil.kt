@@ -98,8 +98,7 @@ object PermissionUtil {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> Environment.isExternalStorageManager() ||
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) || checkSelfPermission(
-                    context,
-                    Manifest.permission.READ_MEDIA_VIDEO
+                    context, Manifest.permission.READ_MEDIA_VIDEO
                 )
             } else {
                 checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -121,9 +120,7 @@ object PermissionUtil {
     @JvmStatic
     @JvmOverloads
     fun requestExternalStoragePermission(
-        activity: AppCompatActivity,
-        viewThemeUtils: ViewThemeUtils,
-        permissionRequired: Boolean = false
+        activity: AppCompatActivity, viewThemeUtils: ViewThemeUtils, permissionRequired: Boolean = false
     ) {
         if (!checkExternalStoragePermission(activity)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && canRequestAllFilesPermission(activity)) {
@@ -173,17 +170,13 @@ object PermissionUtil {
             // Check if we should show an explanation
             if (permissions.any { shouldShowRequestPermissionRationale(activity, it) }) {
                 // Show explanation to the user and then request permission
-                Snackbar
-                    .make(
+                Snackbar.make(
                         activity.findViewById(android.R.id.content),
                         R.string.permission_storage_access,
                         Snackbar.LENGTH_INDEFINITE
-                    )
-                    .setAction(R.string.common_ok) {
+                    ).setAction(R.string.common_ok) {
                         doRequest()
-                    }
-                    .also { viewThemeUtils.material.themeSnackbar(it) }
-                    .show()
+                    }.also { viewThemeUtils.material.themeSnackbar(it) }.show()
             } else {
                 // No explanation needed, request the permission.
                 doRequest()
@@ -199,8 +192,8 @@ object PermissionUtil {
     private fun hasManageAllFilesActivity(context: Context): Boolean {
         val intent = getManageAllFilesIntent(context)
 
-        val launchables: List<ResolveInfo> = context.packageManager
-            .queryIntentActivities(intent, PackageManager.GET_RESOLVED_FILTER)
+        val launchables: List<ResolveInfo> =
+            context.packageManager.queryIntentActivities(intent, PackageManager.GET_RESOLVED_FILTER)
         return launchables.isNotEmpty()
     }
 
@@ -215,15 +208,12 @@ object PermissionUtil {
      */
     @RequiresApi(Build.VERSION_CODES.R)
     private fun showPermissionChoiceDialog(
-        activity: AppCompatActivity,
-        permissionRequired: Boolean,
-        viewThemeUtils: ViewThemeUtils
+        activity: AppCompatActivity, permissionRequired: Boolean, viewThemeUtils: ViewThemeUtils
     ) {
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
         val shouldRequestPermission = !preferences.isStoragePermissionRequested || permissionRequired
         if (shouldRequestPermission &&
-            activity.supportFragmentManager.findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG) == null
-        ) {
+            activity.supportFragmentManager.findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG) == null) {
             val listener: (requestKey: String, result: Bundle) -> Unit = { _, resultBundle ->
                 val result: StoragePermissionDialogFragment.Result? =
                     resultBundle.getParcelable(StoragePermissionDialogFragment.RESULT_KEY)
@@ -246,9 +236,7 @@ object PermissionUtil {
 
             activity.runOnUiThread {
                 activity.supportFragmentManager.setFragmentResultListener(
-                    StoragePermissionDialogFragment.REQUEST_KEY,
-                    activity,
-                    listener
+                    StoragePermissionDialogFragment.REQUEST_KEY, activity, listener
                 )
             }
 
@@ -258,11 +246,10 @@ object PermissionUtil {
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    private fun getManageAllFilesIntent(context: Context) =
-        Intent().apply {
-            action = Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
-            data = Uri.parse("package:${context.applicationContext.packageName}")
-        }
+    private fun getManageAllFilesIntent(context: Context) = Intent().apply {
+        action = Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
+        data = Uri.parse("package:${context.applicationContext.packageName}")
+    }
 
     /**
      * request camera permission.
@@ -272,9 +259,7 @@ object PermissionUtil {
     @JvmStatic
     fun requestCameraPermission(activity: Activity, requestCode: Int) {
         ActivityCompat.requestPermissions(
-            activity,
-            arrayOf(Manifest.permission.CAMERA),
-            requestCode
+            activity, arrayOf(Manifest.permission.CAMERA), requestCode
         )
     }
 }
