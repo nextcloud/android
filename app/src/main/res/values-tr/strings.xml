@@ -408,6 +408,12 @@
     <string name="icon_for_empty_list">Boş liste simgesi</string>
     <string name="icon_of_dashboard_widget">pano bileşeni simgesi</string>
     <string name="icon_of_widget_entry">Pano bileşeni kaydı simgesi</string>
+    <string name="image_editor_file_edited_suffix">düzenlendi</string>
+    <string name="image_editor_flip_horizontal">Yatay çevir</string>
+    <string name="image_editor_flip_vertical">Dikey çevir</string>
+    <string name="image_editor_rotate_ccw">Saat yönünün tersine döndür</string>
+    <string name="image_editor_rotate_cw">Saat yönünde döndür</string>
+    <string name="image_editor_unable_to_edit_image">Görsel düzenlenemedi.</string>
     <string name="in_folder">%1$s klasöründe</string>
     <string name="instant_upload_existing">Var olan dosyalar da yüklensin</string>
     <string name="instant_upload_on_charging">Yalnızca şarj edilirken yüklensin</string>

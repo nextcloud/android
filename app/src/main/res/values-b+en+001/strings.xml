@@ -408,6 +408,12 @@
     <string name="icon_for_empty_list">Icon for empty list</string>
     <string name="icon_of_dashboard_widget">Icon of dashboard widget</string>
     <string name="icon_of_widget_entry">Icon of widget entry</string>
+    <string name="image_editor_file_edited_suffix">edited</string>
+    <string name="image_editor_flip_horizontal">Flip horizontally</string>
+    <string name="image_editor_flip_vertical">Flip vertically</string>
+    <string name="image_editor_rotate_ccw">Rotate anti-clockwise</string>
+    <string name="image_editor_rotate_cw">Rotate clockwise</string>
+    <string name="image_editor_unable_to_edit_image">Unable to edit image.</string>
     <string name="in_folder">in folder %1$s</string>
     <string name="instant_upload_existing">Also upload existing files</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>

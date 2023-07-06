@@ -196,7 +196,7 @@
     <string name="delete_account_warning">Вилучити обліковий запис %s і знищити всі локальні файли?\n\nВилучення неможливо буде скасувати.</string>
     <string name="delete_entries">Вилучити записи</string>
     <string name="delete_link">Посилання на вилучення</string>
-    <string name="deselect_all">Зняти всі позначки</string>
+    <string name="deselect_all">Зняти всі мітки</string>
     <string name="destination_filename">Файл призначення</string>
     <string name="dev_version_new_version_available">Доступна нова версія</string>
     <string name="dev_version_no_information_available">Відсутня інформація</string>
@@ -795,7 +795,7 @@
     <string name="synced_folders_preferences_folder_path">Для %1$s</string>
     <string name="synced_folders_type">Тип</string>
     <string name="synced_icon">Синхронізований</string>
-    <string name="tags">Позначки</string>
+    <string name="tags">Мітки</string>
     <string name="test_server_button">Перевірка з\'єднання з сервером</string>
     <string name="thirtyMinutes">30 хвилин</string>
     <string name="thisWeek">Цього тижня</string>
