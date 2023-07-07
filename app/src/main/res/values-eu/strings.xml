@@ -158,6 +158,7 @@
     <string name="conflict_local_file">Fitxategi lokala</string>
     <string name="conflict_message_description">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
     <string name="conflict_server_file">Zerbitzariko fitxategia</string>
+    <string name="contact_backup_title">Kontaktuen segurtasun kopia</string>
     <string name="contactlist_item_icon">Erabiltzailearen ikonoa kontaktuen zerrendarako</string>
     <string name="contactlist_no_permission">Ez da baimenik eman, ez da ezer inportatu.</string>
     <string name="contacts">Kontaktuak</string>
@@ -234,6 +235,7 @@
     <string name="drawer_item_all_files">Fitxategi guztiak</string>
     <string name="drawer_item_favorites">Gogokoak</string>
     <string name="drawer_item_gallery">Media</string>
+    <string name="drawer_item_groupfolders">Talde-karpetak</string>
     <string name="drawer_item_home">Etxea</string>
     <string name="drawer_item_notifications">Jakinarazpenak</string>
     <string name="drawer_item_on_device">Gailura</string>
@@ -247,6 +249,7 @@
     <string name="drawer_quota_unlimited">%1$s erabilita</string>
     <string name="drawer_synced_folders">Kargatu automatikoki</string>
     <string name="e2e_not_yet_setup">MME (E2E) ez dago konfiguratuta</string>
+    <string name="e2e_offline">Ez da posible internet konexiorik gabe</string>
     <string name="encrypted">Ezarri zifratu gisa</string>
     <string name="end_to_end_encryption_confirm_button">Konfiguratu zifratzea</string>
     <string name="end_to_end_encryption_decrypting">Deszifratzen...</string>
@@ -375,6 +378,7 @@
     <string name="filename_hint">Fitxategi-izena</string>
     <string name="first_run_1_text">Mantendu zure datuak seguru eta zure kontrolpean</string>
     <string name="first_run_2_text">Lankidetza eta fitxategi partekatze segurua</string>
+    <string name="first_run_3_text">Web posta, egutegi eta kontaktu erabilerrazak</string>
     <string name="first_run_4_text">Pantaila partekatzea, online bilerak eta web konferentziak</string>
     <string name="folder_already_exists">Karpeta dagoeneko existitzen da</string>
     <string name="folder_confirm_create">Sortu</string>
@@ -404,6 +408,12 @@
     <string name="icon_for_empty_list">Zerrenda hutsaren ikonoa</string>
     <string name="icon_of_dashboard_widget">Paneleko trepetaren ikonoa</string>
     <string name="icon_of_widget_entry">Trepeta-sarreraren ikonoa</string>
+    <string name="image_editor_file_edited_suffix">editatuta</string>
+    <string name="image_editor_flip_horizontal">Irauli horizontalki</string>
+    <string name="image_editor_flip_vertical">Irauli bertikalki</string>
+    <string name="image_editor_rotate_ccw">Errotatu erlojuaren kontra</string>
+    <string name="image_editor_rotate_cw">Errotatu erlojuaren alde</string>
+    <string name="image_editor_unable_to_edit_image">Ezin izan da irudia editatu.</string>
     <string name="in_folder">%1$skarpetan</string>
     <string name="instant_upload_existing">Existitzen diren fitxategiak ere kargatu</string>
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
@@ -521,6 +531,7 @@
     <string name="pass_code_removed">Pasahitza ezabatuta</string>
     <string name="pass_code_stored">Pasahitza gordeta</string>
     <string name="pass_code_wrong">Okerreko pasahitza</string>
+    <string name="pdf_password_protected">Ezin izan da pasahitzez babestutako PDFa ireki. Mesedez erabili kanpoko PDF ikustaile bat.</string>
     <string name="pdf_zoom_tip">Ukitu orrialdean handitzeko</string>
     <string name="permission_allow">Baimendu</string>
     <string name="permission_deny">Ukatu</string>
@@ -796,6 +807,7 @@
     <string name="thumbnail">Koadro txikia</string>
     <string name="thumbnail_for_existing_file_description">Existitzen den fitxategiaren koadro txikia</string>
     <string name="thumbnail_for_new_file_desc">Fitxategi berriaren koadro txikia</string>
+    <string name="timeout_richDocuments">Karga espero den baino gehiago luzatzen ari da</string>
     <string name="today">Gaur</string>
     <string name="trashbin_activity_title">Ezabatutako fitxategiak</string>
     <string name="trashbin_empty_headline">Ezabatutako fitxategirik ez</string>

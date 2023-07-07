@@ -408,6 +408,12 @@
     <string name="icon_for_empty_list">Ikona pro prázdný seznam</string>
     <string name="icon_of_dashboard_widget">Ikona ovládacího prvku nástěnky</string>
     <string name="icon_of_widget_entry">Ikona položky ovládacího prvku</string>
+    <string name="image_editor_file_edited_suffix">upraveno</string>
+    <string name="image_editor_flip_horizontal">Převrátit vodorovně</string>
+    <string name="image_editor_flip_vertical">Převrátit svisle</string>
+    <string name="image_editor_rotate_ccw">Otočit doleva</string>
+    <string name="image_editor_rotate_cw">Otočit doprava</string>
+    <string name="image_editor_unable_to_edit_image">Obrázek se nedaří upravit</string>
     <string name="in_folder">ve složce %1$s</string>
     <string name="instant_upload_existing">Také nahrát už existující soubory</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>

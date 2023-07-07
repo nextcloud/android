@@ -408,6 +408,12 @@
     <string name="icon_for_empty_list">Ikon för tom lista</string>
     <string name="icon_of_dashboard_widget">Ikon för dashboard widget</string>
     <string name="icon_of_widget_entry">Ikon för widgetpost</string>
+    <string name="image_editor_file_edited_suffix">redigerad</string>
+    <string name="image_editor_flip_horizontal">Vänd horisontellt</string>
+    <string name="image_editor_flip_vertical">Vänd vertikalt</string>
+    <string name="image_editor_rotate_ccw">Vrid moturs</string>
+    <string name="image_editor_rotate_cw">Vrid medurs</string>
+    <string name="image_editor_unable_to_edit_image">Det gick inte att redigera bilden.</string>
     <string name="in_folder">i mapp %1$s</string>
     <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
