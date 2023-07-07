@@ -80,15 +80,15 @@
             android:focusable="true"
             android:orientation="vertical">
 
-            <Button
-                style="?attr/materialIconButtonOutlinedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/white_outline"
                 android:contentDescription="@string/ecosystem_apps_talk"
-                app:icon="@drawable/ic_talk"
-                app:iconTint="@color/white"
-                app:strokeColor="@color/white" />
+                android:padding="8dp"
+                android:src="@drawable/ic_talk"
+                app:tint="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -110,15 +110,15 @@
             android:focusable="true"
             android:orientation="vertical">
 
-            <Button
-                style="?attr/materialIconButtonOutlinedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/white_outline"
                 android:contentDescription="@string/ecosystem_apps_notes"
-                app:icon="@drawable/ic_notes"
-                app:iconTint="@color/white"
-                app:strokeColor="@color/white" />
+                android:padding="8dp"
+                android:src="@drawable/ic_notes"
+                app:tint="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -139,15 +139,15 @@
             android:focusable="true"
             android:orientation="vertical">
 
-            <Button
-                style="?attr/materialIconButtonOutlinedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/white_outline"
                 android:contentDescription="@string/ecosystem_apps_more"
-                app:icon="@drawable/ic_more_apps"
-                app:iconTint="@color/white"
-                app:strokeColor="@color/white" />
+                android:padding="8dp"
+                android:src="@drawable/ic_more_apps"
+                app:tint="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
