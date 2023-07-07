@@ -402,10 +402,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     private void setDrawerHeaderLogo(Drawable drawable, String serverName) {
         ImageView imageHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_logo);
         imageHeader.setImageDrawable(drawable);
-        imageHeader.setScaleType(ImageView.ScaleType.FIT_START);
         imageHeader.setAdjustViewBounds(true);
-
-        imageHeader.setMaxWidth(DisplayUtils.convertDpToPixel(100f, this));
 
         if (!TextUtils.isEmpty(serverName)) {
             TextView serverNameView = mNavigationViewHeader.findViewById(R.id.drawer_header_server_name);
