@@ -52,6 +52,7 @@ object PermissionUtil {
     const val PERMISSIONS_CAMERA = 5
     const val PERMISSIONS_READ_CALENDAR_AUTOMATIC = 6
     const val PERMISSIONS_WRITE_CALENDAR = 7
+    const val PERMISSIONS_POST_NOTIFICATIONS = 8
 
     const val REQUEST_CODE_MANAGE_ALL_FILES = 19203
 
@@ -143,40 +144,39 @@ object PermissionUtil {
         activity: Activity, readOnly: Boolean, permissionRequired: Boolean, viewThemeUtils: ViewThemeUtils
     ) {
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
-        val shouldRequestPermission = !preferences.isStoragePermissionRequested || permissionRequired
 
-        // determine required permissions
-        val permissions = if (readOnly && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                // use granular media permissions
-                arrayOf(
-                    Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO
-                )
+        if (permissionRequired || !preferences.isStoragePermissionRequested) {
+            // determine required permissions
+            val permissions = if (readOnly && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    // use granular media permissions
+                    arrayOf(
+                        Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO
+                    )
+                } else {
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                }
             } else {
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
-        } else {
-            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        }
 
-        fun doRequest() {
-            ActivityCompat.requestPermissions(
-                activity, permissions, PERMISSIONS_EXTERNAL_STORAGE
-            )
-            preferences.isStoragePermissionRequested = true
-        }
+            fun doRequest() {
+                ActivityCompat.requestPermissions(
+                    activity, permissions, PERMISSIONS_EXTERNAL_STORAGE
+                )
+                preferences.isStoragePermissionRequested = true
+            }
 
-        if (permissions.isNotEmpty() && shouldRequestPermission) {
             // Check if we should show an explanation
             if (permissions.any { shouldShowRequestPermissionRationale(activity, it) }) {
                 // Show explanation to the user and then request permission
                 Snackbar.make(
-                        activity.findViewById(android.R.id.content),
-                        R.string.permission_storage_access,
-                        Snackbar.LENGTH_INDEFINITE
-                    ).setAction(R.string.common_ok) {
-                        doRequest()
-                    }.also { viewThemeUtils.material.themeSnackbar(it) }.show()
+                    activity.findViewById(android.R.id.content),
+                    R.string.permission_storage_access,
+                    Snackbar.LENGTH_INDEFINITE
+                ).setAction(R.string.common_ok) {
+                    doRequest()
+                }.also { viewThemeUtils.material.themeSnackbar(it) }.show()
             } else {
                 // No explanation needed, request the permission.
                 doRequest()
@@ -226,7 +226,10 @@ object PermissionUtil {
                         }
 
                         StoragePermissionDialogFragment.Result.MEDIA_READ_ONLY -> requestStoragePermission(
-                            activity, true, permissionRequired, viewThemeUtils
+                            activity = activity,
+                            readOnly = true,
+                            permissionRequired = true,
+                            viewThemeUtils = viewThemeUtils
                         )
 
                         else -> {}
@@ -261,5 +264,22 @@ object PermissionUtil {
         ActivityCompat.requestPermissions(
             activity, arrayOf(Manifest.permission.CAMERA), requestCode
         )
+    }
+
+    /**
+     * Request notification to show notifications. Required on API level >= 33.
+     * Does not have any effect on API level < 33.
+     *
+     * @param activity target activity
+     */
+    @JvmStatic
+    fun requestNotificationPermission(activity: Activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (!checkSelfPermission(activity, Manifest.permission.POST_NOTIFICATIONS)) {
+                ActivityCompat.requestPermissions(
+                    activity, arrayOf(Manifest.permission.POST_NOTIFICATIONS), PERMISSIONS_POST_NOTIFICATIONS
+                )
+            }
+        }
     }
 }
