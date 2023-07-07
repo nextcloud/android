@@ -408,6 +408,12 @@
     <string name="icon_for_empty_list">أيقونه لقائمة فارغة</string>
     <string name="icon_of_dashboard_widget">أيقونة لأداة لوحة القيادة</string>
     <string name="icon_of_widget_entry">أيقونة لمدخل أداة</string>
+    <string name="image_editor_file_edited_suffix">مُحرر</string>
+    <string name="image_editor_flip_horizontal">قلب أفقي</string>
+    <string name="image_editor_flip_vertical">قلب رأسي</string>
+    <string name="image_editor_rotate_ccw">تدوير عكس اتجاه عقارب الساعة</string>
+    <string name="image_editor_rotate_cw">تدوير في اتجاه عقارب الساعة</string>
+    <string name="image_editor_unable_to_edit_image">تعذر تحرير الصورة.</string>
     <string name="in_folder">في مجلد %1$s</string>
     <string name="instant_upload_existing">ارفع الملفات الموجودة مسبقاً أيضاً</string>
     <string name="instant_upload_on_charging">ارفع وقت الشحن فقط</string>
@@ -546,7 +552,7 @@
     <string name="player_toggle">تبديل</string>
     <string name="power_save_check_dialog_message">قد يؤدي تعطيل فحص حفظ الطاقة إلى تحميل الملفات عندما تكون حالة البطارية منخفضة!</string>
     <string name="pref_behaviour_entries_delete_file">خذفت</string>
-    <string name="pref_behaviour_entries_keep_file">الترك في مجلد الأصل</string>
+    <string name="pref_behaviour_entries_keep_file">أبقى في المجلد الأصلي</string>
     <string name="pref_behaviour_entries_move">نقله إلى مجلد التطبيق</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">ماذا تفعل إذا كان الملف موجودًا مسبقاً؟</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">إسئلني كل مرة</string>
