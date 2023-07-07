@@ -137,6 +137,7 @@ public class SettingsActivity extends PreferenceActivity
 
     private ListPreference lock;
     private ThemeableSwitchPreference showHiddenFiles;
+    private ThemeableSwitchPreference hideEcosystemApps;
     private AppCompatDelegate delegate;
 
     private ListPreference prefStoragePath;
@@ -606,12 +607,15 @@ public class SettingsActivity extends PreferenceActivity
         boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
         boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials_enabled);
         boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
+        boolean fHideEcosystemAppsEnabled = !getResources().getBoolean(R.bool.is_branded_client);
         boolean fSyncedFolderLightEnabled = getResources().getBoolean(R.bool.syncedFolder_light);
         boolean fShowMediaScanNotifications = preferences.isShowMediaScanNotifications();
 
         setupLockPreference(preferenceCategoryDetails, fPassCodeEnabled, fDeviceCredentialsEnabled);
 
         setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
+
+        setupHideEcosystemAppsPreference(preferenceCategoryDetails, fHideEcosystemAppsEnabled);
 
         setupShowMediaScanNotifications(preferenceCategoryDetails, fShowMediaScanNotifications);
 
@@ -643,6 +647,20 @@ public class SettingsActivity extends PreferenceActivity
             preferenceCategoryDetails.removePreference(showHiddenFiles);
         }
     }
+
+    private void setupHideEcosystemAppsPreference(PreferenceCategory preferenceCategoryDetails,
+                                            boolean fHideEcosystemAppsEnabled) {
+        hideEcosystemApps = (ThemeableSwitchPreference) findPreference("hide_ecosystem_apps");
+        if (fHideEcosystemAppsEnabled) {
+            hideEcosystemApps.setOnPreferenceClickListener(preference -> {
+                preferences.setHideEcosystemApps(hideEcosystemApps.isChecked());
+                return true;
+            });
+        } else {
+            preferenceCategoryDetails.removePreference(hideEcosystemApps);
+        }
+    }
+
 
     private void setupLockPreference(PreferenceCategory preferenceCategoryDetails,
                                      boolean passCodeEnabled,

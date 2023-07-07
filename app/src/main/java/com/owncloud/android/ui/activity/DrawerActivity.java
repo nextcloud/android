@@ -345,9 +345,9 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
         }
 
-        // hide ecosystem apps when in branded client
+        // hide ecosystem apps according to user preference or in branded client
         LinearLayout ecosystemApps = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
-        if (getResources().getBoolean(R.bool.is_branded_client)) {
+        if (getResources().getBoolean(R.bool.is_branded_client) || preferences.isHideEcosystemApps()) {
             ecosystemApps.setVisibility(View.GONE);
         } else {
             ecosystemApps.findViewById(R.id.drawer_ecosystem_notes).setOnClickListener(v -> {

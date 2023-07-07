@@ -42,6 +42,7 @@
     <string name="prefs_lock_device_credentials_enabled">Device credentials enabled</string>
     <string name="prefs_lock_device_credentials_not_setup">No device credentials have been set up.</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
+    <string name="prefs_hide_ecosystem_apps">Hide Nextcloud app recommendations</string>
     <string name="prefs_enable_media_scan_notifications">Show media scan notifications</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notify about newly found media folders</string>
     <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>

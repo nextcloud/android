@@ -75,6 +75,9 @@ public interface AppPreferences {
     boolean isShowHiddenFilesEnabled();
     void setShowHiddenFilesEnabled(boolean enabled);
 
+    boolean isHideEcosystemApps();
+    void setHideEcosystemApps(boolean enabled);
+
     /**
      * Gets the selected file extension position the user selected to do the
      * last upload of a url file shared from other app.

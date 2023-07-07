@@ -76,6 +76,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
     private static final String PREF__SHOW_HIDDEN_FILES = "show_hidden_files_pref";
+    private static final String PREF__HIDE_ECOSYSTEM_APPS = "hide_ecosystem_apps";
     private static final String PREF__LEGACY_CLEAN = "legacyClean";
     private static final String PREF__KEYS_MIGRATION = "keysMigration";
     private static final String PREF__FIX_STORAGE_PATH = "storagePathFix";
@@ -219,6 +220,16 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setShowHiddenFilesEnabled(boolean enabled) {
         preferences.edit().putBoolean(PREF__SHOW_HIDDEN_FILES, enabled).apply();
+    }
+
+    @Override
+    public boolean isHideEcosystemApps() {
+        return preferences.getBoolean(PREF__HIDE_ECOSYSTEM_APPS, false);
+    }
+
+    @Override
+    public void setHideEcosystemApps(boolean enabled) {
+        preferences.edit().putBoolean(PREF__HIDE_ECOSYSTEM_APPS, enabled).apply();
     }
 
     @Override
