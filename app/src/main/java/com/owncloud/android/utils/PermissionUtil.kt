@@ -91,14 +91,16 @@ object PermissionUtil {
      *
      * Under sdk 30 we use WRITE_EXTERNAL_STORAGE
      *
+     * @param writeRequired whether we need write permission for storage, or just read. Defaults to `false`
+     *
      * @return `true` if app has the permission, or `false` if not.
      */
     @JvmStatic
-    fun checkExternalStoragePermission(context: Context): Boolean = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> Environment.isExternalStorageManager() || checkSelfPermission(
-            context,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        )
+    @JvmOverloads
+    fun checkExternalStoragePermission(context: Context, writeRequired: Boolean = false): Boolean = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> Environment.isExternalStorageManager() || (
+            !writeRequired && checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+            )
         else -> checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
