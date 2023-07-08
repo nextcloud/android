@@ -459,7 +459,7 @@
     <string name="media_err_io">Non foi posíbel ler o ficheiro multimedia</string>
     <string name="media_err_malformed">O ficheiro multimedia ten unha codificación incorrecta</string>
     <string name="media_err_timeout">O intento de reproducir o ficheiro esgotou o tempo de espera.</string>
-    <string name="media_err_unknown">O reprodutor incorporado non é quen de reproducir o ficheiro multimedia</string>
+    <string name="media_err_unknown">O reprodutor integrado non é quen de reproducir o ficheiro multimedia</string>
     <string name="media_err_unsupported">Códec multimedia non admitido</string>
     <string name="media_forward_description">Botón de avance rápido</string>
     <string name="media_notif_ticker">Reprodutor de música %1$s</string>
