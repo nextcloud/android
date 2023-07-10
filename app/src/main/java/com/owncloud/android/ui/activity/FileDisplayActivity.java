@@ -191,7 +191,6 @@ public class FileDisplayActivity extends FileActivity
     public static final String KEY_FILE_ID = "KEY_FILE_ID";
     public static final String KEY_FILE_PATH = "KEY_FILE_PATH";
     public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
-    public static final String KEY_ACTIVE_USER = "KEY_ACTIVE_USER";
 
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
@@ -392,6 +391,10 @@ public class FileDisplayActivity extends FileActivity
         if (OPEN_FILE.equals(getIntent().getAction())) {
             getSupportFragmentManager().executePendingTransactions();
             onOpenFileIntent(getIntent());
+        } else if (RESTART.equals(getIntent().getAction())) {
+            // most likely switched to different account
+            DisplayUtils.showSnackMessage(this, String.format(getString(R.string.logged_in_as),
+                                                              accountManager.getUser().getAccountName()));
         }
 
         upgradeNotificationForInstantUpload();
@@ -2505,8 +2508,6 @@ public class FileDisplayActivity extends FileActivity
                 } else {
                     dismissLoadingDialog();
                     accountClicked(optionalUser.get().hashCode());
-                    DisplayUtils.showSnackMessage(this, String.format(getString(R.string.logged_in_as),
-                                                                      optionalUser.get().getAccountName()));
                 }
             } else {
                 dismissLoadingDialog();

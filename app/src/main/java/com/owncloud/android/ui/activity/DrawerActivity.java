@@ -371,7 +371,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
         if (intent != null) {
             // app installed - open directly
-            intent.putExtra(FileDisplayActivity.KEY_ACTIVE_USER, getUser().get().hashCode());
+            intent.putExtra(FileDisplayActivity.KEY_ACCOUNT, getUser().get().hashCode());
             startActivity(intent);
         } else {
             // app not found - open market (Google Play Store, F-Droid, etc.)
