@@ -20,10 +20,8 @@
 package com.owncloud.android.ui.preview;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
@@ -195,10 +193,7 @@ public abstract class PreviewTextFragment extends FileFragment implements Search
 
                 @Override
                 public void configureConfiguration(@NonNull MarkwonConfiguration.Builder builder) {
-                    builder.linkResolver((view, link) -> {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                        DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_browser_available);
-                    });
+                    builder.linkResolver((view, link) -> DisplayUtils.startLinkIntent(activity, link));
                 }
             })
             .usePlugin(TablePlugin.create(activity))
