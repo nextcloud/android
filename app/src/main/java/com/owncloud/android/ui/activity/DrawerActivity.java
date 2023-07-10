@@ -330,7 +330,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                             logo = BitmapUtils.scaleBitmap(resource, MAX_LOGO_SIZE_PX, width, height, max);
                         }
 
-                        Drawable[] drawables = {new ColorDrawable(primaryColor), new BitmapDrawable(logo)};
+                        Drawable[] drawables = {new ColorDrawable(primaryColor),
+                            new BitmapDrawable(getResources(), logo)};
                         LayerDrawable layerDrawable = new LayerDrawable(drawables);
 
                         String name = capability.getServerName();
@@ -350,15 +351,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (getResources().getBoolean(R.bool.is_branded_client) || preferences.isHideEcosystemApps()) {
             ecosystemApps.setVisibility(View.GONE);
         } else {
-            ecosystemApps.findViewById(R.id.drawer_ecosystem_notes).setOnClickListener(v -> {
-                openAppOrStore("it.niedermann.owncloud.notes");
-            });
-            ecosystemApps.findViewById(R.id.drawer_ecosystem_talk).setOnClickListener(v -> {
-                openAppOrStore("com.nextcloud.talk2");
-            });
-            ecosystemApps.findViewById(R.id.drawer_ecosystem_more).setOnClickListener(v -> {
-                openAppStore("Nextcloud", true);
-            });
+            ecosystemApps.findViewById(R.id.drawer_ecosystem_notes)
+                .setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
+            ecosystemApps.findViewById(R.id.drawer_ecosystem_talk)
+                .setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
+            ecosystemApps.findViewById(R.id.drawer_ecosystem_more)
+                .setOnClickListener(v -> openAppStore("Nextcloud", true));
         }
     }
 
@@ -380,6 +378,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     /**
+     * Open app store page of specified app or search for specified string.
+     * Will attempt to open browser when no app store is available.
      *
      * @param string packageName or url-encoded search string
      * @param search false -> show app corresponding to packageName; true -> open search for string
@@ -694,11 +694,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         // set home button properties
         if (mDrawerToggle != null) {
-            if (chosenFile != null && isRoot(chosenFile)) {
-                mDrawerToggle.setDrawerIndicatorEnabled(true);
-            } else {
-                mDrawerToggle.setDrawerIndicatorEnabled(false);
-            }
+            mDrawerToggle.setDrawerIndicatorEnabled(chosenFile != null && isRoot(chosenFile));
         }
     }
 
@@ -741,7 +737,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             viewThemeUtils.material.colorProgressBar(mQuotaProgressBar);
         } else {
             viewThemeUtils.material.colorProgressBar(mQuotaProgressBar,
-                                                               getResources().getColor(R.color.infolevel_warning));
+                                                     getResources().getColor(R.color.infolevel_warning, getTheme()));
         }
 
         updateQuotaLink();
@@ -1094,28 +1090,22 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
-        if (callContext instanceof MenuItem) {
-            MenuItem menuItem = (MenuItem) callContext;
+        if (callContext instanceof MenuItem menuItem) {
             menuItem.setIcon(avatarDrawable);
-        } else if (callContext instanceof ImageView) {
-            ImageView imageView = (ImageView) callContext;
+        } else if (callContext instanceof ImageView imageView) {
             imageView.setImageDrawable(avatarDrawable);
-        } else if (callContext instanceof MaterialButton) {
-            MaterialButton materialButton = (MaterialButton) callContext;
+        } else if (callContext instanceof MaterialButton materialButton) {
             materialButton.setIcon(avatarDrawable);
         }
     }
 
     @Override
     public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
-        if (callContext instanceof MenuItem) {
-            MenuItem menuItem = (MenuItem) callContext;
+        if (callContext instanceof MenuItem menuItem) {
             return String.valueOf(menuItem.getTitle()).equals(tag);
-        } else if (callContext instanceof ImageView) {
-            ImageView imageView = (ImageView) callContext;
+        } else if (callContext instanceof ImageView imageView) {
             return String.valueOf(imageView.getTag()).equals(tag);
-        } else if (callContext instanceof MaterialButton) {
-            MaterialButton materialButton = (MaterialButton) callContext;
+        } else if (callContext instanceof MaterialButton materialButton) {
             return String.valueOf(materialButton.getTag()).equals(tag);
         }
         return false;
