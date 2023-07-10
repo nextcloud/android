@@ -409,6 +409,12 @@
     <string name="icon_for_empty_list">Піктограма порожнього списку</string>
     <string name="icon_of_dashboard_widget">Піктограма віджету панелі</string>
     <string name="icon_of_widget_entry">Піктограма запису віджету</string>
+    <string name="image_editor_file_edited_suffix">редаговано</string>
+    <string name="image_editor_flip_horizontal">Обернути по горизонталі</string>
+    <string name="image_editor_flip_vertical">Обернути по вертикалі</string>
+    <string name="image_editor_rotate_ccw">Обернути проти годинника</string>
+    <string name="image_editor_rotate_cw">Обернути за годинником</string>
+    <string name="image_editor_unable_to_edit_image">Неможливо відредагувати зображення.</string>
     <string name="in_folder">в папці %1$s</string>
     <string name="instant_upload_existing">Також завантажити існуючі файли</string>
     <string name="instant_upload_on_charging">Завантаження тільки під час заряджання</string>
