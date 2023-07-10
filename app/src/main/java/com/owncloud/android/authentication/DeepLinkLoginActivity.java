@@ -30,7 +30,7 @@ public class DeepLinkLoginActivity extends AuthenticatorActivity implements Inje
                 LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, data.toString());
 
                 TextView loginText = findViewById(R.id.loginInfo);
-                loginText.setText(String.format("Login with %1$s to %2$s", loginUrlInfo.username,
+                loginText.setText(String.format(getString(R.string.direct_login_text), loginUrlInfo.username,
                                                 loginUrlInfo.serverAddress));
             } catch (IllegalArgumentException e) {
                 Toast.makeText(this, R.string.direct_login_failed, Toast.LENGTH_LONG).show();
