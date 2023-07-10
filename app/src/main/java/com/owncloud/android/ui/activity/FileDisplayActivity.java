@@ -2492,7 +2492,6 @@ public class FileDisplayActivity extends FileActivity
         String userName = intent.getStringExtra(KEY_ACCOUNT);
         String fileId = intent.getStringExtra(KEY_FILE_ID);
         String filePath = intent.getStringExtra(KEY_FILE_PATH);
-        String activeUser = intent.getStringExtra(KEY_ACTIVE_USER);
 
         if (userName == null && fileId == null && intent.getData() != null) {
             openDeepLink(intent.getData());
@@ -2505,7 +2504,9 @@ public class FileDisplayActivity extends FileActivity
                     openFileByPath(optionalUser.get(), filePath);
                 } else {
                     dismissLoadingDialog();
-                    DisplayUtils.showSnackMessage(this, getString(R.string.file_not_found));
+                    accountClicked(optionalUser.get().hashCode());
+                    DisplayUtils.showSnackMessage(this, String.format(getString(R.string.logged_in_as),
+                                                                      optionalUser.get().getAccountName()));
                 }
             } else {
                 dismissLoadingDialog();
