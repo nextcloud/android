@@ -43,6 +43,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources.NotFoundException;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
@@ -366,8 +367,14 @@ public class FileDisplayActivity extends FileActivity
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-
-        PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
+        // handle notification permission on API level >= 33
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // request notification permission first and then prompt for storage permissions
+            // storage permissions handled in onRequestPermissionsResult
+            PermissionUtil.requestNotificationPermission(this);
+        } else {
+            PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
+        }
 
         if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             switchToSearchFragment(savedInstanceState);
@@ -440,6 +447,11 @@ public class FileDisplayActivity extends FileActivity
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
+            case PermissionUtil.PERMISSIONS_POST_NOTIFICATIONS:
+                // handle notification permission on API level >= 33
+                // dialogue was dismissed -> prompt for storage permissions
+                PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
+                break;
             case PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE:
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0
