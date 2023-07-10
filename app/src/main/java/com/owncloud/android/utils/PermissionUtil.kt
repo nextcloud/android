@@ -99,7 +99,8 @@ object PermissionUtil {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> Environment.isExternalStorageManager() ||
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) || checkSelfPermission(
-                    context, Manifest.permission.READ_MEDIA_VIDEO
+                    context,
+                    Manifest.permission.READ_MEDIA_VIDEO
                 )
             } else {
                 checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -121,7 +122,9 @@ object PermissionUtil {
     @JvmStatic
     @JvmOverloads
     fun requestExternalStoragePermission(
-        activity: AppCompatActivity, viewThemeUtils: ViewThemeUtils, permissionRequired: Boolean = false
+        activity: AppCompatActivity,
+        viewThemeUtils: ViewThemeUtils,
+        permissionRequired: Boolean = false
     ) {
         if (!checkExternalStoragePermission(activity)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && canRequestAllFilesPermission(activity)) {
@@ -130,7 +133,10 @@ object PermissionUtil {
             } else {
                 // can not request all files, request read-only access
                 requestStoragePermission(
-                    activity, Build.VERSION.SDK_INT >= Build.VERSION_CODES.R, permissionRequired, viewThemeUtils
+                    activity,
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.R,
+                    permissionRequired,
+                    viewThemeUtils
                 )
             }
         }
@@ -141,7 +147,10 @@ object PermissionUtil {
      */
     // TODO inject this class to avoid passing ViewThemeUtils around
     private fun requestStoragePermission(
-        activity: Activity, readOnly: Boolean, permissionRequired: Boolean, viewThemeUtils: ViewThemeUtils
+        activity: Activity,
+        readOnly: Boolean,
+        permissionRequired: Boolean,
+        viewThemeUtils: ViewThemeUtils
     ) {
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
 
@@ -151,7 +160,8 @@ object PermissionUtil {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     // use granular media permissions
                     arrayOf(
-                        Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO
+                        Manifest.permission.READ_MEDIA_IMAGES,
+                        Manifest.permission.READ_MEDIA_VIDEO
                     )
                 } else {
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -162,7 +172,9 @@ object PermissionUtil {
 
             fun doRequest() {
                 ActivityCompat.requestPermissions(
-                    activity, permissions, PERMISSIONS_EXTERNAL_STORAGE
+                    activity,
+                    permissions,
+                    PERMISSIONS_EXTERNAL_STORAGE
                 )
                 preferences.isStoragePermissionRequested = true
             }
@@ -208,12 +220,15 @@ object PermissionUtil {
      */
     @RequiresApi(Build.VERSION_CODES.R)
     private fun showPermissionChoiceDialog(
-        activity: AppCompatActivity, permissionRequired: Boolean, viewThemeUtils: ViewThemeUtils
+        activity: AppCompatActivity,
+        permissionRequired: Boolean,
+        viewThemeUtils: ViewThemeUtils
     ) {
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
         val shouldRequestPermission = !preferences.isStoragePermissionRequested || permissionRequired
         if (shouldRequestPermission &&
-            activity.supportFragmentManager.findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG) == null) {
+            activity.supportFragmentManager.findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG) == null
+        ) {
             val listener: (requestKey: String, result: Bundle) -> Unit = { _, resultBundle ->
                 val result: StoragePermissionDialogFragment.Result? =
                     resultBundle.getParcelable(StoragePermissionDialogFragment.RESULT_KEY)
@@ -239,7 +254,9 @@ object PermissionUtil {
 
             activity.runOnUiThread {
                 activity.supportFragmentManager.setFragmentResultListener(
-                    StoragePermissionDialogFragment.REQUEST_KEY, activity, listener
+                    StoragePermissionDialogFragment.REQUEST_KEY,
+                    activity,
+                    listener
                 )
             }
 
@@ -262,7 +279,9 @@ object PermissionUtil {
     @JvmStatic
     fun requestCameraPermission(activity: Activity, requestCode: Int) {
         ActivityCompat.requestPermissions(
-            activity, arrayOf(Manifest.permission.CAMERA), requestCode
+            activity,
+            arrayOf(Manifest.permission.CAMERA),
+            requestCode
         )
     }
 
@@ -277,7 +296,9 @@ object PermissionUtil {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (!checkSelfPermission(activity, Manifest.permission.POST_NOTIFICATIONS)) {
                 ActivityCompat.requestPermissions(
-                    activity, arrayOf(Manifest.permission.POST_NOTIFICATIONS), PERMISSIONS_POST_NOTIFICATIONS
+                    activity,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    PERMISSIONS_POST_NOTIFICATIONS
                 )
             }
         }
