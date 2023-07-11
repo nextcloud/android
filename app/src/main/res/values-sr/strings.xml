@@ -408,6 +408,12 @@
     <string name="icon_for_empty_list">Икона за празну листу</string>
     <string name="icon_of_dashboard_widget">Икона за виџет контролне табле</string>
     <string name="icon_of_widget_entry">Икона за ставку виџета</string>
+    <string name="image_editor_file_edited_suffix">уређено</string>
+    <string name="image_editor_flip_horizontal">Обрни око вертикале</string>
+    <string name="image_editor_flip_vertical">Обрни око хоризонтале</string>
+    <string name="image_editor_rotate_ccw">Ротирај улево</string>
+    <string name="image_editor_rotate_cw">Ротирај удесно</string>
+    <string name="image_editor_unable_to_edit_image">Слика не може да се уреди.</string>
     <string name="in_folder">У фолдеру %1$s</string>
     <string name="instant_upload_existing">Отпреми и постојеће фајлове</string>
     <string name="instant_upload_on_charging">Отпремај само на пуњењу</string>

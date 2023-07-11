@@ -408,6 +408,12 @@
     <string name="icon_for_empty_list">Symbol für leere Liste</string>
     <string name="icon_of_dashboard_widget">Symbol des Dashboard-Widgets</string>
     <string name="icon_of_widget_entry">Symbol des Widget-Eintrags</string>
+    <string name="image_editor_file_edited_suffix">Bearbeitet</string>
+    <string name="image_editor_flip_horizontal">Horizontal spiegeln</string>
+    <string name="image_editor_flip_vertical">Vertikal spiegeln</string>
+    <string name="image_editor_rotate_ccw">Gegen den Uhrzeigersinn drehen</string>
+    <string name="image_editor_rotate_cw">Im Uhrzeigersinn drehen</string>
+    <string name="image_editor_unable_to_edit_image">Bild konnte nicht bearbeitet werden.</string>
     <string name="in_folder">in Ordner %1$s</string>
     <string name="instant_upload_existing">Vorhandene Dateien ebenfalls hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
