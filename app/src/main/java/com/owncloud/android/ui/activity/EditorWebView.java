@@ -86,7 +86,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                 if (this.getWebView().getVisibility() != View.VISIBLE) {
                     Snackbar snackbar = DisplayUtils.createSnackbar(findViewById(android.R.id.content),
                                                                     R.string.timeout_richDocuments, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.common_back, v -> closeView());
+                        .setAction(R.string.common_cancel, v -> closeView());
 
                     viewThemeUtils.material.themeSnackbar(snackbar);
                     setLoadingSnackbar(snackbar);
@@ -115,7 +115,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         super.postOnCreate();
 
         getWebView().setWebChromeClient(new WebChromeClient() {
-            EditorWebView activity = EditorWebView.this;
+            final EditorWebView activity = EditorWebView.this;
 
             @Override
             public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,
@@ -178,14 +178,8 @@ public abstract class EditorWebView extends ExternalSiteWebView {
     }
 
     protected void handleActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case REQUEST_LOCAL_FILE:
-                handleLocalFile(data, resultCode);
-                break;
-
-            default:
-                // unexpected, do nothing
-                break;
+        if (requestCode == REQUEST_LOCAL_FILE) {
+            handleLocalFile(data, resultCode);
         }
     }
 
@@ -251,7 +245,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                 }
 
                 if ("image/png".equalsIgnoreCase(file.getMimeType())) {
-                    binding.thumbnail.setBackgroundColor(getResources().getColor(R.color.bg_default));
+                    binding.thumbnail.setBackgroundColor(getResources().getColor(R.color.bg_default, getTheme()));
                 }
             } else {
                 Drawable icon = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
@@ -276,10 +270,6 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
         downloadmanager.enqueue(request);
-    }
-
-    public Snackbar getLoadingSnackbar() {
-        return this.loadingSnackbar;
     }
 
     public void setLoadingSnackbar(Snackbar loadingSnackbar) {
