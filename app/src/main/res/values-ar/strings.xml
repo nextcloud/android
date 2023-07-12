@@ -983,6 +983,38 @@
         <item quantity="many">تم تكرار %d ادخال</item>
         <item quantity="other">تم تكرار %d ادخال</item>
     </plurals>
+    <plurals name="export_successful">
+        <item quantity="zero">تم تصدير %dملفات</item>
+        <item quantity="one">تم تصدير %dملف</item>
+        <item quantity="two">تم تصدير %dملفات</item>
+        <item quantity="few">تم تصدير %dملفات</item>
+        <item quantity="many">تم تصدير %dملفات</item>
+        <item quantity="other">تم تصدير %dملفات</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="zero">فشل تصدير %d ملفات</item>
+        <item quantity="one">فشل تصدير %d ملف</item>
+        <item quantity="two">فشل تصدير %d ملفات</item>
+        <item quantity="few">فشل تصدير %d ملفات</item>
+        <item quantity="many">فشل تصدير %dملفات</item>
+        <item quantity="other">فشل تصدير %dملفات</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="zero">تم تصدير %d ملفات، وتم تخطي البقية بسبب خطأ</item>
+        <item quantity="one">تم تصدير %dملف، وتم تخطي البقية بسبب خطأ</item>
+        <item quantity="two">تم تصدير %dملفات، وتم تخطي البقية بسبب خطأ</item>
+        <item quantity="few">تم تصدير %dملفات، وتم تخطي البقية بسبب خطأ</item>
+        <item quantity="many">تم تصدير %d ملفات، وتم تخطي البقية بسبب خطأ</item>
+        <item quantity="other">تم تصدير %d ملفات، وتم تخطي البقية بسبب خطأ</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="zero">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
+        <item quantity="one">سوف يتم تصدير  %dملف. انظر الإخطار للحصول على التفاصيل.</item>
+        <item quantity="two">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
+        <item quantity="few">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
+        <item quantity="many">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
+        <item quantity="other">سوف يتم تصدير %d ملفات. انظر الإخطار للحصول على التفاصيل.</item>
+    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="zero">%1$d مجلد</item>
         <item quantity="one">%1$d مجلد</item>

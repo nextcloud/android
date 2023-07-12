@@ -29,6 +29,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
@@ -140,14 +142,21 @@ public class ExternalSiteWebView extends FileActivity {
             });
         }
 
+        final ExternalSiteWebView self = this;
         getWebView().setWebViewClient(new NextcloudWebViewClient(getSupportFragmentManager()) {
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 InputStream resources = getResources().openRawResource(R.raw.custom_error);
                 String customError = DisplayUtils.getData(resources);
 
                 if (!customError.isEmpty()) {
                     getWebView().loadData(customError, "text/html; charset=UTF-8", null);
                 }
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                DisplayUtils.startLinkIntent(self, request.getUrl());
+                return true;
             }
         });
 
@@ -187,8 +196,7 @@ public class ExternalSiteWebView extends FileActivity {
         // user agent
         webSettings.setUserAgentString(MainApp.getUserAgent());
 
-        // no private data storing
-        webSettings.setSavePassword(false);
+        // do not store private data
         webSettings.setSaveFormData(false);
 
         // disable local file access
@@ -200,7 +208,7 @@ public class ExternalSiteWebView extends FileActivity {
 
         // caching disabled in debug mode
         if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
-            getWebView().getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+            webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         }
     }
 
@@ -219,8 +227,6 @@ public class ExternalSiteWebView extends FileActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval;
-
         if (item.getItemId() == android.R.id.home) {
             if (showSidebar) {
                 if (isDrawerOpen()) {
@@ -231,12 +237,10 @@ public class ExternalSiteWebView extends FileActivity {
             } else {
                 finish();
             }
-            retval = true;
+            return true;
         } else {
-            retval = super.onOptionsItemSelected(item);
+            return super.onOptionsItemSelected(item);
         }
-
-        return retval;
     }
 
     @Override
