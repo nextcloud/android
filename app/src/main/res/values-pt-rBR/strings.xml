@@ -408,6 +408,12 @@
     <string name="icon_for_empty_list">ícone para lista vazia</string>
     <string name="icon_of_dashboard_widget">Ícone do widget do painel</string>
     <string name="icon_of_widget_entry">Ícone de entrada do widget</string>
+    <string name="image_editor_file_edited_suffix">editado</string>
+    <string name="image_editor_flip_horizontal">Virar horizontalmente</string>
+    <string name="image_editor_flip_vertical">Virar verticalmente</string>
+    <string name="image_editor_rotate_ccw">Girar no sentido anti-horário</string>
+    <string name="image_editor_rotate_cw">Rotacionar no sentido dos ponteiros do relógio</string>
+    <string name="image_editor_unable_to_edit_image">Não foi possível editar a imagem.</string>
     <string name="in_folder">na pasta %1$s</string>
     <string name="instant_upload_existing">Enviar arquivos existentes também</string>
     <string name="instant_upload_on_charging">Só enviar quando carregando</string>
