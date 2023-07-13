@@ -165,3 +165,6 @@ trigger:
     - cron
   cron:
     - allscreenshots
+---
+kind: signature
+hmac: c3b6b7e08fd7b5657134dfbf3cc85d3d0fb697781b353ba21799f4dbd0fc1d62
