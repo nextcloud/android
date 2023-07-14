@@ -6,9 +6,11 @@
  * @author David A. Velasco
  * @author Andy Scherzinger
  * @author Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -1654,6 +1656,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     protected void handleSearchEvent(SearchEvent event) {
         if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.getSearchType()) {
+            return;
+        }
+
+        // avoid calling api multiple times if async task is already executing
+        if (remoteOperationAsyncTask != null && remoteOperationAsyncTask.getStatus() != AsyncTask.Status.FINISHED) {
+            Log_OC.d(TAG, "OCFileListSearchAsyncTask already running skipping new api call for search event: " + searchEvent.getSearchType());
             return;
         }
 
