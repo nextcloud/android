@@ -377,6 +377,7 @@
     <string name="filename_hint">Nazwa pliku</string>
     <string name="first_run_1_text">Przechowuj swoje dane bezpiecznie i pod swoją pełną kontrolą</string>
     <string name="first_run_2_text">Bezpieczna współpraca i wymiana plików</string>
+    <string name="first_run_3_text">Łatwe w obsłudze klient e-mail, kalendarz&amp; i kontakty</string>
     <string name="first_run_4_text">Udostępnianie ekranu, spotkania online i konferencje internetowe</string>
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_confirm_create">Utwórz</string>
@@ -406,6 +407,7 @@
     <string name="icon_for_empty_list">Ikona pustej listy</string>
     <string name="icon_of_dashboard_widget">Ikona widżetu pulpitu nawigacyjnego</string>
     <string name="icon_of_widget_entry">Ikona wpisu widżetu</string>
+    <string name="image_editor_file_edited_suffix">Zedytowany</string>
     <string name="in_folder">w katalogu %1$s</string>
     <string name="instant_upload_existing">Wyślij również istniejące pliki</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
@@ -798,6 +800,7 @@
     <string name="thumbnail">Miniatura</string>
     <string name="thumbnail_for_existing_file_description">Miniaturka dla istniejącego pliku</string>
     <string name="thumbnail_for_new_file_desc">Miniaturka dla nowego pliku</string>
+    <string name="timeout_richDocuments">Ładowanie trwa dłużej niż oczekiwano</string>
     <string name="today">Dzisiaj</string>
     <string name="trashbin_activity_title">Usunięte pliki</string>
     <string name="trashbin_empty_headline">Brak usuniętych plików</string>
