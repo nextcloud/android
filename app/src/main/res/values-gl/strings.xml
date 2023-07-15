@@ -45,7 +45,7 @@
     <string name="auth_account_not_the_same">O usuario que introduciu non coincide co usuario desta conta</string>
     <string name="auth_bad_oc_version_title">Versión do servidor non recoñecida</string>
     <string name="auth_connection_established">Estabeleceuse a conexión</string>
-    <string name="auth_fail_get_user_name">O seu servidor non está devolvendo unha identificación de usuario correcta; contacte cun administrador.</string>
+    <string name="auth_fail_get_user_name">O seu servidor non está devolvendo unha identificación de usuario correcta; contacte coa administración da instancia.</string>
     <string name="auth_host_url">Enderezo do servidor https://…</string>
     <string name="auth_incorrect_address_title">O formato do enderezo do servidor é erróneo</string>
     <string name="auth_incorrect_path_title">Non se atopou o servidor</string>
@@ -712,7 +712,7 @@
     <string name="shared_icon_shared">compartido</string>
     <string name="shared_icon_shared_via_link">compartido mediante ligazón</string>
     <string name="shared_with_you_by">Compartido con Vde. por %1$s</string>
-    <string name="sharee_add_failed">Produciuse un fallo ao engadir un recurso compartido</string>
+    <string name="sharee_add_failed">Produciuse un fallo ao engadir unha compartición</string>
     <string name="show_images">Amosar as fotos</string>
     <string name="show_video">Amosar os vídeos</string>
     <string name="signup_with_provider">Rexistrarse cun provedor</string>
