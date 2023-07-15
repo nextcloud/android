@@ -277,7 +277,7 @@
     <string name="error_file_actions">Erro ao amosar as accións do ficheiro</string>
     <string name="error_file_lock">Produciuse un erro ao cambiar o estado do bloqueo do ficheiro</string>
     <string name="error_report_issue_action">Informe</string>
-    <string name="error_report_issue_text">Informar dunha incidencia no seguimento? (require dunha conta de GitHub)</string>
+    <string name="error_report_issue_text">Informar dunha incidencia no seguimento? (precisa dunha conta de GitHub)</string>
     <string name="error_retrieving_file">Produciuse un erro ao recuperar o ficheiro</string>
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
     <string name="error_showing_encryption_dialog">Produciuse un erro ao amosar o diálogo de configuración do cifrado!</string>
