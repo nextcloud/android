@@ -249,6 +249,7 @@
     <string name="drawer_quota_unlimited">Wykorzystane: %1$s</string>
     <string name="drawer_synced_folders">Automatyczne wysyłanie</string>
     <string name="e2e_not_yet_setup">E2E jeszcze nie skonfigurowane</string>
+    <string name="e2e_offline">Niemożliwe bez połączenia z internetem</string>
     <string name="encrypted">Ustaw jako zaszyfrowane</string>
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
@@ -408,6 +409,11 @@
     <string name="icon_of_dashboard_widget">Ikona widżetu pulpitu nawigacyjnego</string>
     <string name="icon_of_widget_entry">Ikona wpisu widżetu</string>
     <string name="image_editor_file_edited_suffix">Zedytowany</string>
+    <string name="image_editor_flip_horizontal">Obróć poziomo</string>
+    <string name="image_editor_flip_vertical">Obróć pionowo</string>
+    <string name="image_editor_rotate_ccw">Obróć w przeciwnym kierunku do ruchu zegarka</string>
+    <string name="image_editor_rotate_cw">Obróć w kierunku do ruchu zegarka</string>
+    <string name="image_editor_unable_to_edit_image">Nie można edytować obrazu</string>
     <string name="in_folder">w katalogu %1$s</string>
     <string name="instant_upload_existing">Wyślij również istniejące pliki</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
@@ -525,6 +531,7 @@
     <string name="pass_code_removed">Kod PIN został usunięty</string>
     <string name="pass_code_stored">Kod PIN został zapisany</string>
     <string name="pass_code_wrong">Kod PIN nieprawidłowy</string>
+    <string name="pdf_password_protected">Nie można otworzyć pliku PDF które jest chronione hasłem. Użyj zewnętrznej przeglądarki plików PDF.</string>
     <string name="pdf_zoom_tip">Dotknij strony, aby powiększyć</string>
     <string name="permission_allow">Akceptuj</string>
     <string name="permission_deny">Odrzuć</string>
