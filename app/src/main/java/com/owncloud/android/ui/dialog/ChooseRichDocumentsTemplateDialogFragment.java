@@ -108,6 +108,8 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
     ChooseTemplateBinding binding;
 
+    private CreateFileFromTemplateTask createFileFromTemplateTask = null;
+
     @NextcloudServer(max = 18) // will be removed in favor of generic direct editing
     public static ChooseRichDocumentsTemplateDialogFragment newInstance(OCFile parentFolder, Type type) {
         ChooseRichDocumentsTemplateDialogFragment frag = new ChooseRichDocumentsTemplateDialogFragment();
@@ -231,10 +233,16 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        createFileFromTemplateTask = null;
     }
 
     private void createFromTemplate(Template template, String path) {
-        new CreateFileFromTemplateTask(this, client, template, path, currentAccount.getUser()).execute();
+        if (createFileFromTemplateTask != null && createFileFromTemplateTask.getStatus() != AsyncTask.Status.FINISHED) {
+            Log_OC.d(TAG, "CreateFileFromTemplateTask already running skipping another click event");
+            return;
+        }
+        createFileFromTemplateTask = new CreateFileFromTemplateTask(this, client, template, path, currentAccount.getUser());
+        createFileFromTemplateTask.execute();
     }
 
     public void setTemplateList(List<Template> templateList) {
