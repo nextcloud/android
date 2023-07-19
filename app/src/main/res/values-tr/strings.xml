@@ -379,7 +379,7 @@
     <string name="first_run_1_text">Verilerinizi güvenli ve denetiminiz altında tutun</string>
     <string name="first_run_2_text">Güvenli iş birliği ve dosya değiş tokuşu</string>
     <string name="first_run_3_text">İnternet üzerinden kolayca kullanılan e-posta, takvim ve kişiler</string>
-    <string name="first_run_4_text">Ekran paylaşımı, çevrimiçi görüşmeler ve internet toplantıları</string>
+    <string name="first_run_4_text">Ekran paylaşımı, çevrim içi görüşmeler ve internet toplantıları</string>
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="folder_confirm_create">Ekle</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
@@ -518,8 +518,8 @@
     <string name="notifications_no_results_message">Lütfen bir süre sonra yeniden bakın.</string>
     <string name="offline_mode">İnternet bağlantısı yok</string>
     <string name="oneHour">1 saat</string>
-    <string name="online">Çevrimiçi</string>
-    <string name="online_status">Çevrimiçi durumu</string>
+    <string name="online">Çevrim içi</string>
+    <string name="online_status">Çevrim içi durumu</string>
     <string name="outdated_server">Sunucu ömrünün sonuna geldi, lütfen sürümünü yükseltin!</string>
     <string name="overflow_menu">Diğerleri menüsü</string>
     <string name="pass_code_configure_your_pass_code">Parolanızı yazın</string>

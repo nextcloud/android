@@ -88,6 +88,7 @@
     <string name="calendars">تقویم‌ها</string>
     <string name="certificate_load_problem">در حال بارگذاری گواهینامه، یک مشکل وجود دارد.</string>
     <string name="changelog_dev_version">تغییرات نسخه در حال توسعه</string>
+    <string name="check_back_later_or_reload">بعدا چک فرمایید یا مجددا بارگذاری کنید.</string>
     <string name="checkbox">جعبه علامت</string>
     <string name="choose_local_folder">پوشه محلی را انتخاب کردن...</string>
     <string name="choose_location">گزینش مکان</string>
@@ -145,6 +146,7 @@
     <string name="community_testing_headline">با آزمایش کردن کمک کنید</string>
     <string name="community_testing_report_text">گزارش یک مورد در GitHub</string>
     <string name="configure_new_media_folder_detection_notifications">" پیکربندی"</string>
+    <string name="confirm_removal">رمزگذاری محلی را حذف کنید.</string>
     <string name="confirmation_remove_file_alert">آیا واقعا می‌خواهید %1$s را حذف کنید؟</string>
     <string name="confirmation_remove_files_alert">آیا واقعاً می‌خواهید موارد انتخاب شده را حذف کنید؟</string>
     <string name="confirmation_remove_folder_alert">آیا واقعا می خواهید %1$s و محتویات آن را حذف کنید؟</string>
@@ -155,6 +157,7 @@
     <string name="conflict_local_file">پروندهٔ محلّی</string>
     <string name="conflict_message_description">اگر هردو نسخه را انتخاب کنید، یک شماره به نام فایل محلی اضافه خواهد شد.</string>
     <string name="conflict_server_file">پروندهٔ کارساز</string>
+    <string name="contact_backup_title">پشتیبان گیری از مخاطبین</string>
     <string name="contactlist_item_icon">آیکون کاربر برای لیست تماس</string>
     <string name="contactlist_no_permission">هیچ مجوزی داده نشده ، هیچ چیز وارد نشده است.</string>
     <string name="contacts">مخاطبین</string>
@@ -197,15 +200,20 @@
     <string name="dev_version_no_information_available">هیچ اطلاعاتی در دسترس نیست</string>
     <string name="dev_version_no_new_version_available">نسخه جدید موجود نیست</string>
     <string name="dialog_close">بستن</string>
+    <string name="did_not_check_for_dupes">موارد تکراری را بررسی نکردید.</string>
     <string name="digest_algorithm_not_available">این الگوریتم خلاصه در تلفن شما موجود نیست.</string>
     <string name="direct_login_failed">ورود از طریق پیوند مستقیم شکست خورد!</string>
     <string name="disable_new_media_folder_detection_notifications">غیرفعال کردن</string>
     <string name="dismiss">پنهان کن</string>
     <string name="dismiss_notification_description">رد کردن اعلان</string>
     <string name="dnd">مزاحم نشوید</string>
+    <string name="document_scan_export_dialog_images">تصاویر مختلف</string>
+    <string name="document_scan_export_dialog_pdf">فایل پی دی اف</string>
+    <string name="document_scan_export_dialog_title">نوع خروجی را مشخص کنید</string>
     <string name="done">انجام شد</string>
     <string name="dontClear">پاک نکن</string>
     <string name="download_cannot_create_file">پرونده محلی ایجاد نمی شود</string>
+    <string name="download_download_invalid_local_file_name">اسم فایل نامعتبر برای پوشه محلی</string>
     <string name="download_latest_dev_version">آخرین نسخه dev را دریافت کنید</string>
     <string name="downloader_download_failed_content">%1$s دانلود نشد</string>
     <string name="downloader_download_failed_credentials_error">بارگیری شکست خورد. دوباره وارد شوید</string>
@@ -223,6 +231,7 @@
     <string name="drawer_item_all_files">تمامی فایل‌ها</string>
     <string name="drawer_item_favorites">مورد علاقه</string>
     <string name="drawer_item_gallery">رسانه‌ها</string>
+    <string name="drawer_item_groupfolders">گروه پوشه ها</string>
     <string name="drawer_item_home">خانه </string>
     <string name="drawer_item_notifications">پیغام ها</string>
     <string name="drawer_item_on_device">در دستگاه </string>
