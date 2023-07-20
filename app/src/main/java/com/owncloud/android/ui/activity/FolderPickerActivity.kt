@@ -1,7 +1,8 @@
 /*
  *   ownCloud Android client application
- *
+ *   @author TSI-mc
  *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2023 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -178,7 +179,7 @@ open class FolderPickerActivity :
         if (listFragment != null) {
             if (!mSyncInProgress) {
                 listFragment.setMessageForEmptyList(
-                    R.string.file_list_empty_headline,
+                    R.string.folder_list_empty_headline,
                     R.string.file_list_empty_moving,
                     R.drawable.ic_list_empty_create_folder,
                     true
