@@ -337,7 +337,7 @@
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">Non foi estabelecida unha aplicación para manexar este tipo de ficheiro.</string>
     <string name="file_list_seconds_ago">hai uns segundos</string>
-    <string name="file_management_permission">Permisos necesarios</string>
+    <string name="file_management_permission">Necesítanse permisos</string>
     <string name="file_management_permission_optional">Permisos de almacenamento</string>
     <string name="file_management_permission_optional_text">%1$s funciona mellor con permisos para acceder ao almacenamento. Pode escoller acceso completo a todos os ficheiros ou acceso de só lectura a fotos e vídeos.</string>
     <string name="file_management_permission_text">%1$s precisa permisos de xestión de ficheiros para enviar ficheiros. Pode escoller acceso completo a todos os ficheiros ou acceso de só lectura a fotos e vídeos.</string>
@@ -535,7 +535,7 @@
     <string name="pdf_zoom_tip">Toque nunha páxina para ampliala</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Denegar</string>
-    <string name="permission_storage_access">Son necesarios permisos adicionais para enviar e descargar ficheiros.</string>
+    <string name="permission_storage_access">Precísanse permisos adicionais para enviar e descargar ficheiros.</string>
     <string name="picture_set_as_no_app">Non se atopou unha aplicación coa que estabelecer unha imaxe</string>
     <string name="pin_home">Fixar na pantalla de Inicio</string>
     <string name="pin_shortcut_label">Aberto %1$s</string>
