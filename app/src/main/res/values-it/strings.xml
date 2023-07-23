@@ -249,6 +249,7 @@
     <string name="drawer_quota_unlimited">%1$s utilizzato</string>
     <string name="drawer_synced_folders">Caricamento automatico</string>
     <string name="e2e_not_yet_setup">L\'E2E non è ancora configurato</string>
+    <string name="e2e_offline">Impossibile senza connessione internet</string>
     <string name="encrypted">Imposta come cifrato</string>
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
     <string name="end_to_end_encryption_decrypting">Decifratura in corso…</string>
@@ -377,6 +378,7 @@
     <string name="filename_hint">Nome file</string>
     <string name="first_run_1_text">Mantieni i tuoi dati sicuri e sotto il tuo controllo</string>
     <string name="first_run_2_text">Rendi sicuri la collaborazione e lo scambio di file</string>
+    <string name="first_run_3_text">Webmail, calendario e contatti di semplice utilizzo</string>
     <string name="first_run_4_text">Condivisione dello schermo, riunioni in linea e conferenze web</string>
     <string name="folder_already_exists">La cartella esiste già</string>
     <string name="folder_confirm_create">Crea</string>
@@ -406,6 +408,12 @@
     <string name="icon_for_empty_list">Icona per lista vuota</string>
     <string name="icon_of_dashboard_widget">Icona per widget della dashboard</string>
     <string name="icon_of_widget_entry">Icona della voce del widget</string>
+    <string name="image_editor_file_edited_suffix">modificato</string>
+    <string name="image_editor_flip_horizontal">Ribalta orizzontalmente</string>
+    <string name="image_editor_flip_vertical">Ribalta verticalmente</string>
+    <string name="image_editor_rotate_ccw">Ruota in senso anti orario</string>
+    <string name="image_editor_rotate_cw">Ruota in senso orario</string>
+    <string name="image_editor_unable_to_edit_image">Impossibile modificare l\'immagine.</string>
     <string name="in_folder">nella cartella %1$s</string>
     <string name="instant_upload_existing">Carica anche i file esistenti</string>
     <string name="instant_upload_on_charging">Carica solo durante la ricarica</string>
@@ -523,6 +531,7 @@
     <string name="pass_code_removed">Codice segreto eliminato</string>
     <string name="pass_code_stored">Codice segreto memorizzato</string>
     <string name="pass_code_wrong">Codice segreto non corretto</string>
+    <string name="pdf_password_protected">Impossibile aprire il PDF protetto da password. Usa un visualizzatore PDF esterno.</string>
     <string name="pdf_zoom_tip">Tocca una pagina per ingrandire</string>
     <string name="permission_allow">Consenti</string>
     <string name="permission_deny">Nega</string>

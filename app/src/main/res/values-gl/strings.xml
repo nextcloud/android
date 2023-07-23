@@ -62,7 +62,7 @@
     <string name="auth_timeout_title">O servidor tardou de máis en responder</string>
     <string name="auth_trying_to_login">Tentando acceder a…</string>
     <string name="auth_unauthorized">Nome de usuario ou contrasinal erróneo</string>
-    <string name="auth_unknown_error_exception_title">Erro descoñecido: %1$s</string>
+    <string name="auth_unknown_error_exception_title">Produciuse un erro descoñecido: %1$s</string>
     <string name="auth_unknown_error_http_title">Produciuse un erro HTTP descoñecido!</string>
     <string name="auth_unknown_error_title">Produciuse un erro descoñecido!</string>
     <string name="auth_unknown_host_title">Non foi posíbel atopar a máquina</string>
@@ -113,7 +113,7 @@
     <string name="common_delete">Eliminar</string>
     <string name="common_error">Erro</string>
     <string name="common_error_out_memory">Non hai memoria abondo</string>
-    <string name="common_error_unknown">Erro descoñecido</string>
+    <string name="common_error_unknown">Produciuse un erro descoñecido</string>
     <string name="common_loading">Cargando…</string>
     <string name="common_next">Seguinte</string>
     <string name="common_no">Non</string>
@@ -274,7 +274,7 @@
     <string name="error_comment_file">Produciuse un erro ao comentar o ficheiro</string>
     <string name="error_crash_title">%1$s quebrou</string>
     <string name="error_creating_file_from_template">Produciuse un erro ao crear o ficheiro a partir do modelo</string>
-    <string name="error_file_actions">Erro ao amosar as accións do ficheiro</string>
+    <string name="error_file_actions">Produciuse un erro ao amosar as accións do ficheiro</string>
     <string name="error_file_lock">Produciuse un erro ao cambiar o estado do bloqueo do ficheiro</string>
     <string name="error_report_issue_action">Informe</string>
     <string name="error_report_issue_text">Informar dunha incidencia no seguimento? (precisa dunha conta de GitHub)</string>
@@ -853,7 +853,7 @@
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. No canto diso, gustaríalle movelos?</string>
     <string name="upload_scan_doc_upload">Escanear o documento dende a cámara</string>
     <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>
-    <string name="upload_unknown_error">Erro descoñecido</string>
+    <string name="upload_unknown_error">Produciuse un erro descoñecido</string>
     <string name="uploader_btn_alternative_text">Escoller</string>
     <string name="uploader_btn_upload_text">Enviar</string>
     <string name="uploader_error_message_no_file_to_upload">Os datos recibidos non inclúen un ficheiro correcto.</string>
@@ -899,7 +899,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Recuperando a versión do servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicación finalizada</string>
     <string name="uploads_view_upload_status_succeeded">Completado</string>
-    <string name="uploads_view_upload_status_unknown_fail">Erro descoñecido</string>
+    <string name="uploads_view_upload_status_unknown_fail">Produciuse un erro descoñecido</string>
     <string name="uploads_view_upload_status_virus_detected">Detectouse un virus. Non é posíbel completar o envío!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Agardando a saír do modo de aforro de enerxía</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Agardando pola carga</string>
