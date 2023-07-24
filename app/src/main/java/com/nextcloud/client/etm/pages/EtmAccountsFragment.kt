@@ -66,7 +66,8 @@ class EtmAccountsFragment : EtmBaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.etm_accounts_share -> {
-                onClickedShare(); true
+                onClickedShare()
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }

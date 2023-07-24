@@ -126,9 +126,18 @@ class LoggerTest {
         val tag = "test tag"
         val message = "test log message"
         val latch = CountDownLatch(LATCH_INIT)
-        doAnswer { it.callRealMethod(); latch.countDown() }.whenever(logHandler).open()
-        doAnswer { it.callRealMethod(); latch.countDown() }.whenever(logHandler).write(any())
-        doAnswer { it.callRealMethod(); latch.countDown() }.whenever(logHandler).close()
+        doAnswer {
+            it.callRealMethod()
+            latch.countDown()
+        }.whenever(logHandler).open()
+        doAnswer {
+            it.callRealMethod()
+            latch.countDown()
+        }.whenever(logHandler).write(any())
+        doAnswer {
+            it.callRealMethod()
+            latch.countDown()
+        }.whenever(logHandler).close()
 
         // GIVEN
         //      logger event loop is running

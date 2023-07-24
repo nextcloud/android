@@ -99,15 +99,27 @@ class TransferManagerImpl(
             runner.postTask(
                 task = createDownloadTask(request),
                 onProgress = { progress: Int -> registry.progress(uuid, progress) },
-                onResult = { result -> registry.complete(uuid, result.success, result.file); registry.startNext() },
-                onError = { registry.complete(uuid, false); registry.startNext() }
+                onResult = { result ->
+                    registry.complete(uuid, result.success, result.file)
+                    registry.startNext()
+                },
+                onError = {
+                    registry.complete(uuid, false)
+                    registry.startNext()
+                }
             )
         } else if (request is UploadRequest) {
             runner.postTask(
                 task = createUploadTask(request),
                 onProgress = { progress: Int -> registry.progress(uuid, progress) },
-                onResult = { result -> registry.complete(uuid, result.success, result.file); registry.startNext() },
-                onError = { registry.complete(uuid, false); registry.startNext() }
+                onResult = { result ->
+                    registry.complete(uuid, result.success, result.file)
+                    registry.startNext()
+                },
+                onError = {
+                    registry.complete(uuid, false)
+                    registry.startNext()
+                }
             )
         }
     }
