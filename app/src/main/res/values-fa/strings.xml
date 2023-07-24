@@ -32,6 +32,7 @@
     <string name="activity_icon">فعّالیت</string>
     <string name="add_another_public_share_link">افزودن پیوندی دیگر</string>
     <string name="add_new_public_share">افزودن پیوند هم‌رسانی عمومی جدید</string>
+    <string name="add_new_secure_file_drop">دراپ فایل امن جدید اضافه کنید.</string>
     <string name="add_to_cloud">افزودن به %1$s</string>
     <string name="advanced_settings">تنظمیات پیش‌رفته</string>
     <string name="allow_resharing">مجاز به اشتراک گذاری مجدد</string>
@@ -206,10 +207,13 @@
     <string name="disable_new_media_folder_detection_notifications">غیرفعال کردن</string>
     <string name="dismiss">پنهان کن</string>
     <string name="dismiss_notification_description">رد کردن اعلان</string>
+    <string name="displays_mnemonic">عبارت عبور 12 کلمه ای شما را نمایش می دهد.</string>
     <string name="dnd">مزاحم نشوید</string>
     <string name="document_scan_export_dialog_images">تصاویر مختلف</string>
     <string name="document_scan_export_dialog_pdf">فایل پی دی اف</string>
     <string name="document_scan_export_dialog_title">نوع خروجی را مشخص کنید</string>
+    <string name="document_scan_pdf_generation_failed">تولید PDF ناموفق بود.</string>
+    <string name="document_scan_pdf_generation_in_progress">در حال تولید PDF…</string>
     <string name="done">انجام شد</string>
     <string name="dontClear">پاک نکن</string>
     <string name="download_cannot_create_file">پرونده محلی ایجاد نمی شود</string>
@@ -244,6 +248,7 @@
     <string name="drawer_quota">%1$s از %2$s استفاده شده </string>
     <string name="drawer_quota_unlimited">"%1$sاستفاده شده "</string>
     <string name="drawer_synced_folders">بارگذاری خودکار</string>
+    <string name="e2e_not_yet_setup">E2E هنوز راه اندازی نشده است.</string>
     <string name="encrypted">به صورت رمزگذاری شده تنظیم شده است</string>
     <string name="end_to_end_encryption_confirm_button">رمزگذاری را تنظیم کنید</string>
     <string name="end_to_end_encryption_decrypting">رمزگشایی...</string>
@@ -265,10 +270,15 @@
     <string name="error_cant_bind_to_operations_service">خطای بحرانی: انجام عملیات ممکن نیست</string>
     <string name="error_comment_file">خطا در ثبت نظر در مورد فایل</string>
     <string name="error_crash_title">%1$s سقوط کرد</string>
+    <string name="error_file_actions">خطا در نمایش عملکردهای فایل</string>
+    <string name="error_file_lock">خطا در تغییر وضعیت فایل قفل.</string>
     <string name="error_report_issue_action">گزارش</string>
+    <string name="error_report_issue_text">مشکل را به ردیاب گزارش کنید؟ (به یک حساب GitHub نیاز دارد)</string>
     <string name="error_retrieving_file">خطا در بازیابی پرونده</string>
     <string name="error_retrieving_templates">خطا در بازیابی الگوهای</string>
+    <string name="error_showing_encryption_dialog">خطا در نمایش گفتگوی راه اندازی رمزگذاری!</string>
     <string name="error_starting_direct_camera_upload">خطا در فعال‌سازی دوربین</string>
+    <string name="error_starting_doc_scan">خطا در شروع اسکن سند</string>
     <string name="etm_accounts">حساب‌ها</string>
     <string name="etm_background_job_name">نام کار</string>
     <string name="etm_background_job_progress">پیشرفت</string>
@@ -299,6 +309,7 @@
     <string name="failed_update_ui">رابط کاربری بروز نشد</string>
     <string name="favorite">افزوردن به موارد دلخواه</string>
     <string name="favorite_icon">مورد ‌علاقه</string>
+    <string name="file_already_exists">نام فایل از قبل وجود دارد.</string>
     <string name="file_delete">حذف</string>
     <string name="file_detail_activity_error">خطا در بازیابی فعالیت‌ها برای فایل</string>
     <string name="file_details_no_content">بارگیری جزئیات انجام نشد</string>
@@ -307,6 +318,7 @@
     <string name="file_list_empty">بعضی از محتویات را آپلود کنید یا با دستگاه های خود همگام سازی کنید.</string>
     <string name="file_list_empty_favorite_headline">هیچ فایل برگزیده ای وجود ندارد</string>
     <string name="file_list_empty_favorites_filter_list">فایل‌ها و پوشه‌های علامت‌گذاری شده به عنوان موردعلاقه، در این قسمت نمایش داده خواهند شد.</string>
+    <string name="file_list_empty_gallery">هیچ تصویر یا ویدیویی یافت نشد.</string>
     <string name="file_list_empty_headline">هیچ فایلی اینجا نیست</string>
     <string name="file_list_empty_headline_search">هیچ نتیجه ای در این پوشه نیست</string>
     <string name="file_list_empty_headline_server_search">نتیجه ای یافت نشد</string>
@@ -316,10 +328,13 @@
     <string name="file_list_empty_search">شاید در پوشه های مختلف باشد؟</string>
     <string name="file_list_empty_shared">فایل‌ها و پوشه‌های به اشتراک گذاشته شده در این قسمت نمایش داده خواهند شد.</string>
     <string name="file_list_empty_shared_headline">هنوز هیچ فایلی به اشتراک نگذشته شده است</string>
+    <string name="file_list_empty_unified_search_no_results">هیچ نتیجه ای برای درخواست شما یافت نشد.</string>
     <string name="file_list_folder">پوشه</string>
     <string name="file_list_loading">درحال بارگیری...</string>
     <string name="file_list_no_app_for_file_type">هیچ برنامه ای برای استفاده این نوع فایل تنظیم نشده است.</string>
     <string name="file_list_seconds_ago">ثانیه‌هایی پیش</string>
+    <string name="file_management_permission">مجوزهای مورد نیاز</string>
+    <string name="file_management_permission_optional">مجوزهای ذخیره سازی</string>
     <string name="file_migration_checking_destination">در حال بررسی مقصد...</string>
     <string name="file_migration_cleaning">درحال پاک‌سازی…</string>
     <string name="file_migration_dialog_title">به روزرسانی مسیر ذخیره سازی</string>
@@ -385,6 +400,7 @@
     <string name="icon_for_empty_list">نقشک برای سیاههٔ خالی</string>
     <string name="icon_of_dashboard_widget">نقشک ابزارک پیشخان</string>
     <string name="icon_of_widget_entry">نقشک ورودی ابزارک</string>
+    <string name="image_editor_flip_horizontal">به صورت افقی بچرخانید.</string>
     <string name="in_folder">در پوشه %1$s</string>
     <string name="instant_upload_existing">فایل های موجود را نیز بارگذاری کنید</string>
     <string name="instant_upload_on_charging">فقط هنگامی که گوشی شارژ می شود آپلود کنید</string>
