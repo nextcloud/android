@@ -124,19 +124,24 @@ class EtmBackgroundJobsFragment : EtmBaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.etm_background_jobs_cancel -> {
-                vm.cancelAllJobs(); true
+                vm.cancelAllJobs()
+                true
             }
             R.id.etm_background_jobs_prune -> {
-                vm.pruneJobs(); true
+                vm.pruneJobs()
+                true
             }
             R.id.etm_background_jobs_start_test -> {
-                vm.startTestJob(periodic = false); true
+                vm.startTestJob(periodic = false)
+                true
             }
             R.id.etm_background_jobs_schedule_test -> {
-                vm.startTestJob(periodic = true); true
+                vm.startTestJob(periodic = true)
+                true
             }
             R.id.etm_background_jobs_cancel_test -> {
-                vm.cancelTestJob(); true
+                vm.cancelTestJob()
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }

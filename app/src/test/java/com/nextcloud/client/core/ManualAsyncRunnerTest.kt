@@ -60,7 +60,10 @@ class ManualAsyncRunnerTest {
         MockitoAnnotations.initMocks(this)
         runner = ManualAsyncRunner()
         taskCalls = EMPTY
-        whenever(task.invoke()).thenAnswer { taskCalls++; taskCalls }
+        whenever(task.invoke()).thenAnswer {
+            taskCalls++
+            taskCalls
+        }
     }
 
     @Test

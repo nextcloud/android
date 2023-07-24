@@ -134,10 +134,12 @@ class EtmFileTransferFragment : EtmBaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.etm_test_download -> {
-                scheduleTestDownload(); true
+                scheduleTestDownload()
+                true
             }
             R.id.etm_test_upload -> {
-                scheduleTestUpload(); true
+                scheduleTestUpload()
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }

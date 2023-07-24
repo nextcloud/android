@@ -62,7 +62,8 @@ class EtmMigrations : EtmBaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.etm_migrations_delete -> {
-                onDeleteMigrationsClicked(); true
+                onDeleteMigrationsClicked()
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }

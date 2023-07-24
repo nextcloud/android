@@ -50,7 +50,10 @@ class ManualAsyncRunner : AsyncRunner {
     ): Cancellable {
         val remove: Function1<Runnable, Boolean> = queue::remove
         val taskWrapper = Task(
-            postResult = { it.run(); true },
+            postResult = {
+                it.run()
+                true
+            },
             removeFromQueue = remove,
             taskBody = task,
             onSuccess = onResult,
