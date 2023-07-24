@@ -3,8 +3,10 @@
  *
  * @author David A. Velasco
  * @author Chris Narkiewicz Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -99,6 +101,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__CALENDAR_LAST_BACKUP = "calendar_last_backup";
 
     private static final String PREF__PDF_ZOOM_TIP_SHOWN = "pdf_zoom_tip_shown";
+    private static final String PREF__MEDIA_FOLDER_LAST_PATH = "media_folder_last_path";
 
     private static final String PREF__STORAGE_PERMISSION_REQUESTED = "storage_permission_requested";
     private static final String PREF__IN_APP_REVIEW_DATA = "in_app_review_data";
@@ -728,5 +731,16 @@ public final class AppPreferencesImpl implements AppPreferences {
         Gson gson = new Gson();
         String json = preferences.getString(PREF__IN_APP_REVIEW_DATA, "");
         return gson.fromJson(json, AppReviewShownModel.class);
+    }
+
+    @Override
+    public void setLastSelectedMediaFolder(@NonNull String path) {
+        preferences.edit().putString(PREF__MEDIA_FOLDER_LAST_PATH, path).apply();
+    }
+
+    @NonNull
+    @Override
+    public String getLastSelectedMediaFolder() {
+        return preferences.getString(PREF__MEDIA_FOLDER_LAST_PATH, OCFile.ROOT_PATH);
     }
 }
