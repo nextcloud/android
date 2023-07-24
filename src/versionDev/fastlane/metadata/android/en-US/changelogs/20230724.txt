@@ -1,0 +1,3 @@
+Build(deps): Bump daggerVersion from 2.46.1 to 2.47
+Build(deps): Bump exoplayerVersion from 2.18.7 to 2.19.0
+Update 3rd-party dependencies
