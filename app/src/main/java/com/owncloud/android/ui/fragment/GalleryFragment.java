@@ -40,6 +40,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.EmptyRecyclerView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
@@ -158,6 +159,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
         setRecyclerViewAdapter(mAdapter);
 
+        //update the footer as there is no footer shown in media view
+        if (getRecyclerView() instanceof EmptyRecyclerView) {
+            ((EmptyRecyclerView) getRecyclerView()).setHasFooter(false);
+        }
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
         mAdapter.setLayoutManager(layoutManager);
