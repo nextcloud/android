@@ -65,7 +65,10 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
     fun send(logs: List<LogEntry>) {
         if (task == null) {
             val outFile = File(context.cacheDir, "attachments/logs.txt")
-            task = runner.postQuickTask(Task(context, logs, outFile, clock.tz), onResult = { task = null; send(it) })
+            task = runner.postQuickTask(Task(context, logs, outFile, clock.tz), onResult = {
+                task = null
+                send(it)
+            })
         }
     }
 

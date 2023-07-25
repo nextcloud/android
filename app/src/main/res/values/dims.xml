@@ -82,7 +82,6 @@
     <dimen name="scroll_view_height">180dp</dimen>
     <dimen name="upload_list_item_frame_layout_width">60dp</dimen>
     <dimen name="upload_list_item_text_size">12sp</dimen>
-    <dimen name="upload_list_item_image_size">24dp</dimen>
     <dimen name="uploader_list_item_layout_image_margin">12dp</dimen>
     <dimen name="media_grid_spacing">2dp</dimen>
     <dimen name="account_item_layout_user_image_left_start_margin">12dp</dimen>

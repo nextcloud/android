@@ -57,7 +57,10 @@ class TaskTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        val postResult = { r: Runnable -> r.run(); true }
+        val postResult = { r: Runnable ->
+            r.run()
+            true
+        }
         task = Task(this::post, removeFromQueue, taskBody, onResult, onError, onProgress)
     }
 

@@ -5,7 +5,7 @@
  * @author TSI-mc
  * Copyright (C) 2019 Tobias Kaminsky
  * Copyright (C) 2019 Nextcloud GmbH
- * Copyright (C) 2022 TSI-mc
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,6 +40,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.EmptyRecyclerView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
@@ -70,7 +71,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private GalleryAdapter mAdapter;
 
     private static final int SELECT_LOCATION_REQUEST_CODE = 212;
-    private OCFile remoteFile;
     private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
 
     @Inject FileDataStorageManager fileDataStorageManager;
@@ -121,8 +121,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
-        remoteFile = fileDataStorageManager.getDefaultRootPath();
-
         getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -161,6 +159,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
         setRecyclerViewAdapter(mAdapter);
 
+        //update the footer as there is no footer shown in media view
+        if (getRecyclerView() instanceof EmptyRecyclerView) {
+            ((EmptyRecyclerView) getRecyclerView()).setHasFooter(false);
+        }
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
         mAdapter.setLayoutManager(layoutManager);
@@ -289,7 +291,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         if (requestCode == SELECT_LOCATION_REQUEST_CODE && data != null) {
             OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
             if (chosenFolder != null) {
-                remoteFile = chosenFolder;
+                preferences.setLastSelectedMediaFolder(chosenFolder.getRemotePath());
                 searchAndDisplayAfterChangingFolder();
             }
         }
@@ -372,7 +374,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     public void showAllGalleryItems() {
-        mAdapter.showAllGalleryItems(remoteFile.getRemotePath(),
+        mAdapter.showAllGalleryItems(preferences.getLastSelectedMediaFolder(),
                                      galleryFragmentBottomSheetDialog.getCurrMediaState(),
                                      this);
 

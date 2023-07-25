@@ -2,7 +2,9 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
+ * @author TSI-mc
  * Copyright (C) 2019 Chris Narkiewicz, EZ Aquarii
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -384,4 +386,9 @@ public interface AppPreferences {
 
     @Nullable
     AppReviewShownModel getInAppReviewData();
+
+    void setLastSelectedMediaFolder(@NonNull String path);
+
+    @NonNull
+    String getLastSelectedMediaFolder();
 }
