@@ -180,19 +180,17 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
      * Updates title bar and home buttons (state and icon).
      */
     public void updateActionBarTitleAndHomeButtonByString(String title) {
-        String titleToSet = getString(R.string.app_name);    // default
-
-        if (title != null) {
-            titleToSet = title;
-        }
-
         // set & color the chosen title
         ActionBar actionBar = getSupportActionBar();
 
         // set home button properties
         if (actionBar != null) {
-            actionBar.setTitle(titleToSet);
-            actionBar.setDisplayShowTitleEnabled(true);
+            if (title != null) {
+                actionBar.setTitle(title);
+                actionBar.setDisplayShowTitleEnabled(true);
+            } else {
+                actionBar.setDisplayShowTitleEnabled(false);
+            }
         }
     }
 
