@@ -27,6 +27,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
@@ -65,6 +66,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     private lateinit var adapter: UnifiedSearchListAdapter
     private var _binding: ListFragmentBinding? = null
     private val binding get() = _binding!!
+    private var searchView: SearchView? = null
     lateinit var vm: IUnifiedSearchViewModel
 
     @Inject
@@ -224,14 +226,15 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         setUpViewModel()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val item = menu.findItem(R.id.action_search)
-        val searchView = MenuItemCompat.getActionView(item) as SearchView
-        viewThemeUtils.androidx.themeToolbarSearchView(searchView)
-        searchView.setQuery(vm.query.value, false)
-        searchView.setOnQueryTextListener(this)
-        searchView.isIconified = false
-        searchView.clearFocus()
+        searchView = MenuItemCompat.getActionView(item) as SearchView
+        viewThemeUtils.androidx.themeToolbarSearchView(searchView!!)
+        searchView?.setQuery(vm.query.value, false)
+        searchView?.setOnQueryTextListener(this)
+        searchView?.isIconified = false
+        searchView?.clearFocus()
     }
 
     companion object {
@@ -257,7 +260,12 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        // noop
+        val closeButton = searchView?.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
+        if (newText?.isEmpty() == true) {
+            closeButton?.visibility = View.INVISIBLE
+        } else {
+            closeButton?.visibility = View.VISIBLE
+        }
         return true
     }
 }
