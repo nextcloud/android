@@ -34,11 +34,13 @@ import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -344,19 +346,34 @@ public abstract class DrawerActivity extends ToolbarActivity
                     .load(Uri.parse(logo))
                     .into(target);
             }
-        }
 
-        // hide ecosystem apps according to user preference or in branded client
-        LinearLayout ecosystemApps = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
-        if (getResources().getBoolean(R.bool.is_branded_client) || preferences.isHideEcosystemApps()) {
-            ecosystemApps.setVisibility(View.GONE);
-        } else {
-            ecosystemApps.findViewById(R.id.drawer_ecosystem_notes)
-                .setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
-            ecosystemApps.findViewById(R.id.drawer_ecosystem_talk)
-                .setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
-            ecosystemApps.findViewById(R.id.drawer_ecosystem_more)
-                .setOnClickListener(v -> openAppStore("Nextcloud", true));
+            // hide ecosystem apps according to user preference or in branded client
+            LinearLayout ecosystemApps = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
+            if (getResources().getBoolean(R.bool.is_branded_client) || preferences.isHideEcosystemApps()) {
+                ecosystemApps.setVisibility(View.GONE);
+            } else {
+                LinearLayout[] views = {
+                    ecosystemApps.findViewById(R.id.drawer_ecosystem_notes),
+                    ecosystemApps.findViewById(R.id.drawer_ecosystem_talk),
+                    ecosystemApps.findViewById(R.id.drawer_ecosystem_more)
+                };
+
+                views[0].setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
+                views[1].setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
+                views[2].setOnClickListener(v -> openAppStore("Nextcloud", true));
+
+                int color = themeColorUtils.unchangedIconColor(this, primaryColor);
+                for (LinearLayout view : views) {
+                    ImageView imageView = (ImageView) view.getChildAt(0);
+                    imageView.setImageTintList(ColorStateList.valueOf(color));
+                    GradientDrawable background = (GradientDrawable) imageView.getBackground();
+                    background.setStroke(DisplayUtils.convertDpToPixel(1, this), color);
+                    TextView textView = (TextView) view.getChildAt(1);
+                    textView.setTextColor(color);
+                }
+
+                ecosystemApps.setVisibility(View.VISIBLE);
+            }
         }
     }
 

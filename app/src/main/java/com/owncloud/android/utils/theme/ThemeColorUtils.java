@@ -29,6 +29,8 @@ import android.graphics.Color;
 import com.nextcloud.android.common.ui.util.PlatformThemeUtil;
 import com.owncloud.android.R;
 
+import hct.Hct;
+
 import static com.owncloud.android.utils.theme.CapabilityUtils.getCapability;
 
 /**
@@ -55,6 +57,15 @@ public class ThemeColorUtils {
             } else {
                 return Color.BLACK;
             }
+        }
+    }
+
+    public int unchangedIconColor(Context context, int primaryColor) {
+        double hct = Hct.fromInt(primaryColor).getTone();
+        if (hct < 80.0) {
+            return Color.WHITE;
+        } else {
+            return context.getColor(R.color.grey_700_transparent);
         }
     }
 }
