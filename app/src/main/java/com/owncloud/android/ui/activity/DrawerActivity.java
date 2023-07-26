@@ -401,7 +401,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      * @param string packageName or url-encoded search string
      * @param search false -> show app corresponding to packageName; true -> open search for string
      */
-    private void openAppStore(String string, Boolean search) {
+    private void openAppStore(String string, boolean search) {
         String suffix = (search ? "search?q=" : "details?id=") + string;
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://" + suffix));
         try {
