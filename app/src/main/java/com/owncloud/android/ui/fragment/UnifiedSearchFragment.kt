@@ -136,12 +136,6 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
                 DisplayUtils.showSnackMessage(binding.root, error)
             }
         }
-        vm.query.observe(this) { query ->
-            if (activity is FileDisplayActivity) {
-                (activity as FileDisplayActivity)
-                    .updateActionBarTitleAndHomeButtonByString(null)
-            }
-        }
         vm.browserUri.observe(this) { uri ->
             val browserIntent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(browserIntent)
