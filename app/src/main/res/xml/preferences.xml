@@ -53,8 +53,9 @@
 			android:title="@string/prefs_show_hidden_files"
 			android:key="show_hidden_files"/>
         <com.owncloud.android.ui.ThemeableSwitchPreference
-            android:title="@string/prefs_hide_ecosystem_apps"
-            android:key="hide_ecosystem_apps"/>
+            android:title="@string/prefs_show_ecosystem_apps"
+            android:key="show_ecosystem_apps"
+            android:summary="@string/prefs_show_ecosystem_apps_summary"/>
         <com.owncloud.android.ui.ThemeableSwitchPreference
             android:title="@string/prefs_enable_media_scan_notifications"
             android:summary="@string/prefs_enable_media_scan_notifications_summary"

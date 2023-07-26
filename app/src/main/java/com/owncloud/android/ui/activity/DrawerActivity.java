@@ -349,7 +349,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             // hide ecosystem apps according to user preference or in branded client
             LinearLayout ecosystemApps = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
-            if (getResources().getBoolean(R.bool.is_branded_client) || preferences.isHideEcosystemApps()) {
+            if (getResources().getBoolean(R.bool.is_branded_client) || !preferences.isShowEcosystemApps()) {
                 ecosystemApps.setVisibility(View.GONE);
             } else {
                 LinearLayout[] views = {

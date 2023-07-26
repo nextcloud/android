@@ -75,8 +75,8 @@ public interface AppPreferences {
     boolean isShowHiddenFilesEnabled();
     void setShowHiddenFilesEnabled(boolean enabled);
 
-    boolean isHideEcosystemApps();
-    void setHideEcosystemApps(boolean enabled);
+    boolean isShowEcosystemApps();
+    void setShowEcosystemApps(boolean enabled);
 
     /**
      * Gets the selected file extension position the user selected to do the

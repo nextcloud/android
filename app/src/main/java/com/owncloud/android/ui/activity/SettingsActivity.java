@@ -137,7 +137,7 @@ public class SettingsActivity extends PreferenceActivity
 
     private ListPreference lock;
     private ThemeableSwitchPreference showHiddenFiles;
-    private ThemeableSwitchPreference hideEcosystemApps;
+    private ThemeableSwitchPreference showEcosystemApps;
     private AppCompatDelegate delegate;
 
     private ListPreference prefStoragePath;
@@ -607,7 +607,7 @@ public class SettingsActivity extends PreferenceActivity
         boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
         boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials_enabled);
         boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
-        boolean fHideEcosystemAppsEnabled = !getResources().getBoolean(R.bool.is_branded_client);
+        boolean fShowEcosystemAppsEnabled = !getResources().getBoolean(R.bool.is_branded_client);
         boolean fSyncedFolderLightEnabled = getResources().getBoolean(R.bool.syncedFolder_light);
         boolean fShowMediaScanNotifications = preferences.isShowMediaScanNotifications();
 
@@ -615,7 +615,7 @@ public class SettingsActivity extends PreferenceActivity
 
         setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
 
-        setupHideEcosystemAppsPreference(preferenceCategoryDetails, fHideEcosystemAppsEnabled);
+        setupShowEcosystemAppsPreference(preferenceCategoryDetails, fShowEcosystemAppsEnabled);
 
         setupShowMediaScanNotifications(preferenceCategoryDetails, fShowMediaScanNotifications);
 
@@ -648,16 +648,16 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
-    private void setupHideEcosystemAppsPreference(PreferenceCategory preferenceCategoryDetails,
-                                            boolean fHideEcosystemAppsEnabled) {
-        hideEcosystemApps = (ThemeableSwitchPreference) findPreference("hide_ecosystem_apps");
-        if (fHideEcosystemAppsEnabled) {
-            hideEcosystemApps.setOnPreferenceClickListener(preference -> {
-                preferences.setHideEcosystemApps(hideEcosystemApps.isChecked());
+    private void setupShowEcosystemAppsPreference(PreferenceCategory preferenceCategoryDetails,
+                                            boolean fShowEcosystemAppsEnabled) {
+        showEcosystemApps = (ThemeableSwitchPreference) findPreference("show_ecosystem_apps");
+        if (fShowEcosystemAppsEnabled) {
+            showEcosystemApps.setOnPreferenceClickListener(preference -> {
+                preferences.setShowEcosystemApps(showEcosystemApps.isChecked());
                 return true;
             });
         } else {
-            preferenceCategoryDetails.removePreference(hideEcosystemApps);
+            preferenceCategoryDetails.removePreference(showEcosystemApps);
         }
     }
 
