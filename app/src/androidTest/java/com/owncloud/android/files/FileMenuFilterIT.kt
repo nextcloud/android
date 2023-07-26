@@ -269,6 +269,52 @@ class FileMenuFilterIT : AbstractIT() {
         }
     }
 
+    @Test
+    fun filter_select_all() {
+        configureCapability(OCCapability())
+
+        launchActivity<TestActivity>().use {
+            it.onActivity { activity ->
+                val filterFactory = FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
+
+                val files = listOf<OCFile>(OCFile("/foo.bin"), OCFile("/bar.bin"), OCFile("/baz.bin"))
+
+                // single file
+                var sut = filterFactory.newInstance(files.first(), mockComponentsGetter, true, user)
+
+                var toHide = sut.getToHide(true)
+                assertTrue(toHide.contains(R.id.action_select_all_action_menu))
+                assertTrue(toHide.contains(R.id.action_deselect_all_action_menu))
+
+                toHide = sut.getToHide(false)
+                assertTrue(toHide.contains(R.id.action_select_all_action_menu))
+                assertTrue(toHide.contains(R.id.action_deselect_all_action_menu))
+
+                // multiple files, all selected
+                sut = filterFactory.newInstance(files.size, files, mockComponentsGetter, false, user)
+
+                toHide = sut.getToHide(true)
+                assertTrue(toHide.contains(R.id.action_select_all_action_menu))
+                assertTrue(toHide.contains(R.id.action_deselect_all_action_menu))
+
+                toHide = sut.getToHide(false)
+                assertTrue(toHide.contains(R.id.action_select_all_action_menu))
+                assertFalse(toHide.contains(R.id.action_deselect_all_action_menu))
+
+                // multiple files, all but one selected
+                sut = filterFactory.newInstance(files.size + 1, files, mockComponentsGetter, false, user)
+
+                toHide = sut.getToHide(true)
+                assertTrue(toHide.contains(R.id.action_select_all_action_menu))
+                assertTrue(toHide.contains(R.id.action_deselect_all_action_menu))
+
+                toHide = sut.getToHide(false)
+                assertFalse(toHide.contains(R.id.action_select_all_action_menu))
+                assertFalse(toHide.contains(R.id.action_deselect_all_action_menu))
+            }
+        }
+    }
+
     private data class ExpectedLockVisibilities(
         val lockFile: Boolean,
         val unlockFile: Boolean
