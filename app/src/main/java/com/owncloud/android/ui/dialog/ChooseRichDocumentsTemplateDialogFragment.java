@@ -373,7 +373,8 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
                 }
 
                 if (url.isEmpty()) {
-                    DisplayUtils.showSnackMessage(fragment.binding.list, R.string.error_creating_file_from_template);
+                    fragment.dismiss();
+                    DisplayUtils.showSnackMessage(fragment.requireActivity(), R.string.error_creating_file_from_template);
                 } else {
                     Intent collaboraWebViewIntent = new Intent(MainApp.getAppContext(), RichDocumentsEditorWebView.class);
                     collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Collabora");
@@ -424,7 +425,8 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
             if (fragment != null) {
                 if (templateList.isEmpty()) {
-                    DisplayUtils.showSnackMessage(fragment.binding.list, R.string.error_retrieving_templates);
+                    fragment.dismiss();
+                    DisplayUtils.showSnackMessage(fragment.requireActivity(), R.string.error_retrieving_templates);
                 } else {
                     if (templateList.size() == SINGLE_TEMPLATE) {
                         fragment.onTemplateChosen(templateList.get(0));
