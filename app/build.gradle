@@ -376,7 +376,7 @@ dependencies {
     gplayImplementation "com.google.firebase:firebase-messaging:23.1.2"
     gplayImplementation 'com.google.android.play:review-ktx:2.0.1'
 
-    implementation 'com.github.nextcloud.android-common:ui:0.11.0'
+    implementation 'com.github.nextcloud.android-common:ui:0.12.0'
 
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
