@@ -410,6 +410,12 @@ Attention la suppression est irréversible.</string>
     <string name="icon_for_empty_list">Icône pour liste vide</string>
     <string name="icon_of_dashboard_widget">Icône du widget du tableau de bord</string>
     <string name="icon_of_widget_entry">Icône de l\'entrée du widget</string>
+    <string name="image_editor_file_edited_suffix">modifié</string>
+    <string name="image_editor_flip_horizontal">Retourner horizontalement</string>
+    <string name="image_editor_flip_vertical">Retourner verticalement</string>
+    <string name="image_editor_rotate_ccw">Tourner dans le sens inverse des aiguilles d\'une montre</string>
+    <string name="image_editor_rotate_cw">Tourner dans le sens des aiguilles d\'une montre</string>
+    <string name="image_editor_unable_to_edit_image">Impossible de modifier l\'image</string>
     <string name="in_folder">dans le dossier %1$s</string>
     <string name="instant_upload_existing">Téléverser aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Téléverser uniquement si le chargeur est branché</string>
