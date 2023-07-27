@@ -116,7 +116,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         defaultViewThemeUtils.platform.colorTextView(binding.hostOwnServer, ColorRole.ON_PRIMARY);
         binding.hostOwnServer.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
 
-        if (!isProviderOrOwnInstallationVisible) {
+        if (isProviderOrOwnInstallationVisible) {
             binding.hostOwnServer.setOnClickListener(v -> DisplayUtils.startLinkIntent(this, R.string.url_server_install));
         }
 
