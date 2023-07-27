@@ -37,6 +37,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -133,6 +134,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import hct.Hct;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -362,14 +364,19 @@ public abstract class DrawerActivity extends ToolbarActivity
                 views[1].setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
                 views[2].setOnClickListener(v -> openAppStore("Nextcloud", true));
 
-                int color = themeColorUtils.unchangedIconColor(this, primaryColor);
+                int iconColor;
+                if (Hct.fromInt(primaryColor).getTone() < 80.0) {
+                    iconColor = Color.WHITE;
+                } else {
+                    iconColor = getColor(R.color.grey_800_transparent);
+                }
                 for (LinearLayout view : views) {
                     ImageView imageView = (ImageView) view.getChildAt(0);
-                    imageView.setImageTintList(ColorStateList.valueOf(color));
+                    imageView.setImageTintList(ColorStateList.valueOf(iconColor));
                     GradientDrawable background = (GradientDrawable) imageView.getBackground();
-                    background.setStroke(DisplayUtils.convertDpToPixel(1, this), color);
+                    background.setStroke(DisplayUtils.convertDpToPixel(1, this), iconColor);
                     TextView textView = (TextView) view.getChildAt(1);
-                    textView.setTextColor(color);
+                    textView.setTextColor(iconColor);
                 }
 
                 ecosystemApps.setVisibility(View.VISIBLE);
