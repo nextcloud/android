@@ -1,0 +1,4 @@
+Build(deps): Bump com.github.nextcloud.android-common:ui
+Build(deps): Bump com.android.tools.build:gradle from 8.0.2 to 8.1.0
+Update Nextcloud Android library
+Update 3rd-party dependencies
