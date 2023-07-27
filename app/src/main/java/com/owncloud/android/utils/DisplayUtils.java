@@ -777,9 +777,13 @@ public final class DisplayUtils {
 
     static public void startLinkIntent(Activity activity, String url) {
         if (!TextUtils.isEmpty(url)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_browser_available);
+            startLinkIntent(activity, Uri.parse(url));
         }
+    }
+
+    static public void startLinkIntent(Activity activity, Uri uri) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_browser_available);
     }
 
     static public void startIntentIfAppAvailable(Intent intent, Activity activity, @StringRes int error) {
