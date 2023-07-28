@@ -36,5 +36,6 @@
         android:icon="@drawable/ic_action_create_dir"
         android:orderInCategory="1"
         android:title="@string/actionbar_mkdir"
-        app:showAsAction="never" />
+        app:iconTint="?attr/colorOnSurface"
+        app:showAsAction="ifRoom"/>
 </menu>

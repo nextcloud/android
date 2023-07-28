@@ -107,20 +107,8 @@ public abstract class AbstractIT {
                 }
             }
 
-            Account temp = new Account("test@https://nextcloud.localhost", MainApp.getAccountType(targetContext));
-            platformAccountManager.addAccountExplicitly(temp, "password", null);
-            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://nextcloud.localhost");
-            platformAccountManager.setUserData(temp, KEY_USER_ID, "test");
-
-            final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
-            account = userAccountManager.getAccountByName("test@https://nextcloud.localhost");
-
-            if (account == null) {
-                throw new ActivityNotFoundException();
-            }
-
-            Optional<User> optionalUser = userAccountManager.getUser(account.name);
-            user = optionalUser.orElseThrow(IllegalAccessError::new);
+            account = createAccount("test@https://nextcloud.localhost");
+            user = getUser(account);
 
             client = OwnCloudClientFactory.createOwnCloudClient(account, targetContext);
             nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, targetContext);
@@ -447,4 +435,31 @@ public abstract class AbstractIT {
     public static String getUserId(User user) {
         return AccountManager.get(targetContext).getUserData(user.toPlatformAccount(), KEY_USER_ID);
     }
+
+    protected static User getUser(Account account) {
+        Optional<User> optionalUser = UserAccountManagerImpl.fromContext(targetContext).getUser(account.name);
+        return optionalUser.orElseThrow(IllegalAccessError::new);
+    }
+
+    protected static Account createAccount(String name) {
+        AccountManager platformAccountManager = AccountManager.get(targetContext);
+
+        Account temp = new Account(name, MainApp.getAccountType(targetContext));
+        int atPos = name.lastIndexOf('@');
+        platformAccountManager.addAccountExplicitly(temp, "password", null);
+        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL,
+                                           name.substring(atPos + 1));
+        platformAccountManager.setUserData(temp, KEY_USER_ID, name.substring(0, atPos));
+
+        Account account = UserAccountManagerImpl.fromContext(targetContext).getAccountByName(name);
+        if (account == null) {
+            throw new ActivityNotFoundException();
+        }
+        return account;
+    }
+
+    protected static boolean removeAccount(Account account) {
+        return AccountManager.get(targetContext).removeAccountExplicitly(account);
+    }
+
 }
