@@ -123,7 +123,8 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             subject = subject + " ↗";
             holder.binding.subject.setTypeface(holder.binding.subject.getTypeface(),
                                                Typeface.BOLD);
-            holder.binding.subject.setOnClickListener(v -> openLink(notification.getLink()));
+            holder.binding.subject.setOnClickListener(v -> DisplayUtils.startLinkIntent(notificationsActivity,
+                                                                                        notification.getLink()));
             holder.binding.subject.setText(subject);
         } else {
             if (!TextUtils.isEmpty(notification.subjectRich)) {
@@ -329,8 +330,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 closingBrace = openingBrace + name.length();
 
                 ssb.setSpan(styleSpanBold, openingBrace, closingBrace, 0);
-                ssb.setSpan(foregroundColorSpanBlack, openingBrace, closingBrace,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ssb.setSpan(foregroundColorSpanBlack, openingBrace, closingBrace, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             openingBrace = text.indexOf('{', closingBrace);
         }
@@ -380,12 +380,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             .diskCacheStrategy(DiskCacheStrategy.SOURCE)
             .load(uri)
             .into(itemViewType);
-    }
-
-    private void openLink(String link) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-
-        DisplayUtils.startIntentIfAppAvailable(intent, notificationsActivity, R.string.no_browser_available);
     }
 
     @Override

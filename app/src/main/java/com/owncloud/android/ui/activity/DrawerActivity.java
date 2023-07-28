@@ -580,8 +580,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         for (ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
             if (menuItem.getTitle().toString().equalsIgnoreCase(link.getName())) {
                 if (link.getRedirect()) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link.getUrl()));
-                    DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
+                    DisplayUtils.startLinkIntent(this, link.getUrl());
                 } else {
                     Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
                     externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());

@@ -20,7 +20,6 @@
 package com.nextcloud.client.errorhandling
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -65,17 +64,11 @@ class ShowErrorActivity : AppCompatActivity() {
 
     private fun reportIssue() {
         ClipboardUtil.copyToClipboard(this, binding.textViewError.text.toString(), false)
-        val issueLink = getString(R.string.report_issue_link)
-        if (issueLink.isNotEmpty()) {
-            val uriUrl = Uri.parse(
-                String.format(
-                    issueLink,
-                    URLEncoder.encode(binding.textViewError.text.toString())
-                )
-            )
-            val intent = Intent(Intent.ACTION_VIEW, uriUrl)
-            DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available)
-        }
+        val issueLink = String.format(
+            getString(R.string.report_issue_link),
+            URLEncoder.encode(binding.textViewError.text.toString(), Charsets.UTF_8.name())
+        )
+        DisplayUtils.startLinkIntent(this, issueLink)
         Toast.makeText(this, R.string.copied_to_clipboard, Toast.LENGTH_LONG).show()
     }
 

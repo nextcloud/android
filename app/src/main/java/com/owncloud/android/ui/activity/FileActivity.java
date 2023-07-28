@@ -680,19 +680,14 @@ public abstract class FileActivity extends DrawerActivity
             DisplayUtils.showSnackMessage(activity, R.string.dev_version_no_information_available, Snackbar.LENGTH_LONG);
         }
         if (latestVersion > currentVersion) {
+            String devApkLink = activity.getString(R.string.dev_link) + latestVersion + ".apk";
             if (openDirectly) {
-                String devApkLink = (String) activity.getText(R.string.dev_link) + latestVersion + ".apk";
-                Uri uriUrl = Uri.parse(devApkLink);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_browser_available);
+                DisplayUtils.startLinkIntent(activity, devApkLink);
             } else {
                 Snackbar.make(activity.findViewById(android.R.id.content), R.string.dev_version_new_version_available,
                         Snackbar.LENGTH_LONG)
                         .setAction(activity.getString(R.string.version_dev_download), v -> {
-                            String devApkLink = (String) activity.getText(R.string.dev_link) + latestVersion + ".apk";
-                            Uri uriUrl = Uri.parse(devApkLink);
-                            Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                            DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_browser_available);
+                            DisplayUtils.startLinkIntent(activity, devApkLink);
                         }).show();
             }
         } else {

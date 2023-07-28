@@ -775,13 +775,15 @@ public final class DisplayUtils {
         startLinkIntent(activity, activity.getString(link));
     }
 
-    static public void startLinkIntent(Activity activity, Uri url) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, url);
-        DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_browser_available);
+    static public void startLinkIntent(Activity activity, String url) {
+        if (!TextUtils.isEmpty(url)) {
+            startLinkIntent(activity, Uri.parse(url));
+        }
     }
 
-    static public void startLinkIntent(Activity activity, String url) {
-        startLinkIntent(activity, Uri.parse(url));
+    static public void startLinkIntent(Activity activity, Uri uri) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_browser_available);
     }
 
     static public void startIntentIfAppAvailable(Intent intent, Activity activity, @StringRes int error) {
