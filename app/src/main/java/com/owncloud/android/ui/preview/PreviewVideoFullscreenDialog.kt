@@ -150,6 +150,9 @@ class PreviewVideoFullscreenDialog(
         }
         mExoPlayer.addListener(playListener)
         playingStateListener = playListener
+
+        // Run once to set initial state of play or pause buttons
+        playListener.onIsPlayingChanged(sourceExoPlayer.isPlaying)
     }
 
     override fun onBackPressed() {
