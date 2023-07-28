@@ -185,23 +185,19 @@ public class FileMenuFilter {
         return toHide;
     }
 
+
     private void filterShareFile(List<Integer> toHide, OCCapability capability) {
-        if (containsEncryptedFile() || (!isShareViaLinkAllowed() && !isShareWithUsersAllowed()) ||
-            !isSingleSelection() || !isShareApiEnabled(capability) || !files.iterator().next().canReshare()
-            || overflowMenu) {
+        if (!isSingleSelection() || containsEncryptedFile() ||
+            (!isShareViaLinkAllowed() && !isShareWithUsersAllowed()) ||
+            !isShareApiEnabled(capability) || !files.iterator().next().canReshare()) {
             toHide.add(R.id.action_send_share_file);
         }
     }
 
     private void filterSendFiles(List<Integer> toHide, boolean inSingleFileFragment) {
-        boolean show = true;
-        if (overflowMenu || SEND_OFF.equalsIgnoreCase(context.getString(R.string.send_files_to_other_apps)) || containsEncryptedFile()) {
-            show = false;
-        }
-        if (!inSingleFileFragment && (isSingleSelection() || !anyFileDown())) {
-            show = false;
-        }
-        if (!show) {
+        if ((overflowMenu || SEND_OFF.equalsIgnoreCase(context.getString(R.string.send_files_to_other_apps)) || containsEncryptedFile()) ||
+            (!inSingleFileFragment && (isSingleSelection() || !allFileDown())) ||
+            !toHide.contains(R.id.action_send_share_file)) {
             toHide.add(R.id.action_send_file);
         }
     }
@@ -541,6 +537,15 @@ public class FileMenuFilter {
             }
         }
         return false;
+    }
+
+    private boolean allFileDown() {
+        for (OCFile file: files) {
+            if(!file.isDown()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private boolean allFavorites() {

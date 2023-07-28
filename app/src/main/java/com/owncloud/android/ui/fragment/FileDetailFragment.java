@@ -282,7 +282,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 R.id.action_copy,
                 R.id.action_stream_media,
                 R.id.action_send_share_file,
-                R.id.action_select_all_action_menu));
+                R.id.action_pin_to_homescreen
+                         ));
         if (getFile().isFolder()) {
             additionalFilter.add(R.id.action_send_file);
             additionalFilter.add(R.id.action_sync_file);

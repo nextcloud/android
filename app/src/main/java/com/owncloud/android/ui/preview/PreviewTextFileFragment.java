@@ -300,11 +300,11 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             Arrays.asList(
                 R.id.action_rename_file,
                 R.id.action_sync_file,
-                R.id.action_select_all,
                 R.id.action_move,
                 R.id.action_copy,
                 R.id.action_favorite,
-                R.id.action_unset_favorite
+                R.id.action_unset_favorite,
+                R.id.action_pin_to_homescreen
                          ));
         if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
             additionalFilter.add(R.id.action_send_share_file);
