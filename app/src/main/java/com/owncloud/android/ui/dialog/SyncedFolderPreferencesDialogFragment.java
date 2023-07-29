@@ -30,14 +30,18 @@ import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.SyncedFoldersSettingsLayoutBinding;
 import com.owncloud.android.datamodel.MediaFolderType;
+import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -87,11 +91,13 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     private AppCompatCheckBox mUploadOnChargingCheckbox;
     private AppCompatCheckBox mUploadExistingCheckbox;
     private AppCompatCheckBox mUploadUseSubfoldersCheckbox;
+    private Spinner mUploadSubfolderRuleSpinner;
     private TextView mUploadBehaviorSummary;
     private TextView mNameCollisionPolicySummary;
     private TextView mLocalFolderPath;
     private TextView mLocalFolderSummary;
     private TextView mRemoteFolderSummary;
+    private TextView mUploadSubfolderRulesLabel;
 
     private SyncedFolderParcelable mSyncedFolder;
     private MaterialButton mCancel;
@@ -182,6 +188,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
         mUploadUseSubfoldersCheckbox = binding.settingInstantUploadPathUseSubfoldersCheckbox;
 
+        mUploadSubfolderRuleSpinner = binding.settingInstantUploadSubfolderRuleSpinner;
+        mUploadSubfolderRulesLabel = binding.settingInstantUploadSubfolderRulesLabel;
+
+
+
         viewThemeUtils.platform.themeCheckbox(mUploadOnWifiCheckbox,
                                               mUploadOnChargingCheckbox,
                                               mUploadExistingCheckbox,
@@ -226,6 +237,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
         mUploadExistingCheckbox.setChecked(mSyncedFolder.isExisting());
         mUploadUseSubfoldersCheckbox.setChecked(mSyncedFolder.isSubfolderByDate());
+
+        mUploadSubfolderRuleSpinner.setSelection(mSyncedFolder.getSubFolderRule().ordinal());
+        mUploadSubfolderRuleSpinner.setEnabled(mUploadUseSubfoldersCheckbox.isChecked());
+        mUploadSubfolderRuleSpinner.setAlpha(getAlpha(mUploadUseSubfoldersCheckbox.isChecked()));
+        mUploadSubfolderRulesLabel.setAlpha(getAlpha(mUploadUseSubfoldersCheckbox.isChecked()));
 
         mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[mSyncedFolder.getUploadActionInteger()]);
 
@@ -312,12 +328,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     }
 
     private void setupViews(SyncedFoldersSettingsLayoutBinding binding, boolean enable) {
-        float alpha;
-        if (enable) {
-            alpha = alphaEnabled;
-        } else {
-            alpha = alphaDisabled;
-        }
+        float alpha = getAlpha(enable);
         binding.settingInstantUploadOnWifiContainer.setEnabled(enable);
         binding.settingInstantUploadOnWifiContainer.setAlpha(alpha);
 
@@ -345,6 +356,16 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         mUploadUseSubfoldersCheckbox.setEnabled(enable);
 
         checkWritableFolder();
+    }
+
+    private static float getAlpha(boolean enable) {
+        float alpha;
+        if (enable) {
+            alpha = alphaEnabled;
+        } else {
+            alpha = alphaDisabled;
+        }
+        return alpha;
     }
 
     /**
@@ -390,8 +411,26 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
                 public void onClick(View v) {
                     mSyncedFolder.setSubfolderByDate(!mSyncedFolder.isSubfolderByDate());
                     mUploadUseSubfoldersCheckbox.toggle();
+                    // Only allow setting subfolder rule if subfolder is allowed
+                    mUploadSubfolderRuleSpinner.setEnabled(mUploadUseSubfoldersCheckbox.isChecked());
+                    mUploadSubfolderRuleSpinner.setAlpha(getAlpha(mUploadSubfolderRuleSpinner.isEnabled()));
+                    mUploadSubfolderRulesLabel.setAlpha(getAlpha(mUploadSubfolderRuleSpinner.isEnabled()));
                 }
             });
+
+        binding.settingInstantUploadSubfolderRuleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mSyncedFolder.setSubFolderRule(SubFolderRule.values()[i]);
+                var x = mSyncedFolder.getSubFolderRule();
+                var y = mSyncedFolder.getSubFolderRule();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                mSyncedFolder.setSubFolderRule(SubFolderRule.YEAR_MONTH);
+            }
+        });
 
         binding.remoteFolderContainer.setOnClickListener(v -> {
             Intent action = new Intent(getActivity(), FolderPickerActivity.class);

@@ -304,6 +304,34 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/setting_instant_upload_subfolder_rule_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:clipToPadding="false"
+                android:gravity="center_vertical"
+                android:minHeight="?attr/listPreferredItemHeightSmall"
+                android:orientation="vertical"
+                android:padding="@dimen/standard_padding">
+
+                <TextView
+                    android:id="@+id/setting_instant_upload_subfolder_rules_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:maxLines="2"
+                    android:text="@string/prefs_instant_upload_subfolder_rule_title"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <Spinner
+                    android:id="@+id/setting_instant_upload_subfolder_rule_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:entries="@array/sub_folder_rule_values" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/setting_instant_behaviour_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

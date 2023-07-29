@@ -31,6 +31,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -361,6 +362,9 @@ public class SyncedFolderProvider extends Observable {
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE)));
             boolean hidden = cursor.getInt(cursor.getColumnIndexOrThrow(
                 ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN)) == 1;
+            SubFolderRule subFolderRule = SubFolderRule.values()[cursor.getInt(
+                    cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_RULE))];
+
 
             syncedFolder = new SyncedFolder(id,
                                             localPath,
@@ -375,7 +379,8 @@ public class SyncedFolderProvider extends Observable {
                                             enabled,
                                             enabledTimestampMs,
                                             type,
-                                            hidden);
+                                            hidden,
+                                            subFolderRule);
         }
         return syncedFolder;
     }
@@ -403,6 +408,7 @@ public class SyncedFolderProvider extends Observable {
                syncedFolder.getNameCollisionPolicyInt());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE, syncedFolder.getType().getId());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN, syncedFolder.isHidden());
+        cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_RULE, syncedFolder.getSubfolderRule().ordinal());
 
         return cv;
     }

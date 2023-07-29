@@ -57,5 +57,7 @@ data class SyncedFolderEntity(
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_TYPE)
     val type: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_HIDDEN)
-    val hidden: Int?
+    val hidden: Int?,
+    @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_RULE)
+    val subFolderRule: Int?
 )
