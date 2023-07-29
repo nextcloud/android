@@ -84,6 +84,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.res.ResourcesCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.text.Charsets;
 
 /**
  * Manager for concurrent access to thumbnails cache.
@@ -1415,7 +1416,7 @@ public final class ThumbnailsCacheManager {
                     GetMethod getMethod = null;
                     try {
                         String uri = mClient.getBaseUri() + "/index.php/core/preview.png?file="
-                            + URLEncoder.encode(file.getRemotePath())
+                            + URLEncoder.encode(file.getRemotePath(), Charsets.UTF_8.name())
                             + "&x=" + (pxW / 2) + "&y=" + (pxH / 2) + "&a=1&mode=cover&forceIcon=0";
                         Log_OC.d(TAG, "generate resized image: " + file.getFileName() + " URI: " + uri);
                         getMethod = new GetMethod(uri);

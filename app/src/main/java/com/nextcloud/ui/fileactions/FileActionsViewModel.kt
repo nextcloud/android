@@ -69,17 +69,21 @@ class FileActionsViewModel @Inject constructor(
         @IdRes
         get() = _clickActionId
 
-    fun load(arguments: Bundle, componentsGetter: ComponentsGetter) {
+    fun load(
+        arguments: Bundle,
+        componentsGetter: ComponentsGetter
+    ) {
         val files: List<OCFile>? = arguments.getParcelableArrayList(ARG_FILES)
         val numberOfAllFiles: Int = arguments.getInt(ARG_ALL_FILES_COUNT, 1)
         val isOverflow = arguments.getBoolean(ARG_IS_OVERFLOW, false)
         val additionalFilter: IntArray? = arguments.getIntArray(ARG_ADDITIONAL_FILTER)
+        val inSingleFileFragment = arguments.getBoolean(ARG_IN_SINGLE_FILE_FRAGMENT)
 
         if (files.isNullOrEmpty()) {
             logger.d(TAG, "No valid files argument for loading actions")
             _uiState.postValue(UiState.Error)
         } else {
-            load(componentsGetter, files.toList(), numberOfAllFiles, isOverflow, additionalFilter)
+            load(componentsGetter, files.toList(), numberOfAllFiles, isOverflow, additionalFilter, inSingleFileFragment)
         }
     }
 
@@ -88,10 +92,11 @@ class FileActionsViewModel @Inject constructor(
         files: Collection<OCFile>,
         numberOfAllFiles: Int?,
         isOverflow: Boolean?,
-        additionalFilter: IntArray?
+        additionalFilter: IntArray?,
+        inSingleFileFragment: Boolean = false
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val toHide = getHiddenActions(componentsGetter, numberOfAllFiles, files, isOverflow)
+            val toHide = getHiddenActions(componentsGetter, numberOfAllFiles, files, isOverflow, inSingleFileFragment)
             val availableActions = getActionsToShow(additionalFilter, toHide)
             updateStateLoaded(files, availableActions)
         }
@@ -101,7 +106,8 @@ class FileActionsViewModel @Inject constructor(
         componentsGetter: ComponentsGetter,
         numberOfAllFiles: Int?,
         files: Collection<OCFile>,
-        isOverflow: Boolean?
+        isOverflow: Boolean?,
+        inSingleFileFragment: Boolean
     ): List<Int> {
         return filterFactory.newInstance(
             numberOfAllFiles ?: 1,
@@ -110,7 +116,7 @@ class FileActionsViewModel @Inject constructor(
             isOverflow ?: false,
             currentAccountProvider.user
         )
-            .getToHide(false)
+            .getToHide(inSingleFileFragment)
     }
 
     private fun getActionsToShow(
@@ -161,6 +167,7 @@ class FileActionsViewModel @Inject constructor(
         const val ARG_FILES = "FILES"
         const val ARG_IS_OVERFLOW = "OVERFLOW"
         const val ARG_ADDITIONAL_FILTER = "ADDITIONAL_FILTER"
+        const val ARG_IN_SINGLE_FILE_FRAGMENT = "IN_SINGLE_FILE_FRAGMENT"
 
         private val TAG = FileActionsViewModel::class.simpleName!!
     }

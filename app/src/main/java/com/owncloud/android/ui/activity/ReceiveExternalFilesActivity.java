@@ -41,21 +41,10 @@ import android.os.Looper;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.view.WindowManager.LayoutParams;
-import android.widget.AdapterView;
+import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.account.User;
@@ -79,19 +68,11 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.UploaderAdapter;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
-import com.owncloud.android.ui.dialog.AccountChooserInterface;
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
-import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
-import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
+import com.owncloud.android.ui.dialog.*;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.helpers.UriUploader;
-import com.owncloud.android.utils.DataHolderUtil;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.MimeType;
+import com.owncloud.android.utils.*;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
@@ -99,15 +80,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
-import java.util.Vector;
+import java.util.*;
 
 import javax.inject.Inject;
 
@@ -1039,8 +1012,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
         inflater.inflate(R.menu.activity_receive_external_files, menu);
 
         if (!isHaveMultipleAccount()) {
-            MenuItem switchAccountMenu = menu.findItem(R.id.action_switch_account);
-            switchAccountMenu.setVisible(false);
+            menu.findItem(R.id.action_switch_account).setVisible(false);
+            menu.findItem(R.id.action_create_dir).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         }
 
         // tint search event

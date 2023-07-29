@@ -28,7 +28,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,8 +116,8 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
         defaultViewThemeUtils.platform.colorTextView(binding.hostOwnServer, ColorRole.ON_PRIMARY);
         binding.hostOwnServer.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
 
-        if (!isProviderOrOwnInstallationVisible) {
-            binding.hostOwnServer.setOnClickListener(v -> onHostYourOwnServerClick());
+        if (isProviderOrOwnInstallationVisible) {
+            binding.hostOwnServer.setOnClickListener(v -> DisplayUtils.startLinkIntent(this, R.string.url_server_install));
         }
 
 
@@ -153,11 +152,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            setSlideshowSize(true);
-        } else {
-            setSlideshowSize(false);
-        }
+        setSlideshowSize(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE);
     }
 
     @Override
@@ -199,11 +194,6 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
     @Override
     public void onPageScrollStateChanged(int state) {
         // unused but to be implemented due to abstract parent
-    }
-
-    public void onHostYourOwnServerClick() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_server_install)));
-        DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
     }
 
     @Override

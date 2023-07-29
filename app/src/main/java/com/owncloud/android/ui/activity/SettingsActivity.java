@@ -361,9 +361,7 @@ public class SettingsActivity extends PreferenceActivity
                     String imprintWeb = getString(R.string.url_imprint);
 
                     if (!imprintWeb.isEmpty()) {
-                        Uri uriUrl = Uri.parse(imprintWeb);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                        DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
+                        DisplayUtils.startLinkIntent(this, imprintWeb);
                     }
                     //ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
                     return true;
@@ -539,12 +537,7 @@ public class SettingsActivity extends PreferenceActivity
         if (pHelp != null) {
             if (helpEnabled) {
                 pHelp.setOnPreferenceClickListener(preference -> {
-                    String helpWeb = getString(R.string.url_help);
-                    if (!helpWeb.isEmpty()) {
-                        Uri uriUrl = Uri.parse(helpWeb);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                        DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
-                    }
+                    DisplayUtils.startLinkIntent(this, R.string.url_help);
                     return true;
                 });
             } else {
@@ -897,9 +890,7 @@ public class SettingsActivity extends PreferenceActivity
                 startActivity(installIntent);
             } else {
                 // no f-droid market app or Play store installed --> launch browser for f-droid url
-                Intent downloadIntent = new Intent(Intent.ACTION_VIEW,
-                                                   Uri.parse("https://f-droid.org/repository/browse/?fdid=at.bitfire.davdroid"));
-                DisplayUtils.startIntentIfAppAvailable(downloadIntent, this, R.string.no_browser_available);
+                DisplayUtils.startLinkIntent(this, "https://f-droid.org/packages/at.bitfire.davdroid/");
 
                 DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_no_store_error);
             }

@@ -269,6 +269,81 @@ class FileMenuFilterIT : AbstractIT() {
         }
     }
 
+    @Test
+    fun filter_select_all() {
+        configureCapability(OCCapability())
+
+        // not in single file fragment -> multi selection is possible under certain circumstances
+
+        launchActivity<TestActivity>().use {
+            it.onActivity { activity ->
+                val filterFactory = FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
+
+                val files = listOf(OCFile("/foo.bin"), OCFile("/bar.bin"), OCFile("/baz.bin"))
+
+                // single file, not in multi selection
+                // *Select all* and *Deselect all* should stay hidden
+                var sut = filterFactory.newInstance(files.first(), mockComponentsGetter, true, user)
+
+                var toHide = sut.getToHide(false)
+                assertTrue(toHide.contains(R.id.action_select_all_action_menu))
+                assertTrue(toHide.contains(R.id.action_deselect_all_action_menu))
+
+                // multiple files, all selected in multi selection
+                // *Deselect all* shown, *Select all* not
+                sut = filterFactory.newInstance(files.size, files, mockComponentsGetter, false, user)
+
+                toHide = sut.getToHide(false)
+                assertTrue(toHide.contains(R.id.action_select_all_action_menu))
+                assertFalse(toHide.contains(R.id.action_deselect_all_action_menu))
+
+                // multiple files, all but one selected
+                // both *Select all* and *Deselect all* should be shown
+                sut = filterFactory.newInstance(files.size + 1, files, mockComponentsGetter, false, user)
+
+                toHide = sut.getToHide(false)
+                assertFalse(toHide.contains(R.id.action_select_all_action_menu))
+                assertFalse(toHide.contains(R.id.action_deselect_all_action_menu))
+            }
+        }
+    }
+
+    fun filter_select_all_singleFileFragment() {
+        configureCapability(OCCapability())
+
+        // in single file fragment (e.g. FileDetailFragment or PreviewImageFragment), selecting multiple files
+        // is not possible -> *Select all* and *Deselect all* options should be hidden
+
+        launchActivity<TestActivity>().use {
+            it.onActivity { activity ->
+                val filterFactory = FileMenuFilter.Factory(mockStorageManager, activity, editorUtils)
+
+                val files = listOf(OCFile("/foo.bin"), OCFile("/bar.bin"), OCFile("/baz.bin"))
+
+                // single file
+                var sut = filterFactory.newInstance(files.first(), mockComponentsGetter, true, user)
+
+                var toHide = sut.getToHide(true)
+                assertTrue(toHide.contains(R.id.action_select_all_action_menu))
+                assertTrue(toHide.contains(R.id.action_deselect_all_action_menu))
+
+                // multiple files, all selected
+                sut = filterFactory.newInstance(files.size, files, mockComponentsGetter, false, user)
+
+                toHide = sut.getToHide(true)
+                assertTrue(toHide.contains(R.id.action_select_all_action_menu))
+                assertTrue(toHide.contains(R.id.action_deselect_all_action_menu))
+
+                // multiple files, all but one selected
+                sut = filterFactory.newInstance(files.size + 1, files, mockComponentsGetter, false, user)
+
+                toHide = sut.getToHide(true)
+                assertTrue(toHide.contains(R.id.action_select_all_action_menu))
+                assertTrue(toHide.contains(R.id.action_deselect_all_action_menu))
+            }
+        }
+    }
+
     private data class ExpectedLockVisibilities(
         val lockFile: Boolean,
         val unlockFile: Boolean

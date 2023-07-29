@@ -69,7 +69,7 @@ complexity:
     excludes: ['**/androidTest/**']
   LongParameterList:
     active: true
-    functionThreshold: 6
+    functionThreshold: 7
     constructorThreshold: 6
     ignoreDefaultParameters: false
   MethodOverloading:

@@ -87,6 +87,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     private static final String TAG = ChooseRichDocumentsTemplateDialogFragment.class.getSimpleName();
     private static final String DOT = ".";
     public static final int SINGLE_TEMPLATE = 1;
+    private static final String WAIT_DIALOG_TAG = "WAIT";
 
     private Set<String> fileNames;
 
@@ -99,6 +100,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     private OCFile parentFolder;
     private OwnCloudClient client;
     private Button positiveButton;
+    private DialogFragment waitDialog;
 
     public enum Type {
         DOCUMENT,
@@ -234,6 +236,8 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     }
 
     private void createFromTemplate(Template template, String path) {
+        waitDialog = IndeterminateProgressDialog.newInstance(R.string.wait_a_moment, false);
+        waitDialog.show(getParentFragmentManager(), WAIT_DIALOG_TAG);
         new CreateFileFromTemplateTask(this, client, template, path, currentAccount.getUser()).execute();
     }
 
@@ -364,8 +368,13 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
             ChooseRichDocumentsTemplateDialogFragment fragment = chooseTemplateDialogFragmentWeakReference.get();
 
             if (fragment != null && fragment.isAdded()) {
+                if (fragment.waitDialog != null) {
+                    fragment.waitDialog.dismiss();
+                }
+
                 if (url.isEmpty()) {
-                    DisplayUtils.showSnackMessage(fragment.binding.list, R.string.error_creating_file_from_template);
+                    fragment.dismiss();
+                    DisplayUtils.showSnackMessage(fragment.requireActivity(), R.string.error_creating_file_from_template);
                 } else {
                     Intent collaboraWebViewIntent = new Intent(MainApp.getAppContext(), RichDocumentsEditorWebView.class);
                     collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Collabora");
@@ -416,7 +425,8 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
             if (fragment != null) {
                 if (templateList.isEmpty()) {
-                    DisplayUtils.showSnackMessage(fragment.binding.list, R.string.error_retrieving_templates);
+                    fragment.dismiss();
+                    DisplayUtils.showSnackMessage(fragment.requireActivity(), R.string.error_retrieving_templates);
                 } else {
                     if (templateList.size() == SINGLE_TEMPLATE) {
                         fragment.onTemplateChosen(templateList.get(0));
