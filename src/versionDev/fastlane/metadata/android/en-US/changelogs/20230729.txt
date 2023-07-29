@@ -1,0 +1,2 @@
+Build(deps): Bump com.github.zynkware:Document-Scanning-Android-SDK
+Update 3rd-party dependencies
