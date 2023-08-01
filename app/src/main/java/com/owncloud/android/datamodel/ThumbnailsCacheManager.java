@@ -204,7 +204,10 @@ public final class ThumbnailsCacheManager {
         thumbnail = BitmapUtils.rotateImage(thumbnail,path);
 
         // Add thumbnail to cache
-        addBitmapToCache(imageKey, thumbnail);
+        // do not overwrite any pre-existing image
+        if (!mThumbnailCache.containsKey(imageKey)) {
+            addBitmapToCache(imageKey, thumbnail);
+        }
 
         return thumbnail;
     }
