@@ -402,7 +402,7 @@ class SyncedFoldersActivity :
             files.size.toLong(),
             syncedFolder.type,
             syncedFolder.isHidden,
-            syncedFolder.subfolderRule,
+            syncedFolder.subfolderRule
         )
     }
 
@@ -432,7 +432,7 @@ class SyncedFoldersActivity :
             mediaFolder.numberOfFiles,
             mediaFolder.type,
             syncedFolder.isHidden,
-            syncedFolder.subfolderRule,
+            syncedFolder.subfolderRule
         )
     }
 
@@ -461,7 +461,7 @@ class SyncedFoldersActivity :
             mediaFolder.numberOfFiles,
             mediaFolder.type,
             false,
-            SubFolderRule.YEAR_MONTH,
+            SubFolderRule.YEAR_MONTH
         )
     }
 
@@ -553,7 +553,7 @@ class SyncedFoldersActivity :
                         null,
                         MediaFolderType.CUSTOM,
                         false,
-                        SubFolderRule.YEAR_MONTH,
+                        SubFolderRule.YEAR_MONTH
                     )
                     onSyncFolderSettingsClick(0, emptyCustomFolder)
                 } else {
@@ -663,7 +663,7 @@ class SyncedFoldersActivity :
                 File(syncedFolder.localPath).name,
                 syncedFolder.type,
                 syncedFolder.isHidden,
-                syncedFolder.subFolderRule,
+                syncedFolder.subFolderRule
             )
             saveOrUpdateSyncedFolder(newCustomFolder)
             adapter.addSyncFolderItem(newCustomFolder)
@@ -681,7 +681,7 @@ class SyncedFoldersActivity :
                 syncedFolder.uploadAction,
                 syncedFolder.nameCollisionPolicy.serialize(),
                 syncedFolder.isEnabled,
-                syncedFolder.subFolderRule,
+                syncedFolder.subFolderRule
             )
             saveOrUpdateSyncedFolder(item)
 
@@ -762,7 +762,7 @@ class SyncedFoldersActivity :
         uploadAction: Int,
         nameCollisionPolicy: Int,
         enabled: Boolean,
-        subFolderRule: SubFolderRule,
+        subFolderRule: SubFolderRule
     ) {
         item.id = id
         item.localPath = localPath
