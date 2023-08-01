@@ -21,6 +21,7 @@
 
 package com.nextcloud.client.utils
 
+import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.utils.FileStorageUtils
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -35,6 +36,7 @@ class FileStorageUtilsTest {
         val syncedFolderRemotePath = "/Camera"
         val subFolderByDate = false
         val dateTaken = 123123123L
+        val subFolderRule = SubFolderRule.YEAR_MONTH
 
         val result = FileStorageUtils.getInstantUploadFilePath(
             file,
@@ -42,7 +44,8 @@ class FileStorageUtilsTest {
             syncedFolderRemotePath,
             syncedFolderLocalPath,
             dateTaken,
-            subFolderByDate
+            subFolderByDate,
+            subFolderRule
         )
         val expected = "/Camera/subfolder/file.jpg"
 
@@ -56,6 +59,7 @@ class FileStorageUtilsTest {
         val syncedFolderRemotePath = "/Camera"
         val subFolderByDate = false
         val dateTaken = 123123123L
+        val subFolderRule = SubFolderRule.YEAR_MONTH
 
         val result = FileStorageUtils.getInstantUploadFilePath(
             file,
@@ -63,7 +67,8 @@ class FileStorageUtilsTest {
             syncedFolderRemotePath,
             syncedFolderLocalPath,
             dateTaken,
-            subFolderByDate
+            subFolderByDate,
+            subFolderRule
         )
         val expected = "/Camera/file.jpg"
 
@@ -77,6 +82,7 @@ class FileStorageUtilsTest {
         val syncedFolderRemotePath = "/Camera"
         val subFolderByDate = true
         val dateTaken = 0L
+        var subFolderRule = SubFolderRule.YEAR_MONTH
 
         val result = FileStorageUtils.getInstantUploadFilePath(
             file,
@@ -84,7 +90,8 @@ class FileStorageUtilsTest {
             syncedFolderRemotePath,
             syncedFolderLocalPath,
             dateTaken,
-            subFolderByDate
+            subFolderByDate,
+            subFolderRule
         )
         val expected = "/Camera/file.jpg"
 
@@ -98,6 +105,7 @@ class FileStorageUtilsTest {
         val syncedFolderRemotePath = "/Camera"
         val subFolderByDate = false
         val dateTaken = 123123123L
+        var subFolderRule = SubFolderRule.YEAR_MONTH
 
         val result = FileStorageUtils.getInstantUploadFilePath(
             file,
@@ -105,7 +113,8 @@ class FileStorageUtilsTest {
             syncedFolderRemotePath,
             syncedFolderLocalPath,
             dateTaken,
-            subFolderByDate
+            subFolderByDate,
+            subFolderRule
         )
         val expected = "/Camera/file.jpg"
 
@@ -119,6 +128,7 @@ class FileStorageUtilsTest {
         val syncedFolderRemotePath = "/Camera"
         val subFolderByDate = true
         val dateTaken = 1569918628000L
+        val subFolderRule = SubFolderRule.YEAR_MONTH
 
         val result = FileStorageUtils.getInstantUploadFilePath(
             file,
@@ -126,7 +136,8 @@ class FileStorageUtilsTest {
             syncedFolderRemotePath,
             syncedFolderLocalPath,
             dateTaken,
-            subFolderByDate
+            subFolderByDate,
+            subFolderRule
         )
         val expected = "/Camera/2019/10/file.jpg"
 
@@ -140,6 +151,7 @@ class FileStorageUtilsTest {
         val syncedFolderRemotePath = "/Camera"
         val subFolderByDate = false
         val dateTaken = 123123123L
+        var subFolderRule = SubFolderRule.YEAR_MONTH
 
         val result = FileStorageUtils.getInstantUploadFilePath(
             file,
@@ -147,7 +159,8 @@ class FileStorageUtilsTest {
             syncedFolderRemotePath,
             syncedFolderLocalPath,
             dateTaken,
-            subFolderByDate
+            subFolderByDate,
+            subFolderRule
         )
         val expected = "/Camera/subfolder/file.jpg"
 
@@ -161,6 +174,7 @@ class FileStorageUtilsTest {
         val syncedFolderRemotePath = "/Camera"
         val subFolderByDate = true
         val dateTaken = 1569918628000L
+        var subFolderRule = SubFolderRule.YEAR_MONTH
 
         val result = FileStorageUtils.getInstantUploadFilePath(
             file,
@@ -168,7 +182,8 @@ class FileStorageUtilsTest {
             syncedFolderRemotePath,
             syncedFolderLocalPath,
             dateTaken,
-            subFolderByDate
+            subFolderByDate,
+            subFolderRule
         )
         val expected = "/Camera/2019/10/subfolder/file.jpg"
 
