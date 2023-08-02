@@ -688,7 +688,7 @@
     <string name="share_link_optional_password_title">Escriba un contrasinal opcional</string>
     <string name="share_link_password_title">Introduza un contrasinal</string>
     <string name="share_link_with_label">Compartir ligazón (%1$s)</string>
-    <string name="share_no_expiration_date_label">Estabelecer a data de caducidade</string>
+    <string name="share_no_expiration_date_label">Definir a data de caducidade</string>
     <string name="share_no_password_title">Estabelecer o contrasinal</string>
     <string name="share_password_title">Protexido con contrasinal</string>
     <string name="share_permission_can_edit">Pode editar</string>
