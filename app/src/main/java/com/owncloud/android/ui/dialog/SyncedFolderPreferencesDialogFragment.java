@@ -31,6 +31,7 @@ import android.text.style.StyleSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -97,7 +98,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     private TextView mLocalFolderPath;
     private TextView mLocalFolderSummary;
     private TextView mRemoteFolderSummary;
-    private TextView mUploadSubfolderRulesLabel;
+    private LinearLayout mUploadSubfolderRulesContainer;
 
     private SyncedFolderParcelable mSyncedFolder;
     private MaterialButton mCancel;
@@ -189,7 +190,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         mUploadUseSubfoldersCheckbox = binding.settingInstantUploadPathUseSubfoldersCheckbox;
 
         mUploadSubfolderRuleSpinner = binding.settingInstantUploadSubfolderRuleSpinner;
-        mUploadSubfolderRulesLabel = binding.settingInstantUploadSubfolderRulesLabel;
+        mUploadSubfolderRulesContainer = binding.settingInstantUploadSubfolderRuleContainer;
 
 
 
@@ -239,9 +240,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         mUploadUseSubfoldersCheckbox.setChecked(mSyncedFolder.isSubfolderByDate());
 
         mUploadSubfolderRuleSpinner.setSelection(mSyncedFolder.getSubFolderRule().ordinal());
-        mUploadSubfolderRuleSpinner.setEnabled(mUploadUseSubfoldersCheckbox.isChecked());
-        mUploadSubfolderRuleSpinner.setAlpha(getAlpha(mUploadUseSubfoldersCheckbox.isChecked()));
-        mUploadSubfolderRulesLabel.setAlpha(getAlpha(mUploadUseSubfoldersCheckbox.isChecked()));
+        if (mUploadUseSubfoldersCheckbox.isChecked()) {
+            mUploadSubfolderRulesContainer.setVisibility(View.VISIBLE);
+        } else {
+            mUploadSubfolderRulesContainer.setVisibility(View.GONE);
+        }
 
         mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[mSyncedFolder.getUploadActionInteger()]);
 
@@ -328,7 +331,12 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     }
 
     private void setupViews(SyncedFoldersSettingsLayoutBinding binding, boolean enable) {
-        float alpha = getAlpha(enable);
+        float alpha;
+        if (enable) {
+            alpha = alphaEnabled;
+        } else {
+            alpha = alphaDisabled;
+        }
         binding.settingInstantUploadOnWifiContainer.setEnabled(enable);
         binding.settingInstantUploadOnWifiContainer.setAlpha(alpha);
 
@@ -356,16 +364,6 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         mUploadUseSubfoldersCheckbox.setEnabled(enable);
 
         checkWritableFolder();
-    }
-
-    private static float getAlpha(boolean enable) {
-        float alpha;
-        if (enable) {
-            alpha = alphaEnabled;
-        } else {
-            alpha = alphaDisabled;
-        }
-        return alpha;
     }
 
     /**
@@ -412,9 +410,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
                     mSyncedFolder.setSubfolderByDate(!mSyncedFolder.isSubfolderByDate());
                     mUploadUseSubfoldersCheckbox.toggle();
                     // Only allow setting subfolder rule if subfolder is allowed
-                    mUploadSubfolderRuleSpinner.setEnabled(mUploadUseSubfoldersCheckbox.isChecked());
-                    mUploadSubfolderRuleSpinner.setAlpha(getAlpha(mUploadSubfolderRuleSpinner.isEnabled()));
-                    mUploadSubfolderRulesLabel.setAlpha(getAlpha(mUploadSubfolderRuleSpinner.isEnabled()));
+                    if (mUploadUseSubfoldersCheckbox.isChecked()) {
+                        mUploadSubfolderRulesContainer.setVisibility(View.VISIBLE);
+                    } else {
+                        mUploadSubfolderRulesContainer.setVisibility(View.GONE);
+                    }
                 }
             });
 
