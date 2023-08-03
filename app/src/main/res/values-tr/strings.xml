@@ -479,7 +479,7 @@
     <string name="move_file_not_found">Dosya taşınamadı. Lütfen dosyanın var olup olmadığını denetleyin.</string>
     <string name="move_to">Şuraya taşı …</string>
     <string name="network_error_connect_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı.</string>
-    <string name="network_error_socket_exception">Sunucu bağlantısı kurulurken bir sorun çıktı</string>
+    <string name="network_error_socket_exception">Sunucu ile bağlantı kurulurken bir sorun çıktı</string>
     <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı.</string>
     <string name="network_host_not_available">İşlem tamamlanamadı, sunucu kullanılamıyor.</string>
     <string name="new_comment">Yorum ekle …</string>
