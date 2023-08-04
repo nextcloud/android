@@ -41,7 +41,6 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import org.greenrobot.eventbus.EventBus
 import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -155,21 +154,5 @@ class BackgroundJobFactoryTest {
         // THEN
         //      factory creates a worker compatible with API level
         assertNotNull(worker)
-    }
-
-    @Test
-    fun content_observer_worker_is_not_created_below_api_level_24() {
-        // GIVEN
-        //      api level is < 24
-        //      content URI trigger is not supported
-        whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.M)
-
-        // WHEN
-        //      factory is called to create content observer worker
-        val worker = factory.createWorker(context, ContentObserverWork::class.java.name, params)
-
-        // THEN
-        //      factory does not create a worker incompatible with API level
-        assertNull(worker)
     }
 }
