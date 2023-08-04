@@ -1,0 +1,4 @@
+Build(deps): Bump io.gitlab.arturbosch.detekt:detekt-gradle-plugin
+Build(deps): Bump com.github.spotbugs.snom:spotbugs-gradle-plugin
+Update Nextcloud Android library
+Update 3rd-party dependencies
