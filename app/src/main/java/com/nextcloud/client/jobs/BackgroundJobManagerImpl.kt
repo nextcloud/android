@@ -19,9 +19,7 @@
  */
 package com.nextcloud.client.jobs
 
-import android.os.Build
 import android.provider.MediaStore
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import androidx.work.Constraints
@@ -211,7 +209,6 @@ internal class BackgroundJobManagerImpl(
             return workInfo.map { it -> it.map { fromWorkInfo(it) ?: JobInfo() }.sortedBy { it.started }.reversed() }
         }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun scheduleContentObserverJob() {
         val constrains = Constraints.Builder()
             .addContentUriTrigger(MediaStore.Images.Media.INTERNAL_CONTENT_URI, true)

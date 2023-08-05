@@ -4,7 +4,7 @@ import org.gradle.internal.jvm.Jvm
 buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$androidPluginVersion"
-        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:5.1.0'
+        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:5.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.1"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -82,7 +82,7 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 33
 
         buildConfigField 'boolean', 'CI', ciBuild.toString()
@@ -373,7 +373,7 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
     // upon each update first test: new registration, receive push
-    gplayImplementation "com.google.firebase:firebase-messaging:23.1.2"
+    gplayImplementation "com.google.firebase:firebase-messaging:23.2.1"
     gplayImplementation 'com.google.android.play:review-ktx:2.0.1'
 
     implementation 'com.github.nextcloud.android-common:ui:0.12.0'

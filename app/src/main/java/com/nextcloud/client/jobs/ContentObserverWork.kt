@@ -20,8 +20,6 @@
 package com.nextcloud.client.jobs
 
 import android.content.Context
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.device.PowerManagementService
@@ -34,7 +32,6 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
  *
  * This job must not be started on API < 24.
  */
-@RequiresApi(Build.VERSION_CODES.N)
 class ContentObserverWork(
     appContext: Context,
     private val params: WorkerParameters,

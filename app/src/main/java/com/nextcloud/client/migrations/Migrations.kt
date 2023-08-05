@@ -19,7 +19,6 @@
  */
 package com.nextcloud.client.migrations
 
-import android.os.Build
 import androidx.work.WorkManager
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.BackgroundJobManager
@@ -89,12 +88,8 @@ class Migrations @Inject constructor(
             logger.i(TAG, "${s.description}: cancelling legacy work ${it.id}")
             workManager.cancelWorkById(it.id)
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            jobManager.scheduleContentObserverJob()
-            logger.i(TAG, "$s: enabled")
-        } else {
-            logger.i(TAG, "$s: disabled")
-        }
+        jobManager.scheduleContentObserverJob()
+        logger.i(TAG, "$s: enabled")
     }
 
     /**

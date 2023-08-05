@@ -19,8 +19,6 @@
  */
 package com.nextcloud.client.jobs
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
@@ -44,7 +42,6 @@ interface BackgroundJobManager {
      * This call is idempotent - there will be only one scheduled job
      * regardless of number of calls.
      */
-    @RequiresApi(Build.VERSION_CODES.N)
     fun scheduleContentObserverJob()
 
     /**
