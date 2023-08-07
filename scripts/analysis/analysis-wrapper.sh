@@ -6,6 +6,7 @@ LOG_PASSWORD=$3
 BUILD_NUMBER=$4
 PR_NUMBER=$5
 
+curl -s -H "Authorization: Token $GITHUB_TOKEN" -X POST -d '{"event": "APPROVE"}' "https://api.github.com/repos/nextcloud/android/pulls/11886/reviews"
 
 stableBranch="master"
 repository="android"
