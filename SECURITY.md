@@ -21,4 +21,4 @@ to the [hall of fame](https://hackerone.com/nextcloud/thanks) as a thank you fro
 [threat model](https://nextcloud.com/security/threat-model) to know what is expected behavior.
 
 
-Please visit https://nextcloud.com/security/ for further information about security.
+Please visit https://nextcloud.com/security/ for further information about security!
