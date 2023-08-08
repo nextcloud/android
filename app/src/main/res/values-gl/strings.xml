@@ -411,8 +411,8 @@
     <string name="image_editor_file_edited_suffix">editado</string>
     <string name="image_editor_flip_horizontal">Voltear horizontalmente</string>
     <string name="image_editor_flip_vertical">Voltear verticalmente</string>
-    <string name="image_editor_rotate_ccw">Xirar en sentido antihorario</string>
-    <string name="image_editor_rotate_cw">Xirar en sentido horario</string>
+    <string name="image_editor_rotate_ccw">Rotar en sentido antihorario</string>
+    <string name="image_editor_rotate_cw">Rotar en sentido horario</string>
     <string name="image_editor_unable_to_edit_image">Non é posíbel editar a imaxe</string>
     <string name="in_folder">no cartafol %1$s</string>
     <string name="instant_upload_existing">Envíar tamén os ficheiros existentes</string>

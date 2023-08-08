@@ -249,6 +249,7 @@
     <string name="drawer_quota_unlimited">%1$s brugt</string>
     <string name="drawer_synced_folders">Auto upload</string>
     <string name="e2e_not_yet_setup">E2E er endnu ikke konfigureret</string>
+    <string name="e2e_offline">Ikke muligt uden internetforbindelse</string>
     <string name="encrypted">Angiv som krypteret</string>
     <string name="end_to_end_encryption_confirm_button">Indstil kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer...</string>
@@ -377,6 +378,7 @@
     <string name="filename_hint">Filnavn</string>
     <string name="first_run_1_text">Bevar dine data i sikkerhed og under din kontrol</string>
     <string name="first_run_2_text">Sikker kollaboration &amp; fil udveksling</string>
+    <string name="first_run_3_text">Brugervenlig webmail, kalender &amp; kontakter</string>
     <string name="first_run_4_text">Skærmdeling, onlinemøder &amp; web konferencer</string>
     <string name="folder_already_exists">Mappe findes allerede</string>
     <string name="folder_confirm_create">Opret</string>
@@ -406,6 +408,12 @@
     <string name="icon_for_empty_list">Ikon for tom liste</string>
     <string name="icon_of_dashboard_widget">Ikon for widget til dashboard</string>
     <string name="icon_of_widget_entry">Ikon for post i widget</string>
+    <string name="image_editor_file_edited_suffix">redigeret</string>
+    <string name="image_editor_flip_horizontal">Vend horisontalt</string>
+    <string name="image_editor_flip_vertical">Vend vertikalt</string>
+    <string name="image_editor_rotate_ccw">Roter mod uret</string>
+    <string name="image_editor_rotate_cw">Roter med uret</string>
+    <string name="image_editor_unable_to_edit_image">Kunne ikke redigere billede.</string>
     <string name="in_folder">i mappen %1$s</string>
     <string name="instant_upload_existing">Send også eksisterende filer</string>
     <string name="instant_upload_on_charging">Upload kun under opladning</string>
