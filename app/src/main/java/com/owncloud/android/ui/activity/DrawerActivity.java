@@ -34,11 +34,14 @@ import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,8 +51,6 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -133,6 +134,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import hct.Hct;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -320,7 +322,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     .decoder(new SvgOrImageDecoder());
 
                 // background image
-                SimpleTarget target = new SimpleTarget<Bitmap>() {
+                SimpleTarget<Bitmap> target = new SimpleTarget<>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
 
@@ -332,7 +334,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                             logo = BitmapUtils.scaleBitmap(resource, MAX_LOGO_SIZE_PX, width, height, max);
                         }
 
-                        Drawable[] drawables = {new ColorDrawable(primaryColor), new BitmapDrawable(logo)};
+                        Drawable[] drawables = {new ColorDrawable(primaryColor),
+                            new BitmapDrawable(getResources(), logo)};
                         LayerDrawable layerDrawable = new LayerDrawable(drawables);
 
                         String name = capability.getServerName();
@@ -345,29 +348,91 @@ public abstract class DrawerActivity extends ToolbarActivity
                     .load(Uri.parse(logo))
                     .into(target);
             }
+
+            // hide ecosystem apps according to user preference or in branded client
+            LinearLayout ecosystemApps = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
+            if (getResources().getBoolean(R.bool.is_branded_client) || !preferences.isShowEcosystemApps()) {
+                ecosystemApps.setVisibility(View.GONE);
+            } else {
+                LinearLayout[] views = {
+                    ecosystemApps.findViewById(R.id.drawer_ecosystem_notes),
+                    ecosystemApps.findViewById(R.id.drawer_ecosystem_talk),
+                    ecosystemApps.findViewById(R.id.drawer_ecosystem_more)
+                };
+
+                views[0].setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
+                views[1].setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
+                views[2].setOnClickListener(v -> openAppStore("Nextcloud", true));
+
+                int iconColor;
+                if (Hct.fromInt(primaryColor).getTone() < 80.0) {
+                    iconColor = Color.WHITE;
+                } else {
+                    iconColor = getColor(R.color.grey_800_transparent);
+                }
+                for (LinearLayout view : views) {
+                    ImageView imageView = (ImageView) view.getChildAt(0);
+                    imageView.setImageTintList(ColorStateList.valueOf(iconColor));
+                    GradientDrawable background = (GradientDrawable) imageView.getBackground();
+                    background.setStroke(DisplayUtils.convertDpToPixel(1, this), iconColor);
+                    TextView textView = (TextView) view.getChildAt(1);
+                    textView.setTextColor(iconColor);
+                }
+
+                ecosystemApps.setVisibility(View.VISIBLE);
+            }
         }
     }
 
-    private void setDrawerHeaderLogo(Drawable drawable, String name) {
+    /**
+     * Open specified app and, if not installed redirect to corresponding download.
+     *
+     * @param packageName of app to be opened
+     */
+    private void openAppOrStore(String packageName) {
+        Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
+        if (intent != null) {
+            // app installed - open directly
+            intent.putExtra(FileDisplayActivity.KEY_ACCOUNT, getUser().get().hashCode());
+            startActivity(intent);
+        } else {
+            // app not found - open market (Google Play Store, F-Droid, etc.)
+            openAppStore(packageName, false);
+        }
+    }
+
+    /**
+     * Open app store page of specified app or search for specified string.
+     * Will attempt to open browser when no app store is available.
+     *
+     * @param string packageName or url-encoded search string
+     * @param search false -> show app corresponding to packageName; true -> open search for string
+     */
+    private void openAppStore(String string, boolean search) {
+        String suffix = (search ? "search?q=" : "details?id=") + string;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://" + suffix));
+        try {
+            startActivity(intent);
+        } catch (android.content.ActivityNotFoundException activityNotFoundException1) {
+            // all is lost: open google play store web page for app
+            if (!search) {
+                suffix = "apps/" + suffix;
+            }
+            intent.setData(Uri.parse("https://play.google.com/store/" + suffix));
+            startActivity(intent);
+        }
+    }
+
+    private void setDrawerHeaderLogo(Drawable drawable, String serverName) {
         ImageView imageHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_logo);
         imageHeader.setImageDrawable(drawable);
-        imageHeader.setScaleType(ImageView.ScaleType.FIT_START);
         imageHeader.setAdjustViewBounds(true);
 
-        imageHeader.setMaxWidth(DisplayUtils.convertDpToPixel(100f, this));
-
-        MarginLayoutParams oldParam = (MarginLayoutParams) imageHeader.getLayoutParams();
-        MarginLayoutParams params = new MarginLayoutParams(LayoutParams.WRAP_CONTENT,
-                                                           LayoutParams.MATCH_PARENT);
-        params.leftMargin = oldParam.leftMargin;
-        params.rightMargin = oldParam.rightMargin;
-
-        imageHeader.setLayoutParams(new LinearLayout.LayoutParams(params));
-
-        if (!TextUtils.isEmpty(name)) {
-            TextView serverName = mNavigationViewHeader.findViewById(R.id.drawer_header_server_name);
-            serverName.setText(name);
-            serverName.setTextColor(themeColorUtils.unchangedFontColor(this));
+        if (!TextUtils.isEmpty(serverName)) {
+            TextView serverNameView = mNavigationViewHeader.findViewById(R.id.drawer_header_server_name);
+            serverNameView.setVisibility(View.VISIBLE);
+            serverNameView.setText(serverName);
+            serverNameView.setTextColor(themeColorUtils.unchangedFontColor(this));
         }
 
     }
@@ -653,11 +718,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         // set home button properties
         if (mDrawerToggle != null) {
-            if (chosenFile != null && isRoot(chosenFile)) {
-                mDrawerToggle.setDrawerIndicatorEnabled(true);
-            } else {
-                mDrawerToggle.setDrawerIndicatorEnabled(false);
-            }
+            mDrawerToggle.setDrawerIndicatorEnabled(chosenFile != null && isRoot(chosenFile));
         }
     }
 
@@ -700,7 +761,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             viewThemeUtils.material.colorProgressBar(mQuotaProgressBar);
         } else {
             viewThemeUtils.material.colorProgressBar(mQuotaProgressBar,
-                                                               getResources().getColor(R.color.infolevel_warning));
+                                                     getResources().getColor(R.color.infolevel_warning, getTheme()));
         }
 
         updateQuotaLink();
@@ -1053,28 +1114,22 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
-        if (callContext instanceof MenuItem) {
-            MenuItem menuItem = (MenuItem) callContext;
+        if (callContext instanceof MenuItem menuItem) {
             menuItem.setIcon(avatarDrawable);
-        } else if (callContext instanceof ImageView) {
-            ImageView imageView = (ImageView) callContext;
+        } else if (callContext instanceof ImageView imageView) {
             imageView.setImageDrawable(avatarDrawable);
-        } else if (callContext instanceof MaterialButton) {
-            MaterialButton materialButton = (MaterialButton) callContext;
+        } else if (callContext instanceof MaterialButton materialButton) {
             materialButton.setIcon(avatarDrawable);
         }
     }
 
     @Override
     public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
-        if (callContext instanceof MenuItem) {
-            MenuItem menuItem = (MenuItem) callContext;
+        if (callContext instanceof MenuItem menuItem) {
             return String.valueOf(menuItem.getTitle()).equals(tag);
-        } else if (callContext instanceof ImageView) {
-            ImageView imageView = (ImageView) callContext;
+        } else if (callContext instanceof ImageView imageView) {
             return String.valueOf(imageView.getTag()).equals(tag);
-        } else if (callContext instanceof MaterialButton) {
-            MaterialButton materialButton = (MaterialButton) callContext;
+        } else if (callContext instanceof MaterialButton materialButton) {
             return String.valueOf(materialButton.getTag()).equals(tag);
         }
         return false;

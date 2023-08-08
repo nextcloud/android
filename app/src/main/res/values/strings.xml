@@ -42,6 +42,8 @@
     <string name="prefs_lock_device_credentials_enabled">Device credentials enabled</string>
     <string name="prefs_lock_device_credentials_not_setup">No device credentials have been set up.</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
+    <string name="prefs_show_ecosystem_apps">Show app switcher</string>
+    <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggestions in navigation heading</string>
     <string name="prefs_enable_media_scan_notifications">Show media scan notifications</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notify about newly found media folders</string>
     <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
@@ -853,6 +855,7 @@
     <string name="reshare_not_allowed">Resharing is not allowed</string>
     <string name="retrieving_file">Retrieving file…</string>
     <string name="associated_account_not_found">Associated account not found!</string>
+    <string name="logged_in_as">Logged in as %1$s</string>
     <string name="error_retrieving_file">Error retrieving file</string>
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
     <string name="failed_to_download">Failed to pass file to download manager</string>
@@ -970,6 +973,7 @@
     <string name="wrong_storage_path">Data storage folder does not exist!</string>
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
     <string name="dialog_close">Close</string>
+    <string name="direct_login_text">Login with %1$s to %2$s</string>
     <string name="direct_login_failed">Login via direct link failed!</string>
     <string name="login_url_helper_text">The link to your %1$s web interface when you open it in the browser.</string>
     <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
@@ -1088,4 +1092,10 @@
     <string name="image_editor_flip_vertical">Flip vertically</string>
     <string name="image_editor_unable_to_edit_image">Unable to edit image.</string>
     <string name="image_editor_file_edited_suffix">edited</string>
+    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="ecosystem_apps_more">More Nextcloud Apps</string>
+    <string name="ecosystem_apps_display_notes">Notes</string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_display_more">More</string>
 </resources>

@@ -391,6 +391,10 @@ public class FileDisplayActivity extends FileActivity
         if (OPEN_FILE.equals(getIntent().getAction())) {
             getSupportFragmentManager().executePendingTransactions();
             onOpenFileIntent(getIntent());
+        } else if (RESTART.equals(getIntent().getAction())) {
+            // most likely switched to different account
+            DisplayUtils.showSnackMessage(this, String.format(getString(R.string.logged_in_as),
+                                                              accountManager.getUser().getAccountName()));
         }
 
         upgradeNotificationForInstantUpload();
@@ -2503,7 +2507,7 @@ public class FileDisplayActivity extends FileActivity
                     openFileByPath(optionalUser.get(), filePath);
                 } else {
                     dismissLoadingDialog();
-                    DisplayUtils.showSnackMessage(this, getString(R.string.file_not_found));
+                    accountClicked(optionalUser.get().hashCode());
                 }
             } else {
                 dismissLoadingDialog();
