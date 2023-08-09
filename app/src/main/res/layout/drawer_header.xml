@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Nextcloud Android client application
 
   Copyright (C) 2016 Andy Scherzinger
@@ -20,30 +19,146 @@
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_header_view"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/drawer_header_height"
+    android:layout_height="wrap_content"
+    android:background="@color/primary"
     android:fitsSystemWindows="true"
-    android:orientation="horizontal"
-    tools:background="@color/primary">
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/drawer_header_logo"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/standard_margin"
-        android:contentDescription="@null"
-        android:scaleType="fitCenter"
-        android:src="@drawable/nextcloud_logo" />
+        android:layout_height="96dp"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_half_padding">
 
-    <TextView
-        android:id="@+id/drawer_header_server_name"
+        <ImageView
+            android:id="@+id/drawer_header_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:maxWidth="96dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/nextcloud_logo" />
+
+        <TextView
+            android:id="@+id/drawer_header_server_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/standard_half_margin"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:textColor="@color/text_color_inverse"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:ignore="RtlHardcoded"
+            tools:text="Nextcloud" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/drawer_ecosystem_apps"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:ellipsize="middle"
-        android:gravity="center_vertical"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:text="Custom Server Name" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standard_half_margin"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/drawer_ecosystem_talk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/white_outline"
+                android:contentDescription="@string/ecosystem_apps_talk"
+                android:padding="8dp"
+                android:src="@drawable/ic_talk"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/ecosystem_apps_display_talk"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/drawer_ecosystem_notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/standard_double_margin"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/white_outline"
+                android:contentDescription="@string/ecosystem_apps_notes"
+                android:padding="8dp"
+                android:src="@drawable/ic_notes"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/ecosystem_apps_display_notes"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/drawer_ecosystem_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/white_outline"
+                android:contentDescription="@string/ecosystem_apps_more"
+                android:padding="8dp"
+                android:src="@drawable/ic_more_apps"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/ecosystem_apps_display_more"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

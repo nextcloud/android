@@ -40,8 +40,7 @@
     <color name="grey_200">#EEEEEE</color>
     <color name="grey_400">#BDBDBD</color>
     <color name="grey_600">#666666</color>
-
-    <!-- standard material color definitions -->
+    <color name="grey_800_transparent">#CC000000</color>
 
     <!-- level colors for info notifications/visualisations -->
     <color name="infolevel_warning">#e9322d</color>
