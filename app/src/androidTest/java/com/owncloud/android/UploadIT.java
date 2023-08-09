@@ -32,6 +32,8 @@ import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.resources.files.model.GeoLocation;
+import com.owncloud.android.lib.resources.files.model.ImageDimension;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -52,6 +54,7 @@ import androidx.annotation.NonNull;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 
 /**
@@ -469,7 +472,59 @@ public class UploadIT extends AbstractOnServerIT {
         assertEquals(remotePath, ocFile.getRemotePath());
         assertEquals(creationTimestamp, ocFile.getCreationTimestamp());
         assertTrue(uploadTimestamp - 10 < ocFile.getUploadTimestamp() ||
-                       uploadTimestamp + 10 > ocFile.getUploadTimestamp());
+                           uploadTimestamp + 10 > ocFile.getUploadTimestamp());
+    }
+
+    @Test
+    public void testMetadata() throws IOException {
+        File file = getFile("gps.jpg");
+        String remotePath = "/gps.jpg";
+        OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);
+
+        assertTrue(
+                new UploadFileOperation(
+                        uploadsStorageManager,
+                        connectivityServiceMock,
+                        powerManagementServiceMock,
+                        user,
+                        null,
+                        ocUpload,
+                        NameCollisionPolicy.DEFAULT,
+                        FileUploader.LOCAL_BEHAVIOUR_COPY,
+                        targetContext,
+                        false,
+                        false,
+                        getStorageManager()
+                )
+                        .setRemoteFolderToBeCreated()
+                        .execute(client)
+                        .isSuccess()
+                  );
+
+        // RefreshFolderOperation
+        assertTrue(new RefreshFolderOperation(getStorageManager().getFileByDecryptedRemotePath("/"),
+                                              System.currentTimeMillis() / 1000,
+                                              false,
+                                              false,
+                                              getStorageManager(),
+                                              user,
+                                              targetContext).execute(client).isSuccess());
+
+        List<OCFile> files = getStorageManager().getFolderContent(getStorageManager().getFileByDecryptedRemotePath("/"),
+                                                                  false);
+
+        OCFile ocFile = null;
+        for (OCFile f : files) {
+            if (f.getFileName().equals("gps.jpg")) {
+                ocFile = f;
+                break;
+            }
+        }
+
+        assertNotNull(ocFile);
+        assertEquals(remotePath, ocFile.getRemotePath());
+        assertEquals(new ImageDimension(451f, 529f), ocFile.getImageDimension());
+        assertEquals(new GeoLocation(49.99679166666667, 8.67198611111111), ocFile.getGeoLocation());
     }
 
     private void verifyStoragePath(OCFile file) {

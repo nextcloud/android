@@ -21,10 +21,12 @@
 package com.owncloud.android.ui.adapter;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.ui.ImageDetailFragment;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.utils.EncryptionUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -40,6 +42,7 @@ public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
 
     private FileDetailSharingFragment fileDetailSharingFragment;
     private FileDetailActivitiesFragment fileDetailActivitiesFragment;
+    private ImageDetailFragment imageDetailFragment;
 
     public FileDetailTabAdapter(FragmentManager fm, OCFile file, User user) {
         super(fm);
@@ -58,6 +61,9 @@ public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
             case 1:
                 fileDetailSharingFragment = FileDetailSharingFragment.newInstance(file, user);
                 return fileDetailSharingFragment;
+            case 2:
+                imageDetailFragment = ImageDetailFragment.newInstance(file, user);
+                return imageDetailFragment;
         }
     }
 
@@ -69,18 +75,23 @@ public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
         return fileDetailActivitiesFragment;
     }
 
+    public ImageDetailFragment getImageDetailFragment() {
+        return imageDetailFragment;
+    }
+
     @Override
     public int getCount() {
         if (file.isEncrypted()) {
             if (EncryptionUtils.supportsSecureFiledrop(file, user)) {
                 return 2;
-            } else {
-                // sharing not allowed for encrypted files, thus only show first tab (activities)
-                return 1;
             }
-        } else {
-            // unencrypted files/folders
-            return 2;
+            // sharing not allowed for encrypted files, thus only show first tab (activities)
+            return 1;
         }
+        // unencrypted files/folders
+        if (MimeTypeUtil.isImage(file)) {
+            return 3;
+        }
+        return 2;
     }
 }

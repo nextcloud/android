@@ -35,6 +35,7 @@ import com.nextcloud.client.widget.DashboardWidgetConfigurationActivity;
 import com.nextcloud.client.widget.DashboardWidgetProvider;
 import com.nextcloud.client.widget.DashboardWidgetService;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
+import com.nextcloud.ui.ImageDetailFragment;
 import com.nextcloud.ui.SetStatusDialogFragment;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nmc.android.ui.LauncherActivity;
@@ -475,4 +476,6 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector
     abstract EditImageActivity editImageActivity();
 
+    @ContributesAndroidInjector
+    abstract ImageDetailFragment imageDetailFragment();
 }
