@@ -250,6 +250,10 @@
     <string name="drawer_synced_folders">Automatikus feltöltés</string>
     <string name="e2e_not_yet_setup">A végpontok közti titkosítás még nincs beállítva</string>
     <string name="e2e_offline">Internetkapcsolat nélkül nem lehetséges</string>
+    <string name="ecosystem_apps_display_more">Továbbiak</string>
+    <string name="ecosystem_apps_display_notes">Jegyzetek</string>
+    <string name="ecosystem_apps_display_talk">Beszélgetés</string>
+    <string name="ecosystem_apps_notes">Nextcloud jegyzetek</string>
     <string name="encrypted">Titkosítás bekapcsolása</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_decrypting">Visszafejtés…</string>

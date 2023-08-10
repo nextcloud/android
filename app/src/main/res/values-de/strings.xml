@@ -250,6 +250,8 @@
     <string name="drawer_synced_folders">Automatisches Hochladen</string>
     <string name="e2e_not_yet_setup">E2E bislang nicht eingerichtet</string>
     <string name="e2e_offline">Ohne Internetverbindung nicht möglich</string>
+    <string name="ecosystem_apps_display_notes">Notizen</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_decrypting">Entschlüssele…</string>

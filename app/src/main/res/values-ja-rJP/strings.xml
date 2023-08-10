@@ -233,6 +233,10 @@
     <string name="drawer_quota">%2$s 中%1$s が使われています。</string>
     <string name="drawer_quota_unlimited">%1$s使用中</string>
     <string name="drawer_synced_folders">自動アップロード</string>
+    <string name="ecosystem_apps_display_more">さらに表示</string>
+    <string name="ecosystem_apps_display_notes">ノート</string>
+    <string name="ecosystem_apps_display_talk">トーク</string>
+    <string name="ecosystem_apps_notes">Nextcloud ノート</string>
     <string name="encrypted">暗号化設定</string>
     <string name="end_to_end_encryption_confirm_button">暗号化を設定する</string>
     <string name="end_to_end_encryption_decrypting">復号化中…</string>

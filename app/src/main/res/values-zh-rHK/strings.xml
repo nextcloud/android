@@ -250,6 +250,10 @@
     <string name="drawer_synced_folders">自動上傳</string>
     <string name="e2e_not_yet_setup">尚未設定端到端加密</string>
     <string name="e2e_offline">沒有互聯網連接無法使用</string>
+    <string name="ecosystem_apps_display_more">更多</string>
+    <string name="ecosystem_apps_display_notes">備註</string>
+    <string name="ecosystem_apps_display_talk">講座</string>
+    <string name="ecosystem_apps_notes">Nextcloud 筆記</string>
     <string name="encrypted">設為已加密的</string>
     <string name="end_to_end_encryption_confirm_button">設定加密</string>
     <string name="end_to_end_encryption_decrypting">解密中…</string>

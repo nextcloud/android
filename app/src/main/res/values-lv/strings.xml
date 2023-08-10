@@ -187,6 +187,7 @@
     <string name="drawer_quota">%1$s no %2$s lietoti</string>
     <string name="drawer_quota_unlimited">%1$s izmantoti</string>
     <string name="drawer_synced_folders">Automātiska augšupielāde</string>
+    <string name="ecosystem_apps_display_talk">Runāt</string>
     <string name="encrypted">Uzstādīt kā šifrētu</string>
     <string name="end_to_end_encryption_confirm_button">Uzstādīt šifrēšanu</string>
     <string name="end_to_end_encryption_decrypting">Atšifrē…</string>

@@ -250,6 +250,11 @@
     <string name="drawer_synced_folders">Otomatik yükleme</string>
     <string name="e2e_not_yet_setup">Uçtan uca şifreleme henüz kurulmamış</string>
     <string name="e2e_offline">İnternet bağlantısı olmadan yapılamaz</string>
+    <string name="ecosystem_apps_display_more">Diğer</string>
+    <string name="ecosystem_apps_display_notes">Notlar</string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
+    <string name="ecosystem_apps_talk">Nextcloud Sohbet</string>
     <string name="encrypted">Şifrelensin</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_decrypting">Şifre çözülüyor …</string>

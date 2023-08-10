@@ -251,6 +251,10 @@
     <string name="drawer_synced_folders">Автоматичне завантаження</string>
     <string name="e2e_not_yet_setup">Наскрізне шифруванння ще не налаштовано</string>
     <string name="e2e_offline">Дія не можлива без доступу до мережі Інтернет</string>
+    <string name="ecosystem_apps_display_more">Докладно</string>
+    <string name="ecosystem_apps_display_notes">Опис</string>
+    <string name="ecosystem_apps_display_talk">Розмова</string>
+    <string name="ecosystem_apps_notes">Нотатки для Nextcloud</string>
     <string name="encrypted">Позначити як зашифроване</string>
     <string name="end_to_end_encryption_confirm_button">Налаштування шифрування</string>
     <string name="end_to_end_encryption_decrypting">Розшифровування...</string>

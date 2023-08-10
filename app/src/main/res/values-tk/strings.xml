@@ -214,6 +214,7 @@
     <string name="drawer_quota">%1$s-yň %2$sulanylan</string>
     <string name="drawer_quota_unlimited">%1$sulanyldy</string>
     <string name="drawer_synced_folders">Awto ýüklemek</string>
+    <string name="ecosystem_apps_display_more">Has köp</string>
     <string name="encrypted">Şifrlenen görnüşde düzüň</string>
     <string name="end_to_end_encryption_confirm_button">Şifrlemäni gurnamak</string>
     <string name="end_to_end_encryption_decrypting">Şifri açmak...</string>

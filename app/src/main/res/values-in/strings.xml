@@ -230,6 +230,8 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="drawer_quota">%1$s dari %2$s sudah digunakan</string>
     <string name="drawer_quota_unlimited">%1$s digunakan</string>
     <string name="drawer_synced_folders">Unggah otomatis.</string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_notes">Catatan Nextcloud</string>
     <string name="encrypted">Atur sebagai terenkripsi</string>
     <string name="end_to_end_encryption_confirm_button">Buat enkripsi</string>
     <string name="end_to_end_encryption_decrypting">Mendekripsi...</string>

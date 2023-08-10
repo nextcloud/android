@@ -154,6 +154,9 @@
     <string name="drawer_logout">გასვლა</string>
     <string name="drawer_quota">გამოყენებულია %1$s სულ %2$s-იდან </string>
     <string name="drawer_synced_folders">ავტო-ატვირთვა</string>
+    <string name="ecosystem_apps_display_more">უფრო მეტი</string>
+    <string name="ecosystem_apps_display_notes">ჩანაწერები</string>
+    <string name="ecosystem_apps_display_talk">საუბარი</string>
     <string name="encrypted">დააყენეთ როგორც დაშიფრული</string>
     <string name="end_to_end_encryption_confirm_button">შიფრაციის დაყენება</string>
     <string name="end_to_end_encryption_dialog_close">დახურვა</string>

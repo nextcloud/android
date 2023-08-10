@@ -233,6 +233,10 @@
     <string name="drawer_quota">panaudota %1$s iš %2$s</string>
     <string name="drawer_quota_unlimited">panaudota %1$s</string>
     <string name="drawer_synced_folders">Automatinis įkėlimas</string>
+    <string name="ecosystem_apps_display_more">Daugiau</string>
+    <string name="ecosystem_apps_display_notes">Užrašai</string>
+    <string name="ecosystem_apps_display_talk">Kalba</string>
+    <string name="ecosystem_apps_notes">Nextcloud užrašai</string>
     <string name="encrypted">Nustatyti kaip šifruotą</string>
     <string name="end_to_end_encryption_confirm_button">Nustatyti šifravimą</string>
     <string name="end_to_end_encryption_decrypting">Iššifruojama…</string>

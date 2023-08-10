@@ -250,6 +250,9 @@
     <string name="drawer_synced_folders">Аутоматска отпремања</string>
     <string name="e2e_not_yet_setup">E2E још увек није подешено</string>
     <string name="e2e_offline">Није могуће без везе са интернетом</string>
+    <string name="ecosystem_apps_display_more">Више</string>
+    <string name="ecosystem_apps_display_talk">Разговор</string>
+    <string name="ecosystem_apps_notes">Некстклауд Белешке</string>
     <string name="encrypted">Постави као шифровано</string>
     <string name="end_to_end_encryption_confirm_button">Подесите шифровање</string>
     <string name="end_to_end_encryption_decrypting">Дешифрујем…</string>

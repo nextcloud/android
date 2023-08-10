@@ -250,6 +250,10 @@
     <string name="drawer_synced_folders">بارگذاری خودکار</string>
     <string name="e2e_not_yet_setup">E2E هنوز راه اندازی نشده است.</string>
     <string name="e2e_offline">بدون اتصال به اینترنت امکان پذیر نیست.</string>
+    <string name="ecosystem_apps_display_more">بیشتر</string>
+    <string name="ecosystem_apps_display_notes">یادداشت‌ها</string>
+    <string name="ecosystem_apps_display_talk">گفتگو</string>
+    <string name="ecosystem_apps_notes">یادداشت‌های نکست کلود</string>
     <string name="encrypted">به صورت رمزگذاری شده تنظیم شده است</string>
     <string name="end_to_end_encryption_confirm_button">رمزگذاری را تنظیم کنید</string>
     <string name="end_to_end_encryption_decrypting">رمزگشایی...</string>

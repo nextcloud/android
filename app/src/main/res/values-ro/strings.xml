@@ -248,6 +248,10 @@
     <string name="drawer_synced_folders">Încărcare automată</string>
     <string name="e2e_not_yet_setup">Criptarea E2E nu este încă setată</string>
     <string name="e2e_offline">Nu este posibil fără conexiune la internet</string>
+    <string name="ecosystem_apps_display_more">Mai mult</string>
+    <string name="ecosystem_apps_display_notes">Notițe</string>
+    <string name="ecosystem_apps_display_talk">Discuție</string>
+    <string name="ecosystem_apps_notes">Notițe Nextcloud </string>
     <string name="encrypted">Setați drept criptat</string>
     <string name="end_to_end_encryption_confirm_button">Setează criptarea</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>

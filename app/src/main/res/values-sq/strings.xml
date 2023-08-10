@@ -204,6 +204,7 @@
     <string name="drawer_quota">%1$s e %2$s përdorur</string>
     <string name="drawer_quota_unlimited">%1$s të përdorura</string>
     <string name="drawer_synced_folders">Ngarkim automatik</string>
+    <string name="ecosystem_apps_display_more">Më tepër</string>
     <string name="encrypted">Vendose si të enkriptuar</string>
     <string name="end_to_end_encryption_confirm_button">Ndërto enkriptimin</string>
     <string name="end_to_end_encryption_decrypting">Duke dekriptuar…</string>

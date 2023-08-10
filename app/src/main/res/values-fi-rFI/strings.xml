@@ -245,6 +245,9 @@
     <string name="drawer_quota">%1$s / %2$s käytetty</string>
     <string name="drawer_quota_unlimited">%1$s käytetty</string>
     <string name="drawer_synced_folders">Automaattinen lähetys</string>
+    <string name="ecosystem_apps_display_more">Lisää</string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
     <string name="encrypted">Salaa</string>
     <string name="end_to_end_encryption_confirm_button">Aseta salaus</string>
     <string name="end_to_end_encryption_decrypting">Puretaan salausta…</string>

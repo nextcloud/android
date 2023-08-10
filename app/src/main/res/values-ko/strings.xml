@@ -250,6 +250,9 @@
     <string name="drawer_synced_folders">자동 업로드</string>
     <string name="e2e_not_yet_setup">E2E가 아직 설정되지 않음</string>
     <string name="e2e_offline">인터넷 연결 없이 불가능</string>
+    <string name="ecosystem_apps_display_more">더 보기</string>
+    <string name="ecosystem_apps_display_talk">토크</string>
+    <string name="ecosystem_apps_notes">Nextcloud 메모</string>
     <string name="encrypted">암호화하도록 설정</string>
     <string name="end_to_end_encryption_confirm_button">암호화 설정</string>
     <string name="end_to_end_encryption_decrypting">복호화중…</string>

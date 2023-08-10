@@ -237,6 +237,10 @@
     <string name="drawer_quota">%1$s van %2$s gebruikt</string>
     <string name="drawer_quota_unlimited">%1$s gebruikt</string>
     <string name="drawer_synced_folders">Automatisch uploaden</string>
+    <string name="ecosystem_apps_display_more">Meer</string>
+    <string name="ecosystem_apps_display_notes">Notities</string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_notes">Nextcloud Notities</string>
     <string name="encrypted">Instellen als versleuteld</string>
     <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
     <string name="end_to_end_encryption_decrypting">Ontcijferen…</string>

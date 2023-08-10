@@ -240,6 +240,10 @@
     <string name="drawer_quota_unlimited">%1$s použitých</string>
     <string name="drawer_synced_folders">Automatické nahratie</string>
     <string name="e2e_not_yet_setup">E2E zatiaľ nie je nastavené</string>
+    <string name="ecosystem_apps_display_more">Viac</string>
+    <string name="ecosystem_apps_display_notes">Poznámky</string>
+    <string name="ecosystem_apps_display_talk">Rozhovor</string>
+    <string name="ecosystem_apps_notes">Nextcloud poznámky</string>
     <string name="encrypted">Nastaviť ako zašifrované</string>
     <string name="end_to_end_encryption_confirm_button">Nastavenie šifrovania</string>
     <string name="end_to_end_encryption_decrypting">Dešifrujem…</string>

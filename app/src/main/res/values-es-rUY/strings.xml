@@ -172,6 +172,8 @@
     <string name="drawer_logout">Cerrar sesión</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
     <string name="drawer_synced_folders">Carga automática</string>
+    <string name="ecosystem_apps_display_notes">Notas</string>
+    <string name="ecosystem_apps_display_talk">Hablar</string>
     <string name="encrypted">Establecer como encriptado</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
     <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>

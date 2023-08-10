@@ -250,6 +250,10 @@
     <string name="drawer_synced_folders">Automatisk uppladdning</string>
     <string name="e2e_not_yet_setup">E2E ej inställt än</string>
     <string name="e2e_offline">Inte möjligt utan internetuppkoppling</string>
+    <string name="ecosystem_apps_display_more">Mer</string>
+    <string name="ecosystem_apps_display_notes">Anteckning</string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_notes">Nextcloud anteckningar</string>
     <string name="encrypted">Sätt som krypterad</string>
     <string name="end_to_end_encryption_confirm_button">Aktivera kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterar…</string>

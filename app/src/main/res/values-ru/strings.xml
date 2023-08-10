@@ -249,6 +249,10 @@
     <string name="drawer_quota_unlimited">%1$s использовано</string>
     <string name="drawer_synced_folders">Автоматическая передача</string>
     <string name="e2e_not_yet_setup">Сквозное шифрование не настроено</string>
+    <string name="ecosystem_apps_display_more">Больше</string>
+    <string name="ecosystem_apps_display_notes">Заметки</string>
+    <string name="ecosystem_apps_display_talk">Говорить </string>
+    <string name="ecosystem_apps_notes">Заметки для Nextcloud</string>
     <string name="encrypted">Зашифровать</string>
     <string name="end_to_end_encryption_confirm_button">Параметры шифрования</string>
     <string name="end_to_end_encryption_decrypting">Расшифровка…</string>
