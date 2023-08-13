@@ -204,6 +204,7 @@
     <string name="did_not_check_for_dupes">موارد تکراری را بررسی نکردید.</string>
     <string name="digest_algorithm_not_available">این الگوریتم خلاصه در تلفن شما موجود نیست.</string>
     <string name="direct_login_failed">ورود از طریق پیوند مستقیم شکست خورد!</string>
+    <string name="direct_login_text">Login with %1$s to %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">غیرفعال کردن</string>
     <string name="dismiss">پنهان کن</string>
     <string name="dismiss_notification_description">رد کردن اعلان</string>
@@ -253,7 +254,9 @@
     <string name="ecosystem_apps_display_more">بیشتر</string>
     <string name="ecosystem_apps_display_notes">یادداشت‌ها</string>
     <string name="ecosystem_apps_display_talk">گفتگو</string>
+    <string name="ecosystem_apps_more">More Nextcloud Apps</string>
     <string name="ecosystem_apps_notes">یادداشت‌های نکست کلود</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="encrypted">به صورت رمزگذاری شده تنظیم شده است</string>
     <string name="end_to_end_encryption_confirm_button">رمزگذاری را تنظیم کنید</string>
     <string name="end_to_end_encryption_decrypting">رمزگشایی...</string>
@@ -445,6 +448,7 @@
     <string name="locked_by_app"> برنامه توسط %1$sقفل شده است</string>
     <string name="log_send_mail_subject">%1$s لاگ‌های برنامه های اندروید</string>
     <string name="log_send_no_mail_app">برنامه‌ای برای فرستادن گزارش‌ها پیدا نشد. لطفا یک کارخواه رایانامه نصب کنید.</string>
+    <string name="logged_in_as">Logged in as %1$s</string>
     <string name="login">Log in</string>
     <string name="login_url_helper_text">پیوند به رابط وب %1$s شما زمانی که در مرورگر بازش می‌کنید.</string>
     <string name="logs_menu_delete">حذف لاگ‌ها</string>
@@ -598,6 +602,8 @@
     <string name="prefs_recommend">به یک دوست توصیه کنید</string>
     <string name="prefs_remove_e2e">رمزگذاری را به صورت محلی حذف کنید.</string>
     <string name="prefs_setup_e2e">رمزگذاری انتها به انتها را تنظیم کنید.</string>
+    <string name="prefs_show_ecosystem_apps">Show app switcher</string>
+    <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggestions in navigation heading</string>
     <string name="prefs_show_hidden_files">فایل های مخفی را نشان بده </string>
     <string name="prefs_sourcecode">دریافت کد منبع</string>
     <string name="prefs_storage_path">مسیر ذخیره‌سازی</string>
@@ -696,6 +702,7 @@
     <string name="share_password_title">محافظت شده با گذرواژه</string>
     <string name="share_permission_can_edit">توانایی ویرایش</string>
     <string name="share_permission_file_drop">انداختن پرونده</string>
+    <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">تنها مشاهده</string>
     <string name="share_permissions">اجازه‌های هم‌رسانی</string>
     <string name="share_remote_clarification">%1$s (دوردست)</string>
@@ -937,6 +944,38 @@
     <plurals name="sync_foreign_files_forgotten_content">
         <item quantity="one">کپی نشد %1$d فایل از %2$s به پوشه</item>
         <item quantity="other">کپی نشد %1$d فایل ها از %2$s به پوشه</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="one">Wrote %1$d event to %2$s</item>
+        <item quantity="other">Wrote %1$d events to %2$s</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="one">Created %1$d fresh UID</item>
+        <item quantity="other">Created %1$d fresh UIDs</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="one">Processed %d entry.</item>
+        <item quantity="other">Processed %d entries.</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="one">Found %d duplicate entry.</item>
+        <item quantity="other">Found %d duplicate entries.</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one">Exported %d file</item>
+        <item quantity="other">Exported %d files</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Failed to export %d file</item>
+        <item quantity="other">Failed to export %d files</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Exported %d file, skipped rest due to error</item>
+        <item quantity="other">Exported %d files, skipped rest due to error</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">%d file will be exported. See notification for details.</item>
+        <item quantity="other">%d files will be exported. See notification for details.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d پوشه</item>

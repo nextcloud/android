@@ -101,7 +101,6 @@ class SharedListFragment : OCFileListFragment(), Injectable {
                     isSharedWithSharee = partialFile.isSharedWithSharee
                     sharees = partialFile.sharees
                 }
-                adapter.replaceFileByRemotePath(savedFile, false)
                 savedFile
             }
         }
@@ -116,6 +115,25 @@ class SharedListFragment : OCFileListFragment(), Injectable {
                 block(file)
             } else {
                 DisplayUtils.showSnackMessage(requireActivity(), R.string.error_retrieving_file)
+            }
+        }
+    }
+
+    private fun fetchAllAndRun(partialFiles: MutableSet<OCFile>?, callback: (MutableSet<OCFile>?) -> Unit) {
+        lifecycleScope.launch {
+            isLoading = true
+            if (partialFiles != null) {
+                val files = partialFiles.toMutableSet().mapNotNull {partialFile ->
+                    fetchFileData(partialFile).also {fetched ->
+                        if (fetched == null) {
+                            DisplayUtils.showSnackMessage(requireActivity(), R.string.error_retrieving_file)
+                        }
+                    }
+                }
+                isLoading = false
+                callback(files.toHashSet())
+            } else {
+                isLoading = false
             }
         }
     }
@@ -145,16 +163,32 @@ class SharedListFragment : OCFileListFragment(), Injectable {
     }
 
     override fun onItemClicked(file: OCFile) {
-        fetchFileAndRun(file) { fetched ->
-            super.onItemClicked(fetched)
+        // if in multi select keep mock file
+        if (adapter.isMultiSelect()) {
+            super.onItemClicked(file)
+        } else {
+            fetchFileAndRun(file) { fetched ->
+                super.onItemClicked(fetched)
+            }
         }
     }
 
-    override fun onLongItemClicked(file: OCFile): Boolean {
-        fetchFileAndRun(file) { fetched ->
-            super.onLongItemClicked(fetched)
+    override fun onFileActionChosen(itemId: Int, checkedFiles: MutableSet<OCFile>?): Boolean {
+        // fetch all files and run selected action
+        if (itemId != R.id.action_select_all_action_menu && itemId != R.id.action_deselect_all_action_menu) {
+            fetchAllAndRun(checkedFiles) {files ->
+                exitSelectionMode()
+                super.onFileActionChosen(itemId, files)
+            }
+            return true
+        } else {
+            return super.onFileActionChosen(itemId, checkedFiles)
         }
-        return true
+    }
+
+    override fun onRefresh() {
+        exitSelectionMode()
+        super.onRefresh()
     }
 
     companion object {

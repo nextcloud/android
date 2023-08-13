@@ -240,6 +240,9 @@
     <string name="drawer_quota_unlimited">%1$s en ús</string>
     <string name="drawer_synced_folders">Pujada automàtica</string>
     <string name="e2e_not_yet_setup">E2E encara no està configurat</string>
+    <string name="ecosystem_apps_display_more">Més</string>
+    <string name="ecosystem_apps_display_talk">Converses</string>
+    <string name="ecosystem_apps_notes">Notes del Nextcloud</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="encrypted">Activa el xifrat</string>
     <string name="end_to_end_encryption_confirm_button">Arranjament de xifrat</string>

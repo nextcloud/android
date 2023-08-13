@@ -250,6 +250,9 @@
     <string name="drawer_synced_folders">Auto upload</string>
     <string name="e2e_not_yet_setup">E2E er endnu ikke konfigureret</string>
     <string name="e2e_offline">Ikke muligt uden internetforbindelse</string>
+    <string name="ecosystem_apps_display_more">Mere</string>
+    <string name="ecosystem_apps_display_talk">Snak</string>
+    <string name="ecosystem_apps_notes">Nextcloud noter</string>
     <string name="encrypted">Angiv som krypteret</string>
     <string name="end_to_end_encryption_confirm_button">Indstil kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer...</string>

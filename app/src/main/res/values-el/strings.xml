@@ -245,6 +245,9 @@
     <string name="drawer_quota_unlimited">%1$sσε χρήση</string>
     <string name="drawer_synced_folders">Αυτόματη μεταφόρτωση</string>
     <string name="e2e_not_yet_setup">Το Ε2Ε δεν έχει εγκατασταθεί ακόμη</string>
+    <string name="ecosystem_apps_display_more">Περισσότερα</string>
+    <string name="ecosystem_apps_display_talk">Ομιλία</string>
+    <string name="ecosystem_apps_notes">Nextcloud Σημειώσεις</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="encrypted">Ορισμός ως κρυπτογραφημένου</string>
     <string name="end_to_end_encryption_confirm_button">Ρύθμιση κρυπτογράφησης</string>

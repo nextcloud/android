@@ -251,7 +251,7 @@
     <string name="e2e_not_yet_setup">尚未安装端到端加密</string>
     <string name="e2e_offline">无互联网连接</string>
     <string name="ecosystem_apps_display_more">更多</string>
-    <string name="ecosystem_apps_display_notes">辅组</string>
+    <string name="ecosystem_apps_display_notes">笔记</string>
     <string name="ecosystem_apps_display_talk">通话</string>
     <string name="ecosystem_apps_notes">Nextcloud 笔记</string>
     <string name="encrypted">设置为加密</string>

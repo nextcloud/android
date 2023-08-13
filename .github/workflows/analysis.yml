@@ -1,10 +1,11 @@
+# synced from @nextcloud/android-config
 name: "Analysis"
 
 on:
     pull_request:
-        branches: [ master, stable-* ]
+        branches: [ "master", "main", "stable-*" ]
     push:
-        branches: [ master, stable-* ]
+        branches: [ "master", "main", "stable-*" ]
 
 permissions:
     pull-requests: write

@@ -250,6 +250,10 @@
     <string name="drawer_synced_folders">Automatické nahrávání</string>
     <string name="e2e_not_yet_setup">Šifrování mezi koncovými body doposud není nastavené</string>
     <string name="e2e_offline">Není možné bez připojení k Internetu</string>
+    <string name="ecosystem_apps_display_more">Další</string>
+    <string name="ecosystem_apps_display_notes">Poznámky</string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_notes">Nextcloud poznámky</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="encrypted">Nastavit jako šifrované</string>
     <string name="end_to_end_encryption_confirm_button">Nastavit šifrování</string>

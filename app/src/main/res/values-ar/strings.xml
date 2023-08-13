@@ -204,6 +204,7 @@
     <string name="did_not_check_for_dupes">لم يتم التحقق من التكرار</string>
     <string name="digest_algorithm_not_available">خوارزمية الموجز ليست متوفرة على هاتفك.</string>
     <string name="direct_login_failed">تسجيل الدخول فشل من خلال الرابط المباشر!</string>
+    <string name="direct_login_text">الدخول باستعمال %1$s إلى %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">تعطيل</string>
     <string name="dismiss">تراجع</string>
     <string name="dismiss_notification_description">تجاهل الإشعار</string>
@@ -250,6 +251,12 @@
     <string name="drawer_synced_folders">تحميل تلقائي</string>
     <string name="e2e_not_yet_setup">التشفير من الحدّ للحدّ E2E غير مُجهّز</string>
     <string name="e2e_offline">غير ممكن بدون اتصال انترنت</string>
+    <string name="ecosystem_apps_display_more">المزيد</string>
+    <string name="ecosystem_apps_display_notes">الملاحظات Notes</string>
+    <string name="ecosystem_apps_display_talk">محادثة Talk</string>
+    <string name="ecosystem_apps_more">المزيد من تطبيقات نكست كلاود</string>
+    <string name="ecosystem_apps_notes">ملاحظات Notes نيكست كلاود</string>
+    <string name="ecosystem_apps_talk">تطبيق \"المحادثة\" talk من نكست كلاود</string>
     <string name="encrypted">عيّنه كَمشفر</string>
     <string name="end_to_end_encryption_confirm_button">تنصيب التشفير</string>
     <string name="end_to_end_encryption_decrypting">جارِ فك التشفير …</string>
@@ -441,6 +448,7 @@
     <string name="locked_by_app">تمّ إقفاله من التطبيق%1$s </string>
     <string name="log_send_mail_subject">%1$s سجلات تطبيق الأندرويد</string>
     <string name="log_send_no_mail_app">لا يوجد تطبيق لارسال السجلات . الرجاء تثبيت عميل البريد الالكتروني.</string>
+    <string name="logged_in_as">الدخول كـ%1$s</string>
     <string name="login">تسجيل الدخول</string>
     <string name="login_url_helper_text">الرابط الخاص بك %1$s يكون واجهة الموقع عند فتحها في المتصفح</string>
     <string name="logs_menu_delete">احذف السجلات</string>
@@ -598,6 +606,8 @@
     <string name="prefs_recommend">أوصي به لصديق</string>
     <string name="prefs_remove_e2e">إلغ التشفير المحلي</string>
     <string name="prefs_setup_e2e">تجهيز التشفير من الحدّ للحدّ</string>
+    <string name="prefs_show_ecosystem_apps">إظهار مُبدِّل التطبيقات app switcher</string>
+    <string name="prefs_show_ecosystem_apps_summary">مقترحات بتطبيقات من نكست كلاود في شريط التصفح navigation heading</string>
     <string name="prefs_show_hidden_files">عرض الملفات المخفية</string>
     <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
     <string name="prefs_storage_path">مجلد تخزين البيانات</string>

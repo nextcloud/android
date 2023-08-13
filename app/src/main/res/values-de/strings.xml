@@ -204,6 +204,7 @@
     <string name="did_not_check_for_dupes">Es wurde nicht auf Duplikate geprüft.</string>
     <string name="digest_algorithm_not_available">Dieser Algorithmus-Auszug ist auf Ihrem Handy nicht verfügbar.</string>
     <string name="direct_login_failed">Anmeldung über Direktlink fehlgeschlagen!</string>
+    <string name="direct_login_text">Mit %1$s an %2$s anmelden</string>
     <string name="disable_new_media_folder_detection_notifications">Ausschalten</string>
     <string name="dismiss">Ausblenden</string>
     <string name="dismiss_notification_description">Benachrichtigung verwerfen</string>
@@ -250,7 +251,11 @@
     <string name="drawer_synced_folders">Automatisches Hochladen</string>
     <string name="e2e_not_yet_setup">E2E bislang nicht eingerichtet</string>
     <string name="e2e_offline">Ohne Internetverbindung nicht möglich</string>
+    <string name="ecosystem_apps_display_more">Mehr</string>
     <string name="ecosystem_apps_display_notes">Notizen</string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_more">Weitere Nextcloud-Apps</string>
+    <string name="ecosystem_apps_notes">Nextcloud Notizen</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
@@ -443,6 +448,7 @@
     <string name="locked_by_app">Gesperrt von der App %1$s</string>
     <string name="log_send_mail_subject">%1$s Android-App Meldungen</string>
     <string name="log_send_no_mail_app">Keine App zum Senden von Protokolldateien gefunden. Bitte installieren Sie einen E-Mail-Client.</string>
+    <string name="logged_in_as">Angemeldet als %1$s</string>
     <string name="login">Anmelden</string>
     <string name="login_url_helper_text">Der Link zu Ihrer %1$s Webseite, wenn Sie diese im Browser öffnen.</string>
     <string name="logs_menu_delete">Lösche Logs</string>
@@ -596,6 +602,8 @@
     <string name="prefs_recommend">Einem Freund empfehlen</string>
     <string name="prefs_remove_e2e">Verschlüsselung lokal entfernen</string>
     <string name="prefs_setup_e2e">Ende-zu-Ende-Verschlüsselung einrichten</string>
+    <string name="prefs_show_ecosystem_apps">App-Umschalter anzeigen</string>
+    <string name="prefs_show_ecosystem_apps_summary">Nextcloud-App-Vorschläge in der Navigationsüberschrift</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_sourcecode">Zum Programmcode</string>
     <string name="prefs_storage_path">Speicherordner</string>

@@ -751,7 +751,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
+        // create partial OCFile from OCShares
         List<OCFile> files = OCShareToOCFileConverter.buildOCFilesFromShares(shares);
+
+        // set localPath of individual files iff present on device
+        for (OCFile file : files) {
+            FileStorageUtils.searchForLocalFileInDefaultPath(file, user.getAccountName());
+        }
+
+        mFiles.clear();
         mFiles.addAll(files);
         mStorageManager.saveShares(shares);
     }
@@ -1017,28 +1025,5 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void notifyItemChanged(@NonNull OCFile file) {
         notifyItemChanged(getItemPosition(file));
-    }
-
-    public void replaceFileByRemotePath(@NonNull OCFile newFile, boolean notify) {
-        final String remotePath = newFile.getRemotePath();
-        for (OCFile file : mFiles) {
-            if (file.getRemotePath().equals(remotePath)) {
-                final int index = mFiles.indexOf(file);
-                mFiles.set(index, newFile);
-                break;
-            }
-        }
-
-        for (OCFile file : mFilesAll) {
-            if (file.getRemotePath().equals(remotePath)) {
-                final int index = mFilesAll.indexOf(file);
-                mFilesAll.set(index, newFile);
-                break;
-            }
-        }
-
-        if (notify) {
-            notifyItemChanged(getItemPosition(newFile));
-        }
     }
 }

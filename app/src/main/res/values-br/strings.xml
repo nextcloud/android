@@ -211,6 +211,8 @@
     <string name="drawer_quota">%1$s eus %2$s implijet</string>
     <string name="drawer_quota_unlimited">%1$s implijet</string>
     <string name="drawer_synced_folders">Pellkasadenn otomatek</string>
+    <string name="ecosystem_apps_display_more">Muioc\'h</string>
+    <string name="ecosystem_apps_display_talk">Komz</string>
     <string name="encrypted">Lakaat evel sifret</string>
     <string name="end_to_end_encryption_confirm_button">Stumma ar sifradur</string>
     <string name="end_to_end_encryption_decrypting">Disifrañ</string>
