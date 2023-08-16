@@ -207,6 +207,7 @@
     <string name="dismiss_notification_description">Descarta la notificació</string>
     <string name="displays_mnemonic">Mostra la vostra contrasenya de 12 paraules</string>
     <string name="dnd">No molesteu</string>
+    <string name="document_scan_export_dialog_pdf">Fitxer PDF</string>
     <string name="done">Fet</string>
     <string name="dontClear">No esborrar</string>
     <string name="download_cannot_create_file">No s\'ha pogut crear el fitxer local</string>

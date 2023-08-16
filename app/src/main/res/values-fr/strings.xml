@@ -206,6 +206,7 @@ Attention la suppression est irréversible.</string>
     <string name="did_not_check_for_dupes">N\'a pas vérifié les doublons.</string>
     <string name="digest_algorithm_not_available">Cet algorithme de hachage n\'est pas disponible sur votre appareil.</string>
     <string name="direct_login_failed">Échec de la connexion par lien direct</string>
+    <string name="direct_login_text">Se connecter avec %1$s à %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Désactiver</string>
     <string name="dismiss">Ignorer</string>
     <string name="dismiss_notification_description">Ignorer la notification</string>
@@ -255,6 +256,7 @@ Attention la suppression est irréversible.</string>
     <string name="ecosystem_apps_display_more">Plus</string>
     <string name="ecosystem_apps_display_notes">Remarques</string>
     <string name="ecosystem_apps_display_talk">Discussion</string>
+    <string name="ecosystem_apps_more">Plus d’applications Nextcloud</string>
     <string name="ecosystem_apps_notes">Nextcloud Notes</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
@@ -447,6 +449,7 @@ Attention la suppression est irréversible.</string>
     <string name="locked_by_app">Verrouillé par %1$s application</string>
     <string name="log_send_mail_subject">Journaux de l\'application Android %1$s</string>
     <string name="log_send_no_mail_app">Pas d\'app d\'envoie de logs trouvé. Installer un client e-mail.</string>
+    <string name="logged_in_as">Connecté en tant que %1$s</string>
     <string name="login">Se connecter</string>
     <string name="login_url_helper_text">Adresse URL visible dans la barre d\'adresse de votre navigateur Web lorsque vous êtes connecté à %1$s.</string>
     <string name="logs_menu_delete">Supprimer les journaux</string>
@@ -600,6 +603,7 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_recommend">Recommander à un ami</string>
     <string name="prefs_remove_e2e">Retirer le chiffrement localement</string>
     <string name="prefs_setup_e2e">Configurer le chiffrement de bout en bout</string>
+    <string name="prefs_show_ecosystem_apps_summary">Suggestions d’applications Nextcloud dans l’en-tête de navigation</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_sourcecode">Obtenir le code source</string>
     <string name="prefs_storage_path">Répertoire de données</string>

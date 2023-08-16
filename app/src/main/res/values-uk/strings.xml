@@ -36,7 +36,7 @@
     <string name="add_new_secure_file_drop">Додайте новий захищений файл</string>
     <string name="add_to_cloud">Додати на хмару %1$s</string>
     <string name="advanced_settings">Розширені</string>
-    <string name="allow_resharing">Можете ділитися</string>
+    <string name="allow_resharing">Дозволити передавати у спільний доступ іншим</string>
     <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
     <string name="appbar_search_in">Пошук у %s</string>
     <string name="associated_account_not_found">Пов\'язаний обліковий запис не знайдено!</string>
@@ -421,7 +421,7 @@
     <string name="image_editor_rotate_ccw">Обернути проти годинника</string>
     <string name="image_editor_rotate_cw">Обернути за годинником</string>
     <string name="image_editor_unable_to_edit_image">Неможливо відредагувати зображення.</string>
-    <string name="in_folder">в папці %1$s</string>
+    <string name="in_folder">в каталозі %1$s</string>
     <string name="instant_upload_existing">Також завантажити існуючі файли</string>
     <string name="instant_upload_on_charging">Завантаження тільки під час заряджання</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -640,8 +640,8 @@
     <string name="rename_dialog_title">Введіть нове ім\'я</string>
     <string name="rename_local_fail_msg">Неможливо перейменувати локальну копію, спробуйте інше ім\'я</string>
     <string name="rename_server_fail_msg">Неможливо перейменувати, таке ім\'я уже існує</string>
-    <string name="reshare_not_allowed">Не дозволяється надання спільного доступу подалі</string>
-    <string name="resharing_is_not_allowed">Не дозволяється надання спільного доступу подалі</string>
+    <string name="reshare_not_allowed">Надання спільного доступу іншим не дозволяється</string>
+    <string name="resharing_is_not_allowed">Надання спільного доступу іншим не дозволяється</string>
     <string name="resized_image_not_possible_download">Відсутнє зображення зі зменшеними розмірами. Звантажити повне зображення?</string>
     <string name="restore">Відновити файл</string>
     <string name="restore_backup">Відновити</string>

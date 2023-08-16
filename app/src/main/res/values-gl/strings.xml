@@ -364,7 +364,7 @@
     <string name="file_migration_preparing">Preparando a migración…</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando a configuración da conta…</string>
     <string name="file_migration_saving_accounts_configuration">Gardando a configuración da conta…</string>
-    <string name="file_migration_source_not_readable">Aínda quere cambiar o cartafol de almacenamento de datos a %1$s?\n\nNota: haberá que volver descargar todos os datos.</string>
+    <string name="file_migration_source_not_readable">Aínda quere cambiar o cartafol de almacenamento de datos a %1$s?\n\nNota: Haberá que volver descargar todos os datos.</string>
     <string name="file_migration_source_not_readable_title">O cartafol de orixe non é lexíbel!</string>
     <string name="file_migration_updating_index">Actualizando o índice…</string>
     <string name="file_migration_use_data_folder">Usar</string>
