@@ -123,8 +123,8 @@ class SharedListFragment : OCFileListFragment(), Injectable {
         lifecycleScope.launch {
             isLoading = true
             if (partialFiles != null) {
-                val files = partialFiles.toMutableSet().mapNotNull {partialFile ->
-                    fetchFileData(partialFile).also {fetched ->
+                val files = partialFiles.toMutableSet().mapNotNull { partialFile ->
+                    fetchFileData(partialFile).also { fetched ->
                         if (fetched == null) {
                             DisplayUtils.showSnackMessage(requireActivity(), R.string.error_retrieving_file)
                         }
@@ -176,7 +176,7 @@ class SharedListFragment : OCFileListFragment(), Injectable {
     override fun onFileActionChosen(itemId: Int, checkedFiles: MutableSet<OCFile>?): Boolean {
         // fetch all files and run selected action
         if (itemId != R.id.action_select_all_action_menu && itemId != R.id.action_deselect_all_action_menu) {
-            fetchAllAndRun(checkedFiles) {files ->
+            fetchAllAndRun(checkedFiles) { files ->
                 exitSelectionMode()
                 super.onFileActionChosen(itemId, files)
             }

@@ -253,6 +253,7 @@
     <string name="ecosystem_apps_display_more">更多</string>
     <string name="ecosystem_apps_display_notes">笔记</string>
     <string name="ecosystem_apps_display_talk">通话</string>
+    <string name="ecosystem_apps_more">更多Nextcloud应用</string>
     <string name="ecosystem_apps_notes">Nextcloud 笔记</string>
     <string name="encrypted">设置为加密</string>
     <string name="end_to_end_encryption_confirm_button">设置加密</string>
@@ -409,6 +410,7 @@
     <string name="icon_for_empty_list">空列表的图标</string>
     <string name="icon_of_dashboard_widget">仪表盘小工具的图标</string>
     <string name="icon_of_widget_entry">小工具图标</string>
+    <string name="image_editor_unable_to_edit_image">无法编辑图片</string>
     <string name="in_folder">在文件夹 %1$s 内 </string>
     <string name="instant_upload_existing">同时上传现有文件</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
@@ -526,6 +528,7 @@
     <string name="pass_code_removed">安全码已删除</string>
     <string name="pass_code_stored">安全码已存储</string>
     <string name="pass_code_wrong">安全码不正确</string>
+    <string name="pdf_password_protected">无法打开被密码保护的PDF文件，请使用外部PDF浏览器打开。</string>
     <string name="pdf_zoom_tip">点击页面以放大</string>
     <string name="permission_allow">允许</string>
     <string name="permission_deny">禁止</string>
