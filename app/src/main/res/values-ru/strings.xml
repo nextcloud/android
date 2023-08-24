@@ -204,6 +204,7 @@
     <string name="did_not_check_for_dupes">Не проверено на наличие дубликатов</string>
     <string name="digest_algorithm_not_available">Этот хэш алгоритм не доступен на этом телефоне.</string>
     <string name="direct_login_failed">Не удалось войти по прямой ссылке.</string>
+    <string name="direct_login_text">Войти с помощью %1$s в %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Отключить</string>
     <string name="dismiss">Отклонить</string>
     <string name="dismiss_notification_description">Скрыть уведомление</string>
@@ -249,10 +250,13 @@
     <string name="drawer_quota_unlimited">%1$s использовано</string>
     <string name="drawer_synced_folders">Автоматическая передача</string>
     <string name="e2e_not_yet_setup">Сквозное шифрование не настроено</string>
+    <string name="e2e_offline">Невозможно без подключения к интернету</string>
     <string name="ecosystem_apps_display_more">Больше</string>
     <string name="ecosystem_apps_display_notes">Заметки</string>
     <string name="ecosystem_apps_display_talk">Говорить </string>
+    <string name="ecosystem_apps_more">Больше Nextcloud Приложений</string>
     <string name="ecosystem_apps_notes">Заметки для Nextcloud</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="encrypted">Зашифровать</string>
     <string name="end_to_end_encryption_confirm_button">Параметры шифрования</string>
     <string name="end_to_end_encryption_decrypting">Расшифровка…</string>
@@ -382,6 +386,7 @@
     <string name="filename_hint">Имя файла</string>
     <string name="first_run_1_text">Храните свои данные в безопасности и под своим контролем</string>
     <string name="first_run_2_text">Защищённая совместная работа &amp;обмен файлами</string>
+    <string name="first_run_3_text">Простые в использовании веб-почта, календарь &amp; контакты</string>
     <string name="first_run_4_text">Доступ к изображению на экране, онлайн общение и веб-конференции</string>
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="folder_confirm_create">Создать</string>
@@ -411,6 +416,11 @@
     <string name="icon_for_empty_list">Значок для пустого списка</string>
     <string name="icon_of_dashboard_widget">Значок виджета главного экрана</string>
     <string name="icon_of_widget_entry">Значок записи виджета</string>
+    <string name="image_editor_file_edited_suffix">отредактировано</string>
+    <string name="image_editor_flip_horizontal">Отразить по горизонтали</string>
+    <string name="image_editor_flip_vertical">Отразить по вертикали</string>
+    <string name="image_editor_rotate_ccw">Повернуть против часовой стрелки</string>
+    <string name="image_editor_rotate_cw">Повернуть по часовой стрелке</string>
     <string name="in_folder">в папку %1$s</string>
     <string name="instant_upload_existing">Также загрузить существующие файлы</string>
     <string name="instant_upload_on_charging">Только во время зарядки</string>
