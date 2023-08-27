@@ -157,6 +157,7 @@
     <string name="conflict_local_file">Τοπικό αρχείο</string>
     <string name="conflict_message_description">Εάν επιλέξετε και τις δύο εκδόσεις, στο όνομα του τοπικού αρχείου θα προστεθεί ένας αριθμός.</string>
     <string name="conflict_server_file">Αρχείο διακομιστή</string>
+    <string name="contact_backup_title">Αντίγραφο ασφαλείας επαφών</string>
     <string name="contactlist_item_icon">Εικονίδιο χρήστη για τη λίστα επαφών</string>
     <string name="contactlist_no_permission">Δεν δόθηκαν δικαιώματα, τίποτα δεν εισήχθη.</string>
     <string name="contacts">Επαφές</string>
@@ -202,9 +203,11 @@
     <string name="did_not_check_for_dupes">Δεν έγινε έλεγχος για διπλότυπα.</string>
     <string name="digest_algorithm_not_available">Ο αλγόριθμος digest δεν είναι διαθέσιμος στο τηλέφωνό σας.</string>
     <string name="direct_login_failed">Απέτυχε η σύνδεση μέσω άμεσου συνδέσμου!</string>
+    <string name="direct_login_text">Σύνδεση με %1$s σε %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Απενεργοποίηση</string>
     <string name="dismiss">Αποδέσμευση</string>
     <string name="dismiss_notification_description">Αποδέσμευση ειδοποίησης</string>
+    <string name="displays_mnemonic">Προβολή των 12 λέξεων ασφαλείας</string>
     <string name="dnd">Μην ενοχλείτε</string>
     <string name="document_scan_export_dialog_images">Πολλαπλές εικόνες</string>
     <string name="document_scan_export_dialog_pdf">αρχείο PDF</string>
@@ -232,6 +235,7 @@
     <string name="drawer_item_all_files">Όλα τα αρχεία</string>
     <string name="drawer_item_favorites">Αγαπημένα</string>
     <string name="drawer_item_gallery">Πολυμέσα</string>
+    <string name="drawer_item_groupfolders">Ομαδικοί φάκελοι</string>
     <string name="drawer_item_home">Αρχική</string>
     <string name="drawer_item_notifications">Ειδοποιήσεις</string>
     <string name="drawer_item_on_device">Στην συσκευή</string>
@@ -245,8 +249,11 @@
     <string name="drawer_quota_unlimited">%1$sσε χρήση</string>
     <string name="drawer_synced_folders">Αυτόματη μεταφόρτωση</string>
     <string name="e2e_not_yet_setup">Το Ε2Ε δεν έχει εγκατασταθεί ακόμη</string>
+    <string name="e2e_offline">Δεν είναι δυνατό χωρίς σύνδεση στο διαδίκτυο</string>
     <string name="ecosystem_apps_display_more">Περισσότερα</string>
+    <string name="ecosystem_apps_display_notes">Σημειώσεις</string>
     <string name="ecosystem_apps_display_talk">Ομιλία</string>
+    <string name="ecosystem_apps_more">Περισσότερες εφαρμογές Nextcloud</string>
     <string name="ecosystem_apps_notes">Nextcloud Σημειώσεις</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="encrypted">Ορισμός ως κρυπτογραφημένου</string>
@@ -406,6 +413,8 @@
     <string name="icon_for_empty_list">Εικονίδιο για κενή λίστα</string>
     <string name="icon_of_dashboard_widget">Εικονίδιο πίνακα γραφικού στοιχείου</string>
     <string name="icon_of_widget_entry">Εικονίδιο κενού γραφικού στοιχείου</string>
+    <string name="image_editor_flip_horizontal">Οριζόντια περιστροφή</string>
+    <string name="image_editor_flip_vertical">Κάθετη περιστροφή</string>
     <string name="in_folder">Στον φάκελο %1$s</string>
     <string name="instant_upload_existing">Μεταφόρτωση, επίσης, υπαρχόντων αρχείων</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
@@ -433,6 +442,7 @@
     <string name="locked_by_app">Κλειδωμένο από την εφαρμογή %1$s</string>
     <string name="log_send_mail_subject">%1$s ιστορικό της εφαρμογής Android</string>
     <string name="log_send_no_mail_app">Δεν βρέθηκε εφαρμογή για αποστολή αρχείων καταγραφής. Εγκαταστήστε ένα πρόγραμμα -πελάτη ηλεκτρονικής αλληλογραφίας.</string>
+    <string name="logged_in_as">Σε σύνδεση ως %1$s</string>
     <string name="login">Είσοδος</string>
     <string name="login_url_helper_text">Ο σύνδεσμος προς τη διεπαφή ιστού %1$s όταν την ανοίγετε στο πρόγραμμα περιήγησης.</string>
     <string name="logs_menu_delete">Διαγραφή καταγραφών</string>

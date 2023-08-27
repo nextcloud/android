@@ -256,6 +256,7 @@
     <string name="ecosystem_apps_display_talk">Coloquio</string>
     <string name="ecosystem_apps_more">Más apps de Nextcloud</string>
     <string name="ecosystem_apps_notes">Nextcloud Notas</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="encrypted">Establecer como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
