@@ -422,8 +422,6 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 mSyncedFolder.setSubFolderRule(SubFolderRule.values()[i]);
-                var x = mSyncedFolder.getSubFolderRule();
-                var y = mSyncedFolder.getSubFolderRule();
             }
 
             @Override
