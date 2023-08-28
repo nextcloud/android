@@ -19,6 +19,7 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -42,16 +43,17 @@
                 android:id="@+id/synced_folders_settings_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/synced_folders_preferences"
+                android:text="@string/drawer_synced_folders"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <TextView
                 android:id="@+id/synced_folders_settings_local_folder_path"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="2dp"
+                android:layout_height="15dp"
                 android:ellipsize="middle"
                 android:maxLines="2"
-                android:textColor="?android:attr/textColorSecondary" />
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="For /storage/emulated/0/DCIM/Camera" />
         </LinearLayout>
 
         <LinearLayout
