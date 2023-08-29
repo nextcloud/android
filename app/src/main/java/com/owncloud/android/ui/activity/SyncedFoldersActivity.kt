@@ -391,6 +391,7 @@ class SyncedFoldersActivity :
             syncedFolder.isChargingOnly,
             syncedFolder.isExisting,
             syncedFolder.isSubfolderByDate,
+            syncedFolder.subfolderGranularity,
             syncedFolder.account,
             syncedFolder.uploadAction,
             syncedFolder.nameCollisionPolicyInt,
@@ -420,6 +421,7 @@ class SyncedFoldersActivity :
             syncedFolder.isChargingOnly,
             syncedFolder.isExisting,
             syncedFolder.isSubfolderByDate,
+            syncedFolder.subfolderGranularity,
             syncedFolder.account,
             syncedFolder.uploadAction,
             syncedFolder.nameCollisionPolicyInt,
@@ -448,6 +450,7 @@ class SyncedFoldersActivity :
             false,
             true,
             false,
+            1,
             account.name,
             FileUploader.LOCAL_BEHAVIOUR_FORGET,
             NameCollisionPolicy.ASK_USER.serialize(),
@@ -541,6 +544,7 @@ class SyncedFoldersActivity :
                         false,
                         true,
                         false,
+                        1,
                         account.name,
                         FileUploader.LOCAL_BEHAVIOUR_FORGET,
                         NameCollisionPolicy.ASK_USER.serialize(),
@@ -650,6 +654,7 @@ class SyncedFoldersActivity :
                 syncedFolder.isChargingOnly,
                 syncedFolder.isExisting,
                 syncedFolder.isSubfolderByDate,
+                syncedFolder.subfolderGranularity,
                 syncedFolder.account,
                 syncedFolder.uploadAction,
                 syncedFolder.nameCollisionPolicy.serialize(),
@@ -672,6 +677,7 @@ class SyncedFoldersActivity :
                 syncedFolder.isChargingOnly,
                 syncedFolder.isExisting,
                 syncedFolder.isSubfolderByDate,
+                syncedFolder.subfolderGranularity,
                 syncedFolder.uploadAction,
                 syncedFolder.nameCollisionPolicy.serialize(),
                 syncedFolder.isEnabled
@@ -752,6 +758,7 @@ class SyncedFoldersActivity :
         chargingOnly: Boolean,
         existing: Boolean,
         subfolderByDate: Boolean,
+        subfolderGranularity: Int,
         uploadAction: Int,
         nameCollisionPolicy: Int,
         enabled: Boolean
@@ -763,6 +770,7 @@ class SyncedFoldersActivity :
         item.isChargingOnly = chargingOnly
         item.isExisting = existing
         item.isSubfolderByDate = subfolderByDate
+        item.subfolderGranularity = subfolderGranularity
         item.uploadAction = uploadAction
         item.setNameCollisionPolicy(nameCollisionPolicy)
         item.setEnabled(enabled, clock.currentTime)

@@ -48,6 +48,8 @@ data class SyncedFolderEntity(
     val enabledTimestampMs: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE)
     val subfolderByDate: Int?,
+    @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_GRANULARITY, defaultValue = "1")
+    val subfolderGranularity: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_ACCOUNT)
     val account: String?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION)

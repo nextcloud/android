@@ -30,6 +30,8 @@ import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
@@ -87,6 +89,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     private AppCompatCheckBox mUploadOnChargingCheckbox;
     private AppCompatCheckBox mUploadExistingCheckbox;
     private AppCompatCheckBox mUploadUseSubfoldersCheckbox;
+    private RadioGroup mUploadUseSubfoldersGranularity;
     private TextView mUploadBehaviorSummary;
     private TextView mNameCollisionPolicySummary;
     private TextView mLocalFolderPath;
@@ -182,6 +185,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
         mUploadUseSubfoldersCheckbox = binding.settingInstantUploadPathUseSubfoldersCheckbox;
 
+        mUploadUseSubfoldersGranularity = binding.settingInstantUploadPathUseSubfoldersGranularityRadioGroup;
+
         viewThemeUtils.platform.themeCheckbox(mUploadOnWifiCheckbox,
                                               mUploadOnChargingCheckbox,
                                               mUploadExistingCheckbox,
@@ -226,6 +231,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
         mUploadExistingCheckbox.setChecked(mSyncedFolder.isExisting());
         mUploadUseSubfoldersCheckbox.setChecked(mSyncedFolder.isSubfolderByDate());
+
+        mUploadUseSubfoldersGranularity.check(((RadioButton)mUploadUseSubfoldersGranularity.getChildAt(mSyncedFolder.getSubfolderGranularity())).getId());
 
         mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[mSyncedFolder.getUploadActionInteger()]);
 
@@ -330,6 +337,12 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         binding.settingInstantUploadPathUseSubfoldersContainer.setEnabled(enable);
         binding.settingInstantUploadPathUseSubfoldersContainer.setAlpha(alpha);
 
+        binding.settingInstantUploadPathUseSubfoldersGranularityLabelContainer.setEnabled(enable);
+        binding.settingInstantUploadPathUseSubfoldersGranularityLabelContainer.setAlpha(alpha);
+
+        binding.settingInstantUploadPathUseSubfoldersGranularityRadioContainer.setEnabled(enable);
+        binding.settingInstantUploadPathUseSubfoldersGranularityRadioContainer.setAlpha(alpha);
+
         binding.remoteFolderContainer.setEnabled(enable);
         binding.remoteFolderContainer.setAlpha(alpha);
 
@@ -343,6 +356,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         mUploadOnChargingCheckbox.setEnabled(enable);
         mUploadExistingCheckbox.setEnabled(enable);
         mUploadUseSubfoldersCheckbox.setEnabled(enable);
+        mUploadUseSubfoldersGranularity.setEnabled(enable);
 
         checkWritableFolder();
     }
@@ -390,6 +404,17 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
                 public void onClick(View v) {
                     mSyncedFolder.setSubfolderByDate(!mSyncedFolder.isSubfolderByDate());
                     mUploadUseSubfoldersCheckbox.toggle();
+                }
+            });
+
+        binding.settingInstantUploadPathUseSubfoldersGranularityRadioContainer.setOnClickListener(
+            new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int granularityRadioButtonId = mUploadUseSubfoldersGranularity.getCheckedRadioButtonId();
+                    View granularityRadioButton = mUploadUseSubfoldersGranularity.findViewById(granularityRadioButtonId);
+                    int granularityRadioButtonIndex = mUploadUseSubfoldersGranularity.indexOfChild(granularityRadioButton);
+                    mSyncedFolder.setSubfolderGranularity(granularityRadioButtonIndex);
                 }
             });
 

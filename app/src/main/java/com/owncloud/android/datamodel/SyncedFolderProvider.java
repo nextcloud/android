@@ -347,6 +347,8 @@ public class SyncedFolderProvider extends Observable {
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_EXISTING)) == 1;
             boolean subfolderByDate = cursor.getInt(cursor.getColumnIndexOrThrow(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE)) == 1;
+            int subfolderGranularity = cursor.getInt(cursor.getColumnIndexOrThrow(
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_GRANULARITY));
             String accountName = cursor.getString(cursor.getColumnIndexOrThrow(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT));
             int uploadAction = cursor.getInt(cursor.getColumnIndexOrThrow(
@@ -369,6 +371,7 @@ public class SyncedFolderProvider extends Observable {
                                             chargingOnly,
                                             existing,
                                             subfolderByDate,
+                                            subfolderGranularity,
                                             accountName,
                                             uploadAction,
                                             nameCollisionPolicy,
@@ -397,6 +400,7 @@ public class SyncedFolderProvider extends Observable {
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED, syncedFolder.isEnabled());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS, syncedFolder.getEnabledTimestampMs());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE, syncedFolder.isSubfolderByDate());
+        cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_GRANULARITY, syncedFolder.getSubfolderGranularity());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT, syncedFolder.getAccount());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION, syncedFolder.getUploadAction());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY,

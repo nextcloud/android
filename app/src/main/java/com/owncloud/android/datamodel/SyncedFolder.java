@@ -40,6 +40,7 @@ public class SyncedFolder implements Serializable, Cloneable {
     private boolean chargingOnly;
     private boolean existing;
     private boolean subfolderByDate;
+    private int subfolderGranularity;
     private String account;
     private int uploadAction;
     private int nameCollisionPolicy;
@@ -56,7 +57,8 @@ public class SyncedFolder implements Serializable, Cloneable {
      * @param wifiOnly            upload on wifi only flag
      * @param chargingOnly        upload on charging only
      * @param existing            upload existing files
-     * @param subfolderByDate     create sub-folders by date (month)
+     * @param subfolderByDate     create sub-folders by granularity below
+     * @param subfolderGranularity     set subfolder granulariy (YYYY vs YYYY/MM vs YYYY/MM/DD)
      * @param account             the account owning the synced folder
      * @param uploadAction        the action to be done after the upload
      * @param nameCollisionPolicy the behaviour to follow if detecting a collision
@@ -71,6 +73,7 @@ public class SyncedFolder implements Serializable, Cloneable {
                         boolean chargingOnly,
                         boolean existing,
                         boolean subfolderByDate,
+                        int subfolderGranularity,
                         String account,
                         int uploadAction,
                         int nameCollisionPolicy,
@@ -85,6 +88,7 @@ public class SyncedFolder implements Serializable, Cloneable {
              chargingOnly,
              existing,
              subfolderByDate,
+             subfolderGranularity,
              account,
              uploadAction,
              nameCollisionPolicy,
@@ -106,6 +110,7 @@ public class SyncedFolder implements Serializable, Cloneable {
                            boolean chargingOnly,
                            boolean existing,
                            boolean subfolderByDate,
+                           int subfolderGranularity,
                            String account,
                            int uploadAction,
                            int nameCollisionPolicy,
@@ -120,6 +125,7 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.chargingOnly = chargingOnly;
         this.existing = existing;
         this.subfolderByDate = subfolderByDate;
+        this.subfolderGranularity = subfolderGranularity;
         this.account = account;
         this.uploadAction = uploadAction;
         this.nameCollisionPolicy = nameCollisionPolicy;
@@ -170,6 +176,10 @@ public class SyncedFolder implements Serializable, Cloneable {
 
     public boolean isSubfolderByDate() {
         return this.subfolderByDate;
+    }
+
+    public int getSubfolderGranularity() {
+        return this.subfolderGranularity;
     }
 
     public String getAccount() {
@@ -230,6 +240,10 @@ public class SyncedFolder implements Serializable, Cloneable {
 
     public void setSubfolderByDate(boolean subfolderByDate) {
         this.subfolderByDate = subfolderByDate;
+    }
+
+    public void setSubfolderGranularity(int subfolderGranularity) {
+        this.subfolderGranularity = subfolderGranularity;
     }
 
     public void setAccount(String account) {
