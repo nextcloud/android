@@ -1,0 +1,36 @@
+<!--
+ Nextcloud Android client application
+
+ @author ZetaTom
+ Copyright (C) 2023 ZetaTom
+ Copyright (C) 2023 Nextcloud GmbH
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="46.61dp"
+    android:viewportWidth="40"
+    android:viewportHeight="46.61">
+    <path
+        android:fillColor="@color/grey_600"
+        android:pathData="M1.523,20a18.477,18.477 0,1 0,36.954 0a18.477,18.477 0,1 0,-36.954 0z"
+        android:strokeWidth="3.0454"
+        android:strokeColor="@color/grey_600" />
+    <path
+        android:fillColor="@color/grey_600"
+        android:pathData="m1.5,20c0,17.795 18.5,25 18.5,25s18.5,-7.205 18.5,-25"
+        android:strokeWidth="3"
+        android:strokeColor="@color/grey_600" />
+</vector>

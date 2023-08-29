@@ -34,6 +34,8 @@ import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.FileLockType;
+import com.owncloud.android.lib.resources.files.model.GeoLocation;
+import com.owncloud.android.lib.resources.files.model.ImageDimension;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.utils.MimeType;
@@ -115,11 +117,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String lockToken;
     @Nullable
     private ImageDimension imageDimension;
+    @Nullable
+    private GeoLocation geolocation;
     private List<String> tags = new ArrayList<>();
 
     /**
-     * URI to the local path of the file contents, if stored in the device; cached after first call to {@link
-     * #getStorageUri()}
+     * URI to the local path of the file contents, if stored in the device; cached after first call to
+     * {@link #getStorageUri()}
      */
     private Uri localUri;
 
@@ -973,6 +977,15 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Nullable
     public ImageDimension getImageDimension() {
         return imageDimension;
+    }
+
+    public void setGeoLocation(@Nullable GeoLocation geolocation) {
+        this.geolocation = geolocation;
+    }
+
+    @Nullable
+    public GeoLocation getGeoLocation() {
+        return geolocation;
     }
 
     public List<String> getTags() {

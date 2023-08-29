@@ -205,6 +205,13 @@ public final class BitmapUtils {
         return resultBitmap;
     }
 
+    public static int[] getImageResolution(String srcPath) {
+        Options options = new Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(srcPath, options);
+        return new int [] {options.outWidth, options.outHeight};
+    }
+
     public static Color usernameToColor(String name) {
         String hash = name.toLowerCase(Locale.ROOT);
 
@@ -346,6 +353,7 @@ public final class BitmapUtils {
      * @param bitmap    the original bitmap
      * @return the circular bitmap
      */
+    @Nullable
     public static RoundedBitmapDrawable bitmapToCircularBitmapDrawable(Resources resources,
                                                                        Bitmap bitmap,
                                                                        float radius) {
@@ -363,6 +371,7 @@ public final class BitmapUtils {
         return roundedBitmap;
     }
 
+    @Nullable
     public static RoundedBitmapDrawable bitmapToCircularBitmapDrawable(Resources resources, Bitmap bitmap) {
         return bitmapToCircularBitmapDrawable(resources, bitmap, -1);
     }

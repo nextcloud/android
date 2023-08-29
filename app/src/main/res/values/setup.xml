@@ -121,6 +121,11 @@
     <string name="splashScreenBold"></string>
     <string name="splashScreenNormal"></string>
 
+    <!-- Geocoding -->
+    <string name="osm_geocoder_url" translatable="false">https://nominatim.openstreetmap.org/</string>
+    <string name="osm_geocoder_contact" translatable="false">android@nextcloud.com</string>
+
+
     <!-- Dev settings -->
     <string name="dev_link">https://download.nextcloud.com/android/dev/nextcloud-dev-</string>
     <string name="dev_latest">https://download.nextcloud.com/android/dev/latest</string>

@@ -805,6 +805,7 @@
     <string name="no_browser_available">No app available to handle links</string>
     <string name="no_pdf_app_available">No App available to handle PDF</string>
     <string name="no_email_app_available">No App available to handle mail address</string>
+    <string name="no_map_app_availble">No App available to handle maps</string>
     <string name="share_via_link_hide_download">Hide download</string>
     <string name="unread_comments">Unread comments exist</string>
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
@@ -1098,4 +1099,12 @@
     <string name="ecosystem_apps_display_notes">Notes</string>
     <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_display_more">More</string>
+    <string name="filedetails_details">Details</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_seconds">%s s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_filedetails">File details</string>
+    <string name="image_preview_image_taking_conditions">Image taking conditions</string>
 </resources>

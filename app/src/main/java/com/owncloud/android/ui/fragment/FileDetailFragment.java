@@ -304,6 +304,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.shared_via_users));
         }
 
+        if (MimeTypeUtil.isImage(getFile())) {
+            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.filedetails_details).setIcon(R.drawable.image_32dp));
+        }
+
         viewThemeUtils.material.themeTabLayout(binding.tabLayout);
 
         final FileDetailTabAdapter adapter = new FileDetailTabAdapter(getFragmentManager(), getFile(), user);
@@ -542,6 +546,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 // TODO load default preview image; when the local file is removed, the preview
                 // remains there
                 setButtonsForRemote();
+            }
+
+            FloatingActionButton fabMain = requireActivity().findViewById(R.id.fab_main);
+            if (fabMain != null) {
+                fabMain.hide();
             }
         }
 

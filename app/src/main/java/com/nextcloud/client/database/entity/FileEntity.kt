@@ -119,5 +119,7 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TOKEN)
     val lockToken: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_TAGS)
-    val tags: String?
+    val tags: String?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_METADATA_GPS)
+    val metadataGPS: String?
 )
