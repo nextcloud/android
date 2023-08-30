@@ -1107,4 +1107,5 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_filedetails">File details</string>
     <string name="image_preview_image_taking_conditions">Image taking conditions</string>
+    <string translatable="false" name="make_model">%1$s %2$s</string>
 </resources>
