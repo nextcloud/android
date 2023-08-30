@@ -762,6 +762,7 @@
     <string name="stream_not_possible_headline">Вътрешен стрийм не невъзможен</string>
     <string name="stream_not_possible_message">Моля свалете медиа файла или използвайте външно приложение</string>
     <string name="strict_mode">Строг режим: не е разрешена HTTP връзка!</string>
+    <string name="sub_folder_rule_year">Година</string>
     <string name="subject_shared_with_you">\"%1$s\" бе споделено с вас</string>
     <string name="subject_user_shared_with_you">%1$s сподели с вас \"%2$s\"</string>
     <string name="subtitle_photos_only">Само снимки</string>

@@ -596,7 +596,9 @@
     <string name="prefs_imprint">Жиг</string>
     <string name="prefs_instant_behaviour_dialogTitle">Оригинални фајл биће…</string>
     <string name="prefs_instant_behaviour_title">Оригинални фајл биће…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Сачувај у подфолдерима према датуму</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Користи потфасцикле</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Опције подфолдера</string>
     <string name="prefs_keys_exist">Додај шифрирање од почетка-до-краја ка овом клијенту</string>
     <string name="prefs_license">Лиценца</string>
     <string name="prefs_lock">Кôд за апликацију</string>
@@ -786,6 +788,8 @@
     <string name="stream_not_possible_headline">Интерно стримовање није могуће</string>
     <string name="stream_not_possible_message">Или преузмите медиј или користите спољну апликацију.</string>
     <string name="strict_mode">Стриктни режим: не дозвољава се HTTP веза!</string>
+    <string name="sub_folder_rule_day">Година/месец/дан</string>
+    <string name="sub_folder_rule_month">Година/месец</string>
     <string name="sub_folder_rule_year">Година</string>
     <string name="subject_shared_with_you">„%1$s“ је подељен са вама</string>
     <string name="subject_user_shared_with_you">%1$s дели „%2$s“ са вама</string>
