@@ -48,8 +48,8 @@
 
             <TextView
                 android:id="@+id/synced_folders_settings_local_folder_path"
-                android:layout_width="2dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:maxLines="2"
                 android:textColor="?android:attr/textColorSecondary"
