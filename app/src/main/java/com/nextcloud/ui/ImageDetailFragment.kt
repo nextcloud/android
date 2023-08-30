@@ -182,7 +182,11 @@ class ImageDetailFragment : Fragment(), Injectable {
         if (metadata.make == null || metadata.model?.contains(metadata.make!!) == true) {
             binding.imgTCMakeModel.text = metadata.model
         } else {
-            binding.imgTCMakeModel.text = "${metadata.make} ${metadata.model}"
+            binding.imgTCMakeModel.text = String.format(
+                getString(R.string.make_model),
+                metadata.make,
+                metadata.model
+            )
         }
 
         // image taking conditions
