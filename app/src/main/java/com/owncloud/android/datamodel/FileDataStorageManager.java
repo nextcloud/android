@@ -51,6 +51,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.FileLockType;
+import com.owncloud.android.lib.resources.files.model.GeoLocation;
+import com.owncloud.android.lib.resources.files.model.ImageDimension;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -440,7 +442,6 @@ public class FileDataStorageManager {
      */
     private ContentValues createContentValuesBase(OCFile fileOrFolder) {
         final ContentValues cv = new ContentValues();
-        final Gson gson = new Gson();
         cv.put(ProviderTableMeta.FILE_MODIFIED, fileOrFolder.getModificationTimestamp());
         cv.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, fileOrFolder.getModificationTimestampAtLastSyncForData());
         cv.put(ProviderTableMeta.FILE_PARENT, fileOrFolder.getParentId());
@@ -507,7 +508,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_LOCK_TIMEOUT, file.getLockTimeout());
         cv.put(ProviderTableMeta.FILE_LOCK_TOKEN, file.getLockToken());
         cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
-        cv.put(ProviderTableMeta.FILE_METADATA_SIZE, new Gson().toJson(file.getImageDimension()));
+        cv.put(ProviderTableMeta.FILE_METADATA_SIZE, gson.toJson(file.getImageDimension()));
+        cv.put(ProviderTableMeta.FILE_METADATA_GPS, gson.toJson(file.getGeoLocation()));
 
         return cv;
     }
@@ -975,6 +977,16 @@ public class FileDataStorageManager {
             ImageDimension imageDimension = gson.fromJson(metadataSize, ImageDimension.class);
             if (imageDimension != null) {
                 ocFile.setImageDimension(imageDimension);
+            }
+        }
+
+        String metadataGPS = fileEntity.getMetadataGPS();
+        // Surprisingly JSON deserialization causes significant overhead.
+        // Avoid it in common, trivial cases (null/empty).
+        if (!(metadataGPS == null || metadataGPS.isEmpty() || JSON_NULL_STRING.equals(metadataGPS))) {
+            GeoLocation geoLocation = gson.fromJson(metadataGPS, GeoLocation.class);
+            if (geoLocation != null) {
+                ocFile.setGeoLocation(geoLocation);
             }
         }
 

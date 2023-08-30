@@ -245,6 +245,8 @@ public final class FileStorageUtils {
         file.setLockTimeout(remote.getLockTimeout());
         file.setLockToken(remote.getLockToken());
         file.setTags(new ArrayList<>(Arrays.asList(remote.getTags())));
+        file.setImageDimension(remote.getImageDimension());
+        file.setGeoLocation(remote.getGeoLocation());
 
         return file;
     }

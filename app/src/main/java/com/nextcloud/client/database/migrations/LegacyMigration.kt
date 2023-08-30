@@ -50,6 +50,7 @@ class LegacyMigration(
  *
  * This is needed because the [Migration] does not know which versions it's dealing with
  */
+@Suppress("ForEachOnRange")
 fun RoomDatabase.Builder<NextcloudDatabase>.addLegacyMigrations(
     clock: Clock
 ): RoomDatabase.Builder<NextcloudDatabase> {

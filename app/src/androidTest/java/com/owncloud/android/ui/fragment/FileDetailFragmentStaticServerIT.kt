@@ -24,6 +24,7 @@ package com.owncloud.android.ui.fragment
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.nextcloud.test.TestActivity
+import com.nextcloud.ui.ImageDetailFragment
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -40,13 +41,16 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
 
-    val file = OCFile("/")
+    var file = getFile("gps.jpg")
+    val oCFile = OCFile("/").apply {
+        storagePath = file.absolutePath
+    }
 
     @Test
     @ScreenshotTest
     fun showFileDetailActivitiesFragment() {
         val sut = testActivityRule.launchActivity(null)
-        sut.addFragment(FileDetailActivitiesFragment.newInstance(file, user))
+        sut.addFragment(FileDetailActivitiesFragment.newInstance(oCFile, user))
 
         waitForIdleSync()
         shortSleep()
@@ -58,7 +62,19 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     @ScreenshotTest
     fun showFileDetailSharingFragment() {
         val sut = testActivityRule.launchActivity(null)
-        sut.addFragment(FileDetailSharingFragment.newInstance(file, user))
+        sut.addFragment(FileDetailSharingFragment.newInstance(oCFile, user))
+
+        waitForIdleSync()
+        shortSleep()
+        shortSleep()
+        screenshot(sut)
+    }
+
+    @Test
+    @ScreenshotTest
+    fun showFileDetailDetailsFragment() {
+        val sut = testActivityRule.launchActivity(null)
+        sut.addFragment(ImageDetailFragment.newInstance(oCFile, user))
 
         waitForIdleSync()
         shortSleep()
@@ -71,7 +87,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     @Suppress("MagicNumber")
     fun showDetailsActivities() {
         val activity = testActivityRule.launchActivity(null)
-        val sut = FileDetailFragment.newInstance(file, user, 0)
+        val sut = FileDetailFragment.newInstance(oCFile, user, 0)
         activity.addFragment(sut)
 
         waitForIdleSync()
@@ -141,7 +157,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     // @ScreenshotTest
     fun showDetailsActivitiesNone() {
         val activity = testActivityRule.launchActivity(null)
-        val sut = FileDetailFragment.newInstance(file, user, 0)
+        val sut = FileDetailFragment.newInstance(oCFile, user, 0)
         activity.addFragment(sut)
 
         waitForIdleSync()
@@ -159,7 +175,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     @ScreenshotTest
     fun showDetailsActivitiesError() {
         val activity = testActivityRule.launchActivity(null)
-        val sut = FileDetailFragment.newInstance(file, user, 0)
+        val sut = FileDetailFragment.newInstance(oCFile, user, 0)
         activity.addFragment(sut)
 
         waitForIdleSync()
@@ -179,7 +195,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     @ScreenshotTest
     fun showDetailsSharing() {
         val sut = testActivityRule.launchActivity(null)
-        sut.addFragment(FileDetailFragment.newInstance(file, user, 1))
+        sut.addFragment(FileDetailFragment.newInstance(oCFile, user, 1))
 
         waitForIdleSync()
 
