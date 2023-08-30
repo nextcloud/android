@@ -447,7 +447,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Osad kohalikud faili ununesid</string>
     <string name="sync_string_files">Failid</string>
     <string name="synced_folder_settings_button">Seadete nupp</string>
-    <string name="synced_folders_preferences">Automaatse üleslaadimise eelistuse</string>
     <string name="synced_folders_type">Tüüp</string>
     <string name="tags">Sildid</string>
     <string name="test_server_button">Testi ühendust serveriga</string>

@@ -374,6 +374,7 @@
     <string name="file_rename">إعادة التسمية</string>
     <string name="file_version_restored_error">حدث خطأ في استيراد إصدار الملف!</string>
     <string name="file_version_restored_successfully">تم استيراد إصدار الملف بنجاح.</string>
+    <string name="filedetails_details">التفاصيل</string>
     <string name="filedetails_download">تحميل</string>
     <string name="filedetails_export">تصدير</string>
     <string name="filedetails_renamed_in_upload_msg">أعيدت تسمية الملف %1$s خلال الرفع</string>
@@ -591,7 +592,6 @@
     <string name="prefs_imprint">البصمة</string>
     <string name="prefs_instant_behaviour_dialogTitle">سيكون الملف الأصلي…</string>
     <string name="prefs_instant_behaviour_title">سيكون الملف الأصلي…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">تخزين في مجلدات فرعية بناءً على السنة والشهر</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">استخدم المجلدات الفرعية</string>
     <string name="prefs_keys_exist">أضف التشفير من الحدّ للحدّ لهذا العميل</string>
     <string name="prefs_license">الرخصة</string>
@@ -783,6 +783,7 @@
     <string name="stream_not_possible_headline">البث الداخلي غير ممكن</string>
     <string name="stream_not_possible_message">يرجى تنزيل الوسائط بدلاً من ذلك أو استخدام تطبيق خارجي.</string>
     <string name="strict_mode">الوضع الآمن : اتصال HTTP  غير مسموح!</string>
+    <string name="sub_folder_rule_year">السَّنة</string>
     <string name="subject_shared_with_you">تمت مشاركة \"%1$s\" معك</string>
     <string name="subject_user_shared_with_you">%1$s شارك معك \"%2$s\"</string>
     <string name="subtitle_photos_only">الصور فقط</string>
@@ -813,7 +814,6 @@
 
 استمتع بالتحميل التلقائي الجديد والممتد.</string>
     <string name="synced_folders_no_results">لم يتم العثور على مجلدات وسائط</string>
-    <string name="synced_folders_preferences">خيارات الرفع التلقائي</string>
     <string name="synced_folders_preferences_folder_path">لـ%1$s</string>
     <string name="synced_folders_type">حسب النوع</string>
     <string name="synced_icon">تمت المزامَنة</string>

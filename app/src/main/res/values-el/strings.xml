@@ -373,6 +373,7 @@
     <string name="file_rename">Μετονομασία</string>
     <string name="file_version_restored_error">Σφάλμα κατά την επαναφορά έκδοσης αρχείου!</string>
     <string name="file_version_restored_successfully">Επιτυχημένη επαναφορά έκδοσης αρχείου.</string>
+    <string name="filedetails_details">Λεπτομέρειες</string>
     <string name="filedetails_download">Λήψη</string>
     <string name="filedetails_export">Εξαγωγή</string>
     <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά τη μεταφόρτωση</string>
@@ -579,7 +580,6 @@
     <string name="prefs_imprint">Αποτύπωμα</string>
     <string name="prefs_instant_behaviour_dialogTitle">Το αρχικό αρχείο θα…</string>
     <string name="prefs_instant_behaviour_title">Το αρχικό αρχείο θα…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Αποθήκευση σε υποφακέλους με βάση το χρόνο και μήνα</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Χρήση υποφακέλων</string>
     <string name="prefs_keys_exist">Προσθήκη κρυπτογράφησης από άκρο σε άκρο σε αυτή τη συσκευή</string>
     <string name="prefs_license">Άδεια χρήσης</string>
@@ -766,6 +766,7 @@
     <string name="stream_not_possible_headline">Η εσωτερική ροή δεν είναι δυνατή</string>
     <string name="stream_not_possible_message">Παρακαλούμε να γίνει λήψη των μέσων ή να χρησιμοποιηθεί εξωτερική εφαρμογή</string>
     <string name="strict_mode">Αυστηρή λειτουργία: δεν επιτρέπεται σύνδεση HTTP!</string>
+    <string name="sub_folder_rule_year">Έτος</string>
     <string name="subject_shared_with_you">Ο \"%1$s\" διαμοιράστηκε μαζί σας</string>
     <string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
     <string name="subtitle_photos_only">Μόνο φωτογραφίες</string>
@@ -794,7 +795,6 @@
     <string name="synced_folders_configure_folders">Ρυθμίστε τους φακέλους</string>
     <string name="synced_folders_new_info">Η άμεση μεταφόρτωση έχει ανανεωθεί πλήρως. Ξανά ρυθμίστε την αυτόματη μεταφόρτωσή σας από το κύριο μενού. \ N \ nΑπολαύστε τη νέα και εκτεταμένη αυτόματη μεταφόρτωση.</string>
     <string name="synced_folders_no_results">Δεν βρέθηκαν φάκελοι πολυμέσων</string>
-    <string name="synced_folders_preferences">Προτιμήσεις για αυτόματη μεταφόρτωση</string>
     <string name="synced_folders_preferences_folder_path">Για%1$s</string>
     <string name="synced_folders_type">Τύπος</string>
     <string name="synced_icon">Συγχρονίστηκε</string>

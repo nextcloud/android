@@ -262,6 +262,7 @@
     <string name="file_rename">Alinomi</string>
     <string name="file_version_restored_error">Eraro dum restaŭro de dosierversio!</string>
     <string name="file_version_restored_successfully">Sukcese restaŭriĝis dosierversio.</string>
+    <string name="filedetails_details">Detaloj</string>
     <string name="filedetails_download">Elŝuti</string>
     <string name="filedetails_export">Eksporti</string>
     <string name="filedetails_renamed_in_upload_msg">Dosiero alinomita %1$s dum alŝuto</string>
@@ -408,7 +409,6 @@
     <string name="prefs_imprint">Informoj</string>
     <string name="prefs_instant_behaviour_dialogTitle">La origina dosiero estos...</string>
     <string name="prefs_instant_behaviour_title">La origina dosiero estos...</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Konservi en subdosierujoj laŭ jaro kaj monato</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Uzi subdosierujojn</string>
     <string name="prefs_license">Permesilo</string>
     <string name="prefs_lock">Aplikaĵa pasvorto</string>
@@ -556,7 +556,6 @@
     <string name="synced_folder_settings_button">Butono pri agordoj</string>
     <string name="synced_folders_configure_folders">Agordi dosierujojn</string>
     <string name="synced_folders_new_info">Ni tute elrenovigis tuj-alŝutadon. Reagordu vian aŭtomatan alŝuton pere de la ĉefa menuo.\n\nUzu la novan, kaj pli kapablan, aŭtomatan alŝuton.</string>
-    <string name="synced_folders_preferences">Agordoj pri aŭtomata alŝuto</string>
     <string name="synced_folders_preferences_folder_path">Pri %1$s</string>
     <string name="synced_folders_type">Tipo</string>
     <string name="synced_icon">Sinkronigita</string>

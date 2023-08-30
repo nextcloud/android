@@ -422,6 +422,13 @@
     <string name="image_editor_rotate_ccw">Ротирај улево</string>
     <string name="image_editor_rotate_cw">Ротирај удесно</string>
     <string name="image_editor_unable_to_edit_image">Слика не може да се уреди.</string>
+    <string name="image_preview_filedetails">Детаљи фајла</string>
+    <string name="image_preview_image_taking_conditions">Услови при сликању</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">У фолдеру %1$s</string>
     <string name="instant_upload_existing">Отпреми и постојеће фајлове</string>
     <string name="instant_upload_on_charging">Отпремај само на пуњењу</string>
@@ -502,6 +509,7 @@
     <string name="no_calendar_exists">Не постоји календар</string>
     <string name="no_email_app_available">Нема апликације која може да обради мејл адресу</string>
     <string name="no_items">Нема ставки</string>
+    <string name="no_map_app_availble">Нема апликације која обрађује мапе</string>
     <string name="no_mutliple_accounts_allowed">Дозвољен је само један налог</string>
     <string name="no_pdf_app_available">Нема апликације која приказује ПДФ</string>
     <string name="no_send_app">Не постоји доступна апликација за слање изабраних фајлова</string>
@@ -588,7 +596,6 @@
     <string name="prefs_imprint">Жиг</string>
     <string name="prefs_instant_behaviour_dialogTitle">Оригинални фајл биће…</string>
     <string name="prefs_instant_behaviour_title">Оригинални фајл биће…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Сачувај у потфасциклама према години и месецу</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Користи потфасцикле</string>
     <string name="prefs_keys_exist">Додај шифрирање од почетка-до-краја ка овом клијенту</string>
     <string name="prefs_license">Лиценца</string>
@@ -779,6 +786,7 @@
     <string name="stream_not_possible_headline">Интерно стримовање није могуће</string>
     <string name="stream_not_possible_message">Или преузмите медиј или користите спољну апликацију.</string>
     <string name="strict_mode">Стриктни режим: не дозвољава се HTTP веза!</string>
+    <string name="sub_folder_rule_year">Година</string>
     <string name="subject_shared_with_you">„%1$s“ је подељен са вама</string>
     <string name="subject_user_shared_with_you">%1$s дели „%2$s“ са вама</string>
     <string name="subtitle_photos_only">Само слике</string>
@@ -807,7 +815,6 @@
     <string name="synced_folders_configure_folders">Подесите фасцикле</string>
     <string name="synced_folders_new_info">Брзо отпремање је потпуно редизајнирано. Поново подесите аутоматска отпремања из главног менија.\n\nУживајте у новом и надограђеном аутоматском отпремању.</string>
     <string name="synced_folders_no_results">Нема медијских фасцикли</string>
-    <string name="synced_folders_preferences">Подешавања аутоматског отпремања</string>
     <string name="synced_folders_preferences_folder_path">За %1$s</string>
     <string name="synced_folders_type">Тип</string>
     <string name="synced_icon">Синхронизовано</string>

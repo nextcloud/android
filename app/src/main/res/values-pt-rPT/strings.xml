@@ -528,7 +528,6 @@
     <string name="prefs_imprint">Informação</string>
     <string name="prefs_instant_behaviour_dialogTitle">O ficheiro original será…</string>
     <string name="prefs_instant_behaviour_title">O ficheiro original será…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Guardar em sub-pastas de acordo com o ano e o mês</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar Subpastas</string>
     <string name="prefs_license">Licença</string>
     <string name="prefs_lock">Código da aplicação</string>
@@ -724,7 +723,6 @@
     <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure o seu envio automático a partir do menu principal.
 Aproveite o novo e melhorado envio automático.</string>
     <string name="synced_folders_no_results">Não foram encontradas pastas multimédia</string>
-    <string name="synced_folders_preferences">Preferências de envio automático</string>
     <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <string name="synced_folders_type">Tipo</string>
     <string name="synced_icon">Sincronizado</string>

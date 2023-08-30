@@ -369,6 +369,7 @@
     <string name="file_rename">Преименувай</string>
     <string name="file_version_restored_error">Грешка при възстановяването!</string>
     <string name="file_version_restored_successfully">Възстанявяването завърши.</string>
+    <string name="filedetails_details">Подробности</string>
     <string name="filedetails_download">Изтегляне</string>
     <string name="filedetails_export">Експорт /изнасям/</string>
     <string name="filedetails_renamed_in_upload_msg">Файлът е преименуван на %1$s по време на качването</string>
@@ -573,7 +574,6 @@
     <string name="prefs_imprint">Отпечатък</string>
     <string name="prefs_instant_behaviour_dialogTitle">Оригиналният файл ще бъде…</string>
     <string name="prefs_instant_behaviour_title">Оригиналният файл ще бъде…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Съхраняване в подпапки, разделени по година и месец</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Ползване на подпапки</string>
     <string name="prefs_keys_exist">Добавяне на цялостно криптиране към този клиент</string>
     <string name="prefs_license">Лиценз</string>
@@ -790,7 +790,6 @@
     <string name="synced_folders_configure_folders">Конфигуриране на папки</string>
     <string name="synced_folders_new_info">Моментално качване е преправено изцяло. Конфигурирайте автоматичното качване от главното меню.\n\n Насладете се на новото и продължено автоматично качване.</string>
     <string name="synced_folders_no_results">Не са намерени мултимедийни папки</string>
-    <string name="synced_folders_preferences">Предпочитания за автоматично качване</string>
     <string name="synced_folders_preferences_folder_path">За %1$s</string>
     <string name="synced_folders_type">Тип</string>
     <string name="synced_icon">Синхронизиран</string>

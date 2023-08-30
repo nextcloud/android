@@ -310,6 +310,7 @@
     <string name="file_rename">Adenvel</string>
     <string name="file_version_restored_error">Ur fazi zo bet en ur adober stumm ar restr !</string>
     <string name="file_version_restored_successfully">Adtapet eo bet stumm ar restr.</string>
+    <string name="filedetails_details">Munudoù</string>
     <string name="filedetails_download">Pellgargañ</string>
     <string name="filedetails_renamed_in_upload_msg">ar restr a zo bet adanvet %1$s e pad ar bellkas</string>
     <string name="filedetails_sync_file">Kemprenañ</string>
@@ -476,7 +477,6 @@
     <string name="prefs_imprint">Moulañ</string>
     <string name="prefs_instant_behaviour_dialogTitle">Ar restr orin a vo ...</string>
     <string name="prefs_instant_behaviour_title">Ar restr orin a vo ...</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Enrollañ e isteuliadoù dre bloaz ha miz</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Implij isteuliadoù</string>
     <string name="prefs_license">Aotre</string>
     <string name="prefs_lock">Kod-tremen ar meziant</string>
@@ -651,7 +651,6 @@
     <string name="synced_folders_configure_folders">Stumma an tuliadoù</string>
     <string name="synced_folders_new_info">Ar pellkas otomatek a zo bet cheñchet penn-da-benn. Adstummit o pellkas otomatek dre ar roll pena.\n\nMa vofoc\'h plijet gant ar pelkass otomatek nevez ha brasaet.</string>
     <string name="synced_folders_no_results">Teuliad media kavet ebet</string>
-    <string name="synced_folders_preferences">Choazoù evit ar pellkas otomatek</string>
     <string name="synced_folders_preferences_folder_path">Evit %1$s</string>
     <string name="synced_folders_type">Stumm</string>
     <string name="synced_icon">Kemprennet</string>

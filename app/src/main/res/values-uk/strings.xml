@@ -588,7 +588,6 @@
     <string name="prefs_imprint">Відбиток</string>
     <string name="prefs_instant_behaviour_dialogTitle">Вихідний файл буде...</string>
     <string name="prefs_instant_behaviour_title">Вихідний файл буде...</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Зберігати файли у підкаталогах за часом створення</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Використовувати підкаталоги</string>
     <string name="prefs_keys_exist">Додати наскрізне шифрування для цього клієнта</string>
     <string name="prefs_license">Ліцензія</string>
@@ -779,6 +778,7 @@
     <string name="stream_not_possible_headline">Внутрішня трансляція неможлива</string>
     <string name="stream_not_possible_message">Будь ласка, звантажте мультимедійний файл замість використання зовнішнього застосунку</string>
     <string name="strict_mode">Строгий режим: з\'єднання HTTP не дозволені!</string>
+    <string name="sub_folder_rule_year">Рік</string>
     <string name="subject_shared_with_you">З Вами поділилися \"%1$s\"</string>
     <string name="subject_user_shared_with_you">%1$s поділився %2$s з вами</string>
     <string name="subtitle_photos_only">Лише зображення</string>
@@ -807,7 +807,6 @@
     <string name="synced_folders_configure_folders">Налаштувати каталоги</string>
     <string name="synced_folders_new_info">Постійне завантаження було повністю перероблено. Переналаштуйте ваше автоматичне завантаження у головному меню.\n\nНасолоджуйтеся оновленим та розширеним автоматичним завантаженням.</string>
     <string name="synced_folders_no_results">Не знайдено каталог для зображень та відео</string>
-    <string name="synced_folders_preferences">Налаштування автоматичного завантаження</string>
     <string name="synced_folders_preferences_folder_path">Для %1$s</string>
     <string name="synced_folders_type">Тип</string>
     <string name="synced_icon">Синхронізований</string>

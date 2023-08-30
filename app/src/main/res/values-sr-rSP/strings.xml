@@ -419,7 +419,6 @@
     <string name="prefs_imprint">Žig</string>
     <string name="prefs_instant_behaviour_dialogTitle">Originalni fajl će biti…</string>
     <string name="prefs_instant_behaviour_title">Originalni fajl će biti…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Sačuvaj u podfasciklama prema godini i mesecu</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Koristi podfascikle</string>
     <string name="prefs_license">Licenca</string>
     <string name="prefs_lock">Aplikativni kôd</string>
@@ -584,7 +583,6 @@
     <string name="synced_folders_configure_folders">Podesite fascikle</string>
     <string name="synced_folders_new_info">Brzo otpremanje je skroz redizajnirano. Ponovo podesite Vaša automatska otpremanja iz glavnog menija.\n\nUživajte u novom automatskom otpremanju.</string>
     <string name="synced_folders_no_results">Nisu pronađene multimedijalne fascikle</string>
-    <string name="synced_folders_preferences">Podešavanja automatskog otpremanja</string>
     <string name="synced_folders_preferences_folder_path">Za %1$s</string>
     <string name="synced_folders_type">Tip</string>
     <string name="synced_icon">Sinhronizovano</string>

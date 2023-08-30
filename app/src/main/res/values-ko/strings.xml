@@ -582,7 +582,6 @@
     <string name="prefs_imprint">법적 고지</string>
     <string name="prefs_instant_behaviour_dialogTitle">원래 파일은</string>
     <string name="prefs_instant_behaviour_title">원래 파일은…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">연도와 월을 기준으로 하위 폴더에 보관</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">하위 폴더 사용</string>
     <string name="prefs_keys_exist">이 고객에게 종단간 암호화를 추가합니다.</string>
     <string name="prefs_license">라이선스</string>
@@ -792,6 +791,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="stream_not_possible_headline">내부 스트리밍 불가능</string>
     <string name="stream_not_possible_message">대신 미디어를 다운로드하거나 외부 앱을 사용하십시오.</string>
     <string name="strict_mode">엄격 모드 : http 연결이 허용되지 않습니다!</string>
+    <string name="sub_folder_rule_year">년</string>
     <string name="subject_shared_with_you">\"%1$s\"을(를) 여러분과 공유했습니다</string>
     <string name="subject_user_shared_with_you">%1$s 님이 \"%2$s\" 항목을 여러분과 공유했습니다</string>
     <string name="subtitle_photos_only">사진만</string>
@@ -820,7 +820,6 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="synced_folders_configure_folders">폴더 설정</string>
     <string name="synced_folders_new_info">즉석 업로드가 완전히 변경되었습니다. 주 메뉴에서 자동 업로드를 다시 설정해 주십시오.\n\n새롭게 강화된 자동 업로드 기능을 활용하십시오.</string>
     <string name="synced_folders_no_results">미디어 폴더를 찾을 수 없음</string>
-    <string name="synced_folders_preferences">자동 업로드 설정</string>
     <string name="synced_folders_preferences_folder_path">%1$s</string>
     <string name="synced_folders_type">종류</string>
     <string name="synced_icon">동기화됨</string>

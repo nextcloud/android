@@ -585,7 +585,6 @@
     <string name="prefs_imprint">Inprimategi-zigilua</string>
     <string name="prefs_instant_behaviour_dialogTitle">Jatorrizko fitxategia izango da...</string>
     <string name="prefs_instant_behaviour_title">Jatorrizko fitxategia izango da...</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Biltegiratu urtearen eta hilabetearen araberako azpikarpetetan</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Erabili azpikarpetak</string>
     <string name="prefs_keys_exist">Gehitu muturretik muturrerako enkriptatzea bezero honi</string>
     <string name="prefs_license">Lizentzia</string>
@@ -774,6 +773,7 @@
     <string name="stream_not_possible_headline">Barneko transmisioa ez da posible</string>
     <string name="stream_not_possible_message">Bestela deskargatu multimedia edo erabili kanpoko aplikazio bat.</string>
     <string name="strict_mode">Modu zorrotza: ez da HTTP konexiorik onartzen!</string>
+    <string name="sub_folder_rule_year">Urtea</string>
     <string name="subject_shared_with_you">\"%1$s\" zurekin partekatu dute</string>
     <string name="subject_user_shared_with_you">%1$s(e)k \"%2$s\" partekatu du zurekin</string>
     <string name="subtitle_photos_only">Argazkiak soilik</string>
@@ -802,7 +802,6 @@
     <string name="synced_folders_configure_folders">Konfiguratu karpetak</string>
     <string name="synced_folders_new_info">Berehalako karga erabat aldatu da. Konfiguratu berriro zure karga automatikoa menu nagusitik.\n\nGozatu karga automatiko berri eta hedatuaz. </string>
     <string name="synced_folders_no_results">Ez da multimedia karpetarik aurkitu</string>
-    <string name="synced_folders_preferences">Karga automatikoaren hobespenak</string>
     <string name="synced_folders_preferences_folder_path"> %1$s-(r)entzat</string>
     <string name="synced_folders_type">Mota</string>
     <string name="synced_icon">Sinkronizatua</string>

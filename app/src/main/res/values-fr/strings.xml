@@ -589,7 +589,6 @@ Attention la suppression est irréversible.</string>
     <string name="prefs_imprint">Mentions</string>
     <string name="prefs_instant_behaviour_dialogTitle">Le fichier original sera…</string>
     <string name="prefs_instant_behaviour_title">Le fichier original sera…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Stocker dans des sous-dossiers basés sur années et mois</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Utiliser des sous-dossiers</string>
     <string name="prefs_keys_exist">Ajouter le chiffrement de bout en bout à ce client</string>
     <string name="prefs_license">Licence</string>
@@ -779,6 +778,7 @@ Attention la suppression est irréversible.</string>
     <string name="stream_not_possible_headline">Diffusion interne impossible</string>
     <string name="stream_not_possible_message">Merci, à la place, de télécharger le média ou d\'utiliser une application externe.</string>
     <string name="strict_mode">Mode strict : aucune connexion HTTP n’est autorisée !</string>
+    <string name="sub_folder_rule_year">Année</string>
     <string name="subject_shared_with_you">\"%1$s\" a été partagé avec vous</string>
     <string name="subject_user_shared_with_you">%1$s a partagé \"%2$s\" avec vous</string>
     <string name="subtitle_photos_only">Photos uniquement</string>
@@ -807,7 +807,6 @@ Attention la suppression est irréversible.</string>
     <string name="synced_folders_configure_folders">Configurer les dossiers</string>
     <string name="synced_folders_new_info">Le téléversement instantané a été complètement refondu. Merci de reconfigurer vos téléversements automatiques depuis le Menu principal.\n\nProfitez des capacités nouvelles et étendues des téléversements automatiques.</string>
     <string name="synced_folders_no_results">Aucun dossier média trouvé</string>
-    <string name="synced_folders_preferences">Préférences de téléversement automatique</string>
     <string name="synced_folders_preferences_folder_path">Pour %1$s</string>
     <string name="synced_folders_type">Type</string>
     <string name="synced_icon">Synchronisé</string>

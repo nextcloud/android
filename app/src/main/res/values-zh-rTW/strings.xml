@@ -422,6 +422,13 @@
     <string name="image_editor_rotate_ccw">逆時針旋轉</string>
     <string name="image_editor_rotate_cw">順時針旋轉</string>
     <string name="image_editor_unable_to_edit_image">無法編輯圖片。</string>
+    <string name="image_preview_filedetails">檔案詳細資訊</string>
+    <string name="image_preview_image_taking_conditions">拍攝條件</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">在資料夾 %1$s</string>
     <string name="instant_upload_existing">同時上傳既有的檔案</string>
     <string name="instant_upload_on_charging">只在充電時上傳</string>
@@ -502,6 +509,7 @@
     <string name="no_calendar_exists">不存在日曆</string>
     <string name="no_email_app_available">沒有應用程式可開啟此郵件地址</string>
     <string name="no_items">無項目</string>
+    <string name="no_map_app_availble">沒有應用程式可以處理地圖</string>
     <string name="no_mutliple_accounts_allowed">僅允許一個帳號</string>
     <string name="no_pdf_app_available">沒有應用程式可以開啟 PDF</string>
     <string name="no_send_app">沒有可用於傳送選定檔案的應用程式</string>
@@ -588,7 +596,6 @@
     <string name="prefs_imprint">法律聲明</string>
     <string name="prefs_instant_behaviour_dialogTitle">原始的檔案將會……</string>
     <string name="prefs_instant_behaviour_title">原始的檔案將會……</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">依據年月存在子資料夾內</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子資料夾</string>
     <string name="prefs_keys_exist">新增端到端加密到此客戶端</string>
     <string name="prefs_license">授權</string>
@@ -779,6 +786,7 @@
     <string name="stream_not_possible_headline">不可能使用內部串流</string>
     <string name="stream_not_possible_message">請改為下載媒體或使用外部應用程式。</string>
     <string name="strict_mode">嚴格模式：不允許 HTTP 連線！</string>
+    <string name="sub_folder_rule_year">年</string>
     <string name="subject_shared_with_you">「%1$s」已經與您分享</string>
     <string name="subject_user_shared_with_you">%1$s 分享了「%2$s」給您</string>
     <string name="subtitle_photos_only">僅限照片</string>
@@ -807,7 +815,6 @@
     <string name="synced_folders_configure_folders">設定資料夾</string>
     <string name="synced_folders_new_info">即時上傳已經完全改版，請在選單中重新設定自動上傳。\n\n享受全新且強大的自動上傳。</string>
     <string name="synced_folders_no_results">未找到媒體資料夾</string>
-    <string name="synced_folders_preferences">自動上傳偏好</string>
     <string name="synced_folders_preferences_folder_path">給 %1$s</string>
     <string name="synced_folders_type">類型</string>
     <string name="synced_icon">已同步</string>

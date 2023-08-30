@@ -563,7 +563,6 @@
     <string name="prefs_imprint">Podmienky používania</string>
     <string name="prefs_instant_behaviour_dialogTitle">Pôvodný súbor bude…</string>
     <string name="prefs_instant_behaviour_title">Pôvodný súbor bude…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Ulož v podpriečinkoch podľa roku a mesiaca</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Použi podpriečinky</string>
     <string name="prefs_keys_exist">Pridať end-to-end šifrovanie do tohto klienta</string>
     <string name="prefs_license">Licencia</string>
@@ -747,6 +746,7 @@
     <string name="stream_not_possible_headline">Vnútorné streamovanie nie je možné</string>
     <string name="stream_not_possible_message">Médium si namiesto toho stiahnite alebo použite externú aplikáciu.</string>
     <string name="strict_mode">Striktný mód: HTTP spojenie nie je povolené!</string>
+    <string name="sub_folder_rule_year">Rok</string>
     <string name="subject_shared_with_you">\"%1$s\" vám bol sprístupnený</string>
     <string name="subject_user_shared_with_you">%1$s vám sprístupnil \"%2$s\"</string>
     <string name="subtitle_photos_only">Iba fotky</string>
@@ -775,7 +775,6 @@
     <string name="synced_folders_configure_folders">Nastavenie priečinkov</string>
     <string name="synced_folders_new_info">Okamžité nahrávanie bolo kompletne prepracované.  Zmente si nastavenie automatického nahrávania cez hlavné menu.\n\nUžite si nové a rozšírene možnosti automatického nahrávania.</string>
     <string name="synced_folders_no_results">Nenašli sa žiadne priečinky s médiami</string>
-    <string name="synced_folders_preferences">Nastavenie automatického nahrávania</string>
     <string name="synced_folders_preferences_folder_path">Pre %1$s</string>
     <string name="synced_folders_type">Typ</string>
     <string name="synced_icon">Zosynchronizované</string>

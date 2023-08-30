@@ -501,7 +501,6 @@
     <string name="prefs_imprint">ປະທັບ</string>
     <string name="prefs_instant_behaviour_dialogTitle">ຟາຍເດີມຈະ....</string>
     <string name="prefs_instant_behaviour_title">ຟາຍເດີມຈະ....</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">ເກັບໄວ້ໃນໂຟນເດີຫຍ່ອຍ ອີງຕາມປີ ແລະ ເດືອນ</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">ໃຊ້ໂຟນເດີຫຍ້ອຍ</string>
     <string name="prefs_license">ໃບອະນຸຍາດ</string>
     <string name="prefs_lock">ລະຫັດຜ່ານApp</string>
@@ -686,7 +685,6 @@
     <string name="synced_folders_configure_folders">ກຳນົດຄ່າໂຟນເດີ</string>
     <string name="synced_folders_new_info">ການອັບໂຫຼດທັນທີໄດ້ຮັບການປັບປຸງ. ຕັ້ງຄ່າການອັບໂຫຼດອັດຕະໂນມັດຄຶນຈາກ main menu.\n\nEnjoy  ການອັບໂຫຼດອັດຕະໂນມັດ.</string>
     <string name="synced_folders_no_results">ບໍ່ພົບໂຟນເດີສື່ມວນຊົນ</string>
-    <string name="synced_folders_preferences">ເລືອກສໍາລັບການອັບໂຫລດ ອັດ ຕະ ໂນ ມັດ</string>
     <string name="synced_folders_preferences_folder_path">ສຳລັບ%1$s</string>
     <string name="synced_folders_type">ພິມ</string>
     <string name="synced_icon">Synced</string>

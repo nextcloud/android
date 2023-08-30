@@ -499,7 +499,6 @@
     <string name="prefs_imprint">Prenta</string>
     <string name="prefs_instant_behaviour_dialogTitle">Upprunaleg skrá verður…</string>
     <string name="prefs_instant_behaviour_title">Upprunaleg skrá verður…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Geyma í undirmöppum byggðum á ári og mánuðum</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Nota undirmöppur</string>
     <string name="prefs_license">Notkunarleyfi</string>
     <string name="prefs_lock">Lykilkóði forritsins</string>
@@ -653,6 +652,7 @@
     <string name="stream">Streyma með…</string>
     <string name="stream_not_possible_headline">Innra streymi er ekki mögulegt</string>
     <string name="stream_not_possible_message">Endilega sæktu frekar gagnamiðil eða notaðu utanaðkomandi forrit.</string>
+    <string name="sub_folder_rule_year">Ár</string>
     <string name="subject_shared_with_you">\"%1$s\" hefur verið deilt með þér</string>
     <string name="subject_user_shared_with_you">%1$s deildi \"%2$s\" með þér</string>
     <string name="sync_conflicts_in_favourites_ticker">Árekstrar fundust</string>
@@ -677,7 +677,6 @@
     <string name="synced_folders_configure_folders">Stilla möppur</string>
     <string name="synced_folders_new_info">Beinar innsendingar hafa verið algerlega endurhannaðar. Endurstilltu sjálfvirkar innsendingar beint í aðalvalmyndinni\n\nNjóttu góðs af nýju og ítarlegu viðmóti sjálfvirkra innsendinga.</string>
     <string name="synced_folders_no_results">Engar margmiðlunarmöppur fundust</string>
-    <string name="synced_folders_preferences">Kjörstillingar fyrir sjálfvirkar innsendingar</string>
     <string name="synced_folders_preferences_folder_path">Fyrir %1$s</string>
     <string name="synced_folders_type">Tegund</string>
     <string name="synced_icon">Samstillt</string>
