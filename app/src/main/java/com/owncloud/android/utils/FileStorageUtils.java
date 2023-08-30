@@ -28,10 +28,12 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
+import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
@@ -68,6 +70,8 @@ public final class FileStorageUtils {
     private static final String TAG = FileStorageUtils.class.getSimpleName();
 
     private static final String PATTERN_YYYY_MM = "yyyy/MM/";
+    private static final String PATTERN_YYYY = "yyyy/";
+    private static final String PATTERN_YYYY_MM_DD = "yyyy/MM/dd/";
     private static final String DEFAULT_FALLBACK_STORAGE_PATH = "/storage/sdcard0";
 
     private FileStorageUtils() {
@@ -144,14 +148,22 @@ public final class FileStorageUtils {
      * @param date: date in microseconds since 1st January 1970
      * @return string: yyyy/mm/
      */
-    private static String getSubPathFromDate(long date, Locale currentLocale) {
+    private static String getSubPathFromDate(long date, Locale currentLocale, SubFolderRule subFolderRule) {
         if (date == 0) {
             return "";
+        }
+        String datePattern = "";
+        if (subFolderRule == SubFolderRule.YEAR) {
+            datePattern = PATTERN_YYYY;
+        } else if (subFolderRule == SubFolderRule.YEAR_MONTH) {
+            datePattern = PATTERN_YYYY_MM;
+        } else if (subFolderRule == SubFolderRule.YEAR_MONTH_DAY) {
+            datePattern = PATTERN_YYYY_MM_DD;
         }
 
         Date d = new Date(date);
 
-        DateFormat df = new SimpleDateFormat(PATTERN_YYYY_MM, currentLocale);
+        DateFormat df = new SimpleDateFormat(datePattern, currentLocale);
         df.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
 
         return df.format(d);
@@ -168,10 +180,11 @@ public final class FileStorageUtils {
                                                   String remotePath,
                                                   String syncedFolderLocalPath,
                                                   long dateTaken,
-                                                  Boolean subfolderByDate) {
+                                                  Boolean subfolderByDate,
+                                                  SubFolderRule subFolderRule) {
         String subfolderByDatePath = "";
         if (subfolderByDate) {
-            subfolderByDatePath = getSubPathFromDate(dateTaken, current);
+            subfolderByDatePath = getSubPathFromDate(dateTaken, current, subFolderRule);
         }
 
         File parentFile = new File(file.getAbsolutePath().replace(syncedFolderLocalPath, "")).getParentFile();

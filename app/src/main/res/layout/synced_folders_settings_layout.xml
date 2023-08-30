@@ -19,6 +19,7 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -42,7 +43,7 @@
                 android:id="@+id/synced_folders_settings_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/synced_folders_preferences"
+                android:text="@string/drawer_synced_folders"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <TextView
@@ -51,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:maxLines="2"
-                android:textColor="?android:attr/textColorSecondary" />
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="For /storage/emulated/0/DCIM/Camera" />
         </LinearLayout>
 
         <LinearLayout
@@ -301,6 +303,34 @@
                         android:clickable="false"
                         android:focusable="false" />
                 </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/setting_instant_upload_subfolder_rule_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:clipToPadding="false"
+                android:gravity="center_vertical"
+                android:minHeight="?attr/listPreferredItemHeightSmall"
+                android:orientation="vertical"
+                android:padding="@dimen/standard_padding">
+
+                <TextView
+                    android:id="@+id/setting_instant_upload_subfolder_rules_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:maxLines="2"
+                    android:text="@string/prefs_instant_upload_subfolder_rule_title"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <Spinner
+                    android:id="@+id/setting_instant_upload_subfolder_rule_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:entries="@array/sub_folder_rule_values" />
             </LinearLayout>
 
             <LinearLayout

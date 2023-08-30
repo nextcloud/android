@@ -25,6 +25,7 @@ package com.nextcloud.client;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
@@ -72,7 +73,8 @@ public class SyncedFoldersActivityIT extends AbstractIT {
                                                                    1000,
                                                                    "Name",
                                                                    MediaFolderType.IMAGE,
-                                                                   false);
+                                                                   false,
+                                                                   SubFolderRule.YEAR_MONTH);
         SyncedFolderPreferencesDialogFragment sut = SyncedFolderPreferencesDialogFragment.newInstance(item, 0);
 
         Intent intent = new Intent(targetContext, SyncedFoldersActivity.class);

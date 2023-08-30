@@ -23,7 +23,9 @@ package com.owncloud.android.ui.dialog.parcel;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.datamodel.MediaFolderType;
+import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
@@ -47,6 +49,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private long id;
     private String account;
     private int section;
+    private SubFolderRule subFolderRule;
 
     public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
         id = syncedFolderDisplayItem.getId();
@@ -65,6 +68,7 @@ public class SyncedFolderParcelable implements Parcelable {
             syncedFolderDisplayItem.getNameCollisionPolicyInt());
         this.section = section;
         hidden = syncedFolderDisplayItem.isHidden();
+        subFolderRule = syncedFolderDisplayItem.getSubfolderRule();
     }
 
     private SyncedFolderParcelable(Parcel read) {
@@ -83,6 +87,7 @@ public class SyncedFolderParcelable implements Parcelable {
         nameCollisionPolicy = NameCollisionPolicy.deserialize(read.readInt());
         section = read.readInt();
         hidden = read.readInt() != 0;
+        subFolderRule = SubFolderRule.values()[read.readInt()];
     }
 
     public SyncedFolderParcelable() {
@@ -106,6 +111,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(nameCollisionPolicy.serialize());
         dest.writeInt(section);
         dest.writeInt(hidden ? 1 : 0);
+        dest.writeInt(subFolderRule.ordinal());
     }
 
     public static final Creator<SyncedFolderParcelable> CREATOR =
@@ -216,6 +222,8 @@ public class SyncedFolderParcelable implements Parcelable {
         return this.section;
     }
 
+    public SubFolderRule getSubFolderRule() { return this.subFolderRule; }
+
     public void setFolderName(String folderName) {
         this.folderName = folderName;
     }
@@ -271,4 +279,5 @@ public class SyncedFolderParcelable implements Parcelable {
     public void setSection(int section) {
         this.section = section;
     }
+    public void setSubFolderRule(SubFolderRule subFolderRule) { this.subFolderRule = subFolderRule; }
 }
