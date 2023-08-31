@@ -1,0 +1,9 @@
+## 3.26.0 RC1 (August 31, 2023)
+
+- image editing
+- image details, with map
+- show other Nextcloud apps
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/84
