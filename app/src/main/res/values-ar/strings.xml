@@ -422,6 +422,13 @@
     <string name="image_editor_rotate_ccw">تدوير عكس اتجاه عقارب الساعة</string>
     <string name="image_editor_rotate_cw">تدوير في اتجاه عقارب الساعة</string>
     <string name="image_editor_unable_to_edit_image">تعذر تحرير الصورة.</string>
+    <string name="image_preview_filedetails">تفاصيل الملف</string>
+    <string name="image_preview_image_taking_conditions">شروط التِقَاط الصورة</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s ميغا بكسل</string>
+    <string name="image_preview_unit_millimetres">%s مللي</string>
+    <string name="image_preview_unit_seconds">%s ثانية</string>
     <string name="in_folder">في مجلد %1$s</string>
     <string name="instant_upload_existing">ارفع الملفات الموجودة مسبقاً أيضاً</string>
     <string name="instant_upload_on_charging">ارفع وقت الشحن فقط</string>
@@ -506,6 +513,7 @@
     <string name="no_calendar_exists">لا يوجد تقويم مسجل</string>
     <string name="no_email_app_available">لا يوجد تطبيق لتعاملات البريد الالكتروني</string>
     <string name="no_items">لا يوجد أي عنصر</string>
+    <string name="no_map_app_availble">لا يوجد تطبيق للتعامل مع الخرائط</string>
     <string name="no_mutliple_accounts_allowed">يسمح بحساب واحد فقط</string>
     <string name="no_pdf_app_available">لا يوجد تطبيق متاح للتعامل مع PDF</string>
     <string name="no_send_app">لا يوجد تطبيق متاح لإرسال الملفات المحددة</string>
@@ -592,7 +600,9 @@
     <string name="prefs_imprint">البصمة</string>
     <string name="prefs_instant_behaviour_dialogTitle">سيكون الملف الأصلي…</string>
     <string name="prefs_instant_behaviour_title">سيكون الملف الأصلي…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">التخزين في مجلدات فرعية بناءً على التاريخ</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">استخدم المجلدات الفرعية</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">خيارات المجلدات الفرعية</string>
     <string name="prefs_keys_exist">أضف التشفير من الحدّ للحدّ لهذا العميل</string>
     <string name="prefs_license">الرخصة</string>
     <string name="prefs_lock">الرمز السري للتطبيق</string>
@@ -783,6 +793,8 @@
     <string name="stream_not_possible_headline">البث الداخلي غير ممكن</string>
     <string name="stream_not_possible_message">يرجى تنزيل الوسائط بدلاً من ذلك أو استخدام تطبيق خارجي.</string>
     <string name="strict_mode">الوضع الآمن : اتصال HTTP  غير مسموح!</string>
+    <string name="sub_folder_rule_day">سنة/شهر/يوم</string>
+    <string name="sub_folder_rule_month">سنة/شهر</string>
     <string name="sub_folder_rule_year">السَّنة</string>
     <string name="subject_shared_with_you">تمت مشاركة \"%1$s\" معك</string>
     <string name="subject_user_shared_with_you">%1$s شارك معك \"%2$s\"</string>

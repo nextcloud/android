@@ -422,6 +422,13 @@
     <string name="image_editor_rotate_ccw">Girar en sentido antihorario</string>
     <string name="image_editor_rotate_cw">Girar en sentido horario</string>
     <string name="image_editor_unable_to_edit_image">No se puede editar la imagen.</string>
+    <string name="image_preview_filedetails">Detalles del archivo</string>
+    <string name="image_preview_image_taking_conditions">Condiciones de la captura de la imágen</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">en carpeta %1$s</string>
     <string name="instant_upload_existing">Subir también archivos existentes</string>
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
@@ -502,6 +509,7 @@
     <string name="no_calendar_exists">No existe el calendario</string>
     <string name="no_email_app_available">No hay ninguna app disponible para manejar direciones de correo electrónico</string>
     <string name="no_items">Sin ítems</string>
+    <string name="no_map_app_availble">No hay App disponible para gestión de mapas</string>
     <string name="no_mutliple_accounts_allowed">Sólo se permite una cuenta</string>
     <string name="no_pdf_app_available">No hay apps disponibles para manejar PDF</string>
     <string name="no_send_app">No hay una app disponible para el envío de los archivos seleccionados</string>
@@ -588,7 +596,9 @@
     <string name="prefs_imprint">Pie de imprenta</string>
     <string name="prefs_instant_behaviour_dialogTitle">El archivo original será…</string>
     <string name="prefs_instant_behaviour_title">El archivo original será…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Almacenar en subcarpetas basándose en la fecha</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcarpetas</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Opciones de Sub-carpetas</string>
     <string name="prefs_keys_exist">Agregar cifrado de extremo a extremo a este cliente</string>
     <string name="prefs_license">Licencia</string>
     <string name="prefs_lock">Código de acceso de la app</string>
@@ -778,6 +788,8 @@
     <string name="stream_not_possible_headline">La retransmisión interna no es posible</string>
     <string name="stream_not_possible_message">Por favor, descarga el medio o usa una app externa</string>
     <string name="strict_mode">Modo estricto: ¡ninguna conexión HTTP permitida!</string>
+    <string name="sub_folder_rule_day">Año/Mes/Día</string>
+    <string name="sub_folder_rule_month">Año/Mes</string>
     <string name="sub_folder_rule_year">Año</string>
     <string name="subject_shared_with_you">\"%1$s\" ha sido compartido contigo.</string>
     <string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>

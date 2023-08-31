@@ -422,6 +422,11 @@
     <string name="image_editor_rotate_ccw">Otočit doleva</string>
     <string name="image_editor_rotate_cw">Otočit doprava</string>
     <string name="image_editor_unable_to_edit_image">Obrázek se nedaří upravit</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">ve složce %1$s</string>
     <string name="instant_upload_existing">Také nahrát už existující soubory</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>

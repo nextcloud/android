@@ -597,7 +597,9 @@
     <string name="prefs_imprint">Editor</string>
     <string name="prefs_instant_behaviour_dialogTitle">O ficheiro orixinal vai ser…</string>
     <string name="prefs_instant_behaviour_title">O ficheiro orixinal vai ser…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Arquivar en subcartafoles baseados na data</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcartafoles</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Opcións de subcartafol</string>
     <string name="prefs_keys_exist">Engadir cifrado de extremo a extremo a este cliente</string>
     <string name="prefs_license">Licenza</string>
     <string name="prefs_lock">Código de acceso da aplicación</string>
@@ -787,6 +789,8 @@
     <string name="stream_not_possible_headline">Non é posíbel facer fluxos internos</string>
     <string name="stream_not_possible_message">Descargue o medio ou use unha aplicación externa.</string>
     <string name="strict_mode">Modo estrito: non se permite a conexión HTTP!</string>
+    <string name="sub_folder_rule_day">Ano/Mes/Día</string>
+    <string name="sub_folder_rule_month">Ano/Mes</string>
     <string name="sub_folder_rule_year">Ano</string>
     <string name="subject_shared_with_you">«%1$s» foi compartido con Vde.</string>
     <string name="subject_user_shared_with_you">%1$s compartiu «%2$s» con Vde.</string>

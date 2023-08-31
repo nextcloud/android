@@ -596,7 +596,9 @@
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_instant_behaviour_dialogTitle">Original file will be…</string>
     <string name="prefs_instant_behaviour_title">Original file will be…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Store in subfolders based on date</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Subfolder options</string>
     <string name="prefs_keys_exist">Add end-to-end encryption to this client</string>
     <string name="prefs_license">License</string>
     <string name="prefs_lock">App passcode</string>
@@ -786,6 +788,8 @@
     <string name="stream_not_possible_headline">Internal streaming not possible</string>
     <string name="stream_not_possible_message">Please download media instead or use external app.</string>
     <string name="strict_mode">Strict mode: no HTTP connection allowed!</string>
+    <string name="sub_folder_rule_day">Year/Month/Day</string>
+    <string name="sub_folder_rule_month">Year/Month</string>
     <string name="sub_folder_rule_year">Year</string>
     <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
     <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
