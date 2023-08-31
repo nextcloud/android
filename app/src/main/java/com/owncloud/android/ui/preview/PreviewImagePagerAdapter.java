@@ -38,9 +38,11 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.OptIn;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.media3.common.util.UnstableApi;
 
 /**
  * Adapter class that provides Fragment instances
@@ -59,10 +61,10 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     /**
      * Constructor
      *
-     * @param fragmentManager   {@link FragmentManager} instance that will handle
-     *                          the {@link Fragment}s provided by the adapter.
-     * @param parentFolder      Folder where images will be searched for.
-     * @param storageManager    Bridge to database.
+     * @param fragmentManager {@link FragmentManager} instance that will handle the {@link Fragment}s provided by the
+     *                        adapter.
+     * @param parentFolder    Folder where images will be searched for.
+     * @param storageManager  Bridge to database.
      */
     public PreviewImagePagerAdapter(FragmentManager fragmentManager,
                                     OCFile selectedFile,
@@ -96,8 +98,8 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     /**
      * Constructor
      *
-     * @param fragmentManager {@link FragmentManager} instance that will handle
-     *                        the {@link Fragment}s provided by the adapter.
+     * @param fragmentManager {@link FragmentManager} instance that will handle the {@link Fragment}s provided by the
+     *                        adapter.
      * @param type            Type of virtual folder, e.g. favorite or photos
      * @param storageManager  Bridge to database.
      */
@@ -113,7 +115,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         if (type == null) {
             throw new IllegalArgumentException("NULL parent folder");
         }
-        if(type == VirtualFolderType.NONE){
+        if (type == VirtualFolderType.NONE) {
             throw new IllegalArgumentException("NONE virtual folder type");
         }
         if (storageManager == null) {
@@ -155,6 +157,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @NonNull
+    @OptIn(markerClass = UnstableApi.class)
     public Fragment getItem(int i) {
         OCFile file = getFileAt(i);
         Fragment fragment;
@@ -242,7 +245,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         mCachedFragments.remove(position);
-       super.destroyItem(container, position, object);
+        super.destroyItem(container, position, object);
     }
 
 

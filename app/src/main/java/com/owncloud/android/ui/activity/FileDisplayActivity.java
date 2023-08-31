@@ -151,6 +151,7 @@ import java.util.Stack;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.OptIn;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
@@ -159,6 +160,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.media3.common.util.UnstableApi;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.Unit;
 
@@ -168,7 +170,11 @@ import static com.owncloud.android.utils.PermissionUtil.PERMISSION_CHOICE_DIALOG
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
  */
-public class FileDisplayActivity extends FileActivity implements FileFragment.ContainerActivity, OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener, SendShareDialog.SendShareDialogDownloader, Injectable {
+@OptIn(markerClass = UnstableApi.class)
+public class FileDisplayActivity extends FileActivity
+    implements FileFragment.ContainerActivity,
+    OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener,
+    SendShareDialog.SendShareDialogDownloader, Injectable {
 
     public static final String RESTART = "RESTART";
     public static final String ALL_FILES = "ALL_FILES";

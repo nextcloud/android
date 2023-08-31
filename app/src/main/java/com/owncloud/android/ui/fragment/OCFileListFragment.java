@@ -139,6 +139,7 @@ import javax.inject.Inject;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.OptIn;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -146,6 +147,7 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.media3.common.util.UnstableApi;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -977,6 +979,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
+    @OptIn(markerClass = UnstableApi.class)
     public void onItemClicked(OCFile file) {
         ((FileActivity) mContainerActivity).checkInternetConnection();
 
@@ -1822,8 +1825,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     /**
-     * Theme default action bar according to provided parameters.
-     * Replaces back arrow with hamburger menu icon.
+     * Theme default action bar according to provided parameters. Replaces back arrow with hamburger menu icon.
      *
      * @param title string res id of title to be shown in action bar
      */
@@ -1834,7 +1836,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     /**
      * Theme default action bar according to provided parameters.
      *
-     * @param title title to be shown in action bar
+     * @param title          title to be shown in action bar
      * @param showBackAsMenu iff true replace back arrow with hamburger menu icon
      */
     protected void setTitle(final String title, Boolean showBackAsMenu) {

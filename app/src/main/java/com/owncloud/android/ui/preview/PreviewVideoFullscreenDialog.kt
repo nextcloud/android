@@ -31,9 +31,10 @@ import android.view.Window
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.ui.StyledPlayerView
+import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer
 import com.nextcloud.common.NextcloudClient
@@ -41,7 +42,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogPreviewVideoBinding
 import com.owncloud.android.lib.common.utils.Log_OC
 
-/**
+@UnstableApi /**
  * Transfers a previously playing video to a fullscreen dialog, and handles the switch back to the previous player
  * when closed
  *
@@ -53,7 +54,7 @@ class PreviewVideoFullscreenDialog(
     private val activity: Activity,
     nextcloudClient: NextcloudClient,
     private val sourceExoPlayer: ExoPlayer,
-    private val sourceView: StyledPlayerView
+    private val sourceView: PlayerView
 ) : Dialog(sourceView.context, android.R.style.Theme_Black_NoTitleBar_Fullscreen) {
 
     private val binding: DialogPreviewVideoBinding = DialogPreviewVideoBinding.inflate(layoutInflater)
@@ -125,7 +126,7 @@ class PreviewVideoFullscreenDialog(
         if (shouldUseRotatedVideoWorkaround) {
             mExoPlayer.seekTo(sourceExoPlayer.currentPosition)
         } else {
-            StyledPlayerView.switchTargetView(sourceExoPlayer, sourceView, binding.videoPlayer)
+            PlayerView.switchTargetView(sourceExoPlayer, sourceView, binding.videoPlayer)
         }
     }
 
@@ -178,7 +179,7 @@ class PreviewVideoFullscreenDialog(
         if (shouldUseRotatedVideoWorkaround) {
             sourceExoPlayer.seekTo(mExoPlayer.currentPosition)
         } else {
-            StyledPlayerView.switchTargetView(sourceExoPlayer, binding.videoPlayer, sourceView)
+            PlayerView.switchTargetView(sourceExoPlayer, binding.videoPlayer, sourceView)
         }
     }
 

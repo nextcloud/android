@@ -50,9 +50,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.ui.StyledPlayerControlView;
+
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -95,7 +93,12 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.media3.common.MediaItem;
+import androidx.media3.common.util.UnstableApi;
+import androidx.media3.exoplayer.ExoPlayer;
+import androidx.media3.ui.PlayerControlView;
 
+@UnstableApi
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
  * <p>
@@ -106,7 +109,7 @@ import androidx.fragment.app.FragmentManager;
  * instantiation too.
  */
 public class PreviewMediaFragment extends FileFragment implements OnTouchListener,
-    Injectable, StyledPlayerControlView.OnFullScreenModeChangedListener {
+    Injectable, PlayerControlView.OnFullScreenModeChangedListener {
 
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
 
