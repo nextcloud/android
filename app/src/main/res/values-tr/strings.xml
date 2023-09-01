@@ -422,6 +422,8 @@
     <string name="image_editor_rotate_ccw">Saat yönünün tersine döndür</string>
     <string name="image_editor_rotate_cw">Saat yönünde döndür</string>
     <string name="image_editor_unable_to_edit_image">Görsel düzenlenemedi.</string>
+    <string name="image_preview_filedetails">Dosya ayrıntıları</string>
+    <string name="image_preview_image_taking_conditions">Görsel çekim koşulları</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
     <string name="image_preview_unit_megapixel">%s MP</string>
@@ -507,6 +509,7 @@
     <string name="no_calendar_exists">Herhangi bir takvim yok</string>
     <string name="no_email_app_available">E-posta adreslerini işleyecek bir uygulama bulunamadı</string>
     <string name="no_items">Herhangi bir öge yok</string>
+    <string name="no_map_app_availble">Haritaları işleyecek bir uygulama bulunamadı</string>
     <string name="no_mutliple_accounts_allowed">Yalnızca bir hesap kullanılabilir</string>
     <string name="no_pdf_app_available">PDF dosyalarını işleyecek bir uygulama bulunamadı</string>
     <string name="no_send_app">Seçilmiş dosyaların gönderilebileceği bir uygulama bulunamadı</string>
@@ -593,7 +596,9 @@
     <string name="prefs_imprint">İzlenim</string>
     <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya şu olacak …</string>
     <string name="prefs_instant_behaviour_title">Özgün dosya şu olacak …</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Tarihe göre alt klasörlere kaydedilsin</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Alt klasörler kullanılsın</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Alt klasör seçenekleri</string>
     <string name="prefs_keys_exist">Bu istemciye uçtan uca şifreleme ekle</string>
     <string name="prefs_license">Lisans</string>
     <string name="prefs_lock">Uygulama parolası</string>
@@ -783,6 +788,8 @@
     <string name="stream_not_possible_headline">İç akış yapılamaz</string>
     <string name="stream_not_possible_message">Onun yerine ortamı indirin ya da dış bir uygulama kullanın.</string>
     <string name="strict_mode">Kısıtlanmış kip: HTTP bağlantılarına izin verilmez!</string>
+    <string name="sub_folder_rule_day">Yıl/Ay/Gün</string>
+    <string name="sub_folder_rule_month">Yıl/Ay</string>
     <string name="sub_folder_rule_year">Yıl</string>
     <string name="subject_shared_with_you">\"%1$s\" ögesi sizinle paylaşıldı</string>
     <string name="subject_user_shared_with_you">%1$s, sizinle \"%2$s\" ögesini paylaştı</string>

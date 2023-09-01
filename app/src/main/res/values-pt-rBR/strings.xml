@@ -422,6 +422,13 @@
     <string name="image_editor_rotate_ccw">Girar no sentido anti-horário</string>
     <string name="image_editor_rotate_cw">Rotacionar no sentido dos ponteiros do relógio</string>
     <string name="image_editor_unable_to_edit_image">Não foi possível editar a imagem.</string>
+    <string name="image_preview_filedetails">Detalhes do arquivo</string>
+    <string name="image_preview_image_taking_conditions">Condições de captura de imagens</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">na pasta %1$s</string>
     <string name="instant_upload_existing">Enviar arquivos existentes também</string>
     <string name="instant_upload_on_charging">Só enviar quando carregando</string>
@@ -502,6 +509,7 @@
     <string name="no_calendar_exists">Não existe um calendário </string>
     <string name="no_email_app_available">Nenhum aplicativo disponível para lidar com endereço de e-mail </string>
     <string name="no_items">Nenhum item</string>
+    <string name="no_map_app_availble">Nenhum aplicativo disponível para lidar com mapas</string>
     <string name="no_mutliple_accounts_allowed">Somente uma conta é permitida</string>
     <string name="no_pdf_app_available">Nenhum aplicativo disponível para lidar com PDF</string>
     <string name="no_send_app">Nenhum aplicativo disponível para enviar os arquivos selecionados</string>
@@ -588,7 +596,9 @@
     <string name="prefs_imprint">Imprimir</string>
     <string name="prefs_instant_behaviour_dialogTitle">Arquivo original será…</string>
     <string name="prefs_instant_behaviour_title">Arquivo original será…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Armazene em subpastas com base na data</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subpastas</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Opções de subpasta</string>
     <string name="prefs_keys_exist">Adicionar criptografia de ponta a ponta a este cliente</string>
     <string name="prefs_license">Licença</string>
     <string name="prefs_lock">Senha do aplicativo</string>
@@ -778,6 +788,8 @@
     <string name="stream_not_possible_headline">Streaming interno não é possível</string>
     <string name="stream_not_possible_message">Faça o download da mídia ou use um aplicativo externo.</string>
     <string name="strict_mode">Modo restrito: nenhuma conexão HTTP permitida! </string>
+    <string name="sub_folder_rule_day">Ano/Mês/Dia</string>
+    <string name="sub_folder_rule_month">Ano/Mês</string>
     <string name="sub_folder_rule_year">Ano</string>
     <string name="subject_shared_with_you">\"%1$s\" foi compartilhado com você</string>
     <string name="subject_user_shared_with_you">%1$s compartilhou \"%2$s\" com você</string>

@@ -596,7 +596,9 @@
     <string name="prefs_imprint">法律聲明</string>
     <string name="prefs_instant_behaviour_dialogTitle">原始的檔案將會…</string>
     <string name="prefs_instant_behaviour_title">原始的檔案將會…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">依據日期儲存在子資料夾內</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子資料夾</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">子資料夾選項</string>
     <string name="prefs_keys_exist">向此客戶端添加端到端加密</string>
     <string name="prefs_license">授權</string>
     <string name="prefs_lock">App 通行碼</string>
@@ -786,6 +788,8 @@
     <string name="stream_not_possible_headline">不可能使用內部串流</string>
     <string name="stream_not_possible_message">請改為下載媒體或使用外部應用程式。</string>
     <string name="strict_mode">嚴格模式：不允許 HTTP 連接！</string>
+    <string name="sub_folder_rule_day">年/月/日</string>
+    <string name="sub_folder_rule_month">年/月</string>
     <string name="sub_folder_rule_year">年</string>
     <string name="subject_shared_with_you">已經與您分享了 \"%1$s\"</string>
     <string name="subject_user_shared_with_you">%1$s 分享了 \"%2$s\" 給您</string>
