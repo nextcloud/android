@@ -676,13 +676,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         return false;
     }
 
-    private void startFullScreenVideo() {
-//        final FragmentActivity activity = getActivity();
-//        if (activity != null) {
-//            new PreviewVideoFullscreenDialog(activity, nextcloudClient, exoPlayer, binding.exoplayerView).show();
-//        }
-    }
-
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
