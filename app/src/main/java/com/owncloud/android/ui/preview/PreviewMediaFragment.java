@@ -374,9 +374,7 @@ public class PreviewMediaFragment extends FileFragment implements
                                 playVideo();
                             });
                         } catch (ClientFactory.CreationException e) {
-                            handler.post(() -> {
-                                Log_OC.e(TAG, "error setting up ExoPlayer", e);
-                            });
+                            handler.post(() -> Log_OC.e(TAG, "error setting up ExoPlayer", e));
                         }
                     });
                 }
