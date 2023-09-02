@@ -28,7 +28,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -42,9 +41,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 
 import com.nextcloud.client.account.User;
@@ -107,7 +104,7 @@ import androidx.media3.ui.PlayerControlView;
  * By now, if the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
  * instantiation too.
  */
-public class PreviewMediaFragment extends FileFragment implements OnTouchListener,
+public class PreviewMediaFragment extends FileFragment implements
     Injectable, PlayerControlView.OnFullScreenModeChangedListener {
 
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
@@ -662,18 +659,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         mediaPlayerServiceConnection.unbind();
         toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_UNLOCKED);
         super.onStop();
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN && v.equals(binding.exoplayerView)) {
-            // added a margin on the left to avoid interfering with gesture to open navigation drawer
-            if (event.getX() / Resources.getSystem().getDisplayMetrics().density > MIN_DENSITY_RATIO) {
-                startFullScreenVideo();
-            }
-            return true;
-        }
-        return false;
     }
 
     @Override
