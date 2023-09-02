@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ownCloud Android client application
 
   Copyright (C) 2020 Andy Scherzinger
@@ -20,8 +19,8 @@
 -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/top"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -43,8 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        app:show_buffering="always"
-        app:show_next_button="false" />
+        app:show_buffering="always" />
 
     <com.owncloud.android.media.MediaControlView
         android:id="@+id/media_controller"
@@ -69,9 +67,9 @@
         <ImageView
             android:layout_width="@dimen/empty_list_icon_layout_width"
             android:layout_height="@dimen/empty_list_icon_layout_height"
-            android:padding="@dimen/standard_half_padding"
             android:layout_gravity="center"
             android:contentDescription="@null"
+            android:padding="@dimen/standard_half_padding"
             android:src="@drawable/file_movie"
             app:tint="@color/bg_default" />
 
