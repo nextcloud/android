@@ -355,6 +355,7 @@
     <string name="file_rename">Hernoemen</string>
     <string name="file_version_restored_error">Fout bij herstellen bestandsversie!</string>
     <string name="file_version_restored_successfully">Herstellen bestandsversie succesvol</string>
+    <string name="filedetails_details">Details</string>
     <string name="filedetails_download">Downloaden</string>
     <string name="filedetails_export">Exporteren</string>
     <string name="filedetails_renamed_in_upload_msg">Bestand hernoemd %1$s tijdens upload</string>
@@ -555,7 +556,6 @@
     <string name="prefs_imprint">Afdruk</string>
     <string name="prefs_instant_behaviour_dialogTitle">Origineel bestand zal…</string>
     <string name="prefs_instant_behaviour_title">Origineel bestand zal…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseerd op jaar en maand</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_license">Licentie</string>
     <string name="prefs_lock">App-toegangscode</string>
@@ -736,6 +736,7 @@
     <string name="stream_not_possible_headline">Intern streamen niet mogelijk</string>
     <string name="stream_not_possible_message">Download media in plaats van gebruik externe app.</string>
     <string name="strict_mode">Strict modus: geen HTTP-verbinding toegestaan!</string>
+    <string name="sub_folder_rule_year">Jaar</string>
     <string name="subject_shared_with_you">\"%1$s\" is met je gedeeld</string>
     <string name="subject_user_shared_with_you">%1$s deelde \"%2$s\" met jou</string>
     <string name="subtitle_photos_only">Enkel foto\'s</string>
@@ -764,7 +765,6 @@
     <string name="synced_folders_configure_folders">Mappen instellen</string>
     <string name="synced_folders_new_info">Automatisch uploaden is helemaal herzien. Herconfigureer je auto-uploadfunctie in het hoofdmenu.\n\nVeel plezier met de nieuwe en meer uitgebreide auto-upload.</string>
     <string name="synced_folders_no_results">Geen mediamappen gevonden</string>
-    <string name="synced_folders_preferences">Voorkeuren voor automatisch uploaden</string>
     <string name="synced_folders_preferences_folder_path">Voor %1$s</string>
     <string name="synced_folders_type">Type</string>
     <string name="synced_icon">gesynchroniseerd</string>

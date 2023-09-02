@@ -315,6 +315,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="file_not_found">Berkas tidak ditemukan</string>
     <string name="file_rename">Ubah nama</string>
     <string name="file_version_restored_error">Kesalahan terjadi saat memulihkan versi file!</string>
+    <string name="filedetails_details">Detail</string>
     <string name="filedetails_download">Unduh</string>
     <string name="filedetails_export">Ekspor</string>
     <string name="filedetails_renamed_in_upload_msg">Nama berkas diubah menjadi  %1$s waktu diunggah</string>
@@ -453,7 +454,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="prefs_imprint">Jejak</string>
     <string name="prefs_instant_behaviour_dialogTitle">Berkas asli akan menjadi…</string>
     <string name="prefs_instant_behaviour_title">Berkas asli akan menjadi…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Simpan dalam subfolder berdasarkan tahun dan bulan</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gunakan subfolder</string>
     <string name="prefs_license">Lisensi</string>
     <string name="prefs_lock">Kode sandi aplikasi</string>
@@ -583,7 +583,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="sync_string_files">Berkas</string>
     <string name="synced_folders_configure_folders">Konfigurasi folder</string>
     <string name="synced_folders_new_info">Unggah instan telah dirubah sepenuhnya. Harap lihat menu utama dan konfigurasi ulang unggah otomatis anda. Maaf untuk gangguannya.\n\nNikmati kemampuan unggah otomatis yang baru!</string>
-    <string name="synced_folders_preferences">Preferensi untuk mengunggah otomatis.</string>
     <string name="synced_folders_preferences_folder_path">Untuk %1$s</string>
     <string name="synced_folders_type">tipe</string>
     <string name="tags">Tag</string>

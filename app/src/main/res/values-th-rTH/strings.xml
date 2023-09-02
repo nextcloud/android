@@ -317,6 +317,7 @@
     <string name="file_rename">เปลี่ยนชื่อ</string>
     <string name="file_version_restored_error">เกิดข้อผิดพลาดในการกู้คืนรุ่นไฟล์!</string>
     <string name="file_version_restored_successfully">กู้คืนรุ่นไฟล์เสร็จสมบูรณ์</string>
+    <string name="filedetails_details">รายละเอียด</string>
     <string name="filedetails_download">ดาวน์โหลด</string>
     <string name="filedetails_export">ส่งออก</string>
     <string name="filedetails_renamed_in_upload_msg">ไฟล์ถูกเปลี่ยนชื่อเป็น %1$s ขณะอัปโหลด</string>

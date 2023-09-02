@@ -329,6 +329,7 @@
     <string name="file_rename">שינוי שם</string>
     <string name="file_version_restored_error">שחזור גרסת הקובץ נתקלה בשגיאה!</string>
     <string name="file_version_restored_successfully">גרסת הקובץ שוחזרה בהצלחה.</string>
+    <string name="filedetails_details">פרטים</string>
     <string name="filedetails_download">הורדה</string>
     <string name="filedetails_export">ייצוא</string>
     <string name="filedetails_renamed_in_upload_msg">שם הקובץ %1$s השתנה במהלך ההעלאה</string>
@@ -496,7 +497,6 @@
     <string name="prefs_imprint">חותמת</string>
     <string name="prefs_instant_behaviour_dialogTitle">קובץ מקורי יהיה…</string>
     <string name="prefs_instant_behaviour_title">תיקייה מקורית תהיה…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">אחסון בתת־תיקיות בהפרדה לשנה וחודש</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">שימוש בתת־תיקיות</string>
     <string name="prefs_license">רישיון</string>
     <string name="prefs_lock">מילת הצופן של היישומון</string>
@@ -668,6 +668,7 @@
     <string name="stream">הזרמה עם…</string>
     <string name="stream_not_possible_headline">אין תמיכה בהזרמה פנימית</string>
     <string name="stream_not_possible_message">נא להוריד את המדיה במקום או להשתמש ביישומון חיצוני.</string>
+    <string name="sub_folder_rule_year">שנה</string>
     <string name="subject_shared_with_you">\"%1$s\" שותף אתך</string>
     <string name="subject_user_shared_with_you">%1$s משתף \"%2$s\" אתך</string>
     <string name="sync_conflicts_in_favourites_ticker">נמצאו התנגשויות</string>
@@ -692,7 +693,6 @@
     <string name="synced_folders_configure_folders">הגדרת תיקיות</string>
     <string name="synced_folders_new_info">ההעלאה המידית שופצה לחלוטין. עליך להגדיר העלאה אוטומטית מהתפריט הראשי.\n\nמזמינים אותך ליהנות מההעלאה האוטומטית החדשה והמשופרת.</string>
     <string name="synced_folders_no_results">לא נמצאו תיקיות מדיה</string>
-    <string name="synced_folders_preferences">העדפות להעלאה אוטומטית</string>
     <string name="synced_folders_preferences_folder_path">עבור %1$s</string>
     <string name="synced_folders_type">סוג</string>
     <string name="synced_icon">מסונכרן</string>

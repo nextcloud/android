@@ -32,6 +32,7 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
@@ -203,12 +204,15 @@ class FilesSyncWork(
         val lastModificationTime = calculateLastModificationTime(file, syncedFolder, sFormatter)
         val remoteFolder: String
         val useSubfolders: Boolean
+        val subFolderRule: SubFolderRule
         if (lightVersion) {
             useSubfolders = resources.getBoolean(R.bool.syncedFolder_light_use_subfolders)
             remoteFolder = resources.getString(R.string.syncedFolder_remote_folder)
+            subFolderRule = SubFolderRule.YEAR_MONTH
         } else {
             useSubfolders = syncedFolder.isSubfolderByDate
             remoteFolder = syncedFolder.remotePath
+            subFolderRule = syncedFolder.subfolderRule
         }
         return FileStorageUtils.getInstantUploadFilePath(
             file,
@@ -216,7 +220,8 @@ class FilesSyncWork(
             remoteFolder,
             syncedFolder.localPath,
             lastModificationTime,
-            useSubfolders
+            useSubfolders,
+            subFolderRule
         )
     }
 

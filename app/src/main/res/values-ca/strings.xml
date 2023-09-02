@@ -360,6 +360,7 @@
     <string name="file_rename">Canvia el nom</string>
     <string name="file_version_restored_error">S\'ha produït un error restaurant la versió del fitxer!</string>
     <string name="file_version_restored_successfully">Versió del fitxer restaurada amb èxit.</string>
+    <string name="filedetails_details">Detalls</string>
     <string name="filedetails_download">Baixada</string>
     <string name="filedetails_export">Exporta</string>
     <string name="filedetails_renamed_in_upload_msg">S\'ha canviat el nom del fitxer %1$s durant la pujada</string>
@@ -564,7 +565,6 @@
     <string name="prefs_imprint">Peu d\'impremta</string>
     <string name="prefs_instant_behaviour_dialogTitle">El fitxer original serà…</string>
     <string name="prefs_instant_behaviour_title">El fitxer original serà…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Emmagatzema a subcarpetes ordenades per any i mes</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Feu servir subcarpetes</string>
     <string name="prefs_keys_exist">Afegeix el xifratge d\'extrem a extrem a aquest client</string>
     <string name="prefs_license">Llicència</string>
@@ -751,6 +751,7 @@
     <string name="stream_not_possible_headline">La seqüenciació interna no és possible</string>
     <string name="stream_not_possible_message">Si us plau, baixeu el mèdia o feu servir una aplicació externa.</string>
     <string name="strict_mode">Mode estricte: no es permet la connexió HTTP.</string>
+    <string name="sub_folder_rule_year">Any</string>
     <string name="subject_shared_with_you">\"%1$s\" us ha estat compartit</string>
     <string name="subject_user_shared_with_you">%1$s us ha compartit %2$s</string>
     <string name="subtitle_photos_only">Només fotografies</string>
@@ -779,7 +780,6 @@
     <string name="synced_folders_configure_folders">Configureu les carpetes</string>
     <string name="synced_folders_new_info">La pujada instantània s\'ha renovat completament. Torneu a configurar la vostra pujada automàtica des de dins del menú principal.\n\nGaudiu de la nova pujada automàtica amb més funcionalitats.</string>
     <string name="synced_folders_no_results">No s\'han trobat carpetes multimèdia </string>
-    <string name="synced_folders_preferences">Preferències de la càrrega automàtica</string>
     <string name="synced_folders_preferences_folder_path">Per %1$s</string>
     <string name="synced_folders_type">Tipus</string>
     <string name="synced_icon">Sincronitzat</string>

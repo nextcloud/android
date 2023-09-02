@@ -372,6 +372,7 @@
     <string name="file_rename">Zmień nazwę</string>
     <string name="file_version_restored_error">Wystąpił błąd podczas przywracania wersji pliku!</string>
     <string name="file_version_restored_successfully">Pomyślnie przywrócono wersję pliku.</string>
+    <string name="filedetails_details">Szczegóły</string>
     <string name="filedetails_download">Pobierz</string>
     <string name="filedetails_export">Eksportuj</string>
     <string name="filedetails_renamed_in_upload_msg">Zmieniono nazwę pliku %1$s podczas wysyłania</string>
@@ -584,7 +585,6 @@
     <string name="prefs_imprint">Stopka</string>
     <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie…</string>
     <string name="prefs_instant_behaviour_title">Oryginalny plik zostanie…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Przechowuj w podkatalogach na podstawie roku i miesiąca</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podkatalogów</string>
     <string name="prefs_keys_exist">Dodaj szyfrowanie end-to-end do tego klienta</string>
     <string name="prefs_license">Licencja</string>
@@ -773,6 +773,7 @@
     <string name="stream_not_possible_headline">Wewnętrzne przesyłanie strumieniowe nie jest możliwe</string>
     <string name="stream_not_possible_message">Pobierz plik lub użyj zewnętrznej aplikacji.</string>
     <string name="strict_mode">Tryb wymagający: połączenie HTTP nie jest dozwolone!</string>
+    <string name="sub_folder_rule_year">Rok</string>
     <string name="subject_shared_with_you">Udostępniono Tobie \"%1$s\"</string>
     <string name="subject_user_shared_with_you">%1$s udostępnił Tobie \"%2$s\"</string>
     <string name="subtitle_photos_only">Tylko zdjęcia</string>
@@ -801,7 +802,6 @@
     <string name="synced_folders_configure_folders">Skonfiguruj katalogi</string>
     <string name="synced_folders_new_info">Automatyczne wysyłanie zostało całkowicie zmienione. Ponownie skonfiguruj automatyczne wysyłanie z menu głównego.\n\nCiesz się nowym i rozszerzonym automatycznym wysyłaniem.</string>
     <string name="synced_folders_no_results">Nie znaleziono katalogów multimedialnych</string>
-    <string name="synced_folders_preferences">Preferencje automatycznego wysyłania</string>
     <string name="synced_folders_preferences_folder_path">Dla %1$s</string>
     <string name="synced_folders_type">Typ</string>
     <string name="synced_icon">Zsynchronizowano</string>

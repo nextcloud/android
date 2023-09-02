@@ -204,6 +204,7 @@
     <string name="did_not_check_for_dupes">Ez dira duplikatuak egiaztatu.</string>
     <string name="digest_algorithm_not_available">Digest algoritmoa ez dago erabilgarri zure telefonoan.</string>
     <string name="direct_login_failed">Huts egin du esteka zuzen bidezko saio-hasierak!</string>
+    <string name="direct_login_text">%2$s-n saioa hasita %1$s-ren bidez</string>
     <string name="disable_new_media_folder_detection_notifications">Desaktibatu</string>
     <string name="dismiss">Baztertu</string>
     <string name="dismiss_notification_description">Baztertu jakinarazpena</string>
@@ -253,6 +254,7 @@
     <string name="ecosystem_apps_display_more">Gehiago</string>
     <string name="ecosystem_apps_display_notes">Oharrak</string>
     <string name="ecosystem_apps_display_talk">Hizketaldia</string>
+    <string name="ecosystem_apps_more">Nextcloud aplikazio gehiago</string>
     <string name="ecosystem_apps_notes">Nextcloud Oharrak</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="encrypted">Ezarri zifratu gisa</string>
@@ -372,6 +374,7 @@
     <string name="file_rename">Aldatu izena</string>
     <string name="file_version_restored_error">Errorea fitxategiaren bertsioa berreskuratzean!</string>
     <string name="file_version_restored_successfully">Fitxategiaren bertsioa ondo berreskuratu da.</string>
+    <string name="filedetails_details">Xehetasunak</string>
     <string name="filedetails_download">Deskargatu</string>
     <string name="filedetails_export">Esportatu</string>
     <string name="filedetails_renamed_in_upload_msg">Fitxategia %1$s bezala berrizendatu da kargatzerakoan</string>
@@ -419,6 +422,13 @@
     <string name="image_editor_rotate_ccw">Errotatu erlojuaren kontra</string>
     <string name="image_editor_rotate_cw">Errotatu erlojuaren alde</string>
     <string name="image_editor_unable_to_edit_image">Ezin izan da irudia editatu.</string>
+    <string name="image_preview_filedetails">Fitxategiaren xehetasunak</string>
+    <string name="image_preview_image_taking_conditions">Irudiak hartzeko baldintzak</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">%1$skarpetan</string>
     <string name="instant_upload_existing">Existitzen diren fitxategiak ere kargatu</string>
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
@@ -446,6 +456,7 @@
     <string name="locked_by_app">%1$s aplikazioak blokeatuta</string>
     <string name="log_send_mail_subject">%1$s Android aplikazioaren egunkariak</string>
     <string name="log_send_no_mail_app">Ez da aurkitu egunkariak bidaltzeko aplikaziorik. Instalatu posta elektroniko bezero bat.</string>
+    <string name="logged_in_as">Saioa hasita %1$s gisa</string>
     <string name="login">Hasi saioa</string>
     <string name="login_url_helper_text">Zure %1$s web interfazerako esteka, nabigatzailean irekitzen duzunean.</string>
     <string name="logs_menu_delete">Ezabatu egunkariak</string>
@@ -498,6 +509,7 @@
     <string name="no_calendar_exists">Ez da egutegirik existitzen</string>
     <string name="no_email_app_available">Ez dago aplikaziorik helbide elektronikoak kudeatzeko</string>
     <string name="no_items">Elementurik ez</string>
+    <string name="no_map_app_availble">Ez dago aplikaziorik mapak kudeatzeko</string>
     <string name="no_mutliple_accounts_allowed">Kontu bat onartzen da soilik</string>
     <string name="no_pdf_app_available">Ez dago eskuragarri PDFak kudeatzeko aplikaziorik</string>
     <string name="no_send_app">Ez dago aplikaziorik eskuragarri hautatutako fitxategiak bidaltzeko</string>
@@ -584,8 +596,9 @@
     <string name="prefs_imprint">Inprimategi-zigilua</string>
     <string name="prefs_instant_behaviour_dialogTitle">Jatorrizko fitxategia izango da...</string>
     <string name="prefs_instant_behaviour_title">Jatorrizko fitxategia izango da...</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Biltegiratu urtearen eta hilabetearen araberako azpikarpetetan</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Gorde azpikarpetetan dataren arabera</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Erabili azpikarpetak</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Azpikarpeta aukerak</string>
     <string name="prefs_keys_exist">Gehitu muturretik muturrerako enkriptatzea bezero honi</string>
     <string name="prefs_license">Lizentzia</string>
     <string name="prefs_lock">Aplikazio pasahitza</string>
@@ -599,6 +612,8 @@
     <string name="prefs_recommend">Gomendatu lagun bati</string>
     <string name="prefs_remove_e2e">Kendu enkriptatzea lokalean</string>
     <string name="prefs_setup_e2e">Konfiguratu muturretik muturrerako enkriptatzea</string>
+    <string name="prefs_show_ecosystem_apps">Erakutsi aplikazioen aldatzailea</string>
+    <string name="prefs_show_ecosystem_apps_summary">Nextcloud aplikazioaren iradokizunak nabigazio goiburuan</string>
     <string name="prefs_show_hidden_files">Erakutsi ezkutuko fitxategiak</string>
     <string name="prefs_sourcecode">Eskuratu iturburu-kodea</string>
     <string name="prefs_storage_path">Datu-biltegiratze karpeta</string>
@@ -773,6 +788,9 @@
     <string name="stream_not_possible_headline">Barneko transmisioa ez da posible</string>
     <string name="stream_not_possible_message">Bestela deskargatu multimedia edo erabili kanpoko aplikazio bat.</string>
     <string name="strict_mode">Modu zorrotza: ez da HTTP konexiorik onartzen!</string>
+    <string name="sub_folder_rule_day">Urtea/Hilabetea/Eguna</string>
+    <string name="sub_folder_rule_month">Urtea/Hilabetea</string>
+    <string name="sub_folder_rule_year">Urtea</string>
     <string name="subject_shared_with_you">\"%1$s\" zurekin partekatu dute</string>
     <string name="subject_user_shared_with_you">%1$s(e)k \"%2$s\" partekatu du zurekin</string>
     <string name="subtitle_photos_only">Argazkiak soilik</string>
@@ -801,7 +819,6 @@
     <string name="synced_folders_configure_folders">Konfiguratu karpetak</string>
     <string name="synced_folders_new_info">Berehalako karga erabat aldatu da. Konfiguratu berriro zure karga automatikoa menu nagusitik.\n\nGozatu karga automatiko berri eta hedatuaz. </string>
     <string name="synced_folders_no_results">Ez da multimedia karpetarik aurkitu</string>
-    <string name="synced_folders_preferences">Karga automatikoaren hobespenak</string>
     <string name="synced_folders_preferences_folder_path"> %1$s-(r)entzat</string>
     <string name="synced_folders_type">Mota</string>
     <string name="synced_icon">Sinkronizatua</string>

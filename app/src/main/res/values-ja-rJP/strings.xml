@@ -350,6 +350,7 @@
     <string name="file_rename">名前を変更</string>
     <string name="file_version_restored_error">ファイルバージョンの復元中にエラーが発生しました。</string>
     <string name="file_version_restored_successfully">ファイルバージョンが正常に復元されました。</string>
+    <string name="filedetails_details">詳細</string>
     <string name="filedetails_download">ダウンロード</string>
     <string name="filedetails_export">エクスポート</string>
     <string name="filedetails_renamed_in_upload_msg">ファイルはアップロード処理で %1$s に変更されましした</string>
@@ -545,7 +546,6 @@
     <string name="prefs_imprint">インプリント</string>
     <string name="prefs_instant_behaviour_dialogTitle">元のファイルの扱い…</string>
     <string name="prefs_instant_behaviour_title">元のファイルになります…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">年と月を元にしたサブフォルダーに保存</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
     <string name="prefs_license">ライセンス</string>
     <string name="prefs_lock">アプリパスコード</string>
@@ -722,6 +722,7 @@
     <string name="stream_not_possible_headline">内部ストリーミングは不可能</string>
     <string name="stream_not_possible_message">代わりにメディアをダウンロードするか、外部アプリを使用してください。</string>
     <string name="strict_mode">ストリクトモード：HTTP接続が許可されていません！</string>
+    <string name="sub_folder_rule_year">年</string>
     <string name="subject_shared_with_you">\"%1$s\" があなたに共有されました</string>
     <string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
     <string name="suggest">提案</string>
@@ -747,7 +748,6 @@
     <string name="synced_folders_configure_folders">フォルダの設定</string>
     <string name="synced_folders_new_info">インスタントアップロードは完全に改訂されました。 メインメニューから自動アップロードを再設定してください。\n\n新しく拡張された自動アップロードをお楽しみください。</string>
     <string name="synced_folders_no_results">メディアフォルダーが見つかりません</string>
-    <string name="synced_folders_preferences">自動アップロード設定</string>
     <string name="synced_folders_preferences_folder_path">%1$sの</string>
     <string name="synced_folders_type">タイプ</string>
     <string name="synced_icon">同期した</string>

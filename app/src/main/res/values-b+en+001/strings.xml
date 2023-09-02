@@ -374,6 +374,7 @@
     <string name="file_rename">Rename</string>
     <string name="file_version_restored_error">Error restoring file version!</string>
     <string name="file_version_restored_successfully">Successfully restored file version.</string>
+    <string name="filedetails_details">Details</string>
     <string name="filedetails_download">Download</string>
     <string name="filedetails_export">Export</string>
     <string name="filedetails_renamed_in_upload_msg">File renamed %1$s during upload</string>
@@ -421,6 +422,13 @@
     <string name="image_editor_rotate_ccw">Rotate anti-clockwise</string>
     <string name="image_editor_rotate_cw">Rotate clockwise</string>
     <string name="image_editor_unable_to_edit_image">Unable to edit image.</string>
+    <string name="image_preview_filedetails">File details</string>
+    <string name="image_preview_image_taking_conditions">Image taking conditions</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">in folder %1$s</string>
     <string name="instant_upload_existing">Also upload existing files</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
@@ -501,6 +509,7 @@
     <string name="no_calendar_exists">No calendar exists</string>
     <string name="no_email_app_available">No App available to handle mail address</string>
     <string name="no_items">No items</string>
+    <string name="no_map_app_availble">No App available to handle maps</string>
     <string name="no_mutliple_accounts_allowed">Only one account allowed</string>
     <string name="no_pdf_app_available">No App available to handle PDF</string>
     <string name="no_send_app">No app available for sending the selected files</string>
@@ -587,8 +596,9 @@
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_instant_behaviour_dialogTitle">Original file will be…</string>
     <string name="prefs_instant_behaviour_title">Original file will be…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Store in subfolders based on year and month</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Store in subfolders based on date</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Subfolder options</string>
     <string name="prefs_keys_exist">Add end-to-end encryption to this client</string>
     <string name="prefs_license">License</string>
     <string name="prefs_lock">App passcode</string>
@@ -778,6 +788,9 @@
     <string name="stream_not_possible_headline">Internal streaming not possible</string>
     <string name="stream_not_possible_message">Please download media instead or use external app.</string>
     <string name="strict_mode">Strict mode: no HTTP connection allowed!</string>
+    <string name="sub_folder_rule_day">Year/Month/Day</string>
+    <string name="sub_folder_rule_month">Year/Month</string>
+    <string name="sub_folder_rule_year">Year</string>
     <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
     <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
     <string name="subtitle_photos_only">Photos only</string>
@@ -806,7 +819,6 @@
     <string name="synced_folders_configure_folders">Configure folders</string>
     <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
     <string name="synced_folders_no_results">No media folders found</string>
-    <string name="synced_folders_preferences">Preferences for auto uploading</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <string name="synced_folders_type">Type</string>
     <string name="synced_icon">Synced</string>

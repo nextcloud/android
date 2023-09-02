@@ -251,6 +251,7 @@
     <string name="file_migration_use_data_folder">Kasuta</string>
     <string name="file_not_found">Faili ei leitud</string>
     <string name="file_rename">Nimeta ümber</string>
+    <string name="filedetails_details">Üksikasjad</string>
     <string name="filedetails_download">Lae alla</string>
     <string name="filedetails_export">Ekspordi</string>
     <string name="filedetails_sync_file">Sünkrooni</string>
@@ -446,7 +447,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Osad kohalikud faili ununesid</string>
     <string name="sync_string_files">Failid</string>
     <string name="synced_folder_settings_button">Seadete nupp</string>
-    <string name="synced_folders_preferences">Automaatse üleslaadimise eelistuse</string>
     <string name="synced_folders_type">Tüüp</string>
     <string name="tags">Sildid</string>
     <string name="test_server_button">Testi ühendust serveriga</string>

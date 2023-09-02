@@ -374,6 +374,7 @@
     <string name="file_rename">Átnevezés</string>
     <string name="file_version_restored_error">Hiba a fájl verziójának visszaállításakor!</string>
     <string name="file_version_restored_successfully">Fájl verzió sikeresen visszaállítva.</string>
+    <string name="filedetails_details">Részletek</string>
     <string name="filedetails_download">Letöltés</string>
     <string name="filedetails_export">Exportálás</string>
     <string name="filedetails_renamed_in_upload_msg">A fájl feltöltés közben átnevezve erre: %1$s</string>
@@ -421,6 +422,11 @@
     <string name="image_editor_rotate_ccw">Forgatás balra</string>
     <string name="image_editor_rotate_cw">Forgatás jobbra</string>
     <string name="image_editor_unable_to_edit_image">A kép nem szerkeszthető.</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">%1$s mappában</string>
     <string name="instant_upload_existing">A meglévő fájlokat is töltse fel</string>
     <string name="instant_upload_on_charging">Feltöltés csak töltés közben</string>
@@ -587,7 +593,6 @@
     <string name="prefs_imprint">Impresszum</string>
     <string name="prefs_instant_behaviour_dialogTitle">Az eredeti fájl…</string>
     <string name="prefs_instant_behaviour_title">Az eredeti fájl…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Tárolás év és hónap szerinti almappákban</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Almappák használata</string>
     <string name="prefs_keys_exist">Végpontok közti titkosítás hozzáadása ehhez a klienshez</string>
     <string name="prefs_license">Licenc</string>
@@ -796,6 +801,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="stream_not_possible_headline">A belső közvetítés nem lehetséges</string>
     <string name="stream_not_possible_message">Helyette töltse le a médiát, vagy használjon külső alkalmazást.</string>
     <string name="strict_mode">Szigorú mód: a HTTP kapcsolatok nem engedélyezettek.</string>
+    <string name="sub_folder_rule_year">Év</string>
     <string name="subject_shared_with_you">Megosztották Önnel: „%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s megosztotta Önnel: „%2$s”</string>
     <string name="subtitle_photos_only">Csak fényképek</string>
@@ -824,7 +830,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="synced_folders_configure_folders">Mappák beállítása</string>
     <string name="synced_folders_new_info">Az azonnali feltöltés teljesen át lett dolgozva. Állítsa be újra az automatikus feltöltést a főmenüben.\n\nÉlvezze az új és kibővített automatikus feltöltést.</string>
     <string name="synced_folders_no_results">Nem találhatók médiamappák.</string>
-    <string name="synced_folders_preferences">Automatikus feltöltés beállításai</string>
     <string name="synced_folders_preferences_folder_path">Neki: %1$s</string>
     <string name="synced_folders_type">Típus</string>
     <string name="synced_icon">Szinkronizálva</string>

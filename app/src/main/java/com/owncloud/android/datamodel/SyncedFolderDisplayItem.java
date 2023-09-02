@@ -21,6 +21,8 @@
 
 package com.owncloud.android.datamodel;
 
+import com.nextcloud.client.preferences.SubFolderRule;
+
 import java.util.List;
 
 /**
@@ -31,6 +33,7 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
     private List<String> filePaths;
     private String folderName;
     private long numberOfFiles;
+
 
     /**
      * constructor for the display item specialization for a synced folder object.
@@ -50,6 +53,7 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
      * @param numberOfFiles   the UI info for number of files within the folder
      * @param type            the type of the folder
      * @param hidden          hide item flag
+     * @param subFolderRule   whether to filter subFolder by year/month/day
      */
     public SyncedFolderDisplayItem(long id,
                                    String localPath,
@@ -67,7 +71,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    String folderName,
                                    long numberOfFiles,
                                    MediaFolderType type,
-                                   boolean hidden) {
+                                   boolean hidden,
+                                   SubFolderRule subFolderRule) {
         super(id,
               localPath,
               remotePath,
@@ -81,7 +86,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
               enabled,
               timestampMs,
               type,
-              hidden);
+              hidden,
+              subFolderRule);
         this.filePaths = filePaths;
         this.folderName = folderName;
         this.numberOfFiles = numberOfFiles;
@@ -101,7 +107,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    long timestampMs,
                                    String folderName,
                                    MediaFolderType type,
-                                   boolean hidden) {
+                                   boolean hidden,
+                                   SubFolderRule subFolderRule) {
         super(id,
               localPath,
               remotePath,
@@ -115,7 +122,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
               enabled,
               timestampMs,
               type,
-              hidden);
+              hidden,
+              subFolderRule);
         this.folderName = folderName;
     }
 

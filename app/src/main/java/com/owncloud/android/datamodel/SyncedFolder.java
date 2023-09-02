@@ -21,6 +21,7 @@
 
 package com.owncloud.android.datamodel;
 
+import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 
 import java.io.Serializable;
@@ -32,6 +33,8 @@ public class SyncedFolder implements Serializable, Cloneable {
     public static final long UNPERSISTED_ID = Long.MIN_VALUE;
     public static final long EMPTY_ENABLED_TIMESTAMP_MS = -1;
     private static final long serialVersionUID = -793476118299906429L;
+
+
 
     private long id;
     private String localPath;
@@ -47,6 +50,7 @@ public class SyncedFolder implements Serializable, Cloneable {
     private long enabledTimestampMs;
     private MediaFolderType type;
     private boolean hidden;
+    private SubFolderRule subfolderRule;
 
     /**
      * constructor for new, to be persisted entity.
@@ -77,7 +81,8 @@ public class SyncedFolder implements Serializable, Cloneable {
                         boolean enabled,
                         long timestampMs,
                         MediaFolderType type,
-                        boolean hidden) {
+                        boolean hidden,
+                        SubFolderRule subFolderRule) {
         this(UNPERSISTED_ID,
              localPath,
              remotePath,
@@ -91,7 +96,8 @@ public class SyncedFolder implements Serializable, Cloneable {
              enabled,
              timestampMs,
              type,
-             hidden);
+             hidden,
+             subFolderRule);
     }
 
     /**
@@ -112,7 +118,8 @@ public class SyncedFolder implements Serializable, Cloneable {
                            boolean enabled,
                            long timestampMs,
                            MediaFolderType type,
-                           boolean hidden) {
+                           boolean hidden,
+                           SubFolderRule subFolderRule) {
         this.id = id;
         this.localPath = localPath;
         this.remotePath = remotePath;
@@ -126,6 +133,7 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.setEnabled(enabled, timestampMs);
         this.type = type;
         this.hidden = hidden;
+        this.subfolderRule = subFolderRule;
     }
 
     /**
@@ -204,6 +212,8 @@ public class SyncedFolder implements Serializable, Cloneable {
         return this.hidden;
     }
 
+    public SubFolderRule getSubfolderRule() { return this.subfolderRule; }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -251,4 +261,6 @@ public class SyncedFolder implements Serializable, Cloneable {
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
     }
+
+    public void setSubFolderRule(SubFolderRule subFolderRule) { this.subfolderRule = subFolderRule; }
 }

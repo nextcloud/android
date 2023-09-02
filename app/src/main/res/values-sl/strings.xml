@@ -371,6 +371,7 @@
     <string name="file_rename">Preimenuj</string>
     <string name="file_version_restored_error">Prišlo je do napake med obnavljanjem različice datoteke!</string>
     <string name="file_version_restored_successfully">Različica datoteke je uspešno obnovljena.</string>
+    <string name="filedetails_details">Podrobnosti</string>
     <string name="filedetails_download">Prejmi</string>
     <string name="filedetails_export">Izvozi</string>
     <string name="filedetails_renamed_in_upload_msg">Datoteka je bila med nalaganjem preimenovana v %1$s.</string>
@@ -412,6 +413,11 @@
     <string name="icon_for_empty_list">Ikona za prazen seznam</string>
     <string name="icon_of_dashboard_widget">Ikona gradnika nadzorne plošče</string>
     <string name="icon_of_widget_entry">Ikona vnosa gradnikov</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">v mapi %1$s</string>
     <string name="instant_upload_existing">Pošlji tudi obstoječe datoteke</string>
     <string name="instant_upload_on_charging">Usklajuj le med polnjenjem naprave</string>
@@ -577,7 +583,6 @@
     <string name="prefs_imprint">Natis</string>
     <string name="prefs_instant_behaviour_dialogTitle">Izvorna datoteka bo…</string>
     <string name="prefs_instant_behaviour_title">Izvorna datoteka bo…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Shrani v podmape kot leto in mesec</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Uporabi podmape</string>
     <string name="prefs_keys_exist">Dodaj celovito šifriranje E2E na to napravo</string>
     <string name="prefs_license">Dovoljenje</string>
@@ -763,6 +768,7 @@
     <string name="stream_not_possible_headline">Notranji pretok ni mogoč</string>
     <string name="stream_not_possible_message">Poskusite prejeti predstavno vsebino, ali pa uporabiti zunanji program.</string>
     <string name="strict_mode">Strogi način: povezave HTTP niso dovoljene!</string>
+    <string name="sub_folder_rule_year">Leto</string>
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
     <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
     <string name="subtitle_photos_only">Le slike</string>
@@ -791,7 +797,6 @@
     <string name="synced_folders_configure_folders">Nastavi mape</string>
     <string name="synced_folders_new_info">Možnost Hipnega pošiljanja je bila v celoti predelana. Nastavitve je treba ponovno prilagoditi v glavnem meniju.\n\nUživajte v razširjenih možnostih samodejnega pošiljanja.</string>
     <string name="synced_folders_no_results">Ni najdenih map s predstavnimi datotekami</string>
-    <string name="synced_folders_preferences">Nastavitve za samodejno pošiljanje</string>
     <string name="synced_folders_preferences_folder_path">Za %1$s</string>
     <string name="synced_folders_type">Vrsta</string>
     <string name="synced_icon">Usklajeno</string>

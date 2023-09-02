@@ -370,6 +370,7 @@
     <string name="file_rename">重命名</string>
     <string name="file_version_restored_error">恢复文件版本时发生错误！</string>
     <string name="file_version_restored_successfully">成功恢复文件版本。</string>
+    <string name="filedetails_details">详情</string>
     <string name="filedetails_download">下载</string>
     <string name="filedetails_export">导出</string>
     <string name="filedetails_renamed_in_upload_msg">文件在上传时被重命名为%1$s</string>
@@ -576,7 +577,6 @@
     <string name="prefs_imprint">版本说明</string>
     <string name="prefs_instant_behaviour_dialogTitle">原始文件将会被…</string>
     <string name="prefs_instant_behaviour_title">原始文件将会被…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">基于年和月存于子文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
     <string name="prefs_keys_exist">添加端对端加密到该客户端</string>
     <string name="prefs_license">许可证</string>
@@ -766,6 +766,7 @@
     <string name="stream_not_possible_headline">内部流无效</string>
     <string name="stream_not_possible_message">请下载媒体或者使用外部应用代替。</string>
     <string name="strict_mode">严格模式:不允许 HTTP 连接!</string>
+    <string name="sub_folder_rule_year">年</string>
     <string name="subject_shared_with_you">已与你共享 “%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s 已和你共享了“%2$s”</string>
     <string name="subtitle_photos_only">仅照片</string>
@@ -794,7 +795,6 @@
     <string name="synced_folders_configure_folders">配置文件夹</string>
     <string name="synced_folders_new_info">即时上传已被彻底修改。 从主菜单中重新配置自动上传。\n\n请享受新的可扩展的自动上传。</string>
     <string name="synced_folders_no_results">未找到媒体文件夹</string>
-    <string name="synced_folders_preferences">自动上传的首选项</string>
     <string name="synced_folders_preferences_folder_path">为 %1$s</string>
     <string name="synced_folders_type">类型</string>
     <string name="synced_icon">已同步</string>

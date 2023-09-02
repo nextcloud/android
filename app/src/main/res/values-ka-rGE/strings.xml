@@ -206,6 +206,7 @@
     <string name="file_not_found">ფაილი ვერ იქნა ნაპოვნი</string>
     <string name="file_not_synced">ფაილის სინქ ვერ მოხერხდა. ნაჩვენებია ბოლო ხელმისაწვდომი ვარიანტი.</string>
     <string name="file_rename">სახელის შეცვლა</string>
+    <string name="filedetails_details">დეტალები</string>
     <string name="filedetails_download">ჩამოტვირთვა</string>
     <string name="filedetails_export">ექსპორტი</string>
     <string name="filedetails_renamed_in_upload_msg">ატვირთვისას ფაილს სახელი შეეცვალა %1$s-ზე</string>
@@ -318,7 +319,6 @@
     <string name="prefs_gpl_v2">GNU ზოგადი ღია ლიცენზია, ვერსია 2</string>
     <string name="prefs_help">დახმარება</string>
     <string name="prefs_imprint">ბეჭედი</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">ქვე-დირექტორიებში თვისა და წელიწადის მიხედვით შევნახვა</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">ქვე-დირექტორიების მოხმარება</string>
     <string name="prefs_license">ლიცენზია</string>
     <string name="prefs_lock_none">არც ერთი</string>
@@ -422,7 +422,6 @@
     <string name="synced_folder_settings_button">პარამეტრების ღილაკი</string>
     <string name="synced_folders_configure_folders">დირექტორიების კონფიგურაცია</string>
     <string name="synced_folders_new_info">მყისიერი ატვირთვა სრულიად გამოსწორდა. ავტო-ატვირთვას რეკონფიგურაცია გაუწიეთ მთავარი მენიუდან.\n\nისიამოვნეთ ახალი და გაუმჯობესებული ავტო-ატვირთვით.</string>
-    <string name="synced_folders_preferences">პრეფერენციები ავტო-ატვირთვაზე</string>
     <string name="synced_folders_preferences_folder_path">%1$s-ისთვის</string>
     <string name="synced_folders_type">სახეობა</string>
     <string name="tags">ტეგები</string>

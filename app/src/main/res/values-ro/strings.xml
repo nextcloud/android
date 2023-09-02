@@ -369,6 +369,7 @@
     <string name="file_rename">Redenumire</string>
     <string name="file_version_restored_error">Eroare în restaurarea acestei versiuni a fisierului!</string>
     <string name="file_version_restored_successfully">S-a restaurat cu succes versiunea acestui fișier.</string>
+    <string name="filedetails_details">Detalii</string>
     <string name="filedetails_download">Descarcă</string>
     <string name="filedetails_export">Exportă</string>
     <string name="filedetails_renamed_in_upload_msg">Fișierul a fost redenumit %1$s în timpul încărcării</string>
@@ -573,7 +574,6 @@
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_instant_behaviour_dialogTitle">Fișierul original va fi…</string>
     <string name="prefs_instant_behaviour_title">Fișierul original va fi…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Stocați in subdosar bazat pe an și lună</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Folosește subdosare</string>
     <string name="prefs_keys_exist">Adaugă encripție end-to-end pentru acest client</string>
     <string name="prefs_license">Licență</string>
@@ -759,6 +759,7 @@
     <string name="stream_not_possible_headline">Transmisia internă nu este posibilă </string>
     <string name="stream_not_possible_message">Vă rugăm descărcați fișierul media sau folosiți o aplicație externă.</string>
     <string name="strict_mode">Mod strict: conexiunile HTTP nu sunt permise!</string>
+    <string name="sub_folder_rule_year">An</string>
     <string name="subject_shared_with_you">„%1$s” a fost partajat cu dumneavoastră</string>
     <string name="subject_user_shared_with_you">%1$s a partajat fișierul \"%2$s\" cu tine</string>
     <string name="subtitle_photos_only">Doar poze</string>
@@ -787,7 +788,6 @@
     <string name="synced_folders_configure_folders">Configurează dosare</string>
     <string name="synced_folders_new_info">Încărcare automată a fost refăcută complet. Vă rugăm să accesați meniul principal și să refaceți setările de încărcare automată.\n\nBucură-te de noile capabilități extinse ale funcției de încărcare automată.</string>
     <string name="synced_folders_no_results">Nu s-au găsit dosare cu fișiere media</string>
-    <string name="synced_folders_preferences">Preferințe pentru încărcare automată</string>
     <string name="synced_folders_preferences_folder_path">Pentru %1$s</string>
     <string name="synced_folders_type">Tip</string>
     <string name="synced_icon">Sincronizat</string>

@@ -1340,22 +1340,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     }
                 }
 
-                if (searchView != null && !searchView.isIconified() && !fromSearch) {
-                    searchView.post(() -> {
-                        searchView.setQuery("", false);
-                        searchView.onActionViewCollapsed();
-                        Activity activity;
-                        if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
-                            FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
-                            fileDisplayActivity.hideSearchView(fileDisplayActivity.getCurrentDir());
-                            if (getCurrentFile() != null) {
-                                fileDisplayActivity
-                                    .setDrawerIndicatorEnabled(fileDisplayActivity.isRoot(getCurrentFile()));
-                            }
-                        }
-                    });
-                }
-
                 mAdapter.swapDirectory(
                     accountManager.getUser(),
                     directory,

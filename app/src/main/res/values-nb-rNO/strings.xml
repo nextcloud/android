@@ -374,6 +374,7 @@
     <string name="file_rename">Gi nytt navn</string>
     <string name="file_version_restored_error">Feil ved gjennoppretting av fil versjon!</string>
     <string name="file_version_restored_successfully">Vellykket gjenoppretting av fil versjon.</string>
+    <string name="filedetails_details">Detaljer</string>
     <string name="filedetails_download">Last ned</string>
     <string name="filedetails_export">Eksporter</string>
     <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>
@@ -587,7 +588,6 @@
     <string name="prefs_imprint">Avtrykk</string>
     <string name="prefs_instant_behaviour_dialogTitle">Opprinnelig fil vil bli…</string>
     <string name="prefs_instant_behaviour_title">Opprinnelig fil vil bli…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Lagre filer i undermapper basert på år og måned</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Bruk undermapper</string>
     <string name="prefs_keys_exist">Legg til ende-til-ende -kryptering på denne klienten</string>
     <string name="prefs_license">Lisens</string>
@@ -778,6 +778,7 @@
     <string name="stream_not_possible_headline">Intern strøming ikke mulig</string>
     <string name="stream_not_possible_message">Vennligst last ned media i stedet, eller bruk ekstern app.</string>
     <string name="strict_mode">Streng modus: ingen HTTP-tilkobling tillatt!</string>
+    <string name="sub_folder_rule_year">År</string>
     <string name="subject_shared_with_you">\"%1$s\" er blitt delt med deg</string>
     <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med deg</string>
     <string name="subtitle_photos_only">Bare bilder</string>
@@ -806,7 +807,6 @@
     <string name="synced_folders_configure_folders">Sett opp mapper</string>
     <string name="synced_folders_new_info">Umiddelbar opplasting er fullstendig omarbeidet. Du må sette opp auto-opplasting på nytt fra hovedmenyen.\n\nKos deg med den nye og utvidede auto-opplastingen.</string>
     <string name="synced_folders_no_results">Ingen mediamapper funnet</string>
-    <string name="synced_folders_preferences">Alternativer for auto-opplasting</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <string name="synced_folders_type">Type</string>
     <string name="synced_icon">Synkronisert</string>

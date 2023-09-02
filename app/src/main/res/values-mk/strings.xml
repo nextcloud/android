@@ -227,6 +227,7 @@
     <string name="drawer_quota_unlimited">искористено %1$s</string>
     <string name="drawer_synced_folders">Автоматско прикачување</string>
     <string name="ecosystem_apps_display_talk">Разговор</string>
+    <string name="ecosystem_apps_talk">Talk</string>
     <string name="encrypted">Постави како енкриптирано</string>
     <string name="end_to_end_encryption_confirm_button">Постави енкрипција</string>
     <string name="end_to_end_encryption_decrypting">Дешифрирање…</string>
@@ -326,6 +327,7 @@
     <string name="file_rename">Преименувај</string>
     <string name="file_version_restored_error">Грешка при враќање на верзија на датотека !</string>
     <string name="file_version_restored_successfully">Успешно вратена верзија на датотеката.</string>
+    <string name="filedetails_details">Детали</string>
     <string name="filedetails_download">Преземање</string>
     <string name="filedetails_export">Извези</string>
     <string name="filedetails_renamed_in_upload_msg">Датотеката беше преименувана во %1$s за време на прикачувањето</string>
@@ -503,7 +505,6 @@
     <string name="prefs_imprint">Печат</string>
     <string name="prefs_instant_behaviour_dialogTitle">Оргиналната датотека ќе биде…</string>
     <string name="prefs_instant_behaviour_title">Оргиналната датотека ќе биде…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Зачувува во подпапки кој се базираат на години и месеци</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Користи подпапки</string>
     <string name="prefs_license">Лиценца</string>
     <string name="prefs_lock">Кодови за пристап</string>
@@ -657,6 +658,7 @@
     <string name="stream">Стримувај со…</string>
     <string name="stream_not_possible_headline">Внатрешен стримин не е возможен</string>
     <string name="stream_not_possible_message">Please download media instead or use external app.</string>
+    <string name="sub_folder_rule_year">Година</string>
     <string name="subject_shared_with_you">\"%1$s\" е споделено со тебе</string>
     <string name="subject_user_shared_with_you">%1$s сподели \"%2$s\" со тебе</string>
     <string name="sync_conflicts_in_favourites_ticker">Пронајден е конфликт</string>
@@ -679,7 +681,6 @@
     <string name="synced_folders_configure_folders">Конфигурирај папки</string>
     <string name="synced_folders_new_info">Инстант прикачувањето е преработено комплетно. Пре-конфигурирајте го автоматското прикачување од менито.\n\nУживајте со новото и надоградено автоматско прикачување.</string>
     <string name="synced_folders_no_results">Не е пронајдена папка со медиа датотеки</string>
-    <string name="synced_folders_preferences">Параметри за автоматско прикачување</string>
     <string name="synced_folders_preferences_folder_path">За %1$s</string>
     <string name="synced_folders_type">Вид</string>
     <string name="synced_icon">Синхронизирано</string>

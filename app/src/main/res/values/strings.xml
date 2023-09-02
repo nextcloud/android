@@ -355,7 +355,9 @@
     <string name="prefs_synced_folders_local_path_title">Local folder</string>
     <string name="prefs_synced_folders_remote_path_title">Remote folder</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Store in subfolders based on year and month</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Store in subfolders based on date</string>
+
+    <string name="prefs_instant_upload_subfolder_rule_title">Subfolder options</string>
 
     <string name="share_link_file_no_exist">Unable to share. Please check whether the file exists.</string>
     <string name="share_link_file_error">An error occurred while trying to share this file or folder.</string>
@@ -553,7 +555,6 @@
         <item quantity="one">Show %1$d hidden folder</item>
         <item quantity="other">Show %1$d hidden folders</item>
     </plurals>
-    <string name="synced_folders_preferences">Preferences for auto uploading</string>
     <string name="synced_folders_new_info">Instant uploading has been revamped completely. Re-configure your auto upload from within the main menu.\n\nEnjoy the new and extended auto uploading.</string>
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <string name="synced_folders_plus" translatable="false">+</string>
@@ -1107,4 +1108,8 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_filedetails">File details</string>
     <string name="image_preview_image_taking_conditions">Image taking conditions</string>
+    <string translatable="false" name="make_model">%1$s %2$s</string>
+    <string name="sub_folder_rule_year">Year</string>
+    <string name="sub_folder_rule_month">Year/Month</string>
+    <string name="sub_folder_rule_day">Year/Month/Day</string>
 </resources>

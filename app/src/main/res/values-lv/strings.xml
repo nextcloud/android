@@ -239,6 +239,7 @@
     <string name="file_migration_waiting_for_unfinished_sync">Gaida pilnu sinhronizāciju…</string>
     <string name="file_not_found">Datne nav atrasta</string>
     <string name="file_rename">Pārsaukt</string>
+    <string name="filedetails_details">Detaļas</string>
     <string name="filedetails_download">Lejupielādēt</string>
     <string name="filedetails_export">Eksportēt</string>
     <string name="filedetails_renamed_in_upload_msg">Datne pārsaukta uz %1$s augšupielādes laikā</string>
@@ -351,7 +352,6 @@
     <string name="prefs_imprint">Importēt</string>
     <string name="prefs_instant_behaviour_dialogTitle">Orģinālā datne būs…</string>
     <string name="prefs_instant_behaviour_title">Orģinālā datne būs…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Saglabāt apakšmapēs pēc gada un mēneša</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Lietot apakšmapi</string>
     <string name="prefs_license">Licence</string>
     <string name="prefs_lock_device_credentials_enabled">Ierīces akreditācijas ieslēgta</string>
@@ -461,7 +461,6 @@
     <string name="sync_foreign_files_forgotten_ticker">Dažas lokālās datnes tika aizmirstas</string>
     <string name="sync_string_files">Datnes</string>
     <string name="synced_folder_settings_button">Iestatījumu poga</string>
-    <string name="synced_folders_preferences">Iestatījumi automātiskai augšupielādei</string>
     <string name="synced_folders_preferences_folder_path">Priekš %1$s</string>
     <string name="synced_folders_type">Tips</string>
     <string name="tags">Birkas</string>

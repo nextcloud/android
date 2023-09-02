@@ -44,6 +44,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -400,7 +401,8 @@ class SyncedFoldersActivity :
             localFolder.name,
             files.size.toLong(),
             syncedFolder.type,
-            syncedFolder.isHidden
+            syncedFolder.isHidden,
+            syncedFolder.subfolderRule
         )
     }
 
@@ -429,7 +431,8 @@ class SyncedFoldersActivity :
             mediaFolder.folderName,
             mediaFolder.numberOfFiles,
             mediaFolder.type,
-            syncedFolder.isHidden
+            syncedFolder.isHidden,
+            syncedFolder.subfolderRule
         )
     }
 
@@ -457,7 +460,8 @@ class SyncedFoldersActivity :
             mediaFolder.folderName,
             mediaFolder.numberOfFiles,
             mediaFolder.type,
-            false
+            false,
+            SubFolderRule.YEAR_MONTH
         )
     }
 
@@ -548,7 +552,8 @@ class SyncedFoldersActivity :
                         clock.currentTime,
                         null,
                         MediaFolderType.CUSTOM,
-                        false
+                        false,
+                        SubFolderRule.YEAR_MONTH
                     )
                     onSyncFolderSettingsClick(0, emptyCustomFolder)
                 } else {
@@ -657,7 +662,8 @@ class SyncedFoldersActivity :
                 clock.currentTime,
                 File(syncedFolder.localPath).name,
                 syncedFolder.type,
-                syncedFolder.isHidden
+                syncedFolder.isHidden,
+                syncedFolder.subFolderRule
             )
             saveOrUpdateSyncedFolder(newCustomFolder)
             adapter.addSyncFolderItem(newCustomFolder)
@@ -674,7 +680,8 @@ class SyncedFoldersActivity :
                 syncedFolder.isSubfolderByDate,
                 syncedFolder.uploadAction,
                 syncedFolder.nameCollisionPolicy.serialize(),
-                syncedFolder.isEnabled
+                syncedFolder.isEnabled,
+                syncedFolder.subFolderRule
             )
             saveOrUpdateSyncedFolder(item)
 
@@ -754,7 +761,8 @@ class SyncedFoldersActivity :
         subfolderByDate: Boolean,
         uploadAction: Int,
         nameCollisionPolicy: Int,
-        enabled: Boolean
+        enabled: Boolean,
+        subFolderRule: SubFolderRule
     ) {
         item.id = id
         item.localPath = localPath
@@ -766,6 +774,7 @@ class SyncedFoldersActivity :
         item.uploadAction = uploadAction
         item.setNameCollisionPolicy(nameCollisionPolicy)
         item.setEnabled(enabled, clock.currentTime)
+        item.setSubFolderRule(subFolderRule)
     }
 
     override fun onRequestPermissionsResult(

@@ -29,6 +29,11 @@
         <item>@string/link_share_view_only</item>
         <item>@string/link_share_editing</item>
     </string-array>
+    <string-array name="sub_folder_rule_values" translatable="false">
+        <item>@string/sub_folder_rule_month</item>
+        <item>@string/sub_folder_rule_year</item>
+        <item>@string/sub_folder_rule_day</item>
+    </string-array>
     <declare-styleable name="AppWidgetAttrs">
         <attr name="appWidgetPadding" format="dimension" />
         <attr name="appWidgetInnerRadius" format="dimension" />

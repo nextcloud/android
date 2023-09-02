@@ -374,6 +374,7 @@
     <string name="file_rename">تغییرنام</string>
     <string name="file_version_restored_error">خطا در بازیابی نسخه پرونده!</string>
     <string name="file_version_restored_successfully">نسخه پرونده با موفقیت بازیابی شد.</string>
+    <string name="filedetails_details">جزییات</string>
     <string name="filedetails_download">دانلود</string>
     <string name="filedetails_export">گرفتن خروجی</string>
     <string name="filedetails_renamed_in_upload_msg">فایل در هنگام آپلود تغییر نام داده شد %1$s</string>
@@ -587,7 +588,6 @@
     <string name="prefs_imprint">اثر</string>
     <string name="prefs_instant_behaviour_dialogTitle">پرونده اصلی خواهد بود...</string>
     <string name="prefs_instant_behaviour_title">پرونده اصلی خواهد بود...</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">ذخیره زیر پوشه بر اساس سال و ماه</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">استفاده از زیر پوشه</string>
     <string name="prefs_keys_exist">رمزگذاری سرتاسر را به این سرویس گیرنده اضافه کنید.</string>
     <string name="prefs_license">مجوز</string>
@@ -778,6 +778,7 @@
     <string name="stream_not_possible_headline">جریان داخلی امکان پذیر نیست</string>
     <string name="stream_not_possible_message">لطفاً به جای آن رسانه را دریافت کنید یا از برنامه خارجی استفاده کنید.</string>
     <string name="strict_mode">حالت سخت‌گیر: اتصال HTTP مجاز نیست!</string>
+    <string name="sub_folder_rule_year">سال</string>
     <string name="subject_shared_with_you">\"%1$s\" با شما به اشتراک گذاشته شد</string>
     <string name="subject_user_shared_with_you">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>
     <string name="subtitle_photos_only">فقط عکس</string>
@@ -806,7 +807,6 @@
     <string name="synced_folders_configure_folders">پوشه‌ها را پیکربندی کنید</string>
     <string name="synced_folders_new_info">بارگذاری فوری به طور کامل تغییر یافته ‌است. بارگذاری خودکار خود را طریق منوی اصلی تنظیم دوباره کنید. از بارگذاری جدید و گسترش یافته لذت ببرید.</string>
     <string name="synced_folders_no_results">هیچ پوشه رسانه ای یافت نشد</string>
-    <string name="synced_folders_preferences">اولویت‌ها در بارگذاری خودکار</string>
     <string name="synced_folders_preferences_folder_path">برای %1$s</string>
     <string name="synced_folders_type">نوع</string>
     <string name="synced_icon">همگام‌سازی</string>
