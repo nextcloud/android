@@ -267,6 +267,11 @@ public class FileDisplayActivity extends FileActivity
         super.onCreate(savedInstanceState);
         loadSavedInstanceState(savedInstanceState);
 
+        // set layoutInDisplayCutoutMode to NEVER so that it never renders content in the cutout area (with devices having cutouts)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER;
+        }
+
         /// USER INTERFACE
         initLayout();
         initUI();
