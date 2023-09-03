@@ -5,10 +5,13 @@
  *   @author Chris Narkiewicz
  *   @author Andy Scherzinger
  *   @author TSI-mc
+ *   @author Parneet Singh
+ *
  *   Copyright (C) 2016 ownCloud Inc.
  *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *   Copyright (C) 2020 Andy Scherzinger
  *   Copyright (C) 2023 TSI-mc
+ *   Copyright (C) 2023 Parneet Singh
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
