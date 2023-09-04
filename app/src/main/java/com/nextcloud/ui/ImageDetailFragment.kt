@@ -130,7 +130,7 @@ class ImageDetailFragment : Fragment(), Injectable {
 
         // detailed file information
         val fileInformation = mutableListOf<String>()
-        if (metadata.length != null && metadata.width != null && metadata.length!! > 0 && metadata.width!! > 0) {
+        if ((metadata.length ?: 0) > 0 && (metadata.width ?: 0) > 0) {
             try {
                 @Suppress("MagicNumber")
                 val pxlCount = when (val res = metadata.length!! * metadata.width!!.toLong()) {
@@ -291,7 +291,7 @@ class ImageDetailFragment : Fragment(), Injectable {
             }
 
             // determine size if not contained in exif data
-            if (width == null || length == null || width <= 0 || length <= 0) {
+            if ((width ?: 0) <= 0 || (length ?: 0) <= 0) {
                 val res = BitmapUtils.getImageResolution(file.storagePath)
                 width = res[0]
                 length = res[1]
