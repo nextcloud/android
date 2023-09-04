@@ -27,7 +27,6 @@ import android.graphics.drawable.LayerDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -246,7 +245,7 @@ class ImageDetailFragment : Fragment(), Injectable {
             }
 
             val markerOverlay = ItemizedIconOverlay(
-                mutableListOf(OverlayItem("Location", "", location)),
+                mutableListOf(OverlayItem(null, null, location)),
                 imagePinDrawable(context),
                 markerOnGestureListener(latitude, longitude),
                 context
@@ -340,28 +339,16 @@ class ImageDetailFragment : Fragment(), Injectable {
         }
     }
 
-    @Suppress("MagicNumber")
     private fun imagePinDrawable(context: Context): LayerDrawable {
+        val drawable = ContextCompat.getDrawable(context, R.drawable.photo_pin) as LayerDrawable
+
         val bitmap =
             ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId)
-        val foreground = BitmapUtils.bitmapToCircularBitmapDrawable(resources, bitmap)
-        val background = ContextCompat.getDrawable(context, R.drawable.photo_pin)
-
-        val layerDrawable = if (foreground != null) {
-            LayerDrawable(arrayOf(background, foreground))
-        } else {
-            val d = ContextCompat.getDrawable(context, R.drawable.file_image)
-            LayerDrawable(arrayOf(background, d))
+        BitmapUtils.bitmapToCircularBitmapDrawable(resources, bitmap)?.let {
+            drawable.setDrawable(1, it)
         }
 
-        val dp = DisplayUtils.convertDpToPixel(2f, context)
-        layerDrawable.apply {
-            setLayerSize(1, 38 * dp, 38 * dp)
-            setLayerSize(0, 40 * dp, 47 * dp)
-            setLayerInsetTop(1, dp)
-            setLayerGravity(1, Gravity.CENTER_HORIZONTAL)
-        }
-        return layerDrawable
+        return drawable
     }
 
     /**

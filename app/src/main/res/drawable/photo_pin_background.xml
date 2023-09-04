@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
  Nextcloud Android client application
 
@@ -19,16 +18,19 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program. If not, see <https://www.gnu.org/licenses/>.
 -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:width="80dp"
-        android:height="94dp"
-        android:drawable="@drawable/photo_pin_background" />
-    <item
-        android:id="@+id/photo_pin_image"
-        android:width="76dp"
-        android:height="76dp"
-        android:drawable="@drawable/outline_image_24"
-        android:gravity="center_horizontal"
-        android:top="2dp" />
-</layer-list>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="46.61dp"
+    android:viewportWidth="40"
+    android:viewportHeight="46.61">
+    <path
+        android:fillColor="@color/grey_600"
+        android:pathData="M1.523,20a18.477,18.477 0,1 0,36.954 0a18.477,18.477 0,1 0,-36.954 0z"
+        android:strokeWidth="3.0454"
+        android:strokeColor="@color/grey_600" />
+    <path
+        android:fillColor="@color/grey_600"
+        android:pathData="m1.5,20c0,17.795 18.5,25 18.5,25s18.5,-7.205 18.5,-25"
+        android:strokeWidth="3"
+        android:strokeColor="@color/grey_600" />
+</vector>
