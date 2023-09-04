@@ -27,7 +27,6 @@ import android.graphics.drawable.LayerDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -130,7 +129,7 @@ class ImageDetailFragment : Fragment(), Injectable {
 
         // detailed file information
         val fileInformation = mutableListOf<String>()
-        if (metadata.length != null && metadata.width != null && metadata.length!! > 0 && metadata.width!! > 0) {
+        if ((metadata.length ?: 0) > 0 && (metadata.width ?: 0) > 0) {
             try {
                 @Suppress("MagicNumber")
                 val pxlCount = when (val res = metadata.length!! * metadata.width!!.toLong()) {
@@ -246,7 +245,7 @@ class ImageDetailFragment : Fragment(), Injectable {
             }
 
             val markerOverlay = ItemizedIconOverlay(
-                mutableListOf(OverlayItem("Location", "", location)),
+                mutableListOf(OverlayItem(null, null, location)),
                 imagePinDrawable(context),
                 markerOnGestureListener(latitude, longitude),
                 context
@@ -291,7 +290,7 @@ class ImageDetailFragment : Fragment(), Injectable {
             }
 
             // determine size if not contained in exif data
-            if (width == null || length == null || width <= 0 || length <= 0) {
+            if ((width ?: 0) <= 0 || (length ?: 0) <= 0) {
                 val res = BitmapUtils.getImageResolution(file.storagePath)
                 width = res[0]
                 length = res[1]
@@ -340,28 +339,16 @@ class ImageDetailFragment : Fragment(), Injectable {
         }
     }
 
-    @Suppress("MagicNumber")
     private fun imagePinDrawable(context: Context): LayerDrawable {
+        val drawable = ContextCompat.getDrawable(context, R.drawable.photo_pin) as LayerDrawable
+
         val bitmap =
             ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId)
-        val foreground = BitmapUtils.bitmapToCircularBitmapDrawable(resources, bitmap)
-        val background = ContextCompat.getDrawable(context, R.drawable.photo_pin)
-
-        val layerDrawable = if (foreground != null) {
-            LayerDrawable(arrayOf(background, foreground))
-        } else {
-            val d = ContextCompat.getDrawable(context, R.drawable.file_image)
-            LayerDrawable(arrayOf(background, d))
+        BitmapUtils.bitmapToCircularBitmapDrawable(resources, bitmap)?.let {
+            drawable.setDrawable(1, it)
         }
 
-        val dp = DisplayUtils.convertDpToPixel(2f, context)
-        layerDrawable.apply {
-            setLayerSize(1, 38 * dp, 38 * dp)
-            setLayerSize(0, 40 * dp, 47 * dp)
-            setLayerInsetTop(1, dp)
-            setLayerGravity(1, Gravity.CENTER_HORIZONTAL)
-        }
-        return layerDrawable
+        return drawable
     }
 
     /**
