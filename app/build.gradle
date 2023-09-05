@@ -193,8 +193,6 @@ android {
         exclude '**/gen/**'
 
         reports {
-            //xml.enabled = false
-            //html.enabled = true
             xml {
                 destination = file("$project.buildDir/reports/pmd/pmd.xml")
             }
@@ -238,7 +236,6 @@ android {
 dependencies {
     // dependencies for app building
     implementation 'androidx.multidex:multidex:2.0.1'
-//    implementation project('nextcloud-android-library')
     implementation("com.github.nextcloud:android-library:$androidLibraryVersion") {
         exclude group: 'org.ogce', module: 'xpp3' // unused in Android and brings wrong Junit version
     }
@@ -386,7 +383,7 @@ dependencies {
 
     implementation "io.coil-kt:coil:2.4.0"
 
-    //splash screen dependency ref: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
+    // splash screen dependency ref: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
     implementation 'androidx.core:core-splashscreen:1.0.1'
 }
 
@@ -410,8 +407,7 @@ tasks.withType(Test).configureEach {
 }
 
 android.applicationVariants.configureEach { variant ->
-    variant.outputs.configureEach { output ->
-        outputFileName = "${output.baseName}-${variant.versionCode}.apk"
+    variant.outputs.configureEach { output -> outputFileName = "${output.baseName}-${variant.versionCode}.apk"
     }
 }
 
