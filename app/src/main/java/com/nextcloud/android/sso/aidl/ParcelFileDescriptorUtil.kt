@@ -16,89 +16,79 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.android.sso.aidl
 
-package com.nextcloud.android.sso.aidl;
+import android.os.ParcelFileDescriptor
+import com.owncloud.android.lib.common.utils.Log_OC
+import org.apache.commons.httpclient.HttpMethodBase
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 
-import android.os.ParcelFileDescriptor;
-
-import com.owncloud.android.lib.common.utils.Log_OC;
-
-import org.apache.commons.httpclient.HttpMethodBase;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-public final class ParcelFileDescriptorUtil {
-
-    private ParcelFileDescriptorUtil() { }
-
-    public static ParcelFileDescriptor pipeFrom(InputStream inputStream,
-                                                IThreadListener listener,
-                                                HttpMethodBase method)
-            throws IOException {
-        ParcelFileDescriptor[] pipe = ParcelFileDescriptor.createPipe();
-        ParcelFileDescriptor readSide = pipe[0];
-        ParcelFileDescriptor writeSide = pipe[1];
+object ParcelFileDescriptorUtil {
+    @JvmStatic
+    @Throws(IOException::class)
+    fun pipeFrom(
+        inputStream: InputStream,
+        listener: IThreadListener?,
+        method: HttpMethodBase?
+    ): ParcelFileDescriptor {
+        val pipe = ParcelFileDescriptor.createPipe()
+        val readSide = pipe[0]
+        val writeSide = pipe[1]
 
         // start the transfer thread
-        new TransferThread(inputStream,
-                           new ParcelFileDescriptor.AutoCloseOutputStream(writeSide),
-                           listener,
-                           method)
-                .start();
-
-        return readSide;
+        TransferThread(
+            inputStream,
+            ParcelFileDescriptor.AutoCloseOutputStream(writeSide),
+            listener,
+            method
+        )
+            .start()
+        return readSide
     }
 
-    public static class TransferThread extends Thread {
-        private static final String TAG = TransferThread.class.getCanonicalName();
-        private final InputStream inputStream;
-        private final OutputStream outputStream;
-        private final IThreadListener threadListener;
-        private final HttpMethodBase httpMethod;
-
-        TransferThread(InputStream in, OutputStream out, IThreadListener listener, HttpMethodBase method) {
-            super("ParcelFileDescriptor Transfer Thread");
-            inputStream = in;
-            outputStream = out;
-            threadListener = listener;
-            httpMethod = method;
-            setDaemon(true);
+    class TransferThread internal constructor(
+        private val inputStream: InputStream,
+        private val outputStream: OutputStream,
+        private val threadListener: IThreadListener?,
+        private val httpMethod: HttpMethodBase?
+    ) : Thread("ParcelFileDescriptor Transfer Thread") {
+        init {
+            isDaemon = true
         }
 
-        @Override
-        public void run() {
-            byte[] buf = new byte[1024];
-            int len;
-
+        override fun run() {
+            val buf = ByteArray(1024)
+            var len: Int
             try {
-                while ((len = inputStream.read(buf)) > 0) {
-                    outputStream.write(buf, 0, len);
+                while (inputStream.read(buf).also { len = it } > 0) {
+                    outputStream.write(buf, 0, len)
                 }
-                outputStream.flush(); // just to be safe
-            } catch (IOException e) {
-                Log_OC.e(TAG, "writing failed: " + e.getMessage());
+                outputStream.flush() // just to be safe
+            } catch (e: IOException) {
+                Log_OC.e(TAG, "writing failed: " + e.message)
             } finally {
                 try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    Log_OC.e(TAG, e.getMessage());
+                    inputStream.close()
+                } catch (e: IOException) {
+                    Log_OC.e(TAG, e.message)
                 }
                 try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    Log_OC.e(TAG, e.getMessage());
+                    outputStream.close()
+                } catch (e: IOException) {
+                    Log_OC.e(TAG, e.message)
                 }
             }
-            if (threadListener != null) {
-                threadListener.onThreadFinished(this);
-            }
-
+            threadListener?.onThreadFinished(this)
             if (httpMethod != null) {
-                Log_OC.i(TAG, "releaseConnection");
-                httpMethod.releaseConnection();
+                Log_OC.i(TAG, "releaseConnection")
+                httpMethod.releaseConnection()
             }
+        }
+
+        companion object {
+            private val TAG = TransferThread::class.java.canonicalName
         }
     }
 }

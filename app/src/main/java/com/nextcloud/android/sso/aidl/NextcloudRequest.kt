@@ -19,7 +19,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-
 /*
  *  Nextcloud SingleSignOn
  *
@@ -38,79 +37,75 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.android.sso.aidl
 
-package com.nextcloud.android.sso.aidl;
+import com.nextcloud.android.sso.QueryParam
+import java.io.Serializable
+import java.util.LinkedList
 
-import com.nextcloud.android.sso.QueryParam;
+class NextcloudRequest private constructor() : Serializable {
+    var method: String? = null
+        private set
+    var header: Map<String, List<String>> = HashMap()
+        private set
+    var parameter: Map<String, String> = HashMap()
+        private set
+    @JvmField
+    val parameterV2: Collection<QueryParam> = LinkedList()
+    var requestBody: String? = null
+        private set
+    var url: String? = null
+        private set
+    private var token: String? = null
+    var packageName: String? = null
+    private var accountName: String? = null
+    var isFollowRedirects = false
+        private set
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+    class Builder {
+        private val ncr: NextcloudRequest
 
-public class NextcloudRequest implements Serializable {
-
-    private static final long serialVersionUID = 215521212534240L; //assign a long value
-
-    private String method;
-    private Map<String, List<String>> header = new HashMap<>();
-    private Map<String, String> parameter = new HashMap<>();
-    private final Collection<QueryParam> parameterV2 = new LinkedList<>();
-    private String requestBody;
-    private String url;
-    private String token;
-    private String packageName;
-    private String accountName;
-    private boolean followRedirects;
-
-    private NextcloudRequest() { }
-
-    public static class Builder {
-        private NextcloudRequest ncr;
-
-        public Builder() {
-            ncr = new NextcloudRequest();
+        init {
+            ncr = NextcloudRequest()
         }
 
-        public NextcloudRequest build() {
-            return ncr;
+        fun build(): NextcloudRequest {
+            return ncr
         }
 
-        public Builder setMethod(String method) {
-            ncr.method = method;
-            return this;
+        fun setMethod(method: String?): Builder {
+            ncr.method = method
+            return this
         }
 
-        public Builder setHeader(Map<String, List<String>> header) {
-            ncr.header = header;
-            return this;
+        fun setHeader(header: Map<String, List<String>>): Builder {
+            ncr.header = header
+            return this
         }
 
-        public Builder setParameter(Map<String, String> parameter) {
-            ncr.parameter = parameter;
-            return this;
+        fun setParameter(parameter: Map<String, String>): Builder {
+            ncr.parameter = parameter
+            return this
         }
 
-        public Builder setRequestBody(String requestBody) {
-            ncr.requestBody = requestBody;
-            return this;
+        fun setRequestBody(requestBody: String?): Builder {
+            ncr.requestBody = requestBody
+            return this
         }
 
-        public Builder setUrl(String url) {
-            ncr.url = url;
-            return this;
+        fun setUrl(url: String?): Builder {
+            ncr.url = url
+            return this
         }
 
-        public Builder setToken(String token) {
-            ncr.token = token;
-            return this;
+        fun setToken(token: String?): Builder {
+            ncr.token = token
+            return this
         }
 
-        public Builder setAccountName(String accountName) {
-            ncr.accountName = accountName;
-            return this;
+        fun setAccountName(accountName: String?): Builder {
+            ncr.accountName = accountName
+            return this
         }
 
         /**
@@ -118,61 +113,29 @@ public class NextcloudRequest implements Serializable {
          * @param followRedirects
          * @return
          */
-        public Builder setFollowRedirects(boolean followRedirects) {
-            ncr.followRedirects = followRedirects;
-            return this;
+        fun setFollowRedirects(followRedirects: Boolean): Builder {
+            ncr.isFollowRedirects = followRedirects
+            return this
         }
     }
 
-    public String getMethod() {
-        return this.method;
+    fun getToken(): String? {
+        return token
     }
 
-    public Map<String, List<String>> getHeader() {
-        return this.header;
+    fun setToken(token: String?) {
+        this.token = token
     }
 
-    public Map<String, String> getParameter() {
-        return this.parameter;
+    fun getAccountName(): String? {
+        return accountName
     }
 
-    public String getRequestBody() {
-        return this.requestBody;
+    fun setAccountName(accountName: String?) {
+        this.accountName = accountName
     }
 
-    public String getUrl() {
-        return this.url;
-    }
-
-    public String getToken() {
-        return this.token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getPackageName() {
-        return this.packageName;
-    }
-
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
-    }
-
-    public String getAccountName() {
-        return this.accountName;
-    }
-
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
-    }
-
-    public boolean isFollowRedirects() {
-        return this.followRedirects;
-    }
-
-    public Collection<QueryParam> getParameterV2() {
-        return parameterV2;
+    companion object {
+        private const val serialVersionUID = 215521212534240L //assign a long value
     }
 }

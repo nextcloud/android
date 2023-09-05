@@ -19,19 +19,12 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.nextcloud.android.sso
 
-package com.nextcloud.android.sso;
+import java.io.Serializable
 
-import java.io.Serializable;
-
-public class QueryParam implements Serializable {
-    private static final long serialVersionUID = 21523240203234211L; // must be same as in SSO project
-
-    public String key;
-    public String value;
-
-    public QueryParam(String key, String value) {
-        this.key = key;
-        this.value = value;
+class QueryParam(@JvmField var key: String, @JvmField var value: String) : Serializable {
+    companion object {
+        private const val serialVersionUID = 21523240203234211L // must be same as in SSO project
     }
 }
