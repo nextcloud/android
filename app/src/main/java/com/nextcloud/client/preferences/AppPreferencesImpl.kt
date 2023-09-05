@@ -20,509 +20,315 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client.preferences
 
-package com.nextcloud.client.preferences;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
-
-import com.google.gson.Gson;
-import com.nextcloud.appReview.AppReviewShownModel;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.activity.PassCodeActivity;
-import com.owncloud.android.ui.activity.SettingsActivity;
-import com.owncloud.android.utils.FileSortOrder;
-
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
-
-import static com.owncloud.android.ui.fragment.OCFileListFragment.FOLDER_LAYOUT_LIST;
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import android.preference.PreferenceManager
+import androidx.annotation.VisibleForTesting
+import com.google.gson.Gson
+import com.nextcloud.appReview.AppReviewShownModel
+import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.account.UserAccountManagerImpl
+import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.ui.activity.PassCodeActivity
+import com.owncloud.android.ui.activity.SettingsActivity
+import com.owncloud.android.ui.fragment.OCFileListFragment
+import com.owncloud.android.utils.FileSortOrder
+import java.util.concurrent.CopyOnWriteArraySet
 
 /**
- * Implementation of application-wide preferences using {@link SharedPreferences}.
- * <p>
- * Users should not use this class directly. Please use {@link AppPreferences} interface instead.
+ * Implementation of application-wide preferences using [SharedPreferences].
+ *
+ *
+ * Users should not use this class directly. Please use [AppPreferences] interface instead.
  */
-public final class AppPreferencesImpl implements AppPreferences {
+class AppPreferencesImpl internal constructor(
+    private val context: Context,
+    private val preferences: SharedPreferences,
+    private val userAccountManager: UserAccountManager
+) : AppPreferences {
+    private val listeners: ListenerRegistry
 
     /**
-     * Constant to access value of last path selected by the user to upload a file shared from other app. Value handled
-     * by the app without direct access in the UI.
+     * Adapter delegating raw [SharedPreferences.OnSharedPreferenceChangeListener] calls with key-value pairs to
+     * respective [com.nextcloud.client.preferences.AppPreferences.Listener] method.
      */
-    public static final String AUTO_PREF__LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
-    public static final String STORAGE_PATH = "storage_path";
-    public static final String STORAGE_PATH_VALID = "storage_path_valid";
-    public static final String PREF__DARK_THEME = "dark_theme_mode";
-    public static final float DEFAULT_GRID_COLUMN = 3f;
+    internal class ListenerRegistry(private val preferences: AppPreferences) : OnSharedPreferenceChangeListener {
+        private val listeners: MutableSet<AppPreferences.Listener>
 
-    private static final String AUTO_PREF__LAST_UPLOAD_PATH = "last_upload_path";
-    private static final String AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH = "upload_from_local_last_path";
-    private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL = "prefs_upload_file_extension_map_url";
-    private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_URL = "prefs_upload_file_extension_url";
-    private static final String AUTO_PREF__UPLOADER_BEHAVIOR = "prefs_uploader_behaviour";
-    private static final String AUTO_PREF__GRID_COLUMNS = "grid_columns";
-    private static final String AUTO_PREF__SHOW_DETAILED_TIMESTAMP = "detailed_timestamp";
-    private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
-    private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
-    private static final String PREF__SHOW_HIDDEN_FILES = "show_hidden_files_pref";
-    private static final String PREF__SHOW_ECOSYSTEM_APPS = "show_ecosystem_apps";
-    private static final String PREF__LEGACY_CLEAN = "legacyClean";
-    private static final String PREF__KEYS_MIGRATION = "keysMigration";
-    private static final String PREF__FIX_STORAGE_PATH = "storagePathFix";
-    private static final String PREF__KEYS_REINIT = "keysReinit";
-    private static final String PREF__AUTO_UPLOAD_UPDATE_PATH = "autoUploadPathUpdate";
-    private static final String PREF__PUSH_TOKEN = "pushToken";
-    private static final String PREF__AUTO_UPLOAD_SPLIT_OUT = "autoUploadEntriesSplitOut";
-    private static final String PREF__AUTO_UPLOAD_INIT = "autoUploadInit";
-    private static final String PREF__FOLDER_SORT_ORDER = "folder_sort_order";
-    private static final String PREF__FOLDER_LAYOUT = "folder_layout";
-
-    private static final String PREF__LOCK_TIMESTAMP = "lock_timestamp";
-    private static final String PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
-    private static final String PREF__LOCK = SettingsActivity.PREFERENCE_LOCK;
-    private static final String PREF__SELECTED_ACCOUNT_NAME = "select_oc_account";
-    private static final String PREF__MIGRATED_USER_ID = "migrated_user_id";
-    private static final String PREF__PHOTO_SEARCH_TIMESTAMP = "photo_search_timestamp";
-    private static final String PREF__POWER_CHECK_DISABLED = "power_check_disabled";
-    private static final String PREF__PIN_BRUTE_FORCE_COUNT = "pin_brute_force_count";
-    private static final String PREF__UID_PID = "uid_pid";
-
-    private static final String PREF__CALENDAR_AUTOMATIC_BACKUP = "calendar_automatic_backup";
-    private static final String PREF__CALENDAR_LAST_BACKUP = "calendar_last_backup";
-
-    private static final String PREF__PDF_ZOOM_TIP_SHOWN = "pdf_zoom_tip_shown";
-    private static final String PREF__MEDIA_FOLDER_LAST_PATH = "media_folder_last_path";
-
-    private static final String PREF__STORAGE_PERMISSION_REQUESTED = "storage_permission_requested";
-    private static final String PREF__IN_APP_REVIEW_DATA = "in_app_review_data";
-
-    private final Context context;
-    private final SharedPreferences preferences;
-    private final UserAccountManager userAccountManager;
-    private final ListenerRegistry listeners;
-
-    /**
-     * Adapter delegating raw {@link SharedPreferences.OnSharedPreferenceChangeListener} calls with key-value pairs to
-     * respective {@link com.nextcloud.client.preferences.AppPreferences.Listener} method.
-     */
-    static class ListenerRegistry implements SharedPreferences.OnSharedPreferenceChangeListener {
-        private final AppPreferences preferences;
-        private final Set<Listener> listeners;
-
-        ListenerRegistry(AppPreferences preferences) {
-            this.preferences = preferences;
-            this.listeners = new CopyOnWriteArraySet<>();
+        init {
+            listeners = CopyOnWriteArraySet()
         }
 
-        void add(@Nullable final Listener listener) {
+        fun add(listener: AppPreferences.Listener?) {
             if (listener != null) {
-                listeners.add(listener);
+                listeners.add(listener)
             }
         }
 
-        void remove(@Nullable final Listener listener) {
+        fun remove(listener: AppPreferences.Listener?) {
             if (listener != null) {
-                listeners.remove(listener);
+                listeners.remove(listener)
             }
         }
 
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            if (PREF__DARK_THEME.equals(key)) {
-                DarkMode mode = preferences.getDarkThemeMode();
-                for (Listener l : listeners) {
-                    l.onDarkThemeModeChanged(mode);
+        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+            if (PREF__DARK_THEME == key) {
+                val mode = preferences.darkThemeMode
+                for (l in listeners) {
+                    l.onDarkThemeModeChanged(mode)
                 }
             }
         }
     }
 
-    /**
-     * This is a temporary workaround to access app preferences in places that cannot use dependency injection yet. Use
-     * injected component via {@link AppPreferences} interface.
-     * <p>
-     * WARNING: this creates new instance! it does not return app-wide singleton
-     *
-     * @param context Context used to create shared preferences
-     * @return New instance of app preferences component
-     */
-    @Deprecated
-    public static AppPreferences fromContext(Context context) {
-        final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(context);
-        final SharedPreferences prefs = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
-        return new AppPreferencesImpl(context, prefs, userAccountManager);
+    init {
+        listeners = ListenerRegistry(this)
+        preferences.registerOnSharedPreferenceChangeListener(listeners)
     }
 
-    AppPreferencesImpl(Context appContext, SharedPreferences preferences, UserAccountManager userAccountManager) {
-        this.context = appContext;
-        this.preferences = preferences;
-        this.userAccountManager = userAccountManager;
-        this.listeners = new ListenerRegistry(this);
-        this.preferences.registerOnSharedPreferenceChangeListener(listeners);
+    override fun addListener(listener: AppPreferences.Listener?) {
+        listeners.add(listener)
     }
 
-    @Override
-    public void addListener(@Nullable AppPreferences.Listener listener) {
-        this.listeners.add(listener);
+    override fun removeListener(listener: AppPreferences.Listener?) {
+        listeners.remove(listener)
     }
 
-    @Override
-    public void removeListener(@Nullable AppPreferences.Listener listener) {
-        this.listeners.remove(listener);
+    override fun setKeysReInitEnabled() {
+        preferences.edit().putBoolean(PREF__KEYS_REINIT, true).apply()
     }
 
-    @Override
-    public void setKeysReInitEnabled() {
-        preferences.edit().putBoolean(PREF__KEYS_REINIT, true).apply();
+    override val isKeysReInitEnabled: Boolean
+        get() = preferences.getBoolean(PREF__KEYS_REINIT, false)
+    override var pushToken: String?
+        get() = preferences.getString(PREF__PUSH_TOKEN, "")
+        set(pushToken) {
+            preferences.edit().putString(PREF__PUSH_TOKEN, pushToken).apply()
+        }
+
+    override fun instantPictureUploadEnabled(): Boolean {
+        return preferences.getBoolean(PREF__INSTANT_UPLOADING, false)
     }
 
-    @Override
-    public boolean isKeysReInitEnabled() {
-        return preferences.getBoolean(PREF__KEYS_REINIT, false);
+    override fun instantVideoUploadEnabled(): Boolean {
+        return preferences.getBoolean(PREF__INSTANT_VIDEO_UPLOADING, false)
     }
 
-    @Override
-    public void setPushToken(String pushToken) {
-        preferences.edit().putString(PREF__PUSH_TOKEN, pushToken).apply();
-    }
+    override var isShowHiddenFilesEnabled: Boolean
+        get() = preferences.getBoolean(PREF__SHOW_HIDDEN_FILES, false)
+        set(enabled) {
+            preferences.edit().putBoolean(PREF__SHOW_HIDDEN_FILES, enabled).apply()
+        }
+    override var isShowEcosystemApps: Boolean
+        get() = preferences.getBoolean(PREF__SHOW_ECOSYSTEM_APPS, true)
+        set(enabled) {
+            preferences.edit().putBoolean(PREF__SHOW_ECOSYSTEM_APPS, enabled).apply()
+        }
+    override var uploadUrlFileExtensionUrlSelectedPos: Int
+        get() = preferences.getInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_URL, 0)
+        set(selectedPos) {
+            preferences.edit().putInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_URL, selectedPos).apply()
+        }
+    override var uploadMapFileExtensionUrlSelectedPos: Int
+        get() = preferences.getInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL, 0)
+        set(selectedPos) {
+            preferences.edit().putInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL, selectedPos).apply()
+        }
+    override var uploadFromLocalLastPath: String?
+        get() = preferences.getString(AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH, "")
+        set(path) {
+            preferences.edit().putString(AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH, path).apply()
+        }
+    override var lastUploadPath: String?
+        get() = preferences.getString(AUTO_PREF__LAST_UPLOAD_PATH, "")
+        set(path) {
+            preferences.edit().putString(AUTO_PREF__LAST_UPLOAD_PATH, path).apply()
+        }
+    override var lockPreference: String?
+        get() = preferences.getString(PREF__LOCK, SettingsActivity.LOCK_NONE)
+        set(lockPreference) {
+            preferences.edit().putString(PREF__LOCK, lockPreference).apply()
+        }
 
-    @Override
-    public String getPushToken() {
-        return preferences.getString(PREF__PUSH_TOKEN, "");
-    }
-
-    @Override
-    public boolean instantPictureUploadEnabled() {
-        return preferences.getBoolean(PREF__INSTANT_UPLOADING, false);
-    }
-
-    @Override
-    public boolean instantVideoUploadEnabled() {
-        return preferences.getBoolean(PREF__INSTANT_VIDEO_UPLOADING, false);
-    }
-
-    @Override
-    public boolean isShowHiddenFilesEnabled() {
-        return preferences.getBoolean(PREF__SHOW_HIDDEN_FILES, false);
-    }
-
-    @Override
-    public void setShowHiddenFilesEnabled(boolean enabled) {
-        preferences.edit().putBoolean(PREF__SHOW_HIDDEN_FILES, enabled).apply();
-    }
-
-    @Override
-    public boolean isShowEcosystemApps() {
-        return preferences.getBoolean(PREF__SHOW_ECOSYSTEM_APPS, true);
-    }
-
-    @Override
-    public void setShowEcosystemApps(boolean enabled) {
-        preferences.edit().putBoolean(PREF__SHOW_ECOSYSTEM_APPS, enabled).apply();
-    }
-
-    @Override
-    public int getUploadUrlFileExtensionUrlSelectedPos() {
-        return preferences.getInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_URL, 0);
-    }
-
-    @Override
-    public void setUploadUrlFileExtensionUrlSelectedPos(int selectedPos) {
-        preferences.edit().putInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_URL, selectedPos).apply();
-    }
-
-    @Override
-    public int getUploadMapFileExtensionUrlSelectedPos() {
-        return preferences.getInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL, 0);
-    }
-
-    @Override
-    public void setUploadMapFileExtensionUrlSelectedPos(int selectedPos) {
-        preferences.edit().putInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL, selectedPos).apply();
-    }
-
-    @Override
-    public String getUploadFromLocalLastPath() {
-        return preferences.getString(AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH, "");
-    }
-
-    @Override
-    public void setUploadFromLocalLastPath(String path) {
-        preferences.edit().putString(AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH, path).apply();
-    }
-
-    @Override
-    public String getLastUploadPath() {
-        return preferences.getString(AUTO_PREF__LAST_UPLOAD_PATH, "");
-    }
-
-    @Override
-    public void setLastUploadPath(String path) {
-        preferences.edit().putString(AUTO_PREF__LAST_UPLOAD_PATH, path).apply();
-    }
-
-    @Override
-    public String getLockPreference() {
-        return preferences.getString(PREF__LOCK, SettingsActivity.LOCK_NONE);
-    }
-
-    @Override
-    public void setLockPreference(String lockPreference) {
-        preferences.edit().putString(PREF__LOCK, lockPreference).apply();
-    }
-
-    @Override
-    public void setPassCode(String d1, String d2, String d3, String d4) {
+    override fun setPassCode(d1: String?, d2: String?, d3: String?, d4: String?) {
         preferences
             .edit()
             .putString(PassCodeActivity.PREFERENCE_PASSCODE_D1, d1)
             .putString(PassCodeActivity.PREFERENCE_PASSCODE_D2, d2)
             .putString(PassCodeActivity.PREFERENCE_PASSCODE_D3, d3)
             .putString(PassCodeActivity.PREFERENCE_PASSCODE_D4, d4)
-            .apply();
+            .apply()
     }
 
-    @Override
-    public String[] getPassCode() {
-        return new String[]{
+    override val passCode: Array<String?>
+        get() = arrayOf(
             preferences.getString(PassCodeActivity.PREFERENCE_PASSCODE_D1, null),
             preferences.getString(PassCodeActivity.PREFERENCE_PASSCODE_D2, null),
             preferences.getString(PassCodeActivity.PREFERENCE_PASSCODE_D3, null),
-            preferences.getString(PassCodeActivity.PREFERENCE_PASSCODE_D4, null),
-        };
+            preferences.getString(PassCodeActivity.PREFERENCE_PASSCODE_D4, null)
+        )
+    override val isFingerprintUnlockEnabled: Boolean
+        get() = preferences.getBoolean(SettingsActivity.PREFERENCE_USE_FINGERPRINT, false)
+
+    override fun getFolderLayout(folder: OCFile?): String {
+        return getFolderPreference(
+            context,
+            userAccountManager.user,
+            PREF__FOLDER_LAYOUT,
+            folder,
+            OCFileListFragment.FOLDER_LAYOUT_LIST
+        )
     }
 
-    @Override
-    public boolean isFingerprintUnlockEnabled() {
-        return preferences.getBoolean(SettingsActivity.PREFERENCE_USE_FINGERPRINT, false);
+    override fun setFolderLayout(folder: OCFile?, layoutName: String) {
+        setFolderPreference(
+            context,
+            userAccountManager.user,
+            PREF__FOLDER_LAYOUT,
+            folder,
+            layoutName
+        )
     }
 
-    @Override
-    public String getFolderLayout(OCFile folder) {
-        return getFolderPreference(context,
-                                   userAccountManager.getUser(),
-                                   PREF__FOLDER_LAYOUT,
-                                   folder,
-                                   FOLDER_LAYOUT_LIST);
+    override fun getSortOrderByFolder(folder: OCFile?): FileSortOrder? {
+        return FileSortOrder.sortOrders[getFolderPreference(
+            context,
+            userAccountManager.user,
+            PREF__FOLDER_SORT_ORDER,
+            folder,
+            FileSortOrder.sort_a_to_z.name
+        )]
     }
 
-    @Override
-    public void setFolderLayout(@Nullable OCFile folder, String layoutName) {
-        setFolderPreference(context,
-                            userAccountManager.getUser(),
-                            PREF__FOLDER_LAYOUT,
-                            folder,
-                            layoutName);
+    override fun setSortOrder(folder: OCFile?, sortOrder: FileSortOrder) {
+        setFolderPreference(
+            context,
+            userAccountManager.user,
+            PREF__FOLDER_SORT_ORDER,
+            folder,
+            sortOrder.name
+        )
     }
 
-    @Override
-    public FileSortOrder getSortOrderByFolder(OCFile folder) {
-        return FileSortOrder.sortOrders.get(getFolderPreference(context,
-                                                                userAccountManager.getUser(),
-                                                                PREF__FOLDER_SORT_ORDER,
-                                                                folder,
-                                                                FileSortOrder.sort_a_to_z.name));
+    override fun getSortOrderByType(type: FileSortOrder.Type): FileSortOrder {
+        return getSortOrderByType(type, FileSortOrder.sort_a_to_z)
     }
 
-    @Override
-    public void setSortOrder(@Nullable OCFile folder, FileSortOrder sortOrder) {
-        setFolderPreference(context,
-                            userAccountManager.getUser(),
-                            PREF__FOLDER_SORT_ORDER,
-                            folder,
-                            sortOrder.name);
+    override fun getSortOrderByType(type: FileSortOrder.Type, defaultOrder: FileSortOrder): FileSortOrder {
+        val user = userAccountManager.user
+        if (user.isAnonymous) {
+            return defaultOrder
+        }
+        val dataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
+        val value = dataProvider.getValue(user.accountName, PREF__FOLDER_SORT_ORDER + "_" + type)
+        return if (value.isEmpty()) defaultOrder else FileSortOrder.sortOrders[value]!!
     }
 
-    @Override
-    public FileSortOrder getSortOrderByType(FileSortOrder.Type type) {
-        return getSortOrderByType(type, FileSortOrder.sort_a_to_z);
+    override fun setSortOrder(type: FileSortOrder.Type, sortOrder: FileSortOrder) {
+        val user = userAccountManager.user
+        val dataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
+        dataProvider.storeOrUpdateKeyValue(user.accountName, PREF__FOLDER_SORT_ORDER + "_" + type, sortOrder.name)
     }
 
-    @Override
-    public FileSortOrder getSortOrderByType(FileSortOrder.Type type, FileSortOrder defaultOrder) {
-        User user = userAccountManager.getUser();
-        if (user.isAnonymous()) {
-            return defaultOrder;
+    override var isLegacyClean: Boolean
+        get() = preferences.getBoolean(PREF__LEGACY_CLEAN, false)
+        set(isLegacyClean) {
+            preferences.edit().putBoolean(PREF__LEGACY_CLEAN, isLegacyClean).apply()
+        }
+    override var isKeysMigrationEnabled: Boolean
+        get() = preferences.getBoolean(PREF__KEYS_MIGRATION, false)
+        set(keysMigration) {
+            preferences.edit().putBoolean(PREF__KEYS_MIGRATION, keysMigration).apply()
+        }
+    override var isStoragePathFixEnabled: Boolean
+        get() = preferences.getBoolean(PREF__FIX_STORAGE_PATH, false)
+        set(storagePathFixEnabled) {
+            preferences.edit().putBoolean(PREF__FIX_STORAGE_PATH, storagePathFixEnabled).apply()
+        }
+    override var isAutoUploadPathsUpdateEnabled: Boolean
+        get() = preferences.getBoolean(PREF__AUTO_UPLOAD_UPDATE_PATH, false)
+        set(pathUpdate) {
+            preferences.edit().putBoolean(PREF__AUTO_UPLOAD_UPDATE_PATH, pathUpdate).apply()
+        }
+    override var isAutoUploadSplitEntriesEnabled: Boolean
+        get() = preferences.getBoolean(PREF__AUTO_UPLOAD_SPLIT_OUT, false)
+        set(splitOut) {
+            preferences.edit().putBoolean(PREF__AUTO_UPLOAD_SPLIT_OUT, splitOut).apply()
+        }
+    override val isAutoUploadInitialized: Boolean
+        get() = preferences.getBoolean(PREF__AUTO_UPLOAD_INIT, false)
+
+    override fun setAutoUploadInit(autoUploadInit: Boolean) {
+        preferences.edit().putBoolean(PREF__AUTO_UPLOAD_INIT, autoUploadInit).apply()
+    }
+
+    override var uploaderBehaviour: Int
+        get() = preferences.getInt(AUTO_PREF__UPLOADER_BEHAVIOR, 1)
+        set(uploaderBehaviour) {
+            preferences.edit().putInt(AUTO_PREF__UPLOADER_BEHAVIOR, uploaderBehaviour).apply()
+        }
+    override var darkThemeMode: DarkMode
+        get() = try {
+            DarkMode.valueOf(preferences.getString(PREF__DARK_THEME, DarkMode.SYSTEM.name)!!)
+        } catch (e: ClassCastException) {
+            preferences.edit().putString(PREF__DARK_THEME, DarkMode.SYSTEM.name).apply()
+            DarkMode.SYSTEM
+        }
+        set(mode) {
+            preferences.edit().putString(PREF__DARK_THEME, mode.name).apply()
+        }
+    override var gridColumns: Float
+        /**
+         * Gets the grid columns which the user has set last.
+         *
+         * @return grid columns     grid columns
+         */
+        get() {
+            val columns = preferences.getFloat(AUTO_PREF__GRID_COLUMNS, DEFAULT_GRID_COLUMN)
+            return if (columns < 0) {
+                DEFAULT_GRID_COLUMN
+            } else {
+                columns
+            }
+        }
+        /**
+         * Saves the grid columns which the user has set last.
+         *
+         * @param gridColumns the uploader behavior
+         */
+        set(gridColumns) {
+            preferences.edit().putFloat(AUTO_PREF__GRID_COLUMNS, gridColumns).apply()
+        }
+    override var lastSeenVersionCode: Int
+        get() = preferences.getInt(AUTO_PREF__LAST_SEEN_VERSION_CODE, 0)
+        set(versionCode) {
+            preferences.edit().putInt(AUTO_PREF__LAST_SEEN_VERSION_CODE, versionCode).apply()
+        }
+    override var lockTimestamp: Long
+        get() = preferences.getLong(PREF__LOCK_TIMESTAMP, 0)
+        set(timestamp) {
+            preferences.edit().putLong(PREF__LOCK_TIMESTAMP, timestamp).apply()
+        }
+    override var isShowDetailedTimestampEnabled: Boolean
+        get() = preferences.getBoolean(AUTO_PREF__SHOW_DETAILED_TIMESTAMP, false)
+        set(showDetailedTimestamp) {
+            preferences.edit().putBoolean(AUTO_PREF__SHOW_DETAILED_TIMESTAMP, showDetailedTimestamp).apply()
+        }
+    override var isShowMediaScanNotifications: Boolean
+        get() = preferences.getBoolean(PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS, true)
+        set(value) {
+            preferences.edit().putBoolean(PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS, value).apply()
         }
 
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProviderImpl(context);
-
-        String value = dataProvider.getValue(user.getAccountName(), PREF__FOLDER_SORT_ORDER + "_" + type);
-
-        return value.isEmpty() ? defaultOrder : FileSortOrder.sortOrders.get(value);
-    }
-
-    @Override
-    public void setSortOrder(FileSortOrder.Type type, FileSortOrder sortOrder) {
-        User user = userAccountManager.getUser();
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProviderImpl(context);
-        dataProvider.storeOrUpdateKeyValue(user.getAccountName(), PREF__FOLDER_SORT_ORDER + "_" + type, sortOrder.name);
-    }
-
-    @Override
-    public boolean isLegacyClean() {
-        return preferences.getBoolean(PREF__LEGACY_CLEAN, false);
-    }
-
-    @Override
-    public void setLegacyClean(boolean isLegacyClean) {
-        preferences.edit().putBoolean(PREF__LEGACY_CLEAN, isLegacyClean).apply();
-    }
-
-    @Override
-    public boolean isKeysMigrationEnabled() {
-        return preferences.getBoolean(PREF__KEYS_MIGRATION, false);
-    }
-
-    @Override
-    public void setKeysMigrationEnabled(boolean keysMigration) {
-        preferences.edit().putBoolean(PREF__KEYS_MIGRATION, keysMigration).apply();
-    }
-
-    @Override
-    public boolean isStoragePathFixEnabled() {
-        return preferences.getBoolean(PREF__FIX_STORAGE_PATH, false);
-    }
-
-    @Override
-    public void setStoragePathFixEnabled(boolean storagePathFixEnabled) {
-        preferences.edit().putBoolean(PREF__FIX_STORAGE_PATH, storagePathFixEnabled).apply();
-    }
-
-    @Override
-    public boolean isAutoUploadPathsUpdateEnabled() {
-        return preferences.getBoolean(PREF__AUTO_UPLOAD_UPDATE_PATH, false);
-    }
-
-    @Override
-    public void setAutoUploadPathsUpdateEnabled(boolean pathUpdate) {
-        preferences.edit().putBoolean(PREF__AUTO_UPLOAD_UPDATE_PATH, pathUpdate).apply();
-    }
-
-    @Override
-    public boolean isAutoUploadSplitEntriesEnabled() {
-        return preferences.getBoolean(PREF__AUTO_UPLOAD_SPLIT_OUT, false);
-    }
-
-    @Override
-    public void setAutoUploadSplitEntriesEnabled(boolean splitOut) {
-        preferences.edit().putBoolean(PREF__AUTO_UPLOAD_SPLIT_OUT, splitOut).apply();
-    }
-
-    @Override
-    public boolean isAutoUploadInitialized() {
-        return preferences.getBoolean(PREF__AUTO_UPLOAD_INIT, false);
-    }
-
-    @Override
-    public void setAutoUploadInit(boolean autoUploadInit) {
-        preferences.edit().putBoolean(PREF__AUTO_UPLOAD_INIT, autoUploadInit).apply();
-    }
-
-    @Override
-    public int getUploaderBehaviour() {
-        return preferences.getInt(AUTO_PREF__UPLOADER_BEHAVIOR, 1);
-    }
-
-    @Override
-    public void setDarkThemeMode(DarkMode mode) {
-        preferences.edit().putString(PREF__DARK_THEME, mode.name()).apply();
-    }
-
-    @Override
-    public DarkMode getDarkThemeMode() {
-        try {
-            return DarkMode.valueOf(preferences.getString(PREF__DARK_THEME, DarkMode.SYSTEM.name()));
-        } catch (ClassCastException e) {
-            preferences.edit().putString(PREF__DARK_THEME, DarkMode.SYSTEM.name()).apply();
-            return DarkMode.SYSTEM;
-        }
-    }
-
-    @Override
-    public void setUploaderBehaviour(int uploaderBehaviour) {
-        preferences.edit().putInt(AUTO_PREF__UPLOADER_BEHAVIOR, uploaderBehaviour).apply();
-    }
-
-    /**
-     * Gets the grid columns which the user has set last.
-     *
-     * @return grid columns     grid columns
-     */
-    @Override
-    public float getGridColumns() {
-        float columns = preferences.getFloat(AUTO_PREF__GRID_COLUMNS, DEFAULT_GRID_COLUMN);
-
-        if (columns < 0) {
-            return DEFAULT_GRID_COLUMN;
-        } else {
-            return columns;
-        }
-    }
-
-    /**
-     * Saves the grid columns which the user has set last.
-     *
-     * @param gridColumns the uploader behavior
-     */
-    @Override
-    public void setGridColumns(float gridColumns) {
-        preferences.edit().putFloat(AUTO_PREF__GRID_COLUMNS, gridColumns).apply();
-    }
-
-    @Override
-    public int getLastSeenVersionCode() {
-        return preferences.getInt(AUTO_PREF__LAST_SEEN_VERSION_CODE, 0);
-    }
-
-    @Override
-    public void setLastSeenVersionCode(int versionCode) {
-        preferences.edit().putInt(AUTO_PREF__LAST_SEEN_VERSION_CODE, versionCode).apply();
-    }
-
-    @Override
-    public long getLockTimestamp() {
-        return preferences.getLong(PREF__LOCK_TIMESTAMP, 0);
-    }
-
-    @Override
-    public void setLockTimestamp(long timestamp) {
-        preferences.edit().putLong(PREF__LOCK_TIMESTAMP, timestamp).apply();
-    }
-
-    @Override
-    public boolean isShowDetailedTimestampEnabled() {
-        return preferences.getBoolean(AUTO_PREF__SHOW_DETAILED_TIMESTAMP, false);
-    }
-
-    @Override
-    public void setShowDetailedTimestampEnabled(boolean showDetailedTimestamp) {
-        preferences.edit().putBoolean(AUTO_PREF__SHOW_DETAILED_TIMESTAMP, showDetailedTimestamp).apply();
-    }
-
-    @Override
-    public boolean isShowMediaScanNotifications() {
-        return preferences.getBoolean(PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS, true);
-    }
-
-    @Override
-    public void setShowMediaScanNotifications(boolean value) {
-        preferences.edit().putBoolean(PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS, value).apply();
-    }
-
-    @Override
-    public void removeLegacyPreferences() {
+    override fun removeLegacyPreferences() {
         preferences.edit()
             .remove("instant_uploading")
             .remove("instant_video_uploading")
@@ -536,222 +342,236 @@ public final class AppPreferencesImpl implements AppPreferences {
             .remove("instant_video_uploading")
             .remove("instant_video_upload_on_charging")
             .remove("prefs_instant_behaviour")
-            .apply();
+            .apply()
     }
 
-    @Override
-    public void clear() {
-        preferences.edit().clear().apply();
+    override fun clear() {
+        preferences.edit().clear().apply()
     }
 
-    @Override
-    public String getStoragePath(String defaultPath) {
-        return preferences.getString(STORAGE_PATH, defaultPath);
+    override fun getStoragePath(defaultPath: String?): String? {
+        return preferences.getString(STORAGE_PATH, defaultPath)
     }
 
     @SuppressLint("ApplySharedPref")
-    @Override
-    public void setStoragePath(String path) {
-        preferences.edit().putString(STORAGE_PATH, path).commit();  // commit synchronously
+    override fun setStoragePath(path: String?) {
+        preferences.edit().putString(STORAGE_PATH, path).commit() // commit synchronously
     }
 
     @SuppressLint("ApplySharedPref")
-    @Override
-    public void setStoragePathValid() {
-        preferences.edit().putBoolean(STORAGE_PATH_VALID, true).commit();
+    override fun setStoragePathValid() {
+        preferences.edit().putBoolean(STORAGE_PATH_VALID, true).commit()
     }
 
-    @Override
-    public boolean isStoragePathValid() {
-        return preferences.getBoolean(STORAGE_PATH_VALID, false);
-    }
+    override val isStoragePathValid: Boolean
+        get() = preferences.getBoolean(STORAGE_PATH_VALID, false)
 
     /**
      * Removes keys migration key from shared preferences.
      */
     @SuppressLint("ApplySharedPref")
-    @Override
-    public void removeKeysMigrationPreference() {
-        preferences.edit().remove(AppPreferencesImpl.PREF__KEYS_MIGRATION).commit(); // commit synchronously
+    override fun removeKeysMigrationPreference() {
+        preferences.edit().remove(PREF__KEYS_MIGRATION).commit() // commit synchronously
     }
 
-    @Override
-    public String getCurrentAccountName() {
-        return preferences.getString(PREF__SELECTED_ACCOUNT_NAME, null);
+    override var currentAccountName: String?
+        get() = preferences.getString(PREF__SELECTED_ACCOUNT_NAME, null)
+        set(accountName) {
+            preferences.edit().putString(PREF__SELECTED_ACCOUNT_NAME, accountName).apply()
+        }
+    override val isUserIdMigrated: Boolean
+        get() = preferences.getBoolean(PREF__MIGRATED_USER_ID, false)
+
+    override fun setMigratedUserId(value: Boolean) {
+        preferences.edit().putBoolean(PREF__MIGRATED_USER_ID, value).apply()
     }
 
-    @Override
-    public void setCurrentAccountName(String accountName) {
-        preferences.edit().putString(PREF__SELECTED_ACCOUNT_NAME, accountName).apply();
-    }
-
-    @Override
-    public boolean isUserIdMigrated() {
-        return preferences.getBoolean(PREF__MIGRATED_USER_ID, false);
-    }
-
-    @Override
-    public void setMigratedUserId(boolean value) {
-        preferences.edit().putBoolean(PREF__MIGRATED_USER_ID, value).apply();
-    }
-
-    @Override
-    public void setPhotoSearchTimestamp(long timestamp) {
-        preferences.edit().putLong(PREF__PHOTO_SEARCH_TIMESTAMP, timestamp).apply();
-    }
-
-    @Override
-    public long getPhotoSearchTimestamp() {
-        return preferences.getLong(PREF__PHOTO_SEARCH_TIMESTAMP, 0);
-    }
-
-    /**
-     * Get preference value for a folder. If folder is not set itself, it finds an ancestor that is set.
-     *
-     * @param context        Context object.
-     * @param preferenceName Name of the preference to lookup.
-     * @param folder         Folder.
-     * @param defaultValue   Fallback value in case no ancestor is set.
-     * @return Preference value
-     */
-    private static String getFolderPreference(final Context context,
-                                              final User user,
-                                              final String preferenceName,
-                                              final OCFile folder,
-                                              final String defaultValue) {
-        if (user.isAnonymous()) {
-            return defaultValue;
+    override var photoSearchTimestamp: Long
+        get() = preferences.getLong(PREF__PHOTO_SEARCH_TIMESTAMP, 0)
+        set(timestamp) {
+            preferences.edit().putLong(PREF__PHOTO_SEARCH_TIMESTAMP, timestamp).apply()
+        }
+    override var isPowerCheckDisabled: Boolean
+        get() = preferences.getBoolean(PREF__POWER_CHECK_DISABLED, false)
+        set(value) {
+            preferences.edit().putBoolean(PREF__POWER_CHECK_DISABLED, value).apply()
         }
 
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProviderImpl(context);
-        FileDataStorageManager storageManager = new FileDataStorageManager(user, context.getContentResolver());
+    override fun increasePinWrongAttempts() {
+        val count = preferences.getInt(PREF__PIN_BRUTE_FORCE_COUNT, 0)
+        preferences.edit().putInt(PREF__PIN_BRUTE_FORCE_COUNT, count + 1).apply()
+    }
 
-        String value = dataProvider.getValue(user.getAccountName(), getKeyFromFolder(preferenceName, folder));
-        OCFile prefFolder = folder;
-        while (prefFolder != null && value.isEmpty()) {
-            prefFolder = storageManager.getFileById(prefFolder.getParentId());
-            value = dataProvider.getValue(user.getAccountName(), getKeyFromFolder(preferenceName, prefFolder));
+    override fun resetPinWrongAttempts() {
+        preferences.edit().putInt(PREF__PIN_BRUTE_FORCE_COUNT, 0).apply()
+    }
+
+    override fun pinBruteForceDelay(): Int {
+        val count = preferences.getInt(PREF__PIN_BRUTE_FORCE_COUNT, 0)
+        return computeBruteForceDelay(count)
+    }
+
+    override var uidPid: String?
+        get() = preferences.getString(PREF__UID_PID, "")
+        set(uidPid) {
+            preferences.edit().putString(PREF__UID_PID, uidPid).apply()
         }
-        return value.isEmpty() ? defaultValue : value;
-    }
-
-    /**
-     * Set preference value for a folder.
-     *
-     * @param context        Context object.
-     * @param preferenceName Name of the preference to set.
-     * @param folder         Folder.
-     * @param value          Preference value to set.
-     */
-    private static void setFolderPreference(final Context context,
-                                            final User user,
-                                            final String preferenceName,
-                                            @Nullable final OCFile folder,
-                                            final String value) {
-        ArbitraryDataProvider dataProvider = new ArbitraryDataProviderImpl(context);
-        dataProvider.storeOrUpdateKeyValue(user.getAccountName(), getKeyFromFolder(preferenceName, folder), value);
-    }
-
-    private static String getKeyFromFolder(String preferenceName, @Nullable OCFile folder) {
-        final String folderIdString = String.valueOf(folder != null ? folder.getFileId() :
-                                                         FileDataStorageManager.ROOT_PARENT_ID);
-
-        return preferenceName + "_" + folderIdString;
-    }
-
-    @Override
-    public boolean isPowerCheckDisabled() {
-        return preferences.getBoolean(PREF__POWER_CHECK_DISABLED, false);
-    }
-
-    @Override
-    public void setPowerCheckDisabled(boolean value) {
-        preferences.edit().putBoolean(PREF__POWER_CHECK_DISABLED, value).apply();
-    }
-
-    public void increasePinWrongAttempts() {
-        int count = preferences.getInt(PREF__PIN_BRUTE_FORCE_COUNT, 0);
-        preferences.edit().putInt(PREF__PIN_BRUTE_FORCE_COUNT, count + 1).apply();
-    }
-
-    @Override
-    public void resetPinWrongAttempts() {
-        preferences.edit().putInt(PREF__PIN_BRUTE_FORCE_COUNT, 0).apply();
-    }
-
-    public int pinBruteForceDelay() {
-        int count = preferences.getInt(PREF__PIN_BRUTE_FORCE_COUNT, 0);
-
-        return computeBruteForceDelay(count);
-    }
-
-    @Override
-    public String getUidPid() {
-        return preferences.getString(PREF__UID_PID, "");
-    }
-
-    @Override
-    public void setUidPid(String uidPid) {
-        preferences.edit().putString(PREF__UID_PID, uidPid).apply();
-    }
-
-    @Override
-    public long getCalendarLastBackup() {
-        return preferences.getLong(PREF__CALENDAR_LAST_BACKUP, 0);
-    }
-
-    @Override
-    public void setCalendarLastBackup(long timestamp) {
-        preferences.edit().putLong(PREF__CALENDAR_LAST_BACKUP, timestamp).apply();
-    }
-
-    @Override
-    public void setPdfZoomTipShownCount(int count) {
-        preferences.edit().putInt(PREF__PDF_ZOOM_TIP_SHOWN, count).apply();
-    }
-
-    @Override
-    public int getPdfZoomTipShownCount() {
-        return preferences.getInt(PREF__PDF_ZOOM_TIP_SHOWN, 0);
-    }
-
-    @Override
-    public boolean isStoragePermissionRequested() {
-        return preferences.getBoolean(PREF__STORAGE_PERMISSION_REQUESTED, false);
-    }
-
-    @Override
-    public void setStoragePermissionRequested(boolean value) {
-        preferences.edit().putBoolean(PREF__STORAGE_PERMISSION_REQUESTED, value).apply();
-    }
+    override var calendarLastBackup: Long
+        get() = preferences.getLong(PREF__CALENDAR_LAST_BACKUP, 0)
+        set(timestamp) {
+            preferences.edit().putLong(PREF__CALENDAR_LAST_BACKUP, timestamp).apply()
+        }
+    override var pdfZoomTipShownCount: Int
+        get() = preferences.getInt(PREF__PDF_ZOOM_TIP_SHOWN, 0)
+        set(count) {
+            preferences.edit().putInt(PREF__PDF_ZOOM_TIP_SHOWN, count).apply()
+        }
+    override var isStoragePermissionRequested: Boolean
+        get() = preferences.getBoolean(PREF__STORAGE_PERMISSION_REQUESTED, false)
+        set(value) {
+            preferences.edit().putBoolean(PREF__STORAGE_PERMISSION_REQUESTED, value).apply()
+        }
 
     @VisibleForTesting
-    public int computeBruteForceDelay(int count) {
-        return (int) Math.min(count / 3d, 10);
-    }
-    @Override
-    public void setInAppReviewData(@NonNull AppReviewShownModel appReviewShownModel) {
-        Gson gson = new Gson();
-        String json = gson.toJson(appReviewShownModel);
-        preferences.edit().putString(PREF__IN_APP_REVIEW_DATA, json).apply();
+    fun computeBruteForceDelay(count: Int): Int {
+        return Math.min(count / 3.0, 10.0).toInt()
     }
 
-    @Nullable
-    @Override
-    public AppReviewShownModel getInAppReviewData() {
-        Gson gson = new Gson();
-        String json = preferences.getString(PREF__IN_APP_REVIEW_DATA, "");
-        return gson.fromJson(json, AppReviewShownModel.class);
+    override fun setInAppReviewData(appReviewShownModel: AppReviewShownModel) {
+        val gson = Gson()
+        val json = gson.toJson(appReviewShownModel)
+        preferences.edit().putString(PREF__IN_APP_REVIEW_DATA, json).apply()
     }
 
-    @Override
-    public void setLastSelectedMediaFolder(@NonNull String path) {
-        preferences.edit().putString(PREF__MEDIA_FOLDER_LAST_PATH, path).apply();
+    override fun getInAppReviewData(): AppReviewShownModel? {
+        val gson = Gson()
+        val json = preferences.getString(PREF__IN_APP_REVIEW_DATA, "")
+        return gson.fromJson(json, AppReviewShownModel::class.java)
     }
 
-    @NonNull
-    @Override
-    public String getLastSelectedMediaFolder() {
-        return preferences.getString(PREF__MEDIA_FOLDER_LAST_PATH, OCFile.ROOT_PATH);
+    override var lastSelectedMediaFolder: String
+        get() = preferences.getString(PREF__MEDIA_FOLDER_LAST_PATH, OCFile.ROOT_PATH)!!
+        set(path) {
+            preferences.edit().putString(PREF__MEDIA_FOLDER_LAST_PATH, path).apply()
+        }
+
+    companion object {
+        /**
+         * Constant to access value of last path selected by the user to upload a file shared from other app. Value handled
+         * by the app without direct access in the UI.
+         */
+        const val AUTO_PREF__LAST_SEEN_VERSION_CODE = "lastSeenVersionCode"
+        const val STORAGE_PATH = "storage_path"
+        const val STORAGE_PATH_VALID = "storage_path_valid"
+        const val PREF__DARK_THEME = "dark_theme_mode"
+        const val DEFAULT_GRID_COLUMN = 3f
+        private const val AUTO_PREF__LAST_UPLOAD_PATH = "last_upload_path"
+        private const val AUTO_PREF__UPLOAD_FROM_LOCAL_LAST_PATH = "upload_from_local_last_path"
+        private const val AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL = "prefs_upload_file_extension_map_url"
+        private const val AUTO_PREF__UPLOAD_FILE_EXTENSION_URL = "prefs_upload_file_extension_url"
+        private const val AUTO_PREF__UPLOADER_BEHAVIOR = "prefs_uploader_behaviour"
+        private const val AUTO_PREF__GRID_COLUMNS = "grid_columns"
+        private const val AUTO_PREF__SHOW_DETAILED_TIMESTAMP = "detailed_timestamp"
+        private const val PREF__INSTANT_UPLOADING = "instant_uploading"
+        private const val PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading"
+        private const val PREF__SHOW_HIDDEN_FILES = "show_hidden_files_pref"
+        private const val PREF__SHOW_ECOSYSTEM_APPS = "show_ecosystem_apps"
+        private const val PREF__LEGACY_CLEAN = "legacyClean"
+        private const val PREF__KEYS_MIGRATION = "keysMigration"
+        private const val PREF__FIX_STORAGE_PATH = "storagePathFix"
+        private const val PREF__KEYS_REINIT = "keysReinit"
+        private const val PREF__AUTO_UPLOAD_UPDATE_PATH = "autoUploadPathUpdate"
+        private const val PREF__PUSH_TOKEN = "pushToken"
+        private const val PREF__AUTO_UPLOAD_SPLIT_OUT = "autoUploadEntriesSplitOut"
+        private const val PREF__AUTO_UPLOAD_INIT = "autoUploadInit"
+        private const val PREF__FOLDER_SORT_ORDER = "folder_sort_order"
+        private const val PREF__FOLDER_LAYOUT = "folder_layout"
+        private const val PREF__LOCK_TIMESTAMP = "lock_timestamp"
+        private const val PREF__SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications"
+        private const val PREF__LOCK = SettingsActivity.PREFERENCE_LOCK
+        private const val PREF__SELECTED_ACCOUNT_NAME = "select_oc_account"
+        private const val PREF__MIGRATED_USER_ID = "migrated_user_id"
+        private const val PREF__PHOTO_SEARCH_TIMESTAMP = "photo_search_timestamp"
+        private const val PREF__POWER_CHECK_DISABLED = "power_check_disabled"
+        private const val PREF__PIN_BRUTE_FORCE_COUNT = "pin_brute_force_count"
+        private const val PREF__UID_PID = "uid_pid"
+        private const val PREF__CALENDAR_AUTOMATIC_BACKUP = "calendar_automatic_backup"
+        private const val PREF__CALENDAR_LAST_BACKUP = "calendar_last_backup"
+        private const val PREF__PDF_ZOOM_TIP_SHOWN = "pdf_zoom_tip_shown"
+        private const val PREF__MEDIA_FOLDER_LAST_PATH = "media_folder_last_path"
+        private const val PREF__STORAGE_PERMISSION_REQUESTED = "storage_permission_requested"
+        private const val PREF__IN_APP_REVIEW_DATA = "in_app_review_data"
+
+        /**
+         * This is a temporary workaround to access app preferences in places that cannot use dependency injection yet. Use
+         * injected component via [AppPreferences] interface.
+         *
+         *
+         * WARNING: this creates new instance! it does not return app-wide singleton
+         *
+         * @param context Context used to create shared preferences
+         * @return New instance of app preferences component
+         */
+        @JvmStatic
+        @Deprecated("")
+        fun fromContext(context: Context): AppPreferences {
+            val userAccountManager: UserAccountManager = UserAccountManagerImpl.fromContext(context)
+            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+            return AppPreferencesImpl(context, prefs, userAccountManager)
+        }
+
+        /**
+         * Get preference value for a folder. If folder is not set itself, it finds an ancestor that is set.
+         *
+         * @param context        Context object.
+         * @param preferenceName Name of the preference to lookup.
+         * @param folder         Folder.
+         * @param defaultValue   Fallback value in case no ancestor is set.
+         * @return Preference value
+         */
+        private fun getFolderPreference(
+            context: Context,
+            user: User,
+            preferenceName: String,
+            folder: OCFile?,
+            defaultValue: String
+        ): String {
+            if (user.isAnonymous) {
+                return defaultValue
+            }
+            val dataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
+            val storageManager = FileDataStorageManager(user, context.contentResolver)
+            var value = dataProvider.getValue(user.accountName, getKeyFromFolder(preferenceName, folder))
+            var prefFolder = folder
+            while (prefFolder != null && value.isEmpty()) {
+                prefFolder = storageManager.getFileById(prefFolder.parentId)
+                value = dataProvider.getValue(user.accountName, getKeyFromFolder(preferenceName, prefFolder))
+            }
+            return if (value.isEmpty()) defaultValue else value
+        }
+
+        /**
+         * Set preference value for a folder.
+         *
+         * @param context        Context object.
+         * @param preferenceName Name of the preference to set.
+         * @param folder         Folder.
+         * @param value          Preference value to set.
+         */
+        private fun setFolderPreference(
+            context: Context,
+            user: User,
+            preferenceName: String,
+            folder: OCFile?,
+            value: String
+        ) {
+            val dataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
+            dataProvider.storeOrUpdateKeyValue(user.accountName, getKeyFromFolder(preferenceName, folder), value)
+        }
+
+        private fun getKeyFromFolder(preferenceName: String, folder: OCFile?): String {
+            val folderIdString = (folder?.fileId ?: FileDataStorageManager.ROOT_PARENT_ID).toString()
+            return preferenceName + "_" + folderIdString
+        }
     }
 }

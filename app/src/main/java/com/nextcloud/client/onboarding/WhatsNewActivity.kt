@@ -21,139 +21,124 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.onboarding;
+package com.nextcloud.client.onboarding
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
-import com.google.android.material.button.MaterialButton;
-import com.nextcloud.android.common.ui.theme.utils.ColorRole;
-import com.nextcloud.client.appinfo.AppInfo;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.preferences.AppPreferences;
-import com.owncloud.android.BuildConfig;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.WhatsNewActivityBinding;
-import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
-import com.owncloud.android.ui.adapter.FeaturesWebViewAdapter;
-import com.owncloud.android.ui.whatsnew.ProgressIndicator;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import javax.inject.Inject;
-
-import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager.widget.ViewPager;
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager.widget.ViewPager
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.appinfo.AppInfo
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.preferences.AppPreferences
+import com.owncloud.android.BuildConfig
+import com.owncloud.android.R
+import com.owncloud.android.databinding.WhatsNewActivityBinding
+import com.owncloud.android.ui.adapter.FeaturesViewAdapter
+import com.owncloud.android.ui.adapter.FeaturesWebViewAdapter
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
 /**
  * Activity displaying new features after an update.
  */
-public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, Injectable {
+class WhatsNewActivity : FragmentActivity(), ViewPager.OnPageChangeListener, Injectable {
+    @JvmField
+    @Inject
+    var preferences: AppPreferences? = null
 
-    @Inject AppPreferences preferences;
-    @Inject AppInfo appInfo;
-    @Inject OnboardingService onboarding;
-    @Inject ViewThemeUtils.Factory viewThemeUtilsFactory;
-    private ViewThemeUtils viewThemeUtils;
-    
-    private WhatsNewActivityBinding binding;
+    @JvmField
+    @Inject
+    var appInfo: AppInfo? = null
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = WhatsNewActivityBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+    @JvmField
+    @Inject
+    var onboarding: OnboardingService? = null
 
-        viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
-        viewThemeUtils.platform.themeStatusBar(this, ColorRole.PRIMARY);
-
-        
-        String[] urls = getResources().getStringArray(R.array.whatsnew_urls);
-
-        boolean showWebView = urls.length > 0;
-
+    @JvmField
+    @Inject
+    var viewThemeUtilsFactory: ViewThemeUtils.Factory? = null
+    private var viewThemeUtils: ViewThemeUtils? = null
+    private var binding: WhatsNewActivityBinding? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = WhatsNewActivityBinding.inflate(layoutInflater)
+        setContentView(binding!!.root)
+        viewThemeUtils = viewThemeUtilsFactory!!.withPrimaryAsBackground()
+        viewThemeUtils!!.platform.themeStatusBar(this, ColorRole.PRIMARY)
+        val urls = resources.getStringArray(R.array.whatsnew_urls)
+        val showWebView = urls.size > 0
         if (showWebView) {
-            FeaturesWebViewAdapter featuresWebViewAdapter = new FeaturesWebViewAdapter(getSupportFragmentManager(),
-                                                                                       urls);
-            binding.progressIndicator.setNumberOfSteps(featuresWebViewAdapter.getCount());
-            binding.contentPanel.setAdapter(featuresWebViewAdapter);
+            val featuresWebViewAdapter = FeaturesWebViewAdapter(
+                supportFragmentManager,
+                *urls
+            )
+            binding!!.progressIndicator.setNumberOfSteps(featuresWebViewAdapter.count)
+            binding!!.contentPanel.adapter = featuresWebViewAdapter
         } else {
-            FeaturesViewAdapter featuresViewAdapter = new FeaturesViewAdapter(getSupportFragmentManager(),
-                                                                              onboarding.getWhatsNew());
-            binding.progressIndicator.setNumberOfSteps(featuresViewAdapter.getCount());
-            binding.contentPanel.setAdapter(featuresViewAdapter);
+            val featuresViewAdapter = FeaturesViewAdapter(
+                supportFragmentManager,
+                *onboarding!!.whatsNew
+            )
+            binding!!.progressIndicator.setNumberOfSteps(featuresViewAdapter.count)
+            binding!!.contentPanel.adapter = featuresViewAdapter
         }
-
-        binding.contentPanel.addOnPageChangeListener(this);
-
-        viewThemeUtils.platform.colorImageView(binding.forward, ColorRole.ON_PRIMARY);
-
-        binding.forward.setOnClickListener(view -> {
-            if (binding.progressIndicator.hasNextStep()) {
-                binding.contentPanel.setCurrentItem(binding.contentPanel.getCurrentItem() + 1, true);
-                binding.progressIndicator.animateToStep(binding.contentPanel.getCurrentItem() + 1);
+        binding!!.contentPanel.addOnPageChangeListener(this)
+        viewThemeUtils!!.platform.colorImageView(binding!!.forward, ColorRole.ON_PRIMARY)
+        binding!!.forward.setOnClickListener { view: View? ->
+            if (binding!!.progressIndicator.hasNextStep()) {
+                binding!!.contentPanel.setCurrentItem(binding!!.contentPanel.currentItem + 1, true)
+                binding!!.progressIndicator.animateToStep(binding!!.contentPanel.currentItem + 1)
             } else {
-                onFinish();
-                finish();
+                onFinish()
+                finish()
             }
-            updateNextButtonIfNeeded();
-        });
-
-        binding.forward.setBackground(null);
-
-        viewThemeUtils.platform.colorTextView(binding.skip, ColorRole.ON_PRIMARY);
-        binding.skip.setOnClickListener(view -> {
-            onFinish();
-            finish();
-        });
-
-        viewThemeUtils.platform.colorTextView(binding.welcomeText, ColorRole.ON_PRIMARY);
-
+            updateNextButtonIfNeeded()
+        }
+        binding!!.forward.background = null
+        viewThemeUtils!!.platform.colorTextView(binding!!.skip, ColorRole.ON_PRIMARY)
+        binding!!.skip.setOnClickListener { view: View? ->
+            onFinish()
+            finish()
+        }
+        viewThemeUtils!!.platform.colorTextView(binding!!.welcomeText, ColorRole.ON_PRIMARY)
         if (showWebView) {
-            binding.welcomeText.setText(R.string.app_name);
+            binding!!.welcomeText.setText(R.string.app_name)
         } else {
-            binding.welcomeText.setText(String.format(getString(R.string.whats_new_title), appInfo.getVersionName()));
+            binding!!.welcomeText.text = String.format(getString(R.string.whats_new_title), appInfo!!.versionName)
         }
-
-        updateNextButtonIfNeeded();
+        updateNextButtonIfNeeded()
     }
 
-    @Override
-    public void onBackPressed() {
-        onFinish();
-        super.onBackPressed();
+    override fun onBackPressed() {
+        onFinish()
+        super.onBackPressed()
     }
 
-    private void updateNextButtonIfNeeded() {
-        if (!binding.progressIndicator.hasNextStep()) {
-            binding.forward.setImageResource(R.drawable.ic_ok);
-            binding.skip.setVisibility(View.INVISIBLE);
+    private fun updateNextButtonIfNeeded() {
+        if (!binding!!.progressIndicator.hasNextStep()) {
+            binding!!.forward.setImageResource(R.drawable.ic_ok)
+            binding!!.skip.visibility = View.INVISIBLE
         } else {
-            binding.forward.setImageResource(R.drawable.arrow_right);
-            binding.skip.setVisibility(View.VISIBLE);
+            binding!!.forward.setImageResource(R.drawable.arrow_right)
+            binding!!.skip.visibility = View.VISIBLE
         }
     }
 
-    private void onFinish() {
-        preferences.setLastSeenVersionCode(BuildConfig.VERSION_CODE);
+    private fun onFinish() {
+        preferences!!.lastSeenVersionCode = BuildConfig.VERSION_CODE
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
         // unused but to be implemented due to abstract parent
     }
 
-    @Override
-    public void onPageSelected(int position) {
-        binding.progressIndicator.animateToStep(position + 1);
-        updateNextButtonIfNeeded();
+    override fun onPageSelected(position: Int) {
+        binding!!.progressIndicator.animateToStep(position + 1)
+        updateNextButtonIfNeeded()
     }
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
+    override fun onPageScrollStateChanged(state: Int) {
         // unused but to be implemented due to abstract parent
     }
 }
-
