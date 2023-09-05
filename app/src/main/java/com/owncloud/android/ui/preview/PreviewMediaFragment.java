@@ -259,6 +259,7 @@ public class PreviewMediaFragment extends FileFragment implements
             if (MimeTypeUtil.isVideo(file)) {
                 binding.exoplayerView.setVisibility(View.VISIBLE);
                 binding.imagePreview.setVisibility(View.GONE);
+                binding.getRoot().setBackgroundColor(getResources().getColor(R.color.black,null));
             } else {
                 binding.exoplayerView.setVisibility(View.GONE);
                 binding.imagePreview.setVisibility(View.VISIBLE);
