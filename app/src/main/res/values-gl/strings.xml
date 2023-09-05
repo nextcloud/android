@@ -12,7 +12,7 @@
     <string name="action_empty_notifications">Limpar todas as notificacións</string>
     <string name="action_empty_trashbin">Baleirar o lixo</string>
     <string name="action_send_share">Enviar/compartir</string>
-    <string name="action_switch_grid_view">Ver como grella</string>
+    <string name="action_switch_grid_view">Ver como grade</string>
     <string name="action_switch_list_view">Ver como lista</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar o calendario &amp; de contactos</string>
     <string name="actionbar_copy">Copiar</string>
