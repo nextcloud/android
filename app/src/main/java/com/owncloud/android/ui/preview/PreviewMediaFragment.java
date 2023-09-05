@@ -82,6 +82,7 @@ import java.util.concurrent.Executors;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.OptIn;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -96,7 +97,7 @@ import androidx.media3.common.MediaItem;
 import androidx.media3.common.util.UnstableApi;
 import androidx.media3.exoplayer.ExoPlayer;
 
-@UnstableApi
+@OptIn(markerClass = UnstableApi.class)
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
  * <p>

@@ -22,6 +22,7 @@
 package com.nextcloud.client.media
 
 import android.content.Context
+import androidx.annotation.OptIn
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.datasource.okhttp.OkHttpDataSource
@@ -38,7 +39,7 @@ object NextcloudExoPlayer {
      * IP versions and certificates.
      *
      */
-    @UnstableApi
+    @OptIn(UnstableApi::class)
     @JvmStatic
     fun createNextcloudExoplayer(context: Context, nextcloudClient: NextcloudClient): ExoPlayer {
         val okHttpDataSourceFactory = OkHttpDataSource.Factory(nextcloudClient.client)
