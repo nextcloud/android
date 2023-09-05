@@ -17,6 +17,7 @@ buildscript {
 
 plugins {
     id "com.diffplug.spotless" version "6.20.0"
+    id 'com.google.devtools.ksp' version '1.8.22-1.0.11' apply false
 }
 
 apply plugin: 'com.android.application'
@@ -30,11 +31,13 @@ apply from: "$rootProject.projectDir/jacoco.gradle"
 apply plugin: 'com.github.spotbugs'
 apply plugin: 'io.gitlab.arturbosch.detekt'
 apply plugin: 'shot'
+apply plugin: 'com.google.devtools.ksp'
+
 
 println "Gradle uses Java ${Jvm.current()}"
 
 configurations {
-    all {
+    configureEach {
         exclude group: 'org.jetbrains', module: 'annotations-java5' // via prism4j, already using annotations explicitly
 
         // check for updates every build
@@ -71,8 +74,6 @@ file("$project.rootDir/ndk.env").readLines().each() {
 def perfAnalysis = project.hasProperty('perfAnalysis')
 
 android {
-
-    compileSdkVersion 33
     // install this NDK version and Cmake to produce smaller APKs. Build will still work if not installed
     ndkVersion "${ndkEnv.get("NDK_VERSION")}"
 
@@ -84,6 +85,7 @@ android {
     defaultConfig {
         minSdkVersion 24
         targetSdkVersion 33
+        compileSdk 33
 
         buildConfigField 'boolean', 'CI', ciBuild.toString()
         buildConfigField 'boolean', 'RUNTIME_PERF_ANALYSIS', perfAnalysis.toString()
@@ -116,7 +118,7 @@ android {
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
-        flavorDimensions "default"
+        flavorDimensions += "default"
 
         buildTypes {
             debug {
@@ -191,8 +193,6 @@ android {
         exclude '**/gen/**'
 
         reports {
-            xml.enabled = false
-            html.enabled = true
             xml {
                 destination = file("$project.buildDir/reports/pmd/pmd.xml")
             }
@@ -236,7 +236,6 @@ android {
 dependencies {
     // dependencies for app building
     implementation 'androidx.multidex:multidex:2.0.1'
-//    implementation project('nextcloud-android-library')
     implementation("com.github.nextcloud:android-library:$androidLibraryVersion") {
         exclude group: 'org.ogce', module: 'xpp3' // unused in Android and brings wrong Junit version
     }
@@ -381,16 +380,16 @@ dependencies {
     implementation 'com.github.nextcloud.android-common:ui:0.12.0'
 
     implementation "androidx.room:room-runtime:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
+    ksp "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
     implementation "io.coil-kt:coil:2.4.0"
 
-    //splash screen dependency ref: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
+    // splash screen dependency ref: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
     implementation 'androidx.core:core-splashscreen:1.0.1'
 }
 
-configurations.all {
+configurations.configureEach {
     resolutionStrategy {
         cacheChangingModulesFor 0, 'seconds'
         force 'org.objenesis:objenesis:2.6'
@@ -402,16 +401,15 @@ configurations.all {
     }
 }
 
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
     // increased logging for tests
     testLogging {
         events "passed", "skipped", "failed"
     }
 }
 
-android.applicationVariants.all { variant ->
-    variant.outputs.all { output ->
-        outputFileName = "${output.baseName}-${variant.versionCode}.apk"
+android.applicationVariants.configureEach { variant ->
+    variant.outputs.configureEach { output -> outputFileName = "${output.baseName}-${variant.versionCode}.apk"
     }
 }
 
@@ -423,12 +421,7 @@ spotless {
 }
 
 detekt {
-    reports {
-        xml {
-            enabled = false
-        }
-    }
-    config = files("detekt.yml")
+    config.setFrom("detekt.yml")
 }
 
 shot {
@@ -448,13 +441,13 @@ spotbugs {
     reportLevel = "medium"
 }
 
-tasks.withType(SpotBugsTask) { task ->
+tasks.withType(SpotBugsTask).configureEach { task ->
     String variantNameCap = task.name.replace("spotbugs", "")
     String variantName = variantNameCap.substring(0, 1).toLowerCase() + variantNameCap.substring(1)
 
     dependsOn "compile${variantNameCap}Sources"
 
-    excludeFilter = file("${project.rootDir}/spotbugs-filter.xml")
+    excludeFilter.set(file("${project.rootDir}/spotbugs-filter.xml"))
     classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
     reports {
         xml {
@@ -466,4 +459,8 @@ tasks.withType(SpotBugsTask) { task ->
             stylesheet = 'fancy.xsl'
         }
     }
+}
+
+ksp {
+    arg('room.schemaLocation', "$projectDir/schemas")
 }
