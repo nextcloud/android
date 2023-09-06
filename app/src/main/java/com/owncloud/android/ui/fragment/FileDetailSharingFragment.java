@@ -435,21 +435,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                                                    ShareType.PUBLIC_LINK,
                                                                                    "");
 
-//
-//        boolean supportsSecureFiledrop = file.isEncrypted() &&
-//            capabilities.getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_26);
-//
-//        if (publicShares.isEmpty() &&
-//            containsNoNewPublicShare(adapter.getShares()) &&
-//            (!file.isEncrypted() || supportsSecureFiledrop)) {
-//            final OCShare ocShare = new OCShare();
-//            ocShare.setShareType(ShareType.NEW_PUBLIC_LINK);
-//            publicShares.add(ocShare);
-//        } else {
-//            adapter.removeNewPublicShare();
-//        }
-
-        if (publicShares.isEmpty() && containsNoNewPublicShare(adapter.getShares())) {
+        if (publicShares.isEmpty() && containsNoNewPublicShare(adapter.getShares()) &&
+            (!file.isEncrypted() || capabilities.getEndToEndEncryption().isTrue())) {
             final OCShare ocShare = new OCShare();
             ocShare.setShareType(ShareType.NEW_PUBLIC_LINK);
             publicShares.add(ocShare);
