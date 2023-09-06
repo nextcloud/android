@@ -4,7 +4,7 @@
     <string name="about_title">关于</string>
     <string name="about_version">版本 %1$s</string>
     <string name="about_version_with_build">版本 %1$s，构建 #%2$s</string>
-    <string name="account_creation_failed">账号创建已失败</string>
+    <string name="account_creation_failed">账号创建失败</string>
     <string name="account_icon">账号图标</string>
     <string name="account_not_found">找不到账号！</string>
     <string name="action_clear_failed_uploads">清除失败上传任务</string>
@@ -412,6 +412,7 @@
     <string name="icon_of_dashboard_widget">仪表盘小工具的图标</string>
     <string name="icon_of_widget_entry">小工具图标</string>
     <string name="image_editor_unable_to_edit_image">无法编辑图片</string>
+    <string name="image_preview_filedetails">文件详细信息</string>
     <string name="in_folder">在文件夹 %1$s 内 </string>
     <string name="instant_upload_existing">同时上传现有文件</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
