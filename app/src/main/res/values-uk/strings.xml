@@ -252,8 +252,8 @@
     <string name="drawer_synced_folders">Автоматичне завантаження</string>
     <string name="e2e_not_yet_setup">Наскрізне шифруванння ще не налаштовано</string>
     <string name="e2e_offline">Дія не можлива без доступу до мережі Інтернет</string>
-    <string name="ecosystem_apps_display_more">Докладно</string>
-    <string name="ecosystem_apps_display_notes">Опис</string>
+    <string name="ecosystem_apps_display_more">Більше</string>
+    <string name="ecosystem_apps_display_notes">Нотатки</string>
     <string name="ecosystem_apps_display_talk">Розмова</string>
     <string name="ecosystem_apps_more">Більше застосунків Nextcloud</string>
     <string name="ecosystem_apps_notes">Нотатки для Nextcloud</string>
@@ -422,6 +422,10 @@
     <string name="image_editor_rotate_ccw">Обернути проти годинника</string>
     <string name="image_editor_rotate_cw">Обернути за годинником</string>
     <string name="image_editor_unable_to_edit_image">Неможливо відредагувати зображення.</string>
+    <string name="image_preview_filedetails">Деталі файлу</string>
+    <string name="image_preview_image_taking_conditions">Умови отримання зображення</string>
+    <string name="image_preview_unit_millimetres">%s мм</string>
+    <string name="image_preview_unit_seconds">%s с</string>
     <string name="in_folder">в каталозі %1$s</string>
     <string name="instant_upload_existing">Також завантажити існуючі файли</string>
     <string name="instant_upload_on_charging">Завантаження тільки під час заряджання</string>
@@ -481,7 +485,7 @@
     <string name="menu_item_sort_by_name_z_a">Я - А</string>
     <string name="menu_item_sort_by_size_biggest_first">Найбільші на початку</string>
     <string name="menu_item_sort_by_size_smallest_first">Найменші на початку</string>
-    <string name="more">Докладно</string>
+    <string name="more">Більше</string>
     <string name="move_file_error">Виникла помилка при спробі перемістити файл або каталог</string>
     <string name="move_file_invalid_into_descendent">Неможливо перемістити каталог до одного з вкладених підкаталогів</string>
     <string name="move_file_invalid_overwrite">Файл вже присутній у каталозі призначення</string>
@@ -502,6 +506,7 @@
     <string name="no_calendar_exists">Календар не існує</string>
     <string name="no_email_app_available">Відсутній застосунок для опрацювання адреси ел. пошти</string>
     <string name="no_items">Відсутні елементи</string>
+    <string name="no_map_app_availble">Відсутній застосунок для відкриття мап</string>
     <string name="no_mutliple_accounts_allowed">Дозволено лише один обліковий запис</string>
     <string name="no_pdf_app_available">Відсутні застосунки для відкриття PDF-файлів</string>
     <string name="no_send_app">Відсутній застосунок для надсилання виділених файлів</string>
@@ -588,7 +593,9 @@
     <string name="prefs_imprint">Відбиток</string>
     <string name="prefs_instant_behaviour_dialogTitle">Вихідний файл буде...</string>
     <string name="prefs_instant_behaviour_title">Вихідний файл буде...</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Зберігати у підкаталогах на основі дати</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Використовувати підкаталоги</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Налаштування підкаталогу</string>
     <string name="prefs_keys_exist">Додати наскрізне шифрування для цього клієнта</string>
     <string name="prefs_license">Ліцензія</string>
     <string name="prefs_lock">Пароль на застосунок</string>
@@ -778,6 +785,8 @@
     <string name="stream_not_possible_headline">Внутрішня трансляція неможлива</string>
     <string name="stream_not_possible_message">Будь ласка, звантажте мультимедійний файл замість використання зовнішнього застосунку</string>
     <string name="strict_mode">Строгий режим: з\'єднання HTTP не дозволені!</string>
+    <string name="sub_folder_rule_day">Рік/місяць/день</string>
+    <string name="sub_folder_rule_month">Рік/місяць</string>
     <string name="sub_folder_rule_year">Рік</string>
     <string name="subject_shared_with_you">З Вами поділилися \"%1$s\"</string>
     <string name="subject_user_shared_with_you">%1$s поділився %2$s з вами</string>
