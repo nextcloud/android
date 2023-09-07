@@ -204,6 +204,7 @@
     <string name="did_not_check_for_dupes">Nie sprawdzano duplikatów.</string>
     <string name="digest_algorithm_not_available">Algorytm funkcji skrótu nie jest dostępny na Twoim urządzeniu.</string>
     <string name="direct_login_failed">Logowanie przez link bezpośredni nie powiodło się!</string>
+    <string name="direct_login_text">Zaloguj się za pomocą %1$s do %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Wyłącz</string>
     <string name="dismiss">Odrzuć</string>
     <string name="dismiss_notification_description">Odrzuć powiadomienie</string>
@@ -253,6 +254,7 @@
     <string name="ecosystem_apps_display_more">Więcej</string>
     <string name="ecosystem_apps_display_notes">Notatki</string>
     <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_more">Więcej aplikacji Nextcloud</string>
     <string name="ecosystem_apps_notes">Nextcloud Notes</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="encrypted">Ustaw jako zaszyfrowane</string>
@@ -420,6 +422,13 @@
     <string name="image_editor_rotate_ccw">Obróć w przeciwnym kierunku do ruchu zegarka</string>
     <string name="image_editor_rotate_cw">Obróć w kierunku do ruchu zegarka</string>
     <string name="image_editor_unable_to_edit_image">Nie można edytować obrazu</string>
+    <string name="image_preview_filedetails">Szczegóły pliku</string>
+    <string name="image_preview_image_taking_conditions">Warunki robienia zdjęć</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">w katalogu %1$s</string>
     <string name="instant_upload_existing">Wyślij również istniejące pliki</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
@@ -447,6 +456,7 @@
     <string name="locked_by_app">Zablokowany przez aplikację %1$s</string>
     <string name="log_send_mail_subject">%1$s logi aplikacji Android</string>
     <string name="log_send_no_mail_app">Brak aplikacji do wysyłania logów. Zainstaluj klienta poczty e-mail.</string>
+    <string name="logged_in_as">Zalogowany jako %1$s</string>
     <string name="login">Zaloguj</string>
     <string name="login_url_helper_text">Link do interfejsu internetowego %1$s, aby otworzyć w przeglądarce.</string>
     <string name="logs_menu_delete">Usuń dziennik</string>
@@ -499,6 +509,7 @@
     <string name="no_calendar_exists">Brak kalendarza</string>
     <string name="no_email_app_available">Brak dostępnej aplikacji do obsługi adresu e-mail</string>
     <string name="no_items">Brak elementu</string>
+    <string name="no_map_app_availble">Brak dostępnej aplikacji do obsługi map</string>
     <string name="no_mutliple_accounts_allowed">Dozwolone jest tylko jedno konto</string>
     <string name="no_pdf_app_available">Brak aplikacji obsługującej PDF</string>
     <string name="no_send_app">Brak dostępnej aplikacji do wysyłania wybranych plików</string>
@@ -585,7 +596,9 @@
     <string name="prefs_imprint">Stopka</string>
     <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie…</string>
     <string name="prefs_instant_behaviour_title">Oryginalny plik zostanie…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Przechowuj w podkatalogach na podstawie daty</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podkatalogów</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Opcje podkatalogów</string>
     <string name="prefs_keys_exist">Dodaj szyfrowanie end-to-end do tego klienta</string>
     <string name="prefs_license">Licencja</string>
     <string name="prefs_lock">Hasło aplikacji</string>
@@ -599,6 +612,8 @@
     <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_remove_e2e">Usuń szyfrowanie lokalne</string>
     <string name="prefs_setup_e2e">Skonfiguruj szyfrowanie end-to-end</string>
+    <string name="prefs_show_ecosystem_apps">Pokaż przełącznik aplikacji</string>
+    <string name="prefs_show_ecosystem_apps_summary">Sugestie aplikacji Nextcloud w nagłówku nawigacji</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_sourcecode">Pobierz kod źródłowy</string>
     <string name="prefs_storage_path">Katalog przechowywania danych</string>
@@ -773,6 +788,8 @@
     <string name="stream_not_possible_headline">Wewnętrzne przesyłanie strumieniowe nie jest możliwe</string>
     <string name="stream_not_possible_message">Pobierz plik lub użyj zewnętrznej aplikacji.</string>
     <string name="strict_mode">Tryb wymagający: połączenie HTTP nie jest dozwolone!</string>
+    <string name="sub_folder_rule_day">Rok/Miesiąc/Dzień</string>
+    <string name="sub_folder_rule_month">Rok/Miesiąc</string>
     <string name="sub_folder_rule_year">Rok</string>
     <string name="subject_shared_with_you">Udostępniono Tobie \"%1$s\"</string>
     <string name="subject_user_shared_with_you">%1$s udostępnił Tobie \"%2$s\"</string>

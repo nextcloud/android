@@ -422,6 +422,8 @@
     <string name="image_editor_rotate_ccw">Otočit doleva</string>
     <string name="image_editor_rotate_cw">Otočit doprava</string>
     <string name="image_editor_unable_to_edit_image">Obrázek se nedaří upravit</string>
+    <string name="image_preview_filedetails">Podrobnosti o souboru</string>
+    <string name="image_preview_image_taking_conditions">Podmínky při pořizování snímku</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
     <string name="image_preview_unit_megapixel">%s MP</string>
@@ -507,6 +509,7 @@
     <string name="no_calendar_exists">Neexistuje žádný kalendář</string>
     <string name="no_email_app_available">Není k dispozici žádná aplikace pro práci s e-maily</string>
     <string name="no_items">Žádné položky</string>
+    <string name="no_map_app_availble">Není k dispozici žádná aplikace pro obsluhu map</string>
     <string name="no_mutliple_accounts_allowed">Povolen je pouze jeden účet</string>
     <string name="no_pdf_app_available">Není k dispozice žádná aplikace pro práci s PDF</string>
     <string name="no_send_app">Není k dispozici žádná aplikace pro odeslání vybraných souborů</string>
@@ -593,7 +596,9 @@
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_instant_behaviour_dialogTitle">Původní soubor bude…</string>
     <string name="prefs_instant_behaviour_title">Původní soubor bude…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Ukládat v podsložkách podle data</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Používat podsložky</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Předvolby pro dílčí složku</string>
     <string name="prefs_keys_exist">Přidat do tohoto klienta šifrování mezi koncovými body</string>
     <string name="prefs_license">Licence</string>
     <string name="prefs_lock">Přístupový kód aplikace</string>
@@ -783,6 +788,8 @@
     <string name="stream_not_possible_headline">Vnitřní proudové vysílání není možné</string>
     <string name="stream_not_possible_message">Médium si namísto toho stáhněte nebo použijte externí aplikaci.</string>
     <string name="strict_mode">Přísný režim: připojení přes HTTP není povoleno!</string>
+    <string name="sub_folder_rule_day">Rok/měsíc/den</string>
+    <string name="sub_folder_rule_month">Rok/měsíc</string>
     <string name="sub_folder_rule_year">Rok</string>
     <string name="subject_shared_with_you">Bylo vám nasdíleno „%1$s“</string>
     <string name="subject_user_shared_with_you">%1$s vám nasdílel(a) „%2$s“</string>
