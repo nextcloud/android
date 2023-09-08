@@ -130,6 +130,11 @@ class ChooseAccountDialogFragment :
                 viewThemeUtils
             )
 
+            // hide "add account" when no multi account
+            if (!resources.getBoolean(R.bool.multiaccount_support)) {
+                binding.addAccount.visibility = View.GONE
+            }
+
             binding.accountsList.adapter = adapter
 
             // Creating listeners for quick-actions
