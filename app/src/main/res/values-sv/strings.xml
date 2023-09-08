@@ -596,7 +596,9 @@
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_instant_behaviour_dialogTitle">Originalfilen kommer att…</string>
     <string name="prefs_instant_behaviour_title">Originalfilen kommer att…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Lagra i undermappar baserat på datum</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Använd undermappar</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Alternativ för undermapp</string>
     <string name="prefs_keys_exist">Lägg till end-to-end-kryptering för denna klient</string>
     <string name="prefs_license">Licens</string>
     <string name="prefs_lock">Applösenkod</string>
@@ -786,6 +788,8 @@
     <string name="stream_not_possible_headline">Intern streaming är inte möjlig</string>
     <string name="stream_not_possible_message">Vänligen hämta media istället eller använd en extern app.</string>
     <string name="strict_mode">Strikt läge: inga HTTP-anslutningar tillåtna!</string>
+    <string name="sub_folder_rule_day">År/Månad/Dag</string>
+    <string name="sub_folder_rule_month">År/Månad</string>
     <string name="sub_folder_rule_year">År</string>
     <string name="subject_shared_with_you">\"%1$s\" har delats med dig</string>
     <string name="subject_user_shared_with_you">%1$s delade \"%2$s\" med dig</string>
