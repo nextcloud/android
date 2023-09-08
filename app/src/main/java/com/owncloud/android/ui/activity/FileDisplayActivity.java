@@ -611,6 +611,10 @@ public class FileDisplayActivity extends FileActivity
      * @param fragment New Fragment to set.
      */
     private void setLeftFragment(Fragment fragment) {
+        setLeftFragment(fragment, true);
+    }
+
+    private void setLeftFragment(Fragment fragment, boolean showSortListGroup) {
         if (searchView != null) {
             searchView.post(() -> searchView.setQuery(searchQuery, true));
         }
@@ -618,18 +622,11 @@ public class FileDisplayActivity extends FileActivity
 
         //clear the subtitle while navigating to any other screen from Media screen
         clearToolbarSubtitle();
-
+        showSortListGroup(showSortListGroup);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
         transaction.commit();
-
-        if (fragment instanceof UnifiedSearchFragment || fragment instanceof PreviewMediaFragment || fragment instanceof PreviewTextFileFragment
-            || fragment instanceof PreviewTextStringFragment) {
-            showSortListGroup(false);
-        } else {
-            showSortListGroup(true);
-        }
     }
 
 
@@ -1569,10 +1566,8 @@ public class FileDisplayActivity extends FileActivity
         resetScrolling(true);
 
         Fragment detailFragment = FileDetailFragment.newInstance(file, currentUser, activeTab);
-        setLeftFragment(detailFragment);
+        setLeftFragment(detailFragment, false);
         configureToolbarForPreview(file);
-//        updateActionBarTitleAndHomeButton(file);
-//        mDrawerToggle.setDrawerIndicatorEnabled(false);
     }
 
     /**
@@ -2156,7 +2151,7 @@ public class FileDisplayActivity extends FileActivity
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
             configureToolbarForPreview(file);
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay, false);
-            setLeftFragment(mediaFragment);
+            setLeftFragment(mediaFragment, false);
         } else {
             Intent previewIntent = new Intent();
             previewIntent.putExtra(EXTRA_FILE, file);
@@ -2170,7 +2165,6 @@ public class FileDisplayActivity extends FileActivity
     }
 
     public void configureToolbarForPreview(OCFile file) {
-        showSortListGroup(false);
         lockScrolling();
         super.updateActionBarTitleAndHomeButton(file);
     }
@@ -2188,9 +2182,8 @@ public class FileDisplayActivity extends FileActivity
         }
         User user = optUser.get();
         if (showPreview) {
-//            showSortListGroup(false);
             PreviewTextFileFragment fragment = PreviewTextFileFragment.create(user, file, searchOpen, searchQuery);
-            setLeftFragment(fragment);
+            setLeftFragment(fragment, false);
             configureToolbarForPreview(file);
         } else {
             Intent previewIntent = new Intent();
@@ -2209,15 +2202,13 @@ public class FileDisplayActivity extends FileActivity
      * @param folder {@link OCFile} to preview its rich workspace.
      */
     public void startRichWorkspacePreview(OCFile folder) {
-//        showSortListGroup(false);
         Bundle args = new Bundle();
         args.putParcelable(EXTRA_FILE, folder);
         configureToolbarForPreview(folder);
-        Log.d(Constant.LOG_TAG, "Rich Preview: " + folder);
         Fragment textPreviewFragment = Fragment.instantiate(getApplicationContext(),
                                                             PreviewTextStringFragment.class.getName(),
                                                             args);
-        setLeftFragment(textPreviewFragment);
+        setLeftFragment(textPreviewFragment, false);
     }
 
     public void startContactListFragment(OCFile file) {
@@ -2232,11 +2223,8 @@ public class FileDisplayActivity extends FileActivity
         } else {
             final Fragment pdfFragment = PreviewPdfFragment.newInstance(file);
 
-            setLeftFragment(pdfFragment);
-
-//            showSortListGroup(false);
+            setLeftFragment(pdfFragment, false);
             configureToolbarForPreview(file);
-            mDrawerToggle.setDrawerIndicatorEnabled(false);
             setMainFabVisible(false);
         }
     }
@@ -2252,7 +2240,7 @@ public class FileDisplayActivity extends FileActivity
     public void startDownloadForPreview(OCFile file, OCFile parentFolder) {
         final User currentUser = getUser().orElseThrow(RuntimeException::new);
         Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser);
-        setLeftFragment(detailFragment);
+        setLeftFragment(detailFragment, false);
         configureToolbarForPreview(file);
         mWaitingToPreview = file;
         requestForDownload();
@@ -2589,7 +2577,7 @@ public class FileDisplayActivity extends FileActivity
 
     public void performUnifiedSearch(String query, ArrayList<String> listOfHiddenFiles) {
         UnifiedSearchFragment unifiedSearchFragment = UnifiedSearchFragment.Companion.newInstance(query, listOfHiddenFiles);
-        setLeftFragment(unifiedSearchFragment);
+        setLeftFragment(unifiedSearchFragment, false);
     }
 
     public void setMainFabVisible(final boolean visible) {
