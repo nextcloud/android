@@ -193,6 +193,7 @@ public class FileDisplayActivity extends FileActivity
     public static final String KEY_FILE_PATH = "KEY_FILE_PATH";
     public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
     public static final String KEY_SORT_GROUP_STATE = "KEY_SORT_GROUP_STATE";
+    public static final String KEY_IS_SORT_GROUP_VISIBLE = "KEY_IS_SORT_GROUP_VISIBLE";
 
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
@@ -272,6 +273,11 @@ public class FileDisplayActivity extends FileActivity
         initLayout();
         initUI();
         initTaskRetainerFragment();
+
+        // Restoring after UI has been inflated.
+        if (savedInstanceState != null) {
+            showSortListGroup(savedInstanceState.getBoolean(KEY_IS_SORT_GROUP_VISIBLE));
+        }
 
         if (Intent.ACTION_VIEW.equals(getIntent().getAction())) {
             handleOpenFileViaIntent(getIntent());
@@ -1085,6 +1091,7 @@ public class FileDisplayActivity extends FileActivity
         }
         outState.putString(KEY_SEARCH_QUERY, searchQuery);
         outState.putSerializable(KEY_SORT_GROUP_STATE, previousSortGroupState);
+        outState.putBoolean(KEY_IS_SORT_GROUP_VISIBLE, sortListGroupVisibility());
         Log_OC.v(TAG, "onSaveInstanceState() end");
     }
 
