@@ -1007,8 +1007,8 @@ public class FileDisplayActivity extends FileActivity
      * BackPressed priority/hierarchy:
      *    1. close search view if opened
      *    2. close drawer if opened
-     *    3. close FAB if open (only if drawer isn't open)
-     *    4. navigate up (only if drawer and FAB aren't open)
+     *    3. if it is OCFileListFragment and it's in Root -> (finish Activity) or it's not Root -> (browse up)
+     *    4. otherwise pop up the fragment and sortGroup view visibility and call super.onBackPressed()
      */
     @SuppressFBWarnings("ITC_INHERITANCE_TYPE_CHECKING")
     @Override
@@ -1037,6 +1037,11 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
+    /**
+     * Use this method when want to pop the fragment on back press. It resets Scrolling (See
+     * {@link #resetScrolling(boolean) with true} and pop the visibility for sortListGroup (See
+     * {@link #setSortListGroup(boolean, boolean)}. At last call to super.onBackPressed()
+     */
     private void popBack() {
         // pop back fragment
         resetScrolling(true);
@@ -1053,6 +1058,9 @@ public class FileDisplayActivity extends FileActivity
         setDrawerAllFiles();
     }
 
+    /**
+     * It resets the Search Action (call when search is open)
+     */
     private void resetSearchAction() {
         Fragment leftFragment = getLeftFragment();
         if (isSearchOpen() && searchView != null) {
@@ -2623,11 +2631,20 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
+    /**
+     * Use this method to set the visibility of SortListGroup while going to another fragment/view (which needs
+     * different visibility) It internally sets the visibility as well as save the previous one in the stack so that on
+     * going back it pops out the correct visibility. Also see {@link #popSortListGroupVisibility()}
+     */
     private void setSortListGroup(boolean currentListGroupVisibility, boolean show) {
         previousSortGroupState.push(currentListGroupVisibility);
         showSortListGroup(show);
     }
 
+    /**
+     * Use this method to set the visibility of SortListGroup when coming back from a view/fragment (which changed the
+     * visibility earlier using {@link #setSortListGroup(boolean, boolean)}
+     */
     private void popSortListGroupVisibility() {
         boolean popped = previousSortGroupState.pop();
         showSortListGroup(popped);
