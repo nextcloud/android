@@ -144,6 +144,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Stack;
 
 import javax.inject.Inject;
 
@@ -233,7 +234,7 @@ public class FileDisplayActivity extends FileActivity
     private PlayerServiceConnection mPlayerConnection;
     private Optional<User> lastDisplayedUser = Optional.empty();
     private int menuItemId = -1;
-
+    private Stack<Boolean> previousSortGroupState;
     @Inject
     AppPreferences preferences;
 
@@ -622,7 +623,7 @@ public class FileDisplayActivity extends FileActivity
 
         //clear the subtitle while navigating to any other screen from Media screen
         clearToolbarSubtitle();
-        showSortListGroup(showSortListGroup);
+        setSortListGroup(sortListGroupVisibility(), showSortListGroup);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
@@ -1027,9 +1028,9 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void popBack() {
-        // pop back
+        // pop back fragment
         resetScrolling(true);
-        showSortListGroup(true);
+        popSortListGroupVisibility();
         super.onBackPressed();
     }
 
@@ -1038,7 +1039,6 @@ public class FileDisplayActivity extends FileActivity
         setFile(listOfFiles.getCurrentFile());
         listOfFiles.setFabVisible(true);
         listOfFiles.registerFabListener();
-        showSortListGroup(true);
         resetTitleBarAndScrolling();
         setDrawerAllFiles();
     }
@@ -1058,9 +1058,10 @@ public class FileDisplayActivity extends FileActivity
                 hideSearchView(getCurrentDir());
                 setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
             }
-        }
-        if (leftFragment instanceof UnifiedSearchFragment) {
-            super.onBackPressed();
+            if (leftFragment instanceof UnifiedSearchFragment) {
+                popSortListGroupVisibility();
+                super.onBackPressed();
+            }
         }
     }
 
@@ -2611,4 +2612,13 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
+    private void setSortListGroup(boolean currentListGroupVisibility, boolean show) {
+        previousSortGroupState.push(currentListGroupVisibility);
+        showSortListGroup(show);
+    }
+
+    private void popSortListGroupVisibility() {
+        boolean popped = previousSortGroupState.pop();
+        showSortListGroup(popped);
+    }
 }
