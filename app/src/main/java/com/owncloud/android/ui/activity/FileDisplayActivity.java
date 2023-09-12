@@ -192,6 +192,7 @@ public class FileDisplayActivity extends FileActivity
     public static final String KEY_FILE_ID = "KEY_FILE_ID";
     public static final String KEY_FILE_PATH = "KEY_FILE_PATH";
     public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
+    public static final String KEY_SORT_GROUP_STATE = "KEY_SORT_GROUP_STATE";
 
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
@@ -283,14 +284,17 @@ public class FileDisplayActivity extends FileActivity
         initSyncBroadcastReceiver();
     }
 
+    @SuppressWarnings("unchecked")
     private void loadSavedInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
+            previousSortGroupState = (Stack<Boolean>) savedInstanceState.getSerializable(KEY_SORT_GROUP_STATE);
             mWaitingToPreview = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
             mWaitingToSend = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
             searchOpen = savedInstanceState.getBoolean(FileDisplayActivity.KEY_IS_SEARCH_OPEN, false);
         } else {
+            previousSortGroupState = new Stack<>();
             mWaitingToPreview = null;
             mSyncInProgress = false;
             mWaitingToSend = null;
@@ -1080,7 +1084,7 @@ public class FileDisplayActivity extends FileActivity
             outState.putBoolean(KEY_IS_SEARCH_OPEN, !searchView.isIconified());
         }
         outState.putString(KEY_SEARCH_QUERY, searchQuery);
-
+        outState.putSerializable(KEY_SORT_GROUP_STATE, previousSortGroupState);
         Log_OC.v(TAG, "onSaveInstanceState() end");
     }
 
