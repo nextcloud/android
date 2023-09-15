@@ -422,6 +422,12 @@
     <string name="image_editor_rotate_ccw">Ruota in senso anti orario</string>
     <string name="image_editor_rotate_cw">Ruota in senso orario</string>
     <string name="image_editor_unable_to_edit_image">Impossibile modificare l\'immagine.</string>
+    <string name="image_preview_filedetails">Dettagli del file</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">nella cartella %1$s</string>
     <string name="instant_upload_existing">Carica anche i file esistenti</string>
     <string name="instant_upload_on_charging">Carica solo durante la ricarica</string>
@@ -502,8 +508,9 @@
     <string name="no_calendar_exists">Nessun calendario esistente</string>
     <string name="no_email_app_available">Nessuna app disponibile per gestire l\'indirizzo email</string>
     <string name="no_items">Nessun elemento</string>
+    <string name="no_map_app_availble">Nessuna applicazione disponibile per gestire mappe</string>
     <string name="no_mutliple_accounts_allowed">Solo un account consentito</string>
-    <string name="no_pdf_app_available">Nessun applicazione disponibile per gestire i PDF</string>
+    <string name="no_pdf_app_available">Nessuna applicazione disponibile per gestire i PDF</string>
     <string name="no_send_app">Nessuna app disponibile per inviare i file selezionati</string>
     <string name="no_share_permission_selected">Seleziona almeno un permesso da condividere.</string>
     <string name="note_confirm">Invia</string>
@@ -588,7 +595,9 @@
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_instant_behaviour_dialogTitle">Il file originale sarà…</string>
     <string name="prefs_instant_behaviour_title">Il file originale sarà…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Archivia in sottocartelle in base alla data</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usa sottocartelle</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Opzioni sottocartella</string>
     <string name="prefs_keys_exist">Abilità la cifratura end-to-end a questo client</string>
     <string name="prefs_license">Licenza</string>
     <string name="prefs_lock">Codice di sicurezza</string>
@@ -778,6 +787,8 @@
     <string name="stream_not_possible_headline">Trasmissione interna non possibile</string>
     <string name="stream_not_possible_message">Scarica invece il media o usa un\'applicazione esterna.</string>
     <string name="strict_mode">Modalità rigorosa: nessuna connessione HTTP consentita! </string>
+    <string name="sub_folder_rule_day">Anno/Mese/Giorno</string>
+    <string name="sub_folder_rule_month">Anno/Mese</string>
     <string name="sub_folder_rule_year">Anno</string>
     <string name="subject_shared_with_you">\"%1$s\" è stato condiviso con te</string>
     <string name="subject_user_shared_with_you">%1$s ha condiviso \"%2$s\" con te</string>
