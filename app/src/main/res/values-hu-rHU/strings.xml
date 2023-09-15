@@ -422,6 +422,8 @@
     <string name="image_editor_rotate_ccw">Forgatás balra</string>
     <string name="image_editor_rotate_cw">Forgatás jobbra</string>
     <string name="image_editor_unable_to_edit_image">A kép nem szerkeszthető.</string>
+    <string name="image_preview_filedetails">Fájl részletei</string>
+    <string name="image_preview_image_taking_conditions">Képkészítési körülmények</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
     <string name="image_preview_unit_megapixel">%s MP</string>
@@ -507,6 +509,7 @@
     <string name="no_calendar_exists">Nem létezik naptár</string>
     <string name="no_email_app_available">Nem érhető el alkalmazás a levélcímek kezeléséhez</string>
     <string name="no_items">Nincsenek elemek</string>
+    <string name="no_map_app_availble">Nincs elérhető alkalmazás a térképek kezeléséhez</string>
     <string name="no_mutliple_accounts_allowed">Csak egy fiók engedélyezett</string>
     <string name="no_pdf_app_available">Nincs elérhető alkalmazás PDF kezeléséhez</string>
     <string name="no_send_app">Nem érhető el alkalmazás a kiválasztott fájlok küldéséhez</string>
@@ -593,7 +596,9 @@
     <string name="prefs_imprint">Impresszum</string>
     <string name="prefs_instant_behaviour_dialogTitle">Az eredeti fájl…</string>
     <string name="prefs_instant_behaviour_title">Az eredeti fájl…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Tárolás dátum szerinti almappákban</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Almappák használata</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Almappabeállítások</string>
     <string name="prefs_keys_exist">Végpontok közti titkosítás hozzáadása ehhez a klienshez</string>
     <string name="prefs_license">Licenc</string>
     <string name="prefs_lock">Alkalmazás számkód</string>
@@ -801,6 +806,8 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="stream_not_possible_headline">A belső közvetítés nem lehetséges</string>
     <string name="stream_not_possible_message">Helyette töltse le a médiát, vagy használjon külső alkalmazást.</string>
     <string name="strict_mode">Szigorú mód: a HTTP kapcsolatok nem engedélyezettek.</string>
+    <string name="sub_folder_rule_day">Év/hónap/nap</string>
+    <string name="sub_folder_rule_month">Év/hónap</string>
     <string name="sub_folder_rule_year">Év</string>
     <string name="subject_shared_with_you">Megosztották Önnel: „%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s megosztotta Önnel: „%2$s”</string>
