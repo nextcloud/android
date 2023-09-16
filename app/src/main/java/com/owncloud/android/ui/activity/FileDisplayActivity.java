@@ -135,6 +135,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.StringUtils;
+import com.owncloud.android.utils.theme.CapabilityUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -436,14 +437,14 @@ public class FileDisplayActivity extends FileActivity
 
     private void checkOutdatedServer() {
         Optional<User> user = getUser();
+        OwnCloudVersion serverVersion = user.get().getServer().getVersion();
 
-        if (getResources().getBoolean(R.bool.show_outdated_server_warning) && user.isPresent()) {
-            OwnCloudVersion serverVersion = user.get().getServer().getVersion();
-            // show outdated warning
-            if (MainApp.OUTDATED_SERVER_VERSION.isSameMajorVersion(serverVersion) &&
-                getCapabilities().getExtendedSupport().isFalse()) {
-                DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG);
-            }
+        // show outdated warning
+        if (user.isPresent() &&
+            CapabilityUtils.checkOutdatedWarning(getResources(),
+                                                 serverVersion,
+                                                 getCapabilities().getExtendedSupport().isTrue())) {
+            DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG);
         }
     }
 

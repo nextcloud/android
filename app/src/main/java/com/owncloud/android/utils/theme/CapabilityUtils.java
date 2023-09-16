@@ -24,12 +24,16 @@ package com.owncloud.android.utils.theme;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.java.util.Optional;
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -87,5 +91,14 @@ public final class CapabilityUtils {
 
     public static void updateCapability(OCCapability capability) {
         cachedCapabilities.put(capability.getAccountName(), capability);
+    }
+
+    public static boolean checkOutdatedWarning(Resources resources,
+                                               OwnCloudVersion version,
+                                               boolean hasExtendedSupport) {
+        return resources.getBoolean(R.bool.show_outdated_server_warning) &&
+            (MainApp.OUTDATED_SERVER_VERSION.isSameMajorVersion(version) ||
+                version.isOlderThan(MainApp.OUTDATED_SERVER_VERSION))
+            && !hasExtendedSupport;
     }
 }
