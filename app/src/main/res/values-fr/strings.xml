@@ -254,7 +254,7 @@ Attention la suppression est irréversible.</string>
     <string name="e2e_not_yet_setup">E2E pas encore configuré</string>
     <string name="e2e_offline">Impossible sans connexion internet</string>
     <string name="ecosystem_apps_display_more">Plus</string>
-    <string name="ecosystem_apps_display_notes">Remarques</string>
+    <string name="ecosystem_apps_display_notes">Notes</string>
     <string name="ecosystem_apps_display_talk">Discussion</string>
     <string name="ecosystem_apps_more">Plus d’applications Nextcloud</string>
     <string name="ecosystem_apps_notes">Nextcloud Notes</string>
