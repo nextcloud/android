@@ -74,7 +74,7 @@
     <string name="autoupload_configure">Nastavit</string>
     <string name="autoupload_create_new_custom_folder">Vytvořit nové uživatelsky určené nastavení složky</string>
     <string name="autoupload_custom_folder">Nastavit uživatelsky určenou složku</string>
-    <string name="autoupload_disable_power_save_check">Zakázat kontrolu úspory energie</string>
+    <string name="autoupload_disable_power_save_check">Nekontrolovat zda je zapnutý režim úspory energie</string>
     <string name="autoupload_hide_folder">Skrýt složku</string>
     <string name="avatar">Avatar</string>
     <string name="away">Pryč</string>
@@ -84,7 +84,7 @@
     <string name="battery_optimization_disable">Vypnout</string>
     <string name="battery_optimization_message">Vaše zařízení má zapnuté snížení vybíjení akumulátoru. Automatické nahrávání funguje správně jen tehdy, když pro tuto aplikaci nastavíte výjimku.</string>
     <string name="battery_optimization_title">Optimalizace pro nižší vybíjení akumulátoru</string>
-    <string name="brute_force_delay">Odloženo z důvodu příliš mnoha nesprávných pokusů</string>
+    <string name="brute_force_delay">Pozdrženo z důvodu příliš mnoha nezdařených pokusů</string>
     <string name="calendar">Kalendář</string>
     <string name="calendars">Kalendáře</string>
     <string name="certificate_load_problem">Došlo k problému s načtením certifikátu.</string>
@@ -94,7 +94,7 @@
     <string name="choose_local_folder">Zvolte místní složku…</string>
     <string name="choose_location">Zvolte umístění</string>
     <string name="choose_remote_folder">Zvolte vzdálenou složku…</string>
-    <string name="choose_template_helper_text">Vyberte šablonu a zadejte název pro soubor</string>
+    <string name="choose_template_helper_text">Vyberte šablonu a zadejte název pro soubor.</string>
     <string name="choose_which_file">Zvolte který soubor ponechat!</string>
     <string name="choose_widget">Zvolte ovládací prvek</string>
     <string name="clear_notifications_failed">Upozornění se nepodařilo vyčistit.</string>
@@ -201,7 +201,7 @@
     <string name="dev_version_no_information_available">Nejsou k dispozici žádné informace.</string>
     <string name="dev_version_no_new_version_available">Není k dispozici žádná novější verze.</string>
     <string name="dialog_close">Zavřít</string>
-    <string name="did_not_check_for_dupes">Nekontrolováno na duplicity.</string>
+    <string name="did_not_check_for_dupes">Nezkontrolováno na duplicity.</string>
     <string name="digest_algorithm_not_available">Tento algoritmus vytváření otisku (digest) není na vašem telefonu dostupný.</string>
     <string name="direct_login_failed">Přihlášení se prostřednictvím přímého odkazu se nezdařilo!</string>
     <string name="direct_login_text">Přihlásit se s %1$s k %2$s</string>
@@ -439,7 +439,7 @@
     <string name="last_backup">Nejnovější záloha: %1$s</string>
     <string name="link">Odkaz</string>
     <string name="link_name">Název odkazu</string>
-    <string name="link_share_allow_upload_and_editing">Povolit nahrávání a úpravy</string>
+    <string name="link_share_allow_upload_and_editing">Umožnit nahrávání a úpravy</string>
     <string name="link_share_editing">Upravování</string>
     <string name="link_share_file_drop">Předání souboru (pouze nahrání)</string>
     <string name="link_share_view_only">Pouze prohlížet</string>
@@ -463,7 +463,7 @@
     <string name="logs_menu_refresh">Načíst znovu</string>
     <string name="logs_menu_search">Prohledat záznamy událostí</string>
     <string name="logs_menu_send">Posílat záznamy událostí e-mailem</string>
-    <string name="logs_status_filtered">Záznamy událostí: %1$d kB, dotazu odpovídalo %2$d / %3$d v %4$d ms</string>
+    <string name="logs_status_filtered">Záznamy událostí: %1$d kB, dotazu odpovídalo %2$d / %3$d za %4$d ms</string>
     <string name="logs_status_loading">Načítání…</string>
     <string name="logs_status_not_filtered">Záznamy událostí: %1$d kB, žádný filtr</string>
     <string name="logs_title">Záznamy událostí</string>
@@ -563,7 +563,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="player_stop">vypnout</string>
     <string name="player_toggle">přepnout</string>
-    <string name="power_save_check_dialog_message">Zákaz kontroly úspory energie může způsobit nahrávání souborů i v případě nízkého stavu nabití akumulátoru!</string>
+    <string name="power_save_check_dialog_message">Nezohledňování případného zapnutého režimu šetření energií může její spotřebou nahráváním souborů vést k ještě dřívějšímu vybití akumulátoru!</string>
     <string name="pref_behaviour_entries_delete_file">smazáno</string>
     <string name="pref_behaviour_entries_keep_file">ponecháno v původní složce</string>
     <string name="pref_behaviour_entries_move">přesunuto do složky aplikace</string>
@@ -623,7 +623,7 @@
     <string name="prefs_theme_title">Motiv vzhledu</string>
     <string name="prefs_value_theme_dark">Tmavý</string>
     <string name="prefs_value_theme_light">Světlý</string>
-    <string name="prefs_value_theme_system">Následovat systém</string>
+    <string name="prefs_value_theme_system">Převzít od systému</string>
     <string name="preview_image_description">Náhled obrázku</string>
     <string name="preview_image_error_no_local_file">Není zde žádný místní soubor pro který zobrazit náhled</string>
     <string name="preview_image_error_unknown_format">Obrázek se nedaří zobrazit</string>
@@ -669,7 +669,7 @@
     <string name="screenshot_03_drawer_subline">vše pohotově přístupné</string>
     <string name="screenshot_04_accounts_heading">Všechny vaše účty</string>
     <string name="screenshot_04_accounts_subline">na jednom místě</string>
-    <string name="screenshot_05_autoUpload_heading">Automatické nahrání</string>
+    <string name="screenshot_05_autoUpload_heading">Automatické nahrávání</string>
     <string name="screenshot_05_autoUpload_subline">pro vaše fotky a videa</string>
     <string name="screenshot_06_davdroid_heading">Kalendář a kontakty</string>
     <string name="screenshot_06_davdroid_subline">Synchronizace s DAVx5</string>
