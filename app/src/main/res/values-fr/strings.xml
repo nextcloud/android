@@ -192,7 +192,7 @@
     <string name="data_to_back_up">Données à sauvegarder</string>
     <string name="default_credentials_wrong">Informations d\'identification erronées</string>
     <string name="delete_account">Retirer le compte</string>
-    <string name="delete_account_warning">Retirer le compte %s et retirer tous les fichiers locaux ?
+    <string name="delete_account_warning">Retirer le compte %s et supprimer tous les fichiers locaux ?
 
 Attention, la suppression est irréversible.</string>
     <string name="delete_entries">Supprimer les éléments</string>
