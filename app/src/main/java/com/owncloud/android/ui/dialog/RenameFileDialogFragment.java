@@ -27,13 +27,17 @@ package com.owncloud.android.ui.dialog;
  */
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -185,8 +189,22 @@ public class RenameFileDialogFragment
             .setTitle(R.string.rename_dialog_title);
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInputContainer.getContext(), builder);
-
-        return builder.create();
+        AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                Log.d("Dialog", "onShow called");
+                binding.userInput.requestFocus();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(binding.userInput, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                }, 100); // Delay for 200 milliseconds
+            }
+        });
+        return dialog;
     }
 
 
