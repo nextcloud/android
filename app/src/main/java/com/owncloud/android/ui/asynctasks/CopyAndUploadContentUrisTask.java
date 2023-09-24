@@ -27,8 +27,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.DocumentsContract;
-import android.widget.Toast;
-
+import android.view.View;
+import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.files.services.FileUploader;
@@ -292,7 +292,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                     mAppContext.getString(messageId),
                     mAppContext.getString(R.string.app_name)
                 );
-                Toast.makeText(mAppContext, message, Toast.LENGTH_LONG).show();
+                Snackbar.make(new View(mAppContext), message, Snackbar.LENGTH_LONG).show();
             }
         }
     }

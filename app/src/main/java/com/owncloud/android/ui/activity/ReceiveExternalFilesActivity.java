@@ -47,6 +47,7 @@ import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -222,10 +223,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
         super.onStart();
 
         if (mAccountManager.getAccountsByType(MainApp.getAccountType(this)).length == 0) {
-            Toast.makeText(this,
-                           String.format(getString(R.string.uploader_wrn_no_account_text),
+            Snackbar.make(new View(this),
+                              String.format(getString(R.string.uploader_wrn_no_account_text),
                                          getString(R.string.app_name)),
-                           Toast.LENGTH_LONG).show();
+                              Snackbar.LENGTH_LONG).show();
             return;
         }
 

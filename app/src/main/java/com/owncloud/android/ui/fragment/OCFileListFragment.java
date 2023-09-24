@@ -44,8 +44,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.Toast;
-
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -548,9 +546,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else {
             Log.w(TAG, "scanDocUpload: Failed to start doc scanning, fileDisplayActivity=" + fileDisplayActivity +
                 ", currentFile=" + currentFile);
-            Toast.makeText(getContext(),
+            Snackbar.make(new View(getContext()),
                            getString(R.string.error_starting_doc_scan),
-                           Toast.LENGTH_SHORT)
+                           Snackbar.LENGTH_SHORT)
                 .show();
         }
     }

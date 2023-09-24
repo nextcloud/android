@@ -27,9 +27,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
@@ -115,7 +114,7 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog == null) {
-            Toast.makeText(getContext(), "Failed to create conflict dialog", Toast.LENGTH_LONG).show();
+            Snackbar.make(new View(getContext()), "Failed to create conflict dialog", Snackbar.LENGTH_LONG).show();
             return;
         }
 
@@ -138,7 +137,7 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
             newFile = (File) getArguments().getSerializable(KEY_NEW_FILE);
             user = getArguments().getParcelable(KEY_USER);
         } else {
-            Toast.makeText(getContext(), "Failed to create conflict dialog", Toast.LENGTH_LONG).show();
+            Snackbar.make(new View(getContext()), "Failed to create conflict dialog", Snackbar.LENGTH_LONG).show();
         }
     }
 

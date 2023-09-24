@@ -34,8 +34,9 @@ import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
-import android.widget.Toast;
+import android.view.View;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
@@ -454,9 +455,9 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                 throw new IllegalArgumentException("Context may not be null!");
             }
 
-            Toast.makeText(getContext().getApplicationContext(),
-                           ErrorMessageAdapter.getErrorCauseMessage(result, null, getContext().getResources()),
-                           Toast.LENGTH_SHORT).show();
+            Snackbar.make(new View(getContext().getApplicationContext()),
+                          ErrorMessageAdapter.getErrorCauseMessage(result, null, getContext().getResources()),
+                          Snackbar.LENGTH_SHORT).show();
         });
     }
 }

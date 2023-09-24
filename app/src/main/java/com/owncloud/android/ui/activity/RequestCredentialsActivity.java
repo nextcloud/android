@@ -25,8 +25,8 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
-import android.widget.Toast;
-
+import android.view.View;
+import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -55,7 +55,7 @@ public class RequestCredentialsActivity extends Activity {
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 finishWithResult(KEY_CHECK_RESULT_CANCEL);
             } else {
-                Toast.makeText(this, R.string.default_credentials_wrong, Toast.LENGTH_SHORT).show();
+                Snackbar.make(new View(this), R.string.default_credentials_wrong, Snackbar.LENGTH_SHORT).show();
                 requestCredentials();
             }
         }

@@ -24,20 +24,22 @@ package com.owncloud.android.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.User
 import com.owncloud.android.R
+import com.owncloud.android.databinding.SetupEncryptionDialogBinding
 import com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment
 
 class SetupEncryptionActivity : AppCompatActivity() {
+    lateinit var binding:SetupEncryptionDialogBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        binding = SetupEncryptionDialogBinding.inflate(layoutInflater)
         val user = intent?.getParcelableExtra("EXTRA_USER") as User?
 
         if (user == null) {
-            Toast.makeText(this, getString(R.string.error_showing_encryption_dialog), Toast.LENGTH_LONG).show()
+            Snackbar.make(binding.root, getString(R.string.error_showing_encryption_dialog), Snackbar.LENGTH_LONG).show()
             finish()
         }
 

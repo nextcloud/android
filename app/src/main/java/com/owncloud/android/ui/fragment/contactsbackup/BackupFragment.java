@@ -34,8 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
-import android.widget.Toast;
-
+import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
@@ -513,7 +512,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
         if (contactsPreferenceActivity == null) {
-            Toast.makeText(getContext(), getString(R.string.error_choosing_date), Toast.LENGTH_LONG).show();
+            Snackbar.make(new View(getContext()), getString(R.string.error_choosing_date), Snackbar.LENGTH_LONG).show();
             return;
         }
 
@@ -605,7 +604,7 @@ public class BackupFragment extends FileFragment implements DatePickerDialog.OnD
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
         if (contactsPreferenceActivity == null) {
-            Toast.makeText(getContext(), getString(R.string.error_choosing_date), Toast.LENGTH_LONG).show();
+            Snackbar.make(new View(getContext()), getString(R.string.error_choosing_date), Snackbar.LENGTH_LONG).show();
             return;
         }
 

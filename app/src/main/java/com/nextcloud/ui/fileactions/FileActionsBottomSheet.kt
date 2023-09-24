@@ -31,7 +31,6 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.os.bundleOf
@@ -44,6 +43,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
@@ -133,7 +133,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
             FileActionsViewModel.UiState.Loading -> {}
             FileActionsViewModel.UiState.Error -> {
                 context?.let {
-                    Toast.makeText(it, R.string.error_file_actions, Toast.LENGTH_SHORT).show()
+                    Snackbar.make(View(it), R.string.error_file_actions, Snackbar.LENGTH_SHORT).show()
                 }
                 dismissAllowingStateLoss()
             }
