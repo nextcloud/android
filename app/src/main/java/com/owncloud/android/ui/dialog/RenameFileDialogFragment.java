@@ -201,7 +201,7 @@ public class RenameFileDialogFragment
                         InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.showSoftInput(binding.userInput, InputMethodManager.SHOW_IMPLICIT);
                     }
-                }, 100); // Delay for 200 milliseconds
+                }, 100); // Delay for 100 milliseconds
             }
         });
         return dialog;
