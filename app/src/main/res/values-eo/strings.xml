@@ -293,6 +293,7 @@
     <string name="foreign_files_remote_text">Fora: %1$s</string>
     <string name="foreign_files_success">Ĉiuj dosieroj moviĝis</string>
     <string name="forward">Antaŭen</string>
+    <string name="fourHours">4 horoj</string>
     <string name="hint_name">Nomo</string>
     <string name="hint_note">Noto</string>
     <string name="hint_password">Pasvorto</string>
@@ -561,6 +562,8 @@
     <string name="synced_icon">Sinkronigita</string>
     <string name="tags">Etikedoj</string>
     <string name="test_server_button">Testi konekton al servilo</string>
+    <string name="thirtyMinutes">30 minutoj</string>
+    <string name="thisWeek">Ĉi semajno</string>
     <string name="thumbnail">Miniaturo</string>
     <string name="today">Hodiaŭ</string>
     <string name="trashbin_activity_title">Forigitaj dosieroj</string>
@@ -659,6 +662,8 @@
     <string name="what_s_new_image">Bildo pri Kio nova</string>
     <string name="whats_new_skip">Preterpasi</string>
     <string name="whats_new_title">Novaĵoj en %1$s</string>
+    <string name="whats_your_status">Kio estas via stato?</string>
+    <string name="widgets_not_available_title">Ne disponeble</string>
     <string name="write_email">Sendi retpoŝtmesaĝon</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ne eblis sinkronigi %1$d dosieron (konfliktoj: %2$d)</item>
