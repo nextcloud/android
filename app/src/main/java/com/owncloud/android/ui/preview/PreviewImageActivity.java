@@ -232,7 +232,15 @@ public class PreviewImageActivity extends FileActivity implements
         super.onRemoteOperationFinish(operation, result);
 
         if (operation instanceof RemoveFileOperation) {
-            finish();
+            // initialize the pager with the new file list
+            initViewPager(getUser().get());
+            if (mViewPager.getAdapter().getCount() > 0) {
+                // Trigger page reselection, to update the title
+                onPageSelected(mViewPager.getCurrentItem());
+            } else {
+                // Last file has been deleted, so finish the activity
+                finish();
+            }
         } else if (operation instanceof SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish(result);
         }
