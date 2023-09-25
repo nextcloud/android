@@ -3,8 +3,10 @@
  Nextcloud Android client application
 
   @author Tobias Kaminsky
+  @author Ezhil Shanmugham
   Copyright (C) 2018 Tobias Kaminsky
   Copyright (C) 2018 Nextcloud GmbH.
+  Copyright (C) 2023 Ezhil Shanmugham <ezhil56x.contact@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -28,7 +30,7 @@
         android:id="@+id/action_delete"
         android:orderInCategory="1"
         android:showAsAction="never"
-        android:title="@string/common_remove"
+        android:title="@string/trashbin_file_remove"
         app:showAsAction="never"/>
 
 </menu>
