@@ -836,6 +836,7 @@
     <string name="trashbin_empty_message">Du kan återställa borttagna filer här.</string>
     <string name="trashbin_file_not_deleted">Filen %1$s kunde inte tas bort!</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunde inte återställas!</string>
+    <string name="trashbin_file_remove">Ta bort permanent</string>
     <string name="trashbin_loading_failed">Laddning av papperskorg misslyckades!</string>
     <string name="trashbin_not_emptied">Filer kunde inte tas bort permanent!</string>
     <string name="unlock_file">Lås upp fil</string>

@@ -791,6 +791,7 @@
     <string name="trashbin_empty_message">Tu budete mať možnosť obnoviť zmazané súbory.</string>
     <string name="trashbin_file_not_deleted">Súbor %1$s sa nedá vymazať!</string>
     <string name="trashbin_file_not_restored">Súbor %1$s sa nedá obnoviť!</string>
+    <string name="trashbin_file_remove">Zmazať  natrvalo</string>
     <string name="trashbin_loading_failed">Načítanie obsahu koša sa nepodarilo!</string>
     <string name="trashbin_not_emptied">Nepodarilo sa trvalo vymazať súbory!</string>
     <string name="unlock_file">Odomknúť súbor</string>

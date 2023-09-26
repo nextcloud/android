@@ -690,6 +690,7 @@
     <string name="trashbin_empty_message">Podrás recuperar archivos borrados desde aquí.</string>
     <string name="trashbin_file_not_deleted">¡El archivo %1$s no se pudo eliminar!</string>
     <string name="trashbin_file_not_restored">¡El archivo %1$s no pudo ser restaurado!</string>
+    <string name="trashbin_file_remove">Borrar permanentemente</string>
     <string name="trashbin_not_emptied">¡Los archivos no se pudieron eliminar permanentemente!</string>
     <string name="unread_comments">Existen comentarios no leídos</string>
     <string name="unset_encrypted">Cifrado no establecido</string>

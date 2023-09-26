@@ -593,6 +593,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="today">Hari ini</string>
     <string name="trashbin_activity_title">Berkas terhapus</string>
     <string name="trashbin_empty_headline">Tidak ada berkas yang dihapus.</string>
+    <string name="trashbin_file_remove">Hapus secara permanen</string>
     <string name="unlock_file">Buka kunci berkas</string>
     <string name="unset_favorite">Hapus dari favorit</string>
     <string name="unshare_link_forbidden_permissions">untuk batal membagikan berkas ini</string>

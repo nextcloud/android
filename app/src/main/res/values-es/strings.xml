@@ -836,6 +836,7 @@
     <string name="trashbin_empty_message">Podrás recuperar los archivos eliminados desde aquí.</string>
     <string name="trashbin_file_not_deleted">No se ha podido eliminar el archivo %1$s.</string>
     <string name="trashbin_file_not_restored">No se ha podido restaurar el archivo %1$s.</string>
+    <string name="trashbin_file_remove">Eliminar de forma definitiva</string>
     <string name="trashbin_loading_failed">¡Fallo al cargar la papelera!</string>
     <string name="trashbin_not_emptied">No se ha podido eliminar permanentemente el archivo.</string>
     <string name="unlock_file">Desbloquear archivo</string>

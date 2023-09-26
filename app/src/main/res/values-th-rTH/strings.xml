@@ -573,6 +573,7 @@
     <string name="today">วันนี้</string>
     <string name="trashbin_activity_title">ไฟล์ที่ถูกลบ</string>
     <string name="trashbin_empty_headline">ไม่มีไฟล์ที่ถูกลบ</string>
+    <string name="trashbin_file_remove">ลบแบบถาวร</string>
     <string name="unshare_link_forbidden_permissions">เพื่อเลิกแชร์ไฟล์นี้</string>
     <string name="update_link_forbidden_permissions">เพื่ออัปเดตการแชร์นี้</string>
     <string name="upload_cannot_create_file">ไม่สามารถสร้างไฟล์ต้นทาง</string>

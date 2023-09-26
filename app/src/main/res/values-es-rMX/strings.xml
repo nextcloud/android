@@ -569,6 +569,7 @@
     <string name="trashbin_empty_headline">No hay archivos eliminados</string>
     <string name="trashbin_empty_message">Podrás recuperar los archivos eliminados desde aquí </string>
     <string name="trashbin_file_not_deleted">¡El archivo %1$s no pudo ser eliminado!</string>
+    <string name="trashbin_file_remove">Borrar permanentemente</string>
     <string name="trashbin_not_emptied">¡Los archivos no pudieron ser eliminados permanentemente!</string>
     <string name="unlock_file">Archivo desbloqueado</string>
     <string name="unset_encrypted">Desestablecer encripción</string>

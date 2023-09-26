@@ -455,6 +455,7 @@
     <string name="today">Täna</string>
     <string name="trashbin_activity_title">Kustutatud failid</string>
     <string name="trashbin_empty_headline">Kustutatud faile pole</string>
+    <string name="trashbin_file_remove">Kustuta jäädavalt</string>
     <string name="unset_encrypted">Eemalda krüpteering</string>
     <string name="unset_favorite">Eemalda lemmikutest</string>
     <string name="unshare_link_forbidden_permissions">faili jagamise lõpetamiseks</string>

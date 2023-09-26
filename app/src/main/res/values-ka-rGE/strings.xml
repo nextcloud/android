@@ -432,6 +432,7 @@
     <string name="today">დღეს</string>
     <string name="trashbin_activity_title">გაუქმებული ფაილები</string>
     <string name="trashbin_empty_headline">წაშლილი ფაილები ვერ მოიძებნა</string>
+    <string name="trashbin_file_remove">სამუდამოდ წაშლა</string>
     <string name="unset_encrypted">შიფრაციის გაუქმება</string>
     <string name="unshare_link_forbidden_permissions">შეწყვიტოთ ამ ფაილის გაზიარება</string>
     <string name="untrusted_domain">წვდომა არასანდო დომენით. დამატებითი ინფორმაციისთვის გთხოვთ იხილოთ დოკუმენტაცია.</string>

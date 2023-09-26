@@ -836,6 +836,7 @@
     <string name="trashbin_empty_message">Você poderá recuperar arquivos excluídos aqui.</string>
     <string name="trashbin_file_not_deleted">O arquivo %1$s não pôde ser excluído!</string>
     <string name="trashbin_file_not_restored">Arquivo %1$s não pôde ser restaurado!</string>
+    <string name="trashbin_file_remove">Remover permanentemente</string>
     <string name="trashbin_loading_failed">Falha ao carregar a lixeira! </string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
     <string name="unlock_file">Desbloquear arquivo</string>

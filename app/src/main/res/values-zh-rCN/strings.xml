@@ -812,6 +812,7 @@
     <string name="trashbin_empty_message">您可以在此处恢复已删除的文件。</string>
     <string name="trashbin_file_not_deleted">文件 %1$s 无法被删除！</string>
     <string name="trashbin_file_not_restored">文件 %1$s 无法被恢复！</string>
+    <string name="trashbin_file_remove">彻底删除</string>
     <string name="trashbin_loading_failed">加载垃圾箱失败！</string>
     <string name="trashbin_not_emptied">文件无法永久删除！</string>
     <string name="unlock_file">解锁文件</string>

@@ -693,6 +693,7 @@
     <string name="trashbin_empty_message">Þú getur endurheimt eyddar skrár héðan.</string>
     <string name="trashbin_file_not_deleted">Ekki tókst að eyða %1$s skránni!</string>
     <string name="trashbin_file_not_restored">Ekki tókst að endurheimta %1$s skrána!</string>
+    <string name="trashbin_file_remove">Eyða varanlega</string>
     <string name="trashbin_not_emptied">Ekki tókst að eyða skránum endanlega!</string>
     <string name="unlock_file">Aflæsa skrá</string>
     <string name="unread_comments">Ólesnar athugasemdir eru fyrirliggjandi</string>
