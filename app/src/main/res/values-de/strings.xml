@@ -837,6 +837,7 @@
     <string name="trashbin_empty_message">Hier können Sie gelöschte Dateien wiederherstellen.</string>
     <string name="trashbin_file_not_deleted">Datei %1$s konnte nicht gelöscht werden!</string>
     <string name="trashbin_file_not_restored">Datei %1$s konnte nicht wiederhergestellt werden!</string>
+    <string name="trashbin_file_remove">Endgültig löschen</string>
     <string name="trashbin_loading_failed">Laden des Papierkorbs fehlgeschlagen!</string>
     <string name="trashbin_not_emptied">Dateien konnten nicht endgültig gelöscht werden!</string>
     <string name="unlock_file">Datei entsperren</string>
