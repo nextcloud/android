@@ -423,6 +423,7 @@
     <string name="image_editor_rotate_cw">Ruota in senso orario</string>
     <string name="image_editor_unable_to_edit_image">Impossibile modificare l\'immagine.</string>
     <string name="image_preview_filedetails">Dettagli del file</string>
+    <string name="image_preview_image_taking_conditions">Condizioni di cattura immagine</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
     <string name="image_preview_unit_megapixel">%s MP</string>
