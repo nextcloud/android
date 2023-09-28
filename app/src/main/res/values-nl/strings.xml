@@ -782,6 +782,7 @@
     <string name="trashbin_empty_message">Van hieruit kun je verwijderde bestanden terugzetten.</string>
     <string name="trashbin_file_not_deleted">Bestand %1$s kon niet worden verwijderd!</string>
     <string name="trashbin_file_not_restored">Bestand %1$s kon niet worden hersteld!</string>
+    <string name="trashbin_file_remove">Permanent verwijderen</string>
     <string name="trashbin_loading_failed">Laden prullenbak mislukt!</string>
     <string name="trashbin_not_emptied">Bestanden konden niet permanent worden verwijderd!</string>
     <string name="unlock_file">Ontgrendel bestand</string>

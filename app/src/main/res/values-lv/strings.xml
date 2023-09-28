@@ -469,6 +469,7 @@
     <string name="today">Šodien</string>
     <string name="trashbin_activity_title">Dzēstās datnes</string>
     <string name="trashbin_empty_headline">Nav dzēstu datņu</string>
+    <string name="trashbin_file_remove">Dzēst pavisam</string>
     <string name="unset_encrypted">Atstatīt šifrēšanu</string>
     <string name="unset_favorite">Noņemt no favorītiem</string>
     <string name="unshare_link_forbidden_permissions">lai pārtrauktu šīs datnes koplietošanu</string>

@@ -833,6 +833,7 @@
     <string name="trashbin_empty_message">Тут можна відновити файли, які було вилучено.</string>
     <string name="trashbin_file_not_deleted">Файл %1$s неможливо вилучити!</string>
     <string name="trashbin_file_not_restored">Файл %1$s неможливо відновити!</string>
+    <string name="trashbin_file_remove">Вилучити назавжди</string>
     <string name="trashbin_loading_failed">Неможливо відкрити кошик!</string>
     <string name="trashbin_not_emptied">Неможливо вилучити файли!</string>
     <string name="unlock_file">Розблокувати файл</string>

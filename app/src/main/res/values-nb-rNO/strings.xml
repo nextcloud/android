@@ -824,6 +824,7 @@
     <string name="trashbin_empty_message">Du vil kunne gjenopprette slettede filer herfra.</string>
     <string name="trashbin_file_not_deleted">Fil %1$s kunne ikke slettes!</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunne ikke gjenopprettes!</string>
+    <string name="trashbin_file_remove">Slett for godt</string>
     <string name="trashbin_loading_failed">Lasting av papirkurv feilet</string>
     <string name="trashbin_not_emptied">Filene kunne ikke slettes permanent!</string>
     <string name="unlock_file">Lås opp fil</string>

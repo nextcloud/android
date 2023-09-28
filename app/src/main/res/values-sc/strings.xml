@@ -716,6 +716,7 @@
     <string name="trashbin_empty_message">As a pòdere recuperare is archìvios cantzellados dae inoghe.</string>
     <string name="trashbin_file_not_deleted">No at fatu a cantzellare s\'archìviu %1$s!</string>
     <string name="trashbin_file_not_restored">No at fatu a recuperare s\'archìviu %1$s!</string>
+    <string name="trashbin_file_remove">Cantzella in manera definitiva</string>
     <string name="trashbin_loading_failed">Carrigamentu de s\'àliga faddidu!</string>
     <string name="trashbin_not_emptied">No at fatu a cantzellare is archìvios in manera permanente!</string>
     <string name="unlock_file">Isbloca su documentu</string>

@@ -836,6 +836,7 @@
     <string name="trashbin_empty_message">Silinmiş dosyalarınızı buradan geri yükleyebilirsiniz.</string>
     <string name="trashbin_file_not_deleted">%1$s dosyası silinemedi!</string>
     <string name="trashbin_file_not_restored">%1$s dosyası geri yüklenemedi!</string>
+    <string name="trashbin_file_remove">Kalıcı olarak sil</string>
     <string name="trashbin_loading_failed">Çöp kutusu yüklenemedi!</string>
     <string name="trashbin_not_emptied">Dosyalar kalıcı olarak silinemedi!</string>
     <string name="unlock_file">Dosyanın kilidini aç</string>

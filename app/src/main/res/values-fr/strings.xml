@@ -838,6 +838,7 @@ Attention, la suppression est irréversible.</string>
     <string name="trashbin_empty_message">Les fichiers supprimés s\'afficheront ici et vous pourrez les restaurer.</string>
     <string name="trashbin_file_not_deleted">Le fichier %1$s n\'a pas pu être supprimé !</string>
     <string name="trashbin_file_not_restored">Le fichier %1$s n\'a pas pu être restauré !</string>
+    <string name="trashbin_file_remove">Supprimer définitivement</string>
     <string name="trashbin_loading_failed">Le chargement de la corbeille a échoué !</string>
     <string name="trashbin_not_emptied">Des fichiers n\'ont pas pu être supprimés de manière définitive !</string>
     <string name="unlock_file">Déverrouiller le fichier</string>

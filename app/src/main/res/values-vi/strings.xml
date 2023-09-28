@@ -778,6 +778,7 @@
     <string name="trashbin_empty_message">Bạn sẽ có thể khôi phục các tệp đã xóa từ đây.</string>
     <string name="trashbin_file_not_deleted">Tệp %1$s không thể bị xóa!</string>
     <string name="trashbin_file_not_restored">Tệp %1$s không thể được khôi phục!</string>
+    <string name="trashbin_file_remove">Xoá vĩnh viễn</string>
     <string name="trashbin_loading_failed">Tải nội dung trong thùng rác thất bại</string>
     <string name="trashbin_not_emptied">Không thể xóa tệp vĩnh viễn!</string>
     <string name="unlock_file">Mở khoá tập tin</string>

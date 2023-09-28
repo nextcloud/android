@@ -773,6 +773,7 @@
     <string name="trashbin_empty_message">Ovdje ćete moći vratiti izbrisane datoteke.</string>
     <string name="trashbin_file_not_deleted">Datoteku %1$s nije moguće izbrisati!</string>
     <string name="trashbin_file_not_restored">Datoteku %1$s nije moguće vratiti!</string>
+    <string name="trashbin_file_remove">Trajno izbrišite</string>
     <string name="trashbin_loading_failed">Učitavanje kante za smeće nije uspjelo!</string>
     <string name="trashbin_not_emptied">Datoteke nije moguće trajno izbrisati!</string>
     <string name="unlock_file">Otključaj datoteku</string>

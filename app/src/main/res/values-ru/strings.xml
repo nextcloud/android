@@ -837,6 +837,7 @@
     <string name="trashbin_empty_message">Отсюда могут быть восстановлены удалённые файлы.</string>
     <string name="trashbin_file_not_deleted">Файл «%1$s» не может быть удалён!</string>
     <string name="trashbin_file_not_restored">Файл «%1$s» не может быть восстановлен!</string>
+    <string name="trashbin_file_remove">Удалить навсегда</string>
     <string name="trashbin_loading_failed">Загрузка корзины не удалась!</string>
     <string name="trashbin_not_emptied">Файлы не могут быть удалены окончательно!</string>
     <string name="unlock_file">Разблокировать файл</string>

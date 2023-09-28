@@ -836,6 +836,7 @@
     <string name="trashbin_empty_message">Hemendik ezabatutako fitxategiak berreskuratu ahal izango dituzu</string>
     <string name="trashbin_file_not_deleted"> %1$s fitxategia ezin da ezabatu!</string>
     <string name="trashbin_file_not_restored"> %1$s fitxategia ezin da berreskuratu!</string>
+    <string name="trashbin_file_remove">Ezabatu betirako</string>
     <string name="trashbin_loading_failed">Zakarrontzia kargatzeak huts egin du!</string>
     <string name="trashbin_not_emptied">Fitxategiak ezin dira betirako ezabatu!</string>
     <string name="unlock_file">Desblokeatu fitxategia</string>

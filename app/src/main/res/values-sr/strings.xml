@@ -836,6 +836,7 @@
     <string name="trashbin_empty_message">Одавде ћете моћи да повратите обрисане фајлове.</string>
     <string name="trashbin_file_not_deleted">Фајл %1$s не може да се обрише!</string>
     <string name="trashbin_file_not_restored">Фајл %1$s не може да се поврати!</string>
+    <string name="trashbin_file_remove">Обриши заувек</string>
     <string name="trashbin_loading_failed">Није успело учитавање корпе за отпатке!</string>
     <string name="trashbin_not_emptied">Фајл не може да се обрише неповратно!</string>
     <string name="unlock_file">Откључај фајл</string>

@@ -423,6 +423,7 @@
     <string name="image_editor_rotate_cw">Ruota in senso orario</string>
     <string name="image_editor_unable_to_edit_image">Impossibile modificare l\'immagine.</string>
     <string name="image_preview_filedetails">Dettagli del file</string>
+    <string name="image_preview_image_taking_conditions">Condizioni di cattura immagine</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
     <string name="image_preview_unit_megapixel">%s MP</string>
@@ -835,6 +836,7 @@
     <string name="trashbin_empty_message">Potrai ripristinare i file eliminati da qui.</string>
     <string name="trashbin_file_not_deleted">Il file %1$s non può essere eliminato!</string>
     <string name="trashbin_file_not_restored">Il file %1$s non può essere ripristinato!</string>
+    <string name="trashbin_file_remove">Elimina permanentemente</string>
     <string name="trashbin_loading_failed">Caricamento cestino non riuscito!</string>
     <string name="trashbin_not_emptied">I file non possono essere scaricati definitivamente!</string>
     <string name="unlock_file">Sblocca file</string>

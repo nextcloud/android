@@ -836,6 +836,7 @@
     <string name="trashbin_empty_message">Tutaj będziesz mógł odzyskać usunięte pliki.</string>
     <string name="trashbin_file_not_deleted">Plik %1$s nie może zostać usunięty!</string>
     <string name="trashbin_file_not_restored">Plik %1$s nie może zostać przywrócony!</string>
+    <string name="trashbin_file_remove">Usuń bezpowrotnie</string>
     <string name="trashbin_loading_failed">Wczytywanie kosza nie powiodło się!</string>
     <string name="trashbin_not_emptied">Pliki nie mogą być trwale usunięte!</string>
     <string name="unlock_file">Odblokuj plik</string>

@@ -764,6 +764,7 @@
     <string name="trashbin_empty_message">ここから削除されたファイルを元に戻すことができます。</string>
     <string name="trashbin_file_not_deleted">ファイル %1$s を削除できませんでした。</string>
     <string name="trashbin_file_not_restored">ファイル %1$s を復元できませんでした。</string>
+    <string name="trashbin_file_remove">永久に削除</string>
     <string name="trashbin_loading_failed">ゴミ箱へのロードに失敗しました！</string>
     <string name="trashbin_not_emptied">ファイルを完全に削除できませんでした。</string>
     <string name="unlock_file">ファイルのロックを解除</string>

@@ -854,6 +854,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="trashbin_empty_message">Innen vissza tudja állítani a törölt fájljait.</string>
     <string name="trashbin_file_not_deleted">A(z) %1$s fájl nem törölhető!</string>
     <string name="trashbin_file_not_restored">A(z) %1$s fájl nem állítható vissza!</string>
+    <string name="trashbin_file_remove">Végleges törlés</string>
     <string name="trashbin_loading_failed">A kuka betöltése sikertelen.</string>
     <string name="trashbin_not_emptied">A fájlok nem törölhetők véglegesen!</string>
     <string name="unlock_file">Fájl feloldása</string>

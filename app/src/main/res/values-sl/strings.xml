@@ -814,6 +814,7 @@
     <string name="trashbin_empty_message">Izbrisane datoteke je mogoče povrniti na tem mestu.</string>
     <string name="trashbin_file_not_deleted">Datoteke %1$s ni mogoče izbrisati!</string>
     <string name="trashbin_file_not_restored">Datoteke %1$s ni mogoče obnoviti!</string>
+    <string name="trashbin_file_remove">Trajno izbriši</string>
     <string name="trashbin_loading_failed">Nalaganje smeti je spodletelo!</string>
     <string name="trashbin_not_emptied">Datotek ni mogoče trajno izbrisati!</string>
     <string name="unlock_file">Odkleni datoteko</string>
