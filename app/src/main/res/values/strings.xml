@@ -1348,4 +1348,5 @@
     <string name="sync_duplication">Sync duplication</string>
     <string name="server_not_reachable">Could not load content</string>
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
+    <string name="quota_exceeded">Quota exceeded. Free up some space on server.</string>
 </resources>

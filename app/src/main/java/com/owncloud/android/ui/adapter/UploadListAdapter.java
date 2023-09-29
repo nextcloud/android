@@ -61,6 +61,8 @@ import java.util.Optional;
 
 import androidx.annotation.NonNull;
 
+import static com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode.QUOTA_EXCEEDED;
+
 /**
  * This Adapter populates a ListView with following types of uploads: pending, active, completed. Filtering possible.
  */

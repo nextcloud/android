@@ -236,7 +236,9 @@ public class UploadsStorageManager extends Observable {
                     + upload.toFormattedString() + ')');
 
             upload.setUploadStatus(status);
-            upload.setLastResult(result);
+            if (result != null) {
+                upload.setLastResult(result);
+            }
             upload.setRemotePath(remotePath);
             if (localPath != null) {
                 upload.setLocalPath(localPath);
