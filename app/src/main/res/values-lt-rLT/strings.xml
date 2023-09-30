@@ -617,7 +617,7 @@
     <string name="share_dialog_title">Bendrinimas</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Galioja iki %1$s</string>
-    <string name="share_file">Dalintis %1$s</string>
+    <string name="share_file">Bendrinti %1$s</string>
     <string name="share_group_clarification">%1$s (grupė)</string>
     <string name="share_internal_link">Vidinio bendrinimo nuoroda</string>
     <string name="share_internal_link_to_file_text">Vidinio bendrinimo nuoroda veikia tik naudotojams, kurie turi pireigą prie šio failo</string>
@@ -627,7 +627,7 @@
     <string name="share_link_empty_password">Privalote įvesti slaptažodį</string>
     <string name="share_link_file_error">Bandant bendrinti šį failą ar aplanką įvyko klaida.</string>
     <string name="share_link_file_no_exist">Nepavyko bendrinti. Patikrinkite, ar failas egzistuoja.</string>
-    <string name="share_link_forbidden_permissions">dalintis failu</string>
+    <string name="share_link_forbidden_permissions">bendrinti šį failą</string>
     <string name="share_link_optional_password_title">Įveskite pasirinktinį slaptažodį</string>
     <string name="share_link_password_title">Įveskite slaptažodį</string>
     <string name="share_link_with_label">Dalytis nuoroda (%1$s)</string>
@@ -646,7 +646,7 @@
     <string name="share_via_link_section_title">Bendrinimo nuoroda</string>
     <string name="share_via_link_send_link_label">Siųsti nuorodą</string>
     <string name="share_via_link_unset_password">Nenustatyta</string>
-    <string name="share_with_title">Dalintis su…</string>
+    <string name="share_with_title">Bendrinti su…</string>
     <string name="shared_avatar_desc">Bendrinamo naudotojo avataras</string>
     <string name="shared_icon_share">bendrinti</string>
     <string name="shared_icon_shared">bendrinama</string>
@@ -762,7 +762,7 @@
     <string name="untrusted_domain">Prieiga per nepatikimą domeną. Norėdami gauti daugiau informacijos, žiūrėkite dokumentaciją.</string>
     <string name="update_link_file_error">Bandant atnaujinti bendrinimą įvyko klaida.</string>
     <string name="update_link_file_no_exist">Nepavyko atnaujinti. Patikrinkite, ar failas egzistuoja.</string>
-    <string name="update_link_forbidden_permissions">dalintis failu</string>
+    <string name="update_link_forbidden_permissions">atnaujinti šį viešinį</string>
     <string name="updating_share_failed">Viešinio atnaujinimas nepavyko</string>
     <string name="upload_cannot_create_file">Nepavyksta sukurti vietinį failą</string>
     <string name="upload_chooser_title">Įkelti iš…</string>
