@@ -20,47 +20,39 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:padding="12dp"
-        android:paddingHorizontal="24dp">
+        android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/user_icon"
             android:layout_width="@dimen/user_icon_size"
             android:layout_height="@dimen/user_icon_size"
             android:layout_margin="6dp"
-            android:contentDescription="@string/avatar"
             android:src="@drawable/ic_user" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/user_name"
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="middle"
-                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                tools:text="Alice Muster" />
+                android:text="Alice Muster"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/account"
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="middle"
-                tools:text="alice@cloud.nextcloud.com" />
+                android:text="alice@cloud.nextcloud.com" />
 
         </LinearLayout>
 
@@ -71,60 +63,48 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:id="@+id/local_remove"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="24dp"
         android:paddingVertical="8dp">
 
         <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/radio_local_remove"
             android:layout_width="wrap_content"
+            android:id="@+id/radio_local_remove"
             android:layout_height="wrap_content"
-            tools:checked="true" />
+            android:checked="true" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/remove_local_account"
+                android:text="Remove local Account"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/remove_local_account_details" />
+                android:text="Remove account from device and delete all local files" />
 
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/request_deletion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="8dp"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:paddingVertical="8dp">
 
         <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/radio_request_deletion"
             android:layout_width="wrap_content"
+            android:id="@+id/radio_request_deletion"
             android:layout_height="wrap_content" />
 
         <LinearLayout
@@ -132,16 +112,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/request_account_deletion"
+                android:text="Request account deletion"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/request_account_deletion_details" />
+                android:text="Request permanent deletion of account by service provider" />
 
         </LinearLayout>
 
