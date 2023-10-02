@@ -58,7 +58,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.adapter.UserListItem;
-import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
+import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 
@@ -470,9 +470,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         }
     }
 
-    public static void openAccountRemovalConfirmationDialog(User user, FragmentManager fragmentManager) {
-        AccountRemovalConfirmationDialog dialog =
-            AccountRemovalConfirmationDialog.newInstance(user);
+    public static void openAccountRemovalDialog(User user, FragmentManager fragmentManager) {
+        AccountRemovalDialog dialog = AccountRemovalDialog.newInstance(user);
         dialog.show(fragmentManager, "dialog");
     }
 
@@ -509,7 +508,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                 if (itemId == R.id.action_open_account) {
                     accountClicked(user.hashCode());
                 } else if (itemId == R.id.action_delete_account) {
-                    openAccountRemovalConfirmationDialog(user, getSupportFragmentManager());
+                    openAccountRemovalDialog(user, getSupportFragmentManager());
                 } else {
                     openAccount(user);
                 }
