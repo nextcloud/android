@@ -89,6 +89,10 @@ public class SyncedFolderProvider extends Observable {
         }
     }
 
+    public static boolean isAutoUploadFolder(SyncedFolderProvider syncedFolderProvider, OCFile file, User user) {
+        return syncedFolderProvider != null && syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user);
+    }
+
     public int countEnabledSyncedFolders() {
         int count = 0;
         Cursor cursor = mContentResolver.query(
