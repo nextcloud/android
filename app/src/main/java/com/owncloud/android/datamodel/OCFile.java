@@ -24,11 +24,13 @@ package com.owncloud.android.datamodel;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
@@ -39,6 +41,7 @@ import com.owncloud.android.lib.resources.files.model.ImageDimension;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.utils.MimeType;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,6 +50,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import third_parties.daveKoeller.AlphanumComparator;
@@ -640,6 +644,32 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public boolean isGroupFolder() {
         String permissions = getPermissions();
         return permissions != null && permissions.contains(PERMISSION_GROUPFOLDER);
+    }
+
+    public Drawable getFileIcon(boolean isAutoUploadFolder, Context context, ViewThemeUtils viewThemeUtils) {
+        int drawableId;
+        if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder()) {
+            drawableId = R.drawable.folder_group;
+        } else if (sharedViaLink && !encrypted) {
+            drawableId = R.drawable.folder_shared_link;
+        } else if (isSharedWithMe() || sharedWithSharee) {
+            drawableId = R.drawable.folder_shared_users;
+        } else if (encrypted) {
+            drawableId = R.drawable.folder_encrypted;
+        } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
+            drawableId = R.drawable.folder_external;
+        } else if (locked) {
+            // TODO replace with actual icon
+            drawableId = R.drawable.file_location;
+        } else if (isAutoUploadFolder) {
+            drawableId = R.drawable.folder_auto_upload;
+        } else {
+            drawableId = R.drawable.folder;
+        }
+
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        viewThemeUtils.platform.tintDrawable(context, drawable, ColorRole.PRIMARY);
+        return drawable;
     }
 
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
