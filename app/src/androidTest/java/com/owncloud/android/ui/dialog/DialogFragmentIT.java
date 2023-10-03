@@ -539,6 +539,8 @@ public class DialogFragmentIT extends AbstractIT {
 
         final SslCertificate certificate = new SslCertificate("foo", "bar", "2022/01/10", "2022/01/30");
         final SslError sslError = new SslError(SslError.SSL_UNTRUSTED, certificate);
+
+        // FIXME test fails
         final SslErrorHandler handler = Mockito.mock(SslErrorHandler.class);
 
 

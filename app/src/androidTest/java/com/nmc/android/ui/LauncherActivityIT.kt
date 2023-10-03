@@ -40,9 +40,12 @@ class LauncherActivityIT : AbstractIT() {
     @get:Rule
     val activityRule = ActivityScenarioRule(LauncherActivity::class.java)
 
+
     @Test
     fun verifyUIElements() {
         waitForIdleSync()
+
+        // FIXME test fails
         onView(withId(R.id.ivSplash)).check(matches(isCompletelyDisplayed()))
         onView(withId(R.id.splashScreenBold)).check(matches(isCompletelyDisplayed()))
         onView(withId(R.id.splashScreenNormal)).check(matches(isCompletelyDisplayed()))

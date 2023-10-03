@@ -47,6 +47,7 @@ class FileExportUtilsIT : AbstractIT() {
 
         sut.exportFile("export.txt", "/text/plain", targetContext.contentResolver, null, file)
 
+        // FIXME test fails
         assertTrue(expectedFile.exists())
         assertEquals(file.length(), expectedFile.length())
         assertTrue(expectedFile.delete())
@@ -71,6 +72,7 @@ class FileExportUtilsIT : AbstractIT() {
 
         sut.exportFile("export.txt", "/text/plain", targetContext.contentResolver, ocFile, null)
 
+        // FIXME test fails
         assertTrue(expectedFile.exists())
         assertEquals(file.length(), expectedFile.length())
         assertTrue(expectedFile.delete())

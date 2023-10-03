@@ -119,6 +119,7 @@ public class DrawerActivityIT extends AbstractIT {
 
         waitForIdleSync();
 
+        // FIXME test fails
         assertEquals(account2, sut.getUser().get().toPlatformAccount());
 
         onView(withId(R.id.switch_account_button)).perform(click());
