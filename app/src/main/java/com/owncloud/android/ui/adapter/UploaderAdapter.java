@@ -104,15 +104,8 @@ public class UploaderAdapter extends SimpleAdapter {
         }
 
         if (file.isFolder()) {
-            final boolean isShared = file.isSharedWithMe() || file.isSharedWithSharee();
-            final Drawable icon = MimeTypeUtil.getFolderTypeIcon(isShared,
-                                                                 file.isSharedViaLink(),
-                                                                 file.isEncrypted(),
-                                                                 syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user),
-                                                                 file.isGroupFolder(),
-                                                                 file.getMountType(),
-                                                                 mContext,
-                                                                 viewThemeUtils);
+            boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
+            final Drawable icon = file.getFileLayerDrawable(isAutoUploadFolder, mContext, viewThemeUtils);
             fileIcon.setImageDrawable(icon);
         } else {
             // get Thumbnail if file is image
