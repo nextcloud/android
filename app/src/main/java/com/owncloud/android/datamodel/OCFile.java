@@ -41,6 +41,7 @@ import com.owncloud.android.lib.resources.files.model.GeoLocation;
 import com.owncloud.android.lib.resources.files.model.ImageDimension;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
+import com.owncloud.android.utils.DrawableUtil;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -670,15 +671,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         }
 
         Drawable overlayDrawable = ContextCompat.getDrawable(context, overlayIconId);
-        return addDrawableAsOverlay(folderDrawable, overlayDrawable);
-    }
-
-    private LayerDrawable addDrawableAsOverlay(Drawable backgroundDrawable, Drawable overlayDrawable) {
-        LayerDrawable layerDrawable = new LayerDrawable(new Drawable[] { backgroundDrawable, overlayDrawable } );
-        layerDrawable.setLayerGravity(1, Gravity.CENTER);
-        layerDrawable.setLayerInsetTop(1, 6);
-
-        return layerDrawable;
+        DrawableUtil drawableUtil = new DrawableUtil();
+        return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable, 6);
     }
 
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
