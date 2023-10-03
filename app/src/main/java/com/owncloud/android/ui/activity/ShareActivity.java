@@ -80,7 +80,7 @@ public class ShareActivity extends FileActivity {
         // Icon
         if (file.isFolder()) {
             boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, optionalUser.get());
-            LayerDrawable drawable = file.getFileLayerDrawable(isAutoUploadFolder, this, viewThemeUtils);
+            LayerDrawable drawable = file.getFileLayerDrawable(isAutoUploadFolder, this);
             binding.shareFileIcon.setImageDrawable(drawable);
         } else {
             binding.shareFileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),

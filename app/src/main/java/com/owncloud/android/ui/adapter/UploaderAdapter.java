@@ -106,7 +106,7 @@ public class UploaderAdapter extends SimpleAdapter {
 
         if (file.isFolder()) {
             boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
-            final LayerDrawable icon = file.getFileLayerDrawable(isAutoUploadFolder, mContext, viewThemeUtils);
+            final LayerDrawable icon = file.getFileLayerDrawable(isAutoUploadFolder, mContext);
             fileIcon.setImageDrawable(icon);
         } else {
             // get Thumbnail if file is image

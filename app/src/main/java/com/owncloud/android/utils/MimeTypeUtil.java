@@ -25,6 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -133,55 +134,9 @@ public final class MimeTypeUtil {
         return determineIconIdByMimeTypeList(possibleMimeTypes);
     }
 
-    /**
-     * Returns the resource identifier of an image to use as icon associated to a type of folder.
-     *
-     * @param isSharedViaUsers flag if the folder is shared via the users system
-     * @param isSharedViaLink  flag if the folder is publicly shared via link
-     * @param isEncrypted      flag if the folder is encrypted
-     * @return Identifier of an image resource.
-     */
-    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
-                                             boolean isSharedViaLink,
-                                             boolean isEncrypted,
-                                             boolean isAutoUploadFolder,
-                                             boolean isGroupFolder,
-                                             WebdavEntry.MountType mountType,
-                                             Context context,
-                                             ViewThemeUtils viewThemeUtils) {
-        int drawableId;
-
-        if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder) {
-            drawableId = R.drawable.folder_group;
-        } else if (isSharedViaLink && !isEncrypted) {
-            drawableId = R.drawable.folder_shared_link;
-        } else if (isSharedViaUsers) {
-            drawableId = R.drawable.folder_shared_users;
-        } else if (isEncrypted) {
-            drawableId = R.drawable.folder_encrypted;
-        } else if (isAutoUploadFolder) {
-            drawableId = R.drawable.folder_auto_upload;
-        } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
-            drawableId = R.drawable.folder_external;
-        } else {
-            drawableId = R.drawable.folder;
-        }
-
-        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
-        viewThemeUtils.platform.tintPrimaryDrawable(context, drawable);
-        return drawable;
-    }
-
     public static Drawable getDefaultFolderIcon(Context context,
                                                 ViewThemeUtils viewThemeUtils) {
-        return getFolderTypeIcon(false,
-                                 false,
-                                 false,
-                                 false,
-                                 false,
-                                 WebdavEntry.MountType.INTERNAL,
-                                 context,
-                                 viewThemeUtils);
+        return ContextCompat.getDrawable(context, R.drawable.folder);
     }
 
     /**

@@ -649,9 +649,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return permissions != null && permissions.contains(PERMISSION_GROUPFOLDER);
     }
 
-    public LayerDrawable getFileLayerDrawable(boolean isAutoUploadFolder, Context context, ViewThemeUtils viewThemeUtils) {
+    public LayerDrawable getFileLayerDrawable(boolean isAutoUploadFolder, Context context) {
         Drawable folderDrawable = ContextCompat.getDrawable(context, R.drawable.folder);
-        viewThemeUtils.platform.tintDrawable(context, folderDrawable, ColorRole.PRIMARY);
 
         int overlayIconId;
         if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder()) {
