@@ -38,6 +38,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.Spannable;
@@ -854,7 +855,7 @@ public final class DisplayUtils {
             stopShimmer(shimmerThumbnail, thumbnailView);
 
             boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
-            Drawable fileIcon = file.getFileIcon(isAutoUploadFolder, context, viewThemeUtils);
+            LayerDrawable fileIcon = file.getFileLayerDrawable(isAutoUploadFolder, context, viewThemeUtils);
             thumbnailView.setImageDrawable(fileIcon);
         } else {
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {
