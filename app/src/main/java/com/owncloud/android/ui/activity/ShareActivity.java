@@ -23,6 +23,8 @@ package com.owncloud.android.ui.activity;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 
 import com.nextcloud.client.account.User;
@@ -77,15 +79,9 @@ public class ShareActivity extends FileActivity {
 
         // Icon
         if (file.isFolder()) {
-            binding.shareFileIcon.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
-                                                                                      file.isSharedWithSharee(),
-                                                                                  file.isSharedViaLink(),
-                                                                                  file.isEncrypted(),
-                                                                                  syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), optionalUser.get()),
-                                                                                  file.isGroupFolder(),
-                                                                                  file.getMountType(),
-                                                                                  this,
-                                                                                  viewThemeUtils));
+            boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, optionalUser.get());
+            LayerDrawable drawable = file.getFileLayerDrawable(isAutoUploadFolder, this, viewThemeUtils);
+            binding.shareFileIcon.setImageDrawable(drawable);
         } else {
             binding.shareFileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                                                 file.getFileName(),
