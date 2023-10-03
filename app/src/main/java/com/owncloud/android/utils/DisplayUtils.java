@@ -852,15 +852,10 @@ public final class DisplayUtils {
                                     SyncedFolderProvider syncedFolderProvider) {
         if (file.isFolder()) {
             stopShimmer(shimmerThumbnail, thumbnailView);
-            thumbnailView.setImageDrawable(MimeTypeUtil
-                                               .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
-                                                                  file.isSharedViaLink(),
-                                                                  file.isEncrypted(),
-                                                                  syncedFolderProvider != null && syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user),
-                                                                  file.isGroupFolder(),
-                                                                  file.getMountType(),
-                                                                  context,
-                                                                  viewThemeUtils));
+
+            boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
+            Drawable fileIcon = file.getFileIcon(isAutoUploadFolder, context, viewThemeUtils);
+            thumbnailView.setImageDrawable(fileIcon);
         } else {
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?
