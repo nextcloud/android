@@ -222,7 +222,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         OCFile file = getFile();
         if (file.isFolder()) {
             boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
-            LayerDrawable drawable = file.getFileLayerDrawable(isAutoUploadFolder, this);
+            LayerDrawable drawable = file.getFileIcon(isAutoUploadFolder, this);
             binding.thumbnail.setImageDrawable(drawable);
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {

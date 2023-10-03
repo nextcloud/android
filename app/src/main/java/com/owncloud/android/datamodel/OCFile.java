@@ -30,9 +30,7 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-import android.view.Gravity;
 
-import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
@@ -44,7 +42,6 @@ import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.utils.DrawableUtil;
 import com.owncloud.android.utils.MimeType;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -649,7 +646,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return permissions != null && permissions.contains(PERMISSION_GROUPFOLDER);
     }
 
-    public LayerDrawable getFileLayerDrawable(boolean isAutoUploadFolder, Context context) {
+    public LayerDrawable getFileIcon(boolean isAutoUploadFolder, Context context) {
         Drawable folderDrawable = ContextCompat.getDrawable(context, R.drawable.folder);
 
         int overlayIconId;

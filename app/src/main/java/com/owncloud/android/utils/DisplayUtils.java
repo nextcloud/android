@@ -855,7 +855,7 @@ public final class DisplayUtils {
             stopShimmer(shimmerThumbnail, thumbnailView);
 
             boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
-            LayerDrawable fileIcon = file.getFileLayerDrawable(isAutoUploadFolder, context);
+            LayerDrawable fileIcon = file.getFileIcon(isAutoUploadFolder, context);
             thumbnailView.setImageDrawable(fileIcon);
         } else {
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {

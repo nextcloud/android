@@ -23,7 +23,6 @@ package com.owncloud.android.ui.activity;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 
@@ -80,7 +79,7 @@ public class ShareActivity extends FileActivity {
         // Icon
         if (file.isFolder()) {
             boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, optionalUser.get());
-            LayerDrawable drawable = file.getFileLayerDrawable(isAutoUploadFolder, this);
+            LayerDrawable drawable = file.getFileIcon(isAutoUploadFolder, this);
             binding.shareFileIcon.setImageDrawable(drawable);
         } else {
             binding.shareFileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
