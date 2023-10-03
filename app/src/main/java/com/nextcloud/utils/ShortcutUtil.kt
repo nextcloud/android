@@ -71,16 +71,9 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
                 thumbnail = bitmapToAdaptiveBitmap(thumbnail)
                 icon = IconCompat.createWithAdaptiveBitmap(thumbnail)
             } else if (file.isFolder) {
-                val bitmapIcon = MimeTypeUtil.getFolderTypeIcon(
-                    file.isSharedWithMe || file.isSharedWithSharee,
-                    file.isSharedViaLink,
-                    file.isEncrypted,
-                    syncedFolderProvider.findByRemotePathAndAccount(file.remotePath, user),
-                    file.isGroupFolder,
-                    file.mountType,
-                    mContext,
-                    viewThemeUtils
-                ).toBitmap()
+                val isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user)
+                val drawable = file.getFileLayerDrawable(isAutoUploadFolder, mContext, viewThemeUtils)
+                val bitmapIcon = drawable.toBitmap()
                 icon = IconCompat.createWithBitmap(bitmapIcon)
             } else {
                 icon = IconCompat.createWithResource(
