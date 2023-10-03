@@ -23,6 +23,7 @@ package com.owncloud.android.ui.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,7 +106,7 @@ public class UploaderAdapter extends SimpleAdapter {
 
         if (file.isFolder()) {
             boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
-            final Drawable icon = file.getFileLayerDrawable(isAutoUploadFolder, mContext, viewThemeUtils);
+            final LayerDrawable icon = file.getFileLayerDrawable(isAutoUploadFolder, mContext, viewThemeUtils);
             fileIcon.setImageDrawable(icon);
         } else {
             // get Thumbnail if file is image
