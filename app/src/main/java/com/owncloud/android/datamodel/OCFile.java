@@ -659,8 +659,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
             drawableId = R.drawable.folder_external;
         } else if (locked) {
-            // TODO replace with actual icon
-            drawableId = R.drawable.file_location;
+            drawableId = R.drawable.folder_locked;
         } else if (isAutoUploadFolder) {
             drawableId = R.drawable.folder_auto_upload;
         } else {
