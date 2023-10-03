@@ -32,6 +32,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.Gravity;
 
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
@@ -650,6 +651,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public LayerDrawable getFileLayerDrawable(boolean isAutoUploadFolder, Context context, ViewThemeUtils viewThemeUtils) {
         Drawable folderDrawable = ContextCompat.getDrawable(context, R.drawable.folder);
+        viewThemeUtils.platform.tintDrawable(context, folderDrawable, ColorRole.PRIMARY);
 
         int overlayIconId;
         if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder()) {
