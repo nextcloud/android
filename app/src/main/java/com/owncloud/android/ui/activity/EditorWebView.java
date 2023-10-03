@@ -28,6 +28,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.view.View;
@@ -220,15 +221,9 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         // Todo minimize: only icon by mimetype
         OCFile file = getFile();
         if (file.isFolder()) {
-            binding.thumbnail.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
-                                                                                  file.isSharedWithSharee(),
-                                                                              file.isSharedViaLink(),
-                                                                              file.isEncrypted(),
-                                                                              syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user),
-                                                                              file.isGroupFolder(),
-                                                                              file.getMountType(),
-                                                                              this,
-                                                                              viewThemeUtils));
+            boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
+            LayerDrawable drawable = file.getFileLayerDrawable(isAutoUploadFolder, this, viewThemeUtils);
+            binding.thumbnail.setImageDrawable(drawable);
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
