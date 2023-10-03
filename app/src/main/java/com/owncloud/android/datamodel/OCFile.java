@@ -25,12 +25,13 @@ package com.owncloud.android.datamodel;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.view.Gravity;
 
-import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
@@ -646,29 +647,38 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return permissions != null && permissions.contains(PERMISSION_GROUPFOLDER);
     }
 
-    public Drawable getFileIcon(boolean isAutoUploadFolder, Context context, ViewThemeUtils viewThemeUtils) {
-        int drawableId;
+    public LayerDrawable getFileLayerDrawable(boolean isAutoUploadFolder, Context context, ViewThemeUtils viewThemeUtils) {
+        Drawable folderDrawable = ContextCompat.getDrawable(context, R.drawable.folder);
+
+        int overlayIconId;
         if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder()) {
-            drawableId = R.drawable.folder_group;
+            overlayIconId = R.drawable.ic_folder_overlay_account_group;
         } else if (sharedViaLink && !encrypted) {
-            drawableId = R.drawable.folder_shared_link;
+            overlayIconId = R.drawable.ic_folder_overlay_link;
         } else if (isSharedWithMe() || sharedWithSharee) {
-            drawableId = R.drawable.folder_shared_users;
+            overlayIconId = R.drawable.ic_folder_overlay_share;
         } else if (encrypted) {
-            drawableId = R.drawable.folder_encrypted;
+            overlayIconId = R.drawable.ic_folder_overlay_key;
         } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
-            drawableId = R.drawable.folder_external;
+            overlayIconId = R.drawable.ic_folder_overlay_external;
         } else if (locked) {
-            drawableId = R.drawable.folder_locked;
+            overlayIconId = R.drawable.ic_folder_overlay_lock;
         } else if (isAutoUploadFolder) {
-            drawableId = R.drawable.folder_auto_upload;
+            overlayIconId = R.drawable.ic_folder_overlay_upload;
         } else {
-            drawableId = R.drawable.folder;
+            return new LayerDrawable(new Drawable[] { folderDrawable } );
         }
 
-        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
-        viewThemeUtils.platform.tintDrawable(context, drawable, ColorRole.PRIMARY);
-        return drawable;
+        Drawable overlayDrawable = ContextCompat.getDrawable(context, overlayIconId);
+        return addDrawableAsOverlay(folderDrawable, overlayDrawable);
+    }
+
+    private LayerDrawable addDrawableAsOverlay(Drawable backgroundDrawable, Drawable overlayDrawable) {
+        LayerDrawable layerDrawable = new LayerDrawable(new Drawable[] { backgroundDrawable, overlayDrawable } );
+        layerDrawable.setLayerGravity(1, Gravity.CENTER);
+        layerDrawable.setLayerInsetTop(1, 6);
+
+        return layerDrawable;
     }
 
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
