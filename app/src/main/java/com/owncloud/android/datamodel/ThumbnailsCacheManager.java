@@ -83,6 +83,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.text.Charsets;
@@ -899,8 +900,7 @@ public final class ThumbnailsCacheManager {
                 } else {
                     if (mFile != null) {
                         if (mFile.isDirectory()) {
-                            imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(mContext,
-                                                                                         viewThemeUtils));
+                            imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.folder));
                         } else {
                             if (MimeTypeUtil.isVideo(mFile)) {
                                 imageView.setImageBitmap(ThumbnailsCacheManager.mDefaultVideo);

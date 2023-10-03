@@ -134,11 +134,6 @@ public final class MimeTypeUtil {
         return determineIconIdByMimeTypeList(possibleMimeTypes);
     }
 
-    public static Drawable getDefaultFolderIcon(Context context,
-                                                ViewThemeUtils viewThemeUtils) {
-        return ContextCompat.getDrawable(context, R.drawable.folder);
-    }
-
     /**
      * Returns a single MIME type of all the possible, by inspection of the file extension, and taking into account the
      * MIME types known by ownCloud first.

@@ -48,6 +48,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
@@ -219,8 +220,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private void setThumbnail(TrashbinFile file, ImageView thumbnailView) {
         if (file.isFolder()) {
-            thumbnailView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context,
-                                                                             viewThemeUtils));
+            thumbnailView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.folder));
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
