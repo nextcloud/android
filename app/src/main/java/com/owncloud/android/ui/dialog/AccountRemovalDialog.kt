@@ -29,10 +29,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AccountRemovalDialogBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -61,20 +64,39 @@ class AccountRemovalDialog : DialogFragment(), Injectable {
         viewThemeUtils.platform.colorTextButtons(
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE), alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
         )
+
+        binding.userName.text = UserAccountManager.getDisplayName(user)
+        binding.account.text = user?.let { DisplayUtils.convertIdn(it.accountName, false) }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = AccountRemovalDialogBinding.inflate(layoutInflater)
 
+
+
         val builder = MaterialAlertDialogBuilder(requireActivity())
             .setTitle(R.string.delete_account)
             .setView(binding.root)
-            .setPositiveButton(R.string.common_ok) { _, _ -> }
             .setNegativeButton(R.string.common_cancel) { _, _ -> }
+            .setPositiveButton("Continue") { _, _ ->
+            }
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(requireActivity(), builder)
 
+        binding.radioLocalRemove.setOnClickListener {
+            binding.radioRequestDeletion.isChecked = false
+            (dialog as AlertDialog).getButton(AlertDialog.BUTTON_POSITIVE).text = "Remove Account"
+        }
+        binding.radioRequestDeletion.setOnClickListener {
+            binding.radioLocalRemove.isChecked = false
+            (dialog as AlertDialog).getButton(AlertDialog.BUTTON_POSITIVE).text = "Request Deletion"
+        }
+
         return builder.create()
+    }
+
+    private fun hasDropAccount() {
+        val capability = FileDataStorageManager(user, context?.contentResolver).getCapability(user)
     }
 
     companion object {
