@@ -135,11 +135,18 @@ public final class MimeTypeUtil {
         return determineIconIdByMimeTypeList(possibleMimeTypes);
     }
 
+    public static Drawable getDefaultFolderIcon(Context context, ViewThemeUtils viewThemeUtils) {
+        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.folder);
+        assert(drawable != null);
+
+        viewThemeUtils.platform.tintDrawable(context, drawable, ColorRole.PRIMARY);
+        return drawable;
+    }
+
     public static LayerDrawable getFileIcon(Integer overlayIconId, Context context, ViewThemeUtils viewThemeUtils) {
-        Drawable folderDrawable = ContextCompat.getDrawable(context, R.drawable.folder);
+        Drawable folderDrawable = getDefaultFolderIcon(context, viewThemeUtils);
         assert(folderDrawable != null);
 
-        viewThemeUtils.platform.tintDrawable(context, folderDrawable, ColorRole.PRIMARY);
         LayerDrawable folderLayerDrawable = new LayerDrawable(new Drawable[] { folderDrawable } );
 
         if (overlayIconId == null) {
@@ -151,6 +158,7 @@ public final class MimeTypeUtil {
         if (overlayDrawable == null) {
             return folderLayerDrawable;
         }
+
         DrawableUtil drawableUtil = new DrawableUtil();
 
         return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable, 6);
