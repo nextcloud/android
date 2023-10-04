@@ -87,8 +87,10 @@
     <string name="calendars">לוחות שנה</string>
     <string name="certificate_load_problem">קיימת בעיה בטעינת האישור.</string>
     <string name="changelog_dev_version">יומן שינויים של גרסת פיתוח</string>
+    <string name="check_back_later_or_reload">בדוק שוב מאוחר יותר או טען שנית</string>
     <string name="checkbox">תיבת סימון</string>
     <string name="choose_local_folder">נא לבחור בתיקייה מקומית…</string>
+    <string name="choose_location">בחר מיקום</string>
     <string name="choose_remote_folder">בחר תיקייה…</string>
     <string name="clear_notifications_failed">פינוי ההתראות נכשל.</string>
     <string name="clear_status_message">פינוי הודעת המצב</string>
