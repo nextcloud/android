@@ -668,11 +668,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public LayerDrawable getFileIcon(boolean isAutoUploadFolder, Context context) {
         Drawable folderDrawable = ContextCompat.getDrawable(context, R.drawable.folder);
+        assert(folderDrawable != null);
+
         LayerDrawable folderLayerDrawable = new LayerDrawable(new Drawable[] { folderDrawable } );
 
         Integer overlayIconId = getFileOverlayIconId(isAutoUploadFolder);
 
-        if (overlayIconId == null || folderDrawable == null) {
+        if (overlayIconId == null) {
             return folderLayerDrawable;
         }
 
