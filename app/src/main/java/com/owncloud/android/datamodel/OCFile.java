@@ -646,29 +646,42 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return permissions != null && permissions.contains(PERMISSION_GROUPFOLDER);
     }
 
+    public Integer getFileOverlayIcon(boolean isAutoUploadFolder) {
+        if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder()) {
+            return R.drawable.ic_folder_overlay_account_group;
+        } else if (sharedViaLink && !encrypted) {
+            return R.drawable.ic_folder_overlay_link;
+        } else if (isSharedWithMe() || sharedWithSharee) {
+            return R.drawable.ic_folder_overlay_share;
+        } else if (encrypted) {
+            return R.drawable.ic_folder_overlay_key;
+        } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
+            return R.drawable.ic_folder_overlay_external;
+        } else if (locked) {
+            return R.drawable.ic_folder_overlay_lock;
+        } else if (isAutoUploadFolder) {
+            return R.drawable.ic_folder_overlay_upload;
+        } else {
+            return null;
+        }
+    }
+
     public LayerDrawable getFileIcon(boolean isAutoUploadFolder, Context context) {
         Drawable folderDrawable = ContextCompat.getDrawable(context, R.drawable.folder);
+        LayerDrawable folderLayerDrawable = new LayerDrawable(new Drawable[] { folderDrawable } );
 
-        int overlayIconId;
-        if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder()) {
-            overlayIconId = R.drawable.ic_folder_overlay_account_group;
-        } else if (sharedViaLink && !encrypted) {
-            overlayIconId = R.drawable.ic_folder_overlay_link;
-        } else if (isSharedWithMe() || sharedWithSharee) {
-            overlayIconId = R.drawable.ic_folder_overlay_share;
-        } else if (encrypted) {
-            overlayIconId = R.drawable.ic_folder_overlay_key;
-        } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
-            overlayIconId = R.drawable.ic_folder_overlay_external;
-        } else if (locked) {
-            overlayIconId = R.drawable.ic_folder_overlay_lock;
-        } else if (isAutoUploadFolder) {
-            overlayIconId = R.drawable.ic_folder_overlay_upload;
-        } else {
-            return new LayerDrawable(new Drawable[] { folderDrawable } );
+        Integer overlayIconId = getFileOverlayIcon(isAutoUploadFolder);
+
+        if (overlayIconId == null || folderDrawable == null) {
+            return folderLayerDrawable;
         }
 
         Drawable overlayDrawable = ContextCompat.getDrawable(context, overlayIconId);
+
+        if (overlayDrawable == null) {
+            return folderLayerDrawable;
+        }
+
         DrawableUtil drawableUtil = new DrawableUtil();
         return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable, 6);
     }
