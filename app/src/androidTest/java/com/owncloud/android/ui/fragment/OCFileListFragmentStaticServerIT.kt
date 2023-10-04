@@ -27,6 +27,7 @@ import com.nextcloud.test.GrantStoragePermissionRule
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.network.WebdavEntry
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.shares.ShareeUser
 import com.owncloud.android.utils.MimeType
@@ -242,6 +243,22 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             sut.storageManager.saveFile(this)
         }
 
+        OCFile("/sharedViaLink/").apply {
+            mimeType = MimeType.DIRECTORY
+            isSharedViaLink = true
+            modificationTimestamp = 1619003571000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            sut.storageManager.saveFile(this)
+        }
+
+        OCFile("/share/").apply {
+            mimeType = MimeType.DIRECTORY
+            isSharedWithSharee = true
+            modificationTimestamp = 1619303571000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            sut.storageManager.saveFile(this)
+        }
+
         OCFile("/groupFolder/").apply {
             mimeType = MimeType.DIRECTORY
             modificationTimestamp = 1615003571000
@@ -259,7 +276,14 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             sut.storageManager.saveFile(this)
         }
 
-        // TODO add other OCFile types such as locked...
+        OCFile("/locked/").apply {
+            mimeType = MimeType.DIRECTORY
+            isLocked = true
+            decryptedRemotePath = "/locked/"
+            modificationTimestamp = 1613003571000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            sut.storageManager.saveFile(this)
+        }
 
         sut.addFragment(fragment)
 
