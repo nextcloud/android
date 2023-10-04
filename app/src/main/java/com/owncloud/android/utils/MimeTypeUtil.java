@@ -22,6 +22,7 @@ package com.owncloud.android.utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
@@ -132,6 +133,27 @@ public final class MimeTypeUtil {
         }
 
         return determineIconIdByMimeTypeList(possibleMimeTypes);
+    }
+
+    public static LayerDrawable getFileIcon(Integer overlayIconId, Context context, ViewThemeUtils viewThemeUtils) {
+        Drawable folderDrawable = ContextCompat.getDrawable(context, R.drawable.folder);
+        assert(folderDrawable != null);
+
+        viewThemeUtils.platform.tintDrawable(context, folderDrawable, ColorRole.PRIMARY);
+        LayerDrawable folderLayerDrawable = new LayerDrawable(new Drawable[] { folderDrawable } );
+
+        if (overlayIconId == null) {
+            return folderLayerDrawable;
+        }
+
+        Drawable overlayDrawable = ContextCompat.getDrawable(context, overlayIconId);
+
+        if (overlayDrawable == null) {
+            return folderLayerDrawable;
+        }
+        DrawableUtil drawableUtil = new DrawableUtil();
+
+        return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable, 6);
     }
 
     /**

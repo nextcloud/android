@@ -668,31 +668,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         }
     }
 
-    public LayerDrawable getFileIcon(boolean isAutoUploadFolder, Context context, ViewThemeUtils viewThemeUtils) {
-        Drawable folderDrawable = ContextCompat.getDrawable(context, R.drawable.folder);
-        assert(folderDrawable != null);
-
-        // TODO move getFileIcon in MimeTypeUtil
-        // TODO delete folder_ icons from project directory
-        viewThemeUtils.platform.tintDrawable(context, folderDrawable, ColorRole.PRIMARY);
-        LayerDrawable folderLayerDrawable = new LayerDrawable(new Drawable[] { folderDrawable } );
-
-        Integer overlayIconId = getFileOverlayIconId(isAutoUploadFolder);
-
-        if (overlayIconId == null) {
-            return folderLayerDrawable;
-        }
-
-        Drawable overlayDrawable = ContextCompat.getDrawable(context, overlayIconId);
-
-        if (overlayDrawable == null) {
-            return folderLayerDrawable;
-        }
-        DrawableUtil drawableUtil = new DrawableUtil();
-
-        return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable, 6);
-    }
-
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
 
         @Override
