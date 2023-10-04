@@ -646,7 +646,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return permissions != null && permissions.contains(PERMISSION_GROUPFOLDER);
     }
 
-    public Integer getFileOverlayIcon(boolean isAutoUploadFolder) {
+    public Integer getFileOverlayIconId(boolean isAutoUploadFolder) {
         if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder()) {
             return R.drawable.ic_folder_overlay_account_group;
         } else if (sharedViaLink && !encrypted) {
@@ -670,7 +670,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         Drawable folderDrawable = ContextCompat.getDrawable(context, R.drawable.folder);
         LayerDrawable folderLayerDrawable = new LayerDrawable(new Drawable[] { folderDrawable } );
 
-        Integer overlayIconId = getFileOverlayIcon(isAutoUploadFolder);
+        Integer overlayIconId = getFileOverlayIconId(isAutoUploadFolder);
 
         if (overlayIconId == null || folderDrawable == null) {
             return folderLayerDrawable;
