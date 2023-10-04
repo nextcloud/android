@@ -31,6 +31,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
@@ -42,6 +43,7 @@ import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.utils.DrawableUtil;
 import com.owncloud.android.utils.MimeType;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -666,10 +668,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         }
     }
 
-    public LayerDrawable getFileIcon(boolean isAutoUploadFolder, Context context) {
+    public LayerDrawable getFileIcon(boolean isAutoUploadFolder, Context context, ViewThemeUtils viewThemeUtils) {
         Drawable folderDrawable = ContextCompat.getDrawable(context, R.drawable.folder);
         assert(folderDrawable != null);
 
+        // TODO move getFileIcon in MimeTypeUtil
+        // TODO delete folder_ icons from project directory
+        viewThemeUtils.platform.tintDrawable(context, folderDrawable, ColorRole.PRIMARY);
         LayerDrawable folderLayerDrawable = new LayerDrawable(new Drawable[] { folderDrawable } );
 
         Integer overlayIconId = getFileOverlayIconId(isAutoUploadFolder);
@@ -683,8 +688,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         if (overlayDrawable == null) {
             return folderLayerDrawable;
         }
-
         DrawableUtil drawableUtil = new DrawableUtil();
+
         return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable, 6);
     }
 
