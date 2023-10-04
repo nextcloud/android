@@ -244,7 +244,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                                     Context context,
                                     ViewThemeUtils viewThemeUtils) {
         if (file.isDirectory()) {
-            thumbnailView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.folder));
+            thumbnailView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context, viewThemeUtils));
         } else {
             thumbnailView.setImageResource(R.drawable.file);
 

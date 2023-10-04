@@ -900,7 +900,7 @@ public final class ThumbnailsCacheManager {
                 } else {
                     if (mFile != null) {
                         if (mFile.isDirectory()) {
-                            imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.folder));
+                            imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(mContext, viewThemeUtils));
                         } else {
                             if (MimeTypeUtil.isVideo(mFile)) {
                                 imageView.setImageBitmap(ThumbnailsCacheManager.mDefaultVideo);

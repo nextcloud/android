@@ -23,7 +23,6 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +34,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.ListItemBinding
 import com.owncloud.android.ui.interfaces.GroupfolderListInterface
 import com.owncloud.android.utils.DrawableUtil
+import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 
@@ -51,7 +51,7 @@ class GroupfolderListAdapter(
     }
 
     private fun getFolderIcon(): LayerDrawable? {
-        val folderDrawable = ContextCompat.getDrawable(context, R.drawable.folder) ?: return null
+        val folderDrawable = MimeTypeUtil.getDefaultFolderIcon(context, viewThemeUtils) ?: return null
         val overlayDrawable = ContextCompat.getDrawable(context, R.drawable.ic_folder_overlay_account_group) ?: return null
         val drawableUtil = DrawableUtil()
         return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable, 6)
