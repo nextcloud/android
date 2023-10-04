@@ -259,6 +259,8 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             sut.storageManager.saveFile(this)
         }
 
+        // TODO add other OCFile types such as locked...
+
         sut.addFragment(fragment)
 
         shortSleep()
