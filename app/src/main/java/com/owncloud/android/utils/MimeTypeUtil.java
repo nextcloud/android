@@ -24,6 +24,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
@@ -43,6 +44,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 /**
  * <p>Helper class for detecting the right icon for a file or folder,
@@ -143,7 +145,7 @@ public final class MimeTypeUtil {
         return drawable;
     }
 
-    public static LayerDrawable getFileIcon(Integer overlayIconId, Context context, ViewThemeUtils viewThemeUtils) {
+    public static LayerDrawable getFileIcon(Boolean isDarkModeActive, Integer overlayIconId, Context context, ViewThemeUtils viewThemeUtils) {
         Drawable folderDrawable = getDefaultFolderIcon(context, viewThemeUtils);
         assert(folderDrawable != null);
 
@@ -153,15 +155,16 @@ public final class MimeTypeUtil {
             return folderLayerDrawable;
         }
 
-        Drawable overlayDrawable = ContextCompat.getDrawable(context, overlayIconId);
-
-        if (overlayDrawable == null) {
-            return folderLayerDrawable;
-        }
-
         DrawableUtil drawableUtil = new DrawableUtil();
 
-        return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable, 6);
+        Drawable overlayDrawable = ContextCompat.getDrawable(context, overlayIconId);
+        assert(overlayDrawable != null);
+
+        if (isDarkModeActive) {
+            overlayDrawable = drawableUtil.changeColor(overlayDrawable, R.color.dark);
+        }
+
+        return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable, 3);
     }
 
     /**

@@ -311,6 +311,10 @@ public class SyncedFolderProvider extends Observable {
         );
     }
 
+    public AppPreferences getPreferences() {
+        return preferences;
+    }
+
     /**
      * update given synced folder.
      *

@@ -40,6 +40,7 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
@@ -222,8 +223,10 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         OCFile file = getFile();
         if (file.isFolder()) {
             boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
+            boolean isDarkModeActive = syncedFolderProvider.getPreferences().getDarkThemeMode() == DarkMode.DARK;
+
             Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
-            LayerDrawable drawable = MimeTypeUtil.getFileIcon(overlayIconId, this, viewThemeUtils);
+            LayerDrawable drawable = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, this, viewThemeUtils);
             binding.thumbnail.setImageDrawable(drawable);
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {

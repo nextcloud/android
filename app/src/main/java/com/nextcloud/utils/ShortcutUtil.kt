@@ -34,6 +34,7 @@ import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.nextcloud.client.account.User
+import com.nextcloud.client.preferences.DarkMode
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
@@ -72,8 +73,10 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
                 icon = IconCompat.createWithAdaptiveBitmap(thumbnail)
             } else if (file.isFolder) {
                 val isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user)
+                val isDarkModeActive = syncedFolderProvider.preferences.darkThemeMode == DarkMode.DARK
+
                 val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
-                val drawable = MimeTypeUtil.getFileIcon(overlayIconId, mContext, viewThemeUtils)
+                val drawable = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, mContext, viewThemeUtils)
                 val bitmapIcon = drawable.toBitmap()
                 icon = IconCompat.createWithBitmap(bitmapIcon)
             } else {

@@ -27,6 +27,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ShareActivityBinding;
@@ -79,8 +80,10 @@ public class ShareActivity extends FileActivity {
         // Icon
         if (file.isFolder()) {
             boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, optionalUser.get());
+            boolean isDarkModeActive = syncedFolderProvider.getPreferences().getDarkThemeMode() == DarkMode.DARK;
+
             Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
-            LayerDrawable drawable = MimeTypeUtil.getFileIcon(overlayIconId, this, viewThemeUtils);
+            LayerDrawable drawable = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, this, viewThemeUtils);
             binding.shareFileIcon.setImageDrawable(drawable);
         } else {
             binding.shareFileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
