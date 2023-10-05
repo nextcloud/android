@@ -223,10 +223,9 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         OCFile file = getFile();
         if (file.isFolder()) {
             boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
-            boolean isDarkModeActive = syncedFolderProvider.getPreferences().getDarkThemeMode() == DarkMode.DARK;
 
             Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
-            LayerDrawable drawable = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, this, viewThemeUtils);
+            LayerDrawable drawable = MimeTypeUtil.getFileIcon(preferences.isDarkModeEnabled(), overlayIconId, this, viewThemeUtils);
             binding.thumbnail.setImageDrawable(drawable);
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {

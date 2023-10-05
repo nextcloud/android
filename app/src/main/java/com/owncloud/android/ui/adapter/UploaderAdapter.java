@@ -107,7 +107,7 @@ public class UploaderAdapter extends SimpleAdapter {
 
         if (file.isFolder()) {
             boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
-            boolean isDarkModeActive = syncedFolderProvider.getPreferences().getDarkThemeMode() == DarkMode.DARK;
+            boolean isDarkModeActive = syncedFolderProvider.getPreferences().isDarkModeEnabled();
 
             Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
             final LayerDrawable icon = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, mContext, viewThemeUtils);

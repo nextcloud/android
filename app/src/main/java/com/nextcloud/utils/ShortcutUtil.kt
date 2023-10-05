@@ -73,7 +73,7 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
                 icon = IconCompat.createWithAdaptiveBitmap(thumbnail)
             } else if (file.isFolder) {
                 val isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user)
-                val isDarkModeActive = syncedFolderProvider.preferences.darkThemeMode == DarkMode.DARK
+                val isDarkModeActive = syncedFolderProvider.preferences.isDarkModeEnabled
 
                 val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
                 val drawable = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, mContext, viewThemeUtils)

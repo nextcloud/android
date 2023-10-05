@@ -80,10 +80,9 @@ public class ShareActivity extends FileActivity {
         // Icon
         if (file.isFolder()) {
             boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, optionalUser.get());
-            boolean isDarkModeActive = syncedFolderProvider.getPreferences().getDarkThemeMode() == DarkMode.DARK;
 
             Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
-            LayerDrawable drawable = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, this, viewThemeUtils);
+            LayerDrawable drawable = MimeTypeUtil.getFileIcon(preferences.isDarkModeEnabled(), overlayIconId, this, viewThemeUtils);
             binding.shareFileIcon.setImageDrawable(drawable);
         } else {
             binding.shareFileIcon.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
