@@ -436,6 +436,11 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
+    public boolean isDarkModeEnabled() {
+        return getDarkThemeMode() == DarkMode.DARK;
+    }
+
+    @Override
     public void setDarkThemeMode(DarkMode mode) {
         preferences.edit().putString(PREF__DARK_THEME, mode.name()).apply();
     }
