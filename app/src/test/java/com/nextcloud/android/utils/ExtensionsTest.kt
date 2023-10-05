@@ -31,4 +31,5 @@ class ExtensionsTest {
         assertTrue(actualYearNewValue == "")
         assertFalse(actualYearNewValue == "2022")
     }
+
 }

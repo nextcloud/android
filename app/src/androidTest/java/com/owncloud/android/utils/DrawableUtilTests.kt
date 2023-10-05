@@ -42,7 +42,8 @@ class DrawableUtilTests {
 
     @Test
     fun testAddDrawableAsOverlayWhenGivenValidDrawablesShouldContainTwoDrawable() {
-        val bitmap: Bitmap = Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888)
+        val bitmapSize = 10
+        val bitmap: Bitmap = Bitmap.createBitmap(bitmapSize, bitmapSize, Bitmap.Config.ARGB_8888)
         val drawable = BitmapDrawable(context?.resources, bitmap)
 
         val layerDrawable = sut?.addDrawableAsOverlay(drawable, drawable)
@@ -59,4 +60,5 @@ class DrawableUtilTests {
         sut = null
         context = null
     }
+
 }

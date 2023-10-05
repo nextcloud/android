@@ -1021,4 +1021,5 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
+
 }
