@@ -27,7 +27,6 @@ import com.nextcloud.test.GrantStoragePermissionRule
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.common.network.WebdavEntry
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.shares.ShareeUser
 import com.owncloud.android.utils.MimeType

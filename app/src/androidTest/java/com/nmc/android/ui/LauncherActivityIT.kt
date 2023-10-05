@@ -40,7 +40,6 @@ class LauncherActivityIT : AbstractIT() {
     @get:Rule
     val activityRule = ActivityScenarioRule(LauncherActivity::class.java)
 
-
     @Test
     fun verifyUIElements() {
         waitForIdleSync()
