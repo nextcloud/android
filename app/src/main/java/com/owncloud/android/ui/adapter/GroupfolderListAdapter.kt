@@ -51,10 +51,8 @@ class GroupfolderListAdapter(
     }
 
     private fun getFolderIcon(): LayerDrawable? {
-        val folderDrawable = MimeTypeUtil.getDefaultFolderIcon(context, viewThemeUtils) ?: return null
-        val overlayDrawable = ContextCompat.getDrawable(context, R.drawable.ic_folder_overlay_account_group) ?: return null
-        val drawableUtil = DrawableUtil()
-        return drawableUtil.addDrawableAsOverlay(context, folderDrawable, overlayDrawable)
+        val overlayDrawableId = R.drawable.ic_folder_overlay_account_group
+        return MimeTypeUtil.getFileIcon(false, overlayDrawableId, context, viewThemeUtils)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
