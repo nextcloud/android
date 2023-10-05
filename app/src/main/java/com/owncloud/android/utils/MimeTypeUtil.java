@@ -165,7 +165,7 @@ public final class MimeTypeUtil {
             overlayDrawable = drawableUtil.changeColor(overlayDrawable, R.color.dark);
         }
 
-        return drawableUtil.addDrawableAsOverlay(context, folderDrawable, overlayDrawable);
+        return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable);
     }
 
     /**

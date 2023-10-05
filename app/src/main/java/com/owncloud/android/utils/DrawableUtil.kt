@@ -1,12 +1,9 @@
 package com.owncloud.android.utils
 
-import android.content.Context
+import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
-import android.view.Gravity
 import androidx.core.graphics.drawable.DrawableCompat
-import com.nextcloud.utils.extensions.isLowDensityScreen
-import com.nextcloud.utils.extensions.setLayerSizeWithInsetTop
 
 class DrawableUtil {
 
@@ -16,19 +13,14 @@ class DrawableUtil {
         return drawable
     }
 
-    fun addDrawableAsOverlay(context: Context, backgroundDrawable: Drawable, overlayDrawable: Drawable): LayerDrawable {
-        val isLowDensityScreen = context.resources.displayMetrics.isLowDensityScreen()
-
-        val defaultIconSize = 24
-        val defaultIconTopMargin = 6
-
-        val overlayIconSize = if (isLowDensityScreen) { defaultIconSize / 2 } else { defaultIconSize }
-        val overlayIconTopMargin = if (isLowDensityScreen) { defaultIconTopMargin / 2 } else { defaultIconTopMargin }
+    fun addDrawableAsOverlay(backgroundDrawable: Drawable, overlayDrawable: Drawable): LayerDrawable {
+        val overlayBounds = Rect()
+        val overlayIconSize = backgroundDrawable.intrinsicWidth / 2
+        val topMargin = overlayIconSize.div(2)
+        overlayBounds.set(overlayIconSize, overlayIconSize + topMargin, overlayIconSize, overlayIconSize)
 
         val layerDrawable = LayerDrawable(arrayOf(backgroundDrawable, overlayDrawable))
-        layerDrawable.setLayerSizeWithInsetTop(1, overlayIconSize, overlayIconTopMargin)
-        layerDrawable.setLayerGravity(1, Gravity.CENTER)
-
+        layerDrawable.setLayerInset(1, overlayBounds.left, overlayBounds.top, overlayBounds.right, overlayBounds.bottom)
         return layerDrawable
     }
 }
