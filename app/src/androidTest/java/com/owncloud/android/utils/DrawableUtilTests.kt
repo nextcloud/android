@@ -25,7 +25,11 @@ class DrawableUtilTests {
         val bitmap: Bitmap = Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888)
         val drawable = BitmapDrawable(context?.resources, bitmap)
 
-        val layerDrawable = sut?.addDrawableAsOverlay(drawable, drawable)
+        if (context == null) {
+            fail("context expected to be not null")
+        }
+
+        val layerDrawable = sut?.addDrawableAsOverlay(context!!, drawable, drawable)
 
         if (layerDrawable == null) {
             fail("Layer drawable expected to be not null")

@@ -24,6 +24,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
@@ -164,7 +165,7 @@ public final class MimeTypeUtil {
             overlayDrawable = drawableUtil.changeColor(overlayDrawable, R.color.dark);
         }
 
-        return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable, 3);
+        return drawableUtil.addDrawableAsOverlay(context, folderDrawable, overlayDrawable);
     }
 
     /**
