@@ -34,6 +34,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -89,7 +90,7 @@ public class SyncedFolderProvider extends Observable {
         }
     }
 
-    public static boolean isAutoUploadFolder(SyncedFolderProvider syncedFolderProvider, OCFile file, User user) {
+    public static boolean isAutoUploadFolder(SyncedFolderProvider syncedFolderProvider, ServerFileInterface file, User user) {
         return syncedFolderProvider != null && syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user);
     }
 
