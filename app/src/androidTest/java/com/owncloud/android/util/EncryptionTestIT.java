@@ -765,7 +765,12 @@ public class EncryptionTestIT extends AbstractIT {
         // verify authentication tag
         assertTrue(Arrays.equals(expectedAuthTag, authenticationTag));
 
-        byte[] decryptedBytes = decryptFile(encryptedTempFile, key, iv, authenticationTag);
+        byte[] decryptedBytes = decryptFile(encryptedTempFile,
+                                            key,
+                                            iv,
+                                            authenticationTag,
+                                            new ArbitraryDataProviderImpl(targetContext),
+                                            user);
 
         File decryptedFile = File.createTempFile("file", "dec");
         FileOutputStream fileOutputStream1 = new FileOutputStream(decryptedFile);

@@ -64,6 +64,17 @@ public class ArbitraryDataProviderImpl implements ArbitraryDataProvider {
     }
 
     @Override
+    public void incrementValue(@NonNull String accountName, @NonNull String key) {
+        int oldValue = getIntegerValue(accountName, key);
+
+        int value = 1;
+        if (oldValue > 0) {
+            value = oldValue + 1;
+        }
+        storeOrUpdateKeyValue(accountName, key, value);
+    }
+
+    @Override
     public void storeOrUpdateKeyValue(@NonNull final String accountName, @NonNull final String key, final boolean newValue) {
         storeOrUpdateKeyValue(accountName, key, String.valueOf(newValue));
     }
