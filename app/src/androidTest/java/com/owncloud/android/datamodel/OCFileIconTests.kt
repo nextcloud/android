@@ -102,5 +102,4 @@ class OCFileIconTests {
     fun destroy() {
         sut = null
     }
-
 }

@@ -44,5 +44,4 @@ class DrawableUtil {
         layerDrawable.setLayerInset(1, overlayBounds.left, overlayBounds.top, overlayBounds.right, overlayBounds.bottom)
         return layerDrawable
     }
-
 }
