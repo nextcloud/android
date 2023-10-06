@@ -60,5 +60,4 @@ class DrawableUtilTests {
         sut = null
         context = null
     }
-
 }
