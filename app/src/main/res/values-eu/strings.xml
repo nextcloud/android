@@ -441,7 +441,7 @@
     <string name="link_name">Esteka-izena</string>
     <string name="link_share_allow_upload_and_editing">Onartu kargatzea eta edizioa</string>
     <string name="link_share_editing">Edizioa</string>
-    <string name="link_share_file_drop">Fitxategia jaregitea (kargatzeko soilik)</string>
+    <string name="link_share_file_drop">Fitxategia jaregitea (igotzeko soilik)</string>
     <string name="link_share_view_only">Ikustea soilik</string>
     <string name="list_layout">Zerrenda ikuspegia</string>
     <string name="load_more_results">Kargatu emaitza gehiago </string>
@@ -861,7 +861,7 @@
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps lasterbidearen fitxategia(%s)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Internet lasterbidearen fitxategia(%s)</string>
     <string name="upload_file_dialog_filetype_snippet_text">Kode-zati testu-fitxategia(.txt)</string>
-    <string name="upload_file_dialog_title">Sartu kagatuko den fitxategi-izena eta fitxategi mota</string>
+    <string name="upload_file_dialog_title">Sartu igoko den fitxategi-izena eta fitxategi mota</string>
     <string name="upload_files">Igo fitxategiak</string>
     <string name="upload_item_action_button">Kargatu elementuaren ekintza botoia</string>
     <string name="upload_list_delete">Ezabatu</string>
