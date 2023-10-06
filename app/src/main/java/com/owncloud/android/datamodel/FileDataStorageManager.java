@@ -1954,6 +1954,7 @@ public class FileDataStorageManager {
                           capability.getFilesLockingVersion());
         contentValues.put(ProviderTableMeta.CAPABILITIES_GROUPFOLDERS, capability.getGroupfolders().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_DROP_ACCOUNT, capability.getDropAccount().getValue());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_SECURITY_GUARD, capability.getSecurityGuard().getValue());
 
         return contentValues;
     }
@@ -2111,6 +2112,7 @@ public class FileDataStorageManager {
                 getString(cursor, ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION));
             capability.setGroupfolders(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_GROUPFOLDERS));
             capability.setDropAccount(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_DROP_ACCOUNT));
+            capability.setSecurityGuard(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_SECURITY_GUARD));
         }
         return capability;
     }
@@ -2287,7 +2289,18 @@ public class FileDataStorageManager {
         return user;
     }
 
-    public OCFile getDefaultRootPath(){
+    public OCFile getDefaultRootPath() {
         return new OCFile(OCFile.ROOT_PATH);
+    }
+
+    public List<OCFile> getFilesWithSyncConflict(User user) {
+        List<FileEntity> fileEntities = fileDao.getFilesWithSyncConflict(user.getAccountName());
+        List<OCFile> files = new ArrayList<>(fileEntities.size());
+
+        for (FileEntity fileEntity : fileEntities) {
+            files.add(createFileInstance(fileEntity));
+        }
+
+        return files;
     }
 }

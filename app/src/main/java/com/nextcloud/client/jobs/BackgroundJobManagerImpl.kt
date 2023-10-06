@@ -82,6 +82,8 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PDF_GENERATION = "pdf_generation"
         const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
         const val JOB_IMMEDIATE_FILES_EXPORT = "immediate_files_export"
+        const val JOB_PERIODIC_HEALTH_STATUS = "periodic_health_status"
+        const val JOB_IMMEDIATE_HEALTH_STATUS = "immediate_health_status"
 
         const val JOB_TEST = "test_job"
 
@@ -506,5 +508,26 @@ internal class BackgroundJobManagerImpl(
 
     override fun cancelAllJobs() {
         workManager.cancelAllWorkByTag(TAG_ALL)
+    }
+
+    override fun schedulePeriodicHealthStatus() {
+        val request = periodicRequestBuilder(
+            jobClass = HealthStatusWork::class,
+            jobName = JOB_PERIODIC_HEALTH_STATUS,
+            intervalMins = PERIODIC_BACKUP_INTERVAL_MINUTES
+        ).build()
+
+        workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_HEALTH_STATUS, ExistingPeriodicWorkPolicy.KEEP, request)
+    }
+
+    override fun startHealthStatus() {
+        val request = oneTimeRequestBuilder(HealthStatusWork::class, JOB_IMMEDIATE_HEALTH_STATUS)
+            .build()
+
+        workManager.enqueueUniqueWork(
+            JOB_IMMEDIATE_HEALTH_STATUS,
+            ExistingWorkPolicy.KEEP,
+            request
+        )
     }
 }

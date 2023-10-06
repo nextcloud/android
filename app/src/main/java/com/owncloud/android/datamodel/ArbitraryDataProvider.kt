@@ -28,6 +28,8 @@ interface ArbitraryDataProvider {
     fun deleteKeyForAccount(account: String, key: String)
 
     fun storeOrUpdateKeyValue(accountName: String, key: String, newValue: Long)
+
+    fun incrementValue(accountName: String, key: String)
     fun storeOrUpdateKeyValue(accountName: String, key: String, newValue: Boolean)
     fun storeOrUpdateKeyValue(accountName: String, key: String, newValue: String)
 
@@ -43,5 +45,7 @@ interface ArbitraryDataProvider {
         const val DIRECT_EDITING = "DIRECT_EDITING"
         const val DIRECT_EDITING_ETAG = "DIRECT_EDITING_ETAG"
         const val PREDEFINED_STATUS = "PREDEFINED_STATUS"
+        const val E2E_ERRORS = "E2E_ERRORS"
+        const val E2E_ERRORS_TIMESTAMP = "E2E_ERRORS_TIMESTAMP"
     }
 }

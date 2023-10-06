@@ -131,5 +131,7 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_GROUPFOLDERS)
     val groupfolders: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_DROP_ACCOUNT)
-    val dropAccount: Int?
+    val dropAccount: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SECURITY_GUARD)
+    val securityGuard: Int?
 )
