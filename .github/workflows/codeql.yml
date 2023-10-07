@@ -32,7 +32,7 @@ jobs:
         with:
           swap-size-gb: 10
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@ddccb873888234080b77e9bc2d4764d5ccaaccf9 # v2.21.9
+        uses: github/codeql-action/init@2cb752a87e96af96708ab57187ab6372ee1973ab # v2.22.0
         with:
           languages: ${{ matrix.language }}
       - name: Set up JDK 17
@@ -46,4 +46,4 @@ jobs:
           echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > "$HOME/.gradle/gradle.properties"
           ./gradlew assembleDebug
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@ddccb873888234080b77e9bc2d4764d5ccaaccf9 # v2.21.9
+        uses: github/codeql-action/analyze@2cb752a87e96af96708ab57187ab6372ee1973ab # v2.22.0
