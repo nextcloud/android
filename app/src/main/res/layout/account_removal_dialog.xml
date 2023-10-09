@@ -34,6 +34,7 @@
         android:padding="12dp">
 
         <ImageView
+            android:id="@+id/user_icon"
             android:layout_width="@dimen/user_icon_size"
             android:layout_height="@dimen/user_icon_size"
             android:layout_margin="6dp"
@@ -43,12 +44,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="middle"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                 tools:text="Alice Muster" />
 
@@ -56,6 +59,7 @@
                 android:id="@+id/account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="middle"
                 tools:text="alice@cloud.nextcloud.com" />
 
         </LinearLayout>
@@ -80,6 +84,7 @@
             tools:checked="true" />
 
         <LinearLayout
+            android:id="@+id/local_remove_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -100,11 +105,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/request_deletion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingVertical="8dp">
+        android:paddingVertical="8dp"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/radio_request_deletion"
@@ -112,6 +120,7 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
+            android:id="@+id/request_deletion_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
