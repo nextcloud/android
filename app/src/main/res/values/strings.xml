@@ -129,12 +129,12 @@
     <string name="common_skip">Skip</string>
     <string name="common_copy">Copy</string>
     <string name="about_title">About</string>
-    <string name="remove_local_account">Remove local Account</string>
+    <string name="remove_local_account">Remove local account</string>
     <string name="remove_local_account_details">Remove account from device and delete all local files</string>
     <string name="request_account_deletion">Request account deletion</string>
+    <string name="request_account_deletion_button">Request deletion</string>
     <string name="request_account_deletion_details">Request permanent deletion of account by service provider</string>
     <string name="delete_account">Remove account</string>
-    <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Active user</string>
     <string name="upload_chooser_title">Upload from…</string>
