@@ -2,8 +2,10 @@
  * Nextcloud Android client application
  *
  *  @author Álvaro Brey
+ *  @author TSI-mc
  *  Copyright (C) 2022 Álvaro Brey
  *  Copyright (C) 2022 Nextcloud GmbH
+ *  Copyright (C) 2023 TSI-mc
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -22,7 +24,9 @@
 
 package com.owncloud.android.utils
 
+import android.app.Activity
 import android.content.Context
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import javax.inject.Inject
@@ -39,6 +43,12 @@ class KeyboardUtils @Inject constructor() {
                 inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
             }
         }, SHOW_INPUT_DELAY_MILLIS)
+    }
+
+    fun hideKeyboardFrom(context: Context, view: View) {
+        view.clearFocus()
+        val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     companion object {

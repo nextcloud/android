@@ -7,7 +7,7 @@
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2016 ownCloud Inc.
  *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
- *   Copyright (C) 2021 TSI-mc
+ *   Copyright (C) 2023 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -66,6 +66,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.download_limit.GetShareDownloadLimitOperation;
+import com.owncloud.android.lib.resources.download_limit.model.DownloadLimitResponse;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
@@ -89,6 +91,7 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
+import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
@@ -415,6 +418,8 @@ public abstract class FileActivity extends DrawerActivity
             onUpdateShareInformation(result, R.string.unsharing_failed);
         } else if (operation instanceof UpdateNoteForShareOperation) {
             onUpdateNoteForShareOperationFinish(result);
+        } else if (operation instanceof GetShareDownloadLimitOperation) {
+            onShareDownloadLimitFetched(result);
         }
     }
 
@@ -842,6 +847,24 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     /**
+     * method will be called when download limit is fetched
+     *
+     * @param result
+     */
+    private void onShareDownloadLimitFetched(RemoteOperationResult result) {
+        FileDetailSharingFragment sharingFragment = getShareFileFragment();
+
+        if (result.isSuccess() && sharingFragment != null) {
+            if (result.isSuccess() && result.getResultData() != null) {
+                if (result.getResultData() instanceof DownloadLimitResponse) {
+                    onLinkShareDownloadLimitFetched(((DownloadLimitResponse) result.getResultData()).getLimit(),
+                                                    ((DownloadLimitResponse) result.getResultData()).getCount());
+                }
+            }
+        }
+    }
+
+    /**
      * Shortcut to get access to the {@link FileDetailSharingFragment} instance, if any
      *
      * @return A {@link FileDetailSharingFragment} instance, or null
@@ -915,6 +938,14 @@ public abstract class FileActivity extends DrawerActivity
         FileDetailFragment fragment = getFileDetailFragment();
         if (fragment != null) {
             fragment.editExistingShare(share, screenTypePermission, isReshareShown, isExpiryDateShown);
+        }
+    }
+
+    @Override
+    public void onLinkShareDownloadLimitFetched(long downloadLimit, long downloadCount) {
+        Fragment fileDetailsSharingProcessFragment = getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
+        if (fileDetailsSharingProcessFragment != null) {
+            ((FileDetailsSharingProcessFragment) fileDetailsSharingProcessFragment).onLinkShareDownloadLimitFetched(downloadLimit, downloadCount);
         }
     }
 

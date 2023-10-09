@@ -7,7 +7,7 @@
  *   @author TSI-mc
  *   Copyright (C) 2015 ownCloud Inc.
  *   Copyright (C) 2018 Andy Scherzinger
- *   Copyright (C) 2021 TSI-mc
+ *   Copyright (C) 2023 TSI-mc
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -52,6 +52,7 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.download_limit.GetShareDownloadLimitOperation;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -109,6 +110,8 @@ public class OperationsService extends Service {
     public static final String EXTRA_SHARE_ID = "SHARE_ID";
     public static final String EXTRA_SHARE_NOTE = "SHARE_NOTE";
     public static final String EXTRA_IN_BACKGROUND = "IN_BACKGROUND";
+    public static final String EXTRA_SHARE_TOKEN = "SHARE_TOKEN";
+    public static final String EXTRA_SHARE_DOWNLOAD_LIMIT = "SHARE_DOWNLOAD_LIMIT";
 
     public static final String ACTION_CREATE_SHARE_VIA_LINK = "CREATE_SHARE_VIA_LINK";
     public static final String ACTION_CREATE_SECURE_FILE_DROP = "CREATE_SECURE_FILE_DROP";
@@ -129,6 +132,7 @@ public class OperationsService extends Service {
     public static final String ACTION_COPY_FILE = "COPY_FILE";
     public static final String ACTION_CHECK_CURRENT_CREDENTIALS = "CHECK_CURRENT_CREDENTIALS";
     public static final String ACTION_RESTORE_VERSION = "RESTORE_VERSION";
+    public static final String ACTION_GET_SHARE_DOWNLOAD_LIMIT = "GET_SHARE_DOWNLOAD_LIMIT";
 
     private ServiceHandler mOperationsHandler;
     private OperationsServiceBinder mOperationsBinder;
@@ -643,6 +647,12 @@ public class OperationsService extends Service {
                                 updateShare.setLabel(operationIntent.getStringExtra(EXTRA_SHARE_PUBLIC_LABEL));
                             }
 
+                            //download limit for link share type
+                            if (operationIntent.hasExtra(EXTRA_SHARE_DOWNLOAD_LIMIT)) {
+                                updateShare.setDownloadLimit(operationIntent.getLongExtra(EXTRA_SHARE_DOWNLOAD_LIMIT,
+                                                                                          0L));
+                            }
+
                             operation = updateShare;
                         }
                         break;
@@ -732,6 +742,13 @@ public class OperationsService extends Service {
                         FileVersion fileVersion = operationIntent.getParcelableExtra(EXTRA_FILE_VERSION);
                         operation = new RestoreFileVersionRemoteOperation(fileVersion.getLocalId(),
                                                                           fileVersion.getFileName());
+                        break;
+
+                    case ACTION_GET_SHARE_DOWNLOAD_LIMIT:
+                        String shareToken = operationIntent.getStringExtra(EXTRA_SHARE_TOKEN);
+                        if (!TextUtils.isEmpty(shareToken)) {
+                            operation = new GetShareDownloadLimitOperation(shareToken);
+                        }
                         break;
 
                     default:

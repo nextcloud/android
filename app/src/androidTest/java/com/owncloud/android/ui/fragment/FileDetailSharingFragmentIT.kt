@@ -6,7 +6,7 @@
  * @author TSI-mc
  * Copyright (C) 2020 Tobias Kaminsky
  * Copyright (C) 2020 Nextcloud GmbH
- * Copyright (C) 2021 TSI-mc
+ * Copyright (C) 2023 TSI-mc
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -269,6 +269,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(not(isDisplayed())))
+        onView(ViewMatchers.withId(R.id.share_process_download_limit_switch)).check(matches(not(isDisplayed())))
 
         // read-only
         onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
@@ -397,6 +398,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(not(isDisplayed())))
+        onView(ViewMatchers.withId(R.id.share_process_download_limit_switch)).check(matches(isDisplayed()))
 
         // read-only
         publicShare.permissions = 17 // from server
@@ -514,6 +516,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isDisplayed()))
+        onView(ViewMatchers.withId(R.id.share_process_download_limit_switch)).check(matches(not(isDisplayed())))
 
         // read-only
         userShare.permissions = 17 // from server
@@ -637,6 +640,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isDisplayed()))
+        onView(ViewMatchers.withId(R.id.share_process_download_limit_switch)).check(matches(not(isDisplayed())))
 
         // read-only
         userShare.permissions = 17 // from server
