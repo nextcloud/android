@@ -56,7 +56,6 @@ class LoginIT : AbstractIT() {
         ActivityScenario.launch(AuthenticatorActivity::class.java)
     }
 
-    // FIXME test fails
     @Test
     @Throws(InterruptedException::class)
     @Suppress("MagicNumber", "SwallowedException")

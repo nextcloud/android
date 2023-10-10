@@ -49,7 +49,6 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
 
-    // FIXME test fails
     @Test
     @ScreenshotTest
     fun open() {
@@ -67,7 +66,6 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
         screenshot(sut)
     }
 
-    // FIXME test fails
     @Test
     @ScreenshotTest
     fun showMediaThenAllFiles() {
@@ -102,7 +100,6 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
         screenshot(fileDisplayActivity)
     }
 
-    // FIXME test fails
     @Test
     @ScreenshotTest
     fun drawer() {
