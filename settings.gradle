@@ -9,8 +9,8 @@ include ':appscan'
 //    }
 //}
 
-includeBuild('../android-library') {
-    dependencySubstitution {
-        substitute module('com.github.nextcloud:android-library') using project(':library')
-    }
-}
+//includeBuild('../android-library') {
+//    dependencySubstitution {
+//        substitute module('com.github.nextcloud:android-library') using project(':library')
+//    }
+//}

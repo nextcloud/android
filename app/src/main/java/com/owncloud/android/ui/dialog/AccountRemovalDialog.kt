@@ -97,10 +97,10 @@ class AccountRemovalDialog : DialogFragment(), AvatarGenerationListener, Injecta
                 .setPositiveButton(R.string.delete_account) { _, _ -> removeAccount() }
 
         // allow selection by clicking on list element
-        binding.localRemoveText.setOnClickListener {
+        binding.localRemove.setOnClickListener {
             binding.radioLocalRemove.performClick()
         }
-        binding.requestDeletionText.setOnClickListener {
+        binding.requestDeletion.setOnClickListener {
             binding.radioRequestDeletion.performClick()
         }
 
