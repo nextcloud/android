@@ -138,7 +138,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     @Override
     public void onResume() {
         super.onResume();
-        keyboardUtils.showKeyboardForEditText(binding.filename);
+        keyboardUtils.showKeyboardForEditText(requireDialog().getWindow(), binding.filename);
     }
 
     @NonNull

@@ -110,7 +110,7 @@ public class RenameFileDialogFragment
     @Override
     public void onResume() {
         super.onResume();
-        keyboardUtils.showKeyboardForEditText(binding.userInput);
+        keyboardUtils.showKeyboardForEditText(requireDialog().getWindow(), binding.userInput);
     }
 
     @NonNull

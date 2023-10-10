@@ -1,7 +1,9 @@
 /*
  * Nextcloud Android client application
  *
+ *  @author ZetaTom
  *  @author Álvaro Brey
+ *  Copyright (C) 2023 ZetaTom
  *  Copyright (C) 2022 Álvaro Brey
  *  Copyright (C) 2022 Nextcloud GmbH
  *
@@ -22,26 +24,18 @@
 
 package com.owncloud.android.utils
 
-import android.content.Context
-import android.view.inputmethod.InputMethodManager
+import android.view.Window
 import android.widget.EditText
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import javax.inject.Inject
 
 class KeyboardUtils @Inject constructor() {
 
-    fun showKeyboardForEditText(editText: EditText) {
-        editText.requestFocus()
-        // needs 100ms delay to account for focus animations
-        editText.postDelayed({
-            val context = editText.context
-            if (context != null) {
-                val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
-            }
-        }, SHOW_INPUT_DELAY_MILLIS)
-    }
-
-    companion object {
-        private const val SHOW_INPUT_DELAY_MILLIS = 100L
+    fun showKeyboardForEditText(window: Window?, editText: EditText) {
+        if (window != null) {
+            editText.requestFocus()
+            WindowCompat.getInsetsController(window, editText).show(WindowInsetsCompat.Type.ime())
+        }
     }
 }
