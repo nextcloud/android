@@ -23,15 +23,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="24dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="12dp">
+        android:padding="12dp"
+        android:paddingHorizontal="24dp">
 
         <ImageView
             android:id="@+id/user_icon"
@@ -71,10 +71,15 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:id="@+id/local_remove"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:paddingHorizontal="24dp"
         android:paddingVertical="8dp">
 
         <androidx.appcompat.widget.AppCompatRadioButton
@@ -84,7 +89,6 @@
             tools:checked="true" />
 
         <LinearLayout
-            android:id="@+id/local_remove_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -108,8 +112,12 @@
         android:id="@+id/request_deletion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:paddingHorizontal="24dp"
         android:paddingVertical="8dp"
         android:visibility="gone"
         tools:visibility="visible">
@@ -120,7 +128,6 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
-            android:id="@+id/request_deletion_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
