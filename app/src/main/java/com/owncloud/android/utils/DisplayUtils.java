@@ -856,7 +856,7 @@ public final class DisplayUtils {
             stopShimmer(shimmerThumbnail, thumbnailView);
 
             boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
-            boolean isDarkModeActive = preferences.getDarkThemeMode() == DarkMode.DARK;
+            boolean isDarkModeActive = preferences.isDarkModeEnabled();
 
             Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
             LayerDrawable fileIcon = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
