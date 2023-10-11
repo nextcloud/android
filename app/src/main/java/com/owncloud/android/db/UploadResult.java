@@ -44,7 +44,8 @@ public enum UploadResult {
     OLD_ANDROID_API(18),
     SYNC_CONFLICT(19),
     CANNOT_CREATE_FILE(20),
-    LOCAL_STORAGE_NOT_COPIED(21);
+    LOCAL_STORAGE_NOT_COPIED(21),
+    USER_DISABLED(22);
 
     private final int value;
 
@@ -104,6 +105,8 @@ public enum UploadResult {
                 return CANNOT_CREATE_FILE;
             case 21:
                 return LOCAL_STORAGE_NOT_COPIED;
+            case 22:
+                return USER_DISABLED;
         }
         return UNKNOWN;
     }
@@ -162,6 +165,8 @@ public enum UploadResult {
                 return VIRUS_DETECTED;
             case CANNOT_CREATE_FILE:
                 return CANNOT_CREATE_FILE;
+            case USER_DISABLED:
+                return USER_DISABLED;
             default:
                 return UNKNOWN;
         }
