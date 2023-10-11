@@ -199,7 +199,7 @@
     <string name="dev_version_no_information_available">Nie sú dostupné žiadne informácie.</string>
     <string name="dev_version_no_new_version_available">Nová verzia nie je dostupná.</string>
     <string name="dialog_close">Zatvoriť</string>
-    <string name="did_not_check_for_dupes">Nekontrolovať duplikáty</string>
+    <string name="did_not_check_for_dupes">Nekontrolovať duplicity</string>
     <string name="digest_algorithm_not_available">Algoritmus digest nie je na vašom telefóne dostupný.</string>
     <string name="direct_login_failed">Prihlásenie pomocou priameho odkazu zlyhalo!</string>
     <string name="disable_new_media_folder_detection_notifications">Zakázať</string>
@@ -477,7 +477,7 @@
     <string name="no_actions">Žiadne akcie pre tohto užívateľa</string>
     <string name="no_browser_available">Aplikácia na prácu s linkami nenájdená</string>
     <string name="no_calendar_exists">Neexistuje žiadny kalendár</string>
-    <string name="no_email_app_available">Aplikácia pre prácu s e-mail adresami nenájdená</string>
+    <string name="no_email_app_available">Aplikácia pre prácu s e-mailovými adresami nenájdená</string>
     <string name="no_items">Žiadne položky</string>
     <string name="no_mutliple_accounts_allowed">Povolený je iba jeden účet</string>
     <string name="no_pdf_app_available">Aplikácia na prácu s PDF nenájdená</string>
