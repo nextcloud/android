@@ -20,7 +20,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.utils
+package com.nextcloud.utils.extensions
 
 import android.text.Selection
 import android.text.Spannable

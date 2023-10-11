@@ -539,8 +539,8 @@ public class DialogFragmentIT extends AbstractIT {
 
         final SslCertificate certificate = new SslCertificate("foo", "bar", "2022/01/10", "2022/01/30");
         final SslError sslError = new SslError(SslError.SSL_UNTRUSTED, certificate);
-        final SslErrorHandler handler = Mockito.mock(SslErrorHandler.class);
 
+        final SslErrorHandler handler = Mockito.mock(SslErrorHandler.class);
 
         SslUntrustedCertDialog sut = SslUntrustedCertDialog.newInstanceForEmptySslError(sslError, handler);
         showDialog(sut);

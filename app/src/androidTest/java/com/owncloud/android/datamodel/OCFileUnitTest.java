@@ -70,7 +70,6 @@ public class OCFileUnitTest {
         mFile = new OCFile(PATH);
     }
 
-
     @Test
     public void writeThenReadAsParcelable() {
 

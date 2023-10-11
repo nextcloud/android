@@ -31,9 +31,11 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.model.GeoLocation;
 import com.owncloud.android.lib.resources.files.model.ImageDimension;
+import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -424,7 +426,9 @@ public class UploadIT extends AbstractOnServerIT {
     }
 
     @Test
-    public void testCreationAndUploadTimestamp() throws IOException {
+    public void testCreationAndUploadTimestamp() throws IOException, AccountUtils.AccountNotFoundException {
+        testOnlyOnServer(NextcloudVersion.nextcloud_27);
+
         File file = getDummyFile("empty.txt");
         String remotePath = "/testFile.txt";
         OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);
@@ -476,7 +480,9 @@ public class UploadIT extends AbstractOnServerIT {
     }
 
     @Test
-    public void testMetadata() throws IOException {
+    public void testMetadata() throws IOException, AccountUtils.AccountNotFoundException {
+        testOnlyOnServer(NextcloudVersion.nextcloud_27);
+
         File file = getFile("gps.jpg");
         String remotePath = "/gps.jpg";
         OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);

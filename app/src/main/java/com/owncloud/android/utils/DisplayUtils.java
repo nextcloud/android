@@ -38,6 +38,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.Spannable;
@@ -66,6 +67,7 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.client.preferences.DarkMode;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -852,15 +854,13 @@ public final class DisplayUtils {
                                     SyncedFolderProvider syncedFolderProvider) {
         if (file.isFolder()) {
             stopShimmer(shimmerThumbnail, thumbnailView);
-            thumbnailView.setImageDrawable(MimeTypeUtil
-                                               .getFolderTypeIcon(file.isSharedWithMe() || file.isSharedWithSharee(),
-                                                                  file.isSharedViaLink(),
-                                                                  file.isEncrypted(),
-                                                                  syncedFolderProvider != null && syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user),
-                                                                  file.isGroupFolder(),
-                                                                  file.getMountType(),
-                                                                  context,
-                                                                  viewThemeUtils));
+
+            boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
+            boolean isDarkModeActive = preferences.isDarkModeEnabled();
+
+            Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
+            LayerDrawable fileIcon = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
+            thumbnailView.setImageDrawable(fileIcon);
         } else {
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?

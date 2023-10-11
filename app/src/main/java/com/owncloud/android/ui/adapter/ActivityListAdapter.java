@@ -80,6 +80,7 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -271,8 +272,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 .into(imageView);
         } else {
             if (MimeTypeUtil.isFolder(previewObject.getMimeType())) {
-                imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context,
-                                                                             viewThemeUtils));
+                imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context, viewThemeUtils));
             } else {
                 imageView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(previewObject.getMimeType(),
                                                                         "",
