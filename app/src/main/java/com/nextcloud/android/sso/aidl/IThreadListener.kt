@@ -16,11 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.android.sso.aidl
 
-package com.nextcloud.android.sso.aidl;
-
-public interface IThreadListener {
-
-    void onThreadFinished(final Thread thread);
-
+interface IThreadListener {
+    fun onThreadFinished(thread: Thread?)
 }

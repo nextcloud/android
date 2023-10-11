@@ -19,9 +19,27 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.nextcloud.android.sso
 
-package com.nextcloud.client.preferences;
+import java.io.IOException
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
+import java.io.Serializable
 
-public enum DarkMode {
-    DARK, LIGHT, SYSTEM
+class PlainHeader internal constructor(var name: String, var value: String) : Serializable {
+    @Throws(IOException::class)
+    private fun writeObject(oos: ObjectOutputStream) {
+        oos.writeObject(name)
+        oos.writeObject(value)
+    }
+
+    @Throws(IOException::class, ClassNotFoundException::class)
+    private fun readObject(`in`: ObjectInputStream) {
+        name = `in`.readObject() as String
+        value = `in`.readObject() as String
+    }
+
+    companion object {
+        private const val serialVersionUID = 3284979177401282512L
+    }
 }

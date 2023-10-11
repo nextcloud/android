@@ -23,39 +23,31 @@
  *
  * The required methods of this class are copied and customized from PostMethod.
  */
+package com.nextcloud.android.sso
 
-package com.nextcloud.android.sso;
+import org.apache.commons.httpclient.methods.ByteArrayRequestEntity
+import org.apache.commons.httpclient.methods.PostMethod
+import org.apache.commons.httpclient.methods.RequestEntity
+import org.apache.commons.httpclient.util.EncodingUtil
+import java.util.Vector
 
-import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
-import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.commons.httpclient.util.EncodingUtil;
-
-import java.util.Vector;
-
-public class PatchMethod extends PostMethod {
-
+class PatchMethod : PostMethod {
     /**
-     * The buffered request body consisting of <code>NameValuePair</code>s.
+     * The buffered request body consisting of `NameValuePair`s.
      */
-    private Vector params = new Vector();
+    private val params: Vector<*> = Vector<Any?>()
 
     /**
      * No-arg constructor.
      */
-    public PatchMethod() {
-        super();
-    }
+    constructor() : super()
 
     /**
      * Constructor specifying a URI.
      *
      * @param uri either an absolute or relative URI
      */
-    public PatchMethod(String uri) {
-        super(uri);
-    }
+    constructor(uri: String?) : super(uri)
 
     /**
      * Returns <tt>"PATCH"</tt>.
@@ -63,9 +55,8 @@ public class PatchMethod extends PostMethod {
      * @return <tt>"PATCH"</tt>
      * @since 2.0
      */
-    @Override
-    public String getName() {
-        return "PATCH";
+    override fun getName(): String {
+        return "PATCH"
     }
 
     /**
@@ -74,11 +65,11 @@ public class PatchMethod extends PostMethod {
      * @return boolean
      * @since 2.0beta1
      */
-    protected boolean hasRequestContent() {
-        if (!this.params.isEmpty()) {
-            return true;
+    override fun hasRequestContent(): Boolean {
+        return if (!this.params.isEmpty()) {
+            true
         } else {
-            return super.hasRequestContent();
+            super.hasRequestContent()
         }
     }
 
@@ -87,31 +78,30 @@ public class PatchMethod extends PostMethod {
      *
      * @since 2.0beta1
      */
-    protected void clearRequestBody() {
-        this.params.clear();
-        super.clearRequestBody();
+    override fun clearRequestBody() {
+        this.params.clear()
+        super.clearRequestBody()
     }
 
     /**
-     * Generates a request entity from the patch parameters, if present.  Calls {@link
-     * EntityEnclosingMethod#generateRequestBody()} if parameters have not been set.
+     * Generates a request entity from the patch parameters, if present.  Calls [ ][EntityEnclosingMethod.generateRequestBody] if parameters have not been set.
      *
      * @since 3.0
      */
-    protected RequestEntity generateRequestEntity() {
-        if (!this.params.isEmpty()) {
+    override fun generateRequestEntity(): RequestEntity {
+        return if (!this.params.isEmpty()) {
             // Use a ByteArrayRequestEntity instead of a StringRequestEntity.
             // This is to avoid potential encoding issues.  Form url encoded strings
             // are ASCII by definition but the content type may not be.  Treating the content
             // as bytes allows us to keep the current charset without worrying about how
             // this charset will effect the encoding of the form url encoded string.
-            String content = EncodingUtil.formUrlEncode(getParameters(), getRequestCharSet());
-            return new ByteArrayRequestEntity(
+            val content = EncodingUtil.formUrlEncode(parameters, requestCharSet)
+            ByteArrayRequestEntity(
                 EncodingUtil.getAsciiBytes(content),
                 FORM_URL_ENCODED_CONTENT_TYPE
-            );
+            )
         } else {
-            return super.generateRequestEntity();
+            super.generateRequestEntity()
         }
     }
 }
