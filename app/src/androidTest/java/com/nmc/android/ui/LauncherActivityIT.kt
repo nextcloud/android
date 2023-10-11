@@ -23,7 +23,10 @@ package com.nmc.android.ui
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -33,6 +36,7 @@ import com.owncloud.android.R
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.AdditionalMatchers.not
 
 @RunWith(AndroidJUnit4::class)
 class LauncherActivityIT : AbstractIT() {
@@ -41,14 +45,26 @@ class LauncherActivityIT : AbstractIT() {
     val activityRule = ActivityScenarioRule(LauncherActivity::class.java)
 
     @Test
-    fun verifyUIElements() {
+    fun testSplashScreenWithEmptyTitlesShouldHideTitles() {
         waitForIdleSync()
 
         onView(withId(R.id.ivSplash)).check(matches(isCompletelyDisplayed()))
-        onView(withId(R.id.splashScreenBold)).check(matches(isCompletelyDisplayed()))
-        onView(withId(R.id.splashScreenNormal)).check(matches(isCompletelyDisplayed()))
 
-        onView(withId(R.id.splashScreenBold)).check(matches(withText("Magenta")))
-        onView(withId(R.id.splashScreenNormal)).check(matches(withText("CLOUD")))
+        onView(withId(R.id.splashScreenBold)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+        onView(withId(R.id.splashScreenNormal)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+    }
+
+    @Test
+    fun testSplashScreenWithTitlesShouldShowTitles() {
+        waitForIdleSync()
+        onView(withId(R.id.ivSplash)).check(matches(isCompletelyDisplayed()))
+
+        activityRule.scenario.onActivity {
+            it.setSplashTitles("Example", "Cloud")
+        }
+
+        val onePercentArea = ViewMatchers.isDisplayingAtLeast(1)
+        onView(withId(R.id.splashScreenBold)).check(matches(onePercentArea))
+        onView(withId(R.id.splashScreenNormal)).check(matches(onePercentArea))
     }
 }

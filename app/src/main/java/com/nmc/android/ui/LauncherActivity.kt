@@ -23,8 +23,10 @@ package com.nmc.android.ui
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.TextUtils
 import android.view.View
+import androidx.annotation.VisibleForTesting
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
@@ -54,6 +56,15 @@ class LauncherActivity : BaseActivity() {
         scheduleSplashScreen()
     }
 
+    @VisibleForTesting
+    fun setSplashTitles(boldText: String, normalText: String) {
+        binding.splashScreenBold.visibility = View.VISIBLE
+        binding.splashScreenNormal.visibility = View.VISIBLE
+
+        binding.splashScreenBold.text = boldText
+        binding.splashScreenNormal.text = normalText
+    }
+
     private fun updateTitleVisibility() {
         if (TextUtils.isEmpty(resources.getString(R.string.splashScreenBold))) {
             binding.splashScreenBold.visibility = View.GONE
@@ -64,18 +75,14 @@ class LauncherActivity : BaseActivity() {
     }
 
     private fun scheduleSplashScreen() {
-        Handler().postDelayed(
-            {
-                // if user is null then go to authenticator activity
-                if (!user.isPresent) {
-                    startActivity(Intent(this, AuthenticatorActivity::class.java))
-                } else {
-                    startActivity(Intent(this, FileDisplayActivity::class.java))
-                }
-                finish()
-            },
-            SPLASH_DURATION
-        )
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (!user.isPresent) {
+                startActivity(Intent(this, AuthenticatorActivity::class.java))
+            } else {
+                startActivity(Intent(this, FileDisplayActivity::class.java))
+            }
+            finish()
+        }, SPLASH_DURATION)
     }
 
     companion object {
