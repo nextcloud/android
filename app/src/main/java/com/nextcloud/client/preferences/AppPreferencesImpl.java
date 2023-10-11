@@ -437,13 +437,7 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     @Override
     public boolean isDarkModeEnabled() {
-        DarkMode darkMode = getDarkThemeMode();
-
-        if (darkMode != null) {
-            return getDarkThemeMode() == DarkMode.DARK;
-        } else {
-            return false;
-        }
+        return getDarkThemeMode() == DarkMode.DARK;
     }
 
     @Override
