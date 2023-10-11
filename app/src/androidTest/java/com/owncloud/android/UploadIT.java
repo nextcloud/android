@@ -426,7 +426,9 @@ public class UploadIT extends AbstractOnServerIT {
     }
 
     @Test
-    public void testCreationAndUploadTimestamp() throws IOException {
+    public void testCreationAndUploadTimestamp() throws IOException, AccountUtils.AccountNotFoundException {
+        testOnlyOnServer(NextcloudVersion.nextcloud_27);
+
         File file = getDummyFile("empty.txt");
         String remotePath = "/testFile.txt";
         OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);
