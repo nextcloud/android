@@ -37,7 +37,9 @@ import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
+import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -71,6 +73,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeTrue;
 
 
 /**
@@ -185,6 +188,13 @@ public abstract class AbstractIT {
             DARK_MODE = "";
             COLOR = "";
         }
+    }
+
+    protected void testOnlyOnServer(OwnCloudVersion version) {
+        OCCapability ocCapability = (OCCapability) new GetCapabilitiesRemoteOperation()
+            .execute(nextcloudClient)
+            .getSingleData();
+        assumeTrue(ocCapability.getVersion().isNewerOrEqual(version));
     }
 
     @Before
