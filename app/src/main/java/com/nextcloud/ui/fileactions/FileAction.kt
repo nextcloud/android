@@ -39,7 +39,7 @@ enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRe
 
     // File moving
     RENAME_FILE(R.id.action_rename_file, R.string.common_rename, R.drawable.ic_rename),
-    MOVE_OR_COPY(R.id.action_move_or_copy, R.string.actionbar_move_or_copy, R.drawable.ic_move),
+    MOVE_OR_COPY(R.id.action_move_or_copy, R.string.actionbar_move_or_copy, R.drawable.ic_external),
 
     // favorites
     FAVORITE(R.id.action_favorite, R.string.favorite, R.drawable.ic_star),
