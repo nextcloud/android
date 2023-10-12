@@ -64,7 +64,7 @@
             android:layout_weight="1"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCopy"
+            android:id="@+id/folder_picker_btn_copy"
             style="@style/Widget.Material3.Button.IconButton.Filled"
             android:layout_width="wrap_content"
             android:layout_weight="1"
@@ -73,7 +73,7 @@
             app:cornerRadius="@dimen/button_corner_radius" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnMove"
+            android:id="@+id/folder_picker_btn_move"
             style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
             android:layout_width="wrap_content"
             android:layout_weight="1"

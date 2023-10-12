@@ -376,8 +376,8 @@ open class FolderPickerActivity :
      */
     private fun initControls() {
         mCancelBtn = findViewById(R.id.folder_picker_btn_cancel)
-        mCopyBtn = findViewById(R.id.btnCopy)
-        mMoveBtn = findViewById(R.id.btnMove)
+        mCopyBtn = findViewById(R.id.folder_picker_btn_copy)
+        mMoveBtn = findViewById(R.id.folder_picker_btn_move)
 
         if (mCopyBtn != null) {
             viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mCopyBtn!!)
@@ -410,7 +410,6 @@ open class FolderPickerActivity :
                 resultData.putParcelableArrayListExtra(EXTRA_FILES, targetFiles)
             }
 
-            // TODO check if this activity not in view hierarchy is operation still active
             mTargetFilePaths.let {
                 if (it != null) {
                     if (v == mCopyBtn) {
