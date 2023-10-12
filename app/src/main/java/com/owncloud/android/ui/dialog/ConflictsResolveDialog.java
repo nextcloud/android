@@ -213,7 +213,7 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
                                   false,
                                   getContext(),
                                   null,
-                                  null,
+                                  syncedFolderProvider.getPreferences(),
                                   viewThemeUtils,
                                   syncedFolderProvider);
 
