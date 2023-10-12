@@ -32,7 +32,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.test.GrantStoragePermissionRule
-import com.nextcloud.test.RetryTestRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
@@ -46,9 +45,6 @@ import org.junit.Test
 class LoginIT : AbstractIT() {
     @get:Rule
     val permissionRule = GrantStoragePermissionRule.grant()
-
-    @get:Rule
-    var retryTestRule = RetryTestRule()
 
     @Before
     fun setUp() {
