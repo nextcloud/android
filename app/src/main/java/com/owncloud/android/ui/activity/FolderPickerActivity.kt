@@ -27,9 +27,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Resources
 import android.os.Bundle
-import android.os.Parcel
 import android.os.Parcelable
-import android.util.Log
 import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
@@ -381,20 +379,20 @@ open class FolderPickerActivity :
         mCopyBtn = findViewById(R.id.btnCopy)
         mMoveBtn = findViewById(R.id.btnMove)
 
-        // FIXME colorMaterialButtonPrimaryFilled breaks material button style
         if (mCopyBtn != null) {
-            //viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mCopyBtn!!)
+            viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mCopyBtn!!)
             mCopyBtn!!.setOnClickListener(this)
         }
         if (mMoveBtn != null) {
-            //viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mMoveBtn!!)
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(mMoveBtn!!)
             mMoveBtn!!.setOnClickListener(this)
         }
+
         if (mCancelBtn != null) {
             if (this is FilePickerActivity) {
                 viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mCancelBtn!!)
             } else {
-                viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(mCancelBtn!!)
+                viewThemeUtils.material.colorMaterialButtonText(mCancelBtn!!)
             }
             mCancelBtn!!.setOnClickListener(this)
         }
@@ -412,6 +410,7 @@ open class FolderPickerActivity :
                 resultData.putParcelableArrayListExtra(EXTRA_FILES, targetFiles)
             }
 
+            // TODO check if this activity not in view hierarchy is operation still active
             mTargetFilePaths.let {
                 if (it != null) {
                     if (v == mCopyBtn) {

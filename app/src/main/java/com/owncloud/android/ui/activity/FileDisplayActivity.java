@@ -888,9 +888,6 @@ public class FileDisplayActivity extends FileActivity
             }, new String[] { FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath() }).execute();
         } else if (requestCode == REQUEST_CODE__MOVE_OR_COPY_FILES && resultCode == RESULT_OK) {
             exitSelectionMode();
-            // TODO check this implementation
-            // final Intent fData = data;
-            // getHandler().postDelayed(() -> requestMoveOrCopyOperation(fData), DELAY_TO_REQUEST_OPERATIONS_LATER);
         } else if (requestCode == PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES) {
             syncAndUpdateFolder(true);
         } else {
@@ -996,16 +993,6 @@ public class FileDisplayActivity extends FileActivity
         uploader.uploadUris();
 
     }
-
-    /*
-     private void requestMoveOrCopyOperation(Intent data) {
-        final OCFile file = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-        final List<String> filePaths = data.getStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS);
-        assert filePaths != null;
-        getFileOperationsHelper().moveOrCopyFiles(filePaths, file);
-    }
-     */
-
 
     private boolean isSearchOpen() {
         if (searchView == null) {

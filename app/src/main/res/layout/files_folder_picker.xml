@@ -46,7 +46,6 @@
 	<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
         android:orientation="horizontal"
 		android:padding="@dimen/standard_padding">
 
@@ -56,22 +55,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/common_cancel"
-            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:layout_weight="1"
             app:cornerRadius="@dimen/button_corner_radius" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCopy"
             style="@style/Widget.Material3.Button.IconButton.Filled"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/folder_picker_copy_button_text"
-            android:layout_marginEnd="@dimen/standard_half_margin"
             app:cornerRadius="@dimen/button_corner_radius" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnMove"
             style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/folder_picker_move_button_text"
             app:cornerRadius="@dimen/button_corner_radius" />
