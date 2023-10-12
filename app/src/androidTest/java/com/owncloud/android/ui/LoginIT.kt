@@ -79,10 +79,15 @@ class LoginIT : AbstractIT() {
                 .perform(DriverAtoms.webClick())
         }
 
+
+        Thread.sleep(3000)
+
         // username
         Web.onWebView()
             .withElement(DriverAtoms.findElement(Locator.XPATH, "//input[@id='user']"))
             .perform(DriverAtoms.webKeys(loginName))
+
+        Thread.sleep(3000)
 
         // password
         Web.onWebView()
