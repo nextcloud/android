@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
     analysis:
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-latest
         steps:
             -   name: Setup variables
                 id: get-vars
