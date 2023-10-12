@@ -1007,30 +1007,10 @@ public class FileOperationsHelper {
         }
     }
 
-    /**
-     * Start operations to move one or several files
-     *
-     * @param filePaths    Remote paths of files to move
-     * @param targetFolder Folder where the files while be moved into
-     */
-    public void moveFiles(final List<String> filePaths, final OCFile targetFolder) {
-        copyOrMoveFiles(OperationsService.ACTION_MOVE_FILE, filePaths, targetFolder);
-    }
-
-    /**
-     * Start operations to copy one or several files
-     *
-     * @param filePaths    Remote paths of files to move
-     * @param targetFolder Folder where the files while be copied into
-     */
-    public void copyFiles(final List<String> filePaths, final OCFile targetFolder) {
-        copyOrMoveFiles(OperationsService.ACTION_COPY_FILE, filePaths, targetFolder);
-    }
-
-    private void copyOrMoveFiles(final String action, final List<String> filePaths, final OCFile targetFolder) {
+    public void moveOrCopyFiles(final List<String> filePaths, final OCFile targetFolder) {
         for (String path : filePaths) {
             Intent service = new Intent(fileActivity, OperationsService.class);
-            service.setAction(action);
+            //service.setAction(OperationsService.ACTION_MOVE_OR_COPY_FILE);
             service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder.getRemotePath());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
             service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());

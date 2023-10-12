@@ -204,8 +204,7 @@ public class FileDisplayActivity extends FileActivity
 
     public static final int REQUEST_CODE__SELECT_CONTENT_FROM_APPS = REQUEST_CODE__LAST_SHARED + 1;
     public static final int REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM = REQUEST_CODE__LAST_SHARED + 2;
-    public static final int REQUEST_CODE__MOVE_FILES = REQUEST_CODE__LAST_SHARED + 3;
-    public static final int REQUEST_CODE__COPY_FILES = REQUEST_CODE__LAST_SHARED + 4;
+    public static final int REQUEST_CODE__MOVE_OR_COPY_FILES = REQUEST_CODE__LAST_SHARED + 3;
     public static final int REQUEST_CODE__UPLOAD_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 5;
     public static final int REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 6;
 
@@ -887,31 +886,10 @@ public class FileDisplayActivity extends FileActivity
                     }
                 }
             }, new String[]{FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath()}).execute();
-        } else if (requestCode == REQUEST_CODE__MOVE_FILES && resultCode == RESULT_OK) {
+        } else if (requestCode == REQUEST_CODE__MOVE_OR_COPY_FILES && resultCode == RESULT_OK) {
             exitSelectionMode();
             final Intent fData = data;
-            getHandler().postDelayed(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        requestMoveOperation(fData);
-                    }
-                },
-                DELAY_TO_REQUEST_OPERATIONS_LATER
-                                    );
-
-        } else if (requestCode == REQUEST_CODE__COPY_FILES && resultCode == RESULT_OK) {
-            exitSelectionMode();
-            final Intent fData = data;
-            getHandler().postDelayed(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        requestCopyOperation(fData);
-                    }
-                },
-                DELAY_TO_REQUEST_OPERATIONS_LATER
-                                    );
+            getHandler().postDelayed(() -> requestMoveOrCopyOperation(fData), DELAY_TO_REQUEST_OPERATIONS_LATER);
         } else if (requestCode == PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES) {
             syncAndUpdateFolder(true);
         } else {
@@ -1018,26 +996,11 @@ public class FileDisplayActivity extends FileActivity
 
     }
 
-    /**
-     * Request the operation for moving the file/folder from one path to another
-     *
-     * @param data Intent received
-     */
-    private void requestMoveOperation(Intent data) {
-        final OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+    private void requestMoveOrCopyOperation(Intent data) {
+        final OCFile file = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
         final List<String> filePaths = data.getStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS);
-        getFileOperationsHelper().moveFiles(filePaths, folderToMoveAt);
-    }
-
-    /**
-     * Request the operation for copying the file/folder from one path to another
-     *
-     * @param data Intent received
-     */
-    private void requestCopyOperation(Intent data) {
-        final OCFile targetFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-        final List<String> filePaths = data.getStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS);
-        getFileOperationsHelper().copyFiles(filePaths, targetFolder);
+        assert filePaths != null;
+        getFileOperationsHelper().moveOrCopyFiles(filePaths, file);
     }
 
     private boolean isSearchOpen() {

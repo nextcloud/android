@@ -347,7 +347,7 @@ open class FolderPickerActivity :
     // for copy and move, disable selecting parent folder of target files
     private fun checkFolderSelectable(): Boolean {
         return when {
-            mAction != COPY && mAction != MOVE -> true
+            mAction != MOVE_OR_COPY -> true
             mTargetFilePaths.isNullOrEmpty() -> true
             file?.isFolder != true -> true
             // all of the target files are already in the selected directory
@@ -588,8 +588,7 @@ open class FolderPickerActivity :
         @JvmField
         val EXTRA_ACTION = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_ACTION")
 
-        const val MOVE = "MOVE"
-        const val COPY = "COPY"
+        const val MOVE_OR_COPY = "MOVE_OR_COPY"
         const val CHOOSE_LOCATION = "CHOOSE_LOCATION"
         private val TAG = FolderPickerActivity::class.java.simpleName
         protected const val TAG_LIST_OF_FOLDERS = "LIST_OF_FOLDERS"
