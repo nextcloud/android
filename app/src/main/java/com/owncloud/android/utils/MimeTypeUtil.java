@@ -22,9 +22,13 @@ package com.owncloud.android.utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -41,6 +45,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 /**
  * <p>Helper class for detecting the right icon for a file or folder,
@@ -133,55 +138,34 @@ public final class MimeTypeUtil {
         return determineIconIdByMimeTypeList(possibleMimeTypes);
     }
 
-    /**
-     * Returns the resource identifier of an image to use as icon associated to a type of folder.
-     *
-     * @param isSharedViaUsers flag if the folder is shared via the users system
-     * @param isSharedViaLink  flag if the folder is publicly shared via link
-     * @param isEncrypted      flag if the folder is encrypted
-     * @return Identifier of an image resource.
-     */
-    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
-                                             boolean isSharedViaLink,
-                                             boolean isEncrypted,
-                                             boolean isAutoUploadFolder,
-                                             boolean isGroupFolder,
-                                             WebdavEntry.MountType mountType,
-                                             Context context,
-                                             ViewThemeUtils viewThemeUtils) {
-        int drawableId;
+    public static Drawable getDefaultFolderIcon(Context context, ViewThemeUtils viewThemeUtils) {
+        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.folder);
+        assert(drawable != null);
 
-        if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder) {
-            drawableId = R.drawable.folder_group;
-        } else if (isSharedViaLink && !isEncrypted) {
-            drawableId = R.drawable.folder_shared_link;
-        } else if (isSharedViaUsers) {
-            drawableId = R.drawable.folder_shared_users;
-        } else if (isEncrypted) {
-            drawableId = R.drawable.folder_encrypted;
-        } else if (isAutoUploadFolder) {
-            drawableId = R.drawable.folder_auto_upload;
-        } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
-            drawableId = R.drawable.folder_external;
-        } else {
-            drawableId = R.drawable.folder;
-        }
-
-        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
-        viewThemeUtils.platform.tintPrimaryDrawable(context, drawable);
+        viewThemeUtils.platform.tintDrawable(context, drawable, ColorRole.PRIMARY);
         return drawable;
     }
 
-    public static Drawable getDefaultFolderIcon(Context context,
-                                                ViewThemeUtils viewThemeUtils) {
-        return getFolderTypeIcon(false,
-                                 false,
-                                 false,
-                                 false,
-                                 false,
-                                 WebdavEntry.MountType.INTERNAL,
-                                 context,
-                                 viewThemeUtils);
+    public static LayerDrawable getFileIcon(Boolean isDarkModeActive, Integer overlayIconId, Context context, ViewThemeUtils viewThemeUtils) {
+        Drawable folderDrawable = getDefaultFolderIcon(context, viewThemeUtils);
+        assert(folderDrawable != null);
+
+        LayerDrawable folderLayerDrawable = new LayerDrawable(new Drawable[] { folderDrawable } );
+
+        if (overlayIconId == null) {
+            return folderLayerDrawable;
+        }
+
+        DrawableUtil drawableUtil = new DrawableUtil();
+
+        Drawable overlayDrawable = ContextCompat.getDrawable(context, overlayIconId);
+        assert(overlayDrawable != null);
+
+        if (isDarkModeActive) {
+            overlayDrawable = drawableUtil.changeColor(overlayDrawable, R.color.dark);
+        }
+
+        return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable);
     }
 
     /**

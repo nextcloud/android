@@ -28,6 +28,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.view.View;
@@ -39,6 +40,7 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
@@ -220,15 +222,11 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         // Todo minimize: only icon by mimetype
         OCFile file = getFile();
         if (file.isFolder()) {
-            binding.thumbnail.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
-                                                                                  file.isSharedWithSharee(),
-                                                                              file.isSharedViaLink(),
-                                                                              file.isEncrypted(),
-                                                                              syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user),
-                                                                              file.isGroupFolder(),
-                                                                              file.getMountType(),
-                                                                              this,
-                                                                              viewThemeUtils));
+            boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
+
+            Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
+            LayerDrawable drawable = MimeTypeUtil.getFileIcon(preferences.isDarkModeEnabled(), overlayIconId, this, viewThemeUtils);
+            binding.thumbnail.setImageDrawable(drawable);
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?

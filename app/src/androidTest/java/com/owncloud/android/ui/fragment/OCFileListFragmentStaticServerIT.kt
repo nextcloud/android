@@ -242,6 +242,22 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             sut.storageManager.saveFile(this)
         }
 
+        OCFile("/sharedViaLink/").apply {
+            mimeType = MimeType.DIRECTORY
+            isSharedViaLink = true
+            modificationTimestamp = 1619003571000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            sut.storageManager.saveFile(this)
+        }
+
+        OCFile("/share/").apply {
+            mimeType = MimeType.DIRECTORY
+            isSharedWithSharee = true
+            modificationTimestamp = 1619303571000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            sut.storageManager.saveFile(this)
+        }
+
         OCFile("/groupFolder/").apply {
             mimeType = MimeType.DIRECTORY
             modificationTimestamp = 1615003571000
@@ -255,6 +271,15 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             isEncrypted = true
             decryptedRemotePath = "/encrypted/"
             modificationTimestamp = 1614003571000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            sut.storageManager.saveFile(this)
+        }
+
+        OCFile("/locked/").apply {
+            mimeType = MimeType.DIRECTORY
+            isLocked = true
+            decryptedRemotePath = "/locked/"
+            modificationTimestamp = 1613003571000
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
             sut.storageManager.saveFile(this)
         }

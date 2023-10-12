@@ -29,8 +29,8 @@ import com.google.android.play.core.review.ReviewManagerFactory
 import com.nextcloud.appReview.AppReviewShownModel
 import com.nextcloud.appReview.InAppReviewHelper
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.getFormattedStringDate
-import com.nextcloud.utils.isCurrentYear
+import com.nextcloud.utils.extensions.getFormattedStringDate
+import com.nextcloud.utils.extensions.isCurrentYear
 import com.owncloud.android.lib.common.utils.Log_OC
 
 // Reference: https://developer.android.com/guide/playcore/in-app-review
