@@ -27,7 +27,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Resources
 import android.os.Bundle
+import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
@@ -44,6 +46,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.RefreshFolderOperation
+import com.owncloud.android.services.OperationsService
 import com.owncloud.android.syncadapter.FileSyncAdapter
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
@@ -378,12 +381,13 @@ open class FolderPickerActivity :
         mCopyBtn = findViewById(R.id.btnCopy)
         mMoveBtn = findViewById(R.id.btnMove)
 
+        // FIXME colorMaterialButtonPrimaryFilled breaks material button style
         if (mCopyBtn != null) {
-            viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mCopyBtn!!)
+            //viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mCopyBtn!!)
             mCopyBtn!!.setOnClickListener(this)
         }
         if (mMoveBtn != null) {
-            viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mMoveBtn!!)
+            //viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mMoveBtn!!)
             mMoveBtn!!.setOnClickListener(this)
         }
         if (mCancelBtn != null) {
@@ -407,7 +411,16 @@ open class FolderPickerActivity :
             if (targetFiles != null) {
                 resultData.putParcelableArrayListExtra(EXTRA_FILES, targetFiles)
             }
+
             mTargetFilePaths.let {
+                if (it != null) {
+                    if (v == mCopyBtn) {
+                        fileOperationsHelper.moveOrCopyFiles(OperationsService.ACTION_COPY_FILE, it, file)
+                    } else {
+                        fileOperationsHelper.moveOrCopyFiles(OperationsService.ACTION_MOVE_FILE, it, file)
+                    }
+                }
+
                 resultData.putStringArrayListExtra(EXTRA_FILE_PATHS, it)
             }
             setResult(RESULT_OK, resultData)

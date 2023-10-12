@@ -42,6 +42,7 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 
@@ -1007,10 +1008,10 @@ public class FileOperationsHelper {
         }
     }
 
-    public void moveOrCopyFiles(final List<String> filePaths, final OCFile targetFolder) {
+    public void moveOrCopyFiles(String action, final List<String> filePaths, final OCFile targetFolder) {
         for (String path : filePaths) {
             Intent service = new Intent(fileActivity, OperationsService.class);
-            //service.setAction(OperationsService.ACTION_MOVE_OR_COPY_FILE);
+            service.setAction(action);
             service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder.getRemotePath());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
             service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
@@ -1018,7 +1019,6 @@ public class FileOperationsHelper {
         }
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
     }
-
 
     public void exportFiles(Collection<OCFile> files,
                             Context context,
