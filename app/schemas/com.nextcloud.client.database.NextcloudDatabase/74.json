@@ -1,18 +1,18 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 74,
-    "identityHash": "7e73c045ac6d52d6c7c1626eefbc21e9",
-    "entities": [
-      {
-        "tableName": "arbitrary_data",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `cloud_id` TEXT, `key` TEXT, `value` TEXT)",
-        "fields": [
+      "version": 74,
+      "identityHash": "bc3fbd9985959e167fdd38198dd480b5",
+      "entities": [
           {
-            "fieldPath": "id",
-            "columnName": "_id",
-            "affinity": "INTEGER",
-            "notNull": false
+              "tableName": "arbitrary_data",
+              "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `cloud_id` TEXT, `key` TEXT, `value` TEXT)",
+              "fields": [
+                  {
+                      "fieldPath": "id",
+                      "columnName": "_id",
+                      "affinity": "INTEGER",
+                      "notNull": false
           },
           {
             "fieldPath": "cloudId",
@@ -42,19 +42,19 @@
         "indices": [],
         "foreignKeys": []
       },
-      {
-        "tableName": "capabilities",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `account` TEXT, `version_mayor` INTEGER, `version_minor` INTEGER, `version_micro` INTEGER, `version_string` TEXT, `version_edition` TEXT, `extended_support` INTEGER, `core_pollinterval` INTEGER, `sharing_api_enabled` INTEGER, `sharing_public_enabled` INTEGER, `sharing_public_password_enforced` INTEGER, `sharing_public_expire_date_enabled` INTEGER, `sharing_public_expire_date_days` INTEGER, `sharing_public_expire_date_enforced` INTEGER, `sharing_public_send_mail` INTEGER, `sharing_public_upload` INTEGER, `sharing_user_send_mail` INTEGER, `sharing_resharing` INTEGER, `sharing_federation_outgoing` INTEGER, `sharing_federation_incoming` INTEGER, `files_bigfilechunking` INTEGER, `files_undelete` INTEGER, `files_versioning` INTEGER, `external_links` INTEGER, `server_name` TEXT, `server_color` TEXT, `server_text_color` TEXT, `server_element_color` TEXT, `server_slogan` TEXT, `server_logo` TEXT, `background_url` TEXT, `end_to_end_encryption` INTEGER, `end_to_end_encryption_keys_exist` INTEGER, `activity` INTEGER, `background_default` INTEGER, `background_plain` INTEGER, `richdocument` INTEGER, `richdocument_mimetype_list` TEXT, `richdocument_direct_editing` INTEGER, `richdocument_direct_templates` INTEGER, `richdocument_optional_mimetype_list` TEXT, `sharing_public_ask_for_optional_password` INTEGER, `richdocument_product_name` TEXT, `direct_editing_etag` TEXT, `user_status` INTEGER, `user_status_supports_emoji` INTEGER, `etag` TEXT, `files_locking_version` TEXT, `groupfolders` INTEGER, `drop_account` INTEGER)",
-        "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "_id",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "accountName",
-            "columnName": "account",
+              "tableName": "capabilities",
+              "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `account` TEXT, `version_mayor` INTEGER, `version_minor` INTEGER, `version_micro` INTEGER, `version_string` TEXT, `version_edition` TEXT, `extended_support` INTEGER, `core_pollinterval` INTEGER, `sharing_api_enabled` INTEGER, `sharing_public_enabled` INTEGER, `sharing_public_password_enforced` INTEGER, `sharing_public_expire_date_enabled` INTEGER, `sharing_public_expire_date_days` INTEGER, `sharing_public_expire_date_enforced` INTEGER, `sharing_public_send_mail` INTEGER, `sharing_public_upload` INTEGER, `sharing_user_send_mail` INTEGER, `sharing_resharing` INTEGER, `sharing_federation_outgoing` INTEGER, `sharing_federation_incoming` INTEGER, `files_bigfilechunking` INTEGER, `files_undelete` INTEGER, `files_versioning` INTEGER, `external_links` INTEGER, `server_name` TEXT, `server_color` TEXT, `server_text_color` TEXT, `server_element_color` TEXT, `server_slogan` TEXT, `server_logo` TEXT, `background_url` TEXT, `end_to_end_encryption` INTEGER, `end_to_end_encryption_keys_exist` INTEGER, `activity` INTEGER, `background_default` INTEGER, `background_plain` INTEGER, `richdocument` INTEGER, `richdocument_mimetype_list` TEXT, `richdocument_direct_editing` INTEGER, `richdocument_direct_templates` INTEGER, `richdocument_optional_mimetype_list` TEXT, `sharing_public_ask_for_optional_password` INTEGER, `richdocument_product_name` TEXT, `direct_editing_etag` TEXT, `user_status` INTEGER, `user_status_supports_emoji` INTEGER, `etag` TEXT, `files_locking_version` TEXT, `groupfolders` INTEGER)",
+              "fields": [
+                  {
+                      "fieldPath": "id",
+                      "columnName": "_id",
+                      "affinity": "INTEGER",
+                      "notNull": false
+                  },
+                  {
+                      "fieldPath": "accountName",
+                      "columnName": "account",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -343,12 +343,6 @@
           {
             "fieldPath": "groupfolders",
             "columnName": "groupfolders",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "dropAccount",
-            "columnName": "drop_account",
             "affinity": "INTEGER",
             "notNull": false
           }
@@ -1155,7 +1149,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7e73c045ac6d52d6c7c1626eefbc21e9')"
+        "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bc3fbd9985959e167fdd38198dd480b5')"
     ]
   }
 }

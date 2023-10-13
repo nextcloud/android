@@ -42,6 +42,7 @@ import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.VirtualEntity
 import com.nextcloud.client.database.migrations.Migration67to68
 import com.nextcloud.client.database.migrations.Migration70to71
+import com.nextcloud.client.database.migrations.Migration73to74
 import com.nextcloud.client.database.migrations.RoomMigration
 import com.nextcloud.client.database.migrations.addLegacyMigrations
 import com.owncloud.android.db.ProviderMeta
@@ -96,6 +97,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
                     .addMigrations(RoomMigration())
                     .addMigrations(Migration67to68())
                     .addMigrations(Migration70to71())
+                    .addMigrations(Migration73to74())
                     .fallbackToDestructiveMigration()
                     .build()
             }
