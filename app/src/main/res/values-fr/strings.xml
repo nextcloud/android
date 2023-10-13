@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">Revenez plus tard ou actualisez la page.</string>
     <string name="checkbox">Case à cocher</string>
     <string name="choose_local_folder">Sélectionner le dossier local…</string>
-    <string name="choose_location">Sélectionner l\'emplacement</string>
     <string name="choose_remote_folder">Sélectionner le dossier distant…</string>
     <string name="choose_template_helper_text">Veuillez choisir un modèle et entrer un nom de fichier</string>
     <string name="choose_which_file">Sélectionnez le fichier à conserver</string>

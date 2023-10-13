@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">请稍后重试</string>
     <string name="checkbox">复选框</string>
     <string name="choose_local_folder">选择本地文件夹…</string>
-    <string name="choose_location">选择位置</string>
     <string name="choose_remote_folder">选择远程文件夹…</string>
     <string name="choose_template_helper_text">请选择一个模板并输入一个文件名</string>
     <string name="choose_which_file">选择保留的文件！</string>

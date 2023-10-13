@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">Bir süre sonra bakın ya da yeniden yükleyin </string>
     <string name="checkbox">İşaret kutusu</string>
     <string name="choose_local_folder">Yerel klasörü seçin …</string>
-    <string name="choose_location">Konum seçin</string>
     <string name="choose_remote_folder">Uzak klasörü seçin …</string>
     <string name="choose_template_helper_text">Lütfen bir kalıp seçin ve bir dosya adı yazın.</string>
     <string name="choose_which_file">Korunacak dosyayı seçin!</string>

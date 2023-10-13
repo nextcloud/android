@@ -87,7 +87,6 @@
     <string name="changelog_dev_version">Zapis promjena razvojne inačice</string>
     <string name="checkbox">Potvrdni okvir</string>
     <string name="choose_local_folder">Odaberite lokalnu mapu...</string>
-    <string name="choose_location">Odaberi lokaciju</string>
     <string name="choose_remote_folder">Odaberite udaljenu mapu...</string>
     <string name="choose_template_helper_text">Odaberite predložak i unesite naziv datoteke.</string>
     <string name="choose_which_file">Odaberite datoteku koju želite zadržati!</string>

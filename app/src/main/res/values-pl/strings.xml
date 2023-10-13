@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">Sprawdź później lub załaduj ponownie.</string>
     <string name="checkbox">Pole checkbox</string>
     <string name="choose_local_folder">Wybierz katalog lokalny…</string>
-    <string name="choose_location">Wybierz lokację</string>
     <string name="choose_remote_folder">Wybierz katalog zdalny…</string>
     <string name="choose_template_helper_text">Wybierz szablon i wprowadź nazwę pliku.</string>
     <string name="choose_which_file">Wybierz, który plik chcesz zachować!</string>

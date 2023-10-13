@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">Återkom senare eller ladda om</string>
     <string name="checkbox">Kryssruta</string>
     <string name="choose_local_folder">Välj lokal mapp…</string>
-    <string name="choose_location">Välj plats</string>
     <string name="choose_remote_folder">Välj extern mapp…</string>
     <string name="choose_template_helper_text">Vänligen välj en mall och ange ett filnamn.</string>
     <string name="choose_which_file">Välj vilken fil du vill behålla!</string>

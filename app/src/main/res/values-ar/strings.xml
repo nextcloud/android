@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">عُد إليه فيما بعد أو أعد تحميله</string>
     <string name="checkbox">مربع تحقق</string>
     <string name="choose_local_folder">اختر المجلد المحلي…</string>
-    <string name="choose_location">اختر الموقع</string>
     <string name="choose_remote_folder">اختر مجلد عن بُعد…</string>
     <string name="choose_template_helper_text">اختر قالب وادخل اسم الملف</string>
     <string name="choose_which_file">اختر أي من أياً من الملفات التالية التي تريد الإحتفاظ بها!</string>

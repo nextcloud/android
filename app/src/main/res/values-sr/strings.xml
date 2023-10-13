@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">Покушајте касније или поново учитајте.</string>
     <string name="checkbox">Кућица</string>
     <string name="choose_local_folder">Одаберите локалну фасциклу…</string>
-    <string name="choose_location">Изаберите локацију</string>
     <string name="choose_remote_folder">Одаберите удаљену фасциклу…</string>
     <string name="choose_template_helper_text">Молимо вас да изаберете шаблон и унесете назив фајла.</string>
     <string name="choose_which_file">Изаберите који фајл желите да задржите!</string>

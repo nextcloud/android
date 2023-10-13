@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">Check back later or reload.</string>
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Choose local folder…</string>
-    <string name="choose_location">Choose location</string>
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
     <string name="choose_which_file">Choose which file to keep!</string>

@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">بعدا چک فرمایید یا مجددا بارگذاری کنید.</string>
     <string name="checkbox">جعبه علامت</string>
     <string name="choose_local_folder">پوشه محلی را انتخاب کردن...</string>
-    <string name="choose_location">گزینش مکان</string>
     <string name="choose_remote_folder">پوشه راه دور را انتخاب کردن ...</string>
     <string name="choose_template_helper_text">لطفا یک قالب را انتخاب و نامی برای پرونده وارد کنید.</string>
     <string name="choose_which_file">انتخاب کنید کدام فایل را نگه‌ دارید!</string>

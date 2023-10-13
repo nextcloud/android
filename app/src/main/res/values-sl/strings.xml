@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">Preverite kasneje ali ponovno naložite</string>
     <string name="checkbox">Izbirno polje</string>
     <string name="choose_local_folder">Izberi krajevno mapo…</string>
-    <string name="choose_location">Izberi mesto</string>
     <string name="choose_remote_folder">Izberi oddaljeno mapo…</string>
     <string name="choose_template_helper_text">Izbrati je treba predlogo in vpisati ime datoteke.</string>
     <string name="choose_which_file">Izberite, katero datoteko želite obdržati!</string>

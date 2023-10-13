@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">Проверка отново по-късно или презареждане.</string>
     <string name="checkbox">Отметка</string>
     <string name="choose_local_folder">Изберете локална папка…</string>
-    <string name="choose_location">Избор на местоположение</string>
     <string name="choose_remote_folder">Изберете отдалечена папка…</string>
     <string name="choose_template_helper_text">Моля, изберете шаблон и въведете име на файл.</string>
     <string name="choose_which_file">Изберете кой файл да бъде запазен!</string>

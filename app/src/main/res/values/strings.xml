@@ -1038,7 +1038,6 @@
     <string name="show_video">Show videos</string>
     <string name="subtitle_videos_only">Videos only</string>
     <string name="select_media_folder">Set media folder</string>
-    <string name="choose_location">Choose location</string>
     <string name="common_select">Select</string>
     <string name="lock_file">Lock file</string>
     <string name="unlock_file">Unlock file</string>

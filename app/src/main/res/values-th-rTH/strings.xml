@@ -89,7 +89,6 @@
     <string name="check_back_later_or_reload">กลับมาตรวจสอบภายหลัง หรือรีโหลด</string>
     <string name="checkbox">กล่องกาเครื่องหมาย</string>
     <string name="choose_local_folder">เลือกโฟลเดอร์ต้นทาง…</string>
-    <string name="choose_location">เลือกตำแหน่งที่ตั้ง</string>
     <string name="choose_remote_folder">เลือกโฟลเดอร์รีโมท…</string>
     <string name="choose_template_helper_text">กรุณาเลือกเทมเพลตและใส่ชื่อไฟล์</string>
     <string name="choose_which_file">เลือกไฟล์ที่จะเก็บ</string>

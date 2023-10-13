@@ -81,7 +81,6 @@
     <string name="certificate_load_problem">Tekkis tõrge sertifikaadi laadimisel.</string>
     <string name="checkbox">Märkeruut</string>
     <string name="choose_local_folder">Vali kohalik kaust...</string>
-    <string name="choose_location">Vali asukoht</string>
     <string name="choose_remote_folder">Vali kaugkaust...</string>
     <string name="choose_template_helper_text">Palun vali mall ja sisesta failinimi.</string>
     <string name="choose_which_file">Vali, milline fail alles jätta!</string>

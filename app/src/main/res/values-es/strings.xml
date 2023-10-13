@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">Regrese luego o recargue.</string>
     <string name="checkbox">Casilla de verificación</string>
     <string name="choose_local_folder">Seleccione carpeta local…</string>
-    <string name="choose_location">Elige una ubicación</string>
     <string name="choose_remote_folder">Selecciona carpeta remota…</string>
     <string name="choose_template_helper_text">Por favor, elije una plantilla e introduce un nombre de archivo.</string>
     <string name="choose_which_file">¡Elije que archivos mantener!</string>

@@ -89,7 +89,6 @@
     <string name="check_back_later_or_reload">Lataa uudelleen tai yritä myöhemmin uudelleen.</string>
     <string name="checkbox">Valintaruutu</string>
     <string name="choose_local_folder">Valitse paikallinen kansio…</string>
-    <string name="choose_location">Valitse sijainti</string>
     <string name="choose_remote_folder">Valitse etäkansio…</string>
     <string name="choose_template_helper_text">Valitse mallipohja ja anna tiedostonimi</string>
     <string name="choose_which_file">Valitse säilytettävä tiedosto!</string>

@@ -88,7 +88,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="changelog_dev_version">Perubahan versi dev</string>
     <string name="checkbox">Kotak check</string>
     <string name="choose_local_folder">Pilih folder lokal…</string>
-    <string name="choose_location">Pilih lokasi</string>
     <string name="choose_remote_folder">Pilih folder remot…</string>
     <string name="choose_template_helper_text">Mohon pilih templat dan masukkan nama file.</string>
     <string name="choose_which_file">Pilih file mana yang ditahan!</string>

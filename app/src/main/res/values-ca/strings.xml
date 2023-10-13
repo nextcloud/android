@@ -89,7 +89,6 @@
     <string name="check_back_later_or_reload">Torneu-ho a comprovar més tard o torneu a carregar.</string>
     <string name="checkbox">Casella de selecció</string>
     <string name="choose_local_folder">Escolliu una carpeta local…</string>
-    <string name="choose_location">Escull localització</string>
     <string name="choose_remote_folder">Escolliu una carpeta remota…</string>
     <string name="choose_template_helper_text">Trieu una plantilla i introduïu un nom de fitxer.</string>
     <string name="choose_which_file">Trieu quin fixer conservar!</string>

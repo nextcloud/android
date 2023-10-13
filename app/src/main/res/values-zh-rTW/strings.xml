@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">稍後再回來檢視或重新載入。</string>
     <string name="checkbox">核取方塊</string>
     <string name="choose_local_folder">選擇本機資料夾……</string>
-    <string name="choose_location">選擇位置</string>
     <string name="choose_remote_folder">選擇遠端資料夾……</string>
     <string name="choose_template_helper_text">請選擇範本並輸入檔案名稱。</string>
     <string name="choose_which_file">選擇要保留哪個檔案！</string>

@@ -88,7 +88,6 @@
     <string name="changelog_dev_version">Nhật kí phiên bản nhà phát triển</string>
     <string name="checkbox">Hộp chọn</string>
     <string name="choose_local_folder">Chọn thư mục cục bộ...</string>
-    <string name="choose_location">Chọn vị trí lưu trữ</string>
     <string name="choose_remote_folder">Chọn thư mục từ xa...</string>
     <string name="choose_template_helper_text">Vui lòng chọn một mẫu và nhập tên tệp.</string>
     <string name="choose_which_file">Chọn tệp muốn giữ!</string>

@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">Kom tilbake senere eller last på nytt.</string>
     <string name="checkbox">Avkryssningsboks</string>
     <string name="choose_local_folder">Velg lokal mappe…</string>
-    <string name="choose_location">Velg lokasjon</string>
     <string name="choose_remote_folder">Velg mappe annensteds hen…</string>
     <string name="choose_template_helper_text">Velg en mal og oppgi filnavn</string>
     <string name="choose_which_file">Velg filen du ønsker å beholde!</string>

@@ -84,7 +84,6 @@
     <string name="changelog_dev_version">Changelog dev version</string>
     <string name="checkbox">Поле за избирање</string>
     <string name="choose_local_folder">Избери локална папка…</string>
-    <string name="choose_location">Избери локација</string>
     <string name="choose_remote_folder">Избери папка на серверот…</string>
     <string name="choose_which_file">Избери која датотека да се зачува!</string>
     <string name="choose_widget">Избери виџет</string>

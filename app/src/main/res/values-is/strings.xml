@@ -83,7 +83,6 @@
     <string name="changelog_dev_version">Breytingaskrá þróunarútgáfu</string>
     <string name="checkbox">Gátreitur</string>
     <string name="choose_local_folder">Veldu staðværa möppu…</string>
-    <string name="choose_location">Veldu staðsetningu</string>
     <string name="choose_remote_folder">Veldu fjartengda möppu…</string>
     <string name="choose_which_file">Veldu hvaða skrá á að halda!</string>
     <string name="clear_notifications_failed">Mistókst að hreinsa tilkynningar.</string>

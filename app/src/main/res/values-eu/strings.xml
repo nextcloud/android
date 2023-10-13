@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">Begiratu berriro geroago edo kargatu berriro.</string>
     <string name="checkbox">Kontrol laukia</string>
     <string name="choose_local_folder">Hautatu tokiko karpeta...</string>
-    <string name="choose_location">Hautatu kokapena</string>
     <string name="choose_remote_folder">Hautatu urruneko karpeta...</string>
     <string name="choose_template_helper_text">Hautatu txantiloia eta sartu fitxategi-izena.</string>
     <string name="choose_which_file">Aukeratu zein fitxategi gorde!</string>

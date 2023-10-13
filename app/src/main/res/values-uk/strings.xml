@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">Перевірити пізніше або перевантажити.</string>
     <string name="checkbox">Прапорець</string>
     <string name="choose_local_folder">Виберіть каталог на пристрої...</string>
-    <string name="choose_location">Виберіть місце розташування</string>
     <string name="choose_remote_folder">Виберіть віддалений каталог...</string>
     <string name="choose_template_helper_text">Будь ласка, оберіть шаблон і введіть ім\'я файлу.</string>
     <string name="choose_which_file">Виберіть, який файл зберегти!</string>

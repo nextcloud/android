@@ -90,7 +90,6 @@
     <string name="check_back_later_or_reload">Зайдите позже или перезагрузите.</string>
     <string name="checkbox">Флажок</string>
     <string name="choose_local_folder">Выберите каталог на устройстве…</string>
-    <string name="choose_location">Выбрать местоположение</string>
     <string name="choose_remote_folder">Выберите каталог на сервере…</string>
     <string name="choose_template_helper_text">Пожалуйста, выберите шаблон и введите имя файла.</string>
     <string name="choose_which_file">Выберите какой файл оставить!</string>
