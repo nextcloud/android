@@ -95,7 +95,6 @@
     <string name="common_remove">Obriši</string>
     <string name="common_rename">Preimenuj</string>
     <string name="common_save">Sačuvaj</string>
-    <string name="common_select">Obeleži</string>
     <string name="common_send">Pošalji</string>
     <string name="common_share">Podeli</string>
     <string name="common_skip">Preskoči</string>
@@ -135,7 +134,6 @@
     <string name="copy_file_invalid_overwrite">Fajl već postoji u odredišnoj fascikli</string>
     <string name="copy_link">Kopiraj vezu</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiranje/premeštanje u šifrovanu fasciklu nije podržano.</string>
-    <string name="copy_to">Kopiraj u…</string>
     <string name="could_not_download_image">Nije moguće preuzeti celu sliku</string>
     <string name="create">Napravi</string>
     <string name="create_dir_fail_msg">Ne mogu da napravim fasciklu</string>
@@ -341,7 +339,6 @@
     <string name="move_file_error">Došlo je do greške pri premeštanju fajla ili fascikle</string>
     <string name="move_file_invalid_into_descendent">Ne može da se premesti fascikla u neku od svojih podfascikli</string>
     <string name="move_file_invalid_overwrite">Fajl već postoji u odredišnoj fascikli</string>
-    <string name="move_to">Premesti u…</string>
     <string name="network_error_socket_exception">Desila se greška prilikom povezivanja na server</string>
     <string name="new_comment">Novi komentar…</string>
     <string name="new_media_folder_detected">Pronađena je nova multimedijalna fascikla sa %1$s</string>

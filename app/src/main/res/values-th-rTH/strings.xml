@@ -118,7 +118,6 @@
     <string name="common_remove">ลบ</string>
     <string name="common_rename">เปลี่ยนชื่อ</string>
     <string name="common_save">บันทึก</string>
-    <string name="common_select">เลือก</string>
     <string name="common_send">ส่ง</string>
     <string name="common_share">แชร์</string>
     <string name="common_skip">ข้าม</string>
@@ -161,7 +160,6 @@
     <string name="copy_file_not_found">ไม่สามารถคัดลอก กรุณาตรวจสอบว่ามีไฟล์นั้นอยู่หรือไม่</string>
     <string name="copy_link">คัดลอกลิงก์</string>
     <string name="copy_move_to_encrypted_folder_not_supported">ยังไม่รองรับการคัดลอก/ย้ายไปยังโฟลเดอร์เข้ารหัส</string>
-    <string name="copy_to">คัดลอกไปยัง…</string>
     <string name="could_not_download_image">ไม่สามารถดาวน์โหลดรูปภาพขนาดเต็ม</string>
     <string name="could_not_retrieve_shares">ไม่สามารถดึงข้อมูลแชร์</string>
     <string name="could_not_retrieve_url">ไม่สามารถดึง URL</string>
@@ -415,7 +413,6 @@
     <string name="move_file_error">เกิดข้อผิดพลาดขณะพยายามที่จะย้ายไฟล์หรือโฟลเดอร์นี้</string>
     <string name="move_file_invalid_overwrite">ไฟล์นี้มีในโฟลเดอร์ปลายทางอยู่แล้ว</string>
     <string name="move_file_not_found">ไม่สามารถย้ายไฟล์ กรุณาตรวจสอบว่ามีไฟล์นั้นอยู่หรือไม่</string>
-    <string name="move_to">ย้ายไปยัง…</string>
     <string name="network_error_connect_timeout_exception">เกิดข้อผิดพลาดขณะรอเซิร์ฟเวอร์ ไม่สามารถดำเนินการให้เสร็จสมบูรณ์</string>
     <string name="network_error_socket_exception">เกิดข้อผิดพลาดขณะเชื่อมต่อไปยังเซิร์ฟเวอร์</string>
     <string name="network_error_socket_timeout_exception">เกิดข้อผิดพลาดขณะรอเซิร์ฟเวอร์ ไม่สามารถดำเนินการให้เสร็จสมบูรณ์</string>

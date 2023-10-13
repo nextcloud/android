@@ -119,7 +119,6 @@
     <string name="common_remove">Ta bort</string>
     <string name="common_rename">Byt namn</string>
     <string name="common_save">Spara</string>
-    <string name="common_select">Välj</string>
     <string name="common_send">Skicka</string>
     <string name="common_share">Dela</string>
     <string name="common_skip">Hoppa över</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">Kunde inte kopiera. Vänligen kontrollera om filen existerar.</string>
     <string name="copy_link">Kopiera länk</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiera/flytta till krypterad mapp stöds för närvarande inte.</string>
-    <string name="copy_to">Kopiera till…</string>
     <string name="could_not_download_image">Kunde inte hämta hela bilden</string>
     <string name="could_not_retrieve_shares">Kunde inte hämta delade mappar</string>
     <string name="could_not_retrieve_url">Kunde inte hämta URL</string>
@@ -489,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Det är inte möjligt att flytta en mapp till en av dess undermappar</string>
     <string name="move_file_invalid_overwrite">Filen finns redan i målmappen</string>
     <string name="move_file_not_found">Kan inte flytta filen. Vänligen kontrollera om det finns.</string>
-    <string name="move_to">Flytta till…</string>
     <string name="network_error_connect_timeout_exception">Ett fel uppstod i väntan på servern. Kunde inte slutföra operationen.</string>
     <string name="network_error_socket_exception">Ett fel uppstod under anslutningen till servern</string>
     <string name="network_error_socket_timeout_exception">Ett fel uppstod i väntan på servern. Kunde inte slutföra operationen.</string>

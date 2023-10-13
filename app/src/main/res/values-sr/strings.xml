@@ -119,7 +119,6 @@
     <string name="common_remove">Обриши</string>
     <string name="common_rename">Преименуј</string>
     <string name="common_save">Сачувај</string>
-    <string name="common_select">Обележи</string>
     <string name="common_send">Пошаљи</string>
     <string name="common_share">Подели</string>
     <string name="common_skip">Прескочи</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">Не могу да копирам. Проверите да ли фајл постоји.</string>
     <string name="copy_link">Копирај везу</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирање/премештање у шифровану фасциклу тренутно није подржано.</string>
-    <string name="copy_to">Копирај у…</string>
     <string name="could_not_download_image">Не могу да преузмем целу слику</string>
     <string name="could_not_retrieve_shares">Не могу да добавим дељења</string>
     <string name="could_not_retrieve_url">Не могу да добавим УРЛ</string>
@@ -489,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Фасцикла се не може преместити у неку од својих потфасцикли.</string>
     <string name="move_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
     <string name="move_file_not_found">Не могу да преместим фајл. Проверите да ли постоји.</string>
-    <string name="move_to">Премести у…</string>
     <string name="network_error_connect_timeout_exception">Десила се грешка при чекању на сервер. Не могу да довршим радњу.</string>
     <string name="network_error_socket_exception">Десила се грешка при повезивању на сервер</string>
     <string name="network_error_socket_timeout_exception">Десила се грешка при чекању на сервер. Не могу да довршим радњу.</string>

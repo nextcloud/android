@@ -119,7 +119,6 @@
     <string name="common_remove">إزالة</string>
     <string name="common_rename">إعادة التسمية</string>
     <string name="common_save">حفظ</string>
-    <string name="common_select">تحديد</string>
     <string name="common_send">إرسال</string>
     <string name="common_share">مشاركة</string>
     <string name="common_skip">تخطي</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">تعذّر النسخ. يرجى التحقق من وجود الملف.</string>
     <string name="copy_link">نسخ الرابط</string>
     <string name="copy_move_to_encrypted_folder_not_supported">النسخ أو النقل إلى مجلد مشفر حالياً غير مدعوم.</string>
-    <string name="copy_to">انسخه إلى…</string>
     <string name="could_not_download_image">لايمكن تحميل الصورة بأكملها</string>
     <string name="could_not_retrieve_shares">لايمكن استعادة المشاركات</string>
     <string name="could_not_retrieve_url">لا يمكن استرجاع الرابط</string>
@@ -493,7 +491,6 @@
     <string name="move_file_invalid_into_descendent">لا يمكن نقل مجلد في مجلدات هوَّ يتضمنها</string>
     <string name="move_file_invalid_overwrite">هذا الملف موجود حالياً في المجلد المُّسّتَقبِل</string>
     <string name="move_file_not_found">غير قادر على نقل الملف. يرجى التحقق مما إذا كان موجوداً.</string>
-    <string name="move_to">نقل إلى…</string>
     <string name="network_error_connect_timeout_exception">حدث خطأ أثناء انتظار الخادم. تعذر إكمال العملية.</string>
     <string name="network_error_socket_exception">حدث خطأ أثناء الاتصال بالخادم</string>
     <string name="network_error_socket_timeout_exception">حدث خطأ أثناء انتظار الخادم. تعذر إكمال العملية.</string>

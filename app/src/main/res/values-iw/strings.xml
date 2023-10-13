@@ -114,7 +114,6 @@
     <string name="common_remove">מחיקה</string>
     <string name="common_rename">שינוי שם</string>
     <string name="common_save">שמירה</string>
-    <string name="common_select">בחירה</string>
     <string name="common_send">שליחה</string>
     <string name="common_share">שיתוף</string>
     <string name="common_skip">דלג</string>
@@ -163,7 +162,6 @@
     <string name="copy_file_not_found">לא ניתן להעתיק, אנא בדוק אם הקובץ קיים</string>
     <string name="copy_link">העתקת קישור</string>
     <string name="copy_move_to_encrypted_folder_not_supported">נכון לעכשיו, אין תמיכה בהעתקה/העברה לתיקייה מוצפנת.</string>
-    <string name="copy_to">העתק אל…</string>
     <string name="could_not_download_image">לא ניתן להוריד את התמונה המלאה</string>
     <string name="could_not_retrieve_shares">לא ניתן למשוך את השיתופים</string>
     <string name="could_not_retrieve_url">לא ניתן לקבל כתובת</string>
@@ -413,7 +411,6 @@
     <string name="move_file_error">אירעה שגיאה בזמן ניסיון להעביר את הקובץ או התיקייה</string>
     <string name="move_file_invalid_into_descendent">אי אפשר להעביר תיקייה לתוך אחת התיקיות שתחתיה.</string>
     <string name="move_file_invalid_overwrite">הקובץ כבר קיים בתיקיית היעד</string>
-    <string name="move_to">העבר אל…</string>
     <string name="network_error_socket_exception">אירעה שגיאה במהלך ההתחברות לשרת</string>
     <string name="new_comment">תגובה חדשה…</string>
     <string name="new_media_folder_detected">זוהתה תיקיית מדיה עם %1$s</string>

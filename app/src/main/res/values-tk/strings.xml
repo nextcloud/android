@@ -152,7 +152,6 @@
     <string name="copy_file_not_found">Göçürip bolmaýar. Faýlyň bardygyny ýa-da ýokdugyny barlaň.</string>
     <string name="copy_link">Link-y nusgalaň</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Häzirki wagtda goldanmaýan şifrlenen bukjany göçüriň / geçiriň.</string>
-    <string name="copy_to">Göçüriň…</string>
     <string name="could_not_download_image">Doly suraty göçürip alyp bolmady</string>
     <string name="could_not_retrieve_shares">Paýlary alyp bolmady</string>
     <string name="could_not_retrieve_url">URL alyp bolmady</string>
@@ -396,7 +395,6 @@
     <string name="move_file_invalid_into_descendent">Bir bukjany öz esasy bukjalarynyň birine geçirmek mümkin däl</string>
     <string name="move_file_invalid_overwrite">Faýl niýetlenen bukjada eýýäm bar</string>
     <string name="move_file_not_found">Faýly göçürip bolmaýar. Barlygyny ýa-da ýokdugyny barlaň.</string>
-    <string name="move_to">Göçmek…</string>
     <string name="network_error_connect_timeout_exception">Serwere garaşylýarka ýalňyşlyk ýüze çykdy. Amal edip bolmady</string>
     <string name="network_error_socket_exception">Serwere birikdirilende ýalňyşlyk ýüze çykdy</string>
     <string name="network_error_socket_timeout_exception">Serwere garaşýarka ýalňyşlyk ýüze çykdy. Iş tamamlap bolmady.</string>

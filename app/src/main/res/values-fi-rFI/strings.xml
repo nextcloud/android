@@ -118,7 +118,6 @@
     <string name="common_remove">Poista</string>
     <string name="common_rename">Nimeä uudelleen</string>
     <string name="common_save">Tallenna</string>
-    <string name="common_select">Valitse</string>
     <string name="common_send">Lähetä</string>
     <string name="common_share">Jaa</string>
     <string name="common_skip">Ohita</string>
@@ -169,7 +168,6 @@
     <string name="copy_file_not_found">Kopiointi epäonnistui. Tarkista onko tiedostoa olemassa.</string>
     <string name="copy_link">Kopioi linkki</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiointi/siirto salattuun kansioon ei ole mahdollista.</string>
-    <string name="copy_to">Kopio kohteeseen…</string>
     <string name="could_not_download_image">Koko kuvan lataaminen epäonnistui</string>
     <string name="could_not_retrieve_shares">Jakojen nouto ei onnistunut</string>
     <string name="could_not_retrieve_url">URL:n palautus epännistui</string>
@@ -463,7 +461,6 @@
     <string name="move_file_invalid_into_descendent">Ei ole mahdollista siirtää kansiota yhteen sen alikansiosta.</string>
     <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
     <string name="move_file_not_found">Tiedoston siirtäminen ei onnistunut. Varmista että tiedosto on olemassa.</string>
-    <string name="move_to">Siirrä kohteeseen…</string>
     <string name="network_error_connect_timeout_exception">Palvelinta odottaessa tapahtui virhe. Toimenpidettä ei voitu suorittaa loppuun.</string>
     <string name="network_error_socket_exception">Palvelimeen yhdistäessä tapahtui virhe.</string>
     <string name="network_error_socket_timeout_exception">Palvelinta odottaessa tapahtui virhe. Toimenpidettä ei voitu suorittaa loppuun.</string>

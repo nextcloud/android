@@ -116,7 +116,6 @@
     <string name="common_remove">Xóa</string>
     <string name="common_rename">Sửa tên</string>
     <string name="common_save">Lưu</string>
-    <string name="common_select">Chọn</string>
     <string name="common_send">Gửi</string>
     <string name="common_share">Chia sẻ</string>
     <string name="common_skip">Bỏ qua</string>
@@ -166,7 +165,6 @@
     <string name="copy_file_not_found">Không thể sao chép. Hãy kiểm tra xem tập tin có tồn tại không.</string>
     <string name="copy_link">Sao chép liên kết</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Sao chép/di chuyển vào thư mục được mã hóa hiện không được hỗ trợ.</string>
-    <string name="copy_to">Sao chép đến</string>
     <string name="could_not_download_image">Không thể tải xuống hình ảnh đầy đủ</string>
     <string name="could_not_retrieve_shares">Không thể truy xuất lượt chia sẻ</string>
     <string name="could_not_retrieve_url">Không thể truy xuất URL</string>
@@ -453,7 +451,6 @@
     <string name="move_file_invalid_into_descendent">Không thể di chuyển một thư mục vào một trong các thư mục của riêng nó</string>
     <string name="move_file_invalid_overwrite">Tập tin đã có trong thư mục đích</string>
     <string name="move_file_not_found">Không thể di chuyển tệp. Vui lòng kiểm tra xem nó có tồn tại không.</string>
-    <string name="move_to">Di chuyển đến</string>
     <string name="network_error_connect_timeout_exception">Đã xảy ra lỗi khi chờ máy chủ. Không thể hoàn thành hoạt động.</string>
     <string name="network_error_socket_exception">Đã xảy ra lỗi khi kết nối với máy chủ</string>
     <string name="network_error_socket_timeout_exception">Một lỗi đã xảy ra khi đang đợi máy chủ. Không thể hoàn thành hoạt động.</string>

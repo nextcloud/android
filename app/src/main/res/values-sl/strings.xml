@@ -119,7 +119,6 @@
     <string name="common_remove">Izbriši</string>
     <string name="common_rename">Preimenuj</string>
     <string name="common_save">Shrani</string>
-    <string name="common_select">Izbor</string>
     <string name="common_send">Pošlji</string>
     <string name="common_share">Souporaba</string>
     <string name="common_skip">Preskoči</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">Kopiranje ni mogoče. Preverite, ali datoteka obstaja.</string>
     <string name="copy_link">Kopiraj povezavo</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiranje/Premikanje predmetov v šifrirano mapo trenutno ni podprto.</string>
-    <string name="copy_to">Kopiraj v…</string>
     <string name="could_not_download_image">Slike ni mogoče prejeti v celoti.</string>
     <string name="could_not_retrieve_shares">Naslovov mest souporabe ni mogoče pridobiti</string>
     <string name="could_not_retrieve_url">Naslova URL ni mogoče pridobiti</string>
@@ -479,7 +477,6 @@
     <string name="move_file_invalid_into_descendent">Ni mogoče premakniti mape v podrejeno mapo</string>
     <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja</string>
     <string name="move_file_not_found">Ni mogoče premakniti datoteke. Preverite, ali obstaja.</string>
-    <string name="move_to">Premakni v …</string>
     <string name="network_error_connect_timeout_exception">Prišlo je do napake med čakanjem na strežnik. Opravila ni mogoče končati.</string>
     <string name="network_error_socket_exception">Med povezovanjem s strežnikom je prišlo do napake.</string>
     <string name="network_error_socket_timeout_exception">Prišlo je do napake med čakanjem na strežnik. Opravila ni mogoče končati.</string>

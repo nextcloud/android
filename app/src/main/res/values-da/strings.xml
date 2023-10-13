@@ -119,7 +119,6 @@
     <string name="common_remove">Slet</string>
     <string name="common_rename">Omdøb</string>
     <string name="common_save">Gem</string>
-    <string name="common_select">Vælg</string>
     <string name="common_send">Send</string>
     <string name="common_share">Del</string>
     <string name="common_skip">Spring over</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">Ikke muligt at kopiere. Undersøg venligst om filen eksisterer.</string>
     <string name="copy_link">Kopiér link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopier/flyt til krypteret mappe endnu ikke understøttet.</string>
-    <string name="copy_to">Kopier til...</string>
     <string name="could_not_download_image">Kunne ikke hente hele billedet</string>
     <string name="could_not_retrieve_shares">Kunne ikke hente delte drev</string>
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
@@ -477,7 +475,6 @@
     <string name="move_file_invalid_into_descendent">Det er ikke muligt at flytte en mappe til én af dens egne undermapper</string>
     <string name="move_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>
     <string name="move_file_not_found">Kunne ikke kopiere. Undersøg venligst om filen eksisterer.</string>
-    <string name="move_to">Flyt til...</string>
     <string name="network_error_connect_timeout_exception">Der opstod en fejl mens svar afventedes fra serveren. Kunne ikke fuldføre handlingen.</string>
     <string name="network_error_socket_exception">Der opstod en fejl under tilslutningen til serveren</string>
     <string name="network_error_socket_timeout_exception">Der opstod en fejl mens svar afventedes fra serveren. Kunne ikke fuldføre handlingen.</string>

@@ -119,7 +119,6 @@
     <string name="common_remove">Ezabatu</string>
     <string name="common_rename">Berrizendatu</string>
     <string name="common_save">Gorde</string>
-    <string name="common_select">Hautatu</string>
     <string name="common_send">Bidali</string>
     <string name="common_share">Partekatu</string>
     <string name="common_skip">Saltatu</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">Ezin izan da kopiatu. Mesedez egiaztatu fitxategia existitzen dela.</string>
     <string name="copy_link">Kopiatu esteka</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Une honetan ez da onartzen enkriptatutako karpetara kopiatzea/mugitzea.</string>
-    <string name="copy_to">Kopiatu hona…</string>
     <string name="could_not_download_image">Ezin izan da irudi osoa deskargatu</string>
     <string name="could_not_retrieve_shares">Ezin izan dira partekatzeak berreskuratu</string>
     <string name="could_not_retrieve_url">Ezin izan da URLa berreskuratu</string>
@@ -489,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Ezin da karpeta bat azpikarpeta batera mugitu</string>
     <string name="move_file_invalid_overwrite">Fitxategi hau existitzen da jadanik helburuko karpetan</string>
     <string name="move_file_not_found">Ezin izan da fitxategia mugitu. Mesedez egiaztatu fitxategia existitzen dela.</string>
-    <string name="move_to">Mugitu hona…</string>
     <string name="network_error_connect_timeout_exception">Errore bat gertatu da zerbitzariari itxarotean. Ezin izan da eragiketa burutu.</string>
     <string name="network_error_socket_exception">Errore bat gertatu da zerbitzariarekin konektatzean.</string>
     <string name="network_error_socket_timeout_exception">Errore bat gertatu da zerbitzariari itxarotean. Ezin izan da eragiketa burutu.</string>

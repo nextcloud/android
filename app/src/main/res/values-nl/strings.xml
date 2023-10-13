@@ -118,7 +118,6 @@
     <string name="common_remove">Verwijderen</string>
     <string name="common_rename">Hernoemen</string>
     <string name="common_save">Bewaren</string>
-    <string name="common_select">Selecteer</string>
     <string name="common_send">Versturen</string>
     <string name="common_share">Delen</string>
     <string name="common_skip">Overslaan</string>
@@ -168,7 +167,6 @@
     <string name="copy_file_not_found">Kan niet bijwerken. Controleer of het bestand bestaat.</string>
     <string name="copy_link">Link kopiëren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopieren/verplaatsen naar een versleutelde map is momenteel niet mogelijk.</string>
-    <string name="copy_to">Kopieer naar…</string>
     <string name="could_not_download_image">Kan de volledige afbeelding niet downloaden</string>
     <string name="could_not_retrieve_shares">Kon shares niet ophalen</string>
     <string name="could_not_retrieve_url">Kon URL niet ophalen</string>
@@ -454,7 +452,6 @@
     <string name="move_file_invalid_into_descendent">De map kan niet naar een onderliggende map worden verplaatst</string>
     <string name="move_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
     <string name="move_file_not_found">Kan bestand niet verplaatsen. Controleer of het wel bestaat.</string>
-    <string name="move_to">Verplaats naar…</string>
     <string name="network_error_connect_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden.</string>
     <string name="network_error_socket_exception">Er trad een fout op bij het verbinden met de server.</string>
     <string name="network_error_socket_timeout_exception">Er trad een fout op bij het wachten op de server, verwerking kon niet verder.</string>

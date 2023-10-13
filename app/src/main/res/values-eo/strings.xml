@@ -97,7 +97,6 @@
     <string name="common_remove">Forigi</string>
     <string name="common_rename">Alinomi</string>
     <string name="common_save">Konservi</string>
-    <string name="common_select">Elekti</string>
     <string name="common_send">Sendi</string>
     <string name="common_share">Kunhavigi</string>
     <string name="common_skip">Preterpasi</string>
@@ -138,7 +137,6 @@
     <string name="copy_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
     <string name="copy_link">Kopii ligilon</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopii aŭ movi en ĉifritan dosierujon ne estas subtenata momente.</string>
-    <string name="copy_to">Kopii al...</string>
     <string name="create">Krei</string>
     <string name="create_dir_fail_msg">Ne eblis krei dosierujon</string>
     <string name="create_new_document">Krei novan dokumenton</string>
@@ -334,7 +332,6 @@
     <string name="move_file_error">Eraro okazis dum provo movi ĉi tiun dosieron aŭ dosierujon</string>
     <string name="move_file_invalid_into_descendent">Ne eblas movi dosierujon en unu el ĝiaj idoj</string>
     <string name="move_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
-    <string name="move_to">Movi al...</string>
     <string name="network_error_socket_exception">Eraro okazis dum konekto al la servilo</string>
     <string name="new_comment">Nova komento...</string>
     <string name="new_media_folder_detected">Nova aŭdovida dosierujo %1$s eltrovita.</string>

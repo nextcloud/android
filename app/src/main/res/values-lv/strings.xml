@@ -97,7 +97,6 @@
     <string name="common_remove">Dzēst</string>
     <string name="common_rename">Pārsaukt</string>
     <string name="common_save">Saglabāt</string>
-    <string name="common_select">Atzīmēt</string>
     <string name="common_send">Sūtīt</string>
     <string name="common_share">Koplietot</string>
     <string name="common_skip">Izlaist</string>
@@ -132,7 +131,6 @@
     <string name="copy_file_invalid_into_descendent">Nav iespējams kopēt mapi tās apakšmapē</string>
     <string name="copy_file_invalid_overwrite">Datne jau pastāv mērķa mapē</string>
     <string name="copy_link">Kopēt saiti</string>
-    <string name="copy_to">Kopēt uz…</string>
     <string name="could_not_download_image">Nevarēja lejupielādēt pilnu attēlu</string>
     <string name="could_not_retrieve_url">Neizdevās iegūt URL </string>
     <string name="create">Izveidot</string>
@@ -304,7 +302,6 @@
     <string name="move_file_error">Radās kļūda, mēģinot pārvietot šo datni vai mapi</string>
     <string name="move_file_invalid_into_descendent">Nav iespējams pārvietot mapi tās apakšmapē</string>
     <string name="move_file_invalid_overwrite">Datne jau pastāv mērķa mapē</string>
-    <string name="move_to">Pārvietot uz…</string>
     <string name="network_error_socket_exception">Radās kļūda, mēģinot izveidot savienojumu ar serveri.</string>
     <string name="new_comment">Jauns komentārs…</string>
     <string name="new_media_folder_photos">bilde</string>

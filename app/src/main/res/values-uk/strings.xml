@@ -119,7 +119,6 @@
     <string name="common_remove">Вилучити</string>
     <string name="common_rename">Перейменувати</string>
     <string name="common_save">Зберегти</string>
-    <string name="common_select">Вибрати</string>
     <string name="common_send">Надіслати</string>
     <string name="common_share">Спільний доступ</string>
     <string name="common_skip">Пропустити</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">Неможливо скопіювати. Будь ласка, перевірте, чи файл існує.</string>
     <string name="copy_link">Копіювати посилання</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копіювання/переміщення в зашифрований каталог - в даний час не підтримується.</string>
-    <string name="copy_to">Копіювати до…</string>
     <string name="could_not_download_image">Неможливо звантажити повне зображення</string>
     <string name="could_not_retrieve_shares">Не вдалося отримати спільні дані</string>
     <string name="could_not_retrieve_url">Неможливо отримати посилання</string>
@@ -483,7 +481,6 @@
     <string name="move_file_invalid_into_descendent">Неможливо перемістити каталог до одного з вкладених підкаталогів</string>
     <string name="move_file_invalid_overwrite">Файл вже присутній у каталозі призначення</string>
     <string name="move_file_not_found">Неможливо перемістити файл. Будь ласка, перевірте, чи він існує.</string>
-    <string name="move_to">Перемістити до...</string>
     <string name="network_error_connect_timeout_exception">Помилка під час очікування відповіді від сервера. Неможливо виконати дію.</string>
     <string name="network_error_socket_exception">Помилка під час з\'єднання з сервером</string>
     <string name="network_error_socket_timeout_exception">Помилка під час очікування відповіді від сервера. Неможливо виконати дію.</string>

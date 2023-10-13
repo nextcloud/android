@@ -106,7 +106,6 @@
     <string name="common_remove">Kustuta</string>
     <string name="common_rename">Nimeta ümber</string>
     <string name="common_save">Salvesta</string>
-    <string name="common_select">Vali</string>
     <string name="common_send">Saada</string>
     <string name="common_share">Jaga</string>
     <string name="common_skip">Jäta vahele</string>
@@ -155,7 +154,6 @@
     <string name="copy_file_not_found">Kopeerimine ebaõnnestus. Palun kontrolli, kas fail on olemas.</string>
     <string name="copy_link">Kopeeri link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopeerimine/liigutamine krüpteeritud kausta pole hetkel toetatud.</string>
-    <string name="copy_to">Kopeeri...</string>
     <string name="could_not_download_image">Täieliku pildifaili allalaadimine ebaõnnestus</string>
     <string name="create">Loo</string>
     <string name="create_dir_fail_msg">Ei suuda kausta luua</string>
@@ -312,7 +310,6 @@
     <string name="move_file_error">Selle faili või kausta liigutamisel tekkis tõrge</string>
     <string name="move_file_invalid_into_descendent">Kausta ei saa liigutada tema enda alamkausta</string>
     <string name="move_file_invalid_overwrite">See fail on sihtkohas juba olemas.</string>
-    <string name="move_to">Liiguta...</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="note_confirm">Saada</string>
     <string name="notification_channel_download_name_short">Allalaadimised</string>

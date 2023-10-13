@@ -119,7 +119,6 @@
     <string name="common_remove">Eliminar</string>
     <string name="common_rename">Renomear</string>
     <string name="common_save">Gardar</string>
-    <string name="common_select">Seleccionar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
     <string name="common_skip">Omitir</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">Non é posíbel copiar. Comprobe que o ficheiro existe.</string>
     <string name="copy_link">Copiar a ligazón</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover dentro dun cartafol cifrado aínda non está admitido.</string>
-    <string name="copy_to">Copiar en…</string>
     <string name="could_not_download_image">Non foi posíbel descargar a imaxe completa</string>
     <string name="could_not_retrieve_shares">Non foi posíbel recuperar as comparticións</string>
     <string name="could_not_retrieve_url">Non foi posíbel recuperar o URL</string>
@@ -489,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Non é posíbel mover un cartafol cara a un dos seus propios subcartafoles</string>
     <string name="move_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
     <string name="move_file_not_found">Non é posíbel mover o ficheiro. Comprobe que existe.</string>
-    <string name="move_to">Mover a…</string>
     <string name="network_error_connect_timeout_exception">Produciuse un erro agardando a resposta do servidor. Non foi posíbel completar a operación.</string>
     <string name="network_error_socket_exception">Produciuse un erro durante a conexión co servidor</string>
     <string name="network_error_socket_timeout_exception">Produciuse un erro agardando a resposta do servidor. Non foi posíbel completar a operación.</string>

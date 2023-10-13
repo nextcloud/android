@@ -101,7 +101,6 @@
     <string name="common_remove">Hiqe</string>
     <string name="common_rename">Riemërtojeni</string>
     <string name="common_save">Ruaj</string>
-    <string name="common_select">Zgjidhni</string>
     <string name="common_send">Dërgojeni</string>
     <string name="common_share">Shpërndaje</string>
     <string name="common_skip">Kalo</string>
@@ -145,7 +144,6 @@
     <string name="copy_file_invalid_overwrite">Kartela gjendet tashmë te dosja destinacion</string>
     <string name="copy_link">Kopjoje lidhjen</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopjimi/lëvizja në direktorinë e enkriptuar për momentin nuk suportohet.</string>
-    <string name="copy_to">Kopjojeni tek…</string>
     <string name="could_not_download_image">Nuk mund të shkarkohet imazhi i plotë</string>
     <string name="could_not_retrieve_url">Nuk mund të rikthej URL-në</string>
     <string name="create">Krijo</string>
@@ -373,7 +371,6 @@
     <string name="move_file_error">Ndodhi një gabim teksa përpiqej të zhvendosej ky skedar apo kjo dosje</string>
     <string name="move_file_invalid_into_descendent">S’është e mundur të zhvendoset një dosje në një tjetër brenda saj</string>
     <string name="move_file_invalid_overwrite">Skedri gjendet tashmë te dosja destinacion</string>
-    <string name="move_to">Lëvizni tek…</string>
     <string name="network_error_socket_exception">Ndodhi një gabim gjatë lidhjes me serverin</string>
     <string name="new_comment">Koment i ri…</string>
     <string name="new_media_folder_detected">Dosja %1$se re e mediave u zbulua.</string>

@@ -116,7 +116,6 @@
     <string name="common_remove">Ištrinti</string>
     <string name="common_rename">Pervadinti</string>
     <string name="common_save">Įrašyti</string>
-    <string name="common_select">Pasirinkti</string>
     <string name="common_send">Siųsti</string>
     <string name="common_share">Bendrinti</string>
     <string name="common_skip">Praleisti</string>
@@ -166,7 +165,6 @@
     <string name="copy_file_not_found">Nepavyko nukopijuoti. Patikrinkite, ar failas egzistuoja.</string>
     <string name="copy_link">Kopijuoti nuorodą</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopijavimas/perkėlimas į šifruotą aplanką šiuo metu nėra palaikomas.</string>
-    <string name="copy_to">Kopijuoti į…</string>
     <string name="could_not_download_image">Nepavyko atsisiųsti viso paveikslo</string>
     <string name="could_not_retrieve_shares">Nepavyko gauti viešinių</string>
     <string name="could_not_retrieve_url">Nepavyko nuskaityti URL</string>
@@ -442,7 +440,6 @@
     <string name="move_file_invalid_into_descendent">Neįmanoma perkelti aplanko į poaplankį</string>
     <string name="move_file_invalid_overwrite">Failas jau yra paskirties aplanke</string>
     <string name="move_file_not_found">Nepavyko perkelti failo. Prašome patikrinkite  ar jis egzistuoja.</string>
-    <string name="move_to">Perkelti į…</string>
     <string name="network_error_connect_timeout_exception">Laukiant serverio įvyko klaida. Nepavyko pabaigti operacijos.</string>
     <string name="network_error_socket_exception">Prisijungimo prie serverio metu įvyko klaida</string>
     <string name="network_error_socket_timeout_exception">Laukiant serverio įvyko klaida. Nepavyko pabaigti operacijos.</string>

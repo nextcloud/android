@@ -119,7 +119,6 @@
     <string name="common_remove">Delete</string>
     <string name="common_rename">Rename</string>
     <string name="common_save">Save</string>
-    <string name="common_select">Select</string>
     <string name="common_send">Send</string>
     <string name="common_share">Share</string>
     <string name="common_skip">Skip</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">Unable to copy. Please check whether the file exists.</string>
     <string name="copy_link">Copy link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
-    <string name="copy_to">Copy to…</string>
     <string name="could_not_download_image">Could not download full image</string>
     <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
@@ -489,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
     <string name="move_file_not_found">Unable to move file. Please check whether it exists.</string>
-    <string name="move_to">Move to…</string>
     <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
     <string name="network_error_socket_exception">An error occurred during connection to the server</string>
     <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>

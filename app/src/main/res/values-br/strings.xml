@@ -104,7 +104,6 @@
     <string name="common_remove">Dilemel</string>
     <string name="common_rename">Adenvel</string>
     <string name="common_save">Enrollañ</string>
-    <string name="common_select">Dibab</string>
     <string name="common_send">Kas</string>
     <string name="common_share">Rannan</string>
     <string name="common_skip">Tremen</string>
@@ -151,7 +150,6 @@
     <string name="copy_file_not_found">Dibosupl eilan. Gwiriit m\'az eus eus ar restr mar-plij.</string>
     <string name="copy_link">Kopiañ al liamm</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Eilan/diblasañ en un teuliad sifred n\'a vez ket douget evit poent.</string>
-    <string name="copy_to">Eilan da ...</string>
     <string name="could_not_download_image">Diposuple eo pellgargañ tout ar skeudenn</string>
     <string name="could_not_retrieve_url">Dibosuple adtapout an URL</string>
     <string name="create">Krouiñ</string>
@@ -391,7 +389,6 @@
     <string name="move_file_invalid_into_descendent">N\'eo ket posuple diblasa un teuliad en unan eus e teuliadoù diabarzh</string>
     <string name="move_file_invalid_overwrite">Bez ez eus eus ar restr en teuliad termen</string>
     <string name="move_file_not_found">Dibosupl eo diblasa ar restr. Gwiriit m\'az eus eus ar restr mar-plij.</string>
-    <string name="move_to">Diblasa da ...</string>
     <string name="network_error_connect_timeout_exception">Ur fazi a zo bet en ur gortoz ar servijour. N\'eo ket posuple echuiñ an oberenn.</string>
     <string name="network_error_socket_exception">Ur fazi a zo bet e pad ar c\'henstagadur gant ar servijour</string>
     <string name="network_error_socket_timeout_exception">Ur fazi a zo bet en ur gortoz ar servijour. N\'eo ket posuple echuiñ an oberenn.</string>

@@ -546,8 +546,6 @@
     <string name="community_rc_fdroid">Get release candidate from F-Droid app</string>
     <string name="community_dev_fdroid">Get development release from F-Droid app</string>
     <string name="community_dev_direct_download">Download development release directly</string>
-    <string name="move_to">Move to…</string>
-    <string name="copy_to">Copy to…</string>
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="choose_local_folder">Choose local folder…</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -1038,7 +1036,6 @@
     <string name="show_video">Show videos</string>
     <string name="subtitle_videos_only">Videos only</string>
     <string name="select_media_folder">Set media folder</string>
-    <string name="common_select">Select</string>
     <string name="lock_file">Lock file</string>
     <string name="unlock_file">Unlock file</string>
     <string name="error_file_lock">Error changing file lock status</string>

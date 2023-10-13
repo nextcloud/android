@@ -116,7 +116,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="common_remove">Hapus</string>
     <string name="common_rename">Ubah nama</string>
     <string name="common_save">Simpan</string>
-    <string name="common_select">Pilih</string>
     <string name="common_send">Kirim</string>
     <string name="common_share">Bagikan</string>
     <string name="common_skip">Lewati</string>
@@ -163,7 +162,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="copy_file_invalid_overwrite">Berkas sudah ada didalam folder tujuan</string>
     <string name="copy_file_not_found">Tidak dapat menyalin. Silakan periksa apakah berkas eksis.</string>
     <string name="copy_link">Salin tautan</string>
-    <string name="copy_to">Salin ke…</string>
     <string name="could_not_download_image">Tidak bisa unduh gambar penuh</string>
     <string name="could_not_retrieve_url">Tidak dapat mengambil URL</string>
     <string name="create">Buat</string>
@@ -387,7 +385,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="move_file_error">Terjadi kesalahan saat mencoba memindahkan berkas atau folder ini</string>
     <string name="move_file_invalid_into_descendent">Tidak memungkinkan untuk memindahkan folder kedalam sub-folder</string>
     <string name="move_file_invalid_overwrite">Berkas sudah ada didalam folder tujuan</string>
-    <string name="move_to">Pindah ke…</string>
     <string name="network_error_socket_exception">Sebuah kesalahan terjadi saat menghubungi server</string>
     <string name="new_comment">Komentar baru…</string>
     <string name="new_media_folder_detected">Media baru %1$s terdeteksi.</string>

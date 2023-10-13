@@ -118,7 +118,6 @@
     <string name="common_remove">Διαγραφή</string>
     <string name="common_rename">Μετονομασία</string>
     <string name="common_save">Αποθήκευση</string>
-    <string name="common_select">Επιλογή</string>
     <string name="common_send">Αποστολή</string>
     <string name="common_share">Διαμοιρασμός</string>
     <string name="common_skip">Παράλειψη</string>
@@ -170,7 +169,6 @@
     <string name="copy_file_not_found">Αδυναμία αντιγραφής. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει.</string>
     <string name="copy_link">Αντιγραφή συνδέσμου</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Η αντιγραφή/μετακίνηση σε κρυπτογραφημένο φάκελο δεν υποστηρίζεται αυτή τη στιγμή</string>
-    <string name="copy_to">Αντιγραφή σε…</string>
     <string name="could_not_download_image">Αδυναμία λήψης της πλήρους εικόνας</string>
     <string name="could_not_retrieve_shares">Αδυναμία ανάκτησης κοινόχρηστων</string>
     <string name="could_not_retrieve_url">Αδυναμία ανάκτησης URL</string>
@@ -476,7 +474,6 @@
     <string name="move_file_invalid_into_descendent">Δεν είναι δυνατό να μετακινηθεί ο φάκελος σε έναν απογονικό</string>
     <string name="move_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
     <string name="move_file_not_found">Αδύνατη η μετακίνηση αρχείου. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει.</string>
-    <string name="move_to">Μετακίνηση σε…</string>
     <string name="network_error_connect_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή απόκρισης του διακομιστή. Η εργασία δεν μπορεί να ολοκληρωθεί.</string>
     <string name="network_error_socket_exception">Παρουσιάστηκε σφάλμα κατά τη σύνδεση με το διακομιστή.</string>
     <string name="network_error_socket_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή απόκρισης του διακομιστή. Η εργασία δεν μπορεί να ολοκληρωθεί.</string>

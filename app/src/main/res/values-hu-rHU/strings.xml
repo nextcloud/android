@@ -119,7 +119,6 @@
     <string name="common_remove">Törlés</string>
     <string name="common_rename">Átnevezés</string>
     <string name="common_save">Mentés</string>
-    <string name="common_select">Kiválasztás</string>
     <string name="common_send">Küldés</string>
     <string name="common_share">Megosztás</string>
     <string name="common_skip">Kihagyás</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">Nem lehet másolni. Ellenőrizze, hogy létezik-e a fájl.</string>
     <string name="copy_link">Hivatkozás másolása</string>
     <string name="copy_move_to_encrypted_folder_not_supported">A titkosított mappába másolás/áthelyezés jelenleg nem támogatott.</string>
-    <string name="copy_to">Másolás ide…</string>
     <string name="could_not_download_image">Nem sikerült letölteni a teljes képet</string>
     <string name="could_not_retrieve_shares">Nem sikerült lekérni a megosztásokat</string>
     <string name="could_not_retrieve_url">Az URL nem kérhető le</string>
@@ -489,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Nem helyezhető át egy mappa a saját almappájába</string>
     <string name="move_file_invalid_overwrite">A fájl már létezik a célmappában</string>
     <string name="move_file_not_found">A fájl nem helyezhető át. Ellenőrizze, hogy létezik-e.</string>
-    <string name="move_to">Áthelyezés ide…</string>
     <string name="network_error_connect_timeout_exception">Hiba történt a kiszolgálóra várakozás közben. A művelet nem teljesíthető.</string>
     <string name="network_error_socket_exception">Hiba történt a kiszolgálóhoz kapcsolódás közben.</string>
     <string name="network_error_socket_timeout_exception">Hiba történt a kiszolgálóra várakozás közben. A művelet nem teljesíthető.</string>

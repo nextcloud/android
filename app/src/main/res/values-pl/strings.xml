@@ -119,7 +119,6 @@
     <string name="common_remove">Usuń</string>
     <string name="common_rename">Zmień nazwę</string>
     <string name="common_save">Zapisz</string>
-    <string name="common_select">Wybierz</string>
     <string name="common_send">Wyślij</string>
     <string name="common_share">Udostępnij</string>
     <string name="common_skip">Pomiń</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">Nie można skopiować. Sprawdź, czy plik istnieje.</string>
     <string name="copy_link">Kopiuj link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiuj/przenieś do zaszyfrowanego katalogu, który nie jest obecnie obsługiwany.</string>
-    <string name="copy_to">Kopiuj do…</string>
     <string name="could_not_download_image">Nie można pobrać pełnego obrazu</string>
     <string name="could_not_retrieve_shares">Nie udało się pobrać udziałów</string>
     <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
@@ -489,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Nie można przenieść katalogu do jednego z jego podkatalogów</string>
     <string name="move_file_invalid_overwrite">Plik już istnieje w katalogu docelowym</string>
     <string name="move_file_not_found">Nie można przenieść. Sprawdź, czy plik istnieje.</string>
-    <string name="move_to">Przenieś do…</string>
     <string name="network_error_connect_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji.</string>
     <string name="network_error_socket_exception">Wystąpił błąd podczas połączenia z serwerem</string>
     <string name="network_error_socket_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji.</string>

@@ -111,7 +111,6 @@
     <string name="common_remove">Eliminar</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_save">Guardar</string>
-    <string name="common_select">Seleccionar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
     <string name="common_skip">Saltar</string>
@@ -159,7 +158,6 @@
     <string name="copy_file_not_found">No fue posible copiar. Por favor revisa si el archivo ya existe.</string>
     <string name="copy_link">Copiar liga</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/ mover a la carpeta encriptada no se encuentra soportado por el momento.</string>
-    <string name="copy_to">Copiar a…</string>
     <string name="could_not_download_image">No se pudo descargar la imagen completa</string>
     <string name="could_not_retrieve_shares">No se pudieron obtener los recursos compartidos</string>
     <string name="could_not_retrieve_url">No fue posible obtener la URL</string>
@@ -383,7 +381,6 @@
     <string name="move_file_error">Se presentó un error al intentar mover este archivo o carpeta</string>
     <string name="move_file_invalid_into_descendent">No es posible mover una carpeta dentro de una de sus sub carpetas</string>
     <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
-    <string name="move_to">Mover a…</string>
     <string name="network_error_socket_exception">Se presentó un error durante la conexión al servidor</string>
     <string name="new_comment">Nuevo comentario...</string>
     <string name="new_media_folder_photos">foto</string>

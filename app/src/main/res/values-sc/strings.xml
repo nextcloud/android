@@ -112,7 +112,6 @@
     <string name="common_remove">Cantzella</string>
     <string name="common_rename">Torra a numenare</string>
     <string name="common_save">Sarva</string>
-    <string name="common_select">Seletziona</string>
     <string name="common_send">Imbia</string>
     <string name="common_share">Cumpartzi</string>
     <string name="common_skip">Brinca</string>
@@ -160,7 +159,6 @@
     <string name="copy_file_not_found">Impossìbile a copiare. Controlla si su documentu esistit.</string>
     <string name="copy_link">Còpia ligòngiu</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Còpia/tràmuda a sa cartella critografada non suportada.</string>
-    <string name="copy_to">Còpia in...</string>
     <string name="could_not_download_image">No at fatu a iscarrigare totu s\'immàgine</string>
     <string name="could_not_retrieve_shares">No at fatu a recuperare is cumpartziduras</string>
     <string name="could_not_retrieve_url">No at fatu a recuperare s\'URL</string>
@@ -420,7 +418,6 @@
     <string name="move_file_invalid_into_descendent">No est possìbile a tramudare una cartella a intro de una de is cartellas in suta</string>
     <string name="move_file_invalid_overwrite">Su documentu est giai presente in sa cartella de destinatzione</string>
     <string name="move_file_not_found">Impossìbile a tramudare su documentu. Controlla si esistit.</string>
-    <string name="move_to">Tràmuda a…</string>
     <string name="network_error_connect_timeout_exception">Ddoe at àpidu un\'errore abetende su serbidore. No at fatu a agabbare s\'operatzione.</string>
     <string name="network_error_socket_exception">Ddoe at àpidu un\'errore durante sa connessione cun su serbidore</string>
     <string name="network_error_socket_timeout_exception">Ddoe at àpidu un\'errore abetende su serbidore. No at fatu a agabbare s\'operatzione.</string>

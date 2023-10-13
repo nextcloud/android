@@ -118,7 +118,6 @@
     <string name="common_remove">Șterge</string>
     <string name="common_rename">Redenumește</string>
     <string name="common_save">Salvează</string>
-    <string name="common_select">Selectează</string>
     <string name="common_send">Trimitere</string>
     <string name="common_share">Distribuie</string>
     <string name="common_skip">Sari peste</string>
@@ -170,7 +169,6 @@
     <string name="copy_file_not_found">Imposibil de copiat. Vă rugăm să verificați dacă fișierul există.</string>
     <string name="copy_link">Link copiat</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copierea/mutarea în directorul criptat nu este suportată.</string>
-    <string name="copy_to">Copiază în…</string>
     <string name="could_not_download_image">Nu s-a putut descărca imaginea completă</string>
     <string name="could_not_retrieve_shares">Nu am putut obține lista partajărilor</string>
     <string name="could_not_retrieve_url">Nu a fost găsit URL-ul</string>
@@ -469,7 +467,6 @@
     <string name="move_file_invalid_into_descendent">Nu este posibil să muți un dosar într-un descendent</string>
     <string name="move_file_invalid_overwrite">Fișierul există deja în dosarul de destinație</string>
     <string name="move_file_not_found">Nu se poate muta fișierul. Vă rugăm să verificați dacă acesta există.</string>
-    <string name="move_to">Mută în…</string>
     <string name="network_error_connect_timeout_exception">A apărut o eroare în timp ce așteptam pentru raspunsul serverului. Operația nu a putut avea loc.</string>
     <string name="network_error_socket_exception">A apărut o eroare în timp ce se conecta la server</string>
     <string name="network_error_socket_timeout_exception">A apărut o eroare în timp ce așteptam pentru raspunsul serverului. Operația nu a putut avea loc.</string>

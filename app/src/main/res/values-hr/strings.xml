@@ -115,7 +115,6 @@
     <string name="common_remove">Izbriši</string>
     <string name="common_rename">Preimenuj</string>
     <string name="common_save">Spremi</string>
-    <string name="common_select">Odaberi</string>
     <string name="common_send">Pošalji</string>
     <string name="common_share">Dijeli</string>
     <string name="common_skip">Preskoči</string>
@@ -165,7 +164,6 @@
     <string name="copy_file_not_found">Nije moguće kopirati. Provjerite postoji li datoteka.</string>
     <string name="copy_link">Kopiraj poveznicu</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Trenutno nije podržano kopiranje/premještanje u šifriranu mapu.</string>
-    <string name="copy_to">Kopiraj u…</string>
     <string name="could_not_download_image">Nije moguće preuzeti cijelu sliku</string>
     <string name="could_not_retrieve_shares">Dohvaćanje dijeljenja nije uspjelo</string>
     <string name="could_not_retrieve_url">Nije moguće dohvatiti URL</string>
@@ -449,7 +447,6 @@
     <string name="move_file_invalid_into_descendent">Nije moguće premjestiti mapu u jednu od svojih osnovnih mapa</string>
     <string name="move_file_invalid_overwrite">Datoteka je već prisutna u odredišnoj mapi</string>
     <string name="move_file_not_found">Nije moguće premjestiti datoteku. Provjerite postoji li datoteka.</string>
-    <string name="move_to">Premjesti u...</string>
     <string name="network_error_connect_timeout_exception">Došlo je do pogreške tijekom čekanja poslužitelja. Nije moguće dovršiti radnju.</string>
     <string name="network_error_socket_exception">Došlo je do pogreške tijekom povezivanja s poslužiteljem</string>
     <string name="network_error_socket_timeout_exception">Došlo je do pogreške tijekom čekanja poslužitelja. Nije moguće dovršiti radnju.</string>

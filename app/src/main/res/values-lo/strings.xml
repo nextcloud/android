@@ -116,7 +116,6 @@
     <string name="common_remove">ລຶບ</string>
     <string name="common_rename">ປ່ຽນຊື່</string>
     <string name="common_save">ບັນທຶກ</string>
-    <string name="common_select">ເລືອກ</string>
     <string name="common_send">ສົ່ງ</string>
     <string name="common_share">ແບ່ງປັນ</string>
     <string name="common_skip">ຂ້າມ</string>
@@ -164,7 +163,6 @@
     <string name="copy_file_not_found">ບໍ່ສາມາດສໍາເນົາໄດ້. ກະລຸນາກວດເບິ່ງວ່າຟາຍມີຢູ່ ຫຼື ບໍ່.</string>
     <string name="copy_link">ສຳເນົາລິງ</string>
     <string name="copy_move_to_encrypted_folder_not_supported">ສໍາເນົາ/ຍ້າຍເຂົ້າໃນໂຟນເດີທີ່ຖືກເຂົ້າລະຫັດໃນປະຈຸບັນບໍ່ໄດ້ຮັບການສະຫນັບສະຫນູນ</string>
-    <string name="copy_to">ສຳເນົາໄປຍັງ....</string>
     <string name="could_not_download_image">ບໍ່ສາມາດດາວໂຫລດຮູບພາບເຕັມ</string>
     <string name="could_not_retrieve_shares">ບໍ່ສາມາດເອົາການແບ່ງປັນຄືນໄດ້</string>
     <string name="could_not_retrieve_url">ບໍ່ສາມາດເກັບURL ໄດ້</string>
@@ -409,7 +407,6 @@
     <string name="move_file_invalid_into_descendent">ມັນເປັນໄປບໍ່ໄດ້ທີ່ຈະຍ້າຍໂຟນເດີເຂົ້າໄປໃນ ຫນຶ່ງໃນໂຟນເດີພື້ນຖານຂອງມັນເອງ</string>
     <string name="move_file_invalid_overwrite">ຟາຍແມ່ນມີຢູ່ແລ້ວໃນໂຟນເດີຈຸດຫມາຍປາຍທາງ</string>
     <string name="move_file_not_found">ບໍ່ສາມາດເຄື່ອນຍ້າຍຟາຍໄດ້. ກະລຸນາກວດເບິ່ງວ່າມີຢູ່ ຫຼື ບໍ່.</string>
-    <string name="move_to">ຍ້າຍໄປ...</string>
     <string name="network_error_connect_timeout_exception">ມີຂໍ້ຜິດພາດເກີດຂຶ້ນໃນຂະນະທີ່ລໍຖ້າເຊີເວີ. ບໍ່ສາມາດດໍາເນີນການໄດ້ຢ່າງຄົບຖ້ວນ.</string>
     <string name="network_error_socket_exception">ເກີດຂໍ້ຜິດພາດໃນລະຫວ່າງການເຊື່ອມຕໍ່ກັບເຊີເວີ</string>
     <string name="network_error_socket_timeout_exception">ມີຂໍ້ຜິດພາດເກີດຂຶ້ນໃນຂະນະທີ່ລໍຖ້າເຊີເວີ. ບໍ່ສາມາດດໍາເນີນການໄດ້ຢ່າງຄົບຖ້ວນ.</string>

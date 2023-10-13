@@ -119,7 +119,6 @@
     <string name="common_remove">Elimina</string>
     <string name="common_rename">Rinomina</string>
     <string name="common_save">Salva</string>
-    <string name="common_select">Seleziona</string>
     <string name="common_send">Invia</string>
     <string name="common_share">Condividi</string>
     <string name="common_skip">Salta</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">Impossibile copiare. Assicurati che il file esista.</string>
     <string name="copy_link">Copia collegamento</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia/Spostamento in una cartella cifrata attualmente non supportati.</string>
-    <string name="copy_to">Copia in…</string>
     <string name="could_not_download_image">Impossibile scaricare l\'immagine completa</string>
     <string name="could_not_retrieve_shares">Impossibile recuperare le condivisioni</string>
     <string name="could_not_retrieve_url">Impossibile recuperare l\'URL</string>
@@ -489,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Impossibile spostare una cartella in una delle sue cartelle sottostanti</string>
     <string name="move_file_invalid_overwrite">Il file è già presente nella cartella di destinazione</string>
     <string name="move_file_not_found">Impossibile spostare il file. Controlla che esista.</string>
-    <string name="move_to">Sposta in…</string>
     <string name="network_error_connect_timeout_exception">Si è verificato un errore in attesa della risposta del server. Impossibile completare l\'operazione.</string>
     <string name="network_error_socket_exception">Si è verificato un errore durante la connessione al server</string>
     <string name="network_error_socket_timeout_exception">Si è verificato un errore in attesa della risposta del server. Impossibile completare l\'operazione.</string>

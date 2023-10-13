@@ -119,7 +119,6 @@
     <string name="common_remove">Sil</string>
     <string name="common_rename">Yeniden adlandır</string>
     <string name="common_save">Kaydet</string>
-    <string name="common_select">Seçin</string>
     <string name="common_send">Gönder</string>
     <string name="common_share">Paylaş</string>
     <string name="common_skip">Atla</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">Kopyalanamadı. Lütfen dosyanın var olup olmadığını denetleyin.</string>
     <string name="copy_link">Bağlantıyı kopyala</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
-    <string name="copy_to">Şuraya kopyala …</string>
     <string name="could_not_download_image">Tam boyuttaki görsel indirilemedi</string>
     <string name="could_not_retrieve_shares">Paylaşımlar alınamadı</string>
     <string name="could_not_retrieve_url">Adres alınamadı</string>
@@ -489,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak taşınamaz</string>
     <string name="move_file_invalid_overwrite">Dosya hedef klasörde zaten var</string>
     <string name="move_file_not_found">Dosya taşınamadı. Lütfen dosyanın var olup olmadığını denetleyin.</string>
-    <string name="move_to">Şuraya taşı …</string>
     <string name="network_error_connect_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı.</string>
     <string name="network_error_socket_exception">Sunucu ile bağlantı kurulurken bir sorun çıktı</string>
     <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı.</string>

@@ -119,7 +119,6 @@
     <string name="common_remove">삭제</string>
     <string name="common_rename">이름 바꾸기</string>
     <string name="common_save">저장</string>
-    <string name="common_select">선택</string>
     <string name="common_send">전송</string>
     <string name="common_share">공유</string>
     <string name="common_skip">건너뛰기</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">복사할 수 없습니다. 파일이 존재하는지 확인해주십시오.</string>
     <string name="copy_link">링크 주소 복사</string>
     <string name="copy_move_to_encrypted_folder_not_supported">암호화된 폴더로 복사/이동은 아직 지원하지 않습니다.</string>
-    <string name="copy_to">다음으로 복사</string>
     <string name="could_not_download_image">전체 이미지를 다운로드 할 수 없습니다.</string>
     <string name="could_not_retrieve_shares">공유를 가져올 수 없습니다.</string>
     <string name="could_not_retrieve_url">주소를 불러올 수 없습니다.</string>
@@ -476,7 +474,6 @@
     <string name="move_file_invalid_into_descendent">폴더를 자기 자신의 하위 폴더로 이동할 수 없음</string>
     <string name="move_file_invalid_overwrite">파일이 대상 폴더에 이미 존재함</string>
     <string name="move_file_not_found">파일을 이동할 수 없습니다. 파일이 존재하는지 확인해주십시오.</string>
-    <string name="move_to">다음으로 이동</string>
     <string name="network_error_connect_timeout_exception">서버 응답을 기다리던 중에 에러가 발생했습니다. 동작을 완료할 수 없습니다.</string>
     <string name="network_error_socket_exception">서버에 연결하는 중 오류가 발생했습니다.</string>
     <string name="network_error_socket_timeout_exception">서버 응답을 기다리던 중에 에러가 발생했습니다. 동작을 완료할 수 없습니다.</string>

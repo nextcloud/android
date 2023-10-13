@@ -118,7 +118,6 @@
     <string name="common_remove">Zmazať</string>
     <string name="common_rename">Premenovať</string>
     <string name="common_save">Uložiť</string>
-    <string name="common_select">Vybrať</string>
     <string name="common_send">Odoslať</string>
     <string name="common_share">Zdieľať</string>
     <string name="common_skip">Preskočiť</string>
@@ -169,7 +168,6 @@
     <string name="copy_file_not_found">Nie je možné kopírovať. Skontrolujte, či súbor ešte existuje.</string>
     <string name="copy_link">Kopíruj odkaz</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírovanie/presun do šifrovaného priečinku v súčasnosti nie je podporované.</string>
-    <string name="copy_to">Kopírovať do…</string>
     <string name="could_not_download_image">Nie je možné stiahnuť celý obráz</string>
     <string name="could_not_retrieve_shares">Nie je možné získať zdieľania</string>
     <string name="could_not_retrieve_url">Nepodarilo sa načítať webovú adresu</string>
@@ -459,7 +457,6 @@
     <string name="move_file_invalid_into_descendent">Nie je možné presunúť priečinok do samého seba</string>
     <string name="move_file_invalid_overwrite">Súbor už v cieľovom priečinku existuje</string>
     <string name="move_file_not_found">Nie je možné presunúť súbor. Skontrolujte, či súbor existuje.</string>
-    <string name="move_to">Presunúť do…</string>
     <string name="network_error_connect_timeout_exception">Pri čakaní na odpoveď servera nastala chyba.  Operácia nemohla byť dokončená.</string>
     <string name="network_error_socket_exception">Pri pokuse o pripojenie na server nastala chyba</string>
     <string name="network_error_socket_timeout_exception">Pri čakaní na odpoveď servera nastala chyba.  Operácia nemohla byť dokončená.</string>

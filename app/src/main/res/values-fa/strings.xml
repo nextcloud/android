@@ -119,7 +119,6 @@
     <string name="common_remove">حذف</string>
     <string name="common_rename">تغییرنام</string>
     <string name="common_save">ذخیره</string>
-    <string name="common_select">انتخاب</string>
     <string name="common_send">ارسال</string>
     <string name="common_share">هم‌رسانی</string>
     <string name="common_skip">پرش</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">امکان کپی وجود ندارد. لطفا موجود بودن فایل را بررسی کنید</string>
     <string name="copy_link">کپی کردن لینک</string>
     <string name="copy_move_to_encrypted_folder_not_supported">کپی کردن / انتقال به پوشه رمزگذاری شده در حال حاضر پشتیبانی نمی‌شود.</string>
-    <string name="copy_to">کپی کردن در...</string>
     <string name="could_not_download_image">تصویر کامل دریافت نشد</string>
     <string name="could_not_retrieve_shares">امکان بازگردانی اشتراک گذاری‌ها وجود ندارد</string>
     <string name="could_not_retrieve_url">امکان بازیابی URL وجود ندارد</string>
@@ -489,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">انتقال یک پوشه در یکی از پوشه های زیرین خود امکان پذیر نیست</string>
     <string name="move_file_invalid_overwrite">فایل در حال حاضر در پوشه مقصد موجود است</string>
     <string name="move_file_not_found">انتقال فایل امکان پذیر نمی‌باشد. لطفا موجود بودن فایل را بررسی کنید.</string>
-    <string name="move_to">انتقال به...</string>
     <string name="network_error_connect_timeout_exception">هنگام اتصال به سرور خطایی روی داد. تکمیل عملیات میسر نیست.</string>
     <string name="network_error_socket_exception">هنگام اتصال به سرور خطایی روی داد</string>
     <string name="network_error_socket_timeout_exception">هنگام اتصال به سرور خطایی روی داد. تکمیل عملیات میسر نیست.</string>

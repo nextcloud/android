@@ -153,7 +153,6 @@
     <string name="copy_file_not_found">Cha ghabh lethbhreac a dhèanamh. Thoir sùil a bheil am faidhle ann.</string>
     <string name="copy_link">Dèan lethbhreac dhen cheangal</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Cha chuir sinn taic ri cur lethbhreac no gluasad gu pasgan crioptaichte aig an àm seo.</string>
-    <string name="copy_to">Lethbhreac gu…</string>
     <string name="could_not_download_image">Cha b’ urrainn dhuinn an dealbh slàn a luchdadh a-nuas</string>
     <string name="could_not_retrieve_shares">Cha b’ urrainn dhuinn na co-roinnidhean fhaighinn</string>
     <string name="could_not_retrieve_url">Cha b’ urrainn dhuinn an URL fhaighinn</string>
@@ -406,7 +405,6 @@
     <string name="move_file_invalid_into_descendent">Cha ghabh pasgan gluasad am broinn fo-phasgan aige fhèin</string>
     <string name="move_file_invalid_overwrite">Tha am faidhle sa cheann-uidhe mu thràth</string>
     <string name="move_file_not_found">Cha ghabh am faidhle a ghluasad. Thoir sùil a bheil e ann.</string>
-    <string name="move_to">Gluais gu…</string>
     <string name="network_error_connect_timeout_exception">Thachair mearachd a’ feitheamh ris an fhrithealaiche. Cha b’ urrainn dhuinn sin a choileanadh.</string>
     <string name="network_error_socket_exception">Thachair mearachd a’ ceangal ris an fhrithealaiche</string>
     <string name="network_error_socket_timeout_exception">Thachair mearachd a’ feitheamh ris an fhrithealaiche. Cha b’ urrainn dhuinn sin a choileanadh.</string>

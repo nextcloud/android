@@ -119,7 +119,6 @@
     <string name="common_remove">Borrar</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_save">Guardar</string>
-    <string name="common_select">Seleccionar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
     <string name="common_skip">Omitir</string>
@@ -171,7 +170,6 @@
     <string name="copy_file_not_found">Imposible copiar. Por favor, comprueba que el archivo exista.</string>
     <string name="copy_link">Copiar enlace</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
-    <string name="copy_to">Copiar a…</string>
     <string name="could_not_download_image">No se ha podido descargar la imagen completa</string>
     <string name="could_not_retrieve_shares">No se han podido recuperar los recursos compartidos</string>
     <string name="could_not_retrieve_url">No se ha podido recuperar la URL</string>
@@ -489,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">No se puede mover una carpeta dentro de una de sus propias subcarpetas.</string>
     <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
     <string name="move_file_not_found">Imposible mover. Por favor, comprueba que el archivo exista.</string>
-    <string name="move_to">Mover a…</string>
     <string name="network_error_connect_timeout_exception">Ha ocurrido un error al esperar al servidor. No se pudo completar la operación.</string>
     <string name="network_error_socket_exception">Se ha producido un error al conectarse con el servidor</string>
     <string name="network_error_socket_timeout_exception">Ha ocurrido un error al esperar al servidor. No se pudo completar la operación.</string>
