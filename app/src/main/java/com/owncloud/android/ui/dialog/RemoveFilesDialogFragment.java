@@ -23,6 +23,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.ActionMode;
 
+import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -96,15 +97,20 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
                 R.string.confirmation_remove_files_alert;
         }
 
-        int localRemoveButton = (containsFolder || containsDown) ? R.string.confirmation_remove_local : -1;
-
         args.putInt(ARG_MESSAGE_RESOURCE_ID, messageStringId);
         if (files.size() == SINGLE_SELECTION) {
-            args.putStringArray(ARG_MESSAGE_ARGUMENTS, new String[]{files.get(0).getFileName()});
+            args.putStringArray(ARG_MESSAGE_ARGUMENTS, new String[] { files.get(0).getFileName() } );
         }
+
         args.putInt(ARG_POSITIVE_BTN_RES, R.string.file_delete);
-        args.putInt(ARG_NEUTRAL_BTN_RES, R.string.file_keep);
-        args.putInt(ARG_NEGATIVE_BTN_RES, localRemoveButton);
+
+        if (containsFolder || containsDown) {
+            args.putInt(ARG_NEGATIVE_BTN_RES, R.string.confirmation_remove_local);
+            args.putInt(ARG_NEUTRAL_BTN_RES, R.string.file_keep);
+        } else {
+            args.putInt(ARG_NEGATIVE_BTN_RES, R.string.file_keep);
+        }
+
         args.putParcelableArrayList(ARG_TARGET_FILES, files);
         frag.setArguments(args);
 
@@ -131,9 +137,16 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
-            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                                     alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE),
-                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+            MaterialButton positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
+
+            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
+
+            MaterialButton neutralButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+            if (neutralButton != null) {
+                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(neutralButton);
+            }
         }
     }
 
@@ -141,10 +154,14 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        mTargetFiles = getArguments().getParcelableArrayList(ARG_TARGET_FILES);
+        Bundle arguments = getArguments();
 
+        if (arguments == null) {
+            return dialog;
+        }
+
+        mTargetFiles = arguments.getParcelableArrayList(ARG_TARGET_FILES);
         setOnConfirmationListener(this);
-
         return dialog;
     }
 
@@ -154,9 +171,7 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
      */
     @Override
     public void onConfirmation(String callerTag) {
-        ComponentsGetter cg = (ComponentsGetter) getActivity();
-        cg.getFileOperationsHelper().removeFiles(mTargetFiles, false, false);
-        finishActionMode();
+        removeFiles(false);
     }
 
     /**
@@ -164,8 +179,14 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
      */
     @Override
     public void onCancel(String callerTag) {
+        removeFiles(true);
+    }
+
+    private void removeFiles(boolean onlyLocalCopy) {
         ComponentsGetter cg = (ComponentsGetter) getActivity();
-        cg.getFileOperationsHelper().removeFiles(mTargetFiles, true, false);
+        if (cg != null) {
+            cg.getFileOperationsHelper().removeFiles(mTargetFiles, onlyLocalCopy, false);
+        }
         finishActionMode();
     }
 
