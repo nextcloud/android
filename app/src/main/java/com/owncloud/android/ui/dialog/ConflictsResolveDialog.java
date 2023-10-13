@@ -29,6 +29,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
@@ -70,7 +71,7 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
     public OnConflictDecisionMadeListener listener;
     private User user;
     private final List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks = new ArrayList<>();
-    private Button positiveButton;
+    private MaterialButton positiveButton;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject SyncedFolderProvider syncedFolderProvider;
 
@@ -119,9 +120,11 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
             return;
         }
 
-        positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        viewThemeUtils.platform.colorTextButtons(positiveButton,
-                                                 alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+        viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
+        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
         positiveButton.setEnabled(false);
     }
 
@@ -175,7 +178,7 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
 
                 }
             })
-            .setNeutralButton(R.string.common_cancel, (dialog, which) -> {
+            .setNegativeButton(R.string.common_cancel, (dialog, which) -> {
                 if (listener != null) {
                     listener.conflictDecisionMade(Decision.CANCEL);
                 }
