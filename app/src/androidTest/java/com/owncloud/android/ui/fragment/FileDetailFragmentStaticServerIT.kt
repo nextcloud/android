@@ -79,6 +79,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
         waitForIdleSync()
         shortSleep()
         shortSleep()
+        shortSleep()
         screenshot(sut)
     }
 
