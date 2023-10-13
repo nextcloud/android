@@ -34,8 +34,8 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.di.Injectable;
@@ -65,7 +65,7 @@ import androidx.fragment.app.DialogFragment;
  * Triggers the rename operation when name is confirmed.
  */
 public class RenameFileDialogFragment
-    extends DialogFragment implements DialogInterface.OnClickListener, Injectable {
+    extends DialogFragment implements DialogInterface.OnClickListener, TextWatcher, Injectable {
 
     private static final String ARG_TARGET_FILE = "TARGET_FILE";
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
@@ -76,8 +76,8 @@ public class RenameFileDialogFragment
 
     private EditBoxDialogBinding binding;
     private OCFile mTargetFile;
-    private Button positiveButton;
-
+    private MaterialButton positiveButton;
+    private Set<String> fileNames;
 
     /**
      * Public factory method to create new RenameFileDialogFragment instances.
@@ -97,14 +97,7 @@ public class RenameFileDialogFragment
     @Override
     public void onStart() {
         super.onStart();
-
-        AlertDialog alertDialog = (AlertDialog) getDialog();
-
-        if (alertDialog != null) {
-            positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            viewThemeUtils.platform.colorTextButtons(positiveButton,
-                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
-        }
+        initAlertDialog();
     }
 
     @Override
@@ -133,62 +126,46 @@ public class RenameFileDialogFragment
 
         OCFile parentFolder = requireArguments().getParcelable(ARG_PARENT_FOLDER);
         List<OCFile> folderContent = fileDataStorageManager.getFolderContent(parentFolder, false);
-        Set<String> fileNames = Sets.newHashSetWithExpectedSize(folderContent.size());
+        fileNames = Sets.newHashSetWithExpectedSize(folderContent.size());
 
         for (OCFile file : folderContent) {
             fileNames.add(file.getFileName());
         }
 
         // Add TextChangedListener to handle showing/hiding the input warning message
-        binding.userInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            /**
-             * When user enters a hidden file name, the 'hidden file' message is shown.
-             * Otherwise, the message is ensured to be hidden.
-             */
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String newFileName = "";
-                if (binding.userInput.getText() != null) {
-                    newFileName = binding.userInput.getText().toString().trim();
-                }
-
-                if (!TextUtils.isEmpty(newFileName) && newFileName.charAt(0) == '.') {
-                    binding.userInputContainer.setError(getText(R.string.hidden_file_name_warning));
-                } else if (TextUtils.isEmpty(newFileName)) {
-                    binding.userInputContainer.setError(getString(R.string.filename_empty));
-                    positiveButton.setEnabled(false);
-                } else if (fileNames.contains(newFileName)) {
-                    binding.userInputContainer.setError(getText(R.string.file_already_exists));
-                    positiveButton.setEnabled(false);
-                } else if (binding.userInputContainer.getError() != null) {
-                    binding.userInputContainer.setError(null);
-                    // Called to remove extra padding
-                    binding.userInputContainer.setErrorEnabled(false);
-                    positiveButton.setEnabled(true);
-                }
-            }
-        });
+        binding.userInput.addTextChangedListener(this);
 
         // Build the dialog
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
-        builder.setView(view)
-            .setPositiveButton(R.string.file_rename, this)
-            .setNeutralButton(R.string.common_cancel, this)
-            .setTitle(R.string.rename_dialog_title);
+        MaterialAlertDialogBuilder builder = buildMaterialAlertDialog(view);
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInputContainer.getContext(), builder);
 
         return builder.create();
     }
 
+    private MaterialAlertDialogBuilder buildMaterialAlertDialog(View view) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
+
+        builder
+            .setView(view)
+            .setPositiveButton(R.string.file_rename, this)
+            .setNegativeButton(R.string.common_cancel, this)
+            .setTitle(R.string.rename_dialog_title);
+
+        return builder;
+    }
+
+    private void initAlertDialog() {
+        AlertDialog alertDialog = (AlertDialog) getDialog();
+
+        if (alertDialog != null) {
+            positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
+        }
+    }
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
@@ -218,5 +195,42 @@ public class RenameFileDialogFragment
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    /**
+     * When user enters a hidden file name, the 'hidden file' message is shown.
+     * Otherwise, the message is ensured to be hidden.
+     */
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        String newFileName = "";
+        if (binding.userInput.getText() != null) {
+            newFileName = binding.userInput.getText().toString().trim();
+        }
+
+        if (!TextUtils.isEmpty(newFileName) && newFileName.charAt(0) == '.') {
+            binding.userInputContainer.setError(getText(R.string.hidden_file_name_warning));
+        } else if (TextUtils.isEmpty(newFileName)) {
+            binding.userInputContainer.setError(getString(R.string.filename_empty));
+            positiveButton.setEnabled(false);
+        } else if (fileNames.contains(newFileName)) {
+            binding.userInputContainer.setError(getText(R.string.file_already_exists));
+            positiveButton.setEnabled(false);
+        } else if (binding.userInputContainer.getError() != null) {
+            binding.userInputContainer.setError(null);
+            // Called to remove extra padding
+            binding.userInputContainer.setErrorEnabled(false);
+            positiveButton.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
     }
 }
