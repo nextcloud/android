@@ -34,8 +34,9 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.WindowManager;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.di.Injectable;
@@ -76,8 +77,7 @@ public class RenameFileDialogFragment
 
     private EditBoxDialogBinding binding;
     private OCFile mTargetFile;
-    private Button positiveButton;
-
+    private MaterialButton positiveButton;
 
     /**
      * Public factory method to create new RenameFileDialogFragment instances.
@@ -101,9 +101,11 @@ public class RenameFileDialogFragment
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
-            positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            viewThemeUtils.platform.colorTextButtons(positiveButton,
-                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+            positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
         }
     }
 
@@ -179,16 +181,17 @@ public class RenameFileDialogFragment
 
         // Build the dialog
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
-        builder.setView(view)
+
+        builder
+            .setView(view)
             .setPositiveButton(R.string.file_rename, this)
-            .setNeutralButton(R.string.common_cancel, this)
+            .setNegativeButton(R.string.common_cancel, this)
             .setTitle(R.string.rename_dialog_title);
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInputContainer.getContext(), builder);
 
         return builder.create();
     }
-
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
