@@ -28,6 +28,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
@@ -52,8 +53,6 @@ public class RenamePublicShareDialogFragment
 
     private static final String ARG_PUBLIC_SHARE = "PUBLIC_SHARE";
 
-    public static final String RENAME_PUBLIC_SHARE_FRAGMENT = "RENAME_PUBLIC_SHARE_FRAGMENT";
-
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject KeyboardUtils keyboardUtils;
 
@@ -75,8 +74,10 @@ public class RenamePublicShareDialogFragment
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
-            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+            MaterialButton positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
         }
     }
 
@@ -104,7 +105,7 @@ public class RenamePublicShareDialogFragment
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(view.getContext());
         builder.setView(view)
             .setPositiveButton(R.string.file_rename, this)
-            .setNeutralButton(R.string.common_cancel, this)
+            .setNegativeButton(R.string.common_cancel, this)
             .setTitle(R.string.public_share_name);
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInput.getContext(), builder);
