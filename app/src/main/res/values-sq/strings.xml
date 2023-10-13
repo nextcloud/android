@@ -13,9 +13,7 @@
     <string name="action_send_share">Dërgoje/Shpërndaje</string>
     <string name="action_switch_grid_view">Pamje galeri</string>
     <string name="action_switch_list_view">Pamje listë</string>
-    <string name="actionbar_copy">Kopjoni</string>
     <string name="actionbar_mkdir">Dosje e re</string>
-    <string name="actionbar_move">Zhvendose</string>
     <string name="actionbar_open_with">Hapeni me</string>
     <string name="actionbar_search">Kërkoni</string>
     <string name="actionbar_see_details">Hollësi</string>
@@ -311,7 +309,6 @@
     <string name="folder_already_exists">Dosja ekziston tashmë</string>
     <string name="folder_confirm_create">Krijo</string>
     <string name="folder_list_empty_headline">Këtu nuk ka dosje</string>
-    <string name="folder_picker_choose_button_text">Zgjidhni</string>
     <string name="forbidden_permissions">Nuk keni leje %s</string>
     <string name="forbidden_permissions_copy">për kopjim të kësaj kartele</string>
     <string name="forbidden_permissions_create">për krijim kartele</string>

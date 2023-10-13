@@ -13,9 +13,7 @@
     <string name="action_send_share">Kas/Rannan</string>
     <string name="action_switch_grid_view">Gwelidik roued</string>
     <string name="action_switch_list_view">Gwelidik listenn</string>
-    <string name="actionbar_copy">Eilañ</string>
     <string name="actionbar_mkdir">Teuliad nevez</string>
-    <string name="actionbar_move">Diplasañ</string>
     <string name="actionbar_open_with">Digeriñ gant</string>
     <string name="actionbar_search">Klask</string>
     <string name="actionbar_see_details">Munudoù</string>
@@ -325,7 +323,6 @@
     <string name="folder_already_exists">Bez ez eus dija eus an teuliad</string>
     <string name="folder_confirm_create">Krouiñ</string>
     <string name="folder_list_empty_headline">Emañ heuliad ebet amañ</string>
-    <string name="folder_picker_choose_button_text">Dibab</string>
     <string name="forbidden_permissions">N\'oc\'h ket aotreet %s</string>
     <string name="forbidden_permissions_copy">eit eilan ar restr</string>
     <string name="forbidden_permissions_create">evit krouiñ ar restr</string>

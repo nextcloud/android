@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Zobrazení v mřížce</string>
     <string name="action_switch_list_view">Zobrazení v seznamu</string>
     <string name="actionbar_calendar_contacts_restore">Obnovit kontakty a kalendář</string>
-    <string name="actionbar_copy">Zkopírovat</string>
     <string name="actionbar_mkdir">Nová složka</string>
-    <string name="actionbar_move">Přesunout</string>
     <string name="actionbar_open_with">Otevřít pomocí</string>
     <string name="actionbar_search">Hledat</string>
     <string name="actionbar_see_details">Podrobnosti</string>
@@ -391,7 +389,6 @@
     <string name="folder_already_exists">Složka už existuje</string>
     <string name="folder_confirm_create">Vytvořit</string>
     <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
-    <string name="folder_picker_choose_button_text">Vybrat</string>
     <string name="forbidden_permissions">Nemáte oprávnění %s</string>
     <string name="forbidden_permissions_copy">pro zkopírování tohoto souboru</string>
     <string name="forbidden_permissions_create">pro vytvoření tohoto souboru</string>

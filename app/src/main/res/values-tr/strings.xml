@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Tablo görünümü</string>
     <string name="action_switch_list_view">Liste görünümü</string>
     <string name="actionbar_calendar_contacts_restore">Kişileri ve takvimi geri yükle</string>
-    <string name="actionbar_copy">Kopyala</string>
     <string name="actionbar_mkdir">Yeni klasör</string>
-    <string name="actionbar_move">Taşı</string>
     <string name="actionbar_open_with">Birlikte aç</string>
     <string name="actionbar_search">Arama</string>
     <string name="actionbar_see_details">Ayrıntılar</string>
@@ -391,7 +389,6 @@
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="folder_confirm_create">Ekle</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
-    <string name="folder_picker_choose_button_text">Seçin</string>
     <string name="forbidden_permissions">%s izniniz yok</string>
     <string name="forbidden_permissions_copy">bu dosyayı kopyalayın</string>
     <string name="forbidden_permissions_create">bu dosyayı oluşturamazsınız</string>

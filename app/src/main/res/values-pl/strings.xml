@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
     <string name="actionbar_calendar_contacts_restore">Przywróć kontakty i kalendarz</string>
-    <string name="actionbar_copy">Kopiuj</string>
     <string name="actionbar_mkdir">Nowy katalog</string>
-    <string name="actionbar_move">Przenieś</string>
     <string name="actionbar_open_with">Otwórz za pomocą</string>
     <string name="actionbar_search">Wyszukaj</string>
     <string name="actionbar_see_details">Szczegóły</string>
@@ -391,7 +389,6 @@
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
-    <string name="folder_picker_choose_button_text">Wybierz</string>
     <string name="forbidden_permissions">Nie masz uprawnień %s</string>
     <string name="forbidden_permissions_copy">do kopiowania tego pliku</string>
     <string name="forbidden_permissions_create">do utworzenia tego pliku</string>

@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">網格檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
     <string name="actionbar_calendar_contacts_restore">恢復聯絡人與日曆</string>
-    <string name="actionbar_copy">複製</string>
     <string name="actionbar_mkdir">新資料夾</string>
-    <string name="actionbar_move">移動</string>
     <string name="actionbar_open_with">開啟方式</string>
     <string name="actionbar_search">搜尋</string>
     <string name="actionbar_see_details">詳細資料</string>
@@ -391,7 +389,6 @@
     <string name="folder_already_exists">資料夾已存在</string>
     <string name="folder_confirm_create">建立</string>
     <string name="folder_list_empty_headline">這裡沒有資料夾</string>
-    <string name="folder_picker_choose_button_text">選擇</string>
     <string name="forbidden_permissions">您沒有 %s 的權限</string>
     <string name="forbidden_permissions_copy">複製這個檔案</string>
     <string name="forbidden_permissions_create">建立此檔案</string>

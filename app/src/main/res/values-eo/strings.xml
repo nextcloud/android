@@ -13,9 +13,7 @@
     <string name="action_send_share">Sendi aŭ kunhavigi</string>
     <string name="action_switch_grid_view">Krada vido</string>
     <string name="action_switch_list_view">Lista vido</string>
-    <string name="actionbar_copy">Kopii</string>
     <string name="actionbar_mkdir">Nova dosierujo</string>
-    <string name="actionbar_move">Movi</string>
     <string name="actionbar_open_with">Malfermi per</string>
     <string name="actionbar_search">Serĉi</string>
     <string name="actionbar_see_details">Detaloj</string>
@@ -278,7 +276,6 @@
     <string name="folder_already_exists">La dosierujo jam ekzistas</string>
     <string name="folder_confirm_create">Krei</string>
     <string name="folder_list_empty_headline">Neniu dosierujo ĉi tie</string>
-    <string name="folder_picker_choose_button_text">Elekti</string>
     <string name="forbidden_permissions">Vi ne estas permesita %s</string>
     <string name="forbidden_permissions_copy">kopii ĉi tiun dosieron</string>
     <string name="forbidden_permissions_create">krei ĉi tiun dosieron</string>

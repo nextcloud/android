@@ -14,9 +14,7 @@
     <string name="action_send_share">Slanje/Deljenje</string>
     <string name="action_switch_grid_view">Prikaz mreže</string>
     <string name="action_switch_list_view">Prikaz liste</string>
-    <string name="actionbar_copy">Kopiraj</string>
     <string name="actionbar_mkdir">Nova fascikla</string>
-    <string name="actionbar_move">Premesti</string>
     <string name="actionbar_open_with">Otvori pomoću</string>
     <string name="actionbar_search">Pretraga</string>
     <string name="actionbar_see_details">Detalji</string>
@@ -285,7 +283,6 @@
     <string name="folder_already_exists">Fascikla već postoji</string>
     <string name="folder_confirm_create">Napravi</string>
     <string name="folder_list_empty_headline">Bez fascikli</string>
-    <string name="folder_picker_choose_button_text">Odaberi</string>
     <string name="forbidden_permissions">Nije vam dozvoljeno da %s</string>
     <string name="forbidden_permissions_copy">da kopirate ovaj fajl</string>
     <string name="forbidden_permissions_create">da napravite fajl</string>

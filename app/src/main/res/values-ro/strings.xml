@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Afișare în grilă</string>
     <string name="action_switch_list_view">Afișare în listă</string>
     <string name="actionbar_calendar_contacts_restore">Restaurare contacte 1&amp; calendar</string>
-    <string name="actionbar_copy">Copiază</string>
     <string name="actionbar_mkdir">Dosar nou</string>
-    <string name="actionbar_move">Mutare</string>
     <string name="actionbar_open_with">Deschideţi cu </string>
     <string name="actionbar_search">Caută</string>
     <string name="actionbar_see_details">Detalii</string>
@@ -385,7 +383,6 @@
     <string name="folder_already_exists">Dosar existent</string>
     <string name="folder_confirm_create">Creați</string>
     <string name="folder_list_empty_headline">Niciun dosar aici</string>
-    <string name="folder_picker_choose_button_text">Alege</string>
     <string name="forbidden_permissions">Nu ai permisiunea %s</string>
     <string name="forbidden_permissions_copy">să copiați acest fișier</string>
     <string name="forbidden_permissions_create">pentru a crea fisierul</string>

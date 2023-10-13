@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
     <string name="actionbar_calendar_contacts_restore">Restore contacts &amp; calendar</string>
-    <string name="actionbar_copy">Copy</string>
     <string name="actionbar_mkdir">New folder</string>
-    <string name="actionbar_move">Move</string>
     <string name="actionbar_open_with">Open with</string>
     <string name="actionbar_search">Search</string>
     <string name="actionbar_see_details">Details</string>
@@ -391,7 +389,6 @@
     <string name="folder_already_exists">Folder already exists</string>
     <string name="folder_confirm_create">Create</string>
     <string name="folder_list_empty_headline">No folders here</string>
-    <string name="folder_picker_choose_button_text">Choose</string>
     <string name="forbidden_permissions">You are not permitted %s</string>
     <string name="forbidden_permissions_copy">to copy this file</string>
     <string name="forbidden_permissions_create">to create this file</string>

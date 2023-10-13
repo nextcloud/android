@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">عرض شبكي</string>
     <string name="action_switch_list_view">عرض على شكل قائمة</string>
     <string name="actionbar_calendar_contacts_restore">استعادة جهات الاتصال &amp; التقويم</string>
-    <string name="actionbar_copy">نسخ</string>
     <string name="actionbar_mkdir">مجلد جديد</string>
-    <string name="actionbar_move">نقل</string>
     <string name="actionbar_open_with">فتح باستخدام</string>
     <string name="actionbar_search">بحث</string>
     <string name="actionbar_see_details">تفاصيل</string>
@@ -391,7 +389,6 @@
     <string name="folder_already_exists">المجلد موجود مسبقاً</string>
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
-    <string name="folder_picker_choose_button_text">اختيار</string>
     <string name="forbidden_permissions">غير مسموح لك أن %s</string>
     <string name="forbidden_permissions_copy">لنسخ هذا الملف</string>
     <string name="forbidden_permissions_create">لإنشاء هذا الملف</string>

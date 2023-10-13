@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Rasterindeling </string>
     <string name="action_switch_list_view">Lijstindeling</string>
     <string name="actionbar_calendar_contacts_restore">Herstel contacten &amp; agenda</string>
-    <string name="actionbar_copy">Kopiëren</string>
     <string name="actionbar_mkdir">Nieuwe map</string>
-    <string name="actionbar_move">Verplaatsen</string>
     <string name="actionbar_open_with">Openen met</string>
     <string name="actionbar_search">Zoeken</string>
     <string name="actionbar_see_details">Details</string>
@@ -371,7 +369,6 @@
     <string name="folder_already_exists">Map bestaat al</string>
     <string name="folder_confirm_create">Aanmaken</string>
     <string name="folder_list_empty_headline">Hier zijn geen bestanden</string>
-    <string name="folder_picker_choose_button_text">Kiezen</string>
     <string name="forbidden_permissions">Je mist autorisatie %s</string>
     <string name="forbidden_permissions_copy">om dit bestand te kopiëren</string>
     <string name="forbidden_permissions_create">om dit bestand te creëren</string>

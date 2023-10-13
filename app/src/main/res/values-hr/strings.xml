@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Prikaz rešetke</string>
     <string name="action_switch_list_view">Prikaz popisa</string>
     <string name="actionbar_calendar_contacts_restore">Vrati kontakte i kalendar</string>
-    <string name="actionbar_copy">Kopiraj</string>
     <string name="actionbar_mkdir">Nova mapa</string>
-    <string name="actionbar_move">Premjesti</string>
     <string name="actionbar_open_with">Otvori s</string>
     <string name="actionbar_search">Traži</string>
     <string name="actionbar_see_details">Pojedinosti</string>
@@ -368,7 +366,6 @@
     <string name="folder_already_exists">Mapa već postoji</string>
     <string name="folder_confirm_create">Stvori</string>
     <string name="folder_list_empty_headline">Ovdje nema mapa</string>
-    <string name="folder_picker_choose_button_text">Odaberite</string>
     <string name="forbidden_permissions">Nemate dopuštenje %s</string>
     <string name="forbidden_permissions_copy">za kopiranje ove datoteke</string>
     <string name="forbidden_permissions_create">za izradu ove datoteke</string>

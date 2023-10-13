@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Tinklelio rodinys</string>
     <string name="action_switch_list_view">Sąrašo rodinys</string>
     <string name="actionbar_calendar_contacts_restore">Atkurti adresatus ir kalendorių</string>
-    <string name="actionbar_copy">Kopijuoti</string>
     <string name="actionbar_mkdir">Naujas aplankas</string>
-    <string name="actionbar_move">Perkelti</string>
     <string name="actionbar_open_with">Atverti naudojant</string>
     <string name="actionbar_search">Paieška</string>
     <string name="actionbar_see_details">Išsamiau</string>
@@ -362,7 +360,6 @@
     <string name="folder_already_exists">Aplankas jau yra</string>
     <string name="folder_confirm_create">Sukurti</string>
     <string name="folder_list_empty_headline">Čia aplankų nėra</string>
-    <string name="folder_picker_choose_button_text">Pasirinkti</string>
     <string name="forbidden_permissions">Neturite leidimo %s</string>
     <string name="forbidden_permissions_copy">kopijuoti failo</string>
     <string name="forbidden_permissions_create">Sukurti failą</string>

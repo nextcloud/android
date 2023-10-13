@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de llista</string>
     <string name="actionbar_calendar_contacts_restore">Restaura el calendari de contactes&amp;</string>
-    <string name="actionbar_copy">Copia</string>
     <string name="actionbar_mkdir">Crea una carpeta</string>
-    <string name="actionbar_move">Mou</string>
     <string name="actionbar_open_with">Obre amb</string>
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Detalls</string>
@@ -376,7 +374,6 @@
     <string name="folder_already_exists">La carpeta ja existeix</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">No hi ha carpetes</string>
-    <string name="folder_picker_choose_button_text">Escolliu</string>
     <string name="forbidden_permissions">No teniu permisos%s</string>
     <string name="forbidden_permissions_copy">per copiar aquest fitxer</string>
     <string name="forbidden_permissions_create">per crear aquest fitxer</string>

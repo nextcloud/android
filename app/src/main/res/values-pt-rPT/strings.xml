@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Visualização em grelha</string>
     <string name="action_switch_list_view">Visualização em lista</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar contactos e calendário</string>
-    <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Nova pasta</string>
-    <string name="actionbar_move">Mover</string>
     <string name="actionbar_open_with">Abrir com</string>
     <string name="actionbar_search">Procura</string>
     <string name="actionbar_see_details">Detalhes</string>
@@ -366,7 +364,6 @@
     <string name="folder_already_exists">A pasta já existe</string>
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
-    <string name="folder_picker_choose_button_text">Escolher</string>
     <string name="forbidden_permissions">Não tem permissão %s</string>
     <string name="forbidden_permissions_copy">para copiar este ficheiro</string>
     <string name="forbidden_permissions_create">para criar este ficheiro</string>

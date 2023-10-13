@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Rasteransicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
     <string name="actionbar_calendar_contacts_restore">Kontakte &amp; Kalender wiederherstellen</string>
-    <string name="actionbar_copy">Kopieren</string>
     <string name="actionbar_mkdir">Neuer Ordner</string>
-    <string name="actionbar_move">Verschieben</string>
     <string name="actionbar_open_with">Öffnen mit</string>
     <string name="actionbar_search">Suche</string>
     <string name="actionbar_see_details">Details</string>
@@ -391,7 +389,6 @@
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="folder_confirm_create">Erstellen</string>
     <string name="folder_list_empty_headline">Keine Ordner vorhanden</string>
-    <string name="folder_picker_choose_button_text">Auswählen</string>
     <string name="forbidden_permissions">Ihnen fehlt die Erlaubnis %s</string>
     <string name="forbidden_permissions_copy">diese Datei zu kopieren</string>
     <string name="forbidden_permissions_create">diese Datei zu erstellen</string>

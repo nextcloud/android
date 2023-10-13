@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
     <string name="actionbar_calendar_contacts_restore">Възстановяване на контакти &amp; календар</string>
-    <string name="actionbar_copy">Копиране</string>
     <string name="actionbar_mkdir">Нова папка</string>
-    <string name="actionbar_move">Преместване</string>
     <string name="actionbar_open_with">Отвори с</string>
     <string name="actionbar_search">Търсене</string>
     <string name="actionbar_see_details">Подробности</string>
@@ -385,7 +383,6 @@
     <string name="folder_already_exists">Папката вече съществува</string>
     <string name="folder_confirm_create">Създай</string>
     <string name="folder_list_empty_headline">Няма папки</string>
-    <string name="folder_picker_choose_button_text">Изберете</string>
     <string name="forbidden_permissions">Нямате права за достъп до %s</string>
     <string name="forbidden_permissions_copy">да копира този файл</string>
     <string name="forbidden_permissions_create">за създаване на файла</string>

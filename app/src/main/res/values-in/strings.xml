@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Tampilan kotak</string>
     <string name="action_switch_list_view">Tampilan lis</string>
     <string name="actionbar_calendar_contacts_restore">Kembalikan kontak &amp; kalender</string>
-    <string name="actionbar_copy">Salin</string>
     <string name="actionbar_mkdir">Folder baru</string>
-    <string name="actionbar_move">Pindah</string>
     <string name="actionbar_open_with">Buka dengan</string>
     <string name="actionbar_search">Cari</string>
     <string name="actionbar_see_details">Rincian</string>
@@ -328,7 +326,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="folder_already_exists">Direktori sudah ada</string>
     <string name="folder_confirm_create">Buat</string>
     <string name="folder_list_empty_headline">Tidak ada folder</string>
-    <string name="folder_picker_choose_button_text">Pilih</string>
     <string name="forbidden_permissions">Anda tidak memiliki izin %s</string>
     <string name="forbidden_permissions_copy">untuk menyalin berkas ini</string>
     <string name="forbidden_permissions_create">untuk membuat berkas ini</string>

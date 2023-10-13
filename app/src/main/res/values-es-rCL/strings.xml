@@ -10,9 +10,7 @@
     <string name="action_send_share">Enviar/Compartir</string>
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
-    <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
-    <string name="actionbar_move">Mover</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -238,7 +236,6 @@
     <string name="filename_hint">Nombre del archivo</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">No hay carpetas aquí</string>
-    <string name="folder_picker_choose_button_text">Seleccionar</string>
     <string name="forbidden_permissions">No se te permite %s</string>
     <string name="forbidden_permissions_copy">para copiar este archivo</string>
     <string name="forbidden_permissions_create">para crear este archivo</string>

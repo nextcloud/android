@@ -14,9 +14,7 @@
     <string name="action_send_share">Imbia/Cumpartzi</string>
     <string name="action_switch_grid_view">Visualizatzione a grìllia</string>
     <string name="action_switch_list_view">Visualizatzione a elencu</string>
-    <string name="actionbar_copy">Còpia</string>
     <string name="actionbar_mkdir">Cartella noa</string>
-    <string name="actionbar_move">Moe</string>
     <string name="actionbar_open_with">Aberi cun</string>
     <string name="actionbar_search">Chirca</string>
     <string name="actionbar_see_details">Detàllios</string>
@@ -345,7 +343,6 @@
     <string name="folder_already_exists">Sa cartella esistit giai</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">Peruna cartella inoghe</string>
-    <string name="folder_picker_choose_button_text">Sèbera</string>
     <string name="forbidden_permissions">Non tenes su permissu%s</string>
     <string name="forbidden_permissions_copy">de copiare custu documentu</string>
     <string name="forbidden_permissions_create">de creare custu archìviu</string>

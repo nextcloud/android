@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Ruudustikvaade</string>
     <string name="action_switch_list_view">Nimekirjavaade</string>
     <string name="actionbar_calendar_contacts_restore">Taasta kontaktid &amp; kalender</string>
-    <string name="actionbar_copy">Kopeeri</string>
     <string name="actionbar_mkdir">Uus kaust</string>
-    <string name="actionbar_move">Tõsta ümber</string>
     <string name="actionbar_open_with">Ava rakendusega</string>
     <string name="actionbar_search">Otsi</string>
     <string name="actionbar_see_details">Üksikasjad</string>
@@ -262,7 +260,6 @@
     <string name="filename_hint">Faili nimi</string>
     <string name="folder_confirm_create">Loo</string>
     <string name="folder_list_empty_headline">Siin ei ole kaustu</string>
-    <string name="folder_picker_choose_button_text">Vali</string>
     <string name="forbidden_permissions">Sul ei ole %s õigusi</string>
     <string name="forbidden_permissions_copy">et kopeerida seda faili</string>
     <string name="forbidden_permissions_create">selle faili loomiseks</string>

@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Ver como grade</string>
     <string name="action_switch_list_view">Ver como lista</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar o calendario &amp; de contactos</string>
-    <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Novo cartafol</string>
-    <string name="actionbar_move">Mover</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -391,7 +389,6 @@
     <string name="folder_already_exists">Xa existe o cartafol</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">Aquí non hai cartafoles</string>
-    <string name="folder_picker_choose_button_text">Escoller</string>
     <string name="forbidden_permissions">Non ten permiso %s</string>
     <string name="forbidden_permissions_copy">copiar este ficheiro</string>
     <string name="forbidden_permissions_create">para crear este ficheiro</string>

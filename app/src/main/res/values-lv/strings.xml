@@ -13,9 +13,7 @@
     <string name="action_send_share">Sūtīt/Kopīgot</string>
     <string name="action_switch_grid_view">Režģa izkārtojums</string>
     <string name="action_switch_list_view">Saraksta izkārtojums</string>
-    <string name="actionbar_copy">Kopēt</string>
     <string name="actionbar_mkdir">Jauna mape</string>
-    <string name="actionbar_move">Pārvietot</string>
     <string name="actionbar_open_with">Atvērt ar</string>
     <string name="actionbar_search">Meklēt</string>
     <string name="actionbar_see_details">Detaļas</string>
@@ -252,7 +250,6 @@
     <string name="first_run_1_text">Turi savus datus drošībā un zem savas kontroles</string>
     <string name="folder_confirm_create">Izveidot</string>
     <string name="folder_list_empty_headline">Šeit nav mapju</string>
-    <string name="folder_picker_choose_button_text">Izvēlieties</string>
     <string name="forbidden_permissions">Jums nav atļaujas %s</string>
     <string name="forbidden_permissions_copy">lai kopētu šo datni</string>
     <string name="forbidden_permissions_create">lai izveidotu šo datni</string>

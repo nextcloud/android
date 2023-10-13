@@ -14,9 +14,7 @@
     <string name="action_send_share">Cuir/Co-roinn</string>
     <string name="action_switch_grid_view">Sealladh griod</string>
     <string name="action_switch_list_view">Sealladh liosta</string>
-    <string name="actionbar_copy">Dèan lethbhreac</string>
     <string name="actionbar_mkdir">Pasgan ùr</string>
-    <string name="actionbar_move">Gluais</string>
     <string name="actionbar_open_with">Fosgail le</string>
     <string name="actionbar_search">Lorg</string>
     <string name="actionbar_see_details">Mion-fhiosrachadh</string>
@@ -335,7 +333,6 @@
     <string name="folder_already_exists">Tha am pasgan seo ann mu thràth</string>
     <string name="folder_confirm_create">Cruthaich</string>
     <string name="folder_list_empty_headline">Chan eil pasgan an-seo</string>
-    <string name="folder_picker_choose_button_text">Tagh</string>
     <string name="forbidden_permissions">Chan fhad thu %s</string>
     <string name="forbidden_permissions_copy">lethbhreac dhen fhaidhle seo a dhèanamh</string>
     <string name="forbidden_permissions_create">am faidhle seo a chruthachadh</string>

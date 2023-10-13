@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">มุมมองแบบตาราง</string>
     <string name="action_switch_list_view">มุมมองแบบรายการ</string>
     <string name="actionbar_calendar_contacts_restore">กู้คืนข้อมูลรายชื่อและปฏิทิน</string>
-    <string name="actionbar_copy">คัดลอก</string>
     <string name="actionbar_mkdir">โฟลเดอร์ใหม่</string>
-    <string name="actionbar_move">ย้าย</string>
     <string name="actionbar_open_with">เปิดด้วย</string>
     <string name="actionbar_search">ค้นหา</string>
     <string name="actionbar_see_details">รายละเอียด</string>
@@ -333,7 +331,6 @@
     <string name="folder_already_exists">โฟลเดอร์มีอยู่แล้ว</string>
     <string name="folder_confirm_create">สร้าง</string>
     <string name="folder_list_empty_headline">ไม่มีโฟลเดอร์ที่นี่</string>
-    <string name="folder_picker_choose_button_text">เลือก</string>
     <string name="forbidden_permissions">คุณไม่ได้รับอนุญาต%s</string>
     <string name="forbidden_permissions_copy">ให้คัดลอกไฟล์นี้</string>
     <string name="forbidden_permissions_create">ให้สร้างไฟล์นี้</string>

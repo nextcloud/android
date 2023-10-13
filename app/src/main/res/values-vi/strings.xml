@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Xem dạng Lưới</string>
     <string name="action_switch_list_view">Xem dạng Danh sách</string>
     <string name="actionbar_calendar_contacts_restore">Khôi phục danh bạ &amp; lịch</string>
-    <string name="actionbar_copy">Sao chép</string>
     <string name="actionbar_mkdir">Tạo thư mục</string>
-    <string name="actionbar_move">Dịch chuyển</string>
     <string name="actionbar_open_with">Mở với</string>
     <string name="actionbar_search">Tìm</string>
     <string name="actionbar_see_details">Chi tiết</string>
@@ -375,7 +373,6 @@
     <string name="folder_already_exists">Thư mục đã tồn tại</string>
     <string name="folder_confirm_create">Tạo</string>
     <string name="folder_list_empty_headline">Không có thư mục nào</string>
-    <string name="folder_picker_choose_button_text">Chọn</string>
     <string name="forbidden_permissions">Bạn không được cho phép %s</string>
     <string name="forbidden_permissions_copy">sao chép tập tin này</string>
     <string name="forbidden_permissions_create">tạo tập tin này</string>

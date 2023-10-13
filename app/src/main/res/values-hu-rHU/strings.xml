@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Rács nézet</string>
     <string name="action_switch_list_view">Lista nézet</string>
     <string name="actionbar_calendar_contacts_restore">Névjegyek és naptár helyreállítása</string>
-    <string name="actionbar_copy">Másolás</string>
     <string name="actionbar_mkdir">Új mappa</string>
-    <string name="actionbar_move">Áthelyezés</string>
     <string name="actionbar_open_with">Megnyitás ezzel</string>
     <string name="actionbar_search">Keresés</string>
     <string name="actionbar_see_details">Részletek</string>
@@ -391,7 +389,6 @@
     <string name="folder_already_exists">A mappa már létezik</string>
     <string name="folder_confirm_create">Létrehozás</string>
     <string name="folder_list_empty_headline">Itt nincsenek mappák</string>
-    <string name="folder_picker_choose_button_text">Válasszon</string>
     <string name="forbidden_permissions">Nem engedélyezett %s</string>
     <string name="forbidden_permissions_copy">a fájl másolása</string>
     <string name="forbidden_permissions_create">fájl létrehozása</string>

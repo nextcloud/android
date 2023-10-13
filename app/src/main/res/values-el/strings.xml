@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
     <string name="action_switch_list_view">Προβολή λίστας</string>
     <string name="actionbar_calendar_contacts_restore">Επαναφορά επαφών &amp; και ημερολογίου</string>
-    <string name="actionbar_copy">Αντιγραφή</string>
     <string name="actionbar_mkdir">Νέος φάκελος</string>
-    <string name="actionbar_move">Μετακίνηση</string>
     <string name="actionbar_open_with">Άνοιγμα με</string>
     <string name="actionbar_search">Αναζήτηση</string>
     <string name="actionbar_see_details">Λεπτομέρειες</string>
@@ -389,7 +387,6 @@
     <string name="folder_already_exists">Ο φάκελος υπάρχει ήδη</string>
     <string name="folder_confirm_create">Δημιουργία</string>
     <string name="folder_list_empty_headline">Δεν υπάρχουν φάκελοι εδώ</string>
-    <string name="folder_picker_choose_button_text">Επιλέξτε</string>
     <string name="forbidden_permissions">Δεν έχετε δικαιώματα %s</string>
     <string name="forbidden_permissions_copy">για αντιγραφή αυτού του αρχείου</string>
     <string name="forbidden_permissions_create">για να δημιουργήσετε αυτό το αρχείο</string>

@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Affichage mosaïque</string>
     <string name="action_switch_list_view">Affichage liste</string>
     <string name="actionbar_calendar_contacts_restore">Restaurer les contacts &amp; l\'agenda</string>
-    <string name="actionbar_copy">Copier</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
-    <string name="actionbar_move">Déplacer</string>
     <string name="actionbar_open_with">Ouvrir avec</string>
     <string name="actionbar_search">Rechercher</string>
     <string name="actionbar_see_details">Propriétés</string>
@@ -393,7 +391,6 @@ Attention, la suppression est irréversible.</string>
     <string name="folder_already_exists">Le dossier existe déjà</string>
     <string name="folder_confirm_create">Créer</string>
     <string name="folder_list_empty_headline">Aucun dossier</string>
-    <string name="folder_picker_choose_button_text">Valider</string>
     <string name="forbidden_permissions">Vous n\'avez pas la permission %s</string>
     <string name="forbidden_permissions_copy">de copier ce fichier</string>
     <string name="forbidden_permissions_create">de créer ce fichier</string>

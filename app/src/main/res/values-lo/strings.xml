@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">ເບິ່ງຕາຕະລາງ</string>
     <string name="action_switch_list_view">ລາຍການທີ່ຈະເບິ່ງ</string>
     <string name="actionbar_calendar_contacts_restore">ກູ້ຄືນຂໍ້ມູນຕິດຕໍ່ &amp; ປະຕິທິນ</string>
-    <string name="actionbar_copy">ສຳເນົາ</string>
     <string name="actionbar_mkdir">ໂຟນເດີໃຫມ່</string>
-    <string name="actionbar_move">ຍ້າຍ</string>
     <string name="actionbar_open_with">ເປີດດ້ວຍ</string>
     <string name="actionbar_search">ຄົ້ນຫາ</string>
     <string name="actionbar_see_details">ລາຍລະອຽດ</string>
@@ -341,7 +339,6 @@
     <string name="folder_already_exists">ໂຟນເດີມີຢຸ່ແລ້ວ</string>
     <string name="folder_confirm_create">ສ້າງ</string>
     <string name="folder_list_empty_headline">ບໍ່ມີໂຟນເດີ</string>
-    <string name="folder_picker_choose_button_text">ເລືອກ</string>
     <string name="forbidden_permissions">ບໍ່ໄດ້ຮັບອານຸຍາດ%s</string>
     <string name="forbidden_permissions_copy">ສໍາເນົາຟາຍນີ້</string>
     <string name="forbidden_permissions_create">ສ້າງຟາຍນີ້</string>

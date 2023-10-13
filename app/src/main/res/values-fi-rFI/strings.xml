@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Ruudukkonäkymä</string>
     <string name="action_switch_list_view">Luettelonäkymä</string>
     <string name="actionbar_calendar_contacts_restore">Palauta yhteystiedot &amp; kalenteri</string>
-    <string name="actionbar_copy">Kopioi</string>
     <string name="actionbar_mkdir">Uusi kansio</string>
-    <string name="actionbar_move">Siirrä</string>
     <string name="actionbar_open_with">Avaa sovelluksella</string>
     <string name="actionbar_search">Etsi</string>
     <string name="actionbar_see_details">Tiedot</string>
@@ -379,7 +377,6 @@
     <string name="folder_already_exists">Kansio on jo olemassa</string>
     <string name="folder_confirm_create">Luo</string>
     <string name="folder_list_empty_headline">Ei kansioita täällä</string>
-    <string name="folder_picker_choose_button_text">Valitse</string>
     <string name="forbidden_permissions">Sinulla ei ole oikeutta %s</string>
     <string name="forbidden_permissions_copy">kopioida tämä tiedosto</string>
     <string name="forbidden_permissions_create">luoda tätä tiedostoa</string>

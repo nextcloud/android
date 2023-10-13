@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Rutenett-visning</string>
     <string name="action_switch_list_view">Listevisning</string>
     <string name="actionbar_calendar_contacts_restore">Gjenopprett kontakter &amp; kalender</string>
-    <string name="actionbar_copy">Kopier</string>
     <string name="actionbar_mkdir">Ny mappe</string>
-    <string name="actionbar_move">Flytt</string>
     <string name="actionbar_open_with">Åpne med</string>
     <string name="actionbar_search">Søk</string>
     <string name="actionbar_see_details">Detaljer</string>
@@ -391,7 +389,6 @@
     <string name="folder_already_exists">Mappe finnes allerede</string>
     <string name="folder_confirm_create">Opprett</string>
     <string name="folder_list_empty_headline">Ingen mapper her</string>
-    <string name="folder_picker_choose_button_text">Velg</string>
     <string name="forbidden_permissions">Du har ikke tillatelse til %s</string>
     <string name="forbidden_permissions_copy">å kopiere denne filen</string>
     <string name="forbidden_permissions_create">å opprette filen</string>

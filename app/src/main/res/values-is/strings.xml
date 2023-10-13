@@ -14,9 +14,7 @@
     <string name="action_send_share">Senda/Deila</string>
     <string name="action_switch_grid_view">Reitasýn</string>
     <string name="action_switch_list_view">Listasýn</string>
-    <string name="actionbar_copy">Afrita</string>
     <string name="actionbar_mkdir">Ný mappa</string>
-    <string name="actionbar_move">Færa</string>
     <string name="actionbar_open_with">Opna með</string>
     <string name="actionbar_search">Leita</string>
     <string name="actionbar_see_details">Nánar</string>
@@ -339,7 +337,6 @@
     <string name="folder_already_exists">Mappa er þegar til staðar</string>
     <string name="folder_confirm_create">Búa til</string>
     <string name="folder_list_empty_headline">Engar möppur hér</string>
-    <string name="folder_picker_choose_button_text">Velja</string>
     <string name="forbidden_permissions">Þú hefur ekki heimild %s</string>
     <string name="forbidden_permissions_copy">til að afrita þessa skrá</string>
     <string name="forbidden_permissions_create">til að búa til þessa skrá</string>

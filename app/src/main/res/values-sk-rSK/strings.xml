@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Zobrazenie mriežky</string>
     <string name="action_switch_list_view">Zobrazenie zoznamu</string>
     <string name="actionbar_calendar_contacts_restore">Obnoviť kontakty &amp; kalendár</string>
-    <string name="actionbar_copy">Kopírovať</string>
     <string name="actionbar_mkdir">Nový priečinok</string>
-    <string name="actionbar_move">Presunúť</string>
     <string name="actionbar_open_with">Otvoriť pomocou</string>
     <string name="actionbar_search">Hľadať</string>
     <string name="actionbar_see_details">Podrobnosti</string>
@@ -375,7 +373,6 @@
     <string name="folder_already_exists">Priečinok už existuje</string>
     <string name="folder_confirm_create">Vytvoriť</string>
     <string name="folder_list_empty_headline">Nie sú tu žiadne priečinky</string>
-    <string name="folder_picker_choose_button_text">Vybrať</string>
     <string name="forbidden_permissions">Nemáte oprávnenie %s</string>
     <string name="forbidden_permissions_copy">kopírovať súbor</string>
     <string name="forbidden_permissions_create">vytvoriť súbor</string>

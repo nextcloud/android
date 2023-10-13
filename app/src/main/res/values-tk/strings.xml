@@ -13,9 +13,7 @@
     <string name="action_send_share">Iber / Paýlaş</string>
     <string name="action_switch_grid_view">Gözenegiň görnüşi</string>
     <string name="action_switch_list_view">Sanaw görnüşi</string>
-    <string name="actionbar_copy">Göçüriň</string>
     <string name="actionbar_mkdir">Täze papka döretmek</string>
-    <string name="actionbar_move">Göçüriň</string>
     <string name="actionbar_open_with">Şunyň bilen açyň</string>
     <string name="actionbar_search">Gözlemek</string>
     <string name="actionbar_see_details">Jikme-jiklikleri</string>
@@ -329,7 +327,6 @@
     <string name="folder_already_exists">Bukja eýýäm bar</string>
     <string name="folder_confirm_create">Dörediň</string>
     <string name="folder_list_empty_headline">Bu ýerde bukjalar ýok</string>
-    <string name="folder_picker_choose_button_text">Saýlaň</string>
     <string name="forbidden_permissions">%sSize rugsat berilmeýär</string>
     <string name="forbidden_permissions_copy">bu faýly göçürmek</string>
     <string name="forbidden_permissions_create">bu faýly döretmek</string>
