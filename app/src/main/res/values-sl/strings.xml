@@ -251,9 +251,9 @@
     <string name="e2e_not_yet_setup">Celovito šifriranje E2E ni še nastavljeno.</string>
     <string name="e2e_offline">Opravila ni mogoče izvesti brez vzpostavljene internetne povezave</string>
     <string name="ecosystem_apps_display_more">Več</string>
-    <string name="ecosystem_apps_display_notes">Opombe</string>
-    <string name="ecosystem_apps_display_talk">Pogovor</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
+    <string name="ecosystem_apps_display_notes">Beležke</string>
+    <string name="ecosystem_apps_display_talk">Pogovor Talk</string>
+    <string name="ecosystem_apps_notes">Nextcloud Beležke</string>
     <string name="encrypted">Nastavi kot šifrirano</string>
     <string name="end_to_end_encryption_confirm_button">Nastavitev šifriranja</string>
     <string name="end_to_end_encryption_decrypting">Poteka odšifriranje…</string>
@@ -413,6 +413,8 @@
     <string name="icon_for_empty_list">Ikona za prazen seznam</string>
     <string name="icon_of_dashboard_widget">Ikona gradnika nadzorne plošče</string>
     <string name="icon_of_widget_entry">Ikona vnosa gradnikov</string>
+    <string name="image_editor_unable_to_edit_image">Slike ni mogoče urediti.</string>
+    <string name="image_preview_filedetails">Podrobnosti datoteke</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
     <string name="image_preview_unit_megapixel">%s MP</string>
@@ -584,6 +586,7 @@
     <string name="prefs_instant_behaviour_dialogTitle">Izvorna datoteka bo…</string>
     <string name="prefs_instant_behaviour_title">Izvorna datoteka bo…</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Uporabi podmape</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Možnosti podmape</string>
     <string name="prefs_keys_exist">Dodaj celovito šifriranje E2E na to napravo</string>
     <string name="prefs_license">Dovoljenje</string>
     <string name="prefs_lock">Koda PIN programa</string>
@@ -597,6 +600,7 @@
     <string name="prefs_recommend">Priporoči prijatelju</string>
     <string name="prefs_remove_e2e">Krajevno odstrani šifriranje</string>
     <string name="prefs_setup_e2e">Nastavi celovito šifriranje E2E</string>
+    <string name="prefs_show_ecosystem_apps">Pokaži preklopnika programov</string>
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
     <string name="prefs_storage_path">Mapa podatkovne shrambe</string>
@@ -768,6 +772,8 @@
     <string name="stream_not_possible_headline">Notranji pretok ni mogoč</string>
     <string name="stream_not_possible_message">Poskusite prejeti predstavno vsebino, ali pa uporabiti zunanji program.</string>
     <string name="strict_mode">Strogi način: povezave HTTP niso dovoljene!</string>
+    <string name="sub_folder_rule_day">Leto/Mesec/Dan</string>
+    <string name="sub_folder_rule_month">Leto/Mesec</string>
     <string name="sub_folder_rule_year">Leto</string>
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
     <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
