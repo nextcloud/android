@@ -99,7 +99,7 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
     @Override
     public void onResume() {
         super.onResume();
-        keyboardUtils.showKeyboardForEditText(binding.sharePassword);
+        keyboardUtils.showKeyboardForEditText(requireDialog().getWindow(), binding.sharePassword);
     }
 
     /**

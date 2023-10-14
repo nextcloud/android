@@ -116,7 +116,7 @@ public class CreateFolderDialogFragment
         super.onResume();
 
         bindButton();
-        keyboardUtils.showKeyboardForEditText(binding.userInput);
+        keyboardUtils.showKeyboardForEditText(requireDialog().getWindow(), binding.userInput);
     }
 
     @NonNull
