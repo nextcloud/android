@@ -395,37 +395,39 @@
         </LinearLayout>
     </ScrollView>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="@dimen/standard_padding">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/cancel"
-            style="@style/Button.Borderless"
+            android:id="@+id/btnNeutral"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:text="@string/common_cancel" />
+            android:text="@string/common_cancel"
+            android:layout_weight="1"/>
 
-        <LinearLayout
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNegative"
             android:layout_width="wrap_content"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true">
+            android:text="@string/common_delete"
+            android:layout_weight="1"/>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/delete"
-                style="@style/Button.Borderless.Destructive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/common_delete" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/save"
-                style="@style/Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/common_save" />
-        </LinearLayout>
-    </RelativeLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPositive"
+            android:layout_width="wrap_content"
+            android:text="@string/common_save"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
 </LinearLayout>
