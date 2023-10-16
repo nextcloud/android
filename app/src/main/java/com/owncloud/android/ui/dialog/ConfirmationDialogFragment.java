@@ -53,16 +53,17 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
     /**
      * Public factory method to create new ConfirmationDialogFragment instances.
      *
-     * @param messageResId     Resource id for a message to show in the dialog.
-     * @param messageArguments Arguments to complete the message, if it's a format string. May be null.
-     * @param titleResId       Resource id for a text to show in the title. 0 for default alert title, -1 for no title.
-     * @param posBtn           Resource id for the text of the positive button. -1 for no positive button.
-     * @param neuBtn           Resource id for the text of the neutral button. -1 for no neutral button.
-     * @param negBtn           Resource id for the text of the negative button. -1 for no negative button.
+     * @param messageResId         Resource id for a message to show in the dialog.
+     * @param messageArguments     Arguments to complete the message, if it's a format string. May be null.
+     * @param titleResId           Resource id for a text to show in the title. 0 for default alert title, -1 for no
+     *                             title.
+     * @param positiveButtonTextId Resource id for the text of the positive button. -1 for no positive button.
+     * @param neutralButtonTextId  Resource id for the text of the neutral button. -1 for no neutral button.
+     * @param negativeButtonTextId Resource id for the text of the negative button. -1 for no negative button.
      * @return Dialog ready to show.
      */
     public static ConfirmationDialogFragment newInstance(int messageResId, String[] messageArguments, int titleResId,
-                                                         int posBtn, int neuBtn, int negBtn) {
+                                                         int positiveButtonTextId, int neutralButtonTextId, int negativeButtonTextId) {
         if (messageResId == -1) {
             throw new IllegalStateException("Calling confirmation dialog without message resource");
         }
@@ -72,9 +73,11 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
         args.putInt(ARG_MESSAGE_RESOURCE_ID, messageResId);
         args.putStringArray(ARG_MESSAGE_ARGUMENTS, messageArguments);
         args.putInt(ARG_TITLE_ID, titleResId);
-        args.putInt(ARG_POSITIVE_BTN_RES, posBtn);
-        args.putInt(ARG_NEUTRAL_BTN_RES, neuBtn);
-        args.putInt(ARG_NEGATIVE_BTN_RES, negBtn);
+
+        args.putInt(ARG_POSITIVE_BTN_RES, positiveButtonTextId);
+        args.putInt(ARG_NEGATIVE_BTN_RES, negativeButtonTextId);
+        args.putInt(ARG_NEUTRAL_BTN_RES, neutralButtonTextId);
+
         frag.setArguments(args);
         return frag;
     }
@@ -125,9 +128,10 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
         Object[] messageArguments = arguments.getStringArray(ARG_MESSAGE_ARGUMENTS);
         int messageId = arguments.getInt(ARG_MESSAGE_RESOURCE_ID, -1);
         int titleId = arguments.getInt(ARG_TITLE_ID, -1);
-        int posBtn = arguments.getInt(ARG_POSITIVE_BTN_RES, -1);
-        int neuBtn = arguments.getInt(ARG_NEUTRAL_BTN_RES, -1);
-        int negBtn = arguments.getInt(ARG_NEGATIVE_BTN_RES, -1);
+
+        int positiveButtonTextId = arguments.getInt(ARG_POSITIVE_BTN_RES, -1);
+        int negativeButtonTextId = arguments.getInt(ARG_NEGATIVE_BTN_RES, -1);
+        int neutralButtonTextId = arguments.getInt(ARG_NEUTRAL_BTN_RES, -1);
 
         if (messageArguments == null) {
             messageArguments = new String[]{};
@@ -144,24 +148,25 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
             builder.setTitle(titleId);
         }
 
-        if (posBtn != -1) {
-            builder.setPositiveButton(posBtn, (dialog, whichButton) -> {
+        if (positiveButtonTextId != -1) {
+            builder.setPositiveButton(positiveButtonTextId, (dialog, whichButton) -> {
                 if (mListener != null) {
                     mListener.onConfirmation(getTag());
                 }
                 dialog.dismiss();
             });
         }
-        if (neuBtn != -1) {
-            builder.setNeutralButton(neuBtn, (dialog, whichButton) -> {
+
+        if (neutralButtonTextId != -1) {
+            builder.setNeutralButton(neutralButtonTextId, (dialog, whichButton) -> {
                 if (mListener != null) {
                     mListener.onNeutral(getTag());
                 }
                 dialog.dismiss();
             });
         }
-        if (negBtn != -1) {
-            builder.setNegativeButton(negBtn, (dialog, which) -> {
+        if (negativeButtonTextId != -1) {
+            builder.setNegativeButton(negativeButtonTextId, (dialog, which) -> {
                 if (mListener != null) {
                     mListener.onCancel(getTag());
                 }
