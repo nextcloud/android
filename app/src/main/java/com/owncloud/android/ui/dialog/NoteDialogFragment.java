@@ -90,7 +90,7 @@ public class NoteDialogFragment extends DialogFragment implements DialogInterfac
     @Override
     public void onResume() {
         super.onResume();
-        keyboardUtils.showKeyboardForEditText(binding.noteText);
+        keyboardUtils.showKeyboardForEditText(requireDialog().getWindow(), binding.noteText);
     }
 
     @NonNull
