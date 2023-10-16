@@ -99,12 +99,13 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     private LinearLayout mUploadSubfolderRulesContainer;
 
     private SyncedFolderParcelable mSyncedFolder;
-    private MaterialButton mCancel;
-    private MaterialButton mSave;
+    private MaterialButton btnNegative;
+    private MaterialButton btnPositive;
     private boolean behaviourDialogShown;
     private boolean nameCollisionPolicyDialogShown;
     private AlertDialog behaviourDialog;
     private SyncedFoldersSettingsLayoutBinding binding;
+    private boolean isNeutralButtonActive = true;
 
     public static SyncedFolderPreferencesDialogFragment newInstance(SyncedFolderDisplayItem syncedFolder, int section) {
         if (syncedFolder == null) {
@@ -156,10 +157,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         if (mSyncedFolder.getType().getId() > MediaFolderType.CUSTOM.getId()) {
             // hide local folder chooser and delete for non-custom folders
             binding.localFolderContainer.setVisibility(View.GONE);
-            binding.delete.setVisibility(View.GONE);
+            isNeutralButtonActive = false;
         } else if (mSyncedFolder.getId() <= UNPERSISTED_ID) {
+            isNeutralButtonActive = false;
+
             // Hide delete/enabled for unpersisted custom folders
-            binding.delete.setVisibility(View.GONE);
             binding.syncEnabled.setVisibility(View.GONE);
 
             // auto set custom folder to enabled
@@ -169,7 +171,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
             binding.syncedFoldersSettingsTitle.setText(R.string.autoupload_create_new_custom_folder);
 
             // disable save button
-            binding.save.setEnabled(false);
+            binding.btnPositive.setEnabled(false);
         } else {
             binding.localFolderContainer.setVisibility(View.GONE);
         }
@@ -205,12 +207,19 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
         mNameCollisionPolicySummary = binding.settingInstantNameCollisionPolicySummary;
 
-        viewThemeUtils.material.colorMaterialButtonPrimaryTonal(binding.save);
-        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.cancel);
-        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.delete);
+        viewThemeUtils.material.colorMaterialButtonPrimaryTonal(binding.btnPositive);
+        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.btnNegative);
+        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.btnNeutral);
 
-        mCancel = binding.cancel;
-        mSave = binding.save;
+        btnPositive = binding.btnPositive;
+
+        if (isNeutralButtonActive) {
+            btnNegative = binding.btnNeutral;
+        } else {
+            binding.btnNeutral.setVisibility(View.GONE);
+            binding.btnNegative.setText(R.string.common_cancel);
+            btnNegative = binding.btnNegative;
+        }
 
         // Set values
         setEnabled(mSyncedFolder.isEnabled());
@@ -303,7 +312,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     }
 
     private void checkAndUpdateSaveButtonState() {
-        binding.save.setEnabled(mSyncedFolder.getLocalPath() != null && mSyncedFolder.getRemotePath() != null);
+        binding.btnPositive.setEnabled(mSyncedFolder.getLocalPath() != null && mSyncedFolder.getRemotePath() != null);
         checkWritableFolder();
     }
 
@@ -371,9 +380,14 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
      * @param binding the parent binding
      */
     private void setupListeners(SyncedFoldersSettingsLayoutBinding binding) {
-        mSave.setOnClickListener(new OnSyncedFolderSaveClickListener());
-        mCancel.setOnClickListener(new OnSyncedFolderCancelClickListener());
-        binding.delete.setOnClickListener(new OnSyncedFolderDeleteClickListener());
+        btnPositive.setOnClickListener(new OnSyncedFolderSaveClickListener());
+
+        if (isNeutralButtonActive) {
+            binding.btnNeutral.setOnClickListener(new OnSyncedFolderCancelClickListener());
+            binding.btnNegative.setOnClickListener(new OnSyncedFolderDeleteClickListener());
+        } else {
+            binding.btnNegative.setOnClickListener(new OnSyncedFolderCancelClickListener());
+        }
 
         binding.settingInstantUploadOnWifiContainer.setOnClickListener(
             v -> {
@@ -452,12 +466,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
                                       behaviourDialogShown = false;
                                       dialog.dismiss();
                                   })
-            .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    behaviourDialogShown = false;
-                }
-            });
+            .setOnCancelListener(dialog -> behaviourDialogShown = false);
         behaviourDialogShown = true;
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(getActivity(), builder);
