@@ -42,7 +42,6 @@ import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.SyncedFoldersSettingsLayoutBinding;
 import com.owncloud.android.datamodel.MediaFolderType;
-import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -92,7 +91,6 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     private AppCompatCheckBox mUploadOnChargingCheckbox;
     private AppCompatCheckBox mUploadExistingCheckbox;
     private AppCompatCheckBox mUploadUseSubfoldersCheckbox;
-    private Spinner mUploadSubfolderRuleSpinner;
     private TextView mUploadBehaviorSummary;
     private TextView mNameCollisionPolicySummary;
     private TextView mLocalFolderPath;
@@ -140,7 +138,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
         binding = null;
 
-        mSyncedFolder = getArguments().getParcelable(SYNCED_FOLDER_PARCELABLE);
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            mSyncedFolder = arguments.getParcelable(SYNCED_FOLDER_PARCELABLE);
+        }
+
         mUploadBehaviorItemStrings = getResources().getTextArray(R.array.pref_behaviour_entries);
         mNameCollisionPolicyItemStrings = getResources().getTextArray(R.array.pref_name_collision_policy_entries);
     }
@@ -189,7 +191,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
         mUploadUseSubfoldersCheckbox = binding.settingInstantUploadPathUseSubfoldersCheckbox;
 
-        mUploadSubfolderRuleSpinner = binding.settingInstantUploadSubfolderRuleSpinner;
+        Spinner mUploadSubfolderRuleSpinner = binding.settingInstantUploadSubfolderRuleSpinner;
         mUploadSubfolderRulesContainer = binding.settingInstantUploadSubfolderRuleContainer;
 
 
@@ -203,10 +205,12 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
         mNameCollisionPolicySummary = binding.settingInstantNameCollisionPolicySummary;
 
+        viewThemeUtils.material.colorMaterialButtonPrimaryTonal(binding.save);
+        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.cancel);
+        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.delete);
+
         mCancel = binding.cancel;
         mSave = binding.save;
-
-        viewThemeUtils.platform.colorTextButtons(mCancel, mSave);
 
         // Set values
         setEnabled(mSyncedFolder.isEnabled());
@@ -299,12 +303,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     }
 
     private void checkAndUpdateSaveButtonState() {
-        if (mSyncedFolder.getLocalPath() != null && mSyncedFolder.getRemotePath() != null) {
-            binding.save.setEnabled(true);
-        } else {
-            binding.save.setEnabled(false);
-        }
-
+        binding.save.setEnabled(mSyncedFolder.getLocalPath() != null && mSyncedFolder.getRemotePath() != null);
         checkWritableFolder();
     }
 
@@ -377,44 +376,32 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         binding.delete.setOnClickListener(new OnSyncedFolderDeleteClickListener());
 
         binding.settingInstantUploadOnWifiContainer.setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mSyncedFolder.setWifiOnly(!mSyncedFolder.isWifiOnly());
-                    mUploadOnWifiCheckbox.toggle();
-                }
+            v -> {
+                mSyncedFolder.setWifiOnly(!mSyncedFolder.isWifiOnly());
+                mUploadOnWifiCheckbox.toggle();
             });
 
         binding.settingInstantUploadOnChargingContainer.setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mSyncedFolder.setChargingOnly(!mSyncedFolder.isChargingOnly());
-                    mUploadOnChargingCheckbox.toggle();
-                }
+            v -> {
+                mSyncedFolder.setChargingOnly(!mSyncedFolder.isChargingOnly());
+                mUploadOnChargingCheckbox.toggle();
             });
 
         binding.settingInstantUploadExistingContainer.setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mSyncedFolder.setExisting(!mSyncedFolder.isExisting());
-                    mUploadExistingCheckbox.toggle();
-                }
+            v -> {
+                mSyncedFolder.setExisting(!mSyncedFolder.isExisting());
+                mUploadExistingCheckbox.toggle();
             });
 
         binding.settingInstantUploadPathUseSubfoldersContainer.setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mSyncedFolder.setSubfolderByDate(!mSyncedFolder.isSubfolderByDate());
-                    mUploadUseSubfoldersCheckbox.toggle();
-                    // Only allow setting subfolder rule if subfolder is allowed
-                    if (mUploadUseSubfoldersCheckbox.isChecked()) {
-                        mUploadSubfolderRulesContainer.setVisibility(View.VISIBLE);
-                    } else {
-                        mUploadSubfolderRulesContainer.setVisibility(View.GONE);
-                    }
+            v -> {
+                mSyncedFolder.setSubfolderByDate(!mSyncedFolder.isSubfolderByDate());
+                mUploadUseSubfoldersCheckbox.toggle();
+                // Only allow setting subfolder rule if subfolder is allowed
+                if (mUploadUseSubfoldersCheckbox.isChecked()) {
+                    mUploadSubfolderRulesContainer.setVisibility(View.VISIBLE);
+                } else {
+                    mUploadSubfolderRulesContainer.setVisibility(View.GONE);
                 }
             });
 
@@ -442,28 +429,13 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
             getActivity().startActivityForResult(action, REQUEST_CODE__SELECT_LOCAL_FOLDER);
         });
 
-        binding.syncEnabled.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setEnabled(!mSyncedFolder.isEnabled());
-            }
-        });
+        binding.syncEnabled.setOnClickListener(v -> setEnabled(!mSyncedFolder.isEnabled()));
 
         binding.settingInstantBehaviourContainer.setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showBehaviourDialog();
-                }
-            });
+            v -> showBehaviourDialog());
 
         binding.settingInstantNameCollisionPolicyContainer.setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showNameCollisionPolicyDialog();
-                }
-            });
+            v -> showNameCollisionPolicyDialog());
     }
 
     private void showBehaviourDialog() {
@@ -471,18 +443,15 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
         builder.setTitle(R.string.prefs_instant_behaviour_dialogTitle)
             .setSingleChoiceItems(getResources().getTextArray(R.array.pref_behaviour_entries),
                                   mSyncedFolder.getUploadActionInteger(),
-                                  new
-                                      DialogInterface.OnClickListener() {
-                                          public void onClick(DialogInterface dialog, int which) {
-                                              mSyncedFolder.setUploadAction(
-                                                  getResources().getTextArray(
-                                                      R.array.pref_behaviour_entryValues)[which].toString());
-                                              mUploadBehaviorSummary.setText(SyncedFolderPreferencesDialogFragment
-                                                                                 .this.mUploadBehaviorItemStrings[which]);
-                                              behaviourDialogShown = false;
-                                              dialog.dismiss();
-                                          }
-                                      })
+                                  (dialog, which) -> {
+                                      mSyncedFolder.setUploadAction(
+                                          getResources().getTextArray(
+                                              R.array.pref_behaviour_entryValues)[which].toString());
+                                      mUploadBehaviorSummary.setText(SyncedFolderPreferencesDialogFragment
+                                                                         .this.mUploadBehaviorItemStrings[which]);
+                                      behaviourDialogShown = false;
+                                      dialog.dismiss();
+                                  })
             .setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {

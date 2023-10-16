@@ -401,12 +401,12 @@
         android:padding="@dimen/standard_padding">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/delete"
-            style="@style/Button.Borderless.Destructive"
+            android:id="@+id/cancel"
+            style="@style/Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:text="@string/common_delete" />
+            android:text="@string/common_cancel" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -414,11 +414,11 @@
             android:layout_alignParentEnd="true">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/cancel"
-                style="@style/Button.Borderless"
+                android:id="@+id/delete"
+                style="@style/Button.Borderless.Destructive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/common_cancel" />
+                android:text="@string/common_delete" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/save"
