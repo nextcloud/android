@@ -167,7 +167,7 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
         } else if (neutralButtonTextId != -1 && negativeButtonTextId == -1) {
             builder.setNegativeButton(neutralButtonTextId, (dialog, which) -> {
                 if (mListener != null) {
-                    mListener.onCancel(getTag());
+                    mListener.onNeutral(getTag());
                 }
                 dialog.dismiss();
             });
