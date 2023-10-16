@@ -811,6 +811,7 @@
     <string name="trashbin_empty_message">Μπορείτε να ανακτήσετε διαγραμμένα αρχεία από εδώ.</string>
     <string name="trashbin_file_not_deleted">Το αρχείο %1$s δεν μπορεί να διαγραφεί!</string>
     <string name="trashbin_file_not_restored">Το αρχείο %1$s δεν μπορεί να ανακτηθεί!</string>
+    <string name="trashbin_file_remove">Διαγραφή οριστικά</string>
     <string name="trashbin_loading_failed">Αποτυχία φόρτωσης κάδου ανακύκλωσης!</string>
     <string name="trashbin_not_emptied">Τα αρχεία δεν θα διαγραφούν μόνιμα!</string>
     <string name="unlock_file">Ξεκλείδωμα αρχείου</string>

@@ -843,6 +843,7 @@
     <string name="trashbin_empty_message">ستتمكن من استعادة الملفات المحذوفة من هنا.</string>
     <string name="trashbin_file_not_deleted">الملف %1$s لا يمكن حذفه!</string>
     <string name="trashbin_file_not_restored">الملف %1$s لا يمكن إسترجاعه!</string>
+    <string name="trashbin_file_remove">حذف نهائي</string>
     <string name="trashbin_loading_failed">فشل تحميل سلة المحذوفات</string>
     <string name="trashbin_not_emptied">تعذر حذف الملفات نهائياً!</string>
     <string name="unlock_file">فتح قفل الملف</string>
