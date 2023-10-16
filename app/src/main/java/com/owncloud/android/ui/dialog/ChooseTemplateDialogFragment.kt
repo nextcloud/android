@@ -32,10 +32,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.android.lib.resources.directediting.DirectEditingCreateFileRemoteOperation
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainListOfTemplatesRemoteOperation
@@ -90,7 +90,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
     private var adapter: TemplateAdapter? = null
     private var parentFolder: OCFile? = null
     private var title: String? = null
-    private var positiveButton: Button? = null
+    private var positiveButton: MaterialButton? = null
     private var creator: Creator? = null
 
     enum class Type {
@@ -103,17 +103,18 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
     override fun onStart() {
         super.onStart()
         val alertDialog = dialog as AlertDialog
-        val button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
 
-        viewThemeUtils.platform.colorTextButtons(
-            button,
-            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
-        )
-        button.setOnClickListener(this)
-        button.isEnabled = false
-        button.isClickable = false
+        val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton
+        viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
 
-        positiveButton = button
+        val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton
+        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
+
+        positiveButton.setOnClickListener(this)
+        positiveButton.isEnabled = false
+        positiveButton.isClickable = false
+
+        this.positiveButton = positiveButton
         checkEnablingCreateButton()
     }
 
@@ -128,6 +129,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
 
         parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER)
         creator = arguments.getParcelable(ARG_CREATOR)
+
         title = arguments.getString(ARG_HEADLINE, getString(R.string.select_template))
         title = when (savedInstanceState) {
             null -> arguments.getString(ARG_HEADLINE)
@@ -175,7 +177,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         val builder = MaterialAlertDialogBuilder(activity)
         builder.setView(view)
             .setPositiveButton(R.string.create, null)
-            .setNeutralButton(R.string.common_cancel, null)
+            .setNegativeButton(R.string.common_cancel, null)
             .setTitle(title)
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.list.context, builder)
@@ -208,8 +210,8 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
     }
 
     fun setTemplateList(templateList: TemplateList?) {
-        adapter!!.setTemplateList(templateList)
-        adapter!!.notifyDataSetChanged()
+        adapter?.setTemplateList(templateList)
+        adapter?.notifyDataSetChanged()
     }
 
     override fun onClick(template: Template) {
