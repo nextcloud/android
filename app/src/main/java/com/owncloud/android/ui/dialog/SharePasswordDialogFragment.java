@@ -23,10 +23,12 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
@@ -34,6 +36,7 @@ import com.owncloud.android.databinding.PasswordDialogBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.KeyboardUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -42,6 +45,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 /**
@@ -72,27 +76,41 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
         if (alertDialog != null) {
-            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                                     alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
-            viewThemeUtils.platform.colorTextButtons(getResources().getColor(R.color.highlight_textColor_Warning),
-                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+            MaterialButton positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            if (positiveButton != null) {
+                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
+                positiveButton.setOnClickListener(v -> {
+                    Editable sharePassword = binding.sharePassword.getText();
 
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-                String password = binding.sharePassword.getText().toString();
+                    if (sharePassword != null) {
+                        String password = sharePassword.toString();
 
-                if (!askForPassword && TextUtils.isEmpty(password)) {
-                    DisplayUtils.showSnackMessage(binding.getRoot(), R.string.share_link_empty_password);
-                    return;
-                }
+                        if (!askForPassword && TextUtils.isEmpty(password)) {
+                            DisplayUtils.showSnackMessage(binding.getRoot(), R.string.share_link_empty_password);
+                            return;
+                        }
 
-                if (share == null) {
-                    setPassword(createShare, file, password);
-                } else {
-                    setPassword(share, password);
-                }
+                        if (share == null) {
+                            setPassword(createShare, file, password);
+                        } else {
+                            setPassword(share, password);
+                        }
+                    }
 
-                alertDialog.dismiss();
-            });
+                    alertDialog.dismiss();
+                });
+            }
+
+            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+            if (negativeButton != null) {
+                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
+            }
+
+            MaterialButton neutralButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+            if (neutralButton != null) {
+                int warningColorId = ContextCompat.getColor(requireContext(), R.color.highlight_textColor_Warning);
+                viewThemeUtils.platform.colorTextButtons(warningColorId, neutralButton);
+            }
         }
     }
 
@@ -152,10 +170,16 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        file = getArguments().getParcelable(ARG_FILE);
-        share = getArguments().getParcelable(ARG_SHARE);
-        createShare = getArguments().getBoolean(ARG_CREATE_SHARE, false);
-        askForPassword = getArguments().getBoolean(ARG_ASK_FOR_PASSWORD, false);
+        Bundle arguments = getArguments();
+
+        if (arguments == null) {
+            throw new IllegalArgumentException("Arguments may not be null");
+        }
+
+        file = arguments.getParcelable(ARG_FILE);
+        share = arguments.getParcelable(ARG_SHARE);
+        createShare = arguments.getBoolean(ARG_CREATE_SHARE, false);
+        askForPassword = arguments.getBoolean(ARG_ASK_FOR_PASSWORD, false);
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -208,15 +232,25 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
     }
 
     private void setPassword(boolean createShare, OCFile file, String password) {
+        FileOperationsHelper fileOperationsHelper = ((FileActivity) requireActivity()).getFileOperationsHelper();
+        if (fileOperationsHelper == null) {
+            return;
+        }
+
         if (createShare) {
-            ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaPublicShare(file, password);
+            fileOperationsHelper.shareFileViaPublicShare(file, password);
         } else {
-            ((FileActivity) getActivity()).getFileOperationsHelper().setPasswordToShare(share, password);
+            fileOperationsHelper.setPasswordToShare(share, password);
         }
     }
 
     private void setPassword(OCShare share, String password) {
-        ((FileActivity) getActivity()).getFileOperationsHelper().setPasswordToShare(share, password);
+        FileOperationsHelper fileOperationsHelper = ((FileActivity) requireActivity()).getFileOperationsHelper();
+        if (fileOperationsHelper == null) {
+            return;
+        }
+
+        fileOperationsHelper.setPasswordToShare(share, password);
     }
 
     @Override
