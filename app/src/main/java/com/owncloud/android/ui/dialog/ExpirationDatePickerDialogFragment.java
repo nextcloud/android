@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.widget.DatePicker;
 
+import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -81,12 +82,24 @@ public class ExpirationDatePickerDialogFragment
     public void onStart() {
         super.onStart();
         final Dialog currentDialog = getDialog();
+
         if (currentDialog != null) {
             final DatePickerDialog dialog = (DatePickerDialog) currentDialog;
 
-            viewThemeUtils.platform.colorTextButtons(dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL),
-                                                     dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE),
-                                                     dialog.getButton(DatePickerDialog.BUTTON_POSITIVE));
+            MaterialButton positiveButton = (MaterialButton) dialog.getButton(DatePickerDialog.BUTTON_POSITIVE);
+            if (positiveButton != null) {
+                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
+            }
+
+            MaterialButton negativeButton = (MaterialButton) dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE);
+            if (negativeButton != null) {
+                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
+            }
+
+            MaterialButton neutralButton = (MaterialButton) dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL);
+            if (neutralButton != null) {
+                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(neutralButton);
+            }
         }
     }
 
@@ -118,7 +131,7 @@ public class ExpirationDatePickerDialogFragment
         //show unset button only when date is already selected
         if (chosenDateInMillis > 0) {
             dialog.setButton(
-                Dialog.BUTTON_NEUTRAL,
+                Dialog.BUTTON_NEGATIVE,
                 getText(R.string.share_via_link_unset_password),
                 (dialog1, which) -> {
                     if (onExpiryDateListener != null) {
