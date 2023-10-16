@@ -25,6 +25,8 @@ package com.owncloud.android.ui.dialog;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.http.SslCertificate;
 import android.net.http.SslError;
 import android.os.Looper;
@@ -86,12 +88,14 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.platform.app.InstrumentationRegistry;
 import kotlin.Unit;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -153,6 +157,17 @@ public class DialogFragmentIT extends AbstractIT {
     public void testConfirmationDialogWithThreeAction() {
         ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[]{}, R.string.filedetails_sync_file, R.string.common_ok, R.string.common_cancel, R.string.common_confirm);
         showDialog(dialog);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testConfirmationDialogWithThreeActionRTL() {
+        enableRTL();
+
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[] { }, -1, R.string.common_ok, R.string.common_cancel, R.string.common_confirm);
+        showDialog(dialog);
+
+        resetLocale();
     }
 
     @Test

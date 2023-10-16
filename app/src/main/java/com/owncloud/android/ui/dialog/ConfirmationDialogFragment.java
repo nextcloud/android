@@ -70,6 +70,7 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
 
         ConfirmationDialogFragment frag = new ConfirmationDialogFragment();
         Bundle args = new Bundle();
+
         args.putInt(ARG_MESSAGE_RESOURCE_ID, messageResId);
         args.putStringArray(ARG_MESSAGE_ARGUMENTS, messageArguments);
         args.putInt(ARG_TITLE_ID, titleResId);
@@ -126,8 +127,9 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
         }
 
         Object[] messageArguments = arguments.getStringArray(ARG_MESSAGE_ARGUMENTS);
-        int messageId = arguments.getInt(ARG_MESSAGE_RESOURCE_ID, -1);
+
         int titleId = arguments.getInt(ARG_TITLE_ID, -1);
+        int messageId = arguments.getInt(ARG_MESSAGE_RESOURCE_ID, -1);
 
         int positiveButtonTextId = arguments.getInt(ARG_POSITIVE_BTN_RES, -1);
         int negativeButtonTextId = arguments.getInt(ARG_NEGATIVE_BTN_RES, -1);
