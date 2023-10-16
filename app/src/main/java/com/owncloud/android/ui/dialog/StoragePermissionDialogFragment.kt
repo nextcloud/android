@@ -24,15 +24,14 @@ import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
-import com.owncloud.android.databinding.StoragePermissionDialogBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
@@ -43,10 +42,7 @@ import javax.inject.Inject
  * Allows choosing "full access" (MANAGE_ALL_FILES) or "read-only media" (READ_EXTERNAL_STORAGE)
  */
 @RequiresApi(Build.VERSION_CODES.R)
-class StoragePermissionDialogFragment :
-    DialogFragment(), Injectable {
-
-    private lateinit var binding: StoragePermissionDialogBinding
+class StoragePermissionDialogFragment : DialogFragment(), Injectable {
 
     private var permissionRequired = false
 
@@ -64,51 +60,45 @@ class StoragePermissionDialogFragment :
         super.onStart()
         dialog?.let {
             val alertDialog = it as AlertDialog
-            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE))
+
+            val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton)
+
+            val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton)
+
+            val neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL) as MaterialButton
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(neutralButton)
         }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // Inflate the layout for the dialog
-        val inflater = requireActivity().layoutInflater
-        binding = StoragePermissionDialogBinding.inflate(inflater, null, false)
-
-        val view: View = binding.root
+        val title = when {
+            permissionRequired -> R.string.file_management_permission
+            else -> R.string.file_management_permission_optional
+        }
         val explanationResource = when {
             permissionRequired -> R.string.file_management_permission_text
             else -> R.string.file_management_permission_optional_text
         }
-        binding.storagePermissionExplanation.text = getString(explanationResource, getString(R.string.app_name))
+        val message = getString(explanationResource, getString(R.string.app_name))
 
-        // Setup layout
-        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.btnFullAccess)
-        binding.btnFullAccess.setOnClickListener {
-            setResult(Result.FULL_ACCESS)
-            dismiss()
-        }
-        viewThemeUtils.platform.colorTextButtons(binding.btnReadOnly)
-        binding.btnReadOnly.setOnClickListener {
-            setResult(Result.MEDIA_READ_ONLY)
-            dismiss()
-        }
-
-        // Build the dialog
-        val titleResource = when {
-            permissionRequired -> R.string.file_management_permission
-            else -> R.string.file_management_permission_optional
-        }
-
-        val builder = MaterialAlertDialogBuilder(binding.btnReadOnly.context)
-            .setTitle(titleResource)
-            .setView(view)
-            .setNegativeButton(R.string.common_cancel) { _, _ ->
+        return MaterialAlertDialogBuilder(requireContext())
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton(R.string.storage_permission_full_access) { _, _ ->
+                setResult(Result.FULL_ACCESS)
+                dismiss()
+            }
+            .setNegativeButton(R.string.storage_permission_media_read_only) { _, _ ->
+                setResult(Result.MEDIA_READ_ONLY)
+                dismiss()
+            }
+            .setNeutralButton(R.string.common_cancel) { _, _ ->
                 setResult(Result.CANCEL)
                 dismiss()
             }
-
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.btnReadOnly.context, builder)
-
-        return builder.create()
+            .create()
     }
 
     private fun setResult(result: Result) {
