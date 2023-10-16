@@ -157,18 +157,30 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
             });
         }
 
-        if (neutralButtonTextId != -1) {
-            builder.setNeutralButton(neutralButtonTextId, (dialog, whichButton) -> {
-                if (mListener != null) {
-                    mListener.onNeutral(getTag());
-                }
-                dialog.dismiss();
-            });
-        }
-        if (negativeButtonTextId != -1) {
+        if (negativeButtonTextId != -1 && neutralButtonTextId == -1) {
             builder.setNegativeButton(negativeButtonTextId, (dialog, which) -> {
                 if (mListener != null) {
                     mListener.onCancel(getTag());
+                }
+                dialog.dismiss();
+            });
+        } else if (neutralButtonTextId != -1 && negativeButtonTextId == -1) {
+            builder.setNegativeButton(neutralButtonTextId, (dialog, which) -> {
+                if (mListener != null) {
+                    mListener.onCancel(getTag());
+                }
+                dialog.dismiss();
+            });
+        } else {
+            builder.setNegativeButton(negativeButtonTextId, (dialog, which) -> {
+                if (mListener != null) {
+                    mListener.onCancel(getTag());
+                }
+                dialog.dismiss();
+            });
+            builder.setNeutralButton(neutralButtonTextId, (dialog, whichButton) -> {
+                if (mListener != null) {
+                    mListener.onNeutral(getTag());
                 }
                 dialog.dismiss();
             });
