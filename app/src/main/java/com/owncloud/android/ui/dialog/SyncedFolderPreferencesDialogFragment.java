@@ -99,7 +99,6 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
     private LinearLayout mUploadSubfolderRulesContainer;
 
     private SyncedFolderParcelable mSyncedFolder;
-    private MaterialButton btnNegative;
     private MaterialButton btnPositive;
     private boolean behaviourDialogShown;
     private boolean nameCollisionPolicyDialogShown;
@@ -213,12 +212,15 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
 
         btnPositive = binding.btnPositive;
 
+        // btnNeutral  btnNegative btnPositive
         if (isNeutralButtonActive) {
-            btnNegative = binding.btnNeutral;
+            // Cancel   Delete Save
+            binding.btnNeutral.setText(R.string.common_cancel);
+            binding.btnNegative.setText(R.string.common_delete);
         } else {
+            //          Cancel Save
             binding.btnNeutral.setVisibility(View.GONE);
             binding.btnNegative.setText(R.string.common_cancel);
-            btnNegative = binding.btnNegative;
         }
 
         // Set values
