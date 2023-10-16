@@ -278,4 +278,5 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
 
         asyncTasks.clear();
     }
+
 }
