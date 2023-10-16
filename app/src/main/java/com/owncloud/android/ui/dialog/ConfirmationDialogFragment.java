@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
@@ -84,10 +85,21 @@ public class ConfirmationDialogFragment extends DialogFragment implements Inject
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        if(alertDialog != null) {
-            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                                     alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE),
-                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        if (alertDialog != null) {
+            MaterialButton positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            if (positiveButton != null) {
+                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
+            }
+
+            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+            if (negativeButton != null) {
+                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
+            }
+
+            MaterialButton neutralButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+            if (neutralButton != null) {
+                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(neutralButton);
+            }
         }
     }
 
