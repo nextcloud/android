@@ -21,7 +21,6 @@
 package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -53,7 +52,7 @@ import androidx.fragment.app.DialogFragment;
  * <p>
  * Triggers the share when the password is introduced.
  */
-public class SharePasswordDialogFragment extends DialogFragment implements DialogInterface.OnClickListener, Injectable {
+public class SharePasswordDialogFragment extends DialogFragment implements Injectable {
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_SHARE = "SHARE";
@@ -190,14 +189,14 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         binding.sharePassword.setText("");
         viewThemeUtils.material.colorTextInputLayout(binding.sharePasswordContainer);
 
-        int negativeButtonCaption;
+        int neutralButtonTextId;
         int title;
         if (askForPassword) {
             title = R.string.share_link_optional_password_title;
-            negativeButtonCaption = R.string.common_skip;
+            neutralButtonTextId = R.string.common_skip;
         } else {
             title = R.string.share_link_password_title;
-            negativeButtonCaption = R.string.common_cancel;
+            neutralButtonTextId = R.string.common_cancel;
         }
 
         // Build the dialog
@@ -205,8 +204,12 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
 
         builder.setView(view)
             .setPositiveButton(R.string.common_ok, null)
-            .setNegativeButton(negativeButtonCaption, this)
-            .setNeutralButton(R.string.common_delete, this)
+            .setNegativeButton(R.string.common_delete, (dialog, which) -> callSetPassword())
+            .setNeutralButton(neutralButtonTextId, (dialog, which) -> {
+                if (askForPassword) {
+                    callSetPassword();
+                }
+            })
             .setTitle(title);
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(view.getContext(), builder);
@@ -214,20 +217,11 @@ public class SharePasswordDialogFragment extends DialogFragment implements Dialo
         return builder.create();
     }
 
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
-        if (which == AlertDialog.BUTTON_NEUTRAL) {
-            if (share == null) {
-                setPassword(createShare, file, null);
-            } else {
-                setPassword(share, null);
-            }
-        } else if (which == AlertDialog.BUTTON_NEGATIVE && askForPassword) {
-            if (share == null) {
-                setPassword(createShare, file, null);
-            } else {
-                setPassword(share, null);
-            }
+    private void callSetPassword() {
+        if (share == null) {
+            setPassword(createShare, file, null);
+        } else {
+            setPassword(share, null);
         }
     }
 
