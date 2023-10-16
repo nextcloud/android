@@ -136,6 +136,27 @@ public class DialogFragmentIT extends AbstractIT {
 
     @Test
     @ScreenshotTest
+    public void testConfirmationDialogWithOneAction() {
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[]{}, R.string.filedetails_sync_file, R.string.common_ok, -1, -1);
+        showDialog(dialog);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testConfirmationDialogWithTwoAction() {
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[]{}, R.string.filedetails_sync_file, R.string.common_ok, R.string.common_cancel, -1);
+        showDialog(dialog);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testConfirmationDialogWithThreeAction() {
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[]{}, R.string.filedetails_sync_file, R.string.common_ok, R.string.common_cancel, R.string.common_confirm);
+        showDialog(dialog);
+    }
+
+    @Test
+    @ScreenshotTest
     public void testRemoveFileDialog() {
         RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(new OCFile("/Test.md"));
         showDialog(dialog);
