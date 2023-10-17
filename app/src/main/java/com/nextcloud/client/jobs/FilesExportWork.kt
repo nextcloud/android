@@ -31,6 +31,7 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.graphics.BitmapFactory
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
@@ -69,9 +70,7 @@ class FilesExportWork(
 
         val successfulExports = exportFiles(fileIDs)
 
-        // show notification
         showSuccessNotification(successfulExports)
-
         return Result.success()
     }
 
@@ -119,19 +118,12 @@ class FilesExportWork(
     }
 
     private fun showErrorNotification(successfulExports: Int) {
-        if (successfulExports == 0) {
-            showNotification(
-                appContext.resources.getQuantityString(R.plurals.export_failed, successfulExports, successfulExports)
-            )
+        val message = if (successfulExports == 0) {
+            appContext.resources.getQuantityString(R.plurals.export_failed, successfulExports, successfulExports)
         } else {
-            showNotification(
-                appContext.resources.getQuantityString(
-                    R.plurals.export_partially_failed,
-                    successfulExports,
-                    successfulExports
-                )
-            )
+            appContext.resources.getQuantityString(R.plurals.export_partially_failed, successfulExports, successfulExports)
         }
+        showNotification(message)
     }
 
     private fun showSuccessNotification(successfulExports: Int) {
@@ -147,14 +139,9 @@ class FilesExportWork(
     private fun showNotification(message: String) {
         val notificationId = SecureRandom().nextInt()
 
-        val notificationBuilder = NotificationCompat.Builder(
-            appContext,
-            NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
-        )
+        val notificationBuilder = NotificationCompat.Builder(appContext, NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
             .setSmallIcon(R.drawable.notification_icon)
-            .setLargeIcon(BitmapFactory.decodeResource(appContext.resources, R.drawable.notification_icon))
-            .setSubText(user.accountName)
-            .setContentText(message)
+            .setContentTitle(message)
             .setAutoCancel(true)
 
         viewThemeUtils.androidx.themeNotificationCompatBuilder(appContext, notificationBuilder)
