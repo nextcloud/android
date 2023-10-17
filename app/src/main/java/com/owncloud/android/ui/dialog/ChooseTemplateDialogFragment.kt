@@ -119,7 +119,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
 
     override fun onResume() {
         super.onResume()
-        keyboardUtils.showKeyboardForEditText(binding.filename)
+        keyboardUtils.showKeyboardForEditText(dialog?.window, binding.filename)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
