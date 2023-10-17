@@ -819,6 +819,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="trashbin_empty_message">Du vil kunne gendanne slettede filer herfra.</string>
     <string name="trashbin_file_not_deleted">Fil %1$s kunne ikke slettes!</string>
     <string name="trashbin_file_not_restored">Fil %1$s kunne ikke genskabes!</string>
+    <string name="trashbin_file_remove">Slet permanent</string>
     <string name="trashbin_loading_failed">Indlæsning af papirkurv mislykkedes!</string>
     <string name="trashbin_not_emptied">Filer kunne ikke permanent slettes!</string>
     <string name="unlock_file">Lås op filen</string>
