@@ -25,6 +25,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.test.GrantNotificationPermissionRule;
 import com.nextcloud.test.GrantStoragePermissionRule;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -83,6 +84,9 @@ import static org.junit.Assume.assumeTrue;
 public abstract class AbstractIT {
     @Rule
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
+    
+    @Rule
+    public final TestRule notificationPermissionRule = GrantNotificationPermissionRule.grant();
 
     protected static OwnCloudClient client;
     protected static NextcloudClient nextcloudClient;
