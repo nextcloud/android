@@ -171,4 +171,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: aec1cabcb7b4f98f1be1d5b7a052a629ce3193e19a3692dd52ada48b6e72a1c9
+hmac: 93e5ac1e5a177c3c488935fa204e6ffde364be2e4c55fe7c53d91676837623b5
+
+...
