@@ -83,7 +83,7 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
         }
         val message = getString(explanationResource, getString(R.string.app_name))
 
-        return MaterialAlertDialogBuilder(requireContext())
+        val dialogBuilder = MaterialAlertDialogBuilder(requireContext())
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton(R.string.storage_permission_full_access) { _, _ ->
@@ -98,7 +98,10 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
                 setResult(Result.CANCEL)
                 dismiss()
             }
-            .create()
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(requireContext(), dialogBuilder)
+
+        return dialogBuilder.create()
     }
 
     private fun setResult(result: Result) {
