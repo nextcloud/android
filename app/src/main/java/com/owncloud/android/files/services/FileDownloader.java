@@ -170,7 +170,6 @@ public class FileDownloader extends Service
         Resources resources = getApplicationContext().getResources();
         String title = resources.getString(R.string.foreground_service_download);
 
-
         notificationBuilder = NotificationUtils.newNotificationBuilder(this, viewThemeUtils)
             .setSmallIcon(R.drawable.notification_icon)
             .setOngoing(true)
@@ -569,9 +568,10 @@ public class FileDownloader extends Service
 
         /// update status notification with a progress bar
         mLastPercent = 0;
-        notificationBuilder.setContentTitle(title);
-        notificationBuilder.setTicker(title);
-        notificationBuilder.setProgress(100, 0, download.getSize() < 0);
+        notificationBuilder
+            .setContentTitle(title)
+            .setTicker(title)
+            .setProgress(100, 0, download.getSize() < 0);
 
         /// includes a pending intent in the notification showing the details view of the file
         Intent showDetailsIntent;
