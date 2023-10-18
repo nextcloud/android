@@ -3,6 +3,7 @@ package com.owncloud.android.ui.dialog
 import android.content.ComponentName
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -72,7 +73,13 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
         retainInstance = true
         val arguments = requireArguments()
 
-        file = arguments.getParcelable(KEY_OCFILE)
+        file = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments.getParcelable(KEY_OCFILE, OCFile::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            arguments.getParcelable(KEY_OCFILE)
+        }
+
         hideNcSharingOptions = arguments.getBoolean(KEY_HIDE_NCSHARING_OPTIONS, false)
         sharingPublicPasswordEnforced = arguments.getBoolean(KEY_SHARING_PUBLIC_PASSWORD_ENFORCED, false)
         sharingPublicAskForPassword = arguments.getBoolean(KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD)
