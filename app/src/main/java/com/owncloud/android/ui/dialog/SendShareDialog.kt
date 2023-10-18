@@ -8,16 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.utils.IntentUtil.createSendIntent
 import com.owncloud.android.R
+import com.owncloud.android.databinding.SendShareFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.OCCapability
@@ -52,8 +50,10 @@ import javax.inject.Inject
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-class SendShareDialog : BottomSheetDialogFragment(), Injectable {
-    private lateinit var view: View
+class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment), Injectable {
+
+    private lateinit var binding: SendShareFragmentBinding
+
     private var file: OCFile? = null
     private var hideNcSharingOptions = false
     private var sharingPublicPasswordEnforced = false
@@ -82,44 +82,40 @@ class SendShareDialog : BottomSheetDialogFragment(), Injectable {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        view = inflater.inflate(R.layout.send_share_fragment, container, false)
-        val sendShareButtons = view.findViewById<LinearLayout>(R.id.send_share_buttons)
-        val divider = view.findViewById<View>(R.id.divider)
+        binding = SendShareFragmentBinding.inflate(inflater, container, false)
 
-        val btnShare = view.findViewById<MaterialButton>(R.id.btn_share)
-        viewThemeUtils?.material?.colorMaterialButtonPrimaryFilled(btnShare)
-        btnShare.setOnClickListener { shareFile(file) }
+        viewThemeUtils?.material?.colorMaterialButtonPrimaryFilled(binding.btnShare)
+        binding.btnShare.setOnClickListener { shareFile(file) }
 
-        val btnShareViaLink = view.findViewById<MaterialButton>(R.id.btn_link)
-        viewThemeUtils?.material?.colorMaterialButtonPrimaryFilled(btnShareViaLink)
-        btnShareViaLink.setOnClickListener { shareByLink() }
+        viewThemeUtils?.material?.colorMaterialButtonPrimaryFilled(binding.btnLink)
+        binding.btnLink.setOnClickListener { shareByLink() }
 
         if (hideNcSharingOptions) {
-            sendShareButtons.visibility = View.GONE
-            divider.visibility = View.GONE
+            binding.sendShareButtons.visibility = View.GONE
+            binding.divider.visibility = View.GONE
         } else if (file!!.isSharedWithMe && !file!!.canReshare()) {
             showResharingNotAllowedSnackbar()
             if (file!!.isFolder) {
-                btnShare.visibility = View.GONE
-                btnShareViaLink.visibility = View.GONE
+                binding.btnShare.visibility = View.GONE
+                binding.btnLink.visibility = View.GONE
                 dialog!!.hide()
             } else {
-                btnShareViaLink.isEnabled = false
-                btnShareViaLink.alpha = 0.3f
+                binding.btnLink.isEnabled = false
+                binding.btnLink.alpha = 0.3f
 
-                btnShare.isEnabled = false
-                btnShare.alpha = 0.3f
+                binding.btnShare.isEnabled = false
+                binding.btnShare.alpha = 0.3f
             }
         }
 
-        // populate send apps
         val sendIntent = createSendIntent(requireContext(), file!!)
         val sendButtonDataList = setupSendButtonData(sendIntent)
         val clickListener = setupSendButtonClickListener(sendIntent)
-        val sendButtonsView = view.findViewById<RecyclerView>(R.id.send_button_recycler_view)
-        sendButtonsView.layoutManager = GridLayoutManager(activity, 4)
-        sendButtonsView.adapter = SendButtonAdapter(sendButtonDataList, clickListener)
-        return view
+
+        binding.sendButtonRecyclerView.layoutManager = GridLayoutManager(activity, 4)
+        binding.sendButtonRecyclerView.adapter = SendButtonAdapter(sendButtonDataList, clickListener)
+
+        return binding.root
     }
 
     override fun onStart() {
@@ -157,7 +153,7 @@ class SendShareDialog : BottomSheetDialogFragment(), Injectable {
     }
 
     private fun showResharingNotAllowedSnackbar() {
-        val snackbar = Snackbar.make(view, R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG)
+        val snackbar = Snackbar.make(binding.root, R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG)
         snackbar.addCallback(object : Snackbar.Callback() {
             override fun onDismissed(transientBottomBar: Snackbar, event: Int) {
                 super.onDismissed(transientBottomBar, event)
