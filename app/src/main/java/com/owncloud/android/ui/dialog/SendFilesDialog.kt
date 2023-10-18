@@ -1,31 +1,27 @@
-package com.owncloud.android.ui.dialog;
+package com.owncloud.android.ui.dialog
 
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.pm.ResolveInfo;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.nextcloud.client.utils.IntentUtil;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.adapter.SendButtonAdapter;
-import com.owncloud.android.ui.components.SendButtonData;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.ComponentName
+import android.content.Intent
+import android.content.pm.ResolveInfo
+import android.graphics.drawable.Drawable
+import android.os.Build
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.utils.IntentUtil.createSendIntent
+import com.owncloud.android.R
+import com.owncloud.android.databinding.SendFilesFragmentBinding
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.ui.adapter.SendButtonAdapter
+import com.owncloud.android.ui.components.SendButtonData
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
 /*
  * Nextcloud Android client application
@@ -47,89 +43,95 @@ import androidx.recyclerview.widget.RecyclerView;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class SendFilesDialog extends BottomSheetDialogFragment {
+class SendFilesDialog: BottomSheetDialogFragment(R.layout.send_files_fragment), Injectable {
 
-    private static final String KEY_OCFILES = "KEY_OCFILES";
+    private var files: Array<OCFile>? = null
+    private lateinit var binding: SendFilesFragmentBinding
 
-    private OCFile[] files;
+    @JvmField
+    @Inject
+    var viewThemeUtils: ViewThemeUtils? = null
 
-    public static SendFilesDialog newInstance(Set<OCFile> files) {
-
-        SendFilesDialog dialogFragment = new SendFilesDialog();
-
-        Bundle args = new Bundle();
-        args.putParcelableArray(KEY_OCFILES, files.toArray(new OCFile[0]));
-        dialogFragment.setArguments(args);
-
-        return dialogFragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         // keep the state of the fragment on configuration changes
-        setRetainInstance(true);
+        retainInstance = true
 
-        files = (OCFile[]) requireArguments().getParcelableArray(KEY_OCFILES);
+        files = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requireArguments().getParcelableArray(KEY_OCFILES, OCFile::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            requireArguments().getParcelableArray(KEY_OCFILES) as Array<OCFile>?
+        }
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = SendFilesFragmentBinding.inflate(inflater, container, false)
 
-        View view = inflater.inflate(R.layout.send_files_fragment, container, false);
+        setupSendButtonRecyclerView()
 
-        // populate send apps
-        Intent sendIntent = IntentUtil.createSendIntent(requireContext(), files);
-        List<ResolveInfo> matches = requireActivity().getPackageManager().queryIntentActivities(sendIntent, 0);
+        return binding.root
+    }
+
+    private fun setupSendButtonRecyclerView() {
+        val sendIntent = createSendIntent(requireContext(), files!!)
+        val matches = requireActivity().packageManager.queryIntentActivities(sendIntent, 0)
+
         if (matches.isEmpty()) {
-            Toast.makeText(getContext(), R.string.no_send_app, Toast.LENGTH_SHORT).show();
-            dismiss();
-            return null;
+            Toast.makeText(context, R.string.no_send_app, Toast.LENGTH_SHORT).show()
+            dismiss()
+            return
         }
 
-        List<SendButtonData> sendButtonDataList = setupSendButtonData(matches);
+        val sendButtonDataList = setupSendButtonData(matches)
+        val clickListener = setupSendButtonClickListener(sendIntent)
 
-        SendButtonAdapter.ClickListener clickListener = setupSendButtonClickListener(sendIntent);
-
-        RecyclerView sendButtonsView = view.findViewById(R.id.send_button_recycler_view);
-        sendButtonsView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-        sendButtonsView.setAdapter(new SendButtonAdapter(sendButtonDataList, clickListener));
-
-        return view;
+        binding.sendButtonRecyclerView.layoutManager = GridLayoutManager(requireActivity(), 4)
+        binding.sendButtonRecyclerView.adapter = SendButtonAdapter(sendButtonDataList, clickListener)
+        viewThemeUtils?.platform?.colorViewBackground(binding.sendButtonRecyclerView, ColorRole.SURFACE_VARIANT)
     }
 
-    @NonNull
-    private SendButtonAdapter.ClickListener setupSendButtonClickListener(Intent sendIntent) {
-        return sendButtonDataData -> {
-            String packageName = sendButtonDataData.getPackageName();
-            String activityName = sendButtonDataData.getActivityName();
-
-            sendIntent.setComponent(new ComponentName(packageName, activityName));
-            requireActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)));
-
-            dismiss();
-        };
-    }
-
-    @NonNull
-    private List<SendButtonData> setupSendButtonData(List<ResolveInfo> matches) {
-        Drawable icon;
-        SendButtonData sendButtonData;
-        CharSequence label;
-
-        List<SendButtonData> sendButtonDataList = new ArrayList<>(matches.size());
-        for (ResolveInfo match : matches) {
-            icon = match.loadIcon(requireActivity().getPackageManager());
-            label = match.loadLabel(requireActivity().getPackageManager());
-            sendButtonData = new SendButtonData(icon, label,
-                                                match.activityInfo.packageName,
-                                                match.activityInfo.name);
-
-            sendButtonDataList.add(sendButtonData);
+    private fun setupSendButtonClickListener(sendIntent: Intent): SendButtonAdapter.ClickListener {
+        return SendButtonAdapter.ClickListener { sendButtonDataData: SendButtonData ->
+            val packageName = sendButtonDataData.packageName
+            val activityName = sendButtonDataData.activityName
+            sendIntent.component = ComponentName(packageName, activityName)
+            requireActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)))
+            dismiss()
         }
-        return sendButtonDataList;
+    }
+
+    private fun setupSendButtonData(matches: List<ResolveInfo>): List<SendButtonData> {
+        var icon: Drawable
+        var sendButtonData: SendButtonData
+        var label: CharSequence
+        val sendButtonDataList: MutableList<SendButtonData> = ArrayList(matches.size)
+        for (match in matches) {
+            icon = match.loadIcon(requireActivity().packageManager)
+            label = match.loadLabel(requireActivity().packageManager)
+            sendButtonData = SendButtonData(
+                icon, label,
+                match.activityInfo.packageName,
+                match.activityInfo.name
+            )
+            sendButtonDataList.add(sendButtonData)
+        }
+        return sendButtonDataList
+    }
+
+    companion object {
+        private const val KEY_OCFILES = "KEY_OCFILES"
+
+        fun newInstance(files: Set<OCFile>): SendFilesDialog {
+            val dialogFragment = SendFilesDialog()
+            val args = Bundle()
+            args.putParcelableArray(KEY_OCFILES, files.toTypedArray())
+            dialogFragment.arguments = args
+            return dialogFragment
+        }
     }
 }
