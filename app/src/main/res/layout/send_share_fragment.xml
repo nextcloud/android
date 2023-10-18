@@ -23,98 +23,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_default">
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/standard_bottom_sheet"
+        style="@style/Widget.Material3.BottomSheet"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <LinearLayout
-            android:id="@+id/send_share_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/send_share_fragment_layout_margin"
-            android:layout_marginLeft="@dimen/send_share_fragment_layout_margin"
-            android:layout_marginRight="@dimen/send_share_fragment_layout_margin"
-            android:layout_marginStart="@dimen/send_share_fragment_layout_margin"
-            android:orientation="horizontal"
-            android:baselineAligned="false"
-            android:padding="@dimen/send_share_fragment_layout_padding">
+            android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:id="@+id/share_people_icon"
-                android:layout_width="@dimen/share_icon_size"
-                android:layout_height="@dimen/share_icon_size"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/share"
-                android:src="@drawable/shared_via_users"
-                android:paddingTop="@dimen/share_people_icon_layout_padding"
-                android:paddingEnd="@dimen/share_people_icon_layout_padding"
-                android:paddingBottom="@dimen/share_people_icon_layout_padding"
-                android:paddingStart="@dimen/standard_half_padding"
-                android:background="@drawable/round_bgnd"/>
-
-            <TextView
-                android:id="@+id/share_people_button"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/send_share_buttons"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:drawable="@drawable/ic_share"
-                android:text="@string/share"
-                android:paddingTop="@dimen/standard_half_padding"
-                android:textColor="@color/text_color"/>
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/send_share_fragment_layout_padding">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_share"
+                    style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/share"
+                    app:iconTint="@color/white"
+                    android:textColor="@color/white"
+                    app:icon="@drawable/shared_via_users" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_link"
+                    style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/link"
+                    app:iconTint="@color/white"
+                    android:textColor="@color/white"
+                    app:icon="@drawable/shared_via_link" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.3"
+                android:background="@color/background_color_inverse"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/send_button_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/send_button" />
+
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables">
+    </FrameLayout>
 
-            <ImageView
-                android:id="@+id/share_link_icon"
-                android:layout_width="@dimen/share_icon_size"
-                android:layout_height="@dimen/share_icon_size"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/link"
-                android:src="@drawable/shared_via_link"
-                android:padding="12dp"
-                android:background="@drawable/round_bgnd"/>
-
-            <TextView
-                android:id="@+id/share_link_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:drawable="@drawable/ic_share"
-                android:text="@string/link"
-                android:paddingTop="@dimen/standard_half_padding"
-                android:textColor="@color/text_color"/>
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/send_share_buttons"
-        android:alpha="0.3"
-        android:background="@color/background_color_inverse"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/send_button_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider"
-        tools:listitem="@layout/send_button" />
-    </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

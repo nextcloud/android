@@ -9,11 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.utils.IntentUtil.createSendIntent
@@ -86,19 +86,13 @@ class SendShareDialog : BottomSheetDialogFragment(), Injectable {
         val sendShareButtons = view.findViewById<LinearLayout>(R.id.send_share_buttons)
         val divider = view.findViewById<View>(R.id.divider)
 
-        // Share with people
-        val sharePeopleText = view.findViewById<TextView>(R.id.share_people_button)
-        sharePeopleText.setOnClickListener { shareFile(file) }
-        val sharePeopleImageView = view.findViewById<ImageView>(R.id.share_people_icon)
-        themeShareButtonImage(sharePeopleImageView)
-        sharePeopleImageView.setOnClickListener { shareFile(file) }
+        val btnShare = view.findViewById<MaterialButton>(R.id.btn_share)
+        viewThemeUtils?.material?.colorMaterialButtonPrimaryFilled(btnShare)
+        btnShare.setOnClickListener { shareFile(file) }
 
-        // Share via link button
-        val shareLinkText = view.findViewById<TextView>(R.id.share_link_button)
-        shareLinkText.setOnClickListener { shareByLink() }
-        val shareLinkImageView = view.findViewById<ImageView>(R.id.share_link_icon)
-        themeShareButtonImage(shareLinkImageView)
-        shareLinkImageView.setOnClickListener { shareByLink() }
+        val btnShareViaLink = view.findViewById<MaterialButton>(R.id.btn_link)
+        viewThemeUtils?.material?.colorMaterialButtonPrimaryFilled(btnShareViaLink)
+        btnShareViaLink.setOnClickListener { shareByLink() }
 
         if (hideNcSharingOptions) {
             sendShareButtons.visibility = View.GONE
@@ -106,29 +100,21 @@ class SendShareDialog : BottomSheetDialogFragment(), Injectable {
         } else if (file!!.isSharedWithMe && !file!!.canReshare()) {
             showResharingNotAllowedSnackbar()
             if (file!!.isFolder) {
-                shareLinkText.visibility = View.GONE
-                shareLinkImageView.visibility = View.GONE
-                sharePeopleText.visibility = View.GONE
-                sharePeopleImageView.visibility = View.GONE
+                btnShare.visibility = View.GONE
+                btnShareViaLink.visibility = View.GONE
                 dialog!!.hide()
             } else {
-                shareLinkText.isEnabled = false
-                shareLinkText.alpha = 0.3f
-                shareLinkImageView.isEnabled = false
-                shareLinkImageView.alpha = 0.3f
-                sharePeopleText.isEnabled = false
-                sharePeopleText.alpha = 0.3f
-                sharePeopleImageView.isEnabled = false
-                sharePeopleImageView.alpha = 0.3f
+                btnShareViaLink.isEnabled = false
+                btnShareViaLink.alpha = 0.3f
+
+                btnShare.isEnabled = false
+                btnShare.alpha = 0.3f
             }
         }
 
         // populate send apps
         val sendIntent = createSendIntent(requireContext(), file!!)
         val sendButtonDataList = setupSendButtonData(sendIntent)
-        if ("off".equals(requireContext().getString(R.string.send_files_to_other_apps), ignoreCase = true)) {
-            sharePeopleText.visibility = View.GONE
-        }
         val clickListener = setupSendButtonClickListener(sendIntent)
         val sendButtonsView = view.findViewById<RecyclerView>(R.id.send_button_recycler_view)
         sendButtonsView.layoutManager = GridLayoutManager(activity, 4)
