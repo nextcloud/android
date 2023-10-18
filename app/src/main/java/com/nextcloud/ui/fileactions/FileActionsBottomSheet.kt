@@ -116,6 +116,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
         return binding.root
     }
 
+    // TODO It will be moved android-common library
     private fun applyTintedRoundedBackground() {
         val shape = GradientDrawable()
 
