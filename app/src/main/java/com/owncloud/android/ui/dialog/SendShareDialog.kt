@@ -1,43 +1,34 @@
-package com.owncloud.android.ui.dialog;
+package com.owncloud.android.ui.dialog
 
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.pm.ResolveInfo;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.snackbar.Snackbar;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.utils.IntentUtil;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.adapter.SendButtonAdapter;
-import com.owncloud.android.ui.components.SendButtonData;
-import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.ComponentName
+import android.content.Intent
+import android.graphics.drawable.Drawable
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.utils.IntentUtil.createSendIntent
+import com.owncloud.android.R
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.adapter.SendButtonAdapter
+import com.owncloud.android.ui.components.SendButtonData
+import com.owncloud.android.ui.helpers.FileOperationsHelper
+import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
 /*
  * Nextcloud Android client application
@@ -61,226 +52,222 @@ import androidx.recyclerview.widget.RecyclerView;
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-public class SendShareDialog extends BottomSheetDialogFragment implements Injectable {
+class SendShareDialog : BottomSheetDialogFragment(), Injectable {
+    private lateinit var view: View
+    private var file: OCFile? = null
+    private var hideNcSharingOptions = false
+    private var sharingPublicPasswordEnforced = false
+    private var sharingPublicAskForPassword = false
+    private var fileOperationsHelper: FileOperationsHelper? = null
 
-    private static final String KEY_OCFILE = "KEY_OCFILE";
-    private static final String KEY_SHARING_PUBLIC_PASSWORD_ENFORCED = "KEY_SHARING_PUBLIC_PASSWORD_ENFORCED";
-    private static final String KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD = "KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD";
-    private static final String KEY_HIDE_NCSHARING_OPTIONS = "KEY_HIDE_NCSHARING_OPTIONS";
-    private static final String TAG = SendShareDialog.class.getSimpleName();
-    public static final String PACKAGE_NAME = "PACKAGE_NAME";
-    public static final String ACTIVITY_NAME = "ACTIVITY_NAME";
+    @JvmField
+    @Inject
+    var viewThemeUtils: ViewThemeUtils? = null
 
-    private View view;
-    private OCFile file;
-    private boolean hideNcSharingOptions;
-    private boolean sharingPublicPasswordEnforced;
-    private boolean sharingPublicAskForPassword;
-    private FileOperationsHelper fileOperationsHelper;
-    @Inject ViewThemeUtils viewThemeUtils;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    public static SendShareDialog newInstance(OCFile file, boolean hideNcSharingOptions, OCCapability capability) {
-
-        SendShareDialog dialogFragment = new SendShareDialog();
-
-        Bundle args = new Bundle();
-        args.putParcelable(KEY_OCFILE, file);
-        args.putBoolean(KEY_HIDE_NCSHARING_OPTIONS, hideNcSharingOptions);
-        args.putBoolean(KEY_SHARING_PUBLIC_PASSWORD_ENFORCED,
-                        capability.getFilesSharingPublicPasswordEnforced().isTrue());
-        args.putBoolean(KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD,
-                        capability.getFilesSharingPublicAskForOptionalPassword().isTrue());
-        dialogFragment.setArguments(args);
-
-        return dialogFragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         // keep the state of the fragment on configuration changes
-        setRetainInstance(true);
+        retainInstance = true
+        val arguments = requireArguments()
 
-        file = getArguments().getParcelable(KEY_OCFILE);
-        hideNcSharingOptions = getArguments().getBoolean(KEY_HIDE_NCSHARING_OPTIONS, false);
-        sharingPublicPasswordEnforced = getArguments().getBoolean(KEY_SHARING_PUBLIC_PASSWORD_ENFORCED, false);
-        sharingPublicAskForPassword = getArguments().getBoolean(KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD);
+        file = arguments.getParcelable(KEY_OCFILE)
+        hideNcSharingOptions = arguments.getBoolean(KEY_HIDE_NCSHARING_OPTIONS, false)
+        sharingPublicPasswordEnforced = arguments.getBoolean(KEY_SHARING_PUBLIC_PASSWORD_ENFORCED, false)
+        sharingPublicAskForPassword = arguments.getBoolean(KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD)
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-
-        view = inflater.inflate(R.layout.send_share_fragment, container, false);
-
-        LinearLayout sendShareButtons = view.findViewById(R.id.send_share_buttons);
-        View divider = view.findViewById(R.id.divider);
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        view = inflater.inflate(R.layout.send_share_fragment, container, false)
+        val sendShareButtons = view.findViewById<LinearLayout>(R.id.send_share_buttons)
+        val divider = view.findViewById<View>(R.id.divider)
 
         // Share with people
-        TextView sharePeopleText = view.findViewById(R.id.share_people_button);
-        sharePeopleText.setOnClickListener(v -> shareFile(file));
-
-        ImageView sharePeopleImageView = view.findViewById(R.id.share_people_icon);
-        themeShareButtonImage(sharePeopleImageView);
-        sharePeopleImageView.setOnClickListener(v -> shareFile(file));
+        val sharePeopleText = view.findViewById<TextView>(R.id.share_people_button)
+        sharePeopleText.setOnClickListener { shareFile(file) }
+        val sharePeopleImageView = view.findViewById<ImageView>(R.id.share_people_icon)
+        themeShareButtonImage(sharePeopleImageView)
+        sharePeopleImageView.setOnClickListener { shareFile(file) }
 
         // Share via link button
-        TextView shareLinkText = view.findViewById(R.id.share_link_button);
-        shareLinkText.setOnClickListener(v -> shareByLink());
-
-        ImageView shareLinkImageView = view.findViewById(R.id.share_link_icon);
-        themeShareButtonImage(shareLinkImageView);
-        shareLinkImageView.setOnClickListener(v -> shareByLink());
+        val shareLinkText = view.findViewById<TextView>(R.id.share_link_button)
+        shareLinkText.setOnClickListener { shareByLink() }
+        val shareLinkImageView = view.findViewById<ImageView>(R.id.share_link_icon)
+        themeShareButtonImage(shareLinkImageView)
+        shareLinkImageView.setOnClickListener { shareByLink() }
 
         if (hideNcSharingOptions) {
-            sendShareButtons.setVisibility(View.GONE);
-            divider.setVisibility(View.GONE);
-        } else if (file.isSharedWithMe() && !file.canReshare()) {
-            showResharingNotAllowedSnackbar();
-
-            if (file.isFolder()) {
-                shareLinkText.setVisibility(View.GONE);
-                shareLinkImageView.setVisibility(View.GONE);
-                sharePeopleText.setVisibility(View.GONE);
-                sharePeopleImageView.setVisibility(View.GONE);
-                getDialog().hide();
+            sendShareButtons.visibility = View.GONE
+            divider.visibility = View.GONE
+        } else if (file!!.isSharedWithMe && !file!!.canReshare()) {
+            showResharingNotAllowedSnackbar()
+            if (file!!.isFolder) {
+                shareLinkText.visibility = View.GONE
+                shareLinkImageView.visibility = View.GONE
+                sharePeopleText.visibility = View.GONE
+                sharePeopleImageView.visibility = View.GONE
+                dialog!!.hide()
             } else {
-                shareLinkText.setEnabled(false);
-                shareLinkText.setAlpha(0.3f);
-                shareLinkImageView.setEnabled(false);
-                shareLinkImageView.setAlpha(0.3f);
-                sharePeopleText.setEnabled(false);
-                sharePeopleText.setAlpha(0.3f);
-                sharePeopleImageView.setEnabled(false);
-                sharePeopleImageView.setAlpha(0.3f);
+                shareLinkText.isEnabled = false
+                shareLinkText.alpha = 0.3f
+                shareLinkImageView.isEnabled = false
+                shareLinkImageView.alpha = 0.3f
+                sharePeopleText.isEnabled = false
+                sharePeopleText.alpha = 0.3f
+                sharePeopleImageView.isEnabled = false
+                sharePeopleImageView.alpha = 0.3f
             }
         }
 
         // populate send apps
-        Intent sendIntent = IntentUtil.createSendIntent(requireContext(), file);
-
-        List<SendButtonData> sendButtonDataList = setupSendButtonData(sendIntent);
-
-        if ("off".equalsIgnoreCase(requireContext().getString(R.string.send_files_to_other_apps))) {
-            sharePeopleText.setVisibility(View.GONE);
+        val sendIntent = createSendIntent(requireContext(), file!!)
+        val sendButtonDataList = setupSendButtonData(sendIntent)
+        if ("off".equals(requireContext().getString(R.string.send_files_to_other_apps), ignoreCase = true)) {
+            sharePeopleText.visibility = View.GONE
         }
-
-        SendButtonAdapter.ClickListener clickListener = setupSendButtonClickListener(sendIntent);
-
-        RecyclerView sendButtonsView = view.findViewById(R.id.send_button_recycler_view);
-        sendButtonsView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-        sendButtonsView.setAdapter(new SendButtonAdapter(sendButtonDataList, clickListener));
-
-        return view;
+        val clickListener = setupSendButtonClickListener(sendIntent)
+        val sendButtonsView = view.findViewById<RecyclerView>(R.id.send_button_recycler_view)
+        sendButtonsView.layoutManager = GridLayoutManager(activity, 4)
+        sendButtonsView.adapter = SendButtonAdapter(sendButtonDataList, clickListener)
+        return view
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        BottomSheetBehavior.from((View) requireView().getParent()).setState(BottomSheetBehavior.STATE_EXPANDED);
+    override fun onStart() {
+        super.onStart()
+        BottomSheetBehavior.from(requireView().parent as View).state =
+            BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private void shareByLink() {
-        if (file.isSharedViaLink()) {
-            ((FileActivity) requireActivity()).getFileOperationsHelper().getFileWithLink(file, viewThemeUtils);
+    private fun shareByLink() {
+        if (file!!.isSharedViaLink) {
+            (requireActivity() as FileActivity).fileOperationsHelper.getFileWithLink(file!!, viewThemeUtils)
         } else if (sharingPublicPasswordEnforced || sharingPublicAskForPassword) {
             // password enforced by server, request to the user before trying to create
-            requestPasswordForShareViaLink();
+            requestPasswordForShareViaLink()
         } else {
             // create without password if not enforced by server or we don't know if enforced;
-            ((FileActivity) requireActivity()).getFileOperationsHelper().shareFileViaPublicShare(file, null);
+            (requireActivity() as FileActivity).fileOperationsHelper.shareFileViaPublicShare(file, null)
         }
 
-        this.dismiss();
+        dismiss()
     }
 
-    private void requestPasswordForShareViaLink() {
-        SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(file,
-                                                                                     true,
-                                                                                     sharingPublicAskForPassword);
-        dialog.show(getFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT);
+    private fun requestPasswordForShareViaLink() {
+        val dialog = SharePasswordDialogFragment.newInstance(
+            file,
+            true,
+            sharingPublicAskForPassword
+        )
+
+        dialog.show(parentFragmentManager, SharePasswordDialogFragment.PASSWORD_FRAGMENT)
     }
 
-    private void themeShareButtonImage(ImageView shareImageView) {
-        viewThemeUtils.files.themeAvatarButton(shareImageView);
+    private fun themeShareButtonImage(shareImageView: ImageView) {
+        viewThemeUtils?.files?.themeAvatarButton(shareImageView)
     }
 
-    private void showResharingNotAllowedSnackbar() {
-        Snackbar snackbar = Snackbar.make(view, R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG);
-        snackbar.addCallback(new Snackbar.Callback() {
-            @Override
-            public void onDismissed(Snackbar transientBottomBar, int event) {
-                super.onDismissed(transientBottomBar, event);
-
-                if (file.isFolder()) {
-                    dismiss();
+    private fun showResharingNotAllowedSnackbar() {
+        val snackbar = Snackbar.make(view, R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG)
+        snackbar.addCallback(object : Snackbar.Callback() {
+            override fun onDismissed(transientBottomBar: Snackbar, event: Int) {
+                super.onDismissed(transientBottomBar, event)
+                if (file!!.isFolder) {
+                    dismiss()
                 }
             }
-        });
-
-        snackbar.show();
+        })
+        snackbar.show()
     }
 
-    @NonNull
-    private SendButtonAdapter.ClickListener setupSendButtonClickListener(Intent sendIntent) {
-        return sendButtonDataData -> {
-            String packageName = sendButtonDataData.getPackageName();
-            String activityName = sendButtonDataData.getActivityName();
+    private fun setupSendButtonClickListener(sendIntent: Intent): SendButtonAdapter.ClickListener {
+        return SendButtonAdapter.ClickListener { sendButtonDataData: SendButtonData ->
+            val packageName = sendButtonDataData.packageName
+            val activityName = sendButtonDataData.activityName
 
-            if (MimeTypeUtil.isImage(file) && !file.isDown()) {
-                fileOperationsHelper.sendCachedImage(file, packageName, activityName);
+            if (MimeTypeUtil.isImage(file) && !file!!.isDown) {
+                fileOperationsHelper!!.sendCachedImage(file, packageName, activityName)
             } else {
                 // Obtain the file
-                if (file.isDown()) {
-                    sendIntent.setComponent(new ComponentName(packageName, activityName));
-                    requireActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)));
+                if (file!!.isDown) {
+                    sendIntent.component = ComponentName(packageName, activityName)
+                    requireActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)))
                 } else {  // Download the file
-                    Log_OC.d(TAG, file.getRemotePath() + ": File must be downloaded");
-                    ((SendShareDialog.SendShareDialogDownloader) requireActivity())
-                        .downloadFile(file, packageName, activityName);
+                    Log_OC.d(TAG, file!!.remotePath + ": File must be downloaded")
+                    (requireActivity() as SendShareDialogDownloader)
+                        .downloadFile(file, packageName, activityName)
                 }
             }
 
-            dismiss();
-        };
-    }
-
-    @NonNull
-    private List<SendButtonData> setupSendButtonData(Intent sendIntent) {
-        Drawable icon;
-        SendButtonData sendButtonData;
-        CharSequence label;
-        List<ResolveInfo> matches = requireActivity().getPackageManager().queryIntentActivities(sendIntent, 0);
-        List<SendButtonData> sendButtonDataList = new ArrayList<>(matches.size());
-        for (ResolveInfo match : matches) {
-            icon = match.loadIcon(requireActivity().getPackageManager());
-            label = match.loadLabel(requireActivity().getPackageManager());
-            sendButtonData = new SendButtonData(icon, label,
-                    match.activityInfo.packageName,
-                    match.activityInfo.name);
-
-            sendButtonDataList.add(sendButtonData);
+            dismiss()
         }
-        return sendButtonDataList;
     }
 
-    private void shareFile(OCFile file) {
-        dismiss();
+    private fun setupSendButtonData(sendIntent: Intent): List<SendButtonData> {
+        var icon: Drawable
+        var sendButtonData: SendButtonData
+        var label: CharSequence
+        val matches = requireActivity().packageManager.queryIntentActivities(sendIntent, 0)
+        val sendButtonDataList: MutableList<SendButtonData> = ArrayList(matches.size)
+        for (match in matches) {
+            icon = match.loadIcon(requireActivity().packageManager)
+            label = match.loadLabel(requireActivity().packageManager)
+            sendButtonData = SendButtonData(
+                icon, label,
+                match.activityInfo.packageName,
+                match.activityInfo.name
+            )
+            sendButtonDataList.add(sendButtonData)
+        }
+        return sendButtonDataList
+    }
 
-        if (getActivity() instanceof FileDisplayActivity) {
-            ((FileDisplayActivity) getActivity()).showDetails(file, 1);
+    private fun shareFile(file: OCFile?) {
+        dismiss()
+
+        if (activity is FileDisplayActivity) {
+            (activity as FileDisplayActivity?)?.showDetails(file, 1)
         } else {
-            fileOperationsHelper.showShareFile(file);
+            fileOperationsHelper?.showShareFile(file)
         }
     }
 
-    public void setFileOperationsHelper(FileOperationsHelper fileOperationsHelper) {
-        this.fileOperationsHelper = fileOperationsHelper;
+    fun setFileOperationsHelper(fileOperationsHelper: FileOperationsHelper?) {
+        this.fileOperationsHelper = fileOperationsHelper
     }
 
-    public interface SendShareDialogDownloader {
-        void downloadFile(OCFile file, String packageName, String activityName);
+    interface SendShareDialogDownloader {
+        fun downloadFile(file: OCFile?, packageName: String?, activityName: String?)
+    }
+
+    companion object {
+        private const val KEY_OCFILE = "KEY_OCFILE"
+        private const val KEY_SHARING_PUBLIC_PASSWORD_ENFORCED = "KEY_SHARING_PUBLIC_PASSWORD_ENFORCED"
+        private const val KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD = "KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD"
+        private const val KEY_HIDE_NCSHARING_OPTIONS = "KEY_HIDE_NCSHARING_OPTIONS"
+        private val TAG = SendShareDialog::class.java.simpleName
+        const val PACKAGE_NAME = "PACKAGE_NAME"
+        const val ACTIVITY_NAME = "ACTIVITY_NAME"
+
+        @JvmStatic
+        fun newInstance(file: OCFile?, hideNcSharingOptions: Boolean, capability: OCCapability): SendShareDialog {
+            val dialogFragment = SendShareDialog()
+            val args = Bundle()
+            args.putParcelable(KEY_OCFILE, file)
+            args.putBoolean(KEY_HIDE_NCSHARING_OPTIONS, hideNcSharingOptions)
+            args.putBoolean(
+                KEY_SHARING_PUBLIC_PASSWORD_ENFORCED,
+                capability.filesSharingPublicPasswordEnforced.isTrue
+            )
+            args.putBoolean(
+                KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD,
+                capability.filesSharingPublicAskForOptionalPassword.isTrue
+            )
+            dialogFragment.arguments = args
+            return dialogFragment
+        }
     }
 }
