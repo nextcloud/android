@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -79,30 +78,49 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
         sharingPublicAskForPassword = arguments.getBoolean(KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = SendShareFragmentBinding.inflate(inflater, container, false)
 
-        viewThemeUtils?.material?.colorMaterialButtonPrimaryFilled(binding.btnShare)
         binding.btnShare.setOnClickListener { shareFile(file) }
-
-        viewThemeUtils?.material?.colorMaterialButtonPrimaryFilled(binding.btnLink)
         binding.btnLink.setOnClickListener { shareByLink() }
 
+        applyTintColor()
+        setupBottomSheetBehaviour()
+        checkButtonVisibilities()
+        setupSendButtonRecyclerView()
+
+        return binding.root
+    }
+
+    private fun setupSendButtonRecyclerView() {
+        val sendIntent = createSendIntent(requireContext(), file!!)
+        val sendButtonDataList = setupSendButtonData(sendIntent)
+        val clickListener = setupSendButtonClickListener(sendIntent)
+
+        binding.sendButtonRecyclerView.layoutManager = GridLayoutManager(activity, 4)
+        binding.sendButtonRecyclerView.adapter = SendButtonAdapter(sendButtonDataList, clickListener)
+    }
+
+    private fun setupBottomSheetBehaviour() {
         val bottomSheetDialog = dialog as BottomSheetDialog
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         bottomSheetDialog.behavior.skipCollapsed = true
-        viewThemeUtils?.platform?.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE_VARIANT)
+    }
 
+    private fun applyTintColor() {
+        viewThemeUtils?.material?.colorMaterialButtonPrimaryFilled(binding.btnLink)
+        viewThemeUtils?.material?.colorMaterialButtonPrimaryFilled(binding.btnShare)
+        viewThemeUtils?.platform?.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE_VARIANT)
+    }
+
+    private fun checkButtonVisibilities() {
         if (hideNcSharingOptions) {
             binding.sendShareButtons.visibility = View.GONE
             binding.divider.visibility = View.GONE
-        } else if (file!!.isSharedWithMe && !file!!.canReshare()) {
-            showResharingNotAllowedSnackbar()
-            if (file!!.isFolder) {
+        } else if (file?.isSharedWithMe == true && file?.canReshare() == false) {
+            showSharingNotAllowedMessage()
+
+            if (file?.isFolder == true) {
                 binding.btnShare.visibility = View.GONE
                 binding.btnLink.visibility = View.GONE
                 dialog!!.hide()
@@ -114,32 +132,19 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
                 binding.btnShare.alpha = 0.3f
             }
         }
-
-        val sendIntent = createSendIntent(requireContext(), file!!)
-        val sendButtonDataList = setupSendButtonData(sendIntent)
-        val clickListener = setupSendButtonClickListener(sendIntent)
-
-        binding.sendButtonRecyclerView.layoutManager = GridLayoutManager(activity, 4)
-        binding.sendButtonRecyclerView.adapter = SendButtonAdapter(sendButtonDataList, clickListener)
-
-        return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        BottomSheetBehavior.from(requireView().parent as View).state =
-            BottomSheetBehavior.STATE_EXPANDED
     }
 
     private fun shareByLink() {
-        if (file!!.isSharedViaLink) {
-            (requireActivity() as FileActivity).fileOperationsHelper.getFileWithLink(file!!, viewThemeUtils)
+        val fileOperationsHelper = (requireActivity() as FileActivity).fileOperationsHelper
+
+        if (file?.isSharedViaLink == true) {
+            fileOperationsHelper.getFileWithLink(file!!, viewThemeUtils)
         } else if (sharingPublicPasswordEnforced || sharingPublicAskForPassword) {
             // password enforced by server, request to the user before trying to create
             requestPasswordForShareViaLink()
         } else {
             // create without password if not enforced by server or we don't know if enforced;
-            (requireActivity() as FileActivity).fileOperationsHelper.shareFileViaPublicShare(file, null)
+            fileOperationsHelper.shareFileViaPublicShare(file, null)
         }
 
         dismiss()
@@ -155,13 +160,10 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
         dialog.show(parentFragmentManager, SharePasswordDialogFragment.PASSWORD_FRAGMENT)
     }
 
-    private fun themeShareButtonImage(shareImageView: ImageView) {
-        viewThemeUtils?.files?.themeAvatarButton(shareImageView)
-    }
+    private fun showSharingNotAllowedMessage() {
+        val message = Snackbar.make(binding.root, R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG)
 
-    private fun showResharingNotAllowedSnackbar() {
-        val snackbar = Snackbar.make(binding.root, R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG)
-        snackbar.addCallback(object : Snackbar.Callback() {
+        message.addCallback(object : Snackbar.Callback() {
             override fun onDismissed(transientBottomBar: Snackbar, event: Int) {
                 super.onDismissed(transientBottomBar, event)
                 if (file!!.isFolder) {
@@ -169,7 +171,8 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
                 }
             }
         })
-        snackbar.show()
+
+        message.show()
     }
 
     private fun setupSendButtonClickListener(sendIntent: Intent): SendButtonAdapter.ClickListener {
@@ -178,7 +181,7 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
             val activityName = sendButtonDataData.activityName
 
             if (MimeTypeUtil.isImage(file) && !file!!.isDown) {
-                fileOperationsHelper!!.sendCachedImage(file, packageName, activityName)
+                fileOperationsHelper?.sendCachedImage(file, packageName, activityName)
             } else {
                 // Obtain the file
                 if (file!!.isDown) {
@@ -258,5 +261,7 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
             dialogFragment.arguments = args
             return dialogFragment
         }
+
     }
+
 }
