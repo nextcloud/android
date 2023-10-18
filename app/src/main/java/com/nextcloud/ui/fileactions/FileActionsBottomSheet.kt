@@ -24,7 +24,6 @@ package com.nextcloud.ui.fileactions
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
@@ -61,6 +60,7 @@ import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
+import com.owncloud.android.utils.DisplayUtils.convertDpToPixel
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -81,13 +81,13 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
-    lateinit var viewModel: FileActionsViewModel
+    private lateinit var viewModel: FileActionsViewModel
 
     private var _binding: FileActionsBottomSheetBinding? = null
     private val binding
         get() = _binding!!
 
-    lateinit var componentsGetter: ComponentsGetter
+    private lateinit var componentsGetter: ComponentsGetter
 
     private val thumbnailAsyncTasks = mutableListOf<ThumbnailsCacheManager.ThumbnailGenerationTask>()
 
@@ -119,9 +119,9 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
     private fun applyTintedRoundedBackground() {
         val shape = GradientDrawable()
 
-        val cornerRadiusPx = 64f
+        val cornerRadius = convertDpToPixel(32f, requireContext()).toFloat()
         shape.cornerRadii = floatArrayOf(
-            cornerRadiusPx, cornerRadiusPx, cornerRadiusPx, cornerRadiusPx,
+            cornerRadius, cornerRadius, cornerRadius, cornerRadius,
             0f, 0f, 0f, 0f)
 
         viewThemeUtils.platform.tintDrawable(requireContext(), shape, ColorRole.SURFACE_VARIANT)
