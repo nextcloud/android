@@ -24,8 +24,10 @@ package com.nextcloud.ui.fileactions
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
@@ -109,10 +111,23 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         bottomSheetDialog.behavior.skipCollapsed = true
 
+        applyTintedRoundedBackground()
+
         return binding.root
     }
 
-    override fun getTheme() = R.style.ThemeOverlay_Material3_BottomSheetDialog
+    private fun applyTintedRoundedBackground() {
+        val shape = GradientDrawable()
+
+        val cornerRadiusPx = 64f
+        shape.cornerRadii = floatArrayOf(
+            cornerRadiusPx, cornerRadiusPx, cornerRadiusPx, cornerRadiusPx,
+            0f, 0f, 0f, 0f)
+
+        viewThemeUtils.platform.tintDrawable(requireContext(), shape, ColorRole.SURFACE_VARIANT)
+
+        binding.root.background = shape
+    }
 
     private fun handleState(
         state: FileActionsViewModel.UiState
@@ -127,11 +142,13 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
                 displayActions(state.actions)
                 displayTitle(state.titleFile)
             }
+
             is FileActionsViewModel.UiState.LoadedForMultipleFiles -> {
                 setMultipleFilesThumbnail()
                 displayActions(state.actions)
                 displayTitle(state.fileCount)
             }
+
             FileActionsViewModel.UiState.Loading -> {}
             FileActionsViewModel.UiState.Error -> {
                 context?.let {
