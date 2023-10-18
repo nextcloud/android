@@ -19,14 +19,14 @@
   ~ License along with this program.  If not, see <http://www.gnu.org/licenses/>.
   ~
   -->
-
-<FrameLayout
+<LinearLayout
     android:id="@+id/bottom_sheet"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
@@ -34,57 +34,52 @@
         android:layout_height="wrap_content" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:indeterminate="true"
         android:id="@+id/bottom_sheet_loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:indeterminate="true"
+        android:layout_marginBottom="@dimen/standard_margin"
         tools:visibility="gone" />
 
     <LinearLayout
+        android:id="@+id/bottom_sheet_content"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:gravity="center"
+        android:visibility="visible">
 
-        <LinearLayout
-            android:id="@+id/bottom_sheet_content"
-            android:visibility="visible"
+        <include
+            android:id="@+id/thumbnail_layout"
+            layout="@layout/file_thumbnail"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_marginStart="24dp"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/standard_double_margin"
-            android:layout_marginStart="@dimen/standard_padding"
-            android:layout_height="wrap_content">
-
-            <include
-                android:id="@+id/thumbnail_layout"
-                layout="@layout/file_thumbnail"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content" />
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_padding"
-                android:ellipsize="middle"
-                android:lines="1"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                tools:text="Test file name which is very very very very very long.pdf" />
-
-        </LinearLayout>
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/file_actions_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-
-        </androidx.core.widget.NestedScrollView>
+            android:layout_height="wrap_content"
+            android:ellipsize="middle"
+            android:lines="1"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+            tools:text="Test file name which is very very very very very long.pdf" />
 
     </LinearLayout>
 
-</FrameLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/file_actions_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
