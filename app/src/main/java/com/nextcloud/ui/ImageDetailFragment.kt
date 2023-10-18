@@ -49,6 +49,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
+import org.jetbrains.annotations.VisibleForTesting
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
@@ -258,6 +259,11 @@ class ImageDetailFragment : Fragment(), Injectable {
 
         // add copyright notice
         binding.imageLocationMapCopyright.text = binding.imageLocationMap.tileProvider.tileSource.copyrightNotice
+    }
+
+    @VisibleForTesting
+    fun hideMap() {
+        binding.imageLocationMap.visibility = View.GONE
     }
 
     @SuppressLint("SimpleDateFormat")
