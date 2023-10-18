@@ -45,6 +45,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.shape.CornerFamily
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
@@ -111,23 +112,9 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         bottomSheetDialog.behavior.skipCollapsed = true
 
-        applyTintedRoundedBackground()
+        viewThemeUtils.platform.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE_VARIANT)
 
         return binding.root
-    }
-
-    // TODO It will be moved android-common library
-    private fun applyTintedRoundedBackground() {
-        val shape = GradientDrawable()
-
-        val cornerRadius = convertDpToPixel(32f, requireContext()).toFloat()
-        shape.cornerRadii = floatArrayOf(
-            cornerRadius, cornerRadius, cornerRadius, cornerRadius,
-            0f, 0f, 0f, 0f)
-
-        viewThemeUtils.platform.tintDrawable(requireContext(), shape, ColorRole.SURFACE_VARIANT)
-
-        binding.root.background = shape
     }
 
     private fun handleState(
@@ -215,11 +202,11 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
     private fun toggleLoadingOrContent(state: FileActionsViewModel.UiState) {
         if (state is FileActionsViewModel.UiState.Loading) {
             binding.bottomSheetLoading.isVisible = true
-            binding.bottomSheetContent.isVisible = false
+            binding.bottomSheetHeader.isVisible = false
             viewThemeUtils.platform.colorCircularProgressBar(binding.bottomSheetLoading, ColorRole.PRIMARY)
         } else {
             binding.bottomSheetLoading.isVisible = false
-            binding.bottomSheetContent.isVisible = true
+            binding.bottomSheetHeader.isVisible = true
         }
     }
 

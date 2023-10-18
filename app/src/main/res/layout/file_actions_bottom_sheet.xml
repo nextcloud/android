@@ -19,67 +19,75 @@
   ~ License along with this program.  If not, see <http://www.gnu.org/licenses/>.
   ~
   -->
-<LinearLayout
-    android:id="@+id/bottom_sheet"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/transparent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+    <FrameLayout
+        style="@style/Widget.Material3.BottomSheet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/bottom_sheet_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminate="true"
-        android:layout_marginBottom="@dimen/standard_margin"
-        tools:visibility="gone" />
-
-    <LinearLayout
-        android:id="@+id/bottom_sheet_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/standard_margin"
-        android:gravity="center"
-        android:visibility="visible">
-
-        <include
-            android:id="@+id/thumbnail_layout"
-            layout="@layout/file_thumbnail"
-            android:layout_width="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_marginStart="24dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="middle"
-            android:lines="1"
-            android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-            tools:text="Test file name which is very very very very very long.pdf" />
-
-    </LinearLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <LinearLayout
-            android:id="@+id/file_actions_list"
+            android:id="@+id/bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical">
 
-    </androidx.core.widget.NestedScrollView>
+            <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-</LinearLayout>
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/bottom_sheet_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:layout_marginBottom="@dimen/standard_margin"
+                tools:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/bottom_sheet_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/standard_margin"
+                android:gravity="center"
+                android:visibility="visible">
+
+                <include
+                    android:id="@+id/thumbnail_layout"
+                    layout="@layout/file_thumbnail"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_marginStart="24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="middle"
+                    android:lines="1"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                    tools:text="Test file name which is very very very very very long.pdf" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/file_actions_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
