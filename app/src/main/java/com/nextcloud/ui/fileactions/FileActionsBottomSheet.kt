@@ -112,6 +112,8 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
         return binding.root
     }
 
+    override fun getTheme() = R.style.ThemeOverlay_Material3_BottomSheetDialog
+
     private fun handleState(
         state: FileActionsViewModel.UiState
     ) {
