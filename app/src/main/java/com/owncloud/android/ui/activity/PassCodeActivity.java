@@ -26,11 +26,9 @@ package com.owncloud.android.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -77,7 +75,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     private final EditText[] passCodeEditTexts = new EditText[4];
     private String[] passCodeDigits = {"", "", "", ""};
     private boolean confirmingPassCode;
-    private boolean changed = true; // to control that only one blocks jump
 
     /**
      * Initializes the activity.
@@ -158,12 +155,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     protected void setCancelButtonEnabled(boolean enabled) {
         if (enabled) {
             binding.cancel.setVisibility(View.VISIBLE);
-            binding.cancel.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
+            binding.cancel.setOnClickListener(v -> finish());
         } else {
             binding.cancel.setVisibility(View.INVISIBLE);
             binding.cancel.setOnClickListener(null);
@@ -179,46 +171,16 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
      * Binds the appropriate listeners to the input boxes receiving each digit of the pass code.
      */
     protected void setTextListeners() {
-        passCodeEditTexts[0].addTextChangedListener(new PassCodeDigitTextWatcher(0, false));
-        passCodeEditTexts[1].addTextChangedListener(new PassCodeDigitTextWatcher(1, false));
-        passCodeEditTexts[2].addTextChangedListener(new PassCodeDigitTextWatcher(2, false));
-        passCodeEditTexts[3].addTextChangedListener(new PassCodeDigitTextWatcher(3, true));
 
-        setOnKeyListener(1);
-        setOnKeyListener(2);
-        setOnKeyListener(3);
+        passCodeEditTexts[0].addTextChangedListener(new PinTextWatcher(0));
+        passCodeEditTexts[1].addTextChangedListener(new PinTextWatcher(1));
+        passCodeEditTexts[2].addTextChangedListener(new PinTextWatcher(2));
+        passCodeEditTexts[3].addTextChangedListener(new PinTextWatcher(3));
 
-        passCodeEditTexts[1].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(1));
-
-        passCodeEditTexts[2].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(2));
-
-        passCodeEditTexts[3].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(3));
-    }
-
-    private void onPassCodeEditTextFocusChange(final int passCodeIndex) {
-        for (int i = 0; i < passCodeIndex; i++) {
-            if (TextUtils.isEmpty(passCodeEditTexts[i].getText())) {
-                passCodeEditTexts[i].requestFocus();
-                break;
-            }
-        }
-    }
-
-    private void setOnKeyListener(final int passCodeIndex) {
-        passCodeEditTexts[passCodeIndex].setOnKeyListener((v, keyCode, event) -> {
-            if (keyCode == KeyEvent.KEYCODE_DEL && changed) {
-                passCodeEditTexts[passCodeIndex - 1].requestFocus();
-                if (!confirmingPassCode) {
-                    passCodeDigits[passCodeIndex - 1] = "";
-                }
-                passCodeEditTexts[passCodeIndex - 1].setText("");
-                changed = false;
-
-            } else if (!changed) {
-                changed = true;
-            }
-            return false;
-        });
+        passCodeEditTexts[0].setOnKeyListener(new PinOnKeyListener(0));
+        passCodeEditTexts[1].setOnKeyListener(new PinOnKeyListener(1));
+        passCodeEditTexts[2].setOnKeyListener(new PinOnKeyListener(2));
+        passCodeEditTexts[3].setOnKeyListener(new PinOnKeyListener(3));
     }
 
     /**
@@ -401,7 +363,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(delay * 1000);
+                        Thread.sleep(delay * 1000L);
 
                         runOnUiThread(() -> {
                             binding.explanation.setVisibility(View.INVISIBLE);
@@ -426,64 +388,107 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         outState.putStringArray(PassCodeActivity.KEY_PASSCODE_DIGITS, passCodeDigits);
     }
 
-    private class PassCodeDigitTextWatcher implements TextWatcher {
+    private class PinTextWatcher implements TextWatcher {
 
-        private int mIndex = -1;
-        private boolean mLastOne;
+        private final int currentIndex;
+        private boolean isFirst = false, isLast = false;
+        private String newTypedString = "";
 
-        /**
-         * Constructor
-         *
-         * @param index   Position in the pass code of the input field that will be bound to this watcher.
-         * @param lastOne 'True' means that watcher corresponds to the last position of the pass code.
-         */
-        PassCodeDigitTextWatcher(int index, boolean lastOne) {
-            mIndex = index;
-            mLastOne = lastOne;
-            if (mIndex < 0) {
-                throw new IllegalArgumentException(
-                    "Invalid index in " + PassCodeDigitTextWatcher.class.getSimpleName() +
-                        " constructor"
-                );
-            }
-        }
+        PinTextWatcher(int currentIndex) {
+            this.currentIndex = currentIndex;
 
-        private int next() {
-            return mLastOne ? 0 : mIndex + 1;
-        }
-
-        /**
-         * Performs several actions when the user types a digit in an input field: - saves the input digit to the state
-         * of the activity; this will allow retyping the pass code to confirm it. - moves the focus automatically to the
-         * next field - for the last field, triggers the processing of the full pass code
-         *
-         * @param s Changed text
-         */
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (s.length() > 0) {
-                if (!confirmingPassCode) {
-                    passCodeDigits[mIndex] = passCodeEditTexts[mIndex].getText().toString();
-                }
-                passCodeEditTexts[next()].requestFocus();
-
-                if (mLastOne) {
-                    processFullPassCode();
-                }
-
-            } else {
-                Log_OC.d(TAG, "Text box " + mIndex + " was cleaned");
-            }
+            if (currentIndex == 0)
+                this.isFirst = true;
+            else if (currentIndex == passCodeEditTexts.length - 1)
+                this.isLast = true;
         }
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            // nothing to do
+
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // nothing to do
+            newTypedString = s.subSequence(start, start + count).toString().trim();
         }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String text = newTypedString;
+
+            if (text.length() > 1) {
+                text = String.valueOf(text.charAt(0));
+
+                passCodeEditTexts[currentIndex].removeTextChangedListener(this);
+                passCodeEditTexts[currentIndex].setText(text);
+                passCodeEditTexts[currentIndex].setSelection(text.length());
+                passCodeEditTexts[currentIndex].addTextChangedListener(this);
+
+                if (!confirmingPassCode) {
+                    passCodeDigits[currentIndex] = passCodeEditTexts[currentIndex].getText().toString();
+                }
+
+                if (text.length() == 1) {
+                    moveToNext();
+                } else if (text.length() == 0) {
+                    moveToPrevious();
+                }
+
+                if (isLast) {
+                    processFullPassCode();
+                }
+            }
+        }
+
+        private void moveToNext() {
+            if (!isLast)
+                passCodeEditTexts[currentIndex + 1].requestFocus();
+
+            if (isAllEditTextsFilled() && isLast) { // isLast is optional
+                passCodeEditTexts[currentIndex].clearFocus();
+                hideKeyboard();
+            }
+        }
+
+        private void moveToPrevious() {
+            if (!isFirst)
+                passCodeEditTexts[currentIndex - 1].requestFocus();
+        }
+
+        private boolean isAllEditTextsFilled() {
+            for (EditText editText : passCodeEditTexts)
+                if (editText.getText().toString().trim().length() == 0)
+                    return false;
+            return true;
+        }
+
+        private void hideKeyboard() {
+            if (getCurrentFocus() != null) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            }
+        }
+
+    }
+
+    private class PinOnKeyListener implements View.OnKeyListener {
+
+        private final int currentIndex;
+
+        PinOnKeyListener(int currentIndex) {
+            this.currentIndex = currentIndex;
+        }
+
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (keyCode == KeyEvent.KEYCODE_DEL && event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (passCodeEditTexts[currentIndex].getText().toString().isEmpty() && currentIndex != 0) {
+                    passCodeEditTexts[currentIndex - 1].requestFocus();
+                }
+            }
+            return false;
+        }
+
     }
 }
