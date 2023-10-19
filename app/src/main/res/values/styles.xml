@@ -331,6 +331,7 @@
         <item name="android:inputType">numberDecimal</item>
         <item name="android:numeric">decimal</item>
         <item name="android:digits">1234567890</item>
+        <item name="android:maxLength">1</item>
         <item name="android:password">true</item>
         <item name="android:maxLines">1</item>
         <item name="colorPrimary">@color/text_color</item>
