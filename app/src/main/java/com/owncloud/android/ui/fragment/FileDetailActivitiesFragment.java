@@ -284,6 +284,10 @@ public class FileDetailActivitiesFragment extends Fragment implements
             });
             return;
         }
+        
+        if (!isLoadingActivities) {
+            return;
+        }
 
         Thread t = new Thread(() -> {
             try {
@@ -453,6 +457,11 @@ public class FileDetailActivitiesFragment extends Fragment implements
     @Override
     public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
         return false;
+    }
+    
+    @VisibleForTesting
+    public void disableLoadingActivities() {
+        isLoadingActivities = false;
     }
 
     private static class SubmitCommentTask extends AsyncTask<Void, Void, Boolean> {
