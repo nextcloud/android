@@ -72,7 +72,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt0"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
                         android:hint="@string/hidden_character"
                         android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no"
@@ -82,7 +81,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt1"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
                         android:hint="@string/hidden_character"
                         android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />
@@ -90,7 +88,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt2"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
                         android:hint="@string/hidden_character"
                         android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />
@@ -98,7 +95,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt3"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
                         android:hint="@string/hidden_character"
                         android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />
