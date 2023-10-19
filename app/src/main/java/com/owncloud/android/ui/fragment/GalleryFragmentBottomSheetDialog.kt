@@ -26,6 +26,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.databinding.FragmentGalleryBottomSheetBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -41,7 +42,7 @@ class GalleryFragmentBottomSheetDialog(
     private lateinit var mBottomBehavior: BottomSheetBehavior<*>
     private var currentMediaState: MediaState = MediaState.MEDIA_STATE_DEFAULT
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentGalleryBottomSheetBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -53,12 +54,12 @@ class GalleryFragmentBottomSheetDialog(
         mBottomBehavior = BottomSheetBehavior.from(binding.root.parent as View)
     }
 
-    public override fun onStart() {
+    override fun onStart() {
         super.onStart()
         mBottomBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    fun setupLayout() {
+    private fun setupLayout() {
         listOf(
             binding.tickMarkShowImages,
             binding.tickMarkShowVideo,
@@ -66,7 +67,7 @@ class GalleryFragmentBottomSheetDialog(
             binding.hideVideoImageView,
             binding.selectMediaFolderImageView
         ).forEach {
-            viewThemeUtils.platform.colorImageView(it)
+            viewThemeUtils.platform.colorImageView(it, ColorRole.PRIMARY)
         }
 
         when (currentMediaState) {
@@ -86,7 +87,7 @@ class GalleryFragmentBottomSheetDialog(
     }
 
     private fun setupClickListener() {
-        binding.hideImages.setOnClickListener { v: View? ->
+        binding.hideImages.setOnClickListener {
             currentMediaState = if (currentMediaState == MediaState.MEDIA_STATE_VIDEOS_ONLY) {
                 MediaState.MEDIA_STATE_DEFAULT
             } else {
@@ -95,7 +96,7 @@ class GalleryFragmentBottomSheetDialog(
             notifyStateChange()
             dismiss()
         }
-        binding.hideVideo.setOnClickListener { v: View? ->
+        binding.hideVideo.setOnClickListener {
             currentMediaState = if (currentMediaState == MediaState.MEDIA_STATE_PHOTOS_ONLY) {
                 MediaState.MEDIA_STATE_DEFAULT
             } else {
@@ -104,7 +105,7 @@ class GalleryFragmentBottomSheetDialog(
             notifyStateChange()
             dismiss()
         }
-        binding.selectMediaFolder.setOnClickListener { v: View? ->
+        binding.selectMediaFolder.setOnClickListener {
             actions.selectMediaFolder()
             dismiss()
         }
