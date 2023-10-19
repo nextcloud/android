@@ -41,6 +41,7 @@ import android.util.Pair;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -48,6 +49,8 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.operations.LegacyRemoteOperation;
+import com.owncloud.android.lib.common.operations.NextcloudRemoteOperation;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -393,6 +396,7 @@ public class OperationsService extends Service {
         private RemoteOperation mCurrentOperation;
         private Target mLastTarget;
         private OwnCloudClient mOwnCloudClient;
+        private NextcloudClient nextcloudClient;
 
         public ServiceHandler(Looper looper, OperationsService service) {
             super(looper);
@@ -436,10 +440,18 @@ public class OperationsService extends Service {
                         }
                         mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, mService);
+                        
+                        nextcloudClient = OwnCloudClientManagerFactory
+                            .getDefaultSingleton()
+                            .getNextcloudClientFor(ocAccount, mService);
                     }
 
                     /// perform the operation
-                    result = mCurrentOperation.execute(mOwnCloudClient);
+                    if (mCurrentOperation instanceof LegacyRemoteOperation) {
+                        result = ((LegacyRemoteOperation) mCurrentOperation).execute(mOwnCloudClient);
+                    } else {
+                        result = ((NextcloudRemoteOperation) mCurrentOperation).execute(nextcloudClient);
+                    }
                 } catch (AccountsException e) {
                     if (mLastTarget.mAccount == null) {
                         Log_OC.e(TAG, "Error while trying to get authorization for a NULL account",

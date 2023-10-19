@@ -25,6 +25,7 @@ import android.content.Context;
 
 import com.owncloud.android.authentication.AuthenticatorUrlUtils;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.LegacyRemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -43,7 +44,7 @@ import java.util.Locale;
  * and finds out what authentication method is needed to access files in it.
  */
 
-public class GetServerInfoOperation extends RemoteOperation {
+public class GetServerInfoOperation extends LegacyRemoteOperation {
 
     private static final String TAG = GetServerInfoOperation.class.getSimpleName();
 

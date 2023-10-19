@@ -111,7 +111,7 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
         if (capability.getVersion().equals(new OwnCloudVersion("0.0.0"))) {
             // fetch new one
             assertTrue(new GetCapabilitiesOperation(getStorageManager())
-                           .execute(client)
+                           .execute(nextcloudClient)
                            .isSuccess());
         }
         // tests only for NC19+

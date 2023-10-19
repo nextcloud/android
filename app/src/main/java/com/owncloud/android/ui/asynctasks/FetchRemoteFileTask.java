@@ -27,7 +27,7 @@ import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.LegacyRemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
@@ -97,13 +97,13 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
             }
 
             long currentSyncTime = System.currentTimeMillis();
-            RemoteOperation refreshFolderOperation = new RefreshFolderOperation(toSync,
-                                                                                currentSyncTime,
-                                                                                true,
-                                                                                true,
-                                                                                storageManager,
-                                                                                user,
-                                                                                fileDisplayActivity);
+            LegacyRemoteOperation refreshFolderOperation = new RefreshFolderOperation(toSync,
+                                                                                      currentSyncTime,
+                                                                                      true,
+                                                                                      true,
+                                                                                      storageManager,
+                                                                                      user,
+                                                                                      fileDisplayActivity);
             refreshFolderOperation.execute(user, fileDisplayActivity);
 
             fileDisplayActivity.setFile(ocFile);

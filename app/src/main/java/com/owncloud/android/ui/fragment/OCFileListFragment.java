@@ -79,10 +79,11 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.LegacyRemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
+import com.owncloud.android.lib.resources.files.RichDocumentsTemplateType;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -625,21 +626,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void newDocument() {
         ChooseRichDocumentsTemplateDialogFragment.newInstance(mFile,
-                                                              ChooseRichDocumentsTemplateDialogFragment.Type.DOCUMENT)
+                                                              RichDocumentsTemplateType.DOCUMENT)
             .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
     }
 
     @Override
     public void newSpreadsheet() {
         ChooseRichDocumentsTemplateDialogFragment.newInstance(mFile,
-                                                              ChooseRichDocumentsTemplateDialogFragment.Type.SPREADSHEET)
+                                                              RichDocumentsTemplateType.SPREADSHEET)
             .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
     }
 
     @Override
     public void newPresentation() {
         ChooseRichDocumentsTemplateDialogFragment.newInstance(mFile,
-                                                              ChooseRichDocumentsTemplateDialogFragment.Type.PRESENTATION)
+                                                              RichDocumentsTemplateType.PRESENTATION)
             .show(requireActivity().getSupportFragmentManager(), DIALOG_CREATE_DOCUMENT);
     }
 
@@ -1672,7 +1673,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         final User currentUser = accountManager.getUser();
 
-        final RemoteOperation remoteOperation = getSearchRemoteOperation(currentUser, event);
+        final LegacyRemoteOperation remoteOperation = getSearchRemoteOperation(currentUser, event);
 
         remoteOperationAsyncTask = new OCFileListSearchAsyncTask(mContainerActivity, this, remoteOperation, currentUser, event);
 
@@ -1680,7 +1681,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
 
-    protected RemoteOperation getSearchRemoteOperation(final User currentUser, final SearchEvent event) {
+    protected LegacyRemoteOperation getSearchRemoteOperation(final User currentUser, final SearchEvent event) {
         boolean searchOnlyFolders = false;
         if (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false)) {
             searchOnlyFolders = true;

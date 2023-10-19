@@ -87,6 +87,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.Quota;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.ExternalLinksOperation;
+import com.owncloud.android.lib.common.operations.NextcloudRemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -205,12 +206,25 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private ExternalLinksProvider externalLinksProvider;
     private ArbitraryDataProvider arbitraryDataProvider;
+    
+    private NextcloudClient nextcloudClient;
 
     @Inject
     AppPreferences preferences;
 
     @Inject
     ClientFactory clientFactory;
+    
+    public DrawerActivity() {
+        try {
+            User user = accountManager.getUser();
+            nextcloudClient = OwnCloudClientManagerFactory
+                .getDefaultSingleton()
+                .getNextcloudClientFor(user.toOwnCloudAccount(), this);
+        } catch (OperationCanceledException | AuthenticatorException | IOException e) {
+            Log_OC.e(this, "Error creating account", e);
+        }
+    }
 
     /**
      * Initializes the drawer, its content and highlights the menu item with the given id. This method needs to be
@@ -865,21 +879,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 return;
             }
 
-            final Context context = MainApp.getAppContext();
-            NextcloudClient nextcloudClient = null;
-            try {
-                nextcloudClient = OwnCloudClientManagerFactory
-                    .getDefaultSingleton()
-                    .getNextcloudClientFor(user.toOwnCloudAccount(),
-                                           context);
-            } catch (OperationCanceledException | AuthenticatorException | IOException e) {
-                Log_OC.e(this, "Error retrieving user quota", e);
-            }
-
-            if (nextcloudClient == null) {
-                return;
-            }
-
             RemoteOperationResult<UserInfo> result = new GetUserInfoRemoteOperation().execute(nextcloudClient);
 
             if (result.isSuccess() && result.getResultData() != null) {
@@ -1182,7 +1181,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 if ((getCapabilities() == null || getCapabilities().getAccountName().isEmpty())
                     && getStorageManager() != null) {
                     GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation(getStorageManager());
-                    getCapabilities.execute(getBaseContext());
+                    getCapabilities.execute(nextcloudClient);
                 }
 
                 User user = accountManager.getUser();
@@ -1201,8 +1200,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                                                                     FileActivity.APP_OPENED_COUNT, "0");
 
                         Log_OC.d("ExternalLinks", "update via api");
-                        RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
-                        RemoteOperationResult result = getExternalLinksOperation.execute(user, this);
+                        NextcloudRemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
+                        RemoteOperationResult result = getExternalLinksOperation.execute(nextcloudClient);
 
                         if (result.isSuccess() && result.getData() != null) {
                             externalLinksProvider.deleteAllExternalLinks();

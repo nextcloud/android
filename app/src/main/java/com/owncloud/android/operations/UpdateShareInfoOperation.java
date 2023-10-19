@@ -25,7 +25,6 @@ import android.text.TextUtils;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.shares.GetShareRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -108,8 +107,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
         RemoteOperationResult result = updateOp.execute(client);
 
         if (result.isSuccess()) {
-            RemoteOperation getShareOp = new GetShareRemoteOperation(share.getRemoteId());
-            result = getShareOp.execute(client);
+            result = new GetShareRemoteOperation(share.getRemoteId()).execute(client);
 
             //only update the share in storage if shareId is available
             //this will be triggered by editing existing share

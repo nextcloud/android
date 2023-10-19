@@ -40,7 +40,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.RichDocumentsCreateAssetOperation;
+import com.owncloud.android.lib.resources.files.RichDocumentsCreateAssetRemoteOperation;
 import com.owncloud.android.ui.asynctasks.PrintAsyncTask;
 import com.owncloud.android.ui.asynctasks.RichDocumentsLoadUrlTask;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -118,7 +118,7 @@ public class RichDocumentsEditorWebView extends EditorWebView {
 
         new Thread(() -> {
             User user = currentAccountProvider.getUser();
-            RichDocumentsCreateAssetOperation operation = new RichDocumentsCreateAssetOperation(file.getRemotePath());
+            RichDocumentsCreateAssetRemoteOperation operation = new RichDocumentsCreateAssetRemoteOperation(file.getRemotePath());
             RemoteOperationResult result = operation.execute(user, this);
 
             if (result.isSuccess()) {

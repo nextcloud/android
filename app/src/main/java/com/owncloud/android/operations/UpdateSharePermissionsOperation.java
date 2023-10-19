@@ -25,7 +25,6 @@ import android.text.TextUtils;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.shares.GetShareRemoteOperation;
@@ -79,8 +78,7 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
         RemoteOperationResult result = updateOp.execute(client);
 
         if (result.isSuccess()) {
-            RemoteOperation getShareOp = new GetShareRemoteOperation(share.getRemoteId());
-            result = getShareOp.execute(client);
+            result = new GetShareRemoteOperation(share.getRemoteId()).execute(client);
             if (result.isSuccess()) {
                 share = (OCShare) result.getData().get(0);
                 // TODO check permissions are being saved

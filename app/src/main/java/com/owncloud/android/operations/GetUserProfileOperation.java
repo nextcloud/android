@@ -29,14 +29,16 @@ import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
-import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.operations.common.NextcloudSyncOperation;
+
+import androidx.annotation.NonNull;
 
 /**
  * Get and save user's profile from the server.
  * <p>
  * Currently only retrieves the display name.
  */
-public class GetUserProfileOperation extends SyncOperation {
+public class GetUserProfileOperation extends NextcloudSyncOperation<UserInfo> {
 
     public GetUserProfileOperation(FileDataStorageManager storageManager) {
         super(storageManager);
@@ -53,8 +55,9 @@ public class GetUserProfileOperation extends SyncOperation {
      *              {@link String} with the display name retrieved from the server.
      *              Call {@link RemoteOperationResult#getData()}.get(0) to get it.
      */
+    @NonNull
     @Override
-    public RemoteOperationResult<UserInfo> run(NextcloudClient client) {
+    public RemoteOperationResult<UserInfo> run(@NonNull NextcloudClient client) {
 
         // get display name
         RemoteOperationResult<UserInfo> result = new GetUserInfoRemoteOperation().execute(client);

@@ -57,12 +57,12 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.StreamMediaFileOperation;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.CheckEtagRemoteOperation;
+import com.owncloud.android.lib.resources.files.StreamMediaFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -455,7 +455,7 @@ public class FileOperationsHelper {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
         final User user = currentAccount.getUser();
         new Thread(() -> {
-            StreamMediaFileOperation sfo = new StreamMediaFileOperation(file.getLocalId());
+            StreamMediaFileRemoteOperation sfo = new StreamMediaFileRemoteOperation(file.getLocalId());
             RemoteOperationResult result = sfo.execute(user, fileActivity);
 
             fileActivity.dismissLoadingDialog();

@@ -66,11 +66,11 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.FragmentPreviewMediaBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.files.StreamMediaFileOperation;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.StreamMediaFileRemoteOperation;
 import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -546,7 +546,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 return null;
             }
 
-            StreamMediaFileOperation sfo = new StreamMediaFileOperation(fileId[0]);
+            StreamMediaFileRemoteOperation sfo = new StreamMediaFileRemoteOperation(fileId[0]);
             RemoteOperationResult result = sfo.execute(client);
 
             if (!result.isSuccess()) {

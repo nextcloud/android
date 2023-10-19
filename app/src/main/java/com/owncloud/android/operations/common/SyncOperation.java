@@ -23,11 +23,10 @@ package com.owncloud.android.operations.common;
 import android.content.Context;
 import android.os.Handler;
 
-import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.LegacyRemoteOperation;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 
 import androidx.annotation.NonNull;
@@ -38,7 +37,8 @@ import androidx.annotation.NonNull;
  * <p>
  * Provides methods to execute the operation both synchronously or asynchronously.
  */
-public abstract class SyncOperation extends RemoteOperation {
+@Deprecated
+public abstract class SyncOperation extends LegacyRemoteOperation {
     private final FileDataStorageManager storageManager;
 
     public SyncOperation(@NonNull FileDataStorageManager storageManager) {
@@ -62,10 +62,6 @@ public abstract class SyncOperation extends RemoteOperation {
                                                    "storage manager for an anonymous account");
         }
         return super.execute(this.storageManager.getUser(), context);
-    }
-
-    public RemoteOperationResult execute(@NonNull NextcloudClient client) {
-        return run(client);
     }
 
     /**

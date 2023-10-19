@@ -37,7 +37,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.LegacyRemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -47,6 +47,7 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.GetSharesForFileRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.users.GetPredefinedStatusesRemoteOperation;
 import com.owncloud.android.lib.resources.users.PredefinedStatus;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
@@ -79,7 +80,7 @@ import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
  *  Does NOT enter in the child folders to synchronize their contents also.
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-public class RefreshFolderOperation extends RemoteOperation {
+public class RefreshFolderOperation extends LegacyRemoteOperation {
 
     private static final String TAG = RefreshFolderOperation.class.getSimpleName();
 
@@ -301,7 +302,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         String oldDirectEditingEtag = arbitraryDataProvider.getValue(user,
                                                                      ArbitraryDataProvider.DIRECT_EDITING_ETAG);
 
-        RemoteOperationResult result = new GetCapabilitiesOperation(mStorageManager).execute(mContext);
+        RemoteOperationResult<OCCapability> result = new GetCapabilitiesOperation(mStorageManager).execute(clientNew);
         if (result.isSuccess()) {
             String newDirectEditingEtag = mStorageManager.getCapability(user.getAccountName()).getDirectEditingEtag();
 
