@@ -30,6 +30,7 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
@@ -258,6 +259,11 @@ class ImageDetailFragment : Fragment(), Injectable {
 
         // add copyright notice
         binding.imageLocationMapCopyright.text = binding.imageLocationMap.tileProvider.tileSource.copyrightNotice
+    }
+
+    @VisibleForTesting
+    fun hideMap() {
+        binding.imageLocationMap.visibility = View.GONE
     }
 
     @SuppressLint("SimpleDateFormat")

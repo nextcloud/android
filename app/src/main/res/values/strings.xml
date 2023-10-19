@@ -800,8 +800,6 @@
     <string name="permission_deny">Deny</string>
     <string name="permission_allow">Allow</string>
     <string name="share_send_note">Note to recipient</string>
-    <string name="note_confirm">Send</string>
-    <string name="send_note">Send note to recipient</string>
     <string name="note_could_not_sent">Could not send note</string>
     <string name="hint_note">Note</string>
     <string name="no_browser_available">No app available to handle links</string>
