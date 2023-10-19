@@ -24,7 +24,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
@@ -39,7 +38,6 @@ class GalleryFragmentBottomSheetDialog(
     lateinit var viewThemeUtils: ViewThemeUtils
 
     private lateinit var binding: FragmentGalleryBottomSheetBinding
-    private lateinit var mBottomBehavior: BottomSheetBehavior<*>
     private var currentMediaState: MediaState = MediaState.MEDIA_STATE_DEFAULT
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -51,37 +49,36 @@ class GalleryFragmentBottomSheetDialog(
         super.onViewCreated(view, savedInstanceState)
         setupLayout()
         setupClickListener()
-        mBottomBehavior = BottomSheetBehavior.from(binding.root.parent as View)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        mBottomBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
     private fun setupLayout() {
         listOf(
             binding.tickMarkShowImages,
-            binding.tickMarkShowVideo,
-            binding.hideImagesImageview,
-            binding.hideVideoImageView,
-            binding.selectMediaFolderImageView
+            binding.tickMarkShowVideos,
         ).forEach {
             viewThemeUtils.platform.colorImageView(it, ColorRole.PRIMARY)
+        }
+
+        listOf(
+            binding.btnSelectMediaFolder,
+            binding.btnHideVideos,
+            binding.btnHideImages,
+        ).forEach {
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(it)
         }
 
         when (currentMediaState) {
             MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
                 binding.tickMarkShowImages.visibility = View.VISIBLE
-                binding.tickMarkShowVideo.visibility = View.GONE
+                binding.tickMarkShowVideos.visibility = View.GONE
             }
             MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
                 binding.tickMarkShowImages.visibility = View.GONE
-                binding.tickMarkShowVideo.visibility = View.VISIBLE
+                binding.tickMarkShowVideos.visibility = View.VISIBLE
             }
             else -> {
                 binding.tickMarkShowImages.visibility = View.VISIBLE
-                binding.tickMarkShowVideo.visibility = View.VISIBLE
+                binding.tickMarkShowVideos.visibility = View.VISIBLE
             }
         }
     }
