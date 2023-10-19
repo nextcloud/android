@@ -33,6 +33,7 @@
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <LinearLayout
+            android:id="@+id/bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/standard_padding"
@@ -43,7 +44,6 @@
                 android:layout_height="wrap_content" />
 
             <LinearLayout
-                android:id="@+id/hideImages"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -51,12 +51,11 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_hide_images"
-                    style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                    style="@style/Widget.Material3.Button.IconButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/show_images"
-                    app:iconTint="@color/white"
-                    android:textColor="@color/white"
+                    app:iconPadding="@dimen/standard_half_padding"
                     android:textSize="@dimen/bottom_sheet_text_size"
                     app:icon="@drawable/ic_camera" />
 
@@ -79,7 +78,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/hideVideo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -87,12 +85,11 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_hide_videos"
-                    style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                    style="@style/Widget.Material3.Button.IconButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/show_video"
-                    app:iconTint="@color/white"
-                    android:textColor="@color/white"
+                    app:iconPadding="@dimen/standard_half_padding"
                     android:textSize="@dimen/bottom_sheet_text_size"
                     app:icon="@drawable/ic_video_camera" />
 
@@ -114,7 +111,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/selectMediaFolder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -122,12 +118,11 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_select_media_folder"
-                    style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                    style="@style/Widget.Material3.Button.IconButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:iconPadding="@dimen/standard_half_padding"
                     android:text="@string/select_media_folder"
-                    app:iconTint="@color/white"
-                    android:textColor="@color/white"
                     android:textSize="@dimen/bottom_sheet_text_size"
                     app:icon="@drawable/nav_photos" />
 
