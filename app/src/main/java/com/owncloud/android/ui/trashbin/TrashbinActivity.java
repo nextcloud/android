@@ -30,8 +30,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
@@ -94,7 +92,7 @@ public class TrashbinActivity extends DrawerActivity implements
             if (targetUser.isPresent()) {
                 setUser(targetUser.get());
             } else {
-                Toast.makeText(this, R.string.associated_account_not_found, Toast.LENGTH_LONG).show();
+                Snackbar.make(binding.getRoot(), R.string.associated_account_not_found, Snackbar.LENGTH_LONG).show();
                 finish();
                 return;
             }

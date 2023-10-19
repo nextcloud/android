@@ -25,9 +25,10 @@ import android.content.Intent
 import android.media.AudioManager
 import android.os.Bundle
 import android.os.IBinder
+import android.view.View
 import android.widget.MediaController
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
@@ -79,7 +80,7 @@ class PlayerService : Service() {
         }
 
         override fun onError(error: PlayerError) {
-            Toast.makeText(this@PlayerService, error.message, Toast.LENGTH_SHORT).show()
+            Snackbar.make(View(this@PlayerService), error.message, Snackbar.LENGTH_SHORT).show()
         }
     }
 

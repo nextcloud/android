@@ -32,8 +32,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -422,7 +420,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
                             Snackbar.make(getView(), R.string.contactlist_no_permission, Snackbar.LENGTH_LONG)
                                 .show();
                         } else {
-                            Toast.makeText(getContext(), R.string.contactlist_no_permission, Toast.LENGTH_LONG).show();
+                            Snackbar.make(new View(getContext()), R.string.contactlist_no_permission, Snackbar.LENGTH_LONG).show();
                         }
                     }
                     break;
@@ -440,7 +438,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
                             Snackbar.make(getView(), R.string.contactlist_no_permission, Snackbar.LENGTH_LONG)
                                 .show();
                         } else {
-                            Toast.makeText(getContext(), R.string.contactlist_no_permission, Toast.LENGTH_LONG).show();
+                            Snackbar.make(new View(getContext()), R.string.contactlist_no_permission, Snackbar.LENGTH_LONG).show();
                         }
                     }
                     break;

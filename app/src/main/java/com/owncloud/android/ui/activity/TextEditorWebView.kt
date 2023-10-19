@@ -23,9 +23,9 @@ package com.owncloud.android.ui.activity
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import android.widget.Toast
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
+import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.ui.util.PlatformThemeUtil
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.device.DeviceInfo
@@ -53,7 +53,7 @@ class TextEditorWebView : EditorWebView() {
         super.postOnCreate()
 
         if (!user.isPresent) {
-            Toast.makeText(this, getString(R.string.failed_to_start_editor), Toast.LENGTH_LONG).show()
+            Snackbar.make(binding.root, getString(R.string.failed_to_start_editor), Snackbar.LENGTH_LONG).show()
             finish()
         }
 

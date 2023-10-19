@@ -24,8 +24,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.widget.Toast
+import android.view.View
 import androidx.core.content.FileProvider
+import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.core.Cancellable
 import com.nextcloud.client.core.Clock
@@ -95,7 +96,7 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
         try {
             context.startActivity(intent)
         } catch (ex: ActivityNotFoundException) {
-            Toast.makeText(context, R.string.log_send_no_mail_app, Toast.LENGTH_SHORT).show()
+            Snackbar.make(View(context), R.string.log_send_no_mail_app, Snackbar.LENGTH_SHORT).show()
         }
     }
 

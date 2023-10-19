@@ -25,8 +25,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.text.TextUtils;
-import android.widget.Toast;
-
+import android.view.View;
+import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -54,14 +54,14 @@ public final class ClipboardUtil {
                 ((ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE)).setPrimaryClip(clip);
 
                 if (showToast) {
-                    Toast.makeText(activity, R.string.clipboard_text_copied, Toast.LENGTH_SHORT).show();
+                    Snackbar.make(new View(activity), R.string.clipboard_text_copied, Snackbar.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
-                Toast.makeText(activity, R.string.clipboard_unexpected_error, Toast.LENGTH_SHORT).show();
+                Snackbar.make(new View(activity), R.string.clipboard_unexpected_error, Snackbar.LENGTH_SHORT).show();
                 Log_OC.e(TAG, "Exception caught while copying to clipboard", e);
             }
         } else {
-            Toast.makeText(activity, R.string.clipboard_no_text_to_copy, Toast.LENGTH_SHORT).show();
+            Snackbar.make(new View(activity), R.string.clipboard_no_text_to_copy, Snackbar.LENGTH_SHORT).show();
         }
     }
 }

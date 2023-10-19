@@ -36,8 +36,6 @@ import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.Toast;
-
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.preferences.DarkMode;
@@ -96,8 +94,8 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                 }
             }, 10 * 1000);
         } else {
-            Toast.makeText(getApplicationContext(),
-                           R.string.richdocuments_failed_to_load_document, Toast.LENGTH_LONG).show();
+            Snackbar.make(new View(getApplicationContext()),
+                          R.string.richdocuments_failed_to_load_document, Snackbar.LENGTH_LONG).show();
             finish();
         }
     }
@@ -136,7 +134,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                     activity.startActivityForResult(intent, REQUEST_LOCAL_FILE);
                 } catch (ActivityNotFoundException e) {
                     uploadMessage = null;
-                    Toast.makeText(getBaseContext(), "Cannot open file chooser", Toast.LENGTH_LONG).show();
+                    Snackbar.make(new View(getBaseContext()), "Cannot open file chooser", Snackbar.LENGTH_LONG).show();
                     return false;
                 }
 
@@ -146,9 +144,8 @@ public abstract class EditorWebView extends ExternalSiteWebView {
 
         setFile(getIntent().getParcelableExtra(ExternalSiteWebView.EXTRA_FILE));
 
-        if (getFile() == null) {
-            Toast.makeText(getApplicationContext(),
-                           R.string.richdocuments_failed_to_load_document, Toast.LENGTH_LONG).show();
+        if (getFile() == null) {Snackbar.make(new View(getApplicationContext()),
+                           R.string.richdocuments_failed_to_load_document, Snackbar.LENGTH_LONG).show();
             finish();
         }
 

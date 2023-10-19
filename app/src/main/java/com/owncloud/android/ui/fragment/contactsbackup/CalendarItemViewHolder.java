@@ -25,9 +25,8 @@ package com.owncloud.android.ui.fragment.contactsbackup;
 import android.content.Context;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
-
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder;
+import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.CalendarlistListItemBinding;
 
@@ -65,9 +64,9 @@ class CalendarItemViewHolder extends SectionedViewHolder {
     public void showCalendars(boolean show) {
         if (show) {
             if (adapter.isEmpty()) {
-                Toast.makeText(context,
-                               context.getResources().getString(R.string.no_calendar_exists),
-                               Toast.LENGTH_LONG)
+                Snackbar.make(new View(context),
+                              context.getResources().getString(R.string.no_calendar_exists),
+                              Snackbar.LENGTH_LONG)
                     .show();
             } else {
                 binding.spinner.setVisibility(View.VISIBLE);

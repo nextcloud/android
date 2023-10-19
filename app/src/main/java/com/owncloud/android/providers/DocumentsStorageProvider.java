@@ -39,8 +39,9 @@ import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.provider.DocumentsProvider;
-import android.widget.Toast;
+import android.view.View;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.files.downloader.DownloadTask;
@@ -170,7 +171,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         if (parentFolder.getFile().isEncrypted() &&
             !FileOperationsHelper.isEndToEndEncryptionSetup(context, parentFolder.getUser())) {
-            Toast.makeText(context, R.string.e2e_not_yet_setup, Toast.LENGTH_LONG).show();
+            Snackbar.make(new View(context), R.string.e2e_not_yet_setup, Snackbar.LENGTH_LONG).show();
             return resultCursor;
         }
 
@@ -226,9 +227,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                     if (!result.isSuccess()) {
                         if (ocFile.isDown()) {
                             Handler handler = new Handler(Looper.getMainLooper());
-                            handler.post(() -> Toast.makeText(MainApp.getAppContext(),
-                                                              R.string.file_not_synced,
-                                                              Toast.LENGTH_SHORT).show());
+                            handler.post(() -> Snackbar.make(new View(MainApp.getAppContext()),
+                                                             R.string.file_not_synced,
+                                                             Snackbar.LENGTH_SHORT).show());
                             downloadResult.set(true);
                         } else {
                             Log_OC.e(TAG, result.toString());

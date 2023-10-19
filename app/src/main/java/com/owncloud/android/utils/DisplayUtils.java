@@ -51,8 +51,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -797,7 +795,7 @@ public final class DisplayUtils {
     }
 
     static public void showErrorAndFinishActivity(Activity activity, String errorMessage) {
-        Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show();
+        Snackbar.make(new View(activity), errorMessage, Snackbar.LENGTH_LONG).show();
         activity.finish();
     }
 

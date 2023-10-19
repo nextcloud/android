@@ -4,14 +4,12 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.utils.IntentUtil;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -85,7 +83,7 @@ public class SendFilesDialog extends BottomSheetDialogFragment {
         Intent sendIntent = IntentUtil.createSendIntent(requireContext(), files);
         List<ResolveInfo> matches = requireActivity().getPackageManager().queryIntentActivities(sendIntent, 0);
         if (matches.isEmpty()) {
-            Toast.makeText(getContext(), R.string.no_send_app, Toast.LENGTH_SHORT).show();
+            Snackbar.make(new View(getContext()), R.string.no_send_app, Snackbar.LENGTH_SHORT).show();
             dismiss();
             return null;
         }

@@ -2,9 +2,9 @@ package com.owncloud.android.authentication;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
+import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 
@@ -16,7 +16,7 @@ public class DeepLinkLoginActivity extends AuthenticatorActivity implements Inje
 
         if (!getResources().getBoolean(R.bool.multiaccount_support) &&
             accountManager.getAccounts().length == 1) {
-            Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
+            Snackbar.make(new View(this), R.string.no_mutliple_accounts_allowed, Snackbar.LENGTH_LONG).show();
             return;
         }
 
@@ -33,7 +33,7 @@ public class DeepLinkLoginActivity extends AuthenticatorActivity implements Inje
                 loginText.setText(String.format(getString(R.string.direct_login_text), loginUrlInfo.username,
                                                 loginUrlInfo.serverAddress));
             } catch (IllegalArgumentException e) {
-                Toast.makeText(this, R.string.direct_login_failed, Toast.LENGTH_LONG).show();
+                Snackbar.make(new View(this), R.string.direct_login_failed, Snackbar.LENGTH_LONG).show();
             }
         }
     }

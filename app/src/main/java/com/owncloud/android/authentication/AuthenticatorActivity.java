@@ -72,8 +72,6 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
-
 import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.android.common.ui.color.ColorUtil;
@@ -688,7 +686,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme))) {
             if (!getResources().getBoolean(R.bool.multiaccount_support) &&
                 accountManager.getAccounts().length == 1) {
-                Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
+                Snackbar.make(new View(this), R.string.no_mutliple_accounts_allowed, Snackbar.LENGTH_LONG).show();
                 finish();
                 return;
             } else {
@@ -1521,7 +1519,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             if (!getResources().getBoolean(R.bool.multiaccount_support) &&
                 accountManager.getAccounts().length == 1) {
-                Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
+                Snackbar.make(new View(this), R.string.no_mutliple_accounts_allowed, Snackbar.LENGTH_LONG).show();
             } else {
                 parseAndLoginFromWebView(result);
             }

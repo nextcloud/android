@@ -30,8 +30,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
-
+import android.view.View;
+import com.google.android.material.snackbar.Snackbar;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
@@ -109,7 +109,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             final String message = String.format(mContext.getString(R.string.auth_unsupported_multiaccount), mContext.getString(R.string.app_name));
             bundle.putString(AccountManager.KEY_ERROR_MESSAGE, message);
 
-            mHandler.post(() -> Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show());
+            mHandler.post(() -> Snackbar.make(new View(mContext), message, Snackbar.LENGTH_SHORT).show());
         }
 
         return bundle;

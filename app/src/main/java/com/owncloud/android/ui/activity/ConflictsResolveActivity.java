@@ -20,8 +20,8 @@ package com.owncloud.android.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
-
+import android.view.View;
+import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
@@ -244,7 +244,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     }
 
     private void showErrorAndFinish() {
-        runOnUiThread(() -> Toast.makeText(this, R.string.conflict_dialog_error, Toast.LENGTH_LONG).show());
+        runOnUiThread(() -> Snackbar.make(new View(this), R.string.conflict_dialog_error, Snackbar.LENGTH_LONG).show());
         finish();
     }
 

@@ -23,7 +23,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.owncloud.android.R
@@ -69,7 +68,7 @@ class ShowErrorActivity : AppCompatActivity() {
             URLEncoder.encode(binding.textViewError.text.toString(), Charsets.UTF_8.name())
         )
         DisplayUtils.startLinkIntent(this, issueLink)
-        Toast.makeText(this, R.string.copied_to_clipboard, Toast.LENGTH_LONG).show()
+        Snackbar.make(binding.root, R.string.copied_to_clipboard, Snackbar.LENGTH_LONG).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
