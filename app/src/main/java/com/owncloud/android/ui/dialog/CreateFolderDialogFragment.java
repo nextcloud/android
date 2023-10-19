@@ -31,6 +31,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.di.Injectable;
@@ -71,7 +72,7 @@ public class CreateFolderDialogFragment
 
 
     private OCFile mParentFolder;
-    private Button positiveButton;
+    private MaterialButton positiveButton;
 
 
     private EditBoxDialogBinding binding;
@@ -101,13 +102,11 @@ public class CreateFolderDialogFragment
     private void bindButton() {
         Dialog dialog = getDialog();
 
-        if (dialog instanceof AlertDialog) {
-            AlertDialog alertDialog = (AlertDialog) dialog;
-
-            positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-
-            viewThemeUtils.platform.colorTextButtons(positiveButton,
-                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+        if (dialog instanceof AlertDialog alertDialog) {
+            positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
         }
     }
 
@@ -186,15 +185,23 @@ public class CreateFolderDialogFragment
         });
 
         // Build the dialog
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
-        builder.setView(view)
-            .setPositiveButton(R.string.folder_confirm_create, this)
-            .setNeutralButton(R.string.common_cancel, this)
-            .setTitle(R.string.uploader_info_dirname);
+        MaterialAlertDialogBuilder builder = buildMaterialAlertDialog(view);
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInputContainer.getContext(), builder);
 
         return builder.create();
+    }
+
+    private MaterialAlertDialogBuilder buildMaterialAlertDialog(View view) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
+
+        builder
+            .setView(view)
+            .setPositiveButton(R.string.folder_confirm_create, this)
+            .setNegativeButton(R.string.common_cancel, this)
+            .setTitle(R.string.uploader_info_dirname);
+
+        return builder;
     }
 
     @Override
