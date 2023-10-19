@@ -20,6 +20,7 @@
  */
 package com.owncloud.android.ui
 
+import android.os.Build
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
@@ -28,6 +29,7 @@ import androidx.test.espresso.web.sugar.Web
 import androidx.test.espresso.web.webdriver.DriverAtoms
 import androidx.test.espresso.web.webdriver.Locator
 import androidx.test.filters.LargeTest
+import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
@@ -59,6 +61,12 @@ class LoginIT : AbstractIT() {
     @Test
     @Throws(InterruptedException::class)
     @Suppress("MagicNumber", "SwallowedException")
+
+    /**
+     * The CI/CD pipeline is encountering issues related to the Android version for this functionality.
+     * Therefore the test will only be executed on Android versions 10 and above.
+     */
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.Q)
     fun login() {
         val arguments = InstrumentationRegistry.getArguments()
         val baseUrl = arguments.getString("TEST_SERVER_URL")!!

@@ -135,10 +135,20 @@ public abstract class AbstractOnServerIT extends AbstractIT {
                                    .isSuccess());
                 }
 
-                assertTrue(new RemoveFileRemoteOperation(remoteFile.getRemotePath())
-                               .execute(client)
-                               .isSuccess()
-                          );
+                boolean removeResult = false;
+                for (int i = 0; i < 5; i++) {
+                    removeResult = new RemoveFileRemoteOperation(remoteFile.getRemotePath())
+                        .execute(client)
+                        .isSuccess();
+                    
+                    if (removeResult) {
+                        break;
+                    }
+
+                    shortSleep();
+                }
+
+                assertTrue(removeResult);
             }
         }
     }

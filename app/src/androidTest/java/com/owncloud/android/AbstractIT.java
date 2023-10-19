@@ -317,7 +317,7 @@ public abstract class AbstractIT {
         return currentActivity;
     }
 
-    protected void shortSleep() {
+    protected static void shortSleep() {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {

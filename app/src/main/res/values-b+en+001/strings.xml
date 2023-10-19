@@ -836,6 +836,7 @@
     <string name="trashbin_empty_message">You will be able to recover deleted files from here.</string>
     <string name="trashbin_file_not_deleted">File %1$s could not be deleted!</string>
     <string name="trashbin_file_not_restored">File %1$s could not be restored!</string>
+    <string name="trashbin_file_remove">Delete permanently</string>
     <string name="trashbin_loading_failed">Loading trash bin failed!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
     <string name="unlock_file">Unlock file</string>

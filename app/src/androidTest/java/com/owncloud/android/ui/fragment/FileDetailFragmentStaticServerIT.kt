@@ -73,14 +73,19 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun showFileDetailDetailsFragment() {
-        val sut = testActivityRule.launchActivity(null)
-        sut.addFragment(ImageDetailFragment.newInstance(oCFile, user))
+        val activity = testActivityRule.launchActivity(null)
+        val sut = ImageDetailFragment.newInstance(oCFile, user)
+        activity.addFragment(sut)
 
+        shortSleep()
+        shortSleep()
         waitForIdleSync()
-        shortSleep()
-        shortSleep()
-        shortSleep()
-        screenshot(sut)
+
+        activity.runOnUiThread {
+            sut.hideMap()
+        }
+
+        screenshot(activity)
     }
 
     @Test
@@ -182,6 +187,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
         waitForIdleSync()
 
         activity.runOnUiThread {
+            sut.fileDetailActivitiesFragment.disableLoadingActivities()
             sut
                 .fileDetailActivitiesFragment
                 .setErrorContent(targetContext.resources.getString(R.string.file_detail_activity_error))

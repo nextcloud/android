@@ -796,6 +796,7 @@
     <string name="trashbin_empty_message">Des d\'aquí es podran recuperar fitxers suprimits.</string>
     <string name="trashbin_file_not_deleted">El fitxer %1$s no es pot suprimir!</string>
     <string name="trashbin_file_not_restored">El fitxer %1$s no es pot restaurar!</string>
+    <string name="trashbin_file_remove">Suprimeix permanentment</string>
     <string name="trashbin_loading_failed">No s\'ha pogut carregar la paperera!</string>
     <string name="trashbin_not_emptied">Els fitxers no s\'han pogut suprimir permanentment!</string>
     <string name="unlock_file">Desbloca el fitxer</string>

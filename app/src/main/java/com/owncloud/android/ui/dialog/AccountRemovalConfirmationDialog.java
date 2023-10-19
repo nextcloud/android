@@ -25,6 +25,7 @@ package com.owncloud.android.ui.dialog;
 import android.app.Dialog;
 import android.os.Bundle;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
@@ -59,7 +60,11 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user = getArguments().getParcelable(KEY_USER);
+
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            user = arguments.getParcelable(KEY_USER);
+        }
     }
 
     @Override
@@ -67,9 +72,18 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
         super.onStart();
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
+        if (alertDialog != null) {
 
-        viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                                 alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+            MaterialButton positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            if (positiveButton != null) {
+                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
+            }
+
+            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+            if (negativeButton != null) {
+                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
+            }
+        }
     }
 
     @NonNull
@@ -82,7 +96,7 @@ public class AccountRemovalConfirmationDialog extends DialogFragment implements 
             .setPositiveButton(R.string.common_ok,
                                (dialogInterface, i) -> backgroundJobManager.startAccountRemovalJob(user.getAccountName(),
                                                                                                    false))
-            .setNeutralButton(R.string.common_cancel, null);
+            .setNegativeButton(R.string.common_cancel, null);
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(requireActivity(), builder);
 
