@@ -185,12 +185,10 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
             int finalIndex = i;
             editText.setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(finalIndex));
 
-            // Disable touch event for focus change via tap gesture
+            // Disable focus change via tap gesture
             editText.setSelectAllOnFocus(false);
             editText.setTextIsSelectable(false);
-            editText.setOnTouchListener((v, event) -> {
-                return true;
-            });
+            editText.setOnTouchListener((v, event) -> true);
         }
     }
 
@@ -478,4 +476,5 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {}
     }
+
 }
