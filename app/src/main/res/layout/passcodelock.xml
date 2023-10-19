@@ -73,13 +73,10 @@
                         android:id="@+id/txt0"
                         style="@style/PassCodeStyle"
                         android:cursorVisible="false"
-                        android:focusable="true"
                         android:hint="@string/hidden_character"
                         android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no"
                         tools:text="123">
-
-                        <requestFocus />
                     </com.google.android.material.textfield.TextInputEditText>
 
                     <com.google.android.material.textfield.TextInputEditText

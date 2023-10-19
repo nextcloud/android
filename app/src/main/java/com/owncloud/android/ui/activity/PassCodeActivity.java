@@ -23,6 +23,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -30,7 +31,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -91,7 +91,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         binding = PasscodelockBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         viewThemeUtils.platform.colorTextButtons(binding.cancel);
 
         passCodeEditTexts[0] = binding.txt0;
@@ -104,7 +103,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         }
 
         passCodeEditTexts[0].requestFocus();
-
 
         Window window = getWindow();
         if (window != null) {
@@ -125,7 +123,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                 passCodeDigits = savedInstanceState.getStringArray(PassCodeActivity.KEY_PASSCODE_DIGITS);
             }
             if (confirmingPassCode) {
-                // the app was in the passcodeconfirmation
+                // the app was in the passcode confirmation
                 requestPassCodeConfirmation();
             } else {
                 // pass code preference has just been activated in SettingsActivity;
@@ -158,12 +156,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     protected void setCancelButtonEnabled(boolean enabled) {
         if (enabled) {
             binding.cancel.setVisibility(View.VISIBLE);
-            binding.cancel.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
+            binding.cancel.setOnClickListener(v -> finish());
         } else {
             binding.cancel.setVisibility(View.INVISIBLE);
             binding.cancel.setOnClickListener(null);
@@ -178,21 +171,27 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     /**
      * Binds the appropriate listeners to the input boxes receiving each digit of the pass code.
      */
+    @SuppressLint("ClickableViewAccessibility")
     protected void setTextListeners() {
-        passCodeEditTexts[0].addTextChangedListener(new PassCodeDigitTextWatcher(0, false));
-        passCodeEditTexts[1].addTextChangedListener(new PassCodeDigitTextWatcher(1, false));
-        passCodeEditTexts[2].addTextChangedListener(new PassCodeDigitTextWatcher(2, false));
-        passCodeEditTexts[3].addTextChangedListener(new PassCodeDigitTextWatcher(3, true));
+        for (int i = 0; i < passCodeEditTexts.length; i++) {
+            final EditText editText = passCodeEditTexts[i];
+            boolean isLast = (i == 3);
 
-        setOnKeyListener(1);
-        setOnKeyListener(2);
-        setOnKeyListener(3);
+            editText.addTextChangedListener(new PassCodeDigitTextWatcher(i, isLast));
+            if (i > 0) {
+                setOnKeyListener(i);
+            }
 
-        passCodeEditTexts[1].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(1));
+            int finalIndex = i;
+            editText.setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(finalIndex));
 
-        passCodeEditTexts[2].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(2));
-
-        passCodeEditTexts[3].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(3));
+            // Disable touch event for focus change via tap gesture
+            editText.setSelectAllOnFocus(false);
+            editText.setTextIsSelectable(false);
+            editText.setOnTouchListener((v, event) -> {
+                return true;
+            });
+        }
     }
 
     private void onPassCodeEditTextFocusChange(final int passCodeIndex) {
@@ -284,8 +283,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         }
     }
 
-    private void showErrorAndRestart(int errorMessage, int headerMessage,
-                                     int explanationVisibility) {
+    private void showErrorAndRestart(int errorMessage, int headerMessage, int explanationVisibility) {
         Arrays.fill(passCodeDigits, null);
         Snackbar.make(findViewById(android.R.id.content), getString(errorMessage), Snackbar.LENGTH_LONG).show();
         binding.header.setText(headerMessage);                          // TODO check if really needed
@@ -312,8 +310,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
      * @return 'True' if entered pass code equals to the saved one.
      */
     protected boolean checkPassCode() {
-
-
         String[] savedPassCodeDigits = preferences.getPassCode();
 
         boolean result = true;
@@ -401,7 +397,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(delay * 1000);
+                        Thread.sleep(delay * 1000L);
 
                         runOnUiThread(() -> {
                             binding.explanation.setVisibility(View.INVISIBLE);
@@ -477,13 +473,9 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         }
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            // nothing to do
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // nothing to do
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
     }
 }
