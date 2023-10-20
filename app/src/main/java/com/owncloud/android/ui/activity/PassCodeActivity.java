@@ -172,7 +172,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     /**
      * Binds the appropriate listeners to the input boxes receiving each digit of the pass code.
      */
-    @SuppressLint("ClickableViewAccessibility")
     protected void setTextListeners() {
         for (int i = 0; i < passCodeEditTexts.length; i++) {
             final PassCodeEditText editText = passCodeEditTexts[i];
@@ -185,11 +184,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
 
             int finalIndex = i;
             editText.setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(finalIndex));
-
-            // Disable focus change via tap gesture
-            editText.setSelectAllOnFocus(false);
-            editText.setTextIsSelectable(false);
-            editText.setOnTouchListener((v, event) -> true);
         }
     }
 
