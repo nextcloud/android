@@ -109,6 +109,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
      */
     override fun onCreate() {
         super.onCreate()
+
         AndroidInjection.inject(this)
         Log_OC.d(TAG, "Creating service")
         initNotificationManager()
@@ -133,20 +134,20 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
     private fun initNotificationBuilder() {
         val resources = applicationContext.resources
         val title = resources.getString(R.string.foreground_service_download)
+
         notificationBuilder = NotificationUtils.newNotificationBuilder(this, viewThemeUtils)
             .setSmallIcon(R.drawable.notification_icon)
             .setOngoing(true)
             .setContentTitle(title)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationBuilder!!.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
+            notificationBuilder?.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
         }
-        notification = notificationBuilder!!.build()
+        notification = notificationBuilder?.build()
     }
 
     private fun notifyNotificationManager() {
-        if (notificationManager != null) {
-            notificationManager!!.notify(R.string.downloader_download_in_progress_ticker, notificationBuilder!!.build())
-        }
+        notificationManager?.notify(R.string.downloader_download_in_progress_ticker, notificationBuilder?.build())
     }
 
     /**
@@ -176,8 +177,10 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
      */
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         Log_OC.d(TAG, "Starting command with id $startId")
+
         startForeground(FOREGROUND_SERVICE_ID, notification)
-        if (intent == null || !intent.hasExtra(EXTRA_USER) || !intent.hasExtra(EXTRA_FILE)) {
+
+        if (!intent.hasExtra(EXTRA_USER) || !intent.hasExtra(EXTRA_FILE)) {
             Log_OC.e(TAG, "Not enough information provided in intent")
             return START_NOT_STICKY
         } else {
@@ -383,7 +386,8 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
                 }
             }
             mService.mStartedDownload = false
-            Handler().postDelayed({
+
+            Handler(Looper.getMainLooper()).postDelayed({
                 if (!mService.mStartedDownload) {
                     mService.notificationManager!!.cancel(R.string.downloader_download_in_progress_ticker)
                 }
@@ -403,9 +407,11 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
     private fun downloadFile(downloadKey: String) {
         mStartedDownload = true
         mCurrentDownload = mPendingDownloads[downloadKey]
+
         if (mCurrentDownload != null) {
-            val isAccountExist = accountManager!!.exists(mCurrentDownload!!.user.toPlatformAccount())
-            if (isAccountExist) {
+            val isAccountExist = accountManager?.exists(mCurrentDownload!!.user.toPlatformAccount())
+
+            if (isAccountExist == true) {
                 notifyDownloadStart(mCurrentDownload!!)
                 var downloadResult: RemoteOperationResult<*>? = null
                 try {
@@ -455,15 +461,16 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
      * unify with code from [DocumentsStorageProvider] and [DownloadTask].
      */
     private fun saveDownloadedFile() {
-        var file = mStorageManager!!.getFileById(mCurrentDownload!!.file.fileId)
+        var file = mStorageManager?.getFileById(mCurrentDownload!!.file.fileId)
         if (file == null) {
             // try to get file via path, needed for overwriting existing files on conflict dialog
-            file = mStorageManager!!.getFileByDecryptedRemotePath(mCurrentDownload!!.file.remotePath)
+            file = mStorageManager?.getFileByDecryptedRemotePath(mCurrentDownload!!.file.remotePath)
         }
         if (file == null) {
             Log_OC.e(this, "Could not save " + mCurrentDownload!!.file.remotePath)
             return
         }
+
         val syncDate = System.currentTimeMillis()
         file.lastSyncDateForProperties = syncDate
         file.lastSyncDateForData = syncDate
@@ -500,16 +507,16 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
             ?.setProgress(100, 0, download.size < 0)
 
         /// includes a pending intent in the notification showing the details view of the file
-        val showDetailsIntent: Intent
-        showDetailsIntent = if (PreviewImageFragment.canBePreviewed(download.file)) {
+        val showDetailsIntent: Intent = if (PreviewImageFragment.canBePreviewed(download.file)) {
             Intent(this, PreviewImageActivity::class.java)
         } else {
             Intent(this, FileDisplayActivity::class.java)
         }
+
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, download.file)
         showDetailsIntent.putExtra(FileActivity.EXTRA_USER, download.user)
         showDetailsIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        notificationBuilder!!.setContentIntent(
+        notificationBuilder?.setContentIntent(
             PendingIntent.getActivity(
                 this,
                 System.currentTimeMillis().toInt(),
@@ -530,7 +537,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
     ) {
         val percent = (100.0 * totalTransferredSoFar.toDouble() / totalToTransfer.toDouble()).toInt()
         if (percent != mLastPercent) {
-            notificationBuilder!!.setProgress(100, percent, totalToTransfer < 0)
+            notificationBuilder?.setProgress(100, percent, totalToTransfer < 0)
             initNotificationManager()
             notifyNotificationManager()
         }
@@ -554,7 +561,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
                 if (conflictUploadId > 0) {
                     uploadsStorageManager!!.removeUpload(conflictUploadId)
                 }
-                // Dont show notification except an error has occured.
+                // Don't show notification except an error has occurred.
                 return
             }
             var tickerId =
@@ -573,21 +580,21 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
             } else {
                 // TODO put something smart in showDetailsIntent
                 val showDetailsIntent = Intent()
-                notificationBuilder!!.setContentIntent(
+                notificationBuilder?.setContentIntent(
                     PendingIntent.getActivity(
                         this, System.currentTimeMillis().toInt(),
                         showDetailsIntent, PendingIntent.FLAG_IMMUTABLE
                     )
                 )
             }
-            notificationBuilder!!.setContentText(
+            notificationBuilder?.setContentText(
                 ErrorMessageAdapter.getErrorCauseMessage(
                     downloadResult,
                     download, resources
                 )
             )
             if (notificationManager != null) {
-                notificationManager!!.notify(SecureRandom().nextInt(), notificationBuilder!!.build())
+                notificationManager?.notify(SecureRandom().nextInt(), notificationBuilder?.build())
 
                 // Remove success notification
                 if (downloadResult.isSuccess) {
@@ -682,9 +689,11 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
         const val DOWNLOAD_TYPE = "DOWNLOAD_TYPE"
         private const val FOREGROUND_SERVICE_ID = 412
         private val TAG = FileDownloader::class.java.simpleName
+
         @JvmStatic
         val downloadAddedMessage: String
             get() = FileDownloader::class.java.name + DOWNLOAD_ADDED_MESSAGE
+
         @JvmStatic
         val downloadFinishMessage: String
             get() = FileDownloader::class.java.name + DOWNLOAD_FINISH_MESSAGE
