@@ -20,12 +20,26 @@
  */
 package com.owncloud.android.ui.components
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.KeyEvent
+import android.view.MotionEvent
+import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 
+@SuppressLint("ClickableViewAccessibility")
 class PassCodeEditText(context: Context, attrs: AttributeSet?): AppCompatEditText(context, attrs) {
+
+    init {
+        disableFocusChangeViaTap()
+    }
+
+    private fun disableFocusChangeViaTap() {
+        setSelectAllOnFocus(false)
+        setTextIsSelectable(false)
+        setOnTouchListener { _: View?, _: MotionEvent? -> true }
+    }
 
     override fun onKeyPreIme(keyCode: Int, event: KeyEvent): Boolean {
         val isBackButtonPressed = (event.keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP)
