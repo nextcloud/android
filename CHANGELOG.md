@@ -1,8 +1,29 @@
-## 3.24.1 (February 21, 2022)
+## 3.26.0 (September 16, 2023)
+
+- image editing
+- image details, with map
+- show other Nextcloud apps
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/84
+
+## 3.25.0 (June 13, 2023)
+
+- show Groupfolder
+- Tag in file listing
+
+Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/81
+
+## 3.24.1 (February 21, 2023)
 
 - Fix crash in previous version when connecting to old server versions
 
 Minimum: NC 16 Server, Android 6.0 Marshmallow
+
+For a full list, please see https://github.com/nextcloud/android/milestone/80
 
 ## 3.24.0 (February 13, 2023)
 
