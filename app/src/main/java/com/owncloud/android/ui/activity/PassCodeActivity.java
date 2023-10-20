@@ -23,7 +23,6 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
