@@ -250,7 +250,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
     }
 
     override fun onAccountsUpdated(accounts: Array<Account>) {
-        //review the current download and cancel it if its account doesn't exist
+        // review the current download and cancel it if its account doesn't exist
         if (mCurrentDownload != null && !accountManager!!.exists(mCurrentDownload!!.user.toPlatformAccount())) {
             mCurrentDownload!!.cancel()
         }
@@ -284,7 +284,9 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
                 download.cancel()
             } else {
                 if (mCurrentDownload != null && currentUser.isPresent &&
-                    mCurrentDownload!!.remotePath.startsWith(file.remotePath) && account.name == currentUser.get().accountName
+                    mCurrentDownload!!
+                        .remotePath
+                        .startsWith(file.remotePath) && account.name == currentUser.get().accountName
                 ) {
                     mCurrentDownload!!.cancel()
                 }
@@ -350,13 +352,17 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
         }
 
         override fun onTransferProgress(
-            progressRate: Long, totalTransferredSoFar: Long,
-            totalToTransfer: Long, fileName: String
+            progressRate: Long,
+            totalTransferredSoFar: Long,
+            totalToTransfer: Long,
+            fileName: String
         ) {
             val boundListener = mBoundListeners[mCurrentDownload!!.file.fileId]
             boundListener?.onTransferProgress(
-                progressRate, totalTransferredSoFar,
-                totalToTransfer, fileName
+                progressRate,
+                totalTransferredSoFar,
+                totalToTransfer,
+                fileName
             )
         }
     }
@@ -415,7 +421,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
                 notifyDownloadStart(mCurrentDownload!!)
                 var downloadResult: RemoteOperationResult<*>? = null
                 try {
-                    /// prepare client object to send the request to the ownCloud server
+                    // / prepare client object to send the request to the ownCloud server
                     val currentDownloadAccount = mCurrentDownload!!.user.toPlatformAccount()
                     val currentDownloadUser = accountManager!!.getUser(currentDownloadAccount.name)
                     if (currentUser != currentDownloadUser) {
@@ -428,7 +434,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
                     val ocAccount = currentDownloadUser.get().toOwnCloudAccount()
                     mDownloadClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, this)
 
-                    /// perform the download
+                    // / perform the download
                     downloadResult = mCurrentDownload!!.execute(mDownloadClient)
                     if (downloadResult.isSuccess && mCurrentDownload!!.downloadType === DownloadType.DOWNLOAD) {
                         saveDownloadedFile()
@@ -438,13 +444,14 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
                     downloadResult = RemoteOperationResult<Any?>(e)
                 } finally {
                     val removeResult = mPendingDownloads.removePayload(
-                        mCurrentDownload!!.user.accountName, mCurrentDownload!!.remotePath
+                        mCurrentDownload!!.user.accountName,
+                        mCurrentDownload!!.remotePath
                     )
                     if (downloadResult == null) {
                         downloadResult = RemoteOperationResult<Any?>(RuntimeException("Error downloading…"))
                     }
 
-                    /// notify result
+                    // / notify result
                     notifyDownloadResult(mCurrentDownload!!, downloadResult)
                     sendBroadcastDownloadFinished(mCurrentDownload!!, downloadResult, removeResult.second)
                 }
@@ -499,14 +506,14 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
         val titlePrefix = getString(R.string.file_downloader_notification_title_prefix)
         val title = titlePrefix + fileName
 
-        /// update status notification with a progress bar
+        // / update status notification with a progress bar
         mLastPercent = 0
         notificationBuilder
             ?.setContentTitle(title)
             ?.setTicker(title)
             ?.setProgress(100, 0, download.size < 0)
 
-        /// includes a pending intent in the notification showing the details view of the file
+        // / includes a pending intent in the notification showing the details view of the file
         val showDetailsIntent: Intent = if (PreviewImageFragment.canBePreviewed(download.file)) {
             Intent(this, PreviewImageActivity::class.java)
         } else {
@@ -532,8 +539,10 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
      * Callback method to update the progress bar in the status notification.
      */
     override fun onTransferProgress(
-        progressRate: Long, totalTransferredSoFar: Long,
-        totalToTransfer: Long, filePath: String
+        progressRate: Long,
+        totalTransferredSoFar: Long,
+        totalToTransfer: Long,
+        filePath: String
     ) {
         val percent = (100.0 * totalTransferredSoFar.toDouble() / totalToTransfer.toDouble()).toInt()
         if (percent != mLastPercent) {
@@ -564,10 +573,21 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
                 // Don't show notification except an error has occurred.
                 return
             }
-            var tickerId =
-                if (downloadResult.isSuccess) R.string.downloader_download_succeeded_ticker else R.string.downloader_download_failed_ticker
+
+            var tickerId = if (downloadResult.isSuccess) {
+                R.string.downloader_download_succeeded_ticker
+            } else {
+                R.string.downloader_download_failed_ticker
+            }
+
             val needsToUpdateCredentials = ResultCode.UNAUTHORIZED == downloadResult.code
-            tickerId = if (needsToUpdateCredentials) R.string.downloader_download_failed_credentials_error else tickerId
+
+            tickerId = if (needsToUpdateCredentials) {
+                R.string.downloader_download_failed_credentials_error
+            } else {
+                tickerId
+            }
+
             notificationBuilder
                 ?.setSmallIcon(R.drawable.notification_icon)
                 ?.setTicker(getString(tickerId))
@@ -582,15 +602,18 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
                 val showDetailsIntent = Intent()
                 notificationBuilder?.setContentIntent(
                     PendingIntent.getActivity(
-                        this, System.currentTimeMillis().toInt(),
-                        showDetailsIntent, PendingIntent.FLAG_IMMUTABLE
+                        this,
+                        System.currentTimeMillis().toInt(),
+                        showDetailsIntent,
+                        PendingIntent.FLAG_IMMUTABLE
                     )
                 )
             }
             notificationBuilder?.setContentText(
                 ErrorMessageAdapter.getErrorCauseMessage(
                     downloadResult,
-                    download, resources
+                    download,
+                    resources
                 )
             )
             if (notificationManager != null) {
@@ -601,7 +624,8 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
                     // Sleep 2 seconds, so show the notification before remove it
                     NotificationUtils.cancelWithDelay(
                         notificationManager,
-                        R.string.downloader_download_succeeded_ticker, 2000
+                        R.string.downloader_download_succeeded_ticker,
+                        2000
                     )
                 }
             }
@@ -621,7 +645,8 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
         updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND)
         notificationBuilder!!.setContentIntent(
             PendingIntent.getActivity(
-                this, System.currentTimeMillis().toInt(),
+                this,
+                System.currentTimeMillis().toInt(),
                 updateAccountCredentials,
                 PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
             )
