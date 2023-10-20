@@ -458,10 +458,10 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                     }
                 }
 
-                passCodeEditTexts[next()].requestFocus();
-
                 if (mLastOne) {
                     processFullPassCode();
+                } else {
+                    passCodeEditTexts[next()].requestFocus();
                 }
 
             } else {
