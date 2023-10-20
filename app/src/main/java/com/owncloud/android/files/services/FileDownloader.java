@@ -380,7 +380,7 @@ public class FileDownloader extends Service
          * @param listener Object to notify about progress of transfer.
          * @param file     {@link OCFile} of interest for listener.
          */
-        public void addDatatransferProgressListener(OnDatatransferProgressListener listener, OCFile file) {
+        public void addDataTransferProgressListener(OnDatatransferProgressListener listener, OCFile file) {
             if (file == null || listener == null) {
                 return;
             }
@@ -394,7 +394,7 @@ public class FileDownloader extends Service
          * @param listener      Object to notify about progress of transfer.
          * @param file          {@link OCFile} of interest for listener.
          */
-        public void removeDatatransferProgressListener(OnDatatransferProgressListener listener, OCFile file) {
+        public void removeDataTransferProgressListener(OnDatatransferProgressListener listener, OCFile file) {
             if (file == null || listener == null) {
                 return;
             }
@@ -564,7 +564,9 @@ public class FileDownloader extends Service
      * @param download Download operation starting.
      */
     private void notifyDownloadStart(DownloadFileOperation download) {
-        String title = download.getFile().getFileName() + getString(R.string.file_downloader_notification_title_suffix);
+        String fileName = download.getFile().getFileNameWithExtension(10);
+        String titlePrefix = getString(R.string.file_downloader_notification_title_prefix);
+        String title =  titlePrefix + fileName;
 
         /// update status notification with a progress bar
         mLastPercent = 0;

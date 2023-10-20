@@ -24,14 +24,11 @@ package com.owncloud.android.datamodel;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
@@ -41,9 +38,7 @@ import com.owncloud.android.lib.resources.files.model.GeoLocation;
 import com.owncloud.android.lib.resources.files.model.ImageDimension;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
-import com.owncloud.android.utils.DrawableUtil;
 import com.owncloud.android.utils.MimeType;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -52,7 +47,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import third_parties.daveKoeller.AlphanumComparator;
@@ -348,6 +342,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
             return new File(localPath).exists();
         }
         return false;
+    }
+
+    public String getFileNameWithExtension(int fileNameLength) {
+        String fileName = getFileName();
+        String shortFileName = fileName.substring(0, Math.min(fileName.length(), fileNameLength));
+        String extension = "." + fileName.substring(fileName.lastIndexOf('.') + 1);
+        return shortFileName + extension;
     }
 
     /**
