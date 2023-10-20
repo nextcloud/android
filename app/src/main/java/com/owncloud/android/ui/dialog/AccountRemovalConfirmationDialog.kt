@@ -19,87 +19,89 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.dialog
 
-package com.owncloud.android.ui.dialog;
+import android.app.Dialog
+import android.content.DialogInterface
+import android.os.Build
+import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.nextcloud.client.account.User
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.jobs.BackgroundJobManager
+import com.owncloud.android.R
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
-import android.app.Dialog;
-import android.os.Bundle;
+class AccountRemovalConfirmationDialog : DialogFragment(), Injectable {
+    @JvmField
+    @Inject
+    var backgroundJobManager: BackgroundJobManager? = null
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.owncloud.android.R;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
+    @JvmField
+    @Inject
+    var viewThemeUtils: ViewThemeUtils? = null
 
-import javax.inject.Inject;
+    private var user: User? = null
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-public class AccountRemovalConfirmationDialog extends DialogFragment implements Injectable {
-    private static final String KEY_USER = "USER";
-
-    @Inject BackgroundJobManager backgroundJobManager;
-    @Inject ViewThemeUtils viewThemeUtils;
-    private User user;
-
-    public static AccountRemovalConfirmationDialog newInstance(User user) {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(KEY_USER, user);
-
-        AccountRemovalConfirmationDialog dialog = new AccountRemovalConfirmationDialog();
-        dialog.setArguments(bundle);
-
-        return dialog;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            user = arguments.getParcelable(KEY_USER);
+        user = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requireArguments().getParcelable(KEY_USER, User::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            requireArguments().getParcelable(KEY_USER)
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    override fun onStart() {
+        super.onStart()
 
-        AlertDialog alertDialog = (AlertDialog) getDialog();
+        val alertDialog = dialog as AlertDialog?
+
         if (alertDialog != null) {
+            val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton
+            viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(positiveButton)
 
-            MaterialButton positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            if (positiveButton != null) {
-                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
-            }
-
-            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-            if (negativeButton != null) {
-                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
-            }
+            val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton
+            viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(negativeButton)
         }
     }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity())
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val builder = MaterialAlertDialogBuilder(requireActivity())
             .setTitle(R.string.delete_account)
-            .setMessage(getResources().getString(R.string.delete_account_warning, user.getAccountName()))
+            .setMessage(resources.getString(R.string.delete_account_warning, user!!.accountName))
             .setIcon(R.drawable.ic_warning)
-            .setPositiveButton(R.string.common_ok,
-                               (dialogInterface, i) -> backgroundJobManager.startAccountRemovalJob(user.getAccountName(),
-                                                                                                   false))
-            .setNegativeButton(R.string.common_cancel, null);
+            .setPositiveButton(R.string.common_ok) { _: DialogInterface?, _: Int ->
+                backgroundJobManager?.startAccountRemovalJob(
+                    user!!.accountName,
+                    false
+                )
+            }
+            .setNegativeButton(R.string.common_cancel, null)
 
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(requireActivity(), builder);
+        viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(requireActivity(), builder)
 
-        return  builder.create();
+        return builder.create()
     }
+
+    companion object {
+
+        private const val KEY_USER = "USER"
+
+        @JvmStatic
+        fun newInstance(user: User?): AccountRemovalConfirmationDialog {
+            val bundle = Bundle()
+            bundle.putParcelable(KEY_USER, user)
+            val dialog = AccountRemovalConfirmationDialog()
+            dialog.arguments = bundle
+            return dialog
+        }
+    }
+
 }
