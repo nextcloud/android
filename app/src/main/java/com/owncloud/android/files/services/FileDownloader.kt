@@ -175,6 +175,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
      * New downloads are added calling to startService(), resulting in a call to this method.
      * This ensures the service will keep on working although the caller activity goes away.
      */
+    @Suppress("LongParameterList")
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         Log_OC.d(TAG, "Starting command with id $startId")
 
@@ -277,9 +278,11 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
          * @param account ownCloud account where the remote file is stored.
          * @param file    A file in the queue of pending downloads
          */
+        @Suppress("ComplexMethod")
         fun cancel(account: Account, file: OCFile) {
             val removeResult = mPendingDownloads.remove(account.name, file.remotePath)
             val download = removeResult.first
+
             if (download != null) {
                 download.cancel()
             } else {
@@ -382,6 +385,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
             mService = service
         }
 
+        @Suppress("MagicNumber")
         override fun handleMessage(msg: Message) {
             val requestedDownloads = msg.obj as AbstractList<String>
             if (msg.obj != null) {
@@ -410,6 +414,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
      *
      * @param downloadKey Key to access the download to perform, contained in mPendingDownloads
      */
+    @Suppress("NestedBlockDepth", "TooGenericExceptionCaught")
     private fun downloadFile(downloadKey: String) {
         mStartedDownload = true
         mCurrentDownload = mPendingDownloads[downloadKey]
@@ -501,6 +506,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
      *
      * @param download Download operation starting.
      */
+    @Suppress("MagicNumber")
     private fun notifyDownloadStart(download: DownloadFileOperation) {
         val fileName = download.file.getFileNameWithExtension(10)
         val titlePrefix = getString(R.string.file_downloader_notification_title_prefix)
@@ -538,6 +544,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
     /**
      * Callback method to update the progress bar in the status notification.
      */
+    @Suppress("MagicNumber")
     override fun onTransferProgress(
         progressRate: Long,
         totalTransferredSoFar: Long,
@@ -560,6 +567,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
      * @param download       Finished download operation
      */
     @SuppressFBWarnings("DMI")
+    @Suppress("MagicNumber")
     private fun notifyDownloadResult(
         download: DownloadFileOperation,
         downloadResult: RemoteOperationResult<*>
