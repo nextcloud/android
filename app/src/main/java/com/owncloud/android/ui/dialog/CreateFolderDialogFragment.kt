@@ -17,214 +17,186 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+package com.owncloud.android.ui.dialog
 
-package com.owncloud.android.ui.dialog;
-
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.common.collect.Sets;
-import com.nextcloud.client.di.Injectable;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.EditBoxDialogBinding;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.KeyboardUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.util.List;
-import java.util.Set;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
+import android.app.Dialog
+import android.content.DialogInterface
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
+import android.view.View
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.common.collect.Sets
+import com.nextcloud.client.di.Injectable
+import com.owncloud.android.R
+import com.owncloud.android.databinding.EditBoxDialogBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.files.FileUtils
+import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.KeyboardUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
 /**
  * Dialog to input the name for a new folder to create.
- * <p>
+ *
+ *
  * Triggers the folder creation when name is confirmed.
  */
-public class CreateFolderDialogFragment
-    extends DialogFragment implements DialogInterface.OnClickListener, Injectable {
+class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickListener, Injectable {
+    @JvmField
+    @Inject
+    var fileDataStorageManager: FileDataStorageManager? = null
 
-    private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
+    @JvmField
+    @Inject
+    var viewThemeUtils: ViewThemeUtils? = null
 
-    public static final String CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT";
+    @JvmField
+    @Inject
+    var keyboardUtils: KeyboardUtils? = null
+    private var mParentFolder: OCFile? = null
+    private var positiveButton: MaterialButton? = null
 
-    @Inject FileDataStorageManager fileDataStorageManager;
-    @Inject ViewThemeUtils viewThemeUtils;
-    @Inject KeyboardUtils keyboardUtils;
+    private lateinit var binding: EditBoxDialogBinding
 
-
-    private OCFile mParentFolder;
-    private MaterialButton positiveButton;
-
-
-    private EditBoxDialogBinding binding;
-
-    /**
-     * Public factory method to create new CreateFolderDialogFragment instances.
-     *
-     * @param parentFolder Folder to create
-     * @return Dialog ready to show.
-     */
-    public static CreateFolderDialogFragment newInstance(OCFile parentFolder) {
-        CreateFolderDialogFragment frag = new CreateFolderDialogFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_PARENT_FOLDER, parentFolder);
-        frag.setArguments(args);
-        return frag;
-
+    override fun onStart() {
+        super.onStart()
+        bindButton()
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    private fun bindButton() {
+        val dialog = dialog
 
-        bindButton();
-    }
+        if (dialog is AlertDialog) {
+            positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton
+            val negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton
 
-    private void bindButton() {
-        Dialog dialog = getDialog();
-
-        if (dialog instanceof AlertDialog alertDialog) {
-            positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
-            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
+            viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(positiveButton!!)
+            viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(negativeButton)
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        bindButton();
-        keyboardUtils.showKeyboardForEditText(requireDialog().getWindow(), binding.userInput);
+    override fun onResume() {
+        super.onResume()
+        bindButton()
+        keyboardUtils!!.showKeyboardForEditText(requireDialog().window, binding.userInput)
     }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mParentFolder = getArguments().getParcelable(ARG_PARENT_FOLDER);
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        mParentFolder = arguments?.getParcelable(ARG_PARENT_FOLDER)
 
         // Inflate the layout for the dialog
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        binding = EditBoxDialogBinding.inflate(inflater, null, false);
-        View view = binding.getRoot();
+        val inflater = requireActivity().layoutInflater
+        binding = EditBoxDialogBinding.inflate(inflater, null, false)
+        val view: View = binding.root
 
         // Setup layout
-        binding.userInput.setText("");
-        viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer);
+        binding.userInput.setText("")
+        viewThemeUtils?.material?.colorTextInputLayout(binding.userInputContainer)
 
-        OCFile parentFolder = requireArguments().getParcelable(ARG_PARENT_FOLDER);
-        List<OCFile> folderContent = fileDataStorageManager.getFolderContent(parentFolder, false);
-        Set<String> fileNames = Sets.newHashSetWithExpectedSize(folderContent.size());
+        val parentFolder = requireArguments().getParcelable<OCFile>(ARG_PARENT_FOLDER)
 
-        for (OCFile file : folderContent) {
-            fileNames.add(file.getFileName());
+        val folderContent = fileDataStorageManager!!.getFolderContent(parentFolder, false)
+        val fileNames: MutableSet<String> = Sets.newHashSetWithExpectedSize(folderContent.size)
+        for (file in folderContent) {
+            fileNames.add(file.fileName)
         }
 
         // Add TextChangedListener to handle showing/hiding the input warning message
-        binding.userInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+        binding.userInput.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             /**
              * When user enters a hidden file name, the 'hidden file' message is shown. Otherwise,
              * the message is ensured to be hidden.
              */
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String newFileName = "";
-                if (binding.userInput.getText() != null) {
-                    newFileName = binding.userInput.getText().toString().trim();
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                var newFileName = ""
+                if (binding.userInput.text != null) {
+                    newFileName = binding.userInput.text.toString().trim { it <= ' ' }
                 }
-
-                if (!TextUtils.isEmpty(newFileName) && newFileName.charAt(0) == '.') {
-                    binding.userInputContainer.setError(getText(R.string.hidden_file_name_warning));
+                if (!TextUtils.isEmpty(newFileName) && newFileName[0] == '.') {
+                    binding.userInputContainer.error = getText(R.string.hidden_file_name_warning)
                 } else if (TextUtils.isEmpty(newFileName)) {
-                    binding.userInputContainer.setError(getString(R.string.filename_empty));
+                    binding.userInputContainer.error = getString(R.string.filename_empty)
                     if (positiveButton == null) {
-                        bindButton();
+                        bindButton()
                     }
-                    positiveButton.setEnabled(false);
+                    positiveButton!!.isEnabled = false
                 } else if (!FileUtils.isValidName(newFileName)) {
-                    binding.userInputContainer.setError(getString(R.string.filename_forbidden_charaters_from_server));
-                    positiveButton.setEnabled(false);
+                    binding.userInputContainer.error = getString(R.string.filename_forbidden_charaters_from_server)
+                    positiveButton!!.isEnabled = false
                 } else if (fileNames.contains(newFileName)) {
-                    binding.userInputContainer.setError(getText(R.string.file_already_exists));
-                    positiveButton.setEnabled(false);
-                } else if (binding.userInputContainer.getError() != null) {
-                    binding.userInputContainer.setError(null);
+                    binding.userInputContainer.error = getText(R.string.file_already_exists)
+                    positiveButton!!.isEnabled = false
+                } else if (binding.userInputContainer.error != null) {
+                    binding.userInputContainer.error = null
                     // Called to remove extra padding
-                    binding.userInputContainer.setErrorEnabled(false);
-                    positiveButton.setEnabled(true);
+                    binding.userInputContainer.isErrorEnabled = false
+                    positiveButton!!.isEnabled = true
                 }
             }
-        });
+        })
 
         // Build the dialog
-        MaterialAlertDialogBuilder builder = buildMaterialAlertDialog(view);
-
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInputContainer.getContext(), builder);
-
-        return builder.create();
+        val builder = buildMaterialAlertDialog(view)
+        viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(binding.userInputContainer.context, builder)
+        return builder.create()
     }
 
-    private MaterialAlertDialogBuilder buildMaterialAlertDialog(View view) {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
-
+    private fun buildMaterialAlertDialog(view: View): MaterialAlertDialogBuilder {
+        val builder = MaterialAlertDialogBuilder(requireActivity())
         builder
             .setView(view)
             .setPositiveButton(R.string.folder_confirm_create, this)
             .setNegativeButton(R.string.common_cancel, this)
-            .setTitle(R.string.uploader_info_dirname);
-
-        return builder;
+            .setTitle(R.string.uploader_info_dirname)
+        return builder
     }
 
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
+    override fun onClick(dialog: DialogInterface, which: Int) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
-            String newFolderName =
-                ((TextView) (getDialog().findViewById(R.id.user_input)))
-                    .getText().toString().trim();
-
+            val newFolderName = (getDialog()!!.findViewById<View>(R.id.user_input) as TextView)
+                .text.toString().trim { it <= ' ' }
             if (TextUtils.isEmpty(newFolderName)) {
-                DisplayUtils.showSnackMessage(requireActivity(), R.string.filename_empty);
-                return;
+                DisplayUtils.showSnackMessage(requireActivity(), R.string.filename_empty)
+                return
             }
-
             if (!FileUtils.isValidName(newFolderName)) {
-                DisplayUtils.showSnackMessage(requireActivity(), R.string.filename_forbidden_charaters_from_server);
-
-                return;
+                DisplayUtils.showSnackMessage(requireActivity(), R.string.filename_forbidden_charaters_from_server)
+                return
             }
+            val path = mParentFolder!!.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
+            (requireActivity() as ComponentsGetter).fileOperationsHelper.createFolder(path)
+        }
+    }
 
-            String path = mParentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
+    companion object {
+        private const val ARG_PARENT_FOLDER = "PARENT_FOLDER"
+        const val CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT"
 
-            ((ComponentsGetter) requireActivity()).getFileOperationsHelper().createFolder(path);
+        /**
+         * Public factory method to create new CreateFolderDialogFragment instances.
+         *
+         * @param parentFolder Folder to create
+         * @return Dialog ready to show.
+         */
+        @JvmStatic
+        fun newInstance(parentFolder: OCFile?): CreateFolderDialogFragment {
+            val frag = CreateFolderDialogFragment()
+            val args = Bundle()
+            args.putParcelable(ARG_PARENT_FOLDER, parentFolder)
+            frag.arguments = args
+            return frag
         }
     }
 }
