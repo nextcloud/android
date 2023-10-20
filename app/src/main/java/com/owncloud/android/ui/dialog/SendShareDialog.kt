@@ -99,6 +99,7 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
         return binding.root
     }
 
+    @Suppress("MagicNumber")
     private fun setupSendButtonRecyclerView() {
         val sendIntent = createSendIntent(requireContext(), file!!)
         val sendButtonDataList = setupSendButtonData(sendIntent)
@@ -120,6 +121,7 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
         viewThemeUtils?.platform?.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE_VARIANT)
     }
 
+    @Suppress("MagicNumber")
     private fun checkButtonVisibilities() {
         if (hideNcSharingOptions) {
             binding.sendShareButtons.visibility = View.GONE
@@ -194,7 +196,7 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
                 if (file!!.isDown) {
                     sendIntent.component = ComponentName(packageName, activityName)
                     requireActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)))
-                } else {  // Download the file
+                } else { // Download the file
                     Log_OC.d(TAG, file!!.remotePath + ": File must be downloaded")
                     (requireActivity() as SendShareDialogDownloader)
                         .downloadFile(file, packageName, activityName)
@@ -268,7 +270,5 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
             dialogFragment.arguments = args
             return dialogFragment
         }
-
     }
-
 }
