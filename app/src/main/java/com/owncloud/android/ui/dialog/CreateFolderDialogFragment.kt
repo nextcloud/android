@@ -90,6 +90,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
         keyboardUtils!!.showKeyboardForEditText(requireDialog().window, binding.userInput)
     }
 
+    @Suppress("EmptyFunctionBlock")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         mParentFolder = arguments?.getParcelable(ARG_PARENT_FOLDER)
 
