@@ -324,6 +324,7 @@
     </style>
 
     <style name="PassCodeStyle">
+        <item name="android:hint">@string/hidden_character</item>
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:gravity">center</item>

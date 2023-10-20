@@ -69,34 +69,26 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.owncloud.android.ui.components.PassCodeEditText
                         android:id="@+id/txt0"
                         style="@style/PassCodeStyle"
-                        android:hint="@string/hidden_character"
-                        android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no"
                         tools:text="123">
-                    </com.google.android.material.textfield.TextInputEditText>
+                    </com.owncloud.android.ui.components.PassCodeEditText>
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.owncloud.android.ui.components.PassCodeEditText
                         android:id="@+id/txt1"
                         style="@style/PassCodeStyle"
-                        android:hint="@string/hidden_character"
-                        android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.owncloud.android.ui.components.PassCodeEditText
                         android:id="@+id/txt2"
                         style="@style/PassCodeStyle"
-                        android:hint="@string/hidden_character"
-                        android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.owncloud.android.ui.components.PassCodeEditText
                         android:id="@+id/txt3"
                         style="@style/PassCodeStyle"
-                        android:hint="@string/hidden_character"
-                        android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />
                 </LinearLayout>
 

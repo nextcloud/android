@@ -42,6 +42,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.databinding.PasscodelockBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.components.PassCodeEditText;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.Arrays;
@@ -74,7 +75,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     @Inject PassCodeManager passCodeManager;
     @Inject ViewThemeUtils viewThemeUtils;
     private PasscodelockBinding binding;
-    private final EditText[] passCodeEditTexts = new EditText[4];
+    private final PassCodeEditText[] passCodeEditTexts = new PassCodeEditText[4];
     private String[] passCodeDigits = {"", "", "", ""};
     private boolean confirmingPassCode;
     private boolean changed = true; // to control that only one blocks jump
@@ -174,7 +175,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     @SuppressLint("ClickableViewAccessibility")
     protected void setTextListeners() {
         for (int i = 0; i < passCodeEditTexts.length; i++) {
-            final EditText editText = passCodeEditTexts[i];
+            final PassCodeEditText editText = passCodeEditTexts[i];
             boolean isLast = (i == 3);
 
             editText.addTextChangedListener(new PassCodeDigitTextWatcher(i, isLast));
@@ -276,8 +277,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                 (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(
                 focusedView.getWindowToken(),
-                0
-                                                      );
+                0);
         }
     }
 
@@ -412,7 +412,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         }
     }
 
-
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -434,6 +433,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         PassCodeDigitTextWatcher(int index, boolean lastOne) {
             mIndex = index;
             mLastOne = lastOne;
+
             if (mIndex < 0) {
                 throw new IllegalArgumentException(
                     "Invalid index in " + PassCodeDigitTextWatcher.class.getSimpleName() +
@@ -457,8 +457,13 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         public void afterTextChanged(Editable s) {
             if (s.length() > 0) {
                 if (!confirmingPassCode) {
-                    passCodeDigits[mIndex] = passCodeEditTexts[mIndex].getText().toString();
+                    Editable passCodeText = passCodeEditTexts[mIndex].getText();
+
+                    if (passCodeText != null) {
+                        passCodeDigits[mIndex] = passCodeText.toString();
+                    }
                 }
+
                 passCodeEditTexts[next()].requestFocus();
 
                 if (mLastOne) {
