@@ -43,7 +43,7 @@ import javax.inject.Inject
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-class SendFilesDialog: BottomSheetDialogFragment(R.layout.send_files_fragment), Injectable {
+class SendFilesDialog : BottomSheetDialogFragment(R.layout.send_files_fragment), Injectable {
 
     private var files: Array<OCFile>? = null
     private lateinit var binding: SendFilesFragmentBinding
@@ -91,6 +91,7 @@ class SendFilesDialog: BottomSheetDialogFragment(R.layout.send_files_fragment), 
         val sendButtonDataList = setupSendButtonData(matches)
         val clickListener = setupSendButtonClickListener(sendIntent)
 
+        @Suppress("MagicNumber")
         binding.sendButtonRecyclerView.layoutManager = GridLayoutManager(requireActivity(), 4)
         binding.sendButtonRecyclerView.adapter = SendButtonAdapter(sendButtonDataList, clickListener)
     }
