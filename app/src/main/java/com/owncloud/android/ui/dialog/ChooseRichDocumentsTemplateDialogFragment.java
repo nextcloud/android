@@ -35,6 +35,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.account.CurrentAccountProvider;
@@ -99,7 +100,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     private RichDocumentsTemplateAdapter adapter;
     private OCFile parentFolder;
     private OwnCloudClient client;
-    private Button positiveButton;
+    private MaterialButton positiveButton;
     private DialogFragment waitDialog;
 
     public enum Type {
@@ -126,11 +127,18 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
 
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
-        positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        viewThemeUtils.platform.colorTextButtons(positiveButton,
-                                                 alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
-        positiveButton.setOnClickListener(this);
-        positiveButton.setEnabled(false);
+        if (alertDialog != null) {
+            positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
+
+            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+            if (negativeButton != null) {
+                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
+            }
+
+            positiveButton.setOnClickListener(this);
+            positiveButton.setEnabled(false);
+        }
 
         checkEnablingCreateButton();
     }
@@ -205,12 +213,14 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
             }
         });
 
+        int titleTextId = getTitle(type);
+
         // Build the dialog
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activity);
         builder.setView(view)
             .setPositiveButton(R.string.create, null)
-            .setNeutralButton(R.string.common_cancel, null)
-            .setTitle(getTitle(type));
+            .setNegativeButton(R.string.common_cancel, null)
+            .setTitle(titleTextId);
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(activity, builder);
 
