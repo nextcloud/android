@@ -16,73 +16,64 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.owncloud.android.ui.dialog;
+package com.owncloud.android.ui.dialog
 
-import android.app.Dialog;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.di.Injectable
+import com.owncloud.android.databinding.LoadingDialogBinding
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
-import com.nextcloud.client.di.Injectable;
-import com.owncloud.android.R;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
+class LoadingDialog : DialogFragment(), Injectable {
 
-import javax.inject.Inject;
+    @JvmField
+    @Inject
+    var viewThemeUtils: ViewThemeUtils? = null
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
+    private var mMessage: String? = null
+    private lateinit var binding: LoadingDialogBinding
 
-public class LoadingDialog extends DialogFragment implements Injectable {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    @Inject ViewThemeUtils viewThemeUtils;
-    private String mMessage;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-        setCancelable(false);
+        retainInstance = true
+        isCancelable = false
     }
 
-    public static LoadingDialog newInstance(String message) {
-        LoadingDialog loadingDialog = new LoadingDialog();
-        loadingDialog.mMessage = message;
-        return loadingDialog;
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = LoadingDialogBinding.inflate(inflater, container, false)
+        binding.loadingText.text = mMessage
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Create a view by inflating desired layout
-        View v = inflater.inflate(R.layout.loading_dialog, container,  false);
-
-        // set value
-        TextView tv = v.findViewById(R.id.loadingText);
-        tv.setText(mMessage);
-
-        // set progress wheel color
-        ProgressBar progressBar = v.findViewById(R.id.loadingBar);
-        viewThemeUtils.platform.tintDrawable(requireContext(), progressBar.getIndeterminateDrawable());
-
-        return v;
-    }
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        return dialog;
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (getDialog() != null && getRetainInstance()) {
-            getDialog().setDismissMessage(null);
+        val loadingDrawable = binding.loadingBar.indeterminateDrawable
+        if (loadingDrawable != null) {
+            viewThemeUtils?.platform?.tintDrawable(requireContext(), loadingDrawable)
         }
-        super.onDestroyView();
+
+        viewThemeUtils?.platform?.colorViewBackground(binding.loadingLayout, ColorRole.SURFACE_VARIANT)
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        if (dialog != null && retainInstance) {
+            dialog!!.setDismissMessage(null)
+        }
+
+        super.onDestroyView()
+    }
+
+    companion object {
+
+        @JvmStatic
+        fun newInstance(message: String?): LoadingDialog {
+            val loadingDialog = LoadingDialog()
+            loadingDialog.mMessage = message
+            return loadingDialog
+        }
     }
 }
