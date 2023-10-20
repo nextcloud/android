@@ -35,6 +35,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
@@ -68,25 +69,21 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
     private var confirmingPassCode = false
     private var changed = true // to control that only one blocks jump
 
-    /**
-     * Initializes the activity.
-     *
-     *
-     * An intent with a valid ACTION is expected; if none is found, an [IllegalArgumentException] will be thrown.
-     *
-     * @param savedInstanceState Previously saved state - irrelevant in this case
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = PasscodelockBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewThemeUtils?.platform?.colorTextButtons(binding.cancel)
-
+        applyTint()
         setupPasscodeEditTexts()
         setSoftInputMode()
         setupUI(savedInstanceState)
         setTextListeners()
+    }
+
+    private fun applyTint() {
+        viewThemeUtils?.platform?.colorViewBackground(binding.cardViewContent, ColorRole.SURFACE_VARIANT)
+        viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(binding.cancel)
     }
 
     private fun setSoftInputMode() {
