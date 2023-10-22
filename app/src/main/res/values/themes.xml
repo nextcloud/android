@@ -22,7 +22,7 @@
 
 <resources>
 
-    <style name="Theme.ownCloud.Toolbar.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+    <style name="Theme.ownCloud.Toolbar.AppWidgetContainerParent" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Radius of the outer bound of widgets to make the rounded corners -->
         <item name="appWidgetRadius">16dp</item>
         <!--
@@ -32,7 +32,7 @@
         <item name="appWidgetInnerRadius">8dp</item>
     </style>
 
-    <style name="Theme.ownCloud.Toolbar.AppWidgetContainer" parent="Theme.ownCloud.Toolbar.AppWidgetContainerParent">
+    <style name="Theme.ownCloud.Toolbar.AppWidgetContainer" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Apply padding to avoid the content of the widget colliding with the rounded corners -->
         <item name="appWidgetPadding">0dp</item>
     </style>
