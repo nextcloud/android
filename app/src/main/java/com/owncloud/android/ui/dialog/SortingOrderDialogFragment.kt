@@ -71,7 +71,7 @@ class SortingOrderDialogFragment : DialogFragment(), Injectable {
             binding.sortByModificationDateAscending to FileSortOrder.sort_old_to_new,
             binding.sortByModificationDateDescending to FileSortOrder.sort_new_to_old,
             binding.sortBySizeAscending to FileSortOrder.sort_small_to_big,
-            binding.sortBySizeDescending to FileSortOrder.sort_big_to_small,
+            binding.sortBySizeDescending to FileSortOrder.sort_big_to_small
         )
 
         taggedViews = Array(bindingArray.size) { null }
@@ -137,7 +137,5 @@ class SortingOrderDialogFragment : DialogFragment(), Injectable {
             dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog)
             return dialogFragment
         }
-
     }
-
 }
