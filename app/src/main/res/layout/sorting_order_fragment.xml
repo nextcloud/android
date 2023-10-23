@@ -18,262 +18,95 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout
-    android:id="@+id/root"
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/standard_padding"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minWidth="300dp"
-    android:padding="@dimen/dialog_padding"
-    android:orientation="vertical">
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/header"
-        style="@style/Base.DialogWindowTitle.AppCompat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sort_by"
-        android:paddingBottom="@dimen/standard_padding"/>
-
-    <ScrollView
-        android:id="@+id/scrollableSortings"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageButton
-                    android:id="@+id/sortByNameAscending"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/transparent"
-                    android:contentDescription="@string/sort_by_name_ascending"
-                    android:paddingStart="@dimen/standard_padding"
-                    android:paddingTop="@dimen/standard_half_padding"
-                    android:paddingEnd="@dimen/standard_half_padding"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:src="@drawable/ic_alphabetical_asc" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/sortByNameAZText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:ellipsize="middle"
-                    android:singleLine="true"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:paddingEnd="@dimen/standard_double_padding"
-                    android:paddingStart="@dimen/zero"
-                    android:paddingTop="@dimen/standard_half_padding"
-                    android:text="@string/menu_item_sort_by_name_a_z"
-                    android:textColor="@color/standard_grey"
-                    android:textSize="@dimen/two_line_primary_text_size"/>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageButton
-                    android:id="@+id/sortByNameDescending"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/transparent"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:paddingStart="@dimen/standard_padding"
-                    android:paddingEnd="@dimen/standard_half_padding"
-                    android:paddingTop="@dimen/standard_half_padding"
-                    android:src="@drawable/ic_alphabetical_desc"
-                    android:contentDescription="@string/sort_by_name_descending"/>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/sortByNameZAText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:ellipsize="middle"
-                    android:singleLine="true"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:paddingEnd="@dimen/standard_double_padding"
-                    android:paddingStart="@dimen/zero"
-                    android:paddingTop="@dimen/standard_half_padding"
-                    android:text="@string/menu_item_sort_by_name_z_a"
-                    android:textColor="@color/standard_grey"
-                    android:textSize="@dimen/two_line_primary_text_size"/>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standard_half_margin">
-
-                <ImageButton
-                    android:id="@+id/sortByModificationDateDescending"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/transparent"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:paddingStart="@dimen/standard_padding"
-                    android:paddingEnd="@dimen/standard_half_padding"
-                    android:paddingTop="@dimen/standard_half_padding"
-                    android:src="@drawable/ic_modification_desc"
-                    android:contentDescription="@string/sort_by_modification_date_descending"/>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/sortByModificationDateNewestFirstText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:ellipsize="middle"
-                    android:singleLine="true"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:paddingEnd="@dimen/standard_double_padding"
-                    android:paddingStart="@dimen/zero"
-                    android:paddingTop="@dimen/standard_half_padding"
-                    android:text="@string/menu_item_sort_by_date_newest_first"
-                    android:textColor="@color/standard_grey"
-                    android:textSize="@dimen/two_line_primary_text_size"/>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageButton
-                    android:id="@+id/sortByModificationDateAscending"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/transparent"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:paddingStart="@dimen/standard_padding"
-                    android:paddingEnd="@dimen/standard_half_padding"
-                    android:paddingTop="@dimen/standard_half_padding"
-                    android:src="@drawable/ic_modification_asc"
-                    android:contentDescription="@string/sort_by_modification_date_ascending"/>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/sortByModificationDateOldestFirstText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:ellipsize="middle"
-                    android:singleLine="true"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:paddingEnd="@dimen/standard_double_padding"
-                    android:paddingStart="@dimen/zero"
-                    android:paddingTop="@dimen/standard_half_padding"
-                    android:text="@string/menu_item_sort_by_date_oldest_first"
-                    android:textColor="@color/standard_grey"
-                    android:textSize="@dimen/two_line_primary_text_size"/>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="@dimen/standard_half_margin">
-
-                <ImageButton
-                    android:id="@+id/sortBySizeDescending"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/transparent"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:paddingStart="@dimen/standard_padding"
-                    android:paddingEnd="@dimen/standard_half_padding"
-                    android:paddingTop="@dimen/standard_half_padding"
-                    android:src="@drawable/ic_size_desc"
-                    android:contentDescription="@string/sort_by_size_descending"/>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/sortBySizeBiggestFirstText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:ellipsize="middle"
-                    android:singleLine="true"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:paddingEnd="@dimen/standard_double_padding"
-                    android:paddingStart="@dimen/zero"
-                    android:paddingTop="@dimen/standard_half_padding"
-                    android:text="@string/menu_item_sort_by_size_biggest_first"
-                    android:textColor="@color/standard_grey"
-                    android:textSize="@dimen/two_line_primary_text_size"/>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageButton
-                    android:id="@+id/sortBySizeAscending"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/transparent"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:paddingStart="@dimen/standard_padding"
-                    android:paddingEnd="@dimen/standard_half_padding"
-                    android:paddingTop="@dimen/standard_half_padding"
-                    android:src="@drawable/ic_size_asc"
-                    android:contentDescription="@string/sort_by_size_ascending"/>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/sortBySizeSmallestFirstText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:ellipsize="middle"
-                    android:singleLine="true"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:paddingEnd="@dimen/standard_double_padding"
-                    android:paddingStart="@dimen/zero"
-                    android:paddingTop="@dimen/standard_half_padding"
-                    android:text="@string/menu_item_sort_by_size_smallest_first"
-                    android:textColor="@color/standard_grey"
-                    android:textSize="@dimen/two_line_primary_text_size"/>
-
-            </TableRow>
-
-        </TableLayout>
-
-    </ScrollView>
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dialog_padding"
-        android:gravity="end">
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/header"
+            style="@style/Base.DialogWindowTitle.AppCompat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|start"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:text="@string/sort_by"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sortByNameAscending"
+            android:gravity="center|start"
+            android:text="@string/menu_item_sort_by_name_a_z"
+            style="@style/Widget.Material3.Button.TextButton.Icon"
+            app:icon="@drawable/ic_alphabetical_asc"
+            app:iconPadding="@dimen/standard_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sortByNameDescending"
+            android:gravity="center|start"
+            android:text="@string/menu_item_sort_by_name_z_a"
+            style="@style/Widget.Material3.Button.TextButton.Icon"
+            app:icon="@drawable/ic_alphabetical_desc"
+            app:iconPadding="@dimen/standard_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sortByModificationDateDescending"
+            android:gravity="center|start"
+            android:text="@string/menu_item_sort_by_date_newest_first"
+            style="@style/Widget.Material3.Button.TextButton.Icon"
+            app:icon="@drawable/ic_modification_desc"
+            app:iconPadding="@dimen/standard_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sortByModificationDateAscending"
+            android:gravity="center|start"
+            android:text="@string/menu_item_sort_by_date_oldest_first"
+            style="@style/Widget.Material3.Button.TextButton.Icon"
+            app:icon="@drawable/ic_modification_asc"
+            app:iconPadding="@dimen/standard_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sortBySizeDescending"
+            android:gravity="center|start"
+            android:text="@string/menu_item_sort_by_size_biggest_first"
+            style="@style/Widget.Material3.Button.TextButton.Icon"
+            app:icon="@drawable/ic_size_desc"
+            app:iconPadding="@dimen/standard_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sortBySizeAscending"
+            android:gravity="center|start"
+            android:text="@string/menu_item_sort_by_size_smallest_first"
+            style="@style/Widget.Material3.Button.TextButton.Icon"
+            app:icon="@drawable/ic_size_asc"
+            app:iconPadding="@dimen/standard_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/cancel"
+            android:layout_gravity="end"
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/common_cancel"/>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

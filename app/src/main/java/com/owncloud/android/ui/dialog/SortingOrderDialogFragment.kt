@@ -21,12 +21,10 @@
 package com.owncloud.android.ui.dialog
 
 import android.app.Dialog
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
@@ -42,7 +40,7 @@ import javax.inject.Inject
 class SortingOrderDialogFragment : DialogFragment(), Injectable {
 
     private var binding: SortingOrderFragmentBinding? = null
-    private lateinit var taggedViews: Array<View?>
+    private lateinit var taggedViews: Array<MaterialButton?>
 
     private var mCurrentSortOrderName: String? = null
 
@@ -69,17 +67,11 @@ class SortingOrderDialogFragment : DialogFragment(), Injectable {
 
         val bindingArray = arrayOf(
             binding.sortByNameAscending to FileSortOrder.sort_a_to_z,
-            binding.sortByNameAZText to FileSortOrder.sort_a_to_z,
             binding.sortByNameDescending to FileSortOrder.sort_z_to_a,
-            binding.sortByNameZAText to FileSortOrder.sort_z_to_a,
             binding.sortByModificationDateAscending to FileSortOrder.sort_old_to_new,
-            binding.sortByModificationDateOldestFirstText to FileSortOrder.sort_old_to_new,
             binding.sortByModificationDateDescending to FileSortOrder.sort_new_to_old,
-            binding.sortByModificationDateNewestFirstText to FileSortOrder.sort_new_to_old,
             binding.sortBySizeAscending to FileSortOrder.sort_small_to_big,
-            binding.sortBySizeSmallestFirstText to FileSortOrder.sort_small_to_big,
             binding.sortBySizeDescending to FileSortOrder.sort_big_to_small,
-            binding.sortBySizeBiggestFirstText to FileSortOrder.sort_big_to_small
         )
 
         taggedViews = Array(bindingArray.size) { null }
@@ -87,50 +79,22 @@ class SortingOrderDialogFragment : DialogFragment(), Injectable {
         for (i in bindingArray.indices) {
             taggedViews[i] = bindingArray[i].first
             taggedViews[i]?.tag = bindingArray[i].second
-        }
-
-        setupActiveOrderSelection()
-    }
-
-    /**
-     * tints the icon reflecting the actual sorting choice in the apps primary color.
-     */
-    private fun setupActiveOrderSelection() {
-        taggedViews.forEach { view ->
-            if (view?.tag == mCurrentSortOrderName) {
-                when (view) {
-                    is ImageButton -> {
-                        viewThemeUtils?.platform?.themeImageButton(view)
-                        view.isSelected = true
-                    }
-                    is TextView -> {
-                        viewThemeUtils?.platform?.colorTextView(view)
-                        view.typeface = Typeface.DEFAULT_BOLD
-                    }
-                }
+            taggedViews[i]?.let {
+                val sortOrderClickListener = OnSortOrderClickListener()
+                it.setOnClickListener(sortOrderClickListener)
+                viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(it)
             }
         }
-    }
 
-    /**
-     * setup all listeners.
-     */
-    private fun setupListeners() {
-        binding?.cancel?.setOnClickListener { dismiss() }
-
-        val sortOrderClickListener = OnSortOrderClickListener()
-        taggedViews.forEach {
-            it?.setOnClickListener(sortOrderClickListener)
-        }
+        binding.cancel.setOnClickListener { dismiss() }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = SortingOrderFragmentBinding.inflate(requireActivity().layoutInflater, null, false)
         setupDialogElements(binding!!)
-        setupListeners()
 
         val builder = MaterialAlertDialogBuilder(requireContext())
-        builder.setView(binding?.getRoot())
+        builder.setView(binding?.root)
 
         viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(requireContext(), builder)
 
