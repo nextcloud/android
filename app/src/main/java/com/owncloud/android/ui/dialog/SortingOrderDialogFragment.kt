@@ -24,7 +24,6 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.DialogFragment
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
@@ -40,9 +39,8 @@ import javax.inject.Inject
 class SortingOrderDialogFragment : DialogFragment(), Injectable {
 
     private var binding: SortingOrderFragmentBinding? = null
-    private lateinit var taggedViews: Array<MaterialButton?>
 
-    private var mCurrentSortOrderName: String? = null
+    private var currentSortOrderName: String? = null
 
     @JvmField
     @Inject
@@ -54,7 +52,7 @@ class SortingOrderDialogFragment : DialogFragment(), Injectable {
         retainInstance = true
 
         binding = null
-        mCurrentSortOrderName = requireArguments().getString(KEY_SORT_ORDER, FileSortOrder.sort_a_to_z.name)
+        currentSortOrderName = requireArguments().getString(KEY_SORT_ORDER, FileSortOrder.sort_a_to_z.name)
     }
 
     /**
@@ -63,9 +61,7 @@ class SortingOrderDialogFragment : DialogFragment(), Injectable {
      * @param binding the parent binding
      */
     private fun setupDialogElements(binding: SortingOrderFragmentBinding) {
-        viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(binding.cancel)
-
-        val bindingArray = arrayOf(
+        val bindings = listOf(
             binding.sortByNameAscending to FileSortOrder.sort_a_to_z,
             binding.sortByNameDescending to FileSortOrder.sort_z_to_a,
             binding.sortByModificationDateAscending to FileSortOrder.sort_old_to_new,
@@ -74,18 +70,15 @@ class SortingOrderDialogFragment : DialogFragment(), Injectable {
             binding.sortBySizeDescending to FileSortOrder.sort_big_to_small
         )
 
-        taggedViews = Array(bindingArray.size) { null }
-
-        for (i in bindingArray.indices) {
-            taggedViews[i] = bindingArray[i].first
-            taggedViews[i]?.tag = bindingArray[i].second
-            taggedViews[i]?.let {
-                val sortOrderClickListener = OnSortOrderClickListener()
-                it.setOnClickListener(sortOrderClickListener)
+        bindings.forEach { (view, sortOrder) ->
+            view.tag = sortOrder
+            view.let {
+                it.setOnClickListener(OnSortOrderClickListener())
                 viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(it)
             }
         }
 
+        viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(binding.cancel)
         binding.cancel.setOnClickListener { dismiss() }
     }
 
