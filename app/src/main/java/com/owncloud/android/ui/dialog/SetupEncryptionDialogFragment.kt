@@ -133,7 +133,6 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
     }
 
     private fun createDialog(v: View): Dialog {
-
         val builder = MaterialAlertDialogBuilder(v.context)
 
         builder
@@ -191,7 +190,8 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
 
             arbitraryDataProvider?.storeOrUpdateKeyValue(
                 accountName,
-                EncryptionUtils.PRIVATE_KEY, decryptedPrivateKey
+                EncryptionUtils.PRIVATE_KEY,
+                decryptedPrivateKey
             )
             dialog.dismiss()
 
@@ -247,7 +247,8 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         val targetFragment = targetFragment
         targetFragment?.onActivityResult(
             targetRequestCode,
-            SETUP_ENCRYPTION_RESULT_CODE, resultIntent
+            SETUP_ENCRYPTION_RESULT_CODE,
+            resultIntent
         )
         parentFragmentManager.setFragmentResult(RESULT_REQUEST_KEY, resultBundle)
     }
