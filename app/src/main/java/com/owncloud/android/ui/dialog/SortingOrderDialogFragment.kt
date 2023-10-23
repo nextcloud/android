@@ -18,66 +18,45 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.dialog
 
-package com.owncloud.android.ui.dialog;
-
-import android.app.Dialog;
-import android.graphics.Typeface;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.nextcloud.client.di.Injectable;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.SortingOrderFragmentBinding;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
+import android.app.Dialog
+import android.graphics.Typeface
+import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
+import android.widget.TextView
+import androidx.fragment.app.DialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.nextcloud.client.di.Injectable
+import com.owncloud.android.R
+import com.owncloud.android.databinding.SortingOrderFragmentBinding
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.utils.FileSortOrder
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
 /**
  * Dialog to show and choose the sorting order for the file listing.
  */
-public class SortingOrderDialogFragment extends DialogFragment implements Injectable {
+class SortingOrderDialogFragment : DialogFragment(), Injectable {
 
-    private final static String TAG = SortingOrderDialogFragment.class.getSimpleName();
+    private var binding: SortingOrderFragmentBinding? = null
+    private lateinit var taggedViews: Array<View?>
 
-    public static final String SORTING_ORDER_FRAGMENT = "SORTING_ORDER_FRAGMENT";
-    private static final String KEY_SORT_ORDER = "SORT_ORDER";
+    private var mCurrentSortOrderName: String? = null
 
-    private SortingOrderFragmentBinding binding;
-    private View[] mTaggedViews;
-    private String mCurrentSortOrderName;
+    @JvmField
+    @Inject
+    var viewThemeUtils: ViewThemeUtils? = null
 
-
-    @Inject ViewThemeUtils viewThemeUtils;
-
-    public static SortingOrderDialogFragment newInstance(FileSortOrder sortOrder) {
-        SortingOrderDialogFragment dialogFragment = new SortingOrderDialogFragment();
-
-        Bundle args = new Bundle();
-        args.putString(KEY_SORT_ORDER, sortOrder.name);
-        dialogFragment.setArguments(args);
-
-        dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog);
-
-        return dialogFragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         // keep the state of the fragment on configuration changes
-        setRetainInstance(true);
+        retainInstance = true
 
-        binding = null;
-        mCurrentSortOrderName = getArguments().getString(KEY_SORT_ORDER, FileSortOrder.sort_a_to_z.name);
+        binding = null
+        mCurrentSortOrderName = requireArguments().getString(KEY_SORT_ORDER, FileSortOrder.sort_a_to_z.name)
     }
 
     /**
@@ -85,53 +64,50 @@ public class SortingOrderDialogFragment extends DialogFragment implements Inject
      *
      * @param binding the parent binding
      */
-    private void setupDialogElements(SortingOrderFragmentBinding binding) {
-        viewThemeUtils.platform.colorTextButtons(binding.cancel);
+    private fun setupDialogElements(binding: SortingOrderFragmentBinding) {
+        viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(binding.cancel)
 
-        mTaggedViews = new View[12];
-        mTaggedViews[0] = binding.sortByNameAscending;
-        mTaggedViews[0].setTag(FileSortOrder.sort_a_to_z);
-        mTaggedViews[1] = binding.sortByNameAZText;
-        mTaggedViews[1].setTag(FileSortOrder.sort_a_to_z);
-        mTaggedViews[2] = binding.sortByNameDescending;
-        mTaggedViews[2].setTag(FileSortOrder.sort_z_to_a);
-        mTaggedViews[3] = binding.sortByNameZAText;
-        mTaggedViews[3].setTag(FileSortOrder.sort_z_to_a);
-        mTaggedViews[4] = binding.sortByModificationDateAscending;
-        mTaggedViews[4].setTag(FileSortOrder.sort_old_to_new);
-        mTaggedViews[5] = binding.sortByModificationDateOldestFirstText;
-        mTaggedViews[5].setTag(FileSortOrder.sort_old_to_new);
-        mTaggedViews[6] = binding.sortByModificationDateDescending;
-        mTaggedViews[6].setTag(FileSortOrder.sort_new_to_old);
-        mTaggedViews[7] = binding.sortByModificationDateNewestFirstText;
-        mTaggedViews[7].setTag(FileSortOrder.sort_new_to_old);
-        mTaggedViews[8] = binding.sortBySizeAscending;
-        mTaggedViews[8].setTag(FileSortOrder.sort_small_to_big);
-        mTaggedViews[9] = binding.sortBySizeSmallestFirstText;
-        mTaggedViews[9].setTag(FileSortOrder.sort_small_to_big);
-        mTaggedViews[10] = binding.sortBySizeDescending;
-        mTaggedViews[10].setTag(FileSortOrder.sort_big_to_small);
-        mTaggedViews[11] = binding.sortBySizeBiggestFirstText;
-        mTaggedViews[11].setTag(FileSortOrder.sort_big_to_small);
+        val bindingArray = arrayOf(
+            binding.sortByNameAscending to FileSortOrder.sort_a_to_z,
+            binding.sortByNameAZText to FileSortOrder.sort_a_to_z,
+            binding.sortByNameDescending to FileSortOrder.sort_z_to_a,
+            binding.sortByNameZAText to FileSortOrder.sort_z_to_a,
+            binding.sortByModificationDateAscending to FileSortOrder.sort_old_to_new,
+            binding.sortByModificationDateOldestFirstText to FileSortOrder.sort_old_to_new,
+            binding.sortByModificationDateDescending to FileSortOrder.sort_new_to_old,
+            binding.sortByModificationDateNewestFirstText to FileSortOrder.sort_new_to_old,
+            binding.sortBySizeAscending to FileSortOrder.sort_small_to_big,
+            binding.sortBySizeSmallestFirstText to FileSortOrder.sort_small_to_big,
+            binding.sortBySizeDescending to FileSortOrder.sort_big_to_small,
+            binding.sortBySizeBiggestFirstText to FileSortOrder.sort_big_to_small
+        )
 
-        setupActiveOrderSelection();
+        taggedViews = Array(bindingArray.size) { null }
+
+        for (i in bindingArray.indices) {
+            taggedViews[i] = bindingArray[i].first
+            taggedViews[i]?.tag = bindingArray[i].second
+        }
+
+        setupActiveOrderSelection()
     }
 
     /**
      * tints the icon reflecting the actual sorting choice in the apps primary color.
      */
-    private void setupActiveOrderSelection() {
-        for (View view : mTaggedViews) {
-            if (!((FileSortOrder) view.getTag()).name.equals(mCurrentSortOrderName)) {
-                continue;
-            }
-            if (view instanceof ImageButton) {
-                viewThemeUtils.platform.themeImageButton((ImageButton) view);
-                ((ImageButton) view).setSelected(true);
-            }
-            if (view instanceof TextView) {
-                viewThemeUtils.platform.colorPrimaryTextViewElement((TextView) view);
-                ((TextView) view).setTypeface(Typeface.DEFAULT_BOLD);
+    private fun setupActiveOrderSelection() {
+        taggedViews.forEach { view ->
+            if (view?.tag == mCurrentSortOrderName) {
+                when (view) {
+                    is ImageButton -> {
+                        viewThemeUtils?.platform?.themeImageButton(view)
+                        view.isSelected = true
+                    }
+                    is TextView -> {
+                        viewThemeUtils?.platform?.colorTextView(view)
+                        view.typeface = Typeface.DEFAULT_BOLD
+                    }
+                }
             }
         }
     }
@@ -139,51 +115,65 @@ public class SortingOrderDialogFragment extends DialogFragment implements Inject
     /**
      * setup all listeners.
      */
-    private void setupListeners() {
-        binding.cancel.setOnClickListener(view -> dismiss());
+    private fun setupListeners() {
+        binding?.cancel?.setOnClickListener { dismiss() }
 
-        OnSortOrderClickListener sortOrderClickListener = new OnSortOrderClickListener();
-
-        for (View view : mTaggedViews) {
-            view.setOnClickListener(sortOrderClickListener);
+        val sortOrderClickListener = OnSortOrderClickListener()
+        taggedViews.forEach {
+            it?.setOnClickListener(sortOrderClickListener)
         }
     }
 
-    @Override
-    @NonNull
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        binding = SortingOrderFragmentBinding.inflate(requireActivity().getLayoutInflater(), null, false);
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        binding = SortingOrderFragmentBinding.inflate(requireActivity().layoutInflater, null, false)
+        setupDialogElements(binding!!)
+        setupListeners()
 
-        setupDialogElements(binding);
-        setupListeners();
+        val builder = MaterialAlertDialogBuilder(requireContext())
+        builder.setView(binding?.getRoot())
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(binding.getRoot().getContext());
-        builder.setView(binding.getRoot());
+        viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(requireContext(), builder)
 
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.getRoot().getContext(), builder);
-
-        return builder.create();
+        return builder.create()
     }
 
-    @Override
-    public void onDestroyView() {
-        Log_OC.d(TAG, "destroy SortingOrderDialogFragment view");
-        if (getDialog() != null && getRetainInstance()) {
-            getDialog().setDismissMessage(null);
+    override fun onDestroyView() {
+        Log_OC.d(TAG, "destroy SortingOrderDialogFragment view")
+
+        if (dialog != null && retainInstance) {
+            dialog?.setDismissMessage(null)
         }
-        super.onDestroyView();
+
+        super.onDestroyView()
     }
 
-    private class OnSortOrderClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            dismissAllowingStateLoss();
-            ((SortingOrderDialogFragment.OnSortingOrderListener) getActivity())
-                .onSortingOrderChosen((FileSortOrder) v.getTag());
+    private inner class OnSortOrderClickListener : View.OnClickListener {
+        override fun onClick(v: View) {
+            dismissAllowingStateLoss()
+            (activity as OnSortingOrderListener?)?.onSortingOrderChosen(v.tag as FileSortOrder)
         }
     }
 
-    public interface OnSortingOrderListener {
-        void onSortingOrderChosen(FileSortOrder selection);
+    interface OnSortingOrderListener {
+        fun onSortingOrderChosen(selection: FileSortOrder?)
     }
+
+    companion object {
+
+        private val TAG = SortingOrderDialogFragment::class.java.simpleName
+        const val SORTING_ORDER_FRAGMENT = "SORTING_ORDER_FRAGMENT"
+        private const val KEY_SORT_ORDER = "SORT_ORDER"
+
+        @JvmStatic
+        fun newInstance(sortOrder: FileSortOrder): SortingOrderDialogFragment {
+            val dialogFragment = SortingOrderDialogFragment()
+            val args = Bundle()
+            args.putString(KEY_SORT_ORDER, sortOrder.name)
+            dialogFragment.arguments = args
+            dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog)
+            return dialogFragment
+        }
+
+    }
+
 }
