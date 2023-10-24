@@ -84,7 +84,6 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
     private var selectedDate: Date? = null
     private var calendarPickerOpen = false
     private var datePickerDialog: DatePickerDialog? = null
-    private var dailyBackupCheckedChangeListener: CompoundButton.OnCheckedChangeListener? = null
     private var contactsCheckedListener: CompoundButton.OnCheckedChangeListener? = null
     private var calendarCheckedListener: CompoundButton.OnCheckedChangeListener? = null
     private var user: User? = null
@@ -164,15 +163,22 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
     }
 
     private fun setupCheckListeners() {
-        dailyBackupCheckedChangeListener =
-            CompoundButton.OnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
-                if (checkAndAskForContactsReadPermission()) {
-                    setAutomaticBackup(isChecked)
-                }
+        binding.dailyBackup.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            if (checkAndAskForContactsReadPermission()) {
+                setAutomaticBackup(isChecked)
             }
-        binding.dailyBackup.setOnCheckedChangeListener(dailyBackupCheckedChangeListener)
+        }
+
+        initContactsCheckedListener()
+        binding.contacts.setOnCheckedChangeListener(contactsCheckedListener)
+
+        initCalendarCheckedListener()
+        binding.calendar.setOnCheckedChangeListener(calendarCheckedListener)
+    }
+
+    private fun initContactsCheckedListener() {
         contactsCheckedListener =
-            CompoundButton.OnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
+            CompoundButton.OnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
                 if (isChecked) {
                     if (checkAndAskForContactsReadPermission()) {
                         isContactsBackupEnabled = true
@@ -183,9 +189,11 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
                 setBackupNowButtonVisibility()
                 setAutomaticBackup(binding.dailyBackup.isChecked)
             }
-        binding.contacts.setOnCheckedChangeListener(contactsCheckedListener)
+    }
+
+    private fun initCalendarCheckedListener() {
         calendarCheckedListener =
-            CompoundButton.OnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
+            CompoundButton.OnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
                 if (isChecked) {
                     if (checkAndAskForCalendarReadPermission()) {
                         isCalendarBackupEnabled = true
@@ -196,7 +204,6 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
                 setBackupNowButtonVisibility()
                 setAutomaticBackup(binding.dailyBackup.isChecked)
             }
-        binding.calendar.setOnCheckedChangeListener(calendarCheckedListener)
     }
 
     private fun setBackupNowButtonVisibility() {
@@ -249,10 +256,11 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
                     KEY_CALENDAR_DAY, -1
                 ) != -1
             ) {
-                selectedDate = Date(
-                    savedInstanceState.getInt(KEY_CALENDAR_YEAR),
-                    savedInstanceState.getInt(KEY_CALENDAR_MONTH), savedInstanceState.getInt(KEY_CALENDAR_DAY)
-                )
+                val cal = Calendar.getInstance()
+                cal[Calendar.YEAR] = savedInstanceState.getInt(KEY_CALENDAR_YEAR)
+                cal[Calendar.MONTH] = savedInstanceState.getInt(KEY_CALENDAR_MONTH)
+                cal[Calendar.DAY_OF_MONTH] = savedInstanceState.getInt(KEY_CALENDAR_DAY)
+                selectedDate = cal.time
             }
             calendarPickerOpen = true
         }
@@ -280,6 +288,7 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
                 openDate(null)
             }
         }
+
         val contactsPreferenceActivity = activity as ContactsPreferenceActivity?
         if (contactsPreferenceActivity != null) {
             val backupFolderPath = resources.getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR
@@ -460,24 +469,24 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
         if (enabled) {
             if (isContactsBackupEnabled) {
                 Log_OC.d(TAG, "Scheduling contacts backup job")
-                backgroundJobManager!!.schedulePeriodicContactsBackup(user)
+                backgroundJobManager?.schedulePeriodicContactsBackup(user)
             } else {
                 Log_OC.d(TAG, "Cancelling contacts backup job")
-                backgroundJobManager!!.cancelPeriodicContactsBackup(user)
+                backgroundJobManager?.cancelPeriodicContactsBackup(user)
             }
             if (isCalendarBackupEnabled) {
                 Log_OC.d(TAG, "Scheduling calendar backup job")
-                backgroundJobManager!!.schedulePeriodicCalendarBackup(user)
+                backgroundJobManager?.schedulePeriodicCalendarBackup(user)
             } else {
                 Log_OC.d(TAG, "Cancelling calendar backup job")
-                backgroundJobManager!!.cancelPeriodicCalendarBackup(user)
+                backgroundJobManager?.cancelPeriodicCalendarBackup(user)
             }
         } else {
             Log_OC.d(TAG, "Cancelling all backup jobs")
-            backgroundJobManager!!.cancelPeriodicContactsBackup(user)
-            backgroundJobManager!!.cancelPeriodicCalendarBackup(user)
+            backgroundJobManager?.cancelPeriodicContactsBackup(user)
+            backgroundJobManager?.cancelPeriodicCalendarBackup(user)
         }
-        arbitraryDataProvider!!.storeOrUpdateKeyValue(
+        arbitraryDataProvider?.storeOrUpdateKeyValue(
             user.accountName,
             ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
             enabled.toString()
@@ -488,11 +497,7 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
         val contactsPreferenceActivity = activity as ContactsPreferenceActivity?
 
         // check permissions
-        return if (checkSelfPermission(
-                contactsPreferenceActivity!!,
-                Manifest.permission.READ_CONTACTS
-            )
-        ) {
+        return if (checkSelfPermission(contactsPreferenceActivity!!, Manifest.permission.READ_CONTACTS)) {
             true
         } else {
             // No explanation needed, request the permission.
@@ -551,11 +556,17 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
         val storageManager = contactsPreferenceActivity.storageManager
         val contactsBackupFolder = storageManager.getFileByDecryptedRemotePath(contactsBackupFolderString)
         val calendarBackupFolder = storageManager.getFileByDecryptedRemotePath(calendarBackupFolderString)
+
         val backupFiles = storageManager.getFolderContent(contactsBackupFolder, false)
         backupFiles.addAll(storageManager.getFolderContent(calendarBackupFolder, false))
         backupFiles.sortWith { o1: OCFile?, o2: OCFile? ->
-            o1!!.modificationTimestamp.compareTo(o2!!.modificationTimestamp)
+            if (o1 != null && o2 != null) {
+                o1.modificationTimestamp.compareTo(o2.modificationTimestamp)
+            } else {
+                -1
+            }
         }
+
         val cal = Calendar.getInstance()
         val year: Int
         val month: Int
