@@ -18,238 +18,231 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.dialog;
+package com.owncloud.android.ui.dialog
 
-import android.app.Dialog;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.nextcloud.client.di.Injectable;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.PasswordDialogBinding;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.KeyboardUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
+import android.app.Dialog
+import android.content.DialogInterface
+import android.os.Build
+import android.os.Bundle
+import android.text.TextUtils
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.nextcloud.client.di.Injectable
+import com.owncloud.android.R
+import com.owncloud.android.databinding.PasswordDialogBinding
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.shares.OCShare
+import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.KeyboardUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
 /**
  * Dialog to input the password for sharing a file/folder.
- * <p>
+ *
+ *
  * Triggers the share when the password is introduced.
  */
-public class SharePasswordDialogFragment extends DialogFragment implements Injectable {
+class SharePasswordDialogFragment : DialogFragment(), Injectable {
+    @JvmField
+    @Inject
+    var viewThemeUtils: ViewThemeUtils? = null
 
-    private static final String ARG_FILE = "FILE";
-    private static final String ARG_SHARE = "SHARE";
-    private static final String ARG_CREATE_SHARE = "CREATE_SHARE";
-    private static final String ARG_ASK_FOR_PASSWORD = "ASK_FOR_PASSWORD";
-    public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
+    @JvmField
+    @Inject
+    var keyboardUtils: KeyboardUtils? = null
 
-    @Inject ViewThemeUtils viewThemeUtils;
-    @Inject KeyboardUtils keyboardUtils;
+    private var binding: PasswordDialogBinding? = null
+    private var file: OCFile? = null
+    private var share: OCShare? = null
+    private var createShare = false
+    private var askForPassword = false
 
-    private PasswordDialogBinding binding;
-    private OCFile file;
-    private OCShare share;
-    private boolean createShare;
-    private boolean askForPassword;
+    override fun onStart() {
+        super.onStart()
 
-    @Override
-    public void onStart() {
-        super.onStart();
+        val alertDialog = dialog as AlertDialog?
 
-        AlertDialog alertDialog = (AlertDialog) getDialog();
         if (alertDialog != null) {
-            MaterialButton positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton?
             if (positiveButton != null) {
-                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
-                positiveButton.setOnClickListener(v -> {
-                    Editable sharePassword = binding.sharePassword.getText();
+                viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(positiveButton)
+                positiveButton.setOnClickListener {
+                    val sharePassword = binding?.sharePassword?.text
 
                     if (sharePassword != null) {
-                        String password = sharePassword.toString();
-
+                        val password = sharePassword.toString()
                         if (!askForPassword && TextUtils.isEmpty(password)) {
-                            DisplayUtils.showSnackMessage(binding.getRoot(), R.string.share_link_empty_password);
-                            return;
+                            DisplayUtils.showSnackMessage(binding?.root, R.string.share_link_empty_password)
+                            return@setOnClickListener
                         }
-
                         if (share == null) {
-                            setPassword(createShare, file, password);
+                            setPassword(createShare, file, password)
                         } else {
-                            setPassword(share, password);
+                            setPassword(share!!, password)
                         }
                     }
 
-                    alertDialog.dismiss();
-                });
+                    alertDialog.dismiss()
+                }
             }
 
-            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+            val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton?
             if (negativeButton != null) {
-                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
+                viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(negativeButton)
             }
 
-            MaterialButton neutralButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+            val neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL) as MaterialButton?
             if (neutralButton != null) {
-                int warningColorId = ContextCompat.getColor(requireContext(), R.color.highlight_textColor_Warning);
-                viewThemeUtils.platform.colorTextButtons(warningColorId, neutralButton);
+                val warningColorId = ContextCompat.getColor(requireContext(), R.color.highlight_textColor_Warning)
+                viewThemeUtils?.platform?.colorTextButtons(warningColorId, neutralButton)
             }
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        keyboardUtils.showKeyboardForEditText(requireDialog().getWindow(), binding.sharePassword);
+    override fun onResume() {
+        super.onResume()
+        keyboardUtils?.showKeyboardForEditText(requireDialog().window, binding!!.sharePassword)
     }
 
-    /**
-     * Public factory method to create new SharePasswordDialogFragment instances.
-     *
-     * @param file        OCFile bound to the public share that which password will be set or updated
-     * @param createShare When 'true', the request for password will be followed by the creation of a new public link;
-     *                    when 'false', a public share is assumed to exist, and the password is bound to it.
-     * @return Dialog ready to show.
-     */
-    public static SharePasswordDialogFragment newInstance(OCFile file, boolean createShare, boolean askForPassword) {
-        SharePasswordDialogFragment frag = new SharePasswordDialogFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_FILE, file);
-        args.putBoolean(ARG_CREATE_SHARE, createShare);
-        args.putBoolean(ARG_ASK_FOR_PASSWORD, askForPassword);
-        frag.setArguments(args);
-        return frag;
-    }
-
-    /**
-     * Public factory method to create new SharePasswordDialogFragment instances.
-     *
-     * @param share OCFile bound to the public share that which password will be set or updated
-     * @return Dialog ready to show.
-     */
-    public static SharePasswordDialogFragment newInstance(OCShare share, boolean askForPassword) {
-        SharePasswordDialogFragment frag = new SharePasswordDialogFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_SHARE, share);
-        args.putBoolean(ARG_ASK_FOR_PASSWORD, askForPassword);
-        frag.setArguments(args);
-        return frag;
-    }
-
-    /**
-     * Public factory method to create new SharePasswordDialogFragment instances.
-     *
-     * @param share OCFile bound to the public share that which password will be set or updated
-     * @return Dialog ready to show.
-     */
-    public static SharePasswordDialogFragment newInstance(OCShare share) {
-        SharePasswordDialogFragment frag = new SharePasswordDialogFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_SHARE, share);
-        frag.setArguments(args);
-        return frag;
-    }
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Bundle arguments = getArguments();
-
-        if (arguments == null) {
-            throw new IllegalArgumentException("Arguments may not be null");
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        file = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requireArguments().getParcelable(ARG_FILE, OCFile::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            requireArguments().getParcelable(ARG_FILE)
         }
 
-        file = arguments.getParcelable(ARG_FILE);
-        share = arguments.getParcelable(ARG_SHARE);
-        createShare = arguments.getBoolean(ARG_CREATE_SHARE, false);
-        askForPassword = arguments.getBoolean(ARG_ASK_FOR_PASSWORD, false);
+        share = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requireArguments().getParcelable(ARG_SHARE, OCShare::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            requireArguments().getParcelable(ARG_SHARE)
+        }
+
+        createShare = requireArguments().getBoolean(ARG_CREATE_SHARE, false)
+        askForPassword = requireArguments().getBoolean(ARG_ASK_FOR_PASSWORD, false)
 
         // Inflate the layout for the dialog
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        binding = PasswordDialogBinding.inflate(inflater, null, false);
-        View view = binding.getRoot();
+        val inflater = requireActivity().layoutInflater
+        binding = PasswordDialogBinding.inflate(inflater, null, false)
 
         // Setup layout
-        binding.sharePassword.setText("");
-        viewThemeUtils.material.colorTextInputLayout(binding.sharePasswordContainer);
+        binding?.sharePassword?.setText("")
+        viewThemeUtils?.material?.colorTextInputLayout(binding!!.sharePasswordContainer)
 
-        int neutralButtonTextId;
-        int title;
+        val neutralButtonTextId: Int
+        val title: Int
         if (askForPassword) {
-            title = R.string.share_link_optional_password_title;
-            neutralButtonTextId = R.string.common_skip;
+            title = R.string.share_link_optional_password_title
+            neutralButtonTextId = R.string.common_skip
         } else {
-            title = R.string.share_link_password_title;
-            neutralButtonTextId = R.string.common_cancel;
+            title = R.string.share_link_password_title
+            neutralButtonTextId = R.string.common_cancel
         }
 
         // Build the dialog
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(view.getContext());
-
-        builder.setView(view)
+        val builder = MaterialAlertDialogBuilder(requireContext())
+        builder.setView(binding!!.root)
             .setPositiveButton(R.string.common_ok, null)
-            .setNegativeButton(R.string.common_delete, (dialog, which) -> callSetPassword())
-            .setNeutralButton(neutralButtonTextId, (dialog, which) -> {
+            .setNegativeButton(R.string.common_delete) { _: DialogInterface?, _: Int -> callSetPassword() }
+            .setNeutralButton(neutralButtonTextId) { _: DialogInterface?, _: Int ->
                 if (askForPassword) {
-                    callSetPassword();
+                    callSetPassword()
                 }
-            })
-            .setTitle(title);
+            }
+            .setTitle(title)
 
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(view.getContext(), builder);
+        viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(requireContext(), builder)
 
-        return builder.create();
+        return builder.create()
     }
 
-    private void callSetPassword() {
+    private fun callSetPassword() {
         if (share == null) {
-            setPassword(createShare, file, null);
+            setPassword(createShare, file, null)
         } else {
-            setPassword(share, null);
+            setPassword(share!!, null)
         }
     }
 
-    private void setPassword(boolean createShare, OCFile file, String password) {
-        FileOperationsHelper fileOperationsHelper = ((FileActivity) requireActivity()).getFileOperationsHelper();
-        if (fileOperationsHelper == null) {
-            return;
-        }
-
+    private fun setPassword(createShare: Boolean, file: OCFile?, password: String?) {
+        val fileOperationsHelper = (requireActivity() as FileActivity).fileOperationsHelper ?: return
         if (createShare) {
-            fileOperationsHelper.shareFileViaPublicShare(file, password);
+            fileOperationsHelper.shareFileViaPublicShare(file, password)
         } else {
-            fileOperationsHelper.setPasswordToShare(share, password);
+            fileOperationsHelper.setPasswordToShare(share, password)
         }
     }
 
-    private void setPassword(OCShare share, String password) {
-        FileOperationsHelper fileOperationsHelper = ((FileActivity) requireActivity()).getFileOperationsHelper();
-        if (fileOperationsHelper == null) {
-            return;
-        }
-
-        fileOperationsHelper.setPasswordToShare(share, password);
+    private fun setPassword(share: OCShare, password: String?) {
+        val fileOperationsHelper = (requireActivity() as FileActivity).fileOperationsHelper ?: return
+        fileOperationsHelper.setPasswordToShare(share, password)
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
+    companion object {
+        private const val ARG_FILE = "FILE"
+        private const val ARG_SHARE = "SHARE"
+        private const val ARG_CREATE_SHARE = "CREATE_SHARE"
+        private const val ARG_ASK_FOR_PASSWORD = "ASK_FOR_PASSWORD"
+        const val PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT"
+
+        /**
+         * Public factory method to create new SharePasswordDialogFragment instances.
+         *
+         * @param file        OCFile bound to the public share that which password will be set or updated
+         * @param createShare When 'true', the request for password will be followed by the creation of a new public link;
+         * when 'false', a public share is assumed to exist, and the password is bound to it.
+         * @return Dialog ready to show.
+         */
+        @JvmStatic
+        fun newInstance(file: OCFile?, createShare: Boolean, askForPassword: Boolean): SharePasswordDialogFragment {
+            val frag = SharePasswordDialogFragment()
+            val args = Bundle()
+            args.putParcelable(ARG_FILE, file)
+            args.putBoolean(ARG_CREATE_SHARE, createShare)
+            args.putBoolean(ARG_ASK_FOR_PASSWORD, askForPassword)
+            frag.arguments = args
+            return frag
+        }
+
+        /**
+         * Public factory method to create new SharePasswordDialogFragment instances.
+         *
+         * @param share OCFile bound to the public share that which password will be set or updated
+         * @return Dialog ready to show.
+         */
+        @JvmStatic
+        fun newInstance(share: OCShare?, askForPassword: Boolean): SharePasswordDialogFragment {
+            val frag = SharePasswordDialogFragment()
+            val args = Bundle()
+            args.putParcelable(ARG_SHARE, share)
+            args.putBoolean(ARG_ASK_FOR_PASSWORD, askForPassword)
+            frag.arguments = args
+            return frag
+        }
+
+        /**
+         * Public factory method to create new SharePasswordDialogFragment instances.
+         *
+         * @param share OCFile bound to the public share that which password will be set or updated
+         * @return Dialog ready to show.
+         */
+        fun newInstance(share: OCShare?): SharePasswordDialogFragment {
+            val frag = SharePasswordDialogFragment()
+            val args = Bundle()
+            args.putParcelable(ARG_SHARE, share)
+            frag.arguments = args
+            return frag
+        }
     }
 }
