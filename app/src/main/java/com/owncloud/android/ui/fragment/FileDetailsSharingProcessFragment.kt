@@ -246,8 +246,11 @@ class FileDetailsSharingProcessFragment :
         val resources = requireContext().resources
 
         binding.shareProcessBtnNext.text = resources.getString(
-            if (shareType == ShareType.PUBLIC_LINK) R.string.share_copy_link
-            else R.string.common_confirm
+            if (shareType == ShareType.PUBLIC_LINK) {
+                R.string.share_copy_link
+            } else {
+                R.string.common_confirm
+            }
         )
 
         updateViewForShareType()
