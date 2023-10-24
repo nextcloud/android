@@ -23,109 +23,86 @@
  *  along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  */
+package com.owncloud.android.ui.dialog
 
-package com.owncloud.android.ui.dialog;
+import android.app.Dialog
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.di.Injectable
+import com.owncloud.android.R
+import com.owncloud.android.databinding.MultipleAccountsBinding
+import com.owncloud.android.ui.adapter.UserListAdapter
+import com.owncloud.android.ui.adapter.UserListItem
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
+class MultipleAccountsDialog : DialogFragment(), Injectable, UserListAdapter.ClickListener {
+    @JvmField
+    @Inject
+    var accountManager: UserAccountManager? = null
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.di.Injectable;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.MultipleAccountsBinding;
-import com.owncloud.android.ui.adapter.UserListAdapter;
-import com.owncloud.android.ui.adapter.UserListItem;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
+    @JvmField
+    @Inject
+    var viewThemeUtils: ViewThemeUtils? = null
+    var highlightCurrentlyActiveAccount = true
 
-import java.util.ArrayList;
-import java.util.List;
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val inflater = requireActivity().layoutInflater
+        val binding = MultipleAccountsBinding.inflate(inflater, null, false)
 
-import javax.inject.Inject;
+        val builder = MaterialAlertDialogBuilder(binding.root.context)
+        val adapter = UserListAdapter(
+            requireActivity(),
+            accountManager,
+            accountListItems,
+            this,
+            false,
+            highlightCurrentlyActiveAccount,
+            false,
+            viewThemeUtils
+        )
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+        binding.list.setHasFixedSize(true)
+        binding.list.layoutManager = LinearLayoutManager(requireActivity())
+        binding.list.adapter = adapter
 
-public class MultipleAccountsDialog extends DialogFragment implements Injectable, UserListAdapter.ClickListener {
+        builder.setView(binding.root).setTitle(R.string.common_choose_account)
 
-    @Inject UserAccountManager accountManager;
-    @Inject ViewThemeUtils viewThemeUtils;
-    public boolean highlightCurrentlyActiveAccount = true;
+        viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(requireContext(), builder)
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Activity activity = getActivity();
-        if (activity == null) {
-            throw new IllegalArgumentException("Activity may not be null");
-        }
-
-        // Inflate the layout for the dialog
-        LayoutInflater inflater = activity.getLayoutInflater();
-        MultipleAccountsBinding binding = MultipleAccountsBinding.inflate(inflater, null, false);
-
-        final Context parent = getActivity();
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(binding.getRoot().getContext());
-
-        UserListAdapter adapter = new UserListAdapter(parent,
-                                                      accountManager,
-                                                      getAccountListItems(),
-                                                      this,
-                                                      false,
-                                                      highlightCurrentlyActiveAccount,
-                                                      false,
-                                                      viewThemeUtils);
-
-        binding.list.setHasFixedSize(true);
-        binding.list.setLayoutManager(new LinearLayoutManager(activity));
-        binding.list.setAdapter(adapter);
-
-        builder.setView(binding.getRoot()).setTitle(R.string.common_choose_account);
-
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.getRoot().getContext(), builder);
-
-        return builder.create();
+        return builder.create()
     }
 
-    /**
-     * creates the account list items list including the add-account action in case
-     * multiaccount_support is enabled.
-     *
-     * @return list of account list items
-     */
-    private List<UserListItem> getAccountListItems() {
-        List<User> users = accountManager.getAllUsers();
-        List<UserListItem> adapterUserList = new ArrayList<>(users.size());
-        for (User user : users) {
-            adapterUserList.add(new UserListItem(user));
+    private val accountListItems: List<UserListItem>
+        /**
+         * creates the account list items list including the add-account action in case
+         * multiaccount_support is enabled.
+         *
+         * @return list of account list items
+         */
+        get() {
+            val users = accountManager?.allUsers ?: listOf()
+
+            val adapterUserList: MutableList<UserListItem> = ArrayList(users.size)
+            for (user in users) {
+                adapterUserList.add(UserListItem(user))
+            }
+            return adapterUserList
         }
 
-        return adapterUserList;
-    }
-
-    @Override
-    public void onOptionItemClicked(User user, View view) {
+    override fun onOptionItemClicked(user: User, view: View) {
         // By default, access account if option is clicked
-        onAccountClicked(user);
+        onAccountClicked(user)
     }
 
-    @Override
-    public void onAccountClicked(User user) {
-        final AccountChooserInterface parentActivity = (AccountChooserInterface) getActivity();
-        if (parentActivity != null) {
-            parentActivity.onAccountChosen(user);
-        }
-        dismiss();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    override fun onAccountClicked(user: User) {
+        val parentActivity = activity as AccountChooserInterface?
+        parentActivity?.onAccountChosen(user)
+        dismiss()
     }
 }
