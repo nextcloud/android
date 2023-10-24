@@ -633,7 +633,9 @@ public class FileDisplayActivity extends FileActivity
 
         //clear the subtitle while navigating to any other screen from Media screen
         clearToolbarSubtitle();
+
         setSortListGroup(sortListGroupVisibility(), showSortListGroup);
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
