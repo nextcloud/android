@@ -61,9 +61,9 @@
             android:layout_width="@dimen/synced_folders_control_width"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:padding="@dimen/standard_padding">
+            android:padding="@dimen/standard_half_padding">
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/sync_enabled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
