@@ -20,85 +20,57 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.dialog
 
-package com.owncloud.android.ui.dialog;
-
-
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.os.Bundle;
-import android.text.format.DateUtils;
-import android.widget.DatePicker;
-
-import com.google.android.material.button.MaterialButton;
-import com.nextcloud.client.di.Injectable;
-import com.owncloud.android.R;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.util.Calendar;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
+import android.app.Dialog
+import android.content.DialogInterface
+import android.os.Bundle
+import android.text.format.DateUtils
+import android.widget.DatePicker
+import androidx.fragment.app.DialogFragment
+import com.google.android.material.button.MaterialButton
+import com.nextcloud.client.di.Injectable
+import com.owncloud.android.R
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.util.Calendar
+import javax.inject.Inject
 
 /**
  * Dialog requesting a date after today.
  */
-public class ExpirationDatePickerDialogFragment
-    extends DialogFragment
-    implements DatePickerDialog.OnDateSetListener, Injectable {
+class ExpirationDatePickerDialogFragment : DialogFragment(), OnDateSetListener, Injectable {
 
-    /** Tag for FragmentsManager */
-    public static final String DATE_PICKER_DIALOG = "DATE_PICKER_DIALOG";
+    @JvmField
+    @Inject
+    var viewThemeUtils: ViewThemeUtils? = null
 
-    /** Parameter constant for date chosen initially */
-    private static final String ARG_CHOSEN_DATE_IN_MILLIS = "CHOSEN_DATE_IN_MILLIS";
+    private var onExpiryDateListener: OnExpiryDateListener? = null
 
-    @Inject ViewThemeUtils viewThemeUtils;
-    private OnExpiryDateListener onExpiryDateListener;
-
-    /**
-     * Factory method to create new instances
-     *
-     * @param chosenDateInMillis Date chosen when the dialog appears
-     * @return New dialog instance
-     */
-    public static ExpirationDatePickerDialogFragment newInstance(long chosenDateInMillis) {
-        Bundle arguments = new Bundle();
-        arguments.putLong(ARG_CHOSEN_DATE_IN_MILLIS, chosenDateInMillis);
-
-        ExpirationDatePickerDialogFragment dialog = new ExpirationDatePickerDialogFragment();
-        dialog.setArguments(arguments);
-        return dialog;
+    fun setOnExpiryDateListener(onExpiryDateListener: OnExpiryDateListener?) {
+        this.onExpiryDateListener = onExpiryDateListener
     }
 
-    public void setOnExpiryDateListener(OnExpiryDateListener onExpiryDateListener) {
-        this.onExpiryDateListener = onExpiryDateListener;
-    }
+    override fun onStart() {
+        super.onStart()
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        final Dialog currentDialog = getDialog();
+        val currentDialog = dialog
 
         if (currentDialog != null) {
-            final DatePickerDialog dialog = (DatePickerDialog) currentDialog;
+            val dialog = currentDialog as DatePickerDialog
 
-            MaterialButton positiveButton = (MaterialButton) dialog.getButton(DatePickerDialog.BUTTON_POSITIVE);
+            val positiveButton = dialog.getButton(DatePickerDialog.BUTTON_POSITIVE) as MaterialButton?
             if (positiveButton != null) {
-                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
+                viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(positiveButton)
             }
-
-            MaterialButton negativeButton = (MaterialButton) dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE);
+            val negativeButton = dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE) as MaterialButton?
             if (negativeButton != null) {
-                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
+                viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(negativeButton)
             }
-
-            MaterialButton neutralButton = (MaterialButton) dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL);
+            val neutralButton = dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL) as MaterialButton?
             if (neutralButton != null) {
-                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(neutralButton);
+                viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(neutralButton)
             }
         }
     }
@@ -108,59 +80,55 @@ public class ExpirationDatePickerDialogFragment
      *
      * @return A new dialog to let the user choose an expiration date that will be bound to a share link.
      */
-    @Override
-    @NonNull
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Chosen date received as an argument must be later than tomorrow ; default to tomorrow in other case
-        final Calendar chosenDate = Calendar.getInstance();
-        long tomorrowInMillis = chosenDate.getTimeInMillis() + DateUtils.DAY_IN_MILLIS;
-        long chosenDateInMillis = requireArguments().getLong(ARG_CHOSEN_DATE_IN_MILLIS);
-        chosenDate.setTimeInMillis(Math.max(chosenDateInMillis, tomorrowInMillis));
+        val chosenDate = Calendar.getInstance()
+        val tomorrowInMillis = chosenDate.timeInMillis + DateUtils.DAY_IN_MILLIS
+        val chosenDateInMillis = requireArguments().getLong(ARG_CHOSEN_DATE_IN_MILLIS)
+        chosenDate.timeInMillis = chosenDateInMillis.coerceAtLeast(tomorrowInMillis)
 
         // Create a new instance of DatePickerDialog
-        DatePickerDialog dialog = new DatePickerDialog(
+        val dialog = DatePickerDialog(
             requireActivity(),
             R.style.FallbackDatePickerDialogTheme,
             this,
-            chosenDate.get(Calendar.YEAR),
-            chosenDate.get(Calendar.MONTH),
-            chosenDate.get(Calendar.DAY_OF_MONTH)
-        );
+            chosenDate[Calendar.YEAR],
+            chosenDate[Calendar.MONTH],
+            chosenDate[Calendar.DAY_OF_MONTH]
+        )
 
-        //show unset button only when date is already selected
+        // show unset button only when date is already selected
         if (chosenDateInMillis > 0) {
             dialog.setButton(
                 Dialog.BUTTON_NEGATIVE,
-                getText(R.string.share_via_link_unset_password),
-                (dialog1, which) -> {
-                    if (onExpiryDateListener != null) {
-                        onExpiryDateListener.onDateUnSet();
-                    }
-                });
+                getText(R.string.share_via_link_unset_password)
+            ) { _: DialogInterface?, _: Int ->
+                onExpiryDateListener?.onDateUnSet()
+            }
         }
 
         // Prevent days in the past may be chosen
-        DatePicker picker = dialog.getDatePicker();
-        picker.setMinDate(tomorrowInMillis - 1000);
+        val picker = dialog.datePicker
+        picker.minDate = tomorrowInMillis - 1000
 
         // Enforce spinners view; ignored by MD-based theme in Android >=5, but calendar is REALLY buggy
         // in Android < 5, so let's be sure it never appears (in tablets both spinners and calendar are
         // shown by default)
-        picker.setCalendarViewShown(false);
-
-        return dialog;
+        @Suppress("DEPRECATION")
+        picker.calendarViewShown = false
+        return dialog
     }
 
-    public long getCurrentSelectionMillis() {
-        final Dialog dialog = getDialog();
-        if (dialog != null) {
-            final DatePickerDialog datePickerDialog = (DatePickerDialog) dialog;
-            final DatePicker picker = datePickerDialog.getDatePicker();
-            return yearMonthDayToMillis(picker.getYear(), picker.getMonth(), picker.getDayOfMonth());
+    val currentSelectionMillis: Long
+        get() {
+            val dialog = dialog
+            if (dialog != null) {
+                val datePickerDialog = dialog as DatePickerDialog
+                val picker = datePickerDialog.datePicker
+                return yearMonthDayToMillis(picker.year, picker.month, picker.dayOfMonth)
+            }
+            return 0
         }
-        return 0;
-    }
 
     /**
      * Called when the user chooses an expiration date.
@@ -170,27 +138,45 @@ public class ExpirationDatePickerDialogFragment
      * @param monthOfYear Month of the date chosen [0, 11]
      * @param dayOfMonth  Day of the date chosen
      */
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-        long chosenDateInMillis = yearMonthDayToMillis(year, monthOfYear, dayOfMonth);
-
+    override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int) {
+        val chosenDateInMillis = yearMonthDayToMillis(year, monthOfYear, dayOfMonth)
         if (onExpiryDateListener != null) {
-            onExpiryDateListener.onDateSet(year, monthOfYear, dayOfMonth, chosenDateInMillis);
+            onExpiryDateListener?.onDateSet(year, monthOfYear, dayOfMonth, chosenDateInMillis)
         }
     }
 
-    private long yearMonthDayToMillis(int year, int monthOfYear, int dayOfMonth) {
-        Calendar date = Calendar.getInstance();
-        date.set(Calendar.YEAR, year);
-        date.set(Calendar.MONTH, monthOfYear);
-        date.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        return date.getTimeInMillis();
+    private fun yearMonthDayToMillis(year: Int, monthOfYear: Int, dayOfMonth: Int): Long {
+        val date = Calendar.getInstance()
+        date[Calendar.YEAR] = year
+        date[Calendar.MONTH] = monthOfYear
+        date[Calendar.DAY_OF_MONTH] = dayOfMonth
+        return date.timeInMillis
     }
 
-    public interface OnExpiryDateListener {
-        void onDateSet(int year, int monthOfYear, int dayOfMonth, long chosenDateInMillis);
+    interface OnExpiryDateListener {
+        fun onDateSet(year: Int, monthOfYear: Int, dayOfMonth: Int, chosenDateInMillis: Long)
+        fun onDateUnSet()
+    }
 
-        void onDateUnSet();
+    companion object {
+        /** Tag for FragmentsManager  */
+        const val DATE_PICKER_DIALOG = "DATE_PICKER_DIALOG"
+
+        /** Parameter constant for date chosen initially  */
+        private const val ARG_CHOSEN_DATE_IN_MILLIS = "CHOSEN_DATE_IN_MILLIS"
+
+        /**
+         * Factory method to create new instances
+         *
+         * @param chosenDateInMillis Date chosen when the dialog appears
+         * @return New dialog instance
+         */
+        fun newInstance(chosenDateInMillis: Long): ExpirationDatePickerDialogFragment {
+            val arguments = Bundle()
+            arguments.putLong(ARG_CHOSEN_DATE_IN_MILLIS, chosenDateInMillis)
+            val dialog = ExpirationDatePickerDialogFragment()
+            dialog.arguments = arguments
+            return dialog
+        }
     }
 }
