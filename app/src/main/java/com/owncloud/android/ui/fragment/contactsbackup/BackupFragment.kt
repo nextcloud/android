@@ -62,6 +62,7 @@ import java.util.Collections
 import java.util.Date
 import javax.inject.Inject
 
+@Suppress("TooManyFunctions")
 class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
     private lateinit var binding: BackupFragmentBinding
 
@@ -376,6 +377,7 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
     }
 
     @Deprecated("Deprecated in Java")
+    @Suppress("NestedBlockDepth")
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
@@ -625,6 +627,7 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
         }
     }
 
+    @Suppress("TooGenericExceptionCaught", "NestedBlockDepth", "ComplexMethod", "LongMethod", "MagicNumber")
     override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
         val contactsPreferenceActivity = activity as ContactsPreferenceActivity?
         if (contactsPreferenceActivity == null) {
