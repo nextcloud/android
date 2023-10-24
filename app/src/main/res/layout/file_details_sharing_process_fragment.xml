@@ -298,7 +298,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/share_process_btn_next"
-        android:layout_width="@dimen/button_width"
+        android:layout_width="@dimen/button_extra_width"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/standard_half_margin"
         android:layout_marginEnd="@dimen/standard_margin"

@@ -30,6 +30,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsSharingProcessFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -123,7 +125,7 @@ class FileDetailsSharingProcessFragment :
     private var chosenExpDateInMills: Long = -1 // for no expiry date
 
     private var share: OCShare? = null
-    private var isReshareShown: Boolean = true // show or hide reshare option
+    private var isReShareShown: Boolean = true // show or hide reShare option
     private var isExpDateShown: Boolean = true // show or hide expiry date option
 
     private var expirationDatePickerFragment: ExpirationDatePickerDialogFragment? = null
@@ -140,17 +142,18 @@ class FileDetailsSharingProcessFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            file = it.getParcelable(ARG_OCFILE)
+            file = it.getParcelableArgument(ARG_OCFILE, OCFile::class.java)
             shareeName = it.getString(ARG_SHAREE_NAME)
-            share = it.getParcelable(ARG_OCSHARE)
+            share = it.getParcelableArgument(ARG_OCSHARE, OCShare::class.java)
+
             if (it.containsKey(ARG_SHARE_TYPE)) {
-                shareType = it.getSerializable(ARG_SHARE_TYPE) as ShareType
+                shareType = it.getSerializableArgument(ARG_SHARE_TYPE, ShareType::class.java)!!
             } else if (share != null) {
                 shareType = share!!.shareType!!
             }
 
             shareProcessStep = it.getInt(ARG_SCREEN_TYPE, SCREEN_TYPE_PERMISSION)
-            isReshareShown = it.getBoolean(ARG_RESHARE_SHOWN, true)
+            isReShareShown = it.getBoolean(ARG_RESHARE_SHOWN, true)
             isExpDateShown = it.getBoolean(ARG_EXP_DATE_SHOWN, true)
         }
 
@@ -178,8 +181,8 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun themeView() {
-        viewThemeUtils.platform.colorPrimaryTextViewElement(binding.shareProcessEditShareLink)
-        viewThemeUtils.platform.colorPrimaryTextViewElement(binding.shareProcessAdvancePermissionTitle)
+        viewThemeUtils.platform.colorTextView(binding.shareProcessEditShareLink)
+        viewThemeUtils.platform.colorTextView(binding.shareProcessAdvancePermissionTitle)
 
         viewThemeUtils.platform.themeRadioButton(binding.shareProcessPermissionReadOnly)
         viewThemeUtils.platform.themeRadioButton(binding.shareProcessPermissionUploadEditing)
@@ -306,7 +309,7 @@ class FileDetailsSharingProcessFragment :
             binding.shareProcessAllowResharingCheckbox.visibility = View.VISIBLE
             binding.shareProcessSetPasswordSwitch.visibility = View.GONE
             if (share != null) {
-                if (!isReshareShown) {
+                if (!isReShareShown) {
                     binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
                 }
                 binding.shareProcessAllowResharingCheckbox.isChecked = SharingMenuHelper.canReshare(share)
@@ -337,7 +340,7 @@ class FileDetailsSharingProcessFragment :
      */
     private fun updateExpirationDateView() {
         if (share != null) {
-            if (share?.expirationDate ?: 0 > 0) {
+            if ((share?.expirationDate ?: 0) > 0) {
                 chosenExpDateInMills = share?.expirationDate ?: -1
                 binding.shareProcessSetExpDateSwitch.isChecked = true
                 binding.shareProcessSelectExpDate.text = (
