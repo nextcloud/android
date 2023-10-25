@@ -1990,18 +1990,17 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo);
         showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
         if (showPreview) {
-            startActivity(showDetailsIntent);
+            startActivity(intent);
         } else {
             FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService, editorUtils);
             fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent);
         }
     }
 
-    /**
-     * Opens the image gallery showing the image {@link OCFile} received as parameter.
-     *
-     * @param file Image {@link OCFile} to show.
-     */
+    public void startImagePreview(OCFile file, boolean showPreview) {
+        previewImage(file, null, showPreview);
+    }
+
     public void startImagePreview(OCFile file, VirtualFolderType type, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_FILE, file);
