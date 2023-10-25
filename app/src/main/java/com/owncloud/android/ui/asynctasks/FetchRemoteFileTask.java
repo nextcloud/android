@@ -21,6 +21,7 @@
 
 package com.owncloud.android.ui.asynctasks;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
 import com.nextcloud.client.account.User;
@@ -42,6 +43,8 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
     private final User user;
     private final String fileId;
     private final FileDataStorageManager storageManager;
+
+    @SuppressLint("StaticFieldLeak")
     private final FileDisplayActivity fileDisplayActivity;
 
     public FetchRemoteFileTask(User user,
