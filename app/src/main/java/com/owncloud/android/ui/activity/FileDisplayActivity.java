@@ -1350,7 +1350,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
                 if (uploadWasFine) {
                     OCFile ocFile = getFile();
                     if (PreviewImageFragment.canBePreviewed(ocFile)) {
-                        startImagePreview(getFile(), true);
+                        startImagePreview(getFile(), null, true);
                     } else if (PreviewTextFileFragment.canBePreviewed(ocFile)) {
                         startTextPreview(ocFile, true);
                     }
