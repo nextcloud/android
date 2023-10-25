@@ -107,7 +107,6 @@ import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment;
 import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -133,13 +132,10 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -174,7 +170,6 @@ public class FileDisplayActivity extends FileActivity
     public static final String RESTART = "RESTART";
     public static final String ALL_FILES = "ALL_FILES";
     public static final String LIST_GROUPFOLDERS = "LIST_GROUPFOLDERS";
-    public static final String PHOTO_SEARCH = "PHOTO_SEARCH";
     public static final int SINGLE_USER_SIZE = 1;
     public static final String OPEN_FILE = "NC_OPEN_FILE";
 
@@ -207,7 +202,6 @@ public class FileDisplayActivity extends FileActivity
     public static final int REQUEST_CODE__MOVE_FILES = REQUEST_CODE__LAST_SHARED + 3;
     public static final int REQUEST_CODE__COPY_FILES = REQUEST_CODE__LAST_SHARED + 4;
     public static final int REQUEST_CODE__UPLOAD_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 5;
-    public static final int REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 6;
 
     protected static final long DELAY_TO_REQUEST_REFRESH_OPERATION_LATER = DELAY_TO_REQUEST_OPERATIONS_LATER + 350;
 
@@ -891,12 +885,7 @@ public class FileDisplayActivity extends FileActivity
             exitSelectionMode();
             final Intent fData = data;
             getHandler().postDelayed(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        requestMoveOperation(fData);
-                    }
-                },
+                () -> requestMoveOperation(fData),
                 DELAY_TO_REQUEST_OPERATIONS_LATER
                                     );
 
@@ -904,12 +893,7 @@ public class FileDisplayActivity extends FileActivity
             exitSelectionMode();
             final Intent fData = data;
             getHandler().postDelayed(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        requestCopyOperation(fData);
-                    }
-                },
+                () -> requestCopyOperation(fData),
                 DELAY_TO_REQUEST_OPERATIONS_LATER
                                     );
         } else if (requestCode == PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES) {
@@ -945,24 +929,11 @@ public class FileDisplayActivity extends FileActivity
                 remotePaths[j] = remotePathBase + relativePath;
             }
 
-            int behaviour;
-            switch (resultCode) {
-                case UploadFilesActivity.RESULT_OK_AND_MOVE:
-                    behaviour = FileUploader.LOCAL_BEHAVIOUR_MOVE;
-                    break;
-
-                case UploadFilesActivity.RESULT_OK_AND_DELETE:
-                    behaviour = FileUploader.LOCAL_BEHAVIOUR_DELETE;
-                    break;
-
-                case UploadFilesActivity.RESULT_OK_AND_DO_NOTHING:
-                    behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
-                    break;
-
-                default:
-                    behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
-                    break;
-            }
+            int behaviour = switch (resultCode) {
+                case UploadFilesActivity.RESULT_OK_AND_MOVE -> FileUploader.LOCAL_BEHAVIOUR_MOVE;
+                case UploadFilesActivity.RESULT_OK_AND_DELETE -> FileUploader.LOCAL_BEHAVIOUR_DELETE;
+                default -> FileUploader.LOCAL_BEHAVIOUR_FORGET;
+            };
 
             FileUploader.uploadNewFile(
                 this,
@@ -2373,44 +2344,6 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onMessageEvent(final SearchEvent event) {
-        if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == event.getSearchType()) {
-            Log_OC.d(this, "Switch to photo search fragment");
-            setLeftFragment(new GalleryFragment());
-        } else if (event.getSearchType() == SearchRemoteOperation.SearchType.SHARED_FILTER) {
-            Log_OC.d(this, "Switch to Shared fragment");
-            setLeftFragment(new SharedListFragment());
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(SyncEventFinished event) {
-        Bundle bundle = event.getIntent().getExtras();
-        if (event.getIntent().getBooleanExtra(TEXT_PREVIEW, false)) {
-            startTextPreview((OCFile) bundle.get(EXTRA_FILE), true);
-        } else if (bundle.containsKey(PreviewMediaFragment.EXTRA_START_POSITION)) {
-            startMediaPreview((OCFile) bundle.get(EXTRA_FILE),
-                              (long) bundle.get(PreviewMediaFragment.EXTRA_START_POSITION),
-                              (boolean) bundle.get(PreviewMediaFragment.EXTRA_AUTOPLAY), true, true);
-        } else if (bundle.containsKey(PreviewImageActivity.EXTRA_VIRTUAL_TYPE)) {
-            startImagePreview((OCFile) bundle.get(EXTRA_FILE),
-                              (VirtualFolderType) bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE),
-                              true);
-        } else {
-            startImagePreview((OCFile) bundle.get(EXTRA_FILE), true);
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onMessageEvent(TokenPushEvent event) {
-        if (!preferences.isKeysReInitEnabled()) {
-            PushUtils.reinitKeys(getUserAccountManager());
-        } else {
-            PushUtils.pushRegistrationToServer(getUserAccountManager(), preferences.getPushToken());
-        }
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -2621,7 +2554,7 @@ public class FileDisplayActivity extends FileActivity
         dismissLoadingDialog();
 
         final Fragment leftFragment = getLeftFragment();
-        OCFileListFragment listOfFiles = null;
+        OCFileListFragment listOfFiles;
         if (leftFragment instanceof OCFileListFragment) {
             listOfFiles = (OCFileListFragment) leftFragment;
         } else {
