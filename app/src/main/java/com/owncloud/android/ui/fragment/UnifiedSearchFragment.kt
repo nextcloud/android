@@ -193,7 +193,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
             if (activity is FileDisplayActivity) {
                 val fda = activity as FileDisplayActivity
                 fda.file = file
-                fda.showFile("")
+                fda.showFile(file,"")
             }
         }
     }

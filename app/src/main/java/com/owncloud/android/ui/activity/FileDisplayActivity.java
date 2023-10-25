@@ -2542,7 +2542,7 @@ public class FileDisplayActivity extends FileActivity
         binding.fabMain.setVisibility(visibility);
     }
 
-    public void showFile(String message) {
+    public void showFile(OCFile selectedFile, String message) {
         dismissLoadingDialog();
 
         final Fragment leftFragment = getLeftFragment();
@@ -2565,6 +2565,10 @@ public class FileDisplayActivity extends FileActivity
             updateActionBarTitleAndHomeButton(null);
         } else {
             DisplayUtils.showSnackMessage(listOfFiles.getView(), message);
+        }
+
+        if (selectedFile != null) {
+            listOfFiles.onItemClicked(selectedFile);
         }
     }
 }
