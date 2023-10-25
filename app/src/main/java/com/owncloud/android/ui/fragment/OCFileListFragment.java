@@ -61,6 +61,7 @@ import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.network.ConnectivityObserver;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
@@ -976,6 +977,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onItemClicked(OCFile file) {
+        ((FileActivity) mContainerActivity).checkInternetConnection();
+
         if (getCommonAdapter().isMultiSelect()) {
             toggleItemToCheckedList(file);
         } else {

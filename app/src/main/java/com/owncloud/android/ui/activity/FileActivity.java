@@ -44,6 +44,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.network.ConnectivityObserver;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.MainApp;
@@ -237,6 +238,12 @@ public abstract class FileActivity extends DrawerActivity
         if (mUploadServiceConnection != null) {
             bindService(new Intent(this, FileUploader.class), mUploadServiceConnection,
                     Context.BIND_AUTO_CREATE);
+        }
+    }
+
+    public void checkInternetConnection() {
+        if (ConnectivityObserver.INSTANCE.isConnected(this)) {
+            hideInfoBox();
         }
     }
 

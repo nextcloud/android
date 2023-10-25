@@ -1273,29 +1273,26 @@ public class FileDisplayActivity extends FileActivity
 
                 String synchFolderRemotePath =
                     intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
-                RemoteOperationResult synchResult = (RemoteOperationResult)
+                RemoteOperationResult syncResult = (RemoteOperationResult)
                     DataHolderUtil.getInstance().retrieve(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
                 boolean sameAccount = getAccount() != null &&
                     accountName.equals(getAccount().name) && getStorageManager() != null;
 
                 if (sameAccount) {
-
                     if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
                         mSyncInProgress = true;
-
                     } else {
                         OCFile currentFile = (getFile() == null) ? null :
-                            getStorageManager().getFileByPath(getFile().getRemotePath());
+                            getStorageManager().getFileByEncryptedRemotePath(getFile().getRemotePath());
                         OCFile currentDir = (getCurrentDir() == null) ? null :
-                            getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
+                            getStorageManager().getFileByEncryptedRemotePath(getCurrentDir().getRemotePath());
 
                         if (currentDir == null) {
                             // current folder was removed from the server
                             DisplayUtils.showSnackMessage(
                                 getActivity(),
                                 R.string.sync_current_folder_was_removed,
-                                synchFolderRemotePath
-                                                         );
+                                synchFolderRemotePath);
 
                             browseToRoot();
 
@@ -1320,35 +1317,21 @@ public class FileDisplayActivity extends FileActivity
                             !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event);
 
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event) &&
-                            synchResult != null) {
+                            syncResult != null) {
 
-                            if (synchResult.isSuccess()) {
+                            if (syncResult.isSuccess()) {
                                 hideInfoBox();
                             } else {
                                 // TODO refactor and make common
-                                if (checkForRemoteOperationError(synchResult)) {
+                                if (checkForRemoteOperationError(syncResult)) {
                                     requestCredentialsUpdate(context);
                                 } else {
-                                    switch (synchResult.getCode()) {
-                                        case SSL_RECOVERABLE_PEER_UNVERIFIED:
-                                            showUntrustedCertDialog(synchResult);
-                                            break;
-
-                                        case MAINTENANCE_MODE:
-                                            showInfoBox(R.string.maintenance_mode);
-                                            break;
-
-                                        case NO_NETWORK_CONNECTION:
-                                            showInfoBox(R.string.offline_mode);
-                                            break;
-
-                                        case HOST_NOT_AVAILABLE:
-                                            showInfoBox(R.string.host_not_available);
-                                            break;
-
-                                        default:
-                                            // nothing to do
-                                            break;
+                                    switch (syncResult.getCode()) {
+                                        case SSL_RECOVERABLE_PEER_UNVERIFIED -> showUntrustedCertDialog(syncResult);
+                                        case MAINTENANCE_MODE -> showInfoBox(R.string.maintenance_mode);
+                                        case NO_NETWORK_CONNECTION -> showInfoBox(R.string.offline_mode);
+                                        case HOST_NOT_AVAILABLE -> showInfoBox(R.string.host_not_available);
+                                        default -> hideInfoBox();
                                     }
                                 }
                             }
@@ -1374,8 +1357,8 @@ public class FileDisplayActivity extends FileActivity
                     }
                 }
 
-                if (synchResult != null && synchResult.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
-                    mLastSslUntrustedServerResult = synchResult;
+                if (syncResult != null && syncResult.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
+                    mLastSslUntrustedServerResult = syncResult;
                 }
             } catch (RuntimeException e) {
                 // avoid app crashes after changing the serial id of RemoteOperationResult
