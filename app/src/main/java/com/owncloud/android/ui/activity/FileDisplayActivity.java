@@ -1453,7 +1453,7 @@ public class FileDisplayActivity extends FileActivity
                 if (uploadWasFine) {
                     OCFile ocFile = getFile();
                     if (PreviewImageFragment.canBePreviewed(ocFile)) {
-                        startImagePreview(getFile(), true);
+                        startImagePreview(getFile(), null, true);
                     } else if (PreviewTextFileFragment.canBePreviewed(ocFile)) {
                         startTextPreview(ocFile, true);
                     }
@@ -2107,7 +2107,7 @@ public class FileDisplayActivity extends FileActivity
         requestForDownload(mWaitingToSend, downloadBehaviour, packageName, activityName);
     }
 
-    private void previewImage(OCFile file, VirtualFolderType type, boolean showPreview) {
+    public void startImagePreview(OCFile file, VirtualFolderType type, boolean showPreview) {
         Intent intent = new Intent(this, PreviewImageActivity.class);
         intent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
 
@@ -2124,14 +2124,6 @@ public class FileDisplayActivity extends FileActivity
             FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(),connectivityService, editorUtils);
             fileOperationsHelper.startSyncForFileAndIntent(file, intent);
         }
-    }
-
-    public void startImagePreview(OCFile file, boolean showPreview) {
-        previewImage(file, null, showPreview);
-    }
-
-    public void startImagePreview(OCFile file, VirtualFolderType type, boolean showPreview) {
-        previewImage(file, type, showPreview);
     }
 
     /**
