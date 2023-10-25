@@ -2136,44 +2136,31 @@ public class FileDisplayActivity extends FileActivity
         requestForDownload(mWaitingToSend, downloadBehaviour, packageName, activityName);
     }
 
-    /**
-     * Opens the image gallery showing the image {@link OCFile} received as parameter.
-     *
-     * @param file Image {@link OCFile} to show.
-     */
-    public void startImagePreview(OCFile file, boolean showPreview) {
-        Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-        showDetailsIntent.putExtra(EXTRA_FILE, file);
-        showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
-        if (showPreview) {
-            startActivity(showDetailsIntent);
+    private void previewImage(OCFile file, VirtualFolderType type, boolean showPreview) {
+        Intent intent = new Intent(this, PreviewImageActivity.class);
+        intent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
+
+        if (type != null) {
+            intent.putExtra(PreviewImageActivity.EXTRA_FILE, file);
+            intent.putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, type);
         } else {
-            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this,
-                                                                                 getUserAccountManager(),
-                                                                                 connectivityService, editorUtils);
-            fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent);
+            intent.putExtra(EXTRA_FILE, file);
+        }
+
+        if (showPreview) {
+            startActivity(intent);
+        } else {
+            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(),connectivityService, editorUtils);
+            fileOperationsHelper.startSyncForFileAndIntent(file, intent);
         }
     }
 
-    /**
-     * Opens the image gallery showing the image {@link OCFile} received as parameter.
-     *
-     * @param file Image {@link OCFile} to show.
-     */
-    public void startImagePreview(OCFile file, VirtualFolderType type, boolean showPreview) {
-        Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-        showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_FILE, file);
-        showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
-        showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, type);
+    public void startImagePreview(OCFile file, boolean showPreview) {
+        previewImage(file, null, showPreview);
+    }
 
-        if (showPreview) {
-            startActivity(showDetailsIntent);
-        } else {
-            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this,
-                                                                                 getUserAccountManager(),
-                                                                                 connectivityService, editorUtils);
-            fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent);
-        }
+    public void startImagePreview(OCFile file, VirtualFolderType type, boolean showPreview) {
+        previewImage(file, type, showPreview);
     }
 
     /**
