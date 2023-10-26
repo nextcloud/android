@@ -24,8 +24,9 @@
     android:orientation="horizontal"
     android:padding="@dimen/standard_padding">
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
+    <ProgressBar
         android:id="@+id/loadingBar"
+        style="@style/Widget.Material3.CircularProgressIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
