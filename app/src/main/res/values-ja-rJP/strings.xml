@@ -30,9 +30,11 @@
     <string name="activity_icon">アクティビティ</string>
     <string name="add_another_public_share_link">別のリンクを作成</string>
     <string name="add_new_public_share">新規公開共有リンクを追加</string>
+    <string name="add_new_secure_file_drop">新しいセキュアなファイルドロップを追加</string>
     <string name="add_to_cloud">%1$s に追加</string>
     <string name="advanced_settings">高度な設定</string>
     <string name="allow_resharing">再共有を許可</string>
+    <string name="app_widget_description">ダッシュボードから一つのウィジェットを表示</string>
     <string name="appbar_search_in">%s の中を検索</string>
     <string name="associated_account_not_found">関連付けられたアカウントが見つかりません！</string>
     <string name="auth_access_failed">アクセスに失敗しました: %1$s</string>
@@ -85,11 +87,14 @@
     <string name="calendars">カレンダー</string>
     <string name="certificate_load_problem">証明書の読み込みに問題がありました。</string>
     <string name="changelog_dev_version">開発バージョンの変更履歴</string>
+    <string name="check_back_later_or_reload">後で確認するか、再読込をしてください</string>
     <string name="checkbox">チェックボックス</string>
     <string name="choose_local_folder">ローカルフォルダーを選択…</string>
+    <string name="choose_location">場所を選択</string>
     <string name="choose_remote_folder">リモートフォルダを選択…</string>
     <string name="choose_template_helper_text">テンプレートを選択してファイル名を入力してください。</string>
     <string name="choose_which_file">保存するファイルを選択</string>
+    <string name="choose_widget">ウィジェットを選択</string>
     <string name="clear_notifications_failed">通知の削除に失敗</string>
     <string name="clear_status_message">メッセージを消去</string>
     <string name="clear_status_message_after">ステータスメッセージの有効期限</string>
@@ -149,6 +154,7 @@
     <string name="conflict_local_file">ローカルファイル</string>
     <string name="conflict_message_description">両方のバージョンを選択した場合、ローカルファイルはファイル名に数字が追加されます。</string>
     <string name="conflict_server_file">サーバーファイル</string>
+    <string name="contact_backup_title">連絡先のバックアップ</string>
     <string name="contactlist_item_icon">連絡先リストのユーザーアイコン</string>
     <string name="contactlist_no_permission">許可がありません、インポートできません。</string>
     <string name="contacts">連絡先</string>
@@ -193,13 +199,20 @@
     <string name="did_not_check_for_dupes">重複をチェックしませんでした</string>
     <string name="digest_algorithm_not_available">このスマートフォンでは、ダイジェストアルゴリズムが利用できません。</string>
     <string name="direct_login_failed">ダイレクトリンクからのログインに失敗しました!</string>
+    <string name="direct_login_text">%1$s で %2$s へログインする</string>
     <string name="disable_new_media_folder_detection_notifications">無効</string>
     <string name="dismiss">閉じる</string>
     <string name="dismiss_notification_description">通知を閉じる</string>
     <string name="dnd">取り込み中</string>
+    <string name="document_scan_export_dialog_images">複数の画像</string>
+    <string name="document_scan_export_dialog_pdf">PDFファイル</string>
+    <string name="document_scan_export_dialog_title">エクスポートする種類を選択</string>
+    <string name="document_scan_pdf_generation_failed">PDFの生成に失敗しました</string>
+    <string name="document_scan_pdf_generation_in_progress">PDFを生成中...</string>
     <string name="done">完了</string>
     <string name="dontClear">消去しない</string>
     <string name="download_cannot_create_file">ローカルファイルが作成できません</string>
+    <string name="download_download_invalid_local_file_name">ローカルファイルに対して無効なファイル名</string>
     <string name="download_latest_dev_version">最新の開発バージョンをダウンロード</string>
     <string name="downloader_download_failed_content">%1$sをダウンロードできませんでした</string>
     <string name="downloader_download_failed_credentials_error">ダウンロード失敗、要 再ログイン</string>
@@ -229,10 +242,14 @@
     <string name="drawer_quota">%2$s 中%1$s が使われています。</string>
     <string name="drawer_quota_unlimited">%1$s使用中</string>
     <string name="drawer_synced_folders">自動アップロード</string>
+    <string name="e2e_not_yet_setup">E2E暗号化が未設定</string>
+    <string name="e2e_offline">インターネット接続なしには不可能です</string>
     <string name="ecosystem_apps_display_more">さらに表示</string>
     <string name="ecosystem_apps_display_notes">ノート</string>
     <string name="ecosystem_apps_display_talk">トーク</string>
+    <string name="ecosystem_apps_more">もっと Nextcloud アプリを見る</string>
     <string name="ecosystem_apps_notes">Nextcloud ノート</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="encrypted">暗号化設定</string>
     <string name="end_to_end_encryption_confirm_button">暗号化を設定する</string>
     <string name="end_to_end_encryption_decrypting">復号化中…</string>
@@ -262,7 +279,9 @@
     <string name="error_report_issue_text">問題を報告しますか？ (GitHubのアカウントが必要です)</string>
     <string name="error_retrieving_file">ファイルの取得中にエラーが発生しました</string>
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
+    <string name="error_showing_encryption_dialog">暗号化設定ダイアログの表示エラー</string>
     <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>
+    <string name="error_starting_doc_scan">文書スキャンの開始エラー</string>
     <string name="etm_accounts">アカウント</string>
     <string name="etm_background_job_name">ジョブの名前</string>
     <string name="etm_background_job_progress">進捗状況</string>
@@ -293,6 +312,7 @@
     <string name="failed_update_ui">UIの更新に失敗しました</string>
     <string name="favorite">お気に入りに追加</string>
     <string name="favorite_icon">お気に入り</string>
+    <string name="file_already_exists">ファイル名が既に存在します</string>
     <string name="file_delete">削除</string>
     <string name="file_detail_activity_error">ファイルのアクティビティ取得エラー</string>
     <string name="file_details_no_content">詳細のロードに失敗しました</string>
@@ -358,6 +378,7 @@
     <string name="filename_hint">ファイル名</string>
     <string name="first_run_1_text">あなたのデータをセキュアなままコントロールしましょう</string>
     <string name="first_run_2_text">セキュアなコラボレーションとファイル交換</string>
+    <string name="first_run_3_text">使いやすいWebメールやカレンダーや &amp; 連絡先</string>
     <string name="first_run_4_text">画面共有やオンラインミーティングやウェブ会議</string>
     <string name="folder_already_exists">フォルダーはすでに存在します</string>
     <string name="folder_confirm_create">作成</string>
@@ -383,6 +404,18 @@
     <string name="hint_password">パスワード</string>
     <string name="host_not_available">サーバーが利用できません</string>
     <string name="host_your_own_server">自分のサーバーをホストする</string>
+    <string name="icon_of_dashboard_widget">ダッシュボードウィジェットのアイコン</string>
+    <string name="image_editor_file_edited_suffix">編集された</string>
+    <string name="image_editor_flip_horizontal">左右反転</string>
+    <string name="image_editor_flip_vertical">上下反転</string>
+    <string name="image_editor_rotate_ccw">反時計回りに回す</string>
+    <string name="image_editor_rotate_cw">時計回りに回す</string>
+    <string name="image_editor_unable_to_edit_image">画像の編集が不可能です</string>
+    <string name="image_preview_filedetails">ファイルの詳細</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s 秒</string>
     <string name="in_folder">フォルダー%1$sの中で</string>
     <string name="instant_upload_existing">既存のファイルもアップロード</string>
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
@@ -403,12 +436,14 @@
     <string name="local_file_not_found_message">ローカルファイルシステムにファイルが見つかりません</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">これ以上フォルダーがありません。</string>
+    <string name="locate_folder">フォルダーの配置</string>
     <string name="lock_expiration_info">有効期限: %1$s</string>
     <string name="lock_file">ファイルをロック</string>
     <string name="locked_by">%1$sによりロック</string>
     <string name="locked_by_app">%1$sアプリによりロック</string>
     <string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
     <string name="log_send_no_mail_app">ログを送信するためのアプリが見つかりません。メールクライアントをインストールしてください。</string>
+    <string name="logged_in_as">%1$sとしてログインしました</string>
     <string name="login">ログイン</string>
     <string name="login_url_helper_text">%1$sをWeb画面でブラウザーで開くときのURL</string>
     <string name="logs_menu_delete">ログを消去</string>
@@ -459,6 +494,8 @@
     <string name="no_browser_available">リンクを処理するアプリがありません</string>
     <string name="no_calendar_exists">カレンダーがありません</string>
     <string name="no_email_app_available">メールアドレスの利用可能なアプリはありません</string>
+    <string name="no_items">アイテムがありません</string>
+    <string name="no_map_app_availble">マップを処理するアプリケーションがありません</string>
     <string name="no_mutliple_accounts_allowed">利用できるアカウントは１つだけです</string>
     <string name="no_pdf_app_available">PDFを処理するアプリケーションがありません</string>
     <string name="no_send_app">選択されたファイルの送信で利用可能なアプリがありません</string>
@@ -497,11 +534,13 @@
     <string name="pass_code_removed">パスコードを削除しました</string>
     <string name="pass_code_stored">パスコードを保存しました</string>
     <string name="pass_code_wrong">パスコードが正しくありません</string>
+    <string name="pdf_password_protected">パスワード保護されたPDFファイルを開くことは出来ません。外部ビューワを使ってください</string>
     <string name="pdf_zoom_tip">ズームするにはページをタップ</string>
     <string name="permission_allow">許可</string>
     <string name="permission_deny">拒否</string>
     <string name="permission_storage_access">ファイルをダウンロードとアップロードする追加の権限が必要です。</string>
     <string name="picture_set_as_no_app">画像を設定するアプリが見つかりませんでした</string>
+    <string name="pin_home">ホームスクリーンにピン留めする</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -531,6 +570,7 @@
     <string name="prefs_category_more">もっと見る</string>
     <string name="prefs_daily_backup_summary">カレンダーと連絡先を毎日バックアップ</string>
     <string name="prefs_daily_contact_backup_summary">連絡先のデイリーバックアップ</string>
+    <string name="prefs_e2e_active">End-to-end 暗号化を設定中！</string>
     <string name="prefs_e2e_mnemonic">E2Eニーモニック</string>
     <string name="prefs_e2e_no_device_credentials">ニーモニックを表示するには、デバイスクレデンシャルを有効にしてください。</string>
     <string name="prefs_enable_media_scan_notifications">メディアのスキャン結果通知を表示する</string>
@@ -540,7 +580,9 @@
     <string name="prefs_imprint">インプリント</string>
     <string name="prefs_instant_behaviour_dialogTitle">元のファイルの扱い…</string>
     <string name="prefs_instant_behaviour_title">元のファイルになります…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">日付を基にしたサブフォルダーに保存</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
+    <string name="prefs_keys_exist">このクライアントに End-to-End 暗号化を追加</string>
     <string name="prefs_license">ライセンス</string>
     <string name="prefs_lock">アプリパスコード</string>
     <string name="prefs_lock_device_credentials_enabled">デバイスの資格情報が有効です</string>
@@ -551,6 +593,7 @@
     <string name="prefs_lock_using_passcode">パスコード</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
     <string name="prefs_recommend">友達にすすめる</string>
+    <string name="prefs_setup_e2e">end-to-end 暗号化を設定</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_sourcecode">ソースコードを入手</string>
     <string name="prefs_storage_path">データ保存フォルダー</string>
@@ -574,6 +617,7 @@
     <string name="recommend_subject">デバイスで %1$s をお試しください</string>
     <string name="recommend_text">あなたのデバイスで %1$s を使用してください。\nダウンロードはこちらです: %2$s</string>
     <string name="recommend_urls">%1$s または %2$s</string>
+    <string name="refresh_content">コンテンツを更新</string>
     <string name="reload">再読み込み</string>
     <string name="remote">(リモート)</string>
     <string name="remote_file_fetch_failed">ファイルが見つかりません！</string>
@@ -594,6 +638,7 @@
     <string name="retrieving_file">ファイルを取得中...</string>
     <string name="richdocuments_failed_to_load_document">ドキュメントのロードに失敗しました。</string>
     <string name="scanQR_description">QRコードを用いてログイン</string>
+    <string name="scan_page">ページをスキャン</string>
     <string name="screenshot_01_gridView_heading">あなたのデータを保護</string>
     <string name="screenshot_01_gridView_subline">自己ホスト型の生産性</string>
     <string name="screenshot_02_listView_heading">閲覧と共有</string>
@@ -608,6 +653,7 @@
     <string name="screenshot_06_davdroid_subline">DAVx5で同期</string>
     <string name="search_error">検索結果の取得中にエラーが発生しました</string>
     <string name="select_all">すべて選択</string>
+    <string name="select_media_folder">メディア用のフォルダーの設定</string>
     <string name="select_one_template">テンプレートを選択してください</string>
     <string name="select_template">テンプレートを選択する</string>
     <string name="send">送信</string>
@@ -643,6 +689,7 @@
     <string name="share_password_title">パスワード保護</string>
     <string name="share_permission_can_edit">編集可能</string>
     <string name="share_permission_file_drop">ファイルを転送</string>
+    <string name="share_permission_secure_file_drop">セキュアなファイルドロップ</string>
     <string name="share_permission_view_only">閲覧のみ</string>
     <string name="share_permissions">共有権限</string>
     <string name="share_remote_clarification">%1$s (リモート)</string>
@@ -662,6 +709,8 @@
     <string name="shared_icon_shared_via_link">リンク経由で共有</string>
     <string name="shared_with_you_by">%1$sと共有中</string>
     <string name="sharee_add_failed">共有を追加できませんでした</string>
+    <string name="show_images">写真を表示</string>
+    <string name="show_video">動画を表示</string>
     <string name="signup_with_provider">他のサービスでサインアップ</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s があなたのNextcloudアカウント %2$s にアクセスできるようにしますか？</string>
     <string name="sort_by">ソート</string>
@@ -716,9 +765,13 @@
     <string name="stream_not_possible_headline">内部ストリーミングは不可能</string>
     <string name="stream_not_possible_message">代わりにメディアをダウンロードするか、外部アプリを使用してください。</string>
     <string name="strict_mode">ストリクトモード：HTTP接続が許可されていません！</string>
+    <string name="sub_folder_rule_day">念/月/日</string>
+    <string name="sub_folder_rule_month">年/月</string>
     <string name="sub_folder_rule_year">年</string>
     <string name="subject_shared_with_you">\"%1$s\" があなたに共有されました</string>
     <string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
+    <string name="subtitle_photos_only">写真のみ</string>
+    <string name="subtitle_videos_only">動画のみ</string>
     <string name="suggest">提案</string>
     <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
     <string name="sync_current_folder_was_removed">フォルダー %1$s はもう存在しません</string>
@@ -752,6 +805,7 @@
     <string name="thumbnail">サムネイル</string>
     <string name="thumbnail_for_existing_file_description">既存ファイルのサムネイル</string>
     <string name="thumbnail_for_new_file_desc">新規ファイルのサムネイル</string>
+    <string name="timeout_richDocuments">ローディング中 期待した時間より長くかかっています</string>
     <string name="today">今日</string>
     <string name="trashbin_activity_title">ゴミ箱</string>
     <string name="trashbin_empty_headline">削除されたファイルはありません</string>
@@ -866,6 +920,7 @@
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>
     <string name="whats_your_status">あなたのステータスは？</string>
+    <string name="widgets_not_available">ウィジェットは %1$s 25 以上でのみ利用可能です　</string>
     <string name="widgets_not_available_title">利用できません</string>
     <string name="write_email">メールを送信</string>
     <string name="wrong_storage_path">データ保存フォルダーが存在しません!</string>
@@ -887,6 +942,18 @@
     </plurals>
     <plurals name="found_n_duplicates">
         <item quantity="other">重複する応募が%d件見つかりました。</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="other">エクスポートされた %d ファイル</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="other">%dファイルのエクスポートに失敗しました</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="other">エラーのため、%d ファイルはエクスポートされ、他のファイルはスキップされました</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="other">%dファイルがエクスポートされます。詳細は通知を確認してください。</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">%1$d フォルダ</item>

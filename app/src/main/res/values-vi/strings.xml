@@ -653,6 +653,7 @@
     <string name="share_no_password_title">Đặt mật khẩu</string>
     <string name="share_password_title">Mật khẩu được bảo vệ</string>
     <string name="share_permission_can_edit">Có thể chỉnh sửa</string>
+    <string name="share_permission_file_drop">Thả file</string>
     <string name="share_permission_view_only">Chỉ xem</string>
     <string name="share_permissions">Quyền kho</string>
     <string name="share_remote_clarification">%1$s (từ xa)</string>
