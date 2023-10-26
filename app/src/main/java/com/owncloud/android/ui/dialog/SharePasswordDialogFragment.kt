@@ -199,8 +199,10 @@ class SharePasswordDialogFragment : DialogFragment(), Injectable {
         /**
          * Public factory method to create new SharePasswordDialogFragment instances.
          *
-         * @param file        OCFile bound to the public share that which password will be set or updated
-         * @param createShare When 'true', the request for password will be followed by the creation of a new public link;
+         * @param file        OCFile bound to the public share that which
+         * password will be set or updated
+         * @param createShare When 'true', the request for password will be
+         * followed by the creation of a new public link
          * when 'false', a public share is assumed to exist, and the password is bound to it.
          * @return Dialog ready to show.
          */
