@@ -491,12 +491,6 @@
     <string name="signup_with_provider">Registriĝi per provizanto</string>
     <string name="single_sign_on_request_token" formatted="true">Ĉu permesi al %1$s aliri al via Nextcloud-konto %2$s?</string>
     <string name="sort_by">Ordigi laŭ</string>
-    <string name="sort_by_modification_date_ascending">Pli novaj unue</string>
-    <string name="sort_by_modification_date_descending">Malpli novaj unue</string>
-    <string name="sort_by_name_ascending">A→Z</string>
-    <string name="sort_by_name_descending">Z→A</string>
-    <string name="sort_by_size_ascending">Malpli grandaj unue</string>
-    <string name="sort_by_size_descending">Pli grandaj unue</string>
     <string name="ssl_validator_btn_details_hide">Malmontri</string>
     <string name="ssl_validator_btn_details_see">Detaloj</string>
     <string name="ssl_validator_header">La identeco de la servilo ne povis kontroliĝi</string>

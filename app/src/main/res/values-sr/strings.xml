@@ -737,12 +737,6 @@
     <string name="signup_with_provider">Пријавите се преко провајдера</string>
     <string name="single_sign_on_request_token" formatted="true">Може ли %1$s да приступи Некстклауд налогу %2$s?</string>
     <string name="sort_by">Разврстај</string>
-    <string name="sort_by_modification_date_ascending">Прво новије</string>
-    <string name="sort_by_modification_date_descending">Прво старије</string>
-    <string name="sort_by_name_ascending">А - Ш</string>
-    <string name="sort_by_name_descending">Ш - А</string>
-    <string name="sort_by_size_ascending">Прво најмање</string>
-    <string name="sort_by_size_descending">Прво највеће</string>
     <string name="ssl_validator_btn_details_hide">Сакриј</string>
     <string name="ssl_validator_btn_details_see">Детаљи</string>
     <string name="ssl_validator_header">Идентитет сервера не може да се провери</string>

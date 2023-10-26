@@ -531,12 +531,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="shared_with_you_by">Dibagikan dengan Anda oleh %1$s</string>
     <string name="single_sign_on_request_token" formatted="true">Izinkan %1$s untuk mengakses akun NextCloud %2$s?</string>
     <string name="sort_by">Urut berdasarkan</string>
-    <string name="sort_by_modification_date_ascending">Terbaru</string>
-    <string name="sort_by_modification_date_descending">Paling lama</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Paling kecil pertama</string>
-    <string name="sort_by_size_descending">Paling besar pertama</string>
     <string name="ssl_validator_btn_details_hide">Sembunyikan</string>
     <string name="ssl_validator_btn_details_see">Rincian</string>
     <string name="ssl_validator_label_C">Negara:</string>

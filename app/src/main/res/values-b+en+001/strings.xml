@@ -737,12 +737,6 @@
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="single_sign_on_request_token" formatted="true">Allow %1$s to access your Nextcloud account %2$s?</string>
     <string name="sort_by">Sort by</string>
-    <string name="sort_by_modification_date_ascending">Newest first</string>
-    <string name="sort_by_modification_date_descending">Oldest first</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Smallest first</string>
-    <string name="sort_by_size_descending">Biggest first</string>
     <string name="ssl_validator_btn_details_hide">Hide</string>
     <string name="ssl_validator_btn_details_see">Details</string>
     <string name="ssl_validator_header">The identity of the server could not be verified</string>

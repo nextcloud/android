@@ -656,12 +656,6 @@
     <string name="signup_with_provider">Registruotis su tiekėju</string>
     <string name="single_sign_on_request_token" formatted="true">Leisti %1$s gauti prieigą prie jūsų Nextcloud paskyros %2$s?</string>
     <string name="sort_by">Rikiuoti pagal</string>
-    <string name="sort_by_modification_date_ascending">Naujausi pirma</string>
-    <string name="sort_by_modification_date_descending">Seniausi pirma</string>
-    <string name="sort_by_name_ascending">A - Ž</string>
-    <string name="sort_by_name_descending">Ž - A</string>
-    <string name="sort_by_size_ascending">Mažiausi pirma</string>
-    <string name="sort_by_size_descending">Didžiausi pirma</string>
     <string name="ssl_validator_btn_details_hide">Slėpti</string>
     <string name="ssl_validator_btn_details_see">Informacija</string>
     <string name="ssl_validator_header">Nepavyko patikrinti serverio tapatybės</string>

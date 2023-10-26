@@ -737,12 +737,6 @@
     <string name="signup_with_provider">Hizmet sağlayıcı ile hesap aç</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s, %2$s Nextcloud hesabınıza erişebilsin mi?</string>
     <string name="sort_by">Sıralama</string>
-    <string name="sort_by_modification_date_ascending">Yeniden Eskiye</string>
-    <string name="sort_by_modification_date_descending">Eskiden Yeniye</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Küçükten Büyüğe</string>
-    <string name="sort_by_size_descending">Büyükten Küçüğe</string>
     <string name="ssl_validator_btn_details_hide">Gizle</string>
     <string name="ssl_validator_btn_details_see">Ayrıntılar</string>
     <string name="ssl_validator_header">Sunucunun kimliği doğrulanamadı</string>

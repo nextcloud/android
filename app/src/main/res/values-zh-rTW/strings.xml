@@ -737,12 +737,6 @@
     <string name="signup_with_provider">使用第三方登入</string>
     <string name="single_sign_on_request_token" formatted="true">允許 %1$s 存取您的 Nextcloud 帳號 %2$s？</string>
     <string name="sort_by">排列方式</string>
-    <string name="sort_by_modification_date_ascending">新的在前</string>
-    <string name="sort_by_modification_date_descending">舊的在前</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">最小的放最前面</string>
-    <string name="sort_by_size_descending">最大的放最前面</string>
     <string name="ssl_validator_btn_details_hide">隱藏</string>
     <string name="ssl_validator_btn_details_see">細節</string>
     <string name="ssl_validator_header">無法驗證伺服器身份</string>

@@ -685,12 +685,6 @@
     <string name="signup_with_provider">Đăng ký với nhà cung cấp</string>
     <string name="single_sign_on_request_token" formatted="true">Cho phép %1$s truy cập vào %2$s tài khoản Hệ thống của bạn</string>
     <string name="sort_by">Sắp xếp theo</string>
-    <string name="sort_by_modification_date_ascending">Mới trước</string>
-    <string name="sort_by_modification_date_descending">Cũ trước</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Nhỏ trước</string>
-    <string name="sort_by_size_descending">Lớn trước</string>
     <string name="ssl_validator_btn_details_hide">Ẩn</string>
     <string name="ssl_validator_btn_details_see">Chi tiết</string>
     <string name="ssl_validator_header">Không thể xác minh danh tính của máy chủ</string>

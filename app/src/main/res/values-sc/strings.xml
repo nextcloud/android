@@ -626,12 +626,6 @@
     <string name="signup_with_provider">Registra•ti cun su frunidore</string>
     <string name="single_sign_on_request_token" formatted="true">Permìtere a %1$s de intrare in su contu tuo de Nextcloud %2$s?</string>
     <string name="sort_by">Assenta segundu</string>
-    <string name="sort_by_modification_date_ascending">Prima su prus nou</string>
-    <string name="sort_by_modification_date_descending">Prima su prus betzu</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Prima su prus piticu</string>
-    <string name="sort_by_size_descending">Prima su prus mannu</string>
     <string name="ssl_validator_btn_details_hide">Cua</string>
     <string name="ssl_validator_btn_details_see">Detàllios</string>
     <string name="ssl_validator_header">No at fatu a averguare s\'identidade de su serbidore</string>

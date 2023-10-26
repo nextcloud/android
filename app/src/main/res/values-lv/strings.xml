@@ -414,12 +414,6 @@
     <string name="sharee_add_failed">Dalībnieka pievienošana neizdevās</string>
     <string name="signup_with_provider">Reģistrēties ar pakalpojumu sniedzēju</string>
     <string name="sort_by">Kārtot pēc</string>
-    <string name="sort_by_modification_date_ascending">Jaunākie pirms</string>
-    <string name="sort_by_modification_date_descending">Vecākie pirms</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Mazākie pirms</string>
-    <string name="sort_by_size_descending">Lielākie pirms</string>
     <string name="ssl_validator_btn_details_hide">Slēpt</string>
     <string name="ssl_validator_btn_details_see">Sīkāka informācija</string>
     <string name="ssl_validator_header">Servera identitāti nevarēja pārbaudīt</string>

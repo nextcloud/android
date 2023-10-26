@@ -580,12 +580,6 @@
     <string name="signup_with_provider">En em kemprenn gant ur pourvezher</string>
     <string name="single_sign_on_request_token" formatted="true">Aotreiñ %1$s mont war o c\'hont Nextcloud %2$s ?</string>
     <string name="sort_by">Renkañ dre</string>
-    <string name="sort_by_modification_date_ascending">An hini nevesañ da gentañ</string>
-    <string name="sort_by_modification_date_descending">An hini kozhoñ da gentañ</string>
-    <string name="sort_by_name_ascending">A-Z</string>
-    <string name="sort_by_name_descending">Z-A</string>
-    <string name="sort_by_size_ascending">An hini bihanañ da gentañ</string>
-    <string name="sort_by_size_descending">An hini brasañ da genta</string>
     <string name="ssl_validator_btn_details_hide">Kouacha</string>
     <string name="ssl_validator_btn_details_see">Munudoù</string>
     <string name="ssl_validator_header">Identitelez ar servijour na c\'hell get bezhañ gwiriet</string>

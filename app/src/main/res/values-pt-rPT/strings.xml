@@ -718,12 +718,6 @@
     <string name="signup_with_provider">Registar com fornecedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitir que %1$s aceda à sua conta Nextcloud %2$s?</string>
     <string name="sort_by">Ordenar por</string>
-    <string name="sort_by_modification_date_ascending">Recentes primeiro</string>
-    <string name="sort_by_modification_date_descending">Antigos primeiro</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Mais pequenos primeiro</string>
-    <string name="sort_by_size_descending">Maiores primeiro</string>
     <string name="ssl_validator_btn_details_hide">Ocultar</string>
     <string name="ssl_validator_btn_details_see">Detalhes</string>
     <string name="ssl_validator_header">Não foi possível verificar a identidade do servidor</string>

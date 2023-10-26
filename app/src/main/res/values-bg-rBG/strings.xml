@@ -711,12 +711,6 @@
     <string name="signup_with_provider">Абониране при доставчик</string>
     <string name="single_sign_on_request_token" formatted="true">Разрешавате ли на %1$s да достъпва вашия Nextcloud профил %2$s?</string>
     <string name="sort_by">Сортиране по</string>
-    <string name="sort_by_modification_date_ascending">Най-нов</string>
-    <string name="sort_by_modification_date_descending">Най-стар</string>
-    <string name="sort_by_name_ascending">А - Я</string>
-    <string name="sort_by_name_descending">Я - А</string>
-    <string name="sort_by_size_ascending">Най-малък</string>
-    <string name="sort_by_size_descending">Най-голям</string>
     <string name="ssl_validator_btn_details_hide">Скриване</string>
     <string name="ssl_validator_btn_details_see">Подробности</string>
     <string name="ssl_validator_header">Идентичността на сървъра не може да бъде потвърдена</string>

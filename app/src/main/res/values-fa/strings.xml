@@ -737,12 +737,6 @@
     <string name="signup_with_provider">ثبت‌نام با ارائه دهنده</string>
     <string name="single_sign_on_request_token" formatted="true">اجازه به %1$s برای دسترسی به حساب نکست‌کلود %2$s؟</string>
     <string name="sort_by">مرتب سازی بر اساس</string>
-    <string name="sort_by_modification_date_ascending">نخست جدیدترین</string>
-    <string name="sort_by_modification_date_descending">نخست قدیمی‌ترین</string>
-    <string name="sort_by_name_ascending">آ - ی</string>
-    <string name="sort_by_name_descending">ی - آ</string>
-    <string name="sort_by_size_ascending">نخست کوچک‌ترین</string>
-    <string name="sort_by_size_descending">نخست بزرگ‌ترین</string>
     <string name="ssl_validator_btn_details_hide">پنهان کردن</string>
     <string name="ssl_validator_btn_details_see">جزییات</string>
     <string name="ssl_validator_header">هویت کارساز نتوانست تأیید شود</string>

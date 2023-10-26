@@ -604,12 +604,6 @@
     <string name="signup_with_provider">Skráðu þig hjá þjónustu</string>
     <string name="single_sign_on_request_token" formatted="true">Leyfa %1$s að að fá aðgang að %2$s Nextcloud-aðgangnum þínum?</string>
     <string name="sort_by">Raða eftir</string>
-    <string name="sort_by_modification_date_ascending">Nýjast fyrst</string>
-    <string name="sort_by_modification_date_descending">Elsta fyrst</string>
-    <string name="sort_by_name_ascending">A-Ö</string>
-    <string name="sort_by_name_descending">Ö-A</string>
-    <string name="sort_by_size_ascending">minnsta fyrst</string>
-    <string name="sort_by_size_descending">stærsta fyrst</string>
     <string name="ssl_validator_btn_details_hide">Fela</string>
     <string name="ssl_validator_btn_details_see">Nánar</string>
     <string name="ssl_validator_header">Ekki tókst að sannvotta auðkenni þjónsins</string>

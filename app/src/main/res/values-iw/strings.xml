@@ -603,12 +603,6 @@
     <string name="signup_with_provider">נא להירשם עם ספק</string>
     <string name="single_sign_on_request_token" formatted="true">לאפשר ל־%1$s לגשת לחשבון שלך ב־ Nextcloud %2$s?</string>
     <string name="sort_by">מיון לפי</string>
-    <string name="sort_by_modification_date_ascending">החדש ביותר ראשון</string>
-    <string name="sort_by_modification_date_descending">הישן ביותר ראשון</string>
-    <string name="sort_by_name_ascending">א - ת</string>
-    <string name="sort_by_name_descending">ת - א</string>
-    <string name="sort_by_size_ascending">הקטן ביותר ראשון</string>
-    <string name="sort_by_size_descending">הגדול ביותר ראשון</string>
     <string name="ssl_validator_btn_details_hide">הסתרה</string>
     <string name="ssl_validator_btn_details_see">פרטים</string>
     <string name="ssl_validator_header">לא ניתן לאמת את זהות השרת</string>
