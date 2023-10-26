@@ -92,6 +92,7 @@ import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.rule.GrantPermissionRule;
 import kotlin.Unit;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -108,6 +109,9 @@ public class DialogFragmentIT extends AbstractIT {
         return activityRule.launchActivity(intent);
     }
 
+    @Rule
+    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(
+        android.Manifest.permission.POST_NOTIFICATIONS);
 
     @After
     public void quitLooperIfNeeded() {
