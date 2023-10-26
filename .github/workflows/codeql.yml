@@ -12,6 +12,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+    group: code-ql-${{ github.head_ref || github.run_id }}
+    cancel-in-progress: true
+
 jobs:
   analyze:
     name: Analyze
