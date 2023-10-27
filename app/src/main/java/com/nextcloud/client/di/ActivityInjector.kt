@@ -17,57 +17,34 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client.di
 
-package com.nextcloud.client.di;
+import android.app.Activity
+import android.app.Application.ActivityLifecycleCallbacks
+import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
+import dagger.android.AndroidInjection
 
-import android.app.Activity;
-import android.app.Application;
-import android.os.Bundle;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import dagger.android.AndroidInjection;
-
-public class ActivityInjector implements Application.ActivityLifecycleCallbacks {
-
-    @Override
-    public final void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        if (activity instanceof Injectable) {
-            AndroidInjection.inject(activity);
+class ActivityInjector : ActivityLifecycleCallbacks {
+    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        if (activity is Injectable) {
+            AndroidInjection.inject(activity)
         }
-
-        if (activity instanceof FragmentActivity) {
-            final FragmentManager fm = ((FragmentActivity) activity).getSupportFragmentManager();
-            fm.registerFragmentLifecycleCallbacks(new FragmentInjector(), true);
+        if (activity is FragmentActivity) {
+            val fm = activity.supportFragmentManager
+            fm.registerFragmentLifecycleCallbacks(FragmentInjector(), true)
         }
     }
 
-    @Override
-    public final void onActivityStarted(Activity activity) {
-        // not needed
-    }
+    override fun onActivityStarted(activity: Activity) {}
 
-    @Override
-    public final void onActivityResumed(Activity activity) {
-        // not needed
-    }
+    override fun onActivityResumed(activity: Activity) {}
 
-    @Override
-    public final void onActivityPaused(Activity activity) {
-        // not needed
-    }
+    override fun onActivityPaused(activity: Activity) {}
 
-    @Override
-    public final void onActivityStopped(Activity activity) {
-        // not needed
-    }
+    override fun onActivityStopped(activity: Activity) {}
 
-    @Override
-    public final void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-        // not needed
-    }
+    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
 
-    @Override
-    public final void onActivityDestroyed(Activity activity) {
-        // not needed
-    }
+    override fun onActivityDestroyed(activity: Activity) {}
 }
