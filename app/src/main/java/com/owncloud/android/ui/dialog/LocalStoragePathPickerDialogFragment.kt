@@ -40,8 +40,11 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import javax.inject.Inject
 
-class LocalStoragePathPickerDialogFragment : DialogFragment(), DialogInterface.OnClickListener,
-    StoragePathAdapterListener, Injectable {
+class LocalStoragePathPickerDialogFragment :
+    DialogFragment(),
+    DialogInterface.OnClickListener,
+    StoragePathAdapterListener,
+    Injectable {
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
@@ -96,7 +99,9 @@ class LocalStoragePathPickerDialogFragment : DialogFragment(), DialogInterface.O
             val storagePathItems: MutableList<StoragePathItem> = ArrayList()
             for (standardDirectory in StandardDirectory.getStandardDirectories()) {
                 addIfExists(
-                    storagePathItems, standardDirectory.icon, getString(standardDirectory.displayName),
+                    storagePathItems,
+                    standardDirectory.icon,
+                    getString(standardDirectory.displayName),
                     Environment.getExternalStoragePublicDirectory(standardDirectory.name).absolutePath
                 )
             }

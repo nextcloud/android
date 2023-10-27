@@ -61,9 +61,11 @@ class StoragePathAdapter(
         fun chosenPath(path: String)
     }
 
-    inner class StoragePathViewHolder(var binding: StoragePathItemBinding) : RecyclerView.ViewHolder(
-        binding.root
-    ), View.OnClickListener {
+    inner class StoragePathViewHolder(var binding: StoragePathItemBinding) :
+        RecyclerView.ViewHolder(
+            binding.root
+        ),
+        View.OnClickListener {
         init {
             binding.root.setOnClickListener(this)
         }
