@@ -17,73 +17,62 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.adapter
 
-package com.owncloud.android.ui.adapter;
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.owncloud.android.databinding.StoragePathItemBinding
+import com.owncloud.android.ui.adapter.StoragePathAdapter.StoragePathViewHolder
+import com.owncloud.android.utils.theme.ViewThemeUtils
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+class StoragePathAdapter(
+    private val pathList: List<StoragePathItem>?,
+    private val storagePathAdapterListener: StoragePathAdapterListener,
+    private val viewThemeUtils: ViewThemeUtils
+) : RecyclerView.Adapter<StoragePathViewHolder>() {
 
-import com.owncloud.android.databinding.StoragePathItemBinding;
-
-import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-public class StoragePathAdapter extends RecyclerView.Adapter<StoragePathAdapter.StoragePathViewHolder> {
-    private List<StoragePathItem> pathList;
-    private StoragePathAdapterListener storagePathAdapterListener;
-
-    public StoragePathAdapter(List<StoragePathItem> pathList, StoragePathAdapterListener storagePathAdapterListener) {
-        this.pathList = pathList;
-        this.storagePathAdapterListener = storagePathAdapterListener;
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoragePathViewHolder {
+        return StoragePathViewHolder(
+            StoragePathItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
     }
 
-    @NonNull
-    @Override
-    public StoragePathViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new StoragePathAdapter.StoragePathViewHolder(
-            StoragePathItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
-        );
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull StoragePathViewHolder holder, int position) {
-        if (pathList != null && pathList.size() > position) {
-            StoragePathItem storagePathItem = pathList.get(position);
-
-            holder.binding.icon.setImageResource(storagePathItem.getIcon());
-            holder.binding.name.setText(storagePathItem.getName());
+    override fun onBindViewHolder(holder: StoragePathViewHolder, position: Int) {
+        if (pathList != null && pathList.size > position) {
+            val storagePathItem = pathList[position]
+            holder.binding.btnStoragePath.setIconResource(storagePathItem.icon)
+            holder.binding.btnStoragePath.text = storagePathItem.name
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(holder.binding.btnStoragePath)
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return pathList.size();
+    override fun getItemCount(): Int {
+        return pathList?.size ?: 0
     }
 
-    public interface StoragePathAdapterListener {
+    interface StoragePathAdapterListener {
         /**
          * sets the chosen path.
          *
          * @param path chosen path
          */
-        void chosenPath(String path);
+        fun chosenPath(path: String)
     }
 
-    class StoragePathViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        StoragePathItemBinding binding;
-
-        public StoragePathViewHolder(StoragePathItemBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-            this.binding.getRoot().setOnClickListener(this);
+    inner class StoragePathViewHolder(var binding: StoragePathItemBinding) : RecyclerView.ViewHolder(
+        binding.root
+    ), View.OnClickListener {
+        init {
+            binding.root.setOnClickListener(this)
         }
 
-        @Override
-        public void onClick(View view) {
-            storagePathAdapterListener.chosenPath(pathList.get(getAdapterPosition()).getPath());
+        override fun onClick(view: View) {
+            val path = pathList?.get(absoluteAdapterPosition)?.path
+            path?.let {
+                storagePathAdapterListener.chosenPath(it)
+            }
         }
     }
 }

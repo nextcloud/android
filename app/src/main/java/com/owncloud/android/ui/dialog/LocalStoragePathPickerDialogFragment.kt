@@ -17,153 +17,127 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.dialog
 
-package com.owncloud.android.ui.dialog;
+import android.app.Dialog
+import android.content.DialogInterface
+import android.os.Bundle
+import android.os.Environment
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.nextcloud.client.di.Injectable
+import com.owncloud.android.R
+import com.owncloud.android.databinding.StoragePathDialogBinding
+import com.owncloud.android.ui.adapter.StoragePathAdapter
+import com.owncloud.android.ui.adapter.StoragePathAdapter.StoragePathAdapterListener
+import com.owncloud.android.ui.adapter.StoragePathItem
+import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.FileStorageUtils.StandardDirectory
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.io.File
+import javax.inject.Inject
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.os.Environment;
-import android.view.LayoutInflater;
-import android.view.View;
+class LocalStoragePathPickerDialogFragment : DialogFragment(), DialogInterface.OnClickListener,
+    StoragePathAdapterListener, Injectable {
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.nextcloud.client.di.Injectable;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.StoragePathDialogBinding;
-import com.owncloud.android.ui.adapter.StoragePathAdapter;
-import com.owncloud.android.ui.adapter.StoragePathItem;
-import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+    private lateinit var binding: StoragePathDialogBinding
 
-import javax.inject.Inject;
+    override fun onStart() {
+        super.onStart()
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+        val alertDialog = dialog as AlertDialog?
 
-/**
- * Picker dialog for choosing a (storage) path.
- */
-public class LocalStoragePathPickerDialogFragment extends DialogFragment
-    implements DialogInterface.OnClickListener, StoragePathAdapter.StoragePathAdapterListener, Injectable {
-
-    public static final String LOCAL_STORAGE_PATH_PICKER_FRAGMENT = "LOCAL_STORAGE_PATH_PICKER_FRAGMENT";
-
-    private static Set<String> internalStoragePaths = new HashSet<>();
-
-    @Inject ViewThemeUtils viewThemeUtils;
-
-    static {
-        internalStoragePaths.add("/storage/emulated/legacy");
-        internalStoragePaths.add("/storage/emulated/0");
-        internalStoragePaths.add("/mnt/sdcard");
-    }
-
-    private StoragePathDialogBinding binding;
-
-    public static LocalStoragePathPickerDialogFragment newInstance() {
-        return new LocalStoragePathPickerDialogFragment();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        AlertDialog alertDialog = (AlertDialog) getDialog();
-
-        if (alertDialog != null) {
-            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE));
+        val positiveButton = alertDialog?.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton?
+        positiveButton?.let {
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton)
         }
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (!(getActivity() instanceof StoragePathAdapter.StoragePathAdapterListener)) {
-            throw new IllegalArgumentException("Calling activity must implement " +
-                                                   "StoragePathAdapter.StoragePathAdapterListener");
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        require(activity is StoragePathAdapterListener) {
+            "Calling activity must implement " +
+                "StoragePathAdapter.StoragePathAdapterListener"
         }
 
         // Inflate the layout for the dialog
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        binding = StoragePathDialogBinding.inflate(inflater, null, false);
-        View view = binding.getRoot();
+        val inflater = requireActivity().layoutInflater
+        binding = StoragePathDialogBinding.inflate(inflater, null, false)
 
-        StoragePathAdapter adapter = new StoragePathAdapter(getPathList(), this);
-
-        binding.storagePathRecyclerView.setAdapter(adapter);
-        binding.storagePathRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        val adapter = StoragePathAdapter(pathList, this, viewThemeUtils)
+        binding.storagePathRecyclerView.adapter = adapter
+        binding.storagePathRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
         // Build the dialog
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(binding.getRoot().getContext());
-        builder.setView(view)
-            .setNegativeButton(R.string.common_cancel, this)
-            .setTitle(R.string.storage_choose_location);
+        val builder = MaterialAlertDialogBuilder(requireContext())
+        builder
+            .setView(binding.root)
+            .setPositiveButton(R.string.common_cancel, this)
+            .setTitle(R.string.storage_choose_location)
 
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.getRoot().getContext(), builder);
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(requireContext(), builder)
 
-        return builder.create();
+        return builder.create()
     }
 
-    @Override
-    public void onDestroyView() {
-        binding = null;
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
-        if (which == AlertDialog.BUTTON_NEGATIVE) {
-            dismissAllowingStateLoss();
+    override fun onClick(dialog: DialogInterface, which: Int) {
+        if (which == AlertDialog.BUTTON_POSITIVE) {
+            dismissAllowingStateLoss()
         }
     }
 
-    private List<StoragePathItem> getPathList() {
-        List<StoragePathItem> storagePathItems = new ArrayList<>();
-
-        for (FileStorageUtils.StandardDirectory standardDirectory : FileStorageUtils.StandardDirectory.getStandardDirectories()) {
-            addIfExists(storagePathItems, standardDirectory.getIcon(), getString(standardDirectory.getDisplayName()),
-                        Environment.getExternalStoragePublicDirectory(standardDirectory.getName()).getAbsolutePath());
-        }
-
-        String sdCard = getString(R.string.storage_internal_storage);
-        for (String dir : FileStorageUtils.getStorageDirectories(requireActivity())) {
-            if (internalStoragePaths.contains(dir)) {
-                addIfExists(storagePathItems, R.drawable.ic_sd_grey600, sdCard, dir);
-            } else {
-                addIfExists(storagePathItems, R.drawable.ic_sd_grey600, new File(dir).getName(), dir);
+    private val pathList: List<StoragePathItem>
+        get() {
+            val storagePathItems: MutableList<StoragePathItem> = ArrayList()
+            for (standardDirectory in StandardDirectory.getStandardDirectories()) {
+                addIfExists(
+                    storagePathItems, standardDirectory.icon, getString(standardDirectory.displayName),
+                    Environment.getExternalStoragePublicDirectory(standardDirectory.name).absolutePath
+                )
             }
+            val sdCard = getString(R.string.storage_internal_storage)
+            for (dir in FileStorageUtils.getStorageDirectories(requireActivity())) {
+                if (internalStoragePaths.contains(dir)) {
+                    addIfExists(storagePathItems, R.drawable.ic_sd_grey600, sdCard, dir)
+                } else {
+                    addIfExists(storagePathItems, R.drawable.ic_sd_grey600, File(dir).name, dir)
+                }
+            }
+            return storagePathItems
         }
 
-        return storagePathItems;
-    }
-
-    private void addIfExists(List<StoragePathItem> storagePathItems, int icon, String name, String path) {
-        File file = new File(path);
+    private fun addIfExists(storagePathItems: MutableList<StoragePathItem>, icon: Int, name: String, path: String) {
+        val file = File(path)
         if (file.exists() && file.canRead()) {
-            storagePathItems.add(new StoragePathItem(icon, name, path));
+            storagePathItems.add(StoragePathItem(icon, name, path))
         }
     }
 
-    @Override
-    public void chosenPath(String path) {
-        if (getActivity() != null) {
-            ((StoragePathAdapter.StoragePathAdapterListener) getActivity()).chosenPath(path);
+    override fun chosenPath(path: String) {
+        if (activity != null) {
+            (activity as StoragePathAdapterListener?)!!.chosenPath(path)
         }
-        dismissAllowingStateLoss();
+        dismissAllowingStateLoss()
+    }
+
+    companion object {
+        const val LOCAL_STORAGE_PATH_PICKER_FRAGMENT = "LOCAL_STORAGE_PATH_PICKER_FRAGMENT"
+        private val internalStoragePaths: MutableSet<String> = HashSet()
+
+        init {
+            internalStoragePaths.add("/storage/emulated/legacy")
+            internalStoragePaths.add("/storage/emulated/0")
+            internalStoragePaths.add("/mnt/sdcard")
+        }
+
+        @JvmStatic
+        fun newInstance(): LocalStoragePathPickerDialogFragment {
+            return LocalStoragePathPickerDialogFragment()
+        }
     }
 }
