@@ -17,137 +17,116 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client.network
 
-package com.nextcloud.client.network;
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkInfo
+import androidx.core.net.ConnectivityManagerCompat
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.operations.GetMethod
+import com.owncloud.android.lib.common.utils.Log_OC
+import org.apache.commons.httpclient.HttpStatus
 
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
-
-import com.nextcloud.client.account.Server;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.common.PlainClient;
-import com.nextcloud.operations.GetMethod;
-import com.owncloud.android.lib.common.utils.Log_OC;
-
-import org.apache.commons.httpclient.HttpStatus;
-
-import androidx.core.net.ConnectivityManagerCompat;
-import kotlin.jvm.functions.Function1;
-
-class ConnectivityServiceImpl implements ConnectivityService {
-
-    private static final String TAG = "ConnectivityServiceImpl";
-    private static final String CONNECTIVITY_CHECK_ROUTE = "/index.php/204";
-
-    private final ConnectivityManager platformConnectivityManager;
-    private final UserAccountManager accountManager;
-    private final ClientFactory clientFactory;
-    private final GetRequestBuilder requestBuilder;
-    private final WalledCheckCache walledCheckCache;
-
-
-    static class GetRequestBuilder implements Function1<String, GetMethod> {
-        @Override
-        public GetMethod invoke(String url) {
-            return new GetMethod(url, false);
+internal class ConnectivityServiceImpl(
+    private val platformConnectivityManager: ConnectivityManager,
+    private val accountManager: UserAccountManager,
+    private val clientFactory: ClientFactory,
+    private val requestBuilder: GetRequestBuilder,
+    private val walledCheckCache: WalledCheckCache
+) : ConnectivityService {
+    internal class GetRequestBuilder : Function1<String, GetMethod> {
+        override operator fun invoke(url: String): GetMethod {
+            return GetMethod(url, false)
         }
     }
 
-    ConnectivityServiceImpl(ConnectivityManager platformConnectivityManager,
-                            UserAccountManager accountManager,
-                            ClientFactory clientFactory,
-                            GetRequestBuilder requestBuilder,
-                            final WalledCheckCache walledCheckCache) {
-        this.platformConnectivityManager = platformConnectivityManager;
-        this.accountManager = accountManager;
-        this.clientFactory = clientFactory;
-        this.requestBuilder = requestBuilder;
-        this.walledCheckCache = walledCheckCache;
-    }
-
-    @Override
-    public boolean isInternetWalled() {
-        final Boolean cachedValue = walledCheckCache.getValue();
-        if (cachedValue != null) {
-            return cachedValue;
+    override fun isInternetWalled(): Boolean {
+        val cachedValue = walledCheckCache.getValue()
+        return if (cachedValue != null) {
+            cachedValue
         } else {
-            boolean result;
-            Connectivity c = getConnectivity();
-            if (c.isConnected() && c.isWifi() && !c.isMetered()) {
-
-                Server server = accountManager.getUser().getServer();
-                String baseServerAddress = server.getUri().toString();
+            val result: Boolean
+            val (isConnected, isMetered, isWifi) = getConnectivity()
+            if (isConnected && isWifi && !isMetered) {
+                val (uri) = accountManager.user.server
+                val baseServerAddress = uri.toString()
                 if (baseServerAddress.isEmpty()) {
-                    result = true;
+                    result = true
                 } else {
-
-                    GetMethod get = requestBuilder.invoke(baseServerAddress + CONNECTIVITY_CHECK_ROUTE);
-                    PlainClient client = clientFactory.createPlainClient();
-
-                    int status = get.execute(client);
+                    val get =
+                        requestBuilder.invoke(baseServerAddress + CONNECTIVITY_CHECK_ROUTE)
+                    val client = clientFactory.createPlainClient()
+                    val status = get.execute(client)
 
                     // Content-Length is not available when using chunked transfer encoding, so check for -1 as well
-                    result = !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0);
-                    get.releaseConnection();
+                    result =
+                        !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0)
+                    get.releaseConnection()
                     if (result) {
-                        Log_OC.w(TAG, "isInternetWalled(): Failed to GET " + CONNECTIVITY_CHECK_ROUTE + "," +
-                            " assuming connectivity is impaired");
+                        Log_OC.w(
+                            TAG,
+                            "isInternetWalled(): Failed to GET " + CONNECTIVITY_CHECK_ROUTE + "," +
+                                " assuming connectivity is impaired"
+                        )
                     }
                 }
             } else {
-                result = !c.isConnected();
+                result = !isConnected
             }
-
-            walledCheckCache.setValue(result);
-            return result;
+            walledCheckCache.setValue(result)
+            result
         }
     }
 
-    @Override
-    public Connectivity getConnectivity() {
-        NetworkInfo networkInfo;
-        try {
-            networkInfo = platformConnectivityManager.getActiveNetworkInfo();
-        } catch (Throwable t) {
-            networkInfo = null; // no network available or no information (permission denied?)
+    override fun getConnectivity(): Connectivity {
+        val networkInfo: NetworkInfo? = try {
+            platformConnectivityManager.activeNetworkInfo
+        } catch (t: Throwable) {
+            null // no network available or no information (permission denied?)
         }
-
-        if (networkInfo != null) {
-            boolean isConnected = networkInfo.isConnectedOrConnecting();
+        return if (networkInfo != null) {
+            val isConnected = networkInfo.isConnectedOrConnecting
             // more detailed check
-            boolean isMetered;
-            isMetered = isNetworkMetered();
-            boolean isWifi = networkInfo.getType() == ConnectivityManager.TYPE_WIFI || hasNonCellularConnectivity();
-            return new Connectivity(isConnected, isMetered, isWifi, null);
+            val isMetered: Boolean = isNetworkMetered
+            val isWifi = (networkInfo.type == ConnectivityManager.TYPE_WIFI) || hasNonCellularConnectivity()
+            Connectivity(isConnected, isMetered, isWifi, null)
         } else {
-            return Connectivity.DISCONNECTED;
+            Connectivity.DISCONNECTED
         }
     }
 
-    private boolean isNetworkMetered() {
-        final Network network = platformConnectivityManager.getActiveNetwork();
-        try {
-            NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(network);
-            if (networkCapabilities != null) {
-                return !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
-            } else {
-                return ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
+    private val isNetworkMetered: Boolean
+        get() {
+            val network = platformConnectivityManager.activeNetwork
+            return try {
+                val networkCapabilities = platformConnectivityManager.getNetworkCapabilities(network)
+                if (networkCapabilities != null) {
+                    !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+                } else {
+                    ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager)
+                }
+            } catch (e: RuntimeException) {
+                Log_OC.e(TAG, "Exception when checking network capabilities", e)
+                false
             }
-        } catch (RuntimeException e) {
-            Log_OC.e(TAG, "Exception when checking network capabilities", e);
-            return false;
         }
+
+    private fun hasNonCellularConnectivity(): Boolean {
+        for (networkInfo in platformConnectivityManager.allNetworkInfo) {
+            if (networkInfo.isConnectedOrConnecting && (
+                    networkInfo.type == ConnectivityManager.TYPE_WIFI ||
+                        networkInfo.type == ConnectivityManager.TYPE_ETHERNET
+                    )
+            ) {
+                return true
+            }
+        }
+        return false
     }
 
-    private boolean hasNonCellularConnectivity() {
-        for (NetworkInfo networkInfo : platformConnectivityManager.getAllNetworkInfo()) {
-            if (networkInfo.isConnectedOrConnecting() && (networkInfo.getType() == ConnectivityManager.TYPE_WIFI ||
-                networkInfo.getType() == ConnectivityManager.TYPE_ETHERNET)) {
-                return true;
-            }
-        }
-        return false;
+    companion object {
+        private const val TAG = "ConnectivityServiceImpl"
+        private const val CONNECTIVITY_CHECK_ROUTE = "/index.php/204"
     }
 }
