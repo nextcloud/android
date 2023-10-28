@@ -314,7 +314,7 @@
     <string name="fab_label">Додати або завантажити</string>
     <string name="failed_to_download">Не вдалося передати файл до менеджера звантажень</string>
     <string name="failed_to_print">Не вдалося роздрукувати файл</string>
-    <string name="failed_to_start_editor">Не вдалося запустити редактор</string>
+    <string name="failed_to_start_editor">Не вдалося відкрити редактор</string>
     <string name="failed_update_ui">Неможливо оновити інтерфейс</string>
     <string name="favorite">Додати зірочку</string>
     <string name="favorite_icon">Із зірочкою</string>
