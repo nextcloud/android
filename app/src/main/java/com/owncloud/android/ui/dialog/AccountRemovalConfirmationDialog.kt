@@ -1,5 +1,4 @@
 /*
- *
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
@@ -103,5 +102,4 @@ class AccountRemovalConfirmationDialog : DialogFragment(), Injectable {
             return dialog
         }
     }
-
 }
