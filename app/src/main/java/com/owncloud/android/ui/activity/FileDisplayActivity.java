@@ -437,12 +437,10 @@ public class FileDisplayActivity extends FileActivity
 
     private void checkOutdatedServer() {
         Optional<User> user = getUser();
-        OwnCloudVersion serverVersion = user.get().getServer().getVersion();
-
         // show outdated warning
         if (user.isPresent() &&
             CapabilityUtils.checkOutdatedWarning(getResources(),
-                                                 serverVersion,
+                                                 user.get().getServer().getVersion(),
                                                  getCapabilities().getExtendedSupport().isTrue())) {
             DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG);
         }
