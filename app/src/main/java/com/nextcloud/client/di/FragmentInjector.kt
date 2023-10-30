@@ -17,30 +17,26 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client.di
 
-package com.nextcloud.client.di;
+import android.content.Context
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import dagger.android.support.AndroidSupportInjection
 
-import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import dagger.android.support.AndroidSupportInjection;
-
-class FragmentInjector extends FragmentManager.FragmentLifecycleCallbacks {
-    @Override
-    public void onFragmentPreAttached(
-        @NonNull FragmentManager fragmentManager,
-        @NonNull Fragment fragment,
-        @NonNull Context context
+internal class FragmentInjector : FragmentManager.FragmentLifecycleCallbacks() {
+    override fun onFragmentPreAttached(
+        fragmentManager: FragmentManager,
+        fragment: Fragment,
+        context: Context
     ) {
-        super.onFragmentPreAttached(fragmentManager, fragment, context);
-        if (fragment instanceof Injectable) {
+        super.onFragmentPreAttached(fragmentManager, fragment, context)
+        if (fragment is Injectable) {
             try {
-                AndroidSupportInjection.inject(fragment);
-            } catch (IllegalArgumentException directCause) {
+                AndroidSupportInjection.inject(fragment)
+            } catch (directCause: IllegalArgumentException) {
                 // this provides a cause description that is a bit more friendly for developers
-                throw new InjectorNotFoundException(fragment, directCause);
+                throw InjectorNotFoundException(fragment, directCause)
             }
         }
     }
