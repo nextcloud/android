@@ -46,39 +46,40 @@ internal class ConnectivityServiceImpl(
         return if (cachedValue != null) {
             cachedValue
         } else {
-            val result: Boolean
             val (isConnected, isMetered, isWifi) = getConnectivity()
-            if (isConnected && isWifi && !isMetered) {
-                val (uri) = accountManager.user.server
-                val baseServerAddress = uri.toString()
-                if (baseServerAddress.isEmpty()) {
-                    result = true
-                } else {
-                    val get =
-                        requestBuilder.invoke(baseServerAddress + CONNECTIVITY_CHECK_ROUTE)
-                    val client = clientFactory.createPlainClient()
-                    val status = get.execute(client)
-
-                    // Content-Length is not available when using chunked transfer encoding, so check for -1 as well
-                    result =
-                        !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0)
-                    get.releaseConnection()
-                    if (result) {
-                        Log_OC.w(
-                            TAG,
-                            "isInternetWalled(): Failed to GET " + CONNECTIVITY_CHECK_ROUTE + "," +
-                                " assuming connectivity is impaired"
-                        )
-                    }
-                }
+            val result: Boolean = if (isConnected && isWifi && !isMetered) {
+                isInternetWalledOnConnectedNonMeteredWifi()
             } else {
-                result = !isConnected
+                !isConnected
             }
             walledCheckCache.setValue(result)
             result
         }
     }
 
+    private fun isInternetWalledOnConnectedNonMeteredWifi(): Boolean {
+        val baseServerAddress = accountManager.user.server.toString()
+        return if (baseServerAddress.isEmpty()) {
+            true
+        } else {
+            val get = requestBuilder.invoke(baseServerAddress + CONNECTIVITY_CHECK_ROUTE)
+            val client = clientFactory.createPlainClient()
+            val status = get.execute(client)
+
+            // Content-Length is not available when using chunked transfer encoding, so check for -1 as well
+            val result = !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0)
+            get.releaseConnection()
+            if (result) {
+                Log_OC.w(
+                    TAG,
+                    "isInternetWalled(): Failed to GET $CONNECTIVITY_CHECK_ROUTE, assuming connectivity is impaired"
+                )
+            }
+            result
+        }
+    }
+
+    @Suppress("TooGenericExceptionCaught")
     override fun getConnectivity(): Connectivity {
         val networkInfo: NetworkInfo? = try {
             platformConnectivityManager.activeNetworkInfo
@@ -96,6 +97,7 @@ internal class ConnectivityServiceImpl(
         }
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private val isNetworkMetered: Boolean
         get() {
             val network = platformConnectivityManager.activeNetwork
