@@ -171,6 +171,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         }
     }
 
+    @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown")
     private fun decryptPrivateKey(dialog: DialogInterface) {
         Log_OC.d(TAG, "Decrypt private key")
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_decrypting)
@@ -348,7 +349,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 // first show info
                 try {
                     if (keyWords == null || keyWords!!.isEmpty()) {
-                        keyWords = EncryptionUtils.getRandomWords(12, context)
+                        keyWords = EncryptionUtils.getRandomWords(NUMBER_OF_WORDS, context)
                     }
                     showMnemonicInfo()
                 } catch (e: IOException) {
@@ -534,6 +535,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         const val ARG_POSITION = "ARG_POSITION"
         const val RESULT_REQUEST_KEY = "RESULT_REQUEST"
         const val RESULT_KEY_CANCELLED = "IS_CANCELLED"
+        private const val NUMBER_OF_WORDS = 12
         private const val ARG_USER = "ARG_USER"
         private val TAG = SetupEncryptionDialogFragment::class.java.simpleName
         private const val KEY_CREATED = "KEY_CREATED"
