@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Zobrazení v mřížce</string>
     <string name="action_switch_list_view">Zobrazení v seznamu</string>
     <string name="actionbar_calendar_contacts_restore">Obnovit kontakty a kalendář</string>
-    <string name="actionbar_copy">Zkopírovat</string>
     <string name="actionbar_mkdir">Nová složka</string>
-    <string name="actionbar_move">Přesunout</string>
     <string name="actionbar_open_with">Otevřít pomocí</string>
     <string name="actionbar_search">Hledat</string>
     <string name="actionbar_see_details">Podrobnosti</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">Vraťte se sem později nebo načtěte znovu.</string>
     <string name="checkbox">Zatržítko</string>
     <string name="choose_local_folder">Zvolte místní složku…</string>
-    <string name="choose_location">Zvolte umístění</string>
     <string name="choose_remote_folder">Zvolte vzdálenou složku…</string>
     <string name="choose_template_helper_text">Vyberte šablonu a zadejte název pro soubor.</string>
     <string name="choose_which_file">Zvolte který soubor ponechat!</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">Smazat</string>
     <string name="common_rename">Přejmenovat</string>
     <string name="common_save">Uložit</string>
-    <string name="common_select">Vybrat</string>
     <string name="common_send">Odeslat</string>
     <string name="common_share">Sdílet</string>
     <string name="common_skip">Přeskočit</string>
@@ -174,7 +170,6 @@
     <string name="copy_file_not_found">Nedaří se zkopírovat. Zkontrolujte zda soubor existuje.</string>
     <string name="copy_link">Zkopírovat odkaz</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírování/přesouvání do šifrované složky není v tuto chvíli podporováno.</string>
-    <string name="copy_to">Zkopírovat do…</string>
     <string name="could_not_download_image">Nepodařilo se stáhnout celý obrázek</string>
     <string name="could_not_retrieve_shares">Nedaří se získat sdílení</string>
     <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
@@ -391,7 +386,6 @@
     <string name="folder_already_exists">Složka už existuje</string>
     <string name="folder_confirm_create">Vytvořit</string>
     <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
-    <string name="folder_picker_choose_button_text">Vybrat</string>
     <string name="forbidden_permissions">Nemáte oprávnění %s</string>
     <string name="forbidden_permissions_copy">pro zkopírování tohoto souboru</string>
     <string name="forbidden_permissions_create">pro vytvoření tohoto souboru</string>
@@ -493,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Není možné přesunout složku do její vlastní podsložky</string>
     <string name="move_file_invalid_overwrite">Soubor už v cílové složce existuje</string>
     <string name="move_file_not_found">Soubor se nedaří přesunout – zkontrolujte zda existuje.</string>
-    <string name="move_to">Přesunout do…</string>
     <string name="network_error_connect_timeout_exception">Při čekání na server se vyskytla chyba. Operace proto nemohla být dokončena.</string>
     <string name="network_error_socket_exception">Při připojování k serveru došlo k chybě</string>
     <string name="network_error_socket_timeout_exception">Při čekání na server se vyskytla chyba. Operace proto nemohla být dokončena.</string>

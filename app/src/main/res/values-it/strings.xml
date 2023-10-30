@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Vista Griglia</string>
     <string name="action_switch_list_view">Vista Elenco</string>
     <string name="actionbar_calendar_contacts_restore">Ripristina contatti e calendario</string>
-    <string name="actionbar_copy">Copia</string>
     <string name="actionbar_mkdir">Nuova cartella</string>
-    <string name="actionbar_move">Sposta</string>
     <string name="actionbar_open_with">Apri con</string>
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Dettagli</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">Controlla più tardi o ricarica</string>
     <string name="checkbox">Casella di selezione</string>
     <string name="choose_local_folder">Scegli la cartella locale…</string>
-    <string name="choose_location">Scegli posizione</string>
     <string name="choose_remote_folder">Scegli la cartella remota…</string>
     <string name="choose_template_helper_text">Scegli un modello e inserisci un nome del file.</string>
     <string name="choose_which_file">Scegli quale file mantenere!</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">Elimina</string>
     <string name="common_rename">Rinomina</string>
     <string name="common_save">Salva</string>
-    <string name="common_select">Seleziona</string>
     <string name="common_send">Invia</string>
     <string name="common_share">Condividi</string>
     <string name="common_skip">Salta</string>
@@ -174,7 +170,6 @@
     <string name="copy_file_not_found">Impossibile copiare. Assicurati che il file esista.</string>
     <string name="copy_link">Copia collegamento</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia/Spostamento in una cartella cifrata attualmente non supportati.</string>
-    <string name="copy_to">Copia in…</string>
     <string name="could_not_download_image">Impossibile scaricare l\'immagine completa</string>
     <string name="could_not_retrieve_shares">Impossibile recuperare le condivisioni</string>
     <string name="could_not_retrieve_url">Impossibile recuperare l\'URL</string>
@@ -391,7 +386,6 @@
     <string name="folder_already_exists">La cartella esiste già</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">Qui non c\'è alcuna cartella</string>
-    <string name="folder_picker_choose_button_text">Scegli</string>
     <string name="forbidden_permissions">Non ti è consentito %s</string>
     <string name="forbidden_permissions_copy">per copiare questo file</string>
     <string name="forbidden_permissions_create">per creare questo file</string>
@@ -493,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Impossibile spostare una cartella in una delle sue cartelle sottostanti</string>
     <string name="move_file_invalid_overwrite">Il file è già presente nella cartella di destinazione</string>
     <string name="move_file_not_found">Impossibile spostare il file. Controlla che esista.</string>
-    <string name="move_to">Sposta in…</string>
     <string name="network_error_connect_timeout_exception">Si è verificato un errore in attesa della risposta del server. Impossibile completare l\'operazione.</string>
     <string name="network_error_socket_exception">Si è verificato un errore durante la connessione al server</string>
     <string name="network_error_socket_timeout_exception">Si è verificato un errore in attesa della risposta del server. Impossibile completare l\'operazione.</string>

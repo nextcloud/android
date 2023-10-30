@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de llista</string>
     <string name="actionbar_calendar_contacts_restore">Restaura el calendari de contactes&amp;</string>
-    <string name="actionbar_copy">Copia</string>
     <string name="actionbar_mkdir">Crea una carpeta</string>
-    <string name="actionbar_move">Mou</string>
     <string name="actionbar_open_with">Obre amb</string>
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Detalls</string>
@@ -91,7 +89,6 @@
     <string name="check_back_later_or_reload">Torneu-ho a comprovar més tard o torneu a carregar.</string>
     <string name="checkbox">Casella de selecció</string>
     <string name="choose_local_folder">Escolliu una carpeta local…</string>
-    <string name="choose_location">Escull localització</string>
     <string name="choose_remote_folder">Escolliu una carpeta remota…</string>
     <string name="choose_template_helper_text">Trieu una plantilla i introduïu un nom de fitxer.</string>
     <string name="choose_which_file">Trieu quin fixer conservar!</string>
@@ -121,7 +118,6 @@
     <string name="common_remove">Suprimeix</string>
     <string name="common_rename">Canvia el nom</string>
     <string name="common_save">Desa</string>
-    <string name="common_select">Selecciona</string>
     <string name="common_send">Envia</string>
     <string name="common_share">Compartir</string>
     <string name="common_skip">Omet</string>
@@ -172,7 +168,6 @@
     <string name="copy_file_not_found">No s\'ha pogut copiar. Assegureu-vos que el fitxer existeix.</string>
     <string name="copy_link">Copia l\'enllaç</string>
     <string name="copy_move_to_encrypted_folder_not_supported">No hi ha suport actualment per copiar o moure a una carpeta xifrada.</string>
-    <string name="copy_to">Copia a…</string>
     <string name="could_not_download_image">No s\'ha pogut baixar la imatge completa</string>
     <string name="could_not_retrieve_shares">No s\'ha pogut recuperar la compartició</string>
     <string name="could_not_retrieve_url">No s\'ha pogut recuperar la URL</string>
@@ -376,7 +371,6 @@
     <string name="folder_already_exists">La carpeta ja existeix</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">No hi ha carpetes</string>
-    <string name="folder_picker_choose_button_text">Escolliu</string>
     <string name="forbidden_permissions">No teniu permisos%s</string>
     <string name="forbidden_permissions_copy">per copiar aquest fitxer</string>
     <string name="forbidden_permissions_create">per crear aquest fitxer</string>
@@ -464,7 +458,6 @@
     <string name="move_file_invalid_into_descendent">No és possible moure una carpeta en una de les seves pròpies carpetes</string>
     <string name="move_file_invalid_overwrite">Aquest fitxer ja existeix a la carpeta de destinació</string>
     <string name="move_file_not_found">Aquest fitxer no es pot moure. Si us plau comproveu que existeixi.</string>
-    <string name="move_to">Mou a…</string>
     <string name="network_error_connect_timeout_exception">S\'ha produït un error mentre s\'esperava el servidor. L\'operació no s\'ha pogut completar</string>
     <string name="network_error_socket_exception">S\'ha produït un error durant la connexió al servidor</string>
     <string name="network_error_socket_timeout_exception">S\'ha produït un error mentre s\'esperava el servidor. L\'operació no s\'ha pogut completar</string>

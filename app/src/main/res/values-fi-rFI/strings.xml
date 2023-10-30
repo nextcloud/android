@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Ruudukkonäkymä</string>
     <string name="action_switch_list_view">Luettelonäkymä</string>
     <string name="actionbar_calendar_contacts_restore">Palauta yhteystiedot &amp; kalenteri</string>
-    <string name="actionbar_copy">Kopioi</string>
     <string name="actionbar_mkdir">Uusi kansio</string>
-    <string name="actionbar_move">Siirrä</string>
     <string name="actionbar_open_with">Avaa sovelluksella</string>
     <string name="actionbar_search">Etsi</string>
     <string name="actionbar_see_details">Tiedot</string>
@@ -91,7 +89,6 @@
     <string name="check_back_later_or_reload">Lataa uudelleen tai yritä myöhemmin uudelleen.</string>
     <string name="checkbox">Valintaruutu</string>
     <string name="choose_local_folder">Valitse paikallinen kansio…</string>
-    <string name="choose_location">Valitse sijainti</string>
     <string name="choose_remote_folder">Valitse etäkansio…</string>
     <string name="choose_template_helper_text">Valitse mallipohja ja anna tiedostonimi</string>
     <string name="choose_which_file">Valitse säilytettävä tiedosto!</string>
@@ -121,7 +118,6 @@
     <string name="common_remove">Poista</string>
     <string name="common_rename">Nimeä uudelleen</string>
     <string name="common_save">Tallenna</string>
-    <string name="common_select">Valitse</string>
     <string name="common_send">Lähetä</string>
     <string name="common_share">Jaa</string>
     <string name="common_skip">Ohita</string>
@@ -172,7 +168,6 @@
     <string name="copy_file_not_found">Kopiointi epäonnistui. Tarkista onko tiedostoa olemassa.</string>
     <string name="copy_link">Kopioi linkki</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiointi/siirto salattuun kansioon ei ole mahdollista.</string>
-    <string name="copy_to">Kopio kohteeseen…</string>
     <string name="could_not_download_image">Koko kuvan lataaminen epäonnistui</string>
     <string name="could_not_retrieve_shares">Jakojen nouto ei onnistunut</string>
     <string name="could_not_retrieve_url">URL:n palautus epännistui</string>
@@ -379,7 +374,6 @@
     <string name="folder_already_exists">Kansio on jo olemassa</string>
     <string name="folder_confirm_create">Luo</string>
     <string name="folder_list_empty_headline">Ei kansioita täällä</string>
-    <string name="folder_picker_choose_button_text">Valitse</string>
     <string name="forbidden_permissions">Sinulla ei ole oikeutta %s</string>
     <string name="forbidden_permissions_copy">kopioida tämä tiedosto</string>
     <string name="forbidden_permissions_create">luoda tätä tiedostoa</string>
@@ -467,7 +461,6 @@
     <string name="move_file_invalid_into_descendent">Ei ole mahdollista siirtää kansiota yhteen sen alikansiosta.</string>
     <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
     <string name="move_file_not_found">Tiedoston siirtäminen ei onnistunut. Varmista että tiedosto on olemassa.</string>
-    <string name="move_to">Siirrä kohteeseen…</string>
     <string name="network_error_connect_timeout_exception">Palvelinta odottaessa tapahtui virhe. Toimenpidettä ei voitu suorittaa loppuun.</string>
     <string name="network_error_socket_exception">Palvelimeen yhdistäessä tapahtui virhe.</string>
     <string name="network_error_socket_timeout_exception">Palvelinta odottaessa tapahtui virhe. Toimenpidettä ei voitu suorittaa loppuun.</string>

@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Rács nézet</string>
     <string name="action_switch_list_view">Lista nézet</string>
     <string name="actionbar_calendar_contacts_restore">Névjegyek és naptár helyreállítása</string>
-    <string name="actionbar_copy">Másolás</string>
     <string name="actionbar_mkdir">Új mappa</string>
-    <string name="actionbar_move">Áthelyezés</string>
     <string name="actionbar_open_with">Megnyitás ezzel</string>
     <string name="actionbar_search">Keresés</string>
     <string name="actionbar_see_details">Részletek</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">Nézzen vissza később vagy töltse újra.</string>
     <string name="checkbox">Jelölőmező</string>
     <string name="choose_local_folder">Válasszon helyi mappát…</string>
-    <string name="choose_location">Válasszon helyet</string>
     <string name="choose_remote_folder">Válasszon távoli mappát…</string>
     <string name="choose_template_helper_text">Válasszon egy sablont, és írja be a fájl nevét.</string>
     <string name="choose_which_file">Válasszon melyik fájl legyen megtartva!</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">Törlés</string>
     <string name="common_rename">Átnevezés</string>
     <string name="common_save">Mentés</string>
-    <string name="common_select">Kiválasztás</string>
     <string name="common_send">Küldés</string>
     <string name="common_share">Megosztás</string>
     <string name="common_skip">Kihagyás</string>
@@ -174,7 +170,6 @@
     <string name="copy_file_not_found">Nem lehet másolni. Ellenőrizze, hogy létezik-e a fájl.</string>
     <string name="copy_link">Hivatkozás másolása</string>
     <string name="copy_move_to_encrypted_folder_not_supported">A titkosított mappába másolás/áthelyezés jelenleg nem támogatott.</string>
-    <string name="copy_to">Másolás ide…</string>
     <string name="could_not_download_image">Nem sikerült letölteni a teljes képet</string>
     <string name="could_not_retrieve_shares">Nem sikerült lekérni a megosztásokat</string>
     <string name="could_not_retrieve_url">Az URL nem kérhető le</string>
@@ -391,7 +386,6 @@
     <string name="folder_already_exists">A mappa már létezik</string>
     <string name="folder_confirm_create">Létrehozás</string>
     <string name="folder_list_empty_headline">Itt nincsenek mappák</string>
-    <string name="folder_picker_choose_button_text">Válasszon</string>
     <string name="forbidden_permissions">Nem engedélyezett %s</string>
     <string name="forbidden_permissions_copy">a fájl másolása</string>
     <string name="forbidden_permissions_create">fájl létrehozása</string>
@@ -493,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Nem helyezhető át egy mappa a saját almappájába</string>
     <string name="move_file_invalid_overwrite">A fájl már létezik a célmappában</string>
     <string name="move_file_not_found">A fájl nem helyezhető át. Ellenőrizze, hogy létezik-e.</string>
-    <string name="move_to">Áthelyezés ide…</string>
     <string name="network_error_connect_timeout_exception">Hiba történt a kiszolgálóra várakozás közben. A művelet nem teljesíthető.</string>
     <string name="network_error_socket_exception">Hiba történt a kiszolgálóhoz kapcsolódás közben.</string>
     <string name="network_error_socket_timeout_exception">Hiba történt a kiszolgálóra várakozás közben. A művelet nem teljesíthető.</string>

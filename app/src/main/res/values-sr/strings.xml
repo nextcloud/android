@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Приказ мреже</string>
     <string name="action_switch_list_view">Приказ листе</string>
     <string name="actionbar_calendar_contacts_restore">Обнови календар контакта &amp;</string>
-    <string name="actionbar_copy">Копирај</string>
     <string name="actionbar_mkdir">Нова фасцикла</string>
-    <string name="actionbar_move">Премести</string>
     <string name="actionbar_open_with">Отвори помоћу</string>
     <string name="actionbar_search">Претрага</string>
     <string name="actionbar_see_details">Детаљи</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">Покушајте касније или поново учитајте.</string>
     <string name="checkbox">Кућица</string>
     <string name="choose_local_folder">Одаберите локалну фасциклу…</string>
-    <string name="choose_location">Изаберите локацију</string>
     <string name="choose_remote_folder">Одаберите удаљену фасциклу…</string>
     <string name="choose_template_helper_text">Молимо вас да изаберете шаблон и унесете назив фајла.</string>
     <string name="choose_which_file">Изаберите који фајл желите да задржите!</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">Обриши</string>
     <string name="common_rename">Преименуј</string>
     <string name="common_save">Сачувај</string>
-    <string name="common_select">Обележи</string>
     <string name="common_send">Пошаљи</string>
     <string name="common_share">Подели</string>
     <string name="common_skip">Прескочи</string>
@@ -174,7 +170,6 @@
     <string name="copy_file_not_found">Не могу да копирам. Проверите да ли фајл постоји.</string>
     <string name="copy_link">Копирај везу</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирање/премештање у шифровану фасциклу тренутно није подржано.</string>
-    <string name="copy_to">Копирај у…</string>
     <string name="could_not_download_image">Не могу да преузмем целу слику</string>
     <string name="could_not_retrieve_shares">Не могу да добавим дељења</string>
     <string name="could_not_retrieve_url">Не могу да добавим УРЛ</string>
@@ -391,7 +386,6 @@
     <string name="folder_already_exists">Фасцикла већ постоји</string>
     <string name="folder_confirm_create">Направи</string>
     <string name="folder_list_empty_headline">Нема фасцикли овде</string>
-    <string name="folder_picker_choose_button_text">Одабери</string>
     <string name="forbidden_permissions">Није вам дозвољено %s</string>
     <string name="forbidden_permissions_copy">да копирате овај фајл</string>
     <string name="forbidden_permissions_create">да направите фајл</string>
@@ -493,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Фасцикла се не може преместити у неку од својих потфасцикли.</string>
     <string name="move_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
     <string name="move_file_not_found">Не могу да преместим фајл. Проверите да ли постоји.</string>
-    <string name="move_to">Премести у…</string>
     <string name="network_error_connect_timeout_exception">Десила се грешка при чекању на сервер. Не могу да довршим радњу.</string>
     <string name="network_error_socket_exception">Десила се грешка при повезивању на сервер</string>
     <string name="network_error_socket_timeout_exception">Десила се грешка при чекању на сервер. Не могу да довршим радњу.</string>

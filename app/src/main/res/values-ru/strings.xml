@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Вид сеткой</string>
     <string name="action_switch_list_view">Вид списком</string>
     <string name="actionbar_calendar_contacts_restore">Восстановить контакты и календарь</string>
-    <string name="actionbar_copy">Копировать</string>
     <string name="actionbar_mkdir">Создать папку</string>
-    <string name="actionbar_move">Переместить</string>
     <string name="actionbar_open_with">Открыть с помощью</string>
     <string name="actionbar_search">Поиск</string>
     <string name="actionbar_see_details">Подробности</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">Зайдите позже или перезагрузите.</string>
     <string name="checkbox">Флажок</string>
     <string name="choose_local_folder">Выберите каталог на устройстве…</string>
-    <string name="choose_location">Выбрать местоположение</string>
     <string name="choose_remote_folder">Выберите каталог на сервере…</string>
     <string name="choose_template_helper_text">Пожалуйста, выберите шаблон и введите имя файла.</string>
     <string name="choose_which_file">Выберите какой файл оставить!</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">Удалить</string>
     <string name="common_rename">Переименовать</string>
     <string name="common_save">Сохранить</string>
-    <string name="common_select">Выбрать</string>
     <string name="common_send">Отправить</string>
     <string name="common_share">Поделиться</string>
     <string name="common_skip">Пропустить</string>
@@ -174,7 +170,6 @@
     <string name="copy_file_not_found">Не удалось выполнить копирование. Убедитесь, что файл существует.</string>
     <string name="copy_link">Копировать ссылку</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирование и перемещение в зашифрованные папки пока не поддерживается.</string>
-    <string name="copy_to">Копировать…</string>
     <string name="could_not_download_image">Не удалось скачать полноразмерное изображение</string>
     <string name="could_not_retrieve_shares">Не удалось получить перечень общих ресурсов</string>
     <string name="could_not_retrieve_url">Не удалось получить URL</string>
@@ -392,7 +387,6 @@
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="folder_confirm_create">Создать</string>
     <string name="folder_list_empty_headline">Здесь нет каталогов</string>
-    <string name="folder_picker_choose_button_text">Выбрать</string>
     <string name="forbidden_permissions">У вас нет разрешений %s</string>
     <string name="forbidden_permissions_copy">для копирования этого файла</string>
     <string name="forbidden_permissions_create">для создания файла</string>
@@ -494,7 +488,6 @@
     <string name="move_file_invalid_into_descendent">Невозможно переместить каталог в его подкаталог</string>
     <string name="move_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
     <string name="move_file_not_found">Не удалось переместить файл. Убедитесь, что он существует.</string>
-    <string name="move_to">Переместить…</string>
     <string name="network_error_connect_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть завершено.</string>
     <string name="network_error_socket_exception">При подключении к серверу возникла ошибка.</string>
     <string name="network_error_socket_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть завершено.</string>

@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Rutenett-visning</string>
     <string name="action_switch_list_view">Listevisning</string>
     <string name="actionbar_calendar_contacts_restore">Gjenopprett kontakter &amp; kalender</string>
-    <string name="actionbar_copy">Kopier</string>
     <string name="actionbar_mkdir">Ny mappe</string>
-    <string name="actionbar_move">Flytt</string>
     <string name="actionbar_open_with">Åpne med</string>
     <string name="actionbar_search">Søk</string>
     <string name="actionbar_see_details">Detaljer</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">Kom tilbake senere eller last på nytt.</string>
     <string name="checkbox">Avkryssningsboks</string>
     <string name="choose_local_folder">Velg lokal mappe…</string>
-    <string name="choose_location">Velg lokasjon</string>
     <string name="choose_remote_folder">Velg mappe annensteds hen…</string>
     <string name="choose_template_helper_text">Velg en mal og oppgi filnavn</string>
     <string name="choose_which_file">Velg filen du ønsker å beholde!</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">Slett</string>
     <string name="common_rename">Gi nytt navn</string>
     <string name="common_save">Lagre</string>
-    <string name="common_select">Velg</string>
     <string name="common_send">Send</string>
     <string name="common_share">Del</string>
     <string name="common_skip">Hopp over</string>
@@ -174,7 +170,6 @@
     <string name="copy_file_not_found">Kan ikke kopiere. Sjekk om filen eksisterer.</string>
     <string name="copy_link">Kopier lenke</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiering/flytting til kryptert mappe støttes ikke enda.</string>
-    <string name="copy_to">Kopier til…</string>
     <string name="could_not_download_image">Kunne ikke laste ned det fulle bildet</string>
     <string name="could_not_retrieve_shares">Kunne ikke hente ressursen</string>
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
@@ -391,7 +386,6 @@
     <string name="folder_already_exists">Mappe finnes allerede</string>
     <string name="folder_confirm_create">Opprett</string>
     <string name="folder_list_empty_headline">Ingen mapper her</string>
-    <string name="folder_picker_choose_button_text">Velg</string>
     <string name="forbidden_permissions">Du har ikke tillatelse til %s</string>
     <string name="forbidden_permissions_copy">å kopiere denne filen</string>
     <string name="forbidden_permissions_create">å opprette filen</string>
@@ -486,7 +480,6 @@
     <string name="move_file_invalid_into_descendent">Det er ikke mulig å flytte en mappe inn i sin egen undermappe</string>
     <string name="move_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
     <string name="move_file_not_found">Kan ikke flytte filen. Sjekk om den eksisterer.</string>
-    <string name="move_to">Flytt til…</string>
     <string name="network_error_connect_timeout_exception">Feil oppstått ved venting på server. Kunne ikke fullføre operasjonen.</string>
     <string name="network_error_socket_exception">Feil oppstått ved forbindelsen til serveren</string>
     <string name="network_error_socket_timeout_exception">Feil oppstått ved venting på server. Kunne ikke fullføre operasjonen.</string>

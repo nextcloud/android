@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">網格檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
     <string name="actionbar_calendar_contacts_restore">恢復聯絡人與日曆</string>
-    <string name="actionbar_copy">複製</string>
     <string name="actionbar_mkdir">新資料夾</string>
-    <string name="actionbar_move">移動</string>
     <string name="actionbar_open_with">開啟方式</string>
     <string name="actionbar_search">搜尋</string>
     <string name="actionbar_see_details">詳細資料</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">稍後再回來檢視或重新載入。</string>
     <string name="checkbox">核取方塊</string>
     <string name="choose_local_folder">選擇本機資料夾……</string>
-    <string name="choose_location">選擇位置</string>
     <string name="choose_remote_folder">選擇遠端資料夾……</string>
     <string name="choose_template_helper_text">請選擇範本並輸入檔案名稱。</string>
     <string name="choose_which_file">選擇要保留哪個檔案！</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">刪除</string>
     <string name="common_rename">重新命名</string>
     <string name="common_save">儲存</string>
-    <string name="common_select">選取</string>
     <string name="common_send">傳送</string>
     <string name="common_share">分享</string>
     <string name="common_skip">略過</string>
@@ -174,7 +170,6 @@
     <string name="copy_file_not_found">無法複製檔案,請確認檔案是否存在</string>
     <string name="copy_link">複製連結</string>
     <string name="copy_move_to_encrypted_folder_not_supported">不支援複製移動加密的資料夾</string>
-    <string name="copy_to">複製到……</string>
     <string name="could_not_download_image">無法下載完整圖片</string>
     <string name="could_not_retrieve_shares">無法從雲端取得共用</string>
     <string name="could_not_retrieve_url">不能取得網址</string>
@@ -391,7 +386,6 @@
     <string name="folder_already_exists">資料夾已存在</string>
     <string name="folder_confirm_create">建立</string>
     <string name="folder_list_empty_headline">這裡沒有資料夾</string>
-    <string name="folder_picker_choose_button_text">選擇</string>
     <string name="forbidden_permissions">您沒有 %s 的權限</string>
     <string name="forbidden_permissions_copy">複製這個檔案</string>
     <string name="forbidden_permissions_create">建立此檔案</string>
@@ -493,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">無法將資料夾移動到自己的子資料夾中。</string>
     <string name="move_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
     <string name="move_file_not_found">無法移動檔案。請確認它是否存在。</string>
-    <string name="move_to">移動至…</string>
     <string name="network_error_connect_timeout_exception">等候連接伺服器錯誤。無法完成作業。</string>
     <string name="network_error_socket_exception">連接至伺服器時發生錯誤</string>
     <string name="network_error_socket_timeout_exception">等待伺服器時發生錯誤。無法完成動作。</string>

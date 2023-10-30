@@ -13,9 +13,7 @@
     <string name="action_send_share">Iber / Paýlaş</string>
     <string name="action_switch_grid_view">Gözenegiň görnüşi</string>
     <string name="action_switch_list_view">Sanaw görnüşi</string>
-    <string name="actionbar_copy">Göçüriň</string>
     <string name="actionbar_mkdir">Täze papka döretmek</string>
-    <string name="actionbar_move">Göçüriň</string>
     <string name="actionbar_open_with">Şunyň bilen açyň</string>
     <string name="actionbar_search">Gözlemek</string>
     <string name="actionbar_see_details">Jikme-jiklikleri</string>
@@ -154,7 +152,6 @@
     <string name="copy_file_not_found">Göçürip bolmaýar. Faýlyň bardygyny ýa-da ýokdugyny barlaň.</string>
     <string name="copy_link">Link-y nusgalaň</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Häzirki wagtda goldanmaýan şifrlenen bukjany göçüriň / geçiriň.</string>
-    <string name="copy_to">Göçüriň…</string>
     <string name="could_not_download_image">Doly suraty göçürip alyp bolmady</string>
     <string name="could_not_retrieve_shares">Paýlary alyp bolmady</string>
     <string name="could_not_retrieve_url">URL alyp bolmady</string>
@@ -329,7 +326,6 @@
     <string name="folder_already_exists">Bukja eýýäm bar</string>
     <string name="folder_confirm_create">Dörediň</string>
     <string name="folder_list_empty_headline">Bu ýerde bukjalar ýok</string>
-    <string name="folder_picker_choose_button_text">Saýlaň</string>
     <string name="forbidden_permissions">%sSize rugsat berilmeýär</string>
     <string name="forbidden_permissions_copy">bu faýly göçürmek</string>
     <string name="forbidden_permissions_create">bu faýly döretmek</string>
@@ -399,7 +395,6 @@
     <string name="move_file_invalid_into_descendent">Bir bukjany öz esasy bukjalarynyň birine geçirmek mümkin däl</string>
     <string name="move_file_invalid_overwrite">Faýl niýetlenen bukjada eýýäm bar</string>
     <string name="move_file_not_found">Faýly göçürip bolmaýar. Barlygyny ýa-da ýokdugyny barlaň.</string>
-    <string name="move_to">Göçmek…</string>
     <string name="network_error_connect_timeout_exception">Serwere garaşylýarka ýalňyşlyk ýüze çykdy. Amal edip bolmady</string>
     <string name="network_error_socket_exception">Serwere birikdirilende ýalňyşlyk ýüze çykdy</string>
     <string name="network_error_socket_timeout_exception">Serwere garaşýarka ýalňyşlyk ýüze çykdy. Iş tamamlap bolmady.</string>

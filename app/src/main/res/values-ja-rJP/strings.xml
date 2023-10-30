@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
     <string name="actionbar_calendar_contacts_restore">連絡先とカレンダーを復元する</string>
-    <string name="actionbar_copy">コピー</string>
     <string name="actionbar_mkdir">新しいフォルダー</string>
-    <string name="actionbar_move">移動</string>
     <string name="actionbar_open_with">次で開く</string>
     <string name="actionbar_search">検索</string>
     <string name="actionbar_see_details">詳細</string>
@@ -122,7 +120,6 @@
     <string name="common_remove">削除</string>
     <string name="common_rename">名前を変更</string>
     <string name="common_save">保存</string>
-    <string name="common_select">選択</string>
     <string name="common_send">送信</string>
     <string name="common_share">共有</string>
     <string name="common_skip">スキップ</string>
@@ -173,7 +170,6 @@
     <string name="copy_file_not_found">コピーできません。ファイルがあるか確認してください。</string>
     <string name="copy_link">リンクをコピー</string>
     <string name="copy_move_to_encrypted_folder_not_supported">現在サポートされていない暗号化されたフォルダにコピー/移動します。</string>
-    <string name="copy_to">コピー…</string>
     <string name="could_not_download_image">イメージ全体をダウンロードできませんでした</string>
     <string name="could_not_retrieve_shares">共有元を取得できませんでした</string>
     <string name="could_not_retrieve_url">URL を取得できませんでした</string>
@@ -387,7 +383,6 @@
     <string name="folder_already_exists">フォルダーはすでに存在します</string>
     <string name="folder_confirm_create">作成</string>
     <string name="folder_list_empty_headline">フォルダーがありません</string>
-    <string name="folder_picker_choose_button_text">選択</string>
     <string name="forbidden_permissions">%sが許可されていません。</string>
     <string name="forbidden_permissions_copy">このファイルをコピー</string>
     <string name="forbidden_permissions_create">このファイルを作成する</string>
@@ -485,7 +480,6 @@
     <string name="move_file_invalid_into_descendent">フォルダを自身の基礎となるフォルダの1つに移動することはできません</string>
     <string name="move_file_invalid_overwrite">そのファイルは移動先フォルダーにすでに存在します。</string>
     <string name="move_file_not_found">ファイルを移動できません。ファイルがあるか確認してください。</string>
-    <string name="move_to">移動…</string>
     <string name="network_error_connect_timeout_exception">サーバーの応答を待っている間にエラーが発生しました。操作を完了できませんでした。</string>
     <string name="network_error_socket_exception">サーバーへの接続中にエラーが発生しました。</string>
     <string name="network_error_socket_timeout_exception">サーバーの応答を待っている間にエラーが発生しました。操作を完了できませんでした。</string>

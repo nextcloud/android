@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Rasteransicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
     <string name="actionbar_calendar_contacts_restore">Kontakte &amp; Kalender wiederherstellen</string>
-    <string name="actionbar_copy">Kopieren</string>
     <string name="actionbar_mkdir">Neuer Ordner</string>
-    <string name="actionbar_move">Verschieben</string>
     <string name="actionbar_open_with">Öffnen mit</string>
     <string name="actionbar_search">Suche</string>
     <string name="actionbar_see_details">Details</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">Schauen Sie später noch einmal vorbei oder laden Sie neu.</string>
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Wähle einen lokalen Ordner…</string>
-    <string name="choose_location">Ort wählen</string>
     <string name="choose_remote_folder">Wähle einen entfernten Ordner …</string>
     <string name="choose_template_helper_text">Bitte eine Vorlage auswählen und einen Dateinamen eingeben.</string>
     <string name="choose_which_file">Wählen Sie, welche Datei behalten werden soll!</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">Löschen</string>
     <string name="common_rename">Umbenennen</string>
     <string name="common_save">Speichern</string>
-    <string name="common_select">Auswählen</string>
     <string name="common_send">Senden</string>
     <string name="common_share">Teilen</string>
     <string name="common_skip">Überspringen</string>
@@ -174,7 +170,6 @@
     <string name="copy_file_not_found">Kopieren nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
     <string name="copy_link">Link kopieren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
-    <string name="copy_to">Kopieren nach…</string>
     <string name="could_not_download_image">Originalbild konnte nicht heruntergeladen werden</string>
     <string name="could_not_retrieve_shares">Konnte die Freigaben nicht abrufen</string>
     <string name="could_not_retrieve_url">Konnte URL nicht abrufen</string>
@@ -391,7 +386,6 @@
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="folder_confirm_create">Erstellen</string>
     <string name="folder_list_empty_headline">Keine Ordner vorhanden</string>
-    <string name="folder_picker_choose_button_text">Auswählen</string>
     <string name="forbidden_permissions">Ihnen fehlt die Erlaubnis %s</string>
     <string name="forbidden_permissions_copy">diese Datei zu kopieren</string>
     <string name="forbidden_permissions_create">diese Datei zu erstellen</string>
@@ -493,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
     <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
     <string name="move_file_not_found">Verschieben nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
-    <string name="move_to">Verschieben nach…</string>
     <string name="network_error_connect_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation konnte nicht abgeschlossen werden.</string>
     <string name="network_error_socket_exception">Es ist ein Fehler beim Verbinden mit dem Server aufgetreten.</string>
     <string name="network_error_socket_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation konnte nicht abgeschlossen werden</string>

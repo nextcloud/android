@@ -429,17 +429,18 @@
     <string name="log_send_no_mail_app">No app for sending logs found. Please install an email client.</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
 
-    <string name="actionbar_move">Move</string>
-    <string name="actionbar_copy">Copy</string>
+    <string name="actionbar_move_or_copy">Move or Copy</string>
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
-    <string name="folder_picker_choose_button_text">Choose</string>
+
+    <string name="folder_picker_copy_button_text">Copy</string>
+    <string name="folder_picker_move_button_text">Move</string>
+    <string name="folder_picker_choose_caption_text">Choose target folder</string>
 
     <string name="move_file_not_found">Unable to move file. Please check whether it exists.</string>
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
     <string name="move_file_error">An error occurred while trying to move this file or folder</string>
     <string name="forbidden_permissions_move">to move this file</string>
-
 
     <string name="copy_file_not_found">Unable to copy. Please check whether the file exists.</string>
     <string name="copy_file_invalid_into_descendent">It is not possible to copy a folder into one of its own underlying folders</string>
@@ -546,8 +547,6 @@
     <string name="community_rc_fdroid">Get release candidate from F-Droid app</string>
     <string name="community_dev_fdroid">Get development release from F-Droid app</string>
     <string name="community_dev_direct_download">Download development release directly</string>
-    <string name="move_to">Move to…</string>
-    <string name="copy_to">Copy to…</string>
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="choose_local_folder">Choose local folder…</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -1034,8 +1033,6 @@
     <string name="show_video">Show videos</string>
     <string name="subtitle_videos_only">Videos only</string>
     <string name="select_media_folder">Set media folder</string>
-    <string name="choose_location">Choose location</string>
-    <string name="common_select">Select</string>
     <string name="lock_file">Lock file</string>
     <string name="unlock_file">Unlock file</string>
     <string name="error_file_lock">Error changing file lock status</string>

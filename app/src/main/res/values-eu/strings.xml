@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Sareta ikuspegia</string>
     <string name="action_switch_list_view">Zerrenda ikuspegia</string>
     <string name="actionbar_calendar_contacts_restore">Berezarri kontaktuen &amp; egutegia</string>
-    <string name="actionbar_copy">Kopiatu</string>
     <string name="actionbar_mkdir">Karpeta berria</string>
-    <string name="actionbar_move">Mugitu</string>
     <string name="actionbar_open_with">Ireki honekin</string>
     <string name="actionbar_search">Bilatu</string>
     <string name="actionbar_see_details">Xehetasunak</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">Begiratu berriro geroago edo kargatu berriro.</string>
     <string name="checkbox">Kontrol laukia</string>
     <string name="choose_local_folder">Hautatu tokiko karpeta...</string>
-    <string name="choose_location">Hautatu kokapena</string>
     <string name="choose_remote_folder">Hautatu urruneko karpeta...</string>
     <string name="choose_template_helper_text">Hautatu txantiloia eta sartu fitxategi-izena.</string>
     <string name="choose_which_file">Aukeratu zein fitxategi gorde!</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">Ezabatu</string>
     <string name="common_rename">Berrizendatu</string>
     <string name="common_save">Gorde</string>
-    <string name="common_select">Hautatu</string>
     <string name="common_send">Bidali</string>
     <string name="common_share">Partekatu</string>
     <string name="common_skip">Saltatu</string>
@@ -174,7 +170,6 @@
     <string name="copy_file_not_found">Ezin izan da kopiatu. Mesedez egiaztatu fitxategia existitzen dela.</string>
     <string name="copy_link">Kopiatu esteka</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Une honetan ez da onartzen enkriptatutako karpetara kopiatzea/mugitzea.</string>
-    <string name="copy_to">Kopiatu hona…</string>
     <string name="could_not_download_image">Ezin izan da irudi osoa deskargatu</string>
     <string name="could_not_retrieve_shares">Ezin izan dira partekatzeak berreskuratu</string>
     <string name="could_not_retrieve_url">Ezin izan da URLa berreskuratu</string>
@@ -391,7 +386,6 @@
     <string name="folder_already_exists">Karpeta dagoeneko existitzen da</string>
     <string name="folder_confirm_create">Sortu</string>
     <string name="folder_list_empty_headline">Ez dago karpetarik hemen</string>
-    <string name="folder_picker_choose_button_text">Aukeratu</string>
     <string name="forbidden_permissions">Ez daukazu baimenik %s</string>
     <string name="forbidden_permissions_copy">fitxategi hau kopiatzeko</string>
     <string name="forbidden_permissions_create">fitxategi hau sortzeko</string>
@@ -493,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Ezin da karpeta bat azpikarpeta batera mugitu</string>
     <string name="move_file_invalid_overwrite">Fitxategi hau existitzen da jadanik helburuko karpetan</string>
     <string name="move_file_not_found">Ezin izan da fitxategia mugitu. Mesedez egiaztatu fitxategia existitzen dela.</string>
-    <string name="move_to">Mugitu hona…</string>
     <string name="network_error_connect_timeout_exception">Errore bat gertatu da zerbitzariari itxarotean. Ezin izan da eragiketa burutu.</string>
     <string name="network_error_socket_exception">Errore bat gertatu da zerbitzariarekin konektatzean.</string>
     <string name="network_error_socket_timeout_exception">Errore bat gertatu da zerbitzariari itxarotean. Ezin izan da eragiketa burutu.</string>

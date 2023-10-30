@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Vista en cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar los contactos y el calendario</string>
-    <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
-    <string name="actionbar_move">Mover</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">Regrese luego o recargue.</string>
     <string name="checkbox">Casilla de verificación</string>
     <string name="choose_local_folder">Seleccione carpeta local…</string>
-    <string name="choose_location">Elige una ubicación</string>
     <string name="choose_remote_folder">Selecciona carpeta remota…</string>
     <string name="choose_template_helper_text">Por favor, elije una plantilla e introduce un nombre de archivo.</string>
     <string name="choose_which_file">¡Elije que archivos mantener!</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">Borrar</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_save">Guardar</string>
-    <string name="common_select">Seleccionar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
     <string name="common_skip">Omitir</string>
@@ -174,7 +170,6 @@
     <string name="copy_file_not_found">Imposible copiar. Por favor, comprueba que el archivo exista.</string>
     <string name="copy_link">Copiar enlace</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
-    <string name="copy_to">Copiar a…</string>
     <string name="could_not_download_image">No se ha podido descargar la imagen completa</string>
     <string name="could_not_retrieve_shares">No se han podido recuperar los recursos compartidos</string>
     <string name="could_not_retrieve_url">No se ha podido recuperar la URL</string>
@@ -391,7 +386,6 @@
     <string name="folder_already_exists">La carpeta ya existe</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">No hay carpetas aquí</string>
-    <string name="folder_picker_choose_button_text">Elegir</string>
     <string name="forbidden_permissions">No tienes permiso %s</string>
     <string name="forbidden_permissions_copy">copiar este archivo</string>
     <string name="forbidden_permissions_create">para crear este archivo</string>
@@ -493,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">No se puede mover una carpeta dentro de una de sus propias subcarpetas.</string>
     <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
     <string name="move_file_not_found">Imposible mover. Por favor, comprueba que el archivo exista.</string>
-    <string name="move_to">Mover a…</string>
     <string name="network_error_connect_timeout_exception">Ha ocurrido un error al esperar al servidor. No se pudo completar la operación.</string>
     <string name="network_error_socket_exception">Se ha producido un error al conectarse con el servidor</string>
     <string name="network_error_socket_timeout_exception">Ha ocurrido un error al esperar al servidor. No se pudo completar la operación.</string>

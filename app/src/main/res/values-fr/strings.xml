@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Affichage mosaïque</string>
     <string name="action_switch_list_view">Affichage liste</string>
     <string name="actionbar_calendar_contacts_restore">Restaurer les contacts &amp; l\'agenda</string>
-    <string name="actionbar_copy">Copier</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
-    <string name="actionbar_move">Déplacer</string>
     <string name="actionbar_open_with">Ouvrir avec</string>
     <string name="actionbar_search">Rechercher</string>
     <string name="actionbar_see_details">Propriétés</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">Revenez plus tard ou actualisez la page.</string>
     <string name="checkbox">Case à cocher</string>
     <string name="choose_local_folder">Sélectionner le dossier local…</string>
-    <string name="choose_location">Sélectionner l\'emplacement</string>
     <string name="choose_remote_folder">Sélectionner le dossier distant…</string>
     <string name="choose_template_helper_text">Veuillez choisir un modèle et entrer un nom de fichier</string>
     <string name="choose_which_file">Sélectionnez le fichier à conserver</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">Supprimer</string>
     <string name="common_rename">Renommer</string>
     <string name="common_save">Enregistrer</string>
-    <string name="common_select">Sélectionner</string>
     <string name="common_send">Envoyer</string>
     <string name="common_share">Partager</string>
     <string name="common_skip">Passer</string>
@@ -174,7 +170,6 @@
     <string name="copy_file_not_found">Impossible à copier. Veuillez vérifier si le fichier existe.</string>
     <string name="copy_link">Copier le lien</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copier/déplacer dans ce dossier chiffré n\'est pas actuellement supporté</string>
-    <string name="copy_to">Copier vers…</string>
     <string name="could_not_download_image">Impossible de télécharger l\'image complète</string>
     <string name="could_not_retrieve_shares">Impossible de récupérer les partages</string>
     <string name="could_not_retrieve_url">Impossible de récupérer l\'URL</string>
@@ -393,7 +388,6 @@ Attention, la suppression est irréversible.</string>
     <string name="folder_already_exists">Le dossier existe déjà</string>
     <string name="folder_confirm_create">Créer</string>
     <string name="folder_list_empty_headline">Aucun dossier</string>
-    <string name="folder_picker_choose_button_text">Valider</string>
     <string name="forbidden_permissions">Vous n\'avez pas la permission %s</string>
     <string name="forbidden_permissions_copy">de copier ce fichier</string>
     <string name="forbidden_permissions_create">de créer ce fichier</string>
@@ -495,7 +489,6 @@ Attention, la suppression est irréversible.</string>
     <string name="move_file_invalid_into_descendent">Il n\'est pas possible de déplacer un dossier vers un de ses descendants</string>
     <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
     <string name="move_file_not_found">Impossible de déplacer le fichier. Veuillez vérifier s\'il existe.</string>
-    <string name="move_to">Déplacer vers…</string>
     <string name="network_error_connect_timeout_exception">Une erreur s\'est produite pendant l\'attente du serveur. Impossible de terminer l\'opération.</string>
     <string name="network_error_socket_exception">Une erreur est survenue pendant la connexion au serveur</string>
     <string name="network_error_socket_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. Impossible de terminer l\'opération.</string>

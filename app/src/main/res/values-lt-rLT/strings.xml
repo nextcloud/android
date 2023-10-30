@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Tinklelio rodinys</string>
     <string name="action_switch_list_view">Sąrašo rodinys</string>
     <string name="actionbar_calendar_contacts_restore">Atkurti adresatus ir kalendorių</string>
-    <string name="actionbar_copy">Kopijuoti</string>
     <string name="actionbar_mkdir">Naujas aplankas</string>
-    <string name="actionbar_move">Perkelti</string>
     <string name="actionbar_open_with">Atverti naudojant</string>
     <string name="actionbar_search">Paieška</string>
     <string name="actionbar_see_details">Išsamiau</string>
@@ -118,7 +116,6 @@
     <string name="common_remove">Ištrinti</string>
     <string name="common_rename">Pervadinti</string>
     <string name="common_save">Įrašyti</string>
-    <string name="common_select">Pasirinkti</string>
     <string name="common_send">Siųsti</string>
     <string name="common_share">Bendrinti</string>
     <string name="common_skip">Praleisti</string>
@@ -168,7 +165,6 @@
     <string name="copy_file_not_found">Nepavyko nukopijuoti. Patikrinkite, ar failas egzistuoja.</string>
     <string name="copy_link">Kopijuoti nuorodą</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopijavimas/perkėlimas į šifruotą aplanką šiuo metu nėra palaikomas.</string>
-    <string name="copy_to">Kopijuoti į…</string>
     <string name="could_not_download_image">Nepavyko atsisiųsti viso paveikslo</string>
     <string name="could_not_retrieve_shares">Nepavyko gauti viešinių</string>
     <string name="could_not_retrieve_url">Nepavyko nuskaityti URL</string>
@@ -362,7 +358,6 @@
     <string name="folder_already_exists">Aplankas jau yra</string>
     <string name="folder_confirm_create">Sukurti</string>
     <string name="folder_list_empty_headline">Čia aplankų nėra</string>
-    <string name="folder_picker_choose_button_text">Pasirinkti</string>
     <string name="forbidden_permissions">Neturite leidimo %s</string>
     <string name="forbidden_permissions_copy">kopijuoti failo</string>
     <string name="forbidden_permissions_create">Sukurti failą</string>
@@ -445,7 +440,6 @@
     <string name="move_file_invalid_into_descendent">Neįmanoma perkelti aplanko į poaplankį</string>
     <string name="move_file_invalid_overwrite">Failas jau yra paskirties aplanke</string>
     <string name="move_file_not_found">Nepavyko perkelti failo. Prašome patikrinkite  ar jis egzistuoja.</string>
-    <string name="move_to">Perkelti į…</string>
     <string name="network_error_connect_timeout_exception">Laukiant serverio įvyko klaida. Nepavyko pabaigti operacijos.</string>
     <string name="network_error_socket_exception">Prisijungimo prie serverio metu įvyko klaida</string>
     <string name="network_error_socket_timeout_exception">Laukiant serverio įvyko klaida. Nepavyko pabaigti operacijos.</string>
