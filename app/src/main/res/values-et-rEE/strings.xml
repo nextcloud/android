@@ -436,6 +436,7 @@
     <string name="status_message">Staatuse teade</string>
     <string name="storage_description_default">Vaikeväärtus</string>
     <string name="storage_downloads">Allalaadimised</string>
+    <string name="sub_folder_rule_year">Aasta</string>
     <string name="subject_shared_with_you">\"%1$s\" on sinuga jagatud</string>
     <string name="subject_user_shared_with_you">%1$s jagas sinuga \"%2$s\"</string>
     <string name="sync_conflicts_in_favourites_ticker">Leite konflikte</string>
