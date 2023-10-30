@@ -135,7 +135,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             InputStream exceptionStream = serializeObjectToInputStreamV2(exception, response.getPlainHeadersString());
             InputStream resultStream = new java.io.SequenceInputStream(exceptionStream, response.getBody());
 
-            return ParcelFileDescriptorUtil.pipeFrom(resultStream,
+            return ParcelFileDescriptorUtil.INSTANCE.pipeFrom(resultStream,
                                                      thread -> Log_OC.d(TAG, "Done sending result"),
                                                      response.getMethod());
         } catch (IOException e) {
@@ -184,7 +184,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             } else {
                 resultStream = exceptionStream;
             }
-            return ParcelFileDescriptorUtil.pipeFrom(resultStream,
+            return ParcelFileDescriptorUtil.INSTANCE.pipeFrom(resultStream,
                                                      thread -> Log_OC.d(TAG, "Done sending result"),
                                                      httpMethod);
         } catch (IOException e) {
