@@ -613,12 +613,6 @@
     <string name="signup_with_provider">ລົງທະບຽນກັບຜູ້ໃຫ້ບໍລິການ</string>
     <string name="single_sign_on_request_token" formatted="true">ອະນຸຍາດ%1$sໃຫ້ເຂົ້າບັນຊີ Nextcloud ຂອງທ່ານ%2$s?</string>
     <string name="sort_by">ຈັດລຽງໂດຍ</string>
-    <string name="sort_by_modification_date_ascending">ໃໝ່ທີ່ສຸດກ່ອນ</string>
-    <string name="sort_by_modification_date_descending">ເກົ່າທີ່ສຸດກ່ອນ</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">ນ້ອຍທີ່ສຸດກ່ອນ</string>
-    <string name="sort_by_size_descending">ໃຫຍ່ທີ່ສຸດກ່ອນ</string>
     <string name="ssl_validator_btn_details_hide">ເຊື່ຶອງ</string>
     <string name="ssl_validator_btn_details_see">ລາຍລະອຽດ</string>
     <string name="ssl_validator_header">ການລະບຸຕົວຕົນຂອງເຊີເວີ ບໍ່ສາມາດຢັ້ງຢືນໄດ້</string>

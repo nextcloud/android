@@ -571,8 +571,8 @@ open class FolderPickerActivity :
         }
     }
 
-    override fun onSortingOrderChosen(selection: FileSortOrder) {
-        listOfFilesFragment!!.sortFiles(selection)
+    override fun onSortingOrderChosen(selection: FileSortOrder?) {
+        listOfFilesFragment?.sortFiles(selection)
     }
 
     companion object {

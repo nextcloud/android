@@ -695,12 +695,6 @@
     <string name="signup_with_provider">Zaregistrovať sa u poskytovateľa</string>
     <string name="single_sign_on_request_token" formatted="true">Umožniť %1$s pristupovať k Vášmu Nextcloud účtu %2$s?</string>
     <string name="sort_by">Zoradiť podľa</string>
-    <string name="sort_by_modification_date_ascending">Najnovšie prvé</string>
-    <string name="sort_by_modification_date_descending">Najstaršie prvé</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Najmenšie prvé</string>
-    <string name="sort_by_size_descending">Najväčšie prvé</string>
     <string name="ssl_validator_btn_details_hide">Skyť</string>
     <string name="ssl_validator_btn_details_see">Podrobnosti</string>
     <string name="ssl_validator_header">Identu servra nemožno overiť</string>

@@ -514,12 +514,6 @@
     <string name="shared_icon_share">แชร์</string>
     <string name="shared_icon_shared">แชร์แล้ว</string>
     <string name="sort_by">เรียงตาม</string>
-    <string name="sort_by_modification_date_ascending">ใหม่ที่สุดก่อน</string>
-    <string name="sort_by_modification_date_descending">เก่าที่สุดก่อน</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">เล็กที่สุดก่อน</string>
-    <string name="sort_by_size_descending">ใหญ่ที่สุดก่อน</string>
     <string name="ssl_validator_btn_details_hide">ซ๋อน</string>
     <string name="ssl_validator_btn_details_see">รายละเอียด</string>
     <string name="ssl_validator_label_C">ประเทศ:</string>

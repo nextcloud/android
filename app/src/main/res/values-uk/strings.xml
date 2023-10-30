@@ -727,12 +727,6 @@
     <string name="signup_with_provider">Зареєструватися у провайдейра</string>
     <string name="single_sign_on_request_token" formatted="true">Дозволити %1$s мати доступ до вашого облікового запису у Nextcloud %2$s?</string>
     <string name="sort_by">Впорядкувати за</string>
-    <string name="sort_by_modification_date_ascending">Новіші спочатку</string>
-    <string name="sort_by_modification_date_descending">Старіші спочатку</string>
-    <string name="sort_by_name_ascending">А--Я</string>
-    <string name="sort_by_name_descending">Я--А</string>
-    <string name="sort_by_size_ascending">Найменші на початку</string>
-    <string name="sort_by_size_descending">Найбільші на початку</string>
     <string name="ssl_validator_btn_details_hide">Сховати</string>
     <string name="ssl_validator_btn_details_see">Деталі</string>
     <string name="ssl_validator_header">Неможливо перевірити ідентифікатор сервера.</string>

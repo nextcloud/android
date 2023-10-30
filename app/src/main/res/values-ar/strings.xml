@@ -742,12 +742,6 @@
     <string name="signup_with_provider">التسجيل عبر مزوّد خدمة</string>
     <string name="single_sign_on_request_token" formatted="true">هل تسمح لـ%1$s بالوصول إلى حسابك %2$s في Nextcloud؟</string>
     <string name="sort_by">ترتيب</string>
-    <string name="sort_by_modification_date_ascending">الأحدث أولا</string>
-    <string name="sort_by_modification_date_descending">الأقدم أولا</string>
-    <string name="sort_by_name_ascending">أ - ى</string>
-    <string name="sort_by_name_descending">ى -أ</string>
-    <string name="sort_by_size_ascending">الأصغر حجما أولا</string>
-    <string name="sort_by_size_descending">الأكبر حجما أولا</string>
     <string name="ssl_validator_btn_details_hide">إخفاء</string>
     <string name="ssl_validator_btn_details_see">تفاصيل</string>
     <string name="ssl_validator_header">لا يمكن التحقق من هوية الخادم</string>

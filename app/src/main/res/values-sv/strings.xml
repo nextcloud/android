@@ -737,12 +737,6 @@
     <string name="signup_with_provider">Registrera hos en leverantör</string>
     <string name="single_sign_on_request_token" formatted="true">Tillåt %1$s att komma åt ditt Nextcloud-konto %2$s?</string>
     <string name="sort_by">Sortera efter</string>
-    <string name="sort_by_modification_date_ascending">Nyaste först</string>
-    <string name="sort_by_modification_date_descending">Äldst först</string>
-    <string name="sort_by_name_ascending">A - Ö</string>
-    <string name="sort_by_name_descending">Ö - A</string>
-    <string name="sort_by_size_ascending">Minst först</string>
-    <string name="sort_by_size_descending">Störst först</string>
     <string name="ssl_validator_btn_details_hide">Göm</string>
     <string name="ssl_validator_btn_details_see">Detaljer</string>
     <string name="ssl_validator_header">Webbplatsens identitet kunde inte verifieras</string>

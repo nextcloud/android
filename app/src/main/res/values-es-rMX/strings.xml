@@ -505,12 +505,6 @@
     <string name="shared_icon_shared">compartido</string>
     <string name="sharee_add_failed">Se presentó una falla al agregar una persona para compartir</string>
     <string name="sort_by">Ordenar por</string>
-    <string name="sort_by_modification_date_ascending">Más reciente primero</string>
-    <string name="sort_by_modification_date_descending">Más antiguo primero</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Más pequeño primero</string>
-    <string name="sort_by_size_descending">Más grande primero</string>
     <string name="ssl_validator_btn_details_hide">Ocultar</string>
     <string name="ssl_validator_btn_details_see">Detalles</string>
     <string name="ssl_validator_header">La identidad del servidor no pudo ser verificada</string>

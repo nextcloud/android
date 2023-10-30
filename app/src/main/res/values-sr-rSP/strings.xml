@@ -517,12 +517,6 @@
     <string name="signup_with_provider">Prijavite se preko provajdera</string>
     <string name="single_sign_on_request_token" formatted="true">Dozvoli da %1$s pristupa Vašem Nekstklaud nalogu %2$s?</string>
     <string name="sort_by">Razvrstaj</string>
-    <string name="sort_by_modification_date_ascending">Prvo novije</string>
-    <string name="sort_by_modification_date_descending">Prvo starije</string>
-    <string name="sort_by_name_ascending">A - Š</string>
-    <string name="sort_by_name_descending">Š - A</string>
-    <string name="sort_by_size_ascending">Prvo najmanje</string>
-    <string name="sort_by_size_descending">Prvo najveće</string>
     <string name="ssl_validator_btn_details_hide">Sakrij</string>
     <string name="ssl_validator_btn_details_see">Podaci</string>
     <string name="ssl_validator_header">Identitet servera ne može da se proveri</string>

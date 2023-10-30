@@ -719,12 +719,6 @@
     <string name="signup_with_provider">공급자로 가입</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s가 Nextcloud 계정%2$s에 액세스하도록 허용 하시겠습니까?</string>
     <string name="sort_by">정렬</string>
-    <string name="sort_by_modification_date_ascending">새 항목 먼저</string>
-    <string name="sort_by_modification_date_descending">오래된 항목 먼저</string>
-    <string name="sort_by_name_ascending">가나다순</string>
-    <string name="sort_by_name_descending">가나다 역순</string>
-    <string name="sort_by_size_ascending">작은 것 먼저</string>
-    <string name="sort_by_size_descending">큰 것 먼저</string>
     <string name="ssl_validator_btn_details_hide">숨기기</string>
     <string name="ssl_validator_btn_details_see">자세히</string>
     <string name="ssl_validator_header">서버를 검증할 수 없습니다</string>

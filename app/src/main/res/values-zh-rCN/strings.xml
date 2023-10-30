@@ -737,12 +737,6 @@
     <string name="signup_with_provider">与提供商签约</string>
     <string name="single_sign_on_request_token" formatted="true">是否允许%1$s访问您的 Nextcloud 账号%2$s？</string>
     <string name="sort_by">排序方式</string>
-    <string name="sort_by_modification_date_ascending">新文件在前</string>
-    <string name="sort_by_modification_date_descending">旧文件在前</string>
-    <string name="sort_by_name_ascending">按名称顺序</string>
-    <string name="sort_by_name_descending">按名称倒序</string>
-    <string name="sort_by_size_ascending">小文件在前</string>
-    <string name="sort_by_size_descending">大文件在前</string>
     <string name="ssl_validator_btn_details_hide">隐藏</string>
     <string name="ssl_validator_btn_details_see">详细信息</string>
     <string name="ssl_validator_header">无法验证服务器身份</string>

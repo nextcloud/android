@@ -404,12 +404,6 @@
     <string name="share_via_link_send_link_label">Saada link</string>
     <string name="shared_icon_shared">jagatud</string>
     <string name="sort_by">Sorteeri</string>
-    <string name="sort_by_modification_date_ascending">Uuemad eespool</string>
-    <string name="sort_by_modification_date_descending">Vanemad eespool</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Väiksemad esimesenaa</string>
-    <string name="sort_by_size_descending">Suuremad esimesena</string>
     <string name="ssl_validator_btn_details_hide">Peida</string>
     <string name="ssl_validator_btn_details_see">Üksikasjad</string>
     <string name="ssl_validator_label_C">Riik:</string>

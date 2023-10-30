@@ -720,12 +720,6 @@
     <string name="signup_with_provider">他のサービスでサインアップ</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s があなたのNextcloudアカウント %2$s にアクセスできるようにしますか？</string>
     <string name="sort_by">ソート</string>
-    <string name="sort_by_modification_date_ascending">新しい順</string>
-    <string name="sort_by_modification_date_descending">日付（昇順）</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">サイズ（昇順）</string>
-    <string name="sort_by_size_descending">サイズ（降順）</string>
     <string name="ssl_validator_btn_details_hide">非表示</string>
     <string name="ssl_validator_btn_details_see">詳細</string>
     <string name="ssl_validator_header">サーバーIDを確認できません</string>

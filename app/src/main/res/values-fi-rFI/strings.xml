@@ -703,12 +703,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="signup_with_provider">Kirjaudu sisään palvelutarjoajan kautta</string>
     <string name="single_sign_on_request_token" formatted="true">Salli käyttäjälle %1$s pääsy Nextcloud -tilillesi %2$s?</string>
     <string name="sort_by">Lajittelujärjestys</string>
-    <string name="sort_by_modification_date_ascending">Uusin ensin</string>
-    <string name="sort_by_modification_date_descending">Vanhin ensin</string>
-    <string name="sort_by_name_ascending">A - Ö</string>
-    <string name="sort_by_name_descending">Ö - A</string>
-    <string name="sort_by_size_ascending">Pienin ensin</string>
-    <string name="sort_by_size_descending">Suurin ensin</string>
     <string name="ssl_validator_btn_details_hide">Piilota</string>
     <string name="ssl_validator_btn_details_see">Tiedot</string>
     <string name="ssl_validator_header">Palvelimen identiteettiä ei voitu vahvistaa</string>

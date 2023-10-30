@@ -685,12 +685,6 @@
     <string name="signup_with_provider">Aanmelden bij provider</string>
     <string name="single_sign_on_request_token" formatted="true">Toestaan dat%1$s je Nextcloud account %2$sbenadert?</string>
     <string name="sort_by">Sorteer op</string>
-    <string name="sort_by_modification_date_ascending">Nieuwste eerst</string>
-    <string name="sort_by_modification_date_descending">Oudste eerst</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Kleinste eerst</string>
-    <string name="sort_by_size_descending">Grootste eerst</string>
     <string name="ssl_validator_btn_details_hide">Verbergen</string>
     <string name="ssl_validator_btn_details_see">Details</string>
     <string name="ssl_validator_header">De identiteit van de server kon niet geverifieerd worden</string>

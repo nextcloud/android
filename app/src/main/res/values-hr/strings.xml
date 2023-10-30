@@ -677,12 +677,6 @@
     <string name="signup_with_provider">Prijavite se kod davatelja usluga</string>
     <string name="single_sign_on_request_token" formatted="true">Dopusti %1$s pristup Nextcloud računu %2$s?</string>
     <string name="sort_by">Razvrstaj prema</string>
-    <string name="sort_by_modification_date_ascending">Najnoviji prvi</string>
-    <string name="sort_by_modification_date_descending">Najstariji prvi</string>
-    <string name="sort_by_name_ascending">A – Z</string>
-    <string name="sort_by_name_descending">Z – A</string>
-    <string name="sort_by_size_ascending">Najmanji prvi</string>
-    <string name="sort_by_size_descending">Najveći prvi</string>
     <string name="ssl_validator_btn_details_hide">Sakrij</string>
     <string name="ssl_validator_btn_details_see">Pojedinosti</string>
     <string name="ssl_validator_header">Nije moguće provjeriti identitet poslužitelja</string>

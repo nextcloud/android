@@ -700,12 +700,6 @@
     <string name="signup_with_provider">Registreu-vos amb el proveïdor</string>
     <string name="single_sign_on_request_token" formatted="true">Voleu permetre que %1$s accedeixi al vostre compte de Nextcloud %2$s?</string>
     <string name="sort_by">Ordena per</string>
-    <string name="sort_by_modification_date_ascending">Més nou primer</string>
-    <string name="sort_by_modification_date_descending">Més antic primer</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Més petit primer</string>
-    <string name="sort_by_size_descending">Més gran primer</string>
     <string name="ssl_validator_btn_details_hide">Amaga</string>
     <string name="ssl_validator_btn_details_see">Detalls</string>
     <string name="ssl_validator_header">No s\'ha pogut verificar la identitat del servidor</string>

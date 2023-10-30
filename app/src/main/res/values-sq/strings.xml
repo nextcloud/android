@@ -551,12 +551,6 @@
     <string name="signup_with_provider">Regjistrohu me ofruesin</string>
     <string name="single_sign_on_request_token" formatted="true">Lejo %1$s të hyjë në llogarinë tënde Nextcloud %2$s?</string>
     <string name="sort_by">Rendit sipas</string>
-    <string name="sort_by_modification_date_ascending">Më i riu i pari</string>
-    <string name="sort_by_modification_date_descending">Më i vjetri i pari</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Më e vogla në fillim</string>
-    <string name="sort_by_size_descending">Më i madhi i pari</string>
     <string name="ssl_validator_btn_details_hide">Fshihe</string>
     <string name="ssl_validator_btn_details_see">Hollësi</string>
     <string name="ssl_validator_header">Identiteti i serverit nuk mund të verifikohet</string>

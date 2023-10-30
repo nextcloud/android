@@ -598,12 +598,6 @@
     <string name="signup_with_provider">Prowaýder bilen ýazylyň</string>
     <string name="single_sign_on_request_token" formatted="true">Nextcloud hasabyňyza girmäge rugsat beriň?%1$s%2$s</string>
     <string name="sort_by">Tertipleşdir</string>
-    <string name="sort_by_modification_date_ascending">Täze ilkinji</string>
-    <string name="sort_by_modification_date_descending">Ilki bilen iň köne</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Ilki bilen iň kiçisi </string>
-    <string name="sort_by_size_descending">Ilki bilen iň ulusy</string>
     <string name="ssl_validator_btn_details_hide">Gizläň</string>
     <string name="ssl_validator_btn_details_see">Jikme-jiklikler</string>
     <string name="ssl_validator_header">Serweriň şahsyýetini tassyklap bolmady</string>

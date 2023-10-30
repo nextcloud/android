@@ -609,12 +609,6 @@
     <string name="signup_with_provider">Clàraich leinn le solaraiche</string>
     <string name="single_sign_on_request_token" formatted="true">Am faod %1$s an cunntas Nextcloud %2$s agad inntrigeadh?</string>
     <string name="sort_by">Seòrsaich a-rèir</string>
-    <string name="sort_by_modification_date_ascending">As ùire an toiseach</string>
-    <string name="sort_by_modification_date_descending">As sine an toiseach</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">As lugha an toiseach</string>
-    <string name="sort_by_size_descending">As motha an toiseach</string>
     <string name="ssl_validator_btn_details_hide">Cuir am falach</string>
     <string name="ssl_validator_btn_details_see">Mion-fhiosrachadh</string>
     <string name="ssl_validator_header">Cha b’ urrainn dhuinn dearbh-aithne an fhrithealaiche a dhearbhadh</string>
