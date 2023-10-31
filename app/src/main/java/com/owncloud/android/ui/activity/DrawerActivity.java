@@ -536,7 +536,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             MainApp.showOnlyFilesOnDevice(false);
             Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.setAction(FileDisplayActivity.LIST_GROUPFOLDERS);
+            intent.setAction(FileDisplayActivity.LIST_GROUP_FOLDERS);
             intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
             startActivity(intent);
         } else {
