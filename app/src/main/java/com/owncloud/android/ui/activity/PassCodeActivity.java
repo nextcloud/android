@@ -256,9 +256,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                 savePassCodeAndExit();
 
             } else {
-                showErrorAndRestart(
-                    R.string.pass_code_mismatch, R.string.pass_code_configure_your_pass_code, View.VISIBLE
-                                   );
+                showErrorAndRestart(R.string.pass_code_mismatch, R.string.pass_code_configure_your_pass_code, View.VISIBLE);
             }
         }
     }
@@ -318,11 +316,13 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     protected boolean confirmPassCode() {
         confirmingPassCode = false;
 
-        boolean result = true;
-        for (int i = 0; i < passCodeEditTexts.length && result; i++) {
-            result = passCodeEditTexts[i].getText().toString().equals(passCodeDigits[i]);
+        for (int i = 0; i < passCodeEditTexts.length; i++) {
+            Editable passCodeText = passCodeEditTexts[i].getText();
+            if (passCodeText == null || !passCodeText.toString().equals(passCodeDigits[i])) {
+                return false;
+            }
         }
-        return result;
+        return true;
     }
 
     /**
