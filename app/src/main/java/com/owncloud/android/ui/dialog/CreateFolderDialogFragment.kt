@@ -201,4 +201,3 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
         }
     }
 }
-
