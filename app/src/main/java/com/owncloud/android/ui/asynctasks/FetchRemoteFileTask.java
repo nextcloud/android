@@ -44,7 +44,6 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
     private final String fileId;
     private final FileDataStorageManager storageManager;
 
-    @SuppressLint("StaticFieldLeak")
     private final FileDisplayActivity fileDisplayActivity;
 
     public FetchRemoteFileTask(User user,
