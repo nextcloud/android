@@ -14,7 +14,9 @@
     <string name="action_send_share">Испрати/Сподели</string>
     <string name="action_switch_grid_view">Мрежа</string>
     <string name="action_switch_list_view">Листа</string>
+    <string name="actionbar_copy">Копирај</string>
     <string name="actionbar_mkdir">Нова папка</string>
+    <string name="actionbar_move">Премести</string>
     <string name="actionbar_open_with">Отвори со</string>
     <string name="actionbar_search">Пребарај</string>
     <string name="actionbar_see_details">Детали:</string>
@@ -84,6 +86,7 @@
     <string name="changelog_dev_version">Changelog dev version</string>
     <string name="checkbox">Поле за избирање</string>
     <string name="choose_local_folder">Избери локална папка…</string>
+    <string name="choose_location">Избери локација</string>
     <string name="choose_remote_folder">Избери папка на серверот…</string>
     <string name="choose_which_file">Избери која датотека да се зачува!</string>
     <string name="choose_widget">Избери виџет</string>
@@ -112,6 +115,7 @@
     <string name="common_remove">Избриши</string>
     <string name="common_rename">Преименувај</string>
     <string name="common_save">Зачувај</string>
+    <string name="common_select">Select</string>
     <string name="common_send">Испрати</string>
     <string name="common_share">Сподели</string>
     <string name="common_skip">Прескокни</string>
@@ -160,6 +164,7 @@
     <string name="copy_file_not_found">Не може да се копира. Проверете дали постои датотеката.</string>
     <string name="copy_link">Копирај врска</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Не е поддржано копирање/преместување во папка која е шифрирана.</string>
+    <string name="copy_to">Копирај во…</string>
     <string name="could_not_download_image">Неможе да се преземе целосната слика</string>
     <string name="could_not_retrieve_shares">Неможе да се превземат споделувањата</string>
     <string name="could_not_retrieve_url">Неможе да се превземе адресата</string>
@@ -338,6 +343,9 @@
     <string name="folder_already_exists">Папката веќе постои</string>
     <string name="folder_confirm_create">Креирај</string>
     <string name="folder_list_empty_headline">Тука нема папки</string>
+    <string name="folder_picker_choose_button_text">Избери</string>
+    <string name="folder_picker_choose_caption_text">Избери папка</string>
+    <string name="folder_picker_move_button_text">Премести</string>
     <string name="forbidden_permissions">Вие не сте овластени %s</string>
     <string name="forbidden_permissions_copy">за да ја копирате оваа датотека</string>
     <string name="forbidden_permissions_create">да креирате датотека</string>
@@ -413,6 +421,7 @@
     <string name="move_file_error">Се случи грешка кога пробував да ја преместам оваа датотека или папка</string>
     <string name="move_file_invalid_into_descendent">Не е возможно да се копира папката во истата таа папка</string>
     <string name="move_file_invalid_overwrite">Датотеката веќе постои во папката</string>
+    <string name="move_to">Премести во…</string>
     <string name="network_error_connect_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши.</string>
     <string name="network_error_socket_exception">Настана грешка при обидот за поврзување со серверот</string>
     <string name="network_error_socket_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши.</string>
@@ -607,6 +616,12 @@
     <string name="signup_with_provider">Пријавете се преку провајдер</string>
     <string name="single_sign_on_request_token" formatted="true">Дозволи му на %1$s да пристапи на твојата Nextcloud сметка %2$s?</string>
     <string name="sort_by">Сортирај по</string>
+    <string name="sort_by_modification_date_ascending">Новите прво</string>
+    <string name="sort_by_modification_date_descending">Старите прво</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_size_ascending">Малите прво</string>
+    <string name="sort_by_size_descending">Големите прво</string>
     <string name="ssl_validator_btn_details_hide">Сокриј</string>
     <string name="ssl_validator_btn_details_see">Детали</string>
     <string name="ssl_validator_header">Идентитетот на серверот не може да се потврди</string>
@@ -780,6 +795,7 @@
     <string name="wait_a_moment">Почекајте малку…</string>
     <string name="wait_checking_credentials">Проверка на зачуваните акредитиви</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирам датотека од приватното складиште</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Ажурирај</string>
     <string name="what_s_new_image">Слика од тоа што е ново</string>
     <string name="whats_new_skip">Прескокни</string>
     <string name="whats_new_title">Ново во %1$s</string>

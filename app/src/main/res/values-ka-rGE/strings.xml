@@ -10,7 +10,9 @@
     <string name="action_send_share">გაგზავნა/გაზიარება</string>
     <string name="action_switch_grid_view">ბადისებური ხედი</string>
     <string name="action_switch_list_view">ჩამონათვლისებური ხედი</string>
+    <string name="actionbar_copy">კოპირება</string>
     <string name="actionbar_mkdir">ახალი დირექტორია</string>
+    <string name="actionbar_move">გადატანა</string>
     <string name="actionbar_open_with">გახსნა</string>
     <string name="actionbar_search">ძიება</string>
     <string name="actionbar_see_details">დეტალები</string>
@@ -78,6 +80,7 @@
     <string name="common_remove">გაუქმება</string>
     <string name="common_rename">გადარქმევა</string>
     <string name="common_save">შენახვა</string>
+    <string name="common_select">არჩევა</string>
     <string name="common_send">გაგზავნა</string>
     <string name="common_share">გაზიარება</string>
     <string name="common_skip">გამოტოვება</string>
@@ -215,6 +218,8 @@
     <string name="filename_hint">ფაილის სახელი</string>
     <string name="folder_confirm_create">შექმნა</string>
     <string name="folder_list_empty_headline">აქ დირექტორიები არაა</string>
+    <string name="folder_picker_choose_button_text">არჩევა</string>
+    <string name="folder_picker_move_button_text">გადატანა</string>
     <string name="forbidden_permissions">თქვენ არ გაქვთ უფლება, %s</string>
     <string name="forbidden_permissions_copy">რომ დააკოპიროთ ეს ფაილი</string>
     <string name="forbidden_permissions_create">შექმნათ ეს ფაილი</string>
@@ -367,6 +372,12 @@
     <string name="share_via_link_section_title">ბმულის გაზიარება</string>
     <string name="shared_icon_shared">გაზიარებული</string>
     <string name="sort_by">დაასორტირე</string>
+    <string name="sort_by_modification_date_ascending">ჯერ ახალი</string>
+    <string name="sort_by_modification_date_descending">ჯერ ძველი</string>
+    <string name="sort_by_name_ascending">ა - ჰ</string>
+    <string name="sort_by_name_descending">ჰ - ა</string>
+    <string name="sort_by_size_ascending">ჯერ პატარა</string>
+    <string name="sort_by_size_descending">ჯერ დიდი</string>
     <string name="ssl_validator_btn_details_hide">დამალვა</string>
     <string name="ssl_validator_btn_details_see">დეტალები</string>
     <string name="ssl_validator_header">სერვერის იდენტურობა ვერ დამოწმდა</string>
@@ -495,6 +506,7 @@
     <string name="version_dev_download">ჩამოტვირთვა</string>
     <string name="wait_checking_credentials">მოწმდება შენახული უფლებამოსილებანი</string>
     <string name="wait_for_tmp_copy_from_private_storage">ფაილის კოპირება პირადი საცავიდან</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">განახლება</string>
     <string name="what_s_new_image">რა არის ახალი სურათი</string>
     <string name="whats_new_skip">გამოტოვება</string>
     <string name="whats_new_title">ახალი %1$s-ში</string>

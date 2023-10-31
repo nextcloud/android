@@ -15,7 +15,9 @@
     <string name="action_switch_grid_view">Tampilan kotak</string>
     <string name="action_switch_list_view">Tampilan lis</string>
     <string name="actionbar_calendar_contacts_restore">Kembalikan kontak &amp; kalender</string>
+    <string name="actionbar_copy">Salin</string>
     <string name="actionbar_mkdir">Folder baru</string>
+    <string name="actionbar_move">Pindah</string>
     <string name="actionbar_open_with">Buka dengan</string>
     <string name="actionbar_search">Cari</string>
     <string name="actionbar_see_details">Rincian</string>
@@ -88,6 +90,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="changelog_dev_version">Perubahan versi dev</string>
     <string name="checkbox">Kotak check</string>
     <string name="choose_local_folder">Pilih folder lokal…</string>
+    <string name="choose_location">Pilih lokasi</string>
     <string name="choose_remote_folder">Pilih folder remot…</string>
     <string name="choose_template_helper_text">Mohon pilih templat dan masukkan nama file.</string>
     <string name="choose_which_file">Pilih file mana yang ditahan!</string>
@@ -116,6 +119,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="common_remove">Hapus</string>
     <string name="common_rename">Ubah nama</string>
     <string name="common_save">Simpan</string>
+    <string name="common_select">Pilih</string>
     <string name="common_send">Kirim</string>
     <string name="common_share">Bagikan</string>
     <string name="common_skip">Lewati</string>
@@ -162,6 +166,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="copy_file_invalid_overwrite">Berkas sudah ada didalam folder tujuan</string>
     <string name="copy_file_not_found">Tidak dapat menyalin. Silakan periksa apakah berkas eksis.</string>
     <string name="copy_link">Salin tautan</string>
+    <string name="copy_to">Salin ke…</string>
     <string name="could_not_download_image">Tidak bisa unduh gambar penuh</string>
     <string name="could_not_retrieve_url">Tidak dapat mengambil URL</string>
     <string name="create">Buat</string>
@@ -323,6 +328,9 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="folder_already_exists">Direktori sudah ada</string>
     <string name="folder_confirm_create">Buat</string>
     <string name="folder_list_empty_headline">Tidak ada folder</string>
+    <string name="folder_picker_choose_button_text">Pilih</string>
+    <string name="folder_picker_choose_caption_text">Pilih folder target</string>
+    <string name="folder_picker_move_button_text">Pindah</string>
     <string name="forbidden_permissions">Anda tidak memiliki izin %s</string>
     <string name="forbidden_permissions_copy">untuk menyalin berkas ini</string>
     <string name="forbidden_permissions_create">untuk membuat berkas ini</string>
@@ -385,6 +393,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="move_file_error">Terjadi kesalahan saat mencoba memindahkan berkas atau folder ini</string>
     <string name="move_file_invalid_into_descendent">Tidak memungkinkan untuk memindahkan folder kedalam sub-folder</string>
     <string name="move_file_invalid_overwrite">Berkas sudah ada didalam folder tujuan</string>
+    <string name="move_to">Pindah ke…</string>
     <string name="network_error_socket_exception">Sebuah kesalahan terjadi saat menghubungi server</string>
     <string name="new_comment">Komentar baru…</string>
     <string name="new_media_folder_detected">Media baru %1$s terdeteksi.</string>
@@ -524,6 +533,12 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="shared_with_you_by">Dibagikan dengan Anda oleh %1$s</string>
     <string name="single_sign_on_request_token" formatted="true">Izinkan %1$s untuk mengakses akun NextCloud %2$s?</string>
     <string name="sort_by">Urut berdasarkan</string>
+    <string name="sort_by_modification_date_ascending">Terbaru</string>
+    <string name="sort_by_modification_date_descending">Paling lama</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_size_ascending">Paling kecil pertama</string>
+    <string name="sort_by_size_descending">Paling besar pertama</string>
     <string name="ssl_validator_btn_details_hide">Sembunyikan</string>
     <string name="ssl_validator_btn_details_see">Rincian</string>
     <string name="ssl_validator_label_C">Negara:</string>
@@ -655,6 +670,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="wait_a_moment">Tunggu sebentar…</string>
     <string name="wait_checking_credentials">Mengecek kredensial yang tersimpan</string>
     <string name="wait_for_tmp_copy_from_private_storage">Menyalin berkas dari penyimpanan pribadi</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Perbarui</string>
     <string name="whats_new_skip">Lewat</string>
     <string name="whats_new_title">Apa yang baru di %1$s</string>
     <string name="write_email">Kirim surel</string>

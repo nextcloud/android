@@ -14,7 +14,9 @@
     <string name="action_send_share">Enviar/Compartir</string>
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
+    <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
+    <string name="actionbar_move">Mover</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -111,6 +113,7 @@
     <string name="common_remove">Eliminar</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_save">Guardar</string>
+    <string name="common_select">Seleccionar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
     <string name="common_skip">Saltar</string>
@@ -158,6 +161,7 @@
     <string name="copy_file_not_found">No fue posible copiar. Por favor revisa si el archivo ya existe.</string>
     <string name="copy_link">Copiar liga</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/ mover a la carpeta encriptada no se encuentra soportado por el momento.</string>
+    <string name="copy_to">Copiar a…</string>
     <string name="could_not_download_image">No se pudo descargar la imagen completa</string>
     <string name="could_not_retrieve_shares">No se pudieron obtener los recursos compartidos</string>
     <string name="could_not_retrieve_url">No fue posible obtener la URL</string>
@@ -324,6 +328,9 @@
     <string name="folder_already_exists">Carpeta ya existente</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">No hay carpetas aquí</string>
+    <string name="folder_picker_choose_button_text">Seleccionar</string>
+    <string name="folder_picker_choose_caption_text">Elegir carpeta destino</string>
+    <string name="folder_picker_move_button_text">Mover</string>
     <string name="forbidden_permissions">No se te permite %s</string>
     <string name="forbidden_permissions_copy">para copiar este archivo</string>
     <string name="forbidden_permissions_create">para crear este archivo</string>
@@ -381,6 +388,7 @@
     <string name="move_file_error">Se presentó un error al intentar mover este archivo o carpeta</string>
     <string name="move_file_invalid_into_descendent">No es posible mover una carpeta dentro de una de sus sub carpetas</string>
     <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
+    <string name="move_to">Mover a…</string>
     <string name="network_error_socket_exception">Se presentó un error durante la conexión al servidor</string>
     <string name="new_comment">Nuevo comentario...</string>
     <string name="new_media_folder_photos">foto</string>
@@ -499,6 +507,12 @@
     <string name="shared_icon_shared">compartido</string>
     <string name="sharee_add_failed">Se presentó una falla al agregar una persona para compartir</string>
     <string name="sort_by">Ordenar por</string>
+    <string name="sort_by_modification_date_ascending">Más reciente primero</string>
+    <string name="sort_by_modification_date_descending">Más antiguo primero</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_size_ascending">Más pequeño primero</string>
+    <string name="sort_by_size_descending">Más grande primero</string>
     <string name="ssl_validator_btn_details_hide">Ocultar</string>
     <string name="ssl_validator_btn_details_see">Detalles</string>
     <string name="ssl_validator_header">La identidad del servidor no pudo ser verificada</string>

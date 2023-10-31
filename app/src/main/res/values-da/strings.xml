@@ -15,7 +15,9 @@
     <string name="action_switch_grid_view">Grid visning</string>
     <string name="action_switch_list_view">List visning</string>
     <string name="actionbar_calendar_contacts_restore">Gendan kontakter &amp; kalender</string>
+    <string name="actionbar_copy">Kopiér</string>
     <string name="actionbar_mkdir">Ny mappe</string>
+    <string name="actionbar_move">Flyt</string>
     <string name="actionbar_open_with">Åbn med</string>
     <string name="actionbar_search">Søg</string>
     <string name="actionbar_see_details">Detaljer</string>
@@ -90,6 +92,7 @@
     <string name="check_back_later_or_reload">Kig forbi senere eller genindlæs.</string>
     <string name="checkbox">Afkrydsningsfelt</string>
     <string name="choose_local_folder">Vælg lokal mappe...</string>
+    <string name="choose_location">Vælg placering</string>
     <string name="choose_remote_folder">Vælg ekstern mappe...</string>
     <string name="choose_template_helper_text">Vælg en skabelon og indtast et fil navn.</string>
     <string name="choose_which_file">Vælg hvilken fil du ønsker at beholde!</string>
@@ -119,6 +122,7 @@
     <string name="common_remove">Slet</string>
     <string name="common_rename">Omdøb</string>
     <string name="common_save">Gem</string>
+    <string name="common_select">Vælg</string>
     <string name="common_send">Send</string>
     <string name="common_share">Del</string>
     <string name="common_skip">Spring over</string>
@@ -170,6 +174,7 @@
     <string name="copy_file_not_found">Ikke muligt at kopiere. Undersøg venligst om filen eksisterer.</string>
     <string name="copy_link">Kopiér link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopier/flyt til krypteret mappe endnu ikke understøttet.</string>
+    <string name="copy_to">Kopier til...</string>
     <string name="could_not_download_image">Kunne ikke hente hele billedet</string>
     <string name="could_not_retrieve_shares">Kunne ikke hente delte drev</string>
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
@@ -382,6 +387,7 @@
     <string name="folder_already_exists">Mappe findes allerede</string>
     <string name="folder_confirm_create">Opret</string>
     <string name="folder_list_empty_headline">Ingen mappe her</string>
+    <string name="folder_picker_choose_button_text">Vælg</string>
     <string name="forbidden_permissions">Du har ikke tilladelse %s</string>
     <string name="forbidden_permissions_copy">til at kopiere denne fil</string>
     <string name="forbidden_permissions_create">for at slette denne fil</string>
@@ -475,6 +481,7 @@
     <string name="move_file_invalid_into_descendent">Det er ikke muligt at flytte en mappe til én af dens egne undermapper</string>
     <string name="move_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>
     <string name="move_file_not_found">Kunne ikke kopiere. Undersøg venligst om filen eksisterer.</string>
+    <string name="move_to">Flyt til...</string>
     <string name="network_error_connect_timeout_exception">Der opstod en fejl mens svar afventedes fra serveren. Kunne ikke fuldføre handlingen.</string>
     <string name="network_error_socket_exception">Der opstod en fejl under tilslutningen til serveren</string>
     <string name="network_error_socket_timeout_exception">Der opstod en fejl mens svar afventedes fra serveren. Kunne ikke fuldføre handlingen.</string>
@@ -715,6 +722,12 @@ Enheds legitimationsoplysninger er sat op
     <string name="signup_with_provider">Indskrivning hos udbyder</string>
     <string name="single_sign_on_request_token" formatted="true">Tillad %1$s adgang til din Nextcloud konto %2$s?</string>
     <string name="sort_by">Sortér efter</string>
+    <string name="sort_by_modification_date_ascending">Nyeste først</string>
+    <string name="sort_by_modification_date_descending">Ældste først</string>
+    <string name="sort_by_name_ascending">A-Å</string>
+    <string name="sort_by_name_descending">Å - A</string>
+    <string name="sort_by_size_ascending">Mindste først</string>
+    <string name="sort_by_size_descending">Største først</string>
     <string name="ssl_validator_btn_details_hide">Gem</string>
     <string name="ssl_validator_btn_details_see">Detaljer</string>
     <string name="ssl_validator_header">Serverens identitet kunne ikke verificeres</string>
