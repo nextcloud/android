@@ -392,6 +392,9 @@
     <string name="folder_confirm_create">Opprett</string>
     <string name="folder_list_empty_headline">Ingen mapper her</string>
     <string name="folder_picker_choose_button_text">Velg</string>
+    <string name="folder_picker_choose_caption_text">Velg målmappe</string>
+    <string name="folder_picker_copy_button_text">Kopi</string>
+    <string name="folder_picker_move_button_text">Flytt</string>
     <string name="forbidden_permissions">Du har ikke tillatelse til %s</string>
     <string name="forbidden_permissions_copy">å kopiere denne filen</string>
     <string name="forbidden_permissions_create">å opprette filen</string>
@@ -929,6 +932,7 @@
     <string name="wait_a_moment">Vent et øyeblikk…</string>
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Oppdater</string>
     <string name="what_s_new_image">Hva er nytt-bilde</string>
     <string name="whats_new_skip">Hopp over</string>
     <string name="whats_new_title">Nytt i %1$s</string>

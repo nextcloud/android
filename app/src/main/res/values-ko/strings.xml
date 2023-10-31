@@ -389,6 +389,8 @@
     <string name="folder_confirm_create">생성</string>
     <string name="folder_list_empty_headline">폴더가 없습니다</string>
     <string name="folder_picker_choose_button_text">선택</string>
+    <string name="folder_picker_choose_caption_text">폴더 선택</string>
+    <string name="folder_picker_move_button_text">이동</string>
     <string name="forbidden_permissions">%s 권한이 없음</string>
     <string name="forbidden_permissions_copy">이 파일을 복사할</string>
     <string name="forbidden_permissions_create">파일을 생성할</string>
@@ -941,6 +943,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="wait_a_moment">잠시 기다려 주십시오…</string>
     <string name="wait_checking_credentials">저장된 인증 정보 확인 중</string>
     <string name="wait_for_tmp_copy_from_private_storage">개인 저장소에서 파일 복사</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">업데이트</string>
     <string name="what_s_new_image">새로운 기능 사진</string>
     <string name="whats_new_skip">건너뛰기</string>
     <string name="whats_new_title">%1$s의 새로운 것</string>

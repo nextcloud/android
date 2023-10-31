@@ -392,6 +392,9 @@
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
     <string name="folder_picker_choose_button_text">اختيار</string>
+    <string name="folder_picker_choose_caption_text">اختر مكان المجلد</string>
+    <string name="folder_picker_copy_button_text">إنسَخ</string>
+    <string name="folder_picker_move_button_text">نقل</string>
     <string name="forbidden_permissions">غير مسموح لك أن %s</string>
     <string name="forbidden_permissions_copy">لنسخ هذا الملف</string>
     <string name="forbidden_permissions_create">لإنشاء هذا الملف</string>
@@ -949,6 +952,7 @@
     <string name="wait_a_moment">انتظر لحظة…</string>
     <string name="wait_checking_credentials">التحقق من معلومات تسجيل الدخول المخزنة</string>
     <string name="wait_for_tmp_copy_from_private_storage">نسخ الملف من التخزين الخاص</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">تحديث</string>
     <string name="what_s_new_image">ما هي الصورة الجديدة</string>
     <string name="whats_new_skip">تخطى</string>
     <string name="whats_new_title">جديد على %1$s</string>

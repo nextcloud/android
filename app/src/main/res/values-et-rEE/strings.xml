@@ -263,6 +263,8 @@
     <string name="folder_confirm_create">Loo</string>
     <string name="folder_list_empty_headline">Siin ei ole kaustu</string>
     <string name="folder_picker_choose_button_text">Vali</string>
+    <string name="folder_picker_choose_caption_text">Vali sihtkaust</string>
+    <string name="folder_picker_move_button_text">Liiguta</string>
     <string name="forbidden_permissions">Sul ei ole %s õigusi</string>
     <string name="forbidden_permissions_copy">et kopeerida seda faili</string>
     <string name="forbidden_permissions_create">selle faili loomiseks</string>

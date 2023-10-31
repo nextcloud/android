@@ -390,6 +390,9 @@
     <string name="folder_confirm_create">Створити</string>
     <string name="folder_list_empty_headline">Тут відсутні каталоги</string>
     <string name="folder_picker_choose_button_text">Вибрати</string>
+    <string name="folder_picker_choose_caption_text">Виберіть каталог призначення</string>
+    <string name="folder_picker_copy_button_text">Копія</string>
+    <string name="folder_picker_move_button_text">Перемістити</string>
     <string name="forbidden_permissions">У вас відсутні повноваження %s</string>
     <string name="forbidden_permissions_copy">скопіювати цей файл</string>
     <string name="forbidden_permissions_create">щоб створити цей файл</string>
@@ -931,6 +934,7 @@
     <string name="wait_a_moment">Зачекайте трохи…</string>
     <string name="wait_checking_credentials">Перевірка збережених даних авторизації</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копіювання файлу з приватного сховища</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Оновлення</string>
     <string name="what_s_new_image">Зображення про нові функції</string>
     <string name="whats_new_skip">Пропустити</string>
     <string name="whats_new_title">Нове у %1$s</string>

@@ -344,6 +344,8 @@
     <string name="folder_confirm_create">Креирај</string>
     <string name="folder_list_empty_headline">Тука нема папки</string>
     <string name="folder_picker_choose_button_text">Избери</string>
+    <string name="folder_picker_choose_caption_text">Избери папка</string>
+    <string name="folder_picker_move_button_text">Премести</string>
     <string name="forbidden_permissions">Вие не сте овластени %s</string>
     <string name="forbidden_permissions_copy">за да ја копирате оваа датотека</string>
     <string name="forbidden_permissions_create">да креирате датотека</string>
@@ -793,6 +795,7 @@
     <string name="wait_a_moment">Почекајте малку…</string>
     <string name="wait_checking_credentials">Проверка на зачуваните акредитиви</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирам датотека од приватното складиште</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Ажурирај</string>
     <string name="what_s_new_image">Слика од тоа што е ново</string>
     <string name="whats_new_skip">Прескокни</string>
     <string name="whats_new_title">Ново во %1$s</string>
