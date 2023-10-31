@@ -69,7 +69,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import java.io.File
 import java.security.SecureRandom
 import java.util.AbstractList
-import java.util.Vector
 import javax.inject.Inject
 
 class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpdateListener {
@@ -184,52 +183,73 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
         if (!intent.hasExtra(EXTRA_USER) || !intent.hasExtra(EXTRA_FILE)) {
             Log_OC.e(TAG, "Not enough information provided in intent")
             return START_NOT_STICKY
-        } else {
-            val user = intent.getParcelableExtra<User>(EXTRA_USER)
-            val file = intent.getParcelableExtra<OCFile>(EXTRA_FILE)
-            val behaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR)
-            var downloadType: DownloadType? = DownloadType.DOWNLOAD
-            if (intent.hasExtra(DOWNLOAD_TYPE)) {
-                downloadType = intent.getSerializableExtra(DOWNLOAD_TYPE) as DownloadType?
-            }
-            val activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME)
-            val packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME)
-            conflictUploadId = intent.getLongExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, -1)
-            val requestedDownloads: AbstractList<String> = Vector()
-            try {
-                val newDownload = DownloadFileOperation(
-                    user,
-                    file,
-                    behaviour,
-                    activityName,
-                    packageName,
-                    baseContext,
-                    downloadType
-                )
-                newDownload.addDatatransferProgressListener(this)
-                newDownload.addDatatransferProgressListener(mBinder as FileDownloaderBinder?)
-                val putResult = mPendingDownloads.putIfAbsent(
-                    user!!.accountName,
-                    file!!.remotePath,
-                    newDownload
-                )
-                if (putResult != null) {
-                    val downloadKey = putResult.first
-                    requestedDownloads.add(downloadKey)
-                    sendBroadcastNewDownload(newDownload, putResult.second)
-                } // else, file already in the queue of downloads; don't repeat the request
-            } catch (e: IllegalArgumentException) {
-                Log_OC.e(TAG, "Not enough information provided in intent: " + e.message)
-                return START_NOT_STICKY
-            }
-            if (requestedDownloads.size > 0) {
-                val msg = mServiceHandler!!.obtainMessage()
-                msg.arg1 = startId
-                msg.obj = requestedDownloads
-                mServiceHandler!!.sendMessage(msg)
+        }
+
+        val user = intent.getParcelableExtra<User>(EXTRA_USER)
+        val file = intent.getParcelableExtra<OCFile>(EXTRA_FILE)
+        val behaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR)
+        var downloadType: DownloadType? = DownloadType.DOWNLOAD
+        if (intent.hasExtra(DOWNLOAD_TYPE)) {
+            downloadType = intent.getSerializableExtra(DOWNLOAD_TYPE) as DownloadType?
+        }
+        val activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME)
+        val packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME)
+        conflictUploadId = intent.getLongExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, -1)
+
+        val requestedDownloads = handleDownloadRequest(user, file, behaviour, downloadType, activityName, packageName)
+
+        if (requestedDownloads.isNotEmpty()) {
+            val msg = mServiceHandler?.obtainMessage()
+            msg?.arg1 = startId
+            msg?.obj = requestedDownloads
+            msg?.let {
+                mServiceHandler?.sendMessage(it)
             }
         }
+
         return START_NOT_STICKY
+    }
+
+    @Suppress("LongParameterList")
+    private fun handleDownloadRequest(
+        user: User?,
+        file: OCFile?,
+        behaviour: String?,
+        downloadType: DownloadType?,
+        activityName: String?,
+        packageName: String?
+    ): List<String> {
+        val requestedDownloads: MutableList<String> = ArrayList()
+
+        if (user == null || file == null) {
+            return requestedDownloads
+        }
+
+        try {
+            val newDownload = DownloadFileOperation(
+                user,
+                file,
+                behaviour,
+                activityName,
+                packageName,
+                baseContext,
+                downloadType
+            )
+            newDownload.addDatatransferProgressListener(this)
+            newDownload.addDatatransferProgressListener(mBinder as FileDownloaderBinder?)
+
+            val putResult = mPendingDownloads.putIfAbsent(user.accountName, file.remotePath, newDownload)
+
+            if (putResult != null) {
+                val downloadKey = putResult.first
+                requestedDownloads.add(downloadKey)
+                sendBroadcastNewDownload(newDownload, putResult.second)
+            }
+        } catch (e: IllegalArgumentException) {
+            Log_OC.e(TAG, "Not enough information provided in intent: " + e.message)
+        }
+
+        return requestedDownloads
     }
 
     /**
@@ -286,13 +306,9 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
             if (download != null) {
                 download.cancel()
             } else {
-                if (mCurrentDownload != null && currentUser.isPresent &&
-                    mCurrentDownload!!
-                        .remotePath
-                        .startsWith(file.remotePath) && account.name == currentUser.get().accountName
-                ) {
-                    mCurrentDownload!!.cancel()
-                }
+                mCurrentDownload?.takeIf {
+                    it.remotePath.startsWith(file.remotePath) && account.name == currentUser?.get()?.accountName
+                }?.cancel()
             }
         }
 
