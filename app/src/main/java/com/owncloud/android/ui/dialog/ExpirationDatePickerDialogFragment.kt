@@ -80,6 +80,7 @@ class ExpirationDatePickerDialogFragment : DialogFragment(), OnDateSetListener, 
      *
      * @return A new dialog to let the user choose an expiration date that will be bound to a share link.
      */
+    @Suppress("DEPRECATION", "MagicNumber")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Chosen date received as an argument must be later than tomorrow ; default to tomorrow in other case
         val chosenDate = Calendar.getInstance()
