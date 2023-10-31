@@ -109,7 +109,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         bottomSheetDialog.behavior.skipCollapsed = true
 
-        viewThemeUtils.platform.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE_VARIANT)
+        viewThemeUtils.platform.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE)
 
         return binding.root
     }
