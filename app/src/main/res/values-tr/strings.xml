@@ -15,7 +15,9 @@
     <string name="action_switch_grid_view">Tablo görünümü</string>
     <string name="action_switch_list_view">Liste görünümü</string>
     <string name="actionbar_calendar_contacts_restore">Kişileri ve takvimi geri yükle</string>
+    <string name="actionbar_copy">Kopyala</string>
     <string name="actionbar_mkdir">Yeni klasör</string>
+    <string name="actionbar_move">Taşı</string>
     <string name="actionbar_open_with">Birlikte aç</string>
     <string name="actionbar_search">Arama</string>
     <string name="actionbar_see_details">Ayrıntılar</string>
@@ -90,6 +92,7 @@
     <string name="check_back_later_or_reload">Bir süre sonra bakın ya da yeniden yükleyin </string>
     <string name="checkbox">İşaret kutusu</string>
     <string name="choose_local_folder">Yerel klasörü seçin …</string>
+    <string name="choose_location">Konum seçin</string>
     <string name="choose_remote_folder">Uzak klasörü seçin …</string>
     <string name="choose_template_helper_text">Lütfen bir kalıp seçin ve bir dosya adı yazın.</string>
     <string name="choose_which_file">Korunacak dosyayı seçin!</string>
@@ -119,6 +122,7 @@
     <string name="common_remove">Sil</string>
     <string name="common_rename">Yeniden adlandır</string>
     <string name="common_save">Kaydet</string>
+    <string name="common_select">Seçin</string>
     <string name="common_send">Gönder</string>
     <string name="common_share">Paylaş</string>
     <string name="common_skip">Atla</string>
@@ -170,6 +174,7 @@
     <string name="copy_file_not_found">Kopyalanamadı. Lütfen dosyanın var olup olmadığını denetleyin.</string>
     <string name="copy_link">Bağlantıyı kopyala</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Şifrelenmiş bir klasöre kopyalama ve taşıma işlemleri henüz desteklenmiyor.</string>
+    <string name="copy_to">Şuraya kopyala …</string>
     <string name="could_not_download_image">Tam boyuttaki görsel indirilemedi</string>
     <string name="could_not_retrieve_shares">Paylaşımlar alınamadı</string>
     <string name="could_not_retrieve_url">Adres alınamadı</string>
@@ -386,6 +391,10 @@
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="folder_confirm_create">Ekle</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
+    <string name="folder_picker_choose_button_text">Seçin</string>
+    <string name="folder_picker_choose_caption_text">Hedef klasörü seçin</string>
+    <string name="folder_picker_copy_button_text">Kopyala</string>
+    <string name="folder_picker_move_button_text">Taşı</string>
     <string name="forbidden_permissions">%s izniniz yok</string>
     <string name="forbidden_permissions_copy">bu dosyayı kopyalayın</string>
     <string name="forbidden_permissions_create">bu dosyayı oluşturamazsınız</string>
@@ -487,6 +496,7 @@
     <string name="move_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak taşınamaz</string>
     <string name="move_file_invalid_overwrite">Dosya hedef klasörde zaten var</string>
     <string name="move_file_not_found">Dosya taşınamadı. Lütfen dosyanın var olup olmadığını denetleyin.</string>
+    <string name="move_to">Şuraya taşı …</string>
     <string name="network_error_connect_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı.</string>
     <string name="network_error_socket_exception">Sunucu ile bağlantı kurulurken bir sorun çıktı</string>
     <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı.</string>
@@ -730,6 +740,12 @@
     <string name="signup_with_provider">Hizmet sağlayıcı ile hesap aç</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s, %2$s Nextcloud hesabınıza erişebilsin mi?</string>
     <string name="sort_by">Sıralama</string>
+    <string name="sort_by_modification_date_ascending">Yeniden Eskiye</string>
+    <string name="sort_by_modification_date_descending">Eskiden Yeniye</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_size_ascending">Küçükten Büyüğe</string>
+    <string name="sort_by_size_descending">Büyükten Küçüğe</string>
     <string name="ssl_validator_btn_details_hide">Gizle</string>
     <string name="ssl_validator_btn_details_see">Ayrıntılar</string>
     <string name="ssl_validator_header">Sunucunun kimliği doğrulanamadı</string>
@@ -928,6 +944,7 @@
     <string name="wait_a_moment">Lütfen bekleyin …</string>
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Güncelle</string>
     <string name="what_s_new_image">Yenilikler görseli</string>
     <string name="whats_new_skip">Atla</string>
     <string name="whats_new_title">%1$s yenilikleri</string>

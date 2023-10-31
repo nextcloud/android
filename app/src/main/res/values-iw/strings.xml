@@ -15,7 +15,9 @@
     <string name="action_switch_grid_view">תצוגת טבלה</string>
     <string name="action_switch_list_view">תצוגת רשימה</string>
     <string name="actionbar_calendar_contacts_restore">שחזור אנשי קשר ולוח שנה</string>
+    <string name="actionbar_copy">העתק</string>
     <string name="actionbar_mkdir">תיקייה חדשה</string>
+    <string name="actionbar_move">העברה</string>
     <string name="actionbar_open_with">פתיחה על בסיס</string>
     <string name="actionbar_search">חיפוש</string>
     <string name="actionbar_see_details">פרטים</string>
@@ -88,6 +90,7 @@
     <string name="check_back_later_or_reload">בדוק שוב מאוחר יותר או טען שנית</string>
     <string name="checkbox">תיבת סימון</string>
     <string name="choose_local_folder">נא לבחור בתיקייה מקומית…</string>
+    <string name="choose_location">בחר מיקום</string>
     <string name="choose_remote_folder">בחר תיקייה…</string>
     <string name="clear_notifications_failed">פינוי ההתראות נכשל.</string>
     <string name="clear_status_message">פינוי הודעת המצב</string>
@@ -114,6 +117,7 @@
     <string name="common_remove">מחיקה</string>
     <string name="common_rename">שינוי שם</string>
     <string name="common_save">שמירה</string>
+    <string name="common_select">בחירה</string>
     <string name="common_send">שליחה</string>
     <string name="common_share">שיתוף</string>
     <string name="common_skip">דלג</string>
@@ -162,6 +166,7 @@
     <string name="copy_file_not_found">לא ניתן להעתיק, אנא בדוק אם הקובץ קיים</string>
     <string name="copy_link">העתקת קישור</string>
     <string name="copy_move_to_encrypted_folder_not_supported">נכון לעכשיו, אין תמיכה בהעתקה/העברה לתיקייה מוצפנת.</string>
+    <string name="copy_to">העתק אל…</string>
     <string name="could_not_download_image">לא ניתן להוריד את התמונה המלאה</string>
     <string name="could_not_retrieve_shares">לא ניתן למשוך את השיתופים</string>
     <string name="could_not_retrieve_url">לא ניתן לקבל כתובת</string>
@@ -342,6 +347,10 @@
     <string name="folder_already_exists">התיקייה כבר קיימת</string>
     <string name="folder_confirm_create">יצירה</string>
     <string name="folder_list_empty_headline">אין כאן תיקיות</string>
+    <string name="folder_picker_choose_button_text">בחירה</string>
+    <string name="folder_picker_choose_caption_text">נא לבחור תיקיית יעד</string>
+    <string name="folder_picker_copy_button_text">העתקה</string>
+    <string name="folder_picker_move_button_text">העברה</string>
     <string name="forbidden_permissions">אין לך הרשאה %s</string>
     <string name="forbidden_permissions_copy">להעתיק את הקובץ הזה</string>
     <string name="forbidden_permissions_create">ליצור את הקובץ הזה</string>
@@ -411,6 +420,7 @@
     <string name="move_file_error">אירעה שגיאה בזמן ניסיון להעביר את הקובץ או התיקייה</string>
     <string name="move_file_invalid_into_descendent">אי אפשר להעביר תיקייה לתוך אחת התיקיות שתחתיה.</string>
     <string name="move_file_invalid_overwrite">הקובץ כבר קיים בתיקיית היעד</string>
+    <string name="move_to">העבר אל…</string>
     <string name="network_error_socket_exception">אירעה שגיאה במהלך ההתחברות לשרת</string>
     <string name="new_comment">תגובה חדשה…</string>
     <string name="new_media_folder_detected">זוהתה תיקיית מדיה עם %1$s</string>
@@ -596,6 +606,12 @@
     <string name="signup_with_provider">נא להירשם עם ספק</string>
     <string name="single_sign_on_request_token" formatted="true">לאפשר ל־%1$s לגשת לחשבון שלך ב־ Nextcloud %2$s?</string>
     <string name="sort_by">מיון לפי</string>
+    <string name="sort_by_modification_date_ascending">החדש ביותר ראשון</string>
+    <string name="sort_by_modification_date_descending">הישן ביותר ראשון</string>
+    <string name="sort_by_name_ascending">א - ת</string>
+    <string name="sort_by_name_descending">ת - א</string>
+    <string name="sort_by_size_ascending">הקטן ביותר ראשון</string>
+    <string name="sort_by_size_descending">הגדול ביותר ראשון</string>
     <string name="ssl_validator_btn_details_hide">הסתרה</string>
     <string name="ssl_validator_btn_details_see">פרטים</string>
     <string name="ssl_validator_header">לא ניתן לאמת את זהות השרת</string>
@@ -794,6 +810,7 @@
     <string name="wait_a_moment">נא להמתין רגע…</string>
     <string name="wait_checking_credentials">בודק אישורים שמורים</string>
     <string name="wait_for_tmp_copy_from_private_storage">מעתיק קובץ מאחסון פרטי</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">עדכון</string>
     <string name="what_s_new_image">תמונת מה חדש</string>
     <string name="whats_new_skip">דלג</string>
     <string name="whats_new_title">חדש ב־%1$s</string>

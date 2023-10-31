@@ -15,7 +15,9 @@
     <string name="action_switch_grid_view">Afișare în grilă</string>
     <string name="action_switch_list_view">Afișare în listă</string>
     <string name="actionbar_calendar_contacts_restore">Restaurare contacte 1&amp; calendar</string>
+    <string name="actionbar_copy">Copiază</string>
     <string name="actionbar_mkdir">Dosar nou</string>
+    <string name="actionbar_move">Mutare</string>
     <string name="actionbar_open_with">Deschideţi cu </string>
     <string name="actionbar_search">Caută</string>
     <string name="actionbar_see_details">Detalii</string>
@@ -89,6 +91,7 @@
     <string name="check_back_later_or_reload">Revino mai târziu sau reîncarcă.</string>
     <string name="checkbox">Căsuța de bifat</string>
     <string name="choose_local_folder">Alege dosar local…</string>
+    <string name="choose_location">Alege locația</string>
     <string name="choose_remote_folder">Alege dosar la distanță…</string>
     <string name="choose_template_helper_text">Te rog alege un șablon și introdu numele fișierului.</string>
     <string name="choose_which_file">Alege care fișier să-l păstrezi!</string>
@@ -118,6 +121,7 @@
     <string name="common_remove">Șterge</string>
     <string name="common_rename">Redenumește</string>
     <string name="common_save">Salvează</string>
+    <string name="common_select">Selectează</string>
     <string name="common_send">Trimitere</string>
     <string name="common_share">Distribuie</string>
     <string name="common_skip">Sari peste</string>
@@ -169,6 +173,7 @@
     <string name="copy_file_not_found">Imposibil de copiat. Vă rugăm să verificați dacă fișierul există.</string>
     <string name="copy_link">Link copiat</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copierea/mutarea în directorul criptat nu este suportată.</string>
+    <string name="copy_to">Copiază în…</string>
     <string name="could_not_download_image">Nu s-a putut descărca imaginea completă</string>
     <string name="could_not_retrieve_shares">Nu am putut obține lista partajărilor</string>
     <string name="could_not_retrieve_url">Nu a fost găsit URL-ul</string>
@@ -380,6 +385,10 @@
     <string name="folder_already_exists">Dosar existent</string>
     <string name="folder_confirm_create">Creați</string>
     <string name="folder_list_empty_headline">Niciun dosar aici</string>
+    <string name="folder_picker_choose_button_text">Alege</string>
+    <string name="folder_picker_choose_caption_text">Alege directorul destinație</string>
+    <string name="folder_picker_copy_button_text">Copiază</string>
+    <string name="folder_picker_move_button_text">Mută</string>
     <string name="forbidden_permissions">Nu ai permisiunea %s</string>
     <string name="forbidden_permissions_copy">să copiați acest fișier</string>
     <string name="forbidden_permissions_create">pentru a crea fisierul</string>
@@ -467,6 +476,7 @@
     <string name="move_file_invalid_into_descendent">Nu este posibil să muți un dosar într-un descendent</string>
     <string name="move_file_invalid_overwrite">Fișierul există deja în dosarul de destinație</string>
     <string name="move_file_not_found">Nu se poate muta fișierul. Vă rugăm să verificați dacă acesta există.</string>
+    <string name="move_to">Mută în…</string>
     <string name="network_error_connect_timeout_exception">A apărut o eroare în timp ce așteptam pentru raspunsul serverului. Operația nu a putut avea loc.</string>
     <string name="network_error_socket_exception">A apărut o eroare în timp ce se conecta la server</string>
     <string name="network_error_socket_timeout_exception">A apărut o eroare în timp ce așteptam pentru raspunsul serverului. Operația nu a putut avea loc.</string>
@@ -701,6 +711,12 @@
     <string name="signup_with_provider">Înscriete cu un furnizor</string>
     <string name="single_sign_on_request_token" formatted="true">Permite %1$s să acceseze contul tău Nextcloud %2$s ?</string>
     <string name="sort_by">Sortare după</string>
+    <string name="sort_by_modification_date_ascending">Cel mai nou mai întâi</string>
+    <string name="sort_by_modification_date_descending">Cel mai vechi mai întâi</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_size_ascending">Cel mai mic mai întâi</string>
+    <string name="sort_by_size_descending">Cel mai mare mai întâi</string>
     <string name="ssl_validator_btn_details_hide">Ascunde</string>
     <string name="ssl_validator_btn_details_see">Detalii</string>
     <string name="ssl_validator_header">Nu s-a putut verifica identitatea serverului</string>
@@ -897,6 +913,7 @@
     <string name="wait_a_moment">Așteaptă un moment…</string>
     <string name="wait_checking_credentials">Se verifică datele de autentificare stocate</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiere fișier din stocare privată</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Actualizare</string>
     <string name="what_s_new_image">Ce imagine este nouă</string>
     <string name="whats_new_skip">Sari peste</string>
     <string name="whats_new_title">Nou în %1$s</string>

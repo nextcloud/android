@@ -399,31 +399,34 @@ open class FolderPickerActivity :
     }
 
     override fun onClick(v: View) {
-        if (v == mCancelBtn) {
-            finish()
-        } else if (v == mCopyBtn || v == mMoveBtn) {
-            val i = intent
-            val resultData = Intent()
-            resultData.putExtra(EXTRA_FOLDER, listOfFilesFragment!!.currentFile)
-            val targetFiles = i.getParcelableArrayListExtra<Parcelable>(EXTRA_FILES)
-            if (targetFiles != null) {
-                resultData.putParcelableArrayListExtra(EXTRA_FILES, targetFiles)
-            }
-
-            mTargetFilePaths.let {
-                if (it != null) {
-                    if (v == mCopyBtn) {
-                        fileOperationsHelper.moveOrCopyFiles(OperationsService.ACTION_COPY_FILE, it, file)
-                    } else {
-                        fileOperationsHelper.moveOrCopyFiles(OperationsService.ACTION_MOVE_FILE, it, file)
-                    }
-                }
-
-                resultData.putStringArrayListExtra(EXTRA_FILE_PATHS, it)
-            }
-            setResult(RESULT_OK, resultData)
-            finish()
+        when (v) {
+            mCancelBtn -> finish()
+            mCopyBtn, mMoveBtn -> copyOrMove(v)
         }
+    }
+
+    private fun copyOrMove(v: View) {
+        val i = intent
+        val resultData = Intent()
+        resultData.putExtra(EXTRA_FOLDER, listOfFilesFragment?.currentFile)
+
+        i.getParcelableArrayListExtra<Parcelable>(EXTRA_FILES)?.let { targetFiles ->
+            resultData.putParcelableArrayListExtra(EXTRA_FILES, targetFiles)
+        }
+
+        mTargetFilePaths?.let {
+            val action = when (v) {
+                mCopyBtn -> OperationsService.ACTION_COPY_FILE
+                mMoveBtn -> OperationsService.ACTION_MOVE_FILE
+                else -> throw IllegalArgumentException("Unknown operation")
+            }
+
+            fileOperationsHelper.moveOrCopyFiles(action, it, file)
+            resultData.putStringArrayListExtra(EXTRA_FILE_PATHS, it)
+        }
+
+        setResult(RESULT_OK, resultData)
+        finish()
     }
 
     override fun onRemoteOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>) {
