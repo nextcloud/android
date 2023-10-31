@@ -121,9 +121,6 @@
     <dimen name="preview_error_image_layout_width">72dp</dimen>
     <dimen name="preview_error_image_layout_height">72dp</dimen>
     <dimen name="preview_error_text_size">26sp</dimen>
-    <dimen name="send_share_fragment_layout_margin">24dp</dimen>
-    <dimen name="send_share_fragment_layout_padding">24dp</dimen>
-    <dimen name="share_people_icon_layout_padding">12dp</dimen>
     <dimen name="synced_folders_item_type_layout_width">32dp</dimen>
     <dimen name="synced_folders_item_type_layout_height">32dp</dimen>
     <dimen name="synced_folders_item_type_layout_right_end_margin">24dp</dimen>
