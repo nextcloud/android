@@ -392,6 +392,9 @@
     <string name="folder_confirm_create">Ekle</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
     <string name="folder_picker_choose_button_text">Seçin</string>
+    <string name="folder_picker_choose_caption_text">Hedef klasörü seçin</string>
+    <string name="folder_picker_copy_button_text">Kopyala</string>
+    <string name="folder_picker_move_button_text">Taşı</string>
     <string name="forbidden_permissions">%s izniniz yok</string>
     <string name="forbidden_permissions_copy">bu dosyayı kopyalayın</string>
     <string name="forbidden_permissions_create">bu dosyayı oluşturamazsınız</string>
@@ -941,6 +944,7 @@
     <string name="wait_a_moment">Lütfen bekleyin …</string>
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Güncelle</string>
     <string name="what_s_new_image">Yenilikler görseli</string>
     <string name="whats_new_skip">Atla</string>
     <string name="whats_new_title">%1$s yenilikleri</string>

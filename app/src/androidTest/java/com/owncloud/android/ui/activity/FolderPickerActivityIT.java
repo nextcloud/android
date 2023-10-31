@@ -130,7 +130,7 @@ public class FolderPickerActivityIT extends AbstractIT {
         sut.setFile(origin);
 
         sut.runOnUiThread(() -> {
-            sut.findViewById(R.id.folder_picker_btn_choose).requestFocus();
+            sut.findViewById(R.id.folder_picker_btn_copy).requestFocus();
         });
         waitForIdleSync();
         screenshot(sut);

@@ -92,6 +92,7 @@ import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.rule.GrantPermissionRule;
 import kotlin.Unit;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -108,6 +109,9 @@ public class DialogFragmentIT extends AbstractIT {
         return activityRule.launchActivity(intent);
     }
 
+    @Rule
+    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(
+        android.Manifest.permission.POST_NOTIFICATIONS);
 
     @After
     public void quitLooperIfNeeded() {
@@ -132,6 +136,38 @@ public class DialogFragmentIT extends AbstractIT {
     public void testLoadingDialog() {
         LoadingDialog dialog = LoadingDialog.newInstance("Wait…");
         showDialog(dialog);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testConfirmationDialogWithOneAction() {
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[]{}, R.string.filedetails_sync_file, R.string.common_ok, -1, -1);
+        showDialog(dialog);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testConfirmationDialogWithTwoAction() {
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[]{}, R.string.filedetails_sync_file, R.string.common_ok, R.string.common_cancel, -1);
+        showDialog(dialog);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testConfirmationDialogWithThreeAction() {
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[]{}, R.string.filedetails_sync_file, R.string.common_ok, R.string.common_cancel, R.string.common_confirm);
+        showDialog(dialog);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testConfirmationDialogWithThreeActionRTL() {
+        enableRTL();
+
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[] { }, -1, R.string.common_ok, R.string.common_cancel, R.string.common_confirm);
+        showDialog(dialog);
+
+        resetLocale();
     }
 
     @Test

@@ -30,8 +30,7 @@
     <item name="action_see_details" type="id"/>
     <item name="action_lock_file" type="id"/>
     <item name="action_rename_file" type="id"/>
-    <item name="action_move" type="id"/>
-    <item name="action_copy" type="id"/>
+    <item name="action_move_or_copy" type="id"/>
     <item name="action_download_file" type="id"/>
     <item name="action_export_file" type="id"/>
     <item name="action_stream_media" type="id"/>

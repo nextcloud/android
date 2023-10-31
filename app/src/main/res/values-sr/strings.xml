@@ -392,6 +392,9 @@
     <string name="folder_confirm_create">Направи</string>
     <string name="folder_list_empty_headline">Нема фасцикли овде</string>
     <string name="folder_picker_choose_button_text">Одабери</string>
+    <string name="folder_picker_choose_caption_text">Одаберите одредишну фасциклу</string>
+    <string name="folder_picker_copy_button_text">Копирај</string>
+    <string name="folder_picker_move_button_text">Помери</string>
     <string name="forbidden_permissions">Није вам дозвољено %s</string>
     <string name="forbidden_permissions_copy">да копирате овај фајл</string>
     <string name="forbidden_permissions_create">да направите фајл</string>
@@ -941,6 +944,7 @@
     <string name="wait_a_moment">Сачекајте мало…</string>
     <string name="wait_checking_credentials">Проверавам сачуване акредитиве</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирам фајл из личног складишта</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Ажурирај</string>
     <string name="what_s_new_image">Слика шта је ново</string>
     <string name="whats_new_skip">Прескочи</string>
     <string name="whats_new_title">Ново у %1$s</string>

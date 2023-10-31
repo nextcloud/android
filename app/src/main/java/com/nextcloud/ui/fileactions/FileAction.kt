@@ -39,8 +39,7 @@ enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRe
 
     // File moving
     RENAME_FILE(R.id.action_rename_file, R.string.common_rename, R.drawable.ic_rename),
-    MOVE(R.id.action_move, R.string.actionbar_move, R.drawable.ic_move),
-    COPY(R.id.action_copy, R.string.actionbar_copy, R.drawable.ic_content_copy),
+    MOVE_OR_COPY(R.id.action_move_or_copy, R.string.actionbar_move_or_copy, R.drawable.ic_external),
 
     // favorites
     FAVORITE(R.id.action_favorite, R.string.favorite, R.drawable.ic_star),
@@ -83,8 +82,7 @@ enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRe
             SEE_DETAILS,
             LOCK_FILE,
             RENAME_FILE,
-            MOVE,
-            COPY,
+            MOVE_OR_COPY,
             DOWNLOAD_FILE,
             EXPORT_FILE,
             STREAM_MEDIA,
