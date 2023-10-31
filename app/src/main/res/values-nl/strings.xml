@@ -372,6 +372,9 @@
     <string name="folder_confirm_create">Aanmaken</string>
     <string name="folder_list_empty_headline">Hier zijn geen bestanden</string>
     <string name="folder_picker_choose_button_text">Kiezen</string>
+    <string name="folder_picker_choose_caption_text">Kies doelmap…</string>
+    <string name="folder_picker_copy_button_text">Kopiëren</string>
+    <string name="folder_picker_move_button_text">Verplaatsen</string>
     <string name="forbidden_permissions">Je mist autorisatie %s</string>
     <string name="forbidden_permissions_copy">om dit bestand te kopiëren</string>
     <string name="forbidden_permissions_create">om dit bestand te creëren</string>
@@ -886,6 +889,7 @@
     <string name="wait_a_moment">Wacht even…</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Update</string>
     <string name="what_s_new_image">Wat is nieuw afbeelding</string>
     <string name="whats_new_skip">Overslaan</string>
     <string name="whats_new_title">Nieuw in %1$s</string>

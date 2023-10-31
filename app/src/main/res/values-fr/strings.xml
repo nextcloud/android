@@ -394,6 +394,9 @@ Attention, la suppression est irréversible.</string>
     <string name="folder_confirm_create">Créer</string>
     <string name="folder_list_empty_headline">Aucun dossier</string>
     <string name="folder_picker_choose_button_text">Valider</string>
+    <string name="folder_picker_choose_caption_text">Sélectionner le dossier cible</string>
+    <string name="folder_picker_copy_button_text">Copier</string>
+    <string name="folder_picker_move_button_text">Déplacer</string>
     <string name="forbidden_permissions">Vous n\'avez pas la permission %s</string>
     <string name="forbidden_permissions_copy">de copier ce fichier</string>
     <string name="forbidden_permissions_create">de créer ce fichier</string>

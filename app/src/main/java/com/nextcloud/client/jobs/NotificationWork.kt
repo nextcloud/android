@@ -142,7 +142,7 @@ class NotificationWork constructor(
 
         val deckActionOverrideIntent = deckApi.createForwardToDeckActionIntent(notification, user)
 
-        val pendingIntent: PendingIntent
+        val pendingIntent: PendingIntent?
         if (deckActionOverrideIntent.isPresent) {
             pendingIntent = deckActionOverrideIntent.get()
         } else {

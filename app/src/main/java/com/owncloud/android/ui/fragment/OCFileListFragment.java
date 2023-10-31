@@ -26,6 +26,7 @@
  */
 package com.owncloud.android.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -452,25 +453,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (isSearchEventSet(event)) {
 
             switch (event.getSearchType()) {
-                case FILE_SEARCH:
-                    currentSearchType = FILE_SEARCH;
-                    break;
-
-                case FAVORITE_SEARCH:
-                    currentSearchType = FAVORITE_SEARCH;
-                    break;
-
-                case RECENTLY_MODIFIED_SEARCH:
-                    currentSearchType = RECENTLY_MODIFIED_SEARCH;
-                    break;
-
-                case SHARED_FILTER:
-                    currentSearchType = SHARED_FILTER;
-                    break;
-
-                default:
-                    // do nothing
-                    break;
+                case FILE_SEARCH -> currentSearchType = FILE_SEARCH;
+                case FAVORITE_SEARCH -> currentSearchType = FAVORITE_SEARCH;
+                case RECENTLY_MODIFIED_SEARCH -> currentSearchType = RECENTLY_MODIFIED_SEARCH;
+                case SHARED_FILTER -> currentSearchType = SHARED_FILTER;
+                default -> {
+                }
+                // do nothing
             }
 
             prepareActionBarItems(event);
@@ -1048,18 +1037,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     if (PreviewImageFragment.canBePreviewed(file)) {
                         // preview image - it handles the download, if needed
                         if (searchFragment) {
-                            VirtualFolderType type;
-                            switch (currentSearchType) {
-                                case FAVORITE_SEARCH:
-                                    type = VirtualFolderType.FAVORITE;
-                                    break;
-                                case GALLERY_SEARCH:
-                                    type = VirtualFolderType.GALLERY;
-                                    break;
-                                default:
-                                    type = VirtualFolderType.NONE;
-                                    break;
-                            }
+                            VirtualFolderType type = switch (currentSearchType) {
+                                case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
+                                case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
+                                default -> VirtualFolderType.NONE;
+                            };
                             ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, !file.isDown());
                         } else {
                             ((FileDisplayActivity) mContainerActivity).startImagePreview(file, !file.isDown());
@@ -1243,11 +1225,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else if (itemId == R.id.action_unset_favorite) {
             mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, false);
             return true;
-        } else if (itemId == R.id.action_move) {
-            pickFolderForMoveOrCopy(FolderPickerActivity.MOVE, checkedFiles);
-            return true;
-        } else if (itemId == R.id.action_copy) {
-            pickFolderForMoveOrCopy(FolderPickerActivity.COPY, checkedFiles);
+        } else if (itemId == R.id.action_move_or_copy) {
+            pickFolderForMoveOrCopy(checkedFiles);
             return true;
         } else if (itemId == R.id.action_select_all_action_menu) {
             selectAllFiles(true);
@@ -1265,12 +1244,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return false;
     }
 
-    private void pickFolderForMoveOrCopy(final String extraAction, final Set<OCFile> checkedFiles) {
-        int requestCode = switch (extraAction) {
-            case FolderPickerActivity.MOVE -> FileDisplayActivity.REQUEST_CODE__MOVE_FILES;
-            case FolderPickerActivity.COPY -> FileDisplayActivity.REQUEST_CODE__COPY_FILES;
-            default -> throw new IllegalArgumentException("Unknown extra action: " + extraAction);
-        };
+    private void pickFolderForMoveOrCopy(final Set<OCFile> checkedFiles) {
+        int requestCode = FileDisplayActivity.REQUEST_CODE__MOVE_OR_COPY_FILES;
+        String extraAction = FolderPickerActivity.MOVE_OR_COPY;
 
         final Intent action = new Intent(requireActivity(), FolderPickerActivity.class);
         final ArrayList<String> paths = new ArrayList<>(checkedFiles.size());
@@ -1392,12 +1368,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             setGridSwitchButton();
         }
 
-        if (mHideFab) {
-            setFabVisible(false);
-        } else {
-            setFabVisible(true);
-            // registerFabListener();
-        }
+        setFabVisible(!mHideFab);
 
         // FAB
         setFabEnabled(mFile != null && mFile.canWrite());
@@ -1449,6 +1420,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void switchLayoutManager(boolean grid) {
         int position = 0;
 
@@ -1496,21 +1468,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (requireActivity() instanceof FileDisplayActivity && currentSearchType != null) {
             switch (currentSearchType) {
-                case FAVORITE_SEARCH:
-                    setTitle(R.string.drawer_item_favorites);
-                    break;
-                case GALLERY_SEARCH:
-                    setTitle(R.string.drawer_item_gallery);
-                    break;
-                case RECENTLY_MODIFIED_SEARCH:
-                    setTitle(R.string.drawer_item_recently_modified);
-                    break;
-                case SHARED_FILTER:
-                    setTitle(R.string.drawer_item_shared);
-                    break;
-                default:
-                    setTitle(themeUtils.getDefaultDisplayNameForRootFolder(getContext()), false);
-                    break;
+                case FAVORITE_SEARCH -> setTitle(R.string.drawer_item_favorites);
+                case GALLERY_SEARCH -> setTitle(R.string.drawer_item_gallery);
+                case RECENTLY_MODIFIED_SEARCH -> setTitle(R.string.drawer_item_recently_modified);
+                case SHARED_FILTER -> setTitle(R.string.drawer_item_shared);
+                default -> setTitle(themeUtils.getDefaultDisplayNameForRootFolder(getContext()), false);
             }
         }
 
@@ -1519,14 +1481,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected void prepareActionBarItems(SearchEvent event) {
         if (event != null) {
             switch (event.getSearchType()) {
-                case FAVORITE_SEARCH:
-                case RECENTLY_MODIFIED_SEARCH:
+                case FAVORITE_SEARCH, RECENTLY_MODIFIED_SEARCH ->
                     menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-                    break;
-
-                default:
-                    // do nothing
-                    break;
+                default -> {
+                }
+                // do nothing
             }
         }
 
@@ -1538,25 +1497,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected void setEmptyView(SearchEvent event) {
         if (event != null) {
             switch (event.getSearchType()) {
-                case FILE_SEARCH:
-                    setEmptyListMessage(SearchType.FILE_SEARCH);
-                    break;
-
-                case FAVORITE_SEARCH:
-                    setEmptyListMessage(SearchType.FAVORITE_SEARCH);
-                    break;
-
-                case RECENTLY_MODIFIED_SEARCH:
-                    setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
-                    break;
-
-                case SHARED_FILTER:
-                    setEmptyListMessage(SearchType.SHARED_FILTER);
-                    break;
-
-                default:
-                    setEmptyListMessage(SearchType.NO_SEARCH);
-                    break;
+                case FILE_SEARCH -> setEmptyListMessage(SearchType.FILE_SEARCH);
+                case FAVORITE_SEARCH -> setEmptyListMessage(SearchType.FAVORITE_SEARCH);
+                case RECENTLY_MODIFIED_SEARCH -> setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
+                case SHARED_FILTER -> setEmptyListMessage(SearchType.SHARED_FILTER);
+                default -> setEmptyListMessage(SearchType.NO_SEARCH);
             }
         } else {
             setEmptyListMessage(SearchType.NO_SEARCH);

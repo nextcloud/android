@@ -392,6 +392,8 @@
     <string name="folder_confirm_create">Sortu</string>
     <string name="folder_list_empty_headline">Ez dago karpetarik hemen</string>
     <string name="folder_picker_choose_button_text">Aukeratu</string>
+    <string name="folder_picker_choose_caption_text">Aukeratu helburuko karpeta</string>
+    <string name="folder_picker_move_button_text">Mugitu</string>
     <string name="forbidden_permissions">Ez daukazu baimenik %s</string>
     <string name="forbidden_permissions_copy">fitxategi hau kopiatzeko</string>
     <string name="forbidden_permissions_create">fitxategi hau sortzeko</string>

@@ -376,6 +376,8 @@
     <string name="folder_confirm_create">Vytvoriť</string>
     <string name="folder_list_empty_headline">Nie sú tu žiadne priečinky</string>
     <string name="folder_picker_choose_button_text">Vybrať</string>
+    <string name="folder_picker_choose_caption_text">Vyberte cieľový priečinok</string>
+    <string name="folder_picker_move_button_text">Presunúť</string>
     <string name="forbidden_permissions">Nemáte oprávnenie %s</string>
     <string name="forbidden_permissions_copy">kopírovať súbor</string>
     <string name="forbidden_permissions_create">vytvoriť súbor</string>
@@ -896,6 +898,7 @@
     <string name="wait_a_moment">Počkajte chvíľu…</string>
     <string name="wait_checking_credentials">Overujem uložené prihlasovacie údaje</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Aktualizovať</string>
     <string name="what_s_new_image">Obrázok čo je nové</string>
     <string name="whats_new_skip">Preskočiť</string>
     <string name="whats_new_title">Nové v %1$s</string>

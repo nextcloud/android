@@ -528,9 +528,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             // to the ownCloud folder instead of copying
             String[] args = {getString(R.string.app_name)};
             ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
-                R.string.upload_query_move_foreign_files, args, 0, R.string.common_yes, -1,
-                R.string.common_no
-                                                                                      );
+                R.string.upload_query_move_foreign_files, args, 0, R.string.common_yes,  R.string.common_no, -1);
             dialog.setOnConfirmationListener(this);
             dialog.show(getSupportFragmentManager(), QUERY_TO_MOVE_DIALOG_TAG);
         }

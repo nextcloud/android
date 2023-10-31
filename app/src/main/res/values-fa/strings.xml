@@ -392,6 +392,8 @@
     <string name="folder_confirm_create">ایجاد کردن</string>
     <string name="folder_list_empty_headline">هیچ  پوشه ای اینجا وجود ندارد</string>
     <string name="folder_picker_choose_button_text">انتخاب کردن</string>
+    <string name="folder_picker_choose_caption_text">پوشهٔ هدف را انتخاب کنید</string>
+    <string name="folder_picker_move_button_text">انتقال</string>
     <string name="forbidden_permissions">شما مجاز نیستید%s</string>
     <string name="forbidden_permissions_copy">کپی این فایل</string>
     <string name="forbidden_permissions_create">برای ساختن این پرونده</string>

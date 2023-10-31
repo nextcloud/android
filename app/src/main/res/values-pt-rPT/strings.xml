@@ -381,6 +381,9 @@
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
     <string name="folder_picker_choose_button_text">Escolher</string>
+    <string name="folder_picker_choose_caption_text">Escolher pasta de destino</string>
+    <string name="folder_picker_copy_button_text">copiar</string>
+    <string name="folder_picker_move_button_text">Mover</string>
     <string name="forbidden_permissions">Não tem permissão %s</string>
     <string name="forbidden_permissions_copy">para copiar este ficheiro</string>
     <string name="forbidden_permissions_create">para criar este ficheiro</string>
@@ -921,6 +924,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="wait_a_moment">Aguarde um momento…</string>
     <string name="wait_checking_credentials">A verificar as credenciais guardadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">A copiar o ficheiro do armazenamento privado</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Atualizar</string>
     <string name="what_s_new_image">Imagem de novidades</string>
     <string name="whats_new_skip">Passar à frente</string>
     <string name="whats_new_title">Novo em %1$s</string>
