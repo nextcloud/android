@@ -44,6 +44,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.RefreshFolderOperation
+import com.owncloud.android.services.OperationsService
 import com.owncloud.android.syncadapter.FileSyncAdapter
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
@@ -73,7 +74,9 @@ open class FolderPickerActivity :
     var isDoNotEnterEncryptedFolder = false
         private set
     private var mCancelBtn: MaterialButton? = null
-    private var mChooseBtn: MaterialButton? = null
+    private var mCopyBtn: MaterialButton? = null
+    private var mMoveBtn: MaterialButton? = null
+
     private var caption: String? = null
 
     private var mAction: String? = null
@@ -85,6 +88,7 @@ open class FolderPickerActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         Log_OC.d(TAG, "onCreate() start")
         super.onCreate(savedInstanceState)
+
         if (this is FilePickerActivity) {
             setContentView(R.layout.files_picker)
         } else {
@@ -101,29 +105,15 @@ open class FolderPickerActivity :
         findViewById<View>(R.id.switch_grid_view_button).visibility =
             View.GONE
         mAction = intent.getStringExtra(EXTRA_ACTION)
+
         if (mAction != null) {
-            when (mAction) {
-                MOVE -> {
-                    caption = resources.getText(R.string.move_to).toString()
-                    mSearchOnlyFolders = true
-                    isDoNotEnterEncryptedFolder = true
-                }
-                COPY -> {
-                    caption = resources.getText(R.string.copy_to).toString()
-                    mSearchOnlyFolders = true
-                    isDoNotEnterEncryptedFolder = true
-                }
-                CHOOSE_LOCATION -> {
-                    caption = resources.getText(R.string.choose_location).toString()
-                    mSearchOnlyFolders = true
-                    isDoNotEnterEncryptedFolder = true
-                    mChooseBtn!!.text = resources.getString(R.string.common_select)
-                }
-                else -> caption = themeUtils.getDefaultDisplayNameForRootFolder(this)
-            }
+            caption = resources.getText(R.string.folder_picker_choose_caption_text).toString()
+            mSearchOnlyFolders = true
+            isDoNotEnterEncryptedFolder = true
         } else {
             caption = themeUtils.getDefaultDisplayNameForRootFolder(this)
         }
+
         mTargetFilePaths = intent.getStringArrayListExtra(EXTRA_FILE_PATHS)
 
         if (savedInstanceState == null) {
@@ -351,13 +341,14 @@ open class FolderPickerActivity :
     }
 
     private fun toggleChooseEnabled() {
-        mChooseBtn?.isEnabled = checkFolderSelectable()
+        mCopyBtn?.isEnabled = checkFolderSelectable()
+        mMoveBtn?.isEnabled = checkFolderSelectable()
     }
 
     // for copy and move, disable selecting parent folder of target files
     private fun checkFolderSelectable(): Boolean {
         return when {
-            mAction != COPY && mAction != MOVE -> true
+            mAction != MOVE_OR_COPY -> true
             mTargetFilePaths.isNullOrEmpty() -> true
             file?.isFolder != true -> true
             // all of the target files are already in the selected directory
@@ -385,38 +376,57 @@ open class FolderPickerActivity :
      */
     private fun initControls() {
         mCancelBtn = findViewById(R.id.folder_picker_btn_cancel)
-        mChooseBtn = findViewById(R.id.folder_picker_btn_choose)
-        if (mChooseBtn != null) {
-            viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mChooseBtn!!)
-            mChooseBtn!!.setOnClickListener(this)
+        mCopyBtn = findViewById(R.id.folder_picker_btn_copy)
+        mMoveBtn = findViewById(R.id.folder_picker_btn_move)
+
+        if (mCopyBtn != null) {
+            viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mCopyBtn!!)
+            mCopyBtn!!.setOnClickListener(this)
         }
+        if (mMoveBtn != null) {
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(mMoveBtn!!)
+            mMoveBtn!!.setOnClickListener(this)
+        }
+
         if (mCancelBtn != null) {
             if (this is FilePickerActivity) {
                 viewThemeUtils.material.colorMaterialButtonPrimaryFilled(mCancelBtn!!)
             } else {
-                viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(mCancelBtn!!)
+                viewThemeUtils.material.colorMaterialButtonText(mCancelBtn!!)
             }
             mCancelBtn!!.setOnClickListener(this)
         }
     }
 
     override fun onClick(v: View) {
-        if (v == mCancelBtn) {
-            finish()
-        } else if (v == mChooseBtn) {
-            val i = intent
-            val resultData = Intent()
-            resultData.putExtra(EXTRA_FOLDER, listOfFilesFragment!!.currentFile)
-            val targetFiles = i.getParcelableArrayListExtra<Parcelable>(EXTRA_FILES)
-            if (targetFiles != null) {
-                resultData.putParcelableArrayListExtra(EXTRA_FILES, targetFiles)
-            }
-            mTargetFilePaths.let {
-                resultData.putStringArrayListExtra(EXTRA_FILE_PATHS, it)
-            }
-            setResult(RESULT_OK, resultData)
-            finish()
+        when (v) {
+            mCancelBtn -> finish()
+            mCopyBtn, mMoveBtn -> copyOrMove(v)
         }
+    }
+
+    private fun copyOrMove(v: View) {
+        val i = intent
+        val resultData = Intent()
+        resultData.putExtra(EXTRA_FOLDER, listOfFilesFragment?.currentFile)
+
+        i.getParcelableArrayListExtra<Parcelable>(EXTRA_FILES)?.let { targetFiles ->
+            resultData.putParcelableArrayListExtra(EXTRA_FILES, targetFiles)
+        }
+
+        mTargetFilePaths?.let {
+            val action = when (v) {
+                mCopyBtn -> OperationsService.ACTION_COPY_FILE
+                mMoveBtn -> OperationsService.ACTION_MOVE_FILE
+                else -> throw IllegalArgumentException("Unknown operation")
+            }
+
+            fileOperationsHelper.moveOrCopyFiles(action, it, file)
+            resultData.putStringArrayListExtra(EXTRA_FILE_PATHS, it)
+        }
+
+        setResult(RESULT_OK, resultData)
+        finish()
     }
 
     override fun onRemoteOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>) {
@@ -571,8 +581,8 @@ open class FolderPickerActivity :
         }
     }
 
-    override fun onSortingOrderChosen(selection: FileSortOrder) {
-        listOfFilesFragment!!.sortFiles(selection)
+    override fun onSortingOrderChosen(selection: FileSortOrder?) {
+        listOfFilesFragment?.sortFiles(selection)
     }
 
     companion object {
@@ -592,8 +602,7 @@ open class FolderPickerActivity :
         @JvmField
         val EXTRA_ACTION = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_ACTION")
 
-        const val MOVE = "MOVE"
-        const val COPY = "COPY"
+        const val MOVE_OR_COPY = "MOVE_OR_COPY"
         const val CHOOSE_LOCATION = "CHOOSE_LOCATION"
         private val TAG = FolderPickerActivity::class.java.simpleName
         protected const val TAG_LIST_OF_FOLDERS = "LIST_OF_FOLDERS"

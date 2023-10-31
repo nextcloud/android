@@ -125,6 +125,7 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertL
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -268,6 +269,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
         viewThemeUtils.platform.themeStatusBar(this, ColorRole.PRIMARY);
 
+        WebViewUtil webViewUtil = new WebViewUtil(this);
 
         Uri data = getIntent().getData();
         boolean directLogin = data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme));
@@ -337,6 +339,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         initServerPreFragment(savedInstanceState);
+
+        webViewUtil.checkWebViewVersion();
     }
 
     private void deleteCookies() {

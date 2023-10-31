@@ -388,6 +388,9 @@
     <string name="folder_confirm_create">作成</string>
     <string name="folder_list_empty_headline">フォルダーがありません</string>
     <string name="folder_picker_choose_button_text">選択</string>
+    <string name="folder_picker_choose_caption_text">ターゲットフォルダーを選択</string>
+    <string name="folder_picker_copy_button_text">コピー</string>
+    <string name="folder_picker_move_button_text">移動</string>
     <string name="forbidden_permissions">%sが許可されていません。</string>
     <string name="forbidden_permissions_copy">このファイルをコピー</string>
     <string name="forbidden_permissions_create">このファイルを作成する</string>
@@ -922,6 +925,7 @@
     <string name="wait_a_moment">少々お待ちください…</string>
     <string name="wait_checking_credentials">保存された資格情報をチェック</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">更新</string>
     <string name="what_s_new_image">新しいイメージとは</string>
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>

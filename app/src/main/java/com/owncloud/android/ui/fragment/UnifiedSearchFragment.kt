@@ -30,7 +30,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuItemCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -89,7 +88,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vm = ViewModelProvider(this, vmFactory).get(UnifiedSearchViewModel::class.java)
+        vm = ViewModelProvider(this, vmFactory)[UnifiedSearchViewModel::class.java]
         setUpViewModel()
 
         val query = savedInstanceState?.getString(ARG_QUERY) ?: arguments?.getString(ARG_QUERY)
@@ -125,7 +124,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
                     binding.emptyList.emptyListViewText.text =
                         requireContext().getString(R.string.file_list_empty_unified_search_no_results)
                     binding.emptyList.emptyListIcon.setImageDrawable(
-                        viewThemeUtils.platform.tintPrimaryDrawable(requireContext(), R.drawable.ic_search_grey)
+                        viewThemeUtils.platform.tintDrawable(requireContext(), R.drawable.ic_search_grey)
                     )
                 }
             }
@@ -151,10 +150,12 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    @Suppress("DEPRECATION")
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = ListFragmentBinding.inflate(inflater, container, false)
         binding.listRoot.updatePadding(top = resources.getDimension(R.dimen.standard_half_padding).toInt())
         setUpBinding()
+
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -223,8 +224,14 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val item = menu.findItem(R.id.action_search)
-        searchView = MenuItemCompat.getActionView(item) as SearchView
+        searchView = item.actionView as SearchView?
+
+        // Required to align with TextView width.
+        // Because this fragment is opened with TextView onClick on the previous screen
+        searchView?.maxWidth = Integer.MAX_VALUE
+
         viewThemeUtils.androidx.themeToolbarSearchView(searchView!!)
+
         searchView?.setQuery(vm.query.value, false)
         searchView?.setOnQueryTextListener(this)
         searchView?.isIconified = false
