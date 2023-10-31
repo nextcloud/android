@@ -185,6 +185,7 @@ class FirstRunActivity : BaseActivity(), ViewPager.OnPageChangeListener, Injecta
         }
     }
 
+    @Suppress("SpreadOperator")
     private fun setupFeaturesViewAdapter() {
         val featuresViewAdapter = FeaturesViewAdapter(supportFragmentManager, *firstRun)
         binding.progressIndicator.setNumberOfSteps(featuresViewAdapter.count)
@@ -223,6 +224,7 @@ class FirstRunActivity : BaseActivity(), ViewPager.OnPageChangeListener, Injecta
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
         } else {
+            @Suppress("MagicNumber")
             LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 DisplayUtils.convertDpToPixel(if (isLandscape) 100f else 150f, this)
