@@ -53,7 +53,7 @@ class GalleryFragmentBottomSheetDialog(
     }
 
     private fun setupLayout() {
-        viewThemeUtils.platform.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE_VARIANT)
+        viewThemeUtils.platform.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE)
 
         listOf(
             binding.tickMarkShowImages,
