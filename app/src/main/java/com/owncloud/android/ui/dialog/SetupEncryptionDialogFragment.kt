@@ -289,6 +289,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             mWeakContext = WeakReference(context)
         }
 
+        @Suppress("ReturnCount")
         @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg params: Void?): String? {
             // fetch private/public key
@@ -379,6 +380,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             binding.encryptionStatus.setText(R.string.end_to_end_encryption_generating_keys)
         }
 
+        @Suppress("TooGenericExceptionCaught", "ReturnCount")
         @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg voids: Void?): String {
             //  - create CSR, push to server, store returned public key in database
@@ -423,17 +425,17 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 val storePrivateKeyResult = storePrivateKeyOperation.execute(user, context)
                 if (storePrivateKeyResult.isSuccess) {
                     Log_OC.d(TAG, "private key success")
-                    arbitraryDataProvider!!.storeOrUpdateKeyValue(
+                    arbitraryDataProvider?.storeOrUpdateKeyValue(
                         user.accountName,
                         EncryptionUtils.PRIVATE_KEY,
                         privateKeyString
                     )
-                    arbitraryDataProvider!!.storeOrUpdateKeyValue(
+                    arbitraryDataProvider?.storeOrUpdateKeyValue(
                         user.accountName,
                         EncryptionUtils.PUBLIC_KEY,
                         publicKeyString
                     )
-                    arbitraryDataProvider!!.storeOrUpdateKeyValue(
+                    arbitraryDataProvider?.storeOrUpdateKeyValue(
                         user.accountName,
                         EncryptionUtils.MNEMONIC,
                         generateMnemonicString(true)
