@@ -57,7 +57,7 @@ class GalleryFragmentBottomSheetDialog(
 
         listOf(
             binding.tickMarkShowImages,
-            binding.tickMarkShowVideos,
+            binding.tickMarkShowVideos
         ).forEach {
             viewThemeUtils.platform.colorImageView(it, ColorRole.PRIMARY)
         }
@@ -65,7 +65,7 @@ class GalleryFragmentBottomSheetDialog(
         listOf(
             binding.btnSelectMediaFolder,
             binding.btnHideVideos,
-            binding.btnHideImages,
+            binding.btnHideImages
         ).forEach {
             viewThemeUtils.material.colorMaterialButtonText(it)
         }
