@@ -24,27 +24,20 @@ import android.os.Build
 import android.os.Bundle
 import android.os.storage.StorageManager
 import androidx.annotation.RequiresApi
-import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.theme.ViewThemeUtils
-import javax.inject.Inject
 
 /**
  * Dialog requiring confirmation when a file/folder is too "big" to be synchronized/downloaded on device.
  */
 class SyncFileNotEnoughSpaceDialogFragment :
     ConfirmationDialogFragment(),
-    ConfirmationDialogFragmentListener,
-    Injectable {
-    private var targetFile: OCFile? = null
+    ConfirmationDialogFragmentListener {
 
-    @JvmField
-    @Inject
-    var viewThemeUtils: ViewThemeUtils? = null
+    private var targetFile: OCFile? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         targetFile = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -62,7 +55,7 @@ class SyncFileNotEnoughSpaceDialogFragment :
     /**
      * (Only if file is a folder), will access the destination folder to allow user to choose what to synchronize
      */
-    override fun onConfirmation(callerTag: String) {
+    override fun onConfirmation(callerTag: String?) {
         val frag = targetFragment as OCFileListFragment?
 
         if (frag != null && targetFile != null) {
@@ -73,7 +66,7 @@ class SyncFileNotEnoughSpaceDialogFragment :
     /**
      * Will abort/cancel the process (is neutral to "hack" android button position ._.)
      */
-    override fun onNeutral(callerTag: String) {
+    override fun onNeutral(callerTag: String?) {
         // Nothing
     }
 
@@ -81,7 +74,7 @@ class SyncFileNotEnoughSpaceDialogFragment :
      * Will access to storage manager in order to empty useless files
      */
     @RequiresApi(api = Build.VERSION_CODES.N_MR1)
-    override fun onCancel(callerTag: String) {
+    override fun onCancel(callerTag: String?) {
         val storageIntent = Intent(StorageManager.ACTION_MANAGE_STORAGE)
         startActivityForResult(storageIntent, REQUEST_CODE_STORAGE)
     }
