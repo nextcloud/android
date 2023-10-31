@@ -885,24 +885,18 @@ public class OCFileListFragment extends ExtendedListFragment implements
             String parentPath = null;
             if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
                 parentPath = new File(mFile.getRemotePath()).getParent();
-                if (parentPath != null) {
-                    parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
-                        parentPath + OCFile.PATH_SEPARATOR;
-                }
-                parentDir = storageManager.getFileByEncryptedRemotePath(parentPath);
+                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
+                    parentPath + OCFile.PATH_SEPARATOR;
+                parentDir = storageManager.getFileByPath(parentPath);
                 moveCount++;
             } else {
-                parentDir = storageManager.getFileByEncryptedRemotePath(ROOT_PATH);
+                parentDir = storageManager.getFileByPath(ROOT_PATH);
             }
             while (parentDir == null) {
-                if (parentPath != null) {
-                    parentPath = new File(parentPath).getParent();
-                }
-                if (parentPath != null) {
-                    parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
-                        parentPath + OCFile.PATH_SEPARATOR;
-                }
-                parentDir = storageManager.getFileByEncryptedRemotePath(parentPath);
+                parentPath = new File(parentPath).getParent();
+                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
+                    parentPath + OCFile.PATH_SEPARATOR;
+                parentDir = storageManager.getFileByPath(parentPath);
                 moveCount++;
             }   // exit is granted because storageManager.getFileByPath("/") never returns null
             mFile = parentDir;
