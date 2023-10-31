@@ -21,212 +21,253 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client.onboarding
 
-package com.nextcloud.client.onboarding;
-
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
-import com.nextcloud.android.common.ui.theme.utils.ColorRole;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.appinfo.AppInfo;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.preferences.AppPreferences;
-import com.owncloud.android.BuildConfig;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.databinding.FirstRunActivityBinding;
-import com.owncloud.android.features.FeatureItem;
-import com.owncloud.android.ui.activity.BaseActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.adapter.FeaturesViewAdapter;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import javax.inject.Inject;
-
-import androidx.viewpager.widget.ViewPager;
+import android.accounts.AccountManager
+import android.content.Intent
+import android.content.res.Configuration
+import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.viewpager.widget.ViewPager
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.appinfo.AppInfo
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.preferences.AppPreferences
+import com.owncloud.android.BuildConfig
+import com.owncloud.android.R
+import com.owncloud.android.authentication.AuthenticatorActivity
+import com.owncloud.android.databinding.FirstRunActivityBinding
+import com.owncloud.android.features.FeatureItem
+import com.owncloud.android.ui.activity.BaseActivity
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.adapter.FeaturesViewAdapter
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
 /**
  * Activity displaying general feature after a fresh install.
  */
-public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageChangeListener, Injectable {
+class FirstRunActivity : BaseActivity(), ViewPager.OnPageChangeListener, Injectable {
 
-    public static final String EXTRA_ALLOW_CLOSE = "ALLOW_CLOSE";
-    public static final String EXTRA_EXIT = "EXIT";
-    public static final int FIRST_RUN_RESULT_CODE = 199;
+    @JvmField
+    @Inject
+    var userAccountManager: UserAccountManager? = null
 
-    @Inject UserAccountManager userAccountManager;
-    @Inject AppPreferences preferences;
-    @Inject AppInfo appInfo;
-    @Inject OnboardingService onboarding;
+    @JvmField
+    @Inject
+    var preferences: AppPreferences? = null
 
-    @Inject ViewThemeUtils.Factory viewThemeUtilsFactory;
+    @JvmField
+    @Inject
+    var appInfo: AppInfo? = null
 
-    private FirstRunActivityBinding binding;
-    private ViewThemeUtils defaultViewThemeUtils;
+    @JvmField
+    @Inject
+    var onboarding: OnboardingService? = null
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        enableAccountHandling = false;
+    @JvmField
+    @Inject
+    var viewThemeUtilsFactory: ViewThemeUtils.Factory? = null
 
-        super.onCreate(savedInstanceState);
-        defaultViewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
-        defaultViewThemeUtils.platform.themeStatusBar(this, ColorRole.PRIMARY);
-        this.binding = FirstRunActivityBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+    private var activityResult: ActivityResultLauncher<Intent>? = null
 
-        boolean isProviderOrOwnInstallationVisible = getResources().getBoolean(R.bool.show_provider_or_own_installation);
+    private lateinit var binding: FirstRunActivityBinding
+    private var defaultViewThemeUtils: ViewThemeUtils? = null
 
-        setSlideshowSize(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        enableAccountHandling = false
 
+        super.onCreate(savedInstanceState)
 
-        defaultViewThemeUtils.material.colorMaterialButtonFilledOnPrimary(binding.login);
-        binding.login.setOnClickListener(v -> {
-            if (getIntent().getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
-                Intent authenticatorActivityIntent = new Intent(this, AuthenticatorActivity.class);
-                authenticatorActivityIntent.putExtra(AuthenticatorActivity.EXTRA_USE_PROVIDER_AS_WEBLOGIN, false);
-                startActivityForResult(authenticatorActivityIntent, FIRST_RUN_RESULT_CODE);
-            } else {
-                finish();
+        applyDefaultTheme()
+
+        binding = FirstRunActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val isProviderOrOwnInstallationVisible = resources.getBoolean(R.bool.show_provider_or_own_installation)
+        setSlideshowSize(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+
+        registerActivityResult()
+        setupLoginButton()
+        setupSignupButton(isProviderOrOwnInstallationVisible)
+        setupHostOwnServerTextView(isProviderOrOwnInstallationVisible)
+        deleteAccountAtFirstLaunch()
+        setupFeaturesViewAdapter()
+        handleOnBackPressed()
+    }
+
+    private fun applyDefaultTheme() {
+        defaultViewThemeUtils = viewThemeUtilsFactory?.withPrimaryAsBackground()
+        defaultViewThemeUtils?.platform?.themeStatusBar(this, ColorRole.PRIMARY)
+    }
+
+    private fun registerActivityResult() {
+        activityResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+                if (RESULT_OK == result.resultCode) {
+                    val data = result.data
+                    val accountName = data?.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
+                    val account = userAccountManager?.getAccountByName(accountName)
+                    if (account == null) {
+                        DisplayUtils.showSnackMessage(this, R.string.account_creation_failed)
+                        return@registerForActivityResult
+                    }
+
+                    userAccountManager?.setCurrentOwnCloudAccount(account.name)
+
+                    val i = Intent(this, FileDisplayActivity::class.java)
+                    i.action = FileDisplayActivity.RESTART
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(i)
+                    finish()
+                }
             }
-        });
+    }
 
-
-        defaultViewThemeUtils.material.colorMaterialButtonOutlinedOnPrimary(binding.signup);
-        binding.signup.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
-        binding.signup.setOnClickListener(v -> {
-            Intent authenticatorActivityIntent = new Intent(this, AuthenticatorActivity.class);
-            authenticatorActivityIntent.putExtra(AuthenticatorActivity.EXTRA_USE_PROVIDER_AS_WEBLOGIN, true);
-
-            if (getIntent().getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
-                startActivityForResult(authenticatorActivityIntent, FIRST_RUN_RESULT_CODE);
+    private fun setupLoginButton() {
+        defaultViewThemeUtils?.material?.colorMaterialButtonFilledOnPrimary(binding.login)
+        binding.login.setOnClickListener {
+            if (intent.getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
+                val authenticatorActivityIntent = getAuthenticatorActivityIntent(false)
+                activityResult?.launch(authenticatorActivityIntent)
             } else {
-                authenticatorActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(authenticatorActivityIntent);
+                finish()
             }
-        });
+        }
+    }
 
-        defaultViewThemeUtils.platform.colorTextView(binding.hostOwnServer, ColorRole.ON_PRIMARY);
-        binding.hostOwnServer.setVisibility(isProviderOrOwnInstallationVisible ? View.VISIBLE : View.GONE);
+    private fun setupSignupButton(isProviderOrOwnInstallationVisible: Boolean) {
+        defaultViewThemeUtils?.material?.colorMaterialButtonOutlinedOnPrimary(binding.signup)
+        binding.signup.visibility = if (isProviderOrOwnInstallationVisible) View.VISIBLE else View.GONE
+        binding.signup.setOnClickListener {
+            val authenticatorActivityIntent = getAuthenticatorActivityIntent(true)
 
+            if (intent.getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
+                activityResult?.launch(authenticatorActivityIntent)
+            } else {
+                authenticatorActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(authenticatorActivityIntent)
+            }
+        }
+    }
+
+    private fun getAuthenticatorActivityIntent(extraUseProviderAsWebLogin: Boolean): Intent {
+        val intent = Intent(this, AuthenticatorActivity::class.java)
+        intent.putExtra(AuthenticatorActivity.EXTRA_USE_PROVIDER_AS_WEBLOGIN, extraUseProviderAsWebLogin)
+        return intent
+    }
+
+    private fun setupHostOwnServerTextView(isProviderOrOwnInstallationVisible: Boolean) {
+        defaultViewThemeUtils?.platform?.colorTextView(binding.hostOwnServer, ColorRole.ON_PRIMARY)
+        binding.hostOwnServer.visibility = if (isProviderOrOwnInstallationVisible) View.VISIBLE else View.GONE
         if (isProviderOrOwnInstallationVisible) {
-            binding.hostOwnServer.setOnClickListener(v -> DisplayUtils.startLinkIntent(this, R.string.url_server_install));
+            binding.hostOwnServer.setOnClickListener {
+                DisplayUtils.startLinkIntent(
+                    this,
+                    R.string.url_server_install
+                )
+            }
         }
-
-
-        // Sometimes, accounts are not deleted when you uninstall the application so we'll do it now
-        if (onboarding.isFirstRun()) {
-            userAccountManager.removeAllAccounts();
-        }
-
-        FeaturesViewAdapter featuresViewAdapter = new FeaturesViewAdapter(getSupportFragmentManager(), getFirstRun());
-        binding.progressIndicator.setNumberOfSteps(featuresViewAdapter.getCount());
-        binding.contentPanel.setAdapter(featuresViewAdapter);
-
-        binding.contentPanel.addOnPageChangeListener(this);
     }
 
-    private void setSlideshowSize(boolean isLandscape) {
-        boolean isProviderOrOwnInstallationVisible = getResources().getBoolean(R.bool.show_provider_or_own_installation);
+    // Sometimes, accounts are not deleted when you uninstall the application so we'll do it now
+    private fun deleteAccountAtFirstLaunch() {
+        if (onboarding?.isFirstRun == true) {
+            userAccountManager?.removeAllAccounts()
+        }
+    }
 
-        LinearLayout.LayoutParams layoutParams;
+    private fun setupFeaturesViewAdapter() {
+        val featuresViewAdapter = FeaturesViewAdapter(supportFragmentManager, *firstRun)
+        binding.progressIndicator.setNumberOfSteps(featuresViewAdapter.count)
+        binding.contentPanel.adapter = featuresViewAdapter
+        binding.contentPanel.addOnPageChangeListener(this)
+    }
 
-        binding.buttonLayout.setOrientation(isLandscape ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
+    private fun handleOnBackPressed() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    onFinish()
 
-        if (isProviderOrOwnInstallationVisible) {
-            layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    if (intent.getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
+                        onBackPressedDispatcher.onBackPressed()
+                    } else {
+                        val intent = Intent(applicationContext, AuthenticatorActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        intent.putExtra(EXTRA_EXIT, true)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+            }
+        )
+    }
+
+    private fun setSlideshowSize(isLandscape: Boolean) {
+        val isProviderOrOwnInstallationVisible = resources.getBoolean(R.bool.show_provider_or_own_installation)
+        binding.buttonLayout.orientation = if (isLandscape) LinearLayout.HORIZONTAL else LinearLayout.VERTICAL
+
+        val layoutParams: LinearLayout.LayoutParams = if (isProviderOrOwnInstallationVisible) {
+            LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
         } else {
-            layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DisplayUtils.convertDpToPixel(isLandscape ? 100f : 150f, this));
+            LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                DisplayUtils.convertDpToPixel(if (isLandscape) 100f else 150f, this)
+            )
         }
 
-        binding.bottomLayout.setLayoutParams(layoutParams);
+        binding.bottomLayout.layoutParams = layoutParams
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        setSlideshowSize(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE);
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        setSlideshowSize(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
     }
 
-    @Override
-    public void onBackPressed() {
-        onFinish();
-
-        if (getIntent().getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
-            super.onBackPressed();
-        } else {
-            Intent intent = new Intent(getApplicationContext(), AuthenticatorActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra(EXTRA_EXIT, true);
-            startActivity(intent);
-            finish();
-        }
+    private fun onFinish() {
+        preferences?.lastSeenVersionCode = BuildConfig.VERSION_CODE
     }
 
-    private void onFinish() {
-        preferences.setLastSeenVersionCode(BuildConfig.VERSION_CODE);
+    override fun onStop() {
+        onFinish()
+        super.onStop()
     }
 
-    @Override
-    protected void onStop() {
-        onFinish();
-
-        super.onStop();
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
         // unused but to be implemented due to abstract parent
     }
 
-    @Override
-    public void onPageSelected(int position) {
-        binding.progressIndicator.animateToStep(position + 1);
+    override fun onPageSelected(position: Int) {
+        binding.progressIndicator.animateToStep(position + 1)
     }
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
+    override fun onPageScrollStateChanged(state: Int) {
         // unused but to be implemented due to abstract parent
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (FIRST_RUN_RESULT_CODE == requestCode && RESULT_OK == resultCode) {
+    companion object {
+        const val EXTRA_ALLOW_CLOSE = "ALLOW_CLOSE"
+        const val EXTRA_EXIT = "EXIT"
 
-            String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-            Account account = userAccountManager.getAccountByName(accountName);
-
-
-            if (account == null) {
-                DisplayUtils.showSnackMessage(this, R.string.account_creation_failed);
-                return;
-            }
-
-            userAccountManager.setCurrentOwnCloudAccount(account.name);
-
-            Intent i = new Intent(this, FileDisplayActivity.class);
-            i.setAction(FileDisplayActivity.RESTART);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-
-            finish();
-        }
-    }
-
-
-    public static FeatureItem[] getFirstRun() {
-        return new FeatureItem[]{
-            new FeatureItem(R.drawable.logo, R.string.first_run_1_text, R.string.empty, true, false),
-            new FeatureItem(R.drawable.first_run_files, R.string.first_run_2_text, R.string.empty, true, false),
-            new FeatureItem(R.drawable.first_run_groupware, R.string.first_run_3_text, R.string.empty, true, false),
-            new FeatureItem(R.drawable.first_run_talk, R.string.first_run_4_text, R.string.empty, true, false)};
+        val firstRun: Array<FeatureItem>
+            get() = arrayOf(
+                FeatureItem(R.drawable.logo, R.string.first_run_1_text, R.string.empty, true, false),
+                FeatureItem(R.drawable.first_run_files, R.string.first_run_2_text, R.string.empty, true, false),
+                FeatureItem(R.drawable.first_run_groupware, R.string.first_run_3_text, R.string.empty, true, false),
+                FeatureItem(R.drawable.first_run_talk, R.string.first_run_4_text, R.string.empty, true, false)
+            )
     }
 }
