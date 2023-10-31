@@ -144,7 +144,7 @@ class ConnectivityServiceTest {
         fun `wifi is disconnected`() {
             whenever(networkInfo.isConnectedOrConnecting).thenReturn(false)
             whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
-            connectivityService.connectivity.apply {
+            connectivityService.getConnectivity().apply {
                 assertFalse(isConnected)
                 assertTrue(isWifi)
             }
@@ -153,7 +153,7 @@ class ConnectivityServiceTest {
         @Test
         fun `no active network`() {
             whenever(platformConnectivityManager.activeNetworkInfo).thenReturn(null)
-            assertSame(Connectivity.DISCONNECTED, connectivityService.connectivity)
+            assertSame(Connectivity.DISCONNECTED, connectivityService.getConnectivity())
         }
     }
 
@@ -163,8 +163,8 @@ class ConnectivityServiceTest {
         fun `connected to wifi`() {
             whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
             whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
-            assertTrue(connectivityService.connectivity.isConnected)
-            assertTrue(connectivityService.connectivity.isWifi)
+            assertTrue(connectivityService.getConnectivity().isConnected)
+            assertTrue(connectivityService.getConnectivity().isWifi)
         }
 
         @Test
@@ -184,7 +184,7 @@ class ConnectivityServiceTest {
                 )
             )
             whenever(platformConnectivityManager.allNetworkInfo).thenReturn(wifiNetworkInfoList)
-            connectivityService.connectivity.let {
+            connectivityService.getConnectivity().let {
                 assertTrue(it.isConnected)
                 assertTrue(it.isWifi)
             }
@@ -195,7 +195,7 @@ class ConnectivityServiceTest {
             whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
             whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_MOBILE)
             whenever(platformConnectivityManager.allNetworkInfo).thenReturn(arrayOf(networkInfo))
-            connectivityService.connectivity.let {
+            connectivityService.getConnectivity().let {
                 assertTrue(it.isConnected)
                 assertFalse(it.isWifi)
             }
@@ -211,7 +211,7 @@ class ConnectivityServiceTest {
             whenever(user.server).thenReturn(legacyServer)
             assertTrue(
                 "Precondition failed",
-                connectivityService.connectivity.let {
+                connectivityService.getConnectivity().let {
                     it.isConnected && it.isWifi
                 }
             )
@@ -228,19 +228,19 @@ class ConnectivityServiceTest {
         @Test
         fun `true maintenance status flag is used`() {
             mockResponse(maintenance = true, httpStatus = HttpStatus.SC_OK)
-            assertTrue(connectivityService.isInternetWalled)
+            assertTrue(connectivityService.isInternetWalled())
         }
 
         @Test
         fun `maintenance flag is ignored when non-200 HTTP code is returned`() {
             mockResponse(maintenance = false, httpStatus = HttpStatus.SC_NO_CONTENT)
-            assertTrue(connectivityService.isInternetWalled)
+            assertTrue(connectivityService.isInternetWalled())
         }
 
         @Test
         fun `status endpoint is used to determine internet state`() {
             mockResponse()
-            connectivityService.isInternetWalled
+            connectivityService.isInternetWalled()
             val urlCaptor = ArgumentCaptor.forClass(String::class.java)
             verify(requestBuilder).invoke(urlCaptor.capture())
             assertTrue("Invalid URL used to check status", urlCaptor.value.endsWith("/204"))
@@ -254,7 +254,7 @@ class ConnectivityServiceTest {
             whenever(networkInfo.isConnectedOrConnecting).thenReturn(true)
             whenever(networkInfo.type).thenReturn(ConnectivityManager.TYPE_WIFI)
             whenever(accountManager.getServerVersion(any())).thenReturn(OwnCloudVersion.nextcloud_20)
-            connectivityService.connectivity.let {
+            connectivityService.getConnectivity().let {
                 assertTrue(it.isConnected)
                 assertTrue(it.isWifi)
                 assertFalse(it.isMetered)
@@ -270,7 +270,7 @@ class ConnectivityServiceTest {
 
             // WHEN
             //      connectivity is checked
-            val result = connectivityService.isInternetWalled
+            val result = connectivityService.isInternetWalled()
 
             // THEN
             //      connection is walled
@@ -287,7 +287,7 @@ class ConnectivityServiceTest {
             //      wifi is metered
             whenever(networkCapabilities.hasCapability(any())).thenReturn(false) // this test is mocked for API M
             whenever(platformConnectivityManager.isActiveNetworkMetered).thenReturn(true)
-            connectivityService.connectivity.let {
+            connectivityService.getConnectivity().let {
                 assertTrue("should be connected", it.isConnected)
                 assertTrue("should be connected to wifi", it.isWifi)
                 assertTrue("check mocking, this check is complicated and depends on SDK version", it.isMetered)
@@ -295,7 +295,7 @@ class ConnectivityServiceTest {
 
             // WHEN
             //      connectivity is checked
-            val result = connectivityService.isInternetWalled
+            val result = connectivityService.isInternetWalled()
 
             // THEN
             //      assume internet is not walled
@@ -315,7 +315,7 @@ class ConnectivityServiceTest {
 
             // WHEN
             //      connectivity is checked
-            val result = connectivityService.isInternetWalled
+            val result = connectivityService.isInternetWalled()
 
             // THEN
             //      connection is walled
@@ -335,28 +335,28 @@ class ConnectivityServiceTest {
         @Test
         fun `status 204 means internet is not walled`() {
             mockResponse(contentLength = 0, status = HttpStatus.SC_NO_CONTENT)
-            assertFalse(connectivityService.isInternetWalled)
+            assertFalse(connectivityService.isInternetWalled())
             verify(getRequest, times(1)).execute(client)
         }
 
         @Test
         fun `status 204 and no content length means internet is not walled`() {
             mockResponse(contentLength = -1, status = HttpStatus.SC_NO_CONTENT)
-            assertFalse(connectivityService.isInternetWalled)
+            assertFalse(connectivityService.isInternetWalled())
             verify(getRequest, times(1)).execute(client)
         }
 
         @Test
         fun `other status than 204 means internet is walled`() {
             mockResponse(contentLength = 0, status = HttpStatus.SC_GONE)
-            assertTrue(connectivityService.isInternetWalled)
+            assertTrue(connectivityService.isInternetWalled())
             verify(getRequest, times(1)).execute(client)
         }
 
         @Test
         fun `index endpoint is used to determine internet state`() {
             mockResponse()
-            connectivityService.isInternetWalled
+            connectivityService.isInternetWalled()
             val urlCaptor = ArgumentCaptor.forClass(String::class.java)
             verify(requestBuilder).invoke(urlCaptor.capture())
             assertTrue("Invalid URL used to check status", urlCaptor.value.endsWith("/index.php/204"))
