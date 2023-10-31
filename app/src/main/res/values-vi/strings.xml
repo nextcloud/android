@@ -376,6 +376,8 @@
     <string name="folder_confirm_create">Tạo</string>
     <string name="folder_list_empty_headline">Không có thư mục nào</string>
     <string name="folder_picker_choose_button_text">Chọn</string>
+    <string name="folder_picker_choose_caption_text">‎Chọn thư‎‎ ‎‎mục đích‎</string>
+    <string name="folder_picker_move_button_text">Dịch chuyển</string>
     <string name="forbidden_permissions">Bạn không được cho phép %s</string>
     <string name="forbidden_permissions_copy">sao chép tập tin này</string>
     <string name="forbidden_permissions_create">tạo tập tin này</string>
@@ -883,6 +885,7 @@
     <string name="wait_a_moment">Đợi một chút…</string>
     <string name="wait_checking_credentials">Kiểm tra thông tin đăng nhập đã lưu trữ</string>
     <string name="wait_for_tmp_copy_from_private_storage">Sao chép tệp từ bộ nhớ riêng</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Cập nhật</string>
     <string name="what_s_new_image">Hình ảnh mới là gì</string>
     <string name="whats_new_skip">Bỏ qua</string>
     <string name="whats_new_title">Mới trong %1$s</string>

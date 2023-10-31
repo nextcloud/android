@@ -348,6 +348,9 @@
     <string name="folder_confirm_create">יצירה</string>
     <string name="folder_list_empty_headline">אין כאן תיקיות</string>
     <string name="folder_picker_choose_button_text">בחירה</string>
+    <string name="folder_picker_choose_caption_text">נא לבחור תיקיית יעד</string>
+    <string name="folder_picker_copy_button_text">העתקה</string>
+    <string name="folder_picker_move_button_text">העברה</string>
     <string name="forbidden_permissions">אין לך הרשאה %s</string>
     <string name="forbidden_permissions_copy">להעתיק את הקובץ הזה</string>
     <string name="forbidden_permissions_create">ליצור את הקובץ הזה</string>
@@ -807,6 +810,7 @@
     <string name="wait_a_moment">נא להמתין רגע…</string>
     <string name="wait_checking_credentials">בודק אישורים שמורים</string>
     <string name="wait_for_tmp_copy_from_private_storage">מעתיק קובץ מאחסון פרטי</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">עדכון</string>
     <string name="what_s_new_image">תמונת מה חדש</string>
     <string name="whats_new_skip">דלג</string>
     <string name="whats_new_title">חדש ב־%1$s</string>

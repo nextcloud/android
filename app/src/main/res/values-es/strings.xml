@@ -253,7 +253,7 @@
     <string name="e2e_offline">No es posible sin conexión a internet</string>
     <string name="ecosystem_apps_display_more">Más</string>
     <string name="ecosystem_apps_display_notes">Notas</string>
-    <string name="ecosystem_apps_display_talk">Coloquio</string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">Más apps de Nextcloud</string>
     <string name="ecosystem_apps_notes">Nextcloud Notas</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>

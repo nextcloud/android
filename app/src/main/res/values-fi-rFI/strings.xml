@@ -380,6 +380,8 @@
     <string name="folder_confirm_create">Luo</string>
     <string name="folder_list_empty_headline">Ei kansioita täällä</string>
     <string name="folder_picker_choose_button_text">Valitse</string>
+    <string name="folder_picker_choose_caption_text">Valitse kohdekansio</string>
+    <string name="folder_picker_move_button_text">Siirrä</string>
     <string name="forbidden_permissions">Sinulla ei ole oikeutta %s</string>
     <string name="forbidden_permissions_copy">kopioida tämä tiedosto</string>
     <string name="forbidden_permissions_create">luoda tätä tiedostoa</string>

@@ -17,32 +17,21 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.ui
 
-package com.nextcloud.ui;
-
-import android.content.Context;
-import android.util.AttributeSet;
-
-import com.elyeproj.loaderviewlibrary.LoaderImageView;
+import android.content.Context
+import android.util.AttributeSet
+import com.elyeproj.loaderviewlibrary.LoaderImageView
 
 /**
  * Square version of loader image.
  */
-class SquareLoaderImageView extends LoaderImageView {
-    public SquareLoaderImageView(Context context) {
-        super(context);
-    }
+internal class SquareLoaderImageView : LoaderImageView {
+    constructor(context: Context?) : super(context)
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
 
-    public SquareLoaderImageView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public SquareLoaderImageView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, widthMeasureSpec);
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, widthMeasureSpec)
     }
 }

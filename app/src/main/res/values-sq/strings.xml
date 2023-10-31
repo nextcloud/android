@@ -312,6 +312,8 @@
     <string name="folder_confirm_create">Krijo</string>
     <string name="folder_list_empty_headline">Këtu nuk ka dosje</string>
     <string name="folder_picker_choose_button_text">Zgjidhni</string>
+    <string name="folder_picker_copy_button_text">Kopjoni</string>
+    <string name="folder_picker_move_button_text">Zhvendos</string>
     <string name="forbidden_permissions">Nuk keni leje %s</string>
     <string name="forbidden_permissions_copy">për kopjim të kësaj kartele</string>
     <string name="forbidden_permissions_create">për krijim kartele</string>
@@ -732,6 +734,7 @@
     <string name="wait_a_moment">Prisni një moment…</string>
     <string name="wait_checking_credentials">Po kontrollohen kredenciale të depozituara</string>
     <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet skedar nga depo private</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Përditëso</string>
     <string name="what_s_new_image">Imazhi me çfarë është e re</string>
     <string name="whats_new_skip">Kalo</string>
     <string name="whats_new_title">I ri në %1$s</string>

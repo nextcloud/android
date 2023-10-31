@@ -392,6 +392,9 @@
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">Aquí non hai cartafoles</string>
     <string name="folder_picker_choose_button_text">Escoller</string>
+    <string name="folder_picker_choose_caption_text">Escoller o cartafol de destino</string>
+    <string name="folder_picker_copy_button_text">Copiar</string>
+    <string name="folder_picker_move_button_text">Mover</string>
     <string name="forbidden_permissions">Non ten permiso %s</string>
     <string name="forbidden_permissions_copy">copiar este ficheiro</string>
     <string name="forbidden_permissions_create">para crear este ficheiro</string>

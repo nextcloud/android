@@ -363,6 +363,9 @@
     <string name="folder_confirm_create">Sukurti</string>
     <string name="folder_list_empty_headline">Čia aplankų nėra</string>
     <string name="folder_picker_choose_button_text">Pasirinkti</string>
+    <string name="folder_picker_choose_caption_text">Pasirinkite paskirties aplanką</string>
+    <string name="folder_picker_copy_button_text">Kopija</string>
+    <string name="folder_picker_move_button_text">Perkelti</string>
     <string name="forbidden_permissions">Neturite leidimo %s</string>
     <string name="forbidden_permissions_copy">kopijuoti failo</string>
     <string name="forbidden_permissions_create">Sukurti failą</string>
@@ -851,6 +854,7 @@
     <string name="wait_a_moment">Palaukite…</string>
     <string name="wait_checking_credentials">Dekriptuojami prisijungimo duomenys</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopijuojamas failas iš privačios saugyklos</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Atnaujinti</string>
     <string name="what_s_new_image">Koks naujas vaizdas</string>
     <string name="whats_new_skip">Praleisti</string>
     <string name="whats_new_title">Naujas %1$s</string>

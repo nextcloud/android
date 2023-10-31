@@ -329,6 +329,8 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="folder_confirm_create">Buat</string>
     <string name="folder_list_empty_headline">Tidak ada folder</string>
     <string name="folder_picker_choose_button_text">Pilih</string>
+    <string name="folder_picker_choose_caption_text">Pilih folder target</string>
+    <string name="folder_picker_move_button_text">Pindah</string>
     <string name="forbidden_permissions">Anda tidak memiliki izin %s</string>
     <string name="forbidden_permissions_copy">untuk menyalin berkas ini</string>
     <string name="forbidden_permissions_create">untuk membuat berkas ini</string>
@@ -668,6 +670,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="wait_a_moment">Tunggu sebentar…</string>
     <string name="wait_checking_credentials">Mengecek kredensial yang tersimpan</string>
     <string name="wait_for_tmp_copy_from_private_storage">Menyalin berkas dari penyimpanan pribadi</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Perbarui</string>
     <string name="whats_new_skip">Lewat</string>
     <string name="whats_new_title">Apa yang baru di %1$s</string>
     <string name="write_email">Kirim surel</string>

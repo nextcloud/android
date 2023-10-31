@@ -392,6 +392,9 @@
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
     <string name="folder_picker_choose_button_text">Wybierz</string>
+    <string name="folder_picker_choose_caption_text">Wybierz katalog docelowy</string>
+    <string name="folder_picker_copy_button_text">Skopiuj</string>
+    <string name="folder_picker_move_button_text">Przenieś</string>
     <string name="forbidden_permissions">Nie masz uprawnień %s</string>
     <string name="forbidden_permissions_copy">do kopiowania tego pliku</string>
     <string name="forbidden_permissions_create">do utworzenia tego pliku</string>
@@ -941,6 +944,7 @@
     <string name="wait_a_moment">Proszę czekać…</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego magazynu</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Aktualizuj</string>
     <string name="what_s_new_image">Jaki jest nowy obraz</string>
     <string name="whats_new_skip">Pomiń</string>
     <string name="whats_new_title">Co nowego w %1$s</string>

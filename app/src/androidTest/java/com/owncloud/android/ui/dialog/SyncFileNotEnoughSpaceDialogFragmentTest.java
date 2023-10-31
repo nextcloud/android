@@ -45,6 +45,7 @@ public class SyncFileNotEnoughSpaceDialogFragmentTest extends AbstractIT {
         FileDisplayActivity test = activityRule.launchActivity(null);
         OCFile ocFile = new OCFile("/Document/");
         ocFile.setFileLength(5000000);
+        ocFile.setFolder();
 
         SyncFileNotEnoughSpaceDialogFragment dialog = SyncFileNotEnoughSpaceDialogFragment.newInstance(ocFile, 1000);
         dialog.show(test.getListOfFilesFragment().getFragmentManager(), "1");
