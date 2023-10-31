@@ -73,7 +73,7 @@ class SendFilesDialog : BottomSheetDialogFragment(R.layout.send_files_fragment),
         binding = SendFilesFragmentBinding.inflate(inflater, container, false)
 
         setupSendButtonRecyclerView()
-        viewThemeUtils?.platform?.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE_VARIANT)
+        viewThemeUtils?.platform?.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE)
 
         return binding.root
     }
