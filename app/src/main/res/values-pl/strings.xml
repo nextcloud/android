@@ -15,7 +15,9 @@
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
     <string name="actionbar_calendar_contacts_restore">Przywróć kontakty i kalendarz</string>
+    <string name="actionbar_copy">Kopiuj</string>
     <string name="actionbar_mkdir">Nowy katalog</string>
+    <string name="actionbar_move">Przenieś</string>
     <string name="actionbar_open_with">Otwórz za pomocą</string>
     <string name="actionbar_search">Wyszukaj</string>
     <string name="actionbar_see_details">Szczegóły</string>
@@ -90,6 +92,7 @@
     <string name="check_back_later_or_reload">Sprawdź później lub załaduj ponownie.</string>
     <string name="checkbox">Pole checkbox</string>
     <string name="choose_local_folder">Wybierz katalog lokalny…</string>
+    <string name="choose_location">Wybierz lokację</string>
     <string name="choose_remote_folder">Wybierz katalog zdalny…</string>
     <string name="choose_template_helper_text">Wybierz szablon i wprowadź nazwę pliku.</string>
     <string name="choose_which_file">Wybierz, który plik chcesz zachować!</string>
@@ -119,6 +122,7 @@
     <string name="common_remove">Usuń</string>
     <string name="common_rename">Zmień nazwę</string>
     <string name="common_save">Zapisz</string>
+    <string name="common_select">Wybierz</string>
     <string name="common_send">Wyślij</string>
     <string name="common_share">Udostępnij</string>
     <string name="common_skip">Pomiń</string>
@@ -170,6 +174,7 @@
     <string name="copy_file_not_found">Nie można skopiować. Sprawdź, czy plik istnieje.</string>
     <string name="copy_link">Kopiuj link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiuj/przenieś do zaszyfrowanego katalogu, który nie jest obecnie obsługiwany.</string>
+    <string name="copy_to">Kopiuj do…</string>
     <string name="could_not_download_image">Nie można pobrać pełnego obrazu</string>
     <string name="could_not_retrieve_shares">Nie udało się pobrać udziałów</string>
     <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
@@ -386,6 +391,10 @@
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
+    <string name="folder_picker_choose_button_text">Wybierz</string>
+    <string name="folder_picker_choose_caption_text">Wybierz katalog docelowy</string>
+    <string name="folder_picker_copy_button_text">Skopiuj</string>
+    <string name="folder_picker_move_button_text">Przenieś</string>
     <string name="forbidden_permissions">Nie masz uprawnień %s</string>
     <string name="forbidden_permissions_copy">do kopiowania tego pliku</string>
     <string name="forbidden_permissions_create">do utworzenia tego pliku</string>
@@ -487,6 +496,7 @@
     <string name="move_file_invalid_into_descendent">Nie można przenieść katalogu do jednego z jego podkatalogów</string>
     <string name="move_file_invalid_overwrite">Plik już istnieje w katalogu docelowym</string>
     <string name="move_file_not_found">Nie można przenieść. Sprawdź, czy plik istnieje.</string>
+    <string name="move_to">Przenieś do…</string>
     <string name="network_error_connect_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji.</string>
     <string name="network_error_socket_exception">Wystąpił błąd podczas połączenia z serwerem</string>
     <string name="network_error_socket_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji.</string>
@@ -730,6 +740,12 @@
     <string name="signup_with_provider">Zarejestruj się u usługodawcy</string>
     <string name="single_sign_on_request_token" formatted="true">Zezwolić %1$s na dostęp do Twojego konta Nextcloud %2$s?</string>
     <string name="sort_by">Sortuj według</string>
+    <string name="sort_by_modification_date_ascending">Od najnowszych</string>
+    <string name="sort_by_modification_date_descending">Od najstarszych</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_size_ascending">Od najmniejszych</string>
+    <string name="sort_by_size_descending">Od największych</string>
     <string name="ssl_validator_btn_details_hide">Ukryj</string>
     <string name="ssl_validator_btn_details_see">Szczegóły</string>
     <string name="ssl_validator_header">Nie można zweryfikować identyfikacji serwera</string>
@@ -928,6 +944,7 @@
     <string name="wait_a_moment">Proszę czekać…</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego magazynu</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Aktualizuj</string>
     <string name="what_s_new_image">Jaki jest nowy obraz</string>
     <string name="whats_new_skip">Pomiń</string>
     <string name="whats_new_title">Co nowego w %1$s</string>

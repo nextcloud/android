@@ -14,7 +14,9 @@
     <string name="action_send_share">Senda/Deila</string>
     <string name="action_switch_grid_view">Reitasýn</string>
     <string name="action_switch_list_view">Listasýn</string>
+    <string name="actionbar_copy">Afrita</string>
     <string name="actionbar_mkdir">Ný mappa</string>
+    <string name="actionbar_move">Færa</string>
     <string name="actionbar_open_with">Opna með</string>
     <string name="actionbar_search">Leita</string>
     <string name="actionbar_see_details">Nánar</string>
@@ -83,6 +85,7 @@
     <string name="changelog_dev_version">Breytingaskrá þróunarútgáfu</string>
     <string name="checkbox">Gátreitur</string>
     <string name="choose_local_folder">Veldu staðværa möppu…</string>
+    <string name="choose_location">Veldu staðsetningu</string>
     <string name="choose_remote_folder">Veldu fjartengda möppu…</string>
     <string name="choose_which_file">Veldu hvaða skrá á að halda!</string>
     <string name="clear_notifications_failed">Mistókst að hreinsa tilkynningar.</string>
@@ -110,6 +113,7 @@
     <string name="common_remove">Eyða</string>
     <string name="common_rename">Endurnefna</string>
     <string name="common_save">Vista</string>
+    <string name="common_select">Velja</string>
     <string name="common_send">Senda</string>
     <string name="common_share">Deila</string>
     <string name="common_skip">Sleppa</string>
@@ -158,6 +162,7 @@
     <string name="copy_file_not_found">Get ekki afritað. Athugaðu hvort skráin sé til.</string>
     <string name="copy_link">Afrita tengil</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Ekki er stuðningur ennþá við afritun/færslu inn í dulritaða möppu.</string>
+    <string name="copy_to">Afrita í</string>
     <string name="could_not_download_image">Gat ekki sótt alla myndina</string>
     <string name="could_not_retrieve_shares">Tókst ekki að ná í sameignir</string>
     <string name="could_not_retrieve_url">Tókst ekki að ná í slóð</string>
@@ -334,6 +339,9 @@
     <string name="folder_already_exists">Mappa er þegar til staðar</string>
     <string name="folder_confirm_create">Búa til</string>
     <string name="folder_list_empty_headline">Engar möppur hér</string>
+    <string name="folder_picker_choose_button_text">Velja</string>
+    <string name="folder_picker_choose_caption_text">Veldu úttaksmöppu</string>
+    <string name="folder_picker_move_button_text">Færa</string>
     <string name="forbidden_permissions">Þú hefur ekki heimild %s</string>
     <string name="forbidden_permissions_copy">til að afrita þessa skrá</string>
     <string name="forbidden_permissions_create">til að búa til þessa skrá</string>
@@ -407,6 +415,7 @@
     <string name="move_file_invalid_into_descendent">Ekki er hægt að færa möppu inn í eina af undirmöppum sínum</string>
     <string name="move_file_invalid_overwrite">Skráin er þegar til í móttökumöppunni</string>
     <string name="move_file_not_found">Get ekki fært skrá. Athugaðu hvort hún sé til.</string>
+    <string name="move_to">Færa í…</string>
     <string name="network_error_connect_timeout_exception">Villa kom upp á meðan beðið var eftir þjóninum. Ekki var hægt að ljúka aðgerðinni.</string>
     <string name="network_error_socket_exception">Villa kom upp við að tengjast þjóninum</string>
     <string name="network_error_socket_timeout_exception">Villa kom upp á meðan beðið var eftir þjóninum. Ekki var hægt að ljúka aðgerðinni.</string>
@@ -597,6 +606,12 @@
     <string name="signup_with_provider">Skráðu þig hjá þjónustu</string>
     <string name="single_sign_on_request_token" formatted="true">Leyfa %1$s að að fá aðgang að %2$s Nextcloud-aðgangnum þínum?</string>
     <string name="sort_by">Raða eftir</string>
+    <string name="sort_by_modification_date_ascending">Nýjast fyrst</string>
+    <string name="sort_by_modification_date_descending">Elsta fyrst</string>
+    <string name="sort_by_name_ascending">A-Ö</string>
+    <string name="sort_by_name_descending">Ö-A</string>
+    <string name="sort_by_size_ascending">minnsta fyrst</string>
+    <string name="sort_by_size_descending">stærsta fyrst</string>
     <string name="ssl_validator_btn_details_hide">Fela</string>
     <string name="ssl_validator_btn_details_see">Nánar</string>
     <string name="ssl_validator_header">Ekki tókst að sannvotta auðkenni þjónsins</string>
@@ -780,6 +795,7 @@
     <string name="wait_a_moment">Bíddu augnablik…</string>
     <string name="wait_checking_credentials">Athuga geymd auðkenni</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Uppfæra</string>
     <string name="what_s_new_image">Mynd fyrir \'Hvað er nýtt\'</string>
     <string name="whats_new_skip">Sleppa</string>
     <string name="whats_new_title">(Nýtt í %s)</string>

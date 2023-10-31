@@ -15,7 +15,9 @@
     <string name="action_switch_grid_view">ເບິ່ງຕາຕະລາງ</string>
     <string name="action_switch_list_view">ລາຍການທີ່ຈະເບິ່ງ</string>
     <string name="actionbar_calendar_contacts_restore">ກູ້ຄືນຂໍ້ມູນຕິດຕໍ່ &amp; ປະຕິທິນ</string>
+    <string name="actionbar_copy">ສຳເນົາ</string>
     <string name="actionbar_mkdir">ໂຟນເດີໃຫມ່</string>
+    <string name="actionbar_move">ຍ້າຍ</string>
     <string name="actionbar_open_with">ເປີດດ້ວຍ</string>
     <string name="actionbar_search">ຄົ້ນຫາ</string>
     <string name="actionbar_see_details">ລາຍລະອຽດ</string>
@@ -116,6 +118,7 @@
     <string name="common_remove">ລຶບ</string>
     <string name="common_rename">ປ່ຽນຊື່</string>
     <string name="common_save">ບັນທຶກ</string>
+    <string name="common_select">ເລືອກ</string>
     <string name="common_send">ສົ່ງ</string>
     <string name="common_share">ແບ່ງປັນ</string>
     <string name="common_skip">ຂ້າມ</string>
@@ -163,6 +166,7 @@
     <string name="copy_file_not_found">ບໍ່ສາມາດສໍາເນົາໄດ້. ກະລຸນາກວດເບິ່ງວ່າຟາຍມີຢູ່ ຫຼື ບໍ່.</string>
     <string name="copy_link">ສຳເນົາລິງ</string>
     <string name="copy_move_to_encrypted_folder_not_supported">ສໍາເນົາ/ຍ້າຍເຂົ້າໃນໂຟນເດີທີ່ຖືກເຂົ້າລະຫັດໃນປະຈຸບັນບໍ່ໄດ້ຮັບການສະຫນັບສະຫນູນ</string>
+    <string name="copy_to">ສຳເນົາໄປຍັງ....</string>
     <string name="could_not_download_image">ບໍ່ສາມາດດາວໂຫລດຮູບພາບເຕັມ</string>
     <string name="could_not_retrieve_shares">ບໍ່ສາມາດເອົາການແບ່ງປັນຄືນໄດ້</string>
     <string name="could_not_retrieve_url">ບໍ່ສາມາດເກັບURL ໄດ້</string>
@@ -337,6 +341,9 @@
     <string name="folder_already_exists">ໂຟນເດີມີຢຸ່ແລ້ວ</string>
     <string name="folder_confirm_create">ສ້າງ</string>
     <string name="folder_list_empty_headline">ບໍ່ມີໂຟນເດີ</string>
+    <string name="folder_picker_choose_button_text">ເລືອກ</string>
+    <string name="folder_picker_copy_button_text">ສຳເນົາ</string>
+    <string name="folder_picker_move_button_text">ຍ້າຍ</string>
     <string name="forbidden_permissions">ບໍ່ໄດ້ຮັບອານຸຍາດ%s</string>
     <string name="forbidden_permissions_copy">ສໍາເນົາຟາຍນີ້</string>
     <string name="forbidden_permissions_create">ສ້າງຟາຍນີ້</string>
@@ -407,6 +414,7 @@
     <string name="move_file_invalid_into_descendent">ມັນເປັນໄປບໍ່ໄດ້ທີ່ຈະຍ້າຍໂຟນເດີເຂົ້າໄປໃນ ຫນຶ່ງໃນໂຟນເດີພື້ນຖານຂອງມັນເອງ</string>
     <string name="move_file_invalid_overwrite">ຟາຍແມ່ນມີຢູ່ແລ້ວໃນໂຟນເດີຈຸດຫມາຍປາຍທາງ</string>
     <string name="move_file_not_found">ບໍ່ສາມາດເຄື່ອນຍ້າຍຟາຍໄດ້. ກະລຸນາກວດເບິ່ງວ່າມີຢູ່ ຫຼື ບໍ່.</string>
+    <string name="move_to">ຍ້າຍໄປ...</string>
     <string name="network_error_connect_timeout_exception">ມີຂໍ້ຜິດພາດເກີດຂຶ້ນໃນຂະນະທີ່ລໍຖ້າເຊີເວີ. ບໍ່ສາມາດດໍາເນີນການໄດ້ຢ່າງຄົບຖ້ວນ.</string>
     <string name="network_error_socket_exception">ເກີດຂໍ້ຜິດພາດໃນລະຫວ່າງການເຊື່ອມຕໍ່ກັບເຊີເວີ</string>
     <string name="network_error_socket_timeout_exception">ມີຂໍ້ຜິດພາດເກີດຂຶ້ນໃນຂະນະທີ່ລໍຖ້າເຊີເວີ. ບໍ່ສາມາດດໍາເນີນການໄດ້ຢ່າງຄົບຖ້ວນ.</string>
@@ -607,6 +615,12 @@
     <string name="signup_with_provider">ລົງທະບຽນກັບຜູ້ໃຫ້ບໍລິການ</string>
     <string name="single_sign_on_request_token" formatted="true">ອະນຸຍາດ%1$sໃຫ້ເຂົ້າບັນຊີ Nextcloud ຂອງທ່ານ%2$s?</string>
     <string name="sort_by">ຈັດລຽງໂດຍ</string>
+    <string name="sort_by_modification_date_ascending">ໃໝ່ທີ່ສຸດກ່ອນ</string>
+    <string name="sort_by_modification_date_descending">ເກົ່າທີ່ສຸດກ່ອນ</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_size_ascending">ນ້ອຍທີ່ສຸດກ່ອນ</string>
+    <string name="sort_by_size_descending">ໃຫຍ່ທີ່ສຸດກ່ອນ</string>
     <string name="ssl_validator_btn_details_hide">ເຊື່ຶອງ</string>
     <string name="ssl_validator_btn_details_see">ລາຍລະອຽດ</string>
     <string name="ssl_validator_header">ການລະບຸຕົວຕົນຂອງເຊີເວີ ບໍ່ສາມາດຢັ້ງຢືນໄດ້</string>

@@ -15,7 +15,9 @@
     <string name="action_switch_grid_view">عرض شبكي</string>
     <string name="action_switch_list_view">عرض على شكل قائمة</string>
     <string name="actionbar_calendar_contacts_restore">استعادة جهات الاتصال &amp; التقويم</string>
+    <string name="actionbar_copy">نسخ</string>
     <string name="actionbar_mkdir">مجلد جديد</string>
+    <string name="actionbar_move">نقل</string>
     <string name="actionbar_open_with">فتح باستخدام</string>
     <string name="actionbar_search">بحث</string>
     <string name="actionbar_see_details">تفاصيل</string>
@@ -90,6 +92,7 @@
     <string name="check_back_later_or_reload">عُد إليه فيما بعد أو أعد تحميله</string>
     <string name="checkbox">مربع تحقق</string>
     <string name="choose_local_folder">اختر المجلد المحلي…</string>
+    <string name="choose_location">اختر الموقع</string>
     <string name="choose_remote_folder">اختر مجلد عن بُعد…</string>
     <string name="choose_template_helper_text">اختر قالب وادخل اسم الملف</string>
     <string name="choose_which_file">اختر أي من أياً من الملفات التالية التي تريد الإحتفاظ بها!</string>
@@ -119,6 +122,7 @@
     <string name="common_remove">إزالة</string>
     <string name="common_rename">إعادة التسمية</string>
     <string name="common_save">حفظ</string>
+    <string name="common_select">تحديد</string>
     <string name="common_send">إرسال</string>
     <string name="common_share">مشاركة</string>
     <string name="common_skip">تخطي</string>
@@ -170,6 +174,7 @@
     <string name="copy_file_not_found">تعذّر النسخ. يرجى التحقق من وجود الملف.</string>
     <string name="copy_link">نسخ الرابط</string>
     <string name="copy_move_to_encrypted_folder_not_supported">النسخ أو النقل إلى مجلد مشفر حالياً غير مدعوم.</string>
+    <string name="copy_to">انسخه إلى…</string>
     <string name="could_not_download_image">لايمكن تحميل الصورة بأكملها</string>
     <string name="could_not_retrieve_shares">لايمكن استعادة المشاركات</string>
     <string name="could_not_retrieve_url">لا يمكن استرجاع الرابط</string>
@@ -386,6 +391,7 @@
     <string name="folder_already_exists">المجلد موجود مسبقاً</string>
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
+    <string name="folder_picker_choose_button_text">اختيار</string>
     <string name="forbidden_permissions">غير مسموح لك أن %s</string>
     <string name="forbidden_permissions_copy">لنسخ هذا الملف</string>
     <string name="forbidden_permissions_create">لإنشاء هذا الملف</string>
@@ -491,6 +497,7 @@
     <string name="move_file_invalid_into_descendent">لا يمكن نقل مجلد في مجلدات هوَّ يتضمنها</string>
     <string name="move_file_invalid_overwrite">هذا الملف موجود حالياً في المجلد المُّسّتَقبِل</string>
     <string name="move_file_not_found">غير قادر على نقل الملف. يرجى التحقق مما إذا كان موجوداً.</string>
+    <string name="move_to">نقل إلى…</string>
     <string name="network_error_connect_timeout_exception">حدث خطأ أثناء انتظار الخادم. تعذر إكمال العملية.</string>
     <string name="network_error_socket_exception">حدث خطأ أثناء الاتصال بالخادم</string>
     <string name="network_error_socket_timeout_exception">حدث خطأ أثناء انتظار الخادم. تعذر إكمال العملية.</string>
@@ -735,6 +742,12 @@
     <string name="signup_with_provider">التسجيل عبر مزوّد خدمة</string>
     <string name="single_sign_on_request_token" formatted="true">هل تسمح لـ%1$s بالوصول إلى حسابك %2$s في Nextcloud؟</string>
     <string name="sort_by">ترتيب</string>
+    <string name="sort_by_modification_date_ascending">الأحدث أولا</string>
+    <string name="sort_by_modification_date_descending">الأقدم أولا</string>
+    <string name="sort_by_name_ascending">أ - ى</string>
+    <string name="sort_by_name_descending">ى -أ</string>
+    <string name="sort_by_size_ascending">الأصغر حجما أولا</string>
+    <string name="sort_by_size_descending">الأكبر حجما أولا</string>
     <string name="ssl_validator_btn_details_hide">إخفاء</string>
     <string name="ssl_validator_btn_details_see">تفاصيل</string>
     <string name="ssl_validator_header">لا يمكن التحقق من هوية الخادم</string>

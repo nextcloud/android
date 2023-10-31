@@ -15,7 +15,9 @@
     <string name="action_switch_grid_view">Vista em grade</string>
     <string name="action_switch_list_view">Lista de visualização</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar contatos &amp; calendário</string>
+    <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Nova pasta</string>
+    <string name="actionbar_move">Mover</string>
     <string name="actionbar_open_with">Abrir com</string>
     <string name="actionbar_search">Pesquisar</string>
     <string name="actionbar_see_details">Detalhes</string>
@@ -90,6 +92,7 @@
     <string name="check_back_later_or_reload">Volte mais tarde ou recarregue.</string>
     <string name="checkbox">Caixa de marcação</string>
     <string name="choose_local_folder">Escolher pasta local…</string>
+    <string name="choose_location">Escolha a localização</string>
     <string name="choose_remote_folder">Escolher pasta remota…</string>
     <string name="choose_template_helper_text">Escolha um modelo e insira um nome de arquivo. </string>
     <string name="choose_which_file">Escolha qual arquivo manter!</string>
@@ -119,6 +122,7 @@
     <string name="common_remove">Excluir</string>
     <string name="common_rename">Renomear</string>
     <string name="common_save">Salvar</string>
+    <string name="common_select">Selecionar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartilhar</string>
     <string name="common_skip">Ignorar</string>
@@ -170,6 +174,7 @@
     <string name="copy_file_not_found">Não foi possível copiar. Verifique se o arquivo existe.</string>
     <string name="copy_link">Copiar link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Ainda não há suporte para cópia/movimentação em pasta criptografada.</string>
+    <string name="copy_to">Copiar para…</string>
     <string name="could_not_download_image">Não foi possível baixar a imagem completa</string>
     <string name="could_not_retrieve_shares">Não foi possível recuperar os compartilhamentos</string>
     <string name="could_not_retrieve_url">Não foi possível recuperar a URL</string>
@@ -386,6 +391,10 @@
     <string name="folder_already_exists">Pasta já existe</string>
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
+    <string name="folder_picker_choose_button_text">Escolher</string>
+    <string name="folder_picker_choose_caption_text">Escolher pasta destino</string>
+    <string name="folder_picker_copy_button_text">Copiar</string>
+    <string name="folder_picker_move_button_text">Mover</string>
     <string name="forbidden_permissions">Você não tem permissão %s</string>
     <string name="forbidden_permissions_copy">para copiar este arquivo</string>
     <string name="forbidden_permissions_create">para criar este arquivo</string>
@@ -487,6 +496,7 @@
     <string name="move_file_invalid_into_descendent">Não é possível mover uma pasta para uma das suas próprias pastas subjacentes</string>
     <string name="move_file_invalid_overwrite">O arquivo já está presente na pasta destino</string>
     <string name="move_file_not_found">Não foi possível mover o arquivo. Verifique se ele existe.</string>
+    <string name="move_to">Mover para…</string>
     <string name="network_error_connect_timeout_exception">Ocorreu um erro ao esperar pelo servidor. Não foi possível completar a operação.</string>
     <string name="network_error_socket_exception">Um erro ocorreu durante a conexão ao servidor</string>
     <string name="network_error_socket_timeout_exception">Ocorreu um erro ao esperar pelo servidor. Não foi possível completar a operação.</string>
@@ -730,6 +740,12 @@
     <string name="signup_with_provider">Registre-se com um provedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitir %1$s acesso à sua conta %2$s?</string>
     <string name="sort_by">Ordenar por</string>
+    <string name="sort_by_modification_date_ascending">Mais novos primeiro</string>
+    <string name="sort_by_modification_date_descending">Mais antigos primeiro</string>
+    <string name="sort_by_name_ascending">A - Z</string>
+    <string name="sort_by_name_descending">Z - A</string>
+    <string name="sort_by_size_ascending">Menores primeiro</string>
+    <string name="sort_by_size_descending">Maiores primeiro</string>
     <string name="ssl_validator_btn_details_hide">Ocultar</string>
     <string name="ssl_validator_btn_details_see">Detalhes</string>
     <string name="ssl_validator_header">A identidade do servidor não pôde ser verificada</string>
@@ -928,6 +944,7 @@
     <string name="wait_a_moment">Aguarde um momento…</string>
     <string name="wait_checking_credentials">Verificando credenciais salvas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o arquivo da armazenagem privada</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Atualizar</string>
     <string name="what_s_new_image">Imagem nova</string>
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_new_title">Novo em %1$s</string>
