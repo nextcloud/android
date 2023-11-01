@@ -86,6 +86,7 @@ class WhatsNewActivity : FragmentActivity(), ViewPager.OnPageChangeListener, Inj
         handleOnBackPressed()
     }
 
+    @Suppress("SpreadOperator")
     private fun setupFeatureViewAdapter(showWebView: Boolean, urls: Array<String>) {
         val adapter = if (showWebView) {
             FeaturesWebViewAdapter(supportFragmentManager, *urls)
@@ -155,12 +156,14 @@ class WhatsNewActivity : FragmentActivity(), ViewPager.OnPageChangeListener, Inj
         preferences?.lastSeenVersionCode = BuildConfig.VERSION_CODE
     }
 
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-
     override fun onPageSelected(position: Int) {
         binding.progressIndicator.animateToStep(position + 1)
         updateNextButtonIfNeeded()
     }
 
+    @Suppress("EmptyFunctionBlock")
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+    @Suppress("EmptyFunctionBlock")
     override fun onPageScrollStateChanged(state: Int) {}
 }
