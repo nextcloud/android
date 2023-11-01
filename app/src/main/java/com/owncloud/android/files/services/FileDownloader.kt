@@ -87,21 +87,17 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
     private var conflictUploadId: Long = 0
     var mStartedDownload = false
 
-    @JvmField
     @Inject
-    var accountManager: UserAccountManager? = null
+    lateinit var accountManager: UserAccountManager
 
-    @JvmField
     @Inject
-    var uploadsStorageManager: UploadsStorageManager? = null
+    lateinit var uploadsStorageManager: UploadsStorageManager
 
-    @JvmField
     @Inject
-    var localBroadcastManager: LocalBroadcastManager? = null
+    lateinit var localBroadcastManager: LocalBroadcastManager
 
-    @JvmField
     @Inject
-    var viewThemeUtils: ViewThemeUtils? = null
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     /**
      * Service initialization
@@ -272,7 +268,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
 
     override fun onAccountsUpdated(accounts: Array<Account>) {
         // review the current download and cancel it if its account doesn't exist
-        if (mCurrentDownload != null && !accountManager!!.exists(mCurrentDownload!!.user.toPlatformAccount())) {
+        if (mCurrentDownload != null && !accountManager.exists(mCurrentDownload!!.user.toPlatformAccount())) {
             mCurrentDownload!!.cancel()
         }
         // The rest of downloads are cancelled when they try to start
@@ -436,7 +432,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
         mCurrentDownload = mPendingDownloads[downloadKey]
 
         if (mCurrentDownload != null) {
-            val isAccountExist = accountManager?.exists(mCurrentDownload!!.user.toPlatformAccount())
+            val isAccountExist = accountManager.exists(mCurrentDownload!!.user.toPlatformAccount())
 
             if (isAccountExist == true) {
                 notifyDownloadStart(mCurrentDownload!!)
@@ -444,7 +440,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
                 try {
                     // / prepare client object to send the request to the ownCloud server
                     val currentDownloadAccount = mCurrentDownload!!.user.toPlatformAccount()
-                    val currentDownloadUser = accountManager!!.getUser(currentDownloadAccount.name)
+                    val currentDownloadUser = accountManager.getUser(currentDownloadAccount.name)
                     if (currentUser != currentDownloadUser) {
                         currentUser = currentDownloadUser
                         mStorageManager = FileDataStorageManager(currentUser.get(), contentResolver)
@@ -592,7 +588,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
         if (!downloadResult.isCancelled) {
             if (downloadResult.isSuccess) {
                 if (conflictUploadId > 0) {
-                    uploadsStorageManager!!.removeUpload(conflictUploadId)
+                    uploadsStorageManager.removeUpload(conflictUploadId)
                 }
                 // Don't show notification except an error has occurred.
                 return
@@ -701,7 +697,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
             end.putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
         }
         end.setPackage(packageName)
-        localBroadcastManager!!.sendBroadcast(end)
+        localBroadcastManager.sendBroadcast(end)
     }
 
     /**
@@ -719,7 +715,7 @@ class FileDownloader : Service(), OnDatatransferProgressListener, OnAccountsUpda
         added.putExtra(EXTRA_REMOTE_PATH, download.remotePath)
         added.putExtra(EXTRA_LINKED_TO_PATH, linkedToRemotePath)
         added.setPackage(packageName)
-        localBroadcastManager!!.sendBroadcast(added)
+        localBroadcastManager.sendBroadcast(added)
     }
 
     private fun cancelPendingDownloads(accountName: String?) {
