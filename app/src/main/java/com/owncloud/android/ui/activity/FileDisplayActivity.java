@@ -90,7 +90,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.MoveFileOperation;
@@ -1733,8 +1732,9 @@ public class FileDisplayActivity extends FileActivity
             boolean fileAvailable = getStorageManager().fileExists(removedFile.getFileId());
 
             if (leftFragment instanceof FileFragment && !fileAvailable && removedFile.equals(((FileFragment) leftFragment).getFile())) {
-                if (leftFragment instanceof PreviewMediaFragment) {
-                    ((PreviewMediaFragment) leftFragment).stopPreview(true);
+                if (leftFragment instanceof PreviewMediaFragment previewMediaFragment) {
+                    previewMediaFragment.stopPreview(true);
+                    onBackPressed();
                 }
                 setFile(getStorageManager().getFileById(removedFile.getParentId()));
                 resetTitleBarAndScrolling();
@@ -1742,8 +1742,8 @@ public class FileDisplayActivity extends FileActivity
             OCFile parentFile = getStorageManager().getFileById(removedFile.getParentId());
             if (parentFile != null && parentFile.equals(getCurrentDir())) {
                 updateListOfFilesFragment(false);
-            } else if (getLeftFragment() instanceof GalleryFragment) {
-                ((GalleryFragment) getLeftFragment()).onRefresh();
+            } else if (getLeftFragment() instanceof GalleryFragment galleryFragment) {
+                galleryFragment.onRefresh();
             }
             supportInvalidateOptionsMenu();
         } else {
