@@ -61,6 +61,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
@@ -258,6 +259,8 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
         checkWritableFolder(mCurrentDir);
 
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
+
         Log_OC.d(TAG, "onCreate() end");
     }
 
@@ -369,43 +372,45 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (isSearchOpen() && mSearchView != null) {
-            mSearchView.setQuery("", false);
-            mFileListFragment.onClose();
-            mSearchView.onActionViewCollapsed();
-            setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
-        } else {
-            if (mDirectories.getCount() <= SINGLE_DIR) {
-                finish();
-                return;
-            }
+    private final OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+        @Override
+        public void handleOnBackPressed() {
+            if (isSearchOpen() && mSearchView != null) {
+                mSearchView.setQuery("", false);
+                mFileListFragment.onClose();
+                mSearchView.onActionViewCollapsed();
+                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+            } else {
+                if (mDirectories.getCount() <= SINGLE_DIR) {
+                    finish();
+                    return;
+                }
 
-            File parentFolder = mCurrentDir.getParentFile();
-            if (!parentFolder.canRead()) {
-                checkLocalStoragePathPickerPermission();
-                return;
-            }
+                File parentFolder = mCurrentDir.getParentFile();
+                if (!parentFolder.canRead()) {
+                    checkLocalStoragePathPickerPermission();
+                    return;
+                }
 
-            popDirname();
-            mFileListFragment.onNavigateUp();
-            mCurrentDir = mFileListFragment.getCurrentDirectory();
-            checkWritableFolder(mCurrentDir);
+                popDirname();
+                mFileListFragment.onNavigateUp();
+                mCurrentDir = mFileListFragment.getCurrentDirectory();
+                checkWritableFolder(mCurrentDir);
 
-            if (mCurrentDir.getParentFile() == null) {
-                ActionBar actionBar = getSupportActionBar();
-                if (actionBar != null) {
-                    actionBar.setDisplayHomeAsUpEnabled(false);
+                if (mCurrentDir.getParentFile() == null) {
+                    ActionBar actionBar = getSupportActionBar();
+                    if (actionBar != null) {
+                        actionBar.setDisplayHomeAsUpEnabled(false);
+                    }
+                }
+
+                // invalidate checked state when navigating directories
+                if (!mLocalFolderPickerMode) {
+                    setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), false);
                 }
             }
-
-            // invalidate checked state when navigating directories
-            if (!mLocalFolderPickerMode) {
-                setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), false);
-            }
         }
-    }
+    };
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
