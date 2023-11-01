@@ -75,10 +75,15 @@ open class ConfirmationDialogFragment : DialogFragment(), Injectable {
         val message = getString(messageId, *messageArguments)
 
         val builder = MaterialAlertDialogBuilder(requireActivity())
-            .setTitle(if (titleId == 0) { R.string.dialog_alert_title } else { titleId })
             .setIcon(com.owncloud.android.R.drawable.ic_warning)
             .setIconAttribute(R.attr.alertDialogIcon)
             .setMessage(message)
+
+        if (titleId == 0) {
+            builder.setTitle(R.string.dialog_alert_title)
+        } else if (titleId != -1) {
+            builder.setTitle(titleId)
+        }
 
         if (positiveButtonTextId != -1) {
             builder.setPositiveButton(positiveButtonTextId) { dialog: DialogInterface, _: Int ->
