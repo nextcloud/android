@@ -21,15 +21,13 @@ package com.nextcloud.client.network
 
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.net.NetworkInfo
-import androidx.core.net.ConnectivityManagerCompat
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.operations.GetMethod
 import com.owncloud.android.lib.common.utils.Log_OC
 import org.apache.commons.httpclient.HttpStatus
 
 internal class ConnectivityServiceImpl(
-    private val platformConnectivityManager: ConnectivityManager,
+    private val connectivityManager: ConnectivityManager,
     private val accountManager: UserAccountManager,
     private val clientFactory: ClientFactory,
     private val requestBuilder: GetRequestBuilder,
@@ -57,6 +55,21 @@ internal class ConnectivityServiceImpl(
         }
     }
 
+    @Suppress("TooGenericExceptionCaught")
+    override fun getConnectivity(): Connectivity {
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+
+        return if (networkCapabilities != null) {
+            val isConnected = networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            val isMetered = networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED).not()
+            val isWifi = networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+            Connectivity(isConnected, isMetered, isWifi, null)
+        } else {
+            Connectivity.DISCONNECTED
+        }
+    }
+
     private fun isInternetWalledOnConnectedNonMeteredWifi(): Boolean {
         val baseServerAddress = accountManager.user.server.toString()
         return if (baseServerAddress.isEmpty()) {
@@ -77,54 +90,6 @@ internal class ConnectivityServiceImpl(
             }
             result
         }
-    }
-
-    @Suppress("TooGenericExceptionCaught")
-    override fun getConnectivity(): Connectivity {
-        val networkInfo: NetworkInfo? = try {
-            platformConnectivityManager.activeNetworkInfo
-        } catch (t: Throwable) {
-            null // no network available or no information (permission denied?)
-        }
-        return if (networkInfo != null) {
-            val isConnected = networkInfo.isConnectedOrConnecting
-            // more detailed check
-            val isMetered: Boolean = isNetworkMetered
-            val isWifi = (networkInfo.type == ConnectivityManager.TYPE_WIFI) || hasNonCellularConnectivity()
-            Connectivity(isConnected, isMetered, isWifi, null)
-        } else {
-            Connectivity.DISCONNECTED
-        }
-    }
-
-    @Suppress("TooGenericExceptionCaught")
-    private val isNetworkMetered: Boolean
-        get() {
-            val network = platformConnectivityManager.activeNetwork
-            return try {
-                val networkCapabilities = platformConnectivityManager.getNetworkCapabilities(network)
-                if (networkCapabilities != null) {
-                    !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
-                } else {
-                    ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager)
-                }
-            } catch (e: RuntimeException) {
-                Log_OC.e(TAG, "Exception when checking network capabilities", e)
-                false
-            }
-        }
-
-    private fun hasNonCellularConnectivity(): Boolean {
-        for (networkInfo in platformConnectivityManager.allNetworkInfo) {
-            if (networkInfo.isConnectedOrConnecting && (
-                    networkInfo.type == ConnectivityManager.TYPE_WIFI ||
-                        networkInfo.type == ConnectivityManager.TYPE_ETHERNET
-                    )
-            ) {
-                return true
-            }
-        }
-        return false
     }
 
     companion object {

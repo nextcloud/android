@@ -26,7 +26,6 @@ import android.net.NetworkInfo
 import com.nextcloud.client.account.Server
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.logger.Logger
 import com.nextcloud.common.PlainClient
 import com.nextcloud.operations.GetMethod
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
@@ -102,9 +101,6 @@ class ConnectivityServiceTest {
         @Mock
         lateinit var networkCapabilities: NetworkCapabilities
 
-        @Mock
-        lateinit var logger: Logger
-
         val baseServerUri = URI.create(SERVER_BASE_URL)
         val newServer = Server(baseServerUri, OwnCloudVersion.nextcloud_20)
         val legacyServer = Server(baseServerUri, OwnCloudVersion.nextcloud_16)
@@ -116,7 +112,8 @@ class ConnectivityServiceTest {
 
         @Before
         fun setUpMocks() {
-            MockitoAnnotations.initMocks(this)
+            MockitoAnnotations.openMocks(this)
+
             connectivityService = ConnectivityServiceImpl(
                 platformConnectivityManager,
                 accountManager,
