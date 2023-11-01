@@ -108,10 +108,7 @@ public class DialogFragmentIT extends AbstractIT {
         Intent intent = new Intent(targetContext, FileDisplayActivity.class);
         return activityRule.launchActivity(intent);
     }
-
-    @Rule
-    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(
-        android.Manifest.permission.POST_NOTIFICATIONS);
+    
 
     @After
     public void quitLooperIfNeeded() {
