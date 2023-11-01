@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Копирај</string>
     <string name="actionbar_mkdir">Нова фасцикла</string>
     <string name="actionbar_move">Премести</string>
+    <string name="actionbar_move_or_copy">Премести или копирај</string>
     <string name="actionbar_open_with">Отвори помоћу</string>
     <string name="actionbar_search">Претрага</string>
     <string name="actionbar_see_details">Детаљи</string>
@@ -324,6 +325,7 @@
     <string name="file_delete">Обриши</string>
     <string name="file_detail_activity_error">Грешка при добављању активности за фајл</string>
     <string name="file_details_no_content">Грешка при учитавању детаља</string>
+    <string name="file_downloader_notification_title_prefix">Преузима се \u0020</string>
     <string name="file_icon">Фајл</string>
     <string name="file_keep">Задржи</string>
     <string name="file_list_empty">Отпремите неки садржај или синхронизујте са вашим уређајима.</string>
@@ -944,7 +946,9 @@
     <string name="wait_a_moment">Сачекајте мало…</string>
     <string name="wait_checking_credentials">Проверавам сачуване акредитиве</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирам фајл из личног складишта</string>
+    <string name="webview_version_check_alert_dialog_message">Да бисте се пријавили, молимо вас да ажурирате Андроид апликацију System WebView</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Ажурирај</string>
+    <string name="webview_version_check_alert_dialog_title">Ажурирај Андроид System WebView</string>
     <string name="what_s_new_image">Слика шта је ново</string>
     <string name="whats_new_skip">Прескочи</string>
     <string name="whats_new_title">Ново у %1$s</string>

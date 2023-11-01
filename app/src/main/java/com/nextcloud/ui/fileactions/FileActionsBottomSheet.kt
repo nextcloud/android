@@ -79,13 +79,13 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
-    lateinit var viewModel: FileActionsViewModel
+    private lateinit var viewModel: FileActionsViewModel
 
     private var _binding: FileActionsBottomSheetBinding? = null
     private val binding
         get() = _binding!!
 
-    lateinit var componentsGetter: ComponentsGetter
+    private lateinit var componentsGetter: ComponentsGetter
 
     private val thumbnailAsyncTasks = mutableListOf<ThumbnailsCacheManager.ThumbnailGenerationTask>()
 
@@ -109,6 +109,8 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         bottomSheetDialog.behavior.skipCollapsed = true
 
+        viewThemeUtils.platform.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE)
+
         return binding.root
     }
 
@@ -125,11 +127,13 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
                 displayActions(state.actions)
                 displayTitle(state.titleFile)
             }
+
             is FileActionsViewModel.UiState.LoadedForMultipleFiles -> {
                 setMultipleFilesThumbnail()
                 displayActions(state.actions)
                 displayTitle(state.fileCount)
             }
+
             FileActionsViewModel.UiState.Loading -> {}
             FileActionsViewModel.UiState.Error -> {
                 context?.let {
@@ -195,11 +199,11 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
     private fun toggleLoadingOrContent(state: FileActionsViewModel.UiState) {
         if (state is FileActionsViewModel.UiState.Loading) {
             binding.bottomSheetLoading.isVisible = true
-            binding.bottomSheetContent.isVisible = false
+            binding.bottomSheetHeader.isVisible = false
             viewThemeUtils.platform.colorCircularProgressBar(binding.bottomSheetLoading, ColorRole.PRIMARY)
         } else {
             binding.bottomSheetLoading.isVisible = false
-            binding.bottomSheetContent.isVisible = true
+            binding.bottomSheetHeader.isVisible = true
         }
     }
 

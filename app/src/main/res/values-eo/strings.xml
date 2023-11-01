@@ -279,6 +279,8 @@
     <string name="folder_confirm_create">Krei</string>
     <string name="folder_list_empty_headline">Neniu dosierujo ĉi tie</string>
     <string name="folder_picker_choose_button_text">Elekti</string>
+    <string name="folder_picker_choose_caption_text">Elekti celan dosierujon</string>
+    <string name="folder_picker_move_button_text">Movi</string>
     <string name="forbidden_permissions">Vi ne estas permesita %s</string>
     <string name="forbidden_permissions_copy">kopii ĉi tiun dosieron</string>
     <string name="forbidden_permissions_create">krei ĉi tiun dosieron</string>
@@ -660,6 +662,7 @@
     <string name="wait_a_moment">Atendu momenton...</string>
     <string name="wait_checking_credentials">Kontrolado de konservitaj akreditiloj</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopio de dosiero el malpublika konservejo</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Ĝisdatigi</string>
     <string name="what_s_new_image">Bildo pri Kio nova</string>
     <string name="whats_new_skip">Preterpasi</string>
     <string name="whats_new_title">Novaĵoj en %1$s</string>

@@ -673,10 +673,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     }
 
     public void stopPreview(boolean stopAudio) {
-        OCFile file = getFile();
-        if (MimeTypeUtil.isAudio(file) && stopAudio) {
-            mediaPlayerServiceConnection.pause();
-        } else if (MimeTypeUtil.isVideo(file)) {
+        if (stopAudio && mediaPlayerServiceConnection != null) {
+            mediaPlayerServiceConnection.stop();
+        } else if (exoPlayer != null) {
             savedPlaybackPosition = exoPlayer.getCurrentPosition();
             exoPlayer.stop();
         }

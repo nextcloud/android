@@ -23,7 +23,6 @@
     <dimen name="bottom_sheet_text_start_margin">40dp</dimen>
     <dimen name="bottom_sheet_item_height">56dp</dimen>
     <dimen name="bottom_sheet_menu_item_divider_standard_margin">80dp</dimen>
-    <dimen name="bottom_sheet_min_height">112dp</dimen>
     <dimen name="file_icon_size">40dp</dimen>
     <dimen name="file_icon_size_grid">128dp</dimen>
     <dimen name="file_icon_rounded_corner_radius">8dp</dimen>
@@ -40,6 +39,8 @@
     <dimen name="standard_double_margin">32dp</dimen>
     <dimen name="standard_half_margin">8dp</dimen>
     <dimen name="standard_quarter_margin">4dp</dimen>
+    <dimen name="button_width">140dp</dimen>
+    <dimen name="button_extra_width">180dp</dimen>
     <dimen name="standard_eighth_margin">2dp</dimen>
     <dimen name="min_list_item_size">56dp</dimen>
     <dimen name="standard_list_item_size">72dp</dimen>
@@ -122,9 +123,6 @@
     <dimen name="preview_error_image_layout_width">72dp</dimen>
     <dimen name="preview_error_image_layout_height">72dp</dimen>
     <dimen name="preview_error_text_size">26sp</dimen>
-    <dimen name="send_share_fragment_layout_margin">24dp</dimen>
-    <dimen name="send_share_fragment_layout_padding">24dp</dimen>
-    <dimen name="share_people_icon_layout_padding">12dp</dimen>
     <dimen name="synced_folders_item_type_layout_width">32dp</dimen>
     <dimen name="synced_folders_item_type_layout_height">32dp</dimen>
     <dimen name="synced_folders_item_type_layout_right_end_margin">24dp</dimen>
