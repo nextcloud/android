@@ -196,19 +196,23 @@ class FirstRunActivity : BaseActivity(), ViewPager.OnPageChangeListener, Injecta
     private fun handleOnBackPressed() {
         onBackPressedDispatcher.addCallback(
             this,
-            object : OnBackPressedCallback(true) {
+            object: OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    onFinish()
+                    val isFromAddAccount = intent.getBooleanExtra(EXTRA_ALLOW_CLOSE, false)
 
-                    if (intent.getBooleanExtra(EXTRA_ALLOW_CLOSE, false)) {
-                        onBackPressedDispatcher.onBackPressed()
+                    val destination: Intent = if (isFromAddAccount) {
+                        Intent(applicationContext, FileDisplayActivity::class.java)
                     } else {
-                        val intent = Intent(applicationContext, AuthenticatorActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        intent.putExtra(EXTRA_EXIT, true)
-                        startActivity(intent)
-                        finish()
+                        Intent(applicationContext, AuthenticatorActivity::class.java)
                     }
+
+                    if (!isFromAddAccount) {
+                        destination.putExtra(EXTRA_EXIT, true)
+                    }
+
+                    destination.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(destination)
+                    finish()
                 }
             }
         )
