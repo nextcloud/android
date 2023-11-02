@@ -196,7 +196,7 @@ class FirstRunActivity : BaseActivity(), ViewPager.OnPageChangeListener, Injecta
     private fun handleOnBackPressed() {
         onBackPressedDispatcher.addCallback(
             this,
-            object: OnBackPressedCallback(true) {
+            object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     val isFromAddAccount = intent.getBooleanExtra(EXTRA_ALLOW_CLOSE, false)
 
