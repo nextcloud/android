@@ -54,7 +54,7 @@ class LoadingDialog : DialogFragment(), Injectable {
             viewThemeUtils?.platform?.tintDrawable(requireContext(), loadingDrawable)
         }
 
-        viewThemeUtils?.platform?.colorViewBackground(binding.loadingLayout, ColorRole.SURFACE_VARIANT)
+        viewThemeUtils?.platform?.colorViewBackground(binding.loadingLayout, ColorRole.SURFACE)
 
         return binding.root
     }
