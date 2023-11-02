@@ -52,7 +52,9 @@ object AuthenticatorUrlUtils {
     private fun trimUrlWebdav(url: String): String {
         return if (url.lowercase().endsWith(WEBDAV_PATH_4_0_AND_LATER)) {
             url.substring(0, url.length - WEBDAV_PATH_4_0_AND_LATER.length)
-        } else url
+        } else {
+            url
+        }
     }
 
     fun stripIndexPhpOrAppsFiles(url: String): String {
