@@ -18,265 +18,254 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+package com.owncloud.android.authentication
 
-package com.owncloud.android.authentication;
-
-import android.accounts.AbstractAccountAuthenticator;
-import android.accounts.Account;
-import android.accounts.AccountAuthenticatorResponse;
-import android.accounts.AccountManager;
-import android.accounts.NetworkErrorException;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.widget.Toast;
-
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
-import com.owncloud.android.lib.common.utils.Log_OC;
-
+import android.accounts.AbstractAccountAuthenticator
+import android.accounts.Account
+import android.accounts.AccountAuthenticatorResponse
+import android.accounts.AccountManager
+import android.accounts.NetworkErrorException
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.lib.common.accounts.AccountTypeUtils
+import com.owncloud.android.lib.common.utils.Log_OC
 
 /**
- *  Authenticator for ownCloud accounts.
+ * Authenticator for ownCloud accounts.
  *
- *  Controller class accessed from the system AccountManager,
- *  providing integration of ownCloud accounts with the Android system.
+ * Controller class accessed from the system AccountManager,
+ * providing integration of ownCloud accounts with the Android system.
  *
- *  TODO - better separation in operations for OAuth-capable and regular ownCloud accounts.
- *  TODO - review completeness
+ * TODO - better separation in operations for OAuth-capable and regular ownCloud accounts.
+ * TODO - review completeness
  */
-public class AccountAuthenticator extends AbstractAccountAuthenticator {
+class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthenticator(
+    mContext
+) {
 
-    /**
-     * Is used by android system to assign accounts to authenticators.
-     * Should be used by application and all extensions.
-     */
-    public static final String KEY_AUTH_TOKEN_TYPE = "authTokenType";
-    public static final String KEY_REQUIRED_FEATURES = "requiredFeatures";
-    public static final String KEY_LOGIN_OPTIONS = "loginOptions";
-    public static final String KEY_ACCOUNT = "account";
-
-    private static final String TAG = AccountAuthenticator.class.getSimpleName();
-
-    private Context mContext;
-
-    private Handler mHandler;
-
-    public AccountAuthenticator(Context context) {
-        super(context);
-        mContext = context;
-        mHandler = new Handler();
-    }
+    private val mHandler: Handler = Handler(Looper.getMainLooper())
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public Bundle addAccount(AccountAuthenticatorResponse response,
-                             String accountType, String authTokenType,
-                             String[] requiredFeatures, Bundle options) {
-        Log_OC.i(TAG, "Adding account with type " + accountType + " and auth token " + authTokenType);
+    override fun addAccount(
+        response: AccountAuthenticatorResponse,
+        accountType: String, authTokenType: String,
+        requiredFeatures: Array<String>, options: Bundle
+    ): Bundle {
 
-        AccountManager accountManager = AccountManager.get(mContext);
-        Account[] accounts = accountManager.getAccountsByType(MainApp.getAccountType(mContext));
+        Log_OC.i(TAG, "Adding account with type $accountType and auth token $authTokenType")
 
-        final Bundle bundle = new Bundle();
+        val accountManager = AccountManager.get(mContext)
+        val accounts = accountManager.getAccountsByType(MainApp.getAccountType(mContext))
+        val bundle = Bundle()
 
-        if (mContext.getResources().getBoolean(R.bool.multiaccount_support) || accounts.length < 1) {
+        if (mContext.resources.getBoolean(R.bool.multiaccount_support) || accounts.isEmpty()) {
             try {
-                validateAccountType(accountType);
-            } catch (AuthenticatorException e) {
-                Log_OC.e(TAG, "Failed to validate account type " + accountType + ": "
-                        + e.getMessage(), e);
-                return e.getFailureBundle();
+                validateAccountType(accountType)
+            } catch (e: AuthenticatorException) {
+                Log_OC.e(
+                    TAG, "Failed to validate account type " + accountType + ": "
+                        + e.message, e
+                )
+                return e.failureBundle
             }
 
-            Intent intent = new Intent(mContext, AuthenticatorActivity.class);
-            intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
-            intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
-            intent.putExtra(KEY_REQUIRED_FEATURES, requiredFeatures);
-            intent.putExtra(KEY_LOGIN_OPTIONS, options);
-            intent.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_CREATE);
-
-            setIntentFlags(intent);
-
-            bundle.putParcelable(AccountManager.KEY_INTENT, intent);
+            val intent = Intent(mContext, AuthenticatorActivity::class.java)
+            intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response)
+            intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType)
+            intent.putExtra(KEY_REQUIRED_FEATURES, requiredFeatures)
+            intent.putExtra(KEY_LOGIN_OPTIONS, options)
+            intent.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_CREATE)
+            setIntentFlags(intent)
+            bundle.putParcelable(AccountManager.KEY_INTENT, intent)
         } else {
             // Return an error
-            bundle.putInt(AccountManager.KEY_ERROR_CODE, AccountManager.ERROR_CODE_UNSUPPORTED_OPERATION);
-            final String message = String.format(mContext.getString(R.string.auth_unsupported_multiaccount), mContext.getString(R.string.app_name));
-            bundle.putString(AccountManager.KEY_ERROR_MESSAGE, message);
-
-            mHandler.post(() -> Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show());
+            bundle.putInt(AccountManager.KEY_ERROR_CODE, AccountManager.ERROR_CODE_UNSUPPORTED_OPERATION)
+            val message = String.format(
+                mContext.getString(R.string.auth_unsupported_multiaccount), mContext.getString(
+                    R.string.app_name
+                )
+            )
+            bundle.putString(AccountManager.KEY_ERROR_MESSAGE, message)
+            mHandler.post { Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show() }
         }
 
-        return bundle;
+        return bundle
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public Bundle confirmCredentials(AccountAuthenticatorResponse response,
-                                     Account account, Bundle options) {
+    override fun confirmCredentials(
+        response: AccountAuthenticatorResponse,
+        account: Account, options: Bundle
+    ): Bundle {
         try {
-            validateAccountType(account.type);
-        } catch (AuthenticatorException e) {
-            Log_OC.e(TAG, "Failed to validate account type " + account.type + ": " + e.getMessage(), e);
-            return e.getFailureBundle();
+            validateAccountType(account.type)
+        } catch (e: AuthenticatorException) {
+            Log_OC.e(TAG, "Failed to validate account type " + account.type + ": " + e.message, e)
+            return e.failureBundle
         }
 
-        Intent intent = new Intent(mContext, AuthenticatorActivity.class);
-        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE,
-                response);
-        intent.putExtra(KEY_ACCOUNT, account);
-        intent.putExtra(KEY_LOGIN_OPTIONS, options);
+        val intent = Intent(mContext, AuthenticatorActivity::class.java)
+        intent.putExtra(
+            AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE,
+            response
+        )
+        intent.putExtra(KEY_ACCOUNT, account)
+        intent.putExtra(KEY_LOGIN_OPTIONS, options)
+        setIntentFlags(intent)
 
-        setIntentFlags(intent);
-
-        Bundle resultBundle = new Bundle();
-        resultBundle.putParcelable(AccountManager.KEY_INTENT, intent);
-        return resultBundle;
+        val resultBundle = Bundle()
+        resultBundle.putParcelable(AccountManager.KEY_INTENT, intent)
+        return resultBundle
     }
 
-    @Override
-    public Bundle editProperties(AccountAuthenticatorResponse response, String accountType) {
-        return null;
+    override fun editProperties(response: AccountAuthenticatorResponse, accountType: String): Bundle? {
+        return null
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public Bundle getAuthToken(AccountAuthenticatorResponse response,
-                               Account account, String authTokenType, Bundle options) {
+    override fun getAuthToken(
+        response: AccountAuthenticatorResponse,
+        account: Account, authTokenType: String, options: Bundle
+    ): Bundle {
         // validate parameters
         try {
-            validateAccountType(account.type);
-            validateAuthTokenType(authTokenType);
-        } catch (AuthenticatorException e) {
-            Log_OC.e(TAG, "Failed to validate account type " + account.type + ": " + e.getMessage(), e);
-            return e.getFailureBundle();
+            validateAccountType(account.type)
+            validateAuthTokenType(authTokenType)
+        } catch (e: AuthenticatorException) {
+            Log_OC.e(TAG, "Failed to validate account type " + account.type + ": " + e.message, e)
+            return e.failureBundle
         }
 
         /// check if required token is stored
-        final AccountManager am = AccountManager.get(mContext);
-        String accessToken;
-        if (authTokenType.equals(AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType(mContext)))) {
-            accessToken = am.getPassword(account);
-        } else {
-            accessToken = am.peekAuthToken(account, authTokenType);
-        }
+        val am = AccountManager.get(mContext)
+        val accessToken: String? =
+            if (authTokenType == AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType(mContext))) {
+                am.getPassword(account)
+            } else {
+                am.peekAuthToken(account, authTokenType)
+            }
+
         if (accessToken != null) {
-            final Bundle result = new Bundle();
-            result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
-            result.putString(AccountManager.KEY_ACCOUNT_TYPE, MainApp.getAccountType(mContext));
-            result.putString(AccountManager.KEY_AUTHTOKEN, accessToken);
-            return result;
+            val result = Bundle()
+            result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name)
+            result.putString(AccountManager.KEY_ACCOUNT_TYPE, MainApp.getAccountType(mContext))
+            result.putString(AccountManager.KEY_AUTHTOKEN, accessToken)
+            return result
         }
 
         /// if not stored, return Intent to access the AuthenticatorActivity and UPDATE the token for the account
-        Intent intent = new Intent(mContext, AuthenticatorActivity.class);
-        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
-        intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
-        intent.putExtra(KEY_LOGIN_OPTIONS, options);
-        intent.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
-        intent.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
+        val intent = Intent(mContext, AuthenticatorActivity::class.java)
 
+        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response)
+        intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType)
+        intent.putExtra(KEY_LOGIN_OPTIONS, options)
+        intent.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account)
+        intent.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN)
 
-        final Bundle bundle = new Bundle();
-        bundle.putParcelable(AccountManager.KEY_INTENT, intent);
-        return bundle;
+        val bundle = Bundle()
+        bundle.putParcelable(AccountManager.KEY_INTENT, intent)
+        return bundle
     }
 
-    @Override
-    public String getAuthTokenLabel(String authTokenType) {
-        return null;
+    override fun getAuthTokenLabel(authTokenType: String): String? {
+        return null
     }
 
-    @Override
-    public Bundle hasFeatures(AccountAuthenticatorResponse response,
-                              Account account, String[] features) {
-        final Bundle result = new Bundle();
-        result.putBoolean(AccountManager.KEY_BOOLEAN_RESULT, true);
-        return result;
+    override fun hasFeatures(
+        response: AccountAuthenticatorResponse,
+        account: Account, features: Array<String>
+    ): Bundle {
+        val result = Bundle()
+        result.putBoolean(AccountManager.KEY_BOOLEAN_RESULT, true)
+        return result
     }
 
-    @Override
-    public Bundle updateCredentials(AccountAuthenticatorResponse response,
-                                    Account account, String authTokenType, Bundle options) {
+    override fun updateCredentials(
+        response: AccountAuthenticatorResponse,
+        account: Account, authTokenType: String, options: Bundle
+    ): Bundle {
+        val intent = Intent(mContext, AuthenticatorActivity::class.java)
 
-        Intent intent = new Intent(mContext, AuthenticatorActivity.class);
-        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
-        intent.putExtra(KEY_ACCOUNT, account);
-        intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
-        intent.putExtra(KEY_LOGIN_OPTIONS, options);
-        setIntentFlags(intent);
+        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response)
+        intent.putExtra(KEY_ACCOUNT, account)
+        intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType)
+        intent.putExtra(KEY_LOGIN_OPTIONS, options)
+        setIntentFlags(intent)
 
-        final Bundle bundle = new Bundle();
-        bundle.putParcelable(AccountManager.KEY_INTENT, intent);
-        return bundle;
+        val bundle = Bundle()
+        bundle.putParcelable(AccountManager.KEY_INTENT, intent)
+        return bundle
     }
 
-    @Override
-    public Bundle getAccountRemovalAllowed(AccountAuthenticatorResponse response, Account account)
-            throws NetworkErrorException {
-        return super.getAccountRemovalAllowed(response, account);
+    @Throws(NetworkErrorException::class)
+    override fun getAccountRemovalAllowed(response: AccountAuthenticatorResponse, account: Account): Bundle {
+        return super.getAccountRemovalAllowed(response, account)
     }
 
-    private void setIntentFlags(Intent intent) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        intent.addFlags(Intent.FLAG_FROM_BACKGROUND);
+    private fun setIntentFlags(intent: Intent) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
+        intent.addFlags(Intent.FLAG_FROM_BACKGROUND)
     }
 
-    private void validateAccountType(String type) throws UnsupportedAccountTypeException {
-        if (!type.equals(MainApp.getAccountType(mContext))) {
-            throw new UnsupportedAccountTypeException();
+    @Throws(UnsupportedAccountTypeException::class)
+    private fun validateAccountType(type: String) {
+        if (type != MainApp.getAccountType(mContext)) {
+            throw UnsupportedAccountTypeException
         }
     }
 
-    private void validateAuthTokenType(String authTokenType) throws UnsupportedAuthTokenTypeException {
-        String accountType = MainApp.getAccountType(mContext);
+    @Throws(UnsupportedAuthTokenTypeException::class)
+    private fun validateAuthTokenType(authTokenType: String) {
+        val accountType = MainApp.getAccountType(mContext)
 
-        if (!authTokenType.equals(accountType) &&
-            !authTokenType.equals(AccountTypeUtils.getAuthTokenTypePass(accountType))) {
-            throw new UnsupportedAuthTokenTypeException();
+        if (authTokenType != accountType &&
+            authTokenType != AccountTypeUtils.getAuthTokenTypePass(accountType)
+        ) {
+            throw UnsupportedAuthTokenTypeException
         }
     }
 
-    public static class AuthenticatorException extends Exception {
-        private static final long serialVersionUID = 1L;
-        private Bundle mFailureBundle;
+    open class AuthenticatorException(code: Int, errorMsg: String?) : Exception() {
+        val failureBundle: Bundle = Bundle()
 
-        public AuthenticatorException(int code, String errorMsg) {
-            mFailureBundle = new Bundle();
-            mFailureBundle.putInt(AccountManager.KEY_ERROR_CODE, code);
-            mFailureBundle.putString(AccountManager.KEY_ERROR_MESSAGE, errorMsg);
+        init {
+            failureBundle.putInt(AccountManager.KEY_ERROR_CODE, code)
+            failureBundle.putString(AccountManager.KEY_ERROR_MESSAGE, errorMsg)
         }
 
-        public Bundle getFailureBundle() {
-            return mFailureBundle;
+        companion object {
+            private const val serialVersionUID = 1L
         }
     }
 
-    public static class UnsupportedAccountTypeException extends AuthenticatorException {
-        private static final long serialVersionUID = 1L;
+    object UnsupportedAccountTypeException :
+        AuthenticatorException(AccountManager.ERROR_CODE_UNSUPPORTED_OPERATION, "Unsupported account type")
 
-        public UnsupportedAccountTypeException() {
-            super(AccountManager.ERROR_CODE_UNSUPPORTED_OPERATION,
-                    "Unsupported account type");
-        }
-    }
+    object UnsupportedAuthTokenTypeException :
+        AuthenticatorException(AccountManager.ERROR_CODE_UNSUPPORTED_OPERATION, "Unsupported auth token type")
 
-    public static class UnsupportedAuthTokenTypeException extends AuthenticatorException {
-        private static final long serialVersionUID = 1L;
-
-        public UnsupportedAuthTokenTypeException() {
-            super(AccountManager.ERROR_CODE_UNSUPPORTED_OPERATION,
-                    "Unsupported auth token type");
-        }
+    companion object {
+        /**
+         * Is used by android system to assign accounts to authenticators.
+         * Should be used by application and all extensions.
+         */
+        const val KEY_AUTH_TOKEN_TYPE = "authTokenType"
+        const val KEY_REQUIRED_FEATURES = "requiredFeatures"
+        const val KEY_LOGIN_OPTIONS = "loginOptions"
+        const val KEY_ACCOUNT = "account"
+        private val TAG = AccountAuthenticator::class.java.simpleName
     }
 }
