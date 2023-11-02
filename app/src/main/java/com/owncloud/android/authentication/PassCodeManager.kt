@@ -61,36 +61,38 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
     }
 
     fun onActivityResumed(activity: Activity): Boolean {
-        var askedForPin = false
-        val timestamp = preferences.lockTimestamp
-        setSecureFlag(activity)
+        synchronized(this) {
+            var askedForPin = false
+            val timestamp = preferences.lockTimestamp
+            setSecureFlag(activity)
 
-        if (!isExemptActivity(activity)) {
-            val passcodeRequested = passCodeShouldBeRequested(timestamp)
-            val credentialsRequested = deviceCredentialsShouldBeRequested(timestamp, activity)
-            val shouldHideView = passcodeRequested || credentialsRequested
-            toggleActivityVisibility(shouldHideView, activity)
-            askedForPin = shouldHideView
+            if (!isExemptActivity(activity)) {
+                val passcodeRequested = passCodeShouldBeRequested(timestamp)
+                val credentialsRequested = deviceCredentialsShouldBeRequested(timestamp, activity)
+                val shouldHideView = passcodeRequested || credentialsRequested
+                toggleActivityVisibility(shouldHideView, activity)
+                askedForPin = shouldHideView
 
-            if (passcodeRequested) {
-                requestPasscode(activity)
-            } else if (credentialsRequested) {
-                requestCredentials(activity)
+                if (passcodeRequested) {
+                    requestPasscode(activity)
+                } else if (credentialsRequested) {
+                    requestCredentials(activity)
+                }
+                if (askedForPin) {
+                    preferences.lockTimestamp = 0
+                }
             }
-            if (askedForPin) {
-                preferences.lockTimestamp = 0
+
+            if (!askedForPin && preferences.lockTimestamp != 0L) {
+                updateLockTimestamp()
             }
-        }
 
-        if (!askedForPin && preferences.lockTimestamp != 0L) {
-            updateLockTimestamp()
-        }
+            if (!isExemptActivity(activity)) {
+                addVisibleActivity(activity) // keep it AFTER passCodeShouldBeRequested was checked
+            }
 
-        if (!isExemptActivity(activity)) {
-            addVisibleActivity(activity) // keep it AFTER passCodeShouldBeRequested was checked
+            return askedForPin
         }
-
-        return askedForPin
     }
 
     /**
