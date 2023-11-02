@@ -54,7 +54,10 @@ abstract class AccountAuthenticatorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mAccountAuthenticatorResponse = intent.getParcelableArgument(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, AccountAuthenticatorResponse::class.java)
+        mAccountAuthenticatorResponse = intent.getParcelableArgument(
+            AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE,
+            AccountAuthenticatorResponse::class.java
+        )
         mAccountAuthenticatorResponse?.onRequestContinued()
     }
 
