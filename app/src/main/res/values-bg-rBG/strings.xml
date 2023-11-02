@@ -386,6 +386,9 @@
     <string name="folder_confirm_create">Създай</string>
     <string name="folder_list_empty_headline">Няма папки</string>
     <string name="folder_picker_choose_button_text">Изберете</string>
+    <string name="folder_picker_choose_caption_text">Избор на папка</string>
+    <string name="folder_picker_copy_button_text">Копие</string>
+    <string name="folder_picker_move_button_text">Преместване</string>
     <string name="forbidden_permissions">Нямате права за достъп до %s</string>
     <string name="forbidden_permissions_copy">да копира този файл</string>
     <string name="forbidden_permissions_create">за създаване на файла</string>
@@ -912,6 +915,7 @@
     <string name="wait_a_moment">Моля изчакайте…</string>
     <string name="wait_checking_credentials">Проверка на съхранените пълномощия</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копиране на файла от личното хранилище</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Обновяване</string>
     <string name="what_s_new_image">Какво ново</string>
     <string name="whats_new_skip">Пропусни</string>
     <string name="whats_new_title">Ново в %1$s</string>

@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Copier</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_move">Déplacer</string>
+    <string name="actionbar_move_or_copy">Déplacer ou copier</string>
     <string name="actionbar_open_with">Ouvrir avec</string>
     <string name="actionbar_search">Rechercher</string>
     <string name="actionbar_see_details">Propriétés</string>
@@ -326,6 +327,7 @@ Attention, la suppression est irréversible.</string>
     <string name="file_delete">Supprimer</string>
     <string name="file_detail_activity_error">Erreur lors de la récupération de l’activité du fichier</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
+    <string name="file_downloader_notification_title_prefix">Téléchargement \u0020</string>
     <string name="file_icon">Fichier</string>
     <string name="file_keep">Conserver</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>
@@ -441,7 +443,7 @@ Attention, la suppression est irréversible.</string>
     <string name="invalid_url">URL invalide</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">Le libellé ne peut pas être vide</string>
-    <string name="last_backup">Dernière sauvegarde: %1$s</string>
+    <string name="last_backup">Dernière sauvegarde : %1$s</string>
     <string name="link">Lien</string>
     <string name="link_name">Nom du lien</string>
     <string name="link_share_allow_upload_and_editing">Autoriser le téléversement et la modification</string>
@@ -946,6 +948,9 @@ Attention, la suppression est irréversible.</string>
     <string name="wait_a_moment">Veuillez patienter…</string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
+    <string name="webview_version_check_alert_dialog_message">Veuillez mettre à jour l\'application Android System WebView pour vous connecter</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Mise à jour</string>
+    <string name="webview_version_check_alert_dialog_title">Mettre à jour Android System WebView</string>
     <string name="what_s_new_image">Image quoi de neuf</string>
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>

@@ -810,7 +810,7 @@ public class FileOperationsHelper {
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
 
-        SendFilesDialog sendFilesDialog = SendFilesDialog.newInstance(files);
+        SendFilesDialog sendFilesDialog = SendFilesDialog.Companion.newInstance(files);
         sendFilesDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
     }
 

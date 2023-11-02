@@ -326,6 +326,8 @@
     <string name="folder_confirm_create">Krouiñ</string>
     <string name="folder_list_empty_headline">Emañ heuliad ebet amañ</string>
     <string name="folder_picker_choose_button_text">Dibab</string>
+    <string name="folder_picker_choose_caption_text">Dibab an teuliad moned</string>
+    <string name="folder_picker_move_button_text">Diplasañ</string>
     <string name="forbidden_permissions">N\'oc\'h ket aotreet %s</string>
     <string name="forbidden_permissions_copy">eit eilan ar restr</string>
     <string name="forbidden_permissions_create">evit krouiñ ar restr</string>
@@ -766,6 +768,7 @@
     <string name="wait_a_moment">Kortozit un tamm amzer...</string>
     <string name="wait_checking_credentials">O gwiriañ an titouroù identitelez entollet</string>
     <string name="wait_for_tmp_copy_from_private_storage">eilan ar restr diouzh un teuliad prevez</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Hizivaat</string>
     <string name="what_s_new_image">Peseurt skeudenn nevez</string>
     <string name="whats_new_skip">Tremen</string>
     <string name="whats_new_title">Nevez e %1$s</string>
