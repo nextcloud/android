@@ -53,8 +53,8 @@ class AuthenticatorAsyncTask(activity: Activity) : AsyncTask<Any?, Void?, Remote
 
         if (params.size == 2 && mWeakContext.get() != null) {
             val url = params[0] as String
-            val context = mWeakContext.get()
             val credentials = params[1] as OwnCloudCredentials
+            val context = mWeakContext.get()
 
             // Client
             val uri = Uri.parse(url)
@@ -72,9 +72,11 @@ class AuthenticatorAsyncTask(activity: Activity) : AsyncTask<Any?, Void?, Remote
             // Operation - try credentials
             if (userInfoResult.isSuccess) {
                 val client = OwnCloudClientFactory.createOwnCloudClient(uri, context, true)
-                client.userId = userInfoResult.resultData!!.id
+                client.userId = userInfoResult.resultData?.id
                 client.credentials = credentials
                 val operation = ExistenceCheckRemoteOperation(OCFile.ROOT_PATH, SUCCESS_IF_ABSENT)
+
+                @Suppress("UNCHECKED_CAST")
                 result = operation.execute(client) as RemoteOperationResult<UserInfo?>
                 if (operation.wasRedirected()) {
                     val redirectionPath = operation.redirectionPath
@@ -94,9 +96,9 @@ class AuthenticatorAsyncTask(activity: Activity) : AsyncTask<Any?, Void?, Remote
 
     @Deprecated("Deprecated in Java")
     override fun onPostExecute(result: RemoteOperationResult<UserInfo?>?) {
-        if (result != null) {
+        result?.let {
             val listener = mListener.get()
-            listener?.onAuthenticatorTaskCallback(result)
+            listener?.onAuthenticatorTaskCallback(it)
         }
     }
 
