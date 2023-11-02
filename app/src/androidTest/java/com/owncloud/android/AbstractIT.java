@@ -415,10 +415,11 @@ public abstract class AbstractIT {
     }
 
     protected void resetLocale() {
+        Locale locale = new Locale("en");
         Resources resources = InstrumentationRegistry.getInstrumentation().getTargetContext().getResources();
-        Configuration defaultConfig = resources.getConfiguration();
-        defaultConfig.setLocale(Locale.getDefault());
-        resources.updateConfiguration(defaultConfig, null);
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, null);
     }
 
     protected void screenshot(View view) {

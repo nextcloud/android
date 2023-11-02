@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Zkopírovat</string>
     <string name="actionbar_mkdir">Nová složka</string>
     <string name="actionbar_move">Přesunout</string>
+    <string name="actionbar_move_or_copy">Přesunout</string>
     <string name="actionbar_open_with">Otevřít pomocí</string>
     <string name="actionbar_search">Hledat</string>
     <string name="actionbar_see_details">Podrobnosti</string>
@@ -324,6 +325,7 @@
     <string name="file_delete">Smazat</string>
     <string name="file_detail_activity_error">Při načítání aktivit u souboru došlo k chybě</string>
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>
+    <string name="file_downloader_notification_title_prefix">Stahování \u0020</string>
     <string name="file_icon">Soubor</string>
     <string name="file_keep">Ponechat</string>
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními.</string>
@@ -392,6 +394,9 @@
     <string name="folder_confirm_create">Vytvořit</string>
     <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
     <string name="folder_picker_choose_button_text">Vybrat</string>
+    <string name="folder_picker_choose_caption_text">Zvolte cílovou složku</string>
+    <string name="folder_picker_copy_button_text">Zkopírovat</string>
+    <string name="folder_picker_move_button_text">Přesunout</string>
     <string name="forbidden_permissions">Nemáte oprávnění %s</string>
     <string name="forbidden_permissions_copy">pro zkopírování tohoto souboru</string>
     <string name="forbidden_permissions_create">pro vytvoření tohoto souboru</string>
@@ -941,6 +946,9 @@
     <string name="wait_a_moment">Chvilku strpení…</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru ze soukromého úložiště</string>
+    <string name="webview_version_check_alert_dialog_message">Aby se bylo možné přihlásit, zaktualizujte systémovou aplikaci WebView Androidu</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Aktualizovat</string>
+    <string name="webview_version_check_alert_dialog_title">Zaktualizovat Android System WebView</string>
     <string name="what_s_new_image">Obrázek „Co je nového“</string>
     <string name="whats_new_skip">Přeskočit</string>
     <string name="whats_new_title">Co je v %1$s nového</string>

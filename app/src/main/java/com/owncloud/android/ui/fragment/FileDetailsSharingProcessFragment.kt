@@ -30,6 +30,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsSharingProcessFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -123,7 +125,7 @@ class FileDetailsSharingProcessFragment :
     private var chosenExpDateInMills: Long = -1 // for no expiry date
 
     private var share: OCShare? = null
-    private var isReshareShown: Boolean = true // show or hide reshare option
+    private var isReShareShown: Boolean = true // show or hide reShare option
     private var isExpDateShown: Boolean = true // show or hide expiry date option
 
     private var expirationDatePickerFragment: ExpirationDatePickerDialogFragment? = null
@@ -139,18 +141,20 @@ class FileDetailsSharingProcessFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
-            file = it.getParcelable(ARG_OCFILE)
+            file = it.getParcelableArgument(ARG_OCFILE, OCFile::class.java)
             shareeName = it.getString(ARG_SHAREE_NAME)
-            share = it.getParcelable(ARG_OCSHARE)
+            share = it.getParcelableArgument(ARG_OCSHARE, OCShare::class.java)
+
             if (it.containsKey(ARG_SHARE_TYPE)) {
-                shareType = it.getSerializable(ARG_SHARE_TYPE) as ShareType
+                shareType = it.getSerializableArgument(ARG_SHARE_TYPE, ShareType::class.java)!!
             } else if (share != null) {
                 shareType = share!!.shareType!!
             }
 
             shareProcessStep = it.getInt(ARG_SCREEN_TYPE, SCREEN_TYPE_PERMISSION)
-            isReshareShown = it.getBoolean(ARG_RESHARE_SHOWN, true)
+            isReShareShown = it.getBoolean(ARG_RESHARE_SHOWN, true)
             isExpDateShown = it.getBoolean(ARG_EXP_DATE_SHOWN, true)
         }
 
@@ -178,8 +182,8 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun themeView() {
-        viewThemeUtils.platform.colorPrimaryTextViewElement(binding.shareProcessEditShareLink)
-        viewThemeUtils.platform.colorPrimaryTextViewElement(binding.shareProcessAdvancePermissionTitle)
+        viewThemeUtils.platform.colorTextView(binding.shareProcessEditShareLink)
+        viewThemeUtils.platform.colorTextView(binding.shareProcessAdvancePermissionTitle)
 
         viewThemeUtils.platform.themeRadioButton(binding.shareProcessPermissionReadOnly)
         viewThemeUtils.platform.themeRadioButton(binding.shareProcessPermissionUploadEditing)
@@ -218,27 +222,13 @@ class FileDetailsSharingProcessFragment :
         binding.shareProcessEditShareLink.visibility = View.VISIBLE
         binding.shareProcessGroupTwo.visibility = View.GONE
 
-        if (share != null) {
-            setupModificationUI()
-        } else {
-            setupUpdateUI()
-        }
-
-        // show or hide expiry date
-        if (isExpDateShown) {
-            binding.shareProcessSetExpDateSwitch.visibility = View.VISIBLE
-        } else {
-            binding.shareProcessSetExpDateSwitch.visibility = View.GONE
-        }
+        if (share != null) setupModificationUI() else setupUpdateUI()
+        binding.shareProcessSetExpDateSwitch.visibility = if (isExpDateShown) View.VISIBLE else View.GONE
         shareProcessStep = SCREEN_TYPE_PERMISSION
     }
 
     private fun setupModificationUI() {
-        if (share?.isFolder == true) {
-            updateViewForFolder()
-        } else {
-            updateViewForFile()
-        }
+        if (share?.isFolder == true) updateViewForFolder() else updateViewForFile()
 
         // read only / allow upload and editing / file drop
         if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
@@ -250,13 +240,19 @@ class FileDetailsSharingProcessFragment :
         }
 
         shareType = share?.shareType ?: ShareType.NO_SHARED
+
         // show different text for link share and other shares
         // because we have link to share in Public Link
-        if (shareType == ShareType.PUBLIC_LINK) {
-            binding.shareProcessBtnNext.text = requireContext().resources.getString(R.string.share_copy_link)
-        } else {
-            binding.shareProcessBtnNext.text = requireContext().resources.getString(R.string.common_confirm)
-        }
+        val resources = requireContext().resources
+
+        binding.shareProcessBtnNext.text = resources.getString(
+            if (shareType == ShareType.PUBLIC_LINK) {
+                R.string.share_copy_link
+            } else {
+                R.string.common_confirm
+            }
+        )
+
         updateViewForShareType()
         binding.shareProcessSetPasswordSwitch.isChecked = share?.isPasswordProtected == true
         showPasswordInput(binding.shareProcessSetPasswordSwitch.isChecked)
@@ -278,39 +274,50 @@ class FileDetailsSharingProcessFragment :
         showExpirationDateInput(binding.shareProcessSetExpDateSwitch.isChecked)
     }
 
-    /**
-     * method to update views on the basis of Share type
-     */
     private fun updateViewForShareType() {
-        // external share
-        if (shareType == ShareType.EMAIL) {
-            binding.shareProcessChangeNameSwitch.visibility = View.GONE
-            binding.shareProcessChangeNameContainer.visibility = View.GONE
-            updateViewForExternalAndLinkShare()
-        }
-        // link share
-        else if (shareType == ShareType.PUBLIC_LINK) {
-            updateViewForExternalAndLinkShare()
-            binding.shareProcessChangeNameSwitch.visibility = View.VISIBLE
-            if (share != null) {
-                binding.shareProcessChangeName.setText(share?.label)
-                binding.shareProcessChangeNameSwitch.isChecked = !TextUtils.isEmpty(share?.label)
+        when (shareType) {
+            ShareType.EMAIL -> {
+                updateViewForExternalShare()
             }
-            showChangeNameInput(binding.shareProcessChangeNameSwitch.isChecked)
-        }
-        // internal share
-        else {
-            binding.shareProcessChangeNameSwitch.visibility = View.GONE
-            binding.shareProcessChangeNameContainer.visibility = View.GONE
-            binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
-            binding.shareProcessAllowResharingCheckbox.visibility = View.VISIBLE
-            binding.shareProcessSetPasswordSwitch.visibility = View.GONE
-            if (share != null) {
-                if (!isReshareShown) {
-                    binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
-                }
-                binding.shareProcessAllowResharingCheckbox.isChecked = SharingMenuHelper.canReshare(share)
+
+            ShareType.PUBLIC_LINK -> {
+                updateViewForLinkShare()
             }
+
+            else -> {
+                updateViewForInternalShare()
+            }
+        }
+    }
+
+    private fun updateViewForExternalShare() {
+        binding.shareProcessChangeNameSwitch.visibility = View.GONE
+        binding.shareProcessChangeNameContainer.visibility = View.GONE
+        updateViewForExternalAndLinkShare()
+    }
+
+    private fun updateViewForLinkShare() {
+        updateViewForExternalAndLinkShare()
+        binding.shareProcessChangeNameSwitch.visibility = View.VISIBLE
+        if (share != null) {
+            binding.shareProcessChangeName.setText(share?.label)
+            binding.shareProcessChangeNameSwitch.isChecked = !TextUtils.isEmpty(share?.label)
+        }
+        showChangeNameInput(binding.shareProcessChangeNameSwitch.isChecked)
+    }
+
+    private fun updateViewForInternalShare() {
+        binding.shareProcessChangeNameSwitch.visibility = View.GONE
+        binding.shareProcessChangeNameContainer.visibility = View.GONE
+        binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
+        binding.shareProcessAllowResharingCheckbox.visibility = View.VISIBLE
+        binding.shareProcessSetPasswordSwitch.visibility = View.GONE
+
+        if (share != null) {
+            if (!isReShareShown) {
+                binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
+            }
+            binding.shareProcessAllowResharingCheckbox.isChecked = SharingMenuHelper.canReshare(share)
         }
     }
 
@@ -337,7 +344,7 @@ class FileDetailsSharingProcessFragment :
      */
     private fun updateExpirationDateView() {
         if (share != null) {
-            if (share?.expirationDate ?: 0 > 0) {
+            if ((share?.expirationDate ?: 0) > 0) {
                 chosenExpDateInMills = share?.expirationDate ?: -1
                 binding.shareProcessSetExpDateSwitch.isChecked = true
                 binding.shareProcessSelectExpDate.text = (
@@ -464,7 +471,7 @@ class FileDetailsSharingProcessFragment :
         fileActivity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
     }
 
-    private fun getResharePermission(): Int {
+    private fun getReSharePermission(): Int {
         val spb = SharePermissionsBuilder()
         spb.setSharePermission(true)
         return spb.build()
@@ -516,12 +523,13 @@ class FileDetailsSharingProcessFragment :
      *  get the permissions on the basis of selection
      */
     private fun getSelectedPermission() = when {
-        binding.shareProcessAllowResharingCheckbox.isChecked -> getResharePermission()
+        binding.shareProcessAllowResharingCheckbox.isChecked -> getReSharePermission()
         binding.shareProcessPermissionReadOnly.isChecked -> OCShare.READ_PERMISSION_FLAG
         binding.shareProcessPermissionUploadEditing.isChecked -> when {
             file?.isFolder == true || share?.isFolder == true -> OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
             else -> OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
         }
+
         binding.shareProcessPermissionFileDrop.isChecked -> OCShare.CREATE_PERMISSION_FLAG
         else -> permission
     }

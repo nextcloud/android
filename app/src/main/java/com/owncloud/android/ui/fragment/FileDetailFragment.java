@@ -693,7 +693,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (progressListener != null) {
             if (containerActivity.getFileDownloaderBinder() != null) {
                 containerActivity.getFileDownloaderBinder().
-                        addDataTransferProgressListener(progressListener, getFile());
+                    addDatatransferProgressListener(progressListener, getFile());
             }
             if (containerActivity.getFileUploaderBinder() != null) {
                 containerActivity.getFileUploaderBinder().
@@ -708,7 +708,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (progressListener != null) {
             if (containerActivity.getFileDownloaderBinder() != null) {
                 containerActivity.getFileDownloaderBinder().
-                    removeDataTransferProgressListener(progressListener, getFile());
+                    removeDatatransferProgressListener(progressListener, getFile());
             }
             if (containerActivity.getFileUploaderBinder() != null) {
                 containerActivity.getFileUploaderBinder().
