@@ -105,7 +105,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(existing ? 1 : 0);
         dest.writeInt(enabled ? 1 : 0);
         dest.writeInt(subfolderByDate ? 1 : 0);
-        dest.writeInt(type.getId());
+        dest.writeInt(type.id);
         dest.writeString(account);
         dest.writeInt(uploadAction);
         dest.writeInt(nameCollisionPolicy.serialize());

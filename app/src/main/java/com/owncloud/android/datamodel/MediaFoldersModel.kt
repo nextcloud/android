@@ -19,33 +19,6 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.datamodel
 
-package com.owncloud.android.datamodel;
-
-import java.util.List;
-
-public class MediaFoldersModel {
-    private List<String> imageMediaFolders;
-    private List<String> videoMediaFolders;
-
-    public MediaFoldersModel(List<String> imageMediaFolders, List<String> videoMediaFolders) {
-        this.imageMediaFolders = imageMediaFolders;
-        this.videoMediaFolders = videoMediaFolders;
-    }
-
-    public List<String> getImageMediaFolders() {
-        return this.imageMediaFolders;
-    }
-
-    public List<String> getVideoMediaFolders() {
-        return this.videoMediaFolders;
-    }
-
-    public void setImageMediaFolders(List<String> imageMediaFolders) {
-        this.imageMediaFolders = imageMediaFolders;
-    }
-
-    public void setVideoMediaFolders(List<String> videoMediaFolders) {
-        this.videoMediaFolders = videoMediaFolders;
-    }
-}
+class MediaFoldersModel(var imageMediaFolders: List<String>, var videoMediaFolders: List<String>)
