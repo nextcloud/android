@@ -60,26 +60,27 @@ class GalleryRowHolder(
                 invalidate()
             }
 
+            val bitmap = BitmapUtils.drawableToBitmap(
+                ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null),
+                defaultThumbnailSize.toInt(),
+                defaultThumbnailSize.toInt()
+            )
+
+            val drawable = ThumbnailsCacheManager.AsyncGalleryImageDrawable(
+                context.resources,
+                bitmap,
+                null
+            )
             val imageView = ImageView(context).apply {
-                setImageDrawable(
-                    ThumbnailsCacheManager.AsyncGalleryImageDrawable(
-                        context.resources,
-                        BitmapUtils.drawableToBitmap(
-                            ResourcesCompat.getDrawable(resources, R.drawable.file_image, null),
-                            defaultThumbnailSize.toInt(),
-                            defaultThumbnailSize.toInt()
-                        ),
-                        null
-                    )
-                )
+                setImageDrawable(drawable)
             }
 
-            LinearLayout(context).apply {
+            val thumbnail = LinearLayout(context).apply {
                 addView(shimmer)
                 addView(imageView)
-
-                binding.rowLayout.addView(this)
             }
+
+            binding.rowLayout.addView(thumbnail)
         }
 
         if (binding.rowLayout.childCount > row.files.size) {
@@ -90,61 +91,6 @@ class GalleryRowHolder(
 
         for (indexedFile in row.files.withIndex()) {
             adjustFile(indexedFile, shrinkRatio, row)
-        }
-    }
-
-    fun redraw() {
-        bind(currentRow)
-    }
-
-    @SuppressWarnings("MagicNumber", "ComplexMethod")
-    private fun computeShrinkRatio(row: GalleryRow): Float {
-        val screenWidth =
-            DisplayUtils.convertDpToPixel(context.resources.configuration.screenWidthDp.toFloat(), context)
-                .toFloat()
-
-        if (row.files.size > 1) {
-            var newSummedWidth = 0f
-            for (file in row.files) {
-                // first adjust all thumbnails to max height
-                val thumbnail1 = file.imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
-
-                val height1 = thumbnail1.height
-                val width1 = thumbnail1.width
-
-                val scaleFactor1 = row.getMaxHeight() / height1
-                val newHeight1 = height1 * scaleFactor1
-                val newWidth1 = width1 * scaleFactor1
-
-                file.imageDimension = ImageDimension(newWidth1, newHeight1)
-
-                newSummedWidth += newWidth1
-            }
-
-            var c = 1f
-            // this ensures that files in last row are better visible,
-            // e.g. when 2 images are there, it uses 2/5 of screen
-            if (galleryAdapter.columns == 5) {
-                when (row.files.size) {
-                    2 -> {
-                        c = 5 / 2f
-                    }
-                    3 -> {
-                        c = 4 / 3f
-                    }
-                    4 -> {
-                        c = 4 / 5f
-                    }
-                    5 -> {
-                        c = 1f
-                    }
-                }
-            }
-
-            return (screenWidth / c) / newSummedWidth
-        } else {
-            val thumbnail1 = row.files[0].imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
-            return (screenWidth / galleryAdapter.columns) / thumbnail1.width
         }
     }
 
@@ -189,5 +135,63 @@ class GalleryRowHolder(
         shimmer.layoutParams = params
         shimmer.layoutParams.height = adjustedHeight1
         shimmer.layoutParams.width = adjustedWidth1
+    }
+
+    fun redraw() {
+        bind(currentRow)
+    }
+
+    @SuppressWarnings("MagicNumber", "ComplexMethod")
+    private fun computeShrinkRatio(row: GalleryRow): Float {
+        val screenWidth =
+            DisplayUtils.convertDpToPixel(context.resources.configuration.screenWidthDp.toFloat(), context)
+                .toFloat()
+
+        if (row.files.size > 1) {
+            var newSummedWidth = 0f
+            for (file in row.files) {
+                // first adjust all thumbnails to max height
+                val thumbnail1 = file.imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
+
+                val height1 = thumbnail1.height
+                val width1 = thumbnail1.width
+
+                val scaleFactor1 = row.getMaxHeight() / height1
+                val newHeight1 = height1 * scaleFactor1
+                val newWidth1 = width1 * scaleFactor1
+
+                file.imageDimension = ImageDimension(newWidth1, newHeight1)
+
+                newSummedWidth += newWidth1
+            }
+
+            var c = 1f
+            // this ensures that files in last row are better visible,
+            // e.g. when 2 images are there, it uses 2/5 of screen
+            if (galleryAdapter.columns == 5) {
+                when (row.files.size) {
+                    2 -> {
+                        c = 5 / 2f
+                    }
+
+                    3 -> {
+                        c = 4 / 3f
+                    }
+
+                    4 -> {
+                        c = 4 / 5f
+                    }
+
+                    5 -> {
+                        c = 1f
+                    }
+                }
+            }
+
+            return (screenWidth / c) / newSummedWidth
+        } else {
+            val thumbnail1 = row.files[0].imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
+            return (screenWidth / galleryAdapter.columns) / thumbnail1.width
+        }
     }
 }
