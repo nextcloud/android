@@ -58,6 +58,8 @@ class GalleryRowHolder(
     @Suppress("DEPRECATION")
     private val baseUri = client.getClientFor(user.toOwnCloudAccount(), context).baseUri
     private val previewLink = "/index.php/core/preview.png?file="
+    private val imageDownloadWidth = "&x=$defaultThumbnailSize"
+    private val imageDownloadHeight = "&y=$defaultThumbnailSize"
     private val mode = "&a=1&mode=cover&forceIcon=0"
 
     interface GalleryRowItemClick {
@@ -80,15 +82,13 @@ class GalleryRowHolder(
         row.files.forEach { file ->
             val thumbnail = ImageView(context)
 
-            val imageUrl: String = (
-                (
-                    (
-                        baseUri.toString() + previewLink +
-                            URLEncoder.encode(file.remotePath, Charsets.UTF_8.name()) +
-                            "&x=" + (defaultThumbnailSize)
-                        ) + "&y=" + (defaultThumbnailSize)
-                    ) + mode
-                )
+            val imageUrl: String =
+                baseUri.toString() +
+                    previewLink +
+                    URLEncoder.encode(file.remotePath, Charsets.UTF_8.name()) +
+                    imageDownloadWidth +
+                    imageDownloadHeight +
+                    mode
 
             Glide
                 .with(context)
@@ -177,12 +177,15 @@ class GalleryRowHolder(
                     2 -> {
                         c = 5 / 2f
                     }
+
                     3 -> {
                         c = 4 / 3f
                     }
+
                     4 -> {
                         c = 4 / 5f
                     }
+
                     5 -> {
                         c = 1f
                     }
