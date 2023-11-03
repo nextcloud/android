@@ -71,16 +71,17 @@ class GalleryRowHolder(
                 bitmap,
                 null
             )
-            val imageView = ImageView(context).apply {
+
+            val thumbnail = ImageView(context).apply {
                 setImageDrawable(drawable)
             }
 
-            val thumbnail = LinearLayout(context).apply {
+            val layout = LinearLayout(context).apply {
                 addView(shimmer)
-                addView(imageView)
+                addView(thumbnail)
             }
 
-            binding.rowLayout.addView(thumbnail)
+            binding.rowLayout.addView(layout)
         }
 
         if (binding.rowLayout.childCount > row.files.size) {
