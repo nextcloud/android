@@ -103,8 +103,11 @@ class TrashbinActivity :
             }
         }
 
-        val trashRepository = RemoteTrashbinRepository(user.orElse(accountProvider!!.user), clientFactory)
-        trashbinPresenter = TrashbinPresenter(trashRepository, this)
+        clientFactory?.let {
+            val trashRepository = RemoteTrashbinRepository(user.orElse(accountProvider!!.user), it)
+            trashbinPresenter = TrashbinPresenter(trashRepository, this)
+        }
+
         binding = TrashbinActivityBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
