@@ -40,6 +40,7 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader
 import java.net.URLEncoder
 
+@Suppress("LongParameterList")
 class GalleryRowHolder(
     val binding: GalleryRowBinding,
     private val defaultThumbnailSize: Float,

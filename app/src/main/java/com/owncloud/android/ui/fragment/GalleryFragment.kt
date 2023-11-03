@@ -61,6 +61,7 @@ import javax.inject.Inject
 /**
  * A Fragment that lists all files and folders in a given path
  */
+@Suppress("MagicNumber", "MaxLineLength")
 class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions, GalleryRowHolder.GalleryRowItemClick {
     private var isPhotoSearchQueryRunning = false
         set(value) {
@@ -314,8 +315,8 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions,
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    // TODO: Fix folder change, it seems it doesn't work at all
     private fun searchAndDisplayAfterChangingFolder() {
-        // TODO: Fix folder change, it seems it doesn't work at all
         endDate = System.currentTimeMillis() / 1000
         isPhotoSearchQueryRunning = true
         runGallerySearchTask()
@@ -333,6 +334,7 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions,
         }
     }
 
+    @Suppress("NestedBlockDepth")
     private fun loadMoreWhenEndReached(recyclerView: RecyclerView, dy: Int) {
         if (recyclerView.layoutManager is GridLayoutManager) {
             val gridLayoutManager = recyclerView.layoutManager as GridLayoutManager?
