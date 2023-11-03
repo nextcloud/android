@@ -18,99 +18,91 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.trashbin;
+package com.owncloud.android.ui.trashbin
 
-import com.owncloud.android.R;
-import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
-
-import java.io.File;
-import java.util.List;
-
-import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
+import com.owncloud.android.R
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
+import com.owncloud.android.ui.trashbin.TrashbinContract.Presenter
+import com.owncloud.android.ui.trashbin.TrashbinRepository.LoadFolderCallback
+import java.io.File
 
 /**
  * Coordinates between model and view: querying model, updating view, react to UI input
  */
-public class TrashbinPresenter implements TrashbinContract.Presenter {
+class TrashbinPresenter(
+    private val trashbinRepository: TrashbinRepository,
+    private val trashbinView: TrashbinContract.View
+) : Presenter {
 
-    private TrashbinContract.View trashbinView;
-    private TrashbinRepository trashbinRepository;
-    private String currentPath = ROOT_PATH;
+    private var currentPath: String? = OCFile.ROOT_PATH
 
-    public TrashbinPresenter(TrashbinRepository trashbinRepository, TrashbinContract.View trashbinView) {
-        this.trashbinRepository = trashbinRepository;
-        this.trashbinView = trashbinView;
+    override fun enterFolder(folder: String?) {
+        currentPath = folder
+        loadFolder()
     }
 
-    @Override
-    public void enterFolder(String folder) {
-        currentPath = folder;
-        loadFolder();
-    }
+    override val isRoot: Boolean
+        get() = OCFile.ROOT_PATH != currentPath
 
-    @Override
-    public boolean isRoot() {
-        return !ROOT_PATH.equals(currentPath);
-    }
-
-    @Override
-    public void navigateUp() {
-        if (ROOT_PATH.equals(currentPath)) {
-            trashbinView.close();
+    override fun navigateUp() {
+        if (OCFile.ROOT_PATH == currentPath) {
+            trashbinView.close()
         } else {
-            currentPath = new File(currentPath).getParent();
-
-            loadFolder();
+            currentPath?.let {
+                currentPath = File(it).parent
+                loadFolder()
+            }
         }
 
-        trashbinView.setDrawerIndicatorEnabled(ROOT_PATH.equals(currentPath));
+        trashbinView.setDrawerIndicatorEnabled(OCFile.ROOT_PATH == currentPath)
     }
 
-    @Override
-    public void loadFolder() {
-        trashbinRepository.getFolder(currentPath, new TrashbinRepository.LoadFolderCallback() {
-            @Override
-            public void onSuccess(List<TrashbinFile> files) {
-                trashbinView.showTrashbinFolder(files);
+    override fun loadFolder() {
+        trashbinRepository.getFolder(currentPath, object : LoadFolderCallback {
+            override fun onSuccess(files: List<TrashbinFile?>?) {
+                trashbinView.showTrashbinFolder(files)
             }
 
-            @Override
-            public void onError(int error) {
-                trashbinView.showError(error);
+            override fun onError(error: Int) {
+                trashbinView.showError(error)
             }
-        });
+        })
     }
 
-    @Override
-    public void restoreTrashbinFile(TrashbinFile file) {
-        trashbinRepository.restoreFile(file, success -> {
-            if (success) {
-                trashbinView.removeFile(file);
-            } else {
-                trashbinView.showSnackbarError(R.string.trashbin_file_not_restored, file);
+    override fun restoreTrashbinFile(file: TrashbinFile?) {
+        trashbinRepository.restoreFile(file, object: TrashbinRepository.OperationCallback {
+            override fun onResult(success: Boolean) {
+                if (success) {
+                    trashbinView.removeFile(file)
+                } else {
+                    trashbinView.showSnackbarError(R.string.trashbin_file_not_restored, file)
+                }
             }
-        });
+        })
     }
 
-    @Override
-    public void removeTrashbinFile(TrashbinFile file) {
-        trashbinRepository.removeTrashbinFile(file, success -> {
-            if (success) {
-                trashbinView.removeFile(file);
-            } else {
-                trashbinView.showSnackbarError(R.string.trashbin_file_not_deleted, file);
+    override fun removeTrashbinFile(file: TrashbinFile?) {
+        trashbinRepository.removeTrashbinFile(file, object: TrashbinRepository.OperationCallback {
+            override fun onResult(success: Boolean) {
+                if (success) {
+                    trashbinView.removeFile(file)
+                } else {
+                    trashbinView.showSnackbarError(R.string.trashbin_file_not_deleted, file)
+                }
             }
-        });
+        })
     }
 
-    @Override
-    public void emptyTrashbin() {
-        trashbinRepository.emptyTrashbin(success -> {
-            if (success) {
-                trashbinView.removeAllFiles();
-            } else {
-                trashbinView.showError(R.string.trashbin_not_emptied);
+    override fun emptyTrashbin() {
+        trashbinRepository.emptyTrashbin(object: TrashbinRepository.OperationCallback {
+            override fun onResult(success: Boolean) {
+                if (success) {
+                    trashbinView.removeAllFiles()
+                } else {
+                    trashbinView.showError(R.string.trashbin_not_emptied)
+                }
             }
-        });
+        })
     }
 }
