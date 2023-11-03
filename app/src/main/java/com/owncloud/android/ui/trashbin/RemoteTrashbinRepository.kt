@@ -23,204 +23,159 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.trashbin;
+@file:Suppress("DEPRECATION")
 
-import android.os.AsyncTask;
+package com.owncloud.android.ui.trashbin
 
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.common.NextcloudClient;
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.trashbin.EmptyTrashbinRemoteOperation;
-import com.owncloud.android.lib.resources.trashbin.ReadTrashbinFolderRemoteOperation;
-import com.owncloud.android.lib.resources.trashbin.RemoveTrashbinFileRemoteOperation;
-import com.owncloud.android.lib.resources.trashbin.RestoreTrashbinFileRemoteOperation;
-import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
+import android.os.AsyncTask
+import com.nextcloud.client.account.User
+import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.network.ClientFactory.CreationException
+import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.trashbin.EmptyTrashbinRemoteOperation
+import com.owncloud.android.lib.resources.trashbin.ReadTrashbinFolderRemoteOperation
+import com.owncloud.android.lib.resources.trashbin.RemoveTrashbinFileRemoteOperation
+import com.owncloud.android.lib.resources.trashbin.RestoreTrashbinFileRemoteOperation
+import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
+import com.owncloud.android.ui.trashbin.TrashbinRepository.LoadFolderCallback
+import com.owncloud.android.ui.trashbin.TrashbinRepository.OperationCallback
 
-import java.util.List;
+class RemoteTrashbinRepository internal constructor(private val user: User, private val clientFactory: ClientFactory) :
+    TrashbinRepository {
 
-import androidx.annotation.NonNull;
-
-public class RemoteTrashbinRepository implements TrashbinRepository {
-
-    private final User user;
-    private final ClientFactory clientFactory;
-
-    RemoteTrashbinRepository(User user, ClientFactory clientFactory) {
-        this.user = user;
-        this.clientFactory = clientFactory;
+    override fun removeTrashbinFile(file: TrashbinFile?, callback: OperationCallback?) {
+        RemoveTrashbinFileTask(user, clientFactory, file, callback).execute()
     }
 
-    public void removeTrashbinFile(TrashbinFile file, OperationCallback callback) {
-        new RemoveTrashbinFileTask(user, clientFactory, file, callback).execute();
-    }
+    private class RemoveTrashbinFileTask(
+        private val user: User,
+        private val clientFactory: ClientFactory,
+        private val file: TrashbinFile?,
+        private val callback: OperationCallback?
+    ) : AsyncTask<Void?, Void?, Boolean>() {
 
-    private static class RemoveTrashbinFileTask extends AsyncTask<Void, Void, Boolean> {
-
-        private User user;
-        private ClientFactory clientFactory;
-        private TrashbinFile file;
-        private OperationCallback callback;
-
-        private RemoveTrashbinFileTask(User user,
-                                       ClientFactory clientFactory,
-                                       TrashbinFile file,
-                                       OperationCallback callback) {
-            this.user = user;
-            this.clientFactory = clientFactory;
-            this.file = file;
-            this.callback = callback;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            try {
-                OwnCloudClient client = clientFactory.create(user);
-                RemoteOperationResult result = new RemoveTrashbinFileRemoteOperation(file.getFullRemotePath())
-                    .execute(client);
-                return result.isSuccess();
-            } catch (ClientFactory.CreationException e) {
-                Log_OC.e(this, "Cannot create client", e);
-                return Boolean.FALSE;
+        @Deprecated("Deprecated in Java")
+        override fun doInBackground(vararg voids: Void?): Boolean {
+            return try {
+                val client = clientFactory.create(user)
+                val result = RemoveTrashbinFileRemoteOperation(file!!.fullRemotePath)
+                    .execute(client)
+                result.isSuccess
+            } catch (e: CreationException) {
+                Log_OC.e(this, "Cannot create client", e)
+                java.lang.Boolean.FALSE
             }
         }
 
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-
-            callback.onResult(success);
+        @Deprecated("Deprecated in Java")
+        override fun onPostExecute(success: Boolean) {
+            super.onPostExecute(success)
+            callback?.onResult(success)
         }
     }
 
-    public void emptyTrashbin(OperationCallback callback) {
-        new EmptyTrashbinTask(user, clientFactory, callback).execute();
+    override fun emptyTrashbin(callback: OperationCallback?) {
+        EmptyTrashbinTask(user, clientFactory, callback).execute()
     }
 
-    private static class EmptyTrashbinTask extends AsyncTask<Void, Void, Boolean> {
+    private class EmptyTrashbinTask(
+        private val user: User,
+        private val clientFactory: ClientFactory,
+        private val callback: OperationCallback?
+    ) : AsyncTask<Void?, Void?, Boolean>() {
 
-        private User user;
-        private ClientFactory clientFactory;
-        private OperationCallback callback;
-
-        private EmptyTrashbinTask(User user, ClientFactory clientFactory, OperationCallback callback) {
-            this.user = user;
-            this.clientFactory = clientFactory;
-            this.callback = callback;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            try {
-                NextcloudClient client = clientFactory.createNextcloudClient(user);
-                EmptyTrashbinRemoteOperation emptyTrashbinFileOperation = new EmptyTrashbinRemoteOperation();
-                RemoteOperationResult<Boolean> result = emptyTrashbinFileOperation.execute(client);
-                return result.isSuccess();
-            } catch (ClientFactory.CreationException e) {
-                Log_OC.e(this, "Cannot create client", e);
-                return Boolean.FALSE;
+        @Deprecated("Deprecated in Java")
+        override fun doInBackground(vararg voids: Void?): Boolean {
+            return try {
+                val client = clientFactory.createNextcloudClient(user)
+                val emptyTrashbinFileOperation = EmptyTrashbinRemoteOperation()
+                val result = emptyTrashbinFileOperation.execute(client)
+                result.isSuccess
+            } catch (e: CreationException) {
+                Log_OC.e(this, "Cannot create client", e)
+                java.lang.Boolean.FALSE
             }
         }
 
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-
-            callback.onResult(success);
+        @Deprecated("Deprecated in Java")
+        override fun onPostExecute(success: Boolean) {
+            super.onPostExecute(success)
+            callback?.onResult(success)
         }
     }
 
-    @Override
-    public void restoreFile(TrashbinFile file, OperationCallback callback) {
-        new RestoreTrashbinFileTask(file, user, clientFactory, callback).execute();
+    override fun restoreFile(file: TrashbinFile?, callback: OperationCallback?) {
+        RestoreTrashbinFileTask(file, user, clientFactory, callback).execute()
     }
 
-    private static class RestoreTrashbinFileTask extends AsyncTask<Void, Void, Boolean> {
+    private class RestoreTrashbinFileTask(
+        private val file: TrashbinFile?,
+        private val user: User,
+        private val clientFactory: ClientFactory,
+        private val callback: OperationCallback?
+    ) : AsyncTask<Void?, Void?, Boolean>() {
 
-        private TrashbinFile file;
-        private User user;
-        private ClientFactory clientFactory;
-        private TrashbinRepository.OperationCallback callback;
-
-        private RestoreTrashbinFileTask(TrashbinFile file, User user, ClientFactory clientFactory,
-                                        TrashbinRepository.OperationCallback callback) {
-            this.file = file;
-            this.user = user;
-            this.clientFactory = clientFactory;
-            this.callback = callback;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            try {
-                OwnCloudClient client = clientFactory.create(user);
-                RemoteOperationResult result = new RestoreTrashbinFileRemoteOperation(file.getFullRemotePath(),
-                                                                                      file.getFileName()).execute(client);
-
-                return result.isSuccess();
-            } catch (ClientFactory.CreationException e) {
-                Log_OC.e(this, "Cannot create client", e);
-                return Boolean.FALSE;
+        @Deprecated("Deprecated in Java")
+        override fun doInBackground(vararg voids: Void?): Boolean {
+            return try {
+                val client = clientFactory.create(user)
+                val result = RestoreTrashbinFileRemoteOperation(
+                    file!!.fullRemotePath,
+                    file.fileName
+                ).execute(client)
+                result.isSuccess
+            } catch (e: CreationException) {
+                Log_OC.e(this, "Cannot create client", e)
+                false
             }
         }
 
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
-
-            callback.onResult(success);
+        @Deprecated("Deprecated in Java")
+        override fun onPostExecute(success: Boolean) {
+            super.onPostExecute(success)
+            callback?.onResult(success)
         }
     }
 
-    @Override
-    public void getFolder(String remotePath, @NonNull LoadFolderCallback callback) {
-        new ReadRemoteTrashbinFolderTask(remotePath, user, clientFactory, callback).execute();
+    override fun getFolder(remotePath: String?, callback: LoadFolderCallback?) {
+        callback?.let {
+            ReadRemoteTrashbinFolderTask(remotePath, user, clientFactory, it).execute()
+        }
     }
 
-    private static class ReadRemoteTrashbinFolderTask extends AsyncTask<Void, Void, Boolean> {
+    private class ReadRemoteTrashbinFolderTask(
+        private val remotePath: String?,
+        private val user: User,
+        private val clientFactory: ClientFactory,
+        private val callback: LoadFolderCallback
+    ) : AsyncTask<Void?, Void?, Boolean>() {
+        private var trashbinFiles: List<TrashbinFile?>? = null
 
-        private String remotePath;
-        private User user;
-        private ClientFactory clientFactory;
-        private List<TrashbinFile> trashbinFiles;
-        private LoadFolderCallback callback;
-
-        private ReadRemoteTrashbinFolderTask(String remotePath, User user, ClientFactory clientFactory,
-                                             LoadFolderCallback callback) {
-            this.remotePath = remotePath;
-            this.user = user;
-            this.clientFactory = clientFactory;
-            this.callback = callback;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            try {
-                OwnCloudClient client = clientFactory.create(user);
-                RemoteOperationResult<List<TrashbinFile>> result =
-                    new ReadTrashbinFolderRemoteOperation(remotePath).execute(client);
-                if (result.isSuccess()) {
-                    trashbinFiles = result.getResultData();
-                    return Boolean.TRUE;
+        @Deprecated("Deprecated in Java")
+        override fun doInBackground(vararg voids: Void?): Boolean {
+            return try {
+                val client = clientFactory.create(user)
+                val result = ReadTrashbinFolderRemoteOperation(remotePath).execute(client)
+                if (result.isSuccess) {
+                    trashbinFiles = result.resultData
+                    true
                 } else {
-                    return Boolean.FALSE;
+                    false
                 }
-            } catch (ClientFactory.CreationException e) {
-                return Boolean.FALSE;
+            } catch (e: CreationException) {
+                java.lang.Boolean.FALSE
             }
         }
 
-        @Override
-        protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
+        @Deprecated("Deprecated in Java")
+        override fun onPostExecute(success: Boolean) {
+            super.onPostExecute(success)
 
             if (success) {
-                callback.onSuccess(trashbinFiles);
+                callback.onSuccess(trashbinFiles)
             } else {
-                callback.onError(R.string.trashbin_loading_failed);
+                callback.onError(R.string.trashbin_loading_failed)
             }
         }
     }

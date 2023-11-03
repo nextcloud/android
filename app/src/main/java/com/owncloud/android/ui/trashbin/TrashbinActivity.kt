@@ -55,9 +55,13 @@ import javax.inject.Inject
 /**
  * Presenting trashbin data, received from presenter
  */
-class TrashbinActivity : DrawerActivity(), TrashbinActivityInterface, OnSortingOrderListener, TrashbinContract.View,
+class TrashbinActivity :
+    DrawerActivity(),
+    TrashbinActivityInterface,
+    OnSortingOrderListener,
+    TrashbinContract.View,
     Injectable {
-    
+
     @JvmField
     @Inject
     var preferences: AppPreferences? = null
@@ -78,10 +82,10 @@ class TrashbinActivity : DrawerActivity(), TrashbinActivityInterface, OnSortingO
 
     @VisibleForTesting
     var trashbinPresenter: TrashbinPresenter? = null
-   
+
     private var active = false
     private lateinit var binding: TrashbinActivityBinding
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

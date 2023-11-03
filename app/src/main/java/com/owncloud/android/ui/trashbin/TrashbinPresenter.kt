@@ -59,43 +59,52 @@ class TrashbinPresenter(
     }
 
     override fun loadFolder() {
-        trashbinRepository.getFolder(currentPath, object : LoadFolderCallback {
-            override fun onSuccess(files: List<TrashbinFile?>?) {
-                trashbinView.showTrashbinFolder(files)
-            }
+        trashbinRepository.getFolder(
+            currentPath,
+            object : LoadFolderCallback {
+                override fun onSuccess(files: List<TrashbinFile?>?) {
+                    trashbinView.showTrashbinFolder(files)
+                }
 
-            override fun onError(error: Int) {
-                trashbinView.showError(error)
+                override fun onError(error: Int) {
+                    trashbinView.showError(error)
+                }
             }
-        })
+        )
     }
 
     override fun restoreTrashbinFile(file: TrashbinFile?) {
-        trashbinRepository.restoreFile(file, object: TrashbinRepository.OperationCallback {
-            override fun onResult(success: Boolean) {
-                if (success) {
-                    trashbinView.removeFile(file)
-                } else {
-                    trashbinView.showSnackbarError(R.string.trashbin_file_not_restored, file)
+        trashbinRepository.restoreFile(
+            file,
+            object : TrashbinRepository.OperationCallback {
+                override fun onResult(success: Boolean) {
+                    if (success) {
+                        trashbinView.removeFile(file)
+                    } else {
+                        trashbinView.showSnackbarError(R.string.trashbin_file_not_restored, file)
+                    }
                 }
             }
-        })
+        )
     }
 
     override fun removeTrashbinFile(file: TrashbinFile?) {
-        trashbinRepository.removeTrashbinFile(file, object: TrashbinRepository.OperationCallback {
-            override fun onResult(success: Boolean) {
-                if (success) {
-                    trashbinView.removeFile(file)
-                } else {
-                    trashbinView.showSnackbarError(R.string.trashbin_file_not_deleted, file)
+        trashbinRepository.removeTrashbinFile(
+            file,
+            object : TrashbinRepository.OperationCallback {
+                override fun onResult(success: Boolean) {
+                    if (success) {
+                        trashbinView.removeFile(file)
+                    } else {
+                        trashbinView.showSnackbarError(R.string.trashbin_file_not_deleted, file)
+                    }
                 }
             }
-        })
+        )
     }
 
     override fun emptyTrashbin() {
-        trashbinRepository.emptyTrashbin(object: TrashbinRepository.OperationCallback {
+        trashbinRepository.emptyTrashbin(object : TrashbinRepository.OperationCallback {
             override fun onResult(success: Boolean) {
                 if (success) {
                     trashbinView.removeAllFiles()
