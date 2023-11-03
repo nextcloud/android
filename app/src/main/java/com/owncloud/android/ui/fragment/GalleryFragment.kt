@@ -350,6 +350,7 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions,
 
                 // if we have already older media in the gallery then retrieve file in chronological order to fill the gap
                 if (lastItemTimestamp < endDate) {
+
                     if (BuildConfig.DEBUG) {
                         Log_OC.d(this, "Gallery swipe: retrieve items to check the chronology")
                     }
