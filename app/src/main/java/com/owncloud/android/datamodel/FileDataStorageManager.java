@@ -510,6 +510,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
         cv.put(ProviderTableMeta.FILE_METADATA_SIZE, gson.toJson(file.getImageDimension()));
         cv.put(ProviderTableMeta.FILE_METADATA_GPS, gson.toJson(file.getGeoLocation()));
+        cv.put(ProviderTableMeta.FILE_METADATA_LIVE_PHOTO, gson.toJson(file.isLivePhoto()));
 
         return cv;
     }
@@ -939,6 +940,7 @@ public class FileDataStorageManager {
         ocFile.setLockTimestamp(nullToZero(fileEntity.getLockTimestamp()));
         ocFile.setLockTimeout(nullToZero(fileEntity.getLockTimeout()));
         ocFile.setLockToken(fileEntity.getLockToken());
+        ocFile.setLivePhotoAvailable(fileEntity.getMetadataLivePhoto() == "TODO");
 
         String sharees = fileEntity.getSharees();
         // Surprisingly JSON deserialization causes significant overhead.

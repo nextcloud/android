@@ -918,6 +918,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         this.note = note;
     }
 
+    public void setLivePhotoAvailable(Boolean livePhotoAvailable) {
+        this.livePhotoAvailable = livePhotoAvailable;
+    }
+
     public void setSharees(List<ShareeUser> sharees) {
         this.sharees = sharees;
     }
