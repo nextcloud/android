@@ -189,7 +189,7 @@ class TrashbinActivity :
         )
     }
 
-    private fun loadFolder() {
+    fun loadFolder() {
         trashbinListAdapter?.let {
             if (it.itemCount > EMPTY_LIST_COUNT) {
                 binding.swipeContainingList.isRefreshing = true
