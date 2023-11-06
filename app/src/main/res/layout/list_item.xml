@@ -176,7 +176,7 @@
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
                     android:layout_marginEnd="@dimen/standard_quarter_margin"
                     android:textSize="@dimen/two_line_secondary_text_size"
-                    app:drawableLeftCompat="@drawable/ic_play_circle" />
+                    app:drawableLeftCompat="@drawable/ic_live_photo" />
 
                 <TextView
                     android:id="@+id/file_size"
