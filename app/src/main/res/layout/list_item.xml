@@ -167,6 +167,7 @@
                 <TextView
                     android:id="@+id/live_photo_indicator"
                     android:visibility="gone"
+                    tools:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/file_list_live"

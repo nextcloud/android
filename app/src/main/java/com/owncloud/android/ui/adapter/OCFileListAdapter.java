@@ -388,12 +388,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void checkLivePhotoAbility(ListGridImageViewHolder holder, OCFile file) {
+    private void checkLivePhotoAvailability(ListGridImageViewHolder holder, OCFile file) {
         holder.getLivePhotoIndicator().setVisibility((file.isLivePhoto()) ? (View.VISIBLE) : (View.GONE));
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
-        checkLivePhotoAbility(holder, file);
+        checkLivePhotoAvailability(holder, file);
 
         if ((file.isSharedWithMe() || file.isSharedWithSharee()) && !isMultiSelect() && !gridView &&
             !hideItemOptions) {
@@ -507,7 +507,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void bindListGridItemViewHolder(ListGridItemViewHolder holder, OCFile file) {
-        checkLivePhotoAbility(holder, file);
+        checkLivePhotoAvailability(holder, file);
         holder.getFileName().setText(file.getDecryptedFileName());
 
         boolean gridImage = MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file);
