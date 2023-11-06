@@ -37,6 +37,8 @@ internal class OCFileListItemViewHolder(private var binding: ListItemBinding) :
         binding.root
     ),
     ListItemViewHolder {
+    override val livePhotoIndicator: TextView
+        get() = binding.livePhotoIndicator
     override val fileSize: TextView
         get() = binding.fileSize
     override val fileSizeSeparator: View
