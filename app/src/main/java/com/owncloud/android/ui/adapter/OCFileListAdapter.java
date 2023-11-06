@@ -42,6 +42,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -356,14 +357,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     @SuppressFBWarnings("ITC_INHERITANCE_TYPE_CHECKING")
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof OCFileListFooterViewHolder) {
-            OCFileListFooterViewHolder footerViewHolder = (OCFileListFooterViewHolder) holder;
+        if (holder instanceof OCFileListFooterViewHolder footerViewHolder) {
             footerViewHolder.getFooterText().setText(getFooterText());
-            viewThemeUtils.platform.colorCircularProgressBar(footerViewHolder.getLoadingProgressBar());
+            viewThemeUtils.platform.colorCircularProgressBar(footerViewHolder.getLoadingProgressBar(), ColorRole.ON_SURFACE_VARIANT);
             footerViewHolder.getLoadingProgressBar().setVisibility(
                 ocFileListFragmentInterface.isLoading() ? View.VISIBLE : View.GONE);
-        } else if (holder instanceof OCFileListHeaderViewHolder) {
-            OCFileListHeaderViewHolder headerViewHolder = (OCFileListHeaderViewHolder) holder;
+        } else if (holder instanceof OCFileListHeaderViewHolder headerViewHolder) {
             String text = currentDirectory.getRichWorkspace();
 
             PreviewTextFragment.setText(headerViewHolder.getHeaderText(), text, null, activity, true, true, viewThemeUtils);
@@ -389,7 +388,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
+    private void checkLivePhotoAbility(ListGridImageViewHolder holder, OCFile file) {
+        holder.getLivePhotoIndicator().setVisibility((file.isLivePhoto()) ? (View.VISIBLE) : (View.GONE));
+    }
+
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
+        checkLivePhotoAbility(holder, file);
+
         if ((file.isSharedWithMe() || file.isSharedWithSharee()) && !isMultiSelect() && !gridView &&
             !hideItemOptions) {
             holder.getSharedAvatars().setVisibility(View.VISIBLE);
@@ -431,7 +436,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getTagMore().setVisibility(View.GONE);
 
             holder.getFirstTag().setText(file.getTags().get(0));
-            
+
             if (file.getTags().size() > 1) {
                 viewThemeUtils.material.themeChipSuggestion(holder.getSecondTag());
                 holder.getSecondTag().setVisibility(View.VISIBLE);
@@ -486,7 +491,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getLastModification().setVisibility(View.GONE);
         }
 
-
         if (isMultiSelect() || gridView || hideItemOptions) {
             holder.getOverflowMenu().setVisibility(View.GONE);
         } else {
@@ -503,6 +507,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void bindListGridItemViewHolder(ListGridItemViewHolder holder, OCFile file) {
+        checkLivePhotoAbility(holder, file);
         holder.getFileName().setText(file.getDecryptedFileName());
 
         boolean gridImage = MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file);
@@ -847,11 +852,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 contentValues.add(cv);
             } catch (
                 RemoteOperationFailedException |
-                    OperationCanceledException |
-                    AuthenticatorException |
-                    IOException |
-                    AccountUtils.AccountNotFoundException |
-                    IllegalStateException e) {
+                OperationCanceledException |
+                AuthenticatorException |
+                IOException |
+                AccountUtils.AccountNotFoundException |
+                IllegalStateException e) {
                 Log_OC.e(TAG, "Error saving file with parent" + e.getMessage(), e);
             }
         }
