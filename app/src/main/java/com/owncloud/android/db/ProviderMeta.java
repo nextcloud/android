@@ -118,6 +118,7 @@ public class ProviderMeta {
         public static final String FILE_RICH_WORKSPACE = "rich_workspace";
         public static final String FILE_METADATA_SIZE = "metadata_size";
         public static final String FILE_METADATA_GPS = "metadata_gps";
+        public static final String FILE_METADATA_LIVE_PHOTO = "metadata_live_photo";
         public static final String FILE_LOCKED = "locked";
         public static final String FILE_LOCK_TYPE = "lock_type";
         public static final String FILE_LOCK_OWNER = "lock_owner";
@@ -174,6 +175,7 @@ public class ProviderMeta {
                 FILE_LOCK_TIMEOUT,
                 FILE_LOCK_TOKEN,
                 FILE_METADATA_SIZE,
+                FILE_METADATA_LIVE_PHOTO,
                 FILE_TAGS,
                 FILE_METADATA_GPS));
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";

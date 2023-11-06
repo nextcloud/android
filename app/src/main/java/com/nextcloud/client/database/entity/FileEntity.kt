@@ -102,6 +102,8 @@ data class FileEntity(
     val richWorkspace: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_METADATA_SIZE)
     val metadataSize: String?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_METADATA_LIVE_PHOTO)
+    val metadataLivePhoto: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCKED)
     val locked: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TYPE)
