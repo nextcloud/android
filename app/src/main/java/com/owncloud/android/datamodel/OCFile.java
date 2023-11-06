@@ -83,6 +83,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private long lastSyncDateForProperties;
     private long lastSyncDateForData;
     private boolean previewAvailable;
+    private boolean livePhotoAvailable;
     private String etag;
     private String etagOnServer;
     private boolean sharedViaLink;
@@ -239,6 +240,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeLong(lockTimestamp);
         dest.writeLong(lockTimeout);
         dest.writeString(lockToken);
+        // TODO add live photo availability
+    }
+
+    public Boolean isLivePhoto() {
+        return livePhotoAvailable;
     }
 
     public void setDecryptedRemotePath(String path) {
