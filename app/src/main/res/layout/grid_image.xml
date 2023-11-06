@@ -104,7 +104,7 @@
         android:layout_gravity="center_vertical|bottom"
         android:textColor="@color/list_item_lastmod_and_filesize_text"
         android:textSize="@dimen/two_line_secondary_text_size"
-        app:drawableTopCompat="@drawable/ic_play_circle" />
+        app:drawableTopCompat="@drawable/ic_live_photo" />
 
     <ImageView
         android:id="@+id/custom_checkbox"
