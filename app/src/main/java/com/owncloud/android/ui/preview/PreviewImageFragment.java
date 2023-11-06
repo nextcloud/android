@@ -84,8 +84,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import pl.droidsonroids.gif.GifDrawable;
 
@@ -209,8 +211,12 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     }
 
     private void playLivePhoto() {
-        // TODO play video
-
+        Fragment mediaFragment = PreviewMediaFragment.newInstance(getFile(), accountManager.getUser(), 0, true);
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.top, mediaFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     /**
