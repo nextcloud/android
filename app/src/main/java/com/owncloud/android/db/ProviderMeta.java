@@ -259,6 +259,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_USER_STATUS = "user_status";
         public static final String CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI = "user_status_supports_emoji";
         public static final String CAPABILITIES_GROUPFOLDERS = "groupfolders";
+        public static final String CAPABILITIES_DROP_ACCOUNT = "drop_account";
 
         //Columns of Uploads table
         public static final String UPLOADS_LOCAL_PATH = "local_path";
