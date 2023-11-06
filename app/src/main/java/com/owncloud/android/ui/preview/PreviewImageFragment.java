@@ -94,12 +94,10 @@ import static com.owncloud.android.datamodel.ThumbnailsCacheManager.PREFIX_THUMB
 
 /**
  * This fragment shows a preview of a downloaded image.
- *
- * Trying to get an instance with a NULL {@link OCFile} will produce an
- * {@link IllegalStateException}.
- *
- * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
- * instantiation too.
+ * <p>
+ * Trying to get an instance with a NULL {@link OCFile} will produce an {@link IllegalStateException}.
+ * <p>
+ * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on instantiation too.
  */
 public class PreviewImageFragment extends FileFragment implements Injectable {
 
@@ -132,17 +130,15 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     /**
      * Public factory method to create a new fragment that previews an image.
-     *
-     * Android strongly recommends keep the empty constructor of fragments as the only public
-     * constructor, and
-     * use {@link #setArguments(Bundle)} to set the needed arguments.
-     *
+     * <p>
+     * Android strongly recommends keep the empty constructor of fragments as the only public constructor, and use
+     * {@link #setArguments(Bundle)} to set the needed arguments.
+     * <p>
      * This method hides to client objects the need of doing the construction in two steps.
      *
      * @param imageFile             An {@link OCFile} to preview as an image in the fragment
-     * @param ignoreFirstSavedState Flag to work around an unexpected behaviour of
-     *                              {@link FragmentStatePagerAdapter}
-     *                              ; TODO better solution
+     * @param ignoreFirstSavedState Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter} ;
+     *                              TODO better solution
      */
     public static PreviewImageFragment newInstance(@NonNull OCFile imageFile,
                                                    boolean ignoreFirstSavedState,
@@ -159,12 +155,11 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
     /**
      * Creates an empty fragment for image previews.
-     *
-     * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically
-     * (for instance, when the device is turned a aside).
-     *
-     * DO NOT CALL IT: an {@link OCFile} and {@link User} must be provided for a successful
-     * construction
+     * <p>
+     * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically (for instance, when the
+     * device is turned a aside).
+     * <p>
+     * DO NOT CALL IT: an {@link OCFile} and {@link User} must be provided for a successful construction
      */
     public PreviewImageFragment() {
         ignoreFirstSavedState = false;
@@ -201,9 +196,21 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
         binding.image.setOnClickListener(v -> togglePreviewImageFullScreen());
 
+        if (getFile().isLivePhoto()) {
+            binding.image.setOnLongClickListener(v -> {
+                playLivePhoto();
+                return true;
+            });
+        }
+
         setMultiListLoadingMessage();
 
         return view;
+    }
+
+    private void playLivePhoto() {
+        // TODO play video
+
     }
 
     /**
@@ -395,11 +402,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     public void onFileActionChosen(final int itemId) {
         if (itemId == R.id.action_send_share_file) {
             if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-                Snackbar.make(requireView(),
-                              R.string.resharing_is_not_allowed,
-                              Snackbar.LENGTH_LONG
-                             )
-                    .show();
+                Snackbar.make(requireView(), R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG).show();
             } else {
                 containerActivity.getFileOperationsHelper().sendShareFile(getFile());
             }
@@ -455,9 +458,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
         /**
          * Weak reference to the target {@link ImageView} where the bitmap will be loaded into.
-         *
-         * Using a weak reference will avoid memory leaks if the target ImageView is retired from
-         * memory before the load finishes.
+         * <p>
+         * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load
+         * finishes.
          */
         private final WeakReference<PhotoView> imageViewRef;
         private final WeakReference<LinearLayout> infoViewRef;
@@ -524,7 +527,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
                         try {
                             bitmapResult = BitmapUtils.decodeSampledBitmapFromFile(storagePath, minWidth,
-                                    minHeight);
+                                                                                   minHeight);
 
                             if (isCancelled()) {
                                 return new LoadImage(bitmapResult, null, ocFile);
@@ -562,7 +565,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             } catch (NoSuchFieldError e) {
                 mErrorMessageId = R.string.common_error_unknown;
                 Log_OC.e(TAG, "Error from access to non-existing field despite protection; file "
-                        + storagePath, e);
+                    + storagePath, e);
 
             } catch (Throwable t) {
                 mErrorMessageId = R.string.common_error_unknown;
@@ -601,7 +604,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             if (imageView != null) {
                 if (bitmap != null) {
                     Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
-                            bitmap.getHeight());
+                        bitmap.getHeight());
 
                     if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType()) ||
                         MIME_TYPE_GIF.equalsIgnoreCase(result.ocFile.getMimeType())) {
@@ -716,7 +719,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                                                      Snackbar.LENGTH_INDEFINITE).show();
                                    }
                                }
-                    ).show();
+                              ).show();
             }
         } catch (IllegalArgumentException e) {
             Log_OC.d(TAG, e.getMessage());
@@ -732,8 +735,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     }
 
     /**
-     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment}
-     * to be previewed.
+     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment} to be previewed.
      *
      * @param file File to test if can be previewed.
      * @return 'True' if the file can be handled by the fragment.
