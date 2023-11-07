@@ -198,7 +198,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
         binding.image.setOnClickListener(v -> togglePreviewImageFullScreen());
 
-        if (getFile().isLivePhoto()) {
+        if (getFile().getLivePhoto() != null) {
             binding.image.setOnLongClickListener(v -> {
                 playLivePhoto();
                 return true;

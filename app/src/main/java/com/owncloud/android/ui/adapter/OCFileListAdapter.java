@@ -389,11 +389,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void checkLivePhotoAvailability(ListGridImageViewHolder holder, OCFile file) {
-        holder.getLivePhotoIndicator().setVisibility((file.isLivePhoto()) ? (View.VISIBLE) : (View.GONE));
+        boolean isLivePhoto = file.getLivePhoto() != null;
+        holder.getLivePhotoIndicator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
 
         // FIXME Interface segregation principle violation
         // Not needed for Grid mode unfortunately ListGridImageViewHolder interface used for List and Grid mode
-        holder.getLivePhotoIndicatorSeparator().setVisibility((file.isLivePhoto()) ? (View.VISIBLE) : (View.GONE));
+        holder.getLivePhotoIndicatorSeparator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {

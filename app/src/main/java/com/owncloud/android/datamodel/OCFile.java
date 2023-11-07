@@ -28,6 +28,7 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -83,7 +84,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private long lastSyncDateForProperties;
     private long lastSyncDateForData;
     private boolean previewAvailable;
-    private boolean livePhotoAvailable;
+    private String livePhoto;
     private String etag;
     private String etagOnServer;
     private boolean sharedViaLink;
@@ -243,8 +244,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         // TODO add live photo availability
     }
 
-    public Boolean isLivePhoto() {
-        return livePhotoAvailable;
+    public String getLivePhoto() {
+        return livePhoto;
     }
 
     public void setDecryptedRemotePath(String path) {
@@ -918,8 +919,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         this.note = note;
     }
 
-    public void setLivePhotoAvailable(Boolean livePhotoAvailable) {
-        this.livePhotoAvailable = livePhotoAvailable;
+    public void setLivePhoto(String livePhoto) {
+        this.livePhoto = livePhoto;
     }
 
     public void setSharees(List<ShareeUser> sharees) {
