@@ -357,6 +357,15 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return false;
     }
 
+    public String getFileNameWithoutExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf(".");
+        if (dotIndex > 0) {
+            return fileName.substring(0, dotIndex);
+        } else {
+            return fileName;
+        }
+    }
+
     public String getFileNameWithExtension(int fileNameLength) {
         String fileName = getFileName();
         String shortFileName = fileName.substring(0, Math.min(fileName.length(), fileNameLength));
