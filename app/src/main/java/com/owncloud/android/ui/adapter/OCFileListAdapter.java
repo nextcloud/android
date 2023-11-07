@@ -76,6 +76,7 @@ import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -86,8 +87,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -398,6 +401,66 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         // 594c962d71b
         // Not needed for Grid mode unfortunately ListGridImageViewHolder interface used for List and Grid mode
         holder.getLivePhotoIndicatorSeparator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
+        addVideoOCFileOfLivePhoto();
+    }
+
+    public static String extractFileName(String fileName) {
+        int dotIndex = fileName.lastIndexOf(".");
+        if (dotIndex > 0) {
+            return fileName.substring(0, dotIndex);
+        } else {
+            return fileName;
+        }
+    }
+
+    public void addVideoOCFileOfLivePhoto() {
+        for (int i = 0; i < mFiles.size(); i++) {
+            for (int j = i + 1; j < mFiles.size(); j++) {
+                OCFile file = mFiles.get(i);
+                OCFile nextFile = mFiles.get(j);
+
+                String fileLivePhoto = file.getLivePhoto();
+                String nextFileLivePhoto = nextFile.getLivePhoto();
+
+                if (fileLivePhoto != null && nextFileLivePhoto != null) {
+                    String fileLivePhotoName = extractFileName(fileLivePhoto);
+                    String nextFileLivePhotoName = extractFileName(nextFileLivePhoto);
+
+                    if (fileLivePhotoName.equals(nextFileLivePhotoName)) {
+                        if (MimeTypeUtil.isVideo(file.getMimeType())) {
+                            nextFile.videoOfLivePhoto = file;
+                        } else if (MimeTypeUtil.isVideo(nextFile.getMimeType())) {
+                            file.videoOfLivePhoto = nextFile;
+                        }
+                    }
+                }
+            }
+        }
+
+        /*
+
+
+
+
+        Map<String, OCFile> livePhotoToVideoMap = new HashMap<>();
+
+        for (OCFile file : mFiles) {
+            if (MimeTypeUtil.isVideo(file.getMimeType())) {
+                String livePhotoKey = file.getLivePhoto();
+                if (livePhotoToVideoMap.containsKey(livePhotoKey)) {
+                    OCFile previousVideo = livePhotoToVideoMap.get(livePhotoKey);
+
+                    if (previousVideo != null) {
+                        previousVideo.videoOfLivePhoto = file;
+                        file.videoOfLivePhoto = previousVideo;
+                    }
+                } else {
+                    livePhotoToVideoMap.put(livePhotoKey, file);
+                }
+            }
+        }
+         */
+
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {

@@ -85,6 +85,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private long lastSyncDateForData;
     private boolean previewAvailable;
     private String livePhoto;
+    public OCFile videoOfLivePhoto;
     private String etag;
     private String etagOnServer;
     private boolean sharedViaLink;
@@ -484,13 +485,21 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         Log_OC.d(TAG, "OCFile name changing from " + remotePath);
         if (!TextUtils.isEmpty(name) && !name.contains(PATH_SEPARATOR) && !ROOT_PATH.equals(remotePath)) {
             String parent = new File(this.getRemotePath()).getParent();
-            parent = parent.endsWith(PATH_SEPARATOR) ? parent : parent + PATH_SEPARATOR;
-            remotePath = parent + name;
-            if (isFolder()) {
-                remotePath += PATH_SEPARATOR;
+            if (parent != null) {
+                parent = parent.endsWith(PATH_SEPARATOR) ? parent : parent + PATH_SEPARATOR;
+                remotePath = parent + name;
+                if (isFolder()) {
+                    remotePath += PATH_SEPARATOR;
+                }
+                Log_OC.d(TAG, "OCFile name changed to " + remotePath);
             }
-            Log_OC.d(TAG, "OCFile name changed to " + remotePath);
         }
+    }
+
+    public void setRemotePathV2(String name) {
+        this.remotePath = name;
+        this.decryptedRemotePath = name;
+        localUri = getStorageUri();
     }
 
     /**

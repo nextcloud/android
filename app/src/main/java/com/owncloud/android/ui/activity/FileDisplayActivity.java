@@ -2096,6 +2096,7 @@ public class FileDisplayActivity extends FileActivity
     public void startImagePreview(OCFile file, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(EXTRA_FILE, file);
+        showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.videoOfLivePhoto);
         showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
         if (showPreview) {
             startActivity(showDetailsIntent);
@@ -2115,6 +2116,7 @@ public class FileDisplayActivity extends FileActivity
     public void startImagePreview(OCFile file, VirtualFolderType type, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_FILE, file);
+
         showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, type);
 
