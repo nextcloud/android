@@ -209,17 +209,24 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         if (livePhoto != null) {
             binding.livePhotoIndicator.setVisibility(View.VISIBLE);
 
+            OCFile videoOfLivePhoto = getFile().videoOfLivePhoto;
+
+            // Automatically play live photo
+            playLivePhoto(videoOfLivePhoto);
+
+            // For replay functionality setOnLongClickListener
             binding.image.setOnLongClickListener(v -> {
-                OCFile videoOfLivePhoto = getFile().videoOfLivePhoto;
-                if (videoOfLivePhoto != null) {
-                    playLivePhoto(videoOfLivePhoto);
-                }
+                playLivePhoto(videoOfLivePhoto);
                 return true;
             });
         }
     }
 
     private void playLivePhoto(OCFile file) {
+        if (file == null) {
+            return;
+        }
+
         Fragment mediaFragment = PreviewMediaFragment.newInstance(file, accountManager.getUser(), 0, true);
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

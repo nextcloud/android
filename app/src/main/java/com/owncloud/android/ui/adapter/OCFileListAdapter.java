@@ -401,26 +401,25 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         // 594c962d71b
         // Not needed for Grid mode unfortunately ListGridImageViewHolder interface used for List and Grid mode
         holder.getLivePhotoIndicatorSeparator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
+
+        hideVideoFileOfLivePhoto(holder, file);
         addVideoOCFileOfLivePhoto();
     }
 
-    public static String extractFileName(String fileName) {
-        int dotIndex = fileName.lastIndexOf(".");
-        if (dotIndex > 0) {
-            return fileName.substring(0, dotIndex);
-        } else {
-            return fileName;
+    private void hideVideoFileOfLivePhoto(ListGridImageViewHolder holder, OCFile file) {
+        if (MimeTypeUtil.isVideo(file) && file.getLivePhoto() != null) {
+            holder.getItemLayout().setVisibility(View.GONE);
         }
     }
 
-    public void addVideoOCFileOfLivePhoto() {
+    private void addVideoOCFileOfLivePhoto() {
         HashMap<String, OCFile> livePhotoMap = new HashMap<>();
 
         for (OCFile file : mFiles) {
             String fileLivePhoto = file.getLivePhoto();
 
             if (fileLivePhoto != null) {
-                String fileLivePhotoName = extractFileName(fileLivePhoto);
+                String fileLivePhotoName = file.getFileNameWithoutExtension(fileLivePhoto);
 
                 if (livePhotoMap.containsKey(fileLivePhotoName)) {
                     OCFile existingFile = livePhotoMap.get(fileLivePhotoName);
