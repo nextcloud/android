@@ -60,6 +60,7 @@ import com.owncloud.android.databinding.PreviewImageFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -120,7 +121,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     private static final String TAG = PreviewImageFragment.class.getSimpleName();
 
     private boolean ignoreFirstSavedState;
-
     private LoadBitmapTask loadBitmapTask;
 
     @Inject ConnectivityService connectivityService;
@@ -148,6 +148,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         PreviewImageFragment frag = new PreviewImageFragment();
         frag.showResizedImage = showResizedImage;
         Bundle args = new Bundle();
+        // TODO passed videoOfLivePhoto is null
         args.putParcelable(ARG_FILE, imageFile);
         args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
         args.putBoolean(ARG_SHOW_RESIZED_IMAGE, showResizedImage);
@@ -197,21 +198,25 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         view.setOnClickListener(v -> togglePreviewImageFullScreen());
 
         binding.image.setOnClickListener(v -> togglePreviewImageFullScreen());
-
-        if (getFile().getLivePhoto() != null) {
-            binding.image.setOnLongClickListener(v -> {
-                playLivePhoto();
-                return true;
-            });
-        }
-
+        checkLivePhotoAvailability();
         setMultiListLoadingMessage();
 
         return view;
     }
 
+    private void checkLivePhotoAvailability() {
+        String livePhoto = getFile().getLivePhoto();
+
+        if (livePhoto != null) {
+            binding.image.setOnLongClickListener(v -> {
+                playLivePhoto();
+                return true;
+            });
+        }
+    }
+
     private void playLivePhoto() {
-        Fragment mediaFragment = PreviewMediaFragment.newInstance(getFile(), accountManager.getUser(), 0, true);
+        Fragment mediaFragment = PreviewMediaFragment.newInstance(getFile().videoOfLivePhoto, accountManager.getUser(), 0, true);
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.top, mediaFragment);
