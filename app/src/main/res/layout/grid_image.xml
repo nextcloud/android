@@ -106,6 +106,12 @@
         android:textSize="@dimen/two_line_secondary_text_size"
         app:drawableTopCompat="@drawable/ic_live_photo" />
 
+    <TextView
+        android:id="@+id/live_photo_indicator_separator"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
     <ImageView
         android:id="@+id/custom_checkbox"
         android:layout_width="wrap_content"

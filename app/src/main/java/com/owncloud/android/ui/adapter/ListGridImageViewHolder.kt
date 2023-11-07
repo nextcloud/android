@@ -37,4 +37,5 @@ interface ListGridImageViewHolder {
     val itemLayout: View
     val unreadComments: ImageView
     val livePhotoIndicator: TextView
+    val livePhotoIndicatorSeparator: TextView
 }

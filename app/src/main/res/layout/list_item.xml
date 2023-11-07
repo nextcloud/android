@@ -177,6 +177,9 @@
                     app:drawableLeftCompat="@drawable/ic_live_photo" />
 
                 <TextView
+                    android:id="@+id/live_photo_indicator_separator"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
@@ -229,7 +232,7 @@
 
         <ImageView
             android:id="@+id/unreadComments"
-            android:layout_width="wrap_content"
+            android:layout_width="48dp"
             android:layout_height="match_parent"
             android:clickable="true"
             android:contentDescription="@string/unread_comments"
