@@ -71,7 +71,7 @@ class AccountRemovalDialog : DialogFragment(), AvatarGenerationListener, Injecta
         viewThemeUtils.platform.themeRadioButton(binding.radioRequestDeletion)
         viewThemeUtils.platform.colorTextButtons(
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-            alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
         )
 
         binding.userName.text = UserAccountManager.getDisplayName(user)
