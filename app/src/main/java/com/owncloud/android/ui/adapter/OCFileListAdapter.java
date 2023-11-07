@@ -414,53 +414,30 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void addVideoOCFileOfLivePhoto() {
-        for (int i = 0; i < mFiles.size(); i++) {
-            for (int j = i + 1; j < mFiles.size(); j++) {
-                OCFile file = mFiles.get(i);
-                OCFile nextFile = mFiles.get(j);
-
-                String fileLivePhoto = file.getLivePhoto();
-                String nextFileLivePhoto = nextFile.getLivePhoto();
-
-                if (fileLivePhoto != null && nextFileLivePhoto != null) {
-                    String fileLivePhotoName = extractFileName(fileLivePhoto);
-                    String nextFileLivePhotoName = extractFileName(nextFileLivePhoto);
-
-                    if (fileLivePhotoName.equals(nextFileLivePhotoName)) {
-                        if (MimeTypeUtil.isVideo(file.getMimeType())) {
-                            nextFile.videoOfLivePhoto = file;
-                        } else if (MimeTypeUtil.isVideo(nextFile.getMimeType())) {
-                            file.videoOfLivePhoto = nextFile;
-                        }
-                    }
-                }
-            }
-        }
-
-        /*
-
-
-
-
-        Map<String, OCFile> livePhotoToVideoMap = new HashMap<>();
+        HashMap<String, OCFile> livePhotoMap = new HashMap<>();
 
         for (OCFile file : mFiles) {
-            if (MimeTypeUtil.isVideo(file.getMimeType())) {
-                String livePhotoKey = file.getLivePhoto();
-                if (livePhotoToVideoMap.containsKey(livePhotoKey)) {
-                    OCFile previousVideo = livePhotoToVideoMap.get(livePhotoKey);
+            String fileLivePhoto = file.getLivePhoto();
 
-                    if (previousVideo != null) {
-                        previousVideo.videoOfLivePhoto = file;
-                        file.videoOfLivePhoto = previousVideo;
+            if (fileLivePhoto != null) {
+                String fileLivePhotoName = extractFileName(fileLivePhoto);
+
+                if (livePhotoMap.containsKey(fileLivePhotoName)) {
+                    OCFile existingFile = livePhotoMap.get(fileLivePhotoName);
+
+                    if (existingFile != null) {
+                        if (MimeTypeUtil.isVideo(file.getMimeType())) {
+                            existingFile.videoOfLivePhoto = file;
+                        } else if (MimeTypeUtil.isVideo(existingFile.getMimeType())) {
+                            file.videoOfLivePhoto = existingFile;
+                            livePhotoMap.put(fileLivePhotoName, file);
+                        }
                     }
                 } else {
-                    livePhotoToVideoMap.put(livePhotoKey, file);
+                    livePhotoMap.put(fileLivePhotoName, file);
                 }
             }
         }
-         */
-
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
