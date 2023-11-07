@@ -156,7 +156,6 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
     @NonNull
     public Fragment getItem(int i) {
-        // TODO passed videoOfLivePhoto is null
         OCFile file = getFileAt(i);
         Fragment fragment;
 
