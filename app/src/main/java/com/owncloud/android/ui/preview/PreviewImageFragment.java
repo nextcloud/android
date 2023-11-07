@@ -148,7 +148,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         PreviewImageFragment frag = new PreviewImageFragment();
         frag.showResizedImage = showResizedImage;
         Bundle args = new Bundle();
-        // TODO passed videoOfLivePhoto is null
         args.putParcelable(ARG_FILE, imageFile);
         args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
         args.putBoolean(ARG_SHOW_RESIZED_IMAGE, showResizedImage);
