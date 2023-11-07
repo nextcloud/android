@@ -93,7 +93,7 @@
     <TextView
         android:id="@+id/live_photo_indicator"
         tools:visibility="visible"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/standard_quarter_margin"
