@@ -207,15 +207,20 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         String livePhoto = getFile().getLivePhoto();
 
         if (livePhoto != null) {
+            binding.livePhotoIndicator.setVisibility(View.VISIBLE);
+
             binding.image.setOnLongClickListener(v -> {
-                playLivePhoto();
+                OCFile videoOfLivePhoto = getFile().videoOfLivePhoto;
+                if (videoOfLivePhoto != null) {
+                    playLivePhoto(videoOfLivePhoto);
+                }
                 return true;
             });
         }
     }
 
-    private void playLivePhoto() {
-        Fragment mediaFragment = PreviewMediaFragment.newInstance(getFile().videoOfLivePhoto, accountManager.getUser(), 0, true);
+    private void playLivePhoto(OCFile file) {
+        Fragment mediaFragment = PreviewMediaFragment.newInstance(file, accountManager.getUser(), 0, true);
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.top, mediaFragment);
