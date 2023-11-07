@@ -30,7 +30,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -42,6 +41,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.databinding.PasscodelockBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.components.PassCodeEditText;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.Arrays;
@@ -74,7 +74,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     @Inject PassCodeManager passCodeManager;
     @Inject ViewThemeUtils viewThemeUtils;
     private PasscodelockBinding binding;
-    private final EditText[] passCodeEditTexts = new EditText[4];
+    private final PassCodeEditText[] passCodeEditTexts = new PassCodeEditText[4];
     private String[] passCodeDigits = {"", "", "", ""};
     private boolean confirmingPassCode;
     private boolean changed = true; // to control that only one blocks jump
@@ -91,7 +91,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         binding = PasscodelockBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         viewThemeUtils.platform.colorTextButtons(binding.cancel);
 
         passCodeEditTexts[0] = binding.txt0;
@@ -104,7 +103,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         }
 
         passCodeEditTexts[0].requestFocus();
-
 
         Window window = getWindow();
         if (window != null) {
@@ -125,7 +123,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                 passCodeDigits = savedInstanceState.getStringArray(PassCodeActivity.KEY_PASSCODE_DIGITS);
             }
             if (confirmingPassCode) {
-                // the app was in the passcodeconfirmation
+                // the app was in the passcode confirmation
                 requestPassCodeConfirmation();
             } else {
                 // pass code preference has just been activated in SettingsActivity;
@@ -158,12 +156,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     protected void setCancelButtonEnabled(boolean enabled) {
         if (enabled) {
             binding.cancel.setVisibility(View.VISIBLE);
-            binding.cancel.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
+            binding.cancel.setOnClickListener(v -> finish());
         } else {
             binding.cancel.setVisibility(View.INVISIBLE);
             binding.cancel.setOnClickListener(null);
@@ -179,20 +172,18 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
      * Binds the appropriate listeners to the input boxes receiving each digit of the pass code.
      */
     protected void setTextListeners() {
-        passCodeEditTexts[0].addTextChangedListener(new PassCodeDigitTextWatcher(0, false));
-        passCodeEditTexts[1].addTextChangedListener(new PassCodeDigitTextWatcher(1, false));
-        passCodeEditTexts[2].addTextChangedListener(new PassCodeDigitTextWatcher(2, false));
-        passCodeEditTexts[3].addTextChangedListener(new PassCodeDigitTextWatcher(3, true));
+        for (int i = 0; i < passCodeEditTexts.length; i++) {
+            final PassCodeEditText editText = passCodeEditTexts[i];
+            boolean isLast = (i == 3);
 
-        setOnKeyListener(1);
-        setOnKeyListener(2);
-        setOnKeyListener(3);
+            editText.addTextChangedListener(new PassCodeDigitTextWatcher(i, isLast));
+            if (i > 0) {
+                setOnKeyListener(i);
+            }
 
-        passCodeEditTexts[1].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(1));
-
-        passCodeEditTexts[2].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(2));
-
-        passCodeEditTexts[3].setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(3));
+            int finalIndex = i;
+            editText.setOnFocusChangeListener((v, hasFocus) -> onPassCodeEditTextFocusChange(finalIndex));
+        }
     }
 
     private void onPassCodeEditTextFocusChange(final int passCodeIndex) {
@@ -265,9 +256,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                 savePassCodeAndExit();
 
             } else {
-                showErrorAndRestart(
-                    R.string.pass_code_mismatch, R.string.pass_code_configure_your_pass_code, View.VISIBLE
-                                   );
+                showErrorAndRestart(R.string.pass_code_mismatch, R.string.pass_code_configure_your_pass_code, View.VISIBLE);
             }
         }
     }
@@ -279,13 +268,11 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                 (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(
                 focusedView.getWindowToken(),
-                0
-                                                      );
+                0);
         }
     }
 
-    private void showErrorAndRestart(int errorMessage, int headerMessage,
-                                     int explanationVisibility) {
+    private void showErrorAndRestart(int errorMessage, int headerMessage, int explanationVisibility) {
         Arrays.fill(passCodeDigits, null);
         Snackbar.make(findViewById(android.R.id.content), getString(errorMessage), Snackbar.LENGTH_LONG).show();
         binding.header.setText(headerMessage);                          // TODO check if really needed
@@ -312,8 +299,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
      * @return 'True' if entered pass code equals to the saved one.
      */
     protected boolean checkPassCode() {
-
-
         String[] savedPassCodeDigits = preferences.getPassCode();
 
         boolean result = true;
@@ -331,11 +316,13 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
     protected boolean confirmPassCode() {
         confirmingPassCode = false;
 
-        boolean result = true;
-        for (int i = 0; i < passCodeEditTexts.length && result; i++) {
-            result = passCodeEditTexts[i].getText().toString().equals(passCodeDigits[i]);
+        for (int i = 0; i < passCodeEditTexts.length; i++) {
+            Editable passCodeText = passCodeEditTexts[i].getText();
+            if (passCodeText == null || !passCodeText.toString().equals(passCodeDigits[i])) {
+                return false;
+            }
         }
-        return result;
+        return true;
     }
 
     /**
@@ -401,7 +388,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(delay * 1000);
+                        Thread.sleep(delay * 1000L);
 
                         runOnUiThread(() -> {
                             binding.explanation.setVisibility(View.INVISIBLE);
@@ -417,7 +404,6 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
             }).start();
         }
     }
-
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -440,6 +426,7 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         PassCodeDigitTextWatcher(int index, boolean lastOne) {
             mIndex = index;
             mLastOne = lastOne;
+
             if (mIndex < 0) {
                 throw new IllegalArgumentException(
                     "Invalid index in " + PassCodeDigitTextWatcher.class.getSimpleName() +
@@ -463,12 +450,17 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         public void afterTextChanged(Editable s) {
             if (s.length() > 0) {
                 if (!confirmingPassCode) {
-                    passCodeDigits[mIndex] = passCodeEditTexts[mIndex].getText().toString();
+                    Editable passCodeText = passCodeEditTexts[mIndex].getText();
+
+                    if (passCodeText != null) {
+                        passCodeDigits[mIndex] = passCodeText.toString();
+                    }
                 }
-                passCodeEditTexts[next()].requestFocus();
 
                 if (mLastOne) {
                     processFullPassCode();
+                } else {
+                    passCodeEditTexts[next()].requestFocus();
                 }
 
             } else {
@@ -477,13 +469,10 @@ public class PassCodeActivity extends AppCompatActivity implements Injectable {
         }
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            // nothing to do
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // nothing to do
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
     }
+
 }
