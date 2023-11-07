@@ -37,6 +37,7 @@ import android.os.Build;
 import android.os.RemoteException;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -510,7 +511,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
         cv.put(ProviderTableMeta.FILE_METADATA_SIZE, gson.toJson(file.getImageDimension()));
         cv.put(ProviderTableMeta.FILE_METADATA_GPS, gson.toJson(file.getGeoLocation()));
-        cv.put(ProviderTableMeta.FILE_METADATA_LIVE_PHOTO, gson.toJson(file.isLivePhoto()));
+        cv.put(ProviderTableMeta.FILE_METADATA_LIVE_PHOTO, gson.toJson(file.getLivePhoto()));
 
         return cv;
     }
@@ -932,6 +933,7 @@ public class FileDataStorageManager {
         ocFile.setNote(fileEntity.getNote());
         ocFile.setRichWorkspace(fileEntity.getRichWorkspace());
         ocFile.setLocked(nullToZero(fileEntity.getLocked()) == 1);
+
         final int lockTypeInt = nullToZero(fileEntity.getLockType()); // TODO - what value should be used for NULL???
         ocFile.setLockType(lockTypeInt != -1 ? FileLockType.fromValue(lockTypeInt) : null);
         ocFile.setLockOwnerId(fileEntity.getLockOwner());
@@ -940,7 +942,7 @@ public class FileDataStorageManager {
         ocFile.setLockTimestamp(nullToZero(fileEntity.getLockTimestamp()));
         ocFile.setLockTimeout(nullToZero(fileEntity.getLockTimeout()));
         ocFile.setLockToken(fileEntity.getLockToken());
-        ocFile.setLivePhotoAvailable(fileEntity.getMetadataLivePhoto() == "TODO");
+        ocFile.setLivePhoto(fileEntity.getMetadataLivePhoto());
 
         String sharees = fileEntity.getSharees();
         // Surprisingly JSON deserialization causes significant overhead.
