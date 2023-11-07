@@ -348,6 +348,17 @@ public class UploadListActivity extends FileActivity {
     }
 
     /**
+     * Switches to FileDisplayActivity and shows file (eg. image preview).
+     */
+    public void openFile(String remotePath) {
+        Intent intent = new Intent(this, FileDisplayActivity.class);
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.putExtra(FileDisplayActivity.KEY_FILE_PATH, remotePath);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    /**
      * Once the file upload has changed its status -> update uploads list view
      */
     private class UploadMessagesReceiver extends BroadcastReceiver {
