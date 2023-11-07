@@ -198,6 +198,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         lockTimestamp = source.readLong();
         lockTimeout = source.readLong();
         lockToken = source.readString();
+        livePhoto = source.readString();
     }
 
     @Override
@@ -241,11 +242,15 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeLong(lockTimestamp);
         dest.writeLong(lockTimeout);
         dest.writeString(lockToken);
-        // TODO add live photo availability
+        dest.writeString(livePhoto);
     }
 
     public String getLivePhoto() {
         return livePhoto;
+    }
+
+    public void setLivePhoto(String livePhoto) {
+        this.livePhoto = livePhoto;
     }
 
     public void setDecryptedRemotePath(String path) {
@@ -528,7 +533,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         lockTimestamp = 0;
         lockTimeout = 0;
         lockToken = null;
-
+        livePhoto = null;
         imageDimension = null;
     }
 
@@ -917,10 +922,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public void setLivePhoto(String livePhoto) {
-        this.livePhoto = livePhoto;
     }
 
     public void setSharees(List<ShareeUser> sharees) {
