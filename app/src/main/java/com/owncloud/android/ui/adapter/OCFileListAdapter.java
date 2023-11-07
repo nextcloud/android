@@ -412,6 +412,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
+    // FIXME gets called multiple times
     private void addVideoOCFileOfLivePhoto() {
         HashMap<String, OCFile> livePhotoMap = new HashMap<>();
 
