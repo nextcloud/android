@@ -51,6 +51,7 @@ import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -63,6 +64,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
+import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
@@ -104,6 +106,7 @@ import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.CommentsEvent;
 import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
+import com.owncloud.android.ui.events.FileLockEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
@@ -1725,6 +1728,36 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         } catch (Exception e) {
             Log_OC.e(TAG, "Error creating encrypted folder", e);
+        }
+    }
+
+    // Do not delete this function
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(FileLockEvent event) {
+        final User user = accountManager.getUser();
+
+        try {
+            new Handler(Looper.getMainLooper()).post(() -> setLoading(true));
+            NextcloudClient client = clientFactory.createNextcloudClient(user);
+            ToggleFileLockRemoteOperation operation = new ToggleFileLockRemoteOperation(event.getShouldLock(), event.getFilePath());
+            RemoteOperationResult<Void> result = operation.execute(client);
+
+            if (result.isSuccess()) {
+                // TODO only refresh the modified file?
+                new Handler(Looper.getMainLooper()).post(this::onRefresh);
+            } else {
+                Snackbar.make(getRecyclerView(),
+                              R.string.error_file_lock,
+                              Snackbar.LENGTH_LONG).show();
+            }
+
+        } catch (ClientFactory.CreationException e) {
+            Log_OC.e(TAG, "Cannot create client", e);
+            Snackbar.make(getRecyclerView(),
+                          R.string.error_file_lock,
+                          Snackbar.LENGTH_LONG).show();
+        } finally {
+            new Handler(Looper.getMainLooper()).post(() -> setLoading(false));
         }
     }
 
