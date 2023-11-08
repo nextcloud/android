@@ -20,6 +20,7 @@
 
 package com.nextcloud.client.network;
 
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -36,7 +37,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import androidx.core.net.ConnectivityManagerCompat;
 import kotlin.jvm.functions.Function1;
 
-class ConnectivityServiceImpl implements ConnectivityService {
+public class ConnectivityServiceImpl implements ConnectivityService {
 
     private static final String TAG = "ConnectivityServiceImpl";
     private static final String CONNECTIVITY_CHECK_ROUTE = "/index.php/204";
@@ -46,6 +47,21 @@ class ConnectivityServiceImpl implements ConnectivityService {
     private final ClientFactory clientFactory;
     private final GetRequestBuilder requestBuilder;
     private final WalledCheckCache walledCheckCache;
+
+    public static boolean isConnected(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        Network nw = connectivityManager.getActiveNetwork();
+        NetworkCapabilities actNw = connectivityManager.getNetworkCapabilities(nw);
+
+        if (actNw == null) {
+            return false;
+        }
+
+        return actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH);
+    }
 
 
     static class GetRequestBuilder implements Function1<String, GetMethod> {
