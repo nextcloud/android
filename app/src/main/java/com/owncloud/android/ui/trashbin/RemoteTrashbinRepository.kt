@@ -64,7 +64,7 @@ class RemoteTrashbinRepository internal constructor(private val user: User, priv
                 result.isSuccess
             } catch (e: CreationException) {
                 Log_OC.e(this, "Cannot create client", e)
-                java.lang.Boolean.FALSE
+                false
             }
         }
 
@@ -94,7 +94,7 @@ class RemoteTrashbinRepository internal constructor(private val user: User, priv
                 result.isSuccess
             } catch (e: CreationException) {
                 Log_OC.e(this, "Cannot create client", e)
-                java.lang.Boolean.FALSE
+                false
             }
         }
 
@@ -164,7 +164,7 @@ class RemoteTrashbinRepository internal constructor(private val user: User, priv
                     false
                 }
             } catch (e: CreationException) {
-                java.lang.Boolean.FALSE
+                false
             }
         }
 
