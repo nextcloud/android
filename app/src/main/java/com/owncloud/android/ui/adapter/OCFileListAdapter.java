@@ -186,6 +186,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                     viewThemeUtils,
                                                     syncedFolderProvider);
 
+        setHasStableIds(true);
+
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
     }
@@ -293,6 +295,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
+
 
     @Override
     public long getItemId(int position) {
@@ -409,6 +412,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void hideVideoFileOfLivePhoto(ListGridImageViewHolder holder, OCFile file) {
         if (MimeTypeUtil.isVideo(file) && file.getLivePhoto() != null) {
             holder.getItemLayout().setVisibility(View.GONE);
+        } else {
+            holder.getItemLayout().setVisibility(View.VISIBLE);
         }
     }
 
