@@ -29,28 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:contentDescription="Ignore live photo indicator for folder"
-            android:id="@+id/live_photo_indicator"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="12dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/frameLayout"
-            app:layout_constraintEnd_toStartOf="@+id/favorite_action"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:contentDescription="Ignore live photo indicator for folder"
-            android:id="@+id/live_photo_indicator_separator"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="12dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/frameLayout"
-            app:layout_constraintEnd_toStartOf="@+id/favorite_action"
-            tools:ignore="HardcodedText" />
-
         <ImageView
             android:id="@+id/favorite_action"
             android:layout_width="wrap_content"

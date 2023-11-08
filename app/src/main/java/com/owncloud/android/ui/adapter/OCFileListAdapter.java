@@ -41,6 +41,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
@@ -398,25 +399,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void checkLivePhotoAvailability(ListGridImageViewHolder holder, OCFile file) {
-        boolean isLivePhoto = file.getLivePhoto() != null;
-        holder.getLivePhotoIndicator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
-
-        // FIXME Interface segregation principle violation
-        // 594c962d71b
-        // Not needed for Grid mode unfortunately ListGridImageViewHolder interface used for List and Grid mode
-        holder.getLivePhotoIndicatorSeparator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
-        hideVideoFileOfLivePhoto(holder, file);
-    }
-
-    private void hideVideoFileOfLivePhoto(ListGridImageViewHolder holder, OCFile file) {
-        if (MimeTypeUtil.isVideo(file) && file.getLivePhoto() != null) {
-            holder.getItemLayout().setVisibility(View.GONE);
-        } else {
-            holder.getItemLayout().setVisibility(View.VISIBLE);
-        }
-    }
-
     private void addVideoOCFileOfLivePhoto() {
         HashMap<String, OCFile> livePhotoMap = new HashMap<>();
 
@@ -446,8 +428,43 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         livePhotoFileCount = livePhotoMap.size();
     }
 
+    private void updateLivePhotoIndicators(ListGridImageViewHolder holder, OCFile file) {
+        boolean isLivePhoto = file.getLivePhoto() != null;
+
+        if (holder instanceof OCFileListItemViewHolder) {
+            holder.getLivePhotoIndicator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
+            holder.getLivePhotoIndicatorSeparator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
+        } else if (holder instanceof OCFileListGridImageViewHolder) {
+            holder.getGridLivePhotoIndicator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
+        }
+
+        hideVideoFileOfLivePhoto(holder, file);
+    }
+
+    private void hideVideoFileOfLivePhoto(ListGridImageViewHolder holder, OCFile file) {
+        boolean isFileVideoAndHaveLivePhoto = MimeTypeUtil.isVideo(file) && file.getLivePhoto() != null;
+        holder.getItemLayout().setVisibility(isFileVideoAndHaveLivePhoto ? View.GONE : View.VISIBLE);
+    }
+
+    private void bindListGridItemViewHolder(ListGridItemViewHolder holder, OCFile file) {
+        updateLivePhotoIndicators(holder, file);
+
+        holder.getFileName().setText(file.getDecryptedFileName());
+
+        boolean gridImage = MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file);
+        if (gridView && gridImage) {
+            holder.getFileName().setVisibility(View.GONE);
+        } else {
+            if (gridView && ocFileListFragmentInterface.getColumnsCount() > showFilenameColumnThreshold) {
+                holder.getFileName().setVisibility(View.GONE);
+            } else {
+                holder.getFileName().setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
-        checkLivePhotoAvailability(holder, file);
+        updateLivePhotoIndicators(holder, file);
 
         if ((file.isSharedWithMe() || file.isSharedWithSharee()) && !isMultiSelect() && !gridView &&
             !hideItemOptions) {
@@ -557,22 +574,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getOverflowMenu().setImageResource(R.drawable.ic_locked_dots_small);
         } else {
             holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
-        }
-    }
-
-    private void bindListGridItemViewHolder(ListGridItemViewHolder holder, OCFile file) {
-        checkLivePhotoAvailability(holder, file);
-        holder.getFileName().setText(file.getDecryptedFileName());
-
-        boolean gridImage = MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file);
-        if (gridView && gridImage) {
-            holder.getFileName().setVisibility(View.GONE);
-        } else {
-            if (gridView && ocFileListFragmentInterface.getColumnsCount() > showFilenameColumnThreshold) {
-                holder.getFileName().setVisibility(View.GONE);
-            } else {
-                holder.getFileName().setVisibility(View.VISIBLE);
-            }
         }
     }
 
