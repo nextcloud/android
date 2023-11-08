@@ -208,22 +208,11 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         String livePhoto = getFile().getLivePhoto();
 
         if (livePhoto != null) {
-            binding.livePhotoIndicator.setVisibility(View.VISIBLE);
-            addTooltipToLivePhotoIndicator();
-
             OCFile videoOfLivePhoto = getFile().videoOfLivePhoto;
 
-            // For replay functionality setOnLongClickListener
-            binding.image.setOnLongClickListener(v -> {
-                playLivePhoto(videoOfLivePhoto);
-                return true;
-            });
+            binding.livePhotoIndicator.setVisibility(View.VISIBLE);
+            binding.livePhotoIndicator.setOnClickListener(v -> playLivePhoto(videoOfLivePhoto));
         }
-    }
-
-    private void addTooltipToLivePhotoIndicator() {
-        TooltipCompat.setTooltipText(binding.livePhotoIndicator, requireContext().getString(R.string.live_photo_indicator_tooltip));
-        binding.livePhotoIndicator.setOnClickListener(v -> binding.livePhotoIndicator.performLongClick());
     }
 
     private void hideActionBar() {
