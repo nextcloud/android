@@ -49,6 +49,9 @@
     <dimen name="two_line_primary_text_size">16sp</dimen>
     <dimen name="two_line_secondary_text_size">12sp</dimen>
     <dimen name="list_item_share_right_margin">12dp</dimen>
+    <dimen name="live_photo_indicator_vertical_padding">3dp</dimen>
+    <dimen name="live_photo_indicator_horizontal_padding">16dp</dimen>
+
     <dimen name="file_list_item_avatar_icon_radius">10dp</dimen>
     <dimen name="account_action_layout_height">72dp</dimen>
     <dimen name="zero">0dp</dimen>
