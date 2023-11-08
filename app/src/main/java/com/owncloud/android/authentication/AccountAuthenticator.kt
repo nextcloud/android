@@ -140,6 +140,7 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
     /**
      * {@inheritDoc}
      */
+    @Suppress("ReturnCount")
     override fun getAuthToken(
         response: AccountAuthenticatorResponse,
         account: Account,
