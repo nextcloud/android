@@ -234,7 +234,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
         toggleActionBarVisibility(true);
 
-        Fragment mediaFragment = PreviewMediaFragment.newInstance(file, accountManager.getUser(), 0, true);
+        Fragment mediaFragment = PreviewMediaFragment.newInstance(file, accountManager.getUser(), 0, true, true);
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.top, mediaFragment);
