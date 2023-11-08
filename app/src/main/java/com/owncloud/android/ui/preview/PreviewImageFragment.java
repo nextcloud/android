@@ -211,9 +211,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
             OCFile videoOfLivePhoto = getFile().videoOfLivePhoto;
 
-            // Automatically play live photo
-            playLivePhoto(videoOfLivePhoto);
-
             // For replay functionality setOnLongClickListener
             binding.image.setOnLongClickListener(v -> {
                 playLivePhoto(videoOfLivePhoto);
@@ -222,9 +219,9 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         }
     }
 
-    private void toggleActionBarVisibility(boolean hide) {
+    private void hideActionBar() {
         PreviewImageActivity activity = (PreviewImageActivity) requireActivity();
-        activity.toggleActionBarVisibility(hide);
+        activity.toggleActionBarVisibility(true);
     }
 
     private void playLivePhoto(OCFile file) {
@@ -232,7 +229,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             return;
         }
 
-        toggleActionBarVisibility(true);
+        hideActionBar();
 
         Fragment mediaFragment = PreviewMediaFragment.newInstance(file, accountManager.getUser(), 0, true, true);
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();

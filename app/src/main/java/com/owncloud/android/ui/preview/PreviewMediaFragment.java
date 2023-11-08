@@ -390,7 +390,16 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             return;
         }
 
+        showActionBar();
+
         requireActivity().getSupportFragmentManager().popBackStack();
+    }
+
+    private void showActionBar() {
+        Activity currentActivity = requireActivity();
+        if (currentActivity instanceof PreviewImageActivity activity) {
+            activity.toggleActionBarVisibility(false);
+        }
     }
 
     private void setupVideoView() {
