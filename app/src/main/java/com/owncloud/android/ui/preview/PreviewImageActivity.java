@@ -100,6 +100,8 @@ public class PreviewImageActivity extends FileActivity implements
     @Inject AppPreferences preferences;
     @Inject LocalBroadcastManager localBroadcastManager;
 
+    private ActionBar actionBar;
+
     public static Intent previewFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
@@ -111,7 +113,7 @@ public class PreviewImageActivity extends FileActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
 
         if (savedInstanceState != null && !savedInstanceState.getBoolean(KEY_SYSTEM_VISIBLE, true) &&
             actionBar != null) {
@@ -141,6 +143,18 @@ public class PreviewImageActivity extends FileActivity implements
             mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
         } else {
             mRequestWaitingForBinder = false;
+        }
+    }
+
+    public void toggleActionBarVisibility(boolean hide) {
+        if (actionBar == null) {
+            return;
+        }
+
+        if (hide) {
+            actionBar.hide();
+        } else {
+            actionBar.show();
         }
     }
 
