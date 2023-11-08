@@ -59,22 +59,11 @@
 
     <ImageView
         tools:visibility="visible"
-        android:id="@+id/sharedIcon"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_gravity="top|end"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="@dimen/standard_quarter_margin"
-        android:contentDescription="@string/shared_icon_shared_via_link"
-        android:src="@drawable/shared_via_link" />
-
-    <ImageView
-        tools:visibility="visible"
         android:id="@+id/unreadComments"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="top|end"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="@dimen/standard_quarter_margin"
         android:clickable="true"
         android:contentDescription="@string/unread_comments"
@@ -94,12 +83,37 @@
         android:contentDescription="@string/synced_icon"
         android:src="@drawable/ic_synced" />
 
+    <FrameLayout
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="@dimen/standard_quarter_margin"
+        android:background="@drawable/rounded_rect"
+        android:backgroundTint="#F6F6F6">
+
+        <ImageView
+            android:id="@+id/sharedIcon"
+            tools:visibility="visible"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/shared_icon_shared_via_link"
+            android:src="@drawable/shared_via_link" />
+
+    </FrameLayout>
+
     <TextView
         android:id="@+id/grid_live_photo_indicator"
         tools:visibility="visible"
         android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:drawableTint="@color/list_item_lastmod_and_filesize_text"
+        android:background="@drawable/rounded_rect"
+        android:backgroundTint="#F6F6F6"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="2dp"
         android:layout_marginLeft="@dimen/standard_quarter_margin"
         android:layout_marginRight="@dimen/standard_quarter_margin"
         android:text="@string/file_list_live"

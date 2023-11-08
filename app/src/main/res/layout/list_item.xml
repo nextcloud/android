@@ -174,7 +174,8 @@
                     android:gravity="center"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
                     android:textSize="@dimen/two_line_secondary_text_size"
-                    app:drawableLeftCompat="@drawable/ic_live_photo" />
+                    app:drawableLeftCompat="@drawable/ic_live_photo"
+                    app:drawableTint="@color/list_item_lastmod_and_filesize_text" />
 
                 <TextView
                     android:id="@+id/live_photo_indicator_separator"
