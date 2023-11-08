@@ -38,7 +38,7 @@ public class AuthenticatorUrlUtilsTest {
 
             // WHEN
             //      scheme is normalized
-            String normalized = AuthenticatorUrlUtils.normalizeScheme(url);
+            String normalized = AuthenticatorUrlUtils.INSTANCE.normalizeScheme(url);
 
             // THEN
             //      input is returned unchanged
@@ -54,7 +54,7 @@ public class AuthenticatorUrlUtilsTest {
 
             // WHEN
             //      scheme is normalized
-            String normalized = AuthenticatorUrlUtils.normalizeScheme(url);
+            String normalized = AuthenticatorUrlUtils.INSTANCE.normalizeScheme(url);
 
             // THEN
             //      output is equal
@@ -70,7 +70,7 @@ public class AuthenticatorUrlUtilsTest {
 
             // WHEN
             //      scheme is normalized
-            String normalized = AuthenticatorUrlUtils.normalizeScheme(mixedCaseUrl);
+            String normalized = AuthenticatorUrlUtils.INSTANCE.normalizeScheme(mixedCaseUrl);
 
             // THEN
             //      scheme has been lower-cased
@@ -87,7 +87,7 @@ public class AuthenticatorUrlUtilsTest {
 
             // WHEN
             //      scheme is normalized
-            String normalized = AuthenticatorUrlUtils.normalizeScheme(emptyUrl);
+            String normalized = AuthenticatorUrlUtils.INSTANCE.normalizeScheme(emptyUrl);
 
             // THEN
             //      output is empty
@@ -103,7 +103,7 @@ public class AuthenticatorUrlUtilsTest {
 
             // WHEN
             //      scheme is normalized
-            String normalized = AuthenticatorUrlUtils.normalizeScheme(url);
+            String normalized = AuthenticatorUrlUtils.INSTANCE.normalizeScheme(url);
 
             // THEN
             //      output is equal
@@ -119,7 +119,7 @@ public class AuthenticatorUrlUtilsTest {
 
             // WHEN
             //      scheme is normalized
-            String normalized = AuthenticatorUrlUtils.normalizeScheme(url);
+            String normalized = AuthenticatorUrlUtils.INSTANCE.normalizeScheme(url);
 
             // THEN
             //      output is equal
@@ -136,7 +136,7 @@ public class AuthenticatorUrlUtilsTest {
 
             // WHEN
             //      scheme is normalized
-            String normalized = AuthenticatorUrlUtils.normalizeScheme(url);
+            String normalized = AuthenticatorUrlUtils.INSTANCE.normalizeScheme(url);
 
             // THEN
             //      output is equal
