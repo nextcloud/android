@@ -641,13 +641,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Override
     public void onStop() {
         Log_OC.v(TAG, "onStop");
-        final OCFile file = getFile();
-        if (MimeTypeUtil.isAudio(file) && !mediaPlayerServiceConnection.isPlaying()) {
-            stopAudio();
-        } else if (MimeTypeUtil.isVideo(file) && exoPlayer != null && exoPlayer.isPlaying()) {
-            savedPlaybackPosition = exoPlayer.getCurrentPosition();
-            exoPlayer.pause();
-        }
+        stopPreview(true);
 
         mediaPlayerServiceConnection.unbind();
         toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_UNLOCKED);

@@ -1038,21 +1038,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     getActivity().finish();
                 } else if (!mOnlyFoldersClickable) {
                     // Click on a file
-                    if (PreviewImageFragment.canBePreviewed(file)) {
-                        // preview image - it handles the download, if needed
+                    if (PreviewImageFragment.canBePreviewed(file) || PreviewMediaFragment.canBePreviewed(file)) {
+                        // media preview - it handles the download, if needed
                         if (searchFragment) {
-                            VirtualFolderType type;
-                            switch (currentSearchType) {
-                                case FAVORITE_SEARCH:
-                                    type = VirtualFolderType.FAVORITE;
-                                    break;
-                                case GALLERY_SEARCH:
-                                    type = VirtualFolderType.GALLERY;
-                                    break;
-                                default:
-                                    type = VirtualFolderType.NONE;
-                                    break;
-                            }
+                            VirtualFolderType type = switch (currentSearchType) {
+                                case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
+                                case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
+                                default -> VirtualFolderType.NONE;
+                            };
                             ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, !file.isDown());
                         } else {
                             ((FileDisplayActivity) mContainerActivity).startImagePreview(file, !file.isDown());
@@ -1065,26 +1058,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         setFabVisible(false);
                         ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
                     } else if (file.isDown()) {
-                        if (PreviewMediaFragment.canBePreviewed(file)) {
-                            // media preview
-                            setFabVisible(false);
-                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false);
-                        } else {
-                            mContainerActivity.getFileOperationsHelper().openFile(file);
-                        }
+                        mContainerActivity.getFileOperationsHelper().openFile(file);
                     } else {
-                        // file not downloaded, check for streaming, remote editing
+                        // file not downloaded, check for remote editing
                         User account = accountManager.getUser();
                         OCCapability capability = mContainerActivity.getStorageManager()
                             .getCapability(account.getAccountName());
 
-                        if (PreviewMediaFragment.canBePreviewed(file) && !file.isEncrypted()) {
-                            // stream media preview on >= NC14
-                            setFabVisible(false);
-                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
-                        } else if (editorUtils.isEditorAvailable(accountManager.getUser(),
-                                                                 file.getMimeType()) &&
-                            !file.isEncrypted()) {
+                        if (editorUtils.isEditorAvailable(accountManager.getUser(),
+                                                          file.getMimeType()) && !file.isEncrypted()) {
                             mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
                         } else if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
                             capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {
