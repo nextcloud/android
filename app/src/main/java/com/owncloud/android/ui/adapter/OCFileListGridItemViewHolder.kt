@@ -56,10 +56,13 @@ internal class OCFileListGridItemViewHolder(var binding: GridItemBinding) :
         get() = binding.ListItemLayout
     override val unreadComments: ImageView
         get() = binding.unreadComments
-    override val livePhotoIndicator: TextView
-        get() = binding.livePhotoIndicator
-    override val livePhotoIndicatorSeparator: TextView
-        get() = binding.livePhotoIndicatorSeparator
+
+    override val gridLivePhotoIndicator: TextView?
+        get() = null
+    override val livePhotoIndicator: TextView?
+        get() = null
+    override val livePhotoIndicatorSeparator: TextView?
+        get() = null
 
     init {
         binding.favoriteAction.drawable.mutate()
