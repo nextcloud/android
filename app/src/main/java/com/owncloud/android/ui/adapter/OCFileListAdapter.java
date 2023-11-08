@@ -119,6 +119,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean hideItemOptions;
     private long lastTimestamp;
     private boolean gridView;
+    private int livePhotoFileCount = 0;
 
     private FileDataStorageManager mStorageManager;
     private User user;
@@ -436,6 +437,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
         }
+
+        livePhotoFileCount = livePhotoMap.size();
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -568,7 +571,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-
     @Override
     public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
         if (holder instanceof ListGridImageViewHolder) {
@@ -597,6 +599,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
+        filesCount = filesCount - livePhotoFileCount;
 
         return generateFooterText(filesCount, foldersCount);
     }
