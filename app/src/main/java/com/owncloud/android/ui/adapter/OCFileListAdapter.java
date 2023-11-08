@@ -36,6 +36,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -401,9 +402,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         // 594c962d71b
         // Not needed for Grid mode unfortunately ListGridImageViewHolder interface used for List and Grid mode
         holder.getLivePhotoIndicatorSeparator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
-
         hideVideoFileOfLivePhoto(holder, file);
-        addVideoOCFileOfLivePhoto();
     }
 
     private void hideVideoFileOfLivePhoto(ListGridImageViewHolder holder, OCFile file) {
@@ -412,7 +411,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    // FIXME gets called multiple times
     private void addVideoOCFileOfLivePhoto() {
         HashMap<String, OCFile> livePhotoMap = new HashMap<>();
 
@@ -714,7 +712,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFiles = sortOrder.sortCloudFiles(mFiles);
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
-
+            addVideoOCFileOfLivePhoto();
             currentDirectory = directory;
         } else {
             mFiles.clear();
