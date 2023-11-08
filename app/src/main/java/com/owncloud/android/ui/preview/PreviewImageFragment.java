@@ -83,6 +83,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -140,7 +141,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
      *
      * @param imageFile             An {@link OCFile} to preview as an image in the fragment
      * @param ignoreFirstSavedState Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter} ;
-     *                              TODO better solution
+     *                                                           TODO better solution
      */
     public static PreviewImageFragment newInstance(@NonNull OCFile imageFile,
                                                    boolean ignoreFirstSavedState,
@@ -208,6 +209,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
 
         if (livePhoto != null) {
             binding.livePhotoIndicator.setVisibility(View.VISIBLE);
+            addTooltipToLivePhotoIndicator();
 
             OCFile videoOfLivePhoto = getFile().videoOfLivePhoto;
 
@@ -217,6 +219,11 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
                 return true;
             });
         }
+    }
+
+    private void addTooltipToLivePhotoIndicator() {
+        TooltipCompat.setTooltipText(binding.livePhotoIndicator, requireContext().getString(R.string.live_photo_indicator_tooltip));
+        binding.livePhotoIndicator.setOnClickListener(v -> binding.livePhotoIndicator.performLongClick());
     }
 
     private void hideActionBar() {
