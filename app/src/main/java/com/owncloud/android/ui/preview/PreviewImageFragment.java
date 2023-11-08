@@ -222,10 +222,17 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         }
     }
 
+    private void toggleActionBarVisibility(boolean hide) {
+        PreviewImageActivity activity = (PreviewImageActivity) requireActivity();
+        activity.toggleActionBarVisibility(hide);
+    }
+
     private void playLivePhoto(OCFile file) {
         if (file == null) {
             return;
         }
+
+        toggleActionBarVisibility(true);
 
         Fragment mediaFragment = PreviewMediaFragment.newInstance(file, accountManager.getUser(), 0, true);
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
