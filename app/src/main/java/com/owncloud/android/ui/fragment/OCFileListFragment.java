@@ -421,11 +421,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
         setTitle();
 
         FragmentActivity fragmentActivity;
-        if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity) {
-            FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) fragmentActivity;
+        if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity fileDisplayActivity) {
             fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir());
         }
         listDirectory(MainApp.isOnlyOnDevice(), false);
+    }
+
+    protected void updateSearchResult() {
+        searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
+        prepareCurrentSearch(searchEvent);
+        setEmptyView(searchEvent);
+        listDirectory(false, false);
     }
 
     protected void setAdapter(Bundle args) {

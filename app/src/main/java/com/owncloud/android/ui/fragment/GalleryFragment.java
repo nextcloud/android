@@ -41,6 +41,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.EmptyRecyclerView;
+import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
@@ -63,6 +64,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class GalleryFragment extends OCFileListFragment implements GalleryFragmentBottomSheetActions {
     private static final int MAX_ITEMS_PER_ROW = 10;
     private static final String FRAGMENT_TAG_BOTTOM_SHEET = "data";
+    public static boolean updateGallery = true;
 
     private boolean photoSearchQueryRunning = false;
     private AsyncTask<Void, Void, GallerySearchTask.Result> photoSearchTask;
@@ -200,10 +202,16 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void onResume() {
         super.onResume();
+
         setLoading(this.isPhotoSearchQueryRunning());
         final FragmentActivity activity = getActivity();
-        if (activity instanceof FileDisplayActivity) {
-            FileDisplayActivity fileDisplayActivity = ((FileDisplayActivity) activity);
+
+        if (activity instanceof FileDisplayActivity fileDisplayActivity) {
+            if (updateGallery) {
+                fileDisplayActivity.openMediaList();
+                updateGallery = false;
+            }
+
             fileDisplayActivity.updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
             fileDisplayActivity.setMainFabVisible(false);
         }

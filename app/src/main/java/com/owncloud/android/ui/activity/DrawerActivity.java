@@ -479,6 +479,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         unsetAllDrawerMenuItems();
     }
 
+    public void openMediaList() {
+        SearchEvent searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
+        MainApp.showOnlyFilesOnDevice(false);
+
+        launchActivityForSearch(searchEvent, R.id.nav_gallery);
+    }
 
     private void onNavigationItemClicked(final MenuItem menuItem) {
         setDrawerMenuItemChecked(menuItem.getItemId());
