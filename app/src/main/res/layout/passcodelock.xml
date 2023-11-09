@@ -69,41 +69,26 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.owncloud.android.ui.components.PassCodeEditText
                         android:id="@+id/txt0"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
-                        android:focusable="true"
-                        android:hint="@string/hidden_character"
-                        android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no"
                         tools:text="123">
+                    </com.owncloud.android.ui.components.PassCodeEditText>
 
-                        <requestFocus />
-                    </com.google.android.material.textfield.TextInputEditText>
-
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.owncloud.android.ui.components.PassCodeEditText
                         android:id="@+id/txt1"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
-                        android:hint="@string/hidden_character"
-                        android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.owncloud.android.ui.components.PassCodeEditText
                         android:id="@+id/txt2"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
-                        android:hint="@string/hidden_character"
-                        android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.owncloud.android.ui.components.PassCodeEditText
                         android:id="@+id/txt3"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
-                        android:hint="@string/hidden_character"
-                        android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />
                 </LinearLayout>
 
