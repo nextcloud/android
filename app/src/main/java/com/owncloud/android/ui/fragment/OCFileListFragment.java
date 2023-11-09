@@ -427,13 +427,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         listDirectory(MainApp.isOnlyOnDevice(), false);
     }
 
-    protected void updateSearchResult() {
-        searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
-        prepareCurrentSearch(searchEvent);
-        setEmptyView(searchEvent);
-        listDirectory(false, false);
-    }
-
     protected void setAdapter(Bundle args) {
         boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
 
