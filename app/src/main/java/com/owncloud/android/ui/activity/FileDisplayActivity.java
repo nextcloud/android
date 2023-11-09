@@ -192,7 +192,6 @@ public class FileDisplayActivity extends FileActivity
     public static final String KEY_FILE_PATH = "KEY_FILE_PATH";
     public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
 
-
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";

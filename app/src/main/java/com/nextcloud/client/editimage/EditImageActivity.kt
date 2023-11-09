@@ -81,7 +81,8 @@ class EditImageActivity :
         binding = ActivityEditImageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        file = intent.extras?.getParcelableArgument(EXTRA_FILE, OCFile::class.java) ?: throw IllegalArgumentException("Missing file argument")
+        file = intent.extras?.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
+            ?: throw IllegalArgumentException("Missing file argument")
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
@@ -111,17 +112,19 @@ class EditImageActivity :
             " " + getString(R.string.image_editor_file_edited_suffix) +
             resultUri?.substring(resultUri.lastIndexOf('.'))
 
-        FilesUploadHelper().uploadNewFiles(
-            user = storageManager.user,
-            localPaths = arrayOf(resultUri!!),
-            remotePaths = arrayOf(file.parentRemotePath + File.separator + newFileName),
-            createRemoteFolder = false,
-            createdBy = UploadFileOperation.CREATED_BY_USER,
-            requiresWifi = false,
-            requiresCharging = false,
-            nameCollisionPolicy = NameCollisionPolicy.RENAME,
-            localBehavior = FileUploader.LOCAL_BEHAVIOUR_DELETE
-        )
+        resultUri?.let {
+            FilesUploadHelper().uploadNewFiles(
+                user = storageManager.user,
+                localPaths = arrayOf(it),
+                remotePaths = arrayOf(file.parentRemotePath + File.separator + newFileName),
+                createRemoteFolder = false,
+                createdBy = UploadFileOperation.CREATED_BY_USER,
+                requiresWifi = false,
+                requiresCharging = false,
+                nameCollisionPolicy = NameCollisionPolicy.RENAME,
+                localBehavior = FileUploader.LOCAL_BEHAVIOUR_DELETE
+            )
+        }
     }
 
     override fun onSetImageUriComplete(view: CropImageView, uri: Uri, error: Exception?) {
@@ -153,6 +156,7 @@ class EditImageActivity :
             finish()
             true
         }
+
         else -> {
             finish()
             true
@@ -198,6 +202,7 @@ class EditImageActivity :
                     Bitmap.CompressFormat.WEBP
                 }
             }
+
             else -> Bitmap.CompressFormat.JPEG
         }
     }

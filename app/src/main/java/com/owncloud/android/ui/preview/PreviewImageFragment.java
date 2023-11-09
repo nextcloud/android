@@ -60,9 +60,11 @@ import com.owncloud.android.databinding.PreviewImageFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeType;
@@ -186,6 +188,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         ignoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
         showResizedImage = args.getBoolean(ARG_SHOW_RESIZED_IMAGE);
         setHasOptionsMenu(true);
+
+        GalleryFragment.updateGallery = true;
     }
 
     @Override
