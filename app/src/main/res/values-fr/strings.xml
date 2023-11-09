@@ -327,7 +327,7 @@ Attention, la suppression est irréversible.</string>
     <string name="file_delete">Supprimer</string>
     <string name="file_detail_activity_error">Erreur lors de la récupération de l’activité du fichier</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
-    <string name="file_downloader_notification_title_prefix">Téléchargement \u0020</string>
+    <string name="file_downloader_notification_title_prefix">Téléchargement de \u0020</string>
     <string name="file_icon">Fichier</string>
     <string name="file_keep">Conserver</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>

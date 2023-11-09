@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Kopiér</string>
     <string name="actionbar_mkdir">Ny mappe</string>
     <string name="actionbar_move">Flyt</string>
+    <string name="actionbar_move_or_copy">Flyt eller kopier</string>
     <string name="actionbar_open_with">Åbn med</string>
     <string name="actionbar_search">Søg</string>
     <string name="actionbar_see_details">Detaljer</string>
@@ -204,6 +205,7 @@
     <string name="did_not_check_for_dupes">Checkede ikke for duplikater.</string>
     <string name="digest_algorithm_not_available">Denne fordøgelsesalgorytme er ikke tilgængelig på din telefon.</string>
     <string name="direct_login_failed">Login via direkte link mislykkedes!</string>
+    <string name="direct_login_text">Login med %1$s til %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Deaktiver</string>
     <string name="dismiss">Afvis</string>
     <string name="dismiss_notification_description">Fjern notifikation</string>
@@ -251,8 +253,11 @@
     <string name="e2e_not_yet_setup">E2E er endnu ikke konfigureret</string>
     <string name="e2e_offline">Ikke muligt uden internetforbindelse</string>
     <string name="ecosystem_apps_display_more">Mere</string>
+    <string name="ecosystem_apps_display_notes">Noter</string>
     <string name="ecosystem_apps_display_talk">Snak</string>
+    <string name="ecosystem_apps_more">Flere Nextcloud apps</string>
     <string name="ecosystem_apps_notes">Nextcloud noter</string>
+    <string name="ecosystem_apps_talk">Nextcloud Snak</string>
     <string name="encrypted">Angiv som krypteret</string>
     <string name="end_to_end_encryption_confirm_button">Indstil kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer...</string>
@@ -320,6 +325,7 @@
     <string name="file_delete">Slet</string>
     <string name="file_detail_activity_error">Fejl ved indlæsning af aktiviteter for fil</string>
     <string name="file_details_no_content">Fejl ved indlæsning af detaljer</string>
+    <string name="file_downloader_notification_title_prefix">Downloader \u0020</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behold</string>
     <string name="file_list_empty">Upload indhold eller synkronisér med dine enheder.</string>
@@ -421,6 +427,13 @@
     <string name="image_editor_rotate_ccw">Roter mod uret</string>
     <string name="image_editor_rotate_cw">Roter med uret</string>
     <string name="image_editor_unable_to_edit_image">Kunne ikke redigere billede.</string>
+    <string name="image_preview_filedetails">Fil detaljer</string>
+    <string name="image_preview_image_taking_conditions">Billede optagelsestilstande</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">i mappen %1$s</string>
     <string name="instant_upload_existing">Send også eksisterende filer</string>
     <string name="instant_upload_on_charging">Upload kun under opladning</string>
@@ -448,6 +461,7 @@
     <string name="locked_by_app">Låst af app\'en %1$s </string>
     <string name="log_send_mail_subject">%1$s Android-app - logge</string>
     <string name="log_send_no_mail_app">Der er ingen app tilgængelig til at sende log filer. Venligst installér en email klient.</string>
+    <string name="logged_in_as">Logget på som %1$s</string>
     <string name="login">Log ind</string>
     <string name="login_url_helper_text">Linket til dit %1$s web interface når du åbner den i browseren.</string>
     <string name="logs_menu_delete">Slet logs</string>
@@ -500,6 +514,7 @@
     <string name="no_calendar_exists">Ingen kalender eksisterer</string>
     <string name="no_email_app_available">Ingen app tilgængelig til at håndtere mailadresser</string>
     <string name="no_items">Ingen elementer</string>
+    <string name="no_map_app_availble">Ingen App tilgængelig til håndtering af Kort</string>
     <string name="no_mutliple_accounts_allowed">kun en konto tilladt</string>
     <string name="no_pdf_app_available">Ingen App tilgængelig til håndtering af PDF</string>
     <string name="no_send_app">Der er ingen tilgængelig app til at sende de valgte filer</string>
@@ -586,7 +601,9 @@
     <string name="prefs_imprint">Aftryk</string>
     <string name="prefs_instant_behaviour_dialogTitle">Oprindelig fil vil blive...</string>
     <string name="prefs_instant_behaviour_title">Oprindelig fil vil blive...</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Gem i undermapper baseret på dato</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Benyt undermapper</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Undermappe muligheder</string>
     <string name="prefs_keys_exist">Tilføj end-to-end kryptering for denne klient</string>
     <string name="prefs_license">Licens</string>
     <string name="prefs_lock">App adgangskode</string>
@@ -602,6 +619,8 @@ Enheds legitimationsoplysninger er sat op
     <string name="prefs_recommend">Foreslå til en ven</string>
     <string name="prefs_remove_e2e">Fjern kryptering lokalt</string>
     <string name="prefs_setup_e2e">Opsæt end-to-end kryptering</string>
+    <string name="prefs_show_ecosystem_apps">Vis app skifter</string>
+    <string name="prefs_show_ecosystem_apps_summary">Nextcloud app anbefalinger i navigationspanelet</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_sourcecode">Hent kildetekst</string>
     <string name="prefs_storage_path">Lagringsmappe for data</string>
@@ -776,6 +795,8 @@ Enheds legitimationsoplysninger er sat op
     <string name="stream_not_possible_headline">Intern streaming ikke mulig</string>
     <string name="stream_not_possible_message">Hent venligst media i stedet, eller brug ekstern app.</string>
     <string name="strict_mode">Streng tilstand: Ingen http forbindelser tilladt!</string>
+    <string name="sub_folder_rule_day">År/Måned/Dag</string>
+    <string name="sub_folder_rule_month">År/Måned</string>
     <string name="sub_folder_rule_year">År</string>
     <string name="subject_shared_with_you">\"%1$s\" er blevet delt med dig</string>
     <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med dig</string>
@@ -927,7 +948,9 @@ Enheds legitimationsoplysninger er sat op
     <string name="wait_a_moment">Vent et øjeblik...</string>
     <string name="wait_checking_credentials">Undersøger lagrede certificeringer</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager.</string>
+    <string name="webview_version_check_alert_dialog_message">Opdater Android System WebView appen for at logge på</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Opdatér</string>
+    <string name="webview_version_check_alert_dialog_title">Opdater Android System WebView</string>
     <string name="what_s_new_image">Hvad nyt billede</string>
     <string name="whats_new_skip">Spring over</string>
     <string name="whats_new_title">Nyt i %1$s</string>
