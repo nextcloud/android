@@ -421,7 +421,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         setTitle();
 
         FragmentActivity fragmentActivity;
-        if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity fileDisplayActivity) {
+        if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity) {
+            FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) fragmentActivity;
             fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir());
         }
         listDirectory(MainApp.isOnlyOnDevice(), false);
@@ -560,7 +561,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity(),
             ((FileActivity) getActivity()).getUser().orElseThrow(RuntimeException::new),
             FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM,
-                                                        getCurrentFile().isEncrypted()
+            getCurrentFile().isEncrypted()
                                                         );
     }
 
