@@ -205,6 +205,7 @@
     <string name="dismiss">Weigeren</string>
     <string name="dismiss_notification_description">Handel melding af</string>
     <string name="dnd">Niet storen</string>
+    <string name="document_scan_export_dialog_pdf">PDF-bestand</string>
     <string name="done">Klaar</string>
     <string name="dontClear">Niet opruimen</string>
     <string name="download_cannot_create_file">Kan geen lokaal bestand aanmaken</string>
@@ -240,6 +241,7 @@
     <string name="ecosystem_apps_display_more">Meer</string>
     <string name="ecosystem_apps_display_notes">Notities</string>
     <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_more">Meer Nextcloud Apps</string>
     <string name="ecosystem_apps_notes">Nextcloud Notities</string>
     <string name="encrypted">Instellen als versleuteld</string>
     <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
@@ -398,6 +400,7 @@
     <string name="host_your_own_server">Host je eigen server</string>
     <string name="icon_of_dashboard_widget">Pictogram van dashboard widget</string>
     <string name="icon_of_widget_entry">Pictogram van widget vermelding</string>
+    <string name="image_preview_filedetails">Bestandsdetails</string>
     <string name="in_folder">in map %1$s</string>
     <string name="instant_upload_existing">Upload ook bestaande bestanden</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
@@ -739,6 +742,8 @@
     <string name="stream_not_possible_headline">Intern streamen niet mogelijk</string>
     <string name="stream_not_possible_message">Download media in plaats van gebruik externe app.</string>
     <string name="strict_mode">Strict modus: geen HTTP-verbinding toegestaan!</string>
+    <string name="sub_folder_rule_day">Jaar/Maand/Dag</string>
+    <string name="sub_folder_rule_month">Jaar/Maand</string>
     <string name="sub_folder_rule_year">Jaar</string>
     <string name="subject_shared_with_you">\"%1$s\" is met je gedeeld</string>
     <string name="subject_user_shared_with_you">%1$s deelde \"%2$s\" met jou</string>
