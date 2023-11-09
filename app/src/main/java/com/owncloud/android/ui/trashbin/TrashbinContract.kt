@@ -18,47 +18,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.trashbin;
+package com.owncloud.android.ui.trashbin
 
-import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
-
-import java.util.List;
+import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 
 /**
  * Contract between view (TrashbinActivity) and presenter (TrashbinPresenter)
  */
-public interface TrashbinContract {
-
+interface TrashbinContract {
     interface View {
-        void showTrashbinFolder(List<TrashbinFile> trashbinFiles);
-
-        void showSnackbarError(int message, TrashbinFile file);
-
-        void showError(int message);
-
-        void removeFile(TrashbinFile file);
-
-        void removeAllFiles();
-
-        void close();
-
-        void setDrawerIndicatorEnabled(boolean bool);
+        fun showTrashbinFolder(trashbinFiles: List<TrashbinFile?>?)
+        fun showSnackbarError(message: Int, file: TrashbinFile?)
+        fun showError(message: Int)
+        fun removeFile(file: TrashbinFile?)
+        fun removeAllFiles()
+        fun close()
+        fun setDrawerIndicatorEnabled(bool: Boolean)
     }
 
     interface Presenter {
-
-        boolean isRoot();
-
-        void loadFolder();
-
-        void navigateUp();
-
-        void enterFolder(String folder);
-
-        void restoreTrashbinFile(TrashbinFile file);
-
-        void removeTrashbinFile(TrashbinFile file);
-
-        void emptyTrashbin();
+        val isRoot: Boolean
+        fun loadFolder()
+        fun navigateUp()
+        fun enterFolder(folder: String?)
+        fun restoreTrashbinFile(file: TrashbinFile?)
+        fun removeTrashbinFile(file: TrashbinFile?)
+        fun emptyTrashbin()
     }
 }

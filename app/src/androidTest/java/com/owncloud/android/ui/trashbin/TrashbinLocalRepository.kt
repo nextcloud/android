@@ -26,7 +26,7 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 import com.owncloud.android.ui.trashbin.TrashbinRepository.LoadFolderCallback
 
-class TrashbinLocalRepository(val testCase: TrashbinActivityIT.TestCase) : TrashbinRepository {
+class TrashbinLocalRepository(private val testCase: TrashbinActivityIT.TestCase) : TrashbinRepository {
     override fun emptyTrashbin(callback: TrashbinRepository.OperationCallback?) {
         TODO("Not yet implemented")
     }

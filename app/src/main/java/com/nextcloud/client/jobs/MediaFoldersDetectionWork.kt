@@ -105,12 +105,19 @@ class MediaFoldersDetectionWork constructor(
         )
         val imageMediaFolderPaths: MutableList<String> = ArrayList()
         val videoMediaFolderPaths: MutableList<String> = ArrayList()
+
         for (imageMediaFolder in imageMediaFolders) {
-            imageMediaFolderPaths.add(imageMediaFolder.absolutePath)
+            imageMediaFolder.absolutePath?.let {
+                imageMediaFolderPaths.add(it)
+            }
         }
+
         for (videoMediaFolder in videoMediaFolders) {
-            imageMediaFolderPaths.add(videoMediaFolder.absolutePath)
+            videoMediaFolder.absolutePath?.let {
+                imageMediaFolderPaths.add(it)
+            }
         }
+
         val arbitraryDataString = arbitraryDataProvider.getValue(ACCOUNT_NAME_GLOBAL, KEY_MEDIA_FOLDERS)
         if (!TextUtils.isEmpty(arbitraryDataString)) {
             mediaFoldersModel = gson.fromJson(arbitraryDataString, MediaFoldersModel::class.java)
