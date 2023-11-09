@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Novo cartafol</string>
     <string name="actionbar_move">Mover</string>
+    <string name="actionbar_move_or_copy">Mover ou copiar</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -324,6 +325,7 @@
     <string name="file_delete">Eliminar</string>
     <string name="file_detail_activity_error">Produciuse un erro ao recuperar actividades para o ficheiro</string>
     <string name="file_details_no_content">Produciuse un fallo ao cargar os detalles</string>
+    <string name="file_downloader_notification_title_prefix">Descargando \u0020</string>
     <string name="file_icon">Ficheiro</string>
     <string name="file_keep">Conservar</string>
     <string name="file_list_empty">Envíe algún contido ou sincronice cos seus dispositivos.</string>
@@ -945,6 +947,9 @@
     <string name="wait_a_moment">Agarde un chisco…</string>
     <string name="wait_checking_credentials">Verificando as credenciais almacenadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o ficheiro dende o almacenamento privado</string>
+    <string name="webview_version_check_alert_dialog_message">Actualice a aplicación WebView do sistema Android para acceder</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Actualizar</string>
+    <string name="webview_version_check_alert_dialog_title">Actualizar WebView do sistema Android</string>
     <string name="what_s_new_image">Imaxe de Que hai de novo</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Novo en %1$s</string>
