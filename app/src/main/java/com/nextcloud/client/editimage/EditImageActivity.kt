@@ -32,6 +32,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.canhub.cropper.CropImageView
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityEditImageBinding
 import com.owncloud.android.datamodel.OCFile
@@ -80,7 +81,8 @@ class EditImageActivity :
         binding = ActivityEditImageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        file = intent.extras?.getParcelable(EXTRA_FILE) ?: throw IllegalArgumentException("Missing file argument")
+        file = intent.extras?.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
+            ?: throw IllegalArgumentException("Missing file argument")
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
@@ -90,7 +92,12 @@ class EditImageActivity :
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
         window.navigationBarColor = getColor(R.color.black)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+        } else {
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        }
 
         setupCropper()
     }
@@ -105,17 +112,19 @@ class EditImageActivity :
             " " + getString(R.string.image_editor_file_edited_suffix) +
             resultUri?.substring(resultUri.lastIndexOf('.'))
 
-        FilesUploadHelper().uploadNewFiles(
-            user = storageManager.user,
-            localPaths = arrayOf(resultUri!!),
-            remotePaths = arrayOf(file.parentRemotePath + File.separator + newFileName),
-            createRemoteFolder = false,
-            createdBy = UploadFileOperation.CREATED_BY_USER,
-            requiresWifi = false,
-            requiresCharging = false,
-            nameCollisionPolicy = NameCollisionPolicy.RENAME,
-            localBehavior = FileUploader.LOCAL_BEHAVIOUR_DELETE
-        )
+        resultUri?.let {
+            FilesUploadHelper().uploadNewFiles(
+                user = storageManager.user,
+                localPaths = arrayOf(it),
+                remotePaths = arrayOf(file.parentRemotePath + File.separator + newFileName),
+                createRemoteFolder = false,
+                createdBy = UploadFileOperation.CREATED_BY_USER,
+                requiresWifi = false,
+                requiresCharging = false,
+                nameCollisionPolicy = NameCollisionPolicy.RENAME,
+                localBehavior = FileUploader.LOCAL_BEHAVIOUR_DELETE
+            )
+        }
     }
 
     override fun onSetImageUriComplete(view: CropImageView, uri: Uri, error: Exception?) {
@@ -147,6 +156,7 @@ class EditImageActivity :
             finish()
             true
         }
+
         else -> {
             finish()
             true
@@ -184,7 +194,15 @@ class EditImageActivity :
         // determine output file format
         format = when (file.mimeType) {
             MimeType.PNG -> Bitmap.CompressFormat.PNG
-            MimeType.WEBP -> Bitmap.CompressFormat.WEBP
+            MimeType.WEBP -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    Bitmap.CompressFormat.WEBP_LOSSLESS
+                } else {
+                    @Suppress("DEPRECATION")
+                    Bitmap.CompressFormat.WEBP
+                }
+            }
+
             else -> Bitmap.CompressFormat.JPEG
         }
     }
