@@ -8,7 +8,7 @@ buildscript {
         daggerVersion = "2.47"
         markwonVersion = "4.6.2"
         prismVersion = "2.0.0"
-        androidLibraryVersion ="475f478e4b0835f829418b8a74cd0340dee18457"
+        androidLibraryVersion ="d79bc934febeb2233276e1d3c833129e40bd7762"
         mockitoVersion = "4.11.0"
         mockitoKotlinVersion = "4.1.0"
         mockkVersion = "1.13.3"
