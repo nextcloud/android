@@ -36,7 +36,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import androidx.core.net.ConnectivityManagerCompat;
 import kotlin.jvm.functions.Function1;
 
-public class ConnectivityServiceImpl implements ConnectivityService {
+class ConnectivityServiceImpl implements ConnectivityService {
 
     private static final String TAG = "ConnectivityServiceImpl";
     private static final String CONNECTIVITY_CHECK_ROUTE = "/index.php/204";
