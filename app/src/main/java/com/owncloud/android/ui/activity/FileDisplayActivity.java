@@ -516,6 +516,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     // Is called with the flag FLAG_ACTIVITY_SINGLE_TOP and set the new file and intent
+    @SuppressLint("UnsafeIntentLaunch")
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -753,7 +754,11 @@ public class FileDisplayActivity extends FileActivity
             if (TextUtils.isEmpty(searchView.getQuery().toString())) {
                 searchView.onActionViewCollapsed();
                 setDrawerIndicatorEnabled(isDrawerIndicatorAvailable()); // order matters
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                }
+
                 mDrawerToggle.syncState();
 
                 OCFileListFragment ocFileListFragment = getListOfFilesFragment();
@@ -910,7 +915,6 @@ public class FileDisplayActivity extends FileActivity
             int behaviour = switch (resultCode) {
                 case UploadFilesActivity.RESULT_OK_AND_MOVE -> FileUploader.LOCAL_BEHAVIOUR_MOVE;
                 case UploadFilesActivity.RESULT_OK_AND_DELETE -> FileUploader.LOCAL_BEHAVIOUR_DELETE;
-                case UploadFilesActivity.RESULT_OK_AND_DO_NOTHING -> FileUploader.LOCAL_BEHAVIOUR_FORGET;
                 default -> FileUploader.LOCAL_BEHAVIOUR_FORGET;
             };
 
@@ -925,8 +929,7 @@ public class FileDisplayActivity extends FileActivity
                 UploadFileOperation.CREATED_BY_USER,
                 false,
                 false,
-                NameCollisionPolicy.ASK_USER
-                                      );
+                NameCollisionPolicy.ASK_USER);
 
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
@@ -1211,17 +1214,16 @@ public class FileDisplayActivity extends FileActivity
 
                     } else {
                         OCFile currentFile = (getFile() == null) ? null :
-                            getStorageManager().getFileByPath(getFile().getRemotePath());
+                            getStorageManager().getFileByEncryptedRemotePath(getFile().getRemotePath());
                         OCFile currentDir = (getCurrentDir() == null) ? null :
-                            getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
+                            getStorageManager().getFileByEncryptedRemotePath(getCurrentDir().getRemotePath());
 
                         if (currentDir == null) {
                             // current folder was removed from the server
                             DisplayUtils.showSnackMessage(
                                 getActivity(),
                                 R.string.sync_current_folder_was_removed,
-                                syncFolderRemotePath
-                                                         );
+                                syncFolderRemotePath);
 
                             browseToRoot();
 
@@ -1371,7 +1373,7 @@ public class FileDisplayActivity extends FileActivity
 
             if (sameAccount && sameFile && details instanceof FileDetailFragment) {
                 if (uploadWasFine) {
-                    setFile(getStorageManager().getFileByPath(uploadedRemotePath));
+                    setFile(getStorageManager().getFileByEncryptedRemotePath(uploadedRemotePath));
                 } else {
                     //TODO remove upload progress bar after upload failed.
                     Log_OC.d(TAG, "Remove upload progress bar after upload failed");
@@ -1381,8 +1383,7 @@ public class FileDisplayActivity extends FileActivity
                     DisplayUtils.showSnackMessage(
                         getActivity(),
                         R.string.filedetails_renamed_in_upload_msg,
-                        newName
-                                                 );
+                        newName);
                 }
                 if (uploadWasFine || getFile().fileExists()) {
                     ((FileDetailFragment) details).updateFileDetails(false, true);
@@ -1484,7 +1485,7 @@ public class FileDisplayActivity extends FileActivity
     public void browseToRoot() {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null) {  // should never be null, indeed
-            OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
+            OCFile root = getStorageManager().getFileByEncryptedRemotePath(OCFile.ROOT_PATH);
             listOfFiles.listDirectory(root, MainApp.isOnlyOnDevice(), false);
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root, false);
@@ -1654,12 +1655,11 @@ public class FileDisplayActivity extends FileActivity
         if (details instanceof FileFragment) {
             OCFile file = ((FileFragment) details).getFile();
             if (file != null) {
-                file = getStorageManager().getFileByPath(file.getRemotePath());
+                file = getStorageManager().getFileByEncryptedRemotePath(file.getRemotePath());
+
                 if (details instanceof PreviewMediaFragment) {
-                    // Refresh  OCFile of the fragment
                     ((PreviewMediaFragment) details).updateFile(file);
                 } else if (details instanceof PreviewTextFragment) {
-                    // Refresh  OCFile of the fragment
                     ((PreviewTextFileFragment) details).updateFile(file);
                 } else {
                     showDetails(file);
@@ -2352,17 +2352,17 @@ public class FileDisplayActivity extends FileActivity
                     // cache until the upload is successful get parent from path
                     parentPath = file.getRemotePath().substring(0,
                                                                 file.getRemotePath().lastIndexOf(file.getFileName()));
-                    if (storageManager.getFileByPath(parentPath) == null) {
+                    if (storageManager.getFileByEncryptedRemotePath(parentPath) == null) {
                         file = null; // not able to know the directory where the file is uploading
                     }
                 } else {
-                    file = storageManager.getFileByPath(file.getRemotePath());
+                    file = storageManager.getFileByEncryptedRemotePath(file.getRemotePath());
                     // currentDir = null if not in the current Account
                 }
             }
             if (file == null) {
                 // fall back to root folder
-                file = storageManager.getFileByPath(OCFile.ROOT_PATH);  // never returns null
+                file = storageManager.getFileByEncryptedRemotePath(OCFile.ROOT_PATH);  // never returns null
             }
             setFile(file);
 
