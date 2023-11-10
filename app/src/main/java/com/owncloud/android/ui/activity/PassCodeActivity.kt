@@ -47,7 +47,26 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.Arrays
 import javax.inject.Inject
 
+@Suppress("TooManyFunctions", "MagicNumber")
 class PassCodeActivity : AppCompatActivity(), Injectable {
+
+    companion object {
+        private val TAG = PassCodeActivity::class.java.simpleName
+
+        private const val KEY_PASSCODE_DIGITS = "PASSCODE_DIGITS"
+        private const val KEY_CONFIRMING_PASSCODE = "CONFIRMING_PASSCODE"
+        const val ACTION_REQUEST_WITH_RESULT = "ACTION_REQUEST_WITH_RESULT"
+        const val ACTION_CHECK_WITH_RESULT = "ACTION_CHECK_WITH_RESULT"
+        const val ACTION_CHECK = "ACTION_CHECK"
+        const val KEY_PASSCODE = "KEY_PASSCODE"
+        const val KEY_CHECK_RESULT = "KEY_CHECK_RESULT"
+        const val PREFERENCE_PASSCODE_D = "PrefPinCode"
+        const val PREFERENCE_PASSCODE_D1 = "PrefPinCode1"
+        const val PREFERENCE_PASSCODE_D2 = "PrefPinCode2"
+        const val PREFERENCE_PASSCODE_D3 = "PrefPinCode3"
+        const val PREFERENCE_PASSCODE_D4 = "PrefPinCode4"
+    }
+
     @JvmField
     @Inject
     var preferences: AppPreferences? = null
@@ -86,13 +105,26 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(binding.cancel)
     }
 
+    private fun setupPasscodeEditTexts() {
+        passCodeEditTexts[0] = binding.txt0
+        passCodeEditTexts[1] = binding.txt1
+        passCodeEditTexts[2] = binding.txt2
+        passCodeEditTexts[3] = binding.txt3
+
+        passCodeEditTexts.forEach {
+            it?.let { viewThemeUtils?.platform?.colorEditText(it) }
+        }
+
+        passCodeEditTexts[0]?.requestFocus()
+    }
+
     private fun setSoftInputMode() {
         window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
     }
 
     private fun setupUI(savedInstanceState: Bundle?) {
         if (ACTION_CHECK == intent.action) {
-            /// this is a pass code request; the user has to input the right value
+            // / this is a pass code request; the user has to input the right value
             binding.header.setText(R.string.pass_code_enter_pass_code)
             binding.explanation.visibility = View.INVISIBLE
             setCancelButtonEnabled(false) // no option to cancel
@@ -123,21 +155,12 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         }
     }
 
-    private fun setupPasscodeEditTexts() {
-        passCodeEditTexts[0] = binding.txt0
-        passCodeEditTexts[1] = binding.txt1
-        passCodeEditTexts[2] = binding.txt2
-        passCodeEditTexts[3] = binding.txt3
-
-        for (passCodeEditText in passCodeEditTexts) {
-            viewThemeUtils?.platform?.colorEditText(passCodeEditText!!)
-        }
-
-        passCodeEditTexts[0]?.requestFocus()
-    }
-
     private fun setCancelButtonEnabled(enabled: Boolean) {
-        binding.cancel.visibility = if (enabled) { View.VISIBLE } else { View.INVISIBLE }
+        binding.cancel.visibility = if (enabled) {
+            View.VISIBLE
+        } else {
+            View.INVISIBLE
+        }
         binding.cancel.setOnClickListener {
             if (enabled) {
                 finish()
@@ -202,7 +225,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
             if (checkPassCode()) {
                 preferences?.resetPinWrongAttempts()
 
-                /// pass code accepted in request, user is allowed to access the app
+                // / pass code accepted in request, user is allowed to access the app
                 passCodeManager?.updateLockTimestamp()
                 hideSoftKeyboard()
                 finish()
@@ -223,24 +246,27 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
                 showErrorAndRestart(R.string.pass_code_wrong, R.string.pass_code_enter_pass_code, View.INVISIBLE)
             }
         } else if (ACTION_REQUEST_WITH_RESULT == intent.action) {
-            /// enabling pass code
+            // / enabling pass code
             if (!confirmingPassCode) {
                 requestPassCodeConfirmation()
             } else if (confirmPassCode()) {
-                /// confirmed: user typed the same pass code twice
+                // / confirmed: user typed the same pass code twice
                 savePassCodeAndExit()
             } else {
-                showErrorAndRestart(R.string.pass_code_mismatch, R.string.pass_code_configure_your_pass_code, View.VISIBLE)
+                showErrorAndRestart(
+                    R.string.pass_code_mismatch,
+                    R.string.pass_code_configure_your_pass_code,
+                    View.VISIBLE
+                )
             }
         }
     }
 
     private fun hideSoftKeyboard() {
-        val focusedView = currentFocus
-        if (focusedView != null) {
+        currentFocus?.let {
             val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(
-                focusedView.windowToken,
+                it.windowToken,
                 0
             )
         }
@@ -267,32 +293,21 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
     }
 
     private fun checkPassCode(): Boolean {
-        val savedPassCodeDigits = preferences!!.passCode
-        var result = true
-        var i = 0
-        while (i < passCodeDigits!!.size && result) {
-            result = passCodeDigits!![i] != null && passCodeDigits!![i] == savedPassCodeDigits[i]
-            i++
-        }
-        return result
+        val savedPassCodeDigits = preferences?.passCode
+        return passCodeDigits?.zip(savedPassCodeDigits.orEmpty()) { input, saved ->
+            input != null && input == saved
+        }?.all { it } ?: false
     }
 
     private fun confirmPassCode(): Boolean {
-        confirmingPassCode = false
-        var result = true
-        var i = 0
-        while (i < passCodeEditTexts.size && result) {
-            result = passCodeEditTexts[i]?.text.toString() == passCodeDigits!![i]
-            i++
+        return passCodeEditTexts.indices.all { i ->
+            passCodeEditTexts[i]?.text.toString() == passCodeDigits!![i]
         }
-        return result
     }
 
     private fun clearBoxes() {
-        for (mPassCodeEditText in passCodeEditTexts) {
-            mPassCodeEditText?.setText("")
-        }
-        passCodeEditTexts[0]?.requestFocus()
+        passCodeEditTexts.forEach { it?.text?.clear() }
+        passCodeEditTexts.firstOrNull()?.requestFocus()
     }
 
     /**
@@ -357,7 +372,6 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
                     Log_OC.e(this, "Could not delay password input prompt")
                 }
             }
-
         }).start()
     }
 
@@ -412,23 +426,12 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
             }
         }
 
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    }
+        @Suppress("EmptyFunctionBlock")
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+        }
 
-    companion object {
-        private val TAG = PassCodeActivity::class.java.simpleName
-        private const val KEY_PASSCODE_DIGITS = "PASSCODE_DIGITS"
-        private const val KEY_CONFIRMING_PASSCODE = "CONFIRMING_PASSCODE"
-        const val ACTION_REQUEST_WITH_RESULT = "ACTION_REQUEST_WITH_RESULT"
-        const val ACTION_CHECK_WITH_RESULT = "ACTION_CHECK_WITH_RESULT"
-        const val ACTION_CHECK = "ACTION_CHECK"
-        const val KEY_PASSCODE = "KEY_PASSCODE"
-        const val KEY_CHECK_RESULT = "KEY_CHECK_RESULT"
-        const val PREFERENCE_PASSCODE_D = "PrefPinCode"
-        const val PREFERENCE_PASSCODE_D1 = "PrefPinCode1"
-        const val PREFERENCE_PASSCODE_D2 = "PrefPinCode2"
-        const val PREFERENCE_PASSCODE_D3 = "PrefPinCode3"
-        const val PREFERENCE_PASSCODE_D4 = "PrefPinCode4"
+        @Suppress("EmptyFunctionBlock")
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        }
     }
 }
