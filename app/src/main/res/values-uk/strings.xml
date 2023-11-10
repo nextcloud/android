@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Копіювати</string>
     <string name="actionbar_mkdir">Новий каталог</string>
     <string name="actionbar_move">Перемістити</string>
+    <string name="actionbar_move_or_copy">Перемістити або копіювати</string>
     <string name="actionbar_open_with">Відкрити за допомогою</string>
     <string name="actionbar_search">Пошук</string>
     <string name="actionbar_see_details">Деталі</string>
@@ -322,6 +323,7 @@
     <string name="file_delete">Вилучити</string>
     <string name="file_detail_activity_error">Помилка з отриманням дії для файлу</string>
     <string name="file_details_no_content">Не вдалося завантажити подробиці</string>
+    <string name="file_downloader_notification_title_prefix">Звантаження \u0020</string>
     <string name="file_icon">Файл</string>
     <string name="file_keep">Зберегти</string>
     <string name="file_list_empty">Додати дані або синхронізувати з вашими пристроями.</string>
@@ -574,6 +576,7 @@
     <string name="prefs_calendar_contacts_sync_setup_successful">Налаштування синхронізації календаря та контактів</string>
     <string name="prefs_category_about">Про програму</string>
     <string name="prefs_category_details">Деталі</string>
+    <string name="prefs_category_dev">Розробка</string>
     <string name="prefs_category_general">Основне</string>
     <string name="prefs_category_more">Більше</string>
     <string name="prefs_daily_backup_summary">Щоденне створення резервних копій календарів та контактів</string>
@@ -934,7 +937,9 @@
     <string name="wait_a_moment">Зачекайте трохи…</string>
     <string name="wait_checking_credentials">Перевірка збережених даних авторизації</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копіювання файлу з приватного сховища</string>
+    <string name="webview_version_check_alert_dialog_message">Оновіть застосунок Android System WebView для отримання доступу до входу</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Оновлення</string>
+    <string name="webview_version_check_alert_dialog_title">Оновити Android System WebView</string>
     <string name="what_s_new_image">Зображення про нові функції</string>
     <string name="whats_new_skip">Пропустити</string>
     <string name="whats_new_title">Нове у %1$s</string>

@@ -20,7 +20,6 @@
 
 package com.nextcloud.client.network;
 
-import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -48,22 +47,6 @@ public class ConnectivityServiceImpl implements ConnectivityService {
     private final GetRequestBuilder requestBuilder;
     private final WalledCheckCache walledCheckCache;
 
-    public static boolean isConnected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        Network nw = connectivityManager.getActiveNetwork();
-        NetworkCapabilities actNw = connectivityManager.getNetworkCapabilities(nw);
-
-        if (actNw == null) {
-            return false;
-        }
-
-        return actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH);
-    }
-
-
     static class GetRequestBuilder implements Function1<String, GetMethod> {
         @Override
         public GetMethod invoke(String url) {
@@ -81,6 +64,21 @@ public class ConnectivityServiceImpl implements ConnectivityService {
         this.clientFactory = clientFactory;
         this.requestBuilder = requestBuilder;
         this.walledCheckCache = walledCheckCache;
+    }
+
+    @Override
+    public boolean isConnected() {
+        Network nw = platformConnectivityManager.getActiveNetwork();
+        NetworkCapabilities actNw = platformConnectivityManager.getNetworkCapabilities(nw);
+
+        if (actNw == null) {
+            return false;
+        }
+
+        return actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH);
     }
 
     @Override

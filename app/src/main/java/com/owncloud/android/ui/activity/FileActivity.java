@@ -45,7 +45,6 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.client.network.ConnectivityServiceImpl;
 import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -242,7 +241,7 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     public void checkInternetConnection() {
-        if (ConnectivityServiceImpl.isConnected(this)) {
+        if (connectivityService.isConnected()) {
             hideInfoBox();
         }
     }
