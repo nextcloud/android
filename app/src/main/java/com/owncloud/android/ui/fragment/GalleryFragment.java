@@ -122,7 +122,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         public void onReceive(Context context, Intent intent) {
             final FragmentActivity activity = getActivity();
             if (activity instanceof FileDisplayActivity fileDisplayActivity) {
-                fileDisplayActivity.openMediaList();
+                fileDisplayActivity.startPhotoSearch(R.id.nav_gallery);
             }
         }
     };
