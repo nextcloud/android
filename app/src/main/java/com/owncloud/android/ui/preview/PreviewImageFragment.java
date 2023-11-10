@@ -23,6 +23,7 @@ package com.owncloud.android.ui.preview;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -87,6 +88,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import pl.droidsonroids.gif.GifDrawable;
 
@@ -187,8 +189,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         ignoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
         showResizedImage = args.getBoolean(ARG_SHOW_RESIZED_IMAGE);
         setHasOptionsMenu(true);
-
-        GalleryFragment.updateGallery = true;
     }
 
     @Override
