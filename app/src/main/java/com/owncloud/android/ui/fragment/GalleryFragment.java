@@ -23,7 +23,10 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -54,6 +57,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,7 +67,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class GalleryFragment extends OCFileListFragment implements GalleryFragmentBottomSheetActions {
     private static final int MAX_ITEMS_PER_ROW = 10;
     private static final String FRAGMENT_TAG_BOTTOM_SHEET = "data";
-    public static boolean updateGallery = true;
+    public static String REFRESH_SEARCH_EVENT_RECEIVER = "refreshSearchEventReceiver";
 
     private boolean photoSearchQueryRunning = false;
     private AsyncTask<Void, Void, GallerySearchTask.Result> photoSearchTask;
@@ -104,6 +108,29 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         } else {
             columnSize = maxColumnSizePortrait;
         }
+
+        registerRefreshSearchEventReceiver();
+    }
+
+    private void registerRefreshSearchEventReceiver() {
+        IntentFilter filter = new IntentFilter(REFRESH_SEARCH_EVENT_RECEIVER);
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(refreshSearchEventReceiver, filter);
+    }
+
+    private final BroadcastReceiver refreshSearchEventReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final FragmentActivity activity = getActivity();
+            if (activity instanceof FileDisplayActivity fileDisplayActivity) {
+                fileDisplayActivity.openMediaList();
+            }
+        }
+    };
+
+    @Override
+    public void onDestroyView() {
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(refreshSearchEventReceiver);
+        super.onDestroyView();
     }
 
     @Override
@@ -206,11 +233,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         final FragmentActivity activity = getActivity();
 
         if (activity instanceof FileDisplayActivity fileDisplayActivity) {
-            if (updateGallery) {
-                fileDisplayActivity.openMediaList();
-                updateGallery = false;
-            }
-
             fileDisplayActivity.updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
             fileDisplayActivity.setMainFabVisible(false);
         }
@@ -254,7 +276,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             setEmptyListMessage(SearchType.GALLERY_SEARCH);
         }
 
-        if(!emptySearch) {
+        if (!emptySearch) {
             this.showAllGalleryItems();
         }
 
