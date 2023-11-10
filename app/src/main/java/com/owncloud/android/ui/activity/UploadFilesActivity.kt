@@ -32,6 +32,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
@@ -128,6 +129,7 @@ class UploadFilesActivity :
         setupToolbarSpinner()
         waitDialog()
         checkWritableFolder(mCurrentDir)
+        handleOnBackPressed()
 
         Log_OC.d(TAG, "onCreate() end")
     }
@@ -222,6 +224,7 @@ class UploadFilesActivity :
             override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
                 var i = position
                 while (i-- != 0) {
+                    @Suppress("DEPRECATION")
                     onBackPressed()
                 }
                 // the next operation triggers a new call to this method, but it's necessary to
@@ -295,6 +298,7 @@ class UploadFilesActivity :
         val itemId = item.itemId
         if (itemId == R.id.home) {
             if (mCurrentDir != null && mCurrentDir?.parentFile != null) {
+                @Suppress("DEPRECATION")
                 onBackPressed()
             }
         } else if (itemId == R.id.action_select_all) {
@@ -355,36 +359,43 @@ class UploadFilesActivity :
             mSearchEditFrame != null && mSearchEditFrame.visibility == View.VISIBLE
         }
 
-    override fun onBackPressed() {
-        if (isSearchOpen && mSearchView != null) {
-            mSearchView?.setQuery("", false)
-            fileListFragment?.onClose()
-            mSearchView?.onActionViewCollapsed()
-            setDrawerIndicatorEnabled(isDrawerIndicatorAvailable)
-        } else {
-            if ((mDirectories?.count ?: 0) <= SINGLE_DIR) {
-                finish()
-                return
-            }
-            val parentFolder = mCurrentDir?.parentFile
-            if (parentFolder?.canRead() == false) {
-                checkLocalStoragePathPickerPermission()
-                return
-            }
-            popDirname()
-            fileListFragment?.onNavigateUp()
-            mCurrentDir = fileListFragment?.currentDirectory
-            checkWritableFolder(mCurrentDir)
-            if (mCurrentDir?.parentFile == null) {
-                val actionBar = supportActionBar
-                actionBar?.setDisplayHomeAsUpEnabled(false)
-            }
+    private fun handleOnBackPressed() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (isSearchOpen && mSearchView != null) {
+                        mSearchView?.setQuery("", false)
+                        fileListFragment?.onClose()
+                        mSearchView?.onActionViewCollapsed()
+                        setDrawerIndicatorEnabled(isDrawerIndicatorAvailable)
+                    } else {
+                        if ((mDirectories?.count ?: 0) <= SINGLE_DIR) {
+                            finish()
+                            return
+                        }
+                        val parentFolder = mCurrentDir?.parentFile
+                        if (parentFolder?.canRead() == false) {
+                            checkLocalStoragePathPickerPermission()
+                            return
+                        }
+                        popDirname()
+                        fileListFragment?.onNavigateUp()
+                        mCurrentDir = fileListFragment?.currentDirectory
+                        checkWritableFolder(mCurrentDir)
+                        if (mCurrentDir?.parentFile == null) {
+                            val actionBar = supportActionBar
+                            actionBar?.setDisplayHomeAsUpEnabled(false)
+                        }
 
-            // invalidate checked state when navigating directories
-            if (!mLocalFolderPickerMode) {
-                setSelectAllMenuItem(mOptionsMenu?.findItem(R.id.action_select_all), false)
+                        // invalidate checked state when navigating directories
+                        if (!mLocalFolderPickerMode) {
+                            setSelectAllMenuItem(mOptionsMenu?.findItem(R.id.action_select_all), false)
+                        }
+                    }
+                }
             }
-        }
+        )
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
