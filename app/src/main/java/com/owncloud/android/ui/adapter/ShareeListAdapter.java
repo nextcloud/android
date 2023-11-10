@@ -25,6 +25,7 @@
 
 package com.owncloud.android.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -94,15 +95,15 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (ShareType.fromValue(viewType)) {
-            case PUBLIC_LINK:
-            case EMAIL:
+            case PUBLIC_LINK, EMAIL -> {
                 return new LinkShareViewHolder(
                     FileDetailsShareLinkShareItemBinding.inflate(LayoutInflater.from(fileActivity),
                                                                  parent,
                                                                  false),
                     fileActivity,
                     viewThemeUtils);
-            case NEW_PUBLIC_LINK:
+            }
+            case NEW_PUBLIC_LINK -> {
                 if (encrypted) {
                     return new NewSecureFileDropViewHolder(
                         FileDetailsShareSecureFileDropAddNewItemBinding.inflate(LayoutInflater.from(fileActivity),
@@ -116,17 +117,20 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                             false)
                     );
                 }
-            case INTERNAL:
+            }
+            case INTERNAL -> {
                 return new InternalShareViewHolder(
                     FileDetailsShareInternalShareLinkBinding.inflate(LayoutInflater.from(fileActivity), parent, false),
                     fileActivity);
-            default:
+            }
+            default -> {
                 return new ShareViewHolder(FileDetailsShareShareItemBinding.inflate(LayoutInflater.from(fileActivity),
                                                                                     parent,
                                                                                     false),
                                            user,
                                            fileActivity,
                                            viewThemeUtils);
+            }
         }
     }
 
@@ -138,17 +142,13 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         final OCShare share = shares.get(position);
 
-        if (holder instanceof LinkShareViewHolder) {
-            LinkShareViewHolder publicShareViewHolder = (LinkShareViewHolder) holder;
+        if (holder instanceof LinkShareViewHolder publicShareViewHolder) {
             publicShareViewHolder.bind(share, listener);
-        } else if (holder instanceof InternalShareViewHolder) {
-            InternalShareViewHolder internalShareViewHolder = (InternalShareViewHolder) holder;
+        } else if (holder instanceof InternalShareViewHolder internalShareViewHolder) {
             internalShareViewHolder.bind(share, listener);
-        } else if (holder instanceof NewLinkShareViewHolder) {
-            NewLinkShareViewHolder newLinkShareViewHolder = (NewLinkShareViewHolder) holder;
+        } else if (holder instanceof NewLinkShareViewHolder newLinkShareViewHolder) {
             newLinkShareViewHolder.bind(listener);
-        } else if (holder instanceof NewSecureFileDropViewHolder) {
-            NewSecureFileDropViewHolder newSecureFileDropViewHolder = (NewSecureFileDropViewHolder) holder;
+        } else if (holder instanceof NewSecureFileDropViewHolder newSecureFileDropViewHolder) {
             newSecureFileDropViewHolder.bind(listener);
         } else {
             ShareViewHolder userViewHolder = (ShareViewHolder) holder;
@@ -166,6 +166,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return shares.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void addShares(List<OCShare> sharesToAdd) {
         shares.addAll(sharesToAdd);
         sortShares();
@@ -174,22 +175,21 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
-        if (callContext instanceof ImageView) {
-            ImageView iv = (ImageView) callContext;
+        if (callContext instanceof ImageView iv) {
             iv.setImageDrawable(avatarDrawable);
         }
     }
 
     @Override
     public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
-        if (callContext instanceof ImageView) {
-            ImageView iv = (ImageView) callContext;
+        if (callContext instanceof ImageView iv) {
             // needs to be changed once federated users have avatars
             return String.valueOf(iv.getTag()).equals(tag.split("@")[0]);
         }
         return false;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void remove(OCShare share) {
         shares.remove(share);
         notifyDataSetChanged();
@@ -210,8 +210,8 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        Collections.sort(links, (o1, o2) -> Long.compare(o2.getSharedDate(), o1.getSharedDate()));
-        Collections.sort(users, (o1, o2) -> Long.compare(o2.getSharedDate(), o1.getSharedDate()));
+        links.sort((o1, o2) -> Long.compare(o2.getSharedDate(), o1.getSharedDate()));
+        users.sort((o1, o2) -> Long.compare(o2.getSharedDate(), o1.getSharedDate()));
 
         shares = links;
         shares.addAll(users);

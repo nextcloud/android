@@ -18,31 +18,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.trashbin;
+package com.owncloud.android.ui.trashbin
 
-import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile;
-
-import java.util.List;
+import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 
 /**
  * Contract between presenter and model
  */
-public interface TrashbinRepository {
+interface TrashbinRepository {
     interface LoadFolderCallback {
-        void onSuccess(List<TrashbinFile> files);
-
-        void onError(int error);
+        fun onSuccess(files: List<TrashbinFile?>?)
+        fun onError(error: Int)
     }
 
     interface OperationCallback {
-        void onResult(boolean success);
+        fun onResult(success: Boolean)
     }
 
-    void getFolder(String remotePath, LoadFolderCallback callback);
-
-    void restoreFile(TrashbinFile file, OperationCallback callback);
-
-    void emptyTrashbin(OperationCallback callback);
-
-    void removeTrashbinFile(TrashbinFile file, OperationCallback callback);
+    fun getFolder(remotePath: String?, callback: LoadFolderCallback?)
+    fun restoreFile(file: TrashbinFile?, callback: OperationCallback?)
+    fun emptyTrashbin(callback: OperationCallback?)
+    fun removeTrashbinFile(file: TrashbinFile?, callback: OperationCallback?)
 }
