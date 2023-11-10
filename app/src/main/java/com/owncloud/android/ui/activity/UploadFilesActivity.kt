@@ -17,424 +17,404 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+package com.owncloud.android.ui.activity
 
-package com.owncloud.android.ui.activity;
-
-import android.accounts.Account;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.os.Environment;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.preferences.AppPreferences;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.UploadFilesLayoutBinding;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.adapter.StoragePathAdapter;
-import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
-import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
-import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment;
-import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
-import com.owncloud.android.ui.fragment.ExtendedListFragment;
-import com.owncloud.android.ui.fragment.LocalFileListFragment;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.PermissionUtil;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuItemCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import static com.owncloud.android.ui.activity.FileActivity.EXTRA_USER;
+import android.accounts.Account
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Bundle
+import android.os.Environment
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.TextView
+import androidx.annotation.VisibleForTesting
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
+import androidx.fragment.app.DialogFragment
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.account.User
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.preferences.AppPreferences
+import com.owncloud.android.R
+import com.owncloud.android.databinding.UploadFilesLayoutBinding
+import com.owncloud.android.files.services.FileUploader
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.adapter.StoragePathAdapter.StoragePathAdapterListener
+import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask
+import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask.CheckAvailableSpaceListener
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
+import com.owncloud.android.ui.dialog.IndeterminateProgressDialog.Companion.newInstance
+import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment
+import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
+import com.owncloud.android.ui.fragment.ExtendedListFragment
+import com.owncloud.android.ui.fragment.LocalFileListFragment
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.FileSortOrder
+import com.owncloud.android.utils.PermissionUtil
+import com.owncloud.android.utils.PermissionUtil.checkExternalStoragePermission
+import com.owncloud.android.utils.PermissionUtil.requestExternalStoragePermission
+import java.io.File
+import javax.inject.Inject
 
 /**
  * Displays local files and let the user choose what of them wants to upload to the current ownCloud account.
  */
-public class UploadFilesActivity extends DrawerActivity implements LocalFileListFragment.ContainerActivity,
-    OnClickListener, ConfirmationDialogFragmentListener, SortingOrderDialogFragment.OnSortingOrderListener,
-    CheckAvailableSpaceTask.CheckAvailableSpaceListener, StoragePathAdapter.StoragePathAdapterListener, Injectable {
+@Suppress("TooManyFunctions")
+class UploadFilesActivity :
+    DrawerActivity(),
+    LocalFileListFragment.ContainerActivity,
+    View.OnClickListener,
+    ConfirmationDialogFragmentListener,
+    OnSortingOrderListener,
+    CheckAvailableSpaceListener,
+    StoragePathAdapterListener,
+    Injectable {
 
-    private static final String KEY_ALL_SELECTED = UploadFilesActivity.class.getCanonicalName() + ".KEY_ALL_SELECTED";
-    public final static String KEY_LOCAL_FOLDER_PICKER_MODE = UploadFilesActivity.class.getCanonicalName() + ".LOCAL_FOLDER_PICKER_MODE";
-    public static final String LOCAL_BASE_PATH = UploadFilesActivity.class.getCanonicalName() + ".LOCAL_BASE_PATH";
-    public static final String EXTRA_CHOSEN_FILES = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
-    public static final String KEY_DIRECTORY_PATH = UploadFilesActivity.class.getCanonicalName() + ".KEY_DIRECTORY_PATH";
+    @JvmField
+    @Inject
+    var preferences: AppPreferences? = null
 
-    private static final int SINGLE_DIR = 1;
-    public static final int RESULT_OK_AND_DELETE = 3;
-    public static final int RESULT_OK_AND_DO_NOTHING = 2;
-    public static final int RESULT_OK_AND_MOVE = RESULT_FIRST_USER;
-    public static final String REQUEST_CODE_KEY = "requestCode";
-    private static final String ENCRYPTED_FOLDER_KEY = "encrypted_folder";
+    private var mAccountOnCreation: Account? = null
+    private var mDirectories: ArrayAdapter<String>? = null
+    private var mLocalFolderPickerMode = false
+    private var mSelectAll = false
+    private var mCurrentDialog: DialogFragment? = null
+    private var mCurrentDir: File? = null
+    private var requestCode = 0
 
-    private static final String QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE";
-    private static final String TAG = "UploadFilesActivity";
-    private static final String WAIT_DIALOG_TAG = "WAIT";
+    @get:VisibleForTesting
+    var fileListFragment: LocalFileListFragment? = null
+        private set
 
-    @Inject AppPreferences preferences;
-    private Account mAccountOnCreation;
-    private ArrayAdapter<String> mDirectories;
-    private boolean mLocalFolderPickerMode;
-    private boolean mSelectAll;
-    private DialogFragment mCurrentDialog;
-    private File mCurrentDir;
-    private int requestCode;
-    private LocalFileListFragment mFileListFragment;
-    private LocalStoragePathPickerDialogFragment dialog;
-    private Menu mOptionsMenu;
-    private SearchView mSearchView;
-    private UploadFilesLayoutBinding binding;
-    private boolean isWithinEncryptedFolder = false;
+    private var dialog: LocalStoragePathPickerDialogFragment? = null
+    private var mOptionsMenu: Menu? = null
+    private var mSearchView: SearchView? = null
+    private lateinit var binding: UploadFilesLayoutBinding
+    private var isWithinEncryptedFolder = false
 
-
-    @VisibleForTesting
-    public LocalFileListFragment getFileListFragment() {
-        return mFileListFragment;
-    }
-
-    /**
-     * Helper to launch the UploadFilesActivity for which you would like a result when it finished. Your
-     * onActivityResult() method will be called with the given requestCode.
-     *
-     * @param activity    the activity which should call the upload activity for a result
-     * @param user        the user for which the upload activity is called
-     * @param requestCode If >= 0, this code will be returned in onActivityResult()
-     */
-    public static void startUploadActivityForResult(Activity activity,
-                                                    User user,
-                                                    int requestCode,
-                                                    boolean isWithinEncryptedFolder) {
-        Intent action = new Intent(activity, UploadFilesActivity.class);
-        action.putExtra(EXTRA_USER, user);
-        action.putExtra(REQUEST_CODE_KEY, requestCode);
-        action.putExtra(ENCRYPTED_FOLDER_KEY, isWithinEncryptedFolder);
-        activity.startActivityForResult(action, requestCode);
-    }
-
-    @Override
     @SuppressLint("WrongViewCast") // wrong error on finding local_files_list
-    public void onCreate(Bundle savedInstanceState) {
-        Log_OC.d(TAG, "onCreate() start");
-        super.onCreate(savedInstanceState);
+    public override fun onCreate(savedInstanceState: Bundle?) {
+        Log_OC.d(TAG, "onCreate() start")
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            mLocalFolderPickerMode = extras.getBoolean(KEY_LOCAL_FOLDER_PICKER_MODE, false);
-            requestCode = (int) extras.get(REQUEST_CODE_KEY);
-            isWithinEncryptedFolder = extras.getBoolean(ENCRYPTED_FOLDER_KEY, false);
-        }
+        super.onCreate(savedInstanceState)
 
-        if (savedInstanceState != null) {
-            mCurrentDir = new File(savedInstanceState.getString(KEY_DIRECTORY_PATH,
-                                                                Environment.getExternalStorageDirectory().getAbsolutePath()));
-            mSelectAll = savedInstanceState.getBoolean(KEY_ALL_SELECTED, false);
-            isWithinEncryptedFolder = savedInstanceState.getBoolean(ENCRYPTED_FOLDER_KEY, false);
-        } else {
-            String lastUploadFrom = preferences.getUploadFromLocalLastPath();
+        getArguments()
+        setupCurrentDirectory(savedInstanceState)
+        mAccountOnCreation = account
+        setupDirectoryDropdown()
 
-            if (!lastUploadFrom.isEmpty()) {
-                mCurrentDir = new File(lastUploadFrom);
-
-                while (!mCurrentDir.exists()) {
-                    mCurrentDir = mCurrentDir.getParentFile();
-                }
-            } else {
-                mCurrentDir = Environment.getExternalStorageDirectory();
-            }
-        }
-
-        mAccountOnCreation = getAccount();
-
-        /// USER INTERFACE
-
-        // Drop-down navigation
-        mDirectories = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
-        mDirectories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        fillDirectoryDropdown();
-
-        // Inflate and set the layout view
-        binding = UploadFilesLayoutBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        binding = UploadFilesLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (mLocalFolderPickerMode) {
-            binding.uploadOptions.setVisibility(View.GONE);
-            binding.uploadFilesBtnUpload.setText(R.string.uploader_btn_alternative_text);
+            binding.uploadOptions.visibility = View.GONE
+            binding.uploadFilesBtnUpload.setText(R.string.uploader_btn_alternative_text)
         }
 
-        mFileListFragment = (LocalFileListFragment) getSupportFragmentManager().findFragmentByTag("local_files_list");
+        fileListFragment = supportFragmentManager.findFragmentByTag("local_files_list") as LocalFileListFragment?
 
-        // Set input controllers
-        viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.uploadFilesBtnCancel);
-        binding.uploadFilesBtnCancel.setOnClickListener(this);
+        setupInputControllers()
+        setupBehaviourAdapter()
+        initToolbar()
+        setupActionBar()
+        showToolbarSpinner()
+        setupToolbarSpinner()
+        waitDialog()
+        checkWritableFolder(mCurrentDir)
 
-        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.uploadFilesBtnUpload);
-        binding.uploadFilesBtnUpload.setOnClickListener(this);
-        binding.uploadFilesBtnUpload.setEnabled(mLocalFolderPickerMode);
+        Log_OC.d(TAG, "onCreate() end")
+    }
 
-        int localBehaviour = preferences.getUploaderBehaviour();
+    private fun getArguments() {
+        intent.extras?.let {
+            mLocalFolderPickerMode = it.getBoolean(KEY_LOCAL_FOLDER_PICKER_MODE, false)
+            requestCode = it[REQUEST_CODE_KEY] as Int
+            isWithinEncryptedFolder = it.getBoolean(ENCRYPTED_FOLDER_KEY, false)
+        }
+    }
 
-        // file upload spinner
-        List<String> behaviours = new ArrayList<>();
-        behaviours.add(getString(R.string.uploader_upload_files_behaviour_move_to_nextcloud_folder,
-                                 themeUtils.getDefaultDisplayNameForRootFolder(this)));
-        behaviours.add(getString(R.string.uploader_upload_files_behaviour_only_upload));
-        behaviours.add(getString(R.string.uploader_upload_files_behaviour_upload_and_delete_from_source));
+    private fun setupCurrentDirectory(savedInstanceState: Bundle?) {
+        if (savedInstanceState != null) {
+            mCurrentDir = File(
+                savedInstanceState.getString(
+                    KEY_DIRECTORY_PATH,
+                    Environment.getExternalStorageDirectory().absolutePath
+                )
+            )
+            mSelectAll = savedInstanceState.getBoolean(KEY_ALL_SELECTED, false)
+            isWithinEncryptedFolder = savedInstanceState.getBoolean(ENCRYPTED_FOLDER_KEY, false)
+        } else {
+            val lastUploadFrom = preferences.uploadFromLocalLastPath
+            if (lastUploadFrom.isNotEmpty()) {
+                mCurrentDir = File(lastUploadFrom)
+                while (mCurrentDir?.exists() == false) {
+                    mCurrentDir = mCurrentDir?.parentFile
+                }
+            } else {
+                mCurrentDir = Environment.getExternalStorageDirectory()
+            }
+        }
+    }
 
-        ArrayAdapter<String> behaviourAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
-                                                                   behaviours);
-        behaviourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.uploadFilesSpinnerBehaviour.setAdapter(behaviourAdapter);
-        binding.uploadFilesSpinnerBehaviour.setSelection(localBehaviour);
+    private fun setupDirectoryDropdown() {
+        mDirectories = ArrayAdapter(this, android.R.layout.simple_spinner_item)
+        mDirectories?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        fillDirectoryDropdown()
+    }
 
-        // setup the toolbar
-        setupToolbar();
-        binding.uploadFilesToolbar.sortListButtonGroup.setVisibility(View.VISIBLE);
-        binding.uploadFilesToolbar.switchGridViewButton.setVisibility(View.GONE);
+    private fun setupBehaviourAdapter() {
+        val localBehaviour = preferences.uploaderBehaviour
 
-        // Action bar setup
-        ActionBar actionBar = getSupportActionBar();
+        val behaviours: MutableList<String> = ArrayList()
+        behaviours.add(
+            getString(
+                R.string.uploader_upload_files_behaviour_move_to_nextcloud_folder,
+                themeUtils.getDefaultDisplayNameForRootFolder(this)
+            )
+        )
+        behaviours.add(getString(R.string.uploader_upload_files_behaviour_only_upload))
+        behaviours.add(getString(R.string.uploader_upload_files_behaviour_upload_and_delete_from_source))
+        val behaviourAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            behaviours
+        )
+        behaviourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.uploadFilesSpinnerBehaviour.adapter = behaviourAdapter
+        binding.uploadFilesSpinnerBehaviour.setSelection(localBehaviour)
+    }
 
+    private fun initToolbar() {
+        setupToolbar()
+        binding.uploadFilesToolbar.sortListButtonGroup.visibility = View.VISIBLE
+        binding.uploadFilesToolbar.switchGridViewButton.visibility = View.GONE
+    }
+
+    private fun setupActionBar() {
+        val actionBar = supportActionBar
         if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the official documentation
-            actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null);
-            actionBar.setDisplayShowTitleEnabled(false);
-
-            viewThemeUtils.files.themeActionBar(this, actionBar);
+            // mandatory since Android ICS, according to the official documentation
+            actionBar.setHomeButtonEnabled(true)
+            actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null)
+            actionBar.setDisplayShowTitleEnabled(false)
+            viewThemeUtils.files.themeActionBar(this, actionBar)
         }
+    }
 
-        showToolbarSpinner();
-        mToolbarSpinner.setAdapter(mDirectories);
-        mToolbarSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                int i = position;
+    private fun setupInputControllers() {
+        viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.uploadFilesBtnCancel)
+        binding.uploadFilesBtnCancel.setOnClickListener(this)
+        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.uploadFilesBtnUpload)
+        binding.uploadFilesBtnUpload.setOnClickListener(this)
+        binding.uploadFilesBtnUpload.isEnabled = mLocalFolderPickerMode
+    }
+
+    private fun setupToolbarSpinner() {
+        mToolbarSpinner.adapter = mDirectories
+        mToolbarSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+                var i = position
                 while (i-- != 0) {
-                    onBackPressed();
+                    onBackPressed()
                 }
                 // the next operation triggers a new call to this method, but it's necessary to
                 // ensure that the name exposed in the action bar is the current directory when the
                 // user selected it in the navigation list
                 if (position != 0) {
-                    mToolbarSpinner.setSelection(0);
+                    mToolbarSpinner.setSelection(0)
                 }
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
                 // no action
             }
-        });
-
-        // wait dialog
-        if (mCurrentDialog != null) {
-            mCurrentDialog.dismiss();
-            mCurrentDialog = null;
         }
-
-        checkWritableFolder(mCurrentDir);
-
-        Log_OC.d(TAG, "onCreate() end");
     }
 
-    private void requestPermissions() {
-        PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true);
-    }
-
-    public void showToolbarSpinner() {
-        mToolbarSpinner.setVisibility(View.VISIBLE);
-    }
-
-    private void fillDirectoryDropdown() {
-        File currentDir = mCurrentDir;
-        while (currentDir != null && currentDir.getParentFile() != null) {
-            mDirectories.add(currentDir.getName());
-            currentDir = currentDir.getParentFile();
+    private fun waitDialog() {
+        mCurrentDialog?.let {
+            it.dismiss()
+            mCurrentDialog = null
         }
-        mDirectories.add(File.separator);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        mOptionsMenu = menu;
-        getMenuInflater().inflate(R.menu.activity_upload_files, menu);
+    private fun requestPermissions() {
+        requestExternalStoragePermission(this, viewThemeUtils, true)
+    }
+
+    fun showToolbarSpinner() {
+        mToolbarSpinner.visibility = View.VISIBLE
+    }
+
+    private fun fillDirectoryDropdown() {
+        var currentDir = mCurrentDir
+        while (currentDir != null && currentDir.parentFile != null) {
+            mDirectories?.add(currentDir.name)
+            currentDir = currentDir.parentFile
+        }
+        mDirectories?.add(File.separator)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        mOptionsMenu = menu
+        menuInflater.inflate(R.menu.activity_upload_files, menu)
 
         if (!mLocalFolderPickerMode) {
-            MenuItem selectAll = menu.findItem(R.id.action_select_all);
-            setSelectAllMenuItem(selectAll, mSelectAll);
+            val selectAll = menu.findItem(R.id.action_select_all)
+            setSelectAllMenuItem(selectAll, mSelectAll)
         }
 
-        final MenuItem item = menu.findItem(R.id.action_search);
-        mSearchView = (SearchView) MenuItemCompat.getActionView(item);
-        viewThemeUtils.androidx.themeToolbarSearchView(mSearchView);
-        viewThemeUtils.platform.tintTextDrawable(this, menu.findItem(R.id.action_choose_storage_path).getIcon());
+        setupSearchView(menu)
 
-        mSearchView.setOnSearchClickListener(v -> mToolbarSpinner.setVisibility(View.GONE));
+        val drawable = menu.findItem(R.id.action_choose_storage_path).icon
+        drawable?.let {
+            viewThemeUtils.platform.tintDrawable(this, it, ColorRole.ON_SURFACE)
+        }
 
-        return super.onCreateOptionsMenu(menu);
+        return super.onCreateOptionsMenu(menu)
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval = true;
-        int itemId = item.getItemId();
+    private fun setupSearchView(menu: Menu) {
+        val item = menu.findItem(R.id.action_search)
+        mSearchView = MenuItemCompat.getActionView(item) as SearchView
+        mSearchView?.let {
+            viewThemeUtils.androidx.themeToolbarSearchView(it)
+        }
+        mSearchView?.setOnSearchClickListener { mToolbarSpinner.visibility = View.GONE }
+    }
 
-        if (itemId == android.R.id.home) {
-            if (mCurrentDir != null && mCurrentDir.getParentFile() != null) {
-                onBackPressed();
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var retval = true
+        val itemId = item.itemId
+        if (itemId == R.id.home) {
+            if (mCurrentDir != null && mCurrentDir?.parentFile != null) {
+                onBackPressed()
             }
         } else if (itemId == R.id.action_select_all) {
-            mSelectAll = !item.isChecked();
-            item.setChecked(mSelectAll);
-            mFileListFragment.selectAllFiles(mSelectAll);
-            setSelectAllMenuItem(item, mSelectAll);
+            mSelectAll = !item.isChecked
+            item.isChecked = mSelectAll
+            fileListFragment?.selectAllFiles(mSelectAll)
+            setSelectAllMenuItem(item, mSelectAll)
         } else if (itemId == R.id.action_choose_storage_path) {
-            checkLocalStoragePathPickerPermission();
+            checkLocalStoragePathPickerPermission()
         } else {
-            retval = super.onOptionsItemSelected(item);
+            retval = super.onOptionsItemSelected(item)
         }
-
-        return retval;
+        return retval
     }
 
-    private void checkLocalStoragePathPickerPermission() {
-        if (!PermissionUtil.checkExternalStoragePermission(this)) {
-            requestPermissions();
+    private fun checkLocalStoragePathPickerPermission() {
+        if (!checkExternalStoragePermission(this)) {
+            requestPermissions()
         } else {
-            showLocalStoragePathPickerDialog();
+            showLocalStoragePathPickerDialog()
         }
     }
 
-    private void showLocalStoragePathPickerDialog() {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.addToBackStack(null);
-        dialog = LocalStoragePathPickerDialogFragment.newInstance();
-        dialog.show(ft, LocalStoragePathPickerDialogFragment.LOCAL_STORAGE_PATH_PICKER_FRAGMENT);
+    private fun showLocalStoragePathPickerDialog() {
+        val fm = supportFragmentManager
+        val ft = fm.beginTransaction()
+        ft.addToBackStack(null)
+        dialog = newInstance()
+        dialog?.show(ft, LocalStoragePathPickerDialogFragment.LOCAL_STORAGE_PATH_PICKER_FRAGMENT)
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         if (requestCode == PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // permission was granted
-                showLocalStoragePathPickerDialog();
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                showLocalStoragePathPickerDialog()
             } else {
-                DisplayUtils.showSnackMessage(this, R.string.permission_storage_access);
+                DisplayUtils.showSnackMessage(this, R.string.permission_storage_access)
             }
         } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
 
-    @Override
-    public void onSortingOrderChosen(FileSortOrder selection) {
-        preferences.setSortOrder(FileSortOrder.Type.localFileListView, selection);
-        mFileListFragment.sortFiles(selection);
+    override fun onSortingOrderChosen(selection: FileSortOrder?) {
+        preferences.setSortOrder(FileSortOrder.Type.localFileListView, selection)
+        fileListFragment?.sortFiles(selection)
     }
 
-    private boolean isSearchOpen() {
-        if (mSearchView == null) {
-            return false;
+    private val isSearchOpen: Boolean
+        get() = if (mSearchView == null) {
+            false
         } else {
-            View mSearchEditFrame = mSearchView.findViewById(androidx.appcompat.R.id.search_edit_frame);
-            return mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE;
+            val mSearchEditFrame = mSearchView?.findViewById<View>(androidx.appcompat.R.id.search_edit_frame)
+            mSearchEditFrame != null && mSearchEditFrame.visibility == View.VISIBLE
         }
-    }
 
-    @Override
-    public void onBackPressed() {
-        if (isSearchOpen() && mSearchView != null) {
-            mSearchView.setQuery("", false);
-            mFileListFragment.onClose();
-            mSearchView.onActionViewCollapsed();
-            setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+    override fun onBackPressed() {
+        if (isSearchOpen && mSearchView != null) {
+            mSearchView?.setQuery("", false)
+            fileListFragment?.onClose()
+            mSearchView?.onActionViewCollapsed()
+            setDrawerIndicatorEnabled(isDrawerIndicatorAvailable)
         } else {
-            if (mDirectories.getCount() <= SINGLE_DIR) {
-                finish();
-                return;
+            if ((mDirectories?.count ?: 0) <= SINGLE_DIR) {
+                finish()
+                return
             }
-
-            File parentFolder = mCurrentDir.getParentFile();
-            if (!parentFolder.canRead()) {
-                checkLocalStoragePathPickerPermission();
-                return;
+            val parentFolder = mCurrentDir?.parentFile
+            if (parentFolder?.canRead() == false) {
+                checkLocalStoragePathPickerPermission()
+                return
             }
-
-            popDirname();
-            mFileListFragment.onNavigateUp();
-            mCurrentDir = mFileListFragment.getCurrentDirectory();
-            checkWritableFolder(mCurrentDir);
-
-            if (mCurrentDir.getParentFile() == null) {
-                ActionBar actionBar = getSupportActionBar();
-                if (actionBar != null) {
-                    actionBar.setDisplayHomeAsUpEnabled(false);
-                }
+            popDirname()
+            fileListFragment?.onNavigateUp()
+            mCurrentDir = fileListFragment?.currentDirectory
+            checkWritableFolder(mCurrentDir)
+            if (mCurrentDir?.parentFile == null) {
+                val actionBar = supportActionBar
+                actionBar?.setDisplayHomeAsUpEnabled(false)
             }
 
             // invalidate checked state when navigating directories
             if (!mLocalFolderPickerMode) {
-                setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), false);
+                setSelectAllMenuItem(mOptionsMenu?.findItem(R.id.action_select_all), false)
             }
         }
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
+    override fun onSaveInstanceState(outState: Bundle) {
         // responsibility of restore is preferred in onCreate() before than in
         // onRestoreInstanceState when there are Fragments involved
-        Log_OC.d(TAG, "onSaveInstanceState() start");
-        super.onSaveInstanceState(outState);
-        outState.putString(UploadFilesActivity.KEY_DIRECTORY_PATH, mCurrentDir.getAbsolutePath());
-        if (mOptionsMenu != null && mOptionsMenu.findItem(R.id.action_select_all) != null) {
-            outState.putBoolean(UploadFilesActivity.KEY_ALL_SELECTED, mOptionsMenu.findItem(R.id.action_select_all).isChecked());
+        Log_OC.d(TAG, "onSaveInstanceState() start")
+        super.onSaveInstanceState(outState)
+        outState.putString(KEY_DIRECTORY_PATH, mCurrentDir?.absolutePath)
+        if (mOptionsMenu != null && mOptionsMenu?.findItem(R.id.action_select_all) != null) {
+            outState.putBoolean(
+                KEY_ALL_SELECTED,
+                mOptionsMenu?.findItem(R.id.action_select_all)?.isChecked ?: false
+            )
         } else {
-            outState.putBoolean(UploadFilesActivity.KEY_ALL_SELECTED, false);
+            outState.putBoolean(KEY_ALL_SELECTED, false)
         }
-        Log_OC.d(TAG, "onSaveInstanceState() end");
+        Log_OC.d(TAG, "onSaveInstanceState() end")
     }
 
     /**
      * Pushes a directory to the drop down list
      *
      * @param directory to push
-     * @throws IllegalArgumentException If the {@link File#isDirectory()} returns false.
+     * @throws IllegalArgumentException If the [File.isDirectory] returns false.
      */
-    public void pushDirname(File directory) {
-        if (!directory.isDirectory()) {
-            throw new IllegalArgumentException("Only directories may be pushed!");
-        }
-        mDirectories.insert(directory.getName(), 0);
-        mCurrentDir = directory;
-        checkWritableFolder(mCurrentDir);
+    private fun pushDirname(directory: File) {
+        require(directory.isDirectory) { "Only directories may be pushed!" }
+        mDirectories?.insert(directory.name, 0)
+        mCurrentDir = directory
+        checkWritableFolder(mCurrentDir)
     }
 
     /**
@@ -442,34 +422,35 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
      *
      * @return True, unless the stack is empty
      */
-    public boolean popDirname() {
-        mDirectories.remove(mDirectories.getItem(0));
-        return !mDirectories.isEmpty();
+    private fun popDirname(): Boolean {
+        mDirectories?.remove(mDirectories?.getItem(0))
+        return mDirectories?.isEmpty != false
     }
 
-    private void updateUploadButtonActive() {
-        final boolean anySelected = mFileListFragment.getCheckedFilesCount() > 0;
-        binding.uploadFilesBtnUpload.setEnabled(anySelected || mLocalFolderPickerMode);
+    private fun updateUploadButtonActive() {
+        val anySelected = (fileListFragment?.checkedFilesCount ?: 0) > 0
+        binding.uploadFilesBtnUpload.isEnabled = anySelected || mLocalFolderPickerMode
     }
 
-    private void setSelectAllMenuItem(MenuItem selectAll, boolean checked) {
+    private fun setSelectAllMenuItem(selectAll: MenuItem?, checked: Boolean) {
         if (selectAll != null) {
-            selectAll.setChecked(checked);
+            selectAll.isChecked = checked
             if (checked) {
-                selectAll.setIcon(R.drawable.ic_select_none);
+                selectAll.setIcon(R.drawable.ic_select_none)
             } else {
-                selectAll.setIcon(
-                    viewThemeUtils.platform.tintPrimaryDrawable(this, R.drawable.ic_select_all));
+                selectAll.icon = viewThemeUtils.platform.tintPrimaryDrawable(
+                    this,
+                    R.drawable.ic_select_all
+                )
             }
-            updateUploadButtonActive();
+            updateUploadButtonActive()
         }
     }
 
-    @Override
-    public void onCheckAvailableSpaceStart() {
+    override fun onCheckAvailableSpaceStart() {
         if (requestCode == FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM) {
-            mCurrentDialog = IndeterminateProgressDialog.newInstance(R.string.wait_a_moment, false);
-            mCurrentDialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
+            mCurrentDialog = newInstance(R.string.wait_a_moment, false)
+            mCurrentDialog?.show(supportFragmentManager, WAIT_DIALOG_TAG)
         }
     }
 
@@ -479,232 +460,248 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
      *
      * @param hasEnoughSpaceAvailable 'True' when there is space enough to copy all the selected files.
      */
-    @Override
-    public void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String... filesToUpload) {
-        if (mCurrentDialog != null) {
-            mCurrentDialog.dismiss();
-            mCurrentDialog = null;
-        }
+    override fun onCheckAvailableSpaceFinish(hasEnoughSpaceAvailable: Boolean, vararg filesToUpload: String) {
+        waitDialog()
 
         if (hasEnoughSpaceAvailable) {
             // return the list of files (success)
-            Intent data = new Intent();
-
+            val data = Intent()
             if (requestCode == FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA) {
-                data.putExtra(EXTRA_CHOSEN_FILES, new String[]{filesToUpload[0]});
-                setResult(RESULT_OK_AND_DELETE, data);
-
-                preferences.setUploaderBehaviour(FileUploader.LOCAL_BEHAVIOUR_DELETE);
+                data.putExtra(
+                    EXTRA_CHOSEN_FILES,
+                    arrayOf(
+                        filesToUpload[0]
+                    )
+                )
+                setResult(RESULT_OK_AND_DELETE, data)
+                preferences.uploaderBehaviour = FileUploader.LOCAL_BEHAVIOUR_DELETE
             } else {
-                data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
-                data.putExtra(LOCAL_BASE_PATH, mCurrentDir.getAbsolutePath());
-
-                // set result code
-                switch (binding.uploadFilesSpinnerBehaviour.getSelectedItemPosition()) {
-                    case 0: // move to nextcloud folder
-                        setResult(RESULT_OK_AND_MOVE, data);
-                        break;
-
-                    case 1: // only upload
-                        setResult(RESULT_OK_AND_DO_NOTHING, data);
-                        break;
-
-                    case 2: // upload and delete from source
-                        setResult(RESULT_OK_AND_DELETE, data);
-                        break;
-
-                    default:
-                        // do nothing
-                        break;
+                data.putExtra(EXTRA_CHOSEN_FILES, fileListFragment?.checkedFilePaths)
+                data.putExtra(LOCAL_BASE_PATH, mCurrentDir?.absolutePath)
+                when (binding.uploadFilesSpinnerBehaviour.selectedItemPosition) {
+                    0 -> setResult(RESULT_OK_AND_MOVE, data)
+                    1 -> setResult(RESULT_OK_AND_DO_NOTHING, data)
+                    2 -> setResult(RESULT_OK_AND_DELETE, data)
+                    else -> {}
                 }
 
                 // store behaviour
-                preferences.setUploaderBehaviour(binding.uploadFilesSpinnerBehaviour.getSelectedItemPosition());
+                preferences.uploaderBehaviour = binding.uploadFilesSpinnerBehaviour.selectedItemPosition
             }
-
-            finish();
+            finish()
         } else {
             // show a dialog to query the user if wants to move the selected files
             // to the ownCloud folder instead of copying
-            String[] args = {getString(R.string.app_name)};
-            ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
-                R.string.upload_query_move_foreign_files, args, 0, R.string.common_yes,  R.string.common_no, -1);
-            dialog.setOnConfirmationListener(this);
-            dialog.show(getSupportFragmentManager(), QUERY_TO_MOVE_DIALOG_TAG);
+            val args = arrayOf<String?>(getString(R.string.app_name))
+            val dialog = newInstance(
+                R.string.upload_query_move_foreign_files,
+                args,
+                0,
+                R.string.common_yes,
+                R.string.common_no,
+                -1
+            )
+            dialog.setOnConfirmationListener(this)
+            dialog.show(supportFragmentManager, QUERY_TO_MOVE_DIALOG_TAG)
         }
     }
 
-    @Override
-    public void chosenPath(String path) {
-        if (getListOfFilesFragment() instanceof LocalFileListFragment) {
-            File file = new File(path);
-            ((LocalFileListFragment) getListOfFilesFragment()).listDirectory(file);
-            onDirectoryClick(file);
-
-            mCurrentDir = new File(path);
-            mDirectories.clear();
-
-            fillDirectoryDropdown();
+    override fun chosenPath(path: String) {
+        if (listOfFilesFragment is LocalFileListFragment) {
+            val file = File(path)
+            (listOfFilesFragment as LocalFileListFragment?)?.listDirectory(file)
+            onDirectoryClick(file)
+            mCurrentDir = File(path)
+            mDirectories?.clear()
+            fillDirectoryDropdown()
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void onDirectoryClick(File directory) {
+    override fun onDirectoryClick(directory: File) {
         if (!mLocalFolderPickerMode) {
             // invalidate checked state when navigating directories
-            MenuItem selectAll = mOptionsMenu.findItem(R.id.action_select_all);
-            setSelectAllMenuItem(selectAll, false);
+            val selectAll = mOptionsMenu?.findItem(R.id.action_select_all)
+            setSelectAllMenuItem(selectAll, false)
         }
+        pushDirname(directory)
 
-        pushDirname(directory);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private void checkWritableFolder(File folder) {
-        boolean canWriteIntoFolder = folder.canWrite();
-        binding.uploadFilesSpinnerBehaviour.setEnabled(canWriteIntoFolder);
-
-        TextView textView = findViewById(R.id.upload_files_upload_files_behaviour_text);
-
-        if (canWriteIntoFolder) {
-            textView.setText(getString(R.string.uploader_upload_files_behaviour));
-            int localBehaviour = preferences.getUploaderBehaviour();
-            binding.uploadFilesSpinnerBehaviour.setSelection(localBehaviour);
-        } else {
-            binding.uploadFilesSpinnerBehaviour.setSelection(1);
-            textView.setText(new StringBuilder().append(getString(R.string.uploader_upload_files_behaviour))
-                                 .append(' ')
-                                 .append(getString(R.string.uploader_upload_files_behaviour_not_writable))
-                                 .toString());
+    private fun checkWritableFolder(folder: File?) {
+        folder?.let {
+            val canWriteIntoFolder = it.canWrite()
+            binding.uploadFilesSpinnerBehaviour.isEnabled = canWriteIntoFolder
+            val textView = findViewById<TextView>(R.id.upload_files_upload_files_behaviour_text)
+            if (canWriteIntoFolder) {
+                textView.text = getString(R.string.uploader_upload_files_behaviour)
+                val localBehaviour = preferences.uploaderBehaviour
+                binding.uploadFilesSpinnerBehaviour.setSelection(localBehaviour)
+            } else {
+                binding.uploadFilesSpinnerBehaviour.setSelection(1)
+                textView.text =
+                    StringBuilder().append(getString(R.string.uploader_upload_files_behaviour))
+                        .append(' ')
+                        .append(getString(R.string.uploader_upload_files_behaviour_not_writable))
+                        .toString()
+            }
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void onFileClick(File file) {
-        updateUploadButtonActive();
-
-        boolean selectAll = mFileListFragment.getCheckedFilesCount() == mFileListFragment.getFilesCount();
-        setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), selectAll);
+    override fun onFileClick(file: File) {
+        updateUploadButtonActive()
+        val selectAll = fileListFragment?.checkedFilesCount == fileListFragment?.filesCount
+        setSelectAllMenuItem(mOptionsMenu?.findItem(R.id.action_select_all), selectAll)
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public File getInitialDirectory() {
-        return mCurrentDir;
+    override fun getInitialDirectory(): File {
+        return mCurrentDir!!
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public boolean isFolderPickerMode() {
-        return mLocalFolderPickerMode;
+    override fun isFolderPickerMode(): Boolean {
+        return mLocalFolderPickerMode
     }
 
-    @Override
-    public boolean isWithinEncryptedFolder() {
-        return isWithinEncryptedFolder;
+    override fun isWithinEncryptedFolder(): Boolean {
+        return isWithinEncryptedFolder
     }
 
     /**
      * Performs corresponding action when user presses 'Cancel' or 'Upload' button
-     * <p>
+     *
+     *
      * TODO Make here the real request to the Upload service ; will require to receive the account and target folder
      * where the upload must be done in the received intent.
      */
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.upload_files_btn_cancel) {
-            setResult(RESULT_CANCELED);
-            finish();
-
-        } else if (v.getId() == R.id.upload_files_btn_upload) {
-            if (PermissionUtil.checkExternalStoragePermission(this)) {
+    @Suppress("NestedBlockDepth")
+    override fun onClick(v: View) {
+        if (v.id == R.id.upload_files_btn_cancel) {
+            setResult(RESULT_CANCELED)
+            finish()
+        } else if (v.id == R.id.upload_files_btn_upload) {
+            if (checkExternalStoragePermission(this)) {
                 if (mCurrentDir != null) {
-                    preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
+                    preferences.uploadFromLocalLastPath = mCurrentDir?.absolutePath
                 }
                 if (mLocalFolderPickerMode) {
-                    Intent data = new Intent();
+                    val data = Intent()
                     if (mCurrentDir != null) {
-                        data.putExtra(EXTRA_CHOSEN_FILES, mCurrentDir.getAbsolutePath());
+                        data.putExtra(EXTRA_CHOSEN_FILES, mCurrentDir?.absolutePath)
                     }
-                    setResult(RESULT_OK, data);
-
-                    finish();
+                    setResult(RESULT_OK, data)
+                    finish()
                 } else {
-                    new CheckAvailableSpaceTask(this, mFileListFragment.getCheckedFilePaths())
-                        .execute(binding.uploadFilesSpinnerBehaviour.getSelectedItemPosition() == 0);
+                    @Suppress("SpreadOperator")
+                    CheckAvailableSpaceTask(this, *fileListFragment?.checkedFilePaths)
+                        .execute(binding.uploadFilesSpinnerBehaviour.selectedItemPosition == 0)
                 }
             } else {
-                requestPermissions();
+                requestPermissions()
             }
         }
     }
 
-    @Override
-    public void onConfirmation(String callerTag) {
-        Log_OC.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
-        if (QUERY_TO_MOVE_DIALOG_TAG.equals(callerTag)) {
+    override fun onConfirmation(callerTag: String?) {
+        Log_OC.d(TAG, "Positive button in dialog was clicked; dialog tag is $callerTag")
+
+        if (QUERY_TO_MOVE_DIALOG_TAG == callerTag) {
             // return the list of selected files to the caller activity (success),
             // signaling that they should be moved to the ownCloud folder, instead of copied
-            Intent data = new Intent();
-            data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
-            data.putExtra(LOCAL_BASE_PATH, mCurrentDir.getAbsolutePath());
-            setResult(RESULT_OK_AND_MOVE, data);
-            finish();
+            val data = Intent()
+            data.putExtra(EXTRA_CHOSEN_FILES, fileListFragment?.checkedFilePaths)
+            data.putExtra(LOCAL_BASE_PATH, mCurrentDir?.absolutePath)
+            setResult(RESULT_OK_AND_MOVE, data)
+            finish()
         }
     }
 
-    @Override
-    public void onNeutral(String callerTag) {
-        Log_OC.d(TAG, "Phantom neutral button in dialog was clicked; dialog tag is " + callerTag);
+    override fun onNeutral(callerTag: String?) {
+        Log_OC.d(TAG, "Phantom neutral button in dialog was clicked; dialog tag is $callerTag")
     }
 
-    @Override
-    public void onCancel(String callerTag) {
-        /// nothing to do; don't finish, let the user change the selection
-        Log_OC.d(TAG, "Negative button in dialog was clicked; dialog tag is " + callerTag);
+    override fun onCancel(callerTag: String?) {
+        // / nothing to do; don't finish, let the user change the selection
+        Log_OC.d(TAG, "Negative button in dialog was clicked; dialog tag is $callerTag")
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        final Account account = getAccount();
-        if (mAccountOnCreation != null && mAccountOnCreation.equals(account)) {
-            requestPermissions();
+    override fun onStart() {
+        super.onStart()
+        val account = account
+        if (mAccountOnCreation != null && mAccountOnCreation == account) {
+            requestPermissions()
         } else {
-            setResult(RESULT_CANCELED);
-            finish();
+            setResult(RESULT_CANCELED)
+            finish()
         }
     }
 
-    private boolean isGridView() {
-        return getListOfFilesFragment().isGridEnabled();
-    }
-
-    private ExtendedListFragment getListOfFilesFragment() {
-        if (mFileListFragment == null) {
-            Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
+    private val listOfFilesFragment: ExtendedListFragment?
+        get() {
+            if (fileListFragment == null) {
+                Log_OC.e(TAG, "Access to unexisting list of files fragment")
+            }
+            return fileListFragment
         }
 
-        return mFileListFragment;
+    override fun onStop() {
+        dialog?.dismissAllowingStateLoss()
+        super.onStop()
     }
 
-    @Override
-    protected void onStop() {
-        if (dialog != null) {
-            dialog.dismissAllowingStateLoss();
-        }
+    companion object {
+        private val KEY_ALL_SELECTED = UploadFilesActivity::class.java.canonicalName?.plus(".KEY_ALL_SELECTED")
+        val KEY_LOCAL_FOLDER_PICKER_MODE =
+            UploadFilesActivity::class.java.canonicalName?.plus(".LOCAL_FOLDER_PICKER_MODE")
 
-        super.onStop();
+        @JvmField
+        val LOCAL_BASE_PATH = UploadFilesActivity::class.java.canonicalName?.plus(".LOCAL_BASE_PATH")
+
+        @JvmField
+        val EXTRA_CHOSEN_FILES = UploadFilesActivity::class.java.canonicalName?.plus(".EXTRA_CHOSEN_FILES")
+        val KEY_DIRECTORY_PATH = UploadFilesActivity::class.java.canonicalName?.plus(".KEY_DIRECTORY_PATH")
+
+        private const val SINGLE_DIR = 1
+        const val RESULT_OK_AND_DELETE = 3
+        const val RESULT_OK_AND_DO_NOTHING = 2
+        const val RESULT_OK_AND_MOVE = RESULT_FIRST_USER
+        const val REQUEST_CODE_KEY = "requestCode"
+        private const val ENCRYPTED_FOLDER_KEY = "encrypted_folder"
+        private const val QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE"
+        private const val TAG = "UploadFilesActivity"
+        private const val WAIT_DIALOG_TAG = "WAIT"
+
+        /**
+         * Helper to launch the UploadFilesActivity for which you would like a result when it finished. Your
+         * onActivityResult() method will be called with the given requestCode.
+         *
+         * @param activity    the activity which should call the upload activity for a result
+         * @param user        the user for which the upload activity is called
+         * @param requestCode If >= 0, this code will be returned in onActivityResult()
+         */
+        @JvmStatic
+        fun startUploadActivityForResult(
+            activity: Activity,
+            user: User?,
+            requestCode: Int,
+            isWithinEncryptedFolder: Boolean
+        ) {
+            val action = Intent(activity, UploadFilesActivity::class.java)
+            action.putExtra(FileActivity.EXTRA_USER, user)
+            action.putExtra(REQUEST_CODE_KEY, requestCode)
+            action.putExtra(ENCRYPTED_FOLDER_KEY, isWithinEncryptedFolder)
+            activity.startActivityForResult(action, requestCode)
+        }
     }
 }
