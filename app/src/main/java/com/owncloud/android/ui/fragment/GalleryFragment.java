@@ -67,7 +67,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class GalleryFragment extends OCFileListFragment implements GalleryFragmentBottomSheetActions {
     private static final int MAX_ITEMS_PER_ROW = 10;
     private static final String FRAGMENT_TAG_BOTTOM_SHEET = "data";
-    public static String REFRESH_SEARCH_EVENT_RECEIVER = "refreshSearchEventReceiver";
+    public static final String REFRESH_SEARCH_EVENT_RECEIVER = "refreshSearchEventReceiver";
 
     private boolean photoSearchQueryRunning = false;
     private AsyncTask<Void, Void, GallerySearchTask.Result> photoSearchTask;
