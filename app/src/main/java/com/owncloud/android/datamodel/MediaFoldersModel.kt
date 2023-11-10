@@ -1,8 +1,10 @@
 /*
  * Nextcloud Android client application
  *
+ * @author Mario Danic
  * @author Andy Scherzinger
- * Copyright (C) 2017 Andy Scherzinger
+ * Copyright (C) 2018 Mario Danic
+ * Copyright (C) 2018 Andy Scherzinger
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -17,37 +19,6 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.datamodel;
+package com.owncloud.android.datamodel
 
-import android.util.SparseArray;
-
-/**
- * Types of media folder.
- */
-public enum MediaFolderType {
-    CUSTOM(0),
-    IMAGE(1),
-    VIDEO(2);
-
-    private Integer id;
-
-    private static SparseArray<MediaFolderType> reverseMap = new SparseArray<>(3);
-
-    static {
-        reverseMap.put(CUSTOM.getId(), CUSTOM);
-        reverseMap.put(IMAGE.getId(), IMAGE);
-        reverseMap.put(VIDEO.getId(), VIDEO);
-    }
-
-    MediaFolderType(Integer id) {
-        this.id = id;
-    }
-
-    public static MediaFolderType getById(Integer id) {
-        return reverseMap.get(id);
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-}
+class MediaFoldersModel(var imageMediaFolders: List<String>, var videoMediaFolders: List<String>)
