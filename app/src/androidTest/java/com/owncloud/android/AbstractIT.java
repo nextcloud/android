@@ -7,6 +7,8 @@ import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -58,6 +60,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -401,6 +404,22 @@ public abstract class AbstractIT {
 
         RemoteOperationResult result = newUpload.execute(client);
         assertTrue(result.getLogMessage(), result.isSuccess());
+    }
+
+    protected void enableRTL() {
+        Locale locale = new Locale("ar");
+        Resources resources = InstrumentationRegistry.getInstrumentation().getTargetContext().getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, null);
+    }
+
+    protected void resetLocale() {
+        Locale locale = new Locale("en");
+        Resources resources = InstrumentationRegistry.getInstrumentation().getTargetContext().getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, null);
     }
 
     protected void screenshot(View view) {

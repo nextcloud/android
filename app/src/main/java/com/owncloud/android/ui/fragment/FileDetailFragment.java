@@ -278,8 +278,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 R.id.action_favorite,
                 R.id.action_unset_favorite,
                 R.id.action_see_details,
-                R.id.action_move,
-                R.id.action_copy,
+                R.id.action_move_or_copy,
                 R.id.action_stream_media,
                 R.id.action_send_share_file,
                 R.id.action_pin_to_homescreen
@@ -694,7 +693,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (progressListener != null) {
             if (containerActivity.getFileDownloaderBinder() != null) {
                 containerActivity.getFileDownloaderBinder().
-                        addDatatransferProgressListener(progressListener, getFile());
+                    addDatatransferProgressListener(progressListener, getFile());
             }
             if (containerActivity.getFileUploaderBinder() != null) {
                 containerActivity.getFileUploaderBinder().
@@ -709,7 +708,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (progressListener != null) {
             if (containerActivity.getFileDownloaderBinder() != null) {
                 containerActivity.getFileDownloaderBinder().
-                        removeDatatransferProgressListener(progressListener, getFile());
+                    removeDatatransferProgressListener(progressListener, getFile());
             }
             if (containerActivity.getFileUploaderBinder() != null) {
                 containerActivity.getFileUploaderBinder().

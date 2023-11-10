@@ -18,6 +18,7 @@
     <string name="actionbar_copy">複製</string>
     <string name="actionbar_mkdir">新資料夾</string>
     <string name="actionbar_move">移動</string>
+    <string name="actionbar_move_or_copy">移動或複製</string>
     <string name="actionbar_open_with">開啟方式</string>
     <string name="actionbar_search">搜尋</string>
     <string name="actionbar_see_details">詳細資料</string>
@@ -324,6 +325,7 @@
     <string name="file_delete">刪除</string>
     <string name="file_detail_activity_error">取得檔案活動時發生錯誤</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
+    <string name="file_downloader_notification_title_prefix">正在下載 \u0020</string>
     <string name="file_icon">檔案</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上傳一些內容或與您的裝置同步。</string>
@@ -392,6 +394,9 @@
     <string name="folder_confirm_create">建立</string>
     <string name="folder_list_empty_headline">這裡沒有資料夾</string>
     <string name="folder_picker_choose_button_text">選擇</string>
+    <string name="folder_picker_choose_caption_text">選擇目標資料夾</string>
+    <string name="folder_picker_copy_button_text">複製</string>
+    <string name="folder_picker_move_button_text">移動</string>
     <string name="forbidden_permissions">您沒有 %s 的權限</string>
     <string name="forbidden_permissions_copy">複製這個檔案</string>
     <string name="forbidden_permissions_create">建立此檔案</string>
@@ -941,6 +946,9 @@
     <string name="wait_a_moment">稍候……</string>
     <string name="wait_checking_credentials">正在檢查儲存的憑證</string>
     <string name="wait_for_tmp_copy_from_private_storage">從私有儲存空間複製檔案中</string>
+    <string name="webview_version_check_alert_dialog_message">請更新 Android System WebView 應用程式以進行登入</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">更新</string>
+    <string name="webview_version_check_alert_dialog_title">更新 Android System WebView</string>
     <string name="what_s_new_image">有什麼新圖片？</string>
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>

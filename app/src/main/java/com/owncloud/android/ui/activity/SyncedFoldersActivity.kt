@@ -643,7 +643,11 @@ class SyncedFoldersActivity :
         }
     }
 
-    override fun onSaveSyncedFolderPreference(syncedFolder: SyncedFolderParcelable) {
+    override fun onSaveSyncedFolderPreference(syncedFolder: SyncedFolderParcelable?) {
+        if (syncedFolder == null) {
+            return
+        }
+
         // custom folders newly created aren't in the list already,
         // so triggering a refresh
         if (MediaFolderType.CUSTOM == syncedFolder.type && syncedFolder.id == SyncedFolder.UNPERSISTED_ID) {
@@ -730,7 +734,11 @@ class SyncedFoldersActivity :
         syncedFolderPreferencesDialogFragment = null
     }
 
-    override fun onDeleteSyncedFolderPreference(syncedFolder: SyncedFolderParcelable) {
+    override fun onDeleteSyncedFolderPreference(syncedFolder: SyncedFolderParcelable?) {
+        if (syncedFolder == null) {
+            return
+        }
+
         syncedFolderProvider.deleteSyncedFolder(syncedFolder.id)
         adapter.removeItem(syncedFolder.section)
     }

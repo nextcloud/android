@@ -342,6 +342,8 @@
     <string name="folder_confirm_create">ສ້າງ</string>
     <string name="folder_list_empty_headline">ບໍ່ມີໂຟນເດີ</string>
     <string name="folder_picker_choose_button_text">ເລືອກ</string>
+    <string name="folder_picker_copy_button_text">ສຳເນົາ</string>
+    <string name="folder_picker_move_button_text">ຍ້າຍ</string>
     <string name="forbidden_permissions">ບໍ່ໄດ້ຮັບອານຸຍາດ%s</string>
     <string name="forbidden_permissions_copy">ສໍາເນົາຟາຍນີ້</string>
     <string name="forbidden_permissions_create">ສ້າງຟາຍນີ້</string>

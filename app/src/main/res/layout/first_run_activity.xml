@@ -93,7 +93,7 @@
                 app:cornerRadius="@dimen/button_corner_radius" />
         </LinearLayout>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/host_own_server"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -330,6 +330,8 @@
     <string name="folder_confirm_create">Dörediň</string>
     <string name="folder_list_empty_headline">Bu ýerde bukjalar ýok</string>
     <string name="folder_picker_choose_button_text">Saýlaň</string>
+    <string name="folder_picker_copy_button_text">Göçüriň</string>
+    <string name="folder_picker_move_button_text">Göçüriň</string>
     <string name="forbidden_permissions">%sSize rugsat berilmeýär</string>
     <string name="forbidden_permissions_copy">bu faýly göçürmek</string>
     <string name="forbidden_permissions_create">bu faýly döretmek</string>

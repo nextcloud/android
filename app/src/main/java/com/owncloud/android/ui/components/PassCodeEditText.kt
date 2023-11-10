@@ -29,7 +29,7 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 
 @SuppressLint("ClickableViewAccessibility")
-class PassCodeEditText(context: Context, attrs: AttributeSet?): AppCompatEditText(context, attrs) {
+class PassCodeEditText(context: Context, attrs: AttributeSet?) : AppCompatEditText(context, attrs) {
 
     init {
         disableFocusChangeViaTap()
@@ -49,5 +49,4 @@ class PassCodeEditText(context: Context, attrs: AttributeSet?): AppCompatEditTex
         }
         return super.dispatchKeyEvent(event)
     }
-
 }

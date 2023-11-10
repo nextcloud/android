@@ -95,6 +95,7 @@ import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenamePublicShareDialogFragment;
+import com.owncloud.android.ui.dialog.SendFilesDialog;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
@@ -459,6 +460,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract FileActionsBottomSheet fileActionsBottomSheet();
+
+    @ContributesAndroidInjector
+    abstract SendFilesDialog sendFilesDialog();
 
     @ContributesAndroidInjector
     abstract DocumentScanActivity documentScanActivity();

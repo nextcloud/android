@@ -1235,11 +1235,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else if (itemId == R.id.action_unset_favorite) {
             mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, false);
             return true;
-        } else if (itemId == R.id.action_move) {
-            pickFolderForMoveOrCopy(FolderPickerActivity.MOVE, checkedFiles);
-            return true;
-        } else if (itemId == R.id.action_copy) {
-            pickFolderForMoveOrCopy(FolderPickerActivity.COPY, checkedFiles);
+        } else if (itemId == R.id.action_move_or_copy) {
+            pickFolderForMoveOrCopy(checkedFiles);
             return true;
         } else if (itemId == R.id.action_select_all_action_menu) {
             selectAllFiles(true);
@@ -1257,18 +1254,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return false;
     }
 
-    private void pickFolderForMoveOrCopy(final String extraAction, final Set<OCFile> checkedFiles) {
-        int requestCode;
-        switch (extraAction) {
-            case FolderPickerActivity.MOVE:
-                requestCode = FileDisplayActivity.REQUEST_CODE__MOVE_FILES;
-                break;
-            case FolderPickerActivity.COPY:
-                requestCode = FileDisplayActivity.REQUEST_CODE__COPY_FILES;
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown extra action: " + extraAction);
-        }
+    private void pickFolderForMoveOrCopy(final Set<OCFile> checkedFiles) {
+        int requestCode = FileDisplayActivity.REQUEST_CODE__MOVE_OR_COPY_FILES;
+        String extraAction = FolderPickerActivity.MOVE_OR_COPY;
 
         final Intent action = new Intent(getActivity(), FolderPickerActivity.class);
         final ArrayList<String> paths = new ArrayList<>(checkedFiles.size());

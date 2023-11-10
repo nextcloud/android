@@ -18,6 +18,7 @@
     <string name="actionbar_copy">复制</string>
     <string name="actionbar_mkdir">新建文件夹</string>
     <string name="actionbar_move">移动</string>
+    <string name="actionbar_move_or_copy">移动或复制</string>
     <string name="actionbar_open_with">打开方式</string>
     <string name="actionbar_search">搜索</string>
     <string name="actionbar_see_details">详细信息</string>
@@ -324,6 +325,7 @@
     <string name="file_delete">删除</string>
     <string name="file_detail_activity_error">获取文件动态时出错</string>
     <string name="file_details_no_content">加载详情失败</string>
+    <string name="file_downloader_notification_title_prefix">下载中 \u0020</string>
     <string name="file_icon">文件</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上传一些内容或与您的设备同步。</string>
@@ -392,6 +394,9 @@
     <string name="folder_confirm_create">创建</string>
     <string name="folder_list_empty_headline">这里没有文件夹</string>
     <string name="folder_picker_choose_button_text">选择</string>
+    <string name="folder_picker_choose_caption_text">选择目标文件夹</string>
+    <string name="folder_picker_copy_button_text">复制</string>
+    <string name="folder_picker_move_button_text">移动</string>
     <string name="forbidden_permissions">您没有 %s 的权限</string>
     <string name="forbidden_permissions_copy">复制这个文件</string>
     <string name="forbidden_permissions_create">创建这个文件</string>
@@ -944,6 +949,9 @@
     <string name="wait_a_moment">请稍等…</string>
     <string name="wait_checking_credentials">正在检查保存的证书</string>
     <string name="wait_for_tmp_copy_from_private_storage">正在从私有存储中复制文件</string>
+    <string name="webview_version_check_alert_dialog_message">请更新 Android System WebView 应用程序以进行登录</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">更新</string>
+    <string name="webview_version_check_alert_dialog_title">更新 Android System WebView</string>
     <string name="what_s_new_image">有什么新图片</string>
     <string name="whats_new_skip">跳过</string>
     <string name="whats_new_title">新建%1$s</string>

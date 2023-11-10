@@ -340,6 +340,8 @@
     <string name="folder_confirm_create">Búa til</string>
     <string name="folder_list_empty_headline">Engar möppur hér</string>
     <string name="folder_picker_choose_button_text">Velja</string>
+    <string name="folder_picker_choose_caption_text">Veldu úttaksmöppu</string>
+    <string name="folder_picker_move_button_text">Færa</string>
     <string name="forbidden_permissions">Þú hefur ekki heimild %s</string>
     <string name="forbidden_permissions_copy">til að afrita þessa skrá</string>
     <string name="forbidden_permissions_create">til að búa til þessa skrá</string>
@@ -793,6 +795,7 @@
     <string name="wait_a_moment">Bíddu augnablik…</string>
     <string name="wait_checking_credentials">Athuga geymd auðkenni</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Uppfæra</string>
     <string name="what_s_new_image">Mynd fyrir \'Hvað er nýtt\'</string>
     <string name="whats_new_skip">Sleppa</string>
     <string name="whats_new_title">(Nýtt í %s)</string>

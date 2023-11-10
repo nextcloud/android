@@ -205,6 +205,7 @@
     <string name="dismiss">Weigeren</string>
     <string name="dismiss_notification_description">Handel melding af</string>
     <string name="dnd">Niet storen</string>
+    <string name="document_scan_export_dialog_pdf">PDF-bestand</string>
     <string name="done">Klaar</string>
     <string name="dontClear">Niet opruimen</string>
     <string name="download_cannot_create_file">Kan geen lokaal bestand aanmaken</string>
@@ -240,6 +241,7 @@
     <string name="ecosystem_apps_display_more">Meer</string>
     <string name="ecosystem_apps_display_notes">Notities</string>
     <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_more">Meer Nextcloud Apps</string>
     <string name="ecosystem_apps_notes">Nextcloud Notities</string>
     <string name="encrypted">Instellen als versleuteld</string>
     <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
@@ -372,6 +374,9 @@
     <string name="folder_confirm_create">Aanmaken</string>
     <string name="folder_list_empty_headline">Hier zijn geen bestanden</string>
     <string name="folder_picker_choose_button_text">Kiezen</string>
+    <string name="folder_picker_choose_caption_text">Kies doelmap…</string>
+    <string name="folder_picker_copy_button_text">Kopiëren</string>
+    <string name="folder_picker_move_button_text">Verplaatsen</string>
     <string name="forbidden_permissions">Je mist autorisatie %s</string>
     <string name="forbidden_permissions_copy">om dit bestand te kopiëren</string>
     <string name="forbidden_permissions_create">om dit bestand te creëren</string>
@@ -395,6 +400,7 @@
     <string name="host_your_own_server">Host je eigen server</string>
     <string name="icon_of_dashboard_widget">Pictogram van dashboard widget</string>
     <string name="icon_of_widget_entry">Pictogram van widget vermelding</string>
+    <string name="image_preview_filedetails">Bestandsdetails</string>
     <string name="in_folder">in map %1$s</string>
     <string name="instant_upload_existing">Upload ook bestaande bestanden</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
@@ -736,6 +742,8 @@
     <string name="stream_not_possible_headline">Intern streamen niet mogelijk</string>
     <string name="stream_not_possible_message">Download media in plaats van gebruik externe app.</string>
     <string name="strict_mode">Strict modus: geen HTTP-verbinding toegestaan!</string>
+    <string name="sub_folder_rule_day">Jaar/Maand/Dag</string>
+    <string name="sub_folder_rule_month">Jaar/Maand</string>
     <string name="sub_folder_rule_year">Jaar</string>
     <string name="subject_shared_with_you">\"%1$s\" is met je gedeeld</string>
     <string name="subject_user_shared_with_you">%1$s deelde \"%2$s\" met jou</string>
@@ -886,6 +894,7 @@
     <string name="wait_a_moment">Wacht even…</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Update</string>
     <string name="what_s_new_image">Wat is nieuw afbeelding</string>
     <string name="whats_new_skip">Overslaan</string>
     <string name="whats_new_title">Nieuw in %1$s</string>

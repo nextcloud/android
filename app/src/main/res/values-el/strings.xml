@@ -390,6 +390,9 @@
     <string name="folder_confirm_create">Δημιουργία</string>
     <string name="folder_list_empty_headline">Δεν υπάρχουν φάκελοι εδώ</string>
     <string name="folder_picker_choose_button_text">Επιλέξτε</string>
+    <string name="folder_picker_choose_caption_text">Επιλογή φακέλου προορισμού</string>
+    <string name="folder_picker_copy_button_text">Αντιγραφή</string>
+    <string name="folder_picker_move_button_text">Μετακίνηση</string>
     <string name="forbidden_permissions">Δεν έχετε δικαιώματα %s</string>
     <string name="forbidden_permissions_copy">για αντιγραφή αυτού του αρχείου</string>
     <string name="forbidden_permissions_create">για να δημιουργήσετε αυτό το αρχείο</string>
@@ -916,6 +919,7 @@
     <string name="wait_a_moment">Παρακαλούμε περιμένετε…</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Ενημέρωση</string>
     <string name="what_s_new_image">Ποιά είναι η νέα εικόνα</string>
     <string name="whats_new_skip">Παράλειψη</string>
     <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>

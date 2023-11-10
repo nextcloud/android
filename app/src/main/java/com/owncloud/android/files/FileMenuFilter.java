@@ -161,8 +161,7 @@ public class FileMenuFilter {
         filterDownload(toHide, synchronizing);
         filterExport(toHide);
         filterRename(toHide, synchronizing);
-        filterCopy(toHide, synchronizing);
-        filterMove(toHide, synchronizing);
+        filterMoveOrCopy(toHide, synchronizing);
         filterRemove(toHide, synchronizing);
         filterSelectAll(toHide, inSingleFileFragment);
         filterDeselectAll(toHide, inSingleFileFragment);
@@ -346,18 +345,11 @@ public class FileMenuFilter {
         }
     }
 
-    private void filterMove(List<Integer> toHide, boolean synchronizing) {
+    private void filterMoveOrCopy(List<Integer> toHide, boolean synchronizing) {
         if (files.isEmpty() || synchronizing || containsEncryptedFile() || containsEncryptedFolder() || containsLockedFile()) {
-            toHide.add(R.id.action_move);
+            toHide.add(R.id.action_move_or_copy);
         }
     }
-
-    private void filterCopy(List<Integer> toHide, boolean synchronizing) {
-        if (files.isEmpty() || synchronizing || containsEncryptedFile() || containsEncryptedFolder()) {
-            toHide.add(R.id.action_copy);
-        }
-    }
-
 
     private void filterRename(Collection<Integer> toHide, boolean synchronizing) {
         if (!isSingleSelection() || synchronizing || containsEncryptedFile() || containsEncryptedFolder() || containsLockedFile()) {

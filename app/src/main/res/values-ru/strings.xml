@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Копировать</string>
     <string name="actionbar_mkdir">Создать папку</string>
     <string name="actionbar_move">Переместить</string>
+    <string name="actionbar_move_or_copy">Переместить или скопировать</string>
     <string name="actionbar_open_with">Открыть с помощью</string>
     <string name="actionbar_search">Поиск</string>
     <string name="actionbar_see_details">Подробности</string>
@@ -324,6 +325,7 @@
     <string name="file_delete">Удалить</string>
     <string name="file_detail_activity_error">Ошибка получения истории событий, связанных с файлом</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>
+    <string name="file_downloader_notification_title_prefix">Скачивание \u0020</string>
     <string name="file_icon">Файл</string>
     <string name="file_keep">Сохранить</string>
     <string name="file_list_empty">Добавьте что-нибудь или синхронизируйте со своими устройствами!</string>
@@ -393,6 +395,9 @@
     <string name="folder_confirm_create">Создать</string>
     <string name="folder_list_empty_headline">Здесь нет каталогов</string>
     <string name="folder_picker_choose_button_text">Выбрать</string>
+    <string name="folder_picker_choose_caption_text">Выбор папки назначения</string>
+    <string name="folder_picker_copy_button_text">Копировать</string>
+    <string name="folder_picker_move_button_text">Переместить</string>
     <string name="forbidden_permissions">У вас нет разрешений %s</string>
     <string name="forbidden_permissions_copy">для копирования этого файла</string>
     <string name="forbidden_permissions_create">для создания файла</string>
@@ -942,6 +947,9 @@
     <string name="wait_a_moment">Подождите немного…</string>
     <string name="wait_checking_credentials">Проверка сохранённых реквизитов учётных данных</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частного хранилища</string>
+    <string name="webview_version_check_alert_dialog_message">Обновите приложение Android System WebView для входа в систему</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Изменение</string>
+    <string name="webview_version_check_alert_dialog_title">Обновите приложение Android System WebView</string>
     <string name="what_s_new_image">Изображение «что нового»</string>
     <string name="whats_new_skip">Пропустить</string>
     <string name="whats_new_title">Новое в %1$s</string>

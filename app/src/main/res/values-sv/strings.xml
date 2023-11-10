@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Kopiera</string>
     <string name="actionbar_mkdir">Ny mapp</string>
     <string name="actionbar_move">Flytta</string>
+    <string name="actionbar_move_or_copy">Flytta eller kopiera</string>
     <string name="actionbar_open_with">Öppna med</string>
     <string name="actionbar_search">Sök</string>
     <string name="actionbar_see_details">Detaljer</string>
@@ -324,6 +325,7 @@
     <string name="file_delete">Ta bort</string>
     <string name="file_detail_activity_error">Fel vid hämtning av aktiviteter för fil</string>
     <string name="file_details_no_content">Kunde inte läsa in detaljer</string>
+    <string name="file_downloader_notification_title_prefix">Laddar ner \u0020</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behåll</string>
     <string name="file_list_empty">Ladda upp något eller synkronisera med dina enheter</string>
@@ -392,6 +394,9 @@
     <string name="folder_confirm_create">Skapa</string>
     <string name="folder_list_empty_headline">Inga mappar här</string>
     <string name="folder_picker_choose_button_text">Välj</string>
+    <string name="folder_picker_choose_caption_text">Välj målmapp</string>
+    <string name="folder_picker_copy_button_text">Kopiera</string>
+    <string name="folder_picker_move_button_text">Flytta</string>
     <string name="forbidden_permissions">Du har inte tillstånd %s</string>
     <string name="forbidden_permissions_copy">att kopiera denna fil</string>
     <string name="forbidden_permissions_create">att skapa denna fil</string>
@@ -614,6 +619,7 @@
     <string name="prefs_remove_e2e">Ta bort kryptering lokalt</string>
     <string name="prefs_setup_e2e">Sätt upp end-to-end-kryptering</string>
     <string name="prefs_show_ecosystem_apps">Visa appväxlare</string>
+    <string name="prefs_show_ecosystem_apps_summary">Nextcloud-appförslag i navigeringsrubriken</string>
     <string name="prefs_show_hidden_files">Visa dolda filer</string>
     <string name="prefs_sourcecode">Hämta källkod</string>
     <string name="prefs_storage_path">Datalagringsmapp</string>
@@ -941,6 +947,9 @@
     <string name="wait_a_moment">Vänligen vänta…</string>
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>
+    <string name="webview_version_check_alert_dialog_message">Uppdatera Android System WebView-appen för inloggning</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Uppdatera</string>
+    <string name="webview_version_check_alert_dialog_title">Uppdatera Android System WebView</string>
     <string name="what_s_new_image">Vad är nytt-bild</string>
     <string name="whats_new_skip">Hoppa över</string>
     <string name="whats_new_title">Ny i %1$s</string>

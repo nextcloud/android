@@ -392,6 +392,9 @@
     <string name="folder_confirm_create">Create</string>
     <string name="folder_list_empty_headline">No folders here</string>
     <string name="folder_picker_choose_button_text">Choose</string>
+    <string name="folder_picker_choose_caption_text">Choose target folder</string>
+    <string name="folder_picker_copy_button_text">Copy</string>
+    <string name="folder_picker_move_button_text">Move</string>
     <string name="forbidden_permissions">You are not permitted %s</string>
     <string name="forbidden_permissions_copy">to copy this file</string>
     <string name="forbidden_permissions_create">to create this file</string>
@@ -941,6 +944,7 @@
     <string name="wait_a_moment">Wait a moment…</string>
     <string name="wait_checking_credentials">Checking stored credentials</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Update</string>
     <string name="what_s_new_image">What\'s new image</string>
     <string name="whats_new_skip">Skip</string>
     <string name="whats_new_title">New in %1$s</string>

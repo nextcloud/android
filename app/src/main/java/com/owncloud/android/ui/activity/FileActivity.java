@@ -779,6 +779,13 @@ public abstract class FileActivity extends DrawerActivity
         }
     }
 
+    public void refreshList() {
+        final Fragment fileListFragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        if (fileListFragment != null)  {
+            ((OCFileListFragment) fileListFragment).onRefresh();
+        }
+    }
+
     private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
                                                      RemoteOperationResult result) {
         FileDetailSharingFragment sharingFragment = getShareFileFragment();

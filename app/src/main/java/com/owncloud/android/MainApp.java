@@ -254,9 +254,12 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         if (!isCrashReportingProcess && !appInfo.isDebugBuild()) {
             Thread.UncaughtExceptionHandler defaultPlatformHandler = Thread.getDefaultUncaughtExceptionHandler();
-            final ExceptionHandler crashReporter = new ExceptionHandler(this,
-                                                                        defaultPlatformHandler);
-            Thread.setDefaultUncaughtExceptionHandler(crashReporter);
+
+            if (defaultPlatformHandler != null) {
+                final ExceptionHandler crashReporter = new ExceptionHandler(this,
+                                                                            defaultPlatformHandler);
+                Thread.setDefaultUncaughtExceptionHandler(crashReporter);
+            }
         }
     }
 
@@ -791,25 +794,34 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                     + syncedFolder.getId() + " - " + syncedFolder.getLocalPath());
 
                 for (MediaFolder imageMediaFolder : imageMediaFolders) {
-                    if (imageMediaFolder.absolutePath.equals(syncedFolder.getLocalPath())) {
-                        newSyncedFolder = (SyncedFolder) syncedFolder.clone();
-                        newSyncedFolder.setType(MediaFolderType.IMAGE);
-                        primaryKey = syncedFolderProvider.storeSyncedFolder(newSyncedFolder);
-                        Log_OC.i(TAG, "Migrated image synced_folders record: "
-                            + primaryKey + " - " + newSyncedFolder.getLocalPath());
-                        break;
+                    String absolutePathOfImageFolder = imageMediaFolder.absolutePath;
+
+                    if (absolutePathOfImageFolder != null) {
+                        if (absolutePathOfImageFolder.equals(syncedFolder.getLocalPath())) {
+                            newSyncedFolder = (SyncedFolder) syncedFolder.clone();
+                            newSyncedFolder.setType(MediaFolderType.IMAGE);
+                            primaryKey = syncedFolderProvider.storeSyncedFolder(newSyncedFolder);
+                            Log_OC.i(TAG, "Migrated image synced_folders record: "
+                                + primaryKey + " - " + newSyncedFolder.getLocalPath());
+                            break;
+                        }
                     }
                 }
 
                 for (MediaFolder videoMediaFolder : videoMediaFolders) {
-                    if (videoMediaFolder.absolutePath.equals(syncedFolder.getLocalPath())) {
-                        newSyncedFolder = (SyncedFolder) syncedFolder.clone();
-                        newSyncedFolder.setType(MediaFolderType.VIDEO);
-                        primaryKey = syncedFolderProvider.storeSyncedFolder(newSyncedFolder);
-                        Log_OC.i(TAG, "Migrated video synced_folders record: "
-                            + primaryKey + " - " + newSyncedFolder.getLocalPath());
-                        break;
+                    String absolutePathOfVideoFolder = videoMediaFolder.absolutePath;
+
+                    if (absolutePathOfVideoFolder != null) {
+                        if (absolutePathOfVideoFolder.equals(syncedFolder.getLocalPath())) {
+                            newSyncedFolder = (SyncedFolder) syncedFolder.clone();
+                            newSyncedFolder.setType(MediaFolderType.VIDEO);
+                            primaryKey = syncedFolderProvider.storeSyncedFolder(newSyncedFolder);
+                            Log_OC.i(TAG, "Migrated video synced_folders record: "
+                                + primaryKey + " - " + newSyncedFolder.getLocalPath());
+                            break;
+                        }
                     }
+
                 }
             }
 
@@ -835,19 +847,22 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
             List<SyncedFolder> syncedFolderList = syncedFolderProvider.getSyncedFolders();
             Map<Pair<String, String>, Long> syncedFolders = new HashMap<>();
-            ArrayList<Long> ids = new ArrayList<>();
             for (SyncedFolder syncedFolder : syncedFolderList) {
                 Pair<String, String> checkPair = new Pair<>(syncedFolder.getAccount(), syncedFolder.getLocalPath());
                 if (syncedFolders.containsKey(checkPair)) {
-                    if (syncedFolder.getId() > syncedFolders.get(checkPair)) {
-                        syncedFolders.put(checkPair, syncedFolder.getId());
+                    Long folderId = syncedFolders.get(checkPair);
+
+                    if (folderId != null) {
+                        if (syncedFolder.getId() > folderId) {
+                            syncedFolders.put(checkPair, syncedFolder.getId());
+                        }
                     }
                 } else {
                     syncedFolders.put(checkPair, syncedFolder.getId());
                 }
             }
 
-            ids.addAll(syncedFolders.values());
+            ArrayList<Long> ids = new ArrayList<>(syncedFolders.values());
 
             if (ids.size() > 0) {
                 int deletedCount = syncedFolderProvider.deleteSyncedFoldersNotInList(ids);
@@ -865,18 +880,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         return dispatchingAndroidInjector;
     }
 
-
     public static void setAppTheme(DarkMode mode) {
         switch (mode) {
-            case LIGHT:
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                break;
-            case DARK:
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                break;
-            case SYSTEM:
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                break;
+            case LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            case DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            case SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         }
     }
 }
