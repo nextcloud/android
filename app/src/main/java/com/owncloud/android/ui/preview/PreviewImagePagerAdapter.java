@@ -48,7 +48,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
     private OCFile selectedFile;
-    private List<OCFile> mImageFiles;
+    private List<OCFile> mMediaFiles;
     private User user;
     private Set<Object> mObsoleteFragments;
     private Set<Integer> mObsoletePositions;
@@ -82,10 +82,10 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         this.user = user;
         this.selectedFile = selectedFile;
         mStorageManager = storageManager;
-        mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
+        mMediaFiles = mStorageManager.getFolderMedia(parentFolder, onlyOnDevice);
 
         FileSortOrder sortOrder = preferences.getSortOrderByFolder(parentFolder);
-        mImageFiles = sortOrder.sortCloudFiles(mImageFiles);
+        mMediaFiles = sortOrder.sortCloudFiles(mMediaFiles);
 
         mObsoleteFragments = new HashSet<>();
         mObsoletePositions = new HashSet<>();
@@ -107,9 +107,6 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                                     FileDataStorageManager storageManager) {
         super(fragmentManager);
 
-        if (fragmentManager == null) {
-            throw new IllegalArgumentException("NULL FragmentManager instance");
-        }
         if (type == null) {
             throw new IllegalArgumentException("NULL parent folder");
         }
@@ -124,10 +121,10 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         mStorageManager = storageManager;
 
         if (type == VirtualFolderType.GALLERY) {
-            mImageFiles = mStorageManager.getAllGalleryItems();
-            mImageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mImageFiles);
+            mMediaFiles = mStorageManager.getAllGalleryItems();
+            mMediaFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mMediaFiles);
         } else {
-            mImageFiles = mStorageManager.getVirtualFolderContent(type, true);
+            mMediaFiles = mStorageManager.getVirtualFolderContent(type, true);
         }
 
         mObsoleteFragments = new HashSet<>();
@@ -144,7 +141,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     @Nullable
     public OCFile getFileAt(int position) {
         try {
-            return mImageFiles.get(position);
+            return mMediaFiles.get(position);
         } catch (IndexOutOfBoundsException exception) {
             return null;
         }
@@ -185,12 +182,12 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public int getFilePosition(OCFile file) {
-        return mImageFiles.indexOf(file);
+        return mMediaFiles.indexOf(file);
     }
 
     @Override
     public int getCount() {
-        return mImageFiles.size();
+        return mMediaFiles.size();
     }
 
     @Override
@@ -211,7 +208,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
             mObsoleteFragments.add(fragmentToUpdate);
         }
         mObsoletePositions.add(position);
-        mImageFiles.set(position, file);
+        mMediaFiles.set(position, file);
     }
 
 

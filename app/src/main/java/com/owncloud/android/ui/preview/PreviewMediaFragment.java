@@ -614,7 +614,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     public void onPause() {
         super.onPause();
         Log_OC.v(TAG, "onPause");
-        stopPreview(true);
+        stopPreview(false);
     }
 
     @Override
