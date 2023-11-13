@@ -705,6 +705,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
     }
 
+    private UploaderAdapter uploadAdapter;
+
     private void populateDirectoryList() {
         setupEmptyList();
         setupToolbar();
@@ -746,14 +748,14 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                 files = sortFileList(files);
 
-                List<Map<String, Object>> data = new LinkedList<>();
+                List<Map<String, OCFile>> data = new LinkedList<>();
                 for (OCFile f : files) {
-                    Map<String, Object> h = new HashMap<>();
+                    Map<String, OCFile> h = new HashMap<>();
                     h.put("dirname", f);
                     data.add(h);
                 }
 
-                UploaderAdapter sa = new UploaderAdapter(this,
+                uploadAdapter = new UploaderAdapter(this,
                                                          data,
                                                          R.layout.uploader_list_item_layout,
                                                          new String[]{"dirname"},
@@ -763,7 +765,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                          syncedFolderProvider,
                                                          viewThemeUtils);
 
-                binding.list.setAdapter(sa);
+                binding.list.setAdapter(uploadAdapter);
                 binding.list.setVisibility(View.VISIBLE);
             }
             MaterialButton btnChooseFolder = binding.uploaderChooseFolder;
@@ -1025,11 +1027,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                UnifiedSearchFragment unifiedSearchFragment = UnifiedSearchFragment.Companion.newInstance(query);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.addToBackStack(null);
-                transaction.replace(R.id.upload_files_layout, unifiedSearchFragment, TAG_LIST_OF_FILES);
-                transaction.commit();
+                uploadAdapter.filter(query);
                 return false;
             }
 

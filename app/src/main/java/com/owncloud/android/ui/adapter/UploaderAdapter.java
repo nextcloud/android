@@ -43,9 +43,12 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.Collections.addAll;
 
 public class UploaderAdapter extends SimpleAdapter {
 
@@ -54,10 +57,13 @@ public class UploaderAdapter extends SimpleAdapter {
     private final FileDataStorageManager mStorageManager;
     private final LayoutInflater inflater;
     private final ViewThemeUtils viewThemeUtils;
-    private SyncedFolderProvider syncedFolderProvider;
+    private final SyncedFolderProvider syncedFolderProvider;
+
+    private final List<Map<String, OCFile>> originalData;
+    private final List<Map<String, OCFile>> filteredData;
 
     public UploaderAdapter(Context context,
-                           List<? extends Map<String, ?>> data,
+                           List<Map<String, OCFile>> data,
                            int resource,
                            String[] from,
                            int[] to,
@@ -72,6 +78,39 @@ public class UploaderAdapter extends SimpleAdapter {
         this.syncedFolderProvider = syncedFolderProvider;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.viewThemeUtils = viewThemeUtils;
+
+        originalData = data;
+        filteredData = new ArrayList<>(originalData);
+    }
+
+    public void filter(String query) {
+        filteredData.clear();
+
+        for (Map<String, OCFile> data : originalData) {
+            OCFile file = data.get("dirname");
+            String fileName = file.getFileName();
+
+            if (fileName.toLowerCase().contains(query.toLowerCase())) {
+                filteredData.add(data);
+            }
+        }
+
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getCount() {
+        return filteredData.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return filteredData.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
@@ -81,8 +120,7 @@ public class UploaderAdapter extends SimpleAdapter {
             vi = inflater.inflate(R.layout.uploader_list_item_layout, parent, false);
         }
 
-        HashMap<String, OCFile> data = (HashMap<String, OCFile>) getItem(position);
-        OCFile file = data.get("dirname");
+        OCFile file = ((HashMap<String, OCFile>) getItem(position)).get("dirname");
 
         TextView filename = vi.findViewById(R.id.filename);
         filename.setText(file.getFileName());
