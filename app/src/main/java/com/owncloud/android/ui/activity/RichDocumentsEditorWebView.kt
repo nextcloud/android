@@ -21,234 +21,224 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.activity
 
-package com.owncloud.android.ui.activity;
-
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.KeyEvent;
-import android.webkit.JavascriptInterface;
-
-import com.nextcloud.client.account.CurrentAccountProvider;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.network.ClientFactory;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.RichDocumentsCreateAssetOperation;
-import com.owncloud.android.ui.asynctasks.PrintAsyncTask;
-import com.owncloud.android.ui.asynctasks.RichDocumentsLoadUrlTask;
-import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.FileStorageUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.lang.ref.WeakReference;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
+import android.os.Bundle
+import android.text.TextUtils
+import android.view.KeyEvent
+import android.webkit.JavascriptInterface
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.client.network.ClientFactory
+import com.owncloud.android.R
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.RichDocumentsCreateAssetOperation
+import com.owncloud.android.ui.asynctasks.PrintAsyncTask
+import com.owncloud.android.ui.asynctasks.RichDocumentsLoadUrlTask
+import com.owncloud.android.ui.fragment.OCFileListFragment
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.FileStorageUtils
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.File
+import java.lang.ref.WeakReference
+import javax.inject.Inject
 
 /**
  * Opens document for editing via Richdocuments app in a web view
  */
-public class RichDocumentsEditorWebView extends EditorWebView {
-    private static final int REQUEST_REMOTE_FILE = 100;
-    private static final String URL = "URL";
-    private static final String HYPERLINK = "Url";
-    private static final String TYPE = "Type";
-    private static final String PRINT = "print";
-    private static final String SLIDESHOW = "slideshow";
-    private static final String NEW_NAME = "NewName";
-
+class RichDocumentsEditorWebView : EditorWebView() {
+    @JvmField
     @Inject
-    protected CurrentAccountProvider currentAccountProvider;
+    var currentAccountProvider: CurrentAccountProvider? = null
 
+    @JvmField
     @Inject
-    protected ClientFactory clientFactory;
+    var clientFactory: ClientFactory? = null
+
+    private var activityResult: ActivityResultLauncher<Intent>? = null
 
     @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT_INTERFACE")
-    @Override
-    protected void postOnCreate() {
-        super.postOnCreate();
+    override fun postOnCreate() {
+        super.postOnCreate()
 
-        getWebView().addJavascriptInterface(new RichDocumentsMobileInterface(), "RichDocumentsMobileInterface");
+        webView.addJavascriptInterface(RichDocumentsMobileInterface(), "RichDocumentsMobileInterface")
 
-        // load url in background
-        loadUrl(getIntent().getStringExtra(EXTRA_URL));
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-    }
-
-    private void openFileChooser() {
-        Intent action = new Intent(this, FilePickerActivity.class);
-        action.putExtra(OCFileListFragment.ARG_MIMETYPE, "image/");
-        startActivityForResult(action, REQUEST_REMOTE_FILE);
-    }
-
-    @Override
-    protected void handleActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case REQUEST_REMOTE_FILE:
-                handleRemoteFile(data);
-                break;
-
-            default:
-                // unexpected, do nothing
-                break;
+        intent.getStringExtra(EXTRA_URL)?.let {
+            loadUrl(it)
         }
 
-        super.handleActivityResult(requestCode, resultCode, data);
+        registerActivityResult()
     }
 
-    private void handleRemoteFile(Intent data) {
-        OCFile file = data.getParcelableExtra(FolderPickerActivity.EXTRA_FILES);
-
-        new Thread(() -> {
-            User user = currentAccountProvider.getUser();
-            RichDocumentsCreateAssetOperation operation = new RichDocumentsCreateAssetOperation(file.getRemotePath());
-            RemoteOperationResult result = operation.execute(user, this);
-
-            if (result.isSuccess()) {
-                String asset = (String) result.getSingleData();
-
-                runOnUiThread(() -> getWebView().evaluateJavascript("OCA.RichDocuments.documentsMain.postAsset('" +
-                                                                   file.getFileName() + "', '" + asset + "');", null));
-            } else {
-                runOnUiThread(() -> DisplayUtils.showSnackMessage(this, "Inserting image failed!"));
-            }
-        }).start();
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putString(EXTRA_URL, url);
-        super.onSaveInstanceState(outState);
+    private fun openFileChooser() {
+        val action = Intent(this, FilePickerActivity::class.java)
+        action.putExtra(OCFileListFragment.ARG_MIMETYPE, "image/")
+        activityResult?.launch(action)
     }
 
-    @Override
-    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        url = savedInstanceState.getString(EXTRA_URL);
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        getWebView().evaluateJavascript("if (typeof OCA.RichDocuments.documentsMain.postGrabFocus !== 'undefined') " +
-                                            "{ OCA.RichDocuments.documentsMain.postGrabFocus(); }",
-                                        null);
-    }
-
-    private void printFile(Uri url) {
-        OwnCloudAccount account = accountManager.getCurrentOwnCloudAccount();
-
-        if (account == null) {
-            DisplayUtils.showSnackMessage(getWebView(), getString(R.string.failed_to_print));
-            return;
-        }
-
-        File targetFile = new File(FileStorageUtils.getTemporalPath(account.getName()) + "/print.pdf");
-
-        new PrintAsyncTask(targetFile, url.toString(), new WeakReference<>(this)).execute();
-    }
-
-    @Override
-    public void loadUrl(String url) {
-        if (TextUtils.isEmpty(url)) {
-            new RichDocumentsLoadUrlTask(this, getUser().get(), getFile()).execute();
-        } else {
-            super.loadUrl(url);
-        }
-    }
-
-    private void showSlideShow(Uri url) {
-        Intent intent = new Intent(this, ExternalSiteWebView.class);
-        intent.putExtra(ExternalSiteWebView.EXTRA_URL, url.toString());
-        intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-        intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_TOOLBAR, false);
-        startActivity(intent);
-    }
-
-    private class RichDocumentsMobileInterface extends MobileInterface {
-        @JavascriptInterface
-        public void insertGraphic() {
-            openFileChooser();
-        }
-
-        @JavascriptInterface
-        public void documentLoaded() {
-            runOnUiThread(RichDocumentsEditorWebView.this::hideLoading);
-        }
-
-        @JavascriptInterface
-        public void downloadAs(String json) {
-            try {
-                JSONObject downloadJson = new JSONObject(json);
-
-                Uri url = Uri.parse(downloadJson.getString(URL));
-
-                switch (downloadJson.getString(TYPE)) {
-                    case PRINT:
-                        printFile(url);
-                        break;
-
-                    case SLIDESHOW:
-                        showSlideShow(url);
-                        break;
-
-                    default:
-                        downloadFile(url);
-                        break;
+    private fun registerActivityResult() {
+        activityResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+                if (RESULT_OK == result.resultCode) {
+                    result.data?.let {
+                        handleRemoteFile(it)
+                    }
                 }
-            } catch (JSONException e) {
-                Log_OC.e(this, "Failed to parse download json message: " + e);
+            }
+    }
+
+    private fun handleRemoteFile(data: Intent) {
+        val file = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            data.getParcelableExtra(FolderPickerActivity.EXTRA_FILES, OCFile::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            data.getParcelableExtra(FolderPickerActivity.EXTRA_FILES)
+        }
+
+        Thread {
+            val user = currentAccountProvider?.user
+            val operation = RichDocumentsCreateAssetOperation(file?.remotePath)
+            val result = operation.execute(user, this)
+            if (result.isSuccess) {
+                val asset = result.singleData as String
+                runOnUiThread {
+                    webView.evaluateJavascript(
+                        "OCA.RichDocuments.documentsMain.postAsset('" +
+                            file?.fileName + "', '" + asset + "');",
+                        null
+                    )
+                }
+            } else {
+                runOnUiThread { DisplayUtils.showSnackMessage(this, "Inserting image failed!") }
+            }
+        }.start()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(EXTRA_URL, url)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        url = savedInstanceState.getString(EXTRA_URL)
+        super.onRestoreInstanceState(savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        webView.evaluateJavascript(
+            "if (typeof OCA.RichDocuments.documentsMain.postGrabFocus !== 'undefined') " +
+                "{ OCA.RichDocuments.documentsMain.postGrabFocus(); }",
+            null
+        )
+    }
+
+    private fun printFile(url: Uri) {
+        val account = accountManager.currentOwnCloudAccount
+        if (account == null) {
+            DisplayUtils.showSnackMessage(webView, getString(R.string.failed_to_print))
+            return
+        }
+        val targetFile = File(FileStorageUtils.getTemporalPath(account.name) + "/print.pdf")
+        PrintAsyncTask(targetFile, url.toString(), WeakReference(this)).execute()
+    }
+
+    public override fun loadUrl(url: String) {
+        if (TextUtils.isEmpty(url)) {
+            RichDocumentsLoadUrlTask(this, user.get(), file).execute()
+        } else {
+            super.loadUrl(url)
+        }
+    }
+
+    private fun showSlideShow(url: Uri) {
+        val intent = Intent(this, ExternalSiteWebView::class.java)
+        intent.putExtra(EXTRA_URL, url.toString())
+        intent.putExtra(EXTRA_SHOW_SIDEBAR, false)
+        intent.putExtra(EXTRA_SHOW_TOOLBAR, false)
+        startActivity(intent)
+    }
+
+    private inner class RichDocumentsMobileInterface : MobileInterface() {
+        @JavascriptInterface
+        fun insertGraphic() {
+            openFileChooser()
+        }
+
+        @JavascriptInterface
+        fun documentLoaded() {
+            runOnUiThread { hideLoading() }
+        }
+
+        @JavascriptInterface
+        fun downloadAs(json: String?) {
+            try {
+                json ?: return
+                val downloadJson = JSONObject(json)
+                val url = Uri.parse(downloadJson.getString(URL))
+                when (downloadJson.getString(TYPE)) {
+                    PRINT -> printFile(url)
+                    SLIDESHOW -> showSlideShow(url)
+                    else -> downloadFile(url)
+                }
+            } catch (e: JSONException) {
+                Log_OC.e(this, "Failed to parse download json message: $e")
             }
         }
 
         @JavascriptInterface
-        public void fileRename(String renameString) {
+        fun fileRename(renameString: String?) {
             // when shared file is renamed in another instance, we will get notified about it
             // need to change filename for sharing
             try {
-                JSONObject renameJson = new JSONObject(renameString);
-                String newName = renameJson.getString(NEW_NAME);
-                getFile().setFileName(newName);
-            } catch (JSONException e) {
-                Log_OC.e(this, "Failed to parse rename json message: " + e);
+                renameString ?: return
+                val renameJson = JSONObject(renameString)
+                val newName = renameJson.getString(NEW_NAME)
+                file.fileName = newName
+            } catch (e: JSONException) {
+                Log_OC.e(this, "Failed to parse rename json message: $e")
             }
         }
 
         @JavascriptInterface
-        public void paste() {
+        fun paste() {
             // Javascript cannot do this by itself, so help out.
-            getWebView().dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_PASTE));
-            getWebView().dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_PASTE));
+            webView.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_PASTE))
+            webView.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_PASTE))
         }
 
         @JavascriptInterface
-        public void hyperlink(String hyperlink) {
+        fun hyperlink(hyperlink: String?) {
             try {
-                String url = new JSONObject(hyperlink).getString(HYPERLINK);
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
-                startActivity(intent);
-            } catch (JSONException e) {
-                Log_OC.e(this, "Failed to parse download json message: " + e);
+                hyperlink ?: return
+                val url = JSONObject(hyperlink).getString(HYPERLINK)
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(url)
+                startActivity(intent)
+            } catch (e: JSONException) {
+                Log_OC.e(this, "Failed to parse download json message: $e")
             }
         }
+    }
+
+    companion object {
+        private const val URL = "URL"
+        private const val HYPERLINK = "Url"
+        private const val TYPE = "Type"
+        private const val PRINT = "print"
+        private const val SLIDESHOW = "slideshow"
+        private const val NEW_NAME = "NewName"
     }
 }
