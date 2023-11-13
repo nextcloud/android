@@ -70,6 +70,7 @@ import com.owncloud.android.ui.adapter.UploaderAdapter;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.ui.dialog.*;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
+import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.*;
@@ -95,8 +96,10 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import static com.owncloud.android.ui.activity.FileDisplayActivity.TAG_LIST_OF_FILES;
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
 /**
@@ -1019,6 +1022,22 @@ public class ReceiveExternalFilesActivity extends FileActivity
         // tint search event
         final MenuItem searchMenuItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                UnifiedSearchFragment unifiedSearchFragment = UnifiedSearchFragment.Companion.newInstance(query);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.addToBackStack(null);
+                transaction.replace(R.id.upload_files_layout, unifiedSearchFragment, TAG_LIST_OF_FILES);
+                transaction.commit();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
         MenuItem newFolderMenuItem = menu.findItem(R.id.action_create_dir);
         newFolderMenuItem.setEnabled(mFile.canWrite());
