@@ -345,6 +345,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         if (file != null) {
             // bind to any existing player
             mediaPlayerServiceConnection.bind();
+            stopPreview(true);
 
             if (MimeTypeUtil.isAudio(file)) {
                 binding.mediaController.setMediaPlayer(mediaPlayerServiceConnection);
@@ -353,10 +354,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 binding.emptyView.emptyListView.setVisibility(View.GONE);
                 binding.progress.setVisibility(View.GONE);
             } else if (MimeTypeUtil.isVideo(file)) {
-                if (mediaPlayerServiceConnection.isConnected()) {
-                    // always stop player
-                    mediaPlayerServiceConnection.stop();
-                }
                 if (exoPlayer != null) {
                     playVideo();
                 } else {
