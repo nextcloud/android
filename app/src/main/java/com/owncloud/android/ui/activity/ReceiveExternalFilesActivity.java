@@ -128,7 +128,7 @@ import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFrag
  * This can be used to upload things to an ownCloud instance.
  */
 public class ReceiveExternalFilesActivity extends FileActivity
-    implements OnItemClickListener, View.OnClickListener, CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener,
+    implements View.OnClickListener, CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener,
     SortingOrderDialogFragment.OnSortingOrderListener, Injectable, AccountChooserInterface, ReceiveExternalFilesAdapter.OnItemClickListener {
 
     private static final String TAG = ReceiveExternalFilesActivity.class.getSimpleName();
@@ -300,34 +300,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     @Override
-    public void selectFile(int position) {
-        // click on folder in the list
-        Log_OC.d(TAG, "on item click");
-        List<OCFile> tmpFiles = getStorageManager().getFolderContent(mFile, false);
-        tmpFiles = sortFileList(tmpFiles);
-
-        if (tmpFiles.isEmpty()) {
-            return;
-        }
-        // filter on dirtype
-        Vector<OCFile> files = new Vector<>();
-        files.addAll(tmpFiles);
-
-        if (files.size() < position) {
-            throw new IndexOutOfBoundsException("Incorrect item selected");
-        }
-        OCFile ocFile = files.get(position);
-        if (ocFile.isFolder()) {
-            if (ocFile.isEncrypted() &&
+    public void selectFile(OCFile file) {
+        if (file.isFolder()) {
+            if (file.isEncrypted() &&
                 !FileOperationsHelper.isEndToEndEncryptionSetup(this, getUser().orElseThrow(IllegalAccessError::new))) {
                 DisplayUtils.showSnackMessage(this, R.string.e2e_not_yet_setup);
 
                 return;
             }
 
-            OCFile folderToEnter = files.get(position);
-            startSyncFolderOperation(folderToEnter);
-            mParents.push(folderToEnter.getFileName());
+            startSyncFolderOperation(file);
+            mParents.push(file.getFileName());
             populateDirectoryList();
         }
     }
@@ -668,11 +651,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mParents.pop();
             browseToFolderIfItExists();
         }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
     }
 
     @Override
@@ -1041,8 +1019,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
             menu.findItem(R.id.action_create_dir).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         }
 
-        // tint search event
+        setupSearchView(menu);
+
+        MenuItem newFolderMenuItem = menu.findItem(R.id.action_create_dir);
+        newFolderMenuItem.setEnabled(mFile.canWrite());
+
+        return true;
+    }
+
+    private void setupSearchView(Menu menu) {
         final MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -1053,17 +1040,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                receiveExternalFilesAdapter.filter(newText);
                 return false;
             }
         });
 
-        MenuItem newFolderMenuItem = menu.findItem(R.id.action_create_dir);
-        newFolderMenuItem.setEnabled(mFile.canWrite());
-
-        // hacky as no default way is provided
         viewThemeUtils.androidx.themeToolbarSearchView(searchView);
-
-        return true;
     }
 
     @Override

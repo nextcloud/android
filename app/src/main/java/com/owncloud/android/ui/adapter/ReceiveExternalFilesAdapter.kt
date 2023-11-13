@@ -54,7 +54,7 @@ class ReceiveExternalFilesAdapter(
     private var filteredFiles: List<OCFile> = files
 
     interface OnItemClickListener {
-        fun selectFile(position: Int)
+        fun selectFile(file: OCFile)
     }
 
     inner class ReceiveExternalViewHolder(val binding: UploaderListItemLayoutBinding) :
@@ -63,7 +63,7 @@ class ReceiveExternalFilesAdapter(
             binding.root.setOnClickListener {
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    onItemClickListener.selectFile(position)
+                    onItemClickListener.selectFile(filteredFiles[position])
                 }
             }
         }
