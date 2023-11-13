@@ -41,10 +41,21 @@ import android.os.Looper;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager.LayoutParams;
-import android.widget.*;
+import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.account.User;
@@ -66,14 +77,21 @@ import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
-import com.owncloud.android.ui.adapter.UploaderAdapter;
+import com.owncloud.android.ui.adapter.ReceiveExternalFilesAdapter;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
-import com.owncloud.android.ui.dialog.*;
+import com.owncloud.android.ui.dialog.AccountChooserInterface;
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
+import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
+import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
+import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
-import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.helpers.UriUploader;
-import com.owncloud.android.utils.*;
+import com.owncloud.android.utils.DataHolderUtil;
+import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.FileSortOrder;
+import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
@@ -81,7 +99,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Stack;
+import java.util.Vector;
 
 import javax.inject.Inject;
 
@@ -96,10 +119,9 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import static com.owncloud.android.ui.activity.FileDisplayActivity.TAG_LIST_OF_FILES;
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
 
 /**
@@ -107,7 +129,7 @@ import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFrag
  */
 public class ReceiveExternalFilesActivity extends FileActivity
     implements OnItemClickListener, View.OnClickListener, CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener,
-    SortingOrderDialogFragment.OnSortingOrderListener, Injectable, AccountChooserInterface {
+    SortingOrderDialogFragment.OnSortingOrderListener, Injectable, AccountChooserInterface, ReceiveExternalFilesAdapter.OnItemClickListener {
 
     private static final String TAG = ReceiveExternalFilesActivity.class.getSimpleName();
 
@@ -128,6 +150,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private OCFile mFile;
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
+    private ReceiveExternalFilesAdapter receiveExternalFilesAdapter;
     private boolean mSyncInProgress;
 
     private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
@@ -274,6 +297,39 @@ public class ReceiveExternalFilesActivity extends FileActivity
         preferences.setSortOrder(mFile, newSortOrder);
         sortButton.setText(DisplayUtils.getSortOrderStringId(newSortOrder));
         populateDirectoryList();
+    }
+
+    @Override
+    public void selectFile(int position) {
+        // click on folder in the list
+        Log_OC.d(TAG, "on item click");
+        List<OCFile> tmpFiles = getStorageManager().getFolderContent(mFile, false);
+        tmpFiles = sortFileList(tmpFiles);
+
+        if (tmpFiles.isEmpty()) {
+            return;
+        }
+        // filter on dirtype
+        Vector<OCFile> files = new Vector<>();
+        files.addAll(tmpFiles);
+
+        if (files.size() < position) {
+            throw new IndexOutOfBoundsException("Incorrect item selected");
+        }
+        OCFile ocFile = files.get(position);
+        if (ocFile.isFolder()) {
+            if (ocFile.isEncrypted() &&
+                !FileOperationsHelper.isEndToEndEncryptionSetup(this, getUser().orElseThrow(IllegalAccessError::new))) {
+                DisplayUtils.showSnackMessage(this, R.string.e2e_not_yet_setup);
+
+                return;
+            }
+
+            OCFile folderToEnter = files.get(position);
+            startSyncFolderOperation(folderToEnter);
+            mParents.push(folderToEnter.getFileName());
+            populateDirectoryList();
+        }
     }
 
     public static class DialogNoAccount extends DialogFragment {
@@ -616,35 +672,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // click on folder in the list
-        Log_OC.d(TAG, "on item click");
-        List<OCFile> tmpFiles = getStorageManager().getFolderContent(mFile, false);
-        tmpFiles = sortFileList(tmpFiles);
 
-        if (tmpFiles.isEmpty()) {
-            return;
-        }
-        // filter on dirtype
-        Vector<OCFile> files = new Vector<>();
-        files.addAll(tmpFiles);
-
-        if (files.size() < position) {
-            throw new IndexOutOfBoundsException("Incorrect item selected");
-        }
-        OCFile ocFile = files.get(position);
-        if (ocFile.isFolder()) {
-            if (ocFile.isEncrypted() &&
-                !FileOperationsHelper.isEndToEndEncryptionSetup(this, getUser().orElseThrow(IllegalAccessError::new))) {
-                DisplayUtils.showSnackMessage(this, R.string.e2e_not_yet_setup);
-
-                return;
-            }
-
-            OCFile folderToEnter = files.get(position);
-            startSyncFolderOperation(folderToEnter);
-            mParents.push(folderToEnter.getFileName());
-            populateDirectoryList();
-        }
     }
 
     @Override
@@ -705,8 +733,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
     }
 
-    private UploaderAdapter uploadAdapter;
-
     private void populateDirectoryList() {
         setupEmptyList();
         setupToolbar();
@@ -745,29 +771,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 binding.list.setVisibility(View.GONE);
             } else {
                 mEmptyListContainer.setVisibility(View.GONE);
-
                 files = sortFileList(files);
-
-                List<Map<String, OCFile>> data = new LinkedList<>();
-                for (OCFile f : files) {
-                    Map<String, OCFile> h = new HashMap<>();
-                    h.put("dirname", f);
-                    data.add(h);
-                }
-
-                uploadAdapter = new UploaderAdapter(this,
-                                                         data,
-                                                         R.layout.uploader_list_item_layout,
-                                                         new String[]{"dirname"},
-                                                         new int[]{R.id.filename},
-                                                         getStorageManager(),
-                                                         getUser().get(),
-                                                         syncedFolderProvider,
-                                                         viewThemeUtils);
-
-                binding.list.setAdapter(uploadAdapter);
-                binding.list.setVisibility(View.VISIBLE);
+                setupReceiveExternalFilesAdapter(files);
             }
+
             MaterialButton btnChooseFolder = binding.uploaderChooseFolder;
             viewThemeUtils.material.colorMaterialButtonPrimaryFilled(btnChooseFolder);
             btnChooseFolder.setOnClickListener(this);
@@ -779,13 +786,26 @@ public class ReceiveExternalFilesActivity extends FileActivity
             viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.uploaderCancel);
             binding.uploaderCancel.setOnClickListener(this);
 
-            binding.list.setOnItemClickListener(this);
-
             sortButton = binding.toolbarLayout.sortButton;
             FileSortOrder sortOrder = preferences.getSortOrderByFolder(mFile);
             sortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
             sortButton.setOnClickListener(l -> openSortingOrderDialogFragment(getSupportFragmentManager(), sortOrder));
         }
+    }
+
+    private void setupReceiveExternalFilesAdapter(List<OCFile> files) {
+        receiveExternalFilesAdapter = new ReceiveExternalFilesAdapter(files,
+                                                                      this,
+                                                                      getUser().get(),
+                                                                      getStorageManager(),
+                                                                      viewThemeUtils,
+                                                                      syncedFolderProvider,
+                                                                      this);
+
+
+        binding.list.setLayoutManager(new LinearLayoutManager(this));
+        binding.list.setAdapter(receiveExternalFilesAdapter);
+        binding.list.setVisibility(View.VISIBLE);
     }
 
     protected void setupEmptyList() {
@@ -1027,7 +1047,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                uploadAdapter.filter(query);
+                receiveExternalFilesAdapter.filter(query);
                 return false;
             }
 
