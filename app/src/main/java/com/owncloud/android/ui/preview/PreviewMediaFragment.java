@@ -355,7 +355,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             } else if (MimeTypeUtil.isVideo(file)) {
                 if (mediaPlayerServiceConnection.isConnected()) {
                     // always stop player
-                    stopAudio();
+                    mediaPlayerServiceConnection.stop();
                 }
                 if (exoPlayer != null) {
                     playVideo();
@@ -420,10 +420,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             linearLayout.addView(fullScreenButton);
             linearLayout.invalidate();
         }
-    }
-
-    private void stopAudio() {
-        mediaPlayerServiceConnection.stop();
     }
 
     @Override
@@ -628,7 +624,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Override
     public void onStop() {
         Log_OC.v(TAG, "onStop");
-        stopPreview(true);
+        stopPreview(!mediaPlayerServiceConnection.isPlaying());
 
         mediaPlayerServiceConnection.unbind();
         toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_UNLOCKED);
