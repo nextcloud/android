@@ -27,7 +27,6 @@ package com.owncloud.android.ui.preview;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -627,19 +626,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     }
 
     @Override
-    public void onDestroy() {
-        Log_OC.v(TAG, "onDestroy");
-        super.onDestroy();
-    }
-
-    @Override
-    public void onDestroyView() {
-        Log_OC.v(TAG, "onDestroyView");
-        super.onDestroyView();
-        binding = null;
-    }
-
-    @Override
     public void onStop() {
         Log_OC.v(TAG, "onStop");
         stopPreview(true);
@@ -666,12 +652,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         if (activity != null) {
             new PreviewVideoFullscreenDialog(activity, nextcloudClient, exoPlayer, binding.exoplayerView).show();
         }
-    }
-
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        Log_OC.v(TAG, "onConfigurationChanged " + this);
     }
 
     @Override

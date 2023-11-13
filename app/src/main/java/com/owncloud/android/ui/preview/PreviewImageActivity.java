@@ -502,6 +502,10 @@ public class PreviewImageActivity extends FileActivity implements
         }
     }
 
+    public static boolean canBePreviewed(OCFile file) {
+        return PreviewImageFragment.canBePreviewed(file) || MimeTypeUtil.isVideo(file);
+    }
+
     private void previewNewImage(Intent intent) {
         String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
         String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
