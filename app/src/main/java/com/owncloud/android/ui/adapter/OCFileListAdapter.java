@@ -36,12 +36,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
@@ -78,7 +76,6 @@ import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -90,16 +87,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import me.zhanghai.android.fastscroll.PopupTextProvider;
@@ -120,7 +116,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean hideItemOptions;
     private long lastTimestamp;
     private boolean gridView;
-    private int livePhotoFileCount = 0;
 
     private FileDataStorageManager mStorageManager;
     private User user;
@@ -401,25 +396,24 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void addVideoOCFileOfLivePhoto() {
-        HashMap<String, OCFile> livePhotoMap = new HashMap<>();
+    private void mergeOCFilesForLivePhoto() {
+        Map<String, OCFile> livePhotoMap = new HashMap<>();
 
-        for (OCFile file : mFiles) {
+        for (Iterator<OCFile> iterator = mFiles.iterator(); iterator.hasNext();) {
+            OCFile file = iterator.next();
             String fileLivePhoto = file.getLivePhoto();
 
             if (fileLivePhoto != null) {
                 String fileLivePhotoName = file.getFileNameWithoutExtension(fileLivePhoto);
+                OCFile existingFile = livePhotoMap.get(fileLivePhotoName);
 
-                if (livePhotoMap.containsKey(fileLivePhotoName)) {
-                    OCFile existingFile = livePhotoMap.get(fileLivePhotoName);
-
-                    if (existingFile != null) {
-                        if (MimeTypeUtil.isVideo(file.getMimeType())) {
-                            existingFile.videoOfLivePhoto = file;
-                        } else if (MimeTypeUtil.isVideo(existingFile.getMimeType())) {
-                            file.videoOfLivePhoto = existingFile;
-                            livePhotoMap.put(fileLivePhotoName, file);
-                        }
+                if (existingFile != null) {
+                    if (MimeTypeUtil.isVideo(file.getMimeType())) {
+                        existingFile.videoOfLivePhoto = file;
+                        iterator.remove();
+                    } else if (MimeTypeUtil.isVideo(existingFile.getMimeType())) {
+                        file.videoOfLivePhoto = existingFile;
+                        iterator.remove();
                     }
                 } else {
                     livePhotoMap.put(fileLivePhotoName, file);
@@ -427,7 +421,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        livePhotoFileCount = livePhotoMap.size();
+        livePhotoMap.clear();
     }
 
     private void updateLivePhotoIndicators(ListGridImageViewHolder holder, OCFile file) {
@@ -439,13 +433,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else if (holder instanceof OCFileListGridImageViewHolder) {
             holder.getGridLivePhotoIndicator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
         }
-
-        hideVideoFileOfLivePhoto(holder, file);
-    }
-
-    private void hideVideoFileOfLivePhoto(ListGridImageViewHolder holder, OCFile file) {
-        boolean isFileVideoAndHaveLivePhoto = MimeTypeUtil.isVideo(file) && file.getLivePhoto() != null;
-        holder.getItemLayout().setVisibility(isFileVideoAndHaveLivePhoto ? View.GONE : View.VISIBLE);
     }
 
     private void bindListGridItemViewHolder(ListGridItemViewHolder holder, OCFile file) {
@@ -603,8 +590,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        filesCount = filesCount - livePhotoFileCount;
-
         return generateFooterText(filesCount, foldersCount);
     }
 
@@ -719,7 +704,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFiles = sortOrder.sortCloudFiles(mFiles);
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
-            addVideoOCFileOfLivePhoto();
+            mergeOCFilesForLivePhoto();
             currentDirectory = directory;
         } else {
             mFiles.clear();
