@@ -242,7 +242,7 @@ public class PreviewImageActivity extends FileActivity implements
             if (file == null) {
                 throw new IllegalStateException("Instanced with a NULL OCFile");
             }
-            if (!MimeTypeUtil.isImage(file) && !MimeTypeUtil.isVideo(file)) {
+            if (!canBePreviewed(file)) {
                 throw new IllegalArgumentException("Non-media file passed as argument");
             }
 
