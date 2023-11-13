@@ -38,11 +38,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.nextcloud.client.account.User
-import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.utils.Throttler
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UploadListLayoutBinding
@@ -57,7 +54,6 @@ import com.owncloud.android.operations.CheckCurrentCredentialsOperation
 import com.owncloud.android.ui.adapter.UploadListAdapter
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
 import com.owncloud.android.utils.FilesSyncHelper
-import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
 /**
@@ -71,48 +67,27 @@ class UploadListActivity : FileActivity() {
     private var uploadListAdapter: UploadListAdapter? = null
     private var swipeListRefreshLayout: SwipeRefreshLayout? = null
 
-    @JvmField
     @Inject
-    var userAccountManager: UserAccountManager? = null
+    lateinit var uploadsStorageManager: UploadsStorageManager
 
-    @JvmField
     @Inject
-    var uploadsStorageManager: UploadsStorageManager? = null
+    lateinit var powerManagementService: PowerManagementService
 
-    @JvmField
     @Inject
-    var connectivityService: ConnectivityService? = null
+    lateinit var clock: Clock
 
-    @JvmField
     @Inject
-    var powerManagementService: PowerManagementService? = null
+    lateinit var localBroadcastManager: LocalBroadcastManager
 
-    @JvmField
     @Inject
-    var clock: Clock? = null
-
-    @JvmField
-    @Inject
-    var backgroundJobManager: BackgroundJobManager? = null
-
-    @JvmField
-    @Inject
-    var localBroadcastManager: LocalBroadcastManager? = null
-
-    @JvmField
-    @Inject
-    var viewThemeUtils: ViewThemeUtils? = null
-
-    @JvmField
-    @Inject
-    var throttler: Throttler? = null
+    lateinit var throttler: Throttler
 
     private lateinit var binding: UploadListLayoutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        throttler?.intervalMillis = 1000
+        throttler.intervalMillis = 1000
 
         binding = UploadListLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -189,10 +164,10 @@ class UploadListActivity : FileActivity() {
         Thread {
             FileUploader.retryFailedUploads(
                 this,
-                uploadsStorageManager!!,
+                uploadsStorageManager,
                 connectivityService,
-                userAccountManager!!,
-                powerManagementService!!
+                userAccountManager,
+                powerManagementService
             )
         }.start()
 
@@ -213,14 +188,14 @@ class UploadListActivity : FileActivity() {
         uploadIntentFilter.addAction(FileUploader.getUploadsAddedMessage())
         uploadIntentFilter.addAction(FileUploader.getUploadStartMessage())
         uploadIntentFilter.addAction(FileUploader.getUploadFinishMessage())
-        localBroadcastManager?.registerReceiver(uploadMessagesReceiver!!, uploadIntentFilter)
+        localBroadcastManager.registerReceiver(uploadMessagesReceiver!!, uploadIntentFilter)
         Log_OC.v(TAG, "onResume() end")
     }
 
     override fun onPause() {
         Log_OC.v(TAG, "onPause() start")
         if (uploadMessagesReceiver != null) {
-            localBroadcastManager?.unregisterReceiver(uploadMessagesReceiver!!)
+            localBroadcastManager.unregisterReceiver(uploadMessagesReceiver!!)
             uploadMessagesReceiver = null
         }
         super.onPause()
@@ -243,7 +218,7 @@ class UploadListActivity : FileActivity() {
                 openDrawer()
             }
         } else if (itemId == R.id.action_clear_failed_uploads) {
-            uploadsStorageManager?.clearFailedButNotDelayedUploads()
+            uploadsStorageManager.clearFailedButNotDelayedUploads()
             uploadListAdapter?.loadUploadItemsFromDb()
         } else {
             retval = super.onOptionsItemSelected(item)
@@ -341,7 +316,7 @@ class UploadListActivity : FileActivity() {
          * [BroadcastReceiver] to enable syncing feedback in UI
          */
         override fun onReceive(context: Context, intent: Intent) {
-            throttler?.run("update_upload_list") { uploadListAdapter?.loadUploadItemsFromDb() }
+            throttler.run("update_upload_list") { uploadListAdapter?.loadUploadItemsFromDb() }
         }
     }
 
