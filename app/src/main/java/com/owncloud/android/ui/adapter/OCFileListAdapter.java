@@ -682,8 +682,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @NonNull User account,
         @NonNull OCFile directory,
         @NonNull FileDataStorageManager updatedStorageManager,
-        boolean onlyOnDevice, @NonNull String limitToMimeType
-                             ) {
+        boolean onlyOnDevice, @NonNull String limitToMimeType) {
         this.onlyOnDevice = onlyOnDevice;
 
         if (!updatedStorageManager.equals(mStorageManager)) {
@@ -702,6 +701,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
             sortOrder = preferences.getSortOrderByFolder(directory);
             mFiles = sortOrder.sortCloudFiles(mFiles);
+            mFiles.forEach(file -> {
+                Log_OC.d("","isHidden:" + file.getHidden());
+            });
             mergeOCFilesForLivePhoto();
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);

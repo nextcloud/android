@@ -463,6 +463,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, fileOrFolder.getRemoteId());
         cv.put(ProviderTableMeta.FILE_LOCAL_ID, fileOrFolder.getLocalId());
         cv.put(ProviderTableMeta.FILE_FAVORITE, fileOrFolder.isFavorite());
+        cv.put(ProviderTableMeta.FILE_HIDDEN, fileOrFolder.getHidden());
         cv.put(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT, fileOrFolder.getUnreadCommentsCount());
         cv.put(ProviderTableMeta.FILE_OWNER_ID, fileOrFolder.getOwnerId());
         cv.put(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME, fileOrFolder.getOwnerDisplayName());
@@ -502,6 +503,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_LOCKED, file.isLocked());
         final FileLockType lockType = file.getLockType();
         cv.put(ProviderTableMeta.FILE_LOCK_TYPE, lockType != null ? lockType.getValue() : -1);
+        cv.put(ProviderTableMeta.FILE_HIDDEN, file.getHidden());
         cv.put(ProviderTableMeta.FILE_LOCK_OWNER, file.getLockOwnerId());
         cv.put(ProviderTableMeta.FILE_LOCK_OWNER_DISPLAY_NAME, file.getLockOwnerDisplayName());
         cv.put(ProviderTableMeta.FILE_LOCK_OWNER_EDITOR, file.getLockOwnerEditor());
@@ -918,6 +920,7 @@ public class FileDataStorageManager {
         ocFile.setDownloading(nullToZero(fileEntity.isDownloading()) == 1);
         ocFile.setEtagInConflict(fileEntity.getEtagInConflict());
         ocFile.setFavorite(nullToZero(fileEntity.getFavorite()) == 1);
+        ocFile.setHidden(nullToZero(fileEntity.getHidden()) == 1);
         ocFile.setEncrypted(nullToZero(fileEntity.isEncrypted()) == 1);
 //        if (ocFile.isEncrypted()) {
 //            ocFile.setFileName(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_NAME)));

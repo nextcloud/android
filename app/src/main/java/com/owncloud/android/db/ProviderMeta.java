@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 74;
+    public static final int DB_VERSION = 75;
 
     private ProviderMeta() {
         // No instance
@@ -107,6 +107,7 @@ public class ProviderMeta {
         public static final String FILE_IS_DOWNLOADING = "is_downloading";
         public static final String FILE_ETAG_IN_CONFLICT = "etag_in_conflict";
         public static final String FILE_FAVORITE = "favorite";
+        public static final String FILE_HIDDEN = "hidden";
         public static final String FILE_IS_ENCRYPTED = "is_encrypted";
         public static final String FILE_MOUNT_TYPE = "mount_type";
         public static final String FILE_HAS_PREVIEW = "has_preview";
@@ -157,6 +158,7 @@ public class ProviderMeta {
                 FILE_IS_DOWNLOADING,
                 FILE_ETAG_IN_CONFLICT,
                 FILE_FAVORITE,
+                FILE_HIDDEN,
                 FILE_IS_ENCRYPTED,
                 FILE_MOUNT_TYPE,
                 FILE_HAS_PREVIEW,
