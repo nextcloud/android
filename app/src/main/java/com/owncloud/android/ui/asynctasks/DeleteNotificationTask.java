@@ -23,7 +23,7 @@ package com.owncloud.android.ui.asynctasks;
 
 import android.os.AsyncTask;
 
-import com.owncloud.android.lib.common.OwnCloudClient;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.notifications.DeleteNotificationRemoteOperation;
 import com.owncloud.android.lib.resources.notifications.models.Action;
@@ -35,10 +35,10 @@ import com.owncloud.android.ui.notifications.NotificationsContract;
 public class DeleteNotificationTask extends AsyncTask<Action, Void, Boolean> {
     private Notification notification;
     private NotificationListAdapter.NotificationViewHolder holder;
-    private OwnCloudClient client;
+    private NextcloudClient client;
     private NotificationsContract.View notificationsActivity;
 
-    public DeleteNotificationTask(OwnCloudClient client, Notification notification,
+    public DeleteNotificationTask(NextcloudClient client, Notification notification,
                                   NotificationListAdapter.NotificationViewHolder holder,
                                   NotificationsActivity notificationsActivity) {
         this.client = client;
