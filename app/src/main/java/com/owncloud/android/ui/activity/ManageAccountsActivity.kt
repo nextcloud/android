@@ -27,6 +27,7 @@ import android.accounts.AccountManager
 import android.accounts.AccountManagerCallback
 import android.accounts.AccountManagerFuture
 import android.accounts.OperationCanceledException
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
@@ -35,11 +36,11 @@ import android.os.Handler
 import android.os.IBinder
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.common.collect.Sets
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -47,6 +48,7 @@ import com.nextcloud.client.onboarding.FirstRunActivity
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
+import com.owncloud.android.databinding.AccountsLayoutBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -68,10 +70,13 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * An Activity that allows the user to manage accounts.
  */
-class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, AccountManagerCallback<Boolean?>,
-    ComponentsGetter, UserListAdapter.ClickListener {
+class ManageAccountsActivity :
+    FileActivity(),
+    UserListAdapter.Listener,
+    AccountManagerCallback<Boolean?>,
+    ComponentsGetter,
+    UserListAdapter.ClickListener {
 
-    private var recyclerView: RecyclerView? = null
     private val handler = Handler()
     private var accountName: String? = null
     private var userListAdapter: UserListAdapter? = null
@@ -82,30 +87,44 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
     private var arbitraryDataProvider: ArbitraryDataProvider? = null
     private var multipleAccountsSupported = false
 
+    private lateinit var binding: AccountsLayoutBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.accounts_layout)
-        recyclerView = findViewById(R.id.account_list)
+        binding = AccountsLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         setupToolbar()
+        setupActionBar()
+        setupUsers()
 
-        // set the back button from action bar
-        val actionBar = supportActionBar
+        arbitraryDataProvider = ArbitraryDataProviderImpl(this)
+        multipleAccountsSupported = resources.getBoolean(R.bool.multiaccount_support)
 
-        // check if is not null
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setDisplayShowHomeEnabled(true)
-            viewThemeUtils.files.themeActionBar(this, actionBar, R.string.prefs_manage_accounts)
+        setupAccountList()
+        initializeComponentGetters()
+        handleOnBackPressed()
+    }
+
+    private fun setupActionBar() {
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowHomeEnabled(true)
+            viewThemeUtils.files.themeActionBar(this, it, R.string.prefs_manage_accounts)
         }
+    }
+
+    private fun setupUsers() {
         val users = accountManager.allUsers
         originalUsers = toAccountNames(users)
         val currentUser = user
         if (currentUser.isPresent) {
             originalCurrentUser = currentUser.get().accountName
         }
-        arbitraryDataProvider = ArbitraryDataProviderImpl(this)
-        multipleAccountsSupported = resources.getBoolean(R.bool.multiaccount_support)
+    }
+
+    private fun setupAccountList() {
         userListAdapter = UserListAdapter(
             this,
             accountManager,
@@ -116,9 +135,8 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
             true,
             viewThemeUtils
         )
-        recyclerView?.adapter = userListAdapter
-        recyclerView?.layoutManager = LinearLayoutManager(this)
-        initializeComponentGetters()
+        binding.accountList.adapter = userListAdapter
+        binding.accountList.layoutManager = LinearLayoutManager(this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -136,19 +154,26 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
         }
     }
 
-    override fun onBackPressed() {
-        val resultIntent = Intent()
-        if (accountManager.allUsers.size > 0) {
-            resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged())
-            resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged())
-            setResult(RESULT_OK, resultIntent)
-            super.onBackPressed()
-        } else {
-            val intent = Intent(this, AuthenticatorActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
-            finish()
-        }
+    private fun handleOnBackPressed() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val resultIntent = Intent()
+                    if (accountManager.allUsers.size > 0) {
+                        resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged())
+                        resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged())
+                        setResult(RESULT_OK, resultIntent)
+                        onBackPressedDispatcher.onBackPressed()
+                    } else {
+                        val intent = Intent(applicationContext, AuthenticatorActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+            }
+        )
     }
 
     /**
@@ -160,8 +185,8 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
         val users = accountManager.allUsers
         val newList: MutableList<User> = ArrayList()
         for (user in users) {
-            val pendingForRemoval = arbitraryDataProvider!!.getBooleanValue(user, PENDING_FOR_REMOVAL)
-            if (!pendingForRemoval) {
+            val pendingForRemoval = arbitraryDataProvider?.getBooleanValue(user, PENDING_FOR_REMOVAL)
+            if (pendingForRemoval == false) {
                 newList.add(user)
             }
         }
@@ -188,28 +213,33 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
      */
     private fun initializeComponentGetters() {
         downloadServiceConnection = newTransferenceServiceConnection()
-        if (downloadServiceConnection != null) {
+        downloadServiceConnection?.let {
             bindService(
-                Intent(this, FileDownloader::class.java), downloadServiceConnection!!,
+                Intent(this, FileDownloader::class.java),
+                it,
                 BIND_AUTO_CREATE
             )
         }
+
         uploadServiceConnection = newTransferenceServiceConnection()
-        if (uploadServiceConnection != null) {
+        uploadServiceConnection?.let {
             bindService(
-                Intent(this, FileUploader::class.java), uploadServiceConnection!!,
+                Intent(this, FileUploader::class.java),
+                it,
                 BIND_AUTO_CREATE
             )
         }
     }
 
     private val userListItems: List<UserListItem>
-        private get() {
+        get() {
             val users = accountManager.allUsers
             val userListItems: MutableList<UserListItem> = ArrayList(users.size)
             for (user in users) {
-                val pendingForRemoval = arbitraryDataProvider!!.getBooleanValue(user, PENDING_FOR_REMOVAL)
-                userListItems.add(UserListItem(user, !pendingForRemoval))
+                val pendingForRemoval = arbitraryDataProvider?.getBooleanValue(user, PENDING_FOR_REMOVAL)
+                pendingForRemoval?.let {
+                    userListItems.add(UserListItem(user, !it))
+                }
             }
             if (resources.getBoolean(R.bool.multiaccount_support)) {
                 userListItems.add(UserListItem())
@@ -233,9 +263,11 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
         startActivity(firstRunIntent)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun startAccountCreation() {
         val am = AccountManager.get(applicationContext)
-        am.addAccount(MainApp.getAccountType(this),
+        am.addAccount(
+            MainApp.getAccountType(this),
             null,
             null,
             null,
@@ -256,24 +288,26 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
                             true,
                             viewThemeUtils
                         )
-                        recyclerView!!.adapter = userListAdapter
-                        runOnUiThread { userListAdapter!!.notifyDataSetChanged() }
+                        binding.accountList.adapter = userListAdapter
+                        runOnUiThread { userListAdapter?.notifyDataSetChanged() }
                     } catch (e: OperationCanceledException) {
                         Log_OC.d(TAG, "Account creation canceled")
                     } catch (e: Exception) {
                         Log_OC.e(TAG, "Account creation finished in exception: ", e)
                     }
                 }
-            }, handler
+            },
+            handler
         )
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Subscribe(threadMode = ThreadMode.MAIN)
     override fun onAccountRemovedEvent(event: AccountRemovedEvent) {
         val userListItemArray = userListItems
-        userListAdapter!!.clear()
-        userListAdapter!!.addAll(userListItemArray)
-        userListAdapter!!.notifyDataSetChanged()
+        userListAdapter?.clear()
+        userListAdapter?.addAll(userListItemArray)
+        userListAdapter?.notifyDataSetChanged()
     }
 
     override fun run(future: AccountManagerFuture<Boolean?>) {
@@ -282,12 +316,8 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
             val user = accountManager.getUser(accountName)
             if (!user.isPresent) {
                 // Cancel transfers of the removed account
-                if (mUploaderBinder != null) {
-                    mUploaderBinder.cancel(accountName)
-                }
-                if (mDownloaderBinder != null) {
-                    mDownloaderBinder.cancel(accountName)
-                }
+                mUploaderBinder?.cancel(accountName)
+                mDownloaderBinder?.cancel(accountName)
             }
             val currentUser = userAccountManager.user
             if (currentUser.isAnonymous) {
@@ -298,6 +328,7 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
                 }
                 accountManager.setCurrentOwnCloudAccount(accountName)
             }
+
             val userListItemArray = userListItems
             if (userListItemArray.size > SINGLE_ACCOUNT) {
                 userListAdapter = UserListAdapter(
@@ -310,7 +341,8 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
                     true,
                     viewThemeUtils
                 )
-                recyclerView!!.adapter = userListAdapter
+
+                binding.accountList.adapter = userListAdapter
             } else {
                 onBackPressed()
             }
@@ -354,45 +386,12 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
     }
 
     private fun performAccountRemoval(user: User) {
-        // disable account in recycler view
-        for (i in 0 until userListAdapter!!.itemCount) {
-            val item = userListAdapter!!.getItem(i)
-            if (item != null && item.user.accountName.equals(user.accountName, ignoreCase = true)) {
-                item.isEnabled = false
-                break
-            }
-            userListAdapter!!.notifyDataSetChanged()
-        }
+        disableAccountInList(user)
+        storePendingAccountRemoval(user)
+        cancelTransfers(user)
 
-        // store pending account removal
-        val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(this)
-        arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, PENDING_FOR_REMOVAL, true.toString())
-
-        // Cancel transfers
-        if (mUploaderBinder != null) {
-            mUploaderBinder.cancel(user)
-        }
-        if (mDownloaderBinder != null) {
-            mDownloaderBinder.cancel(user.accountName)
-        }
-        backgroundJobManager.startAccountRemovalJob(user.accountName, false)
-
-        // immediately select a new account
         val users = accountManager.allUsers
-        var newAccountName = ""
-        for (u in users) {
-            if (!u.accountName.equals(u.accountName, ignoreCase = true)) {
-                newAccountName = u.accountName
-                break
-            }
-        }
-        if (newAccountName.isEmpty()) {
-            Log_OC.d(TAG, "new account set to null")
-            accountManager.resetOwnCloudAccount()
-        } else {
-            Log_OC.d(TAG, "new account set to: $newAccountName")
-            accountManager.setCurrentOwnCloudAccount(newAccountName)
-        }
+        selectNewAccount(users)
 
         // only one to be (deleted) account remaining
         if (users.size < MIN_MULTI_ACCOUNT_SIZE) {
@@ -401,6 +400,47 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
             resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, true)
             setResult(RESULT_OK, resultIntent)
             super.onBackPressed()
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun disableAccountInList(user: User) {
+        for (i in 0 until userListAdapter!!.itemCount) {
+            val item = userListAdapter?.getItem(i)
+            if (item != null && item.user.accountName.equals(user.accountName, ignoreCase = true)) {
+                item.isEnabled = false
+                break
+            }
+            userListAdapter?.notifyDataSetChanged()
+        }
+    }
+
+    private fun storePendingAccountRemoval(user: User) {
+        val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(this)
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, PENDING_FOR_REMOVAL, true.toString())
+    }
+
+    private fun cancelTransfers(user: User) {
+        mUploaderBinder?.cancel(user)
+        mDownloaderBinder?.cancel(user.accountName)
+        backgroundJobManager.startAccountRemovalJob(user.accountName, false)
+    }
+
+    private fun selectNewAccount(users: MutableList<User>) {
+        var newAccountName = ""
+        for (u in users) {
+            if (!u.accountName.equals(u.accountName, ignoreCase = true)) {
+                newAccountName = u.accountName
+                break
+            }
+        }
+
+        if (newAccountName.isEmpty()) {
+            Log_OC.d(TAG, "new account set to null")
+            accountManager.resetOwnCloudAccount()
+        } else {
+            Log_OC.d(TAG, "new account set to: $newAccountName")
+            accountManager.setCurrentOwnCloudAccount(newAccountName)
         }
     }
 
@@ -430,13 +470,18 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
                 popup.menu.findItem(R.id.action_open_account).isVisible = false
             }
             popup.setOnMenuItemClickListener { item: MenuItem ->
-                val itemId = item.itemId
-                if (itemId == R.id.action_open_account) {
-                    accountClicked(user.hashCode())
-                } else if (itemId == R.id.action_delete_account) {
-                    openAccountRemovalConfirmationDialog(user, supportFragmentManager)
-                } else {
-                    openAccount(user)
+                when (item.itemId) {
+                    R.id.action_open_account -> {
+                        accountClicked(user.hashCode())
+                    }
+
+                    R.id.action_delete_account -> {
+                        openAccountRemovalConfirmationDialog(user, supportFragmentManager)
+                    }
+
+                    else -> {
+                        openAccount(user)
+                    }
                 }
                 true
             }
@@ -476,12 +521,14 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
 
     companion object {
         private val TAG = ManageAccountsActivity::class.java.simpleName
+
         const val KEY_ACCOUNT_LIST_CHANGED = "ACCOUNT_LIST_CHANGED"
         const val KEY_CURRENT_ACCOUNT_CHANGED = "CURRENT_ACCOUNT_CHANGED"
         const val PENDING_FOR_REMOVAL = UserAccountManager.PENDING_FOR_REMOVAL
         private const val KEY_DELETE_CODE = 101
         private const val SINGLE_ACCOUNT = 1
         private const val MIN_MULTI_ACCOUNT_SIZE = 2
+
         private fun toAccountNames(users: Collection<User>): Set<String> {
             val accountNames: MutableSet<String> = Sets.newHashSetWithExpectedSize(users.size)
             for (user in users) {
@@ -491,8 +538,12 @@ class ManageAccountsActivity : FileActivity(), UserListAdapter.Listener, Account
         }
 
         fun openAccountRemovalConfirmationDialog(user: User?, fragmentManager: FragmentManager?) {
-            val dialog = newInstance(user)
-            dialog.show(fragmentManager!!, "dialog")
+            user?.let {
+                val dialog = newInstance(user)
+                fragmentManager?.let {
+                    dialog.show(it, "dialog")
+                }
+            }
         }
     }
 }
