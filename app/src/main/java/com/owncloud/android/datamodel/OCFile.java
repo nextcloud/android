@@ -97,6 +97,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String etagInConflict; // Only saves file etag in the server, when there is a conflict
     private boolean sharedWithSharee;
     private boolean favorite;
+    private boolean hidden;
     private boolean encrypted;
     private WebdavEntry.MountType mountType;
     private int unreadCommentsCount;
@@ -184,6 +185,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         etagInConflict = source.readString();
         sharedWithSharee = source.readInt() == 1;
         favorite = source.readInt() == 1;
+        hidden = source.readInt() == 1;
         encrypted = source.readInt() == 1;
         ownerId = source.readString();
         ownerDisplayName = source.readString();
@@ -228,6 +230,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeString(etagInConflict);
         dest.writeInt(sharedWithSharee ? 1 : 0);
         dest.writeInt(favorite ? 1 : 0);
+        dest.writeInt(hidden ? 1 : 0);
         dest.writeInt(encrypted ? 1 : 0);
         dest.writeString(ownerId);
         dest.writeString(ownerDisplayName);
@@ -505,12 +508,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         }
     }
 
-    public void setRemotePathV2(String name) {
-        this.remotePath = name;
-        this.decryptedRemotePath = name;
-        localUri = getStorageUri();
-    }
-
     /**
      * Used internally. Reset all file properties
      */
@@ -539,6 +536,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         etagInConflict = null;
         sharedWithSharee = false;
         favorite = false;
+        hidden = false;
         encrypted = false;
         mountType = WebdavEntry.MountType.INTERNAL;
         richWorkspace = "";
@@ -806,6 +804,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.favorite;
     }
 
+    public boolean getHidden() {
+        return this.hidden;
+    }
+
     public boolean isEncrypted() {
         return this.encrypted;
     }
@@ -916,6 +918,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 
     public void setEncrypted(boolean encrypted) {

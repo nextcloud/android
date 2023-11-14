@@ -79,6 +79,8 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_FAVORITE)
     val favorite: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_IS_ENCRYPTED)
+    val hidden: Int?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_HIDDEN)
     val isEncrypted: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_ETAG_IN_CONFLICT)
     val etagInConflict: String?,
