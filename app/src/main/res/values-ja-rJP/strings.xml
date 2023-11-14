@@ -14,10 +14,11 @@
     <string name="action_send_share">送信/共有</string>
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
-    <string name="actionbar_calendar_contacts_restore">連絡先とカレンダーを復元する</string>
+    <string name="actionbar_calendar_contacts_restore">連絡先とカレンダーを復元</string>
     <string name="actionbar_copy">コピー</string>
     <string name="actionbar_mkdir">新しいフォルダー</string>
     <string name="actionbar_move">移動</string>
+    <string name="actionbar_move_or_copy">移動またはコピー</string>
     <string name="actionbar_open_with">次で開く</string>
     <string name="actionbar_search">検索</string>
     <string name="actionbar_see_details">詳細</string>
@@ -30,12 +31,12 @@
     <string name="activity_chooser_send_file_title">送信</string>
     <string name="activity_chooser_title">リンク送信…</string>
     <string name="activity_icon">アクティビティ</string>
-    <string name="add_another_public_share_link">別のリンクを作成</string>
+    <string name="add_another_public_share_link">別のリンクを追加</string>
     <string name="add_new_public_share">新規公開共有リンクを追加</string>
     <string name="add_new_secure_file_drop">新しいセキュアなファイルドロップを追加</string>
     <string name="add_to_cloud">%1$s に追加</string>
     <string name="advanced_settings">高度な設定</string>
-    <string name="allow_resharing">再共有を許可</string>
+    <string name="allow_resharing">再共有を許可する</string>
     <string name="app_widget_description">ダッシュボードから一つのウィジェットを表示</string>
     <string name="appbar_search_in">%s の中を検索</string>
     <string name="associated_account_not_found">関連付けられたアカウントが見つかりません！</string>
@@ -45,7 +46,7 @@
     <string name="auth_account_not_the_same">入力されたユーザーはこのアカウントのユーザーと一致しません</string>
     <string name="auth_bad_oc_version_title">認識できないサーバーのバージョンです</string>
     <string name="auth_connection_established">接続が確立しました</string>
-    <string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返していない場合、管理者に連絡してください。</string>
+    <string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返していません。管理者に連絡してください。</string>
     <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_incorrect_address_title">サーバーアドレスの書式が違います</string>
     <string name="auth_incorrect_path_title">サーバーが見つかりません</string>
@@ -550,6 +551,7 @@
     <string name="permission_storage_access">ファイルをダウンロードとアップロードする追加の権限が必要です。</string>
     <string name="picture_set_as_no_app">画像を設定するアプリが見つかりませんでした</string>
     <string name="pin_home">ホームスクリーンにピン留めする</string>
+    <string name="pin_shortcut_label">%1$sを開く</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -591,6 +593,7 @@
     <string name="prefs_instant_behaviour_title">元のファイルになります…</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">日付を基にしたサブフォルダーに保存</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">サブフォルダーのオプション</string>
     <string name="prefs_keys_exist">このクライアントに End-to-End 暗号化を追加</string>
     <string name="prefs_license">ライセンス</string>
     <string name="prefs_lock">アプリパスコード</string>
@@ -603,6 +606,7 @@
     <string name="prefs_manage_accounts">アカウント管理</string>
     <string name="prefs_recommend">友達にすすめる</string>
     <string name="prefs_setup_e2e">end-to-end 暗号化を設定</string>
+    <string name="prefs_show_ecosystem_apps">アップスイッチャーを表示</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_sourcecode">ソースコードを入手</string>
     <string name="prefs_storage_path">データ保存フォルダー</string>
@@ -925,7 +929,9 @@
     <string name="wait_a_moment">少々お待ちください…</string>
     <string name="wait_checking_credentials">保存された資格情報をチェック</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
+    <string name="webview_version_check_alert_dialog_message">ログインするにはAndroidシステムのWebViewを更新してください</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">更新</string>
+    <string name="webview_version_check_alert_dialog_title">AndroidシステムのWebViewをアップデート</string>
     <string name="what_s_new_image">新しいイメージとは</string>
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>
