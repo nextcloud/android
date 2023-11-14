@@ -68,8 +68,8 @@ public class LegacyMigrationHelper {
         }
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void clearStorage() {
-        //noinspection ResultOfMethodCallIgnored
         context.getCacheDir().delete();
         ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE)).clearApplicationUserData();
     }
