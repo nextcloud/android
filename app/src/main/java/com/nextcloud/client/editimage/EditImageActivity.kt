@@ -20,7 +20,6 @@
  */
 package com.nextcloud.client.editimage
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -34,6 +33,9 @@ import androidx.core.graphics.drawable.DrawableCompat
 import com.canhub.cropper.CropImageView
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.hasNavBar
+import com.nextcloud.utils.extensions.navBarHeight
+import com.nextcloud.utils.extensions.shiftUp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityEditImageBinding
 import com.owncloud.android.datamodel.OCFile
@@ -102,40 +104,19 @@ class EditImageActivity :
 
         setupCropper()
 
-        if (hasNavigationBar()) {
+        if (resources.hasNavBar()) {
             shiftLayout()
         }
     }
 
     private fun shiftLayout() {
-        val navBarHeight: Float = getNavigationBarHeight().toFloat()
+        val navBarHeight: Float = resources.navBarHeight().toFloat()
 
         @Suppress("MagicNumber")
-        val imageShiftValue = binding.editButtonsLayout.height * 1.4f
+        val imageShiftValue = DisplayUtils.convertDpToPixel(60f, this).toFloat()
 
-        binding.cropImageView.post {
-            binding.cropImageView.translationY = -imageShiftValue
-        }
-        binding.editButtonsLayout.post {
-            binding.editButtonsLayout.translationY = -navBarHeight
-        }
-    }
-
-    @SuppressLint("DiscouragedApi")
-    private fun hasNavigationBar(): Boolean {
-        val id = resources.getIdentifier("config_showNavigationBar", "bool", "android")
-        return id > 0 && resources.getBoolean(id)
-    }
-
-    @SuppressLint("InternalInsetResource", "DiscouragedApi")
-    private fun getNavigationBarHeight(): Int {
-        val resourceId: Int = resources.getIdentifier("navigation_bar_height", "dimen", "android")
-
-        return if (resourceId > 0) {
-            resources.getDimensionPixelSize(resourceId)
-        } else {
-            0
-        }
+        binding.cropImageView.shiftUp(imageShiftValue)
+        binding.editButtonsLayout.shiftUp(navBarHeight)
     }
 
     override fun onCropImageComplete(view: CropImageView, result: CropImageView.CropResult) {
