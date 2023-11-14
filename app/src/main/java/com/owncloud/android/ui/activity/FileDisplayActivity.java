@@ -2557,6 +2557,7 @@ public class FileDisplayActivity extends FileActivity
     private Unit onFileRequestError(Throwable throwable) {
         dismissLoadingDialog();
         DisplayUtils.showSnackMessage(this, getString(R.string.error_retrieving_file));
+        Log_OC.e(TAG, "Requesting file from remote failed!", throwable);
         return null;
     }
 
