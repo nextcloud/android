@@ -702,9 +702,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
             sortOrder = preferences.getSortOrderByFolder(directory);
             mFiles = sortOrder.sortCloudFiles(mFiles);
+            mergeOCFilesForLivePhoto();
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
-            mergeOCFilesForLivePhoto();
             currentDirectory = directory;
         } else {
             mFiles.clear();
