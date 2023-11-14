@@ -34,6 +34,7 @@ import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.view.MenuItem
 import android.view.View
 import androidx.annotation.VisibleForTesting
@@ -76,7 +77,7 @@ class ManageAccountsActivity :
     ComponentsGetter,
     UserListAdapter.ClickListener {
 
-    private val handler = Handler()
+    private val handler = Handler(Looper.getMainLooper())
     private var accountName: String? = null
     private var userListAdapter: UserListAdapter? = null
     private var downloadServiceConnection: ServiceConnection? = null
@@ -137,6 +138,8 @@ class ManageAccountsActivity :
         binding.accountList.layoutManager = LinearLayoutManager(this)
     }
 
+    @Suppress("DEPRECATION")
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == KEY_DELETE_CODE && data != null) {
