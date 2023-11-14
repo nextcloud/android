@@ -36,7 +36,6 @@ import android.os.Handler
 import android.os.IBinder
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.FragmentManager
@@ -104,7 +103,6 @@ class ManageAccountsActivity :
 
         setupAccountList()
         initializeComponentGetters()
-        handleOnBackPressed()
     }
 
     private fun setupActionBar() {
@@ -154,26 +152,21 @@ class ManageAccountsActivity :
         }
     }
 
-    private fun handleOnBackPressed() {
-        onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    val resultIntent = Intent()
-                    if (accountManager.allUsers.size > 0) {
-                        resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged())
-                        resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged())
-                        setResult(RESULT_OK, resultIntent)
-                        onBackPressedDispatcher.onBackPressed()
-                    } else {
-                        val intent = Intent(applicationContext, AuthenticatorActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        startActivity(intent)
-                        finish()
-                    }
-                }
-            }
-        )
+    @Suppress("DEPRECATION")
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val resultIntent = Intent()
+        if (accountManager.allUsers.size > 0) {
+            resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged())
+            resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged())
+            setResult(RESULT_OK, resultIntent)
+            super.onBackPressed()
+        } else {
+            val intent = Intent(applicationContext, AuthenticatorActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+            finish()
+        }
     }
 
     /**
