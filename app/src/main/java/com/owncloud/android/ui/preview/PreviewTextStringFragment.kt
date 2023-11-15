@@ -19,138 +19,106 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.preview
 
-package com.owncloud.android.ui.preview;
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation
+import com.owncloud.android.R
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.utils.DisplayUtils
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
-import com.nextcloud.client.account.UserAccountManager;
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuItemCompat;
-
-public class PreviewTextStringFragment extends PreviewTextFragment {
-    private static final String EXTRA_FILE = "FILE";
-
-    @Inject UserAccountManager accountManager;
-    @Inject ViewThemeUtils viewThemeUtils;
-
-    /**
-     * Creates an empty fragment for previews.
-     */
-    public PreviewTextStringFragment() {
-        super();
-    }
+class PreviewTextStringFragment : PreviewTextFragment() {
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
 
-        setHasOptionsMenu(true);
-
-        Bundle args = getArguments();
-
-        if (args.containsKey(FileDisplayActivity.EXTRA_SEARCH_QUERY)) {
-            searchQuery = args.getString(FileDisplayActivity.EXTRA_SEARCH_QUERY);
-        }
-        searchOpen = args.getBoolean(FileDisplayActivity.EXTRA_SEARCH, false);
-
-        handler = new Handler();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putParcelable(PreviewTextStringFragment.EXTRA_FILE, getFile());
-
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-
-        if (view == null) {
-            throw new RuntimeException("View may not be null");
+        val args = arguments
+        if (args?.containsKey(FileDisplayActivity.EXTRA_SEARCH_QUERY) == true) {
+            searchQuery = args.getString(FileDisplayActivity.EXTRA_SEARCH_QUERY)!!
         }
 
-        FloatingActionButton fabMain = requireActivity().findViewById(R.id.fab_main);
-        fabMain.setVisibility(View.VISIBLE);
-        fabMain.setEnabled(true);
-        fabMain.setOnClickListener(v -> edit());
-
-        fabMain.setImageResource(R.drawable.ic_edit);
-        viewThemeUtils.material.themeFAB(fabMain);
-
-        return view;
+        searchOpen = requireArguments().getBoolean(FileDisplayActivity.EXTRA_SEARCH, false)
+        handler = Handler(Looper.getMainLooper())
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putParcelable(EXTRA_FILE, file)
+        super.onSaveInstanceState(outState)
+    }
 
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        menuItem.setVisible(true);
-        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        searchView.setOnQueryTextListener(this);
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        viewThemeUtils.androidx.themeToolbarSearchView(searchView);
+    @Suppress("TooGenericExceptionThrown")
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = super.onCreateView(inflater, container, savedInstanceState)
+            ?: throw RuntimeException("View may not be null")
+        val fabMain = requireActivity().findViewById<FloatingActionButton>(R.id.fab_main)
+        fabMain.visibility = View.VISIBLE
+        fabMain.isEnabled = true
+        fabMain.setOnClickListener { edit() }
+        fabMain.setImageResource(R.drawable.ic_edit)
+        viewThemeUtils?.material?.themeFAB(fabMain)
+        return view
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        val menuItem = menu.findItem(R.id.action_search)
+        menuItem.isVisible = true
+        searchView = MenuItemCompat.getActionView(menuItem) as SearchView
+        searchView?.setOnQueryTextListener(this)
+        searchView?.maxWidth = Int.MAX_VALUE
+        viewThemeUtils?.androidx?.themeToolbarSearchView(searchView!!)
         if (searchOpen) {
-            searchView.setIconified(false);
-            searchView.setQuery(searchQuery, true);
-            searchView.clearFocus();
+            searchView?.isIconified = false
+            searchView?.setQuery(searchQuery, true)
+            searchView?.clearFocus()
         }
     }
 
-    void loadAndShowTextPreview() {
-        originalText = getFile().getRichWorkspace();
-        setText(binding.textPreview, originalText, getFile(), requireActivity(), true, false, viewThemeUtils);
-
-        binding.textPreview.setVisibility(View.VISIBLE);
-        binding.emptyListProgress.setVisibility(View.GONE);
+    override fun loadAndShowTextPreview() {
+        originalText = file.richWorkspace
+        setText(binding!!.textPreview, originalText, file, requireActivity(), true, false, viewThemeUtils)
+        binding?.textPreview?.visibility = View.VISIBLE
+        binding?.emptyListProgress?.visibility = View.GONE
     }
 
-    private void edit() {
-        new Thread(() -> {
-            RemoteOperationResult result = new RichWorkspaceDirectEditingRemoteOperation(getFile().getRemotePath())
-                .execute(accountManager.getUser(), getContext());
-
-            if (result.isSuccess()) {
-                String url = (String) result.getSingleData();
-                containerActivity.getFileOperationsHelper().openRichWorkspaceWithTextEditor(getFile(),
-                                                                                            url,
-                                                                                            getContext());
+    private fun edit() {
+        Thread {
+            val result = RichWorkspaceDirectEditingRemoteOperation(file.remotePath)
+                .execute(accountManager?.user, context)
+            if (result.isSuccess) {
+                val url = result.singleData as String
+                containerActivity.fileOperationsHelper.openRichWorkspaceWithTextEditor(
+                    file,
+                    url,
+                    context
+                )
             } else {
-                DisplayUtils.showSnackMessage(getView(), "Error");
+                DisplayUtils.showSnackMessage(view, "Error")
             }
-        }).start();
-    }
+        }.start()
+    } // TODO on close clean search query
 
-    // TODO on close clean search query
+    companion object {
+        private const val EXTRA_FILE = "FILE"
+    }
 }
