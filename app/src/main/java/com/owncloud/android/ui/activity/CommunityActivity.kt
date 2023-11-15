@@ -44,49 +44,60 @@ class CommunityActivity : DrawerActivity() {
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_community))
 
         setupDrawer(R.id.nav_community)
-        setupContent()
+        binding.communityReleaseCandidateText.movementMethod = LinkMovementMethod.getInstance()
+        setupContributeForumView()
+        setupContributeTranslationView()
+        setupContributeGithubView()
+        setupReportButton()
+        setOnClickListeners()
     }
 
-    private fun setupContent() {
-        binding.communityReleaseCandidateText.movementMethod = LinkMovementMethod.getInstance()
+    private fun setupContributeForumView() {
         val contributeForumView = binding.communityContributeForumText
         contributeForumView.movementMethod = LinkMovementMethod.getInstance()
-        contributeForumView.text = HtmlCompat.fromHtml(
-            getString(R.string.community_contribute_forum_text) + " " +
-                getString(
-                    R.string.community_contribute_forum_text_link,
-                    viewThemeUtils.files
-                        .primaryColorToHexString(this),
-                    getString(R.string.help_link),
-                    getString(R.string.community_contribute_forum_forum)
-                ),
-            HtmlCompat.FROM_HTML_MODE_LEGACY
-        )
+        val htmlContent = getString(R.string.community_contribute_forum_text) + " " +
+            getString(
+                R.string.community_contribute_forum_text_link,
+                viewThemeUtils.files
+                    .primaryColorToHexString(this),
+                getString(R.string.help_link),
+                getString(R.string.community_contribute_forum_forum)
+            )
+        contributeForumView.text = HtmlCompat.fromHtml(htmlContent, HtmlCompat.FROM_HTML_MODE_LEGACY)
+    }
+
+    private fun setupContributeTranslationView() {
         val contributeTranslationView = binding.communityContributeTranslateText
         contributeTranslationView.movementMethod = LinkMovementMethod.getInstance()
-        contributeTranslationView.text = HtmlCompat.fromHtml(
-            getString(
-                R.string.community_contribute_translate_link,
-                viewThemeUtils.files.primaryColorToHexString(this),
-                getString(R.string.translation_link),
-                getString(R.string.community_contribute_translate_translate)
-            ) + " " +
-                getString(R.string.community_contribute_translate_text),
-            HtmlCompat.FROM_HTML_MODE_LEGACY
-        )
+        val htmlContent = getString(
+            R.string.community_contribute_translate_link,
+            viewThemeUtils.files.primaryColorToHexString(this),
+            getString(R.string.translation_link),
+            getString(R.string.community_contribute_translate_translate)
+        ) + " " +
+            getString(R.string.community_contribute_translate_text)
+
+        contributeTranslationView.text = HtmlCompat.fromHtml(htmlContent, HtmlCompat.FROM_HTML_MODE_LEGACY)
+    }
+
+    private fun setupContributeGithubView() {
         val contributeGithubView = binding.communityContributeGithubText
         contributeGithubView.movementMethod = LinkMovementMethod.getInstance()
-        contributeGithubView.text = HtmlCompat.fromHtml(
+        val htmlContent = getString(
+            R.string.community_contribute_github_text,
             getString(
-                R.string.community_contribute_github_text,
-                getString(
-                    R.string.community_contribute_github_text_link,
-                    viewThemeUtils.files.primaryColorToHexString(this),
-                    getString(R.string.contributing_link)
-                )
-            ),
+                R.string.community_contribute_github_text_link,
+                viewThemeUtils.files.primaryColorToHexString(this),
+                getString(R.string.contributing_link)
+            )
+        )
+        contributeGithubView.text = HtmlCompat.fromHtml(
+            htmlContent,
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
+    }
+
+    private fun setupReportButton() {
         val reportButton = binding.communityTestingReport
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(reportButton)
         reportButton.setOnClickListener {
@@ -95,6 +106,9 @@ class CommunityActivity : DrawerActivity() {
                 R.string.report_issue_empty_link
             )
         }
+    }
+
+    private fun setOnClickListeners() {
         binding.communityBetaFdroid.setOnClickListener {
             DisplayUtils.startLinkIntent(
                 this,
