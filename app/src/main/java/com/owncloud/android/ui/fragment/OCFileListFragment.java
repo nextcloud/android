@@ -463,8 +463,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 case FAVORITE_SEARCH -> currentSearchType = FAVORITE_SEARCH;
                 case RECENTLY_MODIFIED_SEARCH -> currentSearchType = RECENTLY_MODIFIED_SEARCH;
                 case SHARED_FILTER -> currentSearchType = SHARED_FILTER;
-                default -> {
-                }
+                default -> {}
             }
 
             prepareActionBarItems(event);
