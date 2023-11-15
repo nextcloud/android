@@ -19,110 +19,124 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.ui.activity
 
-import android.os.Bundle;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.view.MenuItem;
-import android.widget.TextView;
-
-import com.google.android.material.button.MaterialButton;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.CommunityLayoutBinding;
-import com.owncloud.android.utils.DisplayUtils;
+import android.os.Bundle
+import android.text.method.LinkMovementMethod
+import android.view.MenuItem
+import androidx.core.text.HtmlCompat
+import com.owncloud.android.R
+import com.owncloud.android.databinding.CommunityLayoutBinding
+import com.owncloud.android.utils.DisplayUtils
 
 /**
  * Activity providing information about ways to participate in the app's development.
  */
-public class CommunityActivity extends DrawerActivity {
+class CommunityActivity : DrawerActivity() {
+    private lateinit var binding: CommunityLayoutBinding
 
-    protected CommunityLayoutBinding binding;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = CommunityLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        setupToolbar()
+        updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_community))
 
-        binding = CommunityLayoutBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        // setup toolbar
-        setupToolbar();
-
-        updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_community));
-
-        // setup drawer
-        setupDrawer(R.id.nav_community);
-
-        setupContent();
+        setupDrawer(R.id.nav_community)
+        setupContent()
     }
 
-    protected void setupContent() {
-        binding.communityReleaseCandidateText.setMovementMethod(LinkMovementMethod.getInstance());
-
-        TextView contributeForumView = binding.communityContributeForumText;
-        contributeForumView.setMovementMethod(LinkMovementMethod.getInstance());
-        contributeForumView.setText(Html.fromHtml(getString(R.string.community_contribute_forum_text) + " " +
-                                                      getString(R.string.community_contribute_forum_text_link,
-                                                                viewThemeUtils
-                                                                    .files
-                                                                    .primaryColorToHexString(this),
-                                                                getString(R.string.help_link),
-                                                                getString(R.string.community_contribute_forum_forum))));
-
-        TextView contributeTranslationView = binding.communityContributeTranslateText;
-        contributeTranslationView.setMovementMethod(LinkMovementMethod.getInstance());
-        contributeTranslationView.setText(Html.fromHtml(
-            getString(R.string.community_contribute_translate_link,
-                      viewThemeUtils.files.primaryColorToHexString(this),
-                      getString(R.string.translation_link),
-                      getString(R.string.community_contribute_translate_translate)) + " " +
-                getString(R.string.community_contribute_translate_text)));
-
-        TextView contributeGithubView = binding.communityContributeGithubText;
-        contributeGithubView.setMovementMethod(LinkMovementMethod.getInstance());
-        contributeGithubView.setText(Html.fromHtml(
-            getString(R.string.community_contribute_github_text,
-                      getString(R.string.community_contribute_github_text_link,
-                                viewThemeUtils.files.primaryColorToHexString(this),
-                                getString(R.string.contributing_link)))));
-
-        MaterialButton reportButton = binding.communityTestingReport;
-        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(reportButton);
-        reportButton.setOnClickListener(v -> DisplayUtils.startLinkIntent(this, R.string.report_issue_empty_link));
-
-        binding.communityBetaFdroid.setOnClickListener(
-            l -> DisplayUtils.startLinkIntent(this, R.string.fdroid_beta_link));
-
-        binding.communityReleaseCandidateFdroid.setOnClickListener(
-            l -> DisplayUtils.startLinkIntent(this, R.string.fdroid_link));
-
-        binding.communityReleaseCandidatePlaystore.setOnClickListener(
-            l -> DisplayUtils.startLinkIntent(this, R.string.play_store_register_beta));
-
-        binding.communityBetaApk.setOnClickListener(
-            l -> DisplayUtils.startLinkIntent(this, R.string.beta_apk_link));
+    private fun setupContent() {
+        binding.communityReleaseCandidateText.movementMethod = LinkMovementMethod.getInstance()
+        val contributeForumView = binding.communityContributeForumText
+        contributeForumView.movementMethod = LinkMovementMethod.getInstance()
+        contributeForumView.text = HtmlCompat.fromHtml(
+            getString(R.string.community_contribute_forum_text) + " " +
+                getString(
+                    R.string.community_contribute_forum_text_link,
+                    viewThemeUtils.files
+                        .primaryColorToHexString(this),
+                    getString(R.string.help_link),
+                    getString(R.string.community_contribute_forum_forum)
+                ),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
+        val contributeTranslationView = binding.communityContributeTranslateText
+        contributeTranslationView.movementMethod = LinkMovementMethod.getInstance()
+        contributeTranslationView.text = HtmlCompat.fromHtml(
+            getString(
+                R.string.community_contribute_translate_link,
+                viewThemeUtils.files.primaryColorToHexString(this),
+                getString(R.string.translation_link),
+                getString(R.string.community_contribute_translate_translate)
+            ) + " " +
+                getString(R.string.community_contribute_translate_text),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
+        val contributeGithubView = binding.communityContributeGithubText
+        contributeGithubView.movementMethod = LinkMovementMethod.getInstance()
+        contributeGithubView.text = HtmlCompat.fromHtml(
+            getString(
+                R.string.community_contribute_github_text,
+                getString(
+                    R.string.community_contribute_github_text_link,
+                    viewThemeUtils.files.primaryColorToHexString(this),
+                    getString(R.string.contributing_link)
+                )
+            ),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
+        val reportButton = binding.communityTestingReport
+        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(reportButton)
+        reportButton.setOnClickListener {
+            DisplayUtils.startLinkIntent(
+                this,
+                R.string.report_issue_empty_link
+            )
+        }
+        binding.communityBetaFdroid.setOnClickListener {
+            DisplayUtils.startLinkIntent(
+                this,
+                R.string.fdroid_beta_link
+            )
+        }
+        binding.communityReleaseCandidateFdroid.setOnClickListener {
+            DisplayUtils.startLinkIntent(
+                this,
+                R.string.fdroid_link
+            )
+        }
+        binding.communityReleaseCandidatePlaystore.setOnClickListener {
+            DisplayUtils.startLinkIntent(
+                this,
+                R.string.play_store_register_beta
+            )
+        }
+        binding.communityBetaApk.setOnClickListener {
+            DisplayUtils.startLinkIntent(
+                this,
+                R.string.beta_apk_link
+            )
+        }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval = true;
-        if (item.getItemId() == android.R.id.home) {
-            if (isDrawerOpen()) {
-                closeDrawer();
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var retval = true
+        if (item.itemId == android.R.id.home) {
+            if (isDrawerOpen) {
+                closeDrawer()
             } else {
-                openDrawer();
+                openDrawer()
             }
         } else {
-            retval = super.onOptionsItemSelected(item);
+            retval = super.onOptionsItemSelected(item)
         }
-        return retval;
+        return retval
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        setDrawerMenuItemChecked(R.id.nav_community);
+    override fun onResume() {
+        super.onResume()
+        setDrawerMenuItemChecked(R.id.nav_community)
     }
 }
