@@ -14,244 +14,234 @@
  * You should have received a copy of the GNU General Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.activity
 
-package com.owncloud.android.ui.activity;
-
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Toast;
-
-import com.nextcloud.client.account.User;
-import com.nextcloud.java.util.Optional;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.files.services.NameCollisionPolicy;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
-import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision;
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener;
-import com.owncloud.android.utils.FileStorageUtils;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Toast
+import com.nextcloud.client.account.User
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.owncloud.android.R
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.db.OCUpload
+import com.owncloud.android.files.services.FileDownloader
+import com.owncloud.android.files.services.FileUploader
+import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
+import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.ui.dialog.ConflictsResolveDialog
+import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
+import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
+import com.owncloud.android.utils.FileStorageUtils
+import javax.inject.Inject
 
 /**
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external application.
  */
-public class ConflictsResolveActivity extends FileActivity implements OnConflictDecisionMadeListener {
-    /**
-     * A nullable upload entry that must be removed when and if the conflict is resolved.
-     */
-    public static final String EXTRA_CONFLICT_UPLOAD_ID = "CONFLICT_UPLOAD_ID";
-    /**
-     * Specify the upload local behaviour when there is no CONFLICT_UPLOAD.
-     */
-    public static final String EXTRA_LOCAL_BEHAVIOUR = "LOCAL_BEHAVIOUR";
-    public static final String EXTRA_EXISTING_FILE = "EXISTING_FILE";
+class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener {
 
-    private static final String TAG = ConflictsResolveActivity.class.getSimpleName();
+    @JvmField
+    @Inject
+    var uploadsStorageManager: UploadsStorageManager? = null
 
-    @Inject UploadsStorageManager uploadsStorageManager;
+    private var conflictUploadId: Long = 0
+    private var existingFile: OCFile? = null
+    private var newFile: OCFile? = null
+    private var localBehaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET
 
-    private long conflictUploadId;
-    private OCFile existingFile;
-    private OCFile newFile;
-    private int localBehaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
-    protected OnConflictDecisionMadeListener listener;
+    @JvmField
+    var listener: OnConflictDecisionMadeListener? = null
 
-    public static Intent createIntent(OCFile file,
-                                      User user,
-                                      long conflictUploadId,
-                                      Integer flag,
-                                      Context context) {
-        Intent intent = new Intent(context, ConflictsResolveActivity.class);
-        if (flag != null) {
-            intent.setFlags(intent.getFlags() | flag);
-        }
-        intent.putExtra(EXTRA_FILE, file);
-        intent.putExtra(EXTRA_USER, user);
-        intent.putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        return intent;
-    }
+        getArguments(savedInstanceState)
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            conflictUploadId = savedInstanceState.getLong(EXTRA_CONFLICT_UPLOAD_ID);
-            existingFile = savedInstanceState.getParcelable(EXTRA_EXISTING_FILE);
-            localBehaviour = savedInstanceState.getInt(EXTRA_LOCAL_BEHAVIOUR);
-        } else {
-            conflictUploadId = getIntent().getLongExtra(EXTRA_CONFLICT_UPLOAD_ID, -1);
-            existingFile = getIntent().getParcelableExtra(EXTRA_EXISTING_FILE);
-            localBehaviour = getIntent().getIntExtra(EXTRA_LOCAL_BEHAVIOUR, localBehaviour);
-        }
-
-        OCUpload upload = uploadsStorageManager.getUploadById(conflictUploadId);
-
+        val upload = uploadsStorageManager?.getUploadById(conflictUploadId)
         if (upload != null) {
-            localBehaviour = upload.getLocalAction();
+            localBehaviour = upload.localAction
         }
 
         // new file was modified locally in file system
-        newFile = getFile();
+        newFile = file
+        setupOnConflictDecisionMadeListener(upload)
+    }
 
-        listener = decision -> {
-            OCFile file = newFile; // local file got changed, so either upload it or replace it again by server
+    private fun getArguments(savedInstanceState: Bundle?) {
+        if (savedInstanceState != null) {
+            conflictUploadId = savedInstanceState.getLong(EXTRA_CONFLICT_UPLOAD_ID)
+            existingFile = savedInstanceState.getParcelableArgument(EXTRA_EXISTING_FILE, OCFile::class.java)
+            localBehaviour = savedInstanceState.getInt(EXTRA_LOCAL_BEHAVIOUR)
+        } else {
+            conflictUploadId = intent.getLongExtra(EXTRA_CONFLICT_UPLOAD_ID, -1)
+            existingFile = intent.getParcelableExtra(EXTRA_EXISTING_FILE)
+            localBehaviour = intent.getIntExtra(EXTRA_LOCAL_BEHAVIOUR, localBehaviour)
+        }
+    }
+
+    private fun setupOnConflictDecisionMadeListener(upload: OCUpload?) {
+        listener = OnConflictDecisionMadeListener { decision: Decision? ->
+            val file = newFile // local file got changed, so either upload it or replace it again by server
             // version
-            User user = getUser().orElseThrow(RuntimeException::new);
-            switch (decision) {
-                case CANCEL:
-                    // nothing to do
-                    break;
-                case KEEP_LOCAL: // Upload
+            val user = user.orElseThrow { RuntimeException() }
+            when (decision) {
+                Decision.CANCEL -> {}
+                Decision.KEEP_LOCAL -> {
                     FileUploader.uploadUpdateFile(
-                        getBaseContext(),
+                        baseContext,
                         user,
                         file,
                         localBehaviour,
                         NameCollisionPolicy.OVERWRITE
-                                                 );
+                    )
+                    uploadsStorageManager!!.removeUpload(upload)
+                }
 
-                    uploadsStorageManager.removeUpload(upload);
-                    break;
-                case KEEP_BOTH: // Upload
+                Decision.KEEP_BOTH -> {
                     FileUploader.uploadUpdateFile(
-                        getBaseContext(),
+                        baseContext,
                         user,
                         file,
                         localBehaviour,
                         NameCollisionPolicy.RENAME
-                                                 );
-
-                    uploadsStorageManager.removeUpload(upload);
-                    break;
-                case KEEP_SERVER: // Download
-                    if (!shouldDeleteLocal()) {
-                        // Overwrite local file
-                        Intent intent = new Intent(getBaseContext(), FileDownloader.class);
-                        intent.putExtra(FileDownloader.EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
-                        intent.putExtra(FileDownloader.EXTRA_FILE, file);
-                        intent.putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId);
-                        startService(intent);
-                    } else {
-                        uploadsStorageManager.removeUpload(upload);
-                    }
-                    break;
-            }
-
-            finish();
-        };
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putLong(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId);
-        outState.putParcelable(EXTRA_EXISTING_FILE, existingFile);
-        outState.putInt(EXTRA_LOCAL_BEHAVIOUR, localBehaviour);
-    }
-
-    @Override
-    public void conflictDecisionMade(Decision decision) {
-        listener.conflictDecisionMade(decision);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (getAccount() == null) {
-            finish();
-            return;
-        }
-
-        if (newFile == null) {
-            Log_OC.e(TAG, "No file received");
-            finish();
-            return;
-        }
-
-        if (existingFile == null) {
-            // fetch info of existing file from server
-            ReadFileRemoteOperation operation = new ReadFileRemoteOperation(newFile.getRemotePath());
-
-            new Thread(() -> {
-                try {
-                    RemoteOperationResult result = operation.execute(getAccount(), this);
-
-                    if (result.isSuccess()) {
-                        existingFile = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
-                        existingFile.setLastSyncDateForProperties(System.currentTimeMillis());
-
-                        startDialog();
-                    } else {
-                        Log_OC.e(TAG, "ReadFileRemoteOp returned failure with code: " + result.getHttpCode());
-                        showErrorAndFinish();
-                    }
-                } catch (Exception e) {
-                    Log_OC.e(TAG, "Error when trying to fetch remote file", e);
-                    showErrorAndFinish();
+                    )
+                    uploadsStorageManager!!.removeUpload(upload)
                 }
 
+                Decision.KEEP_SERVER -> if (!shouldDeleteLocal()) {
+                    // Overwrite local file
+                    val intent = Intent(baseContext, FileDownloader::class.java)
+                    intent.putExtra(FileDownloader.EXTRA_USER, getUser().orElseThrow { RuntimeException() })
+                    intent.putExtra(FileDownloader.EXTRA_FILE, file)
+                    intent.putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
+                    startService(intent)
+                } else {
+                    uploadsStorageManager!!.removeUpload(upload)
+                }
 
-            }).start();
-        } else {
-            startDialog();
+                else -> {}
+            }
+            finish()
         }
     }
 
-    private void startDialog() {
-        Optional<User> userOptional = getUser();
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putLong(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
+        outState.putParcelable(EXTRA_EXISTING_FILE, existingFile)
+        outState.putInt(EXTRA_LOCAL_BEHAVIOUR, localBehaviour)
+    }
 
-        if (!userOptional.isPresent()) {
-            Log_OC.e(TAG, "User not present");
-            showErrorAndFinish();
+    override fun conflictDecisionMade(decision: Decision) {
+        listener?.conflictDecisionMade(decision)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (account == null) {
+            finish()
+            return
+        }
+        if (newFile == null) {
+            Log_OC.e(TAG, "No file received")
+            finish()
+            return
+        }
+        if (existingFile == null) {
+            // fetch info of existing file from server
+            val operation = ReadFileRemoteOperation(newFile!!.remotePath)
+            Thread {
+                try {
+                    val result = operation.execute(account, this)
+                    if (result.isSuccess) {
+                        existingFile = FileStorageUtils.fillOCFile(result.data[0] as RemoteFile)
+                        existingFile?.lastSyncDateForProperties = System.currentTimeMillis()
+                        startDialog()
+                    } else {
+                        Log_OC.e(TAG, "ReadFileRemoteOp returned failure with code: " + result.httpCode)
+                        showErrorAndFinish()
+                    }
+                } catch (e: Exception) {
+                    Log_OC.e(TAG, "Error when trying to fetch remote file", e)
+                    showErrorAndFinish()
+                }
+            }.start()
+        } else {
+            startDialog()
+        }
+    }
+
+    private fun startDialog() {
+        val userOptional = user
+        if (!userOptional.isPresent) {
+            Log_OC.e(TAG, "User not present")
+            showErrorAndFinish()
         }
 
         // Check whether the file is contained in the current Account
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("conflictDialog");
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        val prev = supportFragmentManager.findFragmentByTag("conflictDialog")
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
         if (prev != null) {
-            fragmentTransaction.remove(prev);
+            fragmentTransaction.remove(prev)
         }
-
-        if (existingFile != null && getStorageManager().fileExists(newFile.getRemotePath())) {
-            ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
-                                                                               newFile,
-                                                                               userOptional.get());
-            dialog.show(fragmentTransaction, "conflictDialog");
+        if (existingFile != null && storageManager.fileExists(newFile!!.remotePath)) {
+            val dialog = ConflictsResolveDialog.newInstance(
+                existingFile,
+                newFile,
+                userOptional.get()
+            )
+            dialog.show(fragmentTransaction, "conflictDialog")
         } else {
             // Account was changed to a different one - just finish
-            Log_OC.e(TAG, "Account was changed, finishing");
-            showErrorAndFinish();
+            Log_OC.e(TAG, "Account was changed, finishing")
+            showErrorAndFinish()
         }
     }
 
-    private void showErrorAndFinish() {
-        runOnUiThread(() -> Toast.makeText(this, R.string.conflict_dialog_error, Toast.LENGTH_LONG).show());
-        finish();
+    private fun showErrorAndFinish() {
+        runOnUiThread { Toast.makeText(this, R.string.conflict_dialog_error, Toast.LENGTH_LONG).show() }
+        finish()
     }
 
     /**
      * @return whether the local version of the files is to be deleted.
      */
-    private boolean shouldDeleteLocal() {
-        return localBehaviour == FileUploader.LOCAL_BEHAVIOUR_DELETE;
+    private fun shouldDeleteLocal(): Boolean {
+        return localBehaviour == FileUploader.LOCAL_BEHAVIOUR_DELETE
+    }
+
+    companion object {
+        /**
+         * A nullable upload entry that must be removed when and if the conflict is resolved.
+         */
+        const val EXTRA_CONFLICT_UPLOAD_ID = "CONFLICT_UPLOAD_ID"
+
+        /**
+         * Specify the upload local behaviour when there is no CONFLICT_UPLOAD.
+         */
+        const val EXTRA_LOCAL_BEHAVIOUR = "LOCAL_BEHAVIOUR"
+        const val EXTRA_EXISTING_FILE = "EXISTING_FILE"
+        private val TAG = ConflictsResolveActivity::class.java.simpleName
+
+        @JvmStatic
+        fun createIntent(
+            file: OCFile?,
+            user: User?,
+            conflictUploadId: Long,
+            flag: Int?,
+            context: Context?
+        ): Intent {
+            val intent = Intent(context, ConflictsResolveActivity::class.java)
+            if (flag != null) {
+                intent.flags = intent.flags or flag
+            }
+            intent.putExtra(EXTRA_FILE, file)
+            intent.putExtra(EXTRA_USER, user)
+            intent.putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
+            return intent
+        }
     }
 }
