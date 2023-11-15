@@ -21,353 +21,356 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.activity
 
-package com.owncloud.android.ui.activity;
-
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
-import com.google.android.material.snackbar.Snackbar;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.jobs.NotificationWork;
-import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.java.util.Optional;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.NotificationsLayoutBinding;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.notifications.GetNotificationsRemoteOperation;
-import com.owncloud.android.lib.resources.notifications.models.Notification;
-import com.owncloud.android.ui.adapter.NotificationListAdapter;
-import com.owncloud.android.ui.asynctasks.DeleteAllNotificationsTask;
-import com.owncloud.android.ui.notifications.NotificationsContract;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.PushUtils;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
-import androidx.annotation.VisibleForTesting;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import androidx.annotation.VisibleForTesting
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.jobs.NotificationWork
+import com.nextcloud.client.network.ClientFactory.CreationException
+import com.nextcloud.java.util.Optional
+import com.owncloud.android.R
+import com.owncloud.android.databinding.NotificationsLayoutBinding
+import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
+import com.owncloud.android.lib.common.OwnCloudClient
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.notifications.GetNotificationsRemoteOperation
+import com.owncloud.android.lib.resources.notifications.models.Notification
+import com.owncloud.android.ui.adapter.NotificationListAdapter
+import com.owncloud.android.ui.adapter.NotificationListAdapter.NotificationViewHolder
+import com.owncloud.android.ui.asynctasks.DeleteAllNotificationsTask
+import com.owncloud.android.ui.notifications.NotificationsContract
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.PushUtils
 
 /**
  * Activity displaying all server side stored notification items.
  */
-public class NotificationsActivity extends DrawerActivity implements NotificationsContract.View {
+class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
 
-    private static final String TAG = NotificationsActivity.class.getSimpleName();
+    private lateinit var binding: NotificationsLayoutBinding
 
-    private NotificationsLayoutBinding binding;
-    private NotificationListAdapter adapter;
-    private Snackbar snackbar;
-    private OwnCloudClient client;
-    private Optional<User> optionalUser;
+    private var adapter: NotificationListAdapter? = null
+    private var snackbar: Snackbar? = null
+    private var client: OwnCloudClient? = null
+    private var optionalUser: Optional<User>? = null
 
-    @Inject ClientFactory clientFactory;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        Log_OC.v(TAG, "onCreate() start")
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Log_OC.v(TAG, "onCreate() start");
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState)
 
-        binding = NotificationsLayoutBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        binding = NotificationsLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        optionalUser = getUser();
+        optionalUser = user
 
-        // use account from intent (opened via android notification can have a different account than current one)
-        if (getIntent() != null && getIntent().getExtras() != null) {
-            String accountName = getIntent().getExtras().getString(NotificationWork.KEY_NOTIFICATION_ACCOUNT);
-            if (accountName != null && optionalUser.isPresent()) {
-                User user = optionalUser.get();
-                if (user.getAccountName().equalsIgnoreCase(accountName)) {
-                    accountManager.setCurrentOwnCloudAccount(accountName);
-                    setUser(getUserAccountManager().getUser());
-                    optionalUser = getUser();
-                }
+        intent?.let {
+            it.extras?.let { bundle ->
+                setupUser(bundle)
             }
         }
 
-        // setup toolbar
-        setupToolbar();
+        setupToolbar()
+        updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_notifications))
+        setupDrawer(R.id.nav_notifications)
 
-        updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_notifications));
-
-        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList);
-        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingEmpty);
-
-        // setup drawer
-        setupDrawer(R.id.nav_notifications);
-
-        if (!optionalUser.isPresent()) {
-            // show error
-            runOnUiThread(() -> setEmptyContent(
-                              getString(R.string.notifications_no_results_headline),
-                              getString(R.string.account_not_found))
-                         );
-            return;
+        if (optionalUser?.isPresent == false) {
+            showError()
         }
 
-        binding.swipeContainingList.setOnRefreshListener(() -> {
-            setLoadingMessage();
-            binding.swipeContainingList.setRefreshing(true);
-            fetchAndSetData();
-        });
-
-        binding.swipeContainingEmpty.setOnRefreshListener(() -> {
-            setLoadingMessageEmpty();
-            fetchAndSetData();
-        });
-
-        setupPushWarning();
-        setupContent();
+        setupContainingList()
+        setupPushWarning()
+        setupContent()
     }
 
-    private void setupPushWarning() {
-        if (!getResources().getBoolean(R.bool.show_push_warning)) {
-            return;
+    private fun setupContainingList() {
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList)
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingEmpty)
+        binding.swipeContainingList.setOnRefreshListener {
+            setLoadingMessage()
+            binding.swipeContainingList.isRefreshing = true
+            fetchAndSetData()
         }
+        binding.swipeContainingEmpty.setOnRefreshListener {
+            setLoadingMessageEmpty()
+            fetchAndSetData()
+        }
+    }
+
+    private fun setupUser(bundle: Bundle) {
+        val accountName = bundle.getString(NotificationWork.KEY_NOTIFICATION_ACCOUNT)
+
+        if (accountName != null && optionalUser?.isPresent == true) {
+            val user = optionalUser?.get()
+            if (user?.accountName.equals(accountName, ignoreCase = true)) {
+                accountManager.setCurrentOwnCloudAccount(accountName)
+                setUser(userAccountManager.user)
+                optionalUser = getUser()
+            }
+        }
+    }
+
+    private fun showError() {
+        runOnUiThread {
+            setEmptyContent(
+                getString(R.string.notifications_no_results_headline),
+                getString(R.string.account_not_found)
+            )
+        }
+        return
+    }
+
+    private fun setupPushWarning() {
+        if (!resources.getBoolean(R.bool.show_push_warning)) {
+            return
+        }
+
         if (snackbar != null) {
-            if (!snackbar.isShown()) {
-                snackbar.show();
+            if (snackbar?.isShown == false) {
+                snackbar?.show()
             }
         } else {
-            String pushUrl = getResources().getString(R.string.push_server_url);
-
+            val pushUrl = resources.getString(R.string.push_server_url)
             if (pushUrl.isEmpty()) {
-                snackbar = Snackbar.make(binding.emptyList.emptyListView,
-                                         R.string.push_notifications_not_implemented,
-                                         Snackbar.LENGTH_INDEFINITE);
+                snackbar = Snackbar.make(
+                    binding.emptyList.emptyListView,
+                    R.string.push_notifications_not_implemented,
+                    Snackbar.LENGTH_INDEFINITE
+                )
             } else {
-                final ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
-                final String accountName = optionalUser.isPresent() ? optionalUser.get().getAccountName() : "";
-                final boolean usesOldLogin = arbitraryDataProvider.getBooleanValue(accountName,
-                                                                                   UserAccountManager.ACCOUNT_USES_STANDARD_PASSWORD);
+                val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(this)
+                val accountName: String = if (optionalUser?.isPresent == true) {
+                    optionalUser?.get()?.accountName ?: ""
+                } else {
+                    ""
+                }
+                val usesOldLogin = arbitraryDataProvider.getBooleanValue(
+                    accountName,
+                    UserAccountManager.ACCOUNT_USES_STANDARD_PASSWORD
+                )
 
                 if (usesOldLogin) {
-                    snackbar = Snackbar.make(binding.emptyList.emptyListView,
-                                             R.string.push_notifications_old_login,
-                                             Snackbar.LENGTH_INDEFINITE);
+                    snackbar = Snackbar.make(
+                        binding.emptyList.emptyListView,
+                        R.string.push_notifications_old_login,
+                        Snackbar.LENGTH_INDEFINITE
+                    )
                 } else {
-                    String pushValue = arbitraryDataProvider.getValue(accountName, PushUtils.KEY_PUSH);
-
-                    if (pushValue == null || pushValue.isEmpty()) {
-                        snackbar = Snackbar.make(binding.emptyList.emptyListView,
-                                                 R.string.push_notifications_temp_error,
-                                                 Snackbar.LENGTH_INDEFINITE);
+                    val pushValue = arbitraryDataProvider.getValue(accountName, PushUtils.KEY_PUSH)
+                    if (pushValue.isEmpty()) {
+                        snackbar = Snackbar.make(
+                            binding.emptyList.emptyListView,
+                            R.string.push_notifications_temp_error,
+                            Snackbar.LENGTH_INDEFINITE
+                        )
                     }
                 }
             }
 
-            if (snackbar != null && !snackbar.isShown()) {
-                snackbar.show();
+            if (snackbar != null && snackbar?.isShown == false) {
+                snackbar?.show()
             }
         }
     }
 
-    @Override
-    public void openDrawer() {
-        super.openDrawer();
-
-        if (snackbar != null && snackbar.isShown()) {
-            snackbar.dismiss();
+    override fun openDrawer() {
+        super.openDrawer()
+        if (snackbar != null && snackbar?.isShown == true) {
+            snackbar?.dismiss()
         }
     }
 
-    @Override
-    public void closeDrawer() {
-        super.closeDrawer();
-
-        setupPushWarning();
+    override fun closeDrawer() {
+        super.closeDrawer()
+        setupPushWarning()
     }
 
     /**
      * sets up the UI elements and loads all notification items.
      */
-    private void setupContent() {
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_notification);
-        setLoadingMessageEmpty();
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-
-        binding.list.setLayoutManager(layoutManager);
-
-        fetchAndSetData();
+    private fun setupContent() {
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_notification)
+        setLoadingMessageEmpty()
+        val layoutManager = LinearLayoutManager(this)
+        binding.list.layoutManager = layoutManager
+        fetchAndSetData()
     }
 
     @VisibleForTesting
-    public void populateList(List<Notification> notifications) {
-        initializeAdapter();
-        adapter.setNotificationItems(notifications);
-        binding.loadingContent.setVisibility(View.GONE);
+    fun populateList(notifications: List<Notification>?) {
+        initializeAdapter()
+        adapter?.setNotificationItems(notifications)
+        binding.loadingContent.visibility = View.GONE
 
-        if (notifications.size() > 0) {
-            binding.swipeContainingEmpty.setVisibility(View.GONE);
-            binding.swipeContainingList.setVisibility(View.VISIBLE);
+        if (notifications?.isNotEmpty() == true) {
+            binding.swipeContainingEmpty.visibility = View.GONE
+            binding.swipeContainingList.visibility = View.VISIBLE
         } else {
             setEmptyContent(
                 getString(R.string.notifications_no_results_headline),
                 getString(R.string.notifications_no_results_message)
-                           );
-            binding.swipeContainingList.setVisibility(View.GONE);
-            binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
+            )
+            binding.swipeContainingList.visibility = View.GONE
+            binding.swipeContainingEmpty.visibility = View.VISIBLE
         }
     }
 
-    private void fetchAndSetData() {
-        Thread t = new Thread(() -> {
-            initializeAdapter();
-
-            GetNotificationsRemoteOperation getRemoteNotificationOperation = new GetNotificationsRemoteOperation();
-            final RemoteOperationResult<List<Notification>> result = getRemoteNotificationOperation.execute(client);
-
-            if (result.isSuccess() && result.getResultData() != null) {
-                runOnUiThread(() -> populateList(result.getResultData()));
+    private fun fetchAndSetData() {
+        val t = Thread {
+            initializeAdapter()
+            val getRemoteNotificationOperation = GetNotificationsRemoteOperation()
+            val result = getRemoteNotificationOperation.execute(client)
+            if (result.isSuccess && result.resultData != null) {
+                runOnUiThread { populateList(result.resultData) }
             } else {
-                Log_OC.d(TAG, result.getLogMessage());
+                Log_OC.d(TAG, result.logMessage)
                 // show error
-                runOnUiThread(() -> setEmptyContent(getString(R.string.notifications_no_results_headline), result.getLogMessage()));
+                runOnUiThread {
+                    setEmptyContent(
+                        getString(R.string.notifications_no_results_headline),
+                        result.logMessage
+                    )
+                }
             }
-
-            hideRefreshLayoutLoader();
-        });
-
-        t.start();
+            hideRefreshLayoutLoader()
+        }
+        t.start()
     }
 
-    private void initializeClient() {
-        if (client == null && optionalUser.isPresent()) {
+    private fun initializeClient() {
+        if (client == null && optionalUser?.isPresent == true) {
             try {
-                User user = optionalUser.get();
-                client = clientFactory.create(user);
-            } catch (ClientFactory.CreationException e) {
-                Log_OC.e(TAG, "Error initializing client", e);
+                val user = optionalUser?.get()
+                client = clientFactory.create(user)
+            } catch (e: CreationException) {
+                Log_OC.e(TAG, "Error initializing client", e)
             }
         }
     }
 
-    private void initializeAdapter() {
-        initializeClient();
+    private fun initializeAdapter() {
+        initializeClient()
         if (adapter == null) {
-            adapter = new NotificationListAdapter(client, this, viewThemeUtils);
-            binding.list.setAdapter(adapter);
+            adapter = NotificationListAdapter(client, this, viewThemeUtils)
+            binding.list.adapter = adapter
         }
     }
 
-    private void hideRefreshLayoutLoader() {
-        runOnUiThread(() -> {
-            binding.swipeContainingList.setRefreshing(false);
-            binding.swipeContainingEmpty.setRefreshing(false);
-        });
+    private fun hideRefreshLayoutLoader() {
+        runOnUiThread {
+            binding.swipeContainingList.isRefreshing = false
+            binding.swipeContainingEmpty.isRefreshing = false
+        }
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_notifications, menu);
-
-        return true;
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.activity_notifications, menu)
+        return true
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval = true;
-
-        int itemId = item.getItemId();
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var retval = true
+        val itemId = item.itemId
         if (itemId == android.R.id.home) {
-            if (isDrawerOpen()) {
-                closeDrawer();
+            if (isDrawerOpen) {
+                closeDrawer()
             } else {
-                openDrawer();
+                openDrawer()
             }
         } else if (itemId == R.id.action_empty_notifications) {
-            new DeleteAllNotificationsTask(client, this).execute();
+            DeleteAllNotificationsTask(client, this).execute()
         } else {
-            retval = super.onOptionsItemSelected(item);
+            retval = super.onOptionsItemSelected(item)
         }
-
-        return retval;
+        return retval
     }
 
-    private void setLoadingMessage() {
-        binding.swipeContainingEmpty.setVisibility(View.GONE);
-    }
-
-    @VisibleForTesting
-    public void setLoadingMessageEmpty() {
-        binding.swipeContainingList.setVisibility(View.GONE);
-        binding.emptyList.emptyListView.setVisibility(View.GONE);
-        binding.loadingContent.setVisibility(View.VISIBLE);
+    private fun setLoadingMessage() {
+        binding.swipeContainingEmpty.visibility = View.GONE
     }
 
     @VisibleForTesting
-    public void setEmptyContent(String headline, String message) {
-        binding.swipeContainingList.setVisibility(View.GONE);
-        binding.loadingContent.setVisibility(View.GONE);
-        binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
-
-        binding.emptyList.emptyListViewHeadline.setText(headline);
-        binding.emptyList.emptyListViewText.setText(message);
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_notification);
-
-        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
+    fun setLoadingMessageEmpty() {
+        binding.swipeContainingList.visibility = View.GONE
+        binding.emptyList.emptyListView.visibility = View.GONE
+        binding.loadingContent.visibility = View.VISIBLE
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setDrawerMenuItemChecked(R.id.nav_notifications);
+    @VisibleForTesting
+    fun setEmptyContent(headline: String?, message: String?) {
+        binding.swipeContainingList.visibility = View.GONE
+        binding.loadingContent.visibility = View.GONE
+        binding.swipeContainingEmpty.visibility = View.VISIBLE
+        binding.emptyList.emptyListView.visibility = View.VISIBLE
+        binding.emptyList.emptyListViewHeadline.text = headline
+        binding.emptyList.emptyListViewText.text = message
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_notification)
+        binding.emptyList.emptyListViewText.visibility = View.VISIBLE
+        binding.emptyList.emptyListIcon.visibility = View.VISIBLE
     }
 
-    @Override
-    public void onRemovedNotification(boolean isSuccess) {
+    override fun onResume() {
+        super.onResume()
+        setDrawerMenuItemChecked(R.id.nav_notifications)
+    }
+
+    override fun onRemovedNotification(isSuccess: Boolean) {
         if (!isSuccess) {
-            DisplayUtils.showSnackMessage(this, getString(R.string.remove_notification_failed));
-            fetchAndSetData();
+            DisplayUtils.showSnackMessage(this, getString(R.string.remove_notification_failed))
+            fetchAndSetData()
         }
     }
 
-    @Override
-    public void removeNotification(NotificationListAdapter.NotificationViewHolder holder) {
-        adapter.removeNotification(holder);
-
-        if (adapter.getItemCount() == 0) {
-            setEmptyContent(getString(R.string.notifications_no_results_headline), getString(R.string.notifications_no_results_message));
-            binding.swipeContainingList.setVisibility(View.GONE);
-            binding.loadingContent.setVisibility(View.GONE);
-            binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
+    override fun removeNotification(holder: NotificationViewHolder) {
+        adapter?.removeNotification(holder)
+        if (adapter?.itemCount == 0) {
+            setEmptyContent(
+                getString(R.string.notifications_no_results_headline),
+                getString(R.string.notifications_no_results_message)
+            )
+            binding.swipeContainingList.visibility = View.GONE
+            binding.loadingContent.visibility = View.GONE
+            binding.swipeContainingEmpty.visibility = View.VISIBLE
         }
     }
 
-    @Override
-    public void onRemovedAllNotifications(boolean isSuccess) {
+    override fun onRemovedAllNotifications(isSuccess: Boolean) {
         if (isSuccess) {
-            adapter.removeAllNotifications();
-            setEmptyContent(getString(R.string.notifications_no_results_headline), getString(R.string.notifications_no_results_message));
-            binding.loadingContent.setVisibility(View.GONE);
-            binding.swipeContainingList.setVisibility(View.GONE);
-            binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
+            adapter?.removeAllNotifications()
+            setEmptyContent(
+                getString(R.string.notifications_no_results_headline),
+                getString(R.string.notifications_no_results_message)
+            )
+            binding.loadingContent.visibility = View.GONE
+            binding.swipeContainingList.visibility = View.GONE
+            binding.swipeContainingEmpty.visibility = View.VISIBLE
         } else {
-            DisplayUtils.showSnackMessage(this, getString(R.string.clear_notifications_failed));
+            DisplayUtils.showSnackMessage(this, getString(R.string.clear_notifications_failed))
         }
     }
 
-    @Override
-    public void onActionCallback(boolean isSuccess,
-                                 Notification notification,
-                                 NotificationListAdapter.NotificationViewHolder holder) {
+    override fun onActionCallback(
+        isSuccess: Boolean,
+        notification: Notification,
+        holder: NotificationViewHolder
+    ) {
         if (isSuccess) {
-            adapter.removeNotification(holder);
+            adapter?.removeNotification(holder)
         } else {
-            adapter.setButtons(holder, notification);
-            DisplayUtils.showSnackMessage(this, getString(R.string.notification_action_failed));
+            adapter?.setButtons(holder, notification)
+            DisplayUtils.showSnackMessage(this, getString(R.string.notification_action_failed))
         }
+    }
+
+    companion object {
+        private val TAG = NotificationsActivity::class.java.simpleName
     }
 }
