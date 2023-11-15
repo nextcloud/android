@@ -18,40 +18,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.activity
 
-package com.owncloud.android.ui.activity;
-
-import android.os.Bundle;
-import android.view.View;
-
-import com.owncloud.android.R;
-import com.owncloud.android.ui.fragment.OCFileListFragment;
-
-import androidx.fragment.app.FragmentTransaction;
+import android.os.Bundle
+import com.owncloud.android.R
+import com.owncloud.android.ui.fragment.OCFileListFragment
 
 /**
  * File picker of remote files
  */
-public class FilePickerActivity extends FolderPickerActivity {
+class FilePickerActivity : FolderPickerActivity() {
 
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-    }
-
-    @Override
-    protected void createFragments() {
-        OCFileListFragment listOfFiles = new OCFileListFragment();
-        Bundle args = new Bundle();
-        args.putBoolean(OCFileListFragment.ARG_ONLY_FOLDERS_CLICKABLE, true);
-        args.putBoolean(OCFileListFragment.ARG_HIDE_FAB, true);
-        args.putBoolean(OCFileListFragment.ARG_HIDE_ITEM_OPTIONS, true);
-        args.putBoolean(OCFileListFragment.ARG_SEARCH_ONLY_FOLDER, false);
-        args.putBoolean(OCFileListFragment.ARG_FILE_SELECTABLE, true);
-        args.putString(OCFileListFragment.ARG_MIMETYPE, getIntent().getStringExtra(OCFileListFragment.ARG_MIMETYPE));
-        listOfFiles.setArguments(args);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fragment_container, listOfFiles, TAG_LIST_OF_FOLDERS);
-        transaction.commit();
+    override fun createFragments() {
+        val listOfFiles = OCFileListFragment()
+        val args = Bundle()
+        args.putBoolean(OCFileListFragment.ARG_ONLY_FOLDERS_CLICKABLE, true)
+        args.putBoolean(OCFileListFragment.ARG_HIDE_FAB, true)
+        args.putBoolean(OCFileListFragment.ARG_HIDE_ITEM_OPTIONS, true)
+        args.putBoolean(OCFileListFragment.ARG_SEARCH_ONLY_FOLDER, false)
+        args.putBoolean(OCFileListFragment.ARG_FILE_SELECTABLE, true)
+        args.putString(OCFileListFragment.ARG_MIMETYPE, intent.getStringExtra(OCFileListFragment.ARG_MIMETYPE))
+        listOfFiles.arguments = args
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.fragment_container, listOfFiles, TAG_LIST_OF_FOLDERS)
+        transaction.commit()
     }
 }
