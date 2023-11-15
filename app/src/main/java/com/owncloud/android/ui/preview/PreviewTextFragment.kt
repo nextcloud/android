@@ -16,223 +16,244 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+package com.owncloud.android.ui.preview
 
-package com.owncloud.android.ui.preview;
+import android.app.Activity
+import android.graphics.Color
+import android.os.Bundle
+import android.os.Handler
+import android.text.Spanned
+import android.text.TextUtils
+import android.text.method.LinkMovementMethod
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.device.DeviceInfo
+import com.nextcloud.client.di.Injectable
+import com.owncloud.android.R
+import com.owncloud.android.databinding.TextFilePreviewBinding
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.StringUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import io.noties.markwon.AbstractMarkwonPlugin
+import io.noties.markwon.Markwon
+import io.noties.markwon.MarkwonConfiguration
+import io.noties.markwon.core.MarkwonTheme
+import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
+import io.noties.markwon.ext.tables.TablePlugin
+import io.noties.markwon.ext.tasklist.TaskListDrawable
+import io.noties.markwon.ext.tasklist.TaskListPlugin
+import io.noties.markwon.html.HtmlPlugin
+import io.noties.markwon.syntax.Prism4jTheme
+import io.noties.markwon.syntax.Prism4jThemeDefault
+import io.noties.markwon.syntax.SyntaxHighlightPlugin
+import io.noties.prism4j.Prism4j
+import io.noties.prism4j.annotations.PrismBundle
+import javax.inject.Inject
 
-import android.app.Activity;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.os.Handler;
-import android.text.Html;
-import android.text.Spanned;
-import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.device.DeviceInfo;
-import com.nextcloud.client.di.Injectable;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.TextFilePreviewBinding;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.StringUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
-import io.noties.markwon.AbstractMarkwonPlugin;
-import io.noties.markwon.Markwon;
-import io.noties.markwon.MarkwonConfiguration;
-import io.noties.markwon.core.MarkwonTheme;
-import io.noties.markwon.ext.strikethrough.StrikethroughPlugin;
-import io.noties.markwon.ext.tables.TablePlugin;
-import io.noties.markwon.ext.tasklist.TaskListDrawable;
-import io.noties.markwon.ext.tasklist.TaskListPlugin;
-import io.noties.markwon.html.HtmlPlugin;
-import io.noties.markwon.syntax.Prism4jTheme;
-import io.noties.markwon.syntax.Prism4jThemeDefault;
-import io.noties.markwon.syntax.SyntaxHighlightPlugin;
-import io.noties.prism4j.Prism4j;
-import io.noties.prism4j.annotations.PrismBundle;
-
+@Suppress("MaxLineLength")
 @PrismBundle(
-    include = {
-        "c", "clike", "clojure", "cpp", "csharp", "css", "dart", "git", "go", "groovy", "java", "javascript", "json",
-        "kotlin", "latex", "makefile", "markdown", "markup", "python", "scala", "sql", "swift", "yaml"
-    },
+    include = [
+        "c", "clike", "clojure", "cpp", "csharp", "css", "dart", "git", "go", "groovy", "java",
+        "javascript", "json", "kotlin", "latex", "makefile", "markdown", "markup", "python", "scala",
+        "sql", "swift", "yaml"
+    ],
     grammarLocatorClassName = ".MarkwonGrammarLocator"
 )
-public abstract class PreviewTextFragment extends FileFragment implements SearchView.OnQueryTextListener, Injectable {
-    private static final String TAG = PreviewTextFragment.class.getSimpleName();
+abstract class PreviewTextFragment : FileFragment(), SearchView.OnQueryTextListener, Injectable {
 
-    protected SearchView searchView;
-    protected String searchQuery = "";
-    protected boolean searchOpen;
-    protected Handler handler;
-    protected String originalText;
+    @JvmField
+    protected var searchView: SearchView? = null
 
-    @Inject UserAccountManager accountManager;
-    @Inject DeviceInfo deviceInfo;
-    @Inject ViewThemeUtils viewThemeUtils;
+    @JvmField
+    protected var searchQuery = ""
 
-    protected TextFilePreviewBinding binding;
+    @JvmField
+    protected var searchOpen = false
+
+    @JvmField
+    protected var handler: Handler? = null
+
+    @JvmField
+    protected var originalText: String? = null
+
+    @JvmField
+    @Inject
+    var accountManager: UserAccountManager? = null
+
+    @JvmField
+    @Inject
+    var deviceInfo: DeviceInfo? = null
+
+    @JvmField
+    @Inject
+    var viewThemeUtils: ViewThemeUtils? = null
+
+    @JvmField
+    protected var binding: TextFilePreviewBinding? = null
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        Log_OC.e(TAG, "onCreateView");
-
-        binding = TextFilePreviewBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
-
-        binding.emptyListProgress.setVisibility(View.VISIBLE);
-
-        return view;
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        Log_OC.e(TAG, "onCreateView")
+        binding = TextFilePreviewBinding.inflate(inflater, container, false)
+        binding?.emptyListProgress?.visibility = View.VISIBLE
+        return binding?.root
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log_OC.e(TAG, "onStart");
-
-        loadAndShowTextPreview();
+    override fun onStart() {
+        super.onStart()
+        Log_OC.e(TAG, "onStart")
+        loadAndShowTextPreview()
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
-    abstract void loadAndShowTextPreview();
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        performSearch(query, 0);
-        return true;
+    abstract fun loadAndShowTextPreview()
+    override fun onQueryTextSubmit(query: String): Boolean {
+        performSearch(query, 0)
+        return true
     }
 
-    @Override
-    public boolean onQueryTextChange(final String newText) {
-        performSearch(newText, 500);
-        return true;
+    @Suppress("MagicNumber")
+    override fun onQueryTextChange(newText: String): Boolean {
+        performSearch(newText, 500)
+        return true
     }
 
-
-    private void performSearch(final String query, int delay) {
-        handler.removeCallbacksAndMessages(null);
-
+    @Suppress("ReturnCount")
+    private fun performSearch(query: String, delay: Int) {
+        handler?.removeCallbacksAndMessages(null)
         if (originalText != null) {
-            if (getActivity() instanceof FileDisplayActivity) {
-                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
-                fileDisplayActivity.setSearchQuery(query);
+            if (activity is FileDisplayActivity) {
+                val fileDisplayActivity = activity as FileDisplayActivity?
+                fileDisplayActivity?.setSearchQuery(query)
             }
-            handler.postDelayed(() -> markText(query), delay);
+            handler?.postDelayed({ markText(query) }, delay.toLong())
         }
-
-        if (delay == 0 && searchView != null) {
-            searchView.clearFocus();
+        if (delay == 0) {
+            searchView?.clearFocus()
         }
     }
 
-    private void markText(String query) {
+    private fun markText(query: String) {
         // called asynchronously - must check preconditions in case of UI detachment
         if (binding == null) {
-            return;
+            return
         }
-        final Activity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-        final Resources resources = activity.getResources();
-        if (resources == null) {
-            return;
-        }
-
+        val activity = activity ?: return
+        val resources = activity.resources ?: return
         if (!TextUtils.isEmpty(query)) {
-            String coloredText = StringUtils.searchAndColor(originalText,
-                                                            query,
-                                                            resources.getColor(R.color.primary));
-            binding.textPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
+            val coloredText = StringUtils.searchAndColor(
+                originalText,
+                query,
+                ContextCompat.getColor(requireContext(), R.color.primary)
+            )
+            @Suppress("MaxLineLength")
+            binding?.textPreview?.text =
+                HtmlCompat.fromHtml(coloredText.replace("\n", "<br \\>"), HtmlCompat.FROM_HTML_MODE_LEGACY)
         } else {
-            setText(binding.textPreview, originalText, getFile(), activity, false, false, viewThemeUtils);
+            setText(binding!!.textPreview, originalText, file, activity, false, false, viewThemeUtils)
         }
-    }
-
-    protected static Spanned getRenderedMarkdownText(Activity activity,
-                                                     String markdown,
-                                                     ViewThemeUtils viewThemeUtils) {
-        Prism4j prism4j = new Prism4j(new MarkwonGrammarLocator());
-        Prism4jTheme prism4jTheme = Prism4jThemeDefault.create();
-        TaskListDrawable drawable = new TaskListDrawable(Color.GRAY, Color.GRAY, Color.WHITE);
-        viewThemeUtils.platform.tintPrimaryDrawable(activity, drawable);
-
-        final Markwon markwon = Markwon.builder(activity)
-            .usePlugin(new AbstractMarkwonPlugin() {
-                @Override
-                public void configureTheme(@NonNull MarkwonTheme.Builder builder) {
-                    builder.linkColor(viewThemeUtils.platform.primaryColor(activity));
-                    builder.headingBreakHeight(0);
-                }
-
-                @Override
-                public void configureConfiguration(@NonNull MarkwonConfiguration.Builder builder) {
-                    builder.linkResolver((view, link) -> DisplayUtils.startLinkIntent(activity, link));
-                }
-            })
-            .usePlugin(TablePlugin.create(activity))
-            .usePlugin(TaskListPlugin.create(drawable))
-            .usePlugin(StrikethroughPlugin.create())
-            .usePlugin(HtmlPlugin.create())
-            .usePlugin(SyntaxHighlightPlugin.create(prism4j, prism4jTheme))
-            .build();
-
-        return markwon.toMarkdown(markdown);
     }
 
     /**
      * Finishes the preview
      */
-    protected void finish() {
-        requireActivity().runOnUiThread(() -> requireActivity().onBackPressed());
+    protected fun finish() {
+        requireActivity().runOnUiThread { requireActivity().onBackPressed() }
     }
 
-    public static void setText(TextView textView,
-                               @Nullable String text,
-                               @Nullable OCFile file,
-                               Activity activity,
-                               boolean ignoreMimetype,
-                               boolean preview,
-                               ViewThemeUtils viewThemeUtils) {
-        if (text == null) {
-            return;
+    companion object {
+        private val TAG = PreviewTextFragment::class.java.simpleName
+
+        @Suppress("ReturnCount")
+        protected fun getRenderedMarkdownText(
+            activity: Activity?,
+            markdown: String?,
+            viewThemeUtils: ViewThemeUtils?
+        ): Spanned? {
+            val prism4j = Prism4j(MarkwonGrammarLocator())
+            val prism4jTheme: Prism4jTheme = Prism4jThemeDefault.create()
+            val drawable = TaskListDrawable(Color.GRAY, Color.GRAY, Color.WHITE)
+            viewThemeUtils?.platform?.tintDrawable(activity!!, drawable, ColorRole.PRIMARY)
+
+            viewThemeUtils ?: return null
+            activity ?: return null
+
+            val markwon = Markwon.builder(activity)
+                .usePlugin(object : AbstractMarkwonPlugin() {
+                    override fun configureTheme(builder: MarkwonTheme.Builder) {
+                        builder.linkColor(viewThemeUtils.platform.primaryColor(activity))
+                        builder.headingBreakHeight(0)
+                    }
+
+                    override fun configureConfiguration(builder: MarkwonConfiguration.Builder) {
+                        builder.linkResolver { _: View?, link: String? ->
+                            DisplayUtils.startLinkIntent(
+                                activity,
+                                link
+                            )
+                        }
+                    }
+                })
+                .usePlugin(TablePlugin.create(activity))
+                .usePlugin(TaskListPlugin.create(drawable))
+                .usePlugin(StrikethroughPlugin.create())
+                .usePlugin(HtmlPlugin.create())
+                .usePlugin(SyntaxHighlightPlugin.create(prism4j, prism4jTheme))
+                .build()
+
+            return markwon.toMarkdown(markdown!!)
         }
 
-        if ((ignoreMimetype || file != null && MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN.equals(file.getMimeType()))
-            && activity != null) {
-            if (!preview) {
-                // clickable links prevent to open full view of rich workspace
-                textView.setMovementMethod(LinkMovementMethod.getInstance());
+        @JvmStatic
+        @Suppress("LongParameterList")
+        fun setText(
+            textView: TextView,
+            text: String?,
+            file: OCFile?,
+            activity: Activity?,
+            ignoreMimetype: Boolean,
+            preview: Boolean,
+            viewThemeUtils: ViewThemeUtils?
+        ) {
+            if (text == null) {
+                return
             }
-            textView.setText(getRenderedMarkdownText(activity, text, viewThemeUtils));
-        } else {
-            textView.setText(text);
+
+            @Suppress("ComplexCondition")
+            if ((ignoreMimetype || file != null && MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN == file.mimeType) &&
+                activity != null
+            ) {
+                if (!preview) {
+                    // clickable links prevent to open full view of rich workspace
+                    textView.movementMethod = LinkMovementMethod.getInstance()
+                }
+                textView.text = getRenderedMarkdownText(activity, text, viewThemeUtils) ?: ""
+            } else {
+                textView.text = text
+            }
         }
     }
 }
