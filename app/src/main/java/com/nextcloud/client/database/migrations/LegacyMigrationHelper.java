@@ -36,6 +36,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import java.util.Locale;
 
 import androidx.sqlite.db.SupportSQLiteDatabase;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class LegacyMigrationHelper {
 
@@ -68,7 +69,7 @@ public class LegacyMigrationHelper {
         }
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_BAD_PRACTICE")
     private void clearStorage() {
         context.getCacheDir().delete();
         ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE)).clearApplicationUserData();
