@@ -18,238 +18,240 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.activity
 
-package com.owncloud.android.ui.activity;
-
-import android.annotation.SuppressLint;
-import android.content.pm.ApplicationInfo;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.widget.ProgressBar;
-
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.ExternalsiteWebviewBinding;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.NextcloudWebViewClient;
-import com.owncloud.android.utils.DisplayUtils;
-
-import java.io.InputStream;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.drawerlayout.widget.DrawerLayout;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import android.annotation.SuppressLint
+import android.content.pm.ApplicationInfo
+import android.os.Bundle
+import android.text.TextUtils
+import android.view.MenuItem
+import android.view.View
+import android.view.Window
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.widget.ProgressBar
+import androidx.drawerlayout.widget.DrawerLayout
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.databinding.ExternalsiteWebviewBinding
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.NextcloudWebViewClient
+import com.owncloud.android.utils.DisplayUtils
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 
 /**
  * This activity shows an URL as a web view
  */
-public class ExternalSiteWebView extends FileActivity {
-    public static final String EXTRA_TITLE = "TITLE";
-    public static final String EXTRA_URL = "URL";
-    public static final String EXTRA_SHOW_SIDEBAR = "SHOW_SIDEBAR";
-    public static final String EXTRA_SHOW_TOOLBAR = "SHOW_TOOLBAR";
-    public static final String EXTRA_MENU_ITEM_ID = "MENU_ITEM_ID";
-    public static final String EXTRA_TEMPLATE = "TEMPLATE";
+open class ExternalSiteWebView : FileActivity() {
 
-    private static final String TAG = ExternalSiteWebView.class.getSimpleName();
+    private var showToolbar = true
+    private lateinit var binding: ExternalsiteWebviewBinding
+    private var menuItemId = 0
+    private var showSidebar = false
 
-    protected boolean showToolbar = true;
-    private ExternalsiteWebviewBinding binding;
-    private int menuItemId;
-    private boolean showSidebar;
-    String url;
+    @JvmField
+    var url: String? = null
 
-    @Override
-    protected final void onCreate(Bundle savedInstanceState) {
-        Log_OC.v(TAG, "onCreate() start");
-        bindView();
-        showToolbar = showToolbarByDefault();
-
-        Bundle extras = getIntent().getExtras();
-        url = getIntent().getExtras().getString(EXTRA_URL);
-        if (extras.containsKey(EXTRA_SHOW_TOOLBAR)) {
-            showToolbar = extras.getBoolean(EXTRA_SHOW_TOOLBAR);
-        }
-
-        menuItemId = extras.getInt(EXTRA_MENU_ITEM_ID);
-        showSidebar = extras.getBoolean(EXTRA_SHOW_SIDEBAR);
-
-        // show progress
-        Window window = getWindow();
-        if (window != null) {
-            window.requestFeature(Window.FEATURE_PROGRESS);
-        }
-
-        super.onCreate(savedInstanceState);
-
-        setContentView(getRootView());
-
-        postOnCreate();
+    override fun onCreate(savedInstanceState: Bundle?) {
+        Log_OC.v(TAG, "onCreate() start")
+        bindView()
+        showToolbar = showToolbarByDefault()
+        getArguments()
+        showProgress()
+        super.onCreate(savedInstanceState)
+        setContentView(rootView)
+        postOnCreate()
     }
 
-    protected void postOnCreate() {
-        final WebSettings webSettings = getWebView().getSettings();
+    private fun getArguments() {
+        val extras = intent.extras
+        url = intent.extras?.getString(EXTRA_URL)
+        if (extras?.containsKey(EXTRA_SHOW_TOOLBAR) == true) {
+            showToolbar = extras.getBoolean(EXTRA_SHOW_TOOLBAR)
+        }
 
-        getWebView().setFocusable(true);
-        getWebView().setFocusableInTouchMode(true);
-        getWebView().setClickable(true);
+        menuItemId = extras?.getInt(EXTRA_MENU_ITEM_ID) ?: 0
+        showSidebar = extras?.getBoolean(EXTRA_SHOW_SIDEBAR) ?: false
+    }
+
+    @Suppress("DEPRECATION")
+    private fun showProgress() {
+        val window = window
+        window?.requestFeature(Window.FEATURE_PROGRESS)
+    }
+
+    protected open fun postOnCreate() {
+        val webSettings = webView.settings
+        webView.isFocusable = true
+        webView.isFocusableInTouchMode = true
+        webView.isClickable = true
 
         // allow debugging (when building the debug version); see details in
         // https://developers.google.com/web/tools/chrome-devtools/remote-debugging/webviews
-        if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0 ||
-            getResources().getBoolean(R.bool.is_beta)) {
-            Log_OC.d(this, "Enable debug for webView");
-            WebView.setWebContentsDebuggingEnabled(true);
+        if (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0 ||
+            resources.getBoolean(R.bool.is_beta)
+        ) {
+            Log_OC.d(this, "Enable debug for webView")
+            WebView.setWebContentsDebuggingEnabled(true)
         }
 
-        // setup toolbar
-        if (showToolbar) {
-            setupToolbar();
-        } else {
-            if (findViewById(R.id.appbar) != null) {
-                findViewById(R.id.appbar).setVisibility(View.GONE);
-            }
-        }
+        initToolbar()
 
-        // setup drawer
-        setupDrawer(menuItemId);
-
+        setupDrawer(menuItemId)
         if (!showSidebar) {
-            setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         }
 
-        String title = getIntent().getExtras().getString(EXTRA_TITLE);
+        val title = intent.extras!!.getString(EXTRA_TITLE)
         if (!TextUtils.isEmpty(title)) {
-            setupActionBar(title);
+            setupActionBar(title)
         }
-        setupWebSettings(webSettings);
 
-        final ProgressBar progressBar = findViewById(R.id.progressBar);
+        setupWebSettings(webSettings)
+        setupProgressBar()
+        setupWebView()
+    }
 
+    private fun initToolbar() {
+        if (showToolbar) {
+            setupToolbar()
+        } else {
+            if (findViewById<View?>(R.id.appbar) != null) {
+                findViewById<View>(R.id.appbar).visibility = View.GONE
+            }
+        }
+    }
+
+    private fun setupProgressBar() {
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         if (progressBar != null) {
-            getWebView().setWebChromeClient(new WebChromeClient() {
-                public void onProgressChanged(WebView view, int progress) {
-                    progressBar.setProgress(progress * 1000);
+            webView.webChromeClient = object : WebChromeClient() {
+                override fun onProgressChanged(view: WebView, progress: Int) {
+                    progressBar.progress = progress * 1000
                 }
-            });
+            }
         }
+    }
 
-        final ExternalSiteWebView self = this;
-        getWebView().setWebViewClient(new NextcloudWebViewClient(getSupportFragmentManager()) {
-            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-                InputStream resources = getResources().openRawResource(R.raw.custom_error);
-                String customError = DisplayUtils.getData(resources);
-
-                if (!customError.isEmpty()) {
-                    getWebView().loadData(customError, "text/html; charset=UTF-8", null);
+    private fun setupWebView() {
+        val self = this
+        webView.webViewClient = object : NextcloudWebViewClient(supportFragmentManager) {
+            override fun onReceivedError(view: WebView, request: WebResourceRequest, error: WebResourceError) {
+                val resources = resources.openRawResource(R.raw.custom_error)
+                val customError = DisplayUtils.getData(resources)
+                if (customError.isNotEmpty()) {
+                    webView.loadData(customError, "text/html; charset=UTF-8", null)
                 }
             }
 
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                DisplayUtils.startLinkIntent(self, request.getUrl());
-                return true;
+            override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
+                DisplayUtils.startLinkIntent(self, request.url)
+                return true
             }
-        });
-
-        getWebView().loadUrl(url);
+        }
+        url?.let {
+            webView.loadUrl(it)
+        }
     }
 
-    @Override
-    protected void onDestroy() {
-        getWebView().destroy();
-        super.onDestroy();
+    override fun onDestroy() {
+        webView.destroy()
+        super.onDestroy()
     }
 
-    protected void bindView() {
-        binding = ExternalsiteWebviewBinding.inflate(getLayoutInflater());
+    protected open fun bindView() {
+        binding = ExternalsiteWebviewBinding.inflate(layoutInflater)
     }
 
-    protected boolean showToolbarByDefault() {
-        return true;
+    protected open fun showToolbarByDefault(): Boolean {
+        return true
     }
 
-    protected View getRootView() {
-        return binding.getRoot();
-    }
+    protected open val rootView: View?
+        get() = binding.root
 
     @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT")
     @SuppressLint("SetJavaScriptEnabled")
-    private void setupWebSettings(WebSettings webSettings) {
+    private fun setupWebSettings(webSettings: WebSettings) {
         // enable zoom
-        webSettings.setSupportZoom(true);
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setDisplayZoomControls(false);
+        webSettings.setSupportZoom(true)
+        webSettings.builtInZoomControls = true
+        webSettings.displayZoomControls = false
 
         // Non-responsive webs are zoomed out when loaded
-        webSettings.setUseWideViewPort(true);
-        webSettings.setLoadWithOverviewMode(true);
+        webSettings.useWideViewPort = true
+        webSettings.loadWithOverviewMode = true
 
         // user agent
-        webSettings.setUserAgentString(MainApp.getUserAgent());
+        webSettings.userAgentString = MainApp.getUserAgent()
 
         // do not store private data
-        webSettings.setSaveFormData(false);
+        webSettings.saveFormData = false
 
         // disable local file access
-        webSettings.setAllowFileAccess(false);
+        webSettings.allowFileAccess = false
 
         // enable javascript
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setDomStorageEnabled(true);
+        webSettings.javaScriptEnabled = true
+        webSettings.domStorageEnabled = true
 
         // caching disabled in debug mode
-        if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
-            webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        if (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0) {
+            webSettings.cacheMode = WebSettings.LOAD_NO_CACHE
         }
     }
 
-    private void setupActionBar(String title) {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            viewThemeUtils.files.themeActionBar(this, actionBar, title);
+    private fun setupActionBar(title: String?) {
+        supportActionBar?.let {
+            title?.let { title ->
+                viewThemeUtils.files.themeActionBar(this, it, title)
+            }
 
             if (showSidebar) {
-                actionBar.setDisplayHomeAsUpEnabled(true);
+                it.setDisplayHomeAsUpEnabled(true)
             } else {
-                setDrawerIndicatorEnabled(false);
+                setDrawerIndicatorEnabled(false)
             }
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == android.R.id.home) {
             if (showSidebar) {
-                if (isDrawerOpen()) {
-                    closeDrawer();
+                if (isDrawerOpen) {
+                    closeDrawer()
                 } else {
-                    openDrawer();
+                    openDrawer()
                 }
             } else {
-                finish();
+                finish()
             }
-            return true;
+            true
         } else {
-            return super.onOptionsItemSelected(item);
+            super.onOptionsItemSelected(item)
         }
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        setDrawerMenuItemChecked(menuItemId);
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        setDrawerMenuItemChecked(menuItemId)
     }
 
-    protected WebView getWebView() {
-        return binding.webView;
+    protected open val webView: WebView
+        get() = binding.webView
+
+    companion object {
+        const val EXTRA_FILE = FileActivity.EXTRA_FILE
+        const val EXTRA_TITLE = "TITLE"
+        const val EXTRA_URL = "URL"
+        const val EXTRA_SHOW_SIDEBAR = "SHOW_SIDEBAR"
+        const val EXTRA_SHOW_TOOLBAR = "SHOW_TOOLBAR"
+        const val EXTRA_MENU_ITEM_ID = "MENU_ITEM_ID"
+        const val EXTRA_TEMPLATE = "TEMPLATE"
+
+        private val TAG = ExternalSiteWebView::class.java.simpleName
     }
 }
