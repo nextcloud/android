@@ -24,7 +24,7 @@ package com.owncloud.android.ui.activity
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.MenuItem
-import androidx.core.text.HtmlCompat
+import com.nextcloud.utils.extensions.setHtmlContent
 import com.owncloud.android.R
 import com.owncloud.android.databinding.CommunityLayoutBinding
 import com.owncloud.android.utils.DisplayUtils
@@ -53,8 +53,6 @@ class CommunityActivity : DrawerActivity() {
     }
 
     private fun setupContributeForumView() {
-        val contributeForumView = binding.communityContributeForumText
-        contributeForumView.movementMethod = LinkMovementMethod.getInstance()
         val htmlContent = getString(R.string.community_contribute_forum_text) + " " +
             getString(
                 R.string.community_contribute_forum_text_link,
@@ -63,12 +61,10 @@ class CommunityActivity : DrawerActivity() {
                 getString(R.string.help_link),
                 getString(R.string.community_contribute_forum_forum)
             )
-        contributeForumView.text = HtmlCompat.fromHtml(htmlContent, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        binding.communityContributeForumText.setHtmlContent(htmlContent)
     }
 
     private fun setupContributeTranslationView() {
-        val contributeTranslationView = binding.communityContributeTranslateText
-        contributeTranslationView.movementMethod = LinkMovementMethod.getInstance()
         val htmlContent = getString(
             R.string.community_contribute_translate_link,
             viewThemeUtils.files.primaryColorToHexString(this),
@@ -76,13 +72,10 @@ class CommunityActivity : DrawerActivity() {
             getString(R.string.community_contribute_translate_translate)
         ) + " " +
             getString(R.string.community_contribute_translate_text)
-
-        contributeTranslationView.text = HtmlCompat.fromHtml(htmlContent, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        binding.communityContributeTranslateText.setHtmlContent(htmlContent)
     }
 
     private fun setupContributeGithubView() {
-        val contributeGithubView = binding.communityContributeGithubText
-        contributeGithubView.movementMethod = LinkMovementMethod.getInstance()
         val htmlContent = getString(
             R.string.community_contribute_github_text,
             getString(
@@ -91,10 +84,7 @@ class CommunityActivity : DrawerActivity() {
                 getString(R.string.contributing_link)
             )
         )
-        contributeGithubView.text = HtmlCompat.fromHtml(
-            htmlContent,
-            HtmlCompat.FROM_HTML_MODE_LEGACY
-        )
+        binding.communityContributeGithubText.setHtmlContent(htmlContent)
     }
 
     private fun setupReportButton() {
