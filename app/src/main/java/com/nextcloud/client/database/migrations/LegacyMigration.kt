@@ -38,7 +38,7 @@ class LegacyMigration(
     private val from: Int,
     private val to: Int,
     private val clock: Clock,
-    private val context: Context,
+    private val context: Context
 ) : Migration(from, to) {
 
     override fun migrate(database: SupportSQLiteDatabase) {
