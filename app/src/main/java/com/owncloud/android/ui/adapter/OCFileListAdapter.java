@@ -692,7 +692,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
         if (mStorageManager != null) {
             mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
-
+            mFiles.forEach(file -> {
+                if (file.getHidden()) {
+                    Log_OC.d("","FOUND HIDDEN FILE!");
+                }
+            });
             if (!preferences.isShowHiddenFilesEnabled()) {
                 mFiles = filterHiddenFiles(mFiles);
             }
@@ -701,9 +705,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
             sortOrder = preferences.getSortOrderByFolder(directory);
             mFiles = sortOrder.sortCloudFiles(mFiles);
-            mFiles.forEach(file -> {
-                Log_OC.d("","isHidden:" + file.getHidden());
-            });
             mergeOCFilesForLivePhoto();
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
