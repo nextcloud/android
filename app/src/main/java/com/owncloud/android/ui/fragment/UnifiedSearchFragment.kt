@@ -86,12 +86,18 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
+    private var listOfHiddenFiles = ArrayList<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vm = ViewModelProvider(this, vmFactory)[UnifiedSearchViewModel::class.java]
         setUpViewModel()
 
         val query = savedInstanceState?.getString(ARG_QUERY) ?: arguments?.getString(ARG_QUERY)
+        listOfHiddenFiles =
+            savedInstanceState?.getStringArrayList(ARG_HIDDEN_FILES) ?: arguments?.getStringArrayList(ARG_HIDDEN_FILES)
+                ?: ArrayList()
+
         if (!query.isNullOrEmpty()) {
             vm.setQuery(query)
             vm.initialQuery()
@@ -212,7 +218,15 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         Log_OC.d(TAG, "result")
         binding.emptyList.emptyListView.visibility = View.GONE
 
-        adapter.setData(result)
+        val filteredResult = result.map { searchSection ->
+            val entriesWithoutHiddenFiles = searchSection.entries.filterNot { entry ->
+                listOfHiddenFiles.contains(entry.title)
+            }
+
+            searchSection.copy(entries = entriesWithoutHiddenFiles)
+        }.filter { it.entries.isNotEmpty() }
+
+        adapter.setData(filteredResult)
     }
 
     @VisibleForTesting
@@ -241,14 +255,16 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     companion object {
         private const val TAG = "UnifiedSearchFragment"
         const val ARG_QUERY = "ARG_QUERY"
+        const val ARG_HIDDEN_FILES = "ARG_HIDDEN_FILES"
 
         /**
          * Public factory method to get fragment.
          */
-        fun newInstance(query: String?): UnifiedSearchFragment {
+        fun newInstance(query: String?, listOfHiddenFiles: ArrayList<String>): UnifiedSearchFragment {
             val fragment = UnifiedSearchFragment()
             val args = Bundle()
             args.putString(ARG_QUERY, query)
+            args.putStringArrayList(ARG_HIDDEN_FILES, listOfHiddenFiles)
             fragment.arguments = args
             return fragment
         }

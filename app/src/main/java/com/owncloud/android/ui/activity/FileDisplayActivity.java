@@ -1024,7 +1024,8 @@ public class FileDisplayActivity extends FileActivity
                 searchView.clearFocus();
 
                 // Remove the list to the original state
-                listOfFiles.performSearch("", true);
+                ArrayList<String> listOfHiddenFiles =  listOfFiles.getAdapter().listOfHiddenFiles;
+                listOfFiles.performSearch("", listOfHiddenFiles, true);
 
                 hideSearchView(getCurrentDir());
 
@@ -2579,8 +2580,8 @@ public class FileDisplayActivity extends FileActivity
         return null;
     }
 
-    public void performUnifiedSearch(String query) {
-        UnifiedSearchFragment unifiedSearchFragment = UnifiedSearchFragment.Companion.newInstance(query);
+    public void performUnifiedSearch(String query, ArrayList<String> listOfHiddenFiles) {
+        UnifiedSearchFragment unifiedSearchFragment = UnifiedSearchFragment.Companion.newInstance(query, listOfHiddenFiles);
         setLeftFragment(unifiedSearchFragment);
     }
 

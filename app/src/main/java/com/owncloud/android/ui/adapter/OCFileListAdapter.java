@@ -92,6 +92,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -116,7 +117,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean hideItemOptions;
     private long lastTimestamp;
     private boolean gridView;
-
+    public ArrayList<String> listOfHiddenFiles = new ArrayList<>();
     private FileDataStorageManager mStorageManager;
     private User user;
     private OCFileListFragmentInterface ocFileListFragmentInterface;
@@ -700,6 +701,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
             sortOrder = preferences.getSortOrderByFolder(directory);
             mFiles = sortOrder.sortCloudFiles(mFiles);
+            prepareListOfHiddenFiles();
             mergeOCFilesForLivePhoto();
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
@@ -942,6 +944,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public List<OCFile> getFiles() {
         return mFiles;
+    }
+
+    private void prepareListOfHiddenFiles() {
+        listOfHiddenFiles.clear();
+
+        mFiles.forEach(file -> {
+            if (file.getHidden()) {
+                listOfHiddenFiles.add(file.getFileName());
+            }
+        });
     }
 
     public void resetLastTimestamp() {
