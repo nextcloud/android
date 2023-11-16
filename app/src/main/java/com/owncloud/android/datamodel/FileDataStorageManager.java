@@ -920,7 +920,6 @@ public class FileDataStorageManager {
         ocFile.setDownloading(nullToZero(fileEntity.isDownloading()) == 1);
         ocFile.setEtagInConflict(fileEntity.getEtagInConflict());
         ocFile.setFavorite(nullToZero(fileEntity.getFavorite()) == 1);
-        ocFile.setHidden(nullToZero(fileEntity.getHidden()) == 1);
         ocFile.setEncrypted(nullToZero(fileEntity.isEncrypted()) == 1);
 //        if (ocFile.isEncrypted()) {
 //            ocFile.setFileName(cursor.getString(cursor.getColumnIndexOrThrow(ProviderTableMeta.FILE_NAME)));
@@ -946,6 +945,7 @@ public class FileDataStorageManager {
         ocFile.setLockTimeout(nullToZero(fileEntity.getLockTimeout()));
         ocFile.setLockToken(fileEntity.getLockToken());
         ocFile.setLivePhoto(fileEntity.getMetadataLivePhoto());
+        ocFile.setHidden(nullToZero(fileEntity.getHidden()) == 1);
 
         String sharees = fileEntity.getSharees();
         // Surprisingly JSON deserialization causes significant overhead.

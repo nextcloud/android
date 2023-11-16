@@ -692,10 +692,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
         if (mStorageManager != null) {
             mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
-            mFiles.forEach(file -> {
-                Log_OC.d("","IS LIVE PHOTO FILE:" + file.getLivePhoto());
-                Log_OC.d("","IS HIDDEN FILE:" + file.getHidden());
-            });
             if (!preferences.isShowHiddenFilesEnabled()) {
                 mFiles = filterHiddenFiles(mFiles);
             }

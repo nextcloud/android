@@ -238,7 +238,6 @@ public final class FileStorageUtils {
         file.setRemoteId(remote.getRemoteId());
         file.setLocalId(remote.getLocalId());
         file.setFavorite(remote.isFavorite());
-        file.setHidden(remote.getHidden());
         if (file.isFolder()) {
             file.setEncrypted(remote.isEncrypted());
         }
@@ -262,6 +261,7 @@ public final class FileStorageUtils {
         file.setImageDimension(remote.getImageDimension());
         file.setGeoLocation(remote.getGeoLocation());
         file.setLivePhoto(remote.getLivePhoto());
+        file.setHidden(remote.getHidden());
 
         return file;
     }
