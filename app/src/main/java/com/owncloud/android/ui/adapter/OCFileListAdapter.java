@@ -697,6 +697,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     Log_OC.d("","FOUND HIDDEN FILE!");
                 }
             });
+
             if (!preferences.isShowHiddenFilesEnabled()) {
                 mFiles = filterHiddenFiles(mFiles);
             }
