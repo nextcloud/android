@@ -733,6 +733,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                       .isShareesOnDavSupported());
         }
 
+
         if (mStorageManager == null) {
             mStorageManager = new FileDataStorageManager(user, activity.getContentResolver());
         }
