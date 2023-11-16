@@ -238,6 +238,7 @@ public final class FileStorageUtils {
         file.setRemoteId(remote.getRemoteId());
         file.setLocalId(remote.getLocalId());
         file.setFavorite(remote.isFavorite());
+        file.setHidden(remote.getHidden());
         if (file.isFolder()) {
             file.setEncrypted(remote.isEncrypted());
         }

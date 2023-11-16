@@ -78,10 +78,13 @@ data class FileEntity(
     val isDownloading: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_FAVORITE)
     val favorite: Int?,
-    @ColumnInfo(name = ProviderTableMeta.FILE_IS_ENCRYPTED)
-    val hidden: Int?,
+
     @ColumnInfo(name = ProviderTableMeta.FILE_HIDDEN)
+    val hidden: Int?,
+
+    @ColumnInfo(name = ProviderTableMeta.FILE_IS_ENCRYPTED)
     val isEncrypted: Int?,
+
     @ColumnInfo(name = ProviderTableMeta.FILE_ETAG_IN_CONFLICT)
     val etagInConflict: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_SHARED_WITH_SHAREE)
