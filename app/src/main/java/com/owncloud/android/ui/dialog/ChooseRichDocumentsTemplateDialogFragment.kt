@@ -36,7 +36,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.common.collect.Sets
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
@@ -141,34 +140,33 @@ class ChooseRichDocumentsTemplateDialogFragment :
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val bundle = arguments ?: throw IllegalArgumentException("Arguments may not be null")
-        val activity = activity ?: throw IllegalArgumentException("Activity may not be null")
-
         setupClient()
-        setupParentFolder(bundle)
+        setupParentFolder()
 
         val inflater = requireActivity().layoutInflater
         binding = ChooseTemplateBinding.inflate(inflater, null, false)
 
         viewThemeUtils?.material?.colorTextInputLayout(binding!!.filenameContainer)
 
-        val type = bundle.getString(ARG_TYPE)?.let { Type.valueOf(it) }
+        val type = requireArguments().getString(ARG_TYPE)?.let { Type.valueOf(it) }
         setupList(type)
-
         setupFileName()
 
-        // Build the dialog
-        val builder = MaterialAlertDialogBuilder(activity)
-        builder.setView(view)
-            .setPositiveButton(R.string.create, null)
-            .setNegativeButton(R.string.common_cancel, null)
+        val builder = getMaterialAlertDialogBuilder()
 
         type?.let {
             builder.setTitle(getTitle(it))
         }
 
-        viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(activity, builder)
+        viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(requireActivity(), builder)
         return builder.create()
+    }
+
+    private fun getMaterialAlertDialogBuilder(): MaterialAlertDialogBuilder {
+        return MaterialAlertDialogBuilder(requireActivity())
+            .setView(binding?.root)
+            .setPositiveButton(R.string.create, null)
+            .setNegativeButton(R.string.common_cancel, null)
     }
 
     @Suppress("TooGenericExceptionThrown")
@@ -181,15 +179,10 @@ class ChooseRichDocumentsTemplateDialogFragment :
         }
     }
 
-    private fun setupParentFolder(bundle: Bundle?) {
-        parentFolder = bundle?.getParcelableArgument(ARG_PARENT_FOLDER, OCFile::class.java)
+    private fun setupParentFolder() {
+        parentFolder = requireArguments().getParcelableArgument(ARG_PARENT_FOLDER, OCFile::class.java)
         val folderContent = fileDataStorageManager?.getFolderContent(parentFolder, false)
-        fileNames = folderContent?.size?.let { Sets.newHashSetWithExpectedSize(it) }
-        if (folderContent != null) {
-            for (file in folderContent) {
-                fileNames?.add(file.fileName)
-            }
-        }
+        fileNames = folderContent?.map { it.fileName }?.toHashSet()
     }
 
     private fun setupList(type: Type?) {
@@ -222,17 +215,18 @@ class ChooseRichDocumentsTemplateDialogFragment :
 
     @Suppress("ReturnCount")
     private fun getTitle(type: Type): Int {
-        when (type) {
+        return when (type) {
             Type.DOCUMENT -> {
-                return R.string.create_new_document
+                R.string.create_new_document
             }
+
             Type.SPREADSHEET -> {
-                return R.string.create_new_spreadsheet
+                R.string.create_new_spreadsheet
             }
+
             Type.PRESENTATION -> {
-                return R.string.create_new_presentation
+                R.string.create_new_presentation
             }
-            else -> return R.string.select_template
         }
     }
 
@@ -276,7 +270,10 @@ class ChooseRichDocumentsTemplateDialogFragment :
     private fun onTemplateChosen(template: Template) {
         adapter?.setTemplateAsActive(template)
         prefillFilenameIfEmpty(template)
-        checkEnablingCreateButton()
+
+        if (positiveButton != null) {
+            checkEnablingCreateButton()
+        }
     }
 
     private fun prefillFilenameIfEmpty(template: Template) {
@@ -291,28 +288,23 @@ class ChooseRichDocumentsTemplateDialogFragment :
     }
 
     private fun checkEnablingCreateButton() {
-        if (positiveButton != null) {
-            val selectedTemplate = adapter!!.selectedTemplate
-            val name = Objects.requireNonNull(binding?.filename?.text).toString()
-            val isNameJustExtension = selectedTemplate != null && name.equals(
-                DOT + selectedTemplate.extension, ignoreCase = true
-            )
-            val isNameEmpty = name.isEmpty() || isNameJustExtension
-            val state = selectedTemplate != null && !isNameEmpty && !fileNames!!.contains(name)
-            positiveButton?.isEnabled = selectedTemplate != null && name.isNotEmpty() && !name.equals(
-                DOT + selectedTemplate.extension,
-                ignoreCase = true
-            )
-            positiveButton?.isEnabled = state
-            positiveButton?.isClickable = state
-            binding?.filenameContainer?.isErrorEnabled = !state
-            if (!state) {
-                if (isNameEmpty) {
-                    binding?.filenameContainer?.error = getText(R.string.filename_empty)
-                } else {
-                    binding?.filenameContainer?.error = getText(R.string.file_already_exists)
-                }
-            }
+        val selectedTemplate = adapter!!.selectedTemplate
+        val name = Objects.requireNonNull(binding?.filename?.text).toString()
+        val isNameJustExtension = selectedTemplate != null && name.equals(
+            DOT + selectedTemplate.extension, ignoreCase = true
+        )
+        val isNameEmpty = name.isEmpty() || isNameJustExtension
+        val state = selectedTemplate != null && !isNameEmpty && !fileNames!!.contains(name)
+        positiveButton?.isEnabled = selectedTemplate != null && name.isNotEmpty() && !name.equals(
+            DOT + selectedTemplate.extension,
+            ignoreCase = true
+        )
+        positiveButton?.isEnabled = state
+        positiveButton?.isClickable = state
+        binding?.filenameContainer?.isErrorEnabled = !state
+        if (!state) {
+            binding?.filenameContainer?.error =
+                if (isNameEmpty) getText(R.string.filename_empty) else getText(R.string.file_already_exists)
         }
     }
 
@@ -333,9 +325,9 @@ class ChooseRichDocumentsTemplateDialogFragment :
 
         @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg voids: Void?): String {
-            val result = CreateFileFromTemplateOperation(path, template.id).execute(client)
-            return if (result.isSuccess) {
-                // get file
+            val operation = CreateFileFromTemplateOperation(path, template.id).execute(client)
+
+            if (operation.isSuccess) {
                 val newFileResult = ReadFileRemoteOperation(path).execute(client)
                 if (newFileResult.isSuccess) {
                     val temp = FileStorageUtils.fillOCFile(newFileResult.data[0] as RemoteFile)
@@ -346,42 +338,42 @@ class ChooseRichDocumentsTemplateDialogFragment :
                         )
                         storageManager.saveFile(temp)
                         file = storageManager.getFileByPath(path)
-                        result.data[0].toString()
-                    } else {
-                        ""
+                        return operation.data[0].toString()
                     }
-                } else {
-                    ""
                 }
-            } else {
-                ""
             }
+
+            return ""
         }
 
         @Deprecated("Deprecated in Java")
         override fun onPostExecute(url: String) {
-            val fragment = chooseTemplateDialogFragmentWeakReference.get()
-            if (fragment != null && fragment.isAdded) {
-                if (fragment.waitDialog != null) {
-                    fragment.waitDialog!!.dismiss()
-                }
-                if (url.isEmpty()) {
-                    fragment.dismiss()
-                    DisplayUtils.showSnackMessage(
-                        fragment.requireActivity(),
-                        R.string.error_creating_file_from_template
-                    )
+            chooseTemplateDialogFragmentWeakReference.get()?.let { fragment ->
+                if (fragment.isAdded) {
+                    fragment.waitDialog?.dismiss()
+                    if (url.isEmpty()) {
+                        fragment.dismiss()
+                        DisplayUtils.showSnackMessage(
+                            fragment.requireActivity(),
+                            R.string.error_creating_file_from_template
+                        )
+                    } else {
+                        val collaboraWebViewIntent =
+                            Intent(MainApp.getAppContext(), RichDocumentsEditorWebView::class.java)
+                        collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Collabora")
+                        collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, url)
+                        collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file)
+                        collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false)
+                        collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TEMPLATE, template)
+                        fragment.startActivity(collaboraWebViewIntent)
+                        fragment.dismiss()
+                    }
                 } else {
-                    val collaboraWebViewIntent = Intent(MainApp.getAppContext(), RichDocumentsEditorWebView::class.java)
-                    collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, "Collabora")
-                    collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, url)
-                    collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_FILE, file)
-                    collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false)
-                    collaboraWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TEMPLATE, template)
-                    fragment.startActivity(collaboraWebViewIntent)
-                    fragment.dismiss()
+                    Log_OC.e(TAG, "Error creating file from template!")
                 }
-            } else {
+            }
+
+            if (chooseTemplateDialogFragmentWeakReference.get() == null) {
                 Log_OC.e(TAG, "Error creating file from template!")
             }
         }
@@ -414,8 +406,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
 
         @Deprecated("Deprecated in Java")
         override fun onPostExecute(templateList: List<Template>) {
-            val fragment = chooseTemplateDialogFragmentWeakReference.get()
-            if (fragment != null) {
+            chooseTemplateDialogFragmentWeakReference.get()?.let { fragment ->
                 if (templateList.isEmpty()) {
                     fragment.dismiss()
                     DisplayUtils.showSnackMessage(fragment.requireActivity(), R.string.error_retrieving_templates)
@@ -430,7 +421,9 @@ class ChooseRichDocumentsTemplateDialogFragment :
                     }
                     fragment.setTemplateList(templateList)
                 }
-            } else {
+            }
+
+            if (chooseTemplateDialogFragmentWeakReference.get() == null) {
                 Log_OC.e(TAG, "Error streaming file: no previewMediaFragment!")
             }
         }
