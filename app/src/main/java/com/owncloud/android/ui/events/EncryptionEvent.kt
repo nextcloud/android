@@ -17,21 +17,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.events;
+package com.owncloud.android.ui.events
 
 /**
  * Event for set folder as encrypted/decrypted
  */
-public class EncryptionEvent {
-    public final long localId;
-    public final String remotePath;
-    public final String remoteId;
-    public final boolean shouldBeEncrypted;
-
-    public EncryptionEvent(long localId, String remoteId, String remotePath, boolean shouldBeEncrypted) {
-        this.localId = localId;
-        this.remoteId = remoteId;
-        this.remotePath = remotePath;
-        this.shouldBeEncrypted = shouldBeEncrypted;
-    }
-}
+class EncryptionEvent(
+    val localId: Long,
+    val remoteId: String,
+    val remotePath: String,
+    val shouldBeEncrypted: Boolean
+)

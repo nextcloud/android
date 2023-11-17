@@ -15,19 +15,11 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http:></http:>//www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.events;
+package com.owncloud.android.ui.events
 
 /**
  * Event for making favoriting work
  */
-public class FavoriteEvent {
-    public final String remotePath;
-    public final boolean shouldFavorite;
-
-    public FavoriteEvent(String remotePath, boolean shouldFavorite) {
-        this.remotePath = remotePath;
-        this.shouldFavorite = shouldFavorite;
-    }
-}
+class FavoriteEvent(val remotePath: String, val shouldFavorite: Boolean)
