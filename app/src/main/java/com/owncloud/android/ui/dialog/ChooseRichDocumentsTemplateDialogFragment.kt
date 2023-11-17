@@ -21,61 +21,52 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.dialog
 
-package com.owncloud.android.ui.dialog;
-
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.common.collect.Sets;
-import com.nextcloud.client.account.CurrentAccountProvider;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.network.ClientFactory;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.ChooseTemplateBinding;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.Template;
-import com.owncloud.android.files.CreateFileFromTemplateOperation;
-import com.owncloud.android.files.FetchTemplateOperation;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
-import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.ui.activity.ExternalSiteWebView;
-import com.owncloud.android.ui.activity.RichDocumentsEditorWebView;
-import com.owncloud.android.ui.adapter.RichDocumentsTemplateAdapter;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.KeyboardUtils;
-import com.owncloud.android.utils.NextcloudServer;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Intent
+import android.os.AsyncTask
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.common.collect.Sets
+import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.client.account.User
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.network.ClientFactory.CreationException
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.databinding.ChooseTemplateBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.Template
+import com.owncloud.android.files.CreateFileFromTemplateOperation
+import com.owncloud.android.files.FetchTemplateOperation
+import com.owncloud.android.lib.common.OwnCloudClient
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
+import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.ui.activity.ExternalSiteWebView
+import com.owncloud.android.ui.activity.RichDocumentsEditorWebView
+import com.owncloud.android.ui.adapter.RichDocumentsTemplateAdapter
+import com.owncloud.android.ui.dialog.IndeterminateProgressDialog.Companion.newInstance
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.KeyboardUtils
+import com.owncloud.android.utils.NextcloudServer
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.lang.ref.WeakReference
+import java.util.Objects
+import javax.inject.Inject
 
 /**
  * Dialog to show templates for new documents/spreadsheets/presentations.
@@ -436,6 +427,26 @@ class ChooseRichDocumentsTemplateDialogFragment :
             if (chooseTemplateDialogFragmentWeakReference.get() == null) {
                 Log_OC.e(TAG, "Error streaming file: no previewMediaFragment!")
             }
+        }
+    }
+
+    companion object {
+        private const val ARG_PARENT_FOLDER = "PARENT_FOLDER"
+        private const val ARG_TYPE = "TYPE"
+        private val TAG = ChooseRichDocumentsTemplateDialogFragment::class.java.simpleName
+        private const val DOT = "."
+        const val SINGLE_TEMPLATE = 1
+        private const val WAIT_DIALOG_TAG = "WAIT"
+
+        @JvmStatic
+        @NextcloudServer(max = 18) // will be removed in favor of generic direct editing
+        fun newInstance(parentFolder: OCFile?, type: Type): ChooseRichDocumentsTemplateDialogFragment {
+            val frag = ChooseRichDocumentsTemplateDialogFragment()
+            val args = Bundle()
+            args.putParcelable(ARG_PARENT_FOLDER, parentFolder)
+            args.putString(ARG_TYPE, type.name)
+            frag.arguments = args
+            return frag
         }
     }
 
