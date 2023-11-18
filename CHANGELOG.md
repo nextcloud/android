@@ -1,12 +1,139 @@
+## Unreleased (Pending)
+
+- To be filled in
+
 ## 3.26.0 (September 16, 2023)
 
-- image editing
-- image details, with map
-- show other Nextcloud apps
+### Highlights
 
-Minimum: NC 16 Server, Android 6.0 Marshmallow
+- Minimum System Requirements: NC 16 Server, Android 6.0 Marshmallow
+- Lots of bug fixes
+- Several new features
+- Some E2EE enhancements
+- Various upstream and dependency updates (which include additional bug fixes and enhancements)
+- Some technical debt cleared (both directly and indirectly)
+- No breaking changes
+- Contributors to this release include: 
+  - @jsoberg, @tobiasKaminsky, @AndyScherzinger, @ZetaTom, @jaller94, @tanganellilore, @skjnldsv, @afflux, @surinder-tsys, @rakekniven, @AlvaroBrey, @nickvergessen, @dean36963, and @AkshayChaurasia98
+  - anyone that tested an early release, reported a bug, proposed an enhancement idea, helped with translations, triaged an issue, reviewed a PR, and/or assisted another community member
+  - the entire Nextcloud community 
+- Release coordinators: @tabiasKaminksy, @AndyScherzinger
+- Changelog editor: @joshtrichards
+- Milestone tracker for this release: https://github.com/nextcloud/android/milestone/84
+- Commit list for this release: https://github.com/nextcloud/android/compare/stable-3.25.0...stable-3.26.0
+- Some changes were also backported to v3.25 but first made their appearance in this release during development so they're included here
 
-For a full list, please see https://github.com/nextcloud/android/milestone/84
+### Added
+
+- Image editor (#11746/#11608)
+- Tighter Nextcloud ecosytem apps integration (#11744/#11811/#11971/#11942)
+- Enhanced image preview / details including map (#11897/#11928)
+- E2EE v1.2 + file drop support + enhanced tests / miscellaneous tweaks (#11630)
+- Extra options for uploading into various patterns of subfolders (#11852/#11642)
+
+### Fixed
+
+- Text editor copies file content from previous file to current file (#11600/#11638)
+- Rotate new folder dialog led to crash (#11648)
+- Don't clear the DB / DB migration (#11659)
+- App streaming video uses a wrong User Agent (#11657/#11658)
+- On landscape mode: scroll is now working (#11656)
+- Group Folder is not displayed (#11664/#11665)
+- Crash when opening password-protected PDFs (#11675)
+- Writing the same file through DocumentProvider in short succession fails (#11283/#11286)
+- Showing only one groupfolder (#11673)
+- Prevent having double entries after rotate (#11644)
+- Remember mnemonic on device rotation (#11694)
+- Fix screenshot test on jdk17 (#11704)
+- Trigger only one email for newly created shares (#11560)
+- Fix grammar (#11706)
+- E2EE setup is only possible with internet connection (#11228)
+- File actions in bottom sheet cut off, particularly in landscape mode (#11730)
+- Fix E2EE encrypted folder icon (#11756)
+- E2EE dialog crash on clicking "Set as Encrypted" multiple times (#11523/#11758)
+- Clearing trashbin crashes (#11740/#11765)
+- Do not show "stream with" option for encrypted files (#11759)
+- After successful upload update permission to have correct resharing info (fix for "Re-sharing is not allowed") (#11774)
+- Fix crash when using "Empty trash bin" / migrate OwncloudClient to NextCloudClient (#11738)
+- Fix for new folder/file share permissions always being "View Only" (#11568)
+- Fix crashes when receiving external files and last upload folder was deleted (#11410/#11207)
+- Fix external links in text editor by always opening in external browser + misc editor changes (#11799/#11492)
+- Fix preview media file update for file action "Sync" after successful download (#11805)
+- Crash fix for switching between shared and favourites section (#11804)
+- Fix folder picker empty state headline text (#11821)
+- Inability to cancel upload on first click / Fix upload list touch target by removing frame layout (#11813)
+- Persist last selected media folder for media view (#11819/#10685)
+- Media playback UI/UX improvements (#11761) 
+- Fix empty state for media view (#11817)
+- Hide actionbar title ("...") when search input field is opened (#11778/#11839)
+- When opening fullscreen when video is paused, the pause button is visible (#11842/#11843)
+- Improve UX when creating rich document (#11840)
+- Fix folder picker during "Choose upload folder", "Copy to", and "Move to" actions (#11689)
+- Fix inappropriate file actions available in BottomSheet (#11736)
+- Back navigation button missing when opening PDF / Fix back arrow appearing as hamburger icon (#11679/#11769)
+- Fix previews of previously offline images (#11851)
+- Several issues with multi-selection in the "Shared" tab, particuarly duplicated selections (#11788)
+- Avoid search collapse after page refresh (#11522)
+- Improve appearance of addresses displayed within ImageDetailFragment (#11938/#11941)
+
+### Changed
+
+- Support Android 13 / API 33 (#11794/#11739)
+- Show conflict notification with newer API (#11684)
+- Set minSdkVersion to 24 + remove no longer necessary checks for prior versions (#11474)
+- Use resultData for Push and Notifications (#11546)
+- Notification list customization / Material 3 color theming (#11693)
+- Hide add account if multi account is disabled (#11953/#11952)
+- Miscellaneous
+  - use TrashbinFile (#11358)
+  - Store groupfolder capability (#11672)
+  - Upon update reset capabilities (#11687)
+  - Rename string to ensure transifex sync works (#11933/#11932)
+  - Launcher screen (#11591)
+  - Refactor links (#11846)
+  - Typos
+  - Updated translations
+- Dependencies
+  - actions/checkout from 3.5.2->3.5.3->3.6.0
+  - actions/setup-java from 3.11.0 to 3.12.0
+  - androidx.core:core-splashscreen from 1.0.0 to 1.0.1
+  - androidx.fragment:fragment-ktx from 1.5.7->1.6.0->1.6.1
+  - androidx.lifecycle:lifecycle-viewmodel-ktx from 2.5.1 to 2.6.1
+  - androidx.webkit:webkit from 1.6.1 to 1.7.0
+  - codecov/codecov-action from 3.1.3 to 3.1.4
+  - com.android.tools.build:gradle from 8.0.2->8.1.0->8.1.1
+  - com.diffplug.spotless from 6.18.0->6.19.0->6.20.0
+  - com.github.nextcloud.android-common:ui from 0.10.0->0.11.0->0.12.0
+  - com.github.spotbugs.snom:spotbugs-gradle-plugin from 5.0.14->5.1.0->5.1.1->5.1.2->5.1.3
+  - com.github.zynkware:Document-Scanning-Android-SDK from 1.0.1 to 1.1.1
+  - com.google.firebase:firebase-messaging from 23.1.2 to 23.2.1
+  - com.squareup.leakcanary:leakcanary-android from 2.10->2.11->2.12
+  - com.vanniktech:emoji-google from 0.16.0 to 0.17.0
+  - commons-io:commons-io from 2.11.0->2.12.0->2.13.0
+  - daggerVersion from 2.45 to 2.46.1->2.47
+  - exoplayerVersion from 2.18.6->2.18.7->2.19.0->2.19.1
+  - gradle/gradle-build-action from 2.4.2->2.5.1->2.6.0->2.6.1->2.7.0->2.7.1
+  - io.coil-kt:coil from 2.2.2 to 2.4.0
+  - io.gitlab.arturbosch.detekt:detekt-gradle-plugin from 1.22.0->1.23.0->1.23.1
+  - org.json:json from 20230227 to 20230618
+  - peter-evans/create-or-update-comment from 3.0.1 to 3.0.2
+  - pl.droidsonroids.gif:android-gif-drawable from 1.2.25->1.2.26->1.2.27
+  - roomVersion from 2.5.1 to 2.5.2
+- Meta
+  - Increase max heap space in base gradle.properties (#11557)
+  - Migrate output variables to new GH output variables (#11685)
+  - Android Gradle 8 (#11602)
+  - Make dev workflow actions cancelable (#11715)
+  - Detect if beta is true (#11732)
+  - Run CodeQL workflow only on GitHub (#11725)
+  - use encrypted GIT_TOKEN (#11762)
+  - Moved splash screen setup strings to avoid merge issue during build process (#11731)
+  - Create pr-feedback.yml (#11790/#11882)
+  - Add RetryTestRule to ContactsBackupIT (#11430)
+  - chore(CI): Sign .drone.yml file (#11801)
+  - Let analysis.yml do not run on GARM (#11928)
+  - Bump to stable-3.26: RC + set android-libary to rc-2.16-0-01 (#11930)
+  - Bump to 3.26.0 final + lock android-library @ 2.16.0 + add mini changelog for fastlane (#11955)
 
 ## 3.25.0 (June 13, 2023)
 
