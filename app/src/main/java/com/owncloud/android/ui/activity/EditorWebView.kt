@@ -76,6 +76,7 @@ abstract class EditorWebView : ExternalSiteWebView() {
     @Suppress("MagicNumber")
     fun onUrlLoaded(loadedUrl: String?) {
         url = loadedUrl
+
         if (url.isNotEmpty()) {
             this.webView.loadUrl(url)
             Handler(Looper.getMainLooper()).postDelayed({
