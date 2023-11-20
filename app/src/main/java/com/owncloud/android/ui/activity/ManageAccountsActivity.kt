@@ -260,6 +260,7 @@ class ManageAccountsActivity :
     }
 
     @SuppressLint("NotifyDataSetChanged")
+    @Suppress("TooGenericExceptionCaught")
     override fun startAccountCreation() {
         val am = AccountManager.get(applicationContext)
         am.addAccount(
