@@ -91,7 +91,6 @@ class PreviewTextFileFragment : PreviewTextFragment() {
         }
         searchOpen = args?.getBoolean(EXTRA_OPEN_SEARCH, false) ?: false
 
-
         if (savedInstanceState == null) {
             checkNotNull(file) { "Instanced with a NULL OCFile" }
             checkNotNull(user) { "Instanced with a NULL ownCloud Account" }
