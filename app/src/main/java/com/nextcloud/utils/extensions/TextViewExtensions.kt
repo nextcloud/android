@@ -25,6 +25,7 @@ import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 
+@Suppress("NewLineAtEndOfFile")
 fun TextView.setHtmlContent(value: String) {
     movementMethod = LinkMovementMethod.getInstance()
     text = HtmlCompat.fromHtml(value, HtmlCompat.FROM_HTML_MODE_LEGACY)
