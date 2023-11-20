@@ -66,8 +66,8 @@ public class UserAccountManagerImpl implements UserAccountManager {
     private static final String TAG = UserAccountManagerImpl.class.getSimpleName();
     private static final String PREF_SELECT_OC_ACCOUNT = "select_oc_account";
 
-    private Context context;
-    private AccountManager accountManager;
+    private final Context context;
+    private final AccountManager accountManager;
 
     public static UserAccountManagerImpl fromContext(Context context) {
         AccountManager am = (AccountManager)context.getSystemService(Context.ACCOUNT_SERVICE);
@@ -166,7 +166,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
             }
         }
 
-        if (defaultAccount == null && ocAccounts.length > 0) {
+        if (defaultAccount == null) {
             // take first which is not pending for removal account as fallback
             for (Account account: ocAccounts) {
                 boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(account.name,
@@ -262,7 +262,11 @@ public class UserAccountManagerImpl implements UserAccountManager {
     public OwnCloudAccount getCurrentOwnCloudAccount() {
         try {
             Account currentPlatformAccount = getCurrentAccount();
-            return new OwnCloudAccount(currentPlatformAccount, context);
+            if (currentPlatformAccount != null) {
+                return new OwnCloudAccount(currentPlatformAccount, context);
+            } else {
+                return null;
+            }
         } catch (AccountUtils.AccountNotFoundException | IllegalArgumentException ex) {
             return null;
         }

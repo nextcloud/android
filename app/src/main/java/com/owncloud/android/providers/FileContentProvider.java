@@ -262,23 +262,15 @@ public class FileContentProvider extends ContentProvider {
     private Uri insert(SupportSQLiteDatabase db, Uri uri, ContentValues values) {
         // verify only for those requests that are not internal (files table)
         switch (mUriMatcher.match(uri)) {
-            case ROOT_DIRECTORY:
-            case SINGLE_FILE:
-            case DIRECTORY:
-                VerificationUtils.verifyColumns(values);
-                break;
+            case ROOT_DIRECTORY, SINGLE_FILE, DIRECTORY -> VerificationUtils.verifyColumns(values);
         }
 
-
         switch (mUriMatcher.match(uri)) {
-            case ROOT_DIRECTORY:
-            case SINGLE_FILE:
+            case ROOT_DIRECTORY, SINGLE_FILE -> {
                 String where = ProviderTableMeta.FILE_PATH + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
-
                 String remotePath = values.getAsString(ProviderTableMeta.FILE_PATH);
                 String accountName = values.getAsString(ProviderTableMeta.FILE_ACCOUNT_OWNER);
                 String[] whereArgs = {remotePath, accountName};
-
                 Cursor doubleCheck = query(db, uri, PROJECTION_FILE_PATH_AND_OWNER, where, whereArgs, null);
                 // ugly patch; serious refactoring is needed to reduce work in
                 // FileDataStorageManager and bring it to FileContentProvider
@@ -295,13 +287,13 @@ public class FileContentProvider extends ContentProvider {
                     Uri insertedFileUri = ContentUris.withAppendedId(
                         ProviderTableMeta.CONTENT_URI_FILE,
                         doubleCheck.getLong(doubleCheck.getColumnIndexOrThrow(ProviderTableMeta._ID))
-                    );
+                                                                    );
                     doubleCheck.close();
 
                     return insertedFileUri;
                 }
-
-            case SHARES:
+            }
+            case SHARES -> {
                 Uri insertedShareUri;
                 long idShares = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
                 if (idShares > 0) {
@@ -311,10 +303,9 @@ public class FileContentProvider extends ContentProvider {
 
                 }
                 updateFilesTableAccordingToShareInsertion(db, values);
-
                 return insertedShareUri;
-
-            case CAPABILITIES:
+            }
+            case CAPABILITIES -> {
                 Uri insertedCapUri;
                 long idCapabilities = db.insert(ProviderTableMeta.CAPABILITIES_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
                 if (idCapabilities > 0) {
@@ -323,8 +314,8 @@ public class FileContentProvider extends ContentProvider {
                     throw new SQLException(ERROR + uri);
                 }
                 return insertedCapUri;
-
-            case UPLOADS:
+            }
+            case UPLOADS -> {
                 Uri insertedUploadUri;
                 long uploadId = db.insert(ProviderTableMeta.UPLOADS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
                 if (uploadId > 0) {
@@ -333,8 +324,8 @@ public class FileContentProvider extends ContentProvider {
                     throw new SQLException(ERROR + uri);
                 }
                 return insertedUploadUri;
-
-            case SYNCED_FOLDERS:
+            }
+            case SYNCED_FOLDERS -> {
                 Uri insertedSyncedFolderUri;
                 long syncedFolderId = db.insert(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
                 if (syncedFolderId > 0) {
@@ -344,8 +335,8 @@ public class FileContentProvider extends ContentProvider {
                     throw new SQLException("ERROR " + uri);
                 }
                 return insertedSyncedFolderUri;
-
-            case EXTERNAL_LINKS:
+            }
+            case EXTERNAL_LINKS -> {
                 Uri insertedExternalLinkUri;
                 long externalLinkId = db.insert(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
                 if (externalLinkId > 0) {
@@ -355,19 +346,18 @@ public class FileContentProvider extends ContentProvider {
                     throw new SQLException("ERROR " + uri);
                 }
                 return insertedExternalLinkUri;
-
-            case VIRTUAL:
+            }
+            case VIRTUAL -> {
                 Uri insertedVirtualUri;
                 long virtualId = db.insert(ProviderTableMeta.VIRTUAL_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
-
                 if (virtualId > 0) {
                     insertedVirtualUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_VIRTUAL, virtualId);
                 } else {
                     throw new SQLException("ERROR " + uri);
                 }
-
                 return insertedVirtualUri;
-            case FILESYSTEM:
+            }
+            case FILESYSTEM -> {
                 Uri insertedFilesystemUri;
                 long filesystemId = db.insert(ProviderTableMeta.FILESYSTEM_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
                 if (filesystemId > 0) {
@@ -377,8 +367,8 @@ public class FileContentProvider extends ContentProvider {
                     throw new SQLException("ERROR " + uri);
                 }
                 return insertedFilesystemUri;
-            default:
-                throw new IllegalArgumentException("Unknown uri id: " + uri);
+            }
+            default -> throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
     }
 
@@ -387,24 +377,12 @@ public class FileContentProvider extends ContentProvider {
         ShareType newShareType = ShareType.fromValue(newShare.getAsInteger(ProviderTableMeta.OCSHARES_SHARE_TYPE));
 
         switch (newShareType) {
-            case PUBLIC_LINK:
-                fileValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, 1);
-                break;
-
-            case USER:
-            case GROUP:
-            case EMAIL:
-            case FEDERATED:
-            case FEDERATED_GROUP:
-            case ROOM:
-            case CIRCLE:
-            case DECK:
-            case GUEST:
+            case PUBLIC_LINK -> fileValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, 1);
+            case USER, GROUP, EMAIL, FEDERATED, FEDERATED_GROUP, ROOM, CIRCLE, DECK, GUEST ->
                 fileValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, 1);
-                break;
-
-            default:
-                // everything should be handled
+            default -> {
+            }
+            // everything should be handled
         }
 
         String where = ProviderTableMeta.FILE_PATH + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
