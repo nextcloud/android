@@ -33,8 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingStart="@dimen/standard_padding"
-        android:paddingEnd="@dimen/standard_padding">
+        android:paddingStart="@dimen/standard_padding">
 
         <ImageView
             android:id="@+id/searchViewIcon"
@@ -58,10 +57,10 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/pick_contact_email_btn"
-            android:layout_width="@dimen/user_icon_size"
-            android:layout_height="@dimen/user_icon_size"
-            android:padding="@dimen/standard_half_padding"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
             android:layout_gravity="center_vertical"
+            android:padding="12dp"
             android:src="@drawable/ic_contact_book" />
 
     </LinearLayout>
@@ -130,6 +129,7 @@
         android:dividerHeight="1dp"
         android:id="@+id/sharesList"
         android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        tools:listitem="@layout/file_details_share_link_share_item" />
 
 </LinearLayout>
