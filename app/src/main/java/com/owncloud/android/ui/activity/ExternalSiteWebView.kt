@@ -125,6 +125,7 @@ open class ExternalSiteWebView : FileActivity() {
         }
     }
 
+    @Suppress("MagicNumber")
     private fun setupProgressBar() {
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         if (progressBar != null) {
