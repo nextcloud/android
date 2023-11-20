@@ -932,15 +932,15 @@ public class FileOperationsHelper {
     }
 
     public void renameFile(OCFile file, String newFilename) {
-        // RenameFile
         Intent service = new Intent(fileActivity, OperationsService.class);
+
         service.setAction(OperationsService.ACTION_RENAME);
         service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         service.putExtra(OperationsService.EXTRA_NEWNAME, newFilename);
         mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
-        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+        fileActivity.refreshList();
     }
 
 

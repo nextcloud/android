@@ -92,7 +92,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
                 INSTANCE = Room
                     .databaseBuilder(context, NextcloudDatabase::class.java, ProviderMeta.DB_NAME)
                     .allowMainThreadQueries()
-                    .addLegacyMigrations(clock)
+                    .addLegacyMigrations(clock, context)
                     .addMigrations(RoomMigration())
                     .addMigrations(Migration67to68())
                     .addMigrations(Migration70to71())
