@@ -59,7 +59,7 @@ class UploadFilesActivityIT : AbstractIT() {
         val sut: UploadFilesActivity = activityRule.launchActivity(null)
 
         sut.runOnUiThread {
-            sut.fileListFragment.setFiles(
+            sut.fileListFragment?.setFiles(
                 directories +
                     listOf(
                         File("1.txt"),
@@ -92,7 +92,7 @@ class UploadFilesActivityIT : AbstractIT() {
         )
 
         sut.runOnUiThread {
-            sut.fileListFragment.setFiles(
+            sut.fileListFragment?.setFiles(
                 directories
             )
         }
