@@ -325,7 +325,6 @@
     <string name="file_delete">刪除</string>
     <string name="file_detail_activity_error">取得檔案活動時發生錯誤</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
-    <string name="file_downloader_notification_title_prefix">正在下載 \u0020</string>
     <string name="file_icon">檔案</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上傳一些內容或與您的裝置同步。</string>

@@ -32,6 +32,7 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.client.di.Injectable
@@ -125,7 +126,31 @@ open class FolderPickerActivity :
 
         // sets message for empty list of folders
         setBackgroundText()
+
+        handleOnBackPressed()
+
         Log_OC.d(TAG, "onCreate() end")
+    }
+
+    private fun handleOnBackPressed() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val listOfFiles = listOfFilesFragment
+                    if (listOfFiles != null) {
+                        // should never be null, indeed
+                        val levelsUp = listOfFiles.onBrowseUp()
+                        if (levelsUp == 0) {
+                            finish()
+                            return
+                        }
+                        file = listOfFiles.currentFile
+                        updateUiElements()
+                    }
+                }
+            }
+        )
     }
 
     override fun onActionModeStarted(mode: ActionMode) {
@@ -318,20 +343,6 @@ open class FolderPickerActivity :
             file = listOfFiles.currentFile
             updateUiElements()
             startSyncFolderOperation(root, false)
-        }
-    }
-
-    override fun onBackPressed() {
-        val listOfFiles = listOfFilesFragment
-        if (listOfFiles != null) {
-            // should never be null, indeed
-            val levelsUp = listOfFiles.onBrowseUp()
-            if (levelsUp == 0) {
-                finish()
-                return
-            }
-            file = listOfFiles.currentFile
-            updateUiElements()
         }
     }
 
