@@ -142,8 +142,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -834,24 +837,28 @@ public class FileDisplayActivity extends FileActivity
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Set<Integer> resultCodesForUploadFromApps = new HashSet<>(Arrays.asList(
+            RESULT_OK,
+            UploadFilesActivity.RESULT_OK_AND_MOVE));
+
+        Set<Integer> resultCodesForUploadFromFileSystem = new HashSet<>(Arrays.asList(
+            RESULT_OK,
+            UploadFilesActivity.RESULT_OK_AND_MOVE,
+            UploadFilesActivity.RESULT_OK_AND_DO_NOTHING,
+            UploadFilesActivity.RESULT_OK_AND_DELETE));
+
+        Set<Integer> resultCodesForUploadFromCamera = new HashSet<>(Arrays.asList(
+            RESULT_OK,
+            UploadFilesActivity.RESULT_OK_AND_DELETE));
 
         if (requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS &&
-            (resultCode == RESULT_OK ||
-                resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
-
+            resultCodesForUploadFromApps.contains(resultCode)) {
             requestUploadOfContentFromApps(data, resultCode);
-
         } else if (requestCode == REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM &&
-            (resultCode == RESULT_OK ||
-                resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE ||
-                resultCode == UploadFilesActivity.RESULT_OK_AND_DO_NOTHING ||
-                resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
-
+            resultCodesForUploadFromFileSystem.contains(resultCode)) {
             requestUploadOfFilesFromFileSystem(data, resultCode);
-
         } else if (requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA &&
-            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
-
+            resultCodesForUploadFromCamera.contains(resultCode)) {
             new CheckAvailableSpaceTask(new CheckAvailableSpaceTask.CheckAvailableSpaceListener() {
                 @Override
                 public void onCheckAvailableSpaceStart() {
@@ -879,7 +886,7 @@ public class FileDisplayActivity extends FileActivity
             }, new String[]{FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath()}).execute();
         } else if (requestCode == REQUEST_CODE__MOVE_OR_COPY_FILES && resultCode == RESULT_OK) {
             exitSelectionMode();
-        } else if (requestCode == PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES) {
+        } else if (requestCode == PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES && resultCode == RESULT_OK) {
             syncAndUpdateFolder(true);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -1262,7 +1269,8 @@ public class FileDisplayActivity extends FileActivity
                                         case MAINTENANCE_MODE -> showInfoBox(R.string.maintenance_mode);
                                         case NO_NETWORK_CONNECTION -> showInfoBox(R.string.offline_mode);
                                         case HOST_NOT_AVAILABLE -> showInfoBox(R.string.host_not_available);
-                                        default -> {}
+                                        default -> {
+                                        }
                                     }
                                 }
                             }
@@ -2345,13 +2353,16 @@ public class FileDisplayActivity extends FileActivity
             // current Account
             OCFile file = getFile();
             // get parent from path
-            String parentPath = "";
             if (file != null) {
                 if (file.isDown() && file.getLastSyncDateForProperties() == 0) {
                     // upload in progress - right now, files are not inserted in the local
                     // cache until the upload is successful get parent from path
-                    parentPath = file.getRemotePath().substring(0,
-                                                                file.getRemotePath().lastIndexOf(file.getFileName()));
+                    // Retrieve the full remote path of the file.
+
+                    String fullRemotePath = file.getRemotePath();
+                    int fileNameIndex = fullRemotePath.lastIndexOf(file.getFileName());
+                    String parentPath = fullRemotePath.substring(0, fileNameIndex);
+
                     if (storageManager.getFileByEncryptedRemotePath(parentPath) == null) {
                         file = null; // not able to know the directory where the file is uploading
                     }
@@ -2550,7 +2561,8 @@ public class FileDisplayActivity extends FileActivity
         dismissLoadingDialog();
 
         final Fragment leftFragment = getLeftFragment();
-        OCFileListFragment listOfFiles = null;
+        OCFileListFragment listOfFiles;
+
         if (leftFragment instanceof OCFileListFragment) {
             listOfFiles = (OCFileListFragment) leftFragment;
         } else {
