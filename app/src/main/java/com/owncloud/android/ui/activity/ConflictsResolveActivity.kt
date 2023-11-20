@@ -153,6 +153,8 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         if (existingFile == null) {
             // fetch info of existing file from server
             val operation = ReadFileRemoteOperation(newFile!!.remotePath)
+
+            @Suppress("TooGenericExceptionCaught")
             Thread {
                 try {
                     val result = operation.execute(account, this)
