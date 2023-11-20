@@ -38,6 +38,7 @@ import javax.inject.Inject
 
 class LauncherActivity : BaseActivity() {
 
+
     private lateinit var binding: ActivitySplashBinding
 
     @Inject
