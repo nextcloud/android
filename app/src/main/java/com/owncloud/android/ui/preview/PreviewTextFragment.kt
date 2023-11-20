@@ -156,6 +156,7 @@ abstract class PreviewTextFragment : FileFragment(), SearchView.OnQueryTextListe
         }
     }
 
+    @Suppress("ReturnCount")
     private fun markText(query: String) {
         // called asynchronously - must check preconditions in case of UI detachment
         if (binding == null) {
