@@ -91,7 +91,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_USER = "USER";
-    public static final int PERMISSION_EDITING_ALLOWED = 17;
 
     private OCFile file;
     private User user;
@@ -128,8 +127,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         } else {
             Bundle arguments = getArguments();
             if (arguments != null) {
-                file = getArguments().getParcelable(ARG_FILE);
-                user = getArguments().getParcelable(ARG_USER);
+                file = arguments.getParcelable(ARG_FILE);
+                user = arguments.getParcelable(ARG_USER);
             }
         }
 
@@ -159,12 +158,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FileDetailsSharingFragmentBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
 
         fileOperationsHelper = fileActivity.getFileOperationsHelper();
         fileDataStorageManager = fileActivity.getStorageManager();
 
-        AccountManager accountManager = AccountManager.get(getContext());
+        AccountManager accountManager = AccountManager.get(requireContext());
         String userId = accountManager.getUserData(user.toPlatformAccount(),
                                                    com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
@@ -175,13 +173,14 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                             user,
                                                             viewThemeUtils,
                                                             file.isEncrypted()));
-        binding.sharesList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        binding.sharesList.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         binding.pickContactEmailBtn.setOnClickListener(v -> checkContactPermission());
 
         setupView();
 
-        return view;
+        return binding.getRoot();
     }
 
     @Override
@@ -229,9 +228,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private void disableSearchView(View view) {
         view.setEnabled(false);
 
-        if (view instanceof ViewGroup) {
-            ViewGroup viewGroup = (ViewGroup) view;
-
+        if (view instanceof ViewGroup viewGroup) {
             for (int i = 0; i < viewGroup.getChildCount(); i++) {
                 disableSearchView(viewGroup.getChildAt(i));
             }
@@ -315,7 +312,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             if (TextUtils.isEmpty(share.getShareLink())) {
                 fileOperationsHelper.getFileWithLink(file, viewThemeUtils);
             } else {
-                ClipboardUtil.copyToClipboard(getActivity(), share.getShareLink());
+                ClipboardUtil.copyToClipboard(requireActivity(), share.getShareLink());
             }
         }
     }
@@ -555,7 +552,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @VisibleForTesting
     public void search(String query) {
-        SearchView searchView = getView().findViewById(R.id.searchView);
+        SearchView searchView = requireView().findViewById(R.id.searchView);
         searchView.setQuery(query, true);
     }
 
