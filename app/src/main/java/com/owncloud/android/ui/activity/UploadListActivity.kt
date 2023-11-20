@@ -84,6 +84,7 @@ class UploadListActivity : FileActivity() {
 
     private lateinit var binding: UploadListLayoutBinding
 
+    @Suppress("MagicNumber")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -108,6 +109,7 @@ class UploadListActivity : FileActivity() {
         loadItems()
     }
 
+    @Suppress("MagicNumber")
     private fun setupEmptyList() {
         binding.list.setEmptyView(binding.emptyList.root)
         binding.emptyList.root.visibility = View.GONE
