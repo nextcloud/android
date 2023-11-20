@@ -18,7 +18,7 @@
   - anyone that tested an early release, reported a bug, proposed an enhancement idea, helped with translations, triaged an issue, reviewed a PR, and/or assisted another community member
   - the entire Nextcloud community 
 - Release coordinators: @tabiasKaminksy, @AndyScherzinger
-- Changelog editor: @joshtrichards
+- Changelog editor for this release: @joshtrichards
 - Milestone tracker for this release: https://github.com/nextcloud/android/milestone/84
 - Commit list for this release: https://github.com/nextcloud/android/compare/stable-3.25.0...stable-3.26.0
 - Some changes were also backported to v3.25 but first made their appearance in this release during development so they're included here
@@ -29,7 +29,7 @@
 - Tighter Nextcloud ecosytem apps integration (#11744/#11811/#11971/#11942)
 - Enhanced image preview / details including map (#11897/#11928)
 - E2EE v1.2 + file drop support + enhanced tests / miscellaneous tweaks (#11630)
-- Extra options for uploading into various patterns of subfolders (#11852/#11642)
+- Auto-upload into various date patterns of subfolders (#11852/#11642)
 
 ### Fixed
 
