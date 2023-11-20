@@ -325,7 +325,6 @@
     <string name="file_delete">Usuń</string>
     <string name="file_detail_activity_error">Błąd podczas pobierania aktywności dla pliku</string>
     <string name="file_details_no_content">Nie udało się załadować szczegółów</string>
-    <string name="file_downloader_notification_title_prefix">Pobieranie \u0020</string>
     <string name="file_icon">Plik</string>
     <string name="file_keep">Zachowaj</string>
     <string name="file_list_empty">Wyślij lub zsynchronizuj pliki z urządzeniami.</string>
