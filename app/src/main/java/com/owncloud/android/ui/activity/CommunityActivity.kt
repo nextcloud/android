@@ -32,8 +32,8 @@ import com.owncloud.android.utils.DisplayUtils
 /**
  * Activity providing information about ways to participate in the app's development.
  */
-class CommunityActivity : DrawerActivity() {
-    private lateinit var binding: CommunityLayoutBinding
+open class CommunityActivity : DrawerActivity() {
+    lateinit var binding: CommunityLayoutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
