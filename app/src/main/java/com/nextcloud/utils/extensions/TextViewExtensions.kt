@@ -29,4 +29,3 @@ fun TextView.setHtmlContent(value: String) {
     movementMethod = LinkMovementMethod.getInstance()
     text = HtmlCompat.fromHtml(value, HtmlCompat.FROM_HTML_MODE_LEGACY)
 }
-
