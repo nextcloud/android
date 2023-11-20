@@ -62,6 +62,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -346,11 +348,14 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> removeUpload(item));
             }
             itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE);
-        } else {    // UploadStatus.UPLOAD_SUCCESS
+        } else {    // UploadStatus.UPLOAD_SUCCEEDED
             itemViewHolder.binding.uploadRightButton.setVisibility(View.INVISIBLE);
         }
 
         itemViewHolder.binding.uploadListItemLayout.setOnClickListener(null);
+
+        // Set icon or thumbnail
+        itemViewHolder.binding.thumbnail.setImageResource(R.drawable.file);
 
         // click on item
         if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
@@ -381,12 +386,15 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     );
                 }
             });
-        } else {
-            itemViewHolder.binding.uploadListItemLayout.setOnClickListener(v -> onUploadItemClick(item));
+        } else if (item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED){
+            itemViewHolder.binding.uploadListItemLayout.setOnClickListener(v -> onUploadedItemClick(item));
         }
 
-        // Set icon or thumbnail
-        itemViewHolder.binding.thumbnail.setImageResource(R.drawable.file);
+
+        // click on thumbnail to open locally
+        if (item.getUploadStatus() != UploadStatus.UPLOAD_SUCCEEDED){
+            itemViewHolder.binding.thumbnail.setOnClickListener(v -> onUploadingItemClick(item));
+        }
 
         /*
          * Cancellation needs do be checked and done before changing the drawable in fileIcon, or
@@ -738,12 +746,39 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         notifyDataSetChanged();
     }
 
-    private void onUploadItemClick(OCUpload file) {
+    /**
+     * Open local file.
+     */
+    private void onUploadingItemClick(OCUpload file) {
         File f = new File(file.getLocalPath());
         if (!f.exists()) {
             DisplayUtils.showSnackMessage(parentActivity, R.string.local_file_not_found_message);
         } else {
             openFileWithDefault(file.getLocalPath());
+        }
+    }
+
+    /**
+     * Open remote file.
+     */
+    private void onUploadedItemClick(OCUpload upload) {
+        final OCFile file = parentActivity.getStorageManager().getFileByEncryptedRemotePath(upload.getRemotePath());
+        if (file == null){
+            DisplayUtils.showSnackMessage(parentActivity, R.string.error_retrieving_file);
+            Log_OC.i(TAG, "Could not find uploaded file on remote.");
+            return;
+        }
+
+        if (PreviewImageFragment.canBePreviewed(file)){
+            //show image preview and stay in uploads tab
+            Intent intent = FileDisplayActivity.openFileIntent(parentActivity, parentActivity.getUser().get(), file);
+            parentActivity.startActivity(intent);
+        }else{
+            Intent intent = new Intent(parentActivity, FileDisplayActivity.class);
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.putExtra(FileDisplayActivity.KEY_FILE_PATH, upload.getRemotePath());
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            parentActivity.startActivity(intent);
         }
     }
 

@@ -70,7 +70,7 @@
         <item name="colorPrimary">@color/text_color</item>
         <item name="colorOnSurface">@color/text_color</item>
         <item name="colorError">@color/hwSecurityRed</item>
-        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
+        <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
     </style>
 
     <style name="TextInputLayoutInputWarning" parent="Widget.App.TextInputLayout">
@@ -102,7 +102,7 @@
         <item name="android:buttonBarButtonStyle">@style/FallbackTheming.Dialog.ButtonStyle</item>
     </style>
 
-    <style name="FallbackTheming.Dialog.ButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+    <style name="FallbackTheming.Dialog.ButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
         <item name="android:textColor">@color/text_color</item>
     </style>
 
@@ -363,7 +363,7 @@
 
     <style name="Widget.App.Login.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Login.TextInputLayout</item>
-        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.SmallComponent</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Material3.SmallComponent</item>
         <item name="hintTextColor">?attr/colorOnSurface</item>
     </style>
 
@@ -371,9 +371,9 @@
         <item name="colorPrimary">@color/white</item>
         <item name="colorOnSurface">@color/white</item>
         <item name="colorError">@color/hwSecurityRed</item>
-        <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
-        <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
-        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Material3.BodyLarge</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Material3.BodySmall</item>
+        <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
     </style>
 
     <style name="TextInputLayoutLogin" parent="Widget.Material3.TextInputLayout.OutlinedBox">
@@ -476,11 +476,11 @@
     </style>
 
 
-    <style name="ThemeOverlay.App.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <style name="ThemeOverlay.App.BottomSheetDialog" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/App.BottomSheetDialog</item>
     </style>
 
-    <style name="App.BottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
+    <style name="App.BottomSheetDialog" parent="Widget.Material3.BottomSheet.Modal">
         <item name="backgroundTint">@color/bg_default</item>
     </style>
 

@@ -41,6 +41,7 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
+@Suppress("LongParameterList")
 class ReceiveExternalFilesAdapter(
     private val files: List<OCFile>,
     private val context: Context,
@@ -132,6 +133,7 @@ class ReceiveExternalFilesAdapter(
         thumbnailImageView.setImageDrawable(icon)
     }
 
+    @Suppress("NestedBlockDepth")
     private fun setupThumbnailForImage(thumbnailImageView: ImageView, file: OCFile) {
         var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.remoteId.toString())
         if (thumbnail != null && !file.isUpdateThumbnailNeeded) {
