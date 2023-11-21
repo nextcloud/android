@@ -180,13 +180,17 @@ class FilesUploadWorker(
             Log_OC.e(TAG, "Error uploading", e)
             uploadResult = RemoteOperationResult<Any?>(e)
         } finally {
-            uploadsStorageManager.updateDatabaseUploadResult(uploadResult, uploadFileOperation)
+            // only update db if operation finished and worker didn't get canceled
+            if (!(isStopped && uploadResult.isCancelled)) {
+                uploadsStorageManager.updateDatabaseUploadResult(uploadResult, uploadFileOperation)
 
-            // / notify result
-            notifyUploadResult(uploadFileOperation, uploadResult)
+                // / notify result
+                notifyUploadResult(uploadFileOperation, uploadResult)
 
-            // cancel notification
-            notificationManager.cancel(FOREGROUND_SERVICE_ID)
+                // cancel notification
+                notificationManager.cancel(FOREGROUND_SERVICE_ID)
+            }
+
         }
 
         return uploadResult

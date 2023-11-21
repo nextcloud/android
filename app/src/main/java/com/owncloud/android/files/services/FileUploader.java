@@ -1159,7 +1159,7 @@ public class FileUploader extends Service
                 try{
                     new FilesUploadHelper().cancelFileUpload(remotePath, accountManager.getUser(accountName).get(),null);
                 }catch(NoSuchElementException e){
-                    Log_OC.e(TAG,"Error cancelling current upload because user does not exist! 666");
+                    Log_OC.e(TAG,"Error cancelling current upload because user does not exist!");
                 }
             } else {
                 // Cancel for Android version <= Android 10
