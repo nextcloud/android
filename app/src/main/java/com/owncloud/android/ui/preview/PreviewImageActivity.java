@@ -195,7 +195,6 @@ public class PreviewImageActivity extends FileActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean returnValue;
         if (item.getItemId() == android.R.id.home) {
             sendRefreshSearchEventBroadcast();
 
@@ -204,12 +203,10 @@ public class PreviewImageActivity extends FileActivity implements
             } else {
                 backToDisplayActivity();
             }
-            returnValue = true;
+            return true;
         } else {
-            returnValue = super.onOptionsItemSelected(item);
+            return onOptionsItemSelected(item);
         }
-
-        return returnValue;
     }
 
     private void sendRefreshSearchEventBroadcast() {
