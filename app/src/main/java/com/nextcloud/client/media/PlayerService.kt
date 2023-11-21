@@ -22,7 +22,9 @@ package com.nextcloud.client.media
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.media.AudioManager
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.widget.MediaController
@@ -167,11 +169,16 @@ class PlayerService : Service() {
         notificationBuilder.setContentTitle(ticker)
         notificationBuilder.setContentText(content)
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_MEDIA)
         }
 
-        startForeground(R.string.media_notif_ticker, notificationBuilder.build())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            startForeground(R.string.media_notif_ticker, notificationBuilder.build(),   ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
+        } else {
+            startForeground(R.string.media_notif_ticker, notificationBuilder.build())
+        }
+
         isRunning = true
     }
 

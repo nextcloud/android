@@ -72,6 +72,9 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
+    <!-- Needed for Android 14 (API level 34) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <!-- Some Chromebooks don't support touch. Although not essential,
          it's a good idea to explicitly include this declaration. -->
@@ -378,15 +381,19 @@
             android:exported="false" />
         <service
             android:name=".files.services.FileDownloader"
+            android:foregroundServiceType="dataSync"
             android:exported="false" />
         <service
             android:name="com.nextcloud.client.files.downloader.FileTransferService"
+            android:foregroundServiceType="dataSync"
             android:exported="false" />
         <service
             android:name=".files.services.FileUploader"
+            android:foregroundServiceType="dataSync"
             android:exported="false" />
         <service
             android:name="com.nextcloud.client.media.PlayerService"
+            android:foregroundServiceType="mediaPlayback"
             android:exported="false" />
 
         <activity
