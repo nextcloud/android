@@ -88,7 +88,7 @@ class ShareActivity : FileActivity() {
                 )
             )
             if (MimeTypeUtil.isImage(file)) {
-                val remoteId = file.remoteId.toString()
+                val remoteId = ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId
                 val thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(remoteId)
                 if (thumbnail != null) {
                     binding.shareFileIcon.setImageBitmap(thumbnail)
