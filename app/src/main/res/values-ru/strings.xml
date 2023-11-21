@@ -325,7 +325,6 @@
     <string name="file_delete">Удалить</string>
     <string name="file_detail_activity_error">Ошибка получения истории событий, связанных с файлом</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>
-    <string name="file_downloader_notification_title_prefix">Скачивание \u0020</string>
     <string name="file_icon">Файл</string>
     <string name="file_keep">Сохранить</string>
     <string name="file_list_empty">Добавьте что-нибудь или синхронизируйте со своими устройствами!</string>

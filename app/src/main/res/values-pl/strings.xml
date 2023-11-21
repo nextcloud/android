@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Kopiuj</string>
     <string name="actionbar_mkdir">Nowy katalog</string>
     <string name="actionbar_move">Przenieś</string>
+    <string name="actionbar_move_or_copy">Przenieś lub kopiuj</string>
     <string name="actionbar_open_with">Otwórz za pomocą</string>
     <string name="actionbar_search">Wyszukaj</string>
     <string name="actionbar_see_details">Szczegóły</string>
@@ -944,7 +945,9 @@
     <string name="wait_a_moment">Proszę czekać…</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego magazynu</string>
+    <string name="webview_version_check_alert_dialog_message">Aby się zalogować, zaktualizuj aplikację WebView systemu Android</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Aktualizuj</string>
+    <string name="webview_version_check_alert_dialog_title">Zaktualizuj WebView systemu Android</string>
     <string name="what_s_new_image">Jaki jest nowy obraz</string>
     <string name="whats_new_skip">Pomiń</string>
     <string name="whats_new_title">Co nowego w %1$s</string>
