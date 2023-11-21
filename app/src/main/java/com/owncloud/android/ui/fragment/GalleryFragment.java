@@ -121,8 +121,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private final BroadcastReceiver refreshSearchEventReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            final FragmentActivity activity = getActivity();
-            if (activity instanceof FileDisplayActivity fileDisplayActivity) {
+            if (getActivity() instanceof FileDisplayActivity fileDisplayActivity) {
                 fileDisplayActivity.startPhotoSearch(R.id.nav_gallery);
             }
         }
