@@ -460,7 +460,7 @@ public class UploadIT extends AbstractOnServerIT {
         testOnlyOnServer(NextcloudVersion.nextcloud_27);
 
         File file = getFile("gps.jpg");
-        String remotePath = "/gps.jpg";
+        String remotePath = "/metadata.jpg";
         OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);
 
         assertTrue(
@@ -497,7 +497,7 @@ public class UploadIT extends AbstractOnServerIT {
 
         OCFile ocFile = null;
         for (OCFile f : files) {
-            if (f.getFileName().equals("gps.jpg")) {
+            if (f.getFileName().equals("metadata.jpg")) {
                 ocFile = f;
                 break;
             }
@@ -505,8 +505,8 @@ public class UploadIT extends AbstractOnServerIT {
 
         assertNotNull(ocFile);
         assertEquals(remotePath, ocFile.getRemotePath());
-        assertEquals(new ImageDimension(300f, 200f), ocFile.getImageDimension());
         assertEquals(new GeoLocation(64, -46), ocFile.getGeoLocation());
+        assertEquals(new ImageDimension(300f, 200f), ocFile.getImageDimension());
     }
 
     private void verifyStoragePath(OCFile file) {
