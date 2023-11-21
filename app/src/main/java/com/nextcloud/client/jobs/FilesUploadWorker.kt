@@ -43,6 +43,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
@@ -200,6 +201,14 @@ class FilesUploadWorker(
      * adapted from [com.owncloud.android.files.services.FileUploader.notifyUploadStart]
      */
     private fun createNotification(uploadFileOperation: UploadFileOperation) {
+
+        val notificationActionIntent = Intent(context,FileUploader.UploadNotificationActionReceiver::class.java)
+        notificationActionIntent.putExtra(FileUploader.EXTRA_ACCOUNT_NAME,uploadFileOperation.user.accountName)
+        notificationActionIntent.putExtra(FileUploader.EXTRA_REMOTE_PATH,uploadFileOperation.remotePath)
+        notificationActionIntent.action = FileUploader.ACTION_CANCEL_BROADCAST
+
+        val pendingIntent = PendingIntent.getBroadcast(context,SecureRandom().nextInt(),notificationActionIntent, PendingIntent.FLAG_MUTABLE)
+
         notificationBuilder
             .setOngoing(true)
             .setSmallIcon(R.drawable.notification_icon)
@@ -212,6 +221,9 @@ class FilesUploadWorker(
                     uploadFileOperation.fileName
                 )
             )
+            .clearActions() // to make sure there is only one action
+            .addAction(R.drawable.ic_action_cancel_grey,context.getString(R.string.common_cancel),pendingIntent)
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
@@ -278,6 +290,7 @@ class FilesUploadWorker(
                 .setAutoCancel(true)
                 .setOngoing(false)
                 .setProgress(0, 0, false)
+                .clearActions()
 
             val content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, uploadFileOperation, context.resources)
 

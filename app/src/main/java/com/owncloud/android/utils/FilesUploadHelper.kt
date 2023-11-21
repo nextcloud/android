@@ -90,8 +90,6 @@ class FilesUploadHelper {
 
 
 
-
-
     fun uploadUpdatedFile(
         user: User,
         existingFiles: Array<OCFile>,
