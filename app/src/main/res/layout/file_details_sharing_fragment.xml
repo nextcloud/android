@@ -62,6 +62,7 @@
             android:layout_height="@dimen/minimum_size_for_touchable_area"
             android:layout_gravity="center_vertical"
             android:padding="12dp"
+            android:layout_marginEnd="@dimen/standard_quarter_margin"
             android:src="@drawable/ic_contact_book" />
 
     </LinearLayout>
