@@ -325,7 +325,6 @@
     <string name="file_delete">Sil</string>
     <string name="file_detail_activity_error">Dosya işlemleri alınırken sorun çıktı</string>
     <string name="file_details_no_content">Ayrıntılar yüklenemedi</string>
-    <string name="file_downloader_notification_title_prefix">İndiriliyor \u0020</string>
     <string name="file_icon">Dosya</string>
     <string name="file_keep">Tut</string>
     <string name="file_list_empty">Bazı içerikler yükleyin ya da aygıtlarınızla eşitleyin.</string>

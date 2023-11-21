@@ -20,14 +20,15 @@
  */
 package com.owncloud.android.ui.activity
 
+import android.os.Bundle
 import android.view.View
 
 /**
  * Activity providing information about ways to participate in the app's development.
  */
 class HuaweiCommunityActivity : CommunityActivity() {
-    override fun setupContent() {
-        super.setupContent()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding.communityReleaseCandidatePlaystore.visibility = View.GONE
     }
 }

@@ -325,7 +325,6 @@
     <string name="file_delete">Smazat</string>
     <string name="file_detail_activity_error">Při načítání aktivit u souboru došlo k chybě</string>
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>
-    <string name="file_downloader_notification_title_prefix">Stahování \u0020</string>
     <string name="file_icon">Soubor</string>
     <string name="file_keep">Ponechat</string>
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními.</string>
