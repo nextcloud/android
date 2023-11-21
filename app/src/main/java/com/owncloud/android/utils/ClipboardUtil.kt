@@ -36,6 +36,7 @@ object ClipboardUtil {
 
     @JvmStatic
     @JvmOverloads
+    @Suppress("TooGenericExceptionCaught")
     fun copyToClipboard(activity: Activity, text: String?, showToast: Boolean = true) {
         if (!TextUtils.isEmpty(text)) {
             try {
