@@ -310,7 +310,6 @@
     <string name="etm_transfer_type_download">Descărcare</string>
     <string name="etm_transfer_type_upload">Încărcare</string>
     <string name="fab_label">Adaugă sau încarcă</string>
-    <string name="failed_to_download">Trecerea fișierului către managerul de descărcare a eșuat</string>
     <string name="failed_to_print">Nu s-a putut imprima fișierul</string>
     <string name="failed_to_start_editor">Nu s-a putut porni editorul</string>
     <string name="failed_update_ui">Nu s-a putut actualiza interfața</string>

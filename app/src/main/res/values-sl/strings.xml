@@ -317,7 +317,6 @@
     <string name="etm_transfer_type_download">Prejmi</string>
     <string name="etm_transfer_type_upload">Pošlji</string>
     <string name="fab_label">Dodaj ali pošlji</string>
-    <string name="failed_to_download">Podajanje datoteke na upravljalnik prenosov je spodletelo</string>
     <string name="failed_to_print">Tiskanje datoteke je spodletelo</string>
     <string name="failed_to_start_editor">Začenjanje urejevalnika je spodletelo</string>
     <string name="failed_update_ui">Posodabljanje uporabniškega vmesnika je spodletelo</string>

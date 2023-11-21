@@ -271,7 +271,6 @@
     <string name="etm_transfer_type_download">Descargar</string>
     <string name="etm_transfer_type_upload">Cargar</string>
     <string name="fab_label">Agregar o cargar</string>
-    <string name="failed_to_download">Error al añadir el archivo al gestor de descargas</string>
     <string name="failed_to_print">Error al imprimir el archivo</string>
     <string name="failed_to_start_editor">Error al iniciar el editor</string>
     <string name="failed_update_ui">Error al actualizar la interfaz gráfica</string>

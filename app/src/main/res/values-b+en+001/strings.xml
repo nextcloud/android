@@ -317,7 +317,6 @@
     <string name="etm_transfer_type_download">Download</string>
     <string name="etm_transfer_type_upload">Upload</string>
     <string name="fab_label">Add or upload</string>
-    <string name="failed_to_download">Failed to pass file to download manager</string>
     <string name="failed_to_print">Failed to print file</string>
     <string name="failed_to_start_editor">Failed to start editor</string>
     <string name="failed_update_ui">Failed to update UI</string>

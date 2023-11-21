@@ -315,7 +315,6 @@
     <string name="etm_transfer_type_download">Letöltés</string>
     <string name="etm_transfer_type_upload">Feltöltés</string>
     <string name="fab_label">Hozzáadás vagy feltöltés</string>
-    <string name="failed_to_download">Nem sikerült átadni a fájlt a letöltéskezelőnek</string>
     <string name="failed_to_print">A fájl nyomtatása sikertelen</string>
     <string name="failed_to_start_editor">A szerkesztő indítása sikertelen</string>
     <string name="failed_update_ui">A felhasználói felület frissítése sikertelen</string>

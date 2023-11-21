@@ -271,7 +271,6 @@
     <string name="etm_transfer_type_download">Sækja</string>
     <string name="etm_transfer_type_upload">Senda inn</string>
     <string name="fab_label">Bæta við eða senda inn</string>
-    <string name="failed_to_download">Mistókst að senda skrá í niðurhalsstýringu</string>
     <string name="failed_to_print">Mistókst að prenta skrá</string>
     <string name="failed_to_start_editor">Mistókst að ræsa ritil</string>
     <string name="favorite">Bæta í Eftirlæti</string>

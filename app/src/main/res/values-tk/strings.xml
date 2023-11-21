@@ -261,7 +261,6 @@
     <string name="etm_transfer_type_download">Göçürip almak</string>
     <string name="etm_transfer_type_upload">Ýüklemek</string>
     <string name="fab_label">Goşmak ýa-da ýüklemek</string>
-    <string name="failed_to_download">Dolandyryjyny göçürip almak üçin faýl geçirip bilmedi</string>
     <string name="failed_to_print">Faýl çap edilmedi</string>
     <string name="failed_to_start_editor">Redaktor başlap bilmedi</string>
     <string name="failed_update_ui">UI täzelenip bilmedi</string>

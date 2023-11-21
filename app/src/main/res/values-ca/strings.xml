@@ -300,7 +300,6 @@
     <string name="etm_transfer_type_download">Baixada</string>
     <string name="etm_transfer_type_upload">Pujada</string>
     <string name="fab_label">Afegir o pujada</string>
-    <string name="failed_to_download">Ha fallat el lliurament del fitxer al gestor de baixades</string>
     <string name="failed_to_print">Ha fallat imprimir el fitxer</string>
     <string name="failed_to_start_editor">Ha fallat l\'arrancada de l\'editor</string>
     <string name="failed_update_ui">No s\'ha pogut actualitzar la IU</string>

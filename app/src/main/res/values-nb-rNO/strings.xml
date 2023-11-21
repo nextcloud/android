@@ -315,7 +315,6 @@
     <string name="etm_transfer_type_download">Last ned</string>
     <string name="etm_transfer_type_upload">Last opp</string>
     <string name="fab_label">Legg til eller last opp</string>
-    <string name="failed_to_download">Kunne ikke sende filen til nedlastingsbehandleren</string>
     <string name="failed_to_print">Mislykket å skrive ut filen</string>
     <string name="failed_to_start_editor">Start av editor feilet</string>
     <string name="failed_update_ui">Kunne ikke oppdatere brukergrensesnittet</string>

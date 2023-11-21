@@ -281,7 +281,6 @@
     <string name="etm_transfer_type_download">הורדה</string>
     <string name="etm_transfer_type_upload">העלאה</string>
     <string name="fab_label">הוספה או העלאה</string>
-    <string name="failed_to_download">העברת הקובץ למנהל ההורדות נכשלה</string>
     <string name="failed_to_print">הדפסת הקובץ נכשלה</string>
     <string name="failed_to_start_editor">התחלת העורך נכשלה</string>
     <string name="favorite">הוספה למועדפים</string>

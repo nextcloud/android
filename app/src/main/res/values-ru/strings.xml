@@ -315,7 +315,6 @@
     <string name="etm_transfer_type_download">Скачать</string>
     <string name="etm_transfer_type_upload">Отправить</string>
     <string name="fab_label">Добавить или выгрузить</string>
-    <string name="failed_to_download">Не удалось передать файл в диспетчер загрузок</string>
     <string name="failed_to_print">Ошибка печати файла</string>
     <string name="failed_to_start_editor">Не удалось запустить редактор</string>
     <string name="failed_update_ui">Не удалось обновить пользовательский интерфейс</string>

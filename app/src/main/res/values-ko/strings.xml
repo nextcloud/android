@@ -312,7 +312,6 @@
     <string name="etm_transfer_type_download">다운로드</string>
     <string name="etm_transfer_type_upload">업로드</string>
     <string name="fab_label">추가 또는 업로드</string>
-    <string name="failed_to_download">다운로드 관리자에게 파일을 전달할 수 없음</string>
     <string name="failed_to_print">파일을 출력할 수 없음</string>
     <string name="failed_to_start_editor">에디터 실행 실패</string>
     <string name="failed_update_ui">UI 업데이트 실패</string>

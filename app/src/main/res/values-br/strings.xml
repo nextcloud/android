@@ -260,7 +260,6 @@
     <string name="etm_transfer_type_download">Pellgargañ</string>
     <string name="etm_transfer_type_upload">Pellkas</string>
     <string name="fab_label">Ouzhpennañ pe pellkas</string>
-    <string name="failed_to_download">C\'hwitet da reiñ ar restr d\'ar merour pellgargañ</string>
     <string name="failed_to_print">C\'hwitet eo bet moullañ ar restr</string>
     <string name="failed_to_start_editor">C\'hwitet da lakaat en dro an embanner</string>
     <string name="favorite">Ouzhpennañ er pennrolloù</string>

@@ -276,7 +276,6 @@
     <string name="etm_transfer_type_download">Iscàrriga</string>
     <string name="etm_transfer_type_upload">Càrriga</string>
     <string name="fab_label">Agiunghe o càrriga</string>
-    <string name="failed_to_download">Non s\'est pòdidu passare su documentu a sa gestione de iscarrigamentu</string>
     <string name="failed_to_print">No at fatu a imprentare su documentu</string>
     <string name="failed_to_start_editor">Non s\'est pòdidu abèrrere su modificadore</string>
     <string name="failed_update_ui">Non s\'est pòdidu agiornare UI</string>

@@ -299,7 +299,6 @@
     <string name="etm_transfer_type_download">Stiahnuť</string>
     <string name="etm_transfer_type_upload">Nahrať</string>
     <string name="fab_label">Pridať alebo nahrať</string>
-    <string name="failed_to_download">Nepodarilo sa odovzdať súbor správcovi preberania</string>
     <string name="failed_to_print">Nepodarilo sa vytlačiť súbor</string>
     <string name="failed_to_start_editor">Nepodarilo sa spustiť editor</string>
     <string name="failed_update_ui">Nepodarilo sa aktualizovať UI</string>

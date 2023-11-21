@@ -317,7 +317,6 @@
     <string name="etm_transfer_type_download">Scarica</string>
     <string name="etm_transfer_type_upload">Carica</string>
     <string name="fab_label">Aggiungi o carica</string>
-    <string name="failed_to_download">Passaggio del file al gestore degli scaricamenti non riuscito</string>
     <string name="failed_to_print">Stampa del file non riuscita</string>
     <string name="failed_to_start_editor">Avvio dell\'editor non riuscito</string>
     <string name="failed_update_ui">Aggiornamento interfaccia non riuscito</string>

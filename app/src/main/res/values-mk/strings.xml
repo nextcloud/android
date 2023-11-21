@@ -275,7 +275,6 @@
     <string name="etm_transfer_type_download">Преземи</string>
     <string name="etm_transfer_type_upload">Прикачи</string>
     <string name="fab_label">Додади или прикачи</string>
-    <string name="failed_to_download">Неуспешно поставување на датотеката во менаџерот за превземање</string>
     <string name="failed_to_print">Неуспешно печатење не датотеката</string>
     <string name="favorite">Додади во фаворити</string>
     <string name="favorite_icon">Омилен</string>

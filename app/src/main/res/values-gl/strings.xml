@@ -317,7 +317,6 @@
     <string name="etm_transfer_type_download">Descargar</string>
     <string name="etm_transfer_type_upload">Enviar</string>
     <string name="fab_label">Engadir ou enviar</string>
-    <string name="failed_to_download">Produciuse un fallo ao pasar o ficheiro para o xestor de descargas</string>
     <string name="failed_to_print">Produciuse un fallo ao imprimir o ficheiro</string>
     <string name="failed_to_start_editor">Produciuse un fallo ao iniciar o editor</string>
     <string name="failed_update_ui">Produciuse un fallo ao actualizar a IU</string>

@@ -299,7 +299,6 @@
     <string name="etm_transfer_type_download">Tải xuống</string>
     <string name="etm_transfer_type_upload">Tải lên</string>
     <string name="fab_label">Thêm hoặc tải lên</string>
-    <string name="failed_to_download">Không chuyển được tệp vào trình quản lý tải xuống</string>
     <string name="failed_to_print">Không in được tệp</string>
     <string name="failed_to_start_editor">Không khởi động được trình chỉnh sửa</string>
     <string name="failed_update_ui">Cập nhật giao diện người dùng thất bại</string>

@@ -317,7 +317,6 @@
     <string name="etm_transfer_type_download">Stáhnout</string>
     <string name="etm_transfer_type_upload">Nahrát</string>
     <string name="fab_label">Přidat nebo nahrát</string>
-    <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
     <string name="failed_to_print">Soubor se nepodařilo vytisknout</string>
     <string name="failed_to_start_editor">Editor se nepodařilo spustit</string>
     <string name="failed_update_ui">Nepodařilo se aktualizovat uživatelské rozhraní</string>

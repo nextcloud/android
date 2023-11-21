@@ -248,7 +248,6 @@
     <string name="etm_transfer_type_download">Shkarko</string>
     <string name="etm_transfer_type_upload">Ngarkoni</string>
     <string name="fab_label">Shtoni ose ngarkoni</string>
-    <string name="failed_to_download">Kalimi i skedarit për të shkarkuar menaxherin dështoi</string>
     <string name="failed_to_print">Printimi i skedarit dështoi</string>
     <string name="failed_to_start_editor">Dështoi hapja e redaktorit</string>
     <string name="favorite">Shtoje tek të parapëlqyerat</string>

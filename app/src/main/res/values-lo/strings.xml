@@ -273,7 +273,6 @@
     <string name="etm_transfer_type_download">ດາວໂຫລດ</string>
     <string name="etm_transfer_type_upload">ອັບໂຫຼດ</string>
     <string name="fab_label">ເພີ່ມ ຫຼື ອັບໂຫຼດ</string>
-    <string name="failed_to_download">ບໍ່ສາມາດຜ່ານຟາຍ ເພື່ອຈັດການດາວໂຫລດ</string>
     <string name="failed_to_print">ພິມຟາຍບໍ່ສຳເລັດ</string>
     <string name="failed_to_start_editor">ເລີ່ມແກ້ໄຂບໍ່ສຳເລັດ</string>
     <string name="failed_update_ui">ອັບເດດ  UI ບໍ່ສຳເລັດ</string>

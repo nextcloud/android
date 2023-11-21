@@ -303,7 +303,6 @@
     <string name="etm_transfer_type_download">Lataa</string>
     <string name="etm_transfer_type_upload">Lähetä</string>
     <string name="fab_label">Lisää tai lähetä</string>
-    <string name="failed_to_download">Tiedoston välittäminen latausmanagerille epäonnistui</string>
     <string name="failed_to_print">Tiedoston tulostaminen epäonnistui</string>
     <string name="failed_to_start_editor">Editorin kaynnistäminen epäonnistui</string>
     <string name="failed_update_ui">Käyttöliittymän päivitys epäonnistui</string>

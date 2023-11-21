@@ -314,7 +314,6 @@
     <string name="etm_transfer_type_download">Звантажити</string>
     <string name="etm_transfer_type_upload">Завантажити</string>
     <string name="fab_label">Додати або завантажити</string>
-    <string name="failed_to_download">Не вдалося передати файл до менеджера звантажень</string>
     <string name="failed_to_print">Не вдалося роздрукувати файл</string>
     <string name="failed_to_start_editor">Не вдалося відкрити редактор</string>
     <string name="failed_update_ui">Неможливо оновити інтерфейс</string>

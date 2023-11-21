@@ -224,7 +224,6 @@
     <string name="etm_transfer_type_download">Preuzmi</string>
     <string name="etm_transfer_type_upload">Otpremi</string>
     <string name="fab_label">Dodaj ili otpremi</string>
-    <string name="failed_to_download">Greška pri davanju fajla menadžeru preuzimanja</string>
     <string name="failed_to_print">Neuspelo štampanje fajla</string>
     <string name="favorite">Dodaj u omiljene</string>
     <string name="favorite_icon">Omiljeni</string>

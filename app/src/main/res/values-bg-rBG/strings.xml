@@ -309,7 +309,6 @@
     <string name="etm_transfer_type_download">Изтегляне</string>
     <string name="etm_transfer_type_upload">Качване</string>
     <string name="fab_label">Добави или качи</string>
-    <string name="failed_to_download">Неуспешно предаване на файл на мениджъра за изтегляне</string>
     <string name="failed_to_print">Неуспешен печат на файл</string>
     <string name="failed_to_start_editor">Неуспешно стартиране на редактора</string>
     <string name="failed_update_ui">Неуспешно обновяване на UI /потребителски интерфейс/</string>

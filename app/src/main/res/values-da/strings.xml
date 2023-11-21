@@ -315,7 +315,6 @@
     <string name="etm_transfer_type_download">Hent</string>
     <string name="etm_transfer_type_upload">Send</string>
     <string name="fab_label">Tilføj eller send</string>
-    <string name="failed_to_download">Fejl ved overførsel af fil til download manager</string>
     <string name="failed_to_print">Fejl ved udskrivning af fil</string>
     <string name="failed_to_start_editor">Kunne ikke starte editor</string>
     <string name="failed_update_ui">Formåede ikke at opdatere UI</string>

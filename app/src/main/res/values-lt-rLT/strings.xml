@@ -288,7 +288,6 @@
     <string name="etm_transfer_type_download">Atsisiųsti</string>
     <string name="etm_transfer_type_upload">Įkelti</string>
     <string name="fab_label">Pridėti arba įkelti</string>
-    <string name="failed_to_download">Nepavyko perduoti failo į atsiuntimų tvarkytuvę</string>
     <string name="failed_to_print">Nepavyko spausdinti failo</string>
     <string name="failed_to_start_editor">Nepavyko paleisti redaktoriaus</string>
     <string name="failed_update_ui">Nepavyko atnaujinti naudotojo sąsajos</string>

@@ -297,7 +297,6 @@
     <string name="etm_transfer_type_download">Download</string>
     <string name="etm_transfer_type_upload">Upload</string>
     <string name="fab_label">Toevoegen of uploaden</string>
-    <string name="failed_to_download">Kon het bestand niet doorgeven aan de download beheerder</string>
     <string name="failed_to_print">Kon bestand niet afdrukken</string>
     <string name="failed_to_start_editor">Kon editor niet starten</string>
     <string name="failed_update_ui">Kon UI niet bijwerken</string>

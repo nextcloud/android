@@ -305,7 +305,6 @@
     <string name="etm_transfer_type_download">Transferir</string>
     <string name="etm_transfer_type_upload">Enviar</string>
     <string name="fab_label">Adicionar ou enviar</string>
-    <string name="failed_to_download">Falhou a passagem do ficheiro ao gestor de transferências</string>
     <string name="failed_to_print">Não foi possível imprimir o ficheiro</string>
     <string name="failed_to_start_editor">Falha ao iniciar o editor</string>
     <string name="failed_update_ui">Falha ao atualizar a IU</string>

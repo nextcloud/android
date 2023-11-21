@@ -267,7 +267,6 @@
     <string name="etm_transfer_type_download">Luchdaich a-nuas</string>
     <string name="etm_transfer_type_upload">Luchdaich suas</string>
     <string name="fab_label">Cuir ris no luchdaich suas</string>
-    <string name="failed_to_download">Cha deach leinn am faidhle a thoirt gu manaidsear nan luchdadh a-nuas</string>
     <string name="failed_to_print">Dh’fhàillig le clò-bhualadh an fhaidhle</string>
     <string name="failed_to_start_editor">Cha deach leinn an deasaiche a thòiseachadh</string>
     <string name="failed_update_ui">Dh’fhàillig le ùrachadh na h-eadar-aghaidh</string>

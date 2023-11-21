@@ -317,7 +317,6 @@
     <string name="etm_transfer_type_download">Преузми</string>
     <string name="etm_transfer_type_upload">Отпреми</string>
     <string name="fab_label">Додај или отпреми</string>
-    <string name="failed_to_download">Неуспело прослеђивање фајла менаџеру преузимања</string>
     <string name="failed_to_print">Неуспело штампање фајла</string>
     <string name="failed_to_start_editor">Неуспело покретање уређивача</string>
     <string name="failed_update_ui">Неуспело освежавање сучеља</string>

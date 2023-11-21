@@ -313,7 +313,6 @@
     <string name="etm_transfer_type_download">Λήψη</string>
     <string name="etm_transfer_type_upload">Μεταφόρτωση</string>
     <string name="fab_label">Προσθήκη ή μεταφόρτωση</string>
-    <string name="failed_to_download">Αποτυχία διαβίβασης αρχείου στο διαχειριστή λήψεων </string>
     <string name="failed_to_print">Απέτυχε να εκτυπώσει το αρχείο</string>
     <string name="failed_to_start_editor">Αποτυχία εκκίνησης προγράμματος επεξεργασίας</string>
     <string name="failed_update_ui">Αποτυχία ενημέρωσης του UI</string>

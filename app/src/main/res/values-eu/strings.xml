@@ -314,7 +314,6 @@
     <string name="etm_transfer_type_download">Deskargatu</string>
     <string name="etm_transfer_type_upload">Igo</string>
     <string name="fab_label">Gehitu edo igo</string>
-    <string name="failed_to_download">Huts egin du fitxategia deskarga-kudeatzailera pasatzean</string>
     <string name="failed_to_print">Huts egin du fitxategia inprimatzean</string>
     <string name="failed_to_start_editor">Ezin izan da editorea abiatu</string>
     <string name="failed_update_ui">Erabiltzaile Interfazea (UI) eguneratzeak huts egin du</string>

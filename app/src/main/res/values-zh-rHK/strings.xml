@@ -317,7 +317,6 @@
     <string name="etm_transfer_type_download">下載</string>
     <string name="etm_transfer_type_upload">上傳</string>
     <string name="fab_label">新增或上傳</string>
-    <string name="failed_to_download">無法下載</string>
     <string name="failed_to_print">列印失敗</string>
     <string name="failed_to_start_editor">起始編輯器失敗</string>
     <string name="failed_update_ui">更新 UI 失敗</string>

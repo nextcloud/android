@@ -314,7 +314,6 @@
     <string name="etm_transfer_type_download">بارگیری</string>
     <string name="etm_transfer_type_upload">بارگذاری</string>
     <string name="fab_label">اضافه یا بارگذاری کنید</string>
-    <string name="failed_to_download">ارسال فایل برای  مدیر بارگیری انجام نشد</string>
     <string name="failed_to_print">چاپ پرونده انجام نشد</string>
     <string name="failed_to_start_editor">ویرایشگر شروع نشد</string>
     <string name="failed_update_ui">رابط کاربری بروز نشد</string>

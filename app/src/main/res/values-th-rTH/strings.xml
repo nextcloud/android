@@ -260,7 +260,6 @@
     <string name="etm_transfer_type_download">ดาวน์โหลด</string>
     <string name="etm_transfer_type_upload">อัปโหลด</string>
     <string name="fab_label">เพิ่มหรืออัปโหลด</string>
-    <string name="failed_to_download">ไม่สามารถส่งต่อไฟล์ไปยังตัวจัดการดาวน์โหลด</string>
     <string name="favorite">เพิ่มในรายการโปรด</string>
     <string name="favorite_icon">รายการโปรด</string>
     <string name="file_already_exists">ชื่อไฟล์มีอยู่แล้ว</string>

@@ -314,7 +314,6 @@
     <string name="etm_transfer_type_download">Baixar</string>
     <string name="etm_transfer_type_upload">Enviar</string>
     <string name="fab_label">Adicionar ou enviar</string>
-    <string name="failed_to_download">Erro ao enviar o arquivo ao gerenciador de downloads</string>
     <string name="failed_to_print">Erro ao imprimir o arquivo</string>
     <string name="failed_to_start_editor">Erro ao iniciar editor</string>
     <string name="failed_update_ui">Falha ao atualizar a interface gráfica</string>

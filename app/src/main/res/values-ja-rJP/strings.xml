@@ -311,7 +311,6 @@
     <string name="etm_transfer_type_download">ダウンロード</string>
     <string name="etm_transfer_type_upload">アップロード</string>
     <string name="fab_label">追加またはアップロード</string>
-    <string name="failed_to_download">ダウンロードマネージャーにファイルを渡せませんでした</string>
     <string name="failed_to_print">ファイルの印刷に失敗</string>
     <string name="failed_to_start_editor">エディターの起動に失敗しました</string>
     <string name="failed_update_ui">UIの更新に失敗しました</string>

@@ -317,7 +317,6 @@
     <string name="etm_transfer_type_download">تنزيل</string>
     <string name="etm_transfer_type_upload">تحميل</string>
     <string name="fab_label">أضف أو ارفع</string>
-    <string name="failed_to_download">حدث خطأ في تمرير الملف لمدير التحميل</string>
     <string name="failed_to_print">حدث خطأ في طباعة الملف</string>
     <string name="failed_to_start_editor">حدث خطأ في بدء المحرر</string>
     <string name="failed_update_ui">فشل تحديث UI</string>

@@ -317,7 +317,6 @@
     <string name="etm_transfer_type_download">Ladda ner</string>
     <string name="etm_transfer_type_upload">Ladda upp</string>
     <string name="fab_label">Lägg till eller ladda upp</string>
-    <string name="failed_to_download">Misslyckades skicka filen till hämtningshanteraren</string>
     <string name="failed_to_print">Kunde inte skriva ut filen</string>
     <string name="failed_to_start_editor">Kunde inte starta editor</string>
     <string name="failed_update_ui">Misslyckades med att uppdatera UI</string>

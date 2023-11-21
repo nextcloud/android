@@ -309,7 +309,6 @@
     <string name="etm_transfer_type_download">Descargar</string>
     <string name="etm_transfer_type_upload">Cargar</string>
     <string name="fab_label">Agregar o subir</string>
-    <string name="failed_to_download">Fallo al pasar el archivo al administrador de descargas</string>
     <string name="failed_to_print">Fallo al imprimir el archivo</string>
     <string name="failed_to_start_editor">Fallo al iniciar el editor</string>
     <string name="failed_update_ui">Fallo al actualizar la interfaz de usuario</string>

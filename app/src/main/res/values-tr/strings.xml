@@ -317,7 +317,6 @@
     <string name="etm_transfer_type_download">İndirme</string>
     <string name="etm_transfer_type_upload">Yükleme</string>
     <string name="fab_label">Ekle ya da yükle</string>
-    <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
     <string name="failed_to_print">Dosya yazdırılamadı</string>
     <string name="failed_to_start_editor">Düzenleyici başlatılamadı</string>
     <string name="failed_update_ui">Kullanıcı arayüzü güncellenemedi</string>
