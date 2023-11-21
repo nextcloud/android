@@ -316,8 +316,8 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     private void updateDirectEditing(ArbitraryDataProvider arbitraryDataProvider, String newDirectEditingEtag) {
-        RemoteOperationResult<DirectEditing> result = new DirectEditingObtainRemoteOperation().execute(user,
-                                                                                                       mContext);
+        RemoteOperationResult<DirectEditing> result =
+            new DirectEditingObtainRemoteOperation().executeNextcloudClient(user, mContext);
 
         if (result.isSuccess()) {
             DirectEditing directEditing = result.getResultData();
