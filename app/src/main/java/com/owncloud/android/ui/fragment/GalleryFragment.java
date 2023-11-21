@@ -230,9 +230,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         super.onResume();
 
         setLoading(this.isPhotoSearchQueryRunning());
-        final FragmentActivity activity = getActivity();
-
-        if (activity instanceof FileDisplayActivity fileDisplayActivity) {
+        if (getActivity() instanceof FileDisplayActivity fileDisplayActivity) {
             fileDisplayActivity.updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
             fileDisplayActivity.setMainFabVisible(false);
         }
@@ -346,8 +344,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     private void loadMoreWhenEndReached(@NonNull RecyclerView recyclerView, int dy) {
-        if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
-            GridLayoutManager gridLayoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
+        if (recyclerView.getLayoutManager() instanceof GridLayoutManager gridLayoutManager) {
 
             // scroll down
             if (dy > 0 && !this.isPhotoSearchQueryRunning()) {
