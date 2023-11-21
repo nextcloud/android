@@ -381,6 +381,7 @@
     <string name="folder_list_empty_headline">Ei kansioita täällä</string>
     <string name="folder_picker_choose_button_text">Valitse</string>
     <string name="folder_picker_choose_caption_text">Valitse kohdekansio</string>
+    <string name="folder_picker_copy_button_text">Kopioi</string>
     <string name="folder_picker_move_button_text">Siirrä</string>
     <string name="forbidden_permissions">Sinulla ei ole oikeutta %s</string>
     <string name="forbidden_permissions_copy">kopioida tämä tiedosto</string>
@@ -906,6 +907,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="wait_a_moment">Odota hetki…</string>
     <string name="wait_checking_credentials">Tarkistetaan tallennettuja tilitietoja</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopioidaan tiedostoa yksityisestä tallennustilasta</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Päivitä</string>
     <string name="what_s_new_image">Mitä uutta -kuva</string>
     <string name="whats_new_skip">Ohita</string>
     <string name="whats_new_title">Uutta versiossa %1$s</string>

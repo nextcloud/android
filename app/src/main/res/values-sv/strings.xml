@@ -325,7 +325,6 @@
     <string name="file_delete">Ta bort</string>
     <string name="file_detail_activity_error">Fel vid hämtning av aktiviteter för fil</string>
     <string name="file_details_no_content">Kunde inte läsa in detaljer</string>
-    <string name="file_downloader_notification_title_prefix">Laddar ner \u0020</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behåll</string>
     <string name="file_list_empty">Ladda upp något eller synkronisera med dina enheter</string>
