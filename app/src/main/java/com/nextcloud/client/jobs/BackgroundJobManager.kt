@@ -137,6 +137,7 @@ interface BackgroundJobManager {
     fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean)
     fun startFilesUploadJob(user: User)
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
+    fun cancelFilesUploadJob(user: User)
 
     fun startPdfGenerateAndUploadWork(user: User, uploadFolder: String, imagePaths: List<String>, pdfPath: String)
 

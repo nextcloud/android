@@ -29,6 +29,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import javax.inject.Inject
 
@@ -69,6 +70,27 @@ class FilesUploadHelper {
         uploadsStorageManager.storeUploads(uploads)
         backgroundJobManager.startFilesUploadJob(user)
     }
+
+    fun cancelFileUpload(remotePath: String, user: User, resultCode : RemoteOperationResult.ResultCode?){
+        // need to update now table in mUploadsStorageManager,
+        // since the operation will not get to be run by FileUploader#uploadFile
+        if (resultCode != null) {
+            //uploadsStorageManager.updateDatabaseUploadResult(RemoteOperationResult<Any?>(resultCode), uploadsStorageManager.getUploadByRemotePath(remotePath))
+        } else {
+            uploadsStorageManager.removeUpload(user.accountName, remotePath)
+        }
+
+        restartUploadJob(user)
+    }
+
+    fun restartUploadJob(user: User){
+        backgroundJobManager.cancelFilesUploadJob(user)
+        backgroundJobManager.startFilesUploadJob(user)
+    }
+
+
+
+
 
     fun uploadUpdatedFile(
         user: User,
