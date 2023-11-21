@@ -174,7 +174,11 @@ class PlayerService : Service() {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            startForeground(R.string.media_notif_ticker, notificationBuilder.build(),   ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
+            startForeground(
+                R.string.media_notif_ticker,
+                notificationBuilder.build(),
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
+            )
         } else {
             startForeground(R.string.media_notif_ticker, notificationBuilder.build())
         }

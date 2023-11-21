@@ -35,7 +35,6 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppNotificationManager
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.UploadsStorageManager
-import com.owncloud.android.files.services.FileDownloader
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 import javax.inject.Named
