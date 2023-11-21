@@ -325,7 +325,6 @@
     <string name="file_delete">Slet</string>
     <string name="file_detail_activity_error">Fejl ved indlæsning af aktiviteter for fil</string>
     <string name="file_details_no_content">Fejl ved indlæsning af detaljer</string>
-    <string name="file_downloader_notification_title_prefix">Downloader \u0020</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behold</string>
     <string name="file_list_empty">Upload indhold eller synkronisér med dine enheder.</string>

@@ -325,7 +325,6 @@
     <string name="file_delete">حذف </string>
     <string name="file_detail_activity_error">خطأ في استرداد النشاطات للملف</string>
     <string name="file_details_no_content">حدث خطأ في تحميل التفاصيل</string>
-    <string name="file_downloader_notification_title_prefix">تنزيل \u0020</string>
     <string name="file_icon">الملف</string>
     <string name="file_keep">حفظ</string>
     <string name="file_list_empty">قم برفع بعض المحتوى أو زامن مع أجهزتك</string>
