@@ -22,7 +22,6 @@ package com.owncloud.android.ui.activity
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.nextcloud.client.account.User
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ShareActivityBinding
 import com.owncloud.android.datamodel.SyncedFolderProvider
@@ -50,10 +49,12 @@ class ShareActivity : FileActivity() {
     @Inject
     var syncedFolderProvider: SyncedFolderProvider? = null
 
+    private lateinit var binding: ShareActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ShareActivityBinding.inflate(layoutInflater)
+        binding = ShareActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val optionalUser = user
@@ -62,19 +63,19 @@ class ShareActivity : FileActivity() {
             return
         }
 
-        setupIcon(binding, optionalUser.get())
-        setupFileInfo(binding)
-        readFile(binding, optionalUser.get())
+        setupIcon()
+        setupFileInfo()
+        readFile()
 
         if (savedInstanceState == null) {
-            addShareFragment(optionalUser.get())
+            addShareFragment()
         }
     }
 
-    private fun setupIcon(binding: ShareActivityBinding, user: User) {
+    private fun setupIcon() {
         if (file.isFolder) {
             val isAutoUploadFolder =
-                SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user)
+                SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user.get())
             val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
             val drawable = MimeTypeUtil.getFileIcon(preferences.isDarkModeEnabled, overlayIconId, this, viewThemeUtils)
             binding.shareFileIcon.setImageDrawable(drawable)
@@ -97,16 +98,15 @@ class ShareActivity : FileActivity() {
         }
     }
 
-    private fun setupFileInfo(binding: ShareActivityBinding) {
+    private fun setupFileInfo() {
         binding.shareFileName.text = resources.getString(R.string.share_file, file.fileName)
         viewThemeUtils.platform.colorViewBackground(binding.shareHeaderDivider)
-
         binding.shareFileSize.text = DisplayUtils.bytesToHumanReadable(file.fileLength)
     }
 
-    private fun readFile(binding: ShareActivityBinding, user: User) {
+    private fun readFile() {
         Thread {
-            val result = ReadFileRemoteOperation(file.remotePath).execute(user, this)
+            val result = ReadFileRemoteOperation(file.remotePath).execute(user.get(), this)
             if (result.isSuccess) {
                 val remoteFile = result.data[0] as RemoteFile
                 val length = remoteFile.length
@@ -116,9 +116,9 @@ class ShareActivity : FileActivity() {
         }.start()
     }
 
-    private fun addShareFragment(user: User) {
+    private fun addShareFragment() {
         val ft = supportFragmentManager.beginTransaction()
-        val fragment: Fragment = FileDetailSharingFragment.newInstance(file, user)
+        val fragment: Fragment = FileDetailSharingFragment.newInstance(file, user.get())
         ft.replace(R.id.share_fragment_container, fragment, TAG_SHARE_FRAGMENT)
         ft.commit()
     }
