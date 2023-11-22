@@ -34,6 +34,7 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.ProgressBar
 import androidx.drawerlayout.widget.DrawerLayout
+import com.owncloud.android.BuildConfig
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ExternalsiteWebviewBinding
@@ -89,14 +90,7 @@ open class ExternalSiteWebView : FileActivity() {
         webView.isFocusableInTouchMode = true
         webView.isClickable = true
 
-        // allow debugging (when building the debug version); see details in
-        // https://developers.google.com/web/tools/chrome-devtools/remote-debugging/webviews
-        if (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0 ||
-            resources.getBoolean(R.bool.is_beta)
-        ) {
-            Log_OC.d(this, "Enable debug for webView")
-            WebView.setWebContentsDebuggingEnabled(true)
-        }
+        enableDebuggingOnlyInDebugMode()
 
         initToolbar()
 
@@ -113,6 +107,15 @@ open class ExternalSiteWebView : FileActivity() {
         setupWebSettings(webSettings)
         setupProgressBar()
         setupWebView()
+    }
+
+    private fun enableDebuggingOnlyInDebugMode() {
+        if (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0 ||
+            resources.getBoolean(R.bool.is_beta) && BuildConfig.DEBUG
+        ) {
+            Log_OC.d(this, "Enable debug for webView")
+            WebView.setWebContentsDebuggingEnabled(true)
+        }
     }
 
     private fun initToolbar() {
