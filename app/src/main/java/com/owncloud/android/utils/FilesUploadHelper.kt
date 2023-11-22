@@ -74,12 +74,8 @@ class FilesUploadHelper {
     fun cancelFileUpload(remotePath: String, user: User, resultCode : RemoteOperationResult.ResultCode?){
         // need to update now table in mUploadsStorageManager,
         // since the operation will not get to be run by FileUploader#uploadFile
-        if (resultCode != null) {
-            //uploadsStorageManager.updateDatabaseUploadResult(RemoteOperationResult<Any?>(resultCode), uploadsStorageManager.getUploadByRemotePath(remotePath))
-        } else {
-            uploadsStorageManager.removeUpload(user.accountName, remotePath)
-        }
-
+        uploadsStorageManager.removeUpload(user.accountName, remotePath)
+        
         restartUploadJob(user)
     }
 
