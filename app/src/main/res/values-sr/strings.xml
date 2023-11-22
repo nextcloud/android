@@ -325,7 +325,6 @@
     <string name="file_delete">Обриши</string>
     <string name="file_detail_activity_error">Грешка при добављању активности за фајл</string>
     <string name="file_details_no_content">Грешка при учитавању детаља</string>
-    <string name="file_downloader_notification_title_prefix">Преузима се \u0020</string>
     <string name="file_icon">Фајл</string>
     <string name="file_keep">Задржи</string>
     <string name="file_list_empty">Отпремите неки садржај или синхронизујте са вашим уређајима.</string>
