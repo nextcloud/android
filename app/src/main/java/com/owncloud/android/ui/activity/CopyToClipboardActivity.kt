@@ -18,26 +18,20 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.owncloud.android.ui.activity
 
-package com.owncloud.android.ui.activity;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-
-import com.owncloud.android.utils.ClipboardUtil;
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import com.owncloud.android.utils.ClipboardUtil
 
 /**
  * Activity copying the text of the received Intent into the system clipboard.
  */
-public class CopyToClipboardActivity extends Activity {
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        ClipboardUtil.copyToClipboard(this, getIntent().getCharSequenceExtra(Intent.EXTRA_TEXT).toString());
-
-        finish();
+class CopyToClipboardActivity : Activity() {
+    public override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        ClipboardUtil.copyToClipboard(this, intent.getCharSequenceExtra(Intent.EXTRA_TEXT).toString())
+        finish()
     }
 }

@@ -325,7 +325,6 @@
     <string name="file_delete">删除</string>
     <string name="file_detail_activity_error">获取文件动态时出错</string>
     <string name="file_details_no_content">加载详情失败</string>
-    <string name="file_downloader_notification_title_prefix">下载中 \u0020</string>
     <string name="file_icon">文件</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上传一些内容或与您的设备同步。</string>
