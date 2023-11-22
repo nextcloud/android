@@ -78,8 +78,6 @@ class FilesUploadWorker(
     private val fileUploaderDelegate = FileUploaderDelegate()
     private var currentUploadFileOperation: UploadFileOperation? = null
 
-
-
     override fun doWork(): Result {
         val accountName = inputData.getString(ACCOUNT)
         if (accountName.isNullOrEmpty()) {
@@ -108,7 +106,7 @@ class FilesUploadWorker(
         val user = userAccountManager.getUser(accountName)
 
         for (upload in uploads) {
-            if (isStopped){
+            if (isStopped) {
                 break
             }
             // create upload file operation
@@ -190,7 +188,6 @@ class FilesUploadWorker(
                 // cancel notification
                 notificationManager.cancel(FOREGROUND_SERVICE_ID)
             }
-
         }
 
         return uploadResult

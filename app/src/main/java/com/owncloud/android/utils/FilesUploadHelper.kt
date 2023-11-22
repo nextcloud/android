@@ -70,7 +70,7 @@ class FilesUploadHelper {
         backgroundJobManager.startFilesUploadJob(user)
     }
 
-    fun cancelFileUpload(remotePath: String, user: User){
+    fun cancelFileUpload(remotePath: String, user: User) {
         // need to update now table in mUploadsStorageManager,
         // since the operation will not get to be run by FileUploader#uploadFile
         uploadsStorageManager.removeUpload(user.accountName, remotePath)
@@ -78,14 +78,10 @@ class FilesUploadHelper {
         restartUploadJob(user)
     }
 
-    fun restartUploadJob(user: User){
+    fun restartUploadJob(user: User) {
         backgroundJobManager.cancelFilesUploadJob(user)
         backgroundJobManager.startFilesUploadJob(user)
     }
-
-
-
-
 
     fun uploadUpdatedFile(
         user: User,
