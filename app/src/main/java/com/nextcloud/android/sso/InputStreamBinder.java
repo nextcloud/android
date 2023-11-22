@@ -457,16 +457,23 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     }
 
     private boolean isValid(NextcloudRequest request) {
-        String callingPackageName = context.getPackageManager().getNameForUid(Binder.getCallingUid());
+        String[] callingPackageNames = context.getPackageManager().getPackagesForUid(Binder.getCallingUid());
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(SSO_SHARED_PREFERENCE,
                                                                            Context.MODE_PRIVATE);
-        String hash = sharedPreferences.getString(callingPackageName + DELIMITER + request.getAccountName(), "");
-        return validateToken(hash, request.getToken());
+        for (String callingPackageName : callingPackageNames) {
+            String hash = sharedPreferences.getString(callingPackageName + DELIMITER + request.getAccountName(), "");
+            if (hash.isEmpty())
+                continue;
+            if (validateToken(hash, request.getToken())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean validateToken(String hash, String token) {
-        if (hash.isEmpty() || !hash.contains("$")) {
+        if (!hash.contains("$")) {
             throw new IllegalStateException(EXCEPTION_INVALID_TOKEN);
         }
 

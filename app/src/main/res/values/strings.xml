@@ -162,7 +162,6 @@
     <string name="uploads_view_upload_status_fetching_server_version">Fetching server version…</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="uploads_view_group_header" translatable="false">%1$s (%2$d)</string>
-    <string name="file_downloader_notification_title_prefix">Downloading \u0020</string>
     <string name="downloader_download_in_progress_ticker">Downloading…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>
     <string name="downloader_download_succeeded_ticker">Downloaded</string>
@@ -603,6 +602,7 @@
     <string name="actionbar_calendar_contacts_restore">Restore contacts &amp; calendar</string>
     <string name="contacts_backup_button">Back up now</string>
     <string name="contactlist_no_permission">No permission given, nothing imported.</string>
+    <string name="contact_no_permission">Contact permission is required.</string>
     <string name="restore_backup">Restore backup</string>
     <string name="contacts_preferences_no_file_found">No file found</string>
     <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
@@ -940,6 +940,7 @@
     <string name="link_share_file_drop">File drop (upload only)</string>
     <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="failed_update_ui">Failed to update UI</string>
+    <string name="email_pick_failed">Failed to pick email address.</string>
     <string name="remote">(remote)</string>
     <string name="set_status">Set status</string>
     <string name="online_status">Online status</string>

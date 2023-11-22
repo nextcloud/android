@@ -325,7 +325,6 @@
     <string name="file_delete">Eliminar</string>
     <string name="file_detail_activity_error">Produciuse un erro ao recuperar actividades para o ficheiro</string>
     <string name="file_details_no_content">Produciuse un fallo ao cargar os detalles</string>
-    <string name="file_downloader_notification_title_prefix">Descargando \u0020</string>
     <string name="file_icon">Ficheiro</string>
     <string name="file_keep">Conservar</string>
     <string name="file_list_empty">Envíe algún contido ou sincronice cos seus dispositivos.</string>
