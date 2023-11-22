@@ -36,6 +36,7 @@ import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
 
 import javax.inject.Inject;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -115,6 +116,8 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
             }
             transaction.commit();
         }
+
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
     }
 
     @Override
@@ -137,12 +140,14 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         // not needed
     }
 
-    @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager().findFragmentByTag(BackupListFragment.TAG) != null) {
-            getSupportFragmentManager().popBackStack(BACKUP_TO_LIST, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        } else {
-            finish();
+    private final OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+        @Override
+        public void handleOnBackPressed() {
+            if (getSupportFragmentManager().findFragmentByTag(BackupListFragment.TAG) != null) {
+                getSupportFragmentManager().popBackStack(BACKUP_TO_LIST, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            } else {
+                finish();
+            }
         }
-    }
+    };
 }

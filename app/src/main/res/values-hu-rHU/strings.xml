@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Másolás</string>
     <string name="actionbar_mkdir">Új mappa</string>
     <string name="actionbar_move">Áthelyezés</string>
+    <string name="actionbar_move_or_copy">Áthelyezés vagy Másolás</string>
     <string name="actionbar_open_with">Megnyitás ezzel</string>
     <string name="actionbar_search">Keresés</string>
     <string name="actionbar_see_details">Részletek</string>
@@ -962,7 +963,9 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="wait_a_moment">Egy pillanat…</string>
     <string name="wait_checking_credentials">Tárolt hitelesítő adatok ellenőrzése</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fájl másolása a privát tárolóról</string>
+    <string name="webview_version_check_alert_dialog_message">A bejelentkezéshez frissítse az Android System WebView alkalmazást</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Frissítés</string>
+    <string name="webview_version_check_alert_dialog_title">Frissítse az Android System WebView-t</string>
     <string name="what_s_new_image">Újdonságok kép</string>
     <string name="whats_new_skip">Kihagyás</string>
     <string name="whats_new_title">Új itt: %1$s</string>

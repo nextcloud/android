@@ -50,7 +50,7 @@
     <string name="auth_host_url">Adresa serveru https://…</string>
     <string name="auth_incorrect_address_title">Nesprávný formát adresy serveru</string>
     <string name="auth_incorrect_path_title">Server nenalezen</string>
-    <string name="auth_no_net_conn_title">Žádné síťové spojení</string>
+    <string name="auth_no_net_conn_title">Nepřipojeno k síti</string>
     <string name="auth_nossl_plain_ok_title">Zabezpečené spojení není k dispozici.</string>
     <string name="auth_not_configured_title">Nesprávně formulované nastavení pro server</string>
     <string name="auth_oauth_error">Neúspěšné ověření se</string>
@@ -163,11 +163,11 @@
     <string name="contactlist_item_icon">Ikona uživatele v seznamu kontaktů</string>
     <string name="contactlist_no_permission">Nejsou udělena oprávnění, proto nebylo nic naimportováno.</string>
     <string name="contacts">Kontakty</string>
-    <string name="contacts_backup_button">Zálohovat nyní</string>
+    <string name="contacts_backup_button">Zazálohovat nyní</string>
     <string name="contacts_preferences_backup_scheduled">Zálohování naplánováno a brzy začne</string>
     <string name="contacts_preferences_import_scheduled">Import naplánován a brzy začne</string>
     <string name="contacts_preferences_no_file_found">Nenalezen žádný soubor</string>
-    <string name="contacts_preferences_something_strange_happened">Nepodařilo se najít vaši poslední zálohu!</string>
+    <string name="contacts_preferences_something_strange_happened">Nepodařilo se najít vaši nejaktuálnější zálohu!</string>
     <string name="copied_to_clipboard">Zkopírováno do schránky</string>
     <string name="copy_file_error">Při pokusu o zkopírování tohoto souboru či složky došlo k chybě</string>
     <string name="copy_file_invalid_into_descendent">Není možné zkopírovat složku do některé z jejích vlastních podsložek</string>
@@ -325,7 +325,6 @@
     <string name="file_delete">Smazat</string>
     <string name="file_detail_activity_error">Při načítání aktivit u souboru došlo k chybě</string>
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>
-    <string name="file_downloader_notification_title_prefix">Stahování \u0020</string>
     <string name="file_icon">Soubor</string>
     <string name="file_keep">Ponechat</string>
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními.</string>
@@ -363,7 +362,7 @@
     <string name="file_migration_migrating">Přesouvání dat…</string>
     <string name="file_migration_ok_finished">Dokončeno</string>
     <string name="file_migration_override_data_folder">Nahradit</string>
-    <string name="file_migration_preparing">Příprava migrace…</string>
+    <string name="file_migration_preparing">Příprava stěhování…</string>
     <string name="file_migration_restoring_accounts_configuration">Obnovování nastavení účtu…</string>
     <string name="file_migration_saving_accounts_configuration">Ukládání nastavení účtu…</string>
     <string name="file_migration_source_not_readable">Opravdu chcete změnit složku pro ukládání dat na %1$s?\n\nPoznámka: Všechna data bude třeba znovu stáhnout.</string>
@@ -598,7 +597,7 @@
     <string name="prefs_enable_media_scan_notifications_summary">Upozorňovat na nově nalezené složky s médii</string>
     <string name="prefs_gpl_v2">GNU General Public License, verze 2</string>
     <string name="prefs_help">Nápověda</string>
-    <string name="prefs_imprint">Imprint</string>
+    <string name="prefs_imprint">Impresum</string>
     <string name="prefs_instant_behaviour_dialogTitle">Původní soubor bude…</string>
     <string name="prefs_instant_behaviour_title">Původní soubor bude…</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Ukládat v podsložkách podle data</string>
@@ -935,7 +934,7 @@
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Telefonní číslo</string>
-    <string name="user_info_twitter">Twitter</string>
+    <string name="user_info_twitter">X (Twitter)</string>
     <string name="user_info_website">Webové stránky</string>
     <string name="user_information_retrieval_error">Chyba při načítání informací o uživateli</string>
     <string name="userinfo_no_info_headline">Nezadány žádné osobní údaje</string>
