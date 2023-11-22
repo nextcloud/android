@@ -71,6 +71,11 @@ public class UploadIT extends AbstractOnServerIT {
 
     private ConnectivityService connectivityServiceMock = new ConnectivityService() {
         @Override
+        public boolean isConnected() {
+            return false;
+        }
+
+        @Override
         public boolean isInternetWalled() {
             return false;
         }
@@ -284,6 +289,11 @@ public class UploadIT extends AbstractOnServerIT {
     public void testUploadOnWifiOnlyButNoWifi() {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
+            public boolean isConnected() {
+                return false;
+            }
+
+            @Override
             public boolean isInternetWalled() {
                 return false;
             }
@@ -362,6 +372,11 @@ public class UploadIT extends AbstractOnServerIT {
     @Test
     public void testUploadOnWifiOnlyButMeteredWifi() {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
+            @Override
+            public boolean isConnected() {
+                return false;
+            }
+
             @Override
             public boolean isInternetWalled() {
                 return false;

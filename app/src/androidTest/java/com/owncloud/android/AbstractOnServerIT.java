@@ -186,6 +186,11 @@ public abstract class AbstractOnServerIT extends AbstractIT {
     public void uploadOCUpload(OCUpload ocUpload, int localBehaviour) {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
+            public boolean isConnected() {
+                return false;
+            }
+
+            @Override
             public boolean isInternetWalled() {
                 return false;
             }
