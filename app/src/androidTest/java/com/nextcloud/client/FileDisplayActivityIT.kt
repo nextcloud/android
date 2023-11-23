@@ -26,7 +26,6 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
-import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.contrib.NavigationViewActions
@@ -241,7 +240,6 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
 
         // browse into folder
         onView(withId(R.id.list_root))
-            .perform(scrollTo())
             .perform(closeSoftKeyboard())
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<OCFileListItemViewHolder>(
