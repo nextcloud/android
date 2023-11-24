@@ -160,6 +160,7 @@
     <string name="conflict_message_description">İki sürümü de saklamayı seçerseniz, yerel dosyanın adına bir numara eklenecek.</string>
     <string name="conflict_server_file">Sunucu dosyası</string>
     <string name="contact_backup_title">Kişiler yedeği</string>
+    <string name="contact_no_permission">Kişi izinleri gerekli.</string>
     <string name="contactlist_item_icon">Kişi listesi kullanıcı simgesi</string>
     <string name="contactlist_no_permission">Herhangi bir izin verilmemiş olduğundan hiçbir şey içe aktarılamadı.</string>
     <string name="contacts">Kişiler</string>
@@ -258,6 +259,7 @@
     <string name="ecosystem_apps_more">Diğer Nextcloud uygulamaları</string>
     <string name="ecosystem_apps_notes">Nextcloud Notlar</string>
     <string name="ecosystem_apps_talk">Nextcloud Sohbet</string>
+    <string name="email_pick_failed">E-posta adresi alınamadı.</string>
     <string name="encrypted">Şifrelensin</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_decrypting">Şifre çözülüyor …</string>
@@ -711,7 +713,7 @@
     <string name="share_link_optional_password_title">İsteğe bağlı olarak parola yazın</string>
     <string name="share_link_password_title">Bir parola yazın</string>
     <string name="share_link_with_label">Bağlantı paylaş (%1$s)</string>
-    <string name="share_no_expiration_date_label">Son kullanma tarihini ayarla</string>
+    <string name="share_no_expiration_date_label">Geçerlilik sonu tarihini ayarla</string>
     <string name="share_no_password_title">Parolayı ayarla</string>
     <string name="share_password_title">Parola korumalı</string>
     <string name="share_permission_can_edit">Düzenleyebilir</string>

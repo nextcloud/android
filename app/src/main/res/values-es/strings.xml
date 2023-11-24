@@ -160,6 +160,7 @@
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
     <string name="conflict_server_file">Archivo del servidor</string>
     <string name="contact_backup_title">Respaldo de contactos</string>
+    <string name="contact_no_permission">Se requiere el permiso de contactos.</string>
     <string name="contactlist_item_icon">Icono de usuario para lista de contactos</string>
     <string name="contactlist_no_permission">No se han concedido permisos, por lo que no se ha importado nada</string>
     <string name="contacts">Contactos</string>
@@ -258,6 +259,7 @@
     <string name="ecosystem_apps_more">Más apps de Nextcloud</string>
     <string name="ecosystem_apps_notes">Nextcloud Notas</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Error al seleccionar dirección de correo.</string>
     <string name="encrypted">Establecer como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
@@ -945,7 +947,9 @@
     <string name="wait_a_moment">Espera un momento…</string>
     <string name="wait_checking_credentials">Comprobando las credenciales guardadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
+    <string name="webview_version_check_alert_dialog_message">Por favor actualiza la aplicación WebView de Sistema Android para iniciar sesión</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Actualizar</string>
+    <string name="webview_version_check_alert_dialog_title">Actualiza WebView de Sistema Android</string>
     <string name="what_s_new_image">Imagen de Qué hay de nuevo</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
