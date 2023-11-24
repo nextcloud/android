@@ -41,7 +41,6 @@ import com.owncloud.android.utils.FileExportUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -213,11 +212,18 @@ public class DownloadFileOperation extends RemoteOperation {
                         .get(file.getEncryptedFileName()).getAuthenticationTag());
 
                 try {
-                    byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile, key, iv, authenticationTag);
+                    File decryptedFile = new File(getTmpPath() + "_dec");
+                    boolean success = EncryptionUtils.decryptFile(tmpFile, decryptedFile, key, iv, authenticationTag);
 
-                    try (FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)) {
-                        fileOutputStream.write(decryptedBytes);
+                    if (!success) {
+                        return new RemoteOperationResult(new IllegalStateException("Decryption went wrong!"));
                     }
+
+                    decryptedFile.renameTo(tmpFile);
+                    if (decryptedFile.exists()) {
+                        decryptedFile.delete();
+                    }
+
                 } catch (Exception e) {
                     return new RemoteOperationResult(e);
                 }

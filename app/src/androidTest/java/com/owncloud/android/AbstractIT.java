@@ -59,6 +59,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.RandomAccessFile;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Objects;
@@ -260,10 +261,33 @@ public abstract class AbstractIT {
         }
     }
 
-    public static File createFile(String name, int iteration) throws IOException {
-        File file = new File(FileStorageUtils.getTemporalPath(account.name) + File.separator + name);
+    public static File createFile(String name, long size) throws IOException {
+        File file = new File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext) + File.separator + name);
         if (!file.getParentFile().exists()) {
             assertTrue(file.getParentFile().mkdirs());
+        }
+
+        if (file.exists()) {
+            file.delete();
+        }
+
+        file.createNewFile();
+
+        RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
+        randomAccessFile.setLength(size);
+        randomAccessFile.close();
+
+        return file;
+    }
+
+    public static File createFile(String name, int iteration) throws IOException {
+        File file = new File(FileStorageUtils.getInternalTemporalPath(account.name, targetContext) + File.separator + name);
+        if (!file.getParentFile().exists()) {
+            assertTrue(file.getParentFile().mkdirs());
+        }
+
+        if (file.exists()) {
+            file.delete();
         }
 
         file.createNewFile();

@@ -509,8 +509,6 @@ public class UploadFileOperation extends SyncOperation {
             // IV, always generate new one
             byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
 
-            EncryptionUtils.EncryptedFile encryptedFile = EncryptionUtils.encryptFile(mFile, key, iv);
-
             // new random file name, check if it exists in metadata
             String encryptedFileName = UUID.randomUUID().toString().replaceAll("-", "");
 
@@ -519,9 +517,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             File encryptedTempFile = File.createTempFile("encFile", encryptedFileName);
-            FileOutputStream fileOutputStream = new FileOutputStream(encryptedTempFile);
-            fileOutputStream.write(encryptedFile.encryptedBytes);
-            fileOutputStream.close();
+            byte[] authenticationTag = EncryptionUtils.encryptFile(mFile, encryptedTempFile, key, iv);
 
             /***** E2E *****/
 
@@ -614,7 +610,7 @@ public class UploadFileOperation extends SyncOperation {
 
                 decryptedFile.setEncrypted(data);
                 decryptedFile.setInitializationVector(EncryptionUtils.encodeBytesToBase64String(iv));
-                decryptedFile.setAuthenticationTag(encryptedFile.authenticationTag);
+                decryptedFile.setAuthenticationTag(EncryptionUtils.encodeBytesToBase64String(authenticationTag));
 
                 metadata.getFiles().put(encryptedFileName, decryptedFile);
 
