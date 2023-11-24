@@ -97,6 +97,8 @@ import androidx.fragment.app.FragmentManager;
  * This Fragment is used to display the details about a file.
  */
 public class FileDetailFragment extends FileFragment implements OnClickListener, Injectable {
+
+    private static final String TAG_ACTIONS_SHEET = "actions";
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     private static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
     static final String FTAG_RENAME_FILE = "RENAME_FILE_FRAGMENT";
@@ -266,6 +268,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
             updateFileDetails(false, false);
         }
+
+        trySetFileActionsResultListener(this, TAG_ACTIONS_SHEET, this::optionsItemSelected);
     }
 
     private void onOverflowIconClicked() {
@@ -290,7 +294,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         final FragmentManager fragmentManager = getChildFragmentManager();
         FileActionsBottomSheet.newInstance(file, true, additionalFilter)
             .setResultListener(fragmentManager, this, this::optionsItemSelected)
-            .show(fragmentManager, "actions");
+            .show(fragmentManager, TAG_ACTIONS_SHEET);
     }
 
     private void setupViewPager() {

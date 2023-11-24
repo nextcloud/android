@@ -72,6 +72,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     private static final String EXTRA_OPEN_SEARCH = "SEARCH";
     private static final String EXTRA_SEARCH_QUERY = "SEARCH_QUERY";
 
+    private static final String TAG_ACTIONS_SHEET = "actions";
     private static final String TAG = PreviewTextFileFragment.class.getSimpleName();
 
     private TextLoadAsyncTask textLoadAsyncTask;
@@ -143,6 +144,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
 
         handler = new Handler();
         setFile(file);
+
+        trySetFileActionsResultListener(this, TAG_ACTIONS_SHEET, this::onFileActionChosen);
     }
 
     /**
@@ -311,7 +314,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         final FragmentManager fragmentManager = getChildFragmentManager();
         FileActionsBottomSheet.newInstance(file, false, additionalFilter)
             .setResultListener(fragmentManager, this, this::onFileActionChosen)
-            .show(fragmentManager, "actions");
+            .show(fragmentManager, TAG_ACTIONS_SHEET);
     }
 
     private void onFileActionChosen(final int itemId) {

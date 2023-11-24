@@ -103,6 +103,8 @@ import static com.owncloud.android.datamodel.ThumbnailsCacheManager.PREFIX_THUMB
  */
 public class PreviewImageFragment extends FileFragment implements Injectable {
 
+    private static final String TAG_ACTIONS_SHEET = "actions";
+
     private static final String EXTRA_FILE = "FILE";
     private static final String EXTRA_ZOOM = "ZOOM";
 
@@ -186,6 +188,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         ignoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
         showResizedImage = args.getBoolean(ARG_SHOW_RESIZED_IMAGE);
         setHasOptionsMenu(true);
+
+        trySetFileActionsResultListener(this, TAG_ACTIONS_SHEET, this::onFileActionChosen);
     }
 
     @Override
@@ -386,7 +390,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         final FragmentManager fragmentManager = getChildFragmentManager();
         FileActionsBottomSheet.newInstance(file, false, additionalFilter)
             .setResultListener(fragmentManager, this, this::onFileActionChosen)
-            .show(fragmentManager, "actions");
+            .show(fragmentManager, TAG_ACTIONS_SHEET);
     }
 
     /**

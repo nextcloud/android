@@ -108,6 +108,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     Injectable, StyledPlayerControlView.OnFullScreenModeChangedListener {
 
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
+    private static final String TAG_ACTIONS_SHEET = "actions";
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_USER = "USER";
@@ -191,6 +192,8 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         savedPlaybackPosition = bundle.getLong(PLAYBACK_POSITION);
         autoplay = bundle.getBoolean(AUTOPLAY);
         mediaPlayerServiceConnection = new PlayerServiceConnection(getContext());
+
+        trySetFileActionsResultListener(this, TAG_ACTIONS_SHEET, this::onFileActionChosen);
     }
 
     @Override
@@ -435,7 +438,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         final FragmentManager fragmentManager = getChildFragmentManager();
         FileActionsBottomSheet.newInstance(file, false, additionalFilter)
             .setResultListener(fragmentManager, this, this::onFileActionChosen)
-            .show(fragmentManager, "actions");
+            .show(fragmentManager, TAG_ACTIONS_SHEET);
     }
 
     public void onFileActionChosen(final int itemId) {
