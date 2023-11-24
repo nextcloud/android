@@ -191,7 +191,7 @@ public class FileUploader extends Service
     public static final int LOCAL_BEHAVIOUR_FORGET = 2;
     public static final int LOCAL_BEHAVIOUR_DELETE = 3;
 
-    private static boolean forceNewUploadWorker = false;
+    private static boolean forceNewUploadWorker = true; // if everything works, we can remove it after next release
 
     private Notification mNotification;
     private Looper mServiceLooper;

@@ -43,6 +43,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
@@ -50,6 +51,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.FileUtils
+import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.ui.activity.UploadListActivity
@@ -103,6 +105,22 @@ class FilesUploadWorker(
 
     private fun handlePendingUploads(uploads: List<OCUpload>, accountName: String) {
         val user = userAccountManager.getUser(accountName)
+
+        if (uploads.any { it.lastResult == UploadResult.USER_DISABLED }) {
+            // check if user is able to log in
+            val factory = OwnCloudClientManagerFactory.getDefaultSingleton()
+            val client = factory.getNextcloudClientFor(user.get().toOwnCloudAccount(), context)
+            val userInfo = GetUserInfoRemoteOperation().execute(client)
+
+            if (!userInfo.isSuccess) {
+                for (upload in uploads) {
+                    // user not present anymore, remove upload
+                    uploadsStorageManager.removeUpload(upload.uploadId)
+                }
+
+                return
+            }
+        }
 
         for (upload in uploads) {
             // create upload file operation
