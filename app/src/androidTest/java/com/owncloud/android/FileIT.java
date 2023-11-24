@@ -114,7 +114,7 @@ public class FileIT extends AbstractOnServerIT {
             .getStoragePath();
         assertTrue(new File(storagePath2).exists());
 
-        shortSleep();
+        // shortSleep();
 
         // Rename
         assertTrue(
