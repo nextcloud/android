@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Kopiraj</string>
     <string name="actionbar_mkdir">Nova mapa</string>
     <string name="actionbar_move">Premakni</string>
+    <string name="actionbar_move_or_copy">Premakni ali Kopiraj</string>
     <string name="actionbar_open_with">Odpri s programom</string>
     <string name="actionbar_search">Iskanje</string>
     <string name="actionbar_see_details">Podrobnosti</string>
@@ -159,6 +160,7 @@
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
     <string name="conflict_server_file">Strežniška datoteka</string>
     <string name="contact_backup_title">Varnostna kopija stikov</string>
+    <string name="contact_no_permission">Potrebno je dovoljeno do stikov.</string>
     <string name="contactlist_item_icon">Ikona uporabnika za seznam stikov</string>
     <string name="contactlist_no_permission">Ni ustreznih dovoljenj, uvoz je prekinjen.</string>
     <string name="contacts">Stiki</string>
@@ -416,6 +418,8 @@
     <string name="icon_for_empty_list">Ikona za prazen seznam</string>
     <string name="icon_of_dashboard_widget">Ikona gradnika nadzorne plošče</string>
     <string name="icon_of_widget_entry">Ikona vnosa gradnikov</string>
+    <string name="image_editor_file_edited_suffix">urejeno</string>
+    <string name="image_editor_rotate_cw">Zavrti v smeri urinega kazalca</string>
     <string name="image_editor_unable_to_edit_image">Slike ni mogoče urediti.</string>
     <string name="image_preview_filedetails">Podrobnosti datoteke</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
@@ -450,6 +454,7 @@
     <string name="locked_by_app">Zaklenjeno s strani %1$s</string>
     <string name="log_send_mail_subject">%1$s dnevniki programa</string>
     <string name="log_send_no_mail_app">Ni nameščenega programa za pošiljanje dnevnikov. Namestiti je treba program za elektronsko pošto.</string>
+    <string name="logged_in_as">Prijavljen kot %1$s</string>
     <string name="login">Prijava</string>
     <string name="login_url_helper_text">Povezava do spletnega vmesnika %1$s, ki se odpre v brskalniku.</string>
     <string name="logs_menu_delete">Izbriši dnevnike</string>
