@@ -160,6 +160,7 @@
     <string name="conflict_message_description">若您同時選擇兩個版本，本機的檔案會在檔名後附加編號。</string>
     <string name="conflict_server_file">伺服器檔案</string>
     <string name="contact_backup_title">聯絡人備份</string>
+    <string name="contact_no_permission">需要聯絡人權限。</string>
     <string name="contactlist_item_icon">聯絡人列表的使用者圖示</string>
     <string name="contactlist_no_permission">匯入失敗，權限不足。</string>
     <string name="contacts">聯絡人</string>
@@ -258,6 +259,7 @@
     <string name="ecosystem_apps_more">更多 Nextcloud 應用程式</string>
     <string name="ecosystem_apps_notes">Nextcloud Notes</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">挑選電子郵件地址失敗。</string>
     <string name="encrypted">設為已加密的</string>
     <string name="end_to_end_encryption_confirm_button">設定加密</string>
     <string name="end_to_end_encryption_decrypting">正在解密……</string>
