@@ -163,9 +163,9 @@ public class SslUntrustedCertDialog extends DialogFragment implements Injectable
         builder.setView(binding.getRoot());
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.getRoot().getContext(), builder);
-
+      
+        builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
         final Dialog dialog = builder.create();
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         return dialog;
     }
 
