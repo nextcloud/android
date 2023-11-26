@@ -1285,25 +1285,6 @@ public class FileDataStorageManager {
         }
     }
 
-    private void resetShareFlagInAFile(String filePath) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, Boolean.FALSE);
-        contentValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, Boolean.FALSE);
-        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + " = ?";
-        String[] whereArgs = new String[]{user.getAccountName(), filePath};
-
-        if (getContentResolver() != null) {
-            getContentResolver().update(ProviderTableMeta.CONTENT_URI, contentValues, where, whereArgs);
-
-        } else {
-            try {
-                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, contentValues, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in resetShareFlagsInFolder " + e.getMessage(), e);
-            }
-        }
-    }
-
     @VisibleForTesting
     public void cleanShares() {
         String where = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
@@ -1384,59 +1365,6 @@ public class FileDataStorageManager {
         }
     }
 
-    public void saveSharesDB(List<OCShare> shares) {
-        ArrayList<ContentProviderOperation> operations = new ArrayList<>();
-
-        // Reset flags & Remove shares for this files
-        String filePath = "";
-        for (OCShare share : shares) {
-            if (!filePath.equals(share.getPath())) {
-                filePath = share.getPath();
-                resetShareFlagInAFile(filePath);
-                operations = prepareRemoveSharesInFile(filePath, operations);
-            }
-        }
-
-        // Add operations to insert shares
-        operations = prepareInsertShares(shares, operations);
-
-        // apply operations in batch
-        if (operations.size() > 0) {
-            Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-
-                } else {
-                    getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
-            }
-        }
-    }
-
-    public void removeSharesForFile(String remotePath) {
-        resetShareFlagInAFile(remotePath);
-        ArrayList<ContentProviderOperation> operations = prepareRemoveSharesInFile(remotePath, new ArrayList<>());
-        // apply operations in batch
-        if (operations.size() > 0) {
-            Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-
-                } else {
-                    getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
-            }
-        }
-    }
-
     // TOOD check if shares can be null
     public void saveSharesInFolder(ArrayList<OCShare> shares, OCFile folder) {
         resetShareFlagsInFolder(folder);
@@ -1508,24 +1436,6 @@ public class FileDataStorageManager {
             }
         }
         return preparedOperations;
-    }
-
-    private ArrayList<ContentProviderOperation> prepareRemoveSharesInFile(
-        String filePath, ArrayList<ContentProviderOperation> preparedOperations) {
-
-        String where = ProviderTableMeta.OCSHARES_PATH + AND
-            + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + " = ?";
-        String[] whereArgs = new String[]{filePath, user.getAccountName()};
-
-        preparedOperations.add(
-            ContentProviderOperation
-                .newDelete(ProviderTableMeta.CONTENT_URI_SHARE)
-                .withSelection(where, whereArgs)
-                .build()
-        );
-
-        return preparedOperations;
-
     }
 
     public List<OCShare> getSharesWithForAFile(String filePath, String accountName) {

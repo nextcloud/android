@@ -40,7 +40,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.utils.DisplayUtils;
@@ -160,11 +159,7 @@ public class ShareActivity extends FileActivity {
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
 
-        if (result.isSuccess() ||
-                (operation instanceof GetSharesForFileOperation &&
-                        result.getCode() == RemoteOperationResult.ResultCode.SHARE_NOT_FOUND
-                )
-                ) {
+        if (result.isSuccess()) {
             Log_OC.d(TAG, "Refreshing view on successful operation or finished refresh");
             refreshSharesFromStorageManager();
         }
