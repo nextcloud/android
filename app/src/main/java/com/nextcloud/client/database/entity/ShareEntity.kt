@@ -31,7 +31,7 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 data class ShareEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)
-    val id: Int?,
+    val id: Long?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_FILE_SOURCE)
     val fileSource: Long?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_ITEM_SOURCE)

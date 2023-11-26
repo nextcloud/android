@@ -1188,7 +1188,7 @@ public class FileDataStorageManager {
         return shares;
     }
 
-    private ShareEntity createShareEntity(Integer id, OCShare share) {
+    private ShareEntity createShareEntity(Long id, OCShare share) {
         return new ShareEntity(
             id,
             share.getFileSource(),
@@ -1324,20 +1324,8 @@ public class FileDataStorageManager {
     }
 
     public void removeShare(OCShare share) {
-        Uri contentUriShare = ProviderTableMeta.CONTENT_URI_SHARE;
-        String where = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + AND +
-            ProviderTableMeta._ID + " = ?";
-        String[] whereArgs = {user.getAccountName(), Long.toString(share.getId())};
-
-        if (getContentProviderClient() != null) {
-            try {
-                getContentProviderClient().delete(contentUriShare, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.d(TAG, e.getMessage(), e);
-            }
-        } else {
-            getContentResolver().delete(contentUriShare, where, whereArgs);
-        }
+        // TODO - user name seems redundant - ID is a primary key
+        shareDao.deleteShareById(share.getId(), user.getAccountName());
     }
 
     public void saveSharesDB(List<OCShare> shares) {
