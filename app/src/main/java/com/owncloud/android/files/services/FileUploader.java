@@ -1274,9 +1274,13 @@ public class FileUploader extends Service
             if (user == null || file == null || listener == null) {
                 return;
             }
-
             String targetKey = buildRemoteName(user.getAccountName(), file.getRemotePath());
-            mBoundListeners.put(targetKey, listener);
+
+            if (useFilesUploadWorker(getApplicationContext())) {
+                new FilesUploadHelper().addDatatransferProgressListener(listener,targetKey);
+            }else {
+                mBoundListeners.put(targetKey, listener);
+            }
         }
 
         /**
@@ -1294,7 +1298,11 @@ public class FileUploader extends Service
             }
 
             String targetKey = buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
-            mBoundListeners.put(targetKey, listener);
+            if (useFilesUploadWorker(getApplicationContext())) {
+                new FilesUploadHelper().addDatatransferProgressListener(listener,targetKey);
+            }else {
+                mBoundListeners.put(targetKey, listener);
+            }
         }
 
         /**
@@ -1314,8 +1322,13 @@ public class FileUploader extends Service
             }
 
             String targetKey = buildRemoteName(user.getAccountName(), file.getRemotePath());
-            if (mBoundListeners.get(targetKey) == listener) {
-                mBoundListeners.remove(targetKey);
+
+            if (useFilesUploadWorker(getApplicationContext())) {
+                new FilesUploadHelper().removeDatatransferProgressListener(listener,targetKey);
+            }else {
+                if (mBoundListeners.get(targetKey) == listener) {
+                    mBoundListeners.remove(targetKey);
+                }
             }
         }
 
@@ -1334,8 +1347,13 @@ public class FileUploader extends Service
             }
 
             String targetKey = buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
-            if (mBoundListeners.get(targetKey) == listener) {
-                mBoundListeners.remove(targetKey);
+
+            if (useFilesUploadWorker(getApplicationContext())) {
+                new FilesUploadHelper().removeDatatransferProgressListener(listener,targetKey);
+            }else {
+                if (mBoundListeners.get(targetKey) == listener) {
+                    mBoundListeners.remove(targetKey);
+                }
             }
         }
 
@@ -1385,7 +1403,7 @@ public class FileUploader extends Service
          * @param remotePath  Remote path to upload the file to.
          * @return Key
          */
-        private String buildRemoteName(String accountName, String remotePath) {
+        public static String buildRemoteName(String accountName, String remotePath) {
             return accountName + remotePath;
         }
     }

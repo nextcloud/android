@@ -155,6 +155,7 @@ class FilesUploadWorker(
         }
     }
 
+
     @Suppress("TooGenericExceptionCaught")
     private fun upload(uploadFileOperation: UploadFileOperation, user: User): RemoteOperationResult<Any?> {
         lateinit var uploadResult: RemoteOperationResult<Any?>
@@ -378,8 +379,10 @@ class FilesUploadWorker(
             val text = String.format(context.getString(R.string.uploader_upload_in_progress_content), percent, fileName)
             notificationBuilder.setContentText(text)
             notificationManager.notify(FOREGROUND_SERVICE_ID, notificationBuilder.build())
+            //FilesUploadHelper.onTransferProgress(,progressRate,totalTransferredSoFar,totalToTransfer,fileAbsoluteName)
         }
         lastPercent = percent
+
     }
 
     override fun onStopped() {
