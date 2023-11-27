@@ -160,6 +160,7 @@
     <string name="conflict_message_description">إذا قمت باختيار كلا الاصدارين, الملف المحلي سيحتوي على رقم ملحق باسم الملف.</string>
     <string name="conflict_server_file">ملف على الخادم</string>
     <string name="contact_backup_title">نسخ احتياطي لجهات الاتصال</string>
+    <string name="contact_no_permission">إذن الاتصال بالجهة لازم.</string>
     <string name="contactlist_item_icon">أيقونة المستخدمين المتواجدين في قائمة جهات الإتصال</string>
     <string name="contactlist_no_permission">لا يوجد إذن، لم يتم استيراد أي شيء</string>
     <string name="contacts">جهات الاتصال</string>
@@ -258,6 +259,7 @@
     <string name="ecosystem_apps_more">المزيد من تطبيقات نكست كلاود</string>
     <string name="ecosystem_apps_notes">ملاحظات Notes نيكست كلاود</string>
     <string name="ecosystem_apps_talk">تطبيق \"المحادثة\" talk من نكست كلاود</string>
+    <string name="email_pick_failed">تعذّر التقاط عنوان الإيميل.</string>
     <string name="encrypted">عيّنه كَمشفر</string>
     <string name="end_to_end_encryption_confirm_button">تنصيب التشفير</string>
     <string name="end_to_end_encryption_decrypting">جارِ فك التشفير …</string>

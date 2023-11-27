@@ -160,6 +160,7 @@
     <string name="conflict_message_description">Якщо ви виберете обидві версії, то до назви локального файлу буде додано порядковий номер.</string>
     <string name="conflict_server_file">Файл у хмарі</string>
     <string name="contact_backup_title">Резервне копіювання контактів</string>
+    <string name="contact_no_permission">Потрібний доступ до контактів.</string>
     <string name="contactlist_item_icon">Іконка списку контактів</string>
     <string name="contactlist_no_permission">Не надано дозволів, дані не імпортовано</string>
     <string name="contacts">Контакти</string>
