@@ -160,6 +160,7 @@
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
     <string name="conflict_server_file">Ficheiro do servidor</string>
     <string name="contact_backup_title">Copia de seguranza dos contactos</string>
+    <string name="contact_no_permission">Precisase de permiso de contacto.</string>
     <string name="contactlist_item_icon">Icona do usuario para a lista de contactos</string>
     <string name="contactlist_no_permission">Non se concederon permisos. Non se importou nada!</string>
     <string name="contacts">Contactos</string>
@@ -258,6 +259,7 @@
     <string name="ecosystem_apps_more">Máis aplicacións de Nextcloud</string>
     <string name="ecosystem_apps_notes">Notas de Nextcloud</string>
     <string name="ecosystem_apps_talk">Talk de Nextcloud</string>
+    <string name="email_pick_failed">Produciuse un fallo ao escoller o enderezo de correo.</string>
     <string name="encrypted">Estabelecer como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar o cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>

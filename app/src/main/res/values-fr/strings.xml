@@ -160,6 +160,7 @@
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
     <string name="conflict_server_file">Fichier serveur</string>
     <string name="contact_backup_title">Sauvegarde des contacts</string>
+    <string name="contact_no_permission">La permission d\'accès à vos contacts est requise</string>
     <string name="contactlist_item_icon">L\'icône de l\'utilisateur pour la liste des contacts</string>
     <string name="contactlist_no_permission">Pas de permission donnée, rien n\'a été importé.</string>
     <string name="contacts">Contacts</string>

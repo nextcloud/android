@@ -160,6 +160,7 @@
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
     <string name="conflict_server_file">Serverfil</string>
     <string name="contact_backup_title">Backup av kontakter</string>
+    <string name="contact_no_permission">Rättighet till kontakt krävs.</string>
     <string name="contactlist_item_icon">Användarikon för kontaktlista</string>
     <string name="contactlist_no_permission">Ingen tillstått givet, ingen importerat!</string>
     <string name="contacts">Kontakter</string>
@@ -258,6 +259,7 @@
     <string name="ecosystem_apps_more">Fler Nextcloud-appar</string>
     <string name="ecosystem_apps_notes">Nextcloud anteckningar</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Det gick inte att välja e-postadress.</string>
     <string name="encrypted">Sätt som krypterad</string>
     <string name="end_to_end_encryption_confirm_button">Aktivera kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterar…</string>

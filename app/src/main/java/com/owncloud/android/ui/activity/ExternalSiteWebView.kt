@@ -34,7 +34,6 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.ProgressBar
 import androidx.drawerlayout.widget.DrawerLayout
-import com.owncloud.android.BuildConfig
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ExternalsiteWebviewBinding
@@ -110,9 +109,7 @@ open class ExternalSiteWebView : FileActivity() {
     }
 
     private fun enableDebuggingOnlyInDebugMode() {
-        if (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0 ||
-            resources.getBoolean(R.bool.is_beta) && BuildConfig.DEBUG
-        ) {
+        if (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0) {
             Log_OC.d(this, "Enable debug for webView")
             WebView.setWebContentsDebuggingEnabled(true)
         }
