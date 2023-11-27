@@ -1228,6 +1228,7 @@ public class FileUploader extends Service
         }
 
         public void clearListeners() {
+            FilesUploadHelper.Progress.getMBoundListeners().clear();
             mBoundListeners.clear();
         }
 
@@ -1247,16 +1248,36 @@ public class FileUploader extends Service
             if (user == null || file == null) {
                 return false;
             }
-
-            return mPendingUploads.contains(user.getAccountName(), file.getRemotePath());
+            if (useFilesUploadWorker(getApplicationContext())){
+                // Not same as for service because upload list is "created" on the spot in the worker and not available here
+                /*** TODO: LEADS TO PERFORMANCE ISSUES -> Find better way
+                 *   OCUpload upload = mUploadsStorageManager.getUploadByRemotePath(file.getRemotePath());
+                 *   if (upload == null){
+                 *       return false;
+                 *   }
+                 *   return upload.getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS;
+                 */
+                return false;
+            }else{
+                return mPendingUploads.contains(user.getAccountName(), file.getRemotePath());
+            }
         }
 
         public boolean isUploadingNow(OCUpload upload) {
-            return upload != null &&
-                mCurrentAccount != null &&
-                mCurrentUpload != null &&
-                upload.getAccountName().equals(mCurrentAccount.name) &&
-                upload.getRemotePath().equals(mCurrentUpload.getRemotePath());
+            if (useFilesUploadWorker(getApplicationContext())){
+                UploadFileOperation currentUploadFileOperation = FilesUploadWorker.Companion.getCurrentUploadFileOperation();
+                if (currentUploadFileOperation == null || currentUploadFileOperation.getUser() == null) return false;
+                return upload != null &&
+                    currentUploadFileOperation.getUser().getAccountName() != null &&
+                    upload.getAccountName().equals(currentUploadFileOperation.getUser().getAccountName()) &&
+                    upload.getRemotePath().equals(currentUploadFileOperation.getRemotePath());
+            }else {
+                return upload != null &&
+                    mCurrentAccount != null &&
+                    mCurrentUpload != null &&
+                    upload.getAccountName().equals(mCurrentAccount.name) &&
+                    upload.getRemotePath().equals(mCurrentUpload.getRemotePath());
+            }
         }
 
         /**
