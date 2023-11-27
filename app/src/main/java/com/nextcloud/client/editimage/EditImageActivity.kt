@@ -30,6 +30,8 @@ import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import com.canhub.cropper.CropImageView
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -90,14 +92,11 @@ class EditImageActivity :
             setDisplayHomeAsUpEnabled(true)
         }
 
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
+
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
         window.navigationBarColor = getColor(R.color.black)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.setDecorFitsSystemWindows(false)
-        } else {
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        }
 
         setupCropper()
     }
@@ -196,7 +195,7 @@ class EditImageActivity :
             MimeType.PNG -> Bitmap.CompressFormat.PNG
             MimeType.WEBP -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    Bitmap.CompressFormat.WEBP_LOSSLESS
+                    Bitmap.CompressFormat.WEBP_LOSSY
                 } else {
                     @Suppress("DEPRECATION")
                     Bitmap.CompressFormat.WEBP
