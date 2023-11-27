@@ -37,12 +37,15 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.resources.files.model.ImageDimension
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.net.URLEncoder
 
 @Suppress("LongParameterList")
 class GalleryRowHolder(
     val binding: GalleryRowBinding,
+    private val viewThemeUtils: ViewThemeUtils,
     private val defaultThumbnailSize: Float,
     private val galleryAdapter: GalleryAdapter,
     private val user: User,
@@ -90,15 +93,22 @@ class GalleryRowHolder(
                     imageDownloadHeight +
                     mode
 
+            val placeholder = MimeTypeUtil.getFileTypeIcon(
+                file.mimeType,
+                file.fileName,
+                context,
+                viewThemeUtils
+            )
+
             Glide
                 .with(context)
                 .using(CustomGlideStreamLoader(user, clientFactory))
                 .load(imageUrl)
                 .asBitmap()
-                .placeholder(R.drawable.file_image)
-                .error(R.drawable.background)
+                .placeholder(placeholder)
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .dontAnimate()
                 .into(thumbnail)
 
             val layout = LinearLayout(context).apply {
