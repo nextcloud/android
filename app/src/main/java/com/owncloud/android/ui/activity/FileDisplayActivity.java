@@ -2429,8 +2429,7 @@ public class FileDisplayActivity extends FileActivity
         setUser(user);
 
         if (fileId == null) {
-            dismissLoadingDialog();
-            DisplayUtils.showSnackMessage(this, getString(R.string.error_retrieving_file));
+            onFileRequestError(null);
             return;
         }
 
@@ -2451,8 +2450,7 @@ public class FileDisplayActivity extends FileActivity
         setUser(user);
 
         if (filepath == null) {
-            dismissLoadingDialog();
-            DisplayUtils.showSnackMessage(this, getString(R.string.error_retrieving_file));
+            onFileRequestError(null);
             return;
         }
 
@@ -2466,8 +2464,7 @@ public class FileDisplayActivity extends FileActivity
         try {
             client = clientFactory.create(user);
         } catch (ClientFactory.CreationException e) {
-            dismissLoadingDialog();
-            DisplayUtils.showSnackMessage(this, getString(R.string.error_retrieving_file));
+            onFileRequestError(null);
             return;
         }
 
@@ -2476,8 +2473,16 @@ public class FileDisplayActivity extends FileActivity
                                                                     client,
                                                                     storageManager,
                                                                     user);
-        asyncRunner.postQuickTask(getRemoteFileTask, this::onFileRequestResult, null);
+        asyncRunner.postQuickTask(getRemoteFileTask, this::onFileRequestResult, this::onFileRequestError);
     }
+
+    private Unit onFileRequestError(Throwable throwable) {
+        dismissLoadingDialog();
+        DisplayUtils.showSnackMessage(this, getString(R.string.error_retrieving_file));
+        Log_OC.e(TAG, "Requesting file from remote failed!", throwable);
+        return null;
+    }
+
 
     private Unit onFileRequestResult(GetRemoteFileTask.Result result) {
         dismissLoadingDialog();

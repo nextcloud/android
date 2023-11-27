@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Novo cartafol</string>
     <string name="actionbar_move">Mover</string>
+    <string name="actionbar_move_or_copy">Mover ou copiar</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -159,6 +160,7 @@
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
     <string name="conflict_server_file">Ficheiro do servidor</string>
     <string name="contact_backup_title">Copia de seguranza dos contactos</string>
+    <string name="contact_no_permission">Precisase de permiso de contacto.</string>
     <string name="contactlist_item_icon">Icona do usuario para a lista de contactos</string>
     <string name="contactlist_no_permission">Non se concederon permisos. Non se importou nada!</string>
     <string name="contacts">Contactos</string>
@@ -257,6 +259,7 @@
     <string name="ecosystem_apps_more">Máis aplicacións de Nextcloud</string>
     <string name="ecosystem_apps_notes">Notas de Nextcloud</string>
     <string name="ecosystem_apps_talk">Talk de Nextcloud</string>
+    <string name="email_pick_failed">Produciuse un fallo ao escoller o enderezo de correo.</string>
     <string name="encrypted">Estabelecer como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar o cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
@@ -945,6 +948,9 @@
     <string name="wait_a_moment">Agarde un chisco…</string>
     <string name="wait_checking_credentials">Verificando as credenciais almacenadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o ficheiro dende o almacenamento privado</string>
+    <string name="webview_version_check_alert_dialog_message">Actualice a aplicación WebView do sistema Android para acceder</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Actualizar</string>
+    <string name="webview_version_check_alert_dialog_title">Actualizar WebView do sistema Android</string>
     <string name="what_s_new_image">Imaxe de Que hai de novo</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Novo en %1$s</string>

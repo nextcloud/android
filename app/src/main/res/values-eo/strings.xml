@@ -10,12 +10,14 @@
     <string name="action_clear_failed_uploads">Vakigi malsukcesajn alŝutojn</string>
     <string name="action_edit">Modifi</string>
     <string name="action_empty_notifications">Forviŝi ĉiujn sciigojn</string>
+    <string name="action_empty_trashbin">Malpleni rubujon</string>
     <string name="action_send_share">Sendi aŭ kunhavigi</string>
     <string name="action_switch_grid_view">Krada vido</string>
     <string name="action_switch_list_view">Lista vido</string>
     <string name="actionbar_copy">Kopii</string>
     <string name="actionbar_mkdir">Nova dosierujo</string>
     <string name="actionbar_move">Movi</string>
+    <string name="actionbar_move_or_copy">Movi aŭ Kopii</string>
     <string name="actionbar_open_with">Malfermi per</string>
     <string name="actionbar_search">Serĉi</string>
     <string name="actionbar_see_details">Detaloj</string>
@@ -77,6 +79,8 @@
     <string name="choose_local_folder">Elekti lokan dosierujon...</string>
     <string name="choose_remote_folder">Elekti foran dosierujon...</string>
     <string name="clear_notifications_failed">Malsukcesis forviŝi sciigojn.</string>
+    <string name="clear_status_message">Forviŝi statusan mesaĝon</string>
+    <string name="clear_status_message_after">Forviŝos statusan mesaĝon poste</string>
     <string name="clipboard_label">Teksto kopiita el %1$s</string>
     <string name="clipboard_no_text_to_copy">Neniu teksto ricevita por kopii tondujen</string>
     <string name="clipboard_text_copied">Ligilo kopiita</string>
@@ -103,6 +107,8 @@
     <string name="common_send">Sendi</string>
     <string name="common_share">Kunhavigi</string>
     <string name="common_skip">Preterpasi</string>
+    <string name="common_switch_account">Interŝanĝi konton</string>
+    <string name="common_switch_to_account">Ŝanĝi al konto</string>
     <string name="common_yes">Jes</string>
     <string name="community_beta_headline">Testu la beta-version</string>
     <string name="community_beta_text">Ĝi enhavas ĉiujn venontajn funkciojn, kaj ĝi estas freŝfreŝa. Eraroj povas okazi: se kaj kiam tio okazas, bonvolu raporti ilin.</string>
@@ -126,6 +132,8 @@
     <string name="confirmation_remove_folder_alert">Ĉu vi ja volas forigi %1$s kaj ĝian enhavon?</string>
     <string name="confirmation_remove_folders_alert">Ĉu vi ja volas forigi la elektitajn elementojn kaj ilian enhavon?</string>
     <string name="confirmation_remove_local">Nur loka</string>
+    <string name="conflict_local_file">Loka dosiero</string>
+    <string name="contact_backup_title">Savkopii kontaktojn</string>
     <string name="contactlist_item_icon">Uzanto-piktogramo por la kontaktlisto</string>
     <string name="contactlist_no_permission">Permeso ne donita, nenio importiĝis.</string>
     <string name="contacts">Kontaktoj</string>
@@ -143,6 +151,7 @@
     <string name="copy_to">Kopii al...</string>
     <string name="create">Krei</string>
     <string name="create_dir_fail_msg">Ne eblis krei dosierujon</string>
+    <string name="create_new">Krei nove</string>
     <string name="create_new_document">Krei novan dokumenton</string>
     <string name="create_new_folder">Krei novan dosierujon</string>
     <string name="create_new_presentation">Krei novan prezentaĵon</string>

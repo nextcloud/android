@@ -248,7 +248,7 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
     public int getSectionByLocalPathAndType(String localPath, int type) {
         for (int i = 0; i < filteredSyncFolderItems.size(); i++) {
             if (filteredSyncFolderItems.get(i).getLocalPath().equalsIgnoreCase(localPath) &&
-                filteredSyncFolderItems.get(i).getType().getId().equals(type)) {
+                filteredSyncFolderItems.get(i).getType().id == type) {
                 return i;
             }
         }

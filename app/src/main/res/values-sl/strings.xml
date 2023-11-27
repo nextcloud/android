@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Kopiraj</string>
     <string name="actionbar_mkdir">Nova mapa</string>
     <string name="actionbar_move">Premakni</string>
+    <string name="actionbar_move_or_copy">Premakni ali Kopiraj</string>
     <string name="actionbar_open_with">Odpri s programom</string>
     <string name="actionbar_search">Iskanje</string>
     <string name="actionbar_see_details">Podrobnosti</string>
@@ -159,6 +160,7 @@
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
     <string name="conflict_server_file">Strežniška datoteka</string>
     <string name="contact_backup_title">Varnostna kopija stikov</string>
+    <string name="contact_no_permission">Potrebno je dovoljeno do stikov.</string>
     <string name="contactlist_item_icon">Ikona uporabnika za seznam stikov</string>
     <string name="contactlist_no_permission">Ni ustreznih dovoljenj, uvoz je prekinjen.</string>
     <string name="contacts">Stiki</string>
@@ -204,6 +206,7 @@
     <string name="did_not_check_for_dupes">Ne preverjaj za podvojene.</string>
     <string name="digest_algorithm_not_available">Ta algoritem na tej napravi ni podprt.</string>
     <string name="direct_login_failed">Prijava prek neposredne povezave je spodletela.</string>
+    <string name="direct_login_text">Prijava z %1$s v %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Onemogoči</string>
     <string name="dismiss">Opusti</string>
     <string name="dismiss_notification_description">Opusti obvestilo</string>
@@ -253,7 +256,10 @@
     <string name="ecosystem_apps_display_more">Več</string>
     <string name="ecosystem_apps_display_notes">Beležke</string>
     <string name="ecosystem_apps_display_talk">Pogovor Talk</string>
+    <string name="ecosystem_apps_more">Več Nexcloud Aplikacij</string>
     <string name="ecosystem_apps_notes">Nextcloud Beležke</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">E-poštnega naslova ni bilo mogoče izbrati.</string>
     <string name="encrypted">Nastavi kot šifrirano</string>
     <string name="end_to_end_encryption_confirm_button">Nastavitev šifriranja</string>
     <string name="end_to_end_encryption_decrypting">Poteka odšifriranje…</string>
@@ -416,8 +422,14 @@
     <string name="icon_for_empty_list">Ikona za prazen seznam</string>
     <string name="icon_of_dashboard_widget">Ikona gradnika nadzorne plošče</string>
     <string name="icon_of_widget_entry">Ikona vnosa gradnikov</string>
+    <string name="image_editor_file_edited_suffix">urejeno</string>
+    <string name="image_editor_flip_horizontal">Obrni vodoravno</string>
+    <string name="image_editor_flip_vertical">Obrni navpično</string>
+    <string name="image_editor_rotate_ccw">Zavrti v levo</string>
+    <string name="image_editor_rotate_cw">Zavrti v desno</string>
     <string name="image_editor_unable_to_edit_image">Slike ni mogoče urediti.</string>
     <string name="image_preview_filedetails">Podrobnosti datoteke</string>
+    <string name="image_preview_image_taking_conditions">Pogoji fotografiranja</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
     <string name="image_preview_unit_megapixel">%s MP</string>
@@ -450,6 +462,7 @@
     <string name="locked_by_app">Zaklenjeno s strani %1$s</string>
     <string name="log_send_mail_subject">%1$s dnevniki programa</string>
     <string name="log_send_no_mail_app">Ni nameščenega programa za pošiljanje dnevnikov. Namestiti je treba program za elektronsko pošto.</string>
+    <string name="logged_in_as">Prijavljen kot %1$s</string>
     <string name="login">Prijava</string>
     <string name="login_url_helper_text">Povezava do spletnega vmesnika %1$s, ki se odpre v brskalniku.</string>
     <string name="logs_menu_delete">Izbriši dnevnike</string>
@@ -502,6 +515,7 @@
     <string name="no_calendar_exists">Ni nobenega koledarja</string>
     <string name="no_email_app_available">Ni nameščenega programa, ki upravlja elektronskimi naslovi.</string>
     <string name="no_items">Ni predmetov</string>
+    <string name="no_map_app_availble">Ni nameščenega programa za odpiranje zemljevidov</string>
     <string name="no_mutliple_accounts_allowed">Dovoljen je le en račun</string>
     <string name="no_pdf_app_available">Ni nameščenega programa za odpiranje datotek PDF</string>
     <string name="no_send_app">Na voljo ni nobenega programa za pošiljanje izbranih datotek</string>
@@ -588,6 +602,7 @@
     <string name="prefs_imprint">Natis</string>
     <string name="prefs_instant_behaviour_dialogTitle">Izvorna datoteka bo…</string>
     <string name="prefs_instant_behaviour_title">Izvorna datoteka bo…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Shranjevanje v podmape glede na datum</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Uporabi podmape</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Možnosti podmape</string>
     <string name="prefs_keys_exist">Dodaj celovito šifriranje E2E na to napravo</string>
@@ -604,6 +619,7 @@
     <string name="prefs_remove_e2e">Krajevno odstrani šifriranje</string>
     <string name="prefs_setup_e2e">Nastavi celovito šifriranje E2E</string>
     <string name="prefs_show_ecosystem_apps">Pokaži preklopnika programov</string>
+    <string name="prefs_show_ecosystem_apps_summary">Predlogi aplikacij Nextcloud v navigacijskem naslovu</string>
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
     <string name="prefs_storage_path">Mapa podatkovne shrambe</string>
@@ -632,6 +648,7 @@
     <string name="remote">(oddaljeno) </string>
     <string name="remote_file_fetch_failed">Iskanje datoteke je spodletelo!</string>
     <string name="remove_e2e">Na tej napravi lahko odstranite krajevno celovito šifriranje E2E</string>
+    <string name="remove_e2e_message">V tem odjemalcu lahko lokalno odstranite šifriranje E2E. Šifrirane datoteke bodo ostale na strežniku, vendar ne bodo več sinhronizirane s tem računalnikom.</string>
     <string name="remove_fail_msg">Brisanje je spodletelo</string>
     <string name="remove_notification_failed">Odstranjevanje obvestil je spodletelo.</string>
     <string name="remove_push_notification">Odstrani</string>
@@ -669,12 +686,14 @@
     <string name="select_template">Izbor predloge</string>
     <string name="send">Pošlji</string>
     <string name="send_note">Pošlji sporočilo prejemniku</string>
+    <string name="send_share">Pošlji souporabo</string>
     <string name="sendbutton_description">Ikona gumba za pošiljanje</string>
     <string name="set_as">Nastavi kot</string>
     <string name="set_note">Nastavi sporočilo</string>
     <string name="set_picture_as">Uporabi sliko kot</string>
     <string name="set_status">Nastavi stanje</string>
     <string name="set_status_message">Nastavi sporočilo stanja</string>
+    <string name="setup_e2e">Med nastavitvijo šifriranja E2E boste prejeli naključno 12-mestno sporočilo, ki ga boste morali odpreti na drugih napravah. To bo shranjeno samo na tej napravi in ga je mogoče ponovno prikazati na tem zaslonu. Prosimo, zabeležite ga na varnem mestu!</string>
     <string name="share">Souporaba</string>
     <string name="share_copy_link">Omogoči souporabo &amp; Kopiraj povezavo</string>
     <string name="share_dialog_title">Souporaba</string>
@@ -928,7 +947,9 @@
     <string name="wait_a_moment">Počakajte trenutek …</string>
     <string name="wait_checking_credentials">Poteka preverjanje shranjenih poveril</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
+    <string name="webview_version_check_alert_dialog_message">Prosimo, posodobite aplikacijo Android System WebView za prijavo</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Posodobi</string>
+    <string name="webview_version_check_alert_dialog_title">Posodobite Android System WebView</string>
     <string name="what_s_new_image">Kaj je nova slika</string>
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo v %1$s</string>
@@ -949,6 +970,12 @@
         <item quantity="two">Spodletelo je kopiranje %1$d datotek iz mape %2$s v</item>
         <item quantity="few">Spodletelo je kopiranje %1$d datotek iz mape %2$s v</item>
         <item quantity="other">Spodletelo je kopiranje %1$d datotek iz mape %2$s v</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="one">%1$d zapisan dogodek v %2$s</item>
+        <item quantity="two">%1$d zapisana dogodka v %2$s</item>
+        <item quantity="few">%1$d zapisanih dogodkov v %2$s</item>
+        <item quantity="other">%1$d zapisanih dogodkov v %2$s</item>
     </plurals>
     <plurals name="created_n_uids_to">
         <item quantity="one">Ustvarjeno je %1$d novo določilo UID</item>
@@ -973,6 +1000,24 @@
         <item quantity="two">Izvoženi sta %d datoteki.</item>
         <item quantity="few">Izvožene so %d datoteke.</item>
         <item quantity="other">Izvoženih je %d datotek.</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one">Napaka pri izvažanju %d datoteke</item>
+        <item quantity="two">Napaka pri izvažanju %d datotek</item>
+        <item quantity="few">Napaka pri izvažanju %d datotek</item>
+        <item quantity="other">Napaka pri izvažanju %d datotek</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one">Izvožena %d datoteka, ostale so bile preskočene zaradi napake</item>
+        <item quantity="two">Izvoženi %d datoteki, ostale so bile preskočene zaradi napake</item>
+        <item quantity="few">Izvoženih %d datotek, ostale so bile preskočene zaradi napake</item>
+        <item quantity="other">Izvoženih %d datotek, ostale so bile preskočene zaradi napake</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">Izvožena bo %d datoteka. Za podrobnosti glejte obvestilo.</item>
+        <item quantity="two">Izvožena bosta %d datoteki. Za podrobnosti glejte obvestilo.</item>
+        <item quantity="few">Izvoženih bo %d datotek. Za podrobnosti glejte obvestilo.</item>
+        <item quantity="other">Izvoženih bo %d datotek. Za podrobnosti glejte obvestilo.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mapa</item>
