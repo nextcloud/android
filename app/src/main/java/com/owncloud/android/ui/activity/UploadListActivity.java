@@ -328,6 +328,7 @@ public class UploadListActivity extends FileActivity {
                     mUploaderBinder = (FileUploaderBinder) service;
                     Log_OC.d(TAG, "UploadListActivity connected to Upload service. component: " +
                             component + " service: " + service);
+                    uploadListAdapter.loadUploadItemsFromDb();
                 } else {
                     Log_OC.d(TAG, "mUploaderBinder already set. mUploaderBinder: " +
                             mUploaderBinder + " service:" + service);
