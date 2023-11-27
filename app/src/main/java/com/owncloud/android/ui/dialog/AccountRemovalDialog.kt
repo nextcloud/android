@@ -29,11 +29,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.AccountRemovalDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -57,7 +59,7 @@ class AccountRemovalDialog : DialogFragment(), AvatarGenerationListener, Injecta
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        user = requireArguments().getParcelable(KEY_USER)
+        user = requireArguments().getParcelableArgument(KEY_USER, User::class.java)
     }
 
     override fun onStart() {
@@ -69,9 +71,11 @@ class AccountRemovalDialog : DialogFragment(), AvatarGenerationListener, Injecta
 
         viewThemeUtils.platform.themeRadioButton(binding.radioLocalRemove)
         viewThemeUtils.platform.themeRadioButton(binding.radioRequestDeletion)
-        viewThemeUtils.platform.colorTextButtons(
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+        viewThemeUtils.material.colorMaterialButtonPrimaryTonal(
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton
+        )
+        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton
         )
 
         binding.userName.text = UserAccountManager.getDisplayName(user)
