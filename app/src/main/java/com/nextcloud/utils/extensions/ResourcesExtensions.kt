@@ -34,3 +34,12 @@ fun Resources.navBarHeight(): Int {
         0
     }
 }
+
+/**
+ * This method only works in real device
+ */
+@SuppressLint("DiscouragedApi")
+fun Resources.hasNavBar(): Boolean {
+    val id = getIdentifier("config_showNavigationBar", "bool", "android")
+    return id > 0 && getBoolean(id)
+}

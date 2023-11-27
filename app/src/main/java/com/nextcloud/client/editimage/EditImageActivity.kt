@@ -33,6 +33,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import com.canhub.cropper.CropImageView
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.hasNavBar
 import com.nextcloud.utils.extensions.navBarHeight
 import com.nextcloud.utils.extensions.shiftUp
 import com.owncloud.android.R
@@ -102,7 +103,10 @@ class EditImageActivity :
         }
 
         setupCropper()
-        shiftLayout()
+
+        if (resources.hasNavBar()) {
+            shiftLayout()
+        }
     }
 
     private fun shiftLayout() {
