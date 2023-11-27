@@ -18,6 +18,7 @@
     <string name="actionbar_copy">複製</string>
     <string name="actionbar_mkdir">新資料夾</string>
     <string name="actionbar_move">移動</string>
+    <string name="actionbar_move_or_copy">移動或複製</string>
     <string name="actionbar_open_with">開啟方式</string>
     <string name="actionbar_search">搜尋</string>
     <string name="actionbar_see_details">詳細資料</string>
@@ -159,6 +160,7 @@
     <string name="conflict_message_description">若您同時選擇兩個版本，近端的檔案會在檔名後附加編號。</string>
     <string name="conflict_server_file">伺服器檔案</string>
     <string name="contact_backup_title">聯絡人備份</string>
+    <string name="contact_no_permission">需要聯絡人權限。</string>
     <string name="contactlist_item_icon">聯絡清單的用戶圖示</string>
     <string name="contactlist_no_permission">匯入失敗，權限不足。</string>
     <string name="contacts">通訊錄</string>
@@ -257,6 +259,7 @@
     <string name="ecosystem_apps_more">更多 Nextcloud 應用程式</string>
     <string name="ecosystem_apps_notes">Nextcloud 筆記</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">無法挑選電郵地址。</string>
     <string name="encrypted">設為已加密的</string>
     <string name="end_to_end_encryption_confirm_button">設定加密</string>
     <string name="end_to_end_encryption_decrypting">解密中…</string>
@@ -944,7 +947,9 @@
     <string name="wait_a_moment">請稍候…</string>
     <string name="wait_checking_credentials">檢查儲存的身分驗證</string>
     <string name="wait_for_tmp_copy_from_private_storage">從私有儲存空間複製檔案中</string>
+    <string name="webview_version_check_alert_dialog_message">請更新 Android System WebView 應用程式以進行登入</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">更新</string>
+    <string name="webview_version_check_alert_dialog_title">更新 Android System WebView</string>
     <string name="what_s_new_image">有什麼新圖像？</string>
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>
