@@ -43,7 +43,9 @@ import com.google.gson.JsonSyntaxException;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.NextcloudDatabase;
 import com.nextcloud.client.database.dao.FileDao;
+import com.nextcloud.client.database.dao.ShareDao;
 import com.nextcloud.client.database.entity.FileEntity;
+import com.nextcloud.client.database.entity.ShareEntity;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -97,7 +99,9 @@ public class FileDataStorageManager {
     private final ContentProviderClient contentProviderClient;
     private final User user;
 
-    private final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
+    private final NextcloudDatabase nextcloudDatabase = NextcloudDatabase.getInstance(MainApp.getAppContext());
+    private final FileDao fileDao = nextcloudDatabase.fileDao();
+    private final ShareDao shareDao = nextcloudDatabase.shareDao();
     private final Gson gson = new Gson();
 
     public FileDataStorageManager(User user, ContentResolver contentResolver) {
@@ -993,43 +997,29 @@ public class FileDataStorageManager {
         return ocFile;
     }
 
+    private long insertShare(OCShare share) {
+        Long newId = shareDao.insertShare(createShareEntity(null, share));
+        if (share.getShareType() == ShareType.PUBLIC_LINK) {
+            fileDao.setSharedViaLink(share.getPath(), user.getAccountName());
+        } else {
+            fileDao.setSharedWithSharee(share.getPath(), user.getAccountName());
+        }
+        return newId;
+    }
+
     public boolean saveShare(OCShare share) {
         boolean overridden = false;
 
-        ContentValues contentValues = createContentValueForShare(share);
-
-        if (shareExistsForRemoteId(share.getRemoteId())) {// for renamed files; no more delete and create
+        ShareEntity shareEntity = shareDao.getShareByRemoteId(share.getRemoteId(), user.getAccountName());
+        if (shareEntity != null) {// for renamed files; no more delete and create
             overridden = true;
-            if (getContentResolver() != null) {
-                getContentResolver().update(ProviderTableMeta.CONTENT_URI_SHARE,
-                                            contentValues,
-                                            ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?",
-                                            new String[]{String.valueOf(share.getRemoteId())});
-            } else {
-                try {
-                    getContentProviderClient().update(ProviderTableMeta.CONTENT_URI_SHARE,
-                                                      contentValues,
-                                                      ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?",
-                                                      new String[]{String.valueOf(share.getRemoteId())});
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
-                }
-            }
+            ShareEntity newShareEntity = createShareEntity(shareEntity.getId(), share);
+            shareDao.updateShare(newShareEntity);
+            Log_OC.d(TAG, "saveShare - after update - id: " + shareEntity.getId() + " path: " + share.getPath());
         } else {
-            Uri result_uri = null;
-            if (getContentResolver() != null) {
-                result_uri = getContentResolver().insert(ProviderTableMeta.CONTENT_URI_SHARE, contentValues);
-            } else {
-                try {
-                    result_uri = getContentProviderClient().insert(ProviderTableMeta.CONTENT_URI_SHARE, contentValues);
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
-                }
-            }
-            if (result_uri != null) {
-                long new_id = Long.parseLong(result_uri.getPathSegments().get(1));
-                share.setId(new_id);
-            }
+            Long newId = insertShare(share);
+            share.setId(newId);
+            Log_OC.d(TAG, "saveShare - after insert - id: " + newId + " path: " + share.getPath());
         }
 
         return overridden;
@@ -1198,6 +1188,31 @@ public class FileDataStorageManager {
         return shares;
     }
 
+    private ShareEntity createShareEntity(Long id, OCShare share) {
+        return new ShareEntity(
+            id,
+            share.getFileSource(),
+            share.getItemSource(),
+            share.getShareType().getValue(),
+            share.getShareWith(),
+            share.getPath(),
+            share.getPermissions(),
+            share.getSharedDate(),
+            share.getExpirationDate(),
+            share.getToken(),
+            share.getSharedWithDisplayName(),
+            share.isFolder() ? 1 : 0,
+            share.getUserId(),
+            share.getRemoteId(),
+            user.getAccountName(),
+            share.isPasswordProtected() ? 1 : 0,
+            share.getNote(),
+            share.isHideFileDownload() ? 1 : 0,
+            share.getShareLink(),
+            share.getLabel()
+        );
+    }
+
     private ContentValues createContentValueForShare(OCShare share) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
@@ -1267,22 +1282,7 @@ public class FileDataStorageManager {
     }
 
     private void resetShareFlagsInFolder(OCFile folder) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, Boolean.FALSE);
-        contentValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, Boolean.FALSE);
-        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PARENT + " = ?";
-        String[] whereArgs = new String[]{user.getAccountName(), String.valueOf(folder.getFileId())};
-
-        if (getContentResolver() != null) {
-            getContentResolver().update(ProviderTableMeta.CONTENT_URI, contentValues, where, whereArgs);
-
-        } else {
-            try {
-                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, contentValues, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in resetShareFlagsInFiles" + e.getMessage(), e);
-            }
-        }
+        fileDao.resetShareFlagsInFolder(folder.getFileId(), user.getAccountName());
     }
 
     private void resetShareFlagInAFile(String filePath) {
@@ -1306,82 +1306,26 @@ public class FileDataStorageManager {
 
     @VisibleForTesting
     public void cleanShares() {
-        String where = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
-        String[] whereArgs = new String[]{user.getAccountName()};
-
-        if (getContentResolver() != null) {
-            getContentResolver().delete(ProviderTableMeta.CONTENT_URI_SHARE, where, whereArgs);
-
-        } else {
-            try {
-                getContentProviderClient().delete(ProviderTableMeta.CONTENT_URI_SHARE, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in cleanShares" + e.getMessage(), e);
-            }
-        }
+        shareDao.deleteShares(user.getAccountName());
     }
 
     // TODO shares null?
     public void saveShares(List<OCShare> shares) {
-        cleanShares();
-        ArrayList<ContentProviderOperation> operations = new ArrayList<>(shares.size());
+        Log_OC.d(TAG, "saveShares - start");
 
-        // prepare operations to insert or update files to save in the given folder
-        for (OCShare share : shares) {
-            ContentValues contentValues = createContentValueForShare(share);
-
-            if (shareExistsForRemoteId(share.getRemoteId())) {
-                // updating an existing file
-                operations.add(
-                    ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI_SHARE)
-                        .withValues(contentValues)
-                        .withSelection(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + " = ?",
-                                       new String[]{String.valueOf(share.getRemoteId())})
-                        .build());
-            } else {
-                // adding a new file
-                operations.add(
-                    ContentProviderOperation.newInsert(ProviderTableMeta.CONTENT_URI_SHARE)
-                        .withValues(contentValues)
-                        .build()
-                );
+        nextcloudDatabase.runInTransaction(() -> {
+            cleanShares();
+            for (OCShare share : shares) {
+               saveShare(share);
             }
-        }
+        });
 
-        // apply operations in batch
-        if (operations.size() > 0) {
-            @SuppressWarnings("unused")
-            ContentProviderResult[] results = null;
-            Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-            try {
-                if (getContentResolver() != null) {
-                    results = getContentResolver().applyBatch(MainApp.getAuthority(),
-                                                              operations);
-                } else {
-                    results = getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
-            }
-        }
+        Log_OC.d(TAG, "saveShares - finish");
     }
 
     public void removeShare(OCShare share) {
-        Uri contentUriShare = ProviderTableMeta.CONTENT_URI_SHARE;
-        String where = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + AND +
-            ProviderTableMeta._ID + " = ?";
-        String[] whereArgs = {user.getAccountName(), Long.toString(share.getId())};
-
-        if (getContentProviderClient() != null) {
-            try {
-                getContentProviderClient().delete(contentUriShare, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.d(TAG, e.getMessage(), e);
-            }
-        } else {
-            getContentResolver().delete(contentUriShare, where, whereArgs);
-        }
+        // TODO - user name seems redundant - ID is a primary key
+        shareDao.deleteShareById(share.getId(), user.getAccountName());
     }
 
     public void saveSharesDB(List<OCShare> shares) {
@@ -1439,28 +1383,21 @@ public class FileDataStorageManager {
 
     // TOOD check if shares can be null
     public void saveSharesInFolder(ArrayList<OCShare> shares, OCFile folder) {
-        resetShareFlagsInFolder(folder);
-        ArrayList<ContentProviderOperation> operations = new ArrayList<>();
-        operations = prepareRemoveSharesInFolder(folder, operations);
+        Log_OC.d(TAG, "saveSharesInFolder - start");
 
-        // prepare operations to insert or update files to save in the given folder
-        operations = prepareInsertShares(shares, operations);
+        nextcloudDatabase.runInTransaction(() -> {
+            resetShareFlagsInFolder(folder);
+            removeSharesInFolder(folder);
+            insertShares(shares);
+        });
 
-        // apply operations in batch
-        if (operations.size() > 0) {
-            Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+        Log_OC.d(TAG, "saveSharesInFolder - finish");
+    }
 
-                } else {
-
-                    getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
-            }
+    private void insertShares(Iterable<OCShare> shares)
+    {
+        for (OCShare share : shares) {
+            insertShare(share);
         }
     }
 
@@ -1489,25 +1426,16 @@ public class FileDataStorageManager {
         return operations;
     }
 
-    private ArrayList<ContentProviderOperation> prepareRemoveSharesInFolder(
-        OCFile folder, ArrayList<ContentProviderOperation> preparedOperations) {
+    private void removeSharesInFolder(OCFile folder) {
         if (folder != null) {
-            String where = ProviderTableMeta.OCSHARES_PATH + AND
-                + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
-            String[] whereArgs = new String[]{"", user.getAccountName()};
+            String shareOwner = user.getAccountName();
 
             List<OCFile> files = getFolderContent(folder, false);
-
             for (OCFile file : files) {
-                whereArgs[0] = file.getRemotePath();
-                preparedOperations.add(
-                    ContentProviderOperation.newDelete(ProviderTableMeta.CONTENT_URI_SHARE).
-                        withSelection(where, whereArgs).
-                        build()
-                );
+                String path = file.getRemotePath();
+                shareDao.deleteSharesByPath(path, shareOwner);
             }
         }
-        return preparedOperations;
     }
 
     private ArrayList<ContentProviderOperation> prepareRemoveSharesInFile(

@@ -31,6 +31,7 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.database.dao.ArbitraryDataDao
 import com.nextcloud.client.database.dao.FileDao
+import com.nextcloud.client.database.dao.ShareDao
 import com.nextcloud.client.database.entity.ArbitraryDataEntity
 import com.nextcloud.client.database.entity.CapabilityEntity
 import com.nextcloud.client.database.entity.ExternalLinkEntity
@@ -65,7 +66,8 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 68, to = 69),
         AutoMigration(from = 69, to = 70),
         AutoMigration(from = 71, to = 72),
-        AutoMigration(from = 72, to = 73)
+        AutoMigration(from = 72, to = 73),
+        AutoMigration(from = 73, to = 74)
     ],
     exportSchema = true
 )
@@ -74,6 +76,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
 
     abstract fun arbitraryDataDao(): ArbitraryDataDao
     abstract fun fileDao(): FileDao
+    abstract fun shareDao(): ShareDao
 
     companion object {
         const val FIRST_ROOM_DB_VERSION = 65
