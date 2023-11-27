@@ -20,7 +20,6 @@
  */
 package com.nextcloud.client.editimage
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -101,41 +100,6 @@ class EditImageActivity :
         }
 
         setupCropper()
-
-        if (hasNavigationBar()) {
-            shiftLayout()
-        }
-    }
-
-    private fun shiftLayout() {
-        val navBarHeight: Float = getNavigationBarHeight().toFloat()
-
-        @Suppress("MagicNumber")
-        val imageShiftValue = binding.editButtonsLayout.height * 1.4f
-
-        binding.cropImageView.post {
-            binding.cropImageView.translationY = -imageShiftValue
-        }
-        binding.editButtonsLayout.post {
-            binding.editButtonsLayout.translationY = -navBarHeight
-        }
-    }
-
-    @SuppressLint("DiscouragedApi")
-    private fun hasNavigationBar(): Boolean {
-        val id = resources.getIdentifier("config_showNavigationBar", "bool", "android")
-        return id > 0 && resources.getBoolean(id)
-    }
-
-    @SuppressLint("InternalInsetResource", "DiscouragedApi")
-    private fun getNavigationBarHeight(): Int {
-        val resourceId: Int = resources.getIdentifier("navigation_bar_height", "dimen", "android")
-
-        return if (resourceId > 0) {
-            resources.getDimensionPixelSize(resourceId)
-        } else {
-            0
-        }
     }
 
     override fun onCropImageComplete(view: CropImageView, result: CropImageView.CropResult) {
