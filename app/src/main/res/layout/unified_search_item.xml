@@ -115,9 +115,10 @@
         app:srcCompat="@drawable/ic_dots_vertical"
         app:tint="@color/standard_grey"
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:contentDescription="open file actions"
+        tools:visibility="visible"
         tools:ignore="HardcodedText" />
 
 </LinearLayout>
