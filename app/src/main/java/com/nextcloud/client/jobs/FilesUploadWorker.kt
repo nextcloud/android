@@ -413,7 +413,7 @@ class FilesUploadWorker(
     companion object {
         val TAG: String = FilesUploadWorker::class.java.simpleName
         private const val FOREGROUND_SERVICE_ID: Int = 412
-        private const val NOTIFICATION_ERROR_ID: Int = 413
+        const val NOTIFICATION_ERROR_ID: Int = 413
         private const val MAX_PROGRESS: Int = 100
         const val ACCOUNT = "data_account"
         var currentUploadFileOperation: UploadFileOperation? = null

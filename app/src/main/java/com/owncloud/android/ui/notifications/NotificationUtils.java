@@ -84,6 +84,9 @@ public final class NotificationUtils {
     }
 
     public static String createUploadNotificationTag(OCFile file){
-        return file.getRemotePath() + file.getStoragePath();
+        return createUploadNotificationTag(file.getRemotePath(), file.getStoragePath());
+    }
+    public static String createUploadNotificationTag(String remotePath, String localPath){
+        return remotePath + localPath;
     }
 }
