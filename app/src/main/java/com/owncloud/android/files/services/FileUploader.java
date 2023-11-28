@@ -135,7 +135,7 @@ public class FileUploader extends Service
     public static final String ACTION_PAUSE_BROADCAST = "PAUSE";
 
     private static final int FOREGROUND_SERVICE_ID = 411;
-    private static final int NOTIFICATION_ERROR_ID = 410;
+    private static final int NOTIFICATION_ERROR_ID = FilesUploadWorker.NOTIFICATION_ERROR_ID;
 
     public static final String KEY_FILE = "FILE";
     public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
@@ -1443,6 +1443,10 @@ public class FileUploader extends Service
     }
 
     private void cancelOldErrorNotification(UploadFileOperation uploadFileOperation){
+        if (mNotificationManager == null) {
+            mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        }
+
         if (uploadFileOperation == null) return;
         mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(uploadFileOperation.getOldFile()),
                                    NOTIFICATION_ERROR_ID);
