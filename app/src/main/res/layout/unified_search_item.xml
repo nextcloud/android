@@ -107,5 +107,18 @@
             tools:text="in TestFolder" />
 
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/more"
+        android:visibility="gone"
+        android:background="@color/transparent"
+        app:srcCompat="@drawable/ic_dots_vertical"
+        app:tint="@color/standard_grey"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="open file actions"
+        tools:ignore="HardcodedText" />
+
 </LinearLayout>
 
