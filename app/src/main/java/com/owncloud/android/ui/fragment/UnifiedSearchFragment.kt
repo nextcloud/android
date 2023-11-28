@@ -47,6 +47,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.adapter.UnifiedSearchItemViewHolder
 import com.owncloud.android.ui.adapter.UnifiedSearchListAdapter
 import com.owncloud.android.ui.fragment.util.PairMediatorLiveData
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
@@ -63,7 +64,7 @@ import javax.inject.Inject
  * Starts query to all capable unified search providers and displays them Opens result in our app, redirect to other
  * apps, if installed, or opens browser
  */
-class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface, SearchView.OnQueryTextListener {
+class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface, SearchView.OnQueryTextListener, UnifiedSearchItemViewHolder.FilesAction {
     private lateinit var adapter: UnifiedSearchListAdapter
     private var _binding: ListFragmentBinding? = null
     private val binding get() = _binding!!
@@ -200,7 +201,11 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
             startActivity(browserIntent)
         }
         vm.file.observe(this) {
-            showFile(it)
+            if (showMoreActions) {
+                showFileActions(it)
+            } else {
+                showFile(it)
+            }
         }
     }
 
@@ -222,6 +227,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         adapter = UnifiedSearchListAdapter(
             storageManager,
             this,
+            this,
             currentAccountProvider.user,
             clientFactory,
             requireContext(),
@@ -241,6 +247,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     }
 
     override fun onSearchResultClicked(searchResultEntry: SearchResultEntry) {
+        showMoreActions = false
         vm.openResult(searchResultEntry)
     }
 

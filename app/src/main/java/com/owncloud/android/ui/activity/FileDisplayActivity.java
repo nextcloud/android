@@ -71,6 +71,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -138,7 +139,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Stack;
 
@@ -605,6 +608,27 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         transaction.commit();
     }
 
+    private OCFileListFragment getOCFileListFragmentFromFile() {
+        final Fragment leftFragment = getLeftFragment();
+        OCFileListFragment listOfFiles = null;
+        if (leftFragment instanceof OCFileListFragment) {
+            listOfFiles = (OCFileListFragment) leftFragment;
+        } else {
+            listOfFiles = new OCFileListFragment();
+            Bundle args = new Bundle();
+            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+            listOfFiles.setArguments(args);
+            setLeftFragment(listOfFiles);
+            getSupportFragmentManager().executePendingTransactions();
+        }
+        return listOfFiles;
+    }
+
+    public void showFileActions(OCFile file) {
+        dismissLoadingDialog();
+        OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
+        listOfFiles.onOverflowIconClicked(file, null);
+    }
 
     public @androidx.annotation.Nullable Fragment getLeftFragment() {
         return getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
@@ -619,7 +643,6 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
         return null;
     }
-
 
     protected void resetTitleBarAndScrolling() {
         updateActionBarTitleAndHomeButton(null);
