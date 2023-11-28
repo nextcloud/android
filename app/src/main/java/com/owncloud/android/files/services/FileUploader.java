@@ -1234,14 +1234,13 @@ public class FileUploader extends Service
             }
             if (useFilesUploadWorker(getApplicationContext())){
                 // Not same as for service because upload list is "created" on the spot in the worker and not available here
-                /*** TODO: LEADS TO PERFORMANCE ISSUES -> Find better way
-                 *   OCUpload upload = mUploadsStorageManager.getUploadByRemotePath(file.getRemotePath());
-                 *   if (upload == null){
-                 *       return false;
-                 *   }
-                 *   return upload.getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS;
-                 */
-                return false;
+
+                 OCUpload upload = mUploadsStorageManager.getUploadByRemotePath(file.getRemotePath());
+                 if (upload == null){
+                     return false;
+                 }
+                 return upload.getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS;
+
             }else{
                 return mPendingUploads.contains(user.getAccountName(), file.getRemotePath());
             }
