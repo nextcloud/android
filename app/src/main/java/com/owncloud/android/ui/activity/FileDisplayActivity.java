@@ -71,7 +71,6 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
-import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -143,11 +142,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -651,6 +647,21 @@ public class FileDisplayActivity extends FileActivity
         dismissLoadingDialog();
         OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
         listOfFiles.onOverflowIconClicked(file, null);
+    }
+
+    public void showFile(String message) {
+        dismissLoadingDialog();
+
+        OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
+
+        if (TextUtils.isEmpty(message)) {
+            OCFile temp = getFile();
+            setFile(getCurrentDir());
+            listOfFiles.listDirectory(getCurrentDir(), temp, MainApp.isOnlyOnDevice(), false);
+            updateActionBarTitleAndHomeButton(null);
+        } else {
+            DisplayUtils.showSnackMessage(listOfFiles.getView(), message);
+        }
     }
 
     public @androidx.annotation.Nullable
@@ -2609,20 +2620,5 @@ public class FileDisplayActivity extends FileActivity
     public void setMainFabVisible(final boolean visible) {
         final int visibility = visible ? View.VISIBLE : View.GONE;
         binding.fabMain.setVisibility(visibility);
-    }
-
-    public void showFile(String message) {
-        dismissLoadingDialog();
-
-        OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
-
-        if (TextUtils.isEmpty(message)) {
-            OCFile temp = getFile();
-            setFile(getCurrentDir());
-            listOfFiles.listDirectory(getCurrentDir(), temp, MainApp.isOnlyOnDevice(), false);
-            updateActionBarTitleAndHomeButton(null);
-        } else {
-            DisplayUtils.showSnackMessage(listOfFiles.getView(), message);
-        }
     }
 }

@@ -62,7 +62,12 @@ import javax.inject.Inject
  * Starts query to all capable unified search providers and displays them Opens result in our app, redirect to other
  * apps, if installed, or opens browser
  */
-class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface, SearchView.OnQueryTextListener, UnifiedSearchItemViewHolder.FilesAction {
+class UnifiedSearchFragment :
+    Fragment(),
+    Injectable,
+    UnifiedSearchListInterface,
+    SearchView.OnQueryTextListener,
+    UnifiedSearchItemViewHolder.FilesAction {
     private lateinit var adapter: UnifiedSearchListAdapter
     private var _binding: ListFragmentBinding? = null
     private val binding get() = _binding!!
@@ -143,11 +148,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
             startActivity(browserIntent)
         }
         vm.file.observe(this) {
-            if (showMoreActions) {
-                showFileActions(it)
-            } else {
-                showFile(it)
-            }
+            showFile(it, showMoreActions)
         }
     }
 
@@ -157,22 +158,17 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         }
     }
 
-    private fun showFileActions(file: OCFile) {
+    private fun showFile(file: OCFile, showFileActions: Boolean) {
         activity.let {
             if (activity is FileDisplayActivity) {
                 val fda = activity as FileDisplayActivity
                 fda.file = file
-                fda.showFileActions(file)
-            }
-        }
-    }
 
-    private fun showFile(file: OCFile) {
-        activity.let {
-            if (activity is FileDisplayActivity) {
-                val fda = activity as FileDisplayActivity
-                fda.file = file
-                fda.showFile("")
+                if (showFileActions) {
+                    fda.showFileActions(file)
+                } else {
+                    fda.showFile("")
+                }
             }
         }
     }
