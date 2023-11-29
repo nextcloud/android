@@ -117,9 +117,8 @@
         android:layout_gravity="center"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:contentDescription="open file actions"
-        tools:visibility="visible"
-        tools:ignore="HardcodedText" />
+        android:contentDescription="@string/overflow_menu"
+        tools:visibility="visible" />
 
 </LinearLayout>
 
