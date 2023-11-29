@@ -1,6 +1,6 @@
 Platfoma locală de productivitate care vă menține în control.
 
-Funcționalități:
+Caracteristici:
 * Interfață simplă, modernă, adaptată temei serverului
 * Încărcați fișiere în serverul Nextcloud
 * Partajați-le cu alții
