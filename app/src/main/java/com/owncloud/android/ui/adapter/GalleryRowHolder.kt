@@ -26,6 +26,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
@@ -104,12 +105,13 @@ class GalleryRowHolder(
 
         thumbnail.run {
             LinearLayout.LayoutParams(defaultThumbnailSize.toInt(), defaultThumbnailSize.toInt())
+            setImageDrawable(placeholder)
         }
-        thumbnail.setImageDrawable(placeholder)
 
         val layout = LinearLayout(context).apply {
             addView(thumbnail)
         }
+
         binding.rowLayout.addView(layout)
     }
 
@@ -164,6 +166,8 @@ class GalleryRowHolder(
         val linearLayout = binding.rowLayout[index] as LinearLayout
         val thumbnail = linearLayout[0] as ImageView
 
+        setMargins(row, index, thumbnail)
+
         val imageUrl = getImageUrl(file)
         val placeholder = getPlaceholder(file, size.first, size.second)
 
@@ -186,6 +190,18 @@ class GalleryRowHolder(
                 galleryRowItemClick.openMedia(file)
             }
         }
+    }
+
+    private fun setMargins(row: GalleryRow, index: Int, thumbnail: ImageView) {
+        val params = thumbnail.layoutParams as ViewGroup.MarginLayoutParams
+        val zero = context.resources.getInteger(R.integer.zero)
+        val margin = context.resources.getInteger(R.integer.small_margin)
+        if (index < (row.files.size - 1)) {
+            params.setMargins(zero, zero, margin, margin)
+        } else {
+            params.setMargins(zero, zero, zero, margin)
+        }
+        thumbnail.layoutParams = params
     }
 
     private fun getImageUrl(file: OCFile): String {
