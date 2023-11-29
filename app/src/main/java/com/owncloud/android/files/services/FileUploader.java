@@ -89,6 +89,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -1152,24 +1153,34 @@ public class FileUploader extends Service
          * @param remotePath  Remote target of the upload
          * @param resultCode  Setting result code will pause rather than cancel the job
          */
-        private void cancel(String accountName, String remotePath, @Nullable ResultCode resultCode) {
-            Pair<UploadFileOperation, String> removeResult = mPendingUploads.remove(accountName, remotePath);
-            UploadFileOperation upload = removeResult.first;
-            if (upload == null && mCurrentUpload != null && mCurrentAccount != null &&
-                mCurrentUpload.getRemotePath().startsWith(remotePath) && accountName.equals(mCurrentAccount.name)) {
+        public void cancel(String accountName, String remotePath, @Nullable ResultCode resultCode) {
+            // Cancel for Android version >= Android 11
+            if (useFilesUploadWorker(getApplicationContext())){
+                try{
+                    new FilesUploadHelper().cancelFileUpload(remotePath, accountManager.getUser(accountName).get());
+                }catch(NoSuchElementException e){
+                    Log_OC.e(TAG,"Error cancelling current upload because user does not exist!");
+                }
+            } else {
+                // Cancel for Android version <= Android 10
+                Pair<UploadFileOperation, String> removeResult = mPendingUploads.remove(accountName, remotePath);
+                UploadFileOperation upload = removeResult.first;
+                if (upload == null && mCurrentUpload != null && mCurrentAccount != null &&
+                    mCurrentUpload.getRemotePath().startsWith(remotePath) && accountName.equals(mCurrentAccount.name)) {
 
-                upload = mCurrentUpload;
-            }
+                    upload = mCurrentUpload;
+                }
 
-            if (upload != null) {
-                upload.cancel(resultCode);
-                // need to update now table in mUploadsStorageManager,
-                // since the operation will not get to be run by FileUploader#uploadFile
-                if (resultCode != null) {
-                    mUploadsStorageManager.updateDatabaseUploadResult(new RemoteOperationResult(resultCode), upload);
-                    notifyUploadResult(upload, new RemoteOperationResult(resultCode));
-                } else {
-                    mUploadsStorageManager.removeUpload(accountName, remotePath);
+                if (upload != null) {
+                    upload.cancel(resultCode);
+                    // need to update now table in mUploadsStorageManager,
+                    // since the operation will not get to be run by FileUploader#uploadFile
+                    if (resultCode != null) {
+                        mUploadsStorageManager.updateDatabaseUploadResult(new RemoteOperationResult(resultCode), upload);
+                        notifyUploadResult(upload, new RemoteOperationResult(resultCode));
+                    } else {
+                        mUploadsStorageManager.removeUpload(accountName, remotePath);
+                    }
                 }
             }
         }
@@ -1180,16 +1191,19 @@ public class FileUploader extends Service
          * @param user Nextcloud user
          */
         public void cancel(User user) {
-            if (mCurrentUpload != null && mCurrentUpload.getUser().nameEquals(user)) {
-                mCurrentUpload.cancel(ResultCode.CANCELLED);
-            }
-            cancelPendingUploads(user.getAccountName());
+            cancel(user.getAccountName());
         }
 
         public void cancel(String accountName) {
-            if (mCurrentUpload != null && mCurrentUpload.getUser().nameEquals(accountName)) {
-                mCurrentUpload.cancel(ResultCode.CANCELLED);
+            cancelPendingUploads(accountName);
+            if (useFilesUploadWorker(getApplicationContext())) {
+                new FilesUploadHelper().restartUploadJob(accountManager.getUser(accountName).get());
+            }else{
+                if (mCurrentUpload != null && mCurrentUpload.getUser().nameEquals(accountName)) {
+                    mCurrentUpload.cancel(ResultCode.CANCELLED);
+                }
             }
+
         }
 
         public void clearListeners() {
