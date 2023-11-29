@@ -22,6 +22,7 @@
 
 package com.owncloud.android.ui.adapter
 
+import android.util.Log
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.view.get
@@ -76,57 +77,58 @@ class GalleryRowHolder(
     fun bind(row: GalleryRow) {
         currentRow = row
 
-        addImages(row)
+        row.files.forEach { file ->
+            addImage(file)
+        }
 
         if (binding.rowLayout.childCount > row.files.size) {
             binding.rowLayout.removeViewsInLayout(row.files.size - 1, (binding.rowLayout.childCount - row.files.size))
         }
 
+        val shrinkRatio = computeShrinkRatio(row)
+
         row.files.forEachIndexed { index, file ->
-            val shrinkRatio = computeShrinkRatio(row)
             adjustImage(row, index, file, shrinkRatio)
         }
     }
 
-    private fun addImages(row: GalleryRow) {
-        row.files.forEach { file ->
-            val thumbnail = ImageView(context)
+    private fun addImage(file: OCFile) {
+        val thumbnail = ImageView(context)
 
-            val imageUrl: String =
-                baseUri.toString() +
-                    previewLink +
-                    URLEncoder.encode(file.remotePath, Charsets.UTF_8.name()) +
-                    imageDownloadWidth +
-                    imageDownloadHeight +
-                    mode
+        val imageUrl: String =
+            baseUri.toString() +
+                previewLink +
+                URLEncoder.encode(file.remotePath, Charsets.UTF_8.name()) +
+                imageDownloadWidth +
+                imageDownloadHeight +
+                mode
 
-            val placeholder = MimeTypeUtil.getFileTypeIcon(
-                file.mimeType,
-                file.fileName,
-                context,
-                viewThemeUtils
-            )
+        val placeholder = MimeTypeUtil.getFileTypeIcon(
+            file.mimeType,
+            file.fileName,
+            context,
+            viewThemeUtils
+        )
 
-            Glide
-                .with(context)
-                .using(CustomGlideStreamLoader(user, clientFactory))
-                .load(imageUrl)
-                .asBitmap()
-                .placeholder(placeholder)
-                .fitCenter()
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .dontAnimate()
-                .into(thumbnail)
+        Glide
+            .with(context)
+            .using(CustomGlideStreamLoader(user, clientFactory))
+            .load(imageUrl)
+            .asBitmap()
+            .placeholder(placeholder)
+            .fitCenter()
+            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+            .dontAnimate()
+            .into(thumbnail)
 
-            val layout = LinearLayout(context).apply {
-                addView(thumbnail)
-                setOnClickListener {
-                    galleryRowItemClick.openMedia(file)
-                }
+        val layout = LinearLayout(context).apply {
+            addView(thumbnail)
+            setOnClickListener {
+                galleryRowItemClick.openMedia(file)
             }
-
-            binding.rowLayout.addView(layout)
         }
+
+        binding.rowLayout.addView(layout)
     }
 
     private fun adjustImage(row: GalleryRow, index: Int, file: OCFile, shrinkRatio: Float) {
@@ -137,9 +139,13 @@ class GalleryRowHolder(
         val linearLayout = binding.rowLayout[index] as LinearLayout
         val thumbnail = linearLayout[0] as ImageView
 
+
         thumbnail.run {
             adjustViewBounds = true
             scaleType = ImageView.ScaleType.FIT_CENTER
+            Log.d("","FILE: " + file.remotePath)
+            Log.d("","FILEWIDTH: " + width)
+            Log.d("","FILEHEIGHT: " + width)
             layoutParams = LinearLayout.LayoutParams(width, height).apply {
                 val zero = context.resources.getInteger(R.integer.zero)
                 val margin = context.resources.getInteger(R.integer.small_margin)
