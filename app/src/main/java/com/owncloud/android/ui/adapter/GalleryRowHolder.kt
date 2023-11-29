@@ -22,9 +22,13 @@
 
 package com.owncloud.android.ui.adapter
 
-import android.util.Log
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.Glide
@@ -77,8 +81,8 @@ class GalleryRowHolder(
     fun bind(row: GalleryRow) {
         currentRow = row
 
-        row.files.forEach { file ->
-            addImage(file)
+        while (binding.rowLayout.childCount < row.files.size) {
+            prepareRow()
         }
 
         if (binding.rowLayout.childCount > row.files.size) {
@@ -88,78 +92,25 @@ class GalleryRowHolder(
         val shrinkRatio = computeShrinkRatio(row)
 
         row.files.forEachIndexed { index, file ->
-            adjustImage(row, index, file, shrinkRatio)
+            val size = getSize(file, shrinkRatio)
+            addImage(row, index, file, size)
         }
     }
 
-    private fun addImage(file: OCFile) {
+    private fun prepareRow() {
         val thumbnail = ImageView(context)
 
-        val imageUrl: String =
-            baseUri.toString() +
-                previewLink +
-                URLEncoder.encode(file.remotePath, Charsets.UTF_8.name()) +
-                imageDownloadWidth +
-                imageDownloadHeight +
-                mode
+        val placeholder = ContextCompat.getDrawable(context, R.drawable.file_image)
 
-        val placeholder = MimeTypeUtil.getFileTypeIcon(
-            file.mimeType,
-            file.fileName,
-            context,
-            viewThemeUtils
-        )
-
-        Glide
-            .with(context)
-            .using(CustomGlideStreamLoader(user, clientFactory))
-            .load(imageUrl)
-            .asBitmap()
-            .placeholder(placeholder)
-            .fitCenter()
-            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-            .dontAnimate()
-            .into(thumbnail)
+        thumbnail.run {
+            LinearLayout.LayoutParams(defaultThumbnailSize.toInt(), defaultThumbnailSize.toInt())
+        }
+        thumbnail.setImageDrawable(placeholder)
 
         val layout = LinearLayout(context).apply {
             addView(thumbnail)
-            setOnClickListener {
-                galleryRowItemClick.openMedia(file)
-            }
         }
-
         binding.rowLayout.addView(layout)
-    }
-
-    private fun adjustImage(row: GalleryRow, index: Int, file: OCFile, shrinkRatio: Float) {
-        val imageDimension = file.imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
-        val height = (imageDimension.height * shrinkRatio).toInt()
-        val width = (imageDimension.width * shrinkRatio).toInt()
-
-        val linearLayout = binding.rowLayout[index] as LinearLayout
-        val thumbnail = linearLayout[0] as ImageView
-
-
-        thumbnail.run {
-            adjustViewBounds = true
-            scaleType = ImageView.ScaleType.FIT_CENTER
-            Log.d("","FILE: " + file.remotePath)
-            Log.d("","FILEWIDTH: " + width)
-            Log.d("","FILEHEIGHT: " + width)
-            layoutParams = LinearLayout.LayoutParams(width, height).apply {
-                val zero = context.resources.getInteger(R.integer.zero)
-                val margin = context.resources.getInteger(R.integer.small_margin)
-                if (index < (row.files.size - 1)) {
-                    setMargins(zero, zero, margin, margin)
-                } else {
-                    setMargins(zero, zero, zero, margin)
-                }
-            }
-        }
-    }
-
-    fun redraw() {
-        bind(currentRow)
     }
 
     @SuppressWarnings("MagicNumber", "ComplexMethod")
@@ -200,5 +151,70 @@ class GalleryRowHolder(
             val firstFileImageDimension = row.files[0].imageDimension ?: defaultImageDimension
             return (screenWidth / galleryAdapter.columns) / firstFileImageDimension.width
         }
+    }
+
+    private fun getSize(file: OCFile, shrinkRatio: Float): Pair<Int, Int> {
+        val imageDimension = file.imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
+        val height = (imageDimension.height * shrinkRatio).toInt()
+        val width = (imageDimension.width * shrinkRatio).toInt()
+        return Pair(width, height)
+    }
+
+    private fun addImage(row: GalleryRow, index: Int, file: OCFile, size: Pair<Int, Int>) {
+        val linearLayout = binding.rowLayout[index] as LinearLayout
+        val thumbnail = linearLayout[0] as ImageView
+
+        val imageUrl = getImageUrl(file)
+        val placeholder = getPlaceholder(file, size.first, size.second)
+
+        Glide
+            .with(context)
+            .using(CustomGlideStreamLoader(user, clientFactory))
+            .load(imageUrl)
+            .asBitmap()
+            .fitCenter()
+            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+            .override(size.first, size.second)
+            .placeholder(placeholder)
+            .dontAnimate()
+            .into(thumbnail)
+
+        thumbnail.run {
+            adjustViewBounds = true
+            scaleType = ImageView.ScaleType.FIT_CENTER
+            setOnClickListener {
+                galleryRowItemClick.openMedia(file)
+            }
+        }
+    }
+
+    private fun getImageUrl(file: OCFile): String {
+        return baseUri.toString() +
+            previewLink +
+            URLEncoder.encode(file.remotePath, Charsets.UTF_8.name()) +
+            imageDownloadWidth +
+            imageDownloadHeight +
+            mode
+    }
+
+    private fun getPlaceholder(file: OCFile, width: Int, height: Int): Drawable {
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        val placeholder = MimeTypeUtil.getFileTypeIcon(
+            file.mimeType,
+            file.fileName,
+            context,
+            viewThemeUtils
+        )
+
+        placeholder.setBounds(0, 0, canvas.width, canvas.height)
+        placeholder.draw(canvas)
+
+        return BitmapDrawable(context.resources, bitmap)
+    }
+
+    fun redraw() {
+        bind(currentRow)
     }
 }
