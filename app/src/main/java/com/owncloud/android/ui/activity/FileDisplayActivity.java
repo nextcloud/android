@@ -46,7 +46,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -650,6 +652,7 @@ public class FileDisplayActivity extends FileActivity
     public void showFileActions(OCFile file) {
         dismissLoadingDialog();
         OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
+        clearSearchViewIfSearchAndDrawerNotOpened(listOfFiles);
         listOfFiles.onOverflowIconClicked(file, null);
     }
 
@@ -921,7 +924,7 @@ public class FileDisplayActivity extends FileActivity
                                                            FileUploader.LOCAL_BEHAVIOUR_DELETE);
                     }
                 }
-            }, new String[] { FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath() }).execute();
+            }, new String[]{FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath()}).execute();
         } else if (requestCode == REQUEST_CODE__MOVE_OR_COPY_FILES && resultCode == RESULT_OK) {
             exitSelectionMode();
         } else if (requestCode == PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES) {
@@ -1039,6 +1042,34 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
+    private void clearSearchView(OCFileListFragment listOfFiles) {
+        searchView.setQuery("", true);
+        searchView.onActionViewCollapsed();
+        searchView.clearFocus();
+
+        // Remove the list to the original state
+        listOfFiles.performSearch("", true);
+
+        hideSearchView(getCurrentDir());
+
+        setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+    }
+
+    private void clearSearchViewIfSearchAndDrawerNotOpened(OCFileListFragment listOfFiles) {
+        OCFile currentDir = getCurrentDir();
+        if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
+            finish();
+            return;
+        }
+        listOfFiles.onBrowseUp();
+        setFile(listOfFiles.getCurrentFile());
+        listOfFiles.setFabVisible(true);
+        listOfFiles.registerFabListener();
+        showSortListGroup(true);
+        resetTitleBarAndScrolling();
+        setDrawerAllFiles();
+    }
+
     /*
      * BackPressed priority/hierarchy:
      *    1. close search view if opened
@@ -1054,37 +1085,14 @@ public class FileDisplayActivity extends FileActivity
 
         final Fragment leftFragment = getLeftFragment();
 
-        if (leftFragment instanceof OCFileListFragment) {
-            OCFileListFragment listOfFiles = (OCFileListFragment) leftFragment;
-
+        if (leftFragment instanceof OCFileListFragment listOfFiles) {
             if (isSearchOpen && searchView != null) {
-                searchView.setQuery("", true);
-                searchView.onActionViewCollapsed();
-                searchView.clearFocus();
-
-                // Remove the list to the original state
-                listOfFiles.performSearch("", true);
-
-                hideSearchView(getCurrentDir());
-
-                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+                clearSearchView(listOfFiles);
             } else if (isDrawerOpen) {
                 // close drawer first
                 super.onBackPressed();
             } else {
-                // all closed
-                OCFile currentDir = getCurrentDir();
-                if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
-                    finish();
-                    return;
-                }
-                listOfFiles.onBrowseUp();
-                setFile(listOfFiles.getCurrentFile());
-                listOfFiles.setFabVisible(true);
-                listOfFiles.registerFabListener();
-                showSortListGroup(true);
-                resetTitleBarAndScrolling();
-                setDrawerAllFiles();
+                clearSearchViewIfSearchAndDrawerNotOpened(listOfFiles);
             }
         } else if (leftFragment instanceof PreviewTextStringFragment) {
             createMinFragments(null);
@@ -2293,7 +2301,7 @@ public class FileDisplayActivity extends FileActivity
      * Opens EditImageActivity with given file loaded. If file is not available locally, it will be synced before
      * opening the image editor.
      *
-     * @param file      {@link OCFile} (image) to be loaded into image editor
+     * @param file {@link OCFile} (image) to be loaded into image editor
      */
     public void startImageEditor(OCFile file) {
         if (file.isDown()) {
@@ -2302,7 +2310,7 @@ public class FileDisplayActivity extends FileActivity
             startActivity(editImageIntent);
         } else {
             mWaitingToPreview = file;
-            requestForDownload(file,EditImageActivity.OPEN_IMAGE_EDITOR, getPackageName(),
+            requestForDownload(file, EditImageActivity.OPEN_IMAGE_EDITOR, getPackageName(),
                                this.getClass().getSimpleName());
             updateActionBarTitleAndHomeButton(file);
             setFile(file);
