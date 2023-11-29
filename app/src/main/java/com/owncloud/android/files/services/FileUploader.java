@@ -207,6 +207,8 @@ public class FileUploader extends Service
     private Account mCurrentAccount;
     private FileDataStorageManager mStorageManager;
 
+    private SecureRandom secureRandomGenerator = new SecureRandom();
+
     @Inject UserAccountManager accountManager;
     @Inject UploadsStorageManager mUploadsStorageManager;
     @Inject ConnectivityService connectivityService;
@@ -237,6 +239,7 @@ public class FileUploader extends Service
     /**
      * Service initialization
      */
+    @SuppressFBWarnings("ST")
     @Override
     public void onCreate() {
         super.onCreate();
@@ -284,6 +287,7 @@ public class FileUploader extends Service
     /**
      * Service clean up
      */
+    @SuppressFBWarnings("ST")
     @Override
     public void onDestroy() {
         Log_OC.v(TAG, "Destroying service");
@@ -713,7 +717,7 @@ public class FileUploader extends Service
         notificationActionIntent.putExtra(EXTRA_REMOTE_PATH,upload.getRemotePath());
         notificationActionIntent.setAction(ACTION_CANCEL_BROADCAST);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),new SecureRandom().nextInt(),notificationActionIntent, PendingIntent.FLAG_MUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),secureRandomGenerator.nextInt(),notificationActionIntent, PendingIntent.FLAG_IMMUTABLE);
         mLastPercent = 0;
         mNotificationBuilder = NotificationUtils.newNotificationBuilder(this, viewThemeUtils);
         mNotificationBuilder
@@ -869,7 +873,7 @@ public class FileUploader extends Service
 
             mNotificationBuilder.setContentText(content);
             if (!uploadResult.isSuccess()) {
-                mNotificationManager.notify((new SecureRandom()).nextInt(), mNotificationBuilder.build());
+                mNotificationManager.notify(secureRandomGenerator.nextInt(), mNotificationBuilder.build());
             }
         }
     }

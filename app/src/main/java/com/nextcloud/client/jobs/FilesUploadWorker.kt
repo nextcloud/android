@@ -207,7 +207,7 @@ class FilesUploadWorker(
             context,
             SecureRandom().nextInt(),
             notificationActionIntent,
-            PendingIntent.FLAG_MUTABLE
+            PendingIntent.FLAG_IMMUTABLE
         )
 
         notificationBuilder
