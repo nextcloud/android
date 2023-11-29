@@ -64,6 +64,10 @@ class GalleryRowHolder(
     private val imageDownloadWidth = "&x=$defaultThumbnailSize"
     private val imageDownloadHeight = "&y=$defaultThumbnailSize"
     private val mode = "&a=1&mode=cover&forceIcon=0"
+    private val screenWidth =
+        DisplayUtils.convertDpToPixel(context.resources.configuration.screenWidthDp.toFloat(), context)
+            .toFloat()
+    private val defaultImageDimension = ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
 
     interface GalleryRowItemClick {
         fun openMedia(file: OCFile)
@@ -78,7 +82,10 @@ class GalleryRowHolder(
             binding.rowLayout.removeViewsInLayout(row.files.size - 1, (binding.rowLayout.childCount - row.files.size))
         }
 
-        adjustImages(row)
+        row.files.forEachIndexed { index, file ->
+            val shrinkRatio = computeShrinkRatio(row)
+            adjustImage(row, index, file, shrinkRatio)
+        }
     }
 
     private fun addImages(row: GalleryRow) {
@@ -122,32 +129,26 @@ class GalleryRowHolder(
         }
     }
 
-    private fun adjustImages(row: GalleryRow) {
-        row.files.forEachIndexed { index, file ->
-            val shrinkRatio = computeShrinkRatio(row)
+    private fun adjustImage(row: GalleryRow, index: Int, file: OCFile, shrinkRatio: Float) {
+        val imageDimension = file.imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
+        val height = (imageDimension.height * shrinkRatio).toInt()
+        val width = (imageDimension.width * shrinkRatio).toInt()
 
-            val height = ((file.imageDimension?.height ?: defaultThumbnailSize) * shrinkRatio).toInt()
-            val width = ((file.imageDimension?.width ?: defaultThumbnailSize) * shrinkRatio).toInt()
+        val linearLayout = binding.rowLayout[index] as LinearLayout
+        val thumbnail = linearLayout[0] as ImageView
 
-            val linearLayout = binding.rowLayout[index] as LinearLayout
-            val thumbnail = linearLayout[0] as ImageView
-
-            thumbnail.adjustViewBounds = true
-            thumbnail.scaleType = ImageView.ScaleType.FIT_CENTER
-
-            val params = LinearLayout.LayoutParams(width, height)
-
-            val zero = context.resources.getInteger(R.integer.zero)
-            val margin = context.resources.getInteger(R.integer.small_margin)
-            if (index < (row.files.size - 1)) {
-                params.setMargins(zero, zero, margin, margin)
-            } else {
-                params.setMargins(zero, zero, zero, margin)
+        thumbnail.run {
+            adjustViewBounds = true
+            scaleType = ImageView.ScaleType.FIT_CENTER
+            layoutParams = LinearLayout.LayoutParams(width, height).apply {
+                val zero = context.resources.getInteger(R.integer.zero)
+                val margin = context.resources.getInteger(R.integer.small_margin)
+                if (index < (row.files.size - 1)) {
+                    setMargins(zero, zero, margin, margin)
+                } else {
+                    setMargins(zero, zero, zero, margin)
+                }
             }
-
-            thumbnail.layoutParams = params
-            thumbnail.layoutParams.width = width
-            thumbnail.layoutParams.height = height
         }
     }
 
@@ -157,55 +158,41 @@ class GalleryRowHolder(
 
     @SuppressWarnings("MagicNumber", "ComplexMethod")
     private fun computeShrinkRatio(row: GalleryRow): Float {
-        val screenWidth =
-            DisplayUtils.convertDpToPixel(context.resources.configuration.screenWidthDp.toFloat(), context)
-                .toFloat()
-
         if (row.files.size > 1) {
-            var newSummedWidth = 0f
-            for (file in row.files) {
-                // first adjust all thumbnails to max height
-                val thumbnail1 = file.imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
+            var summedWidth = 0f
 
-                val height1 = thumbnail1.height
-                val width1 = thumbnail1.width
+            row.files.forEach { file ->
+                val (width, height) = file.imageDimension ?: defaultImageDimension
 
-                val scaleFactor1 = row.getMaxHeight() / height1
-                val newHeight1 = height1 * scaleFactor1
-                val newWidth1 = width1 * scaleFactor1
+                val scaleFactor = row.getMaxHeight() / height
 
-                file.imageDimension = ImageDimension(newWidth1, newHeight1)
+                val scaledWidth = width * scaleFactor
+                val scaledHeight = height * scaleFactor
 
-                newSummedWidth += newWidth1
+                file.imageDimension = ImageDimension(scaledWidth, scaledHeight)
+
+                summedWidth += scaledWidth
             }
 
+            val sizeToFactorMap = mapOf(
+                2 to 5 / 2f,
+                3 to 4 / 3f,
+                4 to 4 / 5f,
+                5 to 1f
+            )
+
             var c = 1f
+
             // this ensures that files in last row are better visible,
             // e.g. when 2 images are there, it uses 2/5 of screen
             if (galleryAdapter.columns == 5) {
-                when (row.files.size) {
-                    2 -> {
-                        c = 5 / 2f
-                    }
-
-                    3 -> {
-                        c = 4 / 3f
-                    }
-
-                    4 -> {
-                        c = 4 / 5f
-                    }
-
-                    5 -> {
-                        c = 1f
-                    }
-                }
+                c = sizeToFactorMap[row.files.size] ?: c
             }
 
-            return (screenWidth / c) / newSummedWidth
+            return (screenWidth / c) / summedWidth
         } else {
-            val thumbnail1 = row.files[0].imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
-            return (screenWidth / galleryAdapter.columns) / thumbnail1.width
+            val firstFileImageDimension = row.files[0].imageDimension ?: defaultImageDimension
+            return (screenWidth / galleryAdapter.columns) / firstFileImageDimension.width
         }
     }
 }
