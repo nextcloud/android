@@ -165,11 +165,12 @@ class GalleryRowHolder(
     private fun addImage(row: GalleryRow, index: Int, file: OCFile, size: Pair<Int, Int>) {
         val linearLayout = binding.rowLayout[index] as LinearLayout
         val thumbnail = linearLayout[0] as ImageView
+        val (width, height) = size
 
         setMargins(row, index, thumbnail)
 
         val imageUrl = getImageUrl(file)
-        val placeholder = getPlaceholder(file, size.first, size.second)
+        val placeholder = getPlaceholder(file, width, height)
 
         Glide
             .with(context)
@@ -178,7 +179,7 @@ class GalleryRowHolder(
             .asBitmap()
             .fitCenter()
             .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-            .override(size.first, size.second)
+            .override(width, height)
             .placeholder(placeholder)
             .dontAnimate()
             .into(thumbnail)
