@@ -345,24 +345,6 @@ public class UploadsStorageManager extends Observable {
         return getUploads(null, (String[]) null);
     }
 
-    public OCUpload getUploadByRemotePath(String remotePath){
-        OCUpload result = null;
-        Cursor cursor = getDB().query(
-            ProviderTableMeta.CONTENT_URI_UPLOADS,
-            null,
-            ProviderTableMeta.UPLOADS_REMOTE_PATH + "=?",
-            new String[]{remotePath},
-            ProviderTableMeta.UPLOADS_REMOTE_PATH+ " ASC");
-
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                result = createOCUploadFromCursor(cursor);
-            }
-        }
-        Log_OC.d(TAG, "Retrieve job " + result + " for remote path " + remotePath);
-        return result;
-    }
-
     public @Nullable
     OCUpload getUploadById(long id) {
         OCUpload result = null;

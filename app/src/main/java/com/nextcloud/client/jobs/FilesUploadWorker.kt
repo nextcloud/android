@@ -198,13 +198,17 @@ class FilesUploadWorker(
      * adapted from [com.owncloud.android.files.services.FileUploader.notifyUploadStart]
      */
     private fun createNotification(uploadFileOperation: UploadFileOperation) {
-
-        val notificationActionIntent = Intent(context,FileUploader.UploadNotificationActionReceiver::class.java)
-        notificationActionIntent.putExtra(FileUploader.EXTRA_ACCOUNT_NAME,uploadFileOperation.user.accountName)
-        notificationActionIntent.putExtra(FileUploader.EXTRA_REMOTE_PATH,uploadFileOperation.remotePath)
+        val notificationActionIntent = Intent(context, FileUploader.UploadNotificationActionReceiver::class.java)
+        notificationActionIntent.putExtra(FileUploader.EXTRA_ACCOUNT_NAME, uploadFileOperation.user.accountName)
+        notificationActionIntent.putExtra(FileUploader.EXTRA_REMOTE_PATH, uploadFileOperation.remotePath)
         notificationActionIntent.action = FileUploader.ACTION_CANCEL_BROADCAST
 
-        val pendingIntent = PendingIntent.getBroadcast(context,SecureRandom().nextInt(),notificationActionIntent, PendingIntent.FLAG_MUTABLE)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            SecureRandom().nextInt(),
+            notificationActionIntent,
+            PendingIntent.FLAG_MUTABLE
+        )
 
         notificationBuilder
             .setOngoing(true)
@@ -219,8 +223,7 @@ class FilesUploadWorker(
                 )
             )
             .clearActions() // to make sure there is only one action
-            .addAction(R.drawable.ic_action_cancel_grey,context.getString(R.string.common_cancel),pendingIntent)
-
+            .addAction(R.drawable.ic_action_cancel_grey, context.getString(R.string.common_cancel), pendingIntent)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
