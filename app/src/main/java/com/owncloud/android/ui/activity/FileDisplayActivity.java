@@ -646,7 +646,7 @@ public class FileDisplayActivity extends FileActivity
     public void showFileActions(OCFile file) {
         dismissLoadingDialog();
         OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
-        clearSearchViewIfSearchAndDrawerNotOpened(listOfFiles);
+        clearSearchViewIfSearchAndDrawerNotOpened(listOfFiles, false);
         listOfFiles.onOverflowIconClicked(file, null);
     }
 
@@ -1049,9 +1049,9 @@ public class FileDisplayActivity extends FileActivity
         setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
     }
 
-    private void clearSearchViewIfSearchAndDrawerNotOpened(OCFileListFragment listOfFiles) {
+    private void clearSearchViewIfSearchAndDrawerNotOpened(OCFileListFragment listOfFiles, Boolean moveTaskBack) {
         OCFile currentDir = getCurrentDir();
-        if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
+        if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID && moveTaskBack) {
             finish();
             return;
         }
@@ -1086,7 +1086,7 @@ public class FileDisplayActivity extends FileActivity
                 // close drawer first
                 super.onBackPressed();
             } else {
-                clearSearchViewIfSearchAndDrawerNotOpened(listOfFiles);
+                clearSearchViewIfSearchAndDrawerNotOpened(listOfFiles, true);
             }
         } else if (leftFragment instanceof PreviewTextStringFragment) {
             createMinFragments(null);
