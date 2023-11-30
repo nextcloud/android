@@ -527,7 +527,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             menuItem.setChecked(false);
             final Optional<User> optionalUser = getUser();
             if (optionalUser.isPresent()) {
-                UserInfoActivity.openAccountRemovalConfirmationDialog(optionalUser.get(), getSupportFragmentManager());
+                UserInfoActivity.openAccountRemovalDialog(optionalUser.get(), getSupportFragmentManager());
             }
         } else if (itemId == R.id.nav_shared) {
             startSharedSearch(menuItem);

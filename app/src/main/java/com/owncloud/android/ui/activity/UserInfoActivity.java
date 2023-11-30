@@ -56,7 +56,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
-import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
+import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
@@ -173,7 +173,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         } else if (itemId == R.id.action_open_account) {
             accountClicked(user.hashCode());
         } else if (itemId == R.id.action_delete_account) {
-            openAccountRemovalConfirmationDialog(user, getSupportFragmentManager());
+            openAccountRemovalDialog(user, getSupportFragmentManager());
         } else {
             retval = super.onOptionsItemSelected(item);
         }
@@ -302,8 +302,8 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         }
     }
 
-    public static void openAccountRemovalConfirmationDialog(User user, FragmentManager fragmentManager) {
-        AccountRemovalConfirmationDialog dialog = AccountRemovalConfirmationDialog.newInstance(user);
+    public static void openAccountRemovalDialog(User user, FragmentManager fragmentManager) {
+        AccountRemovalDialog dialog = AccountRemovalDialog.newInstance(user);
         dialog.show(fragmentManager, "dialog");
     }
 

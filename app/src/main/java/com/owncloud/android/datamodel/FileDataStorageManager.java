@@ -1947,6 +1947,7 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION,
                           capability.getFilesLockingVersion());
         contentValues.put(ProviderTableMeta.CAPABILITIES_GROUPFOLDERS, capability.getGroupfolders().getValue());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_DROP_ACCOUNT, capability.getDropAccount().getValue());
 
         return contentValues;
     }
@@ -2103,6 +2104,7 @@ public class FileDataStorageManager {
             capability.setFilesLockingVersion(
                 getString(cursor, ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION));
             capability.setGroupfolders(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_GROUPFOLDERS));
+            capability.setDropAccount(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_DROP_ACCOUNT));
         }
         return capability;
     }
