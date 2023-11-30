@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Copy</string>
     <string name="actionbar_mkdir">New folder</string>
     <string name="actionbar_move">Move</string>
+    <string name="actionbar_move_or_copy">Move or Copy</string>
     <string name="actionbar_open_with">Open with</string>
     <string name="actionbar_search">Search</string>
     <string name="actionbar_see_details">Details</string>
@@ -159,6 +160,7 @@
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
     <string name="conflict_server_file">Server file</string>
     <string name="contact_backup_title">Contacts backup</string>
+    <string name="contact_no_permission">Contact permission is required.</string>
     <string name="contactlist_item_icon">User icon for contact list</string>
     <string name="contactlist_no_permission">No permission given, nothing imported.</string>
     <string name="contacts">Contacts</string>
@@ -257,6 +259,7 @@
     <string name="ecosystem_apps_more">More Nextcloud Apps</string>
     <string name="ecosystem_apps_notes">Nextcloud Notes</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Failed to pick email address.</string>
     <string name="encrypted">Set as encrypted</string>
     <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
     <string name="end_to_end_encryption_decrypting">Decrypting…</string>
@@ -287,7 +290,7 @@
     <string name="error_report_issue_text">Report issue to tracker? (requires a GitHub account)</string>
     <string name="error_retrieving_file">Error retrieving file</string>
     <string name="error_retrieving_templates">Error retrieving templates</string>
-    <string name="error_showing_encryption_dialog">Error showing encryption setup dialog!</string>
+    <string name="error_showing_encryption_dialog">Error showing encryption setup dialogue!</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="error_starting_doc_scan">Error starting document scan</string>
     <string name="etm_accounts">Accounts</string>
@@ -944,7 +947,9 @@
     <string name="wait_a_moment">Wait a moment…</string>
     <string name="wait_checking_credentials">Checking stored credentials</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
+    <string name="webview_version_check_alert_dialog_message">Please update the Android System WebView app for a login</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Update</string>
+    <string name="webview_version_check_alert_dialog_title">Update Android System WebView</string>
     <string name="what_s_new_image">What\'s new image</string>
     <string name="whats_new_skip">Skip</string>
     <string name="whats_new_title">New in %1$s</string>

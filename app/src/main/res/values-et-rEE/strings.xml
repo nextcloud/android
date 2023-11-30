@@ -525,6 +525,7 @@
     <string name="version_dev_download">Lae alla</string>
     <string name="wait_a_moment">Oota üks hetk…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Faili kopeerimine privaatsest salvestusalast</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Uuenda</string>
     <string name="whats_new_skip">Jäta vahele</string>
     <string name="whats_your_status">Mis on su staatus?</string>
     <string name="write_email">Saada kiri</string>

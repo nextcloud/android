@@ -325,7 +325,6 @@
     <string name="file_delete">Törlés</string>
     <string name="file_detail_activity_error">Hiba a fájl tevékenységeinek lekérésekor</string>
     <string name="file_details_no_content">A részletek betöltése sikertelen</string>
-    <string name="file_downloader_notification_title_prefix">Letöltés \u0020</string>
     <string name="file_icon">Fájl</string>
     <string name="file_keep">Megtartás</string>
     <string name="file_list_empty">Töltsön fel új tartalmat vagy szinkronizáljon az eszközeivel</string>
