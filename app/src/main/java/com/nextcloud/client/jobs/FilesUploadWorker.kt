@@ -76,6 +76,7 @@ class FilesUploadWorker(
     private val notificationManager: NotificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     private val fileUploaderDelegate = FileUploaderDelegate()
+    private var currentUploadFileOperation: UploadFileOperation? = null
 
     override fun doWork(): Result {
         val accountName = inputData.getString(ACCOUNT)
@@ -89,7 +90,7 @@ class FilesUploadWorker(
          * they will be present in the pages that follow.
          */
         var currentPage = uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(-1, accountName)
-        while (currentPage.isNotEmpty()) {
+        while (currentPage.isNotEmpty() && !isStopped) {
             Log_OC.d(TAG, "Handling ${currentPage.size} uploads for account $accountName")
             val lastId = currentPage.last().uploadId
             handlePendingUploads(currentPage, accountName)
@@ -105,11 +106,16 @@ class FilesUploadWorker(
         val user = userAccountManager.getUser(accountName)
 
         for (upload in uploads) {
+            if (isStopped) {
+                break
+            }
             // create upload file operation
             if (user.isPresent) {
                 val uploadFileOperation = createUploadFileOperation(upload, user.get())
 
+                currentUploadFileOperation = uploadFileOperation
                 val result = upload(uploadFileOperation, user.get())
+                currentUploadFileOperation = null
 
                 fileUploaderDelegate.sendBroadcastUploadFinished(
                     uploadFileOperation,
@@ -172,13 +178,16 @@ class FilesUploadWorker(
             Log_OC.e(TAG, "Error uploading", e)
             uploadResult = RemoteOperationResult<Any?>(e)
         } finally {
-            uploadsStorageManager.updateDatabaseUploadResult(uploadResult, uploadFileOperation)
+            // only update db if operation finished and worker didn't get canceled
+            if (!(isStopped && uploadResult.isCancelled)) {
+                uploadsStorageManager.updateDatabaseUploadResult(uploadResult, uploadFileOperation)
 
-            // / notify result
-            notifyUploadResult(uploadFileOperation, uploadResult)
+                // / notify result
+                notifyUploadResult(uploadFileOperation, uploadResult)
 
-            // cancel notification
-            notificationManager.cancel(FOREGROUND_SERVICE_ID)
+                // cancel notification
+                notificationManager.cancel(FOREGROUND_SERVICE_ID)
+            }
         }
 
         return uploadResult
@@ -355,6 +364,12 @@ class FilesUploadWorker(
             notificationManager.notify(FOREGROUND_SERVICE_ID, notificationBuilder.build())
         }
         lastPercent = percent
+    }
+
+    override fun onStopped() {
+        super.onStopped()
+        currentUploadFileOperation?.cancel(null)
+        notificationManager.cancel(FOREGROUND_SERVICE_ID)
     }
 
     companion object {
