@@ -66,6 +66,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
@@ -709,7 +710,7 @@ public abstract class FileActivity extends DrawerActivity
         snackbar.show();
     }
 
-    public static void showShareLinkDialog(FileActivity activity, OCFile file, String link) {
+    public static void showShareLinkDialog(FileActivity activity, ServerFileInterface file, String link) {
         // Create dialog to allow the user choose an app to send the link
         Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
 
@@ -866,8 +867,7 @@ public abstract class FileActivity extends DrawerActivity
 
         if (fragment instanceof FileDetailSharingFragment) {
             return (FileDetailSharingFragment) fragment;
-        } else if (fragment instanceof FileDetailFragment) {
-            FileDetailFragment fileDetailFragment = (FileDetailFragment) fragment;
+        } else if (fragment instanceof FileDetailFragment fileDetailFragment) {
             return fileDetailFragment.getFileDetailSharingFragment();
         } else {
             return null;
