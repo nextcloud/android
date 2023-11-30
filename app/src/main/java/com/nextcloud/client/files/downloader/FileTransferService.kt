@@ -22,6 +22,8 @@ package com.nextcloud.client.files.downloader
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo
+import android.os.Build
 import android.os.IBinder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.AsyncRunner
@@ -107,10 +109,18 @@ class FileTransferService : Service() {
         }
 
         if (!isRunning) {
-            startForeground(
-                AppNotificationManager.TRANSFER_NOTIFICATION_ID,
-                notificationsManager.buildDownloadServiceForegroundNotification()
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                startForeground(
+                    AppNotificationManager.TRANSFER_NOTIFICATION_ID,
+                    notificationsManager.buildDownloadServiceForegroundNotification(),
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
+                )
+            } else {
+                startForeground(
+                    AppNotificationManager.TRANSFER_NOTIFICATION_ID,
+                    notificationsManager.buildDownloadServiceForegroundNotification()
+                )
+            }
         }
 
         val request: Request = intent.getParcelableExtra(EXTRA_REQUEST)!!
