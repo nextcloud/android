@@ -780,9 +780,11 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     public void refreshList() {
-        final Fragment fileListFragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
-        if (fileListFragment != null)  {
-            ((OCFileListFragment) fileListFragment).onRefresh();
+        final Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        if (fragment instanceof OCFileListFragment listFragment) {
+            listFragment.onRefresh();
+        } else if (fragment instanceof FileDetailFragment detailFragment) {
+            detailFragment.goBackToOCFileListFragment();
         }
     }
 
