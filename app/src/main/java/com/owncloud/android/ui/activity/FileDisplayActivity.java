@@ -646,7 +646,7 @@ public class FileDisplayActivity extends FileActivity
     public void showFileActions(OCFile file) {
         dismissLoadingDialog();
         OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
-        clearSearchViewIfSearchAndDrawerNotOpened(listOfFiles, false);
+        clearSearchViewIfSearchAndDrawerNotOpened(listOfFiles);
         listOfFiles.onOverflowIconClicked(file, null);
     }
 
@@ -1049,12 +1049,7 @@ public class FileDisplayActivity extends FileActivity
         setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
     }
 
-    private void clearSearchViewIfSearchAndDrawerNotOpened(OCFileListFragment listOfFiles, Boolean moveTaskBack) {
-        OCFile currentDir = getCurrentDir();
-        if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID && moveTaskBack) {
-            finish();
-            return;
-        }
+    private void clearSearchViewIfSearchAndDrawerNotOpened(OCFileListFragment listOfFiles) {
         listOfFiles.onBrowseUp();
         setFile(listOfFiles.getCurrentFile());
         listOfFiles.setFabVisible(true);
@@ -1062,6 +1057,11 @@ public class FileDisplayActivity extends FileActivity
         showSortListGroup(true);
         resetTitleBarAndScrolling();
         setDrawerAllFiles();
+    }
+
+    private Boolean isRootDirectory() {
+        OCFile currentDir = getCurrentDir();
+        return (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID);
     }
 
     /*
@@ -1086,7 +1086,12 @@ public class FileDisplayActivity extends FileActivity
                 // close drawer first
                 super.onBackPressed();
             } else {
-                clearSearchViewIfSearchAndDrawerNotOpened(listOfFiles, true);
+                if (isRootDirectory()) {
+                    finish();
+                    return;
+                }
+
+                clearSearchViewIfSearchAndDrawerNotOpened(listOfFiles);
             }
         } else if (leftFragment instanceof PreviewTextStringFragment) {
             createMinFragments(null);
