@@ -628,6 +628,7 @@
     <string name="rename_dialog_title">Introduceţi un nou nume</string>
     <string name="rename_local_fail_msg">Nu s-a putut redenumi copia locală, încercați un alt nume</string>
     <string name="rename_server_fail_msg">Redenumirea nu este posibilă, numele este deja luat</string>
+    <string name="request_account_deletion">Cerere ștergere cont</string>
     <string name="reshare_not_allowed">Repartajarea nu este permisă</string>
     <string name="resharing_is_not_allowed">Repartajarea nu este permisă</string>
     <string name="resized_image_not_possible_download">Nu există o imagine mai mică. Descărcați imaginea completă?</string>

@@ -622,6 +622,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="rename_dialog_title">Anna uusi nimi</string>
     <string name="rename_local_fail_msg">Paikallisen kopion nimeä ei voitu muuttaa, yritä eri nimeä</string>
     <string name="rename_server_fail_msg">Nimen muutos epäonnistui, nimi on jo käytössä</string>
+    <string name="request_account_deletion">Pyydä tilin poistoa</string>
     <string name="reshare_not_allowed">Uudellenjako ei ole salluttu</string>
     <string name="resharing_is_not_allowed">Uudelleenjakaminen ei ole sallittu</string>
     <string name="resized_image_not_possible_download">Uuden kokoinen kuva ei ole saatavilla. Ladataanko täysikokoinen kuva?</string>
