@@ -656,6 +656,7 @@
     <string name="rename_dialog_title">Унесите нов назив</string>
     <string name="rename_local_fail_msg">Не могу да преименујем локалну копију. Пробајте други назив</string>
     <string name="rename_server_fail_msg">Преименовање није могуће. Назив већ постоји</string>
+    <string name="request_account_deletion">Захтевајте брисање налога</string>
     <string name="reshare_not_allowed">Поновно дељење није дозвољено</string>
     <string name="resharing_is_not_allowed">Поновно дељење није дозвољено</string>
     <string name="resized_image_not_possible_download">Нема доступне умањене сличице. Скинути пуну слику?</string>

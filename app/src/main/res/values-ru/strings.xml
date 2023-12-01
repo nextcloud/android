@@ -655,6 +655,7 @@
     <string name="rename_dialog_title">Введите новое имя</string>
     <string name="rename_local_fail_msg">Невозможно переименовать локальную копию, попробуйте другое имя</string>
     <string name="rename_server_fail_msg">Переименование невозможно, имя занято</string>
+    <string name="request_account_deletion">Запрос удаления аккаунта</string>
     <string name="reshare_not_allowed">Повторное открытие доступа запрещено</string>
     <string name="resharing_is_not_allowed">Повторное открытие доступа запрещено</string>
     <string name="resized_image_not_possible_download">Оптимизированное изображение отсутствует. Скачать изображение исходного размера?</string>

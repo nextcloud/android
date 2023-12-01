@@ -656,6 +656,7 @@
     <string name="rename_dialog_title">輸入新名稱</string>
     <string name="rename_local_fail_msg">無法重新命名本機副本，請嘗試不同的名稱</string>
     <string name="rename_server_fail_msg">無法重新命名，該名稱已被使用</string>
+    <string name="request_account_deletion">請求刪除帳號</string>
     <string name="reshare_not_allowed">不允許重新分享</string>
     <string name="resharing_is_not_allowed">不允許重新分享</string>
     <string name="resized_image_not_possible_download">沒有可用調整過的圖片。下載完整圖片？</string>

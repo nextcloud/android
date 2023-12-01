@@ -654,6 +654,7 @@
     <string name="rename_dialog_title">Skriv inn et nytt navn</string>
     <string name="rename_local_fail_msg">Kunne ikke endre navn på lokal kopi, prøv et annet navn</string>
     <string name="rename_server_fail_msg">Endring av navn ikke mulig, navnet er allerde benyttet</string>
+    <string name="request_account_deletion">Request account deletion</string>
     <string name="reshare_not_allowed">Videre deling er ikke tillatt</string>
     <string name="resharing_is_not_allowed">Videredeling er ikke tillatt</string>
     <string name="resized_image_not_possible_download">Inget mindre bilde tilgjengelig. Last ned fullversjon?</string>

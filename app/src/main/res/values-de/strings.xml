@@ -656,6 +656,7 @@
     <string name="rename_dialog_title">Geben Sie einen neuen Namen ein</string>
     <string name="rename_local_fail_msg">Die lokale Kopie konnte nicht umbenannt werden. Versuche es mit einem anderen Namen.</string>
     <string name="rename_server_fail_msg">Umbenennen nicht möglich. Der Name wird bereits verwendet.</string>
+    <string name="request_account_deletion">Kontolöschung anfordern</string>
     <string name="reshare_not_allowed">Das Weiterverteilen ist nicht erlaubt </string>
     <string name="resharing_is_not_allowed">Resharing/Wiederteilen ist nicht erlaubt.</string>
     <string name="resized_image_not_possible_download">Kein verkleinertes Bild verfügbar. Vollbild herunterladen?</string>
