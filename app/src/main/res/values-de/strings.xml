@@ -160,6 +160,7 @@
     <string name="conflict_message_description">Falls beide Versionen gewählt werden, wird bei der lokalen Datei eine Zahl am Ende des Dateinamens hinzugefügt.</string>
     <string name="conflict_server_file">Server-Datei</string>
     <string name="contact_backup_title">Kontakte-Backup</string>
+    <string name="contact_no_permission">Eine Kontakterlaubnis ist erforderlich.</string>
     <string name="contactlist_item_icon">Nutzericon für Kontaktliste</string>
     <string name="contactlist_no_permission">Keine Berechtigung vergeben, es wurde nichts importiert.</string>
     <string name="contacts">Kontakte</string>
@@ -258,6 +259,7 @@
     <string name="ecosystem_apps_more">Weitere Nextcloud-Apps</string>
     <string name="ecosystem_apps_notes">Nextcloud Notizen</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">E-Mail-Adresse konnte nicht ausgewählt werden.</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_decrypting">Entschlüssele…</string>
@@ -325,7 +327,6 @@
     <string name="file_delete">Löschen</string>
     <string name="file_detail_activity_error">Fehler beim Abrufen der Aktivitäten für die Datei</string>
     <string name="file_details_no_content">Fehler beim Laden der Details</string>
-    <string name="file_downloader_notification_title_prefix">Herunterladen \u0020</string>
     <string name="file_icon">Datei</string>
     <string name="file_keep">Behalten</string>
     <string name="file_list_empty">Laden Sie Inhalt hoch oder synchronisieren Sie mit Ihren Geräten.</string>
@@ -655,6 +656,7 @@
     <string name="rename_dialog_title">Geben Sie einen neuen Namen ein</string>
     <string name="rename_local_fail_msg">Die lokale Kopie konnte nicht umbenannt werden. Versuche es mit einem anderen Namen.</string>
     <string name="rename_server_fail_msg">Umbenennen nicht möglich. Der Name wird bereits verwendet.</string>
+    <string name="request_account_deletion">Kontolöschung anfordern</string>
     <string name="reshare_not_allowed">Das Weiterverteilen ist nicht erlaubt </string>
     <string name="resharing_is_not_allowed">Resharing/Wiederteilen ist nicht erlaubt.</string>
     <string name="resized_image_not_possible_download">Kein verkleinertes Bild verfügbar. Vollbild herunterladen?</string>

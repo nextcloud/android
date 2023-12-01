@@ -160,6 +160,7 @@
     <string name="conflict_message_description">Якщо ви виберете обидві версії, то до назви локального файлу буде додано порядковий номер.</string>
     <string name="conflict_server_file">Файл у хмарі</string>
     <string name="contact_backup_title">Резервне копіювання контактів</string>
+    <string name="contact_no_permission">Потрібний доступ до контактів.</string>
     <string name="contactlist_item_icon">Іконка списку контактів</string>
     <string name="contactlist_no_permission">Не надано дозволів, дані не імпортовано</string>
     <string name="contacts">Контакти</string>
@@ -323,7 +324,6 @@
     <string name="file_delete">Вилучити</string>
     <string name="file_detail_activity_error">Помилка з отриманням дії для файлу</string>
     <string name="file_details_no_content">Не вдалося завантажити подробиці</string>
-    <string name="file_downloader_notification_title_prefix">Звантаження \u0020</string>
     <string name="file_icon">Файл</string>
     <string name="file_keep">Зберегти</string>
     <string name="file_list_empty">Додати дані або синхронізувати з вашими пристроями.</string>
@@ -646,6 +646,7 @@
     <string name="rename_dialog_title">Введіть нове ім\'я</string>
     <string name="rename_local_fail_msg">Неможливо перейменувати локальну копію, спробуйте інше ім\'я</string>
     <string name="rename_server_fail_msg">Неможливо перейменувати, таке ім\'я уже існує</string>
+    <string name="request_account_deletion">Запит на вилучення облікового запису</string>
     <string name="reshare_not_allowed">Надання спільного доступу іншим не дозволяється</string>
     <string name="resharing_is_not_allowed">Надання спільного доступу іншим не дозволяється</string>
     <string name="resized_image_not_possible_download">Відсутнє зображення зі зменшеними розмірами. Звантажити повне зображення?</string>

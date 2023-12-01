@@ -325,7 +325,6 @@
     <string name="file_delete">Slet</string>
     <string name="file_detail_activity_error">Fejl ved indlæsning af aktiviteter for fil</string>
     <string name="file_details_no_content">Fejl ved indlæsning af detaljer</string>
-    <string name="file_downloader_notification_title_prefix">Downloader \u0020</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behold</string>
     <string name="file_list_empty">Upload indhold eller synkronisér med dine enheder.</string>
@@ -657,6 +656,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="rename_dialog_title">Indtast et nyt navn</string>
     <string name="rename_local_fail_msg">Lokal kopi kunne ikke omdøbes, prøv et andet navn</string>
     <string name="rename_server_fail_msg">Omdøbning ikke mulig, navnet eksisterer</string>
+    <string name="request_account_deletion">Anmodning om sletning af konto</string>
     <string name="reshare_not_allowed">Gendeling er ikke tilladt</string>
     <string name="resharing_is_not_allowed">Videredeling ikke tilladt</string>
     <string name="resized_image_not_possible_download">Intet skaleret billede tilgængeligt. Hent fuldt billede?</string>

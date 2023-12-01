@@ -174,7 +174,7 @@ class ActivitiesActivityIT : AbstractIT() {
             sut.dismissSnackbar()
         }
 
-        shortSleep()
+        longSleep()
         waitForIdleSync()
 
         screenshot(sut)
