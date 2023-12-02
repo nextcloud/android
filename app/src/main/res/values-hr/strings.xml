@@ -733,8 +733,8 @@
     <string name="stream_not_possible_message">Umjesto toga preuzmite medijske datoteke ili se koristite vanjskom aplikacijom.</string>
     <string name="strict_mode">Ograničeni način rada: nije dopuštena HTTP veza!</string>
     <string name="sub_folder_rule_year">Godina</string>
-    <string name="subject_shared_with_you">\\"%1$s\\" je dijeljen s vama</string>
-    <string name="subject_user_shared_with_you">%1$s dijeli \\"%2$s\\" s vama</string>
+    <string name="subject_shared_with_you">\"%1$s\" je dijeljen s vama</string>
+    <string name="subject_user_shared_with_you">%1$s dijeli \"%2$s\" s vama</string>
     <string name="subtitle_photos_only">Samo fotografije</string>
     <string name="subtitle_photos_videos">Fotografije &amp; video materijali</string>
     <string name="subtitle_videos_only">Samo video materijali</string>

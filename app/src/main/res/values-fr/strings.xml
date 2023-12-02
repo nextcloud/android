@@ -651,6 +651,8 @@ Attention, la suppression est irréversible.</string>
     <string name="remove_e2e">Vous pouvez retirer le chiffrement de bout en bout localement sur ce client</string>
     <string name="remove_e2e_message">Vous pouvez retirer le chiffrement de bout en bout localement sur ce client. Les fichiers chiffrés resteront sur le serveur, mais ne seront plus synchronisés avec cet ordinateur.</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
+    <string name="remove_local_account">Supprimer le compte local</string>
+    <string name="remove_local_account_details">Supprimer le compte de l\'appareil et supprimer tous les fichiers locaux</string>
     <string name="remove_notification_failed">Erreur lors de la suppression des notifications.</string>
     <string name="remove_push_notification">Supprimer</string>
     <string name="remove_success_msg">Supprimé</string>
