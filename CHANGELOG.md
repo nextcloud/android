@@ -1,3 +1,57 @@
+## Upcoming (Unreleased)
+
+### Fixed
+
+- Stop crashing on Android 14 when starting foreground FileDownloader [@alperozturk96 in #12192]  
+- Refresh media gallery after editing or deleting images [@alperozturk96 in #12146]
+- Make cancellation of uploads work again on Android >= 11 [@JonasMayerDev in #12194]
+- Fix SSO on apps with shared uid [@erfanoabdi in #12179]
+- Fix crash when upgrading from old Owncloud app to Nextcloud app [@alperozturk96 in #12160]
+- Fix share is no longer available after renaming folder [@alperozturk96 in #12094]
+- Fix crash when using back button on Add Account page [@alperozturk96 in #12127]
+- App not switching to next field after entering PIN [@alperozturk96 in #12068]
+- Fix crash when attempting to delete a file due to missing title in ConfirmationDialog [@ZetaTom in #12117]
+- Fix crash when leaving preview after a media file is deleted during preview [@ZetaTom in #12119]
+
+### Changed
+
+- Replace generic *Insufficient Storage* error with custom one (*Storage quota exceeded*) and make translatable [@ZetaTom in #12211]
+- Update deprecated api calls in EditImageActivity [@ZetaTom in #12204]
+- Update Styles for Material Design 3 [@alperozturk96 in #12182]
+- Increase target SDK to 34 [@alperozturk96 in #12106]
+- Always open internal preview of files in Uploads tab [@JonasMayerDec in #12142]
+- Update PasscodeActivity to use Material Design 3 [@alperozturk96 in #12148]
+- Update Encryption setup dialog to use Material Design 3 [@alperozturk96 in #12077]
+- Update FilesDetailsSharingProcessFragment to Material Design 3 [@alperozturk96 in #12085]
+
+### Added
+
+- New server-side account deletion request option (`drop_acccount` app must be installed on the remote server) [@ZetaTom in #12015]
+- Share via email via contact book [@surinder-tsys in #12059]
+
+### Miscellaneous
+
+- (Meta) Fix for metadata tests: requiring Photos app [@tobiasKaminsky in #12217]
+- (Meta) Fix for scrolling breaking tests [@tobiasKaminsky in #12191]
+- Bump `com.github.nextcloud.android-commom:ui` to 0.13.0 [@AndyScherzinger in #12208]
+- Convert ClipBoardFiles to Kotlin
+[@alperozturk96 in #12177]
+- Convert FilePickerActivity to Kotlin [@alperozturk96 in #12168]
+- Convert CommunityAction to Kotlin [@alperozturk96 in #12173]
+- (Meta) Fix a test failure due to running out of memory and speed up build times [@alperozturk96 in #12190]
+- Adjustment for translating "Downloading" string [@alperozturk96 in #12189]
+- Convert NotificationsActivity to Kotlin [@alperozturk96 in #12167]
+- Bump `com.google.android.material:material` to 1.10.0 [@alperozturk96 in #12106]
+- Convert PassCodeActivity to Kotlin [@alperozturk96 in #12148]
+- Convert Rich Documents Editor Web View to Kotlin [@alperozturk96 in #12158]
+- Convert Media Folder to Kotlin [@alperozturk96 in #12132]
+- Convert TrashBinActivity to Kotlin [@alperozturk96 in #12133]
+- Convert Deep Link Login Activity to Kotlin [@alperozturk96 in #12131]
+- (Meta) Switch testing to be against stable27 (NC Server) [@AndyScherzinger in #12051]
+- Convert WhatsNewActivity to Kotlin [@alperozturk96 in #12118]
+- Rollback FileDownloader and FileDetailFragment conversion to Kotlin [@AndyScherzinger in #12121]
+- Convert CreateFolderDialog to Kotlin [@alperozturk96 in #12071]
+
 ## 3.26.0 (September 16, 2023)
 
 - image editing
