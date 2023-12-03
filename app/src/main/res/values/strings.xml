@@ -831,6 +831,7 @@
     <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
+    <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="host_not_available">Server not available</string>
     <string name="delete_entries">Delete entries</string>
     <string name="dismiss_notification_description">Dismiss notification</string>
