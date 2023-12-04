@@ -52,6 +52,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import third_parties.daveKoeller.AlphanumComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
+
     private final static String PERMISSION_SHARED_WITH_ME = "S";
     @VisibleForTesting
     public final static String PERMISSION_CAN_RESHARE = "R";
