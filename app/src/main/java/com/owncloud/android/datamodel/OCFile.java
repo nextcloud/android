@@ -28,7 +28,6 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -367,13 +366,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         } else {
             return fileName;
         }
-    }
-
-    public String getFileNameWithExtension(int fileNameLength) {
-        String fileName = getFileName();
-        String shortFileName = fileName.substring(0, Math.min(fileName.length(), fileNameLength));
-        String extension = "." + fileName.substring(fileName.lastIndexOf('.') + 1);
-        return shortFileName + extension;
     }
 
     /**
@@ -804,7 +796,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.favorite;
     }
 
-    public boolean getHidden() {
+    public boolean shouldHide() {
         return this.hidden;
     }
 

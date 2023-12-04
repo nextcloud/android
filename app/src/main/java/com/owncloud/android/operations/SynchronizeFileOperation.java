@@ -254,7 +254,7 @@ public class SynchronizeFileOperation extends SyncOperation {
                     } else {
                         // TODO CHECK: is this really useful in some point in the code?
                         mServerFile.setFavorite(mLocalFile.isFavorite());
-                        mServerFile.setHidden(mLocalFile.getHidden());
+                        mServerFile.setHidden(mLocalFile.shouldHide());
                         mServerFile.setLastSyncDateForData(mLocalFile.getLastSyncDateForData());
                         mServerFile.setStoragePath(mLocalFile.getStoragePath());
                         mServerFile.setParentId(mLocalFile.getParentId());

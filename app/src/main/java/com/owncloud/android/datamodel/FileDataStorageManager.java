@@ -37,7 +37,6 @@ import android.os.Build;
 import android.os.RemoteException;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -463,7 +462,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, fileOrFolder.getRemoteId());
         cv.put(ProviderTableMeta.FILE_LOCAL_ID, fileOrFolder.getLocalId());
         cv.put(ProviderTableMeta.FILE_FAVORITE, fileOrFolder.isFavorite());
-        cv.put(ProviderTableMeta.FILE_HIDDEN, fileOrFolder.getHidden());
+        cv.put(ProviderTableMeta.FILE_HIDDEN, fileOrFolder.shouldHide());
         cv.put(ProviderTableMeta.FILE_UNREAD_COMMENTS_COUNT, fileOrFolder.getUnreadCommentsCount());
         cv.put(ProviderTableMeta.FILE_OWNER_ID, fileOrFolder.getOwnerId());
         cv.put(ProviderTableMeta.FILE_OWNER_DISPLAY_NAME, fileOrFolder.getOwnerDisplayName());
@@ -503,7 +502,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_LOCKED, file.isLocked());
         final FileLockType lockType = file.getLockType();
         cv.put(ProviderTableMeta.FILE_LOCK_TYPE, lockType != null ? lockType.getValue() : -1);
-        cv.put(ProviderTableMeta.FILE_HIDDEN, file.getHidden());
+        cv.put(ProviderTableMeta.FILE_HIDDEN, file.shouldHide());
         cv.put(ProviderTableMeta.FILE_LOCK_OWNER, file.getLockOwnerId());
         cv.put(ProviderTableMeta.FILE_LOCK_OWNER_DISPLAY_NAME, file.getLockOwnerDisplayName());
         cv.put(ProviderTableMeta.FILE_LOCK_OWNER_EDITOR, file.getLockOwnerEditor());

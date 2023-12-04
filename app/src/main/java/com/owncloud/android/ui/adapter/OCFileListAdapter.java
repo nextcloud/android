@@ -92,7 +92,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -950,7 +949,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         listOfHiddenFiles.clear();
 
         mFiles.forEach(file -> {
-            if (file.getHidden()) {
+            if (file.shouldHide()) {
                 listOfHiddenFiles.add(file.getFileName());
             }
         });
