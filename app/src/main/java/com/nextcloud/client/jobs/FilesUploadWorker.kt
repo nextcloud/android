@@ -240,13 +240,18 @@ class FilesUploadWorker(
     }
 
     private fun getUploadListIntent(context: Context): PendingIntent {
-        val mainActivityIntent = Intent(context, UploadListActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        val mainActivityIntent = Intent(
+            context,
+            UploadListActivity::class.java
+        ).setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
 
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             PendingIntent.getActivity(context, 0, mainActivityIntent, PendingIntent.FLAG_MUTABLE)
         } else {
             PendingIntent.getActivity(
-                context, 0, mainActivityIntent,
+                context,
+                0,
+                mainActivityIntent,
                 PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
             )
         }
