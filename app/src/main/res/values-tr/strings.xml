@@ -650,6 +650,7 @@
     <string name="remove_e2e">Bu istemciden uçtan uca şifrelemeyi yerel olarak kaldırabilirsiniz</string>
     <string name="remove_e2e_message">Bu istemcide yerel olarak uçtan uca şifrelemeyi kaldırabilirsiniz. Şifrelenmiş dosyalar sunucuda kalır, ancak artık bu bilgisayarla eşitlenmez.</string>
     <string name="remove_fail_msg">Silinemedi</string>
+    <string name="remove_local_account">Yerel hesabı sil</string>
     <string name="remove_notification_failed">Bildirim silinemedi.</string>
     <string name="remove_push_notification">Sil</string>
     <string name="remove_success_msg">Silindi</string>
