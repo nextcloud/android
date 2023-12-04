@@ -160,6 +160,7 @@
     <string name="conflict_message_description">若您同時選擇兩個版本，本機的檔案會在檔名後附加編號。</string>
     <string name="conflict_server_file">伺服器檔案</string>
     <string name="contact_backup_title">聯絡人備份</string>
+    <string name="contact_no_permission">需要聯絡人權限。</string>
     <string name="contactlist_item_icon">聯絡人列表的使用者圖示</string>
     <string name="contactlist_no_permission">匯入失敗，權限不足。</string>
     <string name="contacts">聯絡人</string>
@@ -258,6 +259,7 @@
     <string name="ecosystem_apps_more">更多 Nextcloud 應用程式</string>
     <string name="ecosystem_apps_notes">Nextcloud Notes</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">挑選電子郵件地址失敗。</string>
     <string name="encrypted">設為已加密的</string>
     <string name="end_to_end_encryption_confirm_button">設定加密</string>
     <string name="end_to_end_encryption_decrypting">正在解密……</string>
@@ -648,12 +650,17 @@
     <string name="remove_e2e">您可以在此客戶端上本機移除端到端加密</string>
     <string name="remove_e2e_message">您可以在此客戶端上移除本機端到端加密。已加密的檔案將會保留在伺服器上，但不會再同步到此電腦。</string>
     <string name="remove_fail_msg">刪除失敗</string>
+    <string name="remove_local_account">移除本機帳號</string>
+    <string name="remove_local_account_details">從裝置移除帳號並刪除所有本機檔案</string>
     <string name="remove_notification_failed">移除通知失敗</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已刪除</string>
     <string name="rename_dialog_title">輸入新名稱</string>
     <string name="rename_local_fail_msg">無法重新命名本機副本，請嘗試不同的名稱</string>
     <string name="rename_server_fail_msg">無法重新命名，該名稱已被使用</string>
+    <string name="request_account_deletion">請求刪除帳號</string>
+    <string name="request_account_deletion_button">請求刪除</string>
+    <string name="request_account_deletion_details">請求服務提供者永久刪除帳號</string>
     <string name="reshare_not_allowed">不允許重新分享</string>
     <string name="resharing_is_not_allowed">不允許重新分享</string>
     <string name="resized_image_not_possible_download">沒有可用調整過的圖片。下載完整圖片？</string>

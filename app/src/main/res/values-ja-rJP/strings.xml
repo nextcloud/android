@@ -641,6 +641,7 @@
     <string name="rename_dialog_title">新しい名前を入力</string>
     <string name="rename_local_fail_msg">ローカルコピーの名前が変更できません。別の名前を試してください</string>
     <string name="rename_server_fail_msg">名前の変更ができません。その名前は使われています</string>
+    <string name="request_account_deletion">アカウントの削除をリクエストする</string>
     <string name="reshare_not_allowed">再共有は許可されていません</string>
     <string name="resharing_is_not_allowed">再共有は許可されていません</string>
     <string name="resized_image_not_possible_download">サイズ変更された画像はありません。 フルイメージをダウンロードしますか？</string>

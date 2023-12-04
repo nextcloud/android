@@ -160,6 +160,7 @@
     <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>
     <string name="conflict_server_file">Soubor na serveru</string>
     <string name="contact_backup_title">Záloha kontaktů</string>
+    <string name="contact_no_permission">Je vyžadováno oprávnění pro přístup ke kontaktům.</string>
     <string name="contactlist_item_icon">Ikona uživatele v seznamu kontaktů</string>
     <string name="contactlist_no_permission">Nejsou udělena oprávnění, proto nebylo nic naimportováno.</string>
     <string name="contacts">Kontakty</string>
@@ -258,6 +259,7 @@
     <string name="ecosystem_apps_more">Další Nextcloud aplikace</string>
     <string name="ecosystem_apps_notes">Nextcloud poznámky</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Nepodařilo se vybrat e-mailovou adresu.</string>
     <string name="encrypted">Nastavit jako šifrované</string>
     <string name="end_to_end_encryption_confirm_button">Nastavit šifrování</string>
     <string name="end_to_end_encryption_decrypting">Rozšifrovávání…</string>
@@ -648,12 +650,17 @@
     <string name="remove_e2e">Je možné šifrování mezi koncovými body odebrat lokálně na tomto klientovi</string>
     <string name="remove_e2e_message">Je možné šifrování mezi koncovými body odebrat lokálně na tomto klientovi. Šifrované soubory zůstanou na serveru, ale už nadále nebudou synchronizovány s tímto počítačem.</string>
     <string name="remove_fail_msg">Odstranění se nezdařilo</string>
+    <string name="remove_local_account">Odebrat místní účet</string>
+    <string name="remove_local_account_details">Odebrat účet ze zařízení a smazat veškeré místní soubory</string>
     <string name="remove_notification_failed">Upozornění se nepodařilo odebrat.</string>
     <string name="remove_push_notification">Odebrat</string>
     <string name="remove_success_msg">Smazáno</string>
     <string name="rename_dialog_title">Zadejte nový název</string>
     <string name="rename_local_fail_msg">Nepodařilo se přejmenovat místní kopii – zkuste použít jiný název</string>
     <string name="rename_server_fail_msg">Přejmenování není možné – název už je použit</string>
+    <string name="request_account_deletion">Vyžádat smazání účtu</string>
+    <string name="request_account_deletion_button">Vyžádat si smazání</string>
+    <string name="request_account_deletion_details">Vyžádat si trvalé vymazání účtu u poskytovatele služby</string>
     <string name="reshare_not_allowed">Příjemcům tohoto sdílení není dovoleno ho nasdílet dál dalším</string>
     <string name="resharing_is_not_allowed">Příjemcům tohoto sdílení není dovoleno ho nasdílet dál dalším</string>
     <string name="resized_image_not_possible_download">Zmenšená verze obrázku není k dispozici. Stáhnout obrázek v plné velikosti?</string>
