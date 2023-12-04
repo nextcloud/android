@@ -360,7 +360,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public String getFileNameWithoutExtension(String fileName) {
-        int dotIndex = fileName.lastIndexOf(".");
+        int dotIndex = fileName.lastIndexOf('.');
         if (dotIndex > 0) {
             return fileName.substring(0, dotIndex);
         } else {
@@ -552,7 +552,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      */
     public String getParentRemotePath() {
         String parentPath = new File(this.getRemotePath()).getParent();
-        return parentPath.endsWith(PATH_SEPARATOR) ? parentPath : parentPath + PATH_SEPARATOR;
+        if (parentPath != null) {
+            return parentPath.endsWith(PATH_SEPARATOR) ? parentPath : parentPath + PATH_SEPARATOR;
+        } else {
+            return null;
+        }
     }
 
     @Override

@@ -1758,7 +1758,7 @@ public class FileDataStorageManager {
                             ProviderTableMeta.CONTENT_URI_FILE,
                             projection,
                             whereForDescencentsInConflict,
-                            new String[]{user.getAccountName(), parentPath + "%"},
+                            new String[]{user.getAccountName(), parentPath + '%'},
                             null
                         );
                     } else {

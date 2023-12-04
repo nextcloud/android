@@ -201,7 +201,7 @@ public class UploadsStorageManager extends Observable {
                     TAG,
                     "Updating " + path + " with status:" + status + " and result:"
                             + (result == null ? "null" : result.toString()) + " (old:"
-                            + upload.toFormattedString() + ")");
+                            + upload.toFormattedString() + ')');
 
             upload.setUploadStatus(status);
             upload.setLastResult(result);
