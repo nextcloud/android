@@ -23,6 +23,7 @@
 package com.nextcloud.client.jobs
 
 import android.accounts.Account
+import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -238,9 +239,33 @@ class FilesUploadWorker(
         // TODO generalize for automated uploads
     }
 
+    private fun getUploadListIntent(context: Context): PendingIntent {
+        val mainActivityIntent = Intent(context, UploadListActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.getActivity(context, 0, mainActivityIntent, PendingIntent.FLAG_MUTABLE)
+        } else {
+            PendingIntent.getActivity(
+                context, 0, mainActivityIntent,
+                PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            )
+        }
+    }
+
+    private fun addUploadListActionToNotification() {
+        val openUploadsIntent = getUploadListIntent(context)
+
+        notificationBuilder.addAction(
+            R.drawable.ic_cloud_upload,
+            context.getString(R.string.uploader_notification_action_button),
+            openUploadsIntent
+        )
+    }
+
     /**
      * adapted from [com.owncloud.android.files.services.FileUploader.notifyUploadResult]
      */
+    @SuppressLint("RestrictedApi")
     private fun notifyUploadResult(
         uploadFileOperation: UploadFileOperation,
         uploadResult: RemoteOperationResult<Any?>
@@ -269,12 +294,17 @@ class FilesUploadWorker(
                 // check file conflict
                 tickerId = R.string.uploader_upload_failed_sync_conflict_error
             }
+
             notificationBuilder
                 .setTicker(context.getString(tickerId))
                 .setContentTitle(context.getString(tickerId))
                 .setAutoCancel(true)
                 .setOngoing(false)
                 .setProgress(0, 0, false)
+
+            if (notificationBuilder.mActions.isEmpty()) {
+                addUploadListActionToNotification()
+            }
 
             val content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, uploadFileOperation, context.resources)
 
