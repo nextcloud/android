@@ -44,7 +44,6 @@ import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
-import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListHeaderBinding;
@@ -547,7 +546,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
     private void displayFileNotFoundError(View itemView, Context context) {
         String message = context.getString(R.string.uploader_file_not_found_message);
-        ViewExtensionsKt.showSnackbar(itemView, message);
+        DisplayUtils.showSnackMessage(itemView, message);
     }
 
     private void showItemConflictPopup(User user,
