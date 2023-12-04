@@ -479,7 +479,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         unsetAllDrawerMenuItems();
     }
 
-
     private void onNavigationItemClicked(final MenuItem menuItem) {
         setDrawerMenuItemChecked(menuItem.getItemId());
 
@@ -506,7 +505,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH),
                                menuItem.getItemId());
         } else if (itemId == R.id.nav_gallery) {
-            startPhotoSearch(menuItem);
+            startPhotoSearch(menuItem.getItemId());
         } else if (itemId == R.id.nav_on_device) {
             EventBus.getDefault().post(new ChangeMenuEvent());
             showFiles(true);
@@ -527,7 +526,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             menuItem.setChecked(false);
             final Optional<User> optionalUser = getUser();
             if (optionalUser.isPresent()) {
-                UserInfoActivity.openAccountRemovalConfirmationDialog(optionalUser.get(), getSupportFragmentManager());
+                UserInfoActivity.openAccountRemovalDialog(optionalUser.get(), getSupportFragmentManager());
             }
         } else if (itemId == R.id.nav_shared) {
             startSharedSearch(menuItem);
@@ -598,11 +597,11 @@ public abstract class DrawerActivity extends ToolbarActivity
         launchActivityForSearch(searchEvent, menuItem.getItemId());
     }
 
-    private void startPhotoSearch(MenuItem menuItem) {
+    public void startPhotoSearch(int id) {
         SearchEvent searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
         MainApp.showOnlyFilesOnDevice(false);
 
-        launchActivityForSearch(searchEvent, menuItem.getItemId());
+        launchActivityForSearch(searchEvent, id);
     }
 
     private void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {

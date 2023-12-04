@@ -656,6 +656,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="rename_dialog_title">Indtast et nyt navn</string>
     <string name="rename_local_fail_msg">Lokal kopi kunne ikke omdøbes, prøv et andet navn</string>
     <string name="rename_server_fail_msg">Omdøbning ikke mulig, navnet eksisterer</string>
+    <string name="request_account_deletion">Anmodning om sletning af konto</string>
     <string name="reshare_not_allowed">Gendeling er ikke tilladt</string>
     <string name="resharing_is_not_allowed">Videredeling ikke tilladt</string>
     <string name="resized_image_not_possible_download">Intet skaleret billede tilgængeligt. Hent fuldt billede?</string>

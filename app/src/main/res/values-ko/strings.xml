@@ -634,6 +634,7 @@
     <string name="rename_dialog_title">새 이름 입력</string>
     <string name="rename_local_fail_msg">로컬 파일의 이름을 변경할 수 없습니다. 다른 이름을 입력하십시오</string>
     <string name="rename_server_fail_msg">이름을 변경할 수 없음. 이름이 이미 사용중입니다.</string>
+    <string name="request_account_deletion">계정 삭제 요청</string>
     <string name="reshare_not_allowed">다시 공유할 수 없음</string>
     <string name="resharing_is_not_allowed">다시 공유할 수 없습니다</string>
     <string name="resized_image_not_possible_download">크기 조정된 사진을 사용할 수 없습니다. 원본 크기로 다운로드하시겠습니까?</string>

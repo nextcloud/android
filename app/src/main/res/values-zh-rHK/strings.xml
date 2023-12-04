@@ -650,12 +650,17 @@
     <string name="remove_e2e">您可以在此客戶端上本地刪除端到端加密</string>
     <string name="remove_e2e_message">您可以在此客戶端上本地刪除端到端加密。加密檔案將保留在伺服器上，但不會再同步到此電腦。</string>
     <string name="remove_fail_msg">刪除失敗</string>
+    <string name="remove_local_account">移除近端賬戶</string>
+    <string name="remove_local_account_details">從裝置中刪除賬戶並刪除所有近端檔案</string>
     <string name="remove_notification_failed">移除通知失敗</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已刪除</string>
     <string name="rename_dialog_title">輸入新名稱</string>
     <string name="rename_local_fail_msg">無法重新命名近端複本，請試用不同名稱</string>
     <string name="rename_server_fail_msg">不可重新命名，名稱已存在</string>
+    <string name="request_account_deletion">請求賬戶刪除</string>
+    <string name="request_account_deletion_button">請求刪除</string>
+    <string name="request_account_deletion_details">請求服務提供者永久刪除賬戶</string>
     <string name="reshare_not_allowed">不允許重新分享</string>
     <string name="resharing_is_not_allowed">不允許重新分享</string>
     <string name="resized_image_not_possible_download">沒有可用調整過的圖像，下載完整圖像？</string>

@@ -653,6 +653,7 @@
     <string name="rename_dialog_title">نام جدید وارد کنید</string>
     <string name="rename_local_fail_msg">تغییر نام نسخه محلی امکان پذیر نیست ، نام دیگری را امتحان کنید</string>
     <string name="rename_server_fail_msg">تغییر نام ممکن نیست، این نام قبلا استفاده شده است</string>
+    <string name="request_account_deletion">درخواست حذف اکانت</string>
     <string name="reshare_not_allowed">اشتراک‌گذاری مجدد مجاز نمی باشد</string>
     <string name="resharing_is_not_allowed">اشتراک‌گذاری مجدد مجاز نمی باشد</string>
     <string name="resized_image_not_possible_download">هیچ تصویری تغییر اندازه شده‌ای در دسترس نیست. تصویر کامل را بارگیری می کنید؟</string>
