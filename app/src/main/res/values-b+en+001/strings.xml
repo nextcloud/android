@@ -650,12 +650,17 @@
     <string name="remove_e2e">You can remove end-to-end encryption locally on this client</string>
     <string name="remove_e2e_message">You can remove end-to-end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
     <string name="remove_fail_msg">Deletion failed</string>
+    <string name="remove_local_account">Remove local account</string>
+    <string name="remove_local_account_details">Remove account from device and delete all local files</string>
     <string name="remove_notification_failed">Failed to remove notification.</string>
     <string name="remove_push_notification">Remove</string>
     <string name="remove_success_msg">Deleted</string>
     <string name="rename_dialog_title">Enter a new name</string>
     <string name="rename_local_fail_msg">Could not rename local copy, try a different name</string>
     <string name="rename_server_fail_msg">Renaming not possible, name already taken</string>
+    <string name="request_account_deletion">Request account deletion</string>
+    <string name="request_account_deletion_button">Request deletion</string>
+    <string name="request_account_deletion_details">Request permanent deletion of account by service provider</string>
     <string name="reshare_not_allowed">Resharing is not allowed</string>
     <string name="resharing_is_not_allowed">Resharing is not allowed</string>
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>

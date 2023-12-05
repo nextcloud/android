@@ -650,12 +650,17 @@
     <string name="remove_e2e">Шифрирање од почетка-до-краја можете локално да уклоните на овом клијенту</string>
     <string name="remove_e2e_message">Шифрирање од почетка-до-краја можете локално да уклоните на овом клијенту. Шифрирани фајлови ће остати на серверу, али се више неће синхронизовати са овим компјутером.</string>
     <string name="remove_fail_msg">Брисање није успело</string>
+    <string name="remove_local_account">Уклони локални налог</string>
+    <string name="remove_local_account_details">Укњања локални налог са уређаја у брише све локалне фајлове</string>
     <string name="remove_notification_failed">Грешка при уклањању обавештења.</string>
     <string name="remove_push_notification">Уклони</string>
     <string name="remove_success_msg">Обрисано</string>
     <string name="rename_dialog_title">Унесите нов назив</string>
     <string name="rename_local_fail_msg">Не могу да преименујем локалну копију. Пробајте други назив</string>
     <string name="rename_server_fail_msg">Преименовање није могуће. Назив већ постоји</string>
+    <string name="request_account_deletion">Захтевајте брисање налога</string>
+    <string name="request_account_deletion_button">Захтев за брисање</string>
+    <string name="request_account_deletion_details">Захтев пружаоцу сервиса да неповратно обрише налог</string>
     <string name="reshare_not_allowed">Поновно дељење није дозвољено</string>
     <string name="resharing_is_not_allowed">Поновно дељење није дозвољено</string>
     <string name="resized_image_not_possible_download">Нема доступне умањене сличице. Скинути пуну слику?</string>

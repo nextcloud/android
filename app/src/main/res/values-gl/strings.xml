@@ -651,12 +651,17 @@
     <string name="remove_e2e">Pode retirar o cifrado de extremo a extremo localmente neste cliente</string>
     <string name="remove_e2e_message">Pode retirar o cifrado de extremo a extremo localmente neste cliente. Os ficheiros cifrados permanecerán no servidor, mais xa non se sincronizarán con este computador.</string>
     <string name="remove_fail_msg">Produciuse un fallo na eliminación</string>
+    <string name="remove_local_account">Retirar a conta local</string>
+    <string name="remove_local_account_details">Retirar a conta do dispositivo e eliminar todos os ficheiros locais</string>
     <string name="remove_notification_failed">Produciuse un fallo ao retirar a notificación.</string>
     <string name="remove_push_notification">Retirar</string>
     <string name="remove_success_msg">Eliminado</string>
     <string name="rename_dialog_title">Introduza un nome novo</string>
     <string name="rename_local_fail_msg">Non foi posíbel renomear a copia local, ténteo cun un nome diferente</string>
     <string name="rename_server_fail_msg">Non foi posíbel renomear, o nome xa está ocupado</string>
+    <string name="request_account_deletion">Solicitar a eliminación da conta </string>
+    <string name="request_account_deletion_button">Solicitat a eliminación</string>
+    <string name="request_account_deletion_details">Solicitar a eliminación definitiva da conta polo provedor de servizos</string>
     <string name="reshare_not_allowed">Non se permite volver compartir</string>
     <string name="resharing_is_not_allowed">Non se permite volver compartir</string>
     <string name="resized_image_not_possible_download">No se dispón da imaxe noutros tamaños. Descargala a tamaño real?</string>
@@ -880,6 +885,7 @@
     <string name="upload_lock_failed">Produciuse un fallo ao bloquear o cartafol</string>
     <string name="upload_old_android">O cifrado só é posíbel con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. No canto diso, gustaríalle movelos?</string>
+    <string name="upload_quota_exceeded">Superouse a cota de almacenamento</string>
     <string name="upload_scan_doc_upload">Escanear o documento dende a cámara</string>
     <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>
     <string name="upload_unknown_error">Produciuse un erro descoñecido</string>

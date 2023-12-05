@@ -650,12 +650,17 @@
     <string name="remove_e2e">您可以在该客户端上本地删除端对端加密</string>
     <string name="remove_e2e_message">您可以在该客户端上本地删除端对端加密。加密文件将保留在服务器上，但不会再同步到该电脑。</string>
     <string name="remove_fail_msg">删除失败</string>
+    <string name="remove_local_account">移除本地帐户</string>
+    <string name="remove_local_account_details">从设备中移除账户并删除所有本地文件</string>
     <string name="remove_notification_failed">移除通知失败</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已删除</string>
     <string name="rename_dialog_title">输入一个新的名称</string>
     <string name="rename_local_fail_msg">本地副本无法重命名，尝试其他名称</string>
     <string name="rename_server_fail_msg">无法重命名，名字已经被占用</string>
+    <string name="request_account_deletion">请求删除账号</string>
+    <string name="request_account_deletion_button">请求删除</string>
+    <string name="request_account_deletion_details">请求服务商永久删除账户</string>
     <string name="reshare_not_allowed">不允许再次共享</string>
     <string name="resharing_is_not_allowed">不允许二次共享</string>
     <string name="resized_image_not_possible_download">重整大小的图片不可用。下载完整图片？</string>

@@ -596,6 +596,7 @@
     <string name="rename_dialog_title">Unesite novi naziv</string>
     <string name="rename_local_fail_msg">Nije moguće preimenovati lokalnu kopiju, pokušajte s drugim nazivom</string>
     <string name="rename_server_fail_msg">Preimenovanje nije moguće, naziv je već zauzet</string>
+    <string name="request_account_deletion">Zatraži brisanje računa</string>
     <string name="reshare_not_allowed">Ponovno dijeljenje nije dopušteno</string>
     <string name="resharing_is_not_allowed">Ponovno dijeljenje nije dopušteno</string>
     <string name="resized_image_not_possible_download">Nema dostupne slike promijenjene veličine. Preuzeti punu sliku?</string>
@@ -732,8 +733,8 @@
     <string name="stream_not_possible_message">Umjesto toga preuzmite medijske datoteke ili se koristite vanjskom aplikacijom.</string>
     <string name="strict_mode">Ograničeni način rada: nije dopuštena HTTP veza!</string>
     <string name="sub_folder_rule_year">Godina</string>
-    <string name="subject_shared_with_you">\\"%1$s\\" je dijeljen s vama</string>
-    <string name="subject_user_shared_with_you">%1$s dijeli \\"%2$s\\" s vama</string>
+    <string name="subject_shared_with_you">\"%1$s\" je dijeljen s vama</string>
+    <string name="subject_user_shared_with_you">%1$s dijeli \"%2$s\" s vama</string>
     <string name="subtitle_photos_only">Samo fotografije</string>
     <string name="subtitle_photos_videos">Fotografije &amp; video materijali</string>
     <string name="subtitle_videos_only">Samo video materijali</string>
