@@ -185,7 +185,7 @@ class StackRemoteViewsFactory(
         }
     }
 
-    @Suppress( "TooGenericExceptionCaught")
+    @Suppress("TooGenericExceptionCaught")
     private fun loadIcon(widgetItem: DashboardWidgetItem, remoteViews: RemoteViews) {
         val isIconSVG = Uri.parse(widgetItem.iconUrl).encodedPath!!.endsWith(".svg")
         val source: FutureTarget<Bitmap> = if (isIconSVG) {
