@@ -81,7 +81,7 @@ import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
-import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
+import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -270,7 +270,7 @@ abstract class ComponentsModule {
     abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
 
     @ContributesAndroidInjector
-    abstract AccountRemovalConfirmationDialog accountRemovalConfirmationDialog();
+    abstract AccountRemovalDialog accountRemovalDialog();
 
     @ContributesAndroidInjector
     abstract ChooseRichDocumentsTemplateDialogFragment chooseRichDocumentsTemplateDialogFragment();

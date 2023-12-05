@@ -57,6 +57,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 
@@ -187,6 +188,33 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     @Override
+    public void onBackPressed() {
+        sendRefreshSearchEventBroadcast();
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            sendRefreshSearchEventBroadcast();
+
+            if (isDrawerOpen()) {
+                closeDrawer();
+            } else {
+                backToDisplayActivity();
+            }
+            return true;
+        } else {
+            return onOptionsItemSelected(item);
+        }
+    }
+
+    private void sendRefreshSearchEventBroadcast() {
+        Intent intent = new Intent(GalleryFragment.REFRESH_SEARCH_EVENT_RECEIVER);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         Optional<User> optionalUser = getUser();
@@ -306,28 +334,6 @@ public class PreviewImageActivity extends FileActivity implements
     public void onDestroy() {
         super.onDestroy();
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        boolean returnValue = false;
-
-        switch(item.getItemId()){
-        case android.R.id.home:
-            if (isDrawerOpen()) {
-                closeDrawer();
-            } else {
-                backToDisplayActivity();
-            }
-            returnValue = true;
-            break;
-        default:
-        	returnValue = super.onOptionsItemSelected(item);
-            break;
-        }
-
-        return returnValue;
-    }
-
 
     @Override
     protected void onResume() {

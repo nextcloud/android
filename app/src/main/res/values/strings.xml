@@ -129,8 +129,12 @@
     <string name="common_skip">Skip</string>
     <string name="common_copy">Copy</string>
     <string name="about_title">About</string>
+    <string name="remove_local_account">Remove local account</string>
+    <string name="remove_local_account_details">Remove account from device and delete all local files</string>
+    <string name="request_account_deletion">Request account deletion</string>
+    <string name="request_account_deletion_button">Request deletion</string>
+    <string name="request_account_deletion_details">Request permanent deletion of account by service provider</string>
     <string name="delete_account">Remove account</string>
-    <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Active user</string>
     <string name="upload_chooser_title">Upload from…</string>
@@ -827,6 +831,7 @@
     <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
+    <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="host_not_available">Server not available</string>
     <string name="delete_entries">Delete entries</string>
     <string name="dismiss_notification_description">Dismiss notification</string>

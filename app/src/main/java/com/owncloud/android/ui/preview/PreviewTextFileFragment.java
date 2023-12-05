@@ -330,6 +330,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             seeDetails();
         } else if (itemId == R.id.action_sync_file) {
             containerActivity.getFileOperationsHelper().syncFile(getFile());
+        } else if(itemId == R.id.action_cancel_sync){
+            containerActivity.getFileOperationsHelper().cancelTransference(getFile());
         } else if (itemId == R.id.action_edit) {
             containerActivity.getFileOperationsHelper().openFileWithTextEditor(getFile(), getContext());
         }

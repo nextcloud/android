@@ -545,7 +545,7 @@ class FileDetailsSharingProcessFragment :
         )
         // copy the share link if available
         if (!TextUtils.isEmpty(share?.shareLink)) {
-            ClipboardUtil.copyToClipboard(activity, share?.shareLink)
+            ClipboardUtil.copyToClipboard(requireActivity(), share?.shareLink)
         }
     }
 

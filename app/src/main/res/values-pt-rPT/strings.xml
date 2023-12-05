@@ -636,6 +636,7 @@
     <string name="rename_dialog_title">Introduza um novo nome</string>
     <string name="rename_local_fail_msg">Não foi possível renomear a cópia local, tente um nome diferente</string>
     <string name="rename_server_fail_msg">Renomeação impossível, nome já utilizado</string>
+    <string name="request_account_deletion">Solicitar eliminação da conta</string>
     <string name="reshare_not_allowed">Voltar a partilhar não é permitido</string>
     <string name="resharing_is_not_allowed">Não é permitido voltar a partilhar</string>
     <string name="resized_image_not_possible_download">Nenhuma imagem redimensionada disponível. Deseja transferir a imagem completa?</string>
