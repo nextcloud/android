@@ -270,7 +270,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(VCardToggleEvent event) {
-        if (event.showRestoreButton) {
+        if (event.getShowRestoreButton()) {
             binding.contactlistRestoreSelectedContainer.setVisibility(View.VISIBLE);
         } else {
             binding.contactlistRestoreSelectedContainer.setVisibility(View.GONE);

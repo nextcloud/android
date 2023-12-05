@@ -15,12 +15,11 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http:></http:>//www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.events;
+package com.owncloud.android.ui.events
 
 /**
- * Dummy drawer event
+ * Event for making favoriting work
  */
-public class DummyDrawerEvent {
-}
+class FavoriteEvent(val remotePath: String, val shouldFavorite: Boolean)
