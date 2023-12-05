@@ -34,6 +34,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ServiceInfo;
@@ -128,6 +129,10 @@ public class FileUploader extends Service
     public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
 
+    public static final String EXTRA_ACCOUNT_NAME = "ACCOUNT_NAME";
+    public static final String ACTION_CANCEL_BROADCAST = "CANCEL";
+    public static final String ACTION_PAUSE_BROADCAST = "PAUSE";
+
     private static final int FOREGROUND_SERVICE_ID = 411;
 
     public static final String KEY_FILE = "FILE";
@@ -198,10 +203,12 @@ public class FileUploader extends Service
     private Notification mNotification;
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
-    private IBinder mBinder;
+    private static IBinder mBinder;
     private OwnCloudClient mUploadClient;
     private Account mCurrentAccount;
     private FileDataStorageManager mStorageManager;
+
+    private SecureRandom secureRandomGenerator = new SecureRandom();
 
     @Inject UserAccountManager accountManager;
     @Inject UploadsStorageManager mUploadsStorageManager;
@@ -233,6 +240,7 @@ public class FileUploader extends Service
     /**
      * Service initialization
      */
+    @SuppressFBWarnings("ST")
     @Override
     public void onCreate() {
         super.onCreate();
@@ -280,6 +288,7 @@ public class FileUploader extends Service
     /**
      * Service clean up
      */
+    @SuppressFBWarnings("ST")
     @Override
     public void onDestroy() {
         Log_OC.v(TAG, "Destroying service");
@@ -708,6 +717,12 @@ public class FileUploader extends Service
      */
     private void notifyUploadStart(UploadFileOperation upload) {
         // / create status notification with a progress bar
+        Intent notificationActionIntent = new Intent(getApplicationContext(),UploadNotificationActionReceiver.class);
+        notificationActionIntent.putExtra(EXTRA_ACCOUNT_NAME,upload.getUser().getAccountName());
+        notificationActionIntent.putExtra(EXTRA_REMOTE_PATH,upload.getRemotePath());
+        notificationActionIntent.setAction(ACTION_CANCEL_BROADCAST);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),secureRandomGenerator.nextInt(),notificationActionIntent, PendingIntent.FLAG_IMMUTABLE);
         mLastPercent = 0;
         mNotificationBuilder = NotificationUtils.newNotificationBuilder(this, viewThemeUtils);
         mNotificationBuilder
@@ -718,7 +733,10 @@ public class FileUploader extends Service
             .setProgress(100, 0, false)
             .setContentText(
                 String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName())
-                           );
+                           )
+            .clearActions() // to make sure there is only one action
+            .addAction(R.drawable.ic_action_cancel_grey,getApplicationContext().getString(R.string.common_cancel),pendingIntent);
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
@@ -811,7 +829,8 @@ public class FileUploader extends Service
                 .setContentTitle(getString(tickerId))
                 .setAutoCancel(true)
                 .setOngoing(false)
-                .setProgress(0, 0, false);
+                .setProgress(0, 0, false)
+                .clearActions();
 
             content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, upload, getResources());
 
@@ -859,7 +878,7 @@ public class FileUploader extends Service
 
             mNotificationBuilder.setContentText(content);
             if (!uploadResult.isSuccess()) {
-                mNotificationManager.notify((new SecureRandom()).nextInt(), mNotificationBuilder.build());
+                mNotificationManager.notify(secureRandomGenerator.nextInt(), mNotificationBuilder.build());
             }
         }
     }
@@ -1406,6 +1425,34 @@ public class FileUploader extends Service
             mService.mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
             mService.stopForeground(true);
             mService.stopSelf(msg.arg1);
+        }
+    }
+
+
+    /**
+     * When cancel action in upload notification is pressed, cancel upload of item
+     */
+    public static class UploadNotificationActionReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String accountName = intent.getStringExtra(EXTRA_ACCOUNT_NAME);
+            String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
+            String action = intent.getAction();
+
+            if (ACTION_CANCEL_BROADCAST.equals(action)) {
+                Log_OC.d(TAG, "Cancel broadcast received for file " + remotePath + " at " + System.currentTimeMillis());
+
+                if (accountName == null || remotePath == null) return;
+
+                FileUploaderBinder uploadBinder = (FileUploaderBinder) mBinder;
+                uploadBinder.cancel(accountName, remotePath, null);
+            }else if(ACTION_PAUSE_BROADCAST.equals(action)){
+
+            } else {
+                Log_OC.d(TAG, "Unknown action to perform as UploadNotificationActionReceiver.");
+            }
         }
     }
 }
