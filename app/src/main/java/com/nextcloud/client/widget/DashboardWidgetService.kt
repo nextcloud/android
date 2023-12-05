@@ -163,7 +163,7 @@ class StackRemoteViewsFactory(
 
     // we will switch soon to coil and then streamline all of this
     // Kotlin cannot catch multiple exception types at same time
-    @Suppress("NestedBlockDepth", "TooGenericExceptionCaught")
+    @Suppress("NestedBlockDepth")
     private fun createItemView(position: Int): RemoteViews {
         return RemoteViews(context.packageName, R.layout.widget_item).apply {
             if (widgetItems.isEmpty()) {
@@ -185,6 +185,7 @@ class StackRemoteViewsFactory(
         }
     }
 
+    @Suppress( "TooGenericExceptionCaught")
     private fun loadIcon(widgetItem: DashboardWidgetItem, remoteViews: RemoteViews) {
         val isIconSVG = Uri.parse(widgetItem.iconUrl).encodedPath!!.endsWith(".svg")
         val source: FutureTarget<Bitmap> = if (isIconSVG) {
