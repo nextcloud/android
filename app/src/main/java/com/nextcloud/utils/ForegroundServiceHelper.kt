@@ -23,7 +23,6 @@ package com.nextcloud.utils
 
 import android.app.Notification
 import android.app.Service
-import android.content.pm.ServiceInfo
 import android.os.Build
 import androidx.core.app.ServiceCompat
 import com.owncloud.android.datamodel.ForegroundServiceType
@@ -36,17 +35,11 @@ object ForegroundServiceHelper {
         foregroundServiceType: ForegroundServiceType
     ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val foregroundServiceTypeId: Int = if (foregroundServiceType == ForegroundServiceType.DataSync) {
-                ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
-            } else {
-                ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
-            }
-
             ServiceCompat.startForeground(
                 service,
                 id,
                 notification,
-                foregroundServiceTypeId
+                foregroundServiceType.getId()
             )
         } else {
             service.startForeground(id, notification)
