@@ -24,7 +24,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/live_photo_indicator"
         android:visibility="gone"
         tools:visibility="visible"
@@ -34,6 +34,7 @@
         android:paddingHorizontal="@dimen/live_photo_indicator_horizontal_padding"
         android:background="@drawable/rounded_rect"
         android:backgroundTint="#E5E5E5"
+        android:textColor="@color/black"
         android:layout_gravity="start|top"
         android:gravity="center"
         android:translationZ="2dp"
