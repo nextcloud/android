@@ -174,7 +174,7 @@ class PlayerService : Service() {
             notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_MEDIA)
         }
 
-        ForegroundServiceHelper.start(
+        ForegroundServiceHelper.startService(
             this,
             R.string.media_notif_ticker,
             notificationBuilder.build(),

@@ -202,7 +202,7 @@ public class FileDownloader extends Service
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
 
-        ForegroundServiceHelper.INSTANCE.start(this, FOREGROUND_SERVICE_ID, mNotification, ForegroundServiceType.DataSync);
+        ForegroundServiceHelper.INSTANCE.startService(this, FOREGROUND_SERVICE_ID, mNotification, ForegroundServiceType.DataSync);
 
         if (intent == null || !intent.hasExtra(EXTRA_USER) || !intent.hasExtra(EXTRA_FILE)) {
             Log_OC.e(TAG, "Not enough information provided in intent");
