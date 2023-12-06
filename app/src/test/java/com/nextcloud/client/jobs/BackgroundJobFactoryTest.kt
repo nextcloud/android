@@ -124,7 +124,6 @@ class BackgroundJobFactoryTest {
             clock,
             powerManagementService,
             { backgroundJobManager },
-            deviceInfo,
             accountManager,
             resources,
             dataProvider,

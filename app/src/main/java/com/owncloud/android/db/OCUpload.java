@@ -196,7 +196,7 @@ public class OCUpload implements Parcelable {
      */
     public void setUploadStatus(UploadStatus uploadStatus) {
         this.uploadStatus = uploadStatus;
-        setLastResult(UploadResult.UNKNOWN);
+        // setLastResult(UploadResult.UNKNOWN);
     }
 
     /**

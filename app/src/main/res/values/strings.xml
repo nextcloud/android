@@ -1113,4 +1113,5 @@
     <string name="sub_folder_rule_year">Year</string>
     <string name="sub_folder_rule_month">Year/Month</string>
     <string name="sub_folder_rule_day">Year/Month/Day</string>
+    <string name="quota_exceeded">Quota exceeded. Free up some space on server.</string>
 </resources>

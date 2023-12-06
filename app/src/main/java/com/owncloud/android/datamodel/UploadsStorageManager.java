@@ -204,7 +204,9 @@ public class UploadsStorageManager extends Observable {
                             + upload.toFormattedString() + ")");
 
             upload.setUploadStatus(status);
-            upload.setLastResult(result);
+            if (result != null) {
+                upload.setLastResult(result);
+            }
             upload.setRemotePath(remotePath);
             if (localPath != null) {
                 upload.setLocalPath(localPath);
@@ -687,7 +689,7 @@ public class UploadsStorageManager extends Observable {
         updateUploadStatus(
                 upload.getOCUploadId(),
                 UploadStatus.UPLOAD_IN_PROGRESS,
-                UploadResult.UNKNOWN,
+                null,
                 upload.getRemotePath(),
                 localPath
         );
