@@ -731,7 +731,7 @@
     <string name="shared_icon_share">поділитися</string>
     <string name="shared_icon_shared">надано доступ</string>
     <string name="shared_icon_shared_via_link">доступ надано за посиланням</string>
-    <string name="shared_with_you_by">%1$s поділився з вами</string>
+    <string name="shared_with_you_by">%1$s поділив(-ла-)ся з вами</string>
     <string name="sharee_add_failed">Помилка додавання користувача, з яким ви хочете поділитися</string>
     <string name="show_images">Показувати зображення</string>
     <string name="show_video">Показувати відео</string>
@@ -793,7 +793,7 @@
     <string name="sub_folder_rule_month">Рік/місяць</string>
     <string name="sub_folder_rule_year">Рік</string>
     <string name="subject_shared_with_you">Вам було надано доступ до \"%1$s\"</string>
-    <string name="subject_user_shared_with_you">%1$s поділився %2$s з вами</string>
+    <string name="subject_user_shared_with_you">%1$s поділив(-ла-)ся %2$s з вами</string>
     <string name="subtitle_photos_only">Лише зображення</string>
     <string name="subtitle_photos_videos">Зображення та відео</string>
     <string name="subtitle_videos_only">Лише відео</string>

@@ -412,6 +412,8 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             seeDetails();
         } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
             containerActivity.getFileOperationsHelper().syncFile(getFile());
+        }else if(itemId == R.id.action_cancel_sync){
+            containerActivity.getFileOperationsHelper().cancelTransference(getFile());
         } else if (itemId == R.id.action_set_as_wallpaper) {
             containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getImageView());
         } else if (itemId == R.id.action_export_file) {
