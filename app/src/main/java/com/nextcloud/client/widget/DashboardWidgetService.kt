@@ -86,7 +86,7 @@ class StackRemoteViewsFactory(
     val userAccountManager: UserAccountManager,
     val clientFactory: ClientFactory,
     val intent: Intent,
-    val widgetRepository: WidgetRepository
+    private val widgetRepository: WidgetRepository
 ) : RemoteViewsService.RemoteViewsFactory {
 
     private lateinit var widgetConfiguration: WidgetConfiguration
@@ -163,63 +163,84 @@ class StackRemoteViewsFactory(
 
     // we will switch soon to coil and then streamline all of this
     // Kotlin cannot catch multiple exception types at same time
-    @Suppress("NestedBlockDepth", "TooGenericExceptionCaught")
+    @Suppress("NestedBlockDepth")
     private fun createItemView(position: Int): RemoteViews {
         return RemoteViews(context.packageName, R.layout.widget_item).apply {
+            if (widgetItems.isEmpty()) {
+                return@apply
+            }
+
             val widgetItem = widgetItems[position]
 
-            // icon bitmap/svg
             if (widgetItem.iconUrl.isNotEmpty()) {
-                val glide: FutureTarget<Bitmap>
-                if (Uri.parse(widgetItem.iconUrl).encodedPath!!.endsWith(".svg")) {
-                    glide = Glide.with(context)
-                        .using(
-                            CustomGlideUriLoader(userAccountManager.user, clientFactory),
-                            InputStream::class.java
-                        )
-                        .from(Uri::class.java)
-                        .`as`(SVGorImage::class.java)
-                        .transcode(SvgOrImageBitmapTranscoder(SVG_SIZE, SVG_SIZE), Bitmap::class.java)
-                        .sourceEncoder(StreamEncoder())
-                        .cacheDecoder(FileToStreamDecoder(SvgOrImageDecoder()))
-                        .decoder(SvgOrImageDecoder())
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .load(Uri.parse(widgetItem.iconUrl))
-                        .into(SVG_SIZE, SVG_SIZE)
-                } else {
-                    glide = Glide.with(context)
-                        .using(CustomGlideStreamLoader(widgetConfiguration.user.get(), clientFactory))
-                        .load(widgetItem.iconUrl)
-                        .asBitmap()
-                        .into(SVG_SIZE, SVG_SIZE)
-                }
-
-                try {
-                    if (widgetConfiguration.roundIcon) {
-                        setImageViewBitmap(R.id.icon, BitmapUtils.roundBitmap(glide.get()))
-                    } else {
-                        setImageViewBitmap(R.id.icon, glide.get())
-                    }
-                } catch (e: Exception) {
-                    Log_OC.d(TAG, "Error setting icon", e)
-                    setImageViewResource(R.id.icon, R.drawable.ic_dashboard)
-                }
+                loadIcon(widgetItem, this)
             }
 
-            // text
-            setTextViewText(R.id.title, widgetItem.title)
-
-            if (widgetItem.subtitle.isNotEmpty()) {
-                setViewVisibility(R.id.subtitle, View.VISIBLE)
-                setTextViewText(R.id.subtitle, widgetItem.subtitle)
-            } else {
-                setViewVisibility(R.id.subtitle, View.GONE)
-            }
+            updateTexts(widgetItem, this)
 
             if (widgetItem.link.isNotEmpty()) {
                 val clickIntent = Intent(Intent.ACTION_VIEW, Uri.parse(widgetItem.link))
                 setOnClickFillInIntent(R.id.text_container, clickIntent)
             }
+        }
+    }
+
+    @Suppress("TooGenericExceptionCaught")
+    private fun loadIcon(widgetItem: DashboardWidgetItem, remoteViews: RemoteViews) {
+        val isIconSVG = Uri.parse(widgetItem.iconUrl).encodedPath!!.endsWith(".svg")
+        val source: FutureTarget<Bitmap> = if (isIconSVG) {
+            loadSVGIcon(widgetItem)
+        } else {
+            loadBitmapIcon(widgetItem)
+        }
+
+        try {
+            val bitmap: Bitmap = if (widgetConfiguration.roundIcon) {
+                BitmapUtils.roundBitmap(source.get())
+            } else {
+                source.get()
+            }
+
+            remoteViews.setImageViewBitmap(R.id.icon, bitmap)
+        } catch (e: Exception) {
+            Log_OC.d(TAG, "Error setting icon", e)
+            remoteViews.setImageViewResource(R.id.icon, R.drawable.ic_dashboard)
+        }
+    }
+
+    private fun loadSVGIcon(widgetItem: DashboardWidgetItem): FutureTarget<Bitmap> {
+        return Glide.with(context)
+            .using(
+                CustomGlideUriLoader(userAccountManager.user, clientFactory),
+                InputStream::class.java
+            )
+            .from(Uri::class.java)
+            .`as`(SVGorImage::class.java)
+            .transcode(SvgOrImageBitmapTranscoder(SVG_SIZE, SVG_SIZE), Bitmap::class.java)
+            .sourceEncoder(StreamEncoder())
+            .cacheDecoder(FileToStreamDecoder(SvgOrImageDecoder()))
+            .decoder(SvgOrImageDecoder())
+            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+            .load(Uri.parse(widgetItem.iconUrl))
+            .into(SVG_SIZE, SVG_SIZE)
+    }
+
+    private fun loadBitmapIcon(widgetItem: DashboardWidgetItem): FutureTarget<Bitmap> {
+        return Glide.with(context)
+            .using(CustomGlideStreamLoader(widgetConfiguration.user.get(), clientFactory))
+            .load(widgetItem.iconUrl)
+            .asBitmap()
+            .into(SVG_SIZE, SVG_SIZE)
+    }
+
+    private fun updateTexts(widgetItem: DashboardWidgetItem, remoteViews: RemoteViews) {
+        remoteViews.setTextViewText(R.id.title, widgetItem.title)
+
+        if (widgetItem.subtitle.isNotEmpty()) {
+            remoteViews.setViewVisibility(R.id.subtitle, View.VISIBLE)
+            remoteViews.setTextViewText(R.id.subtitle, widgetItem.subtitle)
+        } else {
+            remoteViews.setViewVisibility(R.id.subtitle, View.GONE)
         }
     }
 

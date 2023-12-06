@@ -884,6 +884,7 @@
     <string name="upload_lock_failed">Неуспело закључавање фасцикле</string>
     <string name="upload_old_android">Шифровање је могуће само са &gt;= Андроидом 5.0</string>
     <string name="upload_query_move_foreign_files">Недостатак простора  спречава копирање фајлова у фасциклу %1$s. Желите ли да их преместите тамо?</string>
+    <string name="upload_quota_exceeded">Прекорачена је квота за складиште</string>
     <string name="upload_scan_doc_upload">Скенирање документа камером</string>
     <string name="upload_sync_conflict">Сукоб синхронизације. Разрешите га ручно</string>
     <string name="upload_unknown_error">Непозната грешка</string>
