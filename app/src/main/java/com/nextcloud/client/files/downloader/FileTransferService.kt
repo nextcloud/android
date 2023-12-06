@@ -109,7 +109,7 @@ class FileTransferService : Service() {
         }
 
         if (!isRunning) {
-            ForegroundServiceHelper.start(
+            ForegroundServiceHelper.startService(
                 this,
                 AppNotificationManager.TRANSFER_NOTIFICATION_ID,
                 notificationsManager.buildDownloadServiceForegroundNotification(),

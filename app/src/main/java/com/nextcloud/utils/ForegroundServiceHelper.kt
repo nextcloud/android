@@ -28,7 +28,7 @@ import androidx.core.app.ServiceCompat
 import com.owncloud.android.datamodel.ForegroundServiceType
 
 object ForegroundServiceHelper {
-    fun start(
+    fun startService(
         service: Service,
         id: Int,
         notification: Notification,
