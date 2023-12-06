@@ -178,6 +178,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                     viewThemeUtils,
                                                     syncedFolderProvider);
 
+        setHasStableIds(true);
+
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
     }
