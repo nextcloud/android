@@ -76,7 +76,7 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         const val ARG_QUERY = "ARG_QUERY"
         const val ARG_HIDDEN_FILES = "ARG_HIDDEN_FILES"
 
-        fun newInstance(query: String?, listOfHiddenFiles: ArrayList<String>): UnifiedSearchFragment {
+        fun newInstance(query: String?, listOfHiddenFiles: ArrayList<String>?): UnifiedSearchFragment {
             val fragment = UnifiedSearchFragment()
             val args = Bundle()
             args.putString(ARG_QUERY, query)
