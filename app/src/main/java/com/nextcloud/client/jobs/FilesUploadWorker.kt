@@ -262,7 +262,7 @@ class FilesUploadWorker(
     ) {
         Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.code)
 
-        if (uploadResult.isSuccess){
+        if (uploadResult.isSuccess) {
             cancelOldErrorNotification(uploadFileOperation)
             return
         }
@@ -319,9 +319,11 @@ class FilesUploadWorker(
             }
             notificationBuilder.setContentText(content)
 
-            notificationManager.notify(NotificationUtils.createUploadNotificationTag(uploadFileOperation.file),
-                NOTIFICATION_ERROR_ID, notificationBuilder.build())
-
+            notificationManager.notify(
+                NotificationUtils.createUploadNotificationTag(uploadFileOperation.file),
+                NOTIFICATION_ERROR_ID,
+                notificationBuilder.build()
+            )
         }
     }
 
@@ -398,12 +400,16 @@ class FilesUploadWorker(
         lastPercent = percent
     }
 
-    private fun cancelOldErrorNotification(uploadFileOperation: UploadFileOperation){
-        //cancel for old file because of file conflicts
-        notificationManager.cancel(NotificationUtils.createUploadNotificationTag(uploadFileOperation.oldFile),
-            NOTIFICATION_ERROR_ID)
-        notificationManager.cancel(NotificationUtils.createUploadNotificationTag(uploadFileOperation.file),
-            NOTIFICATION_ERROR_ID)
+    private fun cancelOldErrorNotification(uploadFileOperation: UploadFileOperation) {
+        // cancel for old file because of file conflicts
+        notificationManager.cancel(
+            NotificationUtils.createUploadNotificationTag(uploadFileOperation.oldFile),
+            NOTIFICATION_ERROR_ID
+        )
+        notificationManager.cancel(
+            NotificationUtils.createUploadNotificationTag(uploadFileOperation.file),
+            NOTIFICATION_ERROR_ID
+        )
     }
 
     override fun onStopped() {
