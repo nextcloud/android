@@ -70,7 +70,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
  * Activity listing pending, active, and completed uploads. User can delete completed uploads from view. Content of this
  * list of coming from {@link UploadsStorageManager}.
  */
-public class UploadListActivity extends FileActivity implements TwoActionDialogFragment.TwoActionDialogActionListener {
+public class UploadListActivity extends FileActivity {
 
     private static final String TAG = UploadListActivity.class.getSimpleName();
     public static final String HANDLE_FILE_EXISTENCE_RECEIVER = "HANDLE_FILE_EXISTENCE_RECEIVER";
@@ -161,22 +161,25 @@ public class UploadListActivity extends FileActivity implements TwoActionDialogF
     };
 
     private void showHandleFileExistenceDialog() {
-        TwoActionDialogFragment dialog = TwoActionDialogFragment.Companion.newInstance(R.string.uploader_handle_not_existed_file_dialog_title,
-                                                                                       R.string.uploader_handle_not_existed_file_dialog_message,
-                                                                                       R.string.common_cancel,
-                                                                                       R.string.common_ok,
-                                                                                       this);
+        TwoActionDialogFragment dialog = TwoActionDialogFragment
+            .Companion
+            .newInstance(R.string.uploader_handle_not_existed_file_dialog_title,
+                         R.string.uploader_handle_not_existed_file_dialog_message,
+                         R.string.uploader_handle_not_existed_file_dialog_negative_button_text,
+                         R.string.common_ok,
+                         new TwoActionDialogFragment.TwoActionDialogActionListener() {
+                             @Override
+                             public void positiveAction() {
+
+                             }
+
+                             @Override
+                             public void negativeAction() {
+                                 OCFile fileOnlyExistOnLocalStorage = uploadListAdapter.getSelectedOCFile();
+                                 uploadListAdapter.removeUpload(uploadListAdapter.selectedOCUpload);
+                             }
+                         });
         dialog.show(this.getSupportFragmentManager(), null);
-    }
-
-    @Override
-    public void positiveAction() {
-
-    }
-
-    @Override
-    public void negativeAction() {
-
     }
 
     @Override
@@ -240,8 +243,7 @@ public class UploadListActivity extends FileActivity implements TwoActionDialogF
             uploadsStorageManager,
             connectivityService,
             userAccountManager,
-            powerManagementService
-                                                        )).start();
+            powerManagementService)).start();
 
         // update UI
         uploadListAdapter.loadUploadItemsFromDb();

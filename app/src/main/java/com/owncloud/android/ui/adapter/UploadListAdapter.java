@@ -502,6 +502,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                                          ItemViewHolder itemViewHolder,
                                                          OCUpload item,
                                                          String status) {
+        selectedFileRemotePath = item.getRemotePath();
         String remotePath = item.getRemotePath();
         OCFile localFile = storageManager.getFileByEncryptedRemotePath(remotePath);
 
@@ -526,7 +527,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         return false;
     }
 
+    public OCUpload selectedOCUpload;
+
     private void refreshFolderAndUpdateUI(ItemViewHolder holder, User user, OCFile folder, String remotePath, OCUpload item, String status) {
+        selectedOCUpload = item;
         Context context = MainApp.getAppContext();
 
         this.refreshFolder(context, holder, user, folder, (caller, result) -> {
@@ -570,7 +574,13 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         popup.show();
     }
 
-    private void removeUpload(OCUpload item) {
+    private String selectedFileRemotePath;
+
+    public OCFile getSelectedOCFile() {
+        return storageManager.getFileByEncryptedRemotePath(selectedFileRemotePath);
+    }
+
+    public void removeUpload(OCUpload item) {
         uploadsStorageManager.removeUpload(item);
         loadUploadItemsFromDb();
     }
