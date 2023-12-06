@@ -223,7 +223,7 @@ public class PreviewImageActivity extends FileActivity implements
             }
             return true;
         } else {
-            return onOptionsItemSelected(item);
+            return super.onOptionsItemSelected(item);
         }
     }
 

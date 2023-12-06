@@ -38,6 +38,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -360,7 +361,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 if (exoPlayer != null) {
                     playVideo();
                 } else {
-                    final Handler handler = new Handler();
+                    final Handler handler = new Handler(Looper.getMainLooper());
                     Executors.newSingleThreadExecutor().execute(() -> {
                         try {
                             nextcloudClient = clientFactory.createNextcloudClient(accountManager.getUser());

@@ -54,6 +54,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.utils.extensions.ExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.PreviewImageFragmentBinding;
@@ -115,7 +116,6 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     private static final String MIME_TYPE_SVG = "image/svg+xml";
 
     private Boolean showResizedImage;
-
     private Bitmap bitmap;
 
     private static final String TAG = PreviewImageFragment.class.getSimpleName();
@@ -210,7 +210,10 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             OCFile videoOfLivePhoto = getFile().videoOfLivePhoto;
 
             binding.livePhotoIndicator.setVisibility(View.VISIBLE);
-            binding.livePhotoIndicator.setOnClickListener(v -> playLivePhoto(videoOfLivePhoto));
+            ExtensionsKt.clickWithDebounce(binding.livePhotoIndicator, 4000L, () -> {
+                playLivePhoto(videoOfLivePhoto);
+                return null;
+            });
         }
     }
 
