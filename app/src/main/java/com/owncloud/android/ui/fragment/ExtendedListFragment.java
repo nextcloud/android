@@ -467,7 +467,7 @@ public class ExtendedListFragment extends Fragment implements
     private void scrollToPosition(int position) {
         LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
 
-        if (mRecyclerView != null) {
+        if (linearLayoutManager != null) {
             int visibleItemCount = linearLayoutManager.findLastCompletelyVisibleItemPosition() -
                 linearLayoutManager.findFirstCompletelyVisibleItemPosition();
             linearLayoutManager.scrollToPositionWithOffset(position, (visibleItemCount / 2) * mHeightCell);
