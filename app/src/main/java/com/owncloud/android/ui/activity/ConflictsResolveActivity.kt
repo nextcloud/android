@@ -20,7 +20,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.nextcloud.client.account.User
+import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -164,7 +166,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                         startDialog()
                     } else {
                         Log_OC.e(TAG, "ReadFileRemoteOp returned failure with code: " + result.httpCode)
-                        showErrorAndFinish()
+                        showErrorAndFinish(result.httpCode)
                     }
                 } catch (e: Exception) {
                     Log_OC.e(TAG, "Error when trying to fetch remote file", e)
@@ -203,9 +205,30 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         }
     }
 
-    private fun showErrorAndFinish() {
-        runOnUiThread { Toast.makeText(this, R.string.conflict_dialog_error, Toast.LENGTH_LONG).show() }
-        finish()
+    private fun showErrorAndFinish(code: Int? = null) {
+        val message = parseErrorMessage(code)
+        runOnUiThread {
+            if (code != null) {
+                sendHandleFileExistenceEventBroadcast()
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
+
+            finish()
+        }
+    }
+
+    private fun sendHandleFileExistenceEventBroadcast() {
+        val intent = Intent(UploadListActivity.HANDLE_FILE_EXISTENCE_RECEIVER)
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+    }
+
+    private fun parseErrorMessage(code: Int?): String {
+        return if (code == HTTPStatusCodes.NOT_FOUND.code) {
+            getString(R.string.uploader_file_not_found_on_server_message)
+        } else {
+            getString(R.string.conflict_dialog_error)
+        }
     }
 
     /**

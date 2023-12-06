@@ -503,9 +503,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                                          OCUpload item,
                                                          String status) {
         String remotePath = item.getRemotePath();
-        OCFile ocFile = storageManager.getFileByEncryptedRemotePath(remotePath);
+        OCFile localFile = storageManager.getFileByEncryptedRemotePath(remotePath);
 
-        if (ocFile == null) {
+        if (localFile == null) {
             // Remote file doesn't exist, try to refresh folder
             OCFile folder = storageManager.getFileByEncryptedRemotePath(new File(remotePath).getParent() + "/");
 
@@ -517,8 +517,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             // Destination folder doesn't exist anymore
         }
 
-        if (ocFile != null) {
-            this.openConflictActivity(ocFile, item);
+        if (localFile != null) {
+            this.openConflictActivity(localFile, item);
             return true;
         }
 
@@ -533,10 +533,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             holder.binding.uploadStatus.setText(status);
 
             if (result.isSuccess()) {
-                OCFile file = storageManager.getFileByEncryptedRemotePath(remotePath);
+                OCFile fileOnServer = storageManager.getFileByEncryptedRemotePath(remotePath);
 
-                if (file != null) {
-                    openConflictActivity(file, item);
+                if (fileOnServer != null) {
+                    openConflictActivity(fileOnServer, item);
                 } else {
                     displayFileNotFoundError(holder.itemView, context);
                 }

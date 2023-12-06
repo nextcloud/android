@@ -912,6 +912,9 @@
     <string name="failed_to_start_editor">Failed to start editor</string>
     <string name="create_rich_workspace">Add folder info</string>
     <string name="creates_rich_workspace">creates folder info</string>
+    <string name="uploader_handle_not_existed_file_dialog_title">File Not Found</string>
+    <string name="uploader_handle_not_existed_file_dialog_message">This file does not longer exist in server still want to upload?</string>
+    <string name="uploader_file_not_found_on_server_message">We couldnt locate the file on server. Another user may have deleted the file</string>
     <string name="uploader_file_not_found_message">File not found. Are you sure this file exist or conflict not solved before?</string>
     <string name="uploader_upload_failed_sync_conflict_error">File upload conflict</string>
     <string name="uploader_upload_failed_sync_conflict_error_content">Pick which version to keep of %1$s</string>

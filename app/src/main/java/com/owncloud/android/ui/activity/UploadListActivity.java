@@ -56,6 +56,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.adapter.UploadListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
+import com.owncloud.android.ui.dialog.TwoActionDialogFragment;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -66,13 +67,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
- * Activity listing pending, active, and completed uploads. User can delete
- * completed uploads from view. Content of this list of coming from
- * {@link UploadsStorageManager}.
+ * Activity listing pending, active, and completed uploads. User can delete completed uploads from view. Content of this
+ * list of coming from {@link UploadsStorageManager}.
  */
-public class UploadListActivity extends FileActivity {
+public class UploadListActivity extends FileActivity implements TwoActionDialogFragment.TwoActionDialogActionListener {
 
     private static final String TAG = UploadListActivity.class.getSimpleName();
+    public static final String HANDLE_FILE_EXISTENCE_RECEIVER = "HANDLE_FILE_EXISTENCE_RECEIVER";
 
     private UploadMessagesReceiver uploadMessagesReceiver;
 
@@ -144,6 +145,44 @@ public class UploadListActivity extends FileActivity {
         setupDrawer(R.id.nav_uploads);
 
         setupContent();
+        registerHandleFileExistenceDialogReceiver();
+    }
+
+    private void registerHandleFileExistenceDialogReceiver() {
+        IntentFilter filter = new IntentFilter(HANDLE_FILE_EXISTENCE_RECEIVER);
+        LocalBroadcastManager.getInstance(this).registerReceiver(handleFileExistenceReceiver, filter);
+    }
+
+    private final BroadcastReceiver handleFileExistenceReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            showHandleFileExistenceDialog();
+        }
+    };
+
+    private void showHandleFileExistenceDialog() {
+        TwoActionDialogFragment dialog = TwoActionDialogFragment.Companion.newInstance(R.string.uploader_handle_not_existed_file_dialog_title,
+                                                                                       R.string.uploader_handle_not_existed_file_dialog_message,
+                                                                                       R.string.common_cancel,
+                                                                                       R.string.common_ok,
+                                                                                       this);
+        dialog.show(this.getSupportFragmentManager(), null);
+    }
+
+    @Override
+    public void positiveAction() {
+
+    }
+
+    @Override
+    public void negativeAction() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(handleFileExistenceReceiver);
+        super.onDestroy();
     }
 
     private void setupContent() {
@@ -178,6 +217,7 @@ public class UploadListActivity extends FileActivity {
         swipeListRefreshLayout.setOnRefreshListener(this::refresh);
 
         loadItems();
+
     }
 
     private void loadItems() {
@@ -327,14 +367,14 @@ public class UploadListActivity extends FileActivity {
                 if (mUploaderBinder == null) {
                     mUploaderBinder = (FileUploaderBinder) service;
                     Log_OC.d(TAG, "UploadListActivity connected to Upload service. component: " +
-                            component + " service: " + service);
+                        component + " service: " + service);
                 } else {
                     Log_OC.d(TAG, "mUploaderBinder already set. mUploaderBinder: " +
-                            mUploaderBinder + " service:" + service);
+                        mUploaderBinder + " service:" + service);
                 }
             } else {
                 Log_OC.d(TAG, "UploadListActivity not connected to Upload service. component: " +
-                        component + " service: " + service);
+                    component + " service: " + service);
             }
         }
 
