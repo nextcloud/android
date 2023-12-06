@@ -59,6 +59,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FilesUploadHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
+import java.security.SecureRandom
 
 @Suppress("LongParameterList")
 class FilesUploadWorker(
@@ -398,6 +399,7 @@ class FilesUploadWorker(
     }
 
     private fun cancelOldErrorNotification(uploadFileOperation: UploadFileOperation){
+        //cancel for old file because of file conflicts
         notificationManager.cancel(NotificationUtils.createUploadNotificationTag(uploadFileOperation.oldFile),
             NOTIFICATION_ERROR_ID)
         notificationManager.cancel(NotificationUtils.createUploadNotificationTag(uploadFileOperation.file),

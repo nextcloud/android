@@ -1448,6 +1448,7 @@ public class FileUploader extends Service
         }
 
         if (uploadFileOperation == null) return;
+        //cancel for old file because of file conflicts
         mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(uploadFileOperation.getOldFile()),
                                    NOTIFICATION_ERROR_ID);
         mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(uploadFileOperation.getFile()),
