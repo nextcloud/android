@@ -1447,12 +1447,19 @@ public class FileUploader extends Service
             mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         }
 
-        if (uploadFileOperation == null || uploadFileOperation.getOldFile() == null) return;
-        //cancel for old file because of file conflicts
-        mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(uploadFileOperation.getOldFile()),
-                                    NOTIFICATION_ERROR_ID);
+        if (uploadFileOperation == null) return;
+
         mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(uploadFileOperation.getFile()),
-                                   NOTIFICATION_ERROR_ID);
+                                    NOTIFICATION_ERROR_ID);
+
+        //cancel for old file because of file conflicts
+        OCFile oldFile = uploadFileOperation.getOldFile();
+        if ( oldFile != null) {
+            mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(oldFile),
+                                        NOTIFICATION_ERROR_ID);
+        }
+
+
     }
 
 
