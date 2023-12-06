@@ -23,7 +23,6 @@
 package com.nextcloud.client.jobs
 
 import android.accounts.Account
-import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -254,54 +253,9 @@ class FilesUploadWorker(
         // TODO generalize for automated uploads
     }
 
-    private fun createConflictResolveAction(context: Context, uploadFileOperation: UploadFileOperation): PendingIntent {
-        val intent = ConflictsResolveActivity.createIntent(
-            uploadFileOperation.file,
-            uploadFileOperation.user,
-            uploadFileOperation.ocUploadId,
-            Intent.FLAG_ACTIVITY_CLEAR_TOP,
-            context
-        )
-
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_MUTABLE)
-        } else {
-            PendingIntent.getActivity(
-                context,
-                0,
-                intent,
-                PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-            )
-        }
-    }
-
-    private fun addConflictResolveActionToNotification(uploadFileOperation: UploadFileOperation) {
-        val intent: PendingIntent = createConflictResolveAction(context, uploadFileOperation)
-
-        notificationBuilder.addAction(
-            R.drawable.ic_cloud_upload,
-            context.getString(R.string.upload_list_resolve_conflict),
-            intent
-        )
-    }
-
-    private fun addUploadListContentIntent(uploadFileOperation: UploadFileOperation) {
-        val uploadListIntent = createUploadListIntent(uploadFileOperation)
-
-        notificationBuilder.setContentIntent(
-            PendingIntent.getActivity(
-                context,
-                System.currentTimeMillis().toInt(),
-                uploadListIntent,
-                PendingIntent.FLAG_IMMUTABLE
-            )
-        )
-    }
-
     /**
      * adapted from [com.owncloud.android.files.services.FileUploader.notifyUploadResult]
      */
-    @SuppressLint("RestrictedApi")
     private fun notifyUploadResult(
         uploadFileOperation: UploadFileOperation,
         uploadResult: RemoteOperationResult<Any?>
@@ -330,7 +284,6 @@ class FilesUploadWorker(
                 // check file conflict
                 tickerId = R.string.uploader_upload_failed_sync_conflict_error
             }
-
             notificationBuilder
                 .setTicker(context.getString(tickerId))
                 .setContentTitle(context.getString(tickerId))
@@ -341,16 +294,23 @@ class FilesUploadWorker(
 
             val content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, uploadFileOperation, context.resources)
 
-            addUploadListContentIntent(uploadFileOperation)
-
-            if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
-                addConflictResolveActionToNotification(uploadFileOperation)
-            }
-
             if (needsToUpdateCredentials) {
                 createUpdateCredentialsNotification(uploadFileOperation.user.toPlatformAccount())
+            } else {
+                val intent = if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
+                    createResolveConflictIntent(uploadFileOperation)
+                } else {
+                    createUploadListIntent(uploadFileOperation)
+                }
+                notificationBuilder.setContentIntent(
+                    PendingIntent.getActivity(
+                        context,
+                        System.currentTimeMillis().toInt(),
+                        intent,
+                        PendingIntent.FLAG_IMMUTABLE
+                    )
+                )
             }
-
             notificationBuilder.setContentText(content)
             if (!uploadResult.isSuccess) {
                 notificationManager.notify(SecureRandom().nextInt(), notificationBuilder.build())
@@ -362,6 +322,16 @@ class FilesUploadWorker(
         return UploadListActivity.createIntent(
             uploadFileOperation.file,
             uploadFileOperation.user,
+            Intent.FLAG_ACTIVITY_CLEAR_TOP,
+            context
+        )
+    }
+
+    private fun createResolveConflictIntent(uploadFileOperation: UploadFileOperation): Intent {
+        return ConflictsResolveActivity.createIntent(
+            uploadFileOperation.file,
+            uploadFileOperation.user,
+            uploadFileOperation.ocUploadId,
             Intent.FLAG_ACTIVITY_CLEAR_TOP,
             context
         )

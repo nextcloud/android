@@ -1052,7 +1052,6 @@ public class FileUploader extends Service
         i.putExtra(FileUploader.KEY_ACCOUNT, user.toPlatformAccount());
         i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
 
-        // FIXME Conflict files not uploading successfully
         if (useFilesUploadWorker(context)) {
             new FilesUploadHelper().retryUpload(upload, user);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
