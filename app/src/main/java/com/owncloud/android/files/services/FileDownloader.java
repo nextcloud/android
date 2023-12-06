@@ -83,6 +83,7 @@ import java.util.Vector;
 import javax.inject.Inject;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.ServiceCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import dagger.android.AndroidInjection;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -203,7 +204,11 @@ public class FileDownloader extends Service
         Log_OC.d(TAG, "Starting command with id " + startId);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            startForeground(FOREGROUND_SERVICE_ID, mNotification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
+            ServiceCompat.startForeground(
+                this,
+                FOREGROUND_SERVICE_ID,
+                mNotification,
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
         } else {
             startForeground(FOREGROUND_SERVICE_ID, mNotification);
         }
