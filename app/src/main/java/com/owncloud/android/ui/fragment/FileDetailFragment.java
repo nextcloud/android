@@ -783,13 +783,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             OwnCloudClient client = clientFactory.create(user);
 
             ToggleFavoriteRemoteOperation toggleFavoriteOperation = new ToggleFavoriteRemoteOperation(
-                event.shouldFavorite, event.remotePath);
+                event.getShouldFavorite(), event.getRemotePath());
             RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(client);
 
             if (remoteOperationResult.isSuccess()) {
-                getFile().setFavorite(event.shouldFavorite);
-                OCFile file = storageManager.getFileByEncryptedRemotePath(event.remotePath);
-                file.setFavorite(event.shouldFavorite);
+                getFile().setFavorite(event.getShouldFavorite());
+                OCFile file = storageManager.getFileByEncryptedRemotePath(event.getRemotePath());
+                file.setFavorite(event.getShouldFavorite());
                 storageManager.saveFile(file);
             }
 
