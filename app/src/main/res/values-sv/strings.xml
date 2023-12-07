@@ -885,6 +885,7 @@
     <string name="upload_lock_failed">Misslyckades låsa mappen</string>
     <string name="upload_old_android">Kryptering är endast möjlig med &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Otillräckligt utrymme förhindrar kopiering av de valda filerna till %1$s -mappen. Vill du flytta dem dit i stället?</string>
+    <string name="upload_quota_exceeded">Lagringskvot överskriden</string>
     <string name="upload_scan_doc_upload">Slams dokument från kamera</string>
     <string name="upload_sync_conflict">Synkroniseringskonflikt, lös problemet manuellt</string>
     <string name="upload_unknown_error">Okänt fel</string>
