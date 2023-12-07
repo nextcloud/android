@@ -1246,6 +1246,7 @@ public class FileUploader extends Service
             }
         }
 
+        @SuppressFBWarnings("NP")
         public boolean isUploadingNow(OCUpload upload) {
             if (useFilesUploadWorker(getApplicationContext())){
                 UploadFileOperation currentUploadFileOperation = FilesUploadWorker.Companion.getCurrentUploadFileOperation();
