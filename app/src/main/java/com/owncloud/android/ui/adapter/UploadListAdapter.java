@@ -502,6 +502,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                                          ItemViewHolder itemViewHolder,
                                                          OCUpload item,
                                                          String status) {
+            // TODO Optimize
+        selectedOCUpload = item;
         selectedFileRemotePath = item.getRemotePath();
         String remotePath = item.getRemotePath();
         OCFile localFile = storageManager.getFileByEncryptedRemotePath(remotePath);
@@ -530,7 +532,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     public OCUpload selectedOCUpload;
 
     private void refreshFolderAndUpdateUI(ItemViewHolder holder, User user, OCFile folder, String remotePath, OCUpload item, String status) {
-        selectedOCUpload = item;
         Context context = MainApp.getAppContext();
 
         this.refreshFolder(context, holder, user, folder, (caller, result) -> {

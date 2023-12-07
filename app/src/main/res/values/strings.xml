@@ -913,6 +913,7 @@
     <string name="create_rich_workspace">Add folder info</string>
     <string name="creates_rich_workspace">creates folder info</string>
     <string name="uploader_handle_not_existed_file_dialog_title">File Not Found</string>
+    <string name="uploader_handle_not_existed_file_dialog_positive_button_text">Re-upload Local File</string>
     <string name="uploader_handle_not_existed_file_dialog_negative_button_text">Delete Local File</string>
     <string name="uploader_handle_not_existed_file_dialog_message">This file does not longer exist in server still want to upload?</string>
     <string name="uploader_file_not_found_on_server_message">We couldnt locate the file on server. Another user may have deleted the file</string>

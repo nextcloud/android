@@ -44,10 +44,12 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.utils.Throttler;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -168,13 +170,13 @@ public class UploadListActivity extends FileActivity {
             .newInstance(R.string.uploader_handle_not_existed_file_dialog_title,
                          R.string.uploader_handle_not_existed_file_dialog_message,
                          R.string.uploader_handle_not_existed_file_dialog_negative_button_text,
-                         R.string.common_ok,
+                         R.string.uploader_handle_not_existed_file_dialog_positive_button_text,
                          new TwoActionDialogFragment.TwoActionDialogActionListener() {
                              @Override
                              public void positiveAction() {
-                                 // FIXME re-upload same file
-                                 OCFile fileOnlyExistOnLocalStorage = uploadListAdapter.getSelectedOCFile();
-                                 getFileOperationsHelper().syncFile(fileOnlyExistOnLocalStorage);
+                                 OCUpload upload = uploadListAdapter.selectedOCUpload;
+                                 upload.setLastResult(null);
+                                 FileUploader.retryUpload(MainApp.getAppContext(), userAccountManager.getUser(), upload);
                              }
 
                              @Override
