@@ -711,6 +711,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             case LOCAL_STORAGE_NOT_COPIED:
                 status = parentActivity.getString(R.string.upload_local_storage_not_copied);
                 break;
+            case QUOTA_EXCEEDED:
+                status = parentActivity.getString(R.string.upload_quota_exceeded);
+                break;
             default:
                 status = parentActivity.getString(R.string.upload_unknown_error);
                 break;

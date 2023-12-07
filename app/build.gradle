@@ -126,6 +126,10 @@ android {
             }
         }
 
+        buildFeatures {
+            buildConfig = true
+        }
+
         productFlavors {
             // used for f-droid
             generic {

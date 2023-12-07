@@ -350,14 +350,18 @@ public class FileDisplayActivity extends FileActivity
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        StoragePermissionDialogFragment fragment = (StoragePermissionDialogFragment) getSupportFragmentManager().findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG);
-        if (fragment != null) {
-            Dialog dialog = fragment.getDialog();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            StoragePermissionDialogFragment fragment =
+                (StoragePermissionDialogFragment) getSupportFragmentManager()
+                    .findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG);
+            if (fragment != null) {
+                Dialog dialog = fragment.getDialog();
 
-            if (dialog != null && dialog.isShowing()) {
-                dialog.dismiss();
-                getSupportFragmentManager().beginTransaction().remove(fragment).commitNowAllowingStateLoss();
-                PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commitNowAllowingStateLoss();
+                    PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
+                }
             }
         }
     }
