@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Copia</string>
     <string name="actionbar_mkdir">Nuova cartella</string>
     <string name="actionbar_move">Sposta</string>
+    <string name="actionbar_move_or_copy">Sposta o copia</string>
     <string name="actionbar_open_with">Apri con</string>
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Dettagli</string>
@@ -159,6 +160,7 @@
     <string name="conflict_message_description">Se selezioni entrambe le versioni, il file locale ha un numero aggiunto al suo nome.</string>
     <string name="conflict_server_file">File su server</string>
     <string name="contact_backup_title">Backup contatti</string>
+    <string name="contact_no_permission">Autorizzazione Contatti richiesta</string>
     <string name="contactlist_item_icon">Icona utente della lista contatti</string>
     <string name="contactlist_no_permission">Nessun permesso specificato, nessun elemento importato.</string>
     <string name="contacts">Contatti</string>
@@ -257,6 +259,7 @@
     <string name="ecosystem_apps_more">Altre app di Nextcloud</string>
     <string name="ecosystem_apps_notes">Nextcloud Notes</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Impossibile scegliere l\'indirizzo di posta.</string>
     <string name="encrypted">Imposta come cifrato</string>
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
     <string name="end_to_end_encryption_decrypting">Decifratura in corso…</string>
@@ -647,12 +650,17 @@
     <string name="remove_e2e">Su questo client puoi rimuovere localmente la cifratura end-to-end</string>
     <string name="remove_e2e_message">Su questo client puoi rimuovere localmente la cifratura end-to-end. I file cifrati rimarranno sul server, ma non verranno più sincronizzati su questo computer.</string>
     <string name="remove_fail_msg">Eliminazione non riuscita</string>
+    <string name="remove_local_account">Rimuovi account locale</string>
+    <string name="remove_local_account_details">Rimuovi account dal dispositivo e elimina tutti i file locali</string>
     <string name="remove_notification_failed">Rimozione notifica non riuscita.</string>
     <string name="remove_push_notification">Rimuovi</string>
     <string name="remove_success_msg">Eliminato</string>
     <string name="rename_dialog_title">Digita un nuovo nome</string>
     <string name="rename_local_fail_msg">La copia locale non può essere rinominata, prova un nome diverso</string>
     <string name="rename_server_fail_msg">Rinomina non consentita, nome già utilizzato</string>
+    <string name="request_account_deletion">Richiesta di eliminazione account</string>
+    <string name="request_account_deletion_button">Richiedi eliminazione</string>
+    <string name="request_account_deletion_details">Richiedi l\'eliminazione permanente dell\'account al fornitore del servizio</string>
     <string name="reshare_not_allowed">La ri-condivisione non è consentita</string>
     <string name="resharing_is_not_allowed">La ri-condivisione non è consentita</string>
     <string name="resized_image_not_possible_download">Immagine ridimensionata non disponibile. Scaricare l\'immagine completa?</string>
@@ -944,7 +952,9 @@
     <string name="wait_a_moment">Attendi…</string>
     <string name="wait_checking_credentials">Controllo delle credenziali memorizzate</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copia file dall\'archiviazione privata</string>
+    <string name="webview_version_check_alert_dialog_message">Aggiorna l\'app System WebView di Android per accedere</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Aggiorna</string>
+    <string name="webview_version_check_alert_dialog_title">Aggiorna System WebView di Android</string>
     <string name="what_s_new_image">Immagine Cosa c\'è di nuovo</string>
     <string name="whats_new_skip">Salta</string>
     <string name="whats_new_title">Prima volta su %1$s</string>

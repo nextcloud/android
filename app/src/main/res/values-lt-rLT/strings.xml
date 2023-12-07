@@ -581,6 +581,7 @@
     <string name="rename_dialog_title">Įveskite naują pavadinimą</string>
     <string name="rename_local_fail_msg">Nepavyko pervadinti vietinės kopijos, pabandykite kitą pavadinimą</string>
     <string name="rename_server_fail_msg">Pervadinimas neįmanomas, pavadinimas jau užimtas</string>
+    <string name="request_account_deletion">Užklausti paskyros ištrynimo</string>
     <string name="reshare_not_allowed">Bendrinimas iš naujo yra neleidžiamas</string>
     <string name="resharing_is_not_allowed">Bendrinimas iš naujo yra neleidžiamas</string>
     <string name="resized_image_not_possible_download">Nėra prieinamas pakeisto dydžio paveikslas. Atsisiųsti pilno dydžio paveikslą?</string>

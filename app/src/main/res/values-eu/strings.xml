@@ -653,6 +653,7 @@
     <string name="rename_dialog_title">Idatzi izen berri bat</string>
     <string name="rename_local_fail_msg">Ezin izan da kopia lokala berrizendatu, saiatu beste izen batekin</string>
     <string name="rename_server_fail_msg">Ezin izan da berrizendatu, izena hartua zegoen</string>
+    <string name="request_account_deletion">Eskatu kontuaren ezabaketa</string>
     <string name="reshare_not_allowed">Birpartekatzea ez da onartzen</string>
     <string name="resharing_is_not_allowed">Birpartekatzea ez da onartzen</string>
     <string name="resized_image_not_possible_download">Ez dago tamainaz aldatutako irudirik eskuragarri. Irudi osoa deskargatu nahi duzu?</string>

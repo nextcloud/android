@@ -650,12 +650,14 @@
     <string name="remove_e2e">Bu istemciden uçtan uca şifrelemeyi yerel olarak kaldırabilirsiniz</string>
     <string name="remove_e2e_message">Bu istemcide yerel olarak uçtan uca şifrelemeyi kaldırabilirsiniz. Şifrelenmiş dosyalar sunucuda kalır, ancak artık bu bilgisayarla eşitlenmez.</string>
     <string name="remove_fail_msg">Silinemedi</string>
+    <string name="remove_local_account">Yerel hesabı sil</string>
     <string name="remove_notification_failed">Bildirim silinemedi.</string>
     <string name="remove_push_notification">Sil</string>
     <string name="remove_success_msg">Silindi</string>
     <string name="rename_dialog_title">Yeni bir ad yazın</string>
     <string name="rename_local_fail_msg">Yerel kopyanın adı değiştirilemedi. Lütfen başka bir ad deneyin</string>
     <string name="rename_server_fail_msg">Ad zaten kullanıldığından yeniden adlandırılamadı</string>
+    <string name="request_account_deletion">Hesabınızın silinmesini isteyin</string>
     <string name="reshare_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
     <string name="resharing_is_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
     <string name="resized_image_not_possible_download">Boyutu değiştirilmiş bir görsel yok. Tam boyuttaki görsel indirilsin mi?</string>

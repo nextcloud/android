@@ -655,12 +655,17 @@
     <string name="remove_e2e">يُمكنك إلغاء التشفير المحلي لهذا العميل</string>
     <string name="remove_e2e_message">يُمكنك إلغاء التشفير المحلي لهذا العميل. هذا الملف المُشفّر سوف يبقى على الخادوم لكن لن تتم مزامنته مع هذا الحاسوب بعد الآن.</string>
     <string name="remove_fail_msg">فشلت عملية الحذف</string>
+    <string name="remove_local_account">إزالة الحساب المحلي</string>
+    <string name="remove_local_account_details">إزِل الحساب من الجهاز و احذُف كل الملفات المحلية</string>
     <string name="remove_notification_failed">فشل في إزالة الإخطار.</string>
     <string name="remove_push_notification">حذف</string>
     <string name="remove_success_msg">تم حذفه</string>
     <string name="rename_dialog_title">أدخل اسما جديداً</string>
     <string name="rename_local_fail_msg">تعذرت إعادة تسمية النسخة المحلية ، حاول استخدام اسم مختلف</string>
     <string name="rename_server_fail_msg">إعادة التسمية غير ممكنة ، الاسم مأخوذ بالفعل</string>
+    <string name="request_account_deletion">طلب حذف حساب</string>
+    <string name="request_account_deletion_button">طلب الإزالة</string>
+    <string name="request_account_deletion_details">طلب الإزالة الدائمة للحساب من قِبل مُزوّد الخدمة</string>
     <string name="reshare_not_allowed">لا يسمح بعملية إعادة المشاركة</string>
     <string name="resharing_is_not_allowed">لا يسمح بعملية إعادة المشاركة</string>
     <string name="resized_image_not_possible_download">لا توجد صورة بحجمها متاح. تنزيل الصورة الكاملة؟</string>
@@ -886,6 +891,7 @@
     <string name="upload_lock_failed">فشل قفّل المجلد</string>
     <string name="upload_old_android">التشفير ممكن فقط مع &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">يمنع وجود مساحة غير كافية نسخ الملفات المحددة إلى المجلد %1$s. هل ترغب في نقلهم إلى هناك بدلاً من ذلك؟</string>
+    <string name="upload_quota_exceeded">الحصة التخزينية تمّ استنفاذها</string>
     <string name="upload_scan_doc_upload">مسح مستند عبر الكاميرا</string>
     <string name="upload_sync_conflict">تعارض المزامنة ، يرجى حلها يدويًا</string>
     <string name="upload_unknown_error">خطأ غير معروف</string>

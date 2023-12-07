@@ -15,19 +15,8 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http:></http:>//www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.events;
+package com.owncloud.android.ui.events
 
-import android.view.MenuItem;
-
-/**
- * Menu item click event
- */
-public class MenuItemClickEvent {
-    public final MenuItem menuItem;
-
-    public MenuItemClickEvent(MenuItem menuItem) {
-        this.menuItem = menuItem;
-    }
-}
+class VCardToggleEvent(var showRestoreButton: Boolean)

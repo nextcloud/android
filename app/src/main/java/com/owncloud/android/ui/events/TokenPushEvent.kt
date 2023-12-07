@@ -17,10 +17,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.events;
+package com.owncloud.android.ui.events
 
 /**
  * Event to send push token where it belongs
  */
-public class TokenPushEvent {
-}
+class TokenPushEvent 

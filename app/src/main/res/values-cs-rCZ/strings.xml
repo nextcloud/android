@@ -650,12 +650,17 @@
     <string name="remove_e2e">Je možné šifrování mezi koncovými body odebrat lokálně na tomto klientovi</string>
     <string name="remove_e2e_message">Je možné šifrování mezi koncovými body odebrat lokálně na tomto klientovi. Šifrované soubory zůstanou na serveru, ale už nadále nebudou synchronizovány s tímto počítačem.</string>
     <string name="remove_fail_msg">Odstranění se nezdařilo</string>
+    <string name="remove_local_account">Odebrat místní účet</string>
+    <string name="remove_local_account_details">Odebrat účet ze zařízení a smazat veškeré místní soubory</string>
     <string name="remove_notification_failed">Upozornění se nepodařilo odebrat.</string>
     <string name="remove_push_notification">Odebrat</string>
     <string name="remove_success_msg">Smazáno</string>
     <string name="rename_dialog_title">Zadejte nový název</string>
     <string name="rename_local_fail_msg">Nepodařilo se přejmenovat místní kopii – zkuste použít jiný název</string>
     <string name="rename_server_fail_msg">Přejmenování není možné – název už je použit</string>
+    <string name="request_account_deletion">Vyžádat smazání účtu</string>
+    <string name="request_account_deletion_button">Vyžádat si smazání</string>
+    <string name="request_account_deletion_details">Vyžádat si trvalé vymazání účtu u poskytovatele služby</string>
     <string name="reshare_not_allowed">Příjemcům tohoto sdílení není dovoleno ho nasdílet dál dalším</string>
     <string name="resharing_is_not_allowed">Příjemcům tohoto sdílení není dovoleno ho nasdílet dál dalším</string>
     <string name="resized_image_not_possible_download">Zmenšená verze obrázku není k dispozici. Stáhnout obrázek v plné velikosti?</string>
@@ -879,6 +884,7 @@
     <string name="upload_lock_failed">Uzamčení složky se nezdařilo</string>
     <string name="upload_old_android">Šifrování je možné pouze na systému Android verze 5.0 a novějším</string>
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do složky %1$s není dostatek volného místa. Chcete je tam namísto toho přesunout?</string>
+    <string name="upload_quota_exceeded">Kvóta úložiště překročena</string>
     <string name="upload_scan_doc_upload">Naskenovat dokument kamerou</string>
     <string name="upload_sync_conflict">Konflikt synchronizace – vyřešte ručně</string>
     <string name="upload_unknown_error">Neznámá chyba</string>
