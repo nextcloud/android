@@ -80,15 +80,15 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private static final String TAG = UploadListAdapter.class.getSimpleName();
 
     private ProgressListener progressListener;
-    private FileActivity parentActivity;
-    private UploadsStorageManager uploadsStorageManager;
-    private FileDataStorageManager storageManager;
-    private ConnectivityService connectivityService;
-    private PowerManagementService powerManagementService;
-    private UserAccountManager accountManager;
-    private Clock clock;
-    private UploadGroup[] uploadGroups;
-    private boolean showUser;
+    private final FileActivity parentActivity;
+    private final UploadsStorageManager uploadsStorageManager;
+    private final FileDataStorageManager storageManager;
+    private final ConnectivityService connectivityService;
+    private final PowerManagementService powerManagementService;
+    private final UserAccountManager accountManager;
+    private final Clock clock;
+    private final UploadGroup[] uploadGroups;
+    private final boolean showUser;
     private final ViewThemeUtils viewThemeUtils;
 
     @Override
@@ -115,42 +115,31 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         headerViewHolder.binding.uploadListTitle.setOnClickListener(v -> toggleSectionExpanded(section));
 
         switch (group.type) {
-            case CURRENT:
-            case FINISHED:
-                headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close);
-                break;
-            case FAILED:
-                headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_sync);
-                break;
+            case CURRENT, FINISHED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close);
+            case FAILED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_sync);
         }
 
         headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
             switch (group.type) {
-                case CURRENT:
+                case CURRENT -> {
                     FileUploader.FileUploaderBinder uploaderBinder = parentActivity.getFileUploaderBinder();
-
                     if (uploaderBinder != null) {
                         for (OCUpload upload : group.getItems()) {
                             uploaderBinder.cancel(upload);
                         }
                     }
-                    break;
-                case FINISHED:
-                    uploadsStorageManager.clearSuccessfulUploads();
-                    break;
-                case FAILED:
-                    new Thread(() -> FileUploader.retryFailedUploads(
-                        parentActivity,
-                        uploadsStorageManager,
-                        connectivityService,
-                        accountManager,
-                        powerManagementService
-                                                                    )).start();
-                    break;
-
-                default:
-                    // do nothing
-                    break;
+                }
+                case FINISHED -> uploadsStorageManager.clearSuccessfulUploads();
+                case FAILED -> new Thread(() -> FileUploader.retryFailedUploads(
+                    parentActivity,
+                    uploadsStorageManager,
+                    connectivityService,
+                    accountManager,
+                    powerManagementService
+                                                                               )).start();
+                default -> {
+                }
+                // do nothing
             }
 
             loadUploadItemsFromDb();
@@ -213,11 +202,14 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         loadUploadItemsFromDb();
     }
 
+    public OCUpload selectedOCUpload;
+
     @Override
     public void onBindViewHolder(SectionedViewHolder holder, int section, int relativePosition, int absolutePosition) {
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
         OCUpload item = uploadGroups[section].getItem(relativePosition);
+        selectedOCUpload = item;
 
         itemViewHolder.binding.uploadName.setText(item.getLocalPath());
 
@@ -272,11 +264,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         // Update information depending of upload details
         String status = getStatusText(item);
         switch (item.getUploadStatus()) {
-            case UPLOAD_IN_PROGRESS:
+            case UPLOAD_IN_PROGRESS -> {
                 viewThemeUtils.platform.themeHorizontalProgressBar(itemViewHolder.binding.uploadProgressBar);
                 itemViewHolder.binding.uploadProgressBar.setProgress(0);
                 itemViewHolder.binding.uploadProgressBar.setVisibility(View.VISIBLE);
-
                 FileUploader.FileUploaderBinder binder = parentActivity.getFileUploaderBinder();
                 if (binder != null) {
                     if (binder.isUploadingNow(item)) {
@@ -286,7 +277,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                             binder.removeDatatransferProgressListener(
                                 progressListener,
                                 progressListener.getUpload()   // the one that was added
-                            );
+                                                                     );
                         }
                         // ... then, bind the current progress bar to listen for updates
                         progressListener = new ProgressListener(item, itemViewHolder.binding.uploadProgressBar);
@@ -304,19 +295,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 } else {
                     Log_OC.w(TAG, "FileUploaderBinder not ready yet for upload " + item.getRemotePath());
                 }
-
                 itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
                 itemViewHolder.binding.uploadFileSize.setVisibility(View.GONE);
                 itemViewHolder.binding.uploadProgressBar.invalidate();
-                break;
-
-            case UPLOAD_FAILED:
-                itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
-                break;
-
-            case UPLOAD_SUCCEEDED:
-                itemViewHolder.binding.uploadStatus.setVisibility(View.GONE);
-                break;
+            }
+            case UPLOAD_FAILED -> itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
+            case UPLOAD_SUCCEEDED -> itemViewHolder.binding.uploadStatus.setVisibility(View.GONE);
         }
         itemViewHolder.binding.uploadStatus.setText(status);
 
@@ -502,9 +486,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                                          ItemViewHolder itemViewHolder,
                                                          OCUpload item,
                                                          String status) {
-            // TODO Optimize
-        selectedOCUpload = item;
-        selectedFileRemotePath = item.getRemotePath();
         String remotePath = item.getRemotePath();
         OCFile localFile = storageManager.getFileByEncryptedRemotePath(remotePath);
 
@@ -528,8 +509,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         // Remote file doesn't exist anymore = there is no more conflict
         return false;
     }
-
-    public OCUpload selectedOCUpload;
 
     private void refreshFolderAndUpdateUI(ItemViewHolder holder, User user, OCFile folder, String remotePath, OCUpload item, String status) {
         Context context = MainApp.getAppContext();
@@ -573,12 +552,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             return true;
         });
         popup.show();
-    }
-
-    private String selectedFileRemotePath;
-
-    public OCFile getSelectedOCFile() {
-        return storageManager.getFileByEncryptedRemotePath(selectedFileRemotePath);
     }
 
     public void removeUpload(OCUpload item) {

@@ -63,6 +63,7 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.inject.Inject;
 
@@ -181,11 +182,10 @@ public class UploadListActivity extends FileActivity {
 
                              @Override
                              public void negativeAction() {
-                                 OCFile fileOnlyExistOnLocalStorage = uploadListAdapter.getSelectedOCFile();
-                                 getFileOperationsHelper().removeFiles(new ArrayList<>() {{
-                                     add(fileOnlyExistOnLocalStorage);
-                                 }}, false, false);
-                                 uploadListAdapter.removeUpload(uploadListAdapter.selectedOCUpload);
+                                 OCUpload upload = uploadListAdapter.selectedOCUpload;
+                                 OCFile fileOnlyExistOnLocalStorage = getStorageManager().getFileByEncryptedRemotePath(upload.getRemotePath());
+                                 getFileOperationsHelper().removeFiles(Collections.singletonList(fileOnlyExistOnLocalStorage), false, false);
+                                 uploadListAdapter.removeUpload(upload);
                              }
                          });
         dialog.show(this.getSupportFragmentManager(), null);
