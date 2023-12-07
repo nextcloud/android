@@ -62,7 +62,6 @@ import com.owncloud.android.ui.dialog.TwoActionDialogFragment;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.inject.Inject;
@@ -173,21 +172,22 @@ public class UploadListActivity extends FileActivity {
                          R.string.uploader_handle_not_existed_file_dialog_negative_button_text,
                          R.string.uploader_handle_not_existed_file_dialog_positive_button_text,
                          new TwoActionDialogFragment.TwoActionDialogActionListener() {
+                             final OCUpload upload = uploadListAdapter.selectedOCUpload;
+
                              @Override
                              public void positiveAction() {
-                                 OCUpload upload = uploadListAdapter.selectedOCUpload;
                                  upload.setLastResult(null);
                                  FileUploader.retryUpload(MainApp.getAppContext(), userAccountManager.getUser(), upload);
                              }
 
                              @Override
                              public void negativeAction() {
-                                 OCUpload upload = uploadListAdapter.selectedOCUpload;
                                  OCFile fileOnlyExistOnLocalStorage = getStorageManager().getFileByEncryptedRemotePath(upload.getRemotePath());
                                  getFileOperationsHelper().removeFiles(Collections.singletonList(fileOnlyExistOnLocalStorage), false, false);
                                  uploadListAdapter.removeUpload(upload);
                              }
                          });
+
         dialog.show(this.getSupportFragmentManager(), null);
     }
 
