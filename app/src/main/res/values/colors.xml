@@ -33,6 +33,9 @@
     <color name="transparent">#00000000</color>
     <color name="secondary_text_color">#666666</color>
     <color name="highlight_textColor_Warning">#e53935</color>
+    <color name="grid_icon_color">#303034</color>
+    <color name="grid_background_color">#E9E8EB</color>
+
 
     <!-- Colors -->
     <color name="standard_grey">#757575</color>
