@@ -1250,16 +1250,23 @@ public class FileUploader extends Service
             if (useFilesUploadWorker(getApplicationContext())){
                 UploadFileOperation currentUploadFileOperation = FilesUploadWorker.Companion.getCurrentUploadFileOperation();
                 if (currentUploadFileOperation == null || currentUploadFileOperation.getUser() == null) return false;
-                return upload != null &&
-                    currentUploadFileOperation.getUser().getAccountName() != null &&
-                    upload.getAccountName().equals(currentUploadFileOperation.getUser().getAccountName()) &&
-                    upload.getRemotePath().equals(currentUploadFileOperation.getRemotePath());
+                if (upload == null || (!upload.getAccountName().equals(currentUploadFileOperation.getUser().getAccountName()))) return false;
+                if (currentUploadFileOperation.getOldFile() != null){
+                    // For file conflicts check old file remote path
+                    return upload.getRemotePath().equals(currentUploadFileOperation.getRemotePath()) ||
+                        upload.getRemotePath().equals(currentUploadFileOperation.getOldFile().getRemotePath());
+                }
+                return upload.getRemotePath().equals(currentUploadFileOperation.getRemotePath());
+
             }else {
+
                 return upload != null &&
                     mCurrentAccount != null &&
                     mCurrentUpload != null &&
                     upload.getAccountName().equals(mCurrentAccount.name) &&
-                    upload.getRemotePath().equals(mCurrentUpload.getRemotePath());
+                    (upload.getRemotePath().equals(mCurrentUpload.getRemotePath()) ||
+                        (mCurrentUpload.getOldFile() != null &&
+                            upload.getRemotePath().equals(mCurrentUpload.getOldFile().getRemotePath())));
             }
         }
 
