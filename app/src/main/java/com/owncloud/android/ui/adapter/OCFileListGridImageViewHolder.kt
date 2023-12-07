@@ -23,6 +23,7 @@ package com.owncloud.android.ui.adapter
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
@@ -40,6 +41,8 @@ internal class OCFileListGridImageViewHolder(var binding: GridImageBinding) :
         // noop
     }
 
+    override val fileFeaturesLayout: LinearLayout
+        get() = binding.fileFeaturesLayout
     override val shimmerThumbnail: LoaderImageView
         get() = binding.thumbnailShimmer
     override val favorite: ImageView

@@ -23,6 +23,7 @@ package com.owncloud.android.ui.adapter
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 
@@ -36,6 +37,7 @@ interface ListGridImageViewHolder {
     val checkbox: ImageView
     val itemLayout: View
     val unreadComments: ImageView
+    val fileFeaturesLayout: LinearLayout?
 
     val gridLivePhotoIndicator: TextView?
     val livePhotoIndicator: TextView?
