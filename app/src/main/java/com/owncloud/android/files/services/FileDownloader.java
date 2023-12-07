@@ -155,7 +155,7 @@ public class FileDownloader extends Service
         mBinder = new FileDownloaderBinder();
 
         NotificationCompat.Builder builder = NotificationUtils.newNotificationBuilder(this, viewThemeUtils).setContentTitle(
-            getApplicationContext().getResources().getString(R.string.app_name))
+                getApplicationContext().getResources().getString(R.string.app_name))
             .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_download))
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon));
@@ -194,9 +194,9 @@ public class FileDownloader extends Service
 
     /**
      * Entry point to add one or several files to the queue of downloads.
-     *
-     * New downloads are added calling to startService(), resulting in a call to this method.
-     * This ensures the service will keep on working although the caller activity goes away.
+     * <p>
+     * New downloads are added calling to startService(), resulting in a call to this method. This ensures the service
+     * will keep on working although the caller activity goes away.
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
