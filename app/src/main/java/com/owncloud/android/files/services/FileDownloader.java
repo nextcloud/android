@@ -28,10 +28,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.content.pm.ServiceInfo;
 import android.graphics.BitmapFactory;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -44,9 +42,11 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.files.downloader.DownloadTask;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.ForegroundServiceHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.ForegroundServiceType;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -83,7 +83,6 @@ import java.util.Vector;
 import javax.inject.Inject;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.ServiceCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import dagger.android.AndroidInjection;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -203,15 +202,7 @@ public class FileDownloader extends Service
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            ServiceCompat.startForeground(
-                this,
-                FOREGROUND_SERVICE_ID,
-                mNotification,
-                ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
-        } else {
-            startForeground(FOREGROUND_SERVICE_ID, mNotification);
-        }
+        ForegroundServiceHelper.INSTANCE.start(this, FOREGROUND_SERVICE_ID, mNotification, ForegroundServiceType.DataSync);
 
         if (intent == null || !intent.hasExtra(EXTRA_USER) || !intent.hasExtra(EXTRA_FILE)) {
             Log_OC.e(TAG, "Not enough information provided in intent");
