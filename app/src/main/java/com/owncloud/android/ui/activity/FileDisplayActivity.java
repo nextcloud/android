@@ -796,6 +796,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
+
         int itemId = item.getItemId();
 
         if (itemId == android.R.id.home) {
