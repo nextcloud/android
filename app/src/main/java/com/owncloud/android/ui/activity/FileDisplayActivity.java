@@ -844,7 +844,6 @@ public class FileDisplayActivity extends FileActivity
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS &&
             (resultCode == RESULT_OK ||
                 resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
