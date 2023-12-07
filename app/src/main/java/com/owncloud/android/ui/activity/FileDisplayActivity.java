@@ -633,7 +633,7 @@ public class FileDisplayActivity extends FileActivity
 
     private OCFileListFragment getOCFileListFragmentFromFile() {
         final Fragment leftFragment = getLeftFragment();
-        OCFileListFragment listOfFiles = null;
+        OCFileListFragment listOfFiles;
         if (leftFragment instanceof OCFileListFragment) {
             listOfFiles = (OCFileListFragment) leftFragment;
         } else {
