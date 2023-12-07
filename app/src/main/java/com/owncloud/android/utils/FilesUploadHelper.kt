@@ -119,33 +119,39 @@ class FilesUploadHelper {
 
     fun addDatatransferProgressListener(
         listener: OnDatatransferProgressListener,
-        targetKey : String
+        targetKey: String
     ) {
         mBoundListeners[targetKey] = listener
     }
 
     fun removeDatatransferProgressListener(
         listener: OnDatatransferProgressListener,
-        targetKey : String
-    ){
+        targetKey: String
+    ) {
         if (mBoundListeners[targetKey] === listener) {
             mBoundListeners.remove(targetKey)
         }
     }
 
-    companion object Progress{
+    companion object Progress {
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
 
-        fun onTransferProgress(accountName : String?, remotePath : String?, progressRate: Long, totalTransferredSoFar: Long, totalToTransfer: Long, fileName: String?) {
+        fun onTransferProgress(
+            accountName: String?,
+            remotePath: String?,
+            progressRate: Long,
+            totalTransferredSoFar: Long,
+            totalToTransfer: Long,
+            fileName: String?
+        ) {
             if (accountName == null || remotePath == null) return
 
             val key: String =
-                FileUploaderBinder.buildRemoteName(accountName,remotePath)
+                FileUploaderBinder.buildRemoteName(accountName, remotePath)
             val boundListener = mBoundListeners[key]
 
             boundListener?.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName)
-            Log_OC.d("TAG","Hello")
+            Log_OC.d("TAG", "Hello")
         }
     }
-
 }
