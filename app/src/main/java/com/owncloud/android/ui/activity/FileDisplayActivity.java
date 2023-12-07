@@ -846,6 +846,7 @@ public class FileDisplayActivity extends FileActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
+
         int itemId = item.getItemId();
 
         if (itemId == android.R.id.home) {
