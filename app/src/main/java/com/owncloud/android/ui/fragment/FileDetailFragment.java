@@ -195,6 +195,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         return ((FileDetailTabAdapter) binding.pager.getAdapter()).getFileDetailActivitiesFragment();
     }
 
+    public void goBackToOCFileListFragment() {
+        requireActivity().onBackPressed();
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
