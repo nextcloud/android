@@ -72,7 +72,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             fileLength = 3072000
             modificationTimestamp = 746443755000
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
-            linkedFileIdForLivePhoto = "/video.mov"
+            setLivePhoto("/video.mov")
             sut.storageManager.saveFile(this)
         }
 
