@@ -711,6 +711,7 @@ public class UploadFileOperation extends SyncOperation {
         if (mOnWifiOnly && (!connectivity.isWifi() || connectivity.isMetered())) {
             Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
             remoteOperationResult = new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
+            return remoteOperationResult;
         }
 
         // check if charging conditions are met and delays the upload otherwise
@@ -718,18 +719,21 @@ public class UploadFileOperation extends SyncOperation {
         if (mWhileChargingOnly && !battery.isCharging()) {
             Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
             remoteOperationResult =  new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
+            return remoteOperationResult;
         }
 
         // check that device is not in power save mode
         if (!mIgnoringPowerSaveMode && powerManagementService.isPowerSavingEnabled()) {
             Log_OC.d(TAG, "Upload delayed because device is in power save mode: " + getRemotePath());
             remoteOperationResult =  new RemoteOperationResult(ResultCode.DELAYED_IN_POWER_SAVE_MODE);
+            return remoteOperationResult;
         }
 
         // check if the file continues existing before schedule the operation
         if (!originalFile.exists()) {
             Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
             remoteOperationResult =  new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+            return remoteOperationResult;
         }
 
         // check that internet is not behind walled garden
