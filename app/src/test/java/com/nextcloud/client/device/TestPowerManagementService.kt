@@ -27,6 +27,8 @@ import android.os.BatteryManager
 import android.os.Build
 import android.os.PowerManager
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.registerBroadcastReceiver
+import com.owncloud.android.datamodel.ReceiverFlag
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -137,7 +139,7 @@ class TestPowerManagementService {
 
         @Before
         fun setUp() {
-            whenever(context.registerReceiver(anyOrNull(), anyOrNull())).thenReturn(intent)
+            whenever(context.registerBroadcastReceiver(anyOrNull(), anyOrNull(), ReceiverFlag.NotExported)).thenReturn(intent)
         }
 
         @Test
@@ -193,12 +195,12 @@ class TestPowerManagementService {
             //      device has API level P or below
             //      battery status sticky intent is NOT available
             whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.P)
-            whenever(context.registerReceiver(anyOrNull(), anyOrNull())).thenReturn(null)
+            whenever(context.registerBroadcastReceiver(anyOrNull(), anyOrNull(), ReceiverFlag.NotExported)).thenReturn(null)
 
             // THEN
             //     charging flag is false
             assertFalse(powerManagementService.battery.isCharging)
-            verify(context).registerReceiver(anyOrNull(), any())
+            verify(context).registerBroadcastReceiver(anyOrNull(), any(), ReceiverFlag.NotExported)
         }
 
         @Test
