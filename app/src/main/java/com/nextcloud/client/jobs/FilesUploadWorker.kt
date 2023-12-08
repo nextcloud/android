@@ -402,10 +402,12 @@ class FilesUploadWorker(
 
     private fun cancelOldErrorNotification(uploadFileOperation: UploadFileOperation) {
         // cancel for old file because of file conflicts
-        notificationManager.cancel(
-            NotificationUtils.createUploadNotificationTag(uploadFileOperation.oldFile),
-            NOTIFICATION_ERROR_ID
-        )
+        if (uploadFileOperation.oldFile != null) {
+            notificationManager.cancel(
+                NotificationUtils.createUploadNotificationTag(uploadFileOperation.oldFile),
+                NOTIFICATION_ERROR_ID
+            )
+        }
         notificationManager.cancel(
             NotificationUtils.createUploadNotificationTag(uploadFileOperation.file),
             NOTIFICATION_ERROR_ID
