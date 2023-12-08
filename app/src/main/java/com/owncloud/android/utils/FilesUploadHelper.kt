@@ -28,7 +28,9 @@ import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder
 import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.utils.Log_OC
 import javax.inject.Inject
 
@@ -113,5 +115,43 @@ class FilesUploadHelper {
         uploadsStorageManager.updateUpload(upload)
 
         backgroundJobManager.startFilesUploadJob(user)
+    }
+
+    fun addDatatransferProgressListener(
+        listener: OnDatatransferProgressListener,
+        targetKey: String
+    ) {
+        mBoundListeners[targetKey] = listener
+    }
+
+    fun removeDatatransferProgressListener(
+        listener: OnDatatransferProgressListener,
+        targetKey: String
+    ) {
+        if (mBoundListeners[targetKey] === listener) {
+            mBoundListeners.remove(targetKey)
+        }
+    }
+
+    companion object Progress {
+        val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
+
+        fun onTransferProgress(
+            accountName: String?,
+            remotePath: String?,
+            progressRate: Long,
+            totalTransferredSoFar: Long,
+            totalToTransfer: Long,
+            fileName: String?
+        ) {
+            if (accountName == null || remotePath == null) return
+
+            val key: String =
+                FileUploaderBinder.buildRemoteName(accountName, remotePath)
+            val boundListener = mBoundListeners[key]
+
+            boundListener?.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName)
+            Log_OC.d("TAG", "Hello")
+        }
     }
 }

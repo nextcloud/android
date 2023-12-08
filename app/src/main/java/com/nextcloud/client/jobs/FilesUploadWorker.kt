@@ -55,6 +55,7 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.ui.activity.UploadListActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
+import com.owncloud.android.utils.FilesUploadHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.security.SecureRandom
@@ -76,7 +77,6 @@ class FilesUploadWorker(
     private val notificationManager: NotificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     private val fileUploaderDelegate = FileUploaderDelegate()
-    private var currentUploadFileOperation: UploadFileOperation? = null
 
     override fun doWork(): Result {
         val accountName = inputData.getString(ACCOUNT)
@@ -362,6 +362,14 @@ class FilesUploadWorker(
             val text = String.format(context.getString(R.string.uploader_upload_in_progress_content), percent, fileName)
             notificationBuilder.setContentText(text)
             notificationManager.notify(FOREGROUND_SERVICE_ID, notificationBuilder.build())
+            FilesUploadHelper.onTransferProgress(
+                currentUploadFileOperation?.user?.accountName,
+                currentUploadFileOperation?.remotePath,
+                progressRate,
+                totalTransferredSoFar,
+                totalToTransfer,
+                fileAbsoluteName
+            )
         }
         lastPercent = percent
     }
@@ -377,5 +385,6 @@ class FilesUploadWorker(
         private const val FOREGROUND_SERVICE_ID: Int = 412
         private const val MAX_PROGRESS: Int = 100
         const val ACCOUNT = "data_account"
+        var currentUploadFileOperation: UploadFileOperation? = null
     }
 }

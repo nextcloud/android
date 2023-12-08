@@ -1212,6 +1212,7 @@ public class FileUploader extends Service
         }
 
         public void clearListeners() {
+            FilesUploadHelper.Progress.getMBoundListeners().clear();
             mBoundListeners.clear();
         }
 
@@ -1231,16 +1232,43 @@ public class FileUploader extends Service
             if (user == null || file == null) {
                 return false;
             }
+            if (useFilesUploadWorker(getApplicationContext())){
+                // Not same as for service because upload list is "created" on the spot in the worker and not available here
 
-            return mPendingUploads.contains(user.getAccountName(), file.getRemotePath());
+                 OCUpload upload = mUploadsStorageManager.getUploadByRemotePath(file.getRemotePath());
+                 if (upload == null){
+                     return false;
+                 }
+                 return upload.getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS;
+
+            }else{
+                return mPendingUploads.contains(user.getAccountName(), file.getRemotePath());
+            }
         }
 
+        @SuppressFBWarnings("NP")
         public boolean isUploadingNow(OCUpload upload) {
-            return upload != null &&
-                mCurrentAccount != null &&
-                mCurrentUpload != null &&
-                upload.getAccountName().equals(mCurrentAccount.name) &&
-                upload.getRemotePath().equals(mCurrentUpload.getRemotePath());
+            if (useFilesUploadWorker(getApplicationContext())){
+                UploadFileOperation currentUploadFileOperation = FilesUploadWorker.Companion.getCurrentUploadFileOperation();
+                if (currentUploadFileOperation == null || currentUploadFileOperation.getUser() == null) return false;
+                if (upload == null || (!upload.getAccountName().equals(currentUploadFileOperation.getUser().getAccountName()))) return false;
+                if (currentUploadFileOperation.getOldFile() != null){
+                    // For file conflicts check old file remote path
+                    return upload.getRemotePath().equals(currentUploadFileOperation.getRemotePath()) ||
+                        upload.getRemotePath().equals(currentUploadFileOperation.getOldFile().getRemotePath());
+                }
+                return upload.getRemotePath().equals(currentUploadFileOperation.getRemotePath());
+
+            }else {
+
+                return upload != null &&
+                    mCurrentAccount != null &&
+                    mCurrentUpload != null &&
+                    upload.getAccountName().equals(mCurrentAccount.name) &&
+                    (upload.getRemotePath().equals(mCurrentUpload.getRemotePath()) ||
+                        (mCurrentUpload.getOldFile() != null &&
+                            upload.getRemotePath().equals(mCurrentUpload.getOldFile().getRemotePath())));
+            }
         }
 
         /**
@@ -1258,9 +1286,13 @@ public class FileUploader extends Service
             if (user == null || file == null || listener == null) {
                 return;
             }
-
             String targetKey = buildRemoteName(user.getAccountName(), file.getRemotePath());
-            mBoundListeners.put(targetKey, listener);
+
+            if (useFilesUploadWorker(getApplicationContext())) {
+                new FilesUploadHelper().addDatatransferProgressListener(listener,targetKey);
+            }else {
+                mBoundListeners.put(targetKey, listener);
+            }
         }
 
         /**
@@ -1278,7 +1310,11 @@ public class FileUploader extends Service
             }
 
             String targetKey = buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
-            mBoundListeners.put(targetKey, listener);
+            if (useFilesUploadWorker(getApplicationContext())) {
+                new FilesUploadHelper().addDatatransferProgressListener(listener,targetKey);
+            }else {
+                mBoundListeners.put(targetKey, listener);
+            }
         }
 
         /**
@@ -1298,8 +1334,13 @@ public class FileUploader extends Service
             }
 
             String targetKey = buildRemoteName(user.getAccountName(), file.getRemotePath());
-            if (mBoundListeners.get(targetKey) == listener) {
-                mBoundListeners.remove(targetKey);
+
+            if (useFilesUploadWorker(getApplicationContext())) {
+                new FilesUploadHelper().removeDatatransferProgressListener(listener,targetKey);
+            }else {
+                if (mBoundListeners.get(targetKey) == listener) {
+                    mBoundListeners.remove(targetKey);
+                }
             }
         }
 
@@ -1318,8 +1359,13 @@ public class FileUploader extends Service
             }
 
             String targetKey = buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
-            if (mBoundListeners.get(targetKey) == listener) {
-                mBoundListeners.remove(targetKey);
+
+            if (useFilesUploadWorker(getApplicationContext())) {
+                new FilesUploadHelper().removeDatatransferProgressListener(listener,targetKey);
+            }else {
+                if (mBoundListeners.get(targetKey) == listener) {
+                    mBoundListeners.remove(targetKey);
+                }
             }
         }
 
@@ -1369,7 +1415,7 @@ public class FileUploader extends Service
          * @param remotePath  Remote path to upload the file to.
          * @return Key
          */
-        private String buildRemoteName(String accountName, String remotePath) {
+        public static String buildRemoteName(String accountName, String remotePath) {
             return accountName + remotePath;
         }
     }
