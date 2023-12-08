@@ -2100,7 +2100,7 @@ public class FileDisplayActivity extends FileActivity
     public void startImagePreview(OCFile file, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(EXTRA_FILE, file);
-        showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.videoOfLivePhoto);
+        showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo);
         showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
         if (showPreview) {
             startActivity(showDetailsIntent);

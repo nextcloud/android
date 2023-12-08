@@ -512,7 +512,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
         cv.put(ProviderTableMeta.FILE_METADATA_SIZE, gson.toJson(file.getImageDimension()));
         cv.put(ProviderTableMeta.FILE_METADATA_GPS, gson.toJson(file.getGeoLocation()));
-        cv.put(ProviderTableMeta.FILE_METADATA_LIVE_PHOTO, file.getLivePhoto());
+        cv.put(ProviderTableMeta.FILE_METADATA_LIVE_PHOTO, file.getLinkedFileIdForLivePhoto());
 
         return cv;
     }

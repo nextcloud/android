@@ -86,11 +86,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
@@ -397,35 +394,34 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void mergeOCFilesForLivePhoto() {
-        Map<String, OCFile> livePhotoMap = new HashMap<>();
+        List<OCFile> filesToRemove = new ArrayList<>();
 
-        for (Iterator<OCFile> iterator = mFiles.iterator(); iterator.hasNext();) {
-            OCFile file = iterator.next();
-            String fileLivePhoto = file.getLivePhoto();
+        for (int i = 0; i < mFiles.size(); i++) {
+            OCFile file = mFiles.get(i);
 
-            if (fileLivePhoto != null) {
-                String fileLivePhotoName = file.getFileNameWithoutExtension(fileLivePhoto);
-                OCFile existingFile = livePhotoMap.get(fileLivePhotoName);
+            for (int j = i + 1; j < mFiles.size(); j++) {
+                OCFile nextFile = mFiles.get(j);
+                String fileLocalId = String.valueOf(file.getLocalId());
+                String nextFileLinkedLocalId = nextFile.getLinkedFileIdForLivePhoto();
 
-                if (existingFile != null) {
+                if (fileLocalId.equals(nextFileLinkedLocalId)) {
                     if (MimeTypeUtil.isVideo(file.getMimeType())) {
-                        existingFile.videoOfLivePhoto = file;
-                        iterator.remove();
-                    } else if (MimeTypeUtil.isVideo(existingFile.getMimeType())) {
-                        file.videoOfLivePhoto = existingFile;
-                        iterator.remove();
+                        nextFile.livePhotoVideo = file;
+                        filesToRemove.add(file);
+                    } else if (MimeTypeUtil.isVideo(nextFile.getMimeType())) {
+                        file.livePhotoVideo = nextFile;
+                        filesToRemove.add(nextFile);
                     }
-                } else {
-                    livePhotoMap.put(fileLivePhotoName, file);
                 }
             }
         }
 
-        livePhotoMap.clear();
+        mFiles.removeAll(filesToRemove);
+        filesToRemove.clear();
     }
 
     private void updateLivePhotoIndicators(ListGridImageViewHolder holder, OCFile file) {
-        boolean isLivePhoto = file.getLivePhoto() != null;
+        boolean isLivePhoto = file.getLinkedFileIdForLivePhoto() != null;
 
         if (holder instanceof OCFileListItemViewHolder) {
             holder.getLivePhotoIndicator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));

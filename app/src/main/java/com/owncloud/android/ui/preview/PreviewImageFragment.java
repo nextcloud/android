@@ -61,7 +61,6 @@ import com.owncloud.android.databinding.PreviewImageFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -204,17 +203,15 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     }
 
     private void checkLivePhotoAvailability() {
-        String livePhoto = getFile().getLivePhoto();
+        OCFile livePhotoVideo = getFile().livePhotoVideo;
 
-        if (livePhoto != null) {
-            OCFile videoOfLivePhoto = getFile().videoOfLivePhoto;
+        if (livePhotoVideo == null) return;
 
-            binding.livePhotoIndicator.setVisibility(View.VISIBLE);
-            ExtensionsKt.clickWithDebounce(binding.livePhotoIndicator, 4000L, () -> {
-                playLivePhoto(videoOfLivePhoto);
-                return null;
-            });
-        }
+        binding.livePhotoIndicator.setVisibility(View.VISIBLE);
+        ExtensionsKt.clickWithDebounce(binding.livePhotoIndicator, 4000L, () -> {
+            playLivePhoto(livePhotoVideo);
+            return null;
+        });
     }
 
     private void hideActionBar() {
