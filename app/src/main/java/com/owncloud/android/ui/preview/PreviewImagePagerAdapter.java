@@ -151,7 +151,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     }
 
     private void addVideoOfLivePhoto(OCFile file) {
-        file.videoOfLivePhoto = selectedFile;
+        file.livePhotoVideo = selectedFile;
     }
 
     @NonNull
@@ -173,7 +173,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                 if (file.isEncrypted()) {
                     fragment = FileDownloadFragment.newInstance(file, user, mObsoletePositions.contains(i));
                 } else if (PreviewMediaFragment.canBePreviewed(file)) {
-                    fragment = PreviewMediaFragment.newInstance(file, user, 0, false, file.videoOfLivePhoto != null);
+                    fragment = PreviewMediaFragment.newInstance(file, user, 0, false, file.livePhotoVideo != null);
                 } else {
                     fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
                 }

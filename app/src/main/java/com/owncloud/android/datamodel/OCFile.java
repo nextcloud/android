@@ -85,7 +85,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private long lastSyncDateForData;
     private boolean previewAvailable;
     private String livePhoto;
-    public OCFile videoOfLivePhoto;
+    public OCFile livePhotoVideo;
     private String etag;
     private String etagOnServer;
     private boolean sharedViaLink;
@@ -249,7 +249,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeString(livePhoto);
     }
 
-    public String getLivePhoto() {
+    public String getLinkedFileIdForLivePhoto() {
         return livePhoto;
     }
 
