@@ -397,27 +397,23 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void mergeOCFilesForLivePhoto() {
-        Map<String, OCFile> livePhotoMap = new HashMap<>();
+        Map<Long, OCFile> livePhotoMap = new HashMap<>();
 
         for (Iterator<OCFile> iterator = mFiles.iterator(); iterator.hasNext();) {
             OCFile file = iterator.next();
-            String fileLivePhoto = file.getLivePhoto();
+            Long fileId = file.getFileId();
+            OCFile existingFile = livePhotoMap.get(fileId);
 
-            if (fileLivePhoto != null) {
-                String fileLivePhotoName = file.getFileNameWithoutExtension(fileLivePhoto);
-                OCFile existingFile = livePhotoMap.get(fileLivePhotoName);
-
-                if (existingFile != null) {
-                    if (MimeTypeUtil.isVideo(file.getMimeType())) {
-                        existingFile.videoOfLivePhoto = file;
-                        iterator.remove();
-                    } else if (MimeTypeUtil.isVideo(existingFile.getMimeType())) {
-                        file.videoOfLivePhoto = existingFile;
-                        iterator.remove();
-                    }
-                } else {
-                    livePhotoMap.put(fileLivePhotoName, file);
+            if (existingFile != null) {
+                if (MimeTypeUtil.isVideo(file.getMimeType())) {
+                    existingFile.videoOfLivePhoto = file;
+                    iterator.remove();
+                } else if (MimeTypeUtil.isVideo(existingFile.getMimeType())) {
+                    file.videoOfLivePhoto = existingFile;
+                    iterator.remove();
                 }
+            } else {
+                livePhotoMap.put(fileId, file);
             }
         }
 
