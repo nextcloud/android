@@ -214,17 +214,24 @@ public class SynchronizeFileOperation extends SyncOperation {
                 boolean serverChanged;
                 if (TextUtils.isEmpty(mLocalFile.getEtag())) {
                     // file uploaded (null) or downloaded ("") before upgrade to version 1.8.0; check the old condition
+                    Log_OC.d(TAG, "mLocalFile Etag empty: falling back on mServerFile mtime versus mLocalFile mtime@last sync");
                     serverChanged = mServerFile.getModificationTimestamp() !=
                             mLocalFile.getModificationTimestampAtLastSyncForData();
                 } else {
                     serverChanged = !mServerFile.getEtag().equals(mLocalFile.getEtag());
+                    Log_OC.d(TAG, "mServerFile eTag = " + mServerFile.getEtag());
+                    Log_OC.d(TAG, "mLocalFile eTag = " + mLocalFile.getEtag());
                 }
+                Log_OC.d(TAG, "serverChanged: " + serverChanged);
+
                 boolean localChanged =
                         mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData();
+                Log_OC.d(TAG, "localChanged: " + localChanged);
 
                 /// decide action to perform depending upon changes
                 //if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {
                 if (localChanged && serverChanged) {
+                    Log_OC.d(TAG, "Sync Conflict Found");
                     result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
                     getStorageManager().saveConflict(mLocalFile, mServerFile.getEtag());
 
