@@ -223,6 +223,7 @@
     <string name="drawer_quota_unlimited">%s notað</string>
     <string name="drawer_synced_folders">Sjálfvirk innsending</string>
     <string name="ecosystem_apps_display_talk">Spjalla</string>
+    <string name="ecosystem_apps_notes">Nextcloud-minnispunktar</string>
     <string name="encrypted">Setja sem dulritað</string>
     <string name="end_to_end_encryption_confirm_button">Setja upp dulritun</string>
     <string name="end_to_end_encryption_decrypting">Afkóðun</string>
