@@ -22,6 +22,7 @@
 
 package com.nextcloud.utils.extensions
 
+import android.os.SystemClock
 import android.text.Selection
 import android.text.Spannable
 import android.text.SpannableString
@@ -34,6 +35,22 @@ import android.widget.TextView
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
+fun clickWithDebounce(view: View, debounceTime: Long = 600L, action: () -> Unit) {
+    view.setOnClickListener(object : View.OnClickListener {
+        private var lastClickTime: Long = 0
+
+        override fun onClick(v: View) {
+            if (SystemClock.elapsedRealtime() - lastClickTime < debounceTime) {
+                return
+            } else {
+                action()
+            }
+
+            lastClickTime = SystemClock.elapsedRealtime()
+        }
+    })
+}
 
 fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
     val spannableString = SpannableString(this.text)

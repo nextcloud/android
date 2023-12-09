@@ -260,6 +260,8 @@ public final class FileStorageUtils {
         file.setTags(new ArrayList<>(Arrays.asList(remote.getTags())));
         file.setImageDimension(remote.getImageDimension());
         file.setGeoLocation(remote.getGeoLocation());
+        file.setLivePhoto(remote.getLivePhoto());
+        file.setHidden(remote.getHidden());
 
         return file;
     }

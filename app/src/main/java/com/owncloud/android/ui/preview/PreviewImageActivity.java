@@ -88,6 +88,8 @@ public class PreviewImageActivity extends FileActivity implements
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
     private static final String KEY_SYSTEM_VISIBLE = "TRUE";
 
+
+    private OCFile livePhotoFile;
     private ViewPager mViewPager;
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;
     private int mSavedPosition;
@@ -98,6 +100,8 @@ public class PreviewImageActivity extends FileActivity implements
     private View mFullScreenAnchorView;
     @Inject AppPreferences preferences;
     @Inject LocalBroadcastManager localBroadcastManager;
+
+    private ActionBar actionBar;
 
     public static Intent previewFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
@@ -110,7 +114,7 @@ public class PreviewImageActivity extends FileActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
 
         if (savedInstanceState != null && !savedInstanceState.getBoolean(KEY_SYSTEM_VISIBLE, true) &&
             actionBar != null) {
@@ -118,6 +122,8 @@ public class PreviewImageActivity extends FileActivity implements
         }
 
         setContentView(R.layout.preview_image_activity);
+
+        livePhotoFile = getIntent().getParcelableExtra(EXTRA_LIVE_PHOTO_FILE);
 
         // Navigation Drawer
         setupDrawer();
@@ -139,7 +145,18 @@ public class PreviewImageActivity extends FileActivity implements
         } else {
             mRequestWaitingForBinder = false;
         }
+    }
 
+    public void toggleActionBarVisibility(boolean hide) {
+        if (actionBar == null) {
+            return;
+        }
+
+        if (hide) {
+            actionBar.hide();
+        } else {
+            actionBar.show();
+        }
     }
 
     private void initViewPager(User user) {
@@ -163,6 +180,7 @@ public class PreviewImageActivity extends FileActivity implements
 
             mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(
                 getSupportFragmentManager(),
+                livePhotoFile,
                 parentFolder,
                 user,
                 getStorageManager(),
