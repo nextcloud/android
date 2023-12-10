@@ -35,10 +35,11 @@ import dagger.Provides;
 public class NetworkModule {
 
     @Provides
-    ConnectivityService connectivityService(ConnectivityManager connectivityManager,
+    ConnectivityService connectivityService(Context context,
                                             UserAccountManager accountManager,
                                             ClientFactory clientFactory,
                                             WalledCheckCache walledCheckCache) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return new ConnectivityServiceImpl(connectivityManager,
                                            accountManager,
                                            clientFactory,

@@ -152,7 +152,7 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
     }
 
     private fun doWithConnectivityCheck(block: () -> Unit) {
-        when (connectivityService.connectivity.isConnected) {
+        when (connectivityService.getConnectivity().isConnected) {
             false -> {
                 error.value = resources.getString(R.string.offline_mode)
                 if (isLoading.value == true) {
