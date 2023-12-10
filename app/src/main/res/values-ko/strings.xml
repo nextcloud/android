@@ -389,6 +389,8 @@
     <string name="folder_confirm_create">생성</string>
     <string name="folder_list_empty_headline">폴더가 없습니다</string>
     <string name="folder_picker_choose_button_text">선택</string>
+    <string name="folder_picker_choose_caption_text">폴더 선택</string>
+    <string name="folder_picker_move_button_text">이동</string>
     <string name="forbidden_permissions">%s 권한이 없음</string>
     <string name="forbidden_permissions_copy">이 파일을 복사할</string>
     <string name="forbidden_permissions_create">파일을 생성할</string>
@@ -426,7 +428,7 @@
     <string name="last_backup">마지막 백업: %1$s</string>
     <string name="link">링크</string>
     <string name="link_name">링크 이름</string>
-    <string name="link_share_allow_upload_and_editing">업로드 및 편집 허용</string>
+    <string name="link_share_allow_upload_and_editing">업로드와 수정 허용</string>
     <string name="link_share_editing">글 수정</string>
     <string name="link_share_file_drop">파일 보관소 (업로드만 허용)</string>
     <string name="link_share_view_only">읽기 전용</string>
@@ -632,6 +634,7 @@
     <string name="rename_dialog_title">새 이름 입력</string>
     <string name="rename_local_fail_msg">로컬 파일의 이름을 변경할 수 없습니다. 다른 이름을 입력하십시오</string>
     <string name="rename_server_fail_msg">이름을 변경할 수 없음. 이름이 이미 사용중입니다.</string>
+    <string name="request_account_deletion">계정 삭제 요청</string>
     <string name="reshare_not_allowed">다시 공유할 수 없음</string>
     <string name="resharing_is_not_allowed">다시 공유할 수 없습니다</string>
     <string name="resized_image_not_possible_download">크기 조정된 사진을 사용할 수 없습니다. 원본 크기로 다운로드하시겠습니까?</string>
@@ -941,6 +944,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="wait_a_moment">잠시 기다려 주십시오…</string>
     <string name="wait_checking_credentials">저장된 인증 정보 확인 중</string>
     <string name="wait_for_tmp_copy_from_private_storage">개인 저장소에서 파일 복사</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">업데이트</string>
     <string name="what_s_new_image">새로운 기능 사진</string>
     <string name="whats_new_skip">건너뛰기</string>
     <string name="whats_new_title">%1$s의 새로운 것</string>

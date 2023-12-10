@@ -334,6 +334,9 @@
     <string name="folder_confirm_create">สร้าง</string>
     <string name="folder_list_empty_headline">ไม่มีโฟลเดอร์ที่นี่</string>
     <string name="folder_picker_choose_button_text">เลือก</string>
+    <string name="folder_picker_choose_caption_text">เลือกโฟลเดอร์เป้าหมาย</string>
+    <string name="folder_picker_copy_button_text">คัดลอก</string>
+    <string name="folder_picker_move_button_text">ย้าย</string>
     <string name="forbidden_permissions">คุณไม่ได้รับอนุญาต%s</string>
     <string name="forbidden_permissions_copy">ให้คัดลอกไฟล์นี้</string>
     <string name="forbidden_permissions_create">ให้สร้างไฟล์นี้</string>
@@ -490,6 +493,7 @@
     <string name="remove_push_notification">ลบออก</string>
     <string name="remove_success_msg">ลบแล้ว</string>
     <string name="rename_dialog_title">กรอกชื่อใหม่</string>
+    <string name="request_account_deletion">ขอลบบัญชี</string>
     <string name="reshare_not_allowed">ไม่อนุญาตให้แชร์ซ้ำ</string>
     <string name="resharing_is_not_allowed">ไม่อนุญาตให้แชร์ซ้ำ</string>
     <string name="scanQR_description">เข้าสู่ระบบผ่านคิวอาร์โค้ด</string>
@@ -630,6 +634,7 @@
     <string name="version_dev_download">ดาวน์โหลด</string>
     <string name="wait_a_moment">รอสักครู่…</string>
     <string name="wait_for_tmp_copy_from_private_storage">กำลังคัดลอกไฟล์จากพื้นที่จัดเก็บส่วนตัว</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">อัปเดต</string>
     <string name="what_s_new_image">รูปภาพมีอะไรใหม่</string>
     <string name="whats_new_skip">ข้าม</string>
     <string name="whats_new_title">มีอะไรใหม่ใน %1$s</string>

@@ -25,6 +25,7 @@ import android.app.Activity
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.contrib.NavigationViewActions
@@ -238,12 +239,14 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
         onView(withId(R.id.sort_button)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
 
         // browse into folder
-        onView(withId(R.id.list_root)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<OCFileListItemViewHolder>(
-                0,
-                click()
+        onView(withId(R.id.list_root))
+            .perform(closeSoftKeyboard())
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition<OCFileListItemViewHolder>(
+                    0,
+                    click()
+                )
             )
-        )
         shortSleep()
         checkToolbarTitle(topFolder)
         // sort button should now be visible

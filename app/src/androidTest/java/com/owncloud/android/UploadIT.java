@@ -31,15 +31,16 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.model.GeoLocation;
 import com.owncloud.android.lib.resources.files.model.ImageDimension;
+import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -102,29 +103,6 @@ public class UploadIT extends AbstractOnServerIT {
     public void before() throws IOException {
         // make sure that every file is available, even after tests that remove source file
         createDummyFiles();
-    }
-
-    @After
-    public void after() {
-        RemoteOperationResult result = new RefreshFolderOperation(getStorageManager().getFileByPath("/"),
-                                                                  System.currentTimeMillis() / 1000L,
-                                                                  false,
-                                                                  true,
-                                                                  getStorageManager(),
-                                                                  user,
-                                                                  targetContext)
-            .execute(client);
-
-        // cleanup only if folder exists
-        if (result.isSuccess() && getStorageManager().getFileByDecryptedRemotePath(FOLDER) != null) {
-            new RemoveFileOperation(getStorageManager().getFileByDecryptedRemotePath(FOLDER),
-                                    false,
-                                    user,
-                                    false,
-                                    targetContext,
-                                    getStorageManager())
-                .execute(client);
-        }
     }
 
     @Test
@@ -424,7 +402,9 @@ public class UploadIT extends AbstractOnServerIT {
     }
 
     @Test
-    public void testCreationAndUploadTimestamp() throws IOException {
+    public void testCreationAndUploadTimestamp() throws IOException, AccountUtils.AccountNotFoundException {
+        testOnlyOnServer(NextcloudVersion.nextcloud_27);
+
         File file = getDummyFile("empty.txt");
         String remotePath = "/testFile.txt";
         OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);
@@ -476,9 +456,11 @@ public class UploadIT extends AbstractOnServerIT {
     }
 
     @Test
-    public void testMetadata() throws IOException {
+    public void testMetadata() throws IOException, AccountUtils.AccountNotFoundException {
+        testOnlyOnServer(NextcloudVersion.nextcloud_27);
+
         File file = getFile("gps.jpg");
-        String remotePath = "/gps.jpg";
+        String remotePath = "/metadata.jpg";
         OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);
 
         assertTrue(
@@ -515,7 +497,7 @@ public class UploadIT extends AbstractOnServerIT {
 
         OCFile ocFile = null;
         for (OCFile f : files) {
-            if (f.getFileName().equals("gps.jpg")) {
+            if (f.getFileName().equals("metadata.jpg")) {
                 ocFile = f;
                 break;
             }
@@ -523,8 +505,8 @@ public class UploadIT extends AbstractOnServerIT {
 
         assertNotNull(ocFile);
         assertEquals(remotePath, ocFile.getRemotePath());
-        assertEquals(new ImageDimension(451f, 529f), ocFile.getImageDimension());
-        assertEquals(new GeoLocation(49.99679166666667, 8.67198611111111), ocFile.getGeoLocation());
+        assertEquals(new GeoLocation(64, -46), ocFile.getGeoLocation());
+        assertEquals(new ImageDimension(300f, 200f), ocFile.getImageDimension());
     }
 
     private void verifyStoragePath(OCFile file) {

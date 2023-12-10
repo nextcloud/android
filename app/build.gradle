@@ -84,8 +84,8 @@ android {
 
     defaultConfig {
         minSdkVersion 24
-        targetSdkVersion 33
-        compileSdk 33
+        targetSdkVersion 34
+        compileSdk 34
 
         buildConfigField 'boolean', 'CI', ciBuild.toString()
         buildConfigField 'boolean', 'RUNTIME_PERF_ANALYSIS', perfAnalysis.toString()
@@ -124,6 +124,10 @@ android {
             debug {
                 testCoverageEnabled(project.hasProperty('coverage'))
             }
+        }
+
+        buildFeatures {
+            buildConfig = true
         }
 
         productFlavors {
@@ -246,7 +250,7 @@ dependencies {
     implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.5' // remove after entire switch to lib v2
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'com.google.android.material:material:1.10.0'
     implementation 'com.jakewharton:disklrucache:2.0.2'
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation 'androidx.webkit:webkit:1.7.0'
@@ -377,7 +381,7 @@ dependencies {
     gplayImplementation "com.google.firebase:firebase-messaging:23.2.1"
     gplayImplementation 'com.google.android.play:review-ktx:2.0.1'
 
-    implementation 'com.github.nextcloud.android-common:ui:0.12.0'
+    implementation 'com.github.nextcloud.android-common:ui:0.13.0'
 
     implementation "androidx.room:room-runtime:$roomVersion"
     ksp "androidx.room:room-compiler:$roomVersion"

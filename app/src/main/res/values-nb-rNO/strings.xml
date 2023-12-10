@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Kopier</string>
     <string name="actionbar_mkdir">Ny mappe</string>
     <string name="actionbar_move">Flytt</string>
+    <string name="actionbar_move_or_copy">Flytt eller kopier</string>
     <string name="actionbar_open_with">Åpne med</string>
     <string name="actionbar_search">Søk</string>
     <string name="actionbar_see_details">Detaljer</string>
@@ -392,6 +393,9 @@
     <string name="folder_confirm_create">Opprett</string>
     <string name="folder_list_empty_headline">Ingen mapper her</string>
     <string name="folder_picker_choose_button_text">Velg</string>
+    <string name="folder_picker_choose_caption_text">Velg målmappe</string>
+    <string name="folder_picker_copy_button_text">Kopi</string>
+    <string name="folder_picker_move_button_text">Flytt</string>
     <string name="forbidden_permissions">Du har ikke tillatelse til %s</string>
     <string name="forbidden_permissions_copy">å kopiere denne filen</string>
     <string name="forbidden_permissions_create">å opprette filen</string>
@@ -422,6 +426,13 @@
     <string name="image_editor_rotate_ccw">Roter mot klokken</string>
     <string name="image_editor_rotate_cw">Roter med klokken</string>
     <string name="image_editor_unable_to_edit_image">Kan ikke endre bildet.</string>
+    <string name="image_preview_filedetails">Fildetaljer</string>
+    <string name="image_preview_image_taking_conditions">Betingelser for å ta bilder</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">i mappen %1$s</string>
     <string name="instant_upload_existing">Last også opp eksisterende filer</string>
     <string name="instant_upload_on_charging">Bare last opp under lading</string>
@@ -502,6 +513,7 @@
     <string name="no_calendar_exists">Ingen kalender finnes</string>
     <string name="no_email_app_available">Ingen program for å behandle e-post adresse</string>
     <string name="no_items">Ingen gjenstander</string>
+    <string name="no_map_app_availble">Ingen app tilgjengelig for å håndtere kart</string>
     <string name="no_mutliple_accounts_allowed">Kun én konto er tillatt</string>
     <string name="no_pdf_app_available">Ingen app tilgjengelig for å håndtere PDF</string>
     <string name="no_send_app">Ingen program for å sende valgt fil</string>
@@ -588,7 +600,9 @@
     <string name="prefs_imprint">Avtrykk</string>
     <string name="prefs_instant_behaviour_dialogTitle">Opprinnelig fil vil bli…</string>
     <string name="prefs_instant_behaviour_title">Opprinnelig fil vil bli…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Lagre i undermapper basert på dato</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Bruk undermapper</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Alternativer for undermappe</string>
     <string name="prefs_keys_exist">Legg til ende-til-ende -kryptering på denne klienten</string>
     <string name="prefs_license">Lisens</string>
     <string name="prefs_lock">Appsikkerhet</string>
@@ -640,6 +654,7 @@
     <string name="rename_dialog_title">Skriv inn et nytt navn</string>
     <string name="rename_local_fail_msg">Kunne ikke endre navn på lokal kopi, prøv et annet navn</string>
     <string name="rename_server_fail_msg">Endring av navn ikke mulig, navnet er allerde benyttet</string>
+    <string name="request_account_deletion">Request account deletion</string>
     <string name="reshare_not_allowed">Videre deling er ikke tillatt</string>
     <string name="resharing_is_not_allowed">Videredeling er ikke tillatt</string>
     <string name="resized_image_not_possible_download">Inget mindre bilde tilgjengelig. Last ned fullversjon?</string>
@@ -778,6 +793,8 @@
     <string name="stream_not_possible_headline">Intern strøming ikke mulig</string>
     <string name="stream_not_possible_message">Vennligst last ned media i stedet, eller bruk ekstern app.</string>
     <string name="strict_mode">Streng modus: ingen HTTP-tilkobling tillatt!</string>
+    <string name="sub_folder_rule_day">År/Måned/Dag</string>
+    <string name="sub_folder_rule_month">År/Måned</string>
     <string name="sub_folder_rule_year">År</string>
     <string name="subject_shared_with_you">\"%1$s\" er blitt delt med deg</string>
     <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med deg</string>
@@ -929,6 +946,9 @@
     <string name="wait_a_moment">Vent et øyeblikk…</string>
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
+    <string name="webview_version_check_alert_dialog_message">Vennligst oppdater Android systemets WebView-app for pålogging</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Oppdater</string>
+    <string name="webview_version_check_alert_dialog_title">Oppdater Android systemets WebView</string>
     <string name="what_s_new_image">Hva er nytt-bilde</string>
     <string name="whats_new_skip">Hopp over</string>
     <string name="whats_new_title">Nytt i %1$s</string>

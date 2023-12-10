@@ -326,6 +326,8 @@
     <string name="folder_confirm_create">Krouiñ</string>
     <string name="folder_list_empty_headline">Emañ heuliad ebet amañ</string>
     <string name="folder_picker_choose_button_text">Dibab</string>
+    <string name="folder_picker_choose_caption_text">Dibab an teuliad moned</string>
+    <string name="folder_picker_move_button_text">Diplasañ</string>
     <string name="forbidden_permissions">N\'oc\'h ket aotreet %s</string>
     <string name="forbidden_permissions_copy">eit eilan ar restr</string>
     <string name="forbidden_permissions_create">evit krouiñ ar restr</string>
@@ -516,6 +518,7 @@
     <string name="rename_dialog_title">Lakaat un anv nevez</string>
     <string name="rename_local_fail_msg">Dibosuple adenvel an eilenn diabarzh, klaskit un anv all</string>
     <string name="rename_server_fail_msg">Dibosuple adenvel, anv kemeret dija</string>
+    <string name="request_account_deletion">Goulenn lemel ar c\'hont</string>
     <string name="reshare_not_allowed">N\'eo ket aotreet an adrannan</string>
     <string name="resharing_is_not_allowed">N\'eo ket aotreet an adrannan</string>
     <string name="resized_image_not_possible_download">Skeudenn admentet ebet. Pellgargañ ar skeudenn glot ?</string>
@@ -666,6 +669,7 @@
     <string name="trashbin_empty_message">Posupl eo deoc\'h adtapout ar restroù lamet adalek al lec\'h mañ</string>
     <string name="trashbin_file_not_deleted">Ar restr %1$s n\'eo ket evit bezhaãn lamet !</string>
     <string name="trashbin_file_not_restored">Ar restr %1$s n\'eo ket evit bezha adlakaet !</string>
+    <string name="trashbin_file_remove">Lamet da viken</string>
     <string name="trashbin_not_emptied">N\'eo ket posupl lemel ar restr da virviken !</string>
     <string name="unlock_file">Dibrennan ar restr</string>
     <string name="unread_comments">Bez eez eus kemenadennom n\'int ket bet lennet</string>
@@ -765,6 +769,7 @@
     <string name="wait_a_moment">Kortozit un tamm amzer...</string>
     <string name="wait_checking_credentials">O gwiriañ an titouroù identitelez entollet</string>
     <string name="wait_for_tmp_copy_from_private_storage">eilan ar restr diouzh un teuliad prevez</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Hizivaat</string>
     <string name="what_s_new_image">Peseurt skeudenn nevez</string>
     <string name="whats_new_skip">Tremen</string>
     <string name="whats_new_title">Nevez e %1$s</string>

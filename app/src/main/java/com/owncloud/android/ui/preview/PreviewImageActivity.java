@@ -57,6 +57,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 
@@ -87,6 +88,8 @@ public class PreviewImageActivity extends FileActivity implements
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
     private static final String KEY_SYSTEM_VISIBLE = "TRUE";
 
+
+    private OCFile livePhotoFile;
     private ViewPager mViewPager;
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;
     private int mSavedPosition;
@@ -97,6 +100,8 @@ public class PreviewImageActivity extends FileActivity implements
     private View mFullScreenAnchorView;
     @Inject AppPreferences preferences;
     @Inject LocalBroadcastManager localBroadcastManager;
+
+    private ActionBar actionBar;
 
     public static Intent previewFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
@@ -109,7 +114,7 @@ public class PreviewImageActivity extends FileActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
 
         if (savedInstanceState != null && !savedInstanceState.getBoolean(KEY_SYSTEM_VISIBLE, true) &&
             actionBar != null) {
@@ -117,6 +122,8 @@ public class PreviewImageActivity extends FileActivity implements
         }
 
         setContentView(R.layout.preview_image_activity);
+
+        livePhotoFile = getIntent().getParcelableExtra(EXTRA_LIVE_PHOTO_FILE);
 
         // Navigation Drawer
         setupDrawer();
@@ -138,7 +145,18 @@ public class PreviewImageActivity extends FileActivity implements
         } else {
             mRequestWaitingForBinder = false;
         }
+    }
 
+    public void toggleActionBarVisibility(boolean hide) {
+        if (actionBar == null) {
+            return;
+        }
+
+        if (hide) {
+            actionBar.hide();
+        } else {
+            actionBar.show();
+        }
     }
 
     private void initViewPager(User user) {
@@ -162,6 +180,7 @@ public class PreviewImageActivity extends FileActivity implements
 
             mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(
                 getSupportFragmentManager(),
+                livePhotoFile,
                 parentFolder,
                 user,
                 getStorageManager(),
@@ -184,6 +203,33 @@ public class PreviewImageActivity extends FileActivity implements
             // adapter does not result in a call to #onPageSelected(0)
             mRequestWaitingForBinder = true;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        sendRefreshSearchEventBroadcast();
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            sendRefreshSearchEventBroadcast();
+
+            if (isDrawerOpen()) {
+                closeDrawer();
+            } else {
+                backToDisplayActivity();
+            }
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void sendRefreshSearchEventBroadcast() {
+        Intent intent = new Intent(GalleryFragment.REFRESH_SEARCH_EVENT_RECEIVER);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
     @Override
@@ -306,28 +352,6 @@ public class PreviewImageActivity extends FileActivity implements
     public void onDestroy() {
         super.onDestroy();
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        boolean returnValue = false;
-
-        switch(item.getItemId()){
-        case android.R.id.home:
-            if (isDrawerOpen()) {
-                closeDrawer();
-            } else {
-                backToDisplayActivity();
-            }
-            returnValue = true;
-            break;
-        default:
-        	returnValue = super.onOptionsItemSelected(item);
-            break;
-        }
-
-        return returnValue;
-    }
-
 
     @Override
     protected void onResume() {

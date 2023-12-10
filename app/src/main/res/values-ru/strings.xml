@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Копировать</string>
     <string name="actionbar_mkdir">Создать папку</string>
     <string name="actionbar_move">Переместить</string>
+    <string name="actionbar_move_or_copy">Переместить или скопировать</string>
     <string name="actionbar_open_with">Открыть с помощью</string>
     <string name="actionbar_search">Поиск</string>
     <string name="actionbar_see_details">Подробности</string>
@@ -393,6 +394,9 @@
     <string name="folder_confirm_create">Создать</string>
     <string name="folder_list_empty_headline">Здесь нет каталогов</string>
     <string name="folder_picker_choose_button_text">Выбрать</string>
+    <string name="folder_picker_choose_caption_text">Выбор папки назначения</string>
+    <string name="folder_picker_copy_button_text">Копировать</string>
+    <string name="folder_picker_move_button_text">Переместить</string>
     <string name="forbidden_permissions">У вас нет разрешений %s</string>
     <string name="forbidden_permissions_copy">для копирования этого файла</string>
     <string name="forbidden_permissions_create">для создания файла</string>
@@ -651,6 +655,7 @@
     <string name="rename_dialog_title">Введите новое имя</string>
     <string name="rename_local_fail_msg">Невозможно переименовать локальную копию, попробуйте другое имя</string>
     <string name="rename_server_fail_msg">Переименование невозможно, имя занято</string>
+    <string name="request_account_deletion">Запрос удаления аккаунта</string>
     <string name="reshare_not_allowed">Повторное открытие доступа запрещено</string>
     <string name="resharing_is_not_allowed">Повторное открытие доступа запрещено</string>
     <string name="resized_image_not_possible_download">Оптимизированное изображение отсутствует. Скачать изображение исходного размера?</string>
@@ -942,6 +947,9 @@
     <string name="wait_a_moment">Подождите немного…</string>
     <string name="wait_checking_credentials">Проверка сохранённых реквизитов учётных данных</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частного хранилища</string>
+    <string name="webview_version_check_alert_dialog_message">Обновите приложение Android System WebView для входа в систему</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Изменение</string>
+    <string name="webview_version_check_alert_dialog_title">Обновите приложение Android System WebView</string>
     <string name="what_s_new_image">Изображение «что нового»</string>
     <string name="whats_new_skip">Пропустить</string>
     <string name="whats_new_title">Новое в %1$s</string>

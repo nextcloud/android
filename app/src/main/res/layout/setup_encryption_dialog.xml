@@ -26,14 +26,14 @@
     android:orientation="vertical"
     android:padding="@dimen/dialog_padding">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/encryption_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/standard_margin"
         tools:text="@string/end_to_end_encryption_keywords_description" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/encryption_passphrase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

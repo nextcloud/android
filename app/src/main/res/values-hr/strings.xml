@@ -369,6 +369,9 @@
     <string name="folder_confirm_create">Stvori</string>
     <string name="folder_list_empty_headline">Ovdje nema mapa</string>
     <string name="folder_picker_choose_button_text">Odaberite</string>
+    <string name="folder_picker_choose_caption_text">Odaberi ciljnu mapu</string>
+    <string name="folder_picker_copy_button_text">Kopirajte</string>
+    <string name="folder_picker_move_button_text">Premjesti</string>
     <string name="forbidden_permissions">Nemate dopuštenje %s</string>
     <string name="forbidden_permissions_copy">za kopiranje ove datoteke</string>
     <string name="forbidden_permissions_create">za izradu ove datoteke</string>
@@ -593,6 +596,7 @@
     <string name="rename_dialog_title">Unesite novi naziv</string>
     <string name="rename_local_fail_msg">Nije moguće preimenovati lokalnu kopiju, pokušajte s drugim nazivom</string>
     <string name="rename_server_fail_msg">Preimenovanje nije moguće, naziv je već zauzet</string>
+    <string name="request_account_deletion">Zatraži brisanje računa</string>
     <string name="reshare_not_allowed">Ponovno dijeljenje nije dopušteno</string>
     <string name="resharing_is_not_allowed">Ponovno dijeljenje nije dopušteno</string>
     <string name="resized_image_not_possible_download">Nema dostupne slike promijenjene veličine. Preuzeti punu sliku?</string>
@@ -729,8 +733,8 @@
     <string name="stream_not_possible_message">Umjesto toga preuzmite medijske datoteke ili se koristite vanjskom aplikacijom.</string>
     <string name="strict_mode">Ograničeni način rada: nije dopuštena HTTP veza!</string>
     <string name="sub_folder_rule_year">Godina</string>
-    <string name="subject_shared_with_you">\\"%1$s\\" je dijeljen s vama</string>
-    <string name="subject_user_shared_with_you">%1$s dijeli \\"%2$s\\" s vama</string>
+    <string name="subject_shared_with_you">\"%1$s\" je dijeljen s vama</string>
+    <string name="subject_user_shared_with_you">%1$s dijeli \"%2$s\" s vama</string>
     <string name="subtitle_photos_only">Samo fotografije</string>
     <string name="subtitle_photos_videos">Fotografije &amp; video materijali</string>
     <string name="subtitle_videos_only">Samo video materijali</string>
@@ -877,6 +881,7 @@
     <string name="wait_a_moment">Pričekajte…</string>
     <string name="wait_checking_credentials">U tijeku je provjera spremljenih vjerodajnica</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz osobnog podatkovnog prostora</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Ažuriraj</string>
     <string name="what_s_new_image">Što je nova slika</string>
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo u %1$s</string>

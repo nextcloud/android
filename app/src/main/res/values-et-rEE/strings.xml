@@ -263,6 +263,8 @@
     <string name="folder_confirm_create">Loo</string>
     <string name="folder_list_empty_headline">Siin ei ole kaustu</string>
     <string name="folder_picker_choose_button_text">Vali</string>
+    <string name="folder_picker_choose_caption_text">Vali sihtkaust</string>
+    <string name="folder_picker_move_button_text">Liiguta</string>
     <string name="forbidden_permissions">Sul ei ole %s õigusi</string>
     <string name="forbidden_permissions_copy">et kopeerida seda faili</string>
     <string name="forbidden_permissions_create">selle faili loomiseks</string>
@@ -436,6 +438,7 @@
     <string name="status_message">Staatuse teade</string>
     <string name="storage_description_default">Vaikeväärtus</string>
     <string name="storage_downloads">Allalaadimised</string>
+    <string name="sub_folder_rule_year">Aasta</string>
     <string name="subject_shared_with_you">\"%1$s\" on sinuga jagatud</string>
     <string name="subject_user_shared_with_you">%1$s jagas sinuga \"%2$s\"</string>
     <string name="sync_conflicts_in_favourites_ticker">Leite konflikte</string>
@@ -522,6 +525,7 @@
     <string name="version_dev_download">Lae alla</string>
     <string name="wait_a_moment">Oota üks hetk…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Faili kopeerimine privaatsest salvestusalast</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Uuenda</string>
     <string name="whats_new_skip">Jäta vahele</string>
     <string name="whats_your_status">Mis on su staatus?</string>
     <string name="write_email">Saada kiri</string>

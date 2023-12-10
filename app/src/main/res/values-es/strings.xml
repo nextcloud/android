@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
     <string name="actionbar_move">Mover</string>
+    <string name="actionbar_move_or_copy">Mover o Copiar</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -159,6 +160,7 @@
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
     <string name="conflict_server_file">Archivo del servidor</string>
     <string name="contact_backup_title">Respaldo de contactos</string>
+    <string name="contact_no_permission">Se requiere el permiso de contactos.</string>
     <string name="contactlist_item_icon">Icono de usuario para lista de contactos</string>
     <string name="contactlist_no_permission">No se han concedido permisos, por lo que no se ha importado nada</string>
     <string name="contacts">Contactos</string>
@@ -253,10 +255,11 @@
     <string name="e2e_offline">No es posible sin conexión a internet</string>
     <string name="ecosystem_apps_display_more">Más</string>
     <string name="ecosystem_apps_display_notes">Notas</string>
-    <string name="ecosystem_apps_display_talk">Coloquio</string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">Más apps de Nextcloud</string>
     <string name="ecosystem_apps_notes">Nextcloud Notas</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Error al seleccionar dirección de correo.</string>
     <string name="encrypted">Establecer como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
@@ -392,6 +395,9 @@
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">No hay carpetas aquí</string>
     <string name="folder_picker_choose_button_text">Elegir</string>
+    <string name="folder_picker_choose_caption_text">Elegir carpeta de destino</string>
+    <string name="folder_picker_copy_button_text">Copia</string>
+    <string name="folder_picker_move_button_text">Mover</string>
     <string name="forbidden_permissions">No tienes permiso %s</string>
     <string name="forbidden_permissions_copy">copiar este archivo</string>
     <string name="forbidden_permissions_create">para crear este archivo</string>
@@ -650,6 +656,7 @@
     <string name="rename_dialog_title">Introduce un nombre nuevo</string>
     <string name="rename_local_fail_msg">No se ha podido cambiar el nombre de la copia local, prueba un nombre diferente</string>
     <string name="rename_server_fail_msg">No se ha podido dar un nombre nuevo, el nombre ya está tomado</string>
+    <string name="request_account_deletion">Solicitar la eliminación de la cuenta</string>
     <string name="reshare_not_allowed">No se permite volver a compartir</string>
     <string name="resharing_is_not_allowed">No se permite compartir de nuevo</string>
     <string name="resized_image_not_possible_download">No se dispone de la imagen en otros tamaños. ¿Descargar en tamaño completo?</string>
@@ -941,6 +948,9 @@
     <string name="wait_a_moment">Espera un momento…</string>
     <string name="wait_checking_credentials">Comprobando las credenciales guardadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
+    <string name="webview_version_check_alert_dialog_message">Por favor actualiza la aplicación WebView de Sistema Android para iniciar sesión</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Actualizar</string>
+    <string name="webview_version_check_alert_dialog_title">Actualiza WebView de Sistema Android</string>
     <string name="what_s_new_image">Imagen de Qué hay de nuevo</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>

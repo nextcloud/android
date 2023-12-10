@@ -34,6 +34,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -57,10 +58,12 @@ import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.utils.FileUploaderDelegate;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.ForegroundServiceHelper;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.ForegroundServiceType;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -89,6 +92,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -125,6 +129,10 @@ public class FileUploader extends Service
     public static final String EXTRA_OLD_FILE_PATH = "OLD_FILE_PATH";
     public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
+
+    public static final String EXTRA_ACCOUNT_NAME = "ACCOUNT_NAME";
+    public static final String ACTION_CANCEL_BROADCAST = "CANCEL";
+    public static final String ACTION_PAUSE_BROADCAST = "PAUSE";
 
     private static final int FOREGROUND_SERVICE_ID = 411;
 
@@ -196,10 +204,12 @@ public class FileUploader extends Service
     private Notification mNotification;
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
-    private IBinder mBinder;
+    private static IBinder mBinder;
     private OwnCloudClient mUploadClient;
     private Account mCurrentAccount;
     private FileDataStorageManager mStorageManager;
+
+    private SecureRandom secureRandomGenerator = new SecureRandom();
 
     @Inject UserAccountManager accountManager;
     @Inject UploadsStorageManager mUploadsStorageManager;
@@ -231,6 +241,7 @@ public class FileUploader extends Service
     /**
      * Service initialization
      */
+    @SuppressFBWarnings("ST")
     @Override
     public void onCreate() {
         super.onCreate();
@@ -278,6 +289,7 @@ public class FileUploader extends Service
     /**
      * Service clean up
      */
+    @SuppressFBWarnings("ST")
     @Override
     public void onDestroy() {
         Log_OC.v(TAG, "Destroying service");
@@ -304,7 +316,7 @@ public class FileUploader extends Service
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
 
-        startForeground(FOREGROUND_SERVICE_ID, mNotification);
+        ForegroundServiceHelper.INSTANCE.startService(this, FOREGROUND_SERVICE_ID, mNotification, ForegroundServiceType.DataSync);
 
         if (intent == null) {
             Log_OC.e(TAG, "Intent is null");
@@ -374,7 +386,7 @@ public class FileUploader extends Service
         List<String> requestedUploads,
         boolean onWifiOnly,
         boolean whileChargingOnly
-    ) {
+                                            ) {
         String[] localPaths = null;
         String[] remotePaths = null;
         String[] mimeTypes = null;
@@ -413,7 +425,7 @@ public class FileUploader extends Service
                     remotePaths[i],
                     localPaths[i],
                     mimeTypes != null ? mimeTypes[i] : null
-                );
+                                                                      );
                 if (files[i] == null) {
                     Log_OC.e(TAG, "obtainNewOCFileToUpload() returned null for remotePaths[i]:" + remotePaths[i]
                         + " and localPaths[i]:" + localPaths[i]);
@@ -513,7 +525,7 @@ public class FileUploader extends Service
             user.getAccountName(),
             file.getRemotePath(),
             newUpload
-        );
+                                                                    );
 
         if (putResult != null) {
             requestedUploads.add(putResult.first);
@@ -560,7 +572,7 @@ public class FileUploader extends Service
             user.getAccountName(),
             upload.getRemotePath(),
             newUpload
-        );
+                                                                    );
         if (putResult != null) {
             String uploadKey = putResult.first;
             requestedUploads.add(uploadKey);
@@ -602,7 +614,7 @@ public class FileUploader extends Service
 
     /**
      * Core upload method: sends the file(s) to upload WARNING: legacy code, must be in sync with @{{@link
-     * FilesUploadWorker#upload(UploadFileOperation, User)}
+     * FilesUploadWorker upload(UploadFileOperation, User)}
      *
      * @param uploadKey Key to access the upload to perform, contained in mPendingUploads
      */
@@ -702,6 +714,12 @@ public class FileUploader extends Service
      */
     private void notifyUploadStart(UploadFileOperation upload) {
         // / create status notification with a progress bar
+        Intent notificationActionIntent = new Intent(getApplicationContext(), UploadNotificationActionReceiver.class);
+        notificationActionIntent.putExtra(EXTRA_ACCOUNT_NAME, upload.getUser().getAccountName());
+        notificationActionIntent.putExtra(EXTRA_REMOTE_PATH, upload.getRemotePath());
+        notificationActionIntent.setAction(ACTION_CANCEL_BROADCAST);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), secureRandomGenerator.nextInt(), notificationActionIntent, PendingIntent.FLAG_IMMUTABLE);
         mLastPercent = 0;
         mNotificationBuilder = NotificationUtils.newNotificationBuilder(this, viewThemeUtils);
         mNotificationBuilder
@@ -712,7 +730,10 @@ public class FileUploader extends Service
             .setProgress(100, 0, false)
             .setContentText(
                 String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName())
-                           );
+                           )
+            .clearActions() // to make sure there is only one action
+            .addAction(R.drawable.ic_action_cancel_grey, getApplicationContext().getString(R.string.common_cancel), pendingIntent);
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
@@ -749,7 +770,7 @@ public class FileUploader extends Service
         long totalTransferredSoFar,
         long totalToTransfer,
         String filePath
-    ) {
+                                  ) {
         int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
         if (percent != mLastPercent) {
             mNotificationBuilder.setProgress(100, percent, false);
@@ -805,7 +826,8 @@ public class FileUploader extends Service
                 .setContentTitle(getString(tickerId))
                 .setAutoCancel(true)
                 .setOngoing(false)
-                .setProgress(0, 0, false);
+                .setProgress(0, 0, false)
+                .clearActions();
 
             content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, upload, getResources());
 
@@ -814,11 +836,11 @@ public class FileUploader extends Service
                 Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
                 updateAccountCredentials.putExtra(
                     AuthenticatorActivity.EXTRA_ACCOUNT, upload.getUser().toPlatformAccount()
-                );
+                                                 );
                 updateAccountCredentials.putExtra(
                     AuthenticatorActivity.EXTRA_ACTION,
                     AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
-                );
+                                                 );
 
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
@@ -828,7 +850,7 @@ public class FileUploader extends Service
                     (int) System.currentTimeMillis(),
                     updateAccountCredentials,
                     PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE
-                ));
+                                                                               ));
             } else {
                 Intent intent;
                 if (uploadResult.getCode() == ResultCode.SYNC_CONFLICT) {
@@ -853,7 +875,7 @@ public class FileUploader extends Service
 
             mNotificationBuilder.setContentText(content);
             if (!uploadResult.isSuccess()) {
-                mNotificationManager.notify((new SecureRandom()).nextInt(), mNotificationBuilder.build());
+                mNotificationManager.notify(secureRandomGenerator.nextInt(), mNotificationBuilder.build());
             }
         }
     }
@@ -1152,24 +1174,34 @@ public class FileUploader extends Service
          * @param remotePath  Remote target of the upload
          * @param resultCode  Setting result code will pause rather than cancel the job
          */
-        private void cancel(String accountName, String remotePath, @Nullable ResultCode resultCode) {
-            Pair<UploadFileOperation, String> removeResult = mPendingUploads.remove(accountName, remotePath);
-            UploadFileOperation upload = removeResult.first;
-            if (upload == null && mCurrentUpload != null && mCurrentAccount != null &&
-                mCurrentUpload.getRemotePath().startsWith(remotePath) && accountName.equals(mCurrentAccount.name)) {
+        public void cancel(String accountName, String remotePath, @Nullable ResultCode resultCode) {
+            // Cancel for Android version >= Android 11
+            if (useFilesUploadWorker(getApplicationContext())) {
+                try {
+                    new FilesUploadHelper().cancelFileUpload(remotePath, accountManager.getUser(accountName).get());
+                } catch (NoSuchElementException e) {
+                    Log_OC.e(TAG, "Error cancelling current upload because user does not exist!");
+                }
+            } else {
+                // Cancel for Android version <= Android 10
+                Pair<UploadFileOperation, String> removeResult = mPendingUploads.remove(accountName, remotePath);
+                UploadFileOperation upload = removeResult.first;
+                if (upload == null && mCurrentUpload != null && mCurrentAccount != null &&
+                    mCurrentUpload.getRemotePath().startsWith(remotePath) && accountName.equals(mCurrentAccount.name)) {
 
-                upload = mCurrentUpload;
-            }
+                    upload = mCurrentUpload;
+                }
 
-            if (upload != null) {
-                upload.cancel(resultCode);
-                // need to update now table in mUploadsStorageManager,
-                // since the operation will not get to be run by FileUploader#uploadFile
-                if (resultCode != null) {
-                    mUploadsStorageManager.updateDatabaseUploadResult(new RemoteOperationResult(resultCode), upload);
-                    notifyUploadResult(upload, new RemoteOperationResult(resultCode));
-                } else {
-                    mUploadsStorageManager.removeUpload(accountName, remotePath);
+                if (upload != null) {
+                    upload.cancel(resultCode);
+                    // need to update now table in mUploadsStorageManager,
+                    // since the operation will not get to be run by FileUploader#uploadFile
+                    if (resultCode != null) {
+                        mUploadsStorageManager.updateDatabaseUploadResult(new RemoteOperationResult(resultCode), upload);
+                        notifyUploadResult(upload, new RemoteOperationResult(resultCode));
+                    } else {
+                        mUploadsStorageManager.removeUpload(accountName, remotePath);
+                    }
                 }
             }
         }
@@ -1180,19 +1212,23 @@ public class FileUploader extends Service
          * @param user Nextcloud user
          */
         public void cancel(User user) {
-            if (mCurrentUpload != null && mCurrentUpload.getUser().nameEquals(user)) {
-                mCurrentUpload.cancel(ResultCode.CANCELLED);
-            }
-            cancelPendingUploads(user.getAccountName());
+            cancel(user.getAccountName());
         }
 
         public void cancel(String accountName) {
-            if (mCurrentUpload != null && mCurrentUpload.getUser().nameEquals(accountName)) {
-                mCurrentUpload.cancel(ResultCode.CANCELLED);
+            cancelPendingUploads(accountName);
+            if (useFilesUploadWorker(getApplicationContext())) {
+                new FilesUploadHelper().restartUploadJob(accountManager.getUser(accountName).get());
+            } else {
+                if (mCurrentUpload != null && mCurrentUpload.getUser().nameEquals(accountName)) {
+                    mCurrentUpload.cancel(ResultCode.CANCELLED);
+                }
             }
+
         }
 
         public void clearListeners() {
+            FilesUploadHelper.Progress.getMBoundListeners().clear();
             mBoundListeners.clear();
         }
 
@@ -1212,16 +1248,43 @@ public class FileUploader extends Service
             if (user == null || file == null) {
                 return false;
             }
+            if (useFilesUploadWorker(getApplicationContext())){
+                // Not same as for service because upload list is "created" on the spot in the worker and not available here
 
-            return mPendingUploads.contains(user.getAccountName(), file.getRemotePath());
+                 OCUpload upload = mUploadsStorageManager.getUploadByRemotePath(file.getRemotePath());
+                 if (upload == null){
+                     return false;
+                 }
+                 return upload.getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS;
+
+            }else{
+                return mPendingUploads.contains(user.getAccountName(), file.getRemotePath());
+            }
         }
 
+        @SuppressFBWarnings("NP")
         public boolean isUploadingNow(OCUpload upload) {
-            return upload != null &&
-                mCurrentAccount != null &&
-                mCurrentUpload != null &&
-                upload.getAccountName().equals(mCurrentAccount.name) &&
-                upload.getRemotePath().equals(mCurrentUpload.getRemotePath());
+            if (useFilesUploadWorker(getApplicationContext())){
+                UploadFileOperation currentUploadFileOperation = FilesUploadWorker.Companion.getCurrentUploadFileOperation();
+                if (currentUploadFileOperation == null || currentUploadFileOperation.getUser() == null) return false;
+                if (upload == null || (!upload.getAccountName().equals(currentUploadFileOperation.getUser().getAccountName()))) return false;
+                if (currentUploadFileOperation.getOldFile() != null){
+                    // For file conflicts check old file remote path
+                    return upload.getRemotePath().equals(currentUploadFileOperation.getRemotePath()) ||
+                        upload.getRemotePath().equals(currentUploadFileOperation.getOldFile().getRemotePath());
+                }
+                return upload.getRemotePath().equals(currentUploadFileOperation.getRemotePath());
+
+            }else {
+
+                return upload != null &&
+                    mCurrentAccount != null &&
+                    mCurrentUpload != null &&
+                    upload.getAccountName().equals(mCurrentAccount.name) &&
+                    (upload.getRemotePath().equals(mCurrentUpload.getRemotePath()) ||
+                        (mCurrentUpload.getOldFile() != null &&
+                            upload.getRemotePath().equals(mCurrentUpload.getOldFile().getRemotePath())));
+            }
         }
 
         /**
@@ -1235,13 +1298,17 @@ public class FileUploader extends Service
             OnDatatransferProgressListener listener,
             User user,
             OCFile file
-        ) {
+                                                   ) {
             if (user == null || file == null || listener == null) {
                 return;
             }
-
             String targetKey = buildRemoteName(user.getAccountName(), file.getRemotePath());
-            mBoundListeners.put(targetKey, listener);
+
+            if (useFilesUploadWorker(getApplicationContext())) {
+                new FilesUploadHelper().addDatatransferProgressListener(listener,targetKey);
+            }else {
+                mBoundListeners.put(targetKey, listener);
+            }
         }
 
         /**
@@ -1253,13 +1320,17 @@ public class FileUploader extends Service
         public void addDatatransferProgressListener(
             OnDatatransferProgressListener listener,
             OCUpload ocUpload
-        ) {
+                                                   ) {
             if (ocUpload == null || listener == null) {
                 return;
             }
 
             String targetKey = buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
-            mBoundListeners.put(targetKey, listener);
+            if (useFilesUploadWorker(getApplicationContext())) {
+                new FilesUploadHelper().addDatatransferProgressListener(listener,targetKey);
+            }else {
+                mBoundListeners.put(targetKey, listener);
+            }
         }
 
         /**
@@ -1273,14 +1344,19 @@ public class FileUploader extends Service
             OnDatatransferProgressListener listener,
             User user,
             OCFile file
-        ) {
+                                                      ) {
             if (user == null || file == null || listener == null) {
                 return;
             }
 
             String targetKey = buildRemoteName(user.getAccountName(), file.getRemotePath());
-            if (mBoundListeners.get(targetKey) == listener) {
-                mBoundListeners.remove(targetKey);
+
+            if (useFilesUploadWorker(getApplicationContext())) {
+                new FilesUploadHelper().removeDatatransferProgressListener(listener,targetKey);
+            }else {
+                if (mBoundListeners.get(targetKey) == listener) {
+                    mBoundListeners.remove(targetKey);
+                }
             }
         }
 
@@ -1293,14 +1369,19 @@ public class FileUploader extends Service
         public void removeDatatransferProgressListener(
             OnDatatransferProgressListener listener,
             OCUpload ocUpload
-        ) {
+                                                      ) {
             if (ocUpload == null || listener == null) {
                 return;
             }
 
             String targetKey = buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
-            if (mBoundListeners.get(targetKey) == listener) {
-                mBoundListeners.remove(targetKey);
+
+            if (useFilesUploadWorker(getApplicationContext())) {
+                new FilesUploadHelper().removeDatatransferProgressListener(listener,targetKey);
+            }else {
+                if (mBoundListeners.get(targetKey) == listener) {
+                    mBoundListeners.remove(targetKey);
+                }
             }
         }
 
@@ -1310,7 +1391,7 @@ public class FileUploader extends Service
             long totalTransferredSoFar,
             long totalToTransfer,
             String fileName
-        ) {
+                                      ) {
             String key = buildRemoteName(mCurrentUpload.getUser().getAccountName(), mCurrentUpload.getFile().getRemotePath());
             OnDatatransferProgressListener boundListener = mBoundListeners.get(key);
 
@@ -1335,7 +1416,7 @@ public class FileUploader extends Service
                         mCurrentUpload.getUser().getAccountName(),
                         mCurrentUpload.getFile().getRemotePath(),
                         cancelReason
-                    );
+                          );
                 }
             }
         }
@@ -1350,7 +1431,7 @@ public class FileUploader extends Service
          * @param remotePath  Remote path to upload the file to.
          * @return Key
          */
-        private String buildRemoteName(String accountName, String remotePath) {
+        public static String buildRemoteName(String accountName, String remotePath) {
             return accountName + remotePath;
         }
     }
@@ -1387,6 +1468,36 @@ public class FileUploader extends Service
             mService.mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
             mService.stopForeground(true);
             mService.stopSelf(msg.arg1);
+        }
+    }
+
+
+    /**
+     * When cancel action in upload notification is pressed, cancel upload of item
+     */
+    public static class UploadNotificationActionReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String accountName = intent.getStringExtra(EXTRA_ACCOUNT_NAME);
+            String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
+            String action = intent.getAction();
+
+            if (ACTION_CANCEL_BROADCAST.equals(action)) {
+                Log_OC.d(TAG, "Cancel broadcast received for file " + remotePath + " at " + System.currentTimeMillis());
+
+                if (accountName == null || remotePath == null) {
+                    return;
+                }
+
+                FileUploaderBinder uploadBinder = (FileUploaderBinder) mBinder;
+                uploadBinder.cancel(accountName, remotePath, null);
+            } else if (ACTION_PAUSE_BROADCAST.equals(action)) {
+
+            } else {
+                Log_OC.d(TAG, "Unknown action to perform as UploadNotificationActionReceiver.");
+            }
         }
     }
 }

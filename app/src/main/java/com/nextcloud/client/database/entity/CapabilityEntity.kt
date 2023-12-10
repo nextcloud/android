@@ -129,5 +129,7 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION)
     val filesLockingVersion: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_GROUPFOLDERS)
-    val groupfolders: Int?
+    val groupfolders: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_DROP_ACCOUNT)
+    val dropAccount: Int?
 )

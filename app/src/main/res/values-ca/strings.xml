@@ -377,6 +377,9 @@
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">No hi ha carpetes</string>
     <string name="folder_picker_choose_button_text">Escolliu</string>
+    <string name="folder_picker_choose_caption_text">Trieu la carpeta de destinació</string>
+    <string name="folder_picker_copy_button_text">Còpia</string>
+    <string name="folder_picker_move_button_text">Mou</string>
     <string name="forbidden_permissions">No teniu permisos%s</string>
     <string name="forbidden_permissions_copy">per copiar aquest fitxer</string>
     <string name="forbidden_permissions_create">per crear aquest fitxer</string>
@@ -615,6 +618,7 @@
     <string name="rename_dialog_title">Introduiu un nom nou</string>
     <string name="rename_local_fail_msg">No s\'ha pogut canviar el nom de la còpia local, intenteu-ho amb amb un altre nom</string>
     <string name="rename_server_fail_msg">El canvi de nom no és possible, el nom ja es troba en ús</string>
+    <string name="request_account_deletion">Sol·licitud de supressió de compte</string>
     <string name="reshare_not_allowed">No es pot tornar a compartir</string>
     <string name="resharing_is_not_allowed">No està permesa la re-compartició</string>
     <string name="resized_image_not_possible_download">No hi ha imatge redimensionada disponible. Voleu baixar la imatge a la resolució original?</string>
@@ -796,6 +800,7 @@
     <string name="trashbin_empty_message">Des d\'aquí es podran recuperar fitxers suprimits.</string>
     <string name="trashbin_file_not_deleted">El fitxer %1$s no es pot suprimir!</string>
     <string name="trashbin_file_not_restored">El fitxer %1$s no es pot restaurar!</string>
+    <string name="trashbin_file_remove">Suprimeix permanentment</string>
     <string name="trashbin_loading_failed">No s\'ha pogut carregar la paperera!</string>
     <string name="trashbin_not_emptied">Els fitxers no s\'han pogut suprimir permanentment!</string>
     <string name="unlock_file">Desbloca el fitxer</string>
@@ -900,6 +905,7 @@
     <string name="wait_a_moment">Espereu un moment…</string>
     <string name="wait_checking_credentials">S\'estan comprovant les credencials emmagatzemades</string>
     <string name="wait_for_tmp_copy_from_private_storage">S\'està copiant el fitxer des de l\'emmagatzematge privat</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Actualitza</string>
     <string name="what_s_new_image">Imatge de novetats</string>
     <string name="whats_new_skip">Omet</string>
     <string name="whats_new_title">Nou a %1$s</string>

@@ -297,7 +297,7 @@ We use [shot](https://github.com/Karumi/Shot) for taking screenshots and compare
      Screenshot.snapActivity(activity).record();
     ```
 
-    - best practise is to first create test with emulator too see behaviour and then create screenshots
+    - best practice is to first create test with emulator too see behaviour and then create screenshots
 
 ## File naming
 

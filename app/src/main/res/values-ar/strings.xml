@@ -18,6 +18,7 @@
     <string name="actionbar_copy">نسخ</string>
     <string name="actionbar_mkdir">مجلد جديد</string>
     <string name="actionbar_move">نقل</string>
+    <string name="actionbar_move_or_copy">أنقُل أو انسَخ</string>
     <string name="actionbar_open_with">فتح باستخدام</string>
     <string name="actionbar_search">بحث</string>
     <string name="actionbar_see_details">تفاصيل</string>
@@ -159,6 +160,7 @@
     <string name="conflict_message_description">إذا قمت باختيار كلا الاصدارين, الملف المحلي سيحتوي على رقم ملحق باسم الملف.</string>
     <string name="conflict_server_file">ملف على الخادم</string>
     <string name="contact_backup_title">نسخ احتياطي لجهات الاتصال</string>
+    <string name="contact_no_permission">إذن الاتصال بالجهة لازم.</string>
     <string name="contactlist_item_icon">أيقونة المستخدمين المتواجدين في قائمة جهات الإتصال</string>
     <string name="contactlist_no_permission">لا يوجد إذن، لم يتم استيراد أي شيء</string>
     <string name="contacts">جهات الاتصال</string>
@@ -257,6 +259,7 @@
     <string name="ecosystem_apps_more">المزيد من تطبيقات نكست كلاود</string>
     <string name="ecosystem_apps_notes">ملاحظات Notes نيكست كلاود</string>
     <string name="ecosystem_apps_talk">تطبيق \"المحادثة\" talk من نكست كلاود</string>
+    <string name="email_pick_failed">تعذّر التقاط عنوان الإيميل.</string>
     <string name="encrypted">عيّنه كَمشفر</string>
     <string name="end_to_end_encryption_confirm_button">تنصيب التشفير</string>
     <string name="end_to_end_encryption_decrypting">جارِ فك التشفير …</string>
@@ -341,6 +344,7 @@
     <string name="file_list_empty_shared_headline">لم تقم بمشاركة أية بيانات بعد</string>
     <string name="file_list_empty_unified_search_no_results">لا توجد نتائج لطلبك</string>
     <string name="file_list_folder">مجلد</string>
+    <string name="file_list_live">مُباشِر</string>
     <string name="file_list_loading">جارِ التحميل …</string>
     <string name="file_list_no_app_for_file_type">لم يُعّد التطبيق يدعم نوع الملف هذا.</string>
     <string name="file_list_seconds_ago">منذ ثواني</string>
@@ -392,6 +396,9 @@
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
     <string name="folder_picker_choose_button_text">اختيار</string>
+    <string name="folder_picker_choose_caption_text">اختر مكان المجلد</string>
+    <string name="folder_picker_copy_button_text">إنسَخ</string>
+    <string name="folder_picker_move_button_text">نقل</string>
     <string name="forbidden_permissions">غير مسموح لك أن %s</string>
     <string name="forbidden_permissions_copy">لنسخ هذا الملف</string>
     <string name="forbidden_permissions_create">لإنشاء هذا الملف</string>
@@ -649,12 +656,17 @@
     <string name="remove_e2e">يُمكنك إلغاء التشفير المحلي لهذا العميل</string>
     <string name="remove_e2e_message">يُمكنك إلغاء التشفير المحلي لهذا العميل. هذا الملف المُشفّر سوف يبقى على الخادوم لكن لن تتم مزامنته مع هذا الحاسوب بعد الآن.</string>
     <string name="remove_fail_msg">فشلت عملية الحذف</string>
+    <string name="remove_local_account">إزالة الحساب المحلي</string>
+    <string name="remove_local_account_details">إزِل الحساب من الجهاز و احذُف كل الملفات المحلية</string>
     <string name="remove_notification_failed">فشل في إزالة الإخطار.</string>
     <string name="remove_push_notification">حذف</string>
     <string name="remove_success_msg">تم حذفه</string>
     <string name="rename_dialog_title">أدخل اسما جديداً</string>
     <string name="rename_local_fail_msg">تعذرت إعادة تسمية النسخة المحلية ، حاول استخدام اسم مختلف</string>
     <string name="rename_server_fail_msg">إعادة التسمية غير ممكنة ، الاسم مأخوذ بالفعل</string>
+    <string name="request_account_deletion">طلب حذف حساب</string>
+    <string name="request_account_deletion_button">طلب الإزالة</string>
+    <string name="request_account_deletion_details">طلب الإزالة الدائمة للحساب من قِبل مُزوّد الخدمة</string>
     <string name="reshare_not_allowed">لا يسمح بعملية إعادة المشاركة</string>
     <string name="resharing_is_not_allowed">لا يسمح بعملية إعادة المشاركة</string>
     <string name="resized_image_not_possible_download">لا توجد صورة بحجمها متاح. تنزيل الصورة الكاملة؟</string>
@@ -843,6 +855,7 @@
     <string name="trashbin_empty_message">ستتمكن من استعادة الملفات المحذوفة من هنا.</string>
     <string name="trashbin_file_not_deleted">الملف %1$s لا يمكن حذفه!</string>
     <string name="trashbin_file_not_restored">الملف %1$s لا يمكن إسترجاعه!</string>
+    <string name="trashbin_file_remove">حذف نهائي</string>
     <string name="trashbin_loading_failed">فشل تحميل سلة المحذوفات</string>
     <string name="trashbin_not_emptied">تعذر حذف الملفات نهائياً!</string>
     <string name="unlock_file">فتح قفل الملف</string>
@@ -879,6 +892,7 @@
     <string name="upload_lock_failed">فشل قفّل المجلد</string>
     <string name="upload_old_android">التشفير ممكن فقط مع &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">يمنع وجود مساحة غير كافية نسخ الملفات المحددة إلى المجلد %1$s. هل ترغب في نقلهم إلى هناك بدلاً من ذلك؟</string>
+    <string name="upload_quota_exceeded">الحصة التخزينية تمّ استنفاذها</string>
     <string name="upload_scan_doc_upload">مسح مستند عبر الكاميرا</string>
     <string name="upload_sync_conflict">تعارض المزامنة ، يرجى حلها يدويًا</string>
     <string name="upload_unknown_error">خطأ غير معروف</string>
@@ -946,8 +960,11 @@
     <string name="version_dev_download">تنزيل</string>
     <string name="video_overlay_icon">أيقونة التركيب على الفيديو</string>
     <string name="wait_a_moment">انتظر لحظة…</string>
-    <string name="wait_checking_credentials">التحقق من معلومات تسجيل الدخول المخزنة</string>
+    <string name="wait_checking_credentials">التحقق من معلومات تسجيل الدخول المحفوظة</string>
     <string name="wait_for_tmp_copy_from_private_storage">نسخ الملف من التخزين الخاص</string>
+    <string name="webview_version_check_alert_dialog_message">يرجى تحديث تطبيق  WebView في نظام أندرويد لتسجيل الدخول</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">تحديث</string>
+    <string name="webview_version_check_alert_dialog_title">تحديث تطبيق  WebView في نظام أندرويد</string>
     <string name="what_s_new_image">ما هي الصورة الجديدة</string>
     <string name="whats_new_skip">تخطى</string>
     <string name="whats_new_title">جديد على %1$s</string>

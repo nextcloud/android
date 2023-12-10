@@ -86,6 +86,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Keep file in source folder</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="file_list_seconds_ago">seconds ago</string>
+    <string name="file_list_live">LIVE</string>
     <string name="file_list_empty_headline">No files here</string>
     <string name="folder_list_empty_headline">No folders here</string>
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
@@ -129,8 +130,12 @@
     <string name="common_skip">Skip</string>
     <string name="common_copy">Copy</string>
     <string name="about_title">About</string>
+    <string name="remove_local_account">Remove local account</string>
+    <string name="remove_local_account_details">Remove account from device and delete all local files</string>
+    <string name="request_account_deletion">Request account deletion</string>
+    <string name="request_account_deletion_button">Request deletion</string>
+    <string name="request_account_deletion_details">Request permanent deletion of account by service provider</string>
     <string name="delete_account">Remove account</string>
-    <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Active user</string>
     <string name="upload_chooser_title">Upload from…</string>
@@ -428,17 +433,18 @@
     <string name="log_send_no_mail_app">No app for sending logs found. Please install an email client.</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
 
-    <string name="actionbar_move">Move</string>
-    <string name="actionbar_copy">Copy</string>
+    <string name="actionbar_move_or_copy">Move or Copy</string>
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
-    <string name="folder_picker_choose_button_text">Choose</string>
+
+    <string name="folder_picker_copy_button_text">Copy</string>
+    <string name="folder_picker_move_button_text">Move</string>
+    <string name="folder_picker_choose_caption_text">Choose target folder</string>
 
     <string name="move_file_not_found">Unable to move file. Please check whether it exists.</string>
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
     <string name="move_file_error">An error occurred while trying to move this file or folder</string>
     <string name="forbidden_permissions_move">to move this file</string>
-
 
     <string name="copy_file_not_found">Unable to copy. Please check whether the file exists.</string>
     <string name="copy_file_invalid_into_descendent">It is not possible to copy a folder into one of its own underlying folders</string>
@@ -545,8 +551,6 @@
     <string name="community_rc_fdroid">Get release candidate from F-Droid app</string>
     <string name="community_dev_fdroid">Get development release from F-Droid app</string>
     <string name="community_dev_direct_download">Download development release directly</string>
-    <string name="move_to">Move to…</string>
-    <string name="copy_to">Copy to…</string>
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="choose_local_folder">Choose local folder…</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -603,6 +607,7 @@
     <string name="actionbar_calendar_contacts_restore">Restore contacts &amp; calendar</string>
     <string name="contacts_backup_button">Back up now</string>
     <string name="contactlist_no_permission">No permission given, nothing imported.</string>
+    <string name="contact_no_permission">Contact permission is required.</string>
     <string name="restore_backup">Restore backup</string>
     <string name="contacts_preferences_no_file_found">No file found</string>
     <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
@@ -656,12 +661,6 @@
     <string name="shared_icon_shared_via_link">shared via link</string>
     <string name="shared_icon_shared">shared</string>
     <string name="overflow_menu">More menu</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_modification_date_ascending">Newest first</string>
-    <string name="sort_by_size_descending">Biggest first</string>
-    <string name="sort_by_size_ascending">Smallest first</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_modification_date_descending">Oldest first</string>
     <string name="synced_folders_type">Type</string>
     <string name="sync_status_button">Sync status button</string>
     <string name="synced_folder_settings_button">Settings button</string>
@@ -800,8 +799,6 @@
     <string name="permission_deny">Deny</string>
     <string name="permission_allow">Allow</string>
     <string name="share_send_note">Note to recipient</string>
-    <string name="note_confirm">Send</string>
-    <string name="send_note">Send note to recipient</string>
     <string name="note_could_not_sent">Could not send note</string>
     <string name="hint_note">Note</string>
     <string name="no_browser_available">No app available to handle links</string>
@@ -835,6 +832,7 @@
     <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
+    <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="host_not_available">Server not available</string>
     <string name="delete_entries">Delete entries</string>
     <string name="dismiss_notification_description">Dismiss notification</string>
@@ -948,6 +946,7 @@
     <string name="link_share_file_drop">File drop (upload only)</string>
     <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="failed_update_ui">Failed to update UI</string>
+    <string name="email_pick_failed">Failed to pick email address.</string>
     <string name="remote">(remote)</string>
     <string name="set_status">Set status</string>
     <string name="online_status">Online status</string>
@@ -978,6 +977,10 @@
     <string name="dialog_close">Close</string>
     <string name="direct_login_text">Login with %1$s to %2$s</string>
     <string name="direct_login_failed">Login via direct link failed!</string>
+    <string name="webview_version_check_alert_dialog_title">Update Android System WebView</string>
+    <string name="webview_version_check_alert_dialog_message">Please update the Android System WebView app for a login</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Update</string>
+
     <string name="login_url_helper_text">The link to your %1$s web interface when you open it in the browser.</string>
     <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
     <string name="create">Create</string>
@@ -1037,8 +1040,6 @@
     <string name="show_video">Show videos</string>
     <string name="subtitle_videos_only">Videos only</string>
     <string name="select_media_folder">Set media folder</string>
-    <string name="choose_location">Choose location</string>
-    <string name="common_select">Select</string>
     <string name="lock_file">Lock file</string>
     <string name="unlock_file">Unlock file</string>
     <string name="error_file_lock">Error changing file lock status</string>

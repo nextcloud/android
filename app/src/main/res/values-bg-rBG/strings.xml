@@ -386,6 +386,9 @@
     <string name="folder_confirm_create">Създай</string>
     <string name="folder_list_empty_headline">Няма папки</string>
     <string name="folder_picker_choose_button_text">Изберете</string>
+    <string name="folder_picker_choose_caption_text">Избор на папка</string>
+    <string name="folder_picker_copy_button_text">Копие</string>
+    <string name="folder_picker_move_button_text">Преместване</string>
     <string name="forbidden_permissions">Нямате права за достъп до %s</string>
     <string name="forbidden_permissions_copy">да копира този файл</string>
     <string name="forbidden_permissions_create">за създаване на файла</string>
@@ -624,6 +627,7 @@
     <string name="rename_dialog_title">Въведете ново име</string>
     <string name="rename_local_fail_msg">Локалното копие не може да бъде преименувано; опитайте с друго име</string>
     <string name="rename_server_fail_msg">Сървърът не може да бъде преименуван</string>
+    <string name="request_account_deletion">Заявка за изтриване на профил</string>
     <string name="reshare_not_allowed">Повторното споделяне е забранено</string>
     <string name="resharing_is_not_allowed">Повторното споделяне е забранено</string>
     <string name="resized_image_not_possible_download">Няма налично оразмерено изображение. Да се свали ли изображението?</string>
@@ -807,6 +811,7 @@
     <string name="trashbin_empty_message">Ще можете да възстановите изтритите файлове от тук.</string>
     <string name="trashbin_file_not_deleted">Файлът %1$s не може да бъде изтрит!</string>
     <string name="trashbin_file_not_restored">Файлът %1$s не може да бъде възстановен!</string>
+    <string name="trashbin_file_remove">Изтрий завинаги</string>
     <string name="trashbin_loading_failed">Зареждането на кошчето е неуспешно!</string>
     <string name="trashbin_not_emptied">Файловете не могат да бъдат окончателно изтрити!</string>
     <string name="unlock_file">Отключване на файл</string>
@@ -911,6 +916,7 @@
     <string name="wait_a_moment">Моля изчакайте…</string>
     <string name="wait_checking_credentials">Проверка на съхранените пълномощия</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копиране на файла от личното хранилище</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Обновяване</string>
     <string name="what_s_new_image">Какво ново</string>
     <string name="whats_new_skip">Пропусни</string>
     <string name="whats_new_title">Ново в %1$s</string>

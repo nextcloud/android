@@ -300,8 +300,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             Arrays.asList(
                 R.id.action_rename_file,
                 R.id.action_sync_file,
-                R.id.action_move,
-                R.id.action_copy,
+                R.id.action_move_or_copy,
                 R.id.action_favorite,
                 R.id.action_unset_favorite,
                 R.id.action_pin_to_homescreen
@@ -331,6 +330,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             seeDetails();
         } else if (itemId == R.id.action_sync_file) {
             containerActivity.getFileOperationsHelper().syncFile(getFile());
+        } else if(itemId == R.id.action_cancel_sync){
+            containerActivity.getFileOperationsHelper().cancelTransference(getFile());
         } else if (itemId == R.id.action_edit) {
             containerActivity.getFileOperationsHelper().openFileWithTextEditor(getFile(), getContext());
         }

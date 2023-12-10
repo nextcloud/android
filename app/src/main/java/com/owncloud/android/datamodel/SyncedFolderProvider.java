@@ -34,6 +34,7 @@ import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -87,6 +88,10 @@ public class SyncedFolderProvider extends Observable {
             Log_OC.e(TAG, "Failed to insert item " + syncedFolder.getLocalPath() + " into folder sync db.");
             return -1;
         }
+    }
+
+    public static boolean isAutoUploadFolder(SyncedFolderProvider syncedFolderProvider, ServerFileInterface file, User user) {
+        return syncedFolderProvider != null && syncedFolderProvider.findByRemotePathAndAccount(file.getRemotePath(), user);
     }
 
     public int countEnabledSyncedFolders() {
@@ -307,6 +312,10 @@ public class SyncedFolderProvider extends Observable {
         );
     }
 
+    public AppPreferences getPreferences() {
+        return preferences;
+    }
+
     /**
      * update given synced folder.
      *
@@ -406,7 +415,7 @@ public class SyncedFolderProvider extends Observable {
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION, syncedFolder.getUploadAction());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY,
                syncedFolder.getNameCollisionPolicyInt());
-        cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE, syncedFolder.getType().getId());
+        cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE, syncedFolder.getType().id);
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN, syncedFolder.isHidden());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_RULE, syncedFolder.getSubfolderRule().ordinal());
 

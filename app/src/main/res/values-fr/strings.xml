@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Copier</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_move">Déplacer</string>
+    <string name="actionbar_move_or_copy">Déplacer ou copier</string>
     <string name="actionbar_open_with">Ouvrir avec</string>
     <string name="actionbar_search">Rechercher</string>
     <string name="actionbar_see_details">Propriétés</string>
@@ -159,6 +160,7 @@
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
     <string name="conflict_server_file">Fichier serveur</string>
     <string name="contact_backup_title">Sauvegarde des contacts</string>
+    <string name="contact_no_permission">La permission d\'accès à vos contacts est requise</string>
     <string name="contactlist_item_icon">L\'icône de l\'utilisateur pour la liste des contacts</string>
     <string name="contactlist_no_permission">Pas de permission donnée, rien n\'a été importé.</string>
     <string name="contacts">Contacts</string>
@@ -394,6 +396,9 @@ Attention, la suppression est irréversible.</string>
     <string name="folder_confirm_create">Créer</string>
     <string name="folder_list_empty_headline">Aucun dossier</string>
     <string name="folder_picker_choose_button_text">Valider</string>
+    <string name="folder_picker_choose_caption_text">Sélectionner le dossier cible</string>
+    <string name="folder_picker_copy_button_text">Copier</string>
+    <string name="folder_picker_move_button_text">Déplacer</string>
     <string name="forbidden_permissions">Vous n\'avez pas la permission %s</string>
     <string name="forbidden_permissions_copy">de copier ce fichier</string>
     <string name="forbidden_permissions_create">de créer ce fichier</string>
@@ -438,7 +443,7 @@ Attention, la suppression est irréversible.</string>
     <string name="invalid_url">URL invalide</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">Le libellé ne peut pas être vide</string>
-    <string name="last_backup">Dernière sauvegarde: %1$s</string>
+    <string name="last_backup">Dernière sauvegarde : %1$s</string>
     <string name="link">Lien</string>
     <string name="link_name">Nom du lien</string>
     <string name="link_share_allow_upload_and_editing">Autoriser le téléversement et la modification</string>
@@ -646,12 +651,15 @@ Attention, la suppression est irréversible.</string>
     <string name="remove_e2e">Vous pouvez retirer le chiffrement de bout en bout localement sur ce client</string>
     <string name="remove_e2e_message">Vous pouvez retirer le chiffrement de bout en bout localement sur ce client. Les fichiers chiffrés resteront sur le serveur, mais ne seront plus synchronisés avec cet ordinateur.</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
+    <string name="remove_local_account">Supprimer le compte local</string>
+    <string name="remove_local_account_details">Supprimer le compte de l\'appareil et supprimer tous les fichiers locaux</string>
     <string name="remove_notification_failed">Erreur lors de la suppression des notifications.</string>
     <string name="remove_push_notification">Supprimer</string>
     <string name="remove_success_msg">Supprimé</string>
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
     <string name="rename_local_fail_msg">Impossible de renommer la version locale; veuillez réessayer avec un nom différent</string>
     <string name="rename_server_fail_msg">Impossible de renommer, le nom est déjà utilisé</string>
+    <string name="request_account_deletion">Demander la suppression du compte</string>
     <string name="reshare_not_allowed">Le repartage n\'est pas autorisé</string>
     <string name="resharing_is_not_allowed">Le repartage est interdit</string>
     <string name="resized_image_not_possible_download">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
@@ -943,6 +951,9 @@ Attention, la suppression est irréversible.</string>
     <string name="wait_a_moment">Veuillez patienter…</string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
+    <string name="webview_version_check_alert_dialog_message">Veuillez mettre à jour l\'application Android System WebView pour vous connecter</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Mise à jour</string>
+    <string name="webview_version_check_alert_dialog_title">Mettre à jour Android System WebView</string>
     <string name="what_s_new_image">Image quoi de neuf</string>
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>

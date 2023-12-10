@@ -15,11 +15,17 @@ height="80">](https://f-droid.org/packages/com.nextcloud.client/)
 
 ## How to contribute :rocket:
 
-If you want to [contribute](https://nextcloud.com/contribute/) to Nextcloud, you are very welcome:
+If you want to [contribute](https://nextcloud.com/contribute/) to the Nextcloud Android client app, there are many ways to help whether or not you are a coder: 
 
-*   our forum at https://help.nextcloud.com
-*   for translations of the app on [Transifex](https://app.transifex.com/nextcloud/nextcloud/android/)
-*   opening issues and PRs (including a corresponding issue)
+*   helping out other users on our forum at https://help.nextcloud.com
+*   providing translations of the app on [Transifex](https://app.transifex.com/nextcloud/nextcloud/android/)
+*   reporting problems / suggesting enhancements by [opening new issues](https://github.com/nextcloud/android/issues/new/choose)
+*   implementing proposed bug fixes and enhancement ideas by submitting PRs (associated with a corresponding issue preferably)
+*   reviewing [pull requests](https://github.com/nextcloud/android/pulls) and providing feedback on code, implementation, and functionality
+*   installing and testing [pull request builds](https://github.com/nextcloud/android/pulls), [daily/dev builds](https://github.com/nextcloud/android#development-version-hammer), or [RCs/release candidate builds](https://github.com/nextcloud/android/releases) 
+*   enhancing Admin, User, or Developer [documentation](https://github.com/nextcloud/documentation/)
+*   hitting hard on the latest stable release by testing fundamental features and evaluating the user experience
+*   proactively getting familiar with [how to gather debug logs](https://github.com/nextcloud/android#getting-debug-info-via-logcat-mag) from your devices (so that you are prepared to provide a detailed report if you encounter a problem with the app in the future)
 
 ## Contribution Guidelines & License :scroll:
 
@@ -38,7 +44,7 @@ More information on how to contribute: <https://nextcloud.com/contribute/>
 ## Start contributing :hammer\_and\_wrench:
 
 Make sure you read [SETUP.md](https://github.com/nextcloud/android/blob/master/SETUP.md) and [CONTRIBUTING.md](https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md) before you start working on this project. But basically: fork this repository and contribute back using pull requests to the master branch.
-Easy starting points are also reviewing [pull requests](https://github.com/nextcloud/android/pulls) and working on [starter issues](https://github.com/nextcloud/android/issues?q=is%3Aopen+is%3Aissue+label%3A%22starter+issue%22).
+Easy starting points are also reviewing [pull requests](https://github.com/nextcloud/android/pulls) and working on [starter issues](https://github.com/nextcloud/android/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22).
 
 ### Getting debug info via logcat :mag:
 

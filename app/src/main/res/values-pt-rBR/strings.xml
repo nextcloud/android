@@ -392,6 +392,9 @@
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
     <string name="folder_picker_choose_button_text">Escolher</string>
+    <string name="folder_picker_choose_caption_text">Escolher pasta destino</string>
+    <string name="folder_picker_copy_button_text">Copiar</string>
+    <string name="folder_picker_move_button_text">Mover</string>
     <string name="forbidden_permissions">Você não tem permissão %s</string>
     <string name="forbidden_permissions_copy">para copiar este arquivo</string>
     <string name="forbidden_permissions_create">para criar este arquivo</string>
@@ -650,6 +653,7 @@
     <string name="rename_dialog_title">Digite um novo nome</string>
     <string name="rename_local_fail_msg">Não foi possível renomear a cópia local, tente um nome diferente</string>
     <string name="rename_server_fail_msg">Não foi possível renomear pois o nome já existe</string>
+    <string name="request_account_deletion">Solicitar a exclusão da conta</string>
     <string name="reshare_not_allowed">Recompartilhamento não é permitido</string>
     <string name="resharing_is_not_allowed">Recompartilhamento não é permitido</string>
     <string name="resized_image_not_possible_download">Não há imagem redimensionada disponível. Baixar a imagem completa?</string>
@@ -941,6 +945,7 @@
     <string name="wait_a_moment">Aguarde um momento…</string>
     <string name="wait_checking_credentials">Verificando credenciais salvas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o arquivo da armazenagem privada</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Atualizar</string>
     <string name="what_s_new_image">Imagem nova</string>
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_new_title">Novo em %1$s</string>

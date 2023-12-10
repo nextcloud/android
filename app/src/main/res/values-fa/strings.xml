@@ -392,6 +392,9 @@
     <string name="folder_confirm_create">ایجاد کردن</string>
     <string name="folder_list_empty_headline">هیچ  پوشه ای اینجا وجود ندارد</string>
     <string name="folder_picker_choose_button_text">انتخاب کردن</string>
+    <string name="folder_picker_choose_caption_text">پوشهٔ هدف را انتخاب کنید</string>
+    <string name="folder_picker_copy_button_text">رونوشت</string>
+    <string name="folder_picker_move_button_text">انتقال</string>
     <string name="forbidden_permissions">شما مجاز نیستید%s</string>
     <string name="forbidden_permissions_copy">کپی این فایل</string>
     <string name="forbidden_permissions_create">برای ساختن این پرونده</string>
@@ -650,6 +653,7 @@
     <string name="rename_dialog_title">نام جدید وارد کنید</string>
     <string name="rename_local_fail_msg">تغییر نام نسخه محلی امکان پذیر نیست ، نام دیگری را امتحان کنید</string>
     <string name="rename_server_fail_msg">تغییر نام ممکن نیست، این نام قبلا استفاده شده است</string>
+    <string name="request_account_deletion">درخواست حذف اکانت</string>
     <string name="reshare_not_allowed">اشتراک‌گذاری مجدد مجاز نمی باشد</string>
     <string name="resharing_is_not_allowed">اشتراک‌گذاری مجدد مجاز نمی باشد</string>
     <string name="resized_image_not_possible_download">هیچ تصویری تغییر اندازه شده‌ای در دسترس نیست. تصویر کامل را بارگیری می کنید؟</string>
@@ -941,6 +945,7 @@
     <string name="wait_a_moment">یک لحظه صبر کنید...</string>
     <string name="wait_checking_credentials">بررسی اعتبارنامه‌های ذخیره شده</string>
     <string name="wait_for_tmp_copy_from_private_storage">کپی کردن فایل از حافظه خصوصی</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">به‌روز رسانی</string>
     <string name="what_s_new_image">چه تصویر جدیدی است</string>
     <string name="whats_new_skip">رد شدن</string>
     <string name="whats_new_title">جدید در %1$s</string>

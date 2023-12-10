@@ -128,17 +128,31 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
             if (!remoteFile.getRemotePath().equals("/")) {
                 if (remoteFile.isEncrypted()) {
-                    assertTrue(new ToggleEncryptionRemoteOperation(remoteFile.getLocalId(),
-                                                                   remoteFile.getRemotePath(),
-                                                                   false)
-                                   .execute(client)
-                                   .isSuccess());
+                    ToggleEncryptionRemoteOperation operation = new ToggleEncryptionRemoteOperation(remoteFile.getLocalId(),
+                                                                                                    remoteFile.getRemotePath(),
+                                                                                                    false);
+
+                    boolean operationResult = operation
+                        .execute(client)
+                        .isSuccess();
+
+                    assertTrue(operationResult);
                 }
 
-                assertTrue(new RemoveFileRemoteOperation(remoteFile.getRemotePath())
-                               .execute(client)
-                               .isSuccess()
-                          );
+                boolean removeResult = false;
+                for (int i = 0; i < 5; i++) {
+                    removeResult = new RemoveFileRemoteOperation(remoteFile.getRemotePath())
+                        .execute(client)
+                        .isSuccess();
+                    
+                    if (removeResult) {
+                        break;
+                    }
+
+                    shortSleep();
+                }
+
+                assertTrue(removeResult);
             }
         }
     }

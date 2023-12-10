@@ -26,6 +26,7 @@ package com.nextcloud.client.preferences;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 
 import com.google.gson.Gson;
 import com.nextcloud.appReview.AppReviewShownModel;
@@ -433,6 +434,18 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public int getUploaderBehaviour() {
         return preferences.getInt(AUTO_PREF__UPLOADER_BEHAVIOR, 1);
+    }
+
+    @Override
+    public boolean isDarkModeEnabled() {
+        DarkMode mode = getDarkThemeMode();
+
+        if (mode == DarkMode.SYSTEM) {
+            int currentNightMode = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            return currentNightMode == Configuration.UI_MODE_NIGHT_YES;
+        }
+
+        return mode == DarkMode.DARK;
     }
 
     @Override

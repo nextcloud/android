@@ -87,8 +87,10 @@
     <string name="calendars">לוחות שנה</string>
     <string name="certificate_load_problem">קיימת בעיה בטעינת האישור.</string>
     <string name="changelog_dev_version">יומן שינויים של גרסת פיתוח</string>
+    <string name="check_back_later_or_reload">בדוק שוב מאוחר יותר או טען שנית</string>
     <string name="checkbox">תיבת סימון</string>
     <string name="choose_local_folder">נא לבחור בתיקייה מקומית…</string>
+    <string name="choose_location">בחר מיקום</string>
     <string name="choose_remote_folder">בחר תיקייה…</string>
     <string name="clear_notifications_failed">פינוי ההתראות נכשל.</string>
     <string name="clear_status_message">פינוי הודעת המצב</string>
@@ -346,6 +348,9 @@
     <string name="folder_confirm_create">יצירה</string>
     <string name="folder_list_empty_headline">אין כאן תיקיות</string>
     <string name="folder_picker_choose_button_text">בחירה</string>
+    <string name="folder_picker_choose_caption_text">נא לבחור תיקיית יעד</string>
+    <string name="folder_picker_copy_button_text">העתקה</string>
+    <string name="folder_picker_move_button_text">העברה</string>
     <string name="forbidden_permissions">אין לך הרשאה %s</string>
     <string name="forbidden_permissions_copy">להעתיק את הקובץ הזה</string>
     <string name="forbidden_permissions_create">ליצור את הקובץ הזה</string>
@@ -535,6 +540,7 @@
     <string name="rename_dialog_title">נא להזין שם חדש</string>
     <string name="rename_local_fail_msg">לא ניתן לשנות שם של עותק מקומי, נא לנסות שם אחר</string>
     <string name="rename_server_fail_msg">אי אפשר לשנות שם, השם כבר תפוס</string>
+    <string name="request_account_deletion">בקשת מחיקת חשבון</string>
     <string name="reshare_not_allowed">שיתוף מחדש אסור</string>
     <string name="resharing_is_not_allowed">אסור לשתף מחדש</string>
     <string name="resized_image_not_possible_download">אין תמונה מוקטנת. להוריד את התמונה המלאה?</string>
@@ -805,6 +811,7 @@
     <string name="wait_a_moment">נא להמתין רגע…</string>
     <string name="wait_checking_credentials">בודק אישורים שמורים</string>
     <string name="wait_for_tmp_copy_from_private_storage">מעתיק קובץ מאחסון פרטי</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">עדכון</string>
     <string name="what_s_new_image">תמונת מה חדש</string>
     <string name="whats_new_skip">דלג</string>
     <string name="whats_new_title">חדש ב־%1$s</string>

@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Копирај</string>
     <string name="actionbar_mkdir">Нова фасцикла</string>
     <string name="actionbar_move">Премести</string>
+    <string name="actionbar_move_or_copy">Премести или копирај</string>
     <string name="actionbar_open_with">Отвори помоћу</string>
     <string name="actionbar_search">Претрага</string>
     <string name="actionbar_see_details">Детаљи</string>
@@ -159,6 +160,7 @@
     <string name="conflict_message_description">Ако изаберете обе верзије, локални фајл имаће број придодат свом називу.</string>
     <string name="conflict_server_file">Серверски фајл</string>
     <string name="contact_backup_title">Резервна копија контаката</string>
+    <string name="contact_no_permission">Неопходна је дозвола контакта.</string>
     <string name="contactlist_item_icon">Икона корисника за листу контаката</string>
     <string name="contactlist_no_permission">Није дата дозвола. Ништа није увезено.</string>
     <string name="contacts">Контакти</string>
@@ -257,6 +259,7 @@
     <string name="ecosystem_apps_more">Још Nextcloud апликација</string>
     <string name="ecosystem_apps_notes">Некстклауд Белешке</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Није успело бирање и-мејл адресе.</string>
     <string name="encrypted">Постави као шифровано</string>
     <string name="end_to_end_encryption_confirm_button">Подесите шифровање</string>
     <string name="end_to_end_encryption_decrypting">Дешифрујем…</string>
@@ -392,6 +395,9 @@
     <string name="folder_confirm_create">Направи</string>
     <string name="folder_list_empty_headline">Нема фасцикли овде</string>
     <string name="folder_picker_choose_button_text">Одабери</string>
+    <string name="folder_picker_choose_caption_text">Одаберите одредишну фасциклу</string>
+    <string name="folder_picker_copy_button_text">Копирај</string>
+    <string name="folder_picker_move_button_text">Помери</string>
     <string name="forbidden_permissions">Није вам дозвољено %s</string>
     <string name="forbidden_permissions_copy">да копирате овај фајл</string>
     <string name="forbidden_permissions_create">да направите фајл</string>
@@ -644,12 +650,17 @@
     <string name="remove_e2e">Шифрирање од почетка-до-краја можете локално да уклоните на овом клијенту</string>
     <string name="remove_e2e_message">Шифрирање од почетка-до-краја можете локално да уклоните на овом клијенту. Шифрирани фајлови ће остати на серверу, али се више неће синхронизовати са овим компјутером.</string>
     <string name="remove_fail_msg">Брисање није успело</string>
+    <string name="remove_local_account">Уклони локални налог</string>
+    <string name="remove_local_account_details">Укњања локални налог са уређаја у брише све локалне фајлове</string>
     <string name="remove_notification_failed">Грешка при уклањању обавештења.</string>
     <string name="remove_push_notification">Уклони</string>
     <string name="remove_success_msg">Обрисано</string>
     <string name="rename_dialog_title">Унесите нов назив</string>
     <string name="rename_local_fail_msg">Не могу да преименујем локалну копију. Пробајте други назив</string>
     <string name="rename_server_fail_msg">Преименовање није могуће. Назив већ постоји</string>
+    <string name="request_account_deletion">Захтевајте брисање налога</string>
+    <string name="request_account_deletion_button">Захтев за брисање</string>
+    <string name="request_account_deletion_details">Захтев пружаоцу сервиса да неповратно обрише налог</string>
     <string name="reshare_not_allowed">Поновно дељење није дозвољено</string>
     <string name="resharing_is_not_allowed">Поновно дељење није дозвољено</string>
     <string name="resized_image_not_possible_download">Нема доступне умањене сличице. Скинути пуну слику?</string>
@@ -873,6 +884,7 @@
     <string name="upload_lock_failed">Неуспело закључавање фасцикле</string>
     <string name="upload_old_android">Шифровање је могуће само са &gt;= Андроидом 5.0</string>
     <string name="upload_query_move_foreign_files">Недостатак простора  спречава копирање фајлова у фасциклу %1$s. Желите ли да их преместите тамо?</string>
+    <string name="upload_quota_exceeded">Прекорачена је квота за складиште</string>
     <string name="upload_scan_doc_upload">Скенирање документа камером</string>
     <string name="upload_sync_conflict">Сукоб синхронизације. Разрешите га ручно</string>
     <string name="upload_unknown_error">Непозната грешка</string>
@@ -941,6 +953,9 @@
     <string name="wait_a_moment">Сачекајте мало…</string>
     <string name="wait_checking_credentials">Проверавам сачуване акредитиве</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирам фајл из личног складишта</string>
+    <string name="webview_version_check_alert_dialog_message">Да бисте се пријавили, молимо вас да ажурирате Андроид апликацију System WebView</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Ажурирај</string>
+    <string name="webview_version_check_alert_dialog_title">Ажурирај Андроид System WebView</string>
     <string name="what_s_new_image">Слика шта је ново</string>
     <string name="whats_new_skip">Прескочи</string>
     <string name="whats_new_title">Ново у %1$s</string>

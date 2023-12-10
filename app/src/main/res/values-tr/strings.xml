@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Kopyala</string>
     <string name="actionbar_mkdir">Yeni klasör</string>
     <string name="actionbar_move">Taşı</string>
+    <string name="actionbar_move_or_copy">Taşı ya da kopyala</string>
     <string name="actionbar_open_with">Birlikte aç</string>
     <string name="actionbar_search">Arama</string>
     <string name="actionbar_see_details">Ayrıntılar</string>
@@ -159,6 +160,7 @@
     <string name="conflict_message_description">İki sürümü de saklamayı seçerseniz, yerel dosyanın adına bir numara eklenecek.</string>
     <string name="conflict_server_file">Sunucu dosyası</string>
     <string name="contact_backup_title">Kişiler yedeği</string>
+    <string name="contact_no_permission">Kişi izinleri gerekli.</string>
     <string name="contactlist_item_icon">Kişi listesi kullanıcı simgesi</string>
     <string name="contactlist_no_permission">Herhangi bir izin verilmemiş olduğundan hiçbir şey içe aktarılamadı.</string>
     <string name="contacts">Kişiler</string>
@@ -257,6 +259,7 @@
     <string name="ecosystem_apps_more">Diğer Nextcloud uygulamaları</string>
     <string name="ecosystem_apps_notes">Nextcloud Notlar</string>
     <string name="ecosystem_apps_talk">Nextcloud Sohbet</string>
+    <string name="email_pick_failed">E-posta adresi alınamadı.</string>
     <string name="encrypted">Şifrelensin</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_decrypting">Şifre çözülüyor …</string>
@@ -392,6 +395,9 @@
     <string name="folder_confirm_create">Ekle</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
     <string name="folder_picker_choose_button_text">Seçin</string>
+    <string name="folder_picker_choose_caption_text">Hedef klasörü seçin</string>
+    <string name="folder_picker_copy_button_text">Kopyala</string>
+    <string name="folder_picker_move_button_text">Taşı</string>
     <string name="forbidden_permissions">%s izniniz yok</string>
     <string name="forbidden_permissions_copy">bu dosyayı kopyalayın</string>
     <string name="forbidden_permissions_create">bu dosyayı oluşturamazsınız</string>
@@ -644,12 +650,14 @@
     <string name="remove_e2e">Bu istemciden uçtan uca şifrelemeyi yerel olarak kaldırabilirsiniz</string>
     <string name="remove_e2e_message">Bu istemcide yerel olarak uçtan uca şifrelemeyi kaldırabilirsiniz. Şifrelenmiş dosyalar sunucuda kalır, ancak artık bu bilgisayarla eşitlenmez.</string>
     <string name="remove_fail_msg">Silinemedi</string>
+    <string name="remove_local_account">Yerel hesabı sil</string>
     <string name="remove_notification_failed">Bildirim silinemedi.</string>
     <string name="remove_push_notification">Sil</string>
     <string name="remove_success_msg">Silindi</string>
     <string name="rename_dialog_title">Yeni bir ad yazın</string>
     <string name="rename_local_fail_msg">Yerel kopyanın adı değiştirilemedi. Lütfen başka bir ad deneyin</string>
     <string name="rename_server_fail_msg">Ad zaten kullanıldığından yeniden adlandırılamadı</string>
+    <string name="request_account_deletion">Hesabınızın silinmesini isteyin</string>
     <string name="reshare_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
     <string name="resharing_is_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
     <string name="resized_image_not_possible_download">Boyutu değiştirilmiş bir görsel yok. Tam boyuttaki görsel indirilsin mi?</string>
@@ -707,7 +715,7 @@
     <string name="share_link_optional_password_title">İsteğe bağlı olarak parola yazın</string>
     <string name="share_link_password_title">Bir parola yazın</string>
     <string name="share_link_with_label">Bağlantı paylaş (%1$s)</string>
-    <string name="share_no_expiration_date_label">Son kullanma tarihini ayarla</string>
+    <string name="share_no_expiration_date_label">Geçerlilik sonu tarihini ayarla</string>
     <string name="share_no_password_title">Parolayı ayarla</string>
     <string name="share_password_title">Parola korumalı</string>
     <string name="share_permission_can_edit">Düzenleyebilir</string>
@@ -941,6 +949,9 @@
     <string name="wait_a_moment">Lütfen bekleyin …</string>
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
+    <string name="webview_version_check_alert_dialog_message">Lütfen oturum açmak için Android Sistem Web Görünümü uygulamasını güncelleyin</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Güncelle</string>
+    <string name="webview_version_check_alert_dialog_title">Android Sistem Web Görünümü uygulamasını güncelle</string>
     <string name="what_s_new_image">Yenilikler görseli</string>
     <string name="whats_new_skip">Atla</string>
     <string name="whats_new_title">%1$s yenilikleri</string>

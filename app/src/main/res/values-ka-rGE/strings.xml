@@ -219,6 +219,7 @@
     <string name="folder_confirm_create">შექმნა</string>
     <string name="folder_list_empty_headline">აქ დირექტორიები არაა</string>
     <string name="folder_picker_choose_button_text">არჩევა</string>
+    <string name="folder_picker_move_button_text">გადატანა</string>
     <string name="forbidden_permissions">თქვენ არ გაქვთ უფლება, %s</string>
     <string name="forbidden_permissions_copy">რომ დააკოპიროთ ეს ფაილი</string>
     <string name="forbidden_permissions_create">შექმნათ ეს ფაილი</string>
@@ -505,6 +506,7 @@
     <string name="version_dev_download">ჩამოტვირთვა</string>
     <string name="wait_checking_credentials">მოწმდება შენახული უფლებამოსილებანი</string>
     <string name="wait_for_tmp_copy_from_private_storage">ფაილის კოპირება პირადი საცავიდან</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">განახლება</string>
     <string name="what_s_new_image">რა არის ახალი სურათი</string>
     <string name="whats_new_skip">გამოტოვება</string>
     <string name="whats_new_title">ახალი %1$s-ში</string>

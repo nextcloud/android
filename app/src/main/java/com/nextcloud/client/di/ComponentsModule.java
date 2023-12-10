@@ -81,7 +81,7 @@ import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
-import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
+import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -92,10 +92,10 @@ import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment;
 import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
-import com.owncloud.android.ui.dialog.NoteDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenamePublicShareDialogFragment;
+import com.owncloud.android.ui.dialog.SendFilesDialog;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
@@ -270,7 +270,7 @@ abstract class ComponentsModule {
     abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
 
     @ContributesAndroidInjector
-    abstract AccountRemovalConfirmationDialog accountRemovalConfirmationDialog();
+    abstract AccountRemovalDialog accountRemovalDialog();
 
     @ContributesAndroidInjector
     abstract ChooseRichDocumentsTemplateDialogFragment chooseRichDocumentsTemplateDialogFragment();
@@ -405,9 +405,6 @@ abstract class ComponentsModule {
     abstract Migrations migrations();
 
     @ContributesAndroidInjector
-    abstract NoteDialogFragment noteDialogFragment();
-
-    @ContributesAndroidInjector
     abstract NotificationWork notificationWork();
 
     @ContributesAndroidInjector
@@ -463,6 +460,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract FileActionsBottomSheet fileActionsBottomSheet();
+
+    @ContributesAndroidInjector
+    abstract SendFilesDialog sendFilesDialog();
 
     @ContributesAndroidInjector
     abstract DocumentScanActivity documentScanActivity();

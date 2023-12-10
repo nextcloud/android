@@ -52,6 +52,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import third_parties.daveKoeller.AlphanumComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
+
     private final static String PERMISSION_SHARED_WITH_ME = "S";
     @VisibleForTesting
     public final static String PERMISSION_CAN_RESHARE = "R";
@@ -83,6 +84,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private long lastSyncDateForProperties;
     private long lastSyncDateForData;
     private boolean previewAvailable;
+    private String livePhoto;
+    public OCFile livePhotoVideo;
     private String etag;
     private String etagOnServer;
     private boolean sharedViaLink;
@@ -94,6 +97,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String etagInConflict; // Only saves file etag in the server, when there is a conflict
     private boolean sharedWithSharee;
     private boolean favorite;
+    private boolean hidden;
     private boolean encrypted;
     private WebdavEntry.MountType mountType;
     private int unreadCommentsCount;
@@ -181,6 +185,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         etagInConflict = source.readString();
         sharedWithSharee = source.readInt() == 1;
         favorite = source.readInt() == 1;
+        hidden = source.readInt() == 1;
         encrypted = source.readInt() == 1;
         ownerId = source.readString();
         ownerDisplayName = source.readString();
@@ -196,6 +201,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         lockTimestamp = source.readLong();
         lockTimeout = source.readLong();
         lockToken = source.readString();
+        livePhoto = source.readString();
     }
 
     @Override
@@ -224,6 +230,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeString(etagInConflict);
         dest.writeInt(sharedWithSharee ? 1 : 0);
         dest.writeInt(favorite ? 1 : 0);
+        dest.writeInt(hidden ? 1 : 0);
         dest.writeInt(encrypted ? 1 : 0);
         dest.writeString(ownerId);
         dest.writeString(ownerDisplayName);
@@ -239,6 +246,15 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeLong(lockTimestamp);
         dest.writeLong(lockTimeout);
         dest.writeString(lockToken);
+        dest.writeString(livePhoto);
+    }
+
+    public String getLinkedFileIdForLivePhoto() {
+        return livePhoto;
+    }
+
+    public void setLivePhoto(String livePhoto) {
+        this.livePhoto = livePhoto;
     }
 
     public void setDecryptedRemotePath(String path) {
@@ -342,6 +358,15 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
             return new File(localPath).exists();
         }
         return false;
+    }
+
+    public String getFileNameWithoutExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf('.');
+        if (dotIndex > 0) {
+            return fileName.substring(0, dotIndex);
+        } else {
+            return fileName;
+        }
     }
 
     /**
@@ -465,12 +490,14 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         Log_OC.d(TAG, "OCFile name changing from " + remotePath);
         if (!TextUtils.isEmpty(name) && !name.contains(PATH_SEPARATOR) && !ROOT_PATH.equals(remotePath)) {
             String parent = new File(this.getRemotePath()).getParent();
-            parent = parent.endsWith(PATH_SEPARATOR) ? parent : parent + PATH_SEPARATOR;
-            remotePath = parent + name;
-            if (isFolder()) {
-                remotePath += PATH_SEPARATOR;
+            if (parent != null) {
+                parent = parent.endsWith(PATH_SEPARATOR) ? parent : parent + PATH_SEPARATOR;
+                remotePath = parent + name;
+                if (isFolder()) {
+                    remotePath += PATH_SEPARATOR;
+                }
+                Log_OC.d(TAG, "OCFile name changed to " + remotePath);
             }
-            Log_OC.d(TAG, "OCFile name changed to " + remotePath);
         }
     }
 
@@ -502,6 +529,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         etagInConflict = null;
         sharedWithSharee = false;
         favorite = false;
+        hidden = false;
         encrypted = false;
         mountType = WebdavEntry.MountType.INTERNAL;
         richWorkspace = "";
@@ -514,7 +542,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         lockTimestamp = 0;
         lockTimeout = 0;
         lockToken = null;
-
+        livePhoto = null;
         imageDimension = null;
     }
 
@@ -525,7 +553,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      */
     public String getParentRemotePath() {
         String parentPath = new File(this.getRemotePath()).getParent();
-        return parentPath.endsWith(PATH_SEPARATOR) ? parentPath : parentPath + PATH_SEPARATOR;
+        if (parentPath != null) {
+            return parentPath.endsWith(PATH_SEPARATOR) ? parentPath : parentPath + PATH_SEPARATOR;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -642,6 +674,26 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return permissions != null && permissions.contains(PERMISSION_GROUPFOLDER);
     }
 
+    public Integer getFileOverlayIconId(boolean isAutoUploadFolder) {
+        if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder()) {
+            return R.drawable.ic_folder_overlay_account_group;
+        } else if (sharedViaLink && !encrypted) {
+            return R.drawable.ic_folder_overlay_link;
+        } else if (isSharedWithMe() || sharedWithSharee) {
+            return R.drawable.ic_folder_overlay_share;
+        } else if (encrypted) {
+            return R.drawable.ic_folder_overlay_key;
+        } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
+            return R.drawable.ic_folder_overlay_external;
+        } else if (locked) {
+            return R.drawable.ic_folder_overlay_lock;
+        } else if (isAutoUploadFolder) {
+            return R.drawable.ic_folder_overlay_upload;
+        } else {
+            return null;
+        }
+    }
+
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
 
         @Override
@@ -747,6 +799,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public boolean isFavorite() {
         return this.favorite;
+    }
+
+    public boolean shouldHide() {
+        return this.hidden;
     }
 
     public boolean isEncrypted() {
@@ -859,6 +915,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 
     public void setEncrypted(boolean encrypted) {
@@ -995,4 +1055,5 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
+
 }

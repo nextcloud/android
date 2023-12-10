@@ -810,7 +810,7 @@ public class FileOperationsHelper {
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
 
-        SendFilesDialog sendFilesDialog = SendFilesDialog.newInstance(files);
+        SendFilesDialog sendFilesDialog = SendFilesDialog.Companion.newInstance(files);
         sendFilesDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
     }
 
@@ -932,15 +932,15 @@ public class FileOperationsHelper {
     }
 
     public void renameFile(OCFile file, String newFilename) {
-        // RenameFile
         Intent service = new Intent(fileActivity, OperationsService.class);
+
         service.setAction(OperationsService.ACTION_RENAME);
         service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         service.putExtra(OperationsService.EXTRA_NEWNAME, newFilename);
         mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
-        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+        fileActivity.refreshList();
     }
 
 
@@ -1007,27 +1007,7 @@ public class FileOperationsHelper {
         }
     }
 
-    /**
-     * Start operations to move one or several files
-     *
-     * @param filePaths    Remote paths of files to move
-     * @param targetFolder Folder where the files while be moved into
-     */
-    public void moveFiles(final List<String> filePaths, final OCFile targetFolder) {
-        copyOrMoveFiles(OperationsService.ACTION_MOVE_FILE, filePaths, targetFolder);
-    }
-
-    /**
-     * Start operations to copy one or several files
-     *
-     * @param filePaths    Remote paths of files to move
-     * @param targetFolder Folder where the files while be copied into
-     */
-    public void copyFiles(final List<String> filePaths, final OCFile targetFolder) {
-        copyOrMoveFiles(OperationsService.ACTION_COPY_FILE, filePaths, targetFolder);
-    }
-
-    private void copyOrMoveFiles(final String action, final List<String> filePaths, final OCFile targetFolder) {
+    public void moveOrCopyFiles(String action, final List<String> filePaths, final OCFile targetFolder) {
         for (String path : filePaths) {
             Intent service = new Intent(fileActivity, OperationsService.class);
             service.setAction(action);
@@ -1038,7 +1018,6 @@ public class FileOperationsHelper {
         }
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
     }
-
 
     public void exportFiles(Collection<OCFile> files,
                             Context context,

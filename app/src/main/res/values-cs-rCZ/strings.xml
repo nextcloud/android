@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Zkopírovat</string>
     <string name="actionbar_mkdir">Nová složka</string>
     <string name="actionbar_move">Přesunout</string>
+    <string name="actionbar_move_or_copy">Přesunout</string>
     <string name="actionbar_open_with">Otevřít pomocí</string>
     <string name="actionbar_search">Hledat</string>
     <string name="actionbar_see_details">Podrobnosti</string>
@@ -49,7 +50,7 @@
     <string name="auth_host_url">Adresa serveru https://…</string>
     <string name="auth_incorrect_address_title">Nesprávný formát adresy serveru</string>
     <string name="auth_incorrect_path_title">Server nenalezen</string>
-    <string name="auth_no_net_conn_title">Žádné síťové spojení</string>
+    <string name="auth_no_net_conn_title">Nepřipojeno k síti</string>
     <string name="auth_nossl_plain_ok_title">Zabezpečené spojení není k dispozici.</string>
     <string name="auth_not_configured_title">Nesprávně formulované nastavení pro server</string>
     <string name="auth_oauth_error">Neúspěšné ověření se</string>
@@ -159,14 +160,15 @@
     <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>
     <string name="conflict_server_file">Soubor na serveru</string>
     <string name="contact_backup_title">Záloha kontaktů</string>
+    <string name="contact_no_permission">Je vyžadováno oprávnění pro přístup ke kontaktům.</string>
     <string name="contactlist_item_icon">Ikona uživatele v seznamu kontaktů</string>
     <string name="contactlist_no_permission">Nejsou udělena oprávnění, proto nebylo nic naimportováno.</string>
     <string name="contacts">Kontakty</string>
-    <string name="contacts_backup_button">Zálohovat nyní</string>
+    <string name="contacts_backup_button">Zazálohovat nyní</string>
     <string name="contacts_preferences_backup_scheduled">Zálohování naplánováno a brzy začne</string>
     <string name="contacts_preferences_import_scheduled">Import naplánován a brzy začne</string>
     <string name="contacts_preferences_no_file_found">Nenalezen žádný soubor</string>
-    <string name="contacts_preferences_something_strange_happened">Nepodařilo se najít vaši poslední zálohu!</string>
+    <string name="contacts_preferences_something_strange_happened">Nepodařilo se najít vaši nejaktuálnější zálohu!</string>
     <string name="copied_to_clipboard">Zkopírováno do schránky</string>
     <string name="copy_file_error">Při pokusu o zkopírování tohoto souboru či složky došlo k chybě</string>
     <string name="copy_file_invalid_into_descendent">Není možné zkopírovat složku do některé z jejích vlastních podsložek</string>
@@ -257,6 +259,7 @@
     <string name="ecosystem_apps_more">Další Nextcloud aplikace</string>
     <string name="ecosystem_apps_notes">Nextcloud poznámky</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Nepodařilo se vybrat e-mailovou adresu.</string>
     <string name="encrypted">Nastavit jako šifrované</string>
     <string name="end_to_end_encryption_confirm_button">Nastavit šifrování</string>
     <string name="end_to_end_encryption_decrypting">Rozšifrovávání…</string>
@@ -361,7 +364,7 @@
     <string name="file_migration_migrating">Přesouvání dat…</string>
     <string name="file_migration_ok_finished">Dokončeno</string>
     <string name="file_migration_override_data_folder">Nahradit</string>
-    <string name="file_migration_preparing">Příprava migrace…</string>
+    <string name="file_migration_preparing">Příprava stěhování…</string>
     <string name="file_migration_restoring_accounts_configuration">Obnovování nastavení účtu…</string>
     <string name="file_migration_saving_accounts_configuration">Ukládání nastavení účtu…</string>
     <string name="file_migration_source_not_readable">Opravdu chcete změnit složku pro ukládání dat na %1$s?\n\nPoznámka: Všechna data bude třeba znovu stáhnout.</string>
@@ -392,6 +395,9 @@
     <string name="folder_confirm_create">Vytvořit</string>
     <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
     <string name="folder_picker_choose_button_text">Vybrat</string>
+    <string name="folder_picker_choose_caption_text">Zvolte cílovou složku</string>
+    <string name="folder_picker_copy_button_text">Zkopírovat</string>
+    <string name="folder_picker_move_button_text">Přesunout</string>
     <string name="forbidden_permissions">Nemáte oprávnění %s</string>
     <string name="forbidden_permissions_copy">pro zkopírování tohoto souboru</string>
     <string name="forbidden_permissions_create">pro vytvoření tohoto souboru</string>
@@ -593,7 +599,7 @@
     <string name="prefs_enable_media_scan_notifications_summary">Upozorňovat na nově nalezené složky s médii</string>
     <string name="prefs_gpl_v2">GNU General Public License, verze 2</string>
     <string name="prefs_help">Nápověda</string>
-    <string name="prefs_imprint">Imprint</string>
+    <string name="prefs_imprint">Impresum</string>
     <string name="prefs_instant_behaviour_dialogTitle">Původní soubor bude…</string>
     <string name="prefs_instant_behaviour_title">Původní soubor bude…</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Ukládat v podsložkách podle data</string>
@@ -644,12 +650,17 @@
     <string name="remove_e2e">Je možné šifrování mezi koncovými body odebrat lokálně na tomto klientovi</string>
     <string name="remove_e2e_message">Je možné šifrování mezi koncovými body odebrat lokálně na tomto klientovi. Šifrované soubory zůstanou na serveru, ale už nadále nebudou synchronizovány s tímto počítačem.</string>
     <string name="remove_fail_msg">Odstranění se nezdařilo</string>
+    <string name="remove_local_account">Odebrat místní účet</string>
+    <string name="remove_local_account_details">Odebrat účet ze zařízení a smazat veškeré místní soubory</string>
     <string name="remove_notification_failed">Upozornění se nepodařilo odebrat.</string>
     <string name="remove_push_notification">Odebrat</string>
     <string name="remove_success_msg">Smazáno</string>
     <string name="rename_dialog_title">Zadejte nový název</string>
     <string name="rename_local_fail_msg">Nepodařilo se přejmenovat místní kopii – zkuste použít jiný název</string>
     <string name="rename_server_fail_msg">Přejmenování není možné – název už je použit</string>
+    <string name="request_account_deletion">Vyžádat smazání účtu</string>
+    <string name="request_account_deletion_button">Vyžádat si smazání</string>
+    <string name="request_account_deletion_details">Vyžádat si trvalé vymazání účtu u poskytovatele služby</string>
     <string name="reshare_not_allowed">Příjemcům tohoto sdílení není dovoleno ho nasdílet dál dalším</string>
     <string name="resharing_is_not_allowed">Příjemcům tohoto sdílení není dovoleno ho nasdílet dál dalším</string>
     <string name="resized_image_not_possible_download">Zmenšená verze obrázku není k dispozici. Stáhnout obrázek v plné velikosti?</string>
@@ -873,6 +884,7 @@
     <string name="upload_lock_failed">Uzamčení složky se nezdařilo</string>
     <string name="upload_old_android">Šifrování je možné pouze na systému Android verze 5.0 a novějším</string>
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do složky %1$s není dostatek volného místa. Chcete je tam namísto toho přesunout?</string>
+    <string name="upload_quota_exceeded">Kvóta úložiště překročena</string>
     <string name="upload_scan_doc_upload">Naskenovat dokument kamerou</string>
     <string name="upload_sync_conflict">Konflikt synchronizace – vyřešte ručně</string>
     <string name="upload_unknown_error">Neznámá chyba</string>
@@ -930,7 +942,7 @@
     <string name="user_info_address">Adresa</string>
     <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Telefonní číslo</string>
-    <string name="user_info_twitter">Twitter</string>
+    <string name="user_info_twitter">X (Twitter)</string>
     <string name="user_info_website">Webové stránky</string>
     <string name="user_information_retrieval_error">Chyba při načítání informací o uživateli</string>
     <string name="userinfo_no_info_headline">Nezadány žádné osobní údaje</string>
@@ -941,6 +953,9 @@
     <string name="wait_a_moment">Chvilku strpení…</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru ze soukromého úložiště</string>
+    <string name="webview_version_check_alert_dialog_message">Aby se bylo možné přihlásit, zaktualizujte systémovou aplikaci WebView Androidu</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Aktualizovat</string>
+    <string name="webview_version_check_alert_dialog_title">Zaktualizovat Android System WebView</string>
     <string name="what_s_new_image">Obrázek „Co je nového“</string>
     <string name="whats_new_skip">Přeskočit</string>
     <string name="whats_new_title">Co je v %1$s nového</string>

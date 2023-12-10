@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Kopiuj</string>
     <string name="actionbar_mkdir">Nowy katalog</string>
     <string name="actionbar_move">Przenieś</string>
+    <string name="actionbar_move_or_copy">Przenieś lub kopiuj</string>
     <string name="actionbar_open_with">Otwórz za pomocą</string>
     <string name="actionbar_search">Wyszukaj</string>
     <string name="actionbar_see_details">Szczegóły</string>
@@ -159,6 +160,7 @@
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
     <string name="conflict_server_file">Plik z serwera</string>
     <string name="contact_backup_title">Kopia zapasowa kontaktów</string>
+    <string name="contact_no_permission">Wymagane jest pozwolenie na lokalizację</string>
     <string name="contactlist_item_icon">Ikona użytkownika w liście kontaktów</string>
     <string name="contactlist_no_permission">Brak nadanych uprawnień, nic nie zaimportowano.</string>
     <string name="contacts">Kontakty</string>
@@ -257,6 +259,7 @@
     <string name="ecosystem_apps_more">Więcej aplikacji Nextcloud</string>
     <string name="ecosystem_apps_notes">Nextcloud Notes</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Nie udało się wybrać adresu e-mail.</string>
     <string name="encrypted">Ustaw jako zaszyfrowane</string>
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
@@ -392,6 +395,9 @@
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
     <string name="folder_picker_choose_button_text">Wybierz</string>
+    <string name="folder_picker_choose_caption_text">Wybierz katalog docelowy</string>
+    <string name="folder_picker_copy_button_text">Skopiuj</string>
+    <string name="folder_picker_move_button_text">Przenieś</string>
     <string name="forbidden_permissions">Nie masz uprawnień %s</string>
     <string name="forbidden_permissions_copy">do kopiowania tego pliku</string>
     <string name="forbidden_permissions_create">do utworzenia tego pliku</string>
@@ -650,6 +656,7 @@
     <string name="rename_dialog_title">Wprowadź nową nazwę</string>
     <string name="rename_local_fail_msg">Nie można zmienić nazwy lokalnej kopii, użyj innej nazwy</string>
     <string name="rename_server_fail_msg">Nie można zmienić nazwy, nazwa jest już zajęta</string>
+    <string name="request_account_deletion">Zażądaj usunięcia konta</string>
     <string name="reshare_not_allowed">Udostępnianie dalej jest niedozwolone</string>
     <string name="resharing_is_not_allowed">Udostępnianie dalej jest niedozwolone</string>
     <string name="resized_image_not_possible_download">Brak obrazu o zmienionym rozmiarze. Pobrać pełny obraz?</string>
@@ -941,6 +948,9 @@
     <string name="wait_a_moment">Proszę czekać…</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego magazynu</string>
+    <string name="webview_version_check_alert_dialog_message">Aby się zalogować, zaktualizuj aplikację WebView systemu Android</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Aktualizuj</string>
+    <string name="webview_version_check_alert_dialog_title">Zaktualizuj WebView systemu Android</string>
     <string name="what_s_new_image">Jaki jest nowy obraz</string>
     <string name="whats_new_skip">Pomiń</string>
     <string name="whats_new_title">Co nowego w %1$s</string>

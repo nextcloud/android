@@ -18,6 +18,7 @@
     <string name="actionbar_copy">複製</string>
     <string name="actionbar_mkdir">新資料夾</string>
     <string name="actionbar_move">移動</string>
+    <string name="actionbar_move_or_copy">移動或複製</string>
     <string name="actionbar_open_with">開啟方式</string>
     <string name="actionbar_search">搜尋</string>
     <string name="actionbar_see_details">詳細資料</string>
@@ -159,6 +160,7 @@
     <string name="conflict_message_description">若您同時選擇兩個版本，近端的檔案會在檔名後附加編號。</string>
     <string name="conflict_server_file">伺服器檔案</string>
     <string name="contact_backup_title">聯絡人備份</string>
+    <string name="contact_no_permission">需要聯絡人權限。</string>
     <string name="contactlist_item_icon">聯絡清單的用戶圖示</string>
     <string name="contactlist_no_permission">匯入失敗，權限不足。</string>
     <string name="contacts">通訊錄</string>
@@ -257,6 +259,7 @@
     <string name="ecosystem_apps_more">更多 Nextcloud 應用程式</string>
     <string name="ecosystem_apps_notes">Nextcloud 筆記</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">無法挑選電郵地址。</string>
     <string name="encrypted">設為已加密的</string>
     <string name="end_to_end_encryption_confirm_button">設定加密</string>
     <string name="end_to_end_encryption_decrypting">解密中…</string>
@@ -341,6 +344,7 @@
     <string name="file_list_empty_shared_headline">還沒有分享任何資料</string>
     <string name="file_list_empty_unified_search_no_results">未找到與您的查詢相符的結果</string>
     <string name="file_list_folder">資料夾</string>
+    <string name="file_list_live">直播</string>
     <string name="file_list_loading">載入中…</string>
     <string name="file_list_no_app_for_file_type">未設定處理此檔案類型適用的APP</string>
     <string name="file_list_seconds_ago">秒前</string>
@@ -392,6 +396,9 @@
     <string name="folder_confirm_create">建立</string>
     <string name="folder_list_empty_headline">這裡沒有資料夾</string>
     <string name="folder_picker_choose_button_text">選擇</string>
+    <string name="folder_picker_choose_caption_text">選擇目標資料夾</string>
+    <string name="folder_picker_copy_button_text">複製</string>
+    <string name="folder_picker_move_button_text">移動</string>
     <string name="forbidden_permissions">您沒有%s的權限</string>
     <string name="forbidden_permissions_copy">複製這個檔案</string>
     <string name="forbidden_permissions_create">建立此檔案</string>
@@ -644,12 +651,17 @@
     <string name="remove_e2e">您可以在此客戶端上本地刪除端到端加密</string>
     <string name="remove_e2e_message">您可以在此客戶端上本地刪除端到端加密。加密檔案將保留在伺服器上，但不會再同步到此電腦。</string>
     <string name="remove_fail_msg">刪除失敗</string>
+    <string name="remove_local_account">移除近端賬戶</string>
+    <string name="remove_local_account_details">從裝置中刪除賬戶並刪除所有近端檔案</string>
     <string name="remove_notification_failed">移除通知失敗</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已刪除</string>
     <string name="rename_dialog_title">輸入新名稱</string>
     <string name="rename_local_fail_msg">無法重新命名近端複本，請試用不同名稱</string>
     <string name="rename_server_fail_msg">不可重新命名，名稱已存在</string>
+    <string name="request_account_deletion">請求賬戶刪除</string>
+    <string name="request_account_deletion_button">請求刪除</string>
+    <string name="request_account_deletion_details">請求服務提供者永久刪除賬戶</string>
     <string name="reshare_not_allowed">不允許重新分享</string>
     <string name="resharing_is_not_allowed">不允許重新分享</string>
     <string name="resized_image_not_possible_download">沒有可用調整過的圖像，下載完整圖像？</string>
@@ -873,6 +885,7 @@
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
     <string name="upload_old_android">加密功能只適用於 Android 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空間不足導致無法將所選檔案複製到 %1$s 資料夾中。您想改為將檔案移到那裡嗎？</string>
+    <string name="upload_quota_exceeded">超過儲存空間配額</string>
     <string name="upload_scan_doc_upload">使用相機掃描文件</string>
     <string name="upload_sync_conflict">同步發生抵觸，請手動處理</string>
     <string name="upload_unknown_error">未知的錯誤</string>
@@ -941,6 +954,9 @@
     <string name="wait_a_moment">請稍候…</string>
     <string name="wait_checking_credentials">檢查儲存的身分驗證</string>
     <string name="wait_for_tmp_copy_from_private_storage">從私有儲存空間複製檔案中</string>
+    <string name="webview_version_check_alert_dialog_message">請更新 Android System WebView 應用程式以進行登入</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">更新</string>
+    <string name="webview_version_check_alert_dialog_title">更新 Android System WebView</string>
     <string name="what_s_new_image">有什麼新圖像？</string>
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>

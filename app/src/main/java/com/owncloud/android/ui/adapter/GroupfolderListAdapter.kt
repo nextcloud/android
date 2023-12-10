@@ -23,15 +23,16 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
+import android.graphics.drawable.LayerDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.android.lib.resources.groupfolders.Groupfolder
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListItemBinding
 import com.owncloud.android.ui.interfaces.GroupfolderListInterface
+import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 
@@ -43,16 +44,13 @@ class GroupfolderListAdapter(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var list: List<Groupfolder>
 
-    private val folderIcon = viewThemeUtils.platform.tintPrimaryDrawable(
-        context,
-        AppCompatResources.getDrawable(
-            context,
-            R.drawable.folder_group
-        )
-    )
-
     fun setData(result: Map<String, Groupfolder>) {
         list = result.values.sortedBy { it.mountPoint }
+    }
+
+    private fun getFolderIcon(): LayerDrawable? {
+        val overlayDrawableId = R.drawable.ic_folder_overlay_account_group
+        return MimeTypeUtil.getFileIcon(false, overlayDrawableId, context, viewThemeUtils)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -82,7 +80,7 @@ class GroupfolderListAdapter(
             localFileIndicator.visibility = View.GONE
             favorite.visibility = View.GONE
 
-            thumbnail.setImageDrawable(folderIcon)
+            thumbnail.setImageDrawable(getFolderIcon())
 
             itemLayout.setOnClickListener { groupfolderListInterface.onFolderClick(groupfolder.mountPoint) }
         }
