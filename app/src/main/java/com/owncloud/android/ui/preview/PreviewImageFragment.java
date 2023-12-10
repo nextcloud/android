@@ -44,6 +44,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import com.github.chrisbanes.photoview.PhotoView;
@@ -599,16 +600,20 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             Bitmap bitmap = result.bitmap;
             Drawable drawable = result.drawable;
 
+            Log_OC.d("Hollaa====---","Executed");
+
             if (imageView != null) {
                 if (bitmap != null) {
                     Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
                             bitmap.getHeight());
 
-                    if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType()) ||
-                        MIME_TYPE_GIF.equalsIgnoreCase(result.ocFile.getMimeType())) {
+                    if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType())) {
                         getResources();
                         imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, bitmap));
-                    } else {
+                    }else if(MIME_TYPE_GIF.equalsIgnoreCase(result.ocFile.getMimeType())){
+                        Glide.with(getContext()).load(result).into(imageView);
+                    }
+                    else {
                         imageView.setImageBitmap(bitmap);
                     }
 
