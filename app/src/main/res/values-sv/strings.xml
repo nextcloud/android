@@ -344,6 +344,7 @@
     <string name="file_list_empty_shared_headline">Inget delat ännu</string>
     <string name="file_list_empty_unified_search_no_results">Inga sökresultat funna på din sökning</string>
     <string name="file_list_folder">mapp</string>
+    <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Läser in…</string>
     <string name="file_list_no_app_for_file_type">Det finns ingen applikation för att hantera denna filtyp</string>
     <string name="file_list_seconds_ago">sekunder sedan</string>

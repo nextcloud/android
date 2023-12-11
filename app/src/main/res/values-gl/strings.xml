@@ -344,6 +344,7 @@
     <string name="file_list_empty_shared_headline">Aínda non hai nada compartido</string>
     <string name="file_list_empty_unified_search_no_results">Non se atoparon resultados para a súa consulta</string>
     <string name="file_list_folder">cartafol</string>
+    <string name="file_list_live">DIRECTO</string>
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">Non foi configurada unha aplicación para manexar este tipo de ficheiro.</string>
     <string name="file_list_seconds_ago">hai uns segundos</string>
