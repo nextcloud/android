@@ -139,7 +139,9 @@ class TestPowerManagementService {
 
         @Before
         fun setUp() {
-            whenever(context.registerBroadcastReceiver(anyOrNull(), anyOrNull(), ReceiverFlag.NotExported)).thenReturn(intent)
+            whenever(context.registerBroadcastReceiver(anyOrNull(), anyOrNull(), ReceiverFlag.NotExported)).thenReturn(
+                intent
+            )
         }
 
         @Test
@@ -195,7 +197,9 @@ class TestPowerManagementService {
             //      device has API level P or below
             //      battery status sticky intent is NOT available
             whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.P)
-            whenever(context.registerBroadcastReceiver(anyOrNull(), anyOrNull(), ReceiverFlag.NotExported)).thenReturn(null)
+            whenever(context.registerBroadcastReceiver(anyOrNull(), anyOrNull(), ReceiverFlag.NotExported)).thenReturn(
+                null
+            )
 
             // THEN
             //     charging flag is false
