@@ -344,6 +344,7 @@
     <string name="file_list_empty_shared_headline">لم تقم بمشاركة أية بيانات بعد</string>
     <string name="file_list_empty_unified_search_no_results">لا توجد نتائج لطلبك</string>
     <string name="file_list_folder">مجلد</string>
+    <string name="file_list_live">مُباشِر</string>
     <string name="file_list_loading">جارِ التحميل …</string>
     <string name="file_list_no_app_for_file_type">لم يُعّد التطبيق يدعم نوع الملف هذا.</string>
     <string name="file_list_seconds_ago">منذ ثواني</string>

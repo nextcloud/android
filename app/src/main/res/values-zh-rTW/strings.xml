@@ -344,6 +344,7 @@
     <string name="file_list_empty_shared_headline">還沒有分享任何資料</string>
     <string name="file_list_empty_unified_search_no_results">找不到與您的搜尋相符的結果</string>
     <string name="file_list_folder">資料夾</string>
+    <string name="file_list_live">即時</string>
     <string name="file_list_loading">正在載入……</string>
     <string name="file_list_no_app_for_file_type">未設定處理此檔案類型適用的應用程式。</string>
     <string name="file_list_seconds_ago">幾秒前</string>
