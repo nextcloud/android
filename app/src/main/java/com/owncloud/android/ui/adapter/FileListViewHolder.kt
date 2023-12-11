@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.adapter
 
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -37,6 +38,8 @@ internal class FileListViewHolder(private var binding: ListItemBinding) :
         binding.root
     ),
     ListItemViewHolder {
+    override val more: ImageButton?
+        get() = null
     override val fileFeaturesLayout: LinearLayout?
         get() = null
     override val gridLivePhotoIndicator: TextView?
@@ -73,6 +76,10 @@ internal class FileListViewHolder(private var binding: ListItemBinding) :
 
     override fun showVideoOverlay() {
         binding.thumbnailLayout.videoOverlay.visibility = View.VISIBLE
+    }
+
+    override fun checkVisibilityOfFileFeaturesLayout() {
+
     }
 
     override val shimmerThumbnail: LoaderImageView

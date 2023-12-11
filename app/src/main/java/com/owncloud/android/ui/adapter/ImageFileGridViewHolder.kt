@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.adapter
 
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -41,6 +42,8 @@ internal class ImageFileGridViewHolder(var binding: GridImageBinding) :
         // noop
     }
 
+    override val more: ImageButton
+        get() = binding.more
     override val fileFeaturesLayout: LinearLayout
         get() = binding.fileFeaturesLayout
     override val shimmerThumbnail: LoaderImageView
@@ -67,5 +70,17 @@ internal class ImageFileGridViewHolder(var binding: GridImageBinding) :
 
     init {
         binding.favoriteAction.drawable.mutate()
+    }
+
+    override fun checkVisibilityOfFileFeaturesLayout() {
+        if (favorite.visibility == View.GONE &&
+            shared.visibility == View.GONE &&
+            unreadComments.visibility == View.GONE &&
+            localFileIndicator.visibility == View.GONE &&
+            checkbox.visibility == View.GONE) {
+            fileFeaturesLayout.visibility = View.GONE
+        } else {
+            fileFeaturesLayout.visibility = View.VISIBLE
+        }
     }
 }
