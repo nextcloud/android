@@ -27,24 +27,56 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
-import com.owncloud.android.databinding.GridImageBinding
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import com.owncloud.android.databinding.ListItemBinding
+import com.owncloud.android.ui.AvatarGroupLayout
 
-internal class OCFileListGridImageViewHolder(var binding: GridImageBinding) :
+internal class FileListViewHolder(private var binding: ListItemBinding) :
     RecyclerView.ViewHolder(
         binding.root
     ),
-    ListGridImageViewHolder {
+    ListItemViewHolder {
+    override val fileFeaturesLayout: LinearLayout?
+        get() = null
+    override val gridLivePhotoIndicator: TextView?
+        get() = null
+    override val livePhotoIndicator: TextView
+        get() = binding.livePhotoIndicator
+    override val livePhotoIndicatorSeparator: TextView
+        get() = binding.livePhotoIndicatorSeparator
+
+    override val fileSize: TextView
+        get() = binding.fileSize
+    override val fileSizeSeparator: View
+        get() = binding.fileSeparator
+    override val lastModification: TextView
+        get() = binding.lastMod
+    override val overflowMenu: ImageView
+        get() = binding.overflowMenu
+    override val sharedAvatars: AvatarGroupLayout
+        get() = binding.sharedAvatars
+    override val fileName: TextView
+        get() = binding.Filename
     override val thumbnail: ImageView
-        get() = binding.thumbnail
+        get() = binding.thumbnailLayout.thumbnail
+    override val tagsGroup: ChipGroup
+        get() = binding.tagsGroup
+    override val firstTag: Chip
+        get() = binding.firstTag
+    override val secondTag: Chip
+        get() = binding.secondTag
+    override val tagMore: Chip
+        get() = binding.tagMore
+    override val fileDetailGroup: LinearLayout
+        get() = binding.fileDetailGroup
 
     override fun showVideoOverlay() {
-        // noop
+        binding.thumbnailLayout.videoOverlay.visibility = View.VISIBLE
     }
 
-    override val fileFeaturesLayout: LinearLayout
-        get() = binding.fileFeaturesLayout
     override val shimmerThumbnail: LoaderImageView
-        get() = binding.thumbnailShimmer
+        get() = binding.thumbnailLayout.thumbnailShimmer
     override val favorite: ImageView
         get() = binding.favoriteAction
     override val localFileIndicator: ImageView
@@ -57,13 +89,6 @@ internal class OCFileListGridImageViewHolder(var binding: GridImageBinding) :
         get() = binding.ListItemLayout
     override val unreadComments: ImageView
         get() = binding.unreadComments
-
-    override val gridLivePhotoIndicator: TextView
-        get() = binding.gridLivePhotoIndicator
-    override val livePhotoIndicator: TextView?
-        get() = null
-    override val livePhotoIndicatorSeparator: TextView?
-        get() = null
 
     init {
         binding.favoriteAction.drawable.mutate()

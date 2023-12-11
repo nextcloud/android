@@ -54,7 +54,7 @@ class GroupfolderListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return OCFileListItemViewHolder(
+        return FileListViewHolder(
             ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
@@ -65,7 +65,7 @@ class GroupfolderListAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val groupfolder = list[position]
-        val listHolder = holder as OCFileListItemViewHolder
+        val listHolder = holder as FileListViewHolder
 
         val file = File("/" + groupfolder.mountPoint)
 

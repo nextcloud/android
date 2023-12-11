@@ -328,7 +328,7 @@ class OCFileListDelegate(
 
     private fun showShareIcon(gridViewHolder: ListGridImageViewHolder, file: OCFile) {
         val sharedIconView = gridViewHolder.shared
-        if (gridViewHolder is OCFileListItemViewHolder || file.unreadCommentsCount == 0) {
+        if (gridViewHolder is FileListViewHolder || file.unreadCommentsCount == 0) {
             sharedIconView.visibility = View.VISIBLE
             if (file.isSharedWithSharee || file.isSharedWithMe) {
                 if (showShareAvatar) {

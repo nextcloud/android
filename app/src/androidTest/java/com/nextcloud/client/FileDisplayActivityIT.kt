@@ -48,7 +48,7 @@ import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.adapter.OCFileListItemViewHolder
+import com.owncloud.android.ui.adapter.FileListViewHolder
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -242,7 +242,7 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
         onView(withId(R.id.list_root))
             .perform(closeSoftKeyboard())
             .perform(
-                RecyclerViewActions.actionOnItemAtPosition<OCFileListItemViewHolder>(
+                RecyclerViewActions.actionOnItemAtPosition<FileListViewHolder>(
                     0,
                     click()
                 )
