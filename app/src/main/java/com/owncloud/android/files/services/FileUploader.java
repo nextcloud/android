@@ -135,6 +135,7 @@ public class FileUploader extends Service
     public static final String ACTION_PAUSE_BROADCAST = "PAUSE";
 
     private static final int FOREGROUND_SERVICE_ID = 411;
+    private static final int NOTIFICATION_ERROR_ID = FilesUploadWorker.NOTIFICATION_ERROR_ID;
 
     public static final String KEY_FILE = "FILE";
     public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
@@ -781,6 +782,7 @@ public class FileUploader extends Service
                 mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             }
             mNotificationManager.notify(FOREGROUND_SERVICE_ID, mNotificationBuilder.build());
+            cancelOldErrorNotification(mCurrentUpload);
         }
         mLastPercent = percent;
     }
@@ -797,6 +799,10 @@ public class FileUploader extends Service
         // cancelled operation or success -> silent removal of progress notification
         if (mNotificationManager == null) {
             mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        }
+
+        if (uploadResult.isSuccess()){
+            cancelOldErrorNotification(upload);
         }
 
         // Only notify if the upload fails
@@ -1434,6 +1440,26 @@ public class FileUploader extends Service
         public static String buildRemoteName(String accountName, String remotePath) {
             return accountName + remotePath;
         }
+    }
+
+    private void cancelOldErrorNotification(UploadFileOperation uploadFileOperation){
+        if (mNotificationManager == null) {
+            mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        }
+
+        if (uploadFileOperation == null) return;
+
+        mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(uploadFileOperation.getFile()),
+                                    NOTIFICATION_ERROR_ID);
+
+        //cancel for old file because of file conflicts
+        OCFile oldFile = uploadFileOperation.getOldFile();
+        if ( oldFile != null) {
+            mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(oldFile),
+                                        NOTIFICATION_ERROR_ID);
+        }
+
+
     }
 
 
