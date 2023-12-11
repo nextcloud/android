@@ -21,9 +21,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
+    android:layout_gravity="center"
     android:gravity="center"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <FrameLayout
@@ -32,38 +32,57 @@
 
         <com.elyeproj.loaderviewlibrary.LoaderImageView
             tools:visibility="visible"
-            android:layout_gravity="center"
             android:id="@+id/thumbnail_shimmer"
+            android:layout_gravity="center"
             android:layout_width="@dimen/standard_list_item_size"
             android:layout_height="@dimen/standard_list_item_size"
             android:visibility="gone"
             app:corners="8" />
 
         <LinearLayout
+            android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <ImageView
-                tools:visibility="visible"
-                android:id="@+id/thumbnail"
-                android:layout_width="@dimen/standard_list_item_size"
-                android:layout_height="@dimen/standard_list_item_size"
-                android:contentDescription="@null"
-                android:src="@drawable/folder" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginStart="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            <TextView
-                tools:visibility="visible"
-                android:id="@+id/Filename"
+                <ImageView
+                    tools:visibility="visible"
+                    android:id="@+id/thumbnail"
+                    android:layout_width="@dimen/standard_list_item_size"
+                    android:layout_height="@dimen/standard_list_item_size"
+                    android:contentDescription="@null"
+                    android:src="@drawable/folder" />
+
+                <TextView
+                    tools:visibility="visible"
+                    android:id="@+id/Filename"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:text="@string/placeholder_filename"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/grid_item_text_size"/>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/more"
+                android:layout_gravity="bottom"
+                android:background="@color/transparent"
+                app:srcCompat="@drawable/ic_dots_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="middle"
-                android:singleLine="true"
-                android:text="@string/placeholder_filename"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/grid_item_text_size"/>
+                android:contentDescription="@string/ecosystem_apps_display_more" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -73,11 +92,9 @@
             android:alpha="0.9"
             android:background="@drawable/rounded_rect"
             android:backgroundTint="@color/grid_background_color"
-            android:gravity="center"
-            android:layout_marginBottom="20dp"
-            android:layout_marginEnd="30dp"
             android:translationZ="4dp"
             android:layout_gravity="bottom|end"
+            android:layout_marginBottom="30dp"
             android:orientation="horizontal"
             android:padding="@dimen/standard_quarter_padding"
             app:layout_constraintBottom_toBottomOf="parent"

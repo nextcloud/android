@@ -48,98 +48,114 @@
         android:src="@drawable/file_image" />
 
     <LinearLayout
-        android:id="@+id/file_features_layout"
-        android:paddingHorizontal="@dimen/standard_half_padding"
-        android:layout_gravity="bottom|end"
-        android:alpha="0.9"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/rounded_rect"
-        android:backgroundTint="@color/grid_background_color"
+        android:layout_gravity="bottom|end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <ImageView
-            tools:visibility="visible"
-            android:id="@+id/favorite_action"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:contentDescription="@string/favorite_icon"
-            android:visibility="gone"
-            android:src="@drawable/favorite"
-            android:layout_marginEnd="@dimen/standard_quarter_margin"
-            app:tint="@color/grid_icon_color" />
-
-        <ImageView
-            tools:visibility="visible"
-            app:tint="@color/grid_icon_color"
-            android:id="@+id/unreadComments"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginEnd="@dimen/standard_quarter_margin"
-            android:clickable="true"
-            android:contentDescription="@string/unread_comments"
-            android:focusable="true"
-            android:src="@drawable/ic_comment_grid"
-            android:visibility="gone" />
-
-        <ImageView
-            tools:visibility="visible"
-            android:id="@+id/localFileIndicator"
-            android:layout_marginEnd="@dimen/standard_quarter_margin"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:contentDescription="@string/synced_icon"
-            android:src="@drawable/ic_synced" />
-
-        <FrameLayout
-            android:layout_marginEnd="@dimen/standard_quarter_margin"
-            android:layout_width="16dp"
-            android:layout_height="16dp">
+        <LinearLayout
+            android:id="@+id/file_features_layout"
+            android:paddingHorizontal="@dimen/standard_half_padding"
+            android:alpha="0.9"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_rect"
+            android:backgroundTint="@color/grid_background_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/sharedIcon"
+                tools:visibility="visible"
+                android:id="@+id/favorite_action"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="@string/favorite_icon"
+                android:visibility="gone"
+                android:src="@drawable/favorite"
+                android:layout_marginEnd="@dimen/standard_quarter_margin"
+                app:tint="@color/grid_icon_color" />
+
+            <ImageView
                 tools:visibility="visible"
                 app:tint="@color/grid_icon_color"
-                android:layout_gravity="center"
+                android:id="@+id/unreadComments"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="@dimen/standard_quarter_margin"
+                android:clickable="true"
+                android:contentDescription="@string/unread_comments"
+                android:focusable="true"
+                android:src="@drawable/ic_comment_grid"
+                android:visibility="gone" />
+
+            <ImageView
+                tools:visibility="visible"
+                android:id="@+id/localFileIndicator"
+                android:layout_marginEnd="@dimen/standard_quarter_margin"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="@string/synced_icon"
+                android:src="@drawable/ic_synced" />
+
+            <FrameLayout
+                android:layout_marginEnd="@dimen/standard_quarter_margin"
+                android:layout_width="16dp"
+                android:layout_height="16dp">
+
+                <ImageView
+                    android:id="@+id/sharedIcon"
+                    tools:visibility="visible"
+                    app:tint="@color/grid_icon_color"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/shared_icon_shared_via_link"
+                    android:src="@drawable/shared_via_link" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_marginEnd="@dimen/standard_quarter_margin"
+                android:id="@+id/grid_live_photo_indicator"
+                tools:visibility="visible"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/shared_icon_shared_via_link"
-                android:src="@drawable/shared_via_link" />
+                app:drawableTint="@color/grid_icon_color"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="2dp"
+                android:text="@string/file_list_live"
+                android:drawablePadding="@dimen/standard_eight_padding"
+                android:textColor="@color/grid_icon_color"
+                android:textSize="@dimen/two_line_secondary_text_size"
+                app:drawableTopCompat="@drawable/ic_live_photo" />
 
-        </FrameLayout>
+            <TextView
+                android:id="@+id/live_photo_indicator_separator"
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
 
-        <TextView
-            android:layout_marginEnd="@dimen/standard_quarter_margin"
-            android:id="@+id/grid_live_photo_indicator"
-            tools:visibility="visible"
-            android:visibility="gone"
+            <ImageView
+                tools:visibility="visible"
+                android:id="@+id/custom_checkbox"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="@string/checkbox"
+                android:src="@android:drawable/checkbox_off_background" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/more"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:background="@color/transparent"
+            app:srcCompat="@drawable/ic_dots_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:drawableTint="@color/grid_icon_color"
-            android:paddingVertical="10dp"
-            android:paddingHorizontal="2dp"
-            android:text="@string/file_list_live"
-            android:drawablePadding="@dimen/standard_eight_padding"
-            android:textColor="@color/grid_icon_color"
-            android:textSize="@dimen/two_line_secondary_text_size"
-            app:drawableTopCompat="@drawable/ic_live_photo" />
-
-        <TextView
-            android:id="@+id/live_photo_indicator_separator"
-            android:visibility="gone"
-            android:layout_width="0dp"
-            android:layout_height="0dp"/>
-
-        <ImageView
-            tools:visibility="visible"
-            android:id="@+id/custom_checkbox"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:contentDescription="@string/checkbox"
-            android:src="@android:drawable/checkbox_off_background" />
-
+            android:contentDescription="@string/ecosystem_apps_display_more" />
     </LinearLayout>
 
 </FrameLayout>

@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.adapter
 
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -30,12 +31,14 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView
 interface ListGridImageViewHolder {
     val thumbnail: ImageView
     fun showVideoOverlay()
+    fun checkVisibilityOfFileFeaturesLayout()
     val shimmerThumbnail: LoaderImageView
     val favorite: ImageView
     val localFileIndicator: ImageView
     val shared: ImageView
     val checkbox: ImageView
     val itemLayout: View
+    val more: ImageButton?
     val unreadComments: ImageView
     val fileFeaturesLayout: LinearLayout?
 
