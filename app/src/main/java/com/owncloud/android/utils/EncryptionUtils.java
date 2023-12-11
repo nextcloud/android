@@ -116,7 +116,7 @@ public final class EncryptionUtils {
     public static final String ivDelimiter = "|"; // not base64 encoded
     public static final String ivDelimiterOld = "fA=="; // "|" base64 encoded
 
-    private static final String HASH_DELIMITER = "$";
+    private static final char HASH_DELIMITER = '$';
     private static final int iterationCount = 1024;
     private static final int keyStrength = 256;
     private static final String AES_CIPHER = "AES/GCM/NoPadding";

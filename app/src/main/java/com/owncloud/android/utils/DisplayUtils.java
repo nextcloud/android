@@ -295,7 +295,7 @@ public final class DisplayUtils {
             hostStart = url.indexOf('@') + "@".length();
         }
 
-        int hostEnd = url.substring(hostStart).indexOf("/");
+        int hostEnd = url.substring(hostStart).indexOf('/');
         // Handle URL which doesn't have a path (path is implicitly '/')
         hostEnd = hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd;
 

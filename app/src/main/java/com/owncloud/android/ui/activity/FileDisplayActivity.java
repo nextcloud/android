@@ -1047,7 +1047,8 @@ public class FileDisplayActivity extends FileActivity
         searchView.clearFocus();
 
         // Remove the list to the original state
-        listOfFiles.performSearch("", true);
+        ArrayList<String> listOfHiddenFiles = listOfFiles.getAdapter().listOfHiddenFiles;
+        listOfFiles.performSearch("", listOfHiddenFiles, true);
 
         hideSearchView(getCurrentDir());
 
@@ -2147,6 +2148,7 @@ public class FileDisplayActivity extends FileActivity
     public void startImagePreview(OCFile file, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(EXTRA_FILE, file);
+        showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo);
         showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
         if (showPreview) {
             startActivity(showDetailsIntent);
@@ -2166,6 +2168,7 @@ public class FileDisplayActivity extends FileActivity
     public void startImagePreview(OCFile file, VirtualFolderType type, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_FILE, file);
+
         showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, type);
 
@@ -2197,7 +2200,7 @@ public class FileDisplayActivity extends FileActivity
         }
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
             configureToolbarForMediaPreview(file);
-            Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay);
+            Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay, false);
             setLeftFragment(mediaFragment);
         } else {
             Intent previewIntent = new Intent();
@@ -2305,7 +2308,7 @@ public class FileDisplayActivity extends FileActivity
      * Opens EditImageActivity with given file loaded. If file is not available locally, it will be synced before
      * opening the image editor.
      *
-     * @param file {@link OCFile} (image) to be loaded into image editor
+     * @param file      {@link OCFile} (image) to be loaded into image editor
      */
     public void startImageEditor(OCFile file) {
         if (file.isDown()) {
@@ -2628,8 +2631,8 @@ public class FileDisplayActivity extends FileActivity
         return null;
     }
 
-    public void performUnifiedSearch(String query) {
-        UnifiedSearchFragment unifiedSearchFragment = UnifiedSearchFragment.Companion.newInstance(query);
+    public void performUnifiedSearch(String query, ArrayList<String> listOfHiddenFiles) {
+        UnifiedSearchFragment unifiedSearchFragment = UnifiedSearchFragment.Companion.newInstance(query, listOfHiddenFiles);
         setLeftFragment(unifiedSearchFragment);
     }
 

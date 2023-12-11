@@ -39,7 +39,7 @@ class UnifiedSearchFragmentIT : AbstractIT() {
     @Test
     fun showSearchResult() {
         val activity = testActivityRule.launchActivity(null)
-        val sut = UnifiedSearchFragment.newInstance(null)
+        val sut = UnifiedSearchFragment.newInstance(null, null)
 
         activity.addFragment(sut)
 
@@ -72,7 +72,7 @@ class UnifiedSearchFragmentIT : AbstractIT() {
     @Test
     fun search() {
         val activity = testActivityRule.launchActivity(null) as TestActivity
-        val sut = UnifiedSearchFragment.newInstance(null)
+        val sut = UnifiedSearchFragment.newInstance(null, null)
         val testViewModel = UnifiedSearchViewModel(activity.application)
         testViewModel.setConnectivityService(activity.connectivityServiceMock)
         val localRepository = UnifiedSearchFakeRepository()

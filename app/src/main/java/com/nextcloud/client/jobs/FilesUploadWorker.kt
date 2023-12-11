@@ -261,8 +261,14 @@ class FilesUploadWorker(
         uploadResult: RemoteOperationResult<Any?>
     ) {
         Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.code)
+
+        if (uploadResult.isSuccess) {
+            cancelOldErrorNotification(uploadFileOperation)
+            return
+        }
+
         // Only notify if the upload fails
-        if (uploadResult.isSuccess || uploadResult.isCancelled) {
+        if (uploadResult.isCancelled) {
             return
         }
 
@@ -312,9 +318,12 @@ class FilesUploadWorker(
                 )
             }
             notificationBuilder.setContentText(content)
-            if (!uploadResult.isSuccess) {
-                notificationManager.notify(SecureRandom().nextInt(), notificationBuilder.build())
-            }
+
+            notificationManager.notify(
+                NotificationUtils.createUploadNotificationTag(uploadFileOperation.file),
+                NOTIFICATION_ERROR_ID,
+                notificationBuilder.build()
+            )
         }
     }
 
@@ -386,8 +395,23 @@ class FilesUploadWorker(
                 totalToTransfer,
                 fileAbsoluteName
             )
+            currentUploadFileOperation?.let { cancelOldErrorNotification(it) }
         }
         lastPercent = percent
+    }
+
+    private fun cancelOldErrorNotification(uploadFileOperation: UploadFileOperation) {
+        // cancel for old file because of file conflicts
+        if (uploadFileOperation.oldFile != null) {
+            notificationManager.cancel(
+                NotificationUtils.createUploadNotificationTag(uploadFileOperation.oldFile),
+                NOTIFICATION_ERROR_ID
+            )
+        }
+        notificationManager.cancel(
+            NotificationUtils.createUploadNotificationTag(uploadFileOperation.file),
+            NOTIFICATION_ERROR_ID
+        )
     }
 
     override fun onStopped() {
@@ -399,6 +423,7 @@ class FilesUploadWorker(
     companion object {
         val TAG: String = FilesUploadWorker::class.java.simpleName
         private const val FOREGROUND_SERVICE_ID: Int = 412
+        const val NOTIFICATION_ERROR_ID: Int = 413
         private const val MAX_PROGRESS: Int = 100
         const val ACCOUNT = "data_account"
         var currentUploadFileOperation: UploadFileOperation? = null

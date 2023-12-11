@@ -344,6 +344,7 @@
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
     <string name="file_list_empty_unified_search_no_results">No results found for your query</string>
     <string name="file_list_folder">folder</string>
+    <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Loading…</string>
     <string name="file_list_no_app_for_file_type">No app set up to handle this file type.</string>
     <string name="file_list_seconds_ago">seconds ago</string>
@@ -884,6 +885,7 @@
     <string name="upload_lock_failed">Locking folder failed</string>
     <string name="upload_old_android">Encryption is only possible with &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Insufficient space prevents copying the selected files into the %1$s folder. Would you like to move them there instead?</string>
+    <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="upload_scan_doc_upload">Scan document from camera</string>
     <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_unknown_error">Unknown error</string>

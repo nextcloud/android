@@ -42,6 +42,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
@@ -112,7 +113,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean hideItemOptions;
     private long lastTimestamp;
     private boolean gridView;
-
+    public ArrayList<String> listOfHiddenFiles = new ArrayList<>();
     private FileDataStorageManager mStorageManager;
     private User user;
     private OCFileListFragmentInterface ocFileListFragmentInterface;
@@ -288,6 +289,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
+
     @Override
     public long getItemId(int position) {
         if (mFiles == null || mFiles.size() <= position) {
@@ -358,14 +360,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     @SuppressFBWarnings("ITC_INHERITANCE_TYPE_CHECKING")
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof OCFileListFooterViewHolder) {
-            OCFileListFooterViewHolder footerViewHolder = (OCFileListFooterViewHolder) holder;
+        if (holder instanceof OCFileListFooterViewHolder footerViewHolder) {
             footerViewHolder.getFooterText().setText(getFooterText());
-            viewThemeUtils.platform.colorCircularProgressBar(footerViewHolder.getLoadingProgressBar());
+            viewThemeUtils.platform.colorCircularProgressBar(footerViewHolder.getLoadingProgressBar(), ColorRole.ON_SURFACE_VARIANT);
             footerViewHolder.getLoadingProgressBar().setVisibility(
                 ocFileListFragmentInterface.isLoading() ? View.VISIBLE : View.GONE);
-        } else if (holder instanceof OCFileListHeaderViewHolder) {
-            OCFileListHeaderViewHolder headerViewHolder = (OCFileListHeaderViewHolder) holder;
+        } else if (holder instanceof OCFileListHeaderViewHolder headerViewHolder) {
             String text = currentDirectory.getRichWorkspace();
 
             PreviewTextFragment.setText(headerViewHolder.getHeaderText(), text, null, activity, true, true, viewThemeUtils);
@@ -387,6 +387,61 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             if (holder instanceof ListGridItemViewHolder) {
                 bindListGridItemViewHolder((ListGridItemViewHolder) holder, file);
+            }
+
+            updateLivePhotoIndicators(gridViewHolder, file);
+        }
+    }
+
+    private void mergeOCFilesForLivePhoto() {
+        List<OCFile> filesToRemove = new ArrayList<>();
+
+        for (int i = 0; i < mFiles.size(); i++) {
+            OCFile file = mFiles.get(i);
+
+            for (int j = i + 1; j < mFiles.size(); j++) {
+                OCFile nextFile = mFiles.get(j);
+                String fileLocalId = String.valueOf(file.getLocalId());
+                String nextFileLinkedLocalId = nextFile.getLinkedFileIdForLivePhoto();
+
+                if (fileLocalId.equals(nextFileLinkedLocalId)) {
+                    if (MimeTypeUtil.isVideo(file.getMimeType())) {
+                        nextFile.livePhotoVideo = file;
+                        filesToRemove.add(file);
+                    } else if (MimeTypeUtil.isVideo(nextFile.getMimeType())) {
+                        file.livePhotoVideo = nextFile;
+                        filesToRemove.add(nextFile);
+                    }
+                }
+            }
+        }
+
+        mFiles.removeAll(filesToRemove);
+        filesToRemove.clear();
+    }
+
+    private void updateLivePhotoIndicators(ListGridImageViewHolder holder, OCFile file) {
+        boolean isLivePhoto = file.getLinkedFileIdForLivePhoto() != null;
+
+        if (holder instanceof OCFileListItemViewHolder) {
+            holder.getLivePhotoIndicator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
+            holder.getLivePhotoIndicatorSeparator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
+        } else if (holder instanceof OCFileListGridImageViewHolder) {
+            holder.getGridLivePhotoIndicator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
+        }
+    }
+
+    private void bindListGridItemViewHolder(ListGridItemViewHolder holder, OCFile file) {
+        holder.getFileName().setText(file.getDecryptedFileName());
+
+        boolean gridImage = MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file);
+        if (gridView && gridImage) {
+            holder.getFileName().setVisibility(View.GONE);
+        } else {
+            if (gridView && ocFileListFragmentInterface.getColumnsCount() > showFilenameColumnThreshold) {
+                holder.getFileName().setVisibility(View.GONE);
+            } else {
+                holder.getFileName().setVisibility(View.VISIBLE);
             }
         }
     }
@@ -433,7 +488,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getTagMore().setVisibility(View.GONE);
 
             holder.getFirstTag().setText(file.getTags().get(0));
-            
+
             if (file.getTags().size() > 1) {
                 viewThemeUtils.material.themeChipSuggestion(holder.getSecondTag());
                 holder.getSecondTag().setVisibility(View.VISIBLE);
@@ -488,7 +543,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getLastModification().setVisibility(View.GONE);
         }
 
-
         if (isMultiSelect() || gridView || hideItemOptions) {
             holder.getOverflowMenu().setVisibility(View.GONE);
         } else {
@@ -503,22 +557,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
         }
     }
-
-    private void bindListGridItemViewHolder(ListGridItemViewHolder holder, OCFile file) {
-        holder.getFileName().setText(file.getDecryptedFileName());
-
-        boolean gridImage = MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file);
-        if (gridView && gridImage) {
-            holder.getFileName().setVisibility(View.GONE);
-        } else {
-            if (gridView && ocFileListFragmentInterface.getColumnsCount() > showFilenameColumnThreshold) {
-                holder.getFileName().setVisibility(View.GONE);
-            } else {
-                holder.getFileName().setVisibility(View.VISIBLE);
-            }
-        }
-    }
-
 
     @Override
     public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
@@ -547,7 +585,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
         }
-
 
         return generateFooterText(filesCount, foldersCount);
     }
@@ -641,8 +678,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @NonNull User account,
         @NonNull OCFile directory,
         @NonNull FileDataStorageManager updatedStorageManager,
-        boolean onlyOnDevice, @NonNull String limitToMimeType
-                             ) {
+        boolean onlyOnDevice, @NonNull String limitToMimeType) {
         this.onlyOnDevice = onlyOnDevice;
 
         if (!updatedStorageManager.equals(mStorageManager)) {
@@ -652,7 +688,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
         if (mStorageManager != null) {
             mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
-
             if (!preferences.isShowHiddenFilesEnabled()) {
                 mFiles = filterHiddenFiles(mFiles);
             }
@@ -661,9 +696,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
             sortOrder = preferences.getSortOrderByFolder(directory);
             mFiles = sortOrder.sortCloudFiles(mFiles);
+            prepareListOfHiddenFiles();
+            mergeOCFilesForLivePhoto();
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
-
             currentDirectory = directory;
         } else {
             mFiles.clear();
@@ -687,6 +723,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                       .getVersion()
                                                       .isShareesOnDavSupported());
         }
+
 
         if (mStorageManager == null) {
             mStorageManager = new FileDataStorageManager(user, activity.getContentResolver());
@@ -849,11 +886,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 contentValues.add(cv);
             } catch (
                 RemoteOperationFailedException |
-                    OperationCanceledException |
-                    AuthenticatorException |
-                    IOException |
-                    AccountUtils.AccountNotFoundException |
-                    IllegalStateException e) {
+                OperationCanceledException |
+                AuthenticatorException |
+                IOException |
+                AccountUtils.AccountNotFoundException |
+                IllegalStateException e) {
                 Log_OC.e(TAG, "Error saving file with parent" + e.getMessage(), e);
             }
         }
@@ -902,6 +939,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public List<OCFile> getFiles() {
         return mFiles;
+    }
+
+    private void prepareListOfHiddenFiles() {
+        listOfHiddenFiles.clear();
+
+        mFiles.forEach(file -> {
+            if (file.shouldHide()) {
+                listOfHiddenFiles.add(file.getFileName());
+            }
+        });
     }
 
     public void resetLastTimestamp() {

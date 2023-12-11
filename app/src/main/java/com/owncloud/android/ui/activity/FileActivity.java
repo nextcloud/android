@@ -124,6 +124,7 @@ public abstract class FileActivity extends DrawerActivity
         LoadingVersionNumberTask.VersionDevInterface, FileDetailSharingFragment.OnEditShareListener {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
+    public static final String EXTRA_LIVE_PHOTO_FILE = "com.owncloud.android.ui.activity.LIVE.PHOTO.FILE";
     public static final String EXTRA_USER = "com.owncloud.android.ui.activity.USER";
     public static final String EXTRA_FROM_NOTIFICATION = "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     public static final String APP_OPENED_COUNT = "APP_OPENED_COUNT";
@@ -238,6 +239,12 @@ public abstract class FileActivity extends DrawerActivity
         if (mUploadServiceConnection != null) {
             bindService(new Intent(this, FileUploader.class), mUploadServiceConnection,
                     Context.BIND_AUTO_CREATE);
+        }
+    }
+
+    public void checkInternetConnection() {
+        if (connectivityService.isConnected()) {
+            hideInfoBox();
         }
     }
 

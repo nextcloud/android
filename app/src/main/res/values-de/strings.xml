@@ -344,6 +344,7 @@
     <string name="file_list_empty_shared_headline">Noch nichts geteilt</string>
     <string name="file_list_empty_unified_search_no_results">Keine Ergebnisse für Ihre Suche gefunden</string>
     <string name="file_list_folder">Ordner</string>
+    <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Lade…</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
     <string name="file_list_seconds_ago">Gerade eben</string>

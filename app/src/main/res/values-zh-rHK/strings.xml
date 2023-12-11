@@ -344,6 +344,7 @@
     <string name="file_list_empty_shared_headline">還沒有分享任何資料</string>
     <string name="file_list_empty_unified_search_no_results">未找到與您的查詢相符的結果</string>
     <string name="file_list_folder">資料夾</string>
+    <string name="file_list_live">直播</string>
     <string name="file_list_loading">載入中…</string>
     <string name="file_list_no_app_for_file_type">未設定處理此檔案類型適用的APP</string>
     <string name="file_list_seconds_ago">秒前</string>
@@ -884,6 +885,7 @@
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
     <string name="upload_old_android">加密功能只適用於 Android 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空間不足導致無法將所選檔案複製到 %1$s 資料夾中。您想改為將檔案移到那裡嗎？</string>
+    <string name="upload_quota_exceeded">超過儲存空間配額</string>
     <string name="upload_scan_doc_upload">使用相機掃描文件</string>
     <string name="upload_sync_conflict">同步發生抵觸，請手動處理</string>
     <string name="upload_unknown_error">未知的錯誤</string>
