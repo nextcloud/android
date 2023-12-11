@@ -17,6 +17,7 @@
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -46,9 +47,10 @@
         android:src="@drawable/file_image" />
 
     <ImageView
+        tools:visibility="visible"
         android:id="@+id/favorite_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_gravity="top|end"
         android:layout_margin="@dimen/standard_quarter_margin"
         android:contentDescription="@string/favorite_icon"
@@ -56,21 +58,12 @@
         android:src="@drawable/favorite" />
 
     <ImageView
-        android:id="@+id/sharedIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
-        android:layout_marginTop="@dimen/grid_image_shared_icon_layout_top_margin"
-        android:layout_marginEnd="@dimen/standard_quarter_margin"
-        android:contentDescription="@string/shared_icon_shared_via_link"
-        android:src="@drawable/shared_via_link" />
-
-    <ImageView
+        tools:visibility="visible"
         android:id="@+id/unreadComments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|end"
-        android:layout_marginTop="@dimen/grid_image_shared_icon_layout_top_margin"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="@dimen/standard_quarter_margin"
         android:clickable="true"
         android:contentDescription="@string/unread_comments"
@@ -79,9 +72,10 @@
         android:visibility="gone" />
 
     <ImageView
+        tools:visibility="visible"
         android:id="@+id/localFileIndicator"
-        android:layout_width="@dimen/grid_image_local_file_indicator_layout_width"
-        android:layout_height="@dimen/grid_image_local_file_indicator_layout_height"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_gravity="bottom|end"
         android:layout_marginTop="@dimen/standard_quarter_margin"
         android:layout_marginEnd="@dimen/standard_quarter_margin"
@@ -89,7 +83,55 @@
         android:contentDescription="@string/synced_icon"
         android:src="@drawable/ic_synced" />
 
+    <FrameLayout
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="@dimen/standard_quarter_margin"
+        android:background="@drawable/rounded_rect"
+        android:backgroundTint="#F6F6F6">
+
+        <ImageView
+            android:id="@+id/sharedIcon"
+            tools:visibility="visible"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/shared_icon_shared_via_link"
+            android:src="@drawable/shared_via_link" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/grid_live_photo_indicator"
+        tools:visibility="visible"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:drawableTint="@color/list_item_lastmod_and_filesize_text"
+        android:background="@drawable/rounded_rect"
+        android:backgroundTint="#F6F6F6"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="2dp"
+        android:layout_marginLeft="@dimen/standard_quarter_margin"
+        android:layout_marginRight="@dimen/standard_quarter_margin"
+        android:text="@string/file_list_live"
+        android:drawablePadding="@dimen/standard_eight_padding"
+        android:gravity="center"
+        android:layout_gravity="start|bottom"
+        android:textColor="@color/list_item_lastmod_and_filesize_text"
+        android:textSize="@dimen/two_line_secondary_text_size"
+        app:drawableTopCompat="@drawable/ic_live_photo" />
+
+    <TextView
+        android:id="@+id/live_photo_indicator_separator"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
     <ImageView
+        tools:visibility="visible"
         android:id="@+id/custom_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

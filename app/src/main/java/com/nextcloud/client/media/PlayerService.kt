@@ -22,7 +22,6 @@ package com.nextcloud.client.media
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
-import android.content.pm.ServiceInfo
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
@@ -32,7 +31,9 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.ForegroundServiceHelper
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -173,15 +174,12 @@ class PlayerService : Service() {
             notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_MEDIA)
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            startForeground(
-                R.string.media_notif_ticker,
-                notificationBuilder.build(),
-                ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
-            )
-        } else {
-            startForeground(R.string.media_notif_ticker, notificationBuilder.build())
-        }
+        ForegroundServiceHelper.startService(
+            this,
+            R.string.media_notif_ticker,
+            notificationBuilder.build(),
+            ForegroundServiceType.MediaPlayback
+        )
 
         isRunning = true
     }
