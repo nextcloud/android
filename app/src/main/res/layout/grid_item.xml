@@ -40,7 +40,6 @@
             app:corners="8" />
 
         <LinearLayout
-            android:translationZ="2dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical"
@@ -75,6 +74,9 @@
             android:background="@drawable/rounded_rect"
             android:backgroundTint="@color/grid_background_color"
             android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="30dp"
+            android:translationZ="4dp"
             android:layout_gravity="bottom|end"
             android:orientation="horizontal"
             android:padding="@dimen/standard_quarter_padding"
@@ -83,16 +85,16 @@
 
             <ImageView
                 android:id="@+id/favorite_action"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_marginEnd="@dimen/standard_quarter_margin"
                 android:contentDescription="@string/favorite_icon"
                 android:src="@drawable/favorite" />
 
             <ImageView
                 android:id="@+id/videoOverlay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_marginEnd="@dimen/standard_quarter_margin"
                 android:contentDescription="@string/video_overlay_icon"
                 android:src="@drawable/video_white"
@@ -102,8 +104,8 @@
 
             <ImageView
                 android:id="@+id/sharedIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_marginEnd="@dimen/standard_quarter_margin"
                 android:contentDescription="@string/shared_icon_shared_via_link"
                 android:src="@drawable/shared_via_link"
@@ -112,8 +114,8 @@
 
             <ImageView
                 android:id="@+id/unreadComments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_marginEnd="@dimen/standard_quarter_margin"
                 android:clickable="true"
                 android:contentDescription="@string/unread_comments"
@@ -125,8 +127,8 @@
 
             <ImageView
                 android:id="@+id/localFileIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_marginEnd="@dimen/standard_quarter_margin"
                 android:contentDescription="@string/synced_icon"
                 android:src="@drawable/ic_synced"
@@ -134,8 +136,8 @@
 
             <ImageView
                 android:id="@+id/custom_checkbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_marginEnd="@dimen/standard_quarter_margin"
                 android:contentDescription="@string/checkbox"
                 android:src="@android:drawable/checkbox_off_background"

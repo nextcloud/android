@@ -39,6 +39,7 @@
 
     <com.owncloud.android.ui.SquareImageView
         android:id="@+id/thumbnail"
+        tools:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@null"
@@ -53,6 +54,7 @@
         android:alpha="0.9"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/rounded_rect"
         android:backgroundTint="@color/grid_background_color"
         android:layout_width="wrap_content"
@@ -73,10 +75,9 @@
             tools:visibility="visible"
             app:tint="@color/grid_icon_color"
             android:id="@+id/unreadComments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_marginEnd="@dimen/standard_quarter_margin"
-
             android:clickable="true"
             android:contentDescription="@string/unread_comments"
             android:focusable="true"
@@ -94,9 +95,8 @@
 
         <FrameLayout
             android:layout_marginEnd="@dimen/standard_quarter_margin"
-
-            android:layout_width="28dp"
-            android:layout_height="28dp">
+            android:layout_width="16dp"
+            android:layout_height="16dp">
 
             <ImageView
                 android:id="@+id/sharedIcon"
@@ -135,8 +135,8 @@
         <ImageView
             tools:visibility="visible"
             android:id="@+id/custom_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:contentDescription="@string/checkbox"
             android:src="@android:drawable/checkbox_off_background" />
 

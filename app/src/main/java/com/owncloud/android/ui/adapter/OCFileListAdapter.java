@@ -315,45 +315,43 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
-            default:
-            case VIEWTYPE_ITEM:
+            default -> {
                 if (gridView) {
-                    return new OCFileListGridItemViewHolder(
+                    return new FolderGridViewHolder(
                         GridItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
                     );
                 } else {
-                    return new OCFileListItemViewHolder(
+                    return new FileListViewHolder(
                         ListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
                     );
                 }
-
-            case VIEWTYPE_IMAGE:
+            }
+            case VIEWTYPE_IMAGE -> {
                 if (gridView) {
-                    return new OCFileListGridImageViewHolder(
+                    return new ImageFileGridViewHolder(
                         GridImageBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
                     );
                 } else {
-                    return new OCFileListItemViewHolder(
+                    return new FileListViewHolder(
                         ListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
                     );
                 }
-
-            case VIEWTYPE_FOOTER:
+            }
+            case VIEWTYPE_FOOTER -> {
                 return new OCFileListFooterViewHolder(
                     ListFooterBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
                 );
-
-            case VIEWTYPE_HEADER:
+            }
+            case VIEWTYPE_HEADER -> {
                 ListHeaderBinding binding = ListHeaderBinding.inflate(
                     LayoutInflater.from(parent.getContext()),
                     parent,
                     false);
-
                 ViewGroup.LayoutParams layoutParams = binding.headerView.getLayoutParams();
                 layoutParams.height = (int) (parent.getHeight() * 0.3);
                 binding.headerView.setLayoutParams(layoutParams);
-
                 return new OCFileListHeaderViewHolder(binding);
+            }
         }
     }
 
@@ -423,10 +421,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void updateLivePhotoIndicators(ListGridImageViewHolder holder, OCFile file) {
         boolean isLivePhoto = file.getLinkedFileIdForLivePhoto() != null;
 
-        if (holder instanceof OCFileListItemViewHolder) {
+        if (holder instanceof FileListViewHolder) {
             holder.getLivePhotoIndicator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
             holder.getLivePhotoIndicatorSeparator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
-        } else if (holder instanceof OCFileListGridImageViewHolder) {
+        } else if (holder instanceof ImageFileGridViewHolder) {
             holder.getGridLivePhotoIndicator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
         }
     }

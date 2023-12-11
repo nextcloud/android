@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.databinding.GridItemBinding
 
-internal class OCFileListGridItemViewHolder(var binding: GridItemBinding) :
+internal class FolderGridViewHolder(var binding: GridItemBinding) :
     RecyclerView.ViewHolder(
         binding.root
     ),
