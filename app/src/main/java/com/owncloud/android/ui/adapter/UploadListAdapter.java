@@ -212,7 +212,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
         OCUpload item = uploadGroups[section].getItem(relativePosition);
-        selectedOCUpload = item;
 
         itemViewHolder.binding.uploadName.setText(item.getLocalPath());
 
