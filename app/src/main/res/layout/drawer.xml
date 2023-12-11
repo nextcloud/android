@@ -35,7 +35,7 @@
         app:menu="@menu/partial_drawer_entries">
 
         <LinearLayout
-            android:background="@color/appbar"
+            android:background="@color/quota_background"
             android:id="@+id/drawer_quota"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
