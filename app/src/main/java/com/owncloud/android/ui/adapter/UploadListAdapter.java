@@ -206,7 +206,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         loadUploadItemsFromDb();
     }
 
-    public OCUpload selectedOCUpload;
 
     @Override
     public void onBindViewHolder(SectionedViewHolder holder, int section, int relativePosition, int absolutePosition) {
