@@ -223,6 +223,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             val secondKey = EncryptionUtils.decodeStringToBase64Bytes(decryptedString)
 
             if (!Arrays.equals(firstKey, secondKey)) {
+                EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
                 throw Exception("Keys do not match")
             }
 
@@ -404,6 +405,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 if (result.isSuccess) {
                     publicKeyString = result.data[0] as String
                     if (!EncryptionUtils.isMatchingKeys(keyPair, publicKeyString)) {
+                        EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
                         throw RuntimeException("Wrong CSR returned")
                     }
                     Log_OC.d(TAG, "public key success")

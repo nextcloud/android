@@ -62,7 +62,7 @@ class BackgroundJobFactory @Inject constructor(
     private val deviceInfo: DeviceInfo,
     private val accountManager: UserAccountManager,
     private val resources: Resources,
-    private val dataProvider: ArbitraryDataProvider,
+    private val arbitraryDataProvider: ArbitraryDataProvider,
     private val uploadsStorageManager: UploadsStorageManager,
     private val connectivityService: ConnectivityService,
     private val notificationManager: NotificationManager,
@@ -103,6 +103,7 @@ class BackgroundJobFactory @Inject constructor(
                 FilesExportWork::class -> createFilesExportWork(context, workerParameters)
                 FilesUploadWorker::class -> createFilesUploadWorker(context, workerParameters)
                 GeneratePdfFromImagesWork::class -> createPDFGenerateWork(context, workerParameters)
+                HealthStatusWork::class -> createHealthStatusWork(context, workerParameters)
                 else -> null // caller falls back to default factory
             }
         }
@@ -139,7 +140,7 @@ class BackgroundJobFactory @Inject constructor(
             context,
             params,
             resources,
-            dataProvider,
+            arbitraryDataProvider,
             contentResolver,
             accountManager
         )
@@ -258,6 +259,15 @@ class BackgroundJobFactory @Inject constructor(
             userAccountManager = accountManager,
             logger = logger,
             params = params
+        )
+    }
+
+    private fun createHealthStatusWork(context: Context, params: WorkerParameters): HealthStatusWork {
+        return HealthStatusWork(
+            context,
+            params,
+            accountManager,
+            arbitraryDataProvider
         )
     }
 }
