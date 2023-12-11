@@ -43,9 +43,13 @@ import org.junit.Before
 import org.junit.Test
 
 abstract class FileUploaderIT : AbstractOnServerIT() {
-    var uploadsStorageManager: UploadsStorageManager? = null
+    private var uploadsStorageManager: UploadsStorageManager? = null
 
-    val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
+    private val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
+        override fun isConnected(): Boolean {
+            return false
+        }
+
         override fun isInternetWalled(): Boolean = false
         override fun getConnectivity(): Connectivity = Connectivity.CONNECTED_WIFI
     }
