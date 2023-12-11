@@ -104,7 +104,6 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment;
 import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
-import com.owncloud.android.ui.dialog.TwoActionDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FeatureFragment;
 import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
@@ -269,9 +268,6 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
-
-    @ContributesAndroidInjector
-    abstract TwoActionDialogFragment twoActionDialogFragment();
 
     @ContributesAndroidInjector
     abstract AccountRemovalDialog accountRemovalDialog();

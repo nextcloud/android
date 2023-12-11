@@ -44,7 +44,6 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.utils.Throttler;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -58,11 +57,9 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.adapter.UploadListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
-import com.owncloud.android.ui.dialog.TwoActionDialogFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.util.Collections;
 
 import javax.inject.Inject;
 
@@ -78,7 +75,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 public class UploadListActivity extends FileActivity {
 
     private static final String TAG = UploadListActivity.class.getSimpleName();
-    public static final String HANDLE_FILE_EXISTENCE_RECEIVER = "HANDLE_FILE_EXISTENCE_RECEIVER";
 
     private UploadMessagesReceiver uploadMessagesReceiver;
 
@@ -150,52 +146,6 @@ public class UploadListActivity extends FileActivity {
         setupDrawer(R.id.nav_uploads);
 
         setupContent();
-        registerHandleFileExistenceDialogReceiver();
-    }
-
-    private void registerHandleFileExistenceDialogReceiver() {
-        IntentFilter filter = new IntentFilter(HANDLE_FILE_EXISTENCE_RECEIVER);
-        LocalBroadcastManager.getInstance(this).registerReceiver(handleFileExistenceReceiver, filter);
-    }
-
-    private final BroadcastReceiver handleFileExistenceReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            showHandleFileExistenceDialog();
-        }
-    };
-
-    private void showHandleFileExistenceDialog() {
-        TwoActionDialogFragment dialog = TwoActionDialogFragment
-            .Companion
-            .newInstance(R.string.uploader_handle_not_existed_file_dialog_title,
-                         R.string.uploader_handle_not_existed_file_dialog_message,
-                         R.string.uploader_handle_not_existed_file_dialog_negative_button_text,
-                         R.string.uploader_handle_not_existed_file_dialog_positive_button_text,
-                         new TwoActionDialogFragment.TwoActionDialogActionListener() {
-                             final OCUpload upload = uploadListAdapter.selectedOCUpload;
-
-                             @Override
-                             public void positiveAction() {
-                                 upload.setLastResult(null);
-                                 FileUploader.retryUpload(MainApp.getAppContext(), userAccountManager.getUser(), upload);
-                             }
-
-                             @Override
-                             public void negativeAction() {
-                                 OCFile fileOnlyExistOnLocalStorage = getStorageManager().getFileByEncryptedRemotePath(upload.getRemotePath());
-                                 getFileOperationsHelper().removeFiles(Collections.singletonList(fileOnlyExistOnLocalStorage), false, false);
-                                 uploadListAdapter.removeUpload(upload);
-                             }
-                         });
-
-        dialog.show(this.getSupportFragmentManager(), null);
-    }
-
-    @Override
-    protected void onDestroy() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(handleFileExistenceReceiver);
-        super.onDestroy();
     }
 
     private void setupContent() {
@@ -252,11 +202,13 @@ public class UploadListActivity extends FileActivity {
             uploadsStorageManager,
             connectivityService,
             userAccountManager,
-            powerManagementService)).start();
+            powerManagementService))
+            .start();
 
         // update UI
         uploadListAdapter.loadUploadItemsFromDb();
         swipeListRefreshLayout.setRefreshing(false);
+        DisplayUtils.showSnackMessage(this, R.string.uploader_local_files_uploaded);
     }
 
     @Override

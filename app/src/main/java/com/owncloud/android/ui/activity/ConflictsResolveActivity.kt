@@ -20,7 +20,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.nextcloud.client.account.User
 import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -208,19 +207,9 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
     private fun showErrorAndFinish(code: Int? = null) {
         val message = parseErrorMessage(code)
         runOnUiThread {
-            if (code != null) {
-                sendHandleFileExistenceEventBroadcast()
-            } else {
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-            }
-
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             finish()
         }
-    }
-
-    private fun sendHandleFileExistenceEventBroadcast() {
-        val intent = Intent(UploadListActivity.HANDLE_FILE_EXISTENCE_RECEIVER)
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
     }
 
     private fun parseErrorMessage(code: Int?): String {
