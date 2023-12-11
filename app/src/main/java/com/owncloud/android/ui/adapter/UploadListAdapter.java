@@ -206,14 +206,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         loadUploadItemsFromDb();
     }
 
-    public OCUpload selectedOCUpload;
 
     @Override
     public void onBindViewHolder(SectionedViewHolder holder, int section, int relativePosition, int absolutePosition) {
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
 
         OCUpload item = uploadGroups[section].getItem(relativePosition);
-        selectedOCUpload = item;
 
         itemViewHolder.binding.uploadName.setText(item.getLocalPath());
 
