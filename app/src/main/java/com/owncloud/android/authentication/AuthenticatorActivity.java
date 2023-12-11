@@ -333,7 +333,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             initOverallUi();
 
             /// initialize block to be moved to single Fragment to check server and get info about it
-
             /// initialize block to be moved to single Fragment to retrieve and validate credentials
             initAuthorizationPreFragment(savedInstanceState);
         }
