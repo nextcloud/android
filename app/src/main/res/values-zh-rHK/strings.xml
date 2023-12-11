@@ -344,6 +344,7 @@
     <string name="file_list_empty_shared_headline">還沒有分享任何資料</string>
     <string name="file_list_empty_unified_search_no_results">未找到與您的查詢相符的結果</string>
     <string name="file_list_folder">資料夾</string>
+    <string name="file_list_live">直播</string>
     <string name="file_list_loading">載入中…</string>
     <string name="file_list_no_app_for_file_type">未設定處理此檔案類型適用的APP</string>
     <string name="file_list_seconds_ago">秒前</string>
@@ -650,12 +651,17 @@
     <string name="remove_e2e">您可以在此客戶端上本地刪除端到端加密</string>
     <string name="remove_e2e_message">您可以在此客戶端上本地刪除端到端加密。加密檔案將保留在伺服器上，但不會再同步到此電腦。</string>
     <string name="remove_fail_msg">刪除失敗</string>
+    <string name="remove_local_account">移除近端賬戶</string>
+    <string name="remove_local_account_details">從裝置中刪除賬戶並刪除所有近端檔案</string>
     <string name="remove_notification_failed">移除通知失敗</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已刪除</string>
     <string name="rename_dialog_title">輸入新名稱</string>
     <string name="rename_local_fail_msg">無法重新命名近端複本，請試用不同名稱</string>
     <string name="rename_server_fail_msg">不可重新命名，名稱已存在</string>
+    <string name="request_account_deletion">請求賬戶刪除</string>
+    <string name="request_account_deletion_button">請求刪除</string>
+    <string name="request_account_deletion_details">請求服務提供者永久刪除賬戶</string>
     <string name="reshare_not_allowed">不允許重新分享</string>
     <string name="resharing_is_not_allowed">不允許重新分享</string>
     <string name="resized_image_not_possible_download">沒有可用調整過的圖像，下載完整圖像？</string>
@@ -879,6 +885,7 @@
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
     <string name="upload_old_android">加密功能只適用於 Android 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空間不足導致無法將所選檔案複製到 %1$s 資料夾中。您想改為將檔案移到那裡嗎？</string>
+    <string name="upload_quota_exceeded">超過儲存空間配額</string>
     <string name="upload_scan_doc_upload">使用相機掃描文件</string>
     <string name="upload_sync_conflict">同步發生抵觸，請手動處理</string>
     <string name="upload_unknown_error">未知的錯誤</string>

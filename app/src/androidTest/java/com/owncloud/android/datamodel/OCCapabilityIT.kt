@@ -37,6 +37,7 @@ class OCCapabilityIT : AbstractIT() {
         capability.etag = "123"
         capability.userStatus = CapabilityBooleanType.TRUE
         capability.userStatusSupportsEmoji = CapabilityBooleanType.TRUE
+        capability.dropAccount = CapabilityBooleanType.TRUE
 
         fileDataStorageManager.saveCapabilities(capability)
 
@@ -45,5 +46,6 @@ class OCCapabilityIT : AbstractIT() {
         assertEquals(capability.etag, newCapability.etag)
         assertEquals(capability.userStatus, newCapability.userStatus)
         assertEquals(capability.userStatusSupportsEmoji, newCapability.userStatusSupportsEmoji)
+        assertEquals(capability.dropAccount, newCapability.dropAccount)
     }
 }

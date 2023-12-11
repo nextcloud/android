@@ -203,6 +203,7 @@
     <string name="did_not_check_for_dupes">Nu s-au verificat duplicatele.</string>
     <string name="digest_algorithm_not_available">Algoritmul \'digest\' nu este disponibil pe telefonul tău.</string>
     <string name="direct_login_failed">Eroare la autentificare prin legătură directă!</string>
+    <string name="direct_login_text">Autentificare cu %1$s la %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Dezactivează</string>
     <string name="dismiss">Elimină</string>
     <string name="dismiss_notification_description">Elimină notificarea</string>
@@ -440,6 +441,7 @@
     <string name="locked_by_app">Blocat de aplicația%1$s </string>
     <string name="log_send_mail_subject">%1$s înregistrările app-ului Android</string>
     <string name="log_send_no_mail_app">Nu există nici o aplicație pentru a trimite fisiere log. Vă rugăm instalați un client de email.</string>
+    <string name="logged_in_as">Autentificat ca %1$s</string>
     <string name="login">Autentificare</string>
     <string name="login_url_helper_text">Linkul către %1$s interfața web atunci când deschizi linkul în browser.</string>
     <string name="logs_menu_delete">Șterge fișiere log</string>
@@ -626,6 +628,7 @@
     <string name="rename_dialog_title">Introduceţi un nou nume</string>
     <string name="rename_local_fail_msg">Nu s-a putut redenumi copia locală, încercați un alt nume</string>
     <string name="rename_server_fail_msg">Redenumirea nu este posibilă, numele este deja luat</string>
+    <string name="request_account_deletion">Cerere ștergere cont</string>
     <string name="reshare_not_allowed">Repartajarea nu este permisă</string>
     <string name="resharing_is_not_allowed">Repartajarea nu este permisă</string>
     <string name="resized_image_not_possible_download">Nu există o imagine mai mică. Descărcați imaginea completă?</string>
@@ -754,7 +757,7 @@
     <string name="storage_permission_full_access">Acces complet</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="storage_pictures">Poze</string>
-    <string name="store_full_desc">Platfoma locală de productivitate care vă menține în control.\n\nFuncționalități:\n* Interfață simplă, modernă, adaptată temei serverului\n* Încărcați fișiere în serverul Nextcloud\n* Partajați-le cu alții\n* Țineți fișierele și folderele preferate sincronizate\n* Căutați prin toate folderele de pe server\n* Auto Încărcarea fotografiilor și clipurilor video făcute de dispozitivul personal\n* Fiți la curent cu notificările\n* Suport pentru Multi-account\n* Acces sigur la date cu amprentă sau PIN\n* Integrae cu DAVx5 (anterior DAVdroid) pentru setarea simplă a sincronizării calendarului &amp; Contactelor\n\nRaportați orice problemă la https://github.com/nextcloud/android/issues și discutați despre această aplicație la https://help.nextcloud.com/c/clients/android\n\nNew cu Nextcloud? Nextcloud este un server privat de sincronizare fișiere &amp; partajare și de comunicație. Este un software gratuit și puteți să-l găzduiți sau să plătiți o companie să o facă pentru dumneavoastră. Aveți astfel control asupra fotografiilor, datelor calendarului și despre contacte, documentelor și orice altceva.\n\nVizitați Nextcloud la https://nextcloud.com</string>
+    <string name="store_full_desc">Platfoma locală de productivitate care vă menține în control.\n\nCaracteristici:\n* Interfață simplă, modernă, adaptată temei serverului\n* Încărcați fișiere în serverul Nextcloud\n* Partajați-le cu alții\n* Țineți fișierele și folderele preferate sincronizate\n* Căutați prin toate folderele de pe server\n* Auto Încărcarea fotografiilor și clipurilor video făcute de dispozitivul personal\n* Fiți la curent cu notificările\n* Suport pentru Multi-account\n* Acces sigur la date cu amprentă sau PIN\n* Integrae cu DAVx5 (anterior DAVdroid) pentru setarea simplă a sincronizării calendarului &amp; Contactelor\n\nRaportați orice problemă la https://github.com/nextcloud/android/issues și discutați despre această aplicație la https://help.nextcloud.com/c/clients/android\n\nNew cu Nextcloud? Nextcloud este un server privat de sincronizare fișiere &amp; partajare și de comunicație. Este un software gratuit și puteți să-l găzduiți sau să plătiți o companie să o facă pentru dumneavoastră. Aveți astfel control asupra fotografiilor, datelor calendarului și despre contacte, documentelor și orice altceva.\n\nVizitați Nextcloud la https://nextcloud.com</string>
     <string name="store_full_dev_desc">Platforma de productivitate locală care vă menține în control.\nAceasta este versiunea de dezvoltare oficială, cuprinzând exemple zilnice de funcționalități netestate, care pot crea instabilitate sau pierderi de date. Aplicația este pentru utilizatori care doresc să testeze și să raporteze bug-uri dacă acestea apar. Nu folosiți în producție!\n\n Și versiunea oficială de dezvoltare și cea stabilă sunt disponibile pe F-droid și pot fi instalate în același timp.</string>
     <string name="store_short_desc">Platforma găzduită și controlată de tine</string>
     <string name="store_short_dev_desc">Platforma găzduită și controlată de tine(versiunea pentru dezvoltatori)</string>
@@ -912,6 +915,7 @@
     <string name="wait_a_moment">Așteaptă un moment…</string>
     <string name="wait_checking_credentials">Se verifică datele de autentificare stocate</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiere fișier din stocare privată</string>
+    <string name="webview_version_check_alert_dialog_message">Pentru a vă autentifica, actualizați componenta WebView a sistemului Android</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Actualizare</string>
     <string name="what_s_new_image">Ce imagine este nouă</string>
     <string name="whats_new_skip">Sari peste</string>

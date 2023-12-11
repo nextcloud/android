@@ -518,6 +518,7 @@
     <string name="rename_dialog_title">Lakaat un anv nevez</string>
     <string name="rename_local_fail_msg">Dibosuple adenvel an eilenn diabarzh, klaskit un anv all</string>
     <string name="rename_server_fail_msg">Dibosuple adenvel, anv kemeret dija</string>
+    <string name="request_account_deletion">Goulenn lemel ar c\'hont</string>
     <string name="reshare_not_allowed">N\'eo ket aotreet an adrannan</string>
     <string name="resharing_is_not_allowed">N\'eo ket aotreet an adrannan</string>
     <string name="resized_image_not_possible_download">Skeudenn admentet ebet. Pellgargañ ar skeudenn glot ?</string>

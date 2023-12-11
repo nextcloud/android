@@ -461,6 +461,10 @@ internal class BackgroundJobManagerImpl(
         return workInfo.map { it -> it.map { fromWorkInfo(it) ?: JobInfo() } }
     }
 
+    override fun cancelFilesUploadJob(user: User) {
+        workManager.cancelJob(JOB_FILES_UPLOAD, user)
+    }
+
     override fun startPdfGenerateAndUploadWork(
         user: User,
         uploadFolder: String,

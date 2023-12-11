@@ -640,12 +640,17 @@
     <string name="remove_e2e">Ви можете вилучити наскрізне шифрування на пристрої на цьому клієнті</string>
     <string name="remove_e2e_message">Ви можете вилучити наскрізне шифрування на пристрої на цьому клієнті. Зашифровані файли залишатимуться на сервері, але більше не синхронізуватимуться з цим комп\'ютером.</string>
     <string name="remove_fail_msg">Помилка під час вилучення</string>
+    <string name="remove_local_account">Вилучити обліковий запис на пристрої</string>
+    <string name="remove_local_account_details">Вилучити обліковий запис з пристрою та всі файли на пристрої</string>
     <string name="remove_notification_failed">Неможливо зняти сповіщення.</string>
     <string name="remove_push_notification">Вилучити</string>
     <string name="remove_success_msg">Вилучено</string>
     <string name="rename_dialog_title">Введіть нове ім\'я</string>
     <string name="rename_local_fail_msg">Неможливо перейменувати локальну копію, спробуйте інше ім\'я</string>
     <string name="rename_server_fail_msg">Неможливо перейменувати, таке ім\'я уже існує</string>
+    <string name="request_account_deletion">Запит на вилучення облікового запису</string>
+    <string name="request_account_deletion_button">Запит на вилучення</string>
+    <string name="request_account_deletion_details">Запит на вилучення облікового запису з боку постачальника послуг</string>
     <string name="reshare_not_allowed">Надання спільного доступу іншим не дозволяється</string>
     <string name="resharing_is_not_allowed">Надання спільного доступу іншим не дозволяється</string>
     <string name="resized_image_not_possible_download">Відсутнє зображення зі зменшеними розмірами. Звантажити повне зображення?</string>
@@ -726,7 +731,7 @@
     <string name="shared_icon_share">поділитися</string>
     <string name="shared_icon_shared">надано доступ</string>
     <string name="shared_icon_shared_via_link">доступ надано за посиланням</string>
-    <string name="shared_with_you_by">%1$s поділився з вами</string>
+    <string name="shared_with_you_by">%1$s поділив(-ла-)ся з вами</string>
     <string name="sharee_add_failed">Помилка додавання користувача, з яким ви хочете поділитися</string>
     <string name="show_images">Показувати зображення</string>
     <string name="show_video">Показувати відео</string>
@@ -788,7 +793,7 @@
     <string name="sub_folder_rule_month">Рік/місяць</string>
     <string name="sub_folder_rule_year">Рік</string>
     <string name="subject_shared_with_you">Вам було надано доступ до \"%1$s\"</string>
-    <string name="subject_user_shared_with_you">%1$s поділився %2$s з вами</string>
+    <string name="subject_user_shared_with_you">%1$s поділив(-ла-)ся %2$s з вами</string>
     <string name="subtitle_photos_only">Лише зображення</string>
     <string name="subtitle_photos_videos">Зображення та відео</string>
     <string name="subtitle_videos_only">Лише відео</string>

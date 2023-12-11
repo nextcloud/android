@@ -48,6 +48,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -263,6 +264,9 @@ public class UploadListActivity extends FileActivity {
                 openDrawer();
             }
         } else if (itemId == R.id.action_clear_failed_uploads) {
+            for (OCUpload upload : uploadsStorageManager.getFailedButNotDelayedUploadsForCurrentAccount()){
+                uploadListAdapter.cancelOldErrorNotification(upload);
+            }
             uploadsStorageManager.clearFailedButNotDelayedUploads();
             uploadListAdapter.loadUploadItemsFromDb();
         } else {
@@ -328,6 +332,7 @@ public class UploadListActivity extends FileActivity {
                     mUploaderBinder = (FileUploaderBinder) service;
                     Log_OC.d(TAG, "UploadListActivity connected to Upload service. component: " +
                             component + " service: " + service);
+                    uploadListAdapter.loadUploadItemsFromDb();
                 } else {
                     Log_OC.d(TAG, "mUploaderBinder already set. mUploaderBinder: " +
                             mUploaderBinder + " service:" + service);

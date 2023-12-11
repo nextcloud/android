@@ -1,8 +1,9 @@
-/**
+/*
  * Nextcloud Android client application
  *
- * @author Mario Danic
- * Copyright (C) 2017 Mario Danic
+ * @author Tobias Kaminsky
+ * Copyright (C) 2017 Tobias Kaminsky
+ * Copyright (C) 2017 Nextcloud GmbH.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,19 +18,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.events;
+package com.owncloud.android.ui.events
 
-import com.owncloud.android.datamodel.SyncedFolder;
-
-public class InitiateSyncedFolder {
-    private final SyncedFolder syncedFolder;
-
-
-    public InitiateSyncedFolder(SyncedFolder syncedFolder) {
-        this.syncedFolder = syncedFolder;
-    }
-
-    public SyncedFolder getSyncedFolder() {
-        return syncedFolder;
-    }
-}
+/**
+ * Event that notifies that an account was removed
+ */
+class AccountRemovedEvent

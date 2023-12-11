@@ -561,8 +561,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity(),
             ((FileActivity) getActivity()).getUser().orElseThrow(RuntimeException::new),
             FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM,
-                                                        getCurrentFile().isEncrypted()
-                                                        );
+            getCurrentFile().isEncrypted());
     }
 
     @Override
@@ -976,6 +975,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onItemClicked(OCFile file) {
+        ((FileActivity) mContainerActivity).checkInternetConnection();
+
         if (getCommonAdapter().isMultiSelect()) {
             toggleItemToCheckedList(file);
         } else {
@@ -1054,7 +1055,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             }
                             ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, !file.isDown());
                         } else {
-                            ((FileDisplayActivity) mContainerActivity).startImagePreview(file, null, !file.isDown());
+                            ((FileDisplayActivity) mContainerActivity).startImagePreview(file, !file.isDown());
                         }
                     } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
                         ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
@@ -1588,7 +1589,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(CommentsEvent event) {
-        mAdapter.refreshCommentsCount(event.remoteId);
+        mAdapter.refreshCommentsCount(event.getRemoteId());
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
@@ -1598,13 +1599,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
             OwnCloudClient client = clientFactory.create(user);
 
             ToggleFavoriteRemoteOperation toggleFavoriteOperation = new ToggleFavoriteRemoteOperation(
-                event.shouldFavorite, event.remotePath);
+                event.getShouldFavorite(), event.getRemotePath());
             RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(client);
 
             if (remoteOperationResult.isSuccess()) {
-                boolean removeFromList = currentSearchType == SearchType.FAVORITE_SEARCH && !event.shouldFavorite;
+                boolean removeFromList = currentSearchType == SearchType.FAVORITE_SEARCH && !event.getShouldFavorite();
                 setEmptyListMessage(SearchType.FAVORITE_SEARCH);
-                mAdapter.setFavoriteAttributeForItemID(event.remotePath, event.shouldFavorite, removeFromList);
+                mAdapter.setFavoriteAttributeForItemID(event.getRemotePath(), event.getShouldFavorite(), removeFromList);
             }
 
         } catch (ClientFactory.CreationException e) {
@@ -1692,7 +1693,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
 
         FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-        OCFile file = storageManager.getFileByRemoteId(event.remoteId);
+        OCFile file = storageManager.getFileByRemoteId(event.getRemoteId());
 
         if (publicKey.isEmpty() || privateKey.isEmpty()) {
             Log_OC.d(TAG, "no public key for " + user.getAccountName());
@@ -1706,10 +1707,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
         } else {
             encryptFolder(file,
-                          event.localId,
-                          event.remoteId,
-                          event.remotePath,
-                          event.shouldBeEncrypted,
+                          event.getLocalId(),
+                          event.getRemoteId(),
+                          event.getRemotePath(),
+                          event.getShouldBeEncrypted(),
                           publicKey,
                           privateKey);
         }
