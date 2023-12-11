@@ -1,0 +1,10 @@
+## 3.27.0 RC2 (December 11, 2023)
+
+- account deletion (needs server app drop_account)
+- Material Design 3 everywhere
+- live photo support
+
+
+Minimum: NC 16 Server, Android 7.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/86
