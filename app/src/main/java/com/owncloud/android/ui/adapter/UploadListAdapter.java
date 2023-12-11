@@ -24,6 +24,7 @@
 
 package com.owncloud.android.ui.adapter;
 
+import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -42,6 +43,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.jobs.FilesUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
@@ -63,6 +65,7 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -90,6 +93,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private final UploadGroup[] uploadGroups;
     private final boolean showUser;
     private final ViewThemeUtils viewThemeUtils;
+    private NotificationManager mNotificationManager;
 
     @Override
     public int getSectionCount() {
@@ -556,6 +560,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
     public void removeUpload(OCUpload item) {
         uploadsStorageManager.removeUpload(item);
+        cancelOldErrorNotification(item);
         loadUploadItemsFromDb();
     }
 
@@ -598,7 +603,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     }
 
     /**
-     * Gets the status text to show to the user according to the status and last result of the the given upload.
+     * Gets the status text to show to the user according to the status and last result of the
+     * the given upload.
      *
      * @param upload Upload to describe.
      * @return Text describing the status of the given upload.
@@ -872,4 +878,17 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             return items == null ? 0 : items.length;
         }
     }
+
+    public void cancelOldErrorNotification(OCUpload upload){
+
+        if (mNotificationManager == null) {
+            mNotificationManager = (NotificationManager) parentActivity.getSystemService(parentActivity.NOTIFICATION_SERVICE);
+        }
+
+        if (upload == null) return;
+        mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(upload.getRemotePath(),upload.getLocalPath()),
+                                    FilesUploadWorker.NOTIFICATION_ERROR_ID);
+
+    }
+
 }

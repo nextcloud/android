@@ -56,6 +56,7 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.ui.activity.UploadListActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
+import com.owncloud.android.utils.FilesUploadHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.security.SecureRandom
@@ -77,7 +78,6 @@ class FilesUploadWorker(
     private val notificationManager: NotificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     private val fileUploaderDelegate = FileUploaderDelegate()
-    private var currentUploadFileOperation: UploadFileOperation? = null
 
     override fun doWork(): Result {
         val accountName = inputData.getString(ACCOUNT)
@@ -305,8 +305,14 @@ class FilesUploadWorker(
         uploadResult: RemoteOperationResult<Any?>
     ) {
         Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.code)
+
+        if (uploadResult.isSuccess) {
+            cancelOldErrorNotification(uploadFileOperation)
+            return
+        }
+
         // Only notify if the upload fails
-        if (uploadResult.isSuccess || uploadResult.isCancelled) {
+        if (uploadResult.isCancelled) {
             return
         }
 
@@ -349,9 +355,12 @@ class FilesUploadWorker(
             }
 
             notificationBuilder.setContentText(content)
-            if (!uploadResult.isSuccess) {
-                notificationManager.notify(SecureRandom().nextInt(), notificationBuilder.build())
-            }
+
+            notificationManager.notify(
+                NotificationUtils.createUploadNotificationTag(uploadFileOperation.file),
+                NOTIFICATION_ERROR_ID,
+                notificationBuilder.build()
+            )
         }
     }
 
@@ -405,8 +414,31 @@ class FilesUploadWorker(
             val text = String.format(context.getString(R.string.uploader_upload_in_progress_content), percent, fileName)
             notificationBuilder.setContentText(text)
             notificationManager.notify(FOREGROUND_SERVICE_ID, notificationBuilder.build())
+            FilesUploadHelper.onTransferProgress(
+                currentUploadFileOperation?.user?.accountName,
+                currentUploadFileOperation?.remotePath,
+                progressRate,
+                totalTransferredSoFar,
+                totalToTransfer,
+                fileAbsoluteName
+            )
+            currentUploadFileOperation?.let { cancelOldErrorNotification(it) }
         }
         lastPercent = percent
+    }
+
+    private fun cancelOldErrorNotification(uploadFileOperation: UploadFileOperation) {
+        // cancel for old file because of file conflicts
+        if (uploadFileOperation.oldFile != null) {
+            notificationManager.cancel(
+                NotificationUtils.createUploadNotificationTag(uploadFileOperation.oldFile),
+                NOTIFICATION_ERROR_ID
+            )
+        }
+        notificationManager.cancel(
+            NotificationUtils.createUploadNotificationTag(uploadFileOperation.file),
+            NOTIFICATION_ERROR_ID
+        )
     }
 
     override fun onStopped() {
@@ -418,7 +450,9 @@ class FilesUploadWorker(
     companion object {
         val TAG: String = FilesUploadWorker::class.java.simpleName
         private const val FOREGROUND_SERVICE_ID: Int = 412
+        const val NOTIFICATION_ERROR_ID: Int = 413
         private const val MAX_PROGRESS: Int = 100
         const val ACCOUNT = "data_account"
+        var currentUploadFileOperation: UploadFileOperation? = null
     }
 }

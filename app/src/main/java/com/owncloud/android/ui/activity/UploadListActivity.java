@@ -71,8 +71,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
- * Activity listing pending, active, and completed uploads. User can delete completed uploads from view. Content of this
- * list of coming from {@link UploadsStorageManager}.
+ * Activity listing pending, active, and completed uploads. User can delete
+ * completed uploads from view. Content of this list of coming from
+ * {@link UploadsStorageManager}.
  */
 public class UploadListActivity extends FileActivity {
 
@@ -229,7 +230,6 @@ public class UploadListActivity extends FileActivity {
         swipeListRefreshLayout.setOnRefreshListener(this::refresh);
 
         loadItems();
-
     }
 
     private void loadItems() {
@@ -314,6 +314,9 @@ public class UploadListActivity extends FileActivity {
                 openDrawer();
             }
         } else if (itemId == R.id.action_clear_failed_uploads) {
+            for (OCUpload upload : uploadsStorageManager.getFailedButNotDelayedUploadsForCurrentAccount()){
+                uploadListAdapter.cancelOldErrorNotification(upload);
+            }
             uploadsStorageManager.clearFailedButNotDelayedUploads();
             uploadListAdapter.loadUploadItemsFromDb();
         } else {
@@ -378,7 +381,8 @@ public class UploadListActivity extends FileActivity {
                 if (mUploaderBinder == null) {
                     mUploaderBinder = (FileUploaderBinder) service;
                     Log_OC.d(TAG, "UploadListActivity connected to Upload service. component: " +
-                        component + " service: " + service);
+                            component + " service: " + service);
+                    uploadListAdapter.loadUploadItemsFromDb();
                 } else {
                     Log_OC.d(TAG, "mUploaderBinder already set. mUploaderBinder: " +
                         mUploaderBinder + " service:" + service);

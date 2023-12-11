@@ -18,6 +18,7 @@
     <string name="actionbar_copy">Kopiatu</string>
     <string name="actionbar_mkdir">Karpeta berria</string>
     <string name="actionbar_move">Mugitu</string>
+    <string name="actionbar_move_or_copy">Mugitu edo kopiatu</string>
     <string name="actionbar_open_with">Ireki honekin</string>
     <string name="actionbar_search">Bilatu</string>
     <string name="actionbar_see_details">Xehetasunak</string>
@@ -159,6 +160,7 @@
     <string name="conflict_message_description">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
     <string name="conflict_server_file">Zerbitzariko fitxategia</string>
     <string name="contact_backup_title">Kontaktuen segurtasun kopia</string>
+    <string name="contact_no_permission">Kontaktuak atzitzeko baimena behar da.</string>
     <string name="contactlist_item_icon">Erabiltzailearen ikonoa kontaktuen zerrendarako</string>
     <string name="contactlist_no_permission">Ez da baimenik eman, ez da ezer inportatu.</string>
     <string name="contacts">Kontaktuak</string>
@@ -257,6 +259,7 @@
     <string name="ecosystem_apps_more">Nextcloud aplikazio gehiago</string>
     <string name="ecosystem_apps_notes">Nextcloud Oharrak</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Ezin izan da helbide elektronikoa hautatu.</string>
     <string name="encrypted">Ezarri zifratu gisa</string>
     <string name="end_to_end_encryption_confirm_button">Konfiguratu zifratzea</string>
     <string name="end_to_end_encryption_decrypting">Deszifratzen...</string>
@@ -647,6 +650,8 @@
     <string name="remove_e2e">Lokalean, muturretik muturrerako enkriptatzea ken dezakezu bezero honetan</string>
     <string name="remove_e2e_message">Lokalean, muturretik muturrerako enkriptatzea ken dezakezu bezero honetan. Enkriptatutako fitxategiek zerbitzarian jarraituko dute, baina ez dira ordenagailu honekin sinkronizatuko.</string>
     <string name="remove_fail_msg">Ezabatzeak huts egin du</string>
+    <string name="remove_local_account">Kendu tokiko kontua</string>
+    <string name="remove_local_account_details">Kendu kontua gailutik eta ezabatu tokiko fitxategi guztiak</string>
     <string name="remove_notification_failed">Huts egin du jakinarazpena kentzean</string>
     <string name="remove_push_notification">Ezabatu</string>
     <string name="remove_success_msg">Ezabatuta</string>
@@ -654,6 +659,8 @@
     <string name="rename_local_fail_msg">Ezin izan da kopia lokala berrizendatu, saiatu beste izen batekin</string>
     <string name="rename_server_fail_msg">Ezin izan da berrizendatu, izena hartua zegoen</string>
     <string name="request_account_deletion">Eskatu kontuaren ezabaketa</string>
+    <string name="request_account_deletion_button">Ezabatzeko eskaera</string>
+    <string name="request_account_deletion_details">Eskatu kontua behin betiko ezabatzea zerbitzu-hornitzailetik</string>
     <string name="reshare_not_allowed">Birpartekatzea ez da onartzen</string>
     <string name="resharing_is_not_allowed">Birpartekatzea ez da onartzen</string>
     <string name="resized_image_not_possible_download">Ez dago tamainaz aldatutako irudirik eskuragarri. Irudi osoa deskargatu nahi duzu?</string>
@@ -877,6 +884,7 @@
     <string name="upload_lock_failed">Karpeta blokeatzeak huts egin du</string>
     <string name="upload_old_android">Zifratzea >= Android 5.0 bertsioarekin soilik da posible</string>
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>
+    <string name="upload_quota_exceeded">Biltegiratze kuota gainditu da</string>
     <string name="upload_scan_doc_upload">Eskaneatu dokumentua kamararekin</string>
     <string name="upload_sync_conflict">Sinkronizazio gatazka, ebatzi eskuz</string>
     <string name="upload_unknown_error">Akats ezezaguna</string>
@@ -945,7 +953,9 @@
     <string name="wait_a_moment">Itxaron momentu bat…</string>
     <string name="wait_checking_credentials">Gordetako nortasun-datuak konprobatzen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fitxategia biltegiratze pribatutik kopiatzen</string>
+    <string name="webview_version_check_alert_dialog_message">Eguneratu Android System WebView aplikazioa saioa hasteko</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Eguneratu</string>
+    <string name="webview_version_check_alert_dialog_title">Eguneratu Android System WebView</string>
     <string name="what_s_new_image">Zer da irudi berria</string>
     <string name="whats_new_skip">Salto egin</string>
     <string name="whats_new_title">Berria %1$s-n</string>

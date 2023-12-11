@@ -32,13 +32,19 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 
-class ExoplayerListener(private val context: Context, private val playerView: View, private val exoPlayer: ExoPlayer) :
+class ExoplayerListener(
+    private val context: Context,
+    private val playerView: View,
+    private val exoPlayer: ExoPlayer,
+    private val onCompleted: () -> Unit = { }
+) :
     Player.Listener {
 
     override fun onPlaybackStateChanged(playbackState: Int) {
         super.onPlaybackStateChanged(playbackState)
         if (playbackState == Player.STATE_ENDED) {
             onCompletion()
+            onCompleted()
         }
     }
 

@@ -38,6 +38,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -94,6 +95,8 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
@@ -123,11 +126,13 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private static final String USER = "USER";
     private static final String PLAYBACK_POSITION = "PLAYBACK_POSITION";
     private static final String AUTOPLAY = "AUTOPLAY";
+    private static final String IS_LIVE_PHOTO = "IS_LIVE_PHOTO";
 
     private User user;
     private long savedPlaybackPosition;
 
     private boolean autoplay;
+    private boolean isLivePhoto;
     private boolean prepared;
     private PlayerServiceConnection mediaPlayerServiceConnection;
 
@@ -151,7 +156,8 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     public static PreviewMediaFragment newInstance(OCFile fileToDetail,
                                                    User user,
                                                    long startPlaybackPosition,
-                                                   boolean autoplay) {
+                                                   boolean autoplay,
+                                                   boolean isLivePhoto) {
         PreviewMediaFragment previewMediaFragment = new PreviewMediaFragment();
 
         Bundle bundle = new Bundle();
@@ -159,6 +165,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         bundle.putParcelable(USER, user);
         bundle.putLong(PLAYBACK_POSITION, startPlaybackPosition);
         bundle.putBoolean(AUTOPLAY, autoplay);
+        bundle.putBoolean(IS_LIVE_PHOTO, isLivePhoto);
 
         previewMediaFragment.setArguments(bundle);
 
@@ -175,6 +182,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
      */
     public PreviewMediaFragment() {
         super();
+
         savedPlaybackPosition = 0;
         autoplay = true;
     }
@@ -187,10 +195,13 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
         Bundle bundle = getArguments();
 
         setFile(bundle.getParcelable(FILE));
+
         user = bundle.getParcelable(USER);
         savedPlaybackPosition = bundle.getLong(PLAYBACK_POSITION);
         autoplay = bundle.getBoolean(AUTOPLAY);
-        mediaPlayerServiceConnection = new PlayerServiceConnection(getContext());
+        isLivePhoto = bundle.getBoolean(IS_LIVE_PHOTO);
+
+        mediaPlayerServiceConnection = new PlayerServiceConnection(requireContext());
     }
 
     @Override
@@ -350,13 +361,18 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 if (exoPlayer != null) {
                     playVideo();
                 } else {
-                    final Handler handler = new Handler();
+                    final Handler handler = new Handler(Looper.getMainLooper());
                     Executors.newSingleThreadExecutor().execute(() -> {
                         try {
                             nextcloudClient = clientFactory.createNextcloudClient(accountManager.getUser());
                             handler.post(() ->{
                                 exoPlayer = NextcloudExoPlayer.createNextcloudExoplayer(requireContext(), nextcloudClient);
-                                exoPlayer.addListener(new ExoplayerListener(requireContext(), binding.exoplayerView, exoPlayer));
+
+                                exoPlayer.addListener(new ExoplayerListener(requireContext(), binding.exoplayerView, exoPlayer, () -> {
+                                    goBackToLivePhoto();
+                                    return null;
+                                }));
+
                                 playVideo();
                             });
                         } catch (ClientFactory.CreationException e) {
@@ -367,6 +383,23 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                     });
                 }
             }
+        }
+    }
+
+    private void goBackToLivePhoto() {
+        if (!isLivePhoto) {
+            return;
+        }
+
+        showActionBar();
+
+        requireActivity().getSupportFragmentManager().popBackStack();
+    }
+
+    private void showActionBar() {
+        Activity currentActivity = requireActivity();
+        if (currentActivity instanceof PreviewImageActivity activity) {
+            activity.toggleActionBarVisibility(false);
         }
     }
 
