@@ -20,6 +20,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ListItemLayout"
+    android:layout_marginEnd="@dimen/grid_container_margin"
+    android:layout_marginTop="@dimen/grid_container_margin"
     android:orientation="vertical"
     android:gravity="center"
     android:layout_width="match_parent"
