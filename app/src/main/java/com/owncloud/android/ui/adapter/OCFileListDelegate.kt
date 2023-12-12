@@ -232,7 +232,7 @@ class OCFileListDelegate(
         }
 
         // download state
-        gridViewHolder.localFileIndicator.visibility = View.INVISIBLE // default first
+        gridViewHolder.localFileIndicator.visibility = View.GONE // default first
 
         // metadata (downloaded, favorite)
         bindGridMetadataViews(file, gridViewHolder)
@@ -288,6 +288,10 @@ class OCFileListDelegate(
                     file
                 )
             }
+        }
+
+        gridViewHolder.more?.setOnClickListener {
+            ocFileListFragmentInterface.onOverflowIconClicked(file, it)
         }
     }
 

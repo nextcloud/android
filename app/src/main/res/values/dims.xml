@@ -40,6 +40,11 @@
     <dimen name="standard_double_margin">32dp</dimen>
     <dimen name="standard_half_margin">8dp</dimen>
     <dimen name="standard_quarter_margin">4dp</dimen>
+    <dimen name="grid_layout_item_size">10dp</dimen>
+    <dimen name="grid_layout_file_features_margin_end">24dp</dimen>
+    <dimen name="grid_layout_margin_end">2dp</dimen>
+    <dimen name="grid_layout_margin_bottom">16dp</dimen>
+    <dimen name="grid_sync_item_layout_next_text_size">22sp</dimen>
     <dimen name="button_width">140dp</dimen>
     <dimen name="button_extra_width">180dp</dimen>
     <dimen name="standard_eighth_margin">2dp</dimen>
@@ -103,6 +108,9 @@
     <dimen name="activity_row_layout_height">48dp</dimen>
     <dimen name="notification_icon_width">24dp</dimen>
     <dimen name="notification_icon_height">24dp</dimen>
+    <dimen name="grid_container_width">130dp</dimen>
+    <dimen name="grid_container_height">120dp</dimen>
+    <dimen name="grid_filename_width">80dp</dimen>
     <dimen name="notification_icon_layout_right_end_margin">21dp</dimen>
     <dimen name="notification_list_item_grid_layout_left_start_margin">-8dp</dimen>
     <dimen name="uploader_list_separator_height">1dp</dimen>
@@ -110,12 +118,6 @@
     <dimen name="contactlist_item_icon_layout_height">40dp</dimen>
     <dimen name="empty_list_icon_layout_width">72dp</dimen>
     <dimen name="empty_list_icon_layout_height">72dp</dimen>
-    <dimen name="grid_image_icon_margin">14dp</dimen>
-    <dimen name="grid_image_icon_padding">14dp</dimen>
-    <dimen name="grid_item_shared_icon_layout_top_margin">24dp</dimen>
-    <dimen name="grid_item_local_file_indicator_layout_width">16dp</dimen>
-    <dimen name="grid_item_local_file_indicator_layout_height">16dp</dimen>
-    <dimen name="grid_sync_item_layout_next_text_size">22sp</dimen>
     <dimen name="grid_sync_item_layout_counter_text_size">22sp</dimen>
     <dimen name="list_item_favorite_action_layout_width">14dp</dimen>
     <dimen name="list_item_favorite_action_layout_height">14dp</dimen>
