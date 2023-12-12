@@ -33,6 +33,7 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.createRoundedOutline
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -287,11 +288,16 @@ class OCFileListDelegate(
         }
     }
 
+    @Suppress("MagicNumber")
     private fun setItemLayoutBackgroundColor(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
         val itemLayoutBackgroundColorId: Int = if (file.fileId == highlightedItem?.fileId || isCheckedFile(file)) {
             R.color.selected_item_background
         } else {
             R.color.bg_default
+        }
+        gridViewHolder.itemLayout.apply {
+            outlineProvider = createRoundedOutline(context, 16f)
+            clipToOutline = true
         }
         gridViewHolder.itemLayout.setBackgroundColor(ContextCompat.getColor(context, itemLayoutBackgroundColorId))
     }
