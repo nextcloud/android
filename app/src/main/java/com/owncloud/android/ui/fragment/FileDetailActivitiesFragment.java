@@ -183,8 +183,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         String trimmedComment = commentField.toString().trim();
 
-        if (trimmedComment.length() > 0 && ownCloudClient != null && isDataFetched) {
-            new SubmitCommentTask(trimmedComment, file.getLocalId(), callback, ownCloudClient).execute();
+        if (!trimmedComment.isEmpty() && nextcloudClient != null && isDataFetched) {
+            new SubmitCommentTask(trimmedComment, file.getLocalId(), callback, nextcloudClient).execute();
         }
     }
 
@@ -461,12 +461,12 @@ public class FileDetailActivitiesFragment extends Fragment implements
         private final String message;
         private final long fileId;
         private final VersionListInterface.CommentCallback callback;
-        private final OwnCloudClient client;
+        private final NextcloudClient client;
 
         private SubmitCommentTask(String message,
                                   long fileId,
                                   VersionListInterface.CommentCallback callback,
-                                  OwnCloudClient client) {
+                                  NextcloudClient client) {
             this.message = message;
             this.fileId = fileId;
             this.callback = callback;
@@ -477,7 +477,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
         protected Boolean doInBackground(Void... voids) {
             CommentFileOperation commentFileOperation = new CommentFileOperation(message, fileId);
 
-            RemoteOperationResult result = commentFileOperation.execute(client);
+            RemoteOperationResult<Void> result = commentFileOperation.execute(client);
 
             return result.isSuccess();
         }
