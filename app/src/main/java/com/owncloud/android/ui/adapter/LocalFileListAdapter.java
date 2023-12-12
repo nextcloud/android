@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -187,11 +188,10 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 } else {
                     gridViewHolder.checkbox.setVisibility(View.VISIBLE);
                     if (isCheckedFile(file)) {
-                        gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources()
-                                                                         .getColor(R.color.selected_item_background));
+                        gridViewHolder.itemLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.selected_item_background));
 
                         gridViewHolder.checkbox.setImageDrawable(
-                            viewThemeUtils.platform.tintPrimaryDrawable(mContext, R.drawable.ic_checkbox_marked));
+                            viewThemeUtils.platform.tintDrawable(mContext, R.drawable.ic_checkbox_marked, ColorRole.PRIMARY));
                     } else {
                         gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
                         gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
