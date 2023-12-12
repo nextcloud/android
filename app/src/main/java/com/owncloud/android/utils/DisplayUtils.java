@@ -978,9 +978,9 @@ public final class DisplayUtils {
     }
 
     private static void configShimmerGridImageSize(LoaderImageView thumbnailShimmer, float gridColumns) {
-        FrameLayout.LayoutParams targetLayoutParams = (FrameLayout.LayoutParams) thumbnailShimmer.getLayoutParams();
-
         try {
+            FrameLayout.LayoutParams targetLayoutParams = (FrameLayout.LayoutParams) thumbnailShimmer.getLayoutParams();
+
             final Point screenSize = getScreenSize(thumbnailShimmer.getContext());
             final int marginLeftAndRight = targetLayoutParams.leftMargin + targetLayoutParams.rightMargin;
             final int size = Math.round(screenSize.x / gridColumns - marginLeftAndRight);

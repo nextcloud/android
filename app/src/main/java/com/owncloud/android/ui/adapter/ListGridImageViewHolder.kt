@@ -42,7 +42,7 @@ interface ListGridImageViewHolder {
     val unreadComments: ImageView
     val fileFeaturesLayout: LinearLayout?
 
-    val gridLivePhotoIndicator: TextView?
+    val gridLivePhotoIndicator: ImageView?
     val livePhotoIndicator: TextView?
     val livePhotoIndicatorSeparator: TextView?
 }

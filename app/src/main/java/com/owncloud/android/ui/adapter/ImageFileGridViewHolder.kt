@@ -61,7 +61,7 @@ internal class ImageFileGridViewHolder(var binding: GridImageBinding) :
     override val unreadComments: ImageView
         get() = binding.unreadComments
 
-    override val gridLivePhotoIndicator: TextView
+    override val gridLivePhotoIndicator: ImageView
         get() = binding.gridLivePhotoIndicator
     override val livePhotoIndicator: TextView?
         get() = null

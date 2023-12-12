@@ -42,7 +42,7 @@ internal class FileListViewHolder(private var binding: ListItemBinding) :
         get() = null
     override val fileFeaturesLayout: LinearLayout?
         get() = null
-    override val gridLivePhotoIndicator: TextView?
+    override val gridLivePhotoIndicator: ImageView?
         get() = null
     override val livePhotoIndicator: TextView
         get() = binding.livePhotoIndicator

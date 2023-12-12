@@ -63,7 +63,7 @@ internal class FolderGridViewHolder(var binding: GridItemBinding) :
     override val unreadComments: ImageView
         get() = binding.unreadComments
 
-    override val gridLivePhotoIndicator: TextView?
+    override val gridLivePhotoIndicator: ImageView?
         get() = null
     override val livePhotoIndicator: TextView?
         get() = null
