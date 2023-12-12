@@ -27,8 +27,10 @@ import android.graphics.drawable.ColorDrawable
 import android.os.AsyncTask
 import android.view.View
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.elyeproj.loaderviewlibrary.LoaderImageView
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
@@ -142,7 +144,7 @@ class OCFileListDelegate(
                     storageManager,
                     asyncGalleryTasks,
                     file.remoteId,
-                    context.resources.getColor(R.color.bg_default)
+                    ContextCompat.getColor(context, R.color.bg_default)
                 )
                 var drawable = MimeTypeUtil.getFileTypeIcon(
                     file.mimeType,
@@ -263,24 +265,18 @@ class OCFileListDelegate(
     }
 
     private fun bindGridItemLayout(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
-        if (highlightedItem != null && file.fileId == highlightedItem!!.fileId) {
-            gridViewHolder.itemLayout.setBackgroundColor(
-                context.resources
-                    .getColor(R.color.selected_item_background)
-            )
-        } else if (isCheckedFile(file)) {
-            gridViewHolder.itemLayout.setBackgroundColor(
-                context.resources
-                    .getColor(R.color.selected_item_background)
-            )
-            gridViewHolder.checkbox.setImageDrawable(
-                viewThemeUtils.platform.tintPrimaryDrawable(context, R.drawable.ic_checkbox_marked)
-            )
-        } else {
-            gridViewHolder.itemLayout.setBackgroundColor(context.resources.getColor(R.color.bg_default))
-            gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline)
+        setItemLayoutBackgroundColor(file, gridViewHolder)
+        setCheckBoxImage(file, gridViewHolder)
+        setItemLayoutOnClickListeners(file, gridViewHolder)
+
+        gridViewHolder.more?.setOnClickListener {
+            ocFileListFragmentInterface.onOverflowIconClicked(file, it)
         }
+    }
+
+    private fun setItemLayoutOnClickListeners(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
         gridViewHolder.itemLayout.setOnClickListener { ocFileListFragmentInterface.onItemClicked(file) }
+
         if (!hideItemOptions) {
             gridViewHolder.itemLayout.isLongClickable = true
             gridViewHolder.itemLayout.setOnLongClickListener {
@@ -289,9 +285,24 @@ class OCFileListDelegate(
                 )
             }
         }
+    }
 
-        gridViewHolder.more?.setOnClickListener {
-            ocFileListFragmentInterface.onOverflowIconClicked(file, it)
+    private fun setItemLayoutBackgroundColor(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+        val itemLayoutBackgroundColorId: Int = if (file.fileId == highlightedItem?.fileId || isCheckedFile(file)) {
+            R.color.selected_item_background
+        } else {
+            R.color.bg_default
+        }
+        gridViewHolder.itemLayout.setBackgroundColor(ContextCompat.getColor(context, itemLayoutBackgroundColorId))
+    }
+
+    private fun setCheckBoxImage(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+        if (isCheckedFile(file)) {
+            gridViewHolder.checkbox.setImageDrawable(
+                viewThemeUtils.platform.tintDrawable(context, R.drawable.ic_checkbox_marked, ColorRole.PRIMARY)
+            )
+        } else {
+            gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline)
         }
     }
 
