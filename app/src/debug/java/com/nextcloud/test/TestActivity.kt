@@ -56,6 +56,10 @@ class TestActivity :
     private lateinit var binding: TestLayoutBinding
 
     val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
+        override fun isConnected(): Boolean {
+            return false
+        }
+
         override fun isInternetWalled(): Boolean {
             return false
         }

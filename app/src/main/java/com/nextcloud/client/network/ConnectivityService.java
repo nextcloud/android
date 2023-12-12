@@ -25,6 +25,7 @@ package com.nextcloud.client.network;
  * and server reachability.
  */
 public interface ConnectivityService {
+    boolean isConnected();
 
     /**
      * Check if server is accessible by issuing HTTP status check request.

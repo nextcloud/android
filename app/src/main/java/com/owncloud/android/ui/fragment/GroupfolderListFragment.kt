@@ -125,8 +125,8 @@ class GroupfolderListFragment : OCFileListFragment(), Injectable, GroupfolderLis
             val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, context)
             if (!fetchResult.isSuccess) {
                 logger.e(SHARED_TAG, "Error fetching file")
-                if (fetchResult.isException) {
-                    logger.e(SHARED_TAG, "exception: ", fetchResult.exception)
+                if (fetchResult.isException && fetchResult.exception != null) {
+                    logger.e(SHARED_TAG, "exception: ", fetchResult.exception!!)
                 }
                 null
             } else {

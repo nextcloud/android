@@ -26,6 +26,7 @@ import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.nextcloud.client.account.User;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -213,7 +214,12 @@ public class DownloadFileOperation extends RemoteOperation {
                         .get(file.getEncryptedFileName()).getAuthenticationTag());
 
                 try {
-                    byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile, key, iv, authenticationTag);
+                    byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile,
+                                                                        key,
+                                                                        iv,
+                                                                        authenticationTag,
+                                                                        new ArbitraryDataProviderImpl(context),
+                                                                        user);
 
                     try (FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)) {
                         fileOutputStream.write(decryptedBytes);

@@ -47,6 +47,8 @@ import com.owncloud.android.lib.resources.e2ee.StoreMetadataRemoteOperation;
 import com.owncloud.android.lib.resources.e2ee.UnlockFileRemoteOperation;
 import com.owncloud.android.lib.resources.e2ee.UpdateMetadataRemoteOperation;
 import com.owncloud.android.lib.resources.status.NextcloudVersion;
+import com.owncloud.android.lib.resources.status.Problem;
+import com.owncloud.android.lib.resources.status.SendClientDiagnosticRemoteOperation;
 import com.owncloud.android.operations.UploadException;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -326,10 +328,12 @@ public final class EncryptionUtils {
 
         if (TextUtils.isEmpty(decryptedFolderChecksum) &&
             isFolderMigrated(remoteId, user, arbitraryDataProvider)) {
+            reportE2eError(arbitraryDataProvider, user);
             throw new IllegalStateException("Possible downgrade attack detected!");
         }
 
         if (!TextUtils.isEmpty(decryptedFolderChecksum) && !decryptedFolderChecksum.equals(checksum)) {
+            reportE2eError(arbitraryDataProvider, user);
             throw new IllegalStateException("Wrong checksum!");
         }
 
@@ -349,7 +353,9 @@ public final class EncryptionUtils {
                     encryptedFile.getEncrypted(),
                     decodeStringToBase64Bytes(encryptedKey),
                     decodeStringToBase64Bytes(encryptedFile.getEncryptedInitializationVector()),
-                    decodeStringToBase64Bytes(encryptedFile.getEncryptedTag())
+                    decodeStringToBase64Bytes(encryptedFile.getEncryptedTag()),
+                    arbitraryDataProvider,
+                    user
                                                              );
 
                 DecryptedFolderMetadata.DecryptedFile decryptedFile = new DecryptedFolderMetadata.DecryptedFile();
@@ -430,7 +436,9 @@ public final class EncryptionUtils {
                                                serializedFolderMetadata,
                                                token,
                                                client,
-                                               true);
+                                               true,
+                                               arbitraryDataProvider,
+                                               user);
 
                 // unlock folder
                 RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(folder, client, token);
@@ -534,7 +542,12 @@ public final class EncryptionUtils {
      * @param authenticationTag  authenticationTag from metadata
      * @return decrypted byte[]
      */
-    public static byte[] decryptFile(File file, byte[] encryptionKeyBytes, byte[] iv, byte[] authenticationTag)
+    public static byte[] decryptFile(File file,
+                                     byte[] encryptionKeyBytes,
+                                     byte[] iv,
+                                     byte[] authenticationTag,
+                                     ArbitraryDataProvider arbitraryDataProvider,
+                                     User user)
         throws NoSuchAlgorithmException,
         InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
         BadPaddingException, IllegalBlockSizeException, IOException {
@@ -554,6 +567,7 @@ public final class EncryptionUtils {
                                                                fileBytes.length - (128 / 8), fileBytes.length);
 
         if (!Arrays.equals(extractedAuthenticationTag, authenticationTag)) {
+            reportE2eError(arbitraryDataProvider, user);
             throw new SecurityException("Tag not correct");
         }
 
@@ -713,7 +727,9 @@ public final class EncryptionUtils {
     public static String decryptStringSymmetric(String string,
                                                 byte[] encryptionKeyBytes,
                                                 byte[] iv,
-                                                byte[] authenticationTag)
+                                                byte[] authenticationTag,
+                                                ArbitraryDataProvider arbitraryDataProvider,
+                                                User user)
         throws NoSuchPaddingException,
         NoSuchAlgorithmException,
         InvalidAlgorithmParameterException,
@@ -733,6 +749,7 @@ public final class EncryptionUtils {
                                                                bytes.length);
 
         if (!Arrays.equals(extractedAuthenticationTag, authenticationTag)) {
+            reportE2eError(arbitraryDataProvider, user);
             throw new SecurityException("Tag not correct");
         }
 
@@ -1057,7 +1074,7 @@ public final class EncryptionUtils {
 
             return new Pair<>(Boolean.FALSE, metadata);
         } else {
-            // TODO error
+            reportE2eError(arbitraryDataProvider, user);
             throw new UploadException("something wrong");
         }
     }
@@ -1066,7 +1083,9 @@ public final class EncryptionUtils {
                                       String serializedFolderMetadata,
                                       String token,
                                       OwnCloudClient client,
-                                      boolean metadataExists) throws UploadException {
+                                      boolean metadataExists,
+                                      ArbitraryDataProvider arbitraryDataProvider,
+                                      User user) throws UploadException {
         RemoteOperationResult uploadMetadataOperationResult;
         if (metadataExists) {
             // update metadata
@@ -1081,6 +1100,7 @@ public final class EncryptionUtils {
         }
 
         if (!uploadMetadataOperationResult.isSuccess()) {
+            reportE2eError(arbitraryDataProvider, user);
             throw new UploadException("Storing/updating metadata was not successful");
         }
     }
@@ -1206,5 +1226,38 @@ public final class EncryptionUtils {
         }
 
         return arrayList.contains(id);
+    }
+
+    public static void reportE2eError(ArbitraryDataProvider arbitraryDataProvider, User user) {
+        arbitraryDataProvider.incrementValue(user.getAccountName(), ArbitraryDataProvider.E2E_ERRORS);
+
+        if (arbitraryDataProvider.getLongValue(user.getAccountName(),
+                                               ArbitraryDataProvider.E2E_ERRORS_TIMESTAMP) == -1L) {
+            arbitraryDataProvider.storeOrUpdateKeyValue(
+                user.getAccountName(),
+                ArbitraryDataProvider.E2E_ERRORS_TIMESTAMP,
+                System.currentTimeMillis() / 1000
+                                                       );
+        }
+    }
+
+    @Nullable
+    public static Problem readE2eError(ArbitraryDataProvider arbitraryDataProvider, User user) {
+        int value = arbitraryDataProvider.getIntegerValue(user.getAccountName(),
+                                                          ArbitraryDataProvider.E2E_ERRORS);
+        long timestamp = arbitraryDataProvider.getLongValue(user.getAccountName(),
+                                                            ArbitraryDataProvider.E2E_ERRORS_TIMESTAMP);
+
+        arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(),
+                                                  ArbitraryDataProvider.E2E_ERRORS);
+
+        arbitraryDataProvider.deleteKeyForAccount(user.getAccountName(),
+                                                  ArbitraryDataProvider.E2E_ERRORS_TIMESTAMP);
+
+        if (value > 0 && timestamp > 0) {
+            return new Problem(SendClientDiagnosticRemoteOperation.E2E_ERRORS, value, timestamp);
+        } else {
+            return null;
+        }
     }
 }
