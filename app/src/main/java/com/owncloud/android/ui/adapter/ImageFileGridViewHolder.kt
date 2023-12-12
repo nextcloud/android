@@ -72,12 +72,14 @@ internal class ImageFileGridViewHolder(var binding: GridImageBinding) :
         binding.favoriteAction.drawable.mutate()
     }
 
+    @Suppress("ComplexCondition")
     override fun checkVisibilityOfFileFeaturesLayout() {
         if (favorite.visibility == View.GONE &&
             shared.visibility == View.GONE &&
             unreadComments.visibility == View.GONE &&
             localFileIndicator.visibility == View.GONE &&
-            checkbox.visibility == View.GONE) {
+            checkbox.visibility == View.GONE
+        ) {
             fileFeaturesLayout.visibility = View.GONE
         } else {
             fileFeaturesLayout.visibility = View.VISIBLE

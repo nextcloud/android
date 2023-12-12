@@ -78,8 +78,8 @@ internal class FileListViewHolder(private var binding: ListItemBinding) :
         binding.thumbnailLayout.videoOverlay.visibility = View.VISIBLE
     }
 
+    @Suppress("EmptyFunctionBlock")
     override fun checkVisibilityOfFileFeaturesLayout() {
-
     }
 
     override val shimmerThumbnail: LoaderImageView
