@@ -57,6 +57,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.adapter.UploadListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -201,12 +202,13 @@ public class UploadListActivity extends FileActivity {
             uploadsStorageManager,
             connectivityService,
             userAccountManager,
-            powerManagementService
-                                                        )).start();
+            powerManagementService))
+            .start();
 
         // update UI
         uploadListAdapter.loadUploadItemsFromDb();
         swipeListRefreshLayout.setRefreshing(false);
+        DisplayUtils.showSnackMessage(this, R.string.uploader_local_files_uploaded);
     }
 
     @Override
@@ -335,11 +337,11 @@ public class UploadListActivity extends FileActivity {
                     uploadListAdapter.loadUploadItemsFromDb();
                 } else {
                     Log_OC.d(TAG, "mUploaderBinder already set. mUploaderBinder: " +
-                            mUploaderBinder + " service:" + service);
+                        mUploaderBinder + " service:" + service);
                 }
             } else {
                 Log_OC.d(TAG, "UploadListActivity not connected to Upload service. component: " +
-                        component + " service: " + service);
+                    component + " service: " + service);
             }
         }
 
