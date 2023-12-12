@@ -430,6 +430,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             ocFileListDelegate.bindGridViewHolder(gridViewHolder, file, searchType);
+            gridViewHolder.checkVisibilityOfFileFeaturesLayout();
 
             if (holder instanceof ListItemViewHolder) {
                 bindListItemViewHolder((ListItemViewHolder) gridViewHolder, file);

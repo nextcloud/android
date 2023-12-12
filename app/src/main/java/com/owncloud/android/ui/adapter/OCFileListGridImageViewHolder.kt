@@ -22,7 +22,9 @@
 package com.owncloud.android.ui.adapter
 
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
@@ -54,8 +56,11 @@ internal class OCFileListGridImageViewHolder(var binding: GridImageBinding) :
         get() = binding.ListItemLayout
     override val unreadComments: ImageView
         get() = binding.unreadComments
-
-    override val gridLivePhotoIndicator: TextView
+    override val more: ImageButton
+        get() = binding.more
+    override val fileFeaturesLayout: LinearLayout
+        get() = binding.fileFeaturesLayout
+    override val gridLivePhotoIndicator: ImageView
         get() = binding.gridLivePhotoIndicator
     override val livePhotoIndicator: TextView?
         get() = null
@@ -64,5 +69,19 @@ internal class OCFileListGridImageViewHolder(var binding: GridImageBinding) :
 
     init {
         binding.favoriteAction.drawable.mutate()
+    }
+
+    @Suppress("ComplexCondition")
+    override fun checkVisibilityOfFileFeaturesLayout() {
+        if (favorite.visibility == View.GONE &&
+            shared.visibility == View.GONE &&
+            unreadComments.visibility == View.GONE &&
+            localFileIndicator.visibility == View.GONE &&
+            checkbox.visibility == View.GONE
+        ) {
+            fileFeaturesLayout.visibility = View.GONE
+        } else {
+            fileFeaturesLayout.visibility = View.VISIBLE
+        }
     }
 }
