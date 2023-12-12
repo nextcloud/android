@@ -23,11 +23,11 @@
     android:orientation="vertical"
     android:gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="150dp">
+    android:layout_height="100dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="150dp"
-        android:layout_height="150dp">
+        android:layout_width="100dp"
+        android:layout_height="100dp">
 
         <com.elyeproj.loaderviewlibrary.LoaderImageView
             android:id="@+id/thumbnail_shimmer"
@@ -59,7 +59,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginEnd="@dimen/grid_layout_file_features_margin_end"
             android:layout_marginBottom="@dimen/grid_layout_margin_bottom"
             android:alpha="0.9"
             android:background="@drawable/rounded_rect"
@@ -154,8 +153,6 @@
             android:layout_height="wrap_content"
             android:translationZ="2dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
             android:background="@color/transparent"
             android:contentDescription="@string/ecosystem_apps_display_more"
             app:layout_constraintBottom_toBottomOf="parent"
