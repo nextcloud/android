@@ -279,11 +279,13 @@ class OCFileListDelegate(
         gridViewHolder.itemLayout.setOnClickListener { ocFileListFragmentInterface.onItemClicked(file) }
 
         if (!hideItemOptions) {
-            gridViewHolder.itemLayout.isLongClickable = true
-            gridViewHolder.itemLayout.setOnLongClickListener {
-                ocFileListFragmentInterface.onLongItemClicked(
-                    file
-                )
+            gridViewHolder.itemLayout.apply {
+                isLongClickable = true
+                setOnLongClickListener {
+                    ocFileListFragmentInterface.onLongItemClicked(
+                        file
+                    )
+                }
             }
         }
     }
@@ -298,8 +300,8 @@ class OCFileListDelegate(
         gridViewHolder.itemLayout.apply {
             outlineProvider = createRoundedOutline(context, 16f)
             clipToOutline = true
+            setBackgroundColor(ContextCompat.getColor(context, itemLayoutBackgroundColorId))
         }
-        gridViewHolder.itemLayout.setBackgroundColor(ContextCompat.getColor(context, itemLayoutBackgroundColorId))
     }
 
     private fun setCheckBoxImage(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
