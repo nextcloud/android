@@ -21,14 +21,13 @@
 
 package com.nextcloud.client.device
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.BatteryManager
 import android.os.Build
 import android.os.PowerManager
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.extensions.registerBroadcastReceiver
-import com.owncloud.android.datamodel.ReceiverFlag
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -128,6 +127,7 @@ class TestPowerManagementService {
         }
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     class Battery : Base() {
 
         companion object {
@@ -139,7 +139,7 @@ class TestPowerManagementService {
 
         @Before
         fun setUp() {
-            whenever(context.registerBroadcastReceiver(anyOrNull(), anyOrNull(), ReceiverFlag.NotExported)).thenReturn(
+            whenever(context.registerReceiver(anyOrNull(), anyOrNull())).thenReturn(
                 intent
             )
         }
@@ -197,14 +197,14 @@ class TestPowerManagementService {
             //      device has API level P or below
             //      battery status sticky intent is NOT available
             whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.P)
-            whenever(context.registerBroadcastReceiver(anyOrNull(), anyOrNull(), ReceiverFlag.NotExported)).thenReturn(
+            whenever(context.registerReceiver(anyOrNull(), anyOrNull())).thenReturn(
                 null
             )
 
             // THEN
             //     charging flag is false
             assertFalse(powerManagementService.battery.isCharging)
-            verify(context).registerBroadcastReceiver(anyOrNull(), any(), ReceiverFlag.NotExported)
+            verify(context).registerReceiver(anyOrNull(), any())
         }
 
         @Test
