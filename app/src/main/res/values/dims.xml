@@ -50,6 +50,9 @@
     <dimen name="standard_eighth_margin">2dp</dimen>
     <dimen name="min_list_item_size">56dp</dimen>
     <dimen name="standard_list_item_size">72dp</dimen>
+    <dimen name="grid_container_width">130dp</dimen>
+    <dimen name="grid_container_height">120dp</dimen>
+    <dimen name="grid_filename_width">80dp</dimen>
     <dimen name="sharee_list_item_size">56dp</dimen>
     <dimen name="two_line_primary_text_size">16sp</dimen>
     <dimen name="two_line_secondary_text_size">12sp</dimen>
