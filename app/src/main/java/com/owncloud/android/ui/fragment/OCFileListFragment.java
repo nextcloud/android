@@ -109,7 +109,7 @@ import com.owncloud.android.ui.events.FileLockEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
-import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.utils.DisplayUtils;
@@ -1038,25 +1038,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     getActivity().finish();
                 } else if (!mOnlyFoldersClickable) {
                     // Click on a file
-                    if (PreviewImageFragment.canBePreviewed(file)) {
-                        // preview image - it handles the download, if needed
+                    if (PreviewImageActivity.canBePreviewed(file)) {
+                        // media preview - it handles the download, if necessary
                         if (searchFragment) {
-                            VirtualFolderType type;
-                            switch (currentSearchType) {
-                                case FAVORITE_SEARCH:
-                                    type = VirtualFolderType.FAVORITE;
-                                    break;
-                                case GALLERY_SEARCH:
-                                    type = VirtualFolderType.GALLERY;
-                                    break;
-                                default:
-                                    type = VirtualFolderType.NONE;
-                                    break;
-                            }
-                            ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, !file.isDown());
+                            VirtualFolderType type = switch (currentSearchType) {
+                                case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
+                                case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
+                                default -> VirtualFolderType.NONE;
+                            };
+                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, type, !file.isDown());
                         } else {
-                            ((FileDisplayActivity) mContainerActivity).startImagePreview(file, !file.isDown());
+                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, !file.isDown());
                         }
+                    } else if (PreviewMediaFragment.canBePreviewed(file)) {
+                        // standalone audio playback (no viewpager)
+                        setFabVisible(false);
+                        ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false);
                     } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
                         ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
                     } else if (file.isDown() && MimeTypeUtil.isPDF(file)) {
@@ -1065,26 +1062,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         setFabVisible(false);
                         ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
                     } else if (file.isDown()) {
-                        if (PreviewMediaFragment.canBePreviewed(file)) {
-                            // media preview
-                            setFabVisible(false);
-                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false);
-                        } else {
-                            mContainerActivity.getFileOperationsHelper().openFile(file);
-                        }
+                        mContainerActivity.getFileOperationsHelper().openFile(file);
                     } else {
-                        // file not downloaded, check for streaming, remote editing
+                        // file not downloaded, check for remote editing
                         User account = accountManager.getUser();
                         OCCapability capability = mContainerActivity.getStorageManager()
                             .getCapability(account.getAccountName());
 
-                        if (PreviewMediaFragment.canBePreviewed(file) && !file.isEncrypted()) {
-                            // stream media preview on >= NC14
-                            setFabVisible(false);
-                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
-                        } else if (editorUtils.isEditorAvailable(accountManager.getUser(),
-                                                                 file.getMimeType()) &&
-                            !file.isEncrypted()) {
+                        if (editorUtils.isEditorAvailable(accountManager.getUser(),
+                                                          file.getMimeType()) && !file.isEncrypted()) {
                             mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
                         } else if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
                             capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {

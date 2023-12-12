@@ -48,7 +48,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
     private OCFile selectedFile;
-    private List<OCFile> mImageFiles;
+    private List<OCFile> mMediaFiles;
     private User user;
     private Set<Object> mObsoleteFragments;
     private Set<Integer> mObsoletePositions;
@@ -71,7 +71,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                                     FileDataStorageManager storageManager,
                                     boolean onlyOnDevice,
                                     AppPreferences preferences) {
-        super(fragmentManager);
+        super(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         if (parentFolder == null) {
             throw new IllegalArgumentException("NULL parent folder");
         }
@@ -82,10 +82,10 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         this.user = user;
         this.selectedFile = selectedFile;
         mStorageManager = storageManager;
-        mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
+        mMediaFiles = mStorageManager.getFolderMedia(parentFolder, onlyOnDevice);
 
         FileSortOrder sortOrder = preferences.getSortOrderByFolder(parentFolder);
-        mImageFiles = sortOrder.sortCloudFiles(mImageFiles);
+        mMediaFiles = sortOrder.sortCloudFiles(mMediaFiles);
 
         mObsoleteFragments = new HashSet<>();
         mObsoletePositions = new HashSet<>();
@@ -105,11 +105,8 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                                     VirtualFolderType type,
                                     User user,
                                     FileDataStorageManager storageManager) {
-        super(fragmentManager);
+        super(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
-        if (fragmentManager == null) {
-            throw new IllegalArgumentException("NULL FragmentManager instance");
-        }
         if (type == null) {
             throw new IllegalArgumentException("NULL parent folder");
         }
@@ -124,10 +121,10 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         mStorageManager = storageManager;
 
         if (type == VirtualFolderType.GALLERY) {
-            mImageFiles = mStorageManager.getAllGalleryItems();
-            mImageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mImageFiles);
+            mMediaFiles = mStorageManager.getAllGalleryItems();
+            mMediaFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mMediaFiles);
         } else {
-            mImageFiles = mStorageManager.getVirtualFolderContent(type, true);
+            mMediaFiles = mStorageManager.getVirtualFolderContent(type, true);
         }
 
         mObsoleteFragments = new HashSet<>();
@@ -144,7 +141,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     @Nullable
     public OCFile getFileAt(int position) {
         try {
-            return mImageFiles.get(position);
+            return mMediaFiles.get(position);
         } catch (IndexOutOfBoundsException exception) {
             return null;
         }
@@ -161,22 +158,19 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
         if (file == null) {
             fragment = PreviewImageErrorFragment.newInstance();
+        } else if (file.isEncrypted() && !file.isDown()) {
+            fragment = FileDownloadFragment.newInstance(file, user, mObsoletePositions.contains(i));
+        } else if (PreviewMediaFragment.canBePreviewed(file)) {
+            fragment = PreviewMediaFragment.newInstance(file, user, 0, false, file.livePhotoVideo != null);
         } else if (file.isDown()) {
             fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false);
         } else {
             addVideoOfLivePhoto(file);
-
             if (mDownloadErrors.remove(i)) {
                 fragment = FileDownloadFragment.newInstance(file, user, true);
                 ((FileDownloadFragment) fragment).setError(true);
             } else {
-                if (file.isEncrypted()) {
-                    fragment = FileDownloadFragment.newInstance(file, user, mObsoletePositions.contains(i));
-                } else if (PreviewMediaFragment.canBePreviewed(file)) {
-                    fragment = PreviewMediaFragment.newInstance(file, user, 0, false, file.livePhotoVideo != null);
-                } else {
-                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
-                }
+                fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
             }
         }
 
@@ -185,12 +179,12 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public int getFilePosition(OCFile file) {
-        return mImageFiles.indexOf(file);
+        return mMediaFiles.indexOf(file);
     }
 
     @Override
     public int getCount() {
-        return mImageFiles.size();
+        return mMediaFiles.size();
     }
 
     @Override
@@ -211,7 +205,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
             mObsoleteFragments.add(fragmentToUpdate);
         }
         mObsoletePositions.add(position);
-        mImageFiles.set(position, file);
+        mMediaFiles.set(position, file);
     }
 
 

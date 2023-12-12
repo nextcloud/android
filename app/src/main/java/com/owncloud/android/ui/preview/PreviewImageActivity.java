@@ -242,8 +242,8 @@ public class PreviewImageActivity extends FileActivity implements
             if (file == null) {
                 throw new IllegalStateException("Instanced with a NULL OCFile");
             }
-            if (!MimeTypeUtil.isImage(file)) {
-                throw new IllegalArgumentException("Non-image file passed as argument");
+            if (!canBePreviewed(file)) {
+                throw new IllegalArgumentException("Non-media file passed as argument");
             }
 
             // Update file according to DB file, if it is possible
@@ -500,6 +500,10 @@ public class PreviewImageActivity extends FileActivity implements
         public void onReceive(Context context, Intent intent) {
             previewNewImage(intent);
         }
+    }
+
+    public static boolean canBePreviewed(OCFile file) {
+        return PreviewImageFragment.canBePreviewed(file) || MimeTypeUtil.isVideo(file);
     }
 
     private void previewNewImage(Intent intent) {
