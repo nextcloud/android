@@ -313,6 +313,21 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return mFiles.size() + (shouldShowHeader() ? 2 : 1);
     }
 
+    @Nullable
+    public OCFile getItem(int position) {
+        int newPosition = position;
+
+        if (shouldShowHeader() && position > 0) {
+            newPosition = position - 1;
+        }
+
+        if (newPosition >= mFiles.size()) {
+            return null;
+        }
+
+        return mFiles.get(newPosition);
+    }
+
     @Override
     public int getItemViewType(int position) {
         if (shouldShowHeader() && position == 0) {
@@ -636,21 +651,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return output;
     }
 
-    public @Nullable
-    OCFile getItem(int position) {
-        int newPosition = position;
-
-        if (shouldShowHeader() && position > 0) {
-            newPosition = position - 1;
-        }
-
-        if (newPosition >= mFiles.size()) {
-            return null;
-        }
-
-        return mFiles.get(newPosition);
-    }
-
     public boolean shouldShowHeader() {
         if (currentDirectory == null) {
             return false;
@@ -679,7 +679,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @NonNull User account,
         @NonNull OCFile directory,
         @NonNull FileDataStorageManager updatedStorageManager,
-        boolean onlyOnDevice, @NonNull String limitToMimeType) {
+        boolean onlyOnDevice,
+        @NonNull String limitToMimeType) {
         this.onlyOnDevice = onlyOnDevice;
 
         if (!updatedStorageManager.equals(mStorageManager)) {
