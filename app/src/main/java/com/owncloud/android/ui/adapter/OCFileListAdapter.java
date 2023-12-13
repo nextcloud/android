@@ -89,6 +89,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -289,21 +290,42 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
-
     @Override
     public long getItemId(int position) {
-        if (mFiles == null || mFiles.size() <= position) {
-            return 0;
-        }
-        return mFiles.get(position).getFileId();
+        boolean isFilesNotEmpty = mFiles == null || mFiles.size() <= position;
+        return (isFilesNotEmpty)
+            ? UUID.randomUUID().getLeastSignificantBits()
+            : mFiles.get(position).getFileId();
     }
 
     @Override
     public int getItemCount() {
-        if (shouldShowHeader()) {
-            return mFiles.size() + 2; // for header and footer
+        return mFiles.size() + (shouldShowHeader() ? 2 : 1);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (shouldShowHeader() && position == 0) {
+            return VIEWTYPE_HEADER;
+        }
+
+        if (shouldShowHeader() && position == mFiles.size() + 1) {
+            return VIEWTYPE_FOOTER;
+        }
+
+        if (!shouldShowHeader() && position == mFiles.size()) {
+            return VIEWTYPE_FOOTER;
+        }
+
+        OCFile item = getItem(position);
+        if (item == null) {
+            return VIEWTYPE_ITEM;
+        }
+
+        if (MimeTypeUtil.isImageOrVideo(item)) {
+            return VIEWTYPE_IMAGE;
         } else {
-            return mFiles.size() + 1; // for footer
+            return VIEWTYPE_ITEM;
         }
     }
 
@@ -636,34 +658,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         return !TextUtils.isEmpty(currentDirectory.getRichWorkspace().trim());
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (shouldShowHeader()) {
-            if (position == 0) {
-                return VIEWTYPE_HEADER;
-            } else {
-                if (position == mFiles.size() + 1) {
-                    return VIEWTYPE_FOOTER;
-                }
-            }
-        } else {
-            if (position == mFiles.size()) {
-                return VIEWTYPE_FOOTER;
-            }
-        }
-
-        OCFile item = getItem(position);
-        if (item == null) {
-            return VIEWTYPE_ITEM;
-        }
-
-        if (MimeTypeUtil.isImageOrVideo(item)) {
-            return VIEWTYPE_IMAGE;
-        } else {
-            return VIEWTYPE_ITEM;
-        }
     }
 
     /**
