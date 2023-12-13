@@ -42,6 +42,7 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ChooseTemplateBinding;
@@ -51,6 +52,7 @@ import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.files.CreateFileFromTemplateOperation;
 import com.owncloud.android.files.FetchTemplateOperation;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
@@ -168,7 +170,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
             throw new RuntimeException(e); // we'll NPE without the client
         }
 
-        parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER);
+        parentFolder = BundleExtensionsKt.getParcelableArgument(arguments, ARG_PARENT_FOLDER, OCFile.class);
         List<OCFile> folderContent = fileDataStorageManager.getFolderContent(parentFolder, false);
         fileNames = Sets.newHashSetWithExpectedSize(folderContent.size());
 

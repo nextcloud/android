@@ -31,8 +31,10 @@ import android.view.View;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
@@ -90,7 +92,7 @@ public class RenamePublicShareDialogFragment
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        publicShare = requireArguments().getParcelable(ARG_PUBLIC_SHARE);
+        publicShare = BundleExtensionsKt.getParcelableArgument(requireArguments(), ARG_PUBLIC_SHARE, OCShare.class);
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();

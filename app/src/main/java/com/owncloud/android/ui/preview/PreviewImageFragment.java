@@ -54,6 +54,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.ExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -63,7 +64,9 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
+import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeType;
@@ -175,7 +178,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
             throw new IllegalArgumentException("Arguments may not be null!");
         }
 
-        setFile(args.getParcelable(ARG_FILE));
+        setFile(BundleExtensionsKt.getParcelableArgument(args, ARG_FILE, OCFile.class));
         // TODO better in super, but needs to check ALL the class extending FileFragment;
         // not right now
 
@@ -242,7 +245,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
             if (!ignoreFirstSavedState) {
-                OCFile file = savedInstanceState.getParcelable(EXTRA_FILE);
+                OCFile file = BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_FILE, OCFile.class);
                 setFile(file);
                 binding.image.setScale(Math.min(binding.image.getMaximumScale(), savedInstanceState.getFloat(EXTRA_ZOOM)));
             } else {

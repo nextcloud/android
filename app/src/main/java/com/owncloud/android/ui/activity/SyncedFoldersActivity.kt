@@ -631,7 +631,9 @@ class SyncedFoldersActivity :
         if (requestCode == SyncedFolderPreferencesDialogFragment.REQUEST_CODE__SELECT_REMOTE_FOLDER &&
             resultCode == RESULT_OK && syncedFolderPreferencesDialogFragment != null
         ) {
-            val chosenFolder: OCFile = FolderPickerActivity.EXTRA_FOLDER?.let { data!!.getParcelableArgument(it, OCFile::class.java) } ?: return
+            val chosenFolder: OCFile = FolderPickerActivity.EXTRA_FOLDER?.let {
+                data!!.getParcelableArgument(it, OCFile::class.java)
+            } ?: return
             syncedFolderPreferencesDialogFragment!!.setRemoteFolderSummary(chosenFolder.remotePath)
         } else if (
             requestCode == SyncedFolderPreferencesDialogFragment.REQUEST_CODE__SELECT_LOCAL_FOLDER &&
