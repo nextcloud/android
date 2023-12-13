@@ -40,6 +40,7 @@ import android.text.style.StyleSpan;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.android.sso.Constants;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.DialogSsoGrantPermissionBinding;
@@ -92,13 +93,16 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         if (callingActivity != null) {
             packageName = callingActivity.getPackageName();
             final String appName = getAppNameForPackage(packageName);
-            account = getIntent().getParcelableExtra(NEXTCLOUD_FILES_ACCOUNT);
+            account = IntentExtensionsKt.getParcelableArgument(getIntent(), NEXTCLOUD_FILES_ACCOUNT, Account.class);
 
-            final SpannableStringBuilder dialogText = makeSpecialPartsBold(
-                getString(R.string.single_sign_on_request_token, appName, account.name),
-                appName,
-                account.name);
-            binding.permissionText.setText(dialogText);
+            if (account != null) {
+                final SpannableStringBuilder dialogText = makeSpecialPartsBold(
+                    getString(R.string.single_sign_on_request_token, appName, account.name),
+                    appName,
+                    account.name);
+                binding.permissionText.setText(dialogText);
+            }
+
             try {
                 if (packageName != null) {
                     Drawable appIcon = getPackageManager().getApplicationIcon(packageName);

@@ -78,7 +78,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             localBehaviour = savedInstanceState.getInt(EXTRA_LOCAL_BEHAVIOUR)
         } else {
             conflictUploadId = intent.getLongExtra(EXTRA_CONFLICT_UPLOAD_ID, -1)
-            existingFile = intent.getParcelableExtra(EXTRA_EXISTING_FILE)
+            existingFile = intent.getParcelableArgument(EXTRA_EXISTING_FILE, OCFile::class.java)
             localBehaviour = intent.getIntExtra(EXTRA_LOCAL_BEHAVIOUR, localBehaviour)
         }
     }

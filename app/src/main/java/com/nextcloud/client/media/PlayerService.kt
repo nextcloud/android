@@ -32,6 +32,7 @@ import androidx.core.app.NotificationCompat
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.ForegroundServiceHelper
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.OCFile
@@ -144,8 +145,8 @@ class PlayerService : Service() {
     }
 
     private fun onActionPlay(intent: Intent) {
-        val user: User = intent.getParcelableExtra(EXTRA_USER)!!
-        val file: OCFile = intent.getParcelableExtra(EXTRA_FILE)!!
+        val user: User = intent.getParcelableArgument(EXTRA_USER, User::class.java)!!
+        val file: OCFile = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)!!
         val startPos = intent.getLongExtra(EXTRA_START_POSITION_MS, 0)
         val autoPlay = intent.getBooleanExtra(EXTRA_AUTO_PLAY, true)
         val item = PlaylistItem(file = file, startPositionMs = startPos, autoPlay = autoPlay, user = user)
