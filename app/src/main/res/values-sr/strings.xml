@@ -344,6 +344,7 @@
     <string name="file_list_empty_shared_headline">Још се ништа не дели</string>
     <string name="file_list_empty_unified_search_no_results">Ваш упит није вратио ниједан резултат</string>
     <string name="file_list_folder">фасцикла</string>
+    <string name="file_list_live">УЖИВО</string>
     <string name="file_list_loading">Учитавам…</string>
     <string name="file_list_no_app_for_file_type">Немате апликацију за овај тип фајла.</string>
     <string name="file_list_seconds_ago">пре пар секунди</string>

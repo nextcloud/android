@@ -147,4 +147,6 @@ interface BackgroundJobManager {
 
     fun pruneJobs()
     fun cancelAllJobs()
+    fun schedulePeriodicHealthStatus()
+    fun startHealthStatus()
 }

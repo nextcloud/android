@@ -73,7 +73,6 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.DrawerActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -101,8 +100,8 @@ import kotlin.jvm.functions.Function0;
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
  * <p>
- * Trying to get an instance with NULL {@link OCFile} or ownCloud {@link User} values will produce an {@link
- * IllegalStateException}.
+ * Trying to get an instance with NULL {@link OCFile} or ownCloud {@link User} values will produce an
+ * {@link IllegalStateException}.
  * <p>
  * By now, if the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
  * instantiation too.
@@ -116,7 +115,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     public static final String EXTRA_USER = "USER";
     public static final String EXTRA_AUTOPLAY = "AUTOPLAY";
     public static final String EXTRA_START_POSITION = "START_POSITION";
-    
+
     private static final String EXTRA_PLAY_POSITION = "PLAY_POSITION";
     private static final String EXTRA_PLAYING = "PLAYING";
     private static final double MIN_DENSITY_RATIO = 24.0;
@@ -365,7 +364,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                     Executors.newSingleThreadExecutor().execute(() -> {
                         try {
                             nextcloudClient = clientFactory.createNextcloudClient(accountManager.getUser());
-                            handler.post(() ->{
+                            handler.post(() -> {
                                 exoPlayer = NextcloudExoPlayer.createNextcloudExoplayer(requireContext(), nextcloudClient);
 
                                 exoPlayer.addListener(new ExoplayerListener(requireContext(), binding.exoplayerView, exoPlayer, () -> {
@@ -619,9 +618,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     @Override
     public void onResume() {
         super.onResume();
-        if(getActivity() instanceof FileDisplayActivity){
-            ((FileDisplayActivity) getActivity()).configureToolbarForMediaPreview(getFile());
-        }
         Log_OC.v(TAG, "onResume");
     }
 

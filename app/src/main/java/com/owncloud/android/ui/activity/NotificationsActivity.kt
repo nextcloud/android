@@ -128,6 +128,7 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
         return
     }
 
+    @Suppress("NestedBlockDepth")
     private fun setupPushWarning() {
         if (!resources.getBoolean(R.bool.show_push_warning)) {
             return
