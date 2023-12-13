@@ -808,6 +808,7 @@
     <string name="no_map_app_availble">No App available to handle maps</string>
     <string name="share_via_link_hide_download">Hide download</string>
     <string name="unread_comments">Unread comments exist</string>
+    <string name="grid_file_features_live_photo_content_description">This icon indicates availability of live photo</string>
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
     <string name="create_new_document">Create new document</string>
     <string name="create_new_spreadsheet">Create new spreadsheet</string>
