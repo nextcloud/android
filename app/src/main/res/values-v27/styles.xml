@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Nextcloud Android client application
 
   Copyright (C) 2020 Nextcloud
@@ -46,6 +45,10 @@
         <item name="android:windowBackground">@color/grey_400</item>
         <item name="android:colorBackground">@color/grey_400</item>
         <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+    <style name="Theme.ownCloud.Media" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
 
 </resources>

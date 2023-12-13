@@ -112,7 +112,7 @@ import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.ui.preview.PreviewMediaActivity;
 import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
@@ -1071,7 +1071,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         setFabVisible(false);
                         ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
                     } else if (file.isDown()) {
-                        if (PreviewMediaFragment.canBePreviewed(file)) {
+                        if (PreviewMediaActivity.Companion.canBePreviewed(file)) {
                             // media preview
                             setFabVisible(false);
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false);
@@ -1084,7 +1084,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         OCCapability capability = mContainerActivity.getStorageManager()
                             .getCapability(account.getAccountName());
 
-                        if (PreviewMediaFragment.canBePreviewed(file) && !file.isEncrypted()) {
+                        if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted()) {
                             // stream media preview on >= NC14
                             setFabVisible(false);
                             ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);

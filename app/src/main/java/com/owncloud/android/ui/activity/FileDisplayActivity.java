@@ -7,14 +7,11 @@
  * @author Chris Narkiewicz
  * @author TSI-mc
  * @author Archontis E. Kostis
- * @author Parneet Singh
- *
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2018 Andy Scherzinger
  * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * Copyright (C) 2023 TSI-mc
- * Copyright (C) 2023 Parneet Singh
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -126,6 +123,7 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.ui.preview.PreviewMediaActivity;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -154,7 +152,6 @@ import java.util.Stack;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.OptIn;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
@@ -163,7 +160,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.media3.common.util.UnstableApi;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.Unit;
 
@@ -173,7 +169,6 @@ import static com.owncloud.android.utils.PermissionUtil.PERMISSION_CHOICE_DIALOG
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
  */
-@OptIn(markerClass = UnstableApi.class)
 public class FileDisplayActivity extends FileActivity
     implements FileFragment.ContainerActivity,
     OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener,
@@ -269,11 +264,6 @@ public class FileDisplayActivity extends FileActivity
 
         super.onCreate(savedInstanceState);
         loadSavedInstanceState(savedInstanceState);
-
-        // set layoutInDisplayCutoutMode to NEVER so that it never renders content in the cutout area (with devices having cutouts)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER;
-        }
 
         /// USER INTERFACE
         initLayout();
@@ -707,7 +697,7 @@ public class FileDisplayActivity extends FileActivity
                         // update the file from database, for the local storage path
                         mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
 
-                        if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
+                        if (PreviewMediaActivity.Companion.canBePreviewed(mWaitingToPreview)) {
                             startMediaPreview(mWaitingToPreview, 0, true, true, true);
                             detailsFragmentChanged = true;
                         } else if (MimeTypeUtil.isVCard(mWaitingToPreview.getMimeType())) {
@@ -1657,10 +1647,7 @@ public class FileDisplayActivity extends FileActivity
             OCFile file = ((FileFragment) details).getFile();
             if (file != null) {
                 file = getStorageManager().getFileByPath(file.getRemotePath());
-                if (details instanceof PreviewMediaFragment) {
-                    // Refresh  OCFile of the fragment
-                    ((PreviewMediaFragment) details).updateFile(file);
-                } else if (details instanceof PreviewTextFragment) {
+                if (details instanceof PreviewTextFragment) {
                     // Refresh  OCFile of the fragment
                     ((PreviewTextFileFragment) details).updateFile(file);
                 } else {
@@ -1690,12 +1677,7 @@ public class FileDisplayActivity extends FileActivity
 
             // check if file is still available, if so do nothing
             boolean fileAvailable = getStorageManager().fileExists(removedFile.getFileId());
-
             if (leftFragment instanceof FileFragment && !fileAvailable && removedFile.equals(((FileFragment) leftFragment).getFile())) {
-                if (leftFragment instanceof PreviewMediaFragment previewMediaFragment) {
-                    previewMediaFragment.stopPreview(true);
-                    onBackPressed();
-                }
                 setFile(getStorageManager().getFileById(removedFile.getParentId()));
                 resetTitleBarAndScrolling();
             }
@@ -2060,7 +2042,14 @@ public class FileDisplayActivity extends FileActivity
         if (!user.isPresent()) {
             return; // not reachable under normal conditions
         }
+        Intent previewMediaIntent = new Intent(this, PreviewMediaActivity.class);
+        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_FILE, file);
+        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_USER, user.get());
+        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_START_POSITION, startPlaybackPosition);
+        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_AUTOPLAY, autoplay);
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
+            startActivity(previewMediaIntent);
+            // TODO: change the code accordingly to use only activity if it isn't used by the pager adapter
             configureToolbarForPreview(file);
             Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay, false);
             setLeftFragment(mediaFragment, false);
