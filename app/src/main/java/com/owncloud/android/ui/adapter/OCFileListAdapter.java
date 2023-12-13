@@ -319,11 +319,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return VIEWTYPE_HEADER;
         }
 
-        if (shouldShowHeader() && position == mFiles.size() + 1) {
-            return VIEWTYPE_FOOTER;
-        }
-
-        if (!shouldShowHeader() && position == mFiles.size()) {
+        if (shouldShowHeader() && position == mFiles.size() + 1 ||
+            (!shouldShowHeader() && position == mFiles.size())) {
             return VIEWTYPE_FOOTER;
         }
 
