@@ -42,9 +42,11 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.files.downloader.DownloadTask;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.ForegroundServiceHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.ForegroundServiceType;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -153,7 +155,7 @@ public class FileDownloader extends Service
         mBinder = new FileDownloaderBinder();
 
         NotificationCompat.Builder builder = NotificationUtils.newNotificationBuilder(this, viewThemeUtils).setContentTitle(
-            getApplicationContext().getResources().getString(R.string.app_name))
+                getApplicationContext().getResources().getString(R.string.app_name))
             .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_download))
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon));
@@ -192,15 +194,15 @@ public class FileDownloader extends Service
 
     /**
      * Entry point to add one or several files to the queue of downloads.
-     *
-     * New downloads are added calling to startService(), resulting in a call to this method.
-     * This ensures the service will keep on working although the caller activity goes away.
+     * <p>
+     * New downloads are added calling to startService(), resulting in a call to this method. This ensures the service
+     * will keep on working although the caller activity goes away.
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
 
-        startForeground(FOREGROUND_SERVICE_ID, mNotification);
+        ForegroundServiceHelper.INSTANCE.startService(this, FOREGROUND_SERVICE_ID, mNotification, ForegroundServiceType.DataSync);
 
         if (intent == null || !intent.hasExtra(EXTRA_USER) || !intent.hasExtra(EXTRA_FILE)) {
             Log_OC.e(TAG, "Not enough information provided in intent");

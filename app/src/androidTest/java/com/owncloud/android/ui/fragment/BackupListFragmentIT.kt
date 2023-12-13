@@ -25,7 +25,6 @@ import androidx.test.rule.GrantPermissionRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.activity.ContactsPreferenceActivity
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule

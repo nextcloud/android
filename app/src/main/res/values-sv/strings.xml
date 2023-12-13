@@ -160,6 +160,7 @@
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
     <string name="conflict_server_file">Serverfil</string>
     <string name="contact_backup_title">Backup av kontakter</string>
+    <string name="contact_no_permission">Rättighet till kontakt krävs.</string>
     <string name="contactlist_item_icon">Användarikon för kontaktlista</string>
     <string name="contactlist_no_permission">Ingen tillstått givet, ingen importerat!</string>
     <string name="contacts">Kontakter</string>
@@ -258,6 +259,7 @@
     <string name="ecosystem_apps_more">Fler Nextcloud-appar</string>
     <string name="ecosystem_apps_notes">Nextcloud anteckningar</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Det gick inte att välja e-postadress.</string>
     <string name="encrypted">Sätt som krypterad</string>
     <string name="end_to_end_encryption_confirm_button">Aktivera kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterar…</string>
@@ -325,7 +327,6 @@
     <string name="file_delete">Ta bort</string>
     <string name="file_detail_activity_error">Fel vid hämtning av aktiviteter för fil</string>
     <string name="file_details_no_content">Kunde inte läsa in detaljer</string>
-    <string name="file_downloader_notification_title_prefix">Laddar ner \u0020</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behåll</string>
     <string name="file_list_empty">Ladda upp något eller synkronisera med dina enheter</string>
@@ -343,6 +344,7 @@
     <string name="file_list_empty_shared_headline">Inget delat ännu</string>
     <string name="file_list_empty_unified_search_no_results">Inga sökresultat funna på din sökning</string>
     <string name="file_list_folder">mapp</string>
+    <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Läser in…</string>
     <string name="file_list_no_app_for_file_type">Det finns ingen applikation för att hantera denna filtyp</string>
     <string name="file_list_seconds_ago">sekunder sedan</string>
@@ -650,12 +652,17 @@
     <string name="remove_e2e">Du kan ta bort end-to-end-kryptering lokalt på denna klient</string>
     <string name="remove_e2e_message">Du kan ta bort end-to-end-kryptering lokalt på denna klienten. Krypterade filer kommer finnas kvar på servern, men kommer inte synkroniseras med denna enheten längre.</string>
     <string name="remove_fail_msg">Radering misslyckades</string>
+    <string name="remove_local_account">Ta bort lokalt konto</string>
+    <string name="remove_local_account_details">Ta bort kontot från enheten och radera alla lokala filer</string>
     <string name="remove_notification_failed">Kunde inte radera notifiering.</string>
     <string name="remove_push_notification">Ta bort</string>
     <string name="remove_success_msg">Borttagen</string>
     <string name="rename_dialog_title">Ange ett nytt namn</string>
     <string name="rename_local_fail_msg">Det gick inte att byta namn på lokal kopia, prova ett annat namn</string>
     <string name="rename_server_fail_msg">Namnbytning är inte möjligt, namnet är redan taget</string>
+    <string name="request_account_deletion">Begär att radera ditt konto</string>
+    <string name="request_account_deletion_button">Begäran om radering</string>
+    <string name="request_account_deletion_details">Begär permanent borttagning av konto av tjänsteleverantör</string>
     <string name="reshare_not_allowed">Dela vidare är inte tillåtet</string>
     <string name="resharing_is_not_allowed">Att dela på nytt är inte tillåtet</string>
     <string name="resized_image_not_possible_download">Ingen storleksändrad bild tillgänglig. Hämta hela bilden?</string>
@@ -879,6 +886,7 @@
     <string name="upload_lock_failed">Misslyckades låsa mappen</string>
     <string name="upload_old_android">Kryptering är endast möjlig med &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Otillräckligt utrymme förhindrar kopiering av de valda filerna till %1$s -mappen. Vill du flytta dem dit i stället?</string>
+    <string name="upload_quota_exceeded">Lagringskvot överskriden</string>
     <string name="upload_scan_doc_upload">Slams dokument från kamera</string>
     <string name="upload_sync_conflict">Synkroniseringskonflikt, lös problemet manuellt</string>
     <string name="upload_unknown_error">Okänt fel</string>

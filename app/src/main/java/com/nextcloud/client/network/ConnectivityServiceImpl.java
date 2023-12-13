@@ -47,7 +47,6 @@ class ConnectivityServiceImpl implements ConnectivityService {
     private final GetRequestBuilder requestBuilder;
     private final WalledCheckCache walledCheckCache;
 
-
     static class GetRequestBuilder implements Function1<String, GetMethod> {
         @Override
         public GetMethod invoke(String url) {
@@ -65,6 +64,21 @@ class ConnectivityServiceImpl implements ConnectivityService {
         this.clientFactory = clientFactory;
         this.requestBuilder = requestBuilder;
         this.walledCheckCache = walledCheckCache;
+    }
+
+    @Override
+    public boolean isConnected() {
+        Network nw = platformConnectivityManager.getActiveNetwork();
+        NetworkCapabilities actNw = platformConnectivityManager.getNetworkCapabilities(nw);
+
+        if (actNw == null) {
+            return false;
+        }
+
+        return actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH);
     }
 
     @Override

@@ -47,7 +47,6 @@ import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.services.OperationsService
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder
-import com.owncloud.android.ui.activity.ContactsPreferenceActivity
 import ezvcard.Ezvcard
 import ezvcard.VCardVersion
 import java.io.File

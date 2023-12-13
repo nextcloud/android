@@ -437,6 +437,9 @@ public final class ErrorMessageAdapter {
             } else if (result.getCode() == ResultCode.ACCOUNT_NOT_THE_SAME) {
                 message = res.getString(R.string.auth_account_not_the_same);
 
+            } else if (result.getCode() == ResultCode.QUOTA_EXCEEDED) {
+                message = res.getString(R.string.upload_quota_exceeded);
+
             }
 
             else if (!TextUtils.isEmpty(result.getHttpPhrase())) {

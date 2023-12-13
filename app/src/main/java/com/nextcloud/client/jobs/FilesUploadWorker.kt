@@ -43,6 +43,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
@@ -55,6 +56,7 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.ui.activity.UploadListActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
+import com.owncloud.android.utils.FilesUploadHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.security.SecureRandom
@@ -89,7 +91,7 @@ class FilesUploadWorker(
          * they will be present in the pages that follow.
          */
         var currentPage = uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(-1, accountName)
-        while (currentPage.isNotEmpty()) {
+        while (currentPage.isNotEmpty() && !isStopped) {
             Log_OC.d(TAG, "Handling ${currentPage.size} uploads for account $accountName")
             val lastId = currentPage.last().uploadId
             handlePendingUploads(currentPage, accountName)
@@ -105,11 +107,16 @@ class FilesUploadWorker(
         val user = userAccountManager.getUser(accountName)
 
         for (upload in uploads) {
+            if (isStopped) {
+                break
+            }
             // create upload file operation
             if (user.isPresent) {
                 val uploadFileOperation = createUploadFileOperation(upload, user.get())
 
+                currentUploadFileOperation = uploadFileOperation
                 val result = upload(uploadFileOperation, user.get())
+                currentUploadFileOperation = null
 
                 fileUploaderDelegate.sendBroadcastUploadFinished(
                     uploadFileOperation,
@@ -172,13 +179,16 @@ class FilesUploadWorker(
             Log_OC.e(TAG, "Error uploading", e)
             uploadResult = RemoteOperationResult<Any?>(e)
         } finally {
-            uploadsStorageManager.updateDatabaseUploadResult(uploadResult, uploadFileOperation)
+            // only update db if operation finished and worker didn't get canceled
+            if (!(isStopped && uploadResult.isCancelled)) {
+                uploadsStorageManager.updateDatabaseUploadResult(uploadResult, uploadFileOperation)
 
-            // / notify result
-            notifyUploadResult(uploadFileOperation, uploadResult)
+                // / notify result
+                notifyUploadResult(uploadFileOperation, uploadResult)
 
-            // cancel notification
-            notificationManager.cancel(FOREGROUND_SERVICE_ID)
+                // cancel notification
+                notificationManager.cancel(FOREGROUND_SERVICE_ID)
+            }
         }
 
         return uploadResult
@@ -188,6 +198,18 @@ class FilesUploadWorker(
      * adapted from [com.owncloud.android.files.services.FileUploader.notifyUploadStart]
      */
     private fun createNotification(uploadFileOperation: UploadFileOperation) {
+        val notificationActionIntent = Intent(context, FileUploader.UploadNotificationActionReceiver::class.java)
+        notificationActionIntent.putExtra(FileUploader.EXTRA_ACCOUNT_NAME, uploadFileOperation.user.accountName)
+        notificationActionIntent.putExtra(FileUploader.EXTRA_REMOTE_PATH, uploadFileOperation.remotePath)
+        notificationActionIntent.action = FileUploader.ACTION_CANCEL_BROADCAST
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            SecureRandom().nextInt(),
+            notificationActionIntent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
         notificationBuilder
             .setOngoing(true)
             .setSmallIcon(R.drawable.notification_icon)
@@ -200,6 +222,8 @@ class FilesUploadWorker(
                     uploadFileOperation.fileName
                 )
             )
+            .clearActions() // to make sure there is only one action
+            .addAction(R.drawable.ic_action_cancel_grey, context.getString(R.string.common_cancel), pendingIntent)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
@@ -229,6 +253,50 @@ class FilesUploadWorker(
         // TODO generalize for automated uploads
     }
 
+    private fun createConflictResolveAction(context: Context, uploadFileOperation: UploadFileOperation): PendingIntent {
+        val intent = ConflictsResolveActivity.createIntent(
+            uploadFileOperation.file,
+            uploadFileOperation.user,
+            uploadFileOperation.ocUploadId,
+            Intent.FLAG_ACTIVITY_CLEAR_TOP,
+            context
+        )
+
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_MUTABLE)
+        } else {
+            PendingIntent.getActivity(
+                context,
+                0,
+                intent,
+                PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            )
+        }
+    }
+
+    private fun addConflictResolveActionToNotification(uploadFileOperation: UploadFileOperation) {
+        val intent: PendingIntent = createConflictResolveAction(context, uploadFileOperation)
+
+        notificationBuilder.addAction(
+            R.drawable.ic_cloud_upload,
+            context.getString(R.string.upload_list_resolve_conflict),
+            intent
+        )
+    }
+
+    private fun addUploadListContentIntent(uploadFileOperation: UploadFileOperation) {
+        val uploadListIntent = createUploadListIntent(uploadFileOperation)
+
+        notificationBuilder.setContentIntent(
+            PendingIntent.getActivity(
+                context,
+                System.currentTimeMillis().toInt(),
+                uploadListIntent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
+        )
+    }
+
     /**
      * adapted from [com.owncloud.android.files.services.FileUploader.notifyUploadResult]
      */
@@ -237,8 +305,14 @@ class FilesUploadWorker(
         uploadResult: RemoteOperationResult<Any?>
     ) {
         Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.code)
+
+        if (uploadResult.isSuccess) {
+            cancelOldErrorNotification(uploadFileOperation)
+            return
+        }
+
         // Only notify if the upload fails
-        if (uploadResult.isSuccess || uploadResult.isCancelled) {
+        if (uploadResult.isCancelled) {
             return
         }
 
@@ -266,30 +340,27 @@ class FilesUploadWorker(
                 .setAutoCancel(true)
                 .setOngoing(false)
                 .setProgress(0, 0, false)
+                .clearActions()
 
             val content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, uploadFileOperation, context.resources)
 
+            addUploadListContentIntent(uploadFileOperation)
+
+            if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
+                addConflictResolveActionToNotification(uploadFileOperation)
+            }
+
             if (needsToUpdateCredentials) {
                 createUpdateCredentialsNotification(uploadFileOperation.user.toPlatformAccount())
-            } else {
-                val intent = if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
-                    createResolveConflictIntent(uploadFileOperation)
-                } else {
-                    createUploadListIntent(uploadFileOperation)
-                }
-                notificationBuilder.setContentIntent(
-                    PendingIntent.getActivity(
-                        context,
-                        System.currentTimeMillis().toInt(),
-                        intent,
-                        PendingIntent.FLAG_IMMUTABLE
-                    )
-                )
             }
+
             notificationBuilder.setContentText(content)
-            if (!uploadResult.isSuccess) {
-                notificationManager.notify(SecureRandom().nextInt(), notificationBuilder.build())
-            }
+
+            notificationManager.notify(
+                NotificationUtils.createUploadNotificationTag(uploadFileOperation.file),
+                NOTIFICATION_ERROR_ID,
+                notificationBuilder.build()
+            )
         }
     }
 
@@ -297,16 +368,6 @@ class FilesUploadWorker(
         return UploadListActivity.createIntent(
             uploadFileOperation.file,
             uploadFileOperation.user,
-            Intent.FLAG_ACTIVITY_CLEAR_TOP,
-            context
-        )
-    }
-
-    private fun createResolveConflictIntent(uploadFileOperation: UploadFileOperation): Intent {
-        return ConflictsResolveActivity.createIntent(
-            uploadFileOperation.file,
-            uploadFileOperation.user,
-            uploadFileOperation.ocUploadId,
             Intent.FLAG_ACTIVITY_CLEAR_TOP,
             context
         )
@@ -353,14 +414,45 @@ class FilesUploadWorker(
             val text = String.format(context.getString(R.string.uploader_upload_in_progress_content), percent, fileName)
             notificationBuilder.setContentText(text)
             notificationManager.notify(FOREGROUND_SERVICE_ID, notificationBuilder.build())
+            FilesUploadHelper.onTransferProgress(
+                currentUploadFileOperation?.user?.accountName,
+                currentUploadFileOperation?.remotePath,
+                progressRate,
+                totalTransferredSoFar,
+                totalToTransfer,
+                fileAbsoluteName
+            )
+            currentUploadFileOperation?.let { cancelOldErrorNotification(it) }
         }
         lastPercent = percent
+    }
+
+    private fun cancelOldErrorNotification(uploadFileOperation: UploadFileOperation) {
+        // cancel for old file because of file conflicts
+        if (uploadFileOperation.oldFile != null) {
+            notificationManager.cancel(
+                NotificationUtils.createUploadNotificationTag(uploadFileOperation.oldFile),
+                NOTIFICATION_ERROR_ID
+            )
+        }
+        notificationManager.cancel(
+            NotificationUtils.createUploadNotificationTag(uploadFileOperation.file),
+            NOTIFICATION_ERROR_ID
+        )
+    }
+
+    override fun onStopped() {
+        super.onStopped()
+        currentUploadFileOperation?.cancel(null)
+        notificationManager.cancel(FOREGROUND_SERVICE_ID)
     }
 
     companion object {
         val TAG: String = FilesUploadWorker::class.java.simpleName
         private const val FOREGROUND_SERVICE_ID: Int = 412
+        const val NOTIFICATION_ERROR_ID: Int = 413
         private const val MAX_PROGRESS: Int = 100
         const val ACCOUNT = "data_account"
+        var currentUploadFileOperation: UploadFileOperation? = null
     }
 }

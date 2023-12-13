@@ -1,4 +1,4 @@
-/**
+/*
  * Nextcloud Android client application
  *
  * @author Mario Danic
@@ -17,10 +17,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.events;
+package com.owncloud.android.ui.events
 
 /**
- * Currently a dummy event to restore grid view, sort, and search
+ * Event to send push token where it belongs
  */
-public class ChangeMenuEvent {
-}
+class TokenPushEvent 
