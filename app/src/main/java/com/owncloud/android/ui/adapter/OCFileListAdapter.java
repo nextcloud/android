@@ -295,17 +295,23 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public long getItemId(int position) {
-        boolean isFilesEmpty = (mFiles == null || mFiles.size() <= position);
-
-        if (isFilesEmpty) {
-            if (shouldShowHeader()) {
+        if (shouldShowHeader()) {
+            if (position == 0) {
                 return headerId;
-            } else {
-                return footerId;
             }
-        } else {
+
+            // skip header
+            position--;
+        }
+
+        if (position == mFiles.size()) {
+            return footerId;
+        } if (position < mFiles.size()) {
             return mFiles.get(position).getFileId();
         }
+
+        // fallback
+        return RecyclerView.NO_ID;
     }
 
     @Override
