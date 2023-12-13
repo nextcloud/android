@@ -290,15 +290,17 @@ class OCFileListDelegate(
         }
     }
 
-    @Suppress("MagicNumber")
     private fun setItemLayoutBackgroundColor(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+        val cornerRadius = context.resources.getDimension(R.dimen.selected_grid_container_radius)
+
         val itemLayoutBackgroundColorId: Int = if (file.fileId == highlightedItem?.fileId || isCheckedFile(file)) {
             R.color.selected_item_background
         } else {
             R.color.bg_default
         }
+
         gridViewHolder.itemLayout.apply {
-            outlineProvider = createRoundedOutline(context, 16f)
+            outlineProvider = createRoundedOutline(context, cornerRadius)
             clipToOutline = true
             setBackgroundColor(ContextCompat.getColor(context, itemLayoutBackgroundColorId))
         }
