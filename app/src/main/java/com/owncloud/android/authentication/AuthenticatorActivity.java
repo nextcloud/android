@@ -86,11 +86,13 @@ import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountSetupBinding;
 import com.owncloud.android.databinding.AccountSetupWebviewBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
@@ -153,6 +155,7 @@ import de.cotech.hw.fido2.WebViewWebauthnBridge;
 import de.cotech.hw.fido2.ui.WebauthnDialogOptions;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import static com.owncloud.android.ui.activity.FileActivity.EXTRA_FILE;
 import static com.owncloud.android.utils.PermissionUtil.PERMISSIONS_CAMERA;
 
 /**
@@ -302,7 +305,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            mAccount = extras.getParcelable(EXTRA_ACCOUNT);
+            mAccount = BundleExtensionsKt.getParcelableArgument(extras, EXTRA_ACCOUNT, Account.class);
         }
 
         if (savedInstanceState != null) {

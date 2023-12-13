@@ -71,6 +71,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
@@ -285,10 +286,10 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
     @SuppressWarnings("unchecked")
     private void loadSavedInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            previousSortGroupState = (Stack<Boolean>) savedInstanceState.getSerializable(KEY_SORT_GROUP_STATE);
-            mWaitingToPreview = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
+            previousSortGroupState = BundleExtensionsKt.getSerializableArgument(savedInstanceState, KEY_SORT_GROUP_STATE, Stack.class);
+            mWaitingToPreview = BundleExtensionsKt.getParcelableArgument(savedInstanceState, FileDisplayActivity.KEY_WAITING_TO_PREVIEW, OCFile.class);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
-            mWaitingToSend = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
+            mWaitingToSend = BundleExtensionsKt.getParcelableArgument(savedInstanceState, FileDisplayActivity.KEY_WAITING_TO_SEND, OCFile.class);
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
             searchOpen = savedInstanceState.getBoolean(FileDisplayActivity.KEY_IS_SEARCH_OPEN, false);
         } else {

@@ -25,7 +25,6 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Typeface
-import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.text.style.StyleSpan
@@ -36,6 +35,7 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.SubFolderRule
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SyncedFoldersSettingsLayoutBinding
 import com.owncloud.android.datamodel.MediaFolderType
@@ -91,12 +91,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
 
         val arguments = arguments
         if (arguments != null) {
-            syncedFolder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments.getParcelable(SYNCED_FOLDER_PARCELABLE, SyncedFolderParcelable::class.java)
-            } else {
-                @Suppress("DEPRECATION")
-                arguments.getParcelable(SYNCED_FOLDER_PARCELABLE)
-            }
+            syncedFolder = arguments.getParcelableArgument(SYNCED_FOLDER_PARCELABLE, SyncedFolderParcelable::class.java)
         }
 
         uploadBehaviorItemStrings = resources.getTextArray(R.array.pref_behaviour_entries)

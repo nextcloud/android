@@ -35,6 +35,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogChooseAccountBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -76,7 +77,7 @@ class ChooseAccountDialogFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            currentUser = it.getParcelable(ARG_CURRENT_USER_PARAM)
+            currentUser = it.getParcelableArgument(ARG_CURRENT_USER_PARAM, User::class.java)
         }
     }
 

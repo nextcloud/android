@@ -63,6 +63,7 @@ import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FragmentPreviewMediaBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -193,9 +194,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
         Bundle bundle = getArguments();
 
-        setFile(bundle.getParcelable(FILE));
+        setFile(BundleExtensionsKt.getParcelableArgument(bundle, FILE, OCFile.class));
+        user = BundleExtensionsKt.getParcelableArgument(bundle, USER, User.class);
 
-        user = bundle.getParcelable(USER);
         savedPlaybackPosition = bundle.getLong(PLAYBACK_POSITION);
         autoplay = bundle.getBoolean(AUTOPLAY);
         isLivePhoto = bundle.getBoolean(IS_LIVE_PHOTO);
@@ -246,9 +247,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 throw new IllegalStateException("Instanced with a NULL ownCloud Account");
             }
         } else {
-            file = savedInstanceState.getParcelable(EXTRA_FILE);
+            file = BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_FILE, OCFile.class);
             setFile(file);
-            user = savedInstanceState.getParcelable(EXTRA_USER);
+            user = BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_USER, User.class);
             savedPlaybackPosition = savedInstanceState.getInt(EXTRA_PLAY_POSITION);
             autoplay = savedInstanceState.getBoolean(EXTRA_PLAYING);
         }

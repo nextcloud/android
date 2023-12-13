@@ -41,6 +41,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -231,7 +232,10 @@ object PermissionUtil {
         ) {
             val listener: (requestKey: String, result: Bundle) -> Unit = { _, resultBundle ->
                 val result: StoragePermissionDialogFragment.Result? =
-                    resultBundle.getParcelable(StoragePermissionDialogFragment.RESULT_KEY)
+                    resultBundle.getParcelableArgument(
+                        StoragePermissionDialogFragment.RESULT_KEY,
+                        StoragePermissionDialogFragment.Result::class.java
+                    )
                 if (result != null) {
                     preferences.isStoragePermissionRequested = true
                     when (result) {

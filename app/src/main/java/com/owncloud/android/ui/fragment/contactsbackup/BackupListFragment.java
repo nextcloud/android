@@ -45,11 +45,13 @@ import com.nextcloud.client.files.downloader.TransferManagerConnection;
 import com.nextcloud.client.files.downloader.TransferState;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.BackuplistFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.asynctasks.LoadContactsTask;
+import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.events.VCardToggleEvent;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -194,8 +196,8 @@ public class BackupListFragment extends FileFragment implements Injectable {
             return view;
         }
 
-        if (arguments.getParcelable(FILE_NAME) != null) {
-            ocFiles.add(arguments.getParcelable(FILE_NAME));
+        if (BundleExtensionsKt.getParcelableArgument(arguments, FILE_NAME, OCFile.class) != null) {
+            ocFiles.add(BundleExtensionsKt.getParcelableArgument(arguments, FILE_NAME, OCFile.class));
         } else if (arguments.getParcelableArray(FILE_NAMES) != null) {
             for (Parcelable file : arguments.getParcelableArray(FILE_NAMES)) {
                 ocFiles.add((OCFile) file);
@@ -204,7 +206,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
             return view;
         }
 
-        User user = getArguments().getParcelable(USER);
+        User user = BundleExtensionsKt.getParcelableArgument(getArguments(), USER, User.class);
         fileDownloader = new TransferManagerConnection(getActivity(), user);
         fileDownloader.registerTransferListener(this::onDownloadUpdate);
         fileDownloader.bind();

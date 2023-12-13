@@ -26,6 +26,7 @@
  */
 package com.owncloud.android.ui.fragment;
 
+import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +34,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -67,6 +69,8 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -91,6 +95,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
+import com.owncloud.android.ui.activity.UserInfoActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
@@ -253,9 +258,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mMultiChoiceModeListener = new MultiChoiceModeListener();
 
         if (savedInstanceState != null) {
-            currentSearchType = savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE);
-            searchEvent = savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT);
-            mFile = savedInstanceState.getParcelable(KEY_FILE);
+            currentSearchType = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_CURRENT_SEARCH_TYPE, SearchType.class);
+            searchEvent = BundleExtensionsKt.getParcelableArgument(savedInstanceState, OCFileListFragment.SEARCH_EVENT, SearchEvent.class);
+            mFile = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_FILE, OCFile.class);
         }
 
         searchFragment = currentSearchType != null && isSearchEventSet(searchEvent);
@@ -269,8 +274,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         Intent intent = getActivity().getIntent();
 
-        if (intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
-            searchEvent = intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT);
+        if (IntentExtensionsKt.getParcelableArgument(intent, OCFileListFragment.SEARCH_EVENT, SearchEvent.class) != null) {
+            searchEvent = IntentExtensionsKt.getParcelableArgument(intent, OCFileListFragment.SEARCH_EVENT, SearchEvent.class);
         }
 
         if (isSearchEventSet(searchEvent)) {
@@ -313,12 +318,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
-        if (savedInstanceState != null
-            && savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE) != null &&
-            savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT) != null) {
+
+        if (savedInstanceState != null &&
+            BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_CURRENT_SEARCH_TYPE, SearchType.class) != null &&
+            BundleExtensionsKt.getParcelableArgument(savedInstanceState, SEARCH_EVENT, SearchEvent.class) != null) {
             searchFragment = true;
-            currentSearchType = savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE);
-            searchEvent = savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT);
+            currentSearchType = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_CURRENT_SEARCH_TYPE, SearchType.class);
+            searchEvent = BundleExtensionsKt.getParcelableArgument(savedInstanceState, SEARCH_EVENT, SearchEvent.class);
         } else {
             currentSearchType = NO_SEARCH;
         }
@@ -372,7 +378,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         Log_OC.i(TAG, "onActivityCreated() start");
 
         if (savedInstanceState != null) {
-            mFile = savedInstanceState.getParcelable(KEY_FILE);
+            mFile = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_FILE, OCFile.class);
         }
 
         Bundle args = getArguments();
@@ -396,7 +402,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (getArguments() == null) {
                 searchEvent = null;
             } else {
-                searchEvent = getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT);
+                searchEvent = BundleExtensionsKt.getParcelableArgument(getArguments(), OCFileListFragment.SEARCH_EVENT, SearchEvent.class);
             }
         }
         prepareCurrentSearch(searchEvent);
@@ -1618,7 +1624,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         super.onViewStateRestored(savedInstanceState);
 
         if (savedInstanceState != null) {
-            searchEvent = savedInstanceState.getParcelable(SEARCH_EVENT);
+            searchEvent = BundleExtensionsKt.getParcelableArgument(savedInstanceState, SEARCH_EVENT, SearchEvent.class);
         }
     }
 

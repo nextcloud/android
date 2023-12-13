@@ -75,6 +75,7 @@ import com.owncloud.android.operations.UpdateNoteForShareOperation;
 import com.owncloud.android.operations.UpdateShareInfoOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
+import com.owncloud.android.ui.activity.FolderPickerActivity;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -675,7 +676,7 @@ public class OperationsService extends Service {
 
                     case ACTION_REMOVE:
                         // Remove file or folder
-                        OCFile file = operationIntent.getParcelableExtra(EXTRA_FILE);
+                        OCFile file = IntentExtensionsKt.getParcelableArgument(operationIntent, EXTRA_FILE, OCFile.class);
                         boolean onlyLocalCopy = operationIntent.getBooleanExtra(EXTRA_REMOVE_ONLY_LOCAL, false);
                         boolean inBackground = operationIntent.getBooleanExtra(EXTRA_IN_BACKGROUND, false);
                         operation = new RemoveFileOperation(file,
@@ -732,7 +733,7 @@ public class OperationsService extends Service {
                         break;
 
                     case ACTION_RESTORE_VERSION:
-                        FileVersion fileVersion = operationIntent.getParcelableExtra(EXTRA_FILE_VERSION);
+                        FileVersion fileVersion = IntentExtensionsKt.getParcelableArgument(operationIntent, EXTRA_FILE_VERSION, FileVersion.class);
                         operation = new RestoreFileVersionRemoteOperation(fileVersion.getLocalId(),
                                                                           fileVersion.getFileName());
                         break;

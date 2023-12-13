@@ -61,6 +61,7 @@ import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -74,6 +75,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.model.FileVersion;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -183,7 +185,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mParents.addAll(Arrays.asList(parentPath.split(OCFile.PATH_SEPARATOR)));
             }
 
-            mFile = savedInstanceState.getParcelable(KEY_FILE);
+            mFile = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_FILE, OCFile.class);
         }
         mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
 
@@ -852,7 +854,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         if (Intent.ACTION_SEND.equals(intent.getAction())) {
             mStreamsToUpload = new ArrayList<>();
-            mStreamsToUpload.add(intent.getParcelableExtra(Intent.EXTRA_STREAM));
+            mStreamsToUpload.add(IntentExtensionsKt.getParcelableArgument(intent, Intent.EXTRA_STREAM, Parcelable.class));
         } else if (Intent.ACTION_SEND_MULTIPLE.equals(intent.getAction())) {
             mStreamsToUpload = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
         }
