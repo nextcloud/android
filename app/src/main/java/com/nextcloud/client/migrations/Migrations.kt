@@ -24,6 +24,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.logger.Logger
 import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.ui.activity.ContactsPreferenceActivity
 import javax.inject.Inject
 
 /**

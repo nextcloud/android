@@ -47,6 +47,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.RefreshFolderOperation
+import com.owncloud.android.ui.activity.ContactsPreferenceActivity
 import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.utils.DisplayUtils
