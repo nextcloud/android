@@ -197,7 +197,6 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     /**
      * checks if the given file is the root folder.
      *
-     *
      * @param file file to be checked if it is the root folder
      * @return <code>true</code> if it is <code>null</code> or the root folder, else returns <code>false</code>
      */
@@ -243,6 +242,9 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         findViewById(R.id.sort_list_button_group).setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
+    public boolean sortListGroupVisibility(){
+        return findViewById(R.id.sort_list_button_group).getVisibility() == View.VISIBLE;
+    }
     /**
      * Change the bitmap for the toolbar's preview image.
      *
