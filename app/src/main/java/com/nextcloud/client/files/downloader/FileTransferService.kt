@@ -32,6 +32,7 @@ import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppNotificationManager
 import com.nextcloud.utils.ForegroundServiceHelper
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -117,7 +118,7 @@ class FileTransferService : Service() {
             )
         }
 
-        val request: Request = intent.getParcelableExtra(EXTRA_REQUEST)!!
+        val request: Request = intent.getParcelableArgument(EXTRA_REQUEST, Request::class.java)!!
         val transferManager = getTransferManager(request.user)
         transferManager.enqueue(request)
 
@@ -127,12 +128,8 @@ class FileTransferService : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-        val user = intent?.getParcelableExtra<User>(EXTRA_USER)
-        if (user != null) {
-            return Binder(getTransferManager(user), this)
-        } else {
-            return null
-        }
+        val user = intent?.getParcelableArgument(EXTRA_USER, User::class.java) ?: return null
+        return Binder(getTransferManager(user), this)
     }
 
     private fun onTransferUpdate(transfer: Transfer) {

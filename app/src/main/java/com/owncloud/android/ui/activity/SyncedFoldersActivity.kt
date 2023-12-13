@@ -45,6 +45,7 @@ import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.SubFolderRule
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -634,7 +635,7 @@ class SyncedFoldersActivity :
         if (requestCode == SyncedFolderPreferencesDialogFragment.REQUEST_CODE__SELECT_REMOTE_FOLDER &&
             resultCode == RESULT_OK && syncedFolderPreferencesDialogFragment != null
         ) {
-            val chosenFolder: OCFile = data!!.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER)!!
+            val chosenFolder: OCFile = FolderPickerActivity.EXTRA_FOLDER?.let { data!!.getParcelableArgument(it, OCFile::class.java) } ?: return
             syncedFolderPreferencesDialogFragment!!.setRemoteFolderSummary(chosenFolder.remotePath)
         } else if (
             requestCode == SyncedFolderPreferencesDialogFragment.REQUEST_CODE__SELECT_LOCAL_FOLDER &&

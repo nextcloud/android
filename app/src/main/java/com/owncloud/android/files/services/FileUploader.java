@@ -59,6 +59,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.utils.FileUploaderDelegate;
 import com.nextcloud.java.util.Optional;
 import com.nextcloud.utils.ForegroundServiceHelper;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -329,7 +330,7 @@ public class FileUploader extends Service
             return Service.START_NOT_STICKY;
         }
 
-        final Account account = intent.getParcelableExtra(KEY_ACCOUNT);
+        final Account account = IntentExtensionsKt.getParcelableArgument(intent, KEY_ACCOUNT, Account.class);
         if (account == null) {
             return Service.START_NOT_STICKY;
         }
@@ -436,7 +437,7 @@ public class FileUploader extends Service
         }
         // at this point variable "OCFile[] files" is loaded correctly.
 
-        NameCollisionPolicy nameCollisionPolicy = (NameCollisionPolicy) intent.getSerializableExtra(KEY_NAME_COLLISION_POLICY);
+        NameCollisionPolicy nameCollisionPolicy = IntentExtensionsKt.getSerializableArgument(intent, KEY_NAME_COLLISION_POLICY, NameCollisionPolicy.class);
         if (nameCollisionPolicy == null) {
             nameCollisionPolicy = NameCollisionPolicy.DEFAULT;
         }
@@ -543,7 +544,8 @@ public class FileUploader extends Service
     private void retryUploads(Intent intent, User user, List<String> requestedUploads) {
         boolean onWifiOnly;
         boolean whileChargingOnly;
-        OCUpload upload = intent.getParcelableExtra(KEY_RETRY_UPLOAD);
+
+        OCUpload upload = IntentExtensionsKt.getParcelableArgument(intent, KEY_RETRY_UPLOAD, OCUpload.class);
 
         onWifiOnly = upload.isUseWifiOnly();
         whileChargingOnly = upload.isWhileChargingOnly();

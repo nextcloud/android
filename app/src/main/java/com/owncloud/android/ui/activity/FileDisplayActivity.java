@@ -71,6 +71,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -372,7 +373,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
         }
 
-        if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
+        if (IntentExtensionsKt.getParcelableArgument(getIntent(), OCFileListFragment.SEARCH_EVENT, SearchEvent.class) != null) {
             switchToSearchFragment(savedInstanceState);
 
             int menuId = getIntent().getIntExtra(DRAWER_MENU_ID, -1);
@@ -465,7 +466,10 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             OCFileListFragment listOfFiles = new OCFileListFragment();
             Bundle args = new Bundle();
 
-            args.putParcelable(OCFileListFragment.SEARCH_EVENT, getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
+            args.putParcelable(OCFileListFragment.SEARCH_EVENT,
+                               IntentExtensionsKt.getParcelableArgument(getIntent(),
+                                                                        OCFileListFragment.SEARCH_EVENT,
+                                                                        SearchEvent.class));
             args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
 
             listOfFiles.setArguments(args);
@@ -511,10 +515,10 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         setIntent(intent);
 
         if (ACTION_DETAILS.equalsIgnoreCase(intent.getAction())) {
-            OCFile file = intent.getParcelableExtra(EXTRA_FILE);
+            OCFile file = IntentExtensionsKt.getParcelableArgument(intent, EXTRA_FILE, OCFile.class);
             setFile(file);
             setIntent(intent);
-            setFile(intent.getParcelableExtra(EXTRA_FILE));
+            setFile(IntentExtensionsKt.getParcelableArgument(intent, EXTRA_FILE, OCFile.class)); // is it needed?
             showDetails(file);
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             handleOpenFileViaIntent(intent);
@@ -527,7 +531,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
                 setIntent(intent);
 
-                SearchEvent searchEvent = intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT);
+                SearchEvent searchEvent = IntentExtensionsKt.getParcelableArgument(intent, OCFileListFragment.SEARCH_EVENT, SearchEvent.class)
                 if (searchEvent != null) {
                     if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == searchEvent.getSearchType()) {
                         Log_OC.d(this, "Switch to photo search fragment");
@@ -1076,8 +1080,9 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         syncAndUpdateFolder(false, true);
 
         OCFile startFile = null;
-        if (getIntent() != null && getIntent().getParcelableExtra(EXTRA_FILE) != null) {
-            startFile = getIntent().getParcelableExtra(EXTRA_FILE);
+        OCFile fileArgs = IntentExtensionsKt.getParcelableArgument(getIntent(), EXTRA_FILE, OCFile.class);
+        if (getIntent() != null && fileArgs != null) {
+            startFile = fileArgs;
             setFile(startFile);
         }
 
@@ -1571,7 +1576,8 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             // a new chance to get the mDownloadBinder through
             // getFileDownloadBinder() - THIS IS A MESS
             OCFileListFragment listOfFiles = getListOfFilesFragment();
-            if (listOfFiles != null && (getIntent() == null || (getIntent() != null && getIntent().getParcelableExtra(EXTRA_FILE) == null))) {
+            if (listOfFiles != null && (getIntent() == null || (getIntent() != null &&
+                IntentExtensionsKt.getParcelableArgument(getIntent(), EXTRA_FILE, OCFile.class) == null))) {
                 listOfFiles.listDirectory(MainApp.isOnlyOnDevice(), false);
             }
             Fragment leftFragment = getLeftFragment();
