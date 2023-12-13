@@ -1074,7 +1074,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         if (PreviewMediaActivity.Companion.canBePreviewed(file)) {
                             // media preview
                             setFabVisible(false);
-                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false);
+                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false, true);
                         } else {
                             mContainerActivity.getFileOperationsHelper().openFile(file);
                         }
@@ -1087,7 +1087,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted()) {
                             // stream media preview on >= NC14
                             setFabVisible(false);
-                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
+                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true, true);
                         } else if (editorUtils.isEditorAvailable(accountManager.getUser(),
                                                                  file.getMimeType()) &&
                             !file.isEncrypted()) {

@@ -698,7 +698,7 @@ public class FileDisplayActivity extends FileActivity
                         mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
 
                         if (PreviewMediaActivity.Companion.canBePreviewed(mWaitingToPreview)) {
-                            startMediaPreview(mWaitingToPreview, 0, true, true, true);
+                            startMediaPreview(mWaitingToPreview, 0, true, true, true, true);
                             detailsFragmentChanged = true;
                         } else if (MimeTypeUtil.isVCard(mWaitingToPreview.getMimeType())) {
                             startContactListFragment(mWaitingToPreview);
@@ -1792,7 +1792,7 @@ public class FileDisplayActivity extends FileActivity
                     ((PreviewMediaFragment) fileFragment).updateFile(renamedFile);
                     if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
                         long position = ((PreviewMediaFragment) fileFragment).getPosition();
-                        startMediaPreview(renamedFile, position, true, true, true);
+                        startMediaPreview(renamedFile, position, true, true, true, false);
                     } else {
                         getFileOperationsHelper().openFile(renamedFile);
                     }
@@ -2037,22 +2037,19 @@ public class FileDisplayActivity extends FileActivity
      * @param startPlaybackPosition Media position where the playback will be started, in milliseconds.
      * @param autoplay              When 'true', the playback will start without user interactions.
      */
-    public void startMediaPreview(OCFile file, long startPlaybackPosition, boolean autoplay, boolean showPreview, boolean streamMedia) {
+    public void startMediaPreview(OCFile file, long startPlaybackPosition, boolean autoplay, boolean showPreview, boolean streamMedia, boolean showInActivity) {
         Optional<User> user = getUser();
         if (!user.isPresent()) {
             return; // not reachable under normal conditions
         }
-        Intent previewMediaIntent = new Intent(this, PreviewMediaActivity.class);
-        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_FILE, file);
-        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_USER, user.get());
-        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_START_POSITION, startPlaybackPosition);
-        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_AUTOPLAY, autoplay);
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
-            startActivity(previewMediaIntent);
-            // TODO: change the code accordingly to use only activity if it isn't used by the pager adapter
-            configureToolbarForPreview(file);
-            Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay, false);
-            setLeftFragment(mediaFragment, false);
+            if (showInActivity) {
+                startMediaActivity(file, startPlaybackPosition, autoplay, showPreview, streamMedia, user);
+            } else {
+                configureToolbarForPreview(file);
+                Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay, false);
+                setLeftFragment(mediaFragment, false);
+            }
         } else {
             Intent previewIntent = new Intent();
             previewIntent.putExtra(EXTRA_FILE, file);
@@ -2061,6 +2058,15 @@ public class FileDisplayActivity extends FileActivity
             FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService, editorUtils);
             fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent);
         }
+    }
+
+    private void startMediaActivity(OCFile file, long startPlaybackPosition, boolean autoplay, boolean showPreview, boolean streamMedia, Optional<User> user) {
+        Intent previewMediaIntent = new Intent(this, PreviewMediaActivity.class);
+        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_FILE, file);
+        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_USER, user.get());
+        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_START_POSITION, startPlaybackPosition);
+        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_AUTOPLAY, autoplay);
+        startActivity(previewMediaIntent);
     }
 
     public void configureToolbarForPreview(OCFile file) {
@@ -2245,7 +2251,7 @@ public class FileDisplayActivity extends FileActivity
         if (event.getIntent().getBooleanExtra(TEXT_PREVIEW, false)) {
             startTextPreview((OCFile) bundle.get(EXTRA_FILE), true);
         } else if (bundle.containsKey(PreviewMediaFragment.EXTRA_START_POSITION)) {
-            startMediaPreview((OCFile) bundle.get(EXTRA_FILE), (long) bundle.get(PreviewMediaFragment.EXTRA_START_POSITION), (boolean) bundle.get(PreviewMediaFragment.EXTRA_AUTOPLAY), true, true);
+            startMediaPreview((OCFile) bundle.get(EXTRA_FILE), (long) bundle.get(PreviewMediaFragment.EXTRA_START_POSITION), (boolean) bundle.get(PreviewMediaFragment.EXTRA_AUTOPLAY), true, true, true);
         } else if (bundle.containsKey(PreviewImageActivity.EXTRA_VIRTUAL_TYPE)) {
             startImagePreview((OCFile) bundle.get(EXTRA_FILE), (VirtualFolderType) bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE), true);
         } else {
