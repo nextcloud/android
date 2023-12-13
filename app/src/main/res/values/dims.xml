@@ -24,6 +24,7 @@
     <dimen name="bottom_sheet_item_height">56dp</dimen>
     <dimen name="bottom_sheet_menu_item_divider_standard_margin">80dp</dimen>
     <dimen name="file_icon_size">40dp</dimen>
+    <dimen name="live_photo_indicator_margin">100dp</dimen>
     <dimen name="file_icon_size_grid">128dp</dimen>
     <dimen name="file_icon_rounded_corner_radius">8dp</dimen>
     <dimen name="file_icon_rounded_corner_radius_for_grid_mode">3dp</dimen>
@@ -48,6 +49,9 @@
     <dimen name="two_line_primary_text_size">16sp</dimen>
     <dimen name="two_line_secondary_text_size">12sp</dimen>
     <dimen name="list_item_share_right_margin">12dp</dimen>
+    <dimen name="live_photo_indicator_vertical_padding">3dp</dimen>
+    <dimen name="live_photo_indicator_horizontal_padding">16dp</dimen>
+
     <dimen name="file_list_item_avatar_icon_radius">10dp</dimen>
     <dimen name="account_action_layout_height">72dp</dimen>
     <dimen name="zero">0dp</dimen>
@@ -106,9 +110,6 @@
     <dimen name="contactlist_item_icon_layout_height">40dp</dimen>
     <dimen name="empty_list_icon_layout_width">72dp</dimen>
     <dimen name="empty_list_icon_layout_height">72dp</dimen>
-    <dimen name="grid_image_shared_icon_layout_top_margin">24dp</dimen>
-    <dimen name="grid_image_local_file_indicator_layout_width">16dp</dimen>
-    <dimen name="grid_image_local_file_indicator_layout_height">16dp</dimen>
     <dimen name="grid_image_icon_margin">14dp</dimen>
     <dimen name="grid_image_icon_padding">14dp</dimen>
     <dimen name="grid_item_shared_icon_layout_top_margin">24dp</dimen>

@@ -61,4 +61,7 @@ interface FileDao {
 
     @Query("SELECT * FROM filelist WHERE path LIKE :pathPattern AND file_owner = :fileOwner ORDER BY path ASC")
     fun getFolderWithDescendants(pathPattern: String, fileOwner: String): List<FileEntity>
+
+    @Query("SELECT * FROM filelist where file_owner = :fileOwner AND etag_in_conflict IS NOT NULL")
+    fun getFilesWithSyncConflict(fileOwner: String): List<FileEntity>
 }

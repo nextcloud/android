@@ -23,6 +23,7 @@
  */
 package com.owncloud.android.ui.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -153,6 +154,7 @@ class UnifiedSearchListAdapter(
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(sections: List<UnifiedSearchSection>) {
         this.sections = sections
         notifyDataSetChanged()

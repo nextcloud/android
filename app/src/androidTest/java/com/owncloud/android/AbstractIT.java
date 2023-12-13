@@ -350,6 +350,11 @@ public abstract class AbstractIT {
     public void uploadOCUpload(OCUpload ocUpload) {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
+            public boolean isConnected() {
+                return false;
+            }
+
+            @Override
             public boolean isInternetWalled() {
                 return false;
             }

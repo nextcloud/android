@@ -32,7 +32,9 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.network.WalledCheckCache;
 import com.nextcloud.common.DNSCache;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.ReceiverFlag;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 
 /**
@@ -69,7 +71,7 @@ public final class ReceiversHelper {
             }
         };
 
-        context.registerReceiver(broadcastReceiver, intentFilter);
+        ContextExtensionsKt.registerBroadcastReceiver(context, broadcastReceiver, intentFilter, ReceiverFlag.NotExported);
     }
 
     public static void registerPowerChangeReceiver(
@@ -96,7 +98,7 @@ public final class ReceiversHelper {
             }
         };
 
-        context.registerReceiver(broadcastReceiver, intentFilter);
+        ContextExtensionsKt.registerBroadcastReceiver(context, broadcastReceiver, intentFilter, ReceiverFlag.NotExported);
     }
 
     public static void registerPowerSaveReceiver(
@@ -122,6 +124,6 @@ public final class ReceiversHelper {
             }
         };
 
-        context.registerReceiver(broadcastReceiver, intentFilter);
+        ContextExtensionsKt.registerBroadcastReceiver(context, broadcastReceiver, intentFilter, ReceiverFlag.NotExported);
     }
 }

@@ -21,6 +21,7 @@ package com.owncloud.android.media;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -140,7 +141,7 @@ public class MediaControlView extends LinearLayout implements OnClickListener, O
         }
     }
 
-    private final Handler handler = new Handler() {
+    private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == SHOW_PROGRESS) {

@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        androidPluginVersion = '8.1.4'
+        androidPluginVersion = '8.2.0'
         appCompatVersion = '1.6.1'
         jacoco_version = '0.8.10'
         kotlin_version = '1.8.22'
@@ -14,7 +14,7 @@ buildscript {
         mockkVersion = "1.13.3"
         espressoVersion = "3.5.1"
         workRuntime = "2.8.1"
-        fidoVersion = "4.1.0-patch1"
+        fidoVersion = "4.1.0-patch2"
         checkerVersion = "3.21.2"
         exoplayerVersion = "2.19.1"
         documentScannerVersion = "1.1.1"

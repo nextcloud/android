@@ -47,6 +47,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
  */
 public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
+    private OCFile selectedFile;
     private List<OCFile> mImageFiles;
     private User user;
     private Set<Object> mObsoleteFragments;
@@ -64,6 +65,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      * @param storageManager    Bridge to database.
      */
     public PreviewImagePagerAdapter(FragmentManager fragmentManager,
+                                    OCFile selectedFile,
                                     OCFile parentFolder,
                                     User user,
                                     FileDataStorageManager storageManager,
@@ -78,6 +80,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         }
 
         this.user = user;
+        this.selectedFile = selectedFile;
         mStorageManager = storageManager;
         mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
 
@@ -147,6 +150,9 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
+    private void addVideoOfLivePhoto(OCFile file) {
+        file.livePhotoVideo = selectedFile;
+    }
 
     @NonNull
     public Fragment getItem(int i) {
@@ -155,10 +161,11 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
         if (file == null) {
             fragment = PreviewImageErrorFragment.newInstance();
-
         } else if (file.isDown()) {
             fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false);
         } else {
+            addVideoOfLivePhoto(file);
+
             if (mDownloadErrors.remove(i)) {
                 fragment = FileDownloadFragment.newInstance(file, user, true);
                 ((FileDownloadFragment) fragment).setError(true);
@@ -166,7 +173,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                 if (file.isEncrypted()) {
                     fragment = FileDownloadFragment.newInstance(file, user, mObsoletePositions.contains(i));
                 } else if (PreviewMediaFragment.canBePreviewed(file)) {
-                    fragment = PreviewMediaFragment.newInstance(file, user, 0, false);
+                    fragment = PreviewMediaFragment.newInstance(file, user, 0, false, file.livePhotoVideo != null);
                 } else {
                     fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
                 }

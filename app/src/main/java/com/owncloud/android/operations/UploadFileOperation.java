@@ -638,7 +638,9 @@ public class UploadFileOperation extends SyncOperation {
                                                serializedFolderMetadata,
                                                token,
                                                client,
-                                               metadataExists);
+                                               metadataExists,
+                                               arbitraryDataProvider,
+                                               user);
 
                 // unlock
                 result = EncryptionUtils.unlockFolder(parentFile, client, token);

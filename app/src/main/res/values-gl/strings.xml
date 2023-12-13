@@ -343,6 +343,7 @@
     <string name="file_list_empty_shared_headline">Aínda non hai nada compartido</string>
     <string name="file_list_empty_unified_search_no_results">Non se atoparon resultados para a súa consulta</string>
     <string name="file_list_folder">cartafol</string>
+    <string name="file_list_live">DIRECTO</string>
     <string name="file_list_loading">Cargando…</string>
     <string name="file_list_no_app_for_file_type">Non foi configurada unha aplicación para manexar este tipo de ficheiro.</string>
     <string name="file_list_seconds_ago">hai uns segundos</string>
@@ -884,6 +885,7 @@
     <string name="upload_lock_failed">Produciuse un fallo ao bloquear o cartafol</string>
     <string name="upload_old_android">O cifrado só é posíbel con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. No canto diso, gustaríalle movelos?</string>
+    <string name="upload_quota_exceeded">Superouse a cota de almacenamento</string>
     <string name="upload_scan_doc_upload">Escanear o documento dende a cámara</string>
     <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>
     <string name="upload_unknown_error">Produciuse un erro descoñecido</string>
