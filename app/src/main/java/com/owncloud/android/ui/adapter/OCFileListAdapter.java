@@ -134,7 +134,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
     private final ViewThemeUtils viewThemeUtils;
     private SearchType searchType;
+
     private final long footerId = UUID.randomUUID().getLeastSignificantBits();
+    private final long headerId = UUID.randomUUID().getLeastSignificantBits();
 
     public OCFileListAdapter(
         Activity activity,
@@ -293,10 +295,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public long getItemId(int position) {
-        boolean isFilesNotEmpty = mFiles == null || mFiles.size() <= position;
-        return (isFilesNotEmpty)
-            ? footerId
-            : mFiles.get(position).getFileId();
+        boolean isFilesEmpty = (mFiles == null || mFiles.size() <= position);
+
+        if (isFilesEmpty) {
+            if (shouldShowHeader()) {
+                return headerId;
+            } else {
+                return footerId;
+            }
+        } else {
+            return mFiles.get(position).getFileId();
+        }
     }
 
     @Override
