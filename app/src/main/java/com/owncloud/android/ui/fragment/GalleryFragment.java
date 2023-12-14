@@ -318,6 +318,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == SELECT_LOCATION_REQUEST_CODE && data != null && FolderPickerActivity.EXTRA_FOLDER != null) {
             OCFile chosenFolder = IntentExtensionsKt.getParcelableArgument(data, FolderPickerActivity.EXTRA_FOLDER, OCFile.class);
+
             if (chosenFolder != null) {
                 preferences.setLastSelectedMediaFolder(chosenFolder.getRemotePath());
                 searchAndDisplayAfterChangingFolder();
