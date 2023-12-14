@@ -76,9 +76,9 @@ open class FolderPickerActivity :
         private set
 
     private var mCancelBtn: MaterialButton? = null
-    private var mCopyBtn: MaterialButton? = null
-    private var mChooseBtn: MaterialButton? = null
-    private var mMoveBtn: MaterialButton? = null
+    var mCopyBtn: MaterialButton? = null
+    var mChooseBtn: MaterialButton? = null
+    var mMoveBtn: MaterialButton? = null
 
     private var caption: String? = null
 
