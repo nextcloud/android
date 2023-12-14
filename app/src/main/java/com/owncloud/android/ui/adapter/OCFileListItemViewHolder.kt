@@ -84,6 +84,8 @@ internal class OCFileListItemViewHolder(private var binding: ListItemBinding) :
         get() = binding.favoriteAction
     override val localFileIndicator: ImageView
         get() = binding.localFileIndicator
+    override val imageFileName: TextView?
+        get() = null
     override val shared: ImageView
         get() = binding.sharedIcon
     override val checkbox: ImageView

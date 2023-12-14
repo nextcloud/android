@@ -35,6 +35,7 @@ interface ListGridImageViewHolder {
     val shimmerThumbnail: LoaderImageView
     val favorite: ImageView
     val localFileIndicator: ImageView
+    val imageFileName: TextView?
     val shared: ImageView
     val checkbox: ImageView
     val itemLayout: View

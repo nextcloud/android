@@ -35,8 +35,12 @@ internal class OCFileListGridImageViewHolder(var binding: GridImageBinding) :
         binding.root
     ),
     ListGridImageViewHolder {
+
     override val thumbnail: ImageView
         get() = binding.thumbnail
+
+    override val imageFileName: TextView
+        get() = binding.Filename
 
     override fun showVideoOverlay() {
         // noop
