@@ -14,9 +14,7 @@
     <string name="action_send_share">Cuir/Co-roinn</string>
     <string name="action_switch_grid_view">Sealladh griod</string>
     <string name="action_switch_list_view">Sealladh liosta</string>
-    <string name="actionbar_copy">Dèan lethbhreac</string>
     <string name="actionbar_mkdir">Pasgan ùr</string>
-    <string name="actionbar_move">Gluais</string>
     <string name="actionbar_open_with">Fosgail le</string>
     <string name="actionbar_search">Lorg</string>
     <string name="actionbar_see_details">Mion-fhiosrachadh</string>
@@ -155,7 +153,6 @@
     <string name="copy_file_not_found">Cha ghabh lethbhreac a dhèanamh. Thoir sùil a bheil am faidhle ann.</string>
     <string name="copy_link">Dèan lethbhreac dhen cheangal</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Cha chuir sinn taic ri cur lethbhreac no gluasad gu pasgan crioptaichte aig an àm seo.</string>
-    <string name="copy_to">Lethbhreac gu…</string>
     <string name="could_not_download_image">Cha b’ urrainn dhuinn an dealbh slàn a luchdadh a-nuas</string>
     <string name="could_not_retrieve_shares">Cha b’ urrainn dhuinn na co-roinnidhean fhaighinn</string>
     <string name="could_not_retrieve_url">Cha b’ urrainn dhuinn an URL fhaighinn</string>
@@ -171,7 +168,6 @@
     <string name="credentials_disabled">Chaidh an teisteas a chur à comas</string>
     <string name="default_credentials_wrong">Teisteas ceàrr</string>
     <string name="delete_account">Thoir air falbh an cunntas</string>
-    <string name="delete_account_warning">A bheil thu airson cunntas %s a thoirt air falbh ’s na faidhlichean ionadail uile a sguabadh às?\n\Cha ghabh an sguabadh às a neo-dhèanamh.</string>
     <string name="delete_entries">Sguab às na h-innteartan</string>
     <string name="deselect_all">Dì-thagh na h-uile</string>
     <string name="dev_version_new_version_available">Tha tionndadh ùr ri fhaighinn</string>
@@ -335,7 +331,6 @@
     <string name="folder_already_exists">Tha am pasgan seo ann mu thràth</string>
     <string name="folder_confirm_create">Cruthaich</string>
     <string name="folder_list_empty_headline">Chan eil pasgan an-seo</string>
-    <string name="folder_picker_choose_button_text">Tagh</string>
     <string name="folder_picker_copy_button_text">Dèan lethbhreac</string>
     <string name="folder_picker_move_button_text">Gluais</string>
     <string name="forbidden_permissions">Chan fhad thu %s</string>
@@ -411,7 +406,6 @@
     <string name="move_file_invalid_into_descendent">Cha ghabh pasgan gluasad am broinn fo-phasgan aige fhèin</string>
     <string name="move_file_invalid_overwrite">Tha am faidhle sa cheann-uidhe mu thràth</string>
     <string name="move_file_not_found">Cha ghabh am faidhle a ghluasad. Thoir sùil a bheil e ann.</string>
-    <string name="move_to">Gluais gu…</string>
     <string name="network_error_connect_timeout_exception">Thachair mearachd a’ feitheamh ris an fhrithealaiche. Cha b’ urrainn dhuinn sin a choileanadh.</string>
     <string name="network_error_socket_exception">Thachair mearachd a’ ceangal ris an fhrithealaiche</string>
     <string name="network_error_socket_timeout_exception">Thachair mearachd a’ feitheamh ris an fhrithealaiche. Cha b’ urrainn dhuinn sin a choileanadh.</string>
@@ -425,7 +419,6 @@
     <string name="no_browser_available">Chan eil aplacaid ann a làimhsicheas ceanglaichean</string>
     <string name="no_mutliple_accounts_allowed">Chan eil ach aon chunntas ceadaichte</string>
     <string name="no_pdf_app_available">Chan eil aplacaid ann a làimhsicheas PDF</string>
-    <string name="note_confirm">Cuir</string>
     <string name="note_could_not_sent">Cha b’ urrainn dhuinn an nòta a chur</string>
     <string name="note_icon_hint">Ìomhaigheag nòta</string>
     <string name="notification_action_failed">Cha deach leis a’ ghnìomh.</string>
@@ -566,7 +559,6 @@
     <string name="select_one_template">Tagh teamplaid</string>
     <string name="select_template">Tagh teamplaid</string>
     <string name="send">Cuir</string>
-    <string name="send_note">Cuir nòta dhan fhaightear</string>
     <string name="sendbutton_description">Ìomhaigheag putan a’ chuir</string>
     <string name="set_as">Suidhich mar</string>
     <string name="set_picture_as">Cleachd an dealbh mar</string>
@@ -611,12 +603,6 @@
     <string name="signup_with_provider">Clàraich leinn le solaraiche</string>
     <string name="single_sign_on_request_token" formatted="true">Am faod %1$s an cunntas Nextcloud %2$s agad inntrigeadh?</string>
     <string name="sort_by">Seòrsaich a-rèir</string>
-    <string name="sort_by_modification_date_ascending">As ùire an toiseach</string>
-    <string name="sort_by_modification_date_descending">As sine an toiseach</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">As lugha an toiseach</string>
-    <string name="sort_by_size_descending">As motha an toiseach</string>
     <string name="ssl_validator_btn_details_hide">Cuir am falach</string>
     <string name="ssl_validator_btn_details_see">Mion-fhiosrachadh</string>
     <string name="ssl_validator_header">Cha b’ urrainn dhuinn dearbh-aithne an fhrithealaiche a dhearbhadh</string>

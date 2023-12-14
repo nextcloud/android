@@ -13,9 +13,7 @@
     <string name="action_send_share">Sūtīt/Kopīgot</string>
     <string name="action_switch_grid_view">Režģa izkārtojums</string>
     <string name="action_switch_list_view">Saraksta izkārtojums</string>
-    <string name="actionbar_copy">Kopēt</string>
     <string name="actionbar_mkdir">Jauna mape</string>
-    <string name="actionbar_move">Pārvietot</string>
     <string name="actionbar_open_with">Atvērt ar</string>
     <string name="actionbar_search">Meklēt</string>
     <string name="actionbar_see_details">Detaļas</string>
@@ -99,7 +97,6 @@
     <string name="common_remove">Dzēst</string>
     <string name="common_rename">Pārsaukt</string>
     <string name="common_save">Saglabāt</string>
-    <string name="common_select">Atzīmēt</string>
     <string name="common_send">Sūtīt</string>
     <string name="common_share">Koplietot</string>
     <string name="common_skip">Izlaist</string>
@@ -134,7 +131,6 @@
     <string name="copy_file_invalid_into_descendent">Nav iespējams kopēt mapi tās apakšmapē</string>
     <string name="copy_file_invalid_overwrite">Datne jau pastāv mērķa mapē</string>
     <string name="copy_link">Kopēt saiti</string>
-    <string name="copy_to">Kopēt uz…</string>
     <string name="could_not_download_image">Nevarēja lejupielādēt pilnu attēlu</string>
     <string name="could_not_retrieve_url">Neizdevās iegūt URL </string>
     <string name="create">Izveidot</string>
@@ -149,7 +145,6 @@
     <string name="credentials_disabled">Akreditācijas dati atspējoti</string>
     <string name="default_credentials_wrong">Nepareizi akreditācijas dati</string>
     <string name="delete_account">Noņemt kontu</string>
-    <string name="delete_account_warning">Noņemt kontu %s un izdzēst visas vietēji saglabātās datnes?\n\nDzēšanu nevar atsaukt.</string>
     <string name="delete_entries">Dzēst ierakstus</string>
     <string name="deselect_all">Atcelt atzīmi</string>
     <string name="dev_version_new_version_available">Pieejama jauna versija  </string>
@@ -252,7 +247,6 @@
     <string name="first_run_1_text">Turi savus datus drošībā un zem savas kontroles</string>
     <string name="folder_confirm_create">Izveidot</string>
     <string name="folder_list_empty_headline">Šeit nav mapju</string>
-    <string name="folder_picker_choose_button_text">Izvēlieties</string>
     <string name="folder_picker_move_button_text">Pārvietot</string>
     <string name="forbidden_permissions">Jums nav atļaujas %s</string>
     <string name="forbidden_permissions_copy">lai kopētu šo datni</string>
@@ -308,12 +302,10 @@
     <string name="move_file_error">Radās kļūda, mēģinot pārvietot šo datni vai mapi</string>
     <string name="move_file_invalid_into_descendent">Nav iespējams pārvietot mapi tās apakšmapē</string>
     <string name="move_file_invalid_overwrite">Datne jau pastāv mērķa mapē</string>
-    <string name="move_to">Pārvietot uz…</string>
     <string name="network_error_socket_exception">Radās kļūda, mēģinot izveidot savienojumu ar serveri.</string>
     <string name="new_comment">Jauns komentārs…</string>
     <string name="new_media_folder_photos">bilde</string>
     <string name="new_version_was_created">Jauna versija izveidota</string>
-    <string name="note_confirm">Sūtīt</string>
     <string name="notification_channel_download_name_short">Lejupielādes</string>
     <string name="notification_channel_upload_name_short">Augšupielādes</string>
     <string name="notifications_no_results_headline">Nav paziņojumu</string>
@@ -416,12 +408,6 @@
     <string name="sharee_add_failed">Dalībnieka pievienošana neizdevās</string>
     <string name="signup_with_provider">Reģistrēties ar pakalpojumu sniedzēju</string>
     <string name="sort_by">Kārtot pēc</string>
-    <string name="sort_by_modification_date_ascending">Jaunākie pirms</string>
-    <string name="sort_by_modification_date_descending">Vecākie pirms</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Mazākie pirms</string>
-    <string name="sort_by_size_descending">Lielākie pirms</string>
     <string name="ssl_validator_btn_details_hide">Slēpt</string>
     <string name="ssl_validator_btn_details_see">Sīkāka informācija</string>
     <string name="ssl_validator_header">Servera identitāti nevarēja pārbaudīt</string>

@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Xem dạng Lưới</string>
     <string name="action_switch_list_view">Xem dạng Danh sách</string>
     <string name="actionbar_calendar_contacts_restore">Khôi phục danh bạ &amp; lịch</string>
-    <string name="actionbar_copy">Sao chép</string>
     <string name="actionbar_mkdir">Tạo thư mục</string>
-    <string name="actionbar_move">Dịch chuyển</string>
     <string name="actionbar_open_with">Mở với</string>
     <string name="actionbar_search">Tìm</string>
     <string name="actionbar_see_details">Chi tiết</string>
@@ -90,7 +88,6 @@
     <string name="changelog_dev_version">Nhật kí phiên bản nhà phát triển</string>
     <string name="checkbox">Hộp chọn</string>
     <string name="choose_local_folder">Chọn thư mục cục bộ...</string>
-    <string name="choose_location">Chọn vị trí lưu trữ</string>
     <string name="choose_remote_folder">Chọn thư mục từ xa...</string>
     <string name="choose_template_helper_text">Vui lòng chọn một mẫu và nhập tên tệp.</string>
     <string name="choose_which_file">Chọn tệp muốn giữ!</string>
@@ -119,7 +116,6 @@
     <string name="common_remove">Xóa</string>
     <string name="common_rename">Sửa tên</string>
     <string name="common_save">Lưu</string>
-    <string name="common_select">Chọn</string>
     <string name="common_send">Gửi</string>
     <string name="common_share">Chia sẻ</string>
     <string name="common_skip">Bỏ qua</string>
@@ -169,7 +165,6 @@
     <string name="copy_file_not_found">Không thể sao chép. Hãy kiểm tra xem tập tin có tồn tại không.</string>
     <string name="copy_link">Sao chép liên kết</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Sao chép/di chuyển vào thư mục được mã hóa hiện không được hỗ trợ.</string>
-    <string name="copy_to">Sao chép đến</string>
     <string name="could_not_download_image">Không thể tải xuống hình ảnh đầy đủ</string>
     <string name="could_not_retrieve_shares">Không thể truy xuất lượt chia sẻ</string>
     <string name="could_not_retrieve_url">Không thể truy xuất URL</string>
@@ -187,7 +182,6 @@
     <string name="data_to_back_up">Dữ liệu được sao lưu</string>
     <string name="default_credentials_wrong">Thông tin đăng nhập không chính xác</string>
     <string name="delete_account">Xóa tài khoản</string>
-    <string name="delete_account_warning">Xóa tài khoản %s và xóa tất cả các tệp cục bộ?\n\nXóa không thể hoàn tác.</string>
     <string name="delete_entries">Xoá mục</string>
     <string name="delete_link">Xóa liên kết</string>
     <string name="deselect_all">Bỏ chọn tất cả</string>
@@ -375,7 +369,6 @@
     <string name="folder_already_exists">Thư mục đã tồn tại</string>
     <string name="folder_confirm_create">Tạo</string>
     <string name="folder_list_empty_headline">Không có thư mục nào</string>
-    <string name="folder_picker_choose_button_text">Chọn</string>
     <string name="folder_picker_choose_caption_text">‎Chọn thư‎‎ ‎‎mục đích‎</string>
     <string name="folder_picker_move_button_text">Dịch chuyển</string>
     <string name="forbidden_permissions">Bạn không được cho phép %s</string>
@@ -459,7 +452,6 @@
     <string name="move_file_invalid_into_descendent">Không thể di chuyển một thư mục vào một trong các thư mục của riêng nó</string>
     <string name="move_file_invalid_overwrite">Tập tin đã có trong thư mục đích</string>
     <string name="move_file_not_found">Không thể di chuyển tệp. Vui lòng kiểm tra xem nó có tồn tại không.</string>
-    <string name="move_to">Di chuyển đến</string>
     <string name="network_error_connect_timeout_exception">Đã xảy ra lỗi khi chờ máy chủ. Không thể hoàn thành hoạt động.</string>
     <string name="network_error_socket_exception">Đã xảy ra lỗi khi kết nối với máy chủ</string>
     <string name="network_error_socket_timeout_exception">Một lỗi đã xảy ra khi đang đợi máy chủ. Không thể hoàn thành hoạt động.</string>
@@ -478,7 +470,6 @@
     <string name="no_pdf_app_available">Không có ứng dụng để xử lý PDF</string>
     <string name="no_send_app">Không có ứng dụng nào để gửi các tệp đã chọn</string>
     <string name="no_share_permission_selected">Vui lòng chọn ít nhất một quyền để chia sẻ.</string>
-    <string name="note_confirm">Gửi</string>
     <string name="note_could_not_sent">Không thể gửi ghi chú</string>
     <string name="note_icon_hint">Biểu tượng ghi chú</string>
     <string name="notification_action_failed">Thực thi hành động thất bại.</string>
@@ -631,7 +622,6 @@
     <string name="select_one_template">Vui lòng chọn một mẫu</string>
     <string name="select_template">Chon mẫu</string>
     <string name="send">Gửi</string>
-    <string name="send_note">Gửi ghi chú cho người nhận</string>
     <string name="send_share">Gửi kho</string>
     <string name="sendbutton_description">Biểu tượng nút gửi</string>
     <string name="set_as">Đặt như</string>
@@ -687,12 +677,6 @@
     <string name="signup_with_provider">Đăng ký với nhà cung cấp</string>
     <string name="single_sign_on_request_token" formatted="true">Cho phép %1$s truy cập vào %2$s tài khoản Hệ thống của bạn</string>
     <string name="sort_by">Sắp xếp theo</string>
-    <string name="sort_by_modification_date_ascending">Mới trước</string>
-    <string name="sort_by_modification_date_descending">Cũ trước</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Nhỏ trước</string>
-    <string name="sort_by_size_descending">Lớn trước</string>
     <string name="ssl_validator_btn_details_hide">Ẩn</string>
     <string name="ssl_validator_btn_details_see">Chi tiết</string>
     <string name="ssl_validator_header">Không thể xác minh danh tính của máy chủ</string>

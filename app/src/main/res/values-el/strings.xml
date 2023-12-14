@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
     <string name="action_switch_list_view">Προβολή λίστας</string>
     <string name="actionbar_calendar_contacts_restore">Επαναφορά επαφών &amp; και ημερολογίου</string>
-    <string name="actionbar_copy">Αντιγραφή</string>
     <string name="actionbar_mkdir">Νέος φάκελος</string>
-    <string name="actionbar_move">Μετακίνηση</string>
     <string name="actionbar_open_with">Άνοιγμα με</string>
     <string name="actionbar_search">Αναζήτηση</string>
     <string name="actionbar_see_details">Λεπτομέρειες</string>
@@ -91,7 +89,6 @@
     <string name="check_back_later_or_reload">Ελέγξτε ξανά αργότερα ή κάνετε ανανέωση.</string>
     <string name="checkbox">Πλαίσιο ελέγχου</string>
     <string name="choose_local_folder">Επιλέξτε τοπικό φάκελο…</string>
-    <string name="choose_location">Επιλέξτε τοποθεσία</string>
     <string name="choose_remote_folder">Επιλέξτε απομακρυσμένο φάκελο…</string>
     <string name="choose_template_helper_text">Παρακαλούμε επιλέξτε ένα πρότυπο και εισαγάγετε ένα όνομα αρχείου.</string>
     <string name="choose_which_file">Επέλεξε ποιο αρχείο θέλεις να κρατήσεις!</string>
@@ -121,7 +118,6 @@
     <string name="common_remove">Διαγραφή</string>
     <string name="common_rename">Μετονομασία</string>
     <string name="common_save">Αποθήκευση</string>
-    <string name="common_select">Επιλογή</string>
     <string name="common_send">Αποστολή</string>
     <string name="common_share">Διαμοιρασμός</string>
     <string name="common_skip">Παράλειψη</string>
@@ -173,7 +169,6 @@
     <string name="copy_file_not_found">Αδυναμία αντιγραφής. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει.</string>
     <string name="copy_link">Αντιγραφή συνδέσμου</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Η αντιγραφή/μετακίνηση σε κρυπτογραφημένο φάκελο δεν υποστηρίζεται αυτή τη στιγμή</string>
-    <string name="copy_to">Αντιγραφή σε…</string>
     <string name="could_not_download_image">Αδυναμία λήψης της πλήρους εικόνας</string>
     <string name="could_not_retrieve_shares">Αδυναμία ανάκτησης κοινόχρηστων</string>
     <string name="could_not_retrieve_url">Αδυναμία ανάκτησης URL</string>
@@ -191,7 +186,6 @@
     <string name="data_to_back_up">Δεδομένα για δημιουργία αντιγράφου ασφαλείας</string>
     <string name="default_credentials_wrong">Λανθασμένα διαπιστευτήρια</string>
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
-    <string name="delete_account_warning">Κατάργηση λογαριασμού %s και διαγραφή όλων των τοπικών αρχείων; \ n \ nΗ διαγραφή δεν μπορεί να ανακληθεί.</string>
     <string name="delete_entries">Διαγραφή καταχωρήσεων</string>
     <string name="delete_link">Διαγραφή Συνδέσμου</string>
     <string name="deselect_all">Αναίρεση επιλογής όλων</string>
@@ -389,7 +383,6 @@
     <string name="folder_already_exists">Ο φάκελος υπάρχει ήδη</string>
     <string name="folder_confirm_create">Δημιουργία</string>
     <string name="folder_list_empty_headline">Δεν υπάρχουν φάκελοι εδώ</string>
-    <string name="folder_picker_choose_button_text">Επιλέξτε</string>
     <string name="folder_picker_choose_caption_text">Επιλογή φακέλου προορισμού</string>
     <string name="folder_picker_copy_button_text">Αντιγραφή</string>
     <string name="folder_picker_move_button_text">Μετακίνηση</string>
@@ -483,7 +476,6 @@
     <string name="move_file_invalid_into_descendent">Δεν είναι δυνατό να μετακινηθεί ο φάκελος σε έναν απογονικό</string>
     <string name="move_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
     <string name="move_file_not_found">Αδύνατη η μετακίνηση αρχείου. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει.</string>
-    <string name="move_to">Μετακίνηση σε…</string>
     <string name="network_error_connect_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή απόκρισης του διακομιστή. Η εργασία δεν μπορεί να ολοκληρωθεί.</string>
     <string name="network_error_socket_exception">Παρουσιάστηκε σφάλμα κατά τη σύνδεση με το διακομιστή.</string>
     <string name="network_error_socket_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή απόκρισης του διακομιστή. Η εργασία δεν μπορεί να ολοκληρωθεί.</string>
@@ -503,7 +495,6 @@
     <string name="no_pdf_app_available">Δεν υπάρχει διαθέσιμη εφαρμογή για χειρισμό PDF</string>
     <string name="no_send_app">Δεν υπάρχει διαθέσιμη εφαρμογή για την αποστολή των επιλεγμένων αρχείων</string>
     <string name="no_share_permission_selected">Παρακαλούμε επιλέξτε τουλάχιστον μία άδεια για κοινή χρήση.</string>
-    <string name="note_confirm">Αποστολή</string>
     <string name="note_could_not_sent">Αδυναμία αποστολής σημείωσης</string>
     <string name="note_icon_hint">Εικονίδιο σημείωσης</string>
     <string name="notification_action_failed">Αποτυχία εκτέλεσης ενέργειας</string>
@@ -663,7 +654,6 @@
     <string name="select_one_template">Παρακαλούμε επιλέξτε ένα πρότυπο</string>
     <string name="select_template">Επιλογή προτύπου</string>
     <string name="send">Αποστολή</string>
-    <string name="send_note">Αποστολή σημείωσης στον παραλήπτη</string>
     <string name="send_share">Αποστολή/Κοινή χρήση</string>
     <string name="sendbutton_description">Εικονίδιο κουμπιού αποστολής</string>
     <string name="set_as">Ορισμός ως</string>
@@ -719,12 +709,6 @@
     <string name="signup_with_provider">Σύνδεση με πάροχο</string>
     <string name="single_sign_on_request_token" formatted="true">Να επιτραπεί%1$sη πρόσβαση στον λογαριασμό σας Nextcloud %2$s ?</string>
     <string name="sort_by">Ταξινόμηση κατά</string>
-    <string name="sort_by_modification_date_ascending">Νεότερο πρώτα</string>
-    <string name="sort_by_modification_date_descending">Παλαιότερο πρώτα</string>
-    <string name="sort_by_name_ascending">Α - Ω</string>
-    <string name="sort_by_name_descending">Ω - Α</string>
-    <string name="sort_by_size_ascending">Μικρότερο πρώτα</string>
-    <string name="sort_by_size_descending">Μεγαλύτερο πρώτα</string>
     <string name="ssl_validator_btn_details_hide">Απόκρυψη</string>
     <string name="ssl_validator_btn_details_see">Λεπτομέρειες</string>
     <string name="ssl_validator_header">Δεν ήταν δυνατή η επαλήθευση της ταυτότητας του διακομιστή</string>
