@@ -49,10 +49,15 @@ class UnifiedSearchItemViewHolder(
     val clientFactory: ClientFactory,
     private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
+    private val filesAction: FilesAction,
     val context: Context,
     private val viewThemeUtils: ViewThemeUtils
 ) :
     SectionedViewHolder(binding.root) {
+
+    interface FilesAction {
+        fun showFilesAction(searchResultEntry: SearchResultEntry)
+    }
 
     fun bind(entry: SearchResultEntry) {
         binding.title.text = entry.title
@@ -76,6 +81,13 @@ class UnifiedSearchItemViewHolder(
             .animate(android.R.anim.fade_in)
             .listener(RoundIfNeededListener(entry))
             .into(binding.thumbnail)
+
+        if (entry.isFile) {
+            binding.more.visibility = View.VISIBLE
+            binding.more.setOnClickListener { filesAction.showFilesAction(entry) }
+        } else {
+            binding.more.visibility = View.GONE
+        }
 
         binding.unifiedSearchItemLayout.setOnClickListener { listInterface.onSearchResultClicked(entry) }
     }

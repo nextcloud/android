@@ -254,6 +254,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         Log_OC.v(TAG, "onCreate() start");
         // Set the default theme to replace the launch screen theme.
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
@@ -611,6 +612,28 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         transaction.commit();
     }
 
+    private OCFileListFragment getOCFileListFragmentFromFile() {
+        final Fragment leftFragment = getLeftFragment();
+        OCFileListFragment listOfFiles = null;
+        if (leftFragment instanceof OCFileListFragment) {
+            listOfFiles = (OCFileListFragment) leftFragment;
+        } else {
+            listOfFiles = new OCFileListFragment();
+            Bundle args = new Bundle();
+            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+            listOfFiles.setArguments(args);
+            setLeftFragment(listOfFiles);
+            getSupportFragmentManager().executePendingTransactions();
+        }
+        return listOfFiles;
+    }
+
+    public void showFileActions(OCFile file) {
+        dismissLoadingDialog();
+        OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
+        browseUp(listOfFiles);
+        listOfFiles.onOverflowIconClicked(file, null);
+    }
 
     public @androidx.annotation.Nullable Fragment getLeftFragment() {
         return getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
@@ -625,7 +648,6 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
         return null;
     }
-
 
     protected void resetTitleBarAndScrolling() {
         updateActionBarTitleAndHomeButton(null);
@@ -782,6 +804,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
+
         int itemId = item.getItemId();
 
         if (itemId == android.R.id.home) {
@@ -940,6 +963,11 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         }
     }
 
+    private Boolean isRootDirectory() {
+        OCFile currentDir = getCurrentDir();
+        return (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID);
+    }
+
     /*
      * BackPressed priority/hierarchy:
      *    1. close search view if opened
@@ -959,8 +987,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             resetSearchAction();
         } else if (isDrawerOpen) {
             super.onBackPressed();
-        } else if (leftFragment instanceof OCFileListFragment) {
-            OCFileListFragment listOfFiles = (OCFileListFragment) leftFragment;
+        } else if (leftFragment instanceof OCFileListFragment listOfFiles) {
 
             // all closed
             OCFile currentDir = getCurrentDir();
@@ -974,18 +1001,6 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         }
     }
 
-    /**
-     * Use this method when want to pop the fragment on back press. It resets Scrolling (See
-     * {@link #resetScrolling(boolean) with true} and pop the visibility for sortListGroup (See
-     * {@link #setSortListGroup(boolean, boolean)}. At last call to super.onBackPressed()
-     */
-    private void popBack() {
-        // pop back fragment
-        resetScrolling(true);
-        popSortListGroupVisibility();
-        super.onBackPressed();
-    }
-
     private void browseUp(OCFileListFragment listOfFiles) {
         listOfFiles.onBrowseUp();
         setFile(listOfFiles.getCurrentFile());
@@ -995,9 +1010,6 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         setDrawerAllFiles();
     }
 
-    /**
-     * It resets the Search Action (call when search is open)
-     */
     private void resetSearchAction() {
         Fragment leftFragment = getLeftFragment();
         if (isSearchOpen() && searchView != null) {
@@ -1005,8 +1017,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             searchView.onActionViewCollapsed();
             searchView.clearFocus();
 
-            if (isRoot(getCurrentDir()) && leftFragment instanceof OCFileListFragment) {
-                OCFileListFragment listOfFiles = (OCFileListFragment) leftFragment;
+            if (isRoot(getCurrentDir()) && leftFragment instanceof OCFileListFragment listOfFiles) {
 
                 // Remove the list to the original state
                 ArrayList<String> listOfHiddenFiles = listOfFiles.getAdapter().listOfHiddenFiles;
@@ -1020,6 +1031,18 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
                 super.onBackPressed();
             }
         }
+    }
+
+    /**
+     * Use this method when want to pop the fragment on back press. It resets Scrolling (See
+     * {@link #resetScrolling(boolean) with true} and pop the visibility for sortListGroup (See
+     * {@link #setSortListGroup(boolean, boolean)}. At last call to super.onBackPressed()
+     */
+    private void popBack() {
+        // pop back fragment
+        resetScrolling(true);
+        popSortListGroupVisibility();
+        super.onBackPressed();
     }
 
     @Override
@@ -2444,18 +2467,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
     public void showFile(String message) {
         dismissLoadingDialog();
 
-        final Fragment leftFragment = getLeftFragment();
-        OCFileListFragment listOfFiles = null;
-        if (leftFragment instanceof OCFileListFragment) {
-            listOfFiles = (OCFileListFragment) leftFragment;
-        } else {
-            listOfFiles = new OCFileListFragment();
-            Bundle args = new Bundle();
-            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
-            listOfFiles.setArguments(args);
-            setLeftFragment(listOfFiles);
-            getSupportFragmentManager().executePendingTransactions();
-        }
+        OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
 
         if (TextUtils.isEmpty(message)) {
             OCFile temp = getFile();
