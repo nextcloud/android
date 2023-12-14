@@ -1208,7 +1208,12 @@ public class FileDataStorageManager {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
         contentValues.put(ProviderTableMeta.OCSHARES_ITEM_SOURCE, share.getItemSource());
-        contentValues.put(ProviderTableMeta.OCSHARES_SHARE_TYPE, share.getShareType().getValue());
+
+        ShareType shareType = share.getShareType();
+        if (shareType != null) {
+            contentValues.put(ProviderTableMeta.OCSHARES_SHARE_TYPE, shareType.getValue());
+        }
+
         contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH, share.getShareWith());
         contentValues.put(ProviderTableMeta.OCSHARES_PATH, share.getPath());
         contentValues.put(ProviderTableMeta.OCSHARES_PERMISSIONS, share.getPermissions());
