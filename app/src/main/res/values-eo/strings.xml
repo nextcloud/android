@@ -14,9 +14,7 @@
     <string name="action_send_share">Sendi aŭ kunhavigi</string>
     <string name="action_switch_grid_view">Krada vido</string>
     <string name="action_switch_list_view">Lista vido</string>
-    <string name="actionbar_copy">Kopii</string>
     <string name="actionbar_mkdir">Nova dosierujo</string>
-    <string name="actionbar_move">Movi</string>
     <string name="actionbar_move_or_copy">Movi aŭ Kopii</string>
     <string name="actionbar_open_with">Malfermi per</string>
     <string name="actionbar_search">Serĉi</string>
@@ -103,7 +101,6 @@
     <string name="common_remove">Forigi</string>
     <string name="common_rename">Alinomi</string>
     <string name="common_save">Konservi</string>
-    <string name="common_select">Elekti</string>
     <string name="common_send">Sendi</string>
     <string name="common_share">Kunhavigi</string>
     <string name="common_skip">Preterpasi</string>
@@ -148,7 +145,6 @@
     <string name="copy_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
     <string name="copy_link">Kopii ligilon</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopii aŭ movi en ĉifritan dosierujon ne estas subtenata momente.</string>
-    <string name="copy_to">Kopii al...</string>
     <string name="create">Krei</string>
     <string name="create_dir_fail_msg">Ne eblis krei dosierujon</string>
     <string name="create_new">Krei nove</string>
@@ -159,7 +155,6 @@
     <string name="credentials_disabled">Akreditiloj estas malebligitaj</string>
     <string name="default_credentials_wrong">Malĝustaj akreditiloj</string>
     <string name="delete_account">Forigi konton</string>
-    <string name="delete_account_warning">Ĉu forigi la konton %s kaj forigi ĉiujn lokajn dosierojn?\n\nMalfari la forigadon tute ne eblas.</string>
     <string name="delete_entries">Forigi elementojn</string>
     <string name="deselect_all">Malelekti ĉion</string>
     <string name="dev_version_new_version_available">Nova versio disponeblas</string>
@@ -287,7 +282,6 @@
     <string name="folder_already_exists">La dosierujo jam ekzistas</string>
     <string name="folder_confirm_create">Krei</string>
     <string name="folder_list_empty_headline">Neniu dosierujo ĉi tie</string>
-    <string name="folder_picker_choose_button_text">Elekti</string>
     <string name="folder_picker_choose_caption_text">Elekti celan dosierujon</string>
     <string name="folder_picker_move_button_text">Movi</string>
     <string name="forbidden_permissions">Vi ne estas permesita %s</string>
@@ -348,7 +342,6 @@
     <string name="move_file_error">Eraro okazis dum provo movi ĉi tiun dosieron aŭ dosierujon</string>
     <string name="move_file_invalid_into_descendent">Ne eblas movi dosierujon en unu el ĝiaj idoj</string>
     <string name="move_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
-    <string name="move_to">Movi al...</string>
     <string name="network_error_socket_exception">Eraro okazis dum konekto al la servilo</string>
     <string name="new_comment">Nova komento...</string>
     <string name="new_media_folder_detected">Nova aŭdovida dosierujo %1$s eltrovita.</string>
@@ -358,7 +351,6 @@
     <string name="new_version_was_created">Nova versio estis kreita</string>
     <string name="no_browser_available">Neniu aplikaĵo disponeblas por trakti legilojn</string>
     <string name="no_pdf_app_available">Neniu aplikaĵo disponeblas por trakti PDF-dosieron</string>
-    <string name="note_confirm">Sendi</string>
     <string name="note_could_not_sent">Ne eblis sendi noton</string>
     <string name="notification_action_failed">Malsukcesis plenumi agon.</string>
     <string name="notification_channel_download_description">Montras elŝutoplenumon</string>
@@ -468,7 +460,6 @@
     <string name="select_all">Elekti ĉion</string>
     <string name="select_template">Elekti ŝablonon</string>
     <string name="send">Sendi</string>
-    <string name="send_note">Sendi noton al ricevonto</string>
     <string name="sendbutton_description">Piktogramo de sendo-butono</string>
     <string name="set_as">Uzi kiel</string>
     <string name="set_picture_as">Uzi la bildon kiel</string>
@@ -503,12 +494,6 @@
     <string name="signup_with_provider">Registriĝi per provizanto</string>
     <string name="single_sign_on_request_token" formatted="true">Ĉu permesi al %1$s aliri al via Nextcloud-konto %2$s?</string>
     <string name="sort_by">Ordigi laŭ</string>
-    <string name="sort_by_modification_date_ascending">Pli novaj unue</string>
-    <string name="sort_by_modification_date_descending">Malpli novaj unue</string>
-    <string name="sort_by_name_ascending">A→Z</string>
-    <string name="sort_by_name_descending">Z→A</string>
-    <string name="sort_by_size_ascending">Malpli grandaj unue</string>
-    <string name="sort_by_size_descending">Pli grandaj unue</string>
     <string name="ssl_validator_btn_details_hide">Malmontri</string>
     <string name="ssl_validator_btn_details_see">Detaloj</string>
     <string name="ssl_validator_header">La identeco de la servilo ne povis kontroliĝi</string>

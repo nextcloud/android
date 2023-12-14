@@ -567,6 +567,10 @@ public class UploadsStorageManager extends Observable {
             , String.valueOf(UploadStatus.UPLOAD_FAILED.value));
     }
 
+    public OCUpload[] getUploadsForAccount(final @NonNull String accountName) {
+        return getUploads(ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", accountName);
+    }
+
     public OCUpload[] getFinishedUploadsForCurrentAccount() {
         User user = currentAccountProvider.getUser();
 
@@ -586,14 +590,14 @@ public class UploadsStorageManager extends Observable {
         User user = currentAccountProvider.getUser();
 
         return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value +
-                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "<>" + UploadResult.LOCK_FAILED.getValue() +
-                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
+                              AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                              "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
+                              AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                              "<>" + UploadResult.LOCK_FAILED.getValue() +
+                              AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                              "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
+                              AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                              "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
                         AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
                         user.getAccountName());
     }
@@ -624,15 +628,15 @@ public class UploadsStorageManager extends Observable {
     public long clearFailedButNotDelayedUploads() {
         User user = currentAccountProvider.getUser();
         final long deleted = getDB().delete(
-                ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value +
-                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "<>" + UploadResult.LOCK_FAILED.getValue() +
-                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                        "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                        AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                "<>" + UploadResult.LOCK_FAILED.getValue() +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
+                "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
+                AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
                         "<>" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
                         AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
                 new String[]{user.getAccountName()}
@@ -647,10 +651,10 @@ public class UploadsStorageManager extends Observable {
     public long clearSuccessfulUploads() {
         User user = currentAccountProvider.getUser();
         final long deleted = getDB().delete(
-                ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value + AND +
-                        ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", new String[]{user.getAccountName()}
-        );
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value + AND +
+                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", new String[]{user.getAccountName()}
+                                           );
 
         Log_OC.d(TAG, "delete all successful uploads");
         if (deleted > 0) {

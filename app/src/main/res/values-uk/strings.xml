@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Показувати сіткою</string>
     <string name="action_switch_list_view">Показувати списком</string>
     <string name="actionbar_calendar_contacts_restore">Відновити контакти &amp; календар</string>
-    <string name="actionbar_copy">Копіювати</string>
     <string name="actionbar_mkdir">Новий каталог</string>
-    <string name="actionbar_move">Перемістити</string>
     <string name="actionbar_move_or_copy">Перемістити або копіювати</string>
     <string name="actionbar_open_with">Відкрити за допомогою</string>
     <string name="actionbar_search">Пошук</string>
@@ -93,7 +91,6 @@
     <string name="check_back_later_or_reload">Перевірити пізніше або перевантажити.</string>
     <string name="checkbox">Прапорець</string>
     <string name="choose_local_folder">Виберіть каталог на пристрої...</string>
-    <string name="choose_location">Виберіть місце розташування</string>
     <string name="choose_remote_folder">Виберіть віддалений каталог...</string>
     <string name="choose_template_helper_text">Будь ласка, оберіть шаблон і введіть ім\'я файлу.</string>
     <string name="choose_which_file">Виберіть, який файл зберегти!</string>
@@ -123,7 +120,6 @@
     <string name="common_remove">Вилучити</string>
     <string name="common_rename">Перейменувати</string>
     <string name="common_save">Зберегти</string>
-    <string name="common_select">Вибрати</string>
     <string name="common_send">Надіслати</string>
     <string name="common_share">Спільний доступ</string>
     <string name="common_skip">Пропустити</string>
@@ -176,7 +172,6 @@
     <string name="copy_file_not_found">Неможливо скопіювати. Будь ласка, перевірте, чи файл існує.</string>
     <string name="copy_link">Копіювати посилання</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копіювання/переміщення в зашифрований каталог - в даний час не підтримується.</string>
-    <string name="copy_to">Копіювати до…</string>
     <string name="could_not_download_image">Неможливо звантажити повне зображення</string>
     <string name="could_not_retrieve_shares">Не вдалося отримати спільні дані</string>
     <string name="could_not_retrieve_url">Неможливо отримати посилання</string>
@@ -194,7 +189,6 @@
     <string name="data_to_back_up">Дані користувача для резервного збереження</string>
     <string name="default_credentials_wrong">Неправильні дані авторизації</string>
     <string name="delete_account">Вилучити обліковий запис</string>
-    <string name="delete_account_warning">Вилучити обліковий запис %s і знищити всі локальні файли?\n\nВилучення неможливо буде скасувати.</string>
     <string name="delete_entries">Вилучити записи</string>
     <string name="delete_link">Посилання на вилучення</string>
     <string name="deselect_all">Зняти всі мітки</string>
@@ -391,7 +385,6 @@
     <string name="folder_already_exists">Каталог вже існує</string>
     <string name="folder_confirm_create">Створити</string>
     <string name="folder_list_empty_headline">Тут відсутні каталоги</string>
-    <string name="folder_picker_choose_button_text">Вибрати</string>
     <string name="folder_picker_choose_caption_text">Виберіть каталог призначення</string>
     <string name="folder_picker_copy_button_text">Копія</string>
     <string name="folder_picker_move_button_text">Перемістити</string>
@@ -492,7 +485,6 @@
     <string name="move_file_invalid_into_descendent">Неможливо перемістити каталог до одного з вкладених підкаталогів</string>
     <string name="move_file_invalid_overwrite">Файл вже присутній у каталозі призначення</string>
     <string name="move_file_not_found">Неможливо перемістити файл. Будь ласка, перевірте, чи він існує.</string>
-    <string name="move_to">Перемістити до...</string>
     <string name="network_error_connect_timeout_exception">Помилка під час очікування відповіді від сервера. Неможливо виконати дію.</string>
     <string name="network_error_socket_exception">Помилка під час з\'єднання з сервером</string>
     <string name="network_error_socket_timeout_exception">Помилка під час очікування відповіді від сервера. Неможливо виконати дію.</string>
@@ -513,7 +505,6 @@
     <string name="no_pdf_app_available">Відсутні застосунки для відкриття PDF-файлів</string>
     <string name="no_send_app">Відсутній застосунок для надсилання виділених файлів</string>
     <string name="no_share_permission_selected">Виберіть принаймні один дозвіл для спільного використання.</string>
-    <string name="note_confirm">Надіслати</string>
     <string name="note_could_not_sent">Неможливо надіслати нотатку</string>
     <string name="note_icon_hint">Піктограма нотатки</string>
     <string name="notification_action_failed">Не вдалося виконати дію.</string>
@@ -680,7 +671,6 @@
     <string name="select_one_template">Будь ласка, виберіть один шаблон.</string>
     <string name="select_template">Виберіть шаблон</string>
     <string name="send">Надіслати</string>
-    <string name="send_note">Надіслати сповіщення отримувачу</string>
     <string name="send_share">Поділитися</string>
     <string name="sendbutton_description">Зображення кнопки надсилання</string>
     <string name="set_as">Встановити як</string>
@@ -738,12 +728,6 @@
     <string name="signup_with_provider">Зареєструватися у провайдейра</string>
     <string name="single_sign_on_request_token" formatted="true">Дозволити %1$s мати доступ до вашого облікового запису у Nextcloud %2$s?</string>
     <string name="sort_by">Впорядкувати за</string>
-    <string name="sort_by_modification_date_ascending">Новіші спочатку</string>
-    <string name="sort_by_modification_date_descending">Старіші спочатку</string>
-    <string name="sort_by_name_ascending">А--Я</string>
-    <string name="sort_by_name_descending">Я--А</string>
-    <string name="sort_by_size_ascending">Найменші на початку</string>
-    <string name="sort_by_size_descending">Найбільші на початку</string>
     <string name="ssl_validator_btn_details_hide">Сховати</string>
     <string name="ssl_validator_btn_details_see">Деталі</string>
     <string name="ssl_validator_header">Неможливо перевірити ідентифікатор сервера.</string>

@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Rutnätsvy</string>
     <string name="action_switch_list_view">Listvy</string>
     <string name="actionbar_calendar_contacts_restore">Återställ kontakter &amp; kalender</string>
-    <string name="actionbar_copy">Kopiera</string>
     <string name="actionbar_mkdir">Ny mapp</string>
-    <string name="actionbar_move">Flytta</string>
     <string name="actionbar_move_or_copy">Flytta eller kopiera</string>
     <string name="actionbar_open_with">Öppna med</string>
     <string name="actionbar_search">Sök</string>
@@ -93,7 +91,6 @@
     <string name="check_back_later_or_reload">Återkom senare eller ladda om</string>
     <string name="checkbox">Kryssruta</string>
     <string name="choose_local_folder">Välj lokal mapp…</string>
-    <string name="choose_location">Välj plats</string>
     <string name="choose_remote_folder">Välj extern mapp…</string>
     <string name="choose_template_helper_text">Vänligen välj en mall och ange ett filnamn.</string>
     <string name="choose_which_file">Välj vilken fil du vill behålla!</string>
@@ -123,7 +120,6 @@
     <string name="common_remove">Ta bort</string>
     <string name="common_rename">Byt namn</string>
     <string name="common_save">Spara</string>
-    <string name="common_select">Välj</string>
     <string name="common_send">Skicka</string>
     <string name="common_share">Dela</string>
     <string name="common_skip">Hoppa över</string>
@@ -176,7 +172,6 @@
     <string name="copy_file_not_found">Kunde inte kopiera. Vänligen kontrollera om filen existerar.</string>
     <string name="copy_link">Kopiera länk</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiera/flytta till krypterad mapp stöds för närvarande inte.</string>
-    <string name="copy_to">Kopiera till…</string>
     <string name="could_not_download_image">Kunde inte hämta hela bilden</string>
     <string name="could_not_retrieve_shares">Kunde inte hämta delade mappar</string>
     <string name="could_not_retrieve_url">Kunde inte hämta URL</string>
@@ -194,7 +189,6 @@
     <string name="data_to_back_up">Data att säkerhetskopiera</string>
     <string name="default_credentials_wrong">Felaktiga inloggningsuppgifter</string>
     <string name="delete_account">Ta bort konto</string>
-    <string name="delete_account_warning">Ta bort konto %s med alla lokala filer?\n\nBorttagning kan inte ångras.</string>
     <string name="delete_entries">Ta bort poster</string>
     <string name="delete_link">Ta bort länk</string>
     <string name="deselect_all">Avmarkera alla</string>
@@ -395,7 +389,6 @@
     <string name="folder_already_exists">Mapp finns redan</string>
     <string name="folder_confirm_create">Skapa</string>
     <string name="folder_list_empty_headline">Inga mappar här</string>
-    <string name="folder_picker_choose_button_text">Välj</string>
     <string name="folder_picker_choose_caption_text">Välj målmapp</string>
     <string name="folder_picker_copy_button_text">Kopiera</string>
     <string name="folder_picker_move_button_text">Flytta</string>
@@ -500,7 +493,6 @@
     <string name="move_file_invalid_into_descendent">Det är inte möjligt att flytta en mapp till en av dess undermappar</string>
     <string name="move_file_invalid_overwrite">Filen finns redan i målmappen</string>
     <string name="move_file_not_found">Kan inte flytta filen. Vänligen kontrollera om det finns.</string>
-    <string name="move_to">Flytta till…</string>
     <string name="network_error_connect_timeout_exception">Ett fel uppstod i väntan på servern. Kunde inte slutföra operationen.</string>
     <string name="network_error_socket_exception">Ett fel uppstod under anslutningen till servern</string>
     <string name="network_error_socket_timeout_exception">Ett fel uppstod i väntan på servern. Kunde inte slutföra operationen.</string>
@@ -521,7 +513,6 @@
     <string name="no_pdf_app_available">Ingen app tillgänglig för att hantera PDF</string>
     <string name="no_send_app">Ingen app tillgänglig för att skicka de valda filerna</string>
     <string name="no_share_permission_selected">Välj minst en behörighet att dela.</string>
-    <string name="note_confirm">Skicka</string>
     <string name="note_could_not_sent">Kunde inte skicka meddelande</string>
     <string name="note_icon_hint">Antecknings ikon</string>
     <string name="notification_action_failed">Misslyckades utföra åtgärd.</string>
@@ -692,7 +683,6 @@
     <string name="select_one_template">Vänligen välj en mall</string>
     <string name="select_template">Välj mall</string>
     <string name="send">Skicka</string>
-    <string name="send_note">Skicka notering till mottagare</string>
     <string name="send_share">Skicka &amp; dela</string>
     <string name="sendbutton_description">Ikonen för Skicka-knapp</string>
     <string name="set_as">Sätt som</string>
@@ -750,12 +740,6 @@
     <string name="signup_with_provider">Registrera hos en leverantör</string>
     <string name="single_sign_on_request_token" formatted="true">Tillåt %1$s att komma åt ditt Nextcloud-konto %2$s?</string>
     <string name="sort_by">Sortera efter</string>
-    <string name="sort_by_modification_date_ascending">Nyaste först</string>
-    <string name="sort_by_modification_date_descending">Äldst först</string>
-    <string name="sort_by_name_ascending">A - Ö</string>
-    <string name="sort_by_name_descending">Ö - A</string>
-    <string name="sort_by_size_ascending">Minst först</string>
-    <string name="sort_by_size_descending">Störst först</string>
     <string name="ssl_validator_btn_details_hide">Göm</string>
     <string name="ssl_validator_btn_details_see">Detaljer</string>
     <string name="ssl_validator_header">Webbplatsens identitet kunde inte verifieras</string>

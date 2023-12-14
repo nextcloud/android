@@ -14,9 +14,7 @@
     <string name="action_send_share">Imbia/Cumpartzi</string>
     <string name="action_switch_grid_view">Visualizatzione a grìllia</string>
     <string name="action_switch_list_view">Visualizatzione a elencu</string>
-    <string name="actionbar_copy">Còpia</string>
     <string name="actionbar_mkdir">Cartella noa</string>
-    <string name="actionbar_move">Moe</string>
     <string name="actionbar_open_with">Aberi cun</string>
     <string name="actionbar_search">Chirca</string>
     <string name="actionbar_see_details">Detàllios</string>
@@ -114,7 +112,6 @@
     <string name="common_remove">Cantzella</string>
     <string name="common_rename">Torra a numenare</string>
     <string name="common_save">Sarva</string>
-    <string name="common_select">Seletziona</string>
     <string name="common_send">Imbia</string>
     <string name="common_share">Cumpartzi</string>
     <string name="common_skip">Brinca</string>
@@ -162,7 +159,6 @@
     <string name="copy_file_not_found">Impossìbile a copiare. Controlla si su documentu esistit.</string>
     <string name="copy_link">Còpia ligòngiu</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Còpia/tràmuda a sa cartella critografada non suportada.</string>
-    <string name="copy_to">Còpia in...</string>
     <string name="could_not_download_image">No at fatu a iscarrigare totu s\'immàgine</string>
     <string name="could_not_retrieve_shares">No at fatu a recuperare is cumpartziduras</string>
     <string name="could_not_retrieve_url">No at fatu a recuperare s\'URL</string>
@@ -178,7 +174,6 @@
     <string name="credentials_disabled">Credentziales disativadas</string>
     <string name="default_credentials_wrong">Credentziales isballiadas</string>
     <string name="delete_account">Boga·nche su contu</string>
-    <string name="delete_account_warning">Bogare su contu %s e cantzellare is documentos locales?\n\nSa cantzelladura non faghet a dd\'annullare.</string>
     <string name="delete_entries">Cantzella notas</string>
     <string name="deselect_all">Deseletziona totu</string>
     <string name="dev_version_new_version_available">Versione noa a disponimentu</string>
@@ -345,7 +340,6 @@
     <string name="folder_already_exists">Sa cartella esistit giai</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">Peruna cartella inoghe</string>
-    <string name="folder_picker_choose_button_text">Sèbera</string>
     <string name="folder_picker_choose_caption_text">Sèbera cartella de destinatzione</string>
     <string name="folder_picker_copy_button_text">Còpia</string>
     <string name="folder_picker_move_button_text">Tràmuda</string>
@@ -426,7 +420,6 @@
     <string name="move_file_invalid_into_descendent">No est possìbile a tramudare una cartella a intro de una de is cartellas in suta</string>
     <string name="move_file_invalid_overwrite">Su documentu est giai presente in sa cartella de destinatzione</string>
     <string name="move_file_not_found">Impossìbile a tramudare su documentu. Controlla si esistit.</string>
-    <string name="move_to">Tràmuda a…</string>
     <string name="network_error_connect_timeout_exception">Ddoe at àpidu un\'errore abetende su serbidore. No at fatu a agabbare s\'operatzione.</string>
     <string name="network_error_socket_exception">Ddoe at àpidu un\'errore durante sa connessione cun su serbidore</string>
     <string name="network_error_socket_timeout_exception">Ddoe at àpidu un\'errore abetende su serbidore. No at fatu a agabbare s\'operatzione.</string>
@@ -440,7 +433,6 @@
     <string name="no_browser_available">Peruna aplicatzione pro gestire ligòngios a disponimentu</string>
     <string name="no_mutliple_accounts_allowed">Est permìtidu unu contu ebbia</string>
     <string name="no_pdf_app_available">Peruna aplicatzione pro gestire PDF a disponimentu</string>
-    <string name="note_confirm">Imbia</string>
     <string name="note_could_not_sent">No at fatu a imbiare sa nota</string>
     <string name="note_icon_hint">Icona de is notas</string>
     <string name="notification_action_failed">No at fatu a esecutare s\'atzione.</string>
@@ -583,7 +575,6 @@
     <string name="select_one_template">Sèbera unu tema</string>
     <string name="select_template">Seletziona modellu</string>
     <string name="send">Imbia</string>
-    <string name="send_note">Imbia notas a persone destinatària</string>
     <string name="sendbutton_description">Imbia s\'icona de su butone</string>
     <string name="set_as">Imposta comente</string>
     <string name="set_picture_as">Imprea immàgine comente</string>
@@ -630,12 +621,6 @@
     <string name="signup_with_provider">Registra•ti cun su frunidore</string>
     <string name="single_sign_on_request_token" formatted="true">Permìtere a %1$s de intrare in su contu tuo de Nextcloud %2$s?</string>
     <string name="sort_by">Assenta segundu</string>
-    <string name="sort_by_modification_date_ascending">Prima su prus nou</string>
-    <string name="sort_by_modification_date_descending">Prima su prus betzu</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Prima su prus piticu</string>
-    <string name="sort_by_size_descending">Prima su prus mannu</string>
     <string name="ssl_validator_btn_details_hide">Cua</string>
     <string name="ssl_validator_btn_details_see">Detàllios</string>
     <string name="ssl_validator_header">No at fatu a averguare s\'identidade de su serbidore</string>

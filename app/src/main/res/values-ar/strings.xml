@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">عرض شبكي</string>
     <string name="action_switch_list_view">عرض على شكل قائمة</string>
     <string name="actionbar_calendar_contacts_restore">استعادة جهات الاتصال &amp; التقويم</string>
-    <string name="actionbar_copy">نسخ</string>
     <string name="actionbar_mkdir">مجلد جديد</string>
-    <string name="actionbar_move">نقل</string>
     <string name="actionbar_move_or_copy">أنقُل أو انسَخ</string>
     <string name="actionbar_open_with">فتح باستخدام</string>
     <string name="actionbar_search">بحث</string>
@@ -93,7 +91,6 @@
     <string name="check_back_later_or_reload">عُد إليه فيما بعد أو أعد تحميله</string>
     <string name="checkbox">مربع تحقق</string>
     <string name="choose_local_folder">اختر المجلد المحلي…</string>
-    <string name="choose_location">اختر الموقع</string>
     <string name="choose_remote_folder">اختر مجلد عن بُعد…</string>
     <string name="choose_template_helper_text">اختر قالب وادخل اسم الملف</string>
     <string name="choose_which_file">اختر أي من أياً من الملفات التالية التي تريد الإحتفاظ بها!</string>
@@ -123,7 +120,6 @@
     <string name="common_remove">إزالة</string>
     <string name="common_rename">إعادة التسمية</string>
     <string name="common_save">حفظ</string>
-    <string name="common_select">تحديد</string>
     <string name="common_send">إرسال</string>
     <string name="common_share">مشاركة</string>
     <string name="common_skip">تخطي</string>
@@ -176,7 +172,6 @@
     <string name="copy_file_not_found">تعذّر النسخ. يرجى التحقق من وجود الملف.</string>
     <string name="copy_link">نسخ الرابط</string>
     <string name="copy_move_to_encrypted_folder_not_supported">النسخ أو النقل إلى مجلد مشفر حالياً غير مدعوم.</string>
-    <string name="copy_to">انسخه إلى…</string>
     <string name="could_not_download_image">لايمكن تحميل الصورة بأكملها</string>
     <string name="could_not_retrieve_shares">لايمكن استعادة المشاركات</string>
     <string name="could_not_retrieve_url">لا يمكن استرجاع الرابط</string>
@@ -194,7 +189,6 @@
     <string name="data_to_back_up">البيانات التي سيتم نسخها احتياطيا</string>
     <string name="default_credentials_wrong">التصريح خاطئ</string>
     <string name="delete_account">حذف الحساب</string>
-    <string name="delete_account_warning">حذف الحساب %s وحذف جميع الملفات المحلية؟\n\nعملية الحذف لا يمكن التراجع عنها.</string>
     <string name="delete_entries">حذف القيم</string>
     <string name="delete_link">حذف الرابط</string>
     <string name="deselect_all">إلغاء تحديد الكل</string>
@@ -395,7 +389,6 @@
     <string name="folder_already_exists">المجلد موجود مسبقاً</string>
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
-    <string name="folder_picker_choose_button_text">اختيار</string>
     <string name="folder_picker_choose_caption_text">اختر مكان المجلد</string>
     <string name="folder_picker_copy_button_text">إنسَخ</string>
     <string name="folder_picker_move_button_text">نقل</string>
@@ -504,7 +497,6 @@
     <string name="move_file_invalid_into_descendent">لا يمكن نقل مجلد في مجلدات هوَّ يتضمنها</string>
     <string name="move_file_invalid_overwrite">هذا الملف موجود حالياً في المجلد المُّسّتَقبِل</string>
     <string name="move_file_not_found">غير قادر على نقل الملف. يرجى التحقق مما إذا كان موجوداً.</string>
-    <string name="move_to">نقل إلى…</string>
     <string name="network_error_connect_timeout_exception">حدث خطأ أثناء انتظار الخادم. تعذر إكمال العملية.</string>
     <string name="network_error_socket_exception">حدث خطأ أثناء الاتصال بالخادم</string>
     <string name="network_error_socket_timeout_exception">حدث خطأ أثناء انتظار الخادم. تعذر إكمال العملية.</string>
@@ -525,7 +517,6 @@
     <string name="no_pdf_app_available">لا يوجد تطبيق متاح للتعامل مع PDF</string>
     <string name="no_send_app">لا يوجد تطبيق متاح لإرسال الملفات المحددة</string>
     <string name="no_share_permission_selected">الرجاء اختيار على الأقل صلاحية واحدة للمشاركة</string>
-    <string name="note_confirm">أرسل</string>
     <string name="note_could_not_sent">لا يمكن إرسال الملاحظة</string>
     <string name="note_icon_hint">أيقونة الملاحظة</string>
     <string name="notification_action_failed">فشل في تنفيذ الإجراء.</string>
@@ -696,7 +687,6 @@
     <string name="select_one_template">الرجاء تحديد قالب واحد</string>
     <string name="select_template">حدد قالب</string>
     <string name="send">إرسال</string>
-    <string name="send_note">إرسال ملاحظة إلى المستلم</string>
     <string name="send_share">إرسال مشاركة</string>
     <string name="sendbutton_description">أيقونة زر الإرسال</string>
     <string name="set_as">حفظ كـ</string>
@@ -754,12 +744,6 @@
     <string name="signup_with_provider">التسجيل عبر مزوّد خدمة</string>
     <string name="single_sign_on_request_token" formatted="true">هل تسمح لـ%1$s بالوصول إلى حسابك %2$s في Nextcloud؟</string>
     <string name="sort_by">ترتيب</string>
-    <string name="sort_by_modification_date_ascending">الأحدث أولا</string>
-    <string name="sort_by_modification_date_descending">الأقدم أولا</string>
-    <string name="sort_by_name_ascending">أ - ى</string>
-    <string name="sort_by_name_descending">ى -أ</string>
-    <string name="sort_by_size_ascending">الأصغر حجما أولا</string>
-    <string name="sort_by_size_descending">الأكبر حجما أولا</string>
     <string name="ssl_validator_btn_details_hide">إخفاء</string>
     <string name="ssl_validator_btn_details_see">تفاصيل</string>
     <string name="ssl_validator_header">لا يمكن التحقق من هوية الخادم</string>
@@ -905,7 +889,10 @@
     <string name="uploader_error_message_source_file_not_found">لم يتم إيجاد الملف المحدد للرفع. الرجاء التأكد من أن الملف موجود.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">لا يمكن رفع هذا الملف</string>
     <string name="uploader_error_title_no_file_to_upload">لا يوجد ملف لترفعه</string>
+    <string name="uploader_file_not_found_message">الملف غير موجود. هل أنت متأكد من وجود الملف أو أن هنالك تعارضاً لم يُحلّ؟</string>
+    <string name="uploader_file_not_found_on_server_message">لم نتمكن من إيجاد الملف على الخادوم. يمكن أن يكون قد تمّ حذفه من قِبل مُستخدِمٍ آخر</string>
     <string name="uploader_info_dirname">اسم المجلد</string>
+    <string name="uploader_local_files_uploaded">حاول رفع الملفات المحلية مرةً أخرى</string>
     <string name="uploader_top_message">اختر مجلد للرفع</string>
     <string name="uploader_upload_failed_content_single">فشل الرفع %1$s</string>
     <string name="uploader_upload_failed_credentials_error">فشل الرفع ، قم بتسجيل الدخول مرة أخرى</string>

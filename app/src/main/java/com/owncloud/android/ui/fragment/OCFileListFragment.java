@@ -1766,7 +1766,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                                serializedFolderMetadata,
                                                token,
                                                client,
-                                               metadataExists);
+                                               metadataExists,
+                                               arbitraryDataProvider,
+                                               user);
 
                 // unlock folder
                 EncryptionUtils.unlockFolder(folder, client, token);

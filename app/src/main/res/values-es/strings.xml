@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Vista en cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar los contactos y el calendario</string>
-    <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
-    <string name="actionbar_move">Mover</string>
     <string name="actionbar_move_or_copy">Mover o Copiar</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
@@ -93,7 +91,6 @@
     <string name="check_back_later_or_reload">Regrese luego o recargue.</string>
     <string name="checkbox">Casilla de verificación</string>
     <string name="choose_local_folder">Seleccione carpeta local…</string>
-    <string name="choose_location">Elige una ubicación</string>
     <string name="choose_remote_folder">Selecciona carpeta remota…</string>
     <string name="choose_template_helper_text">Por favor, elije una plantilla e introduce un nombre de archivo.</string>
     <string name="choose_which_file">¡Elije que archivos mantener!</string>
@@ -123,7 +120,6 @@
     <string name="common_remove">Borrar</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_save">Guardar</string>
-    <string name="common_select">Seleccionar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
     <string name="common_skip">Omitir</string>
@@ -176,7 +172,6 @@
     <string name="copy_file_not_found">Imposible copiar. Por favor, comprueba que el archivo exista.</string>
     <string name="copy_link">Copiar enlace</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover en la carpeta cifrada no está actualmente soportado.</string>
-    <string name="copy_to">Copiar a…</string>
     <string name="could_not_download_image">No se ha podido descargar la imagen completa</string>
     <string name="could_not_retrieve_shares">No se han podido recuperar los recursos compartidos</string>
     <string name="could_not_retrieve_url">No se ha podido recuperar la URL</string>
@@ -194,7 +189,6 @@
     <string name="data_to_back_up">Datos a respaldar</string>
     <string name="default_credentials_wrong">Credenciales incorrectas</string>
     <string name="delete_account">Eliminar cuenta</string>
-    <string name="delete_account_warning">¿Eliminar cuenta %s y borrar todos los archivos locales?\n\nEl borrado no se puede deshacer.</string>
     <string name="delete_entries">Eliminar entradas</string>
     <string name="delete_link">Eliminar enlace</string>
     <string name="deselect_all">Desmarcar todos</string>
@@ -394,7 +388,6 @@
     <string name="folder_already_exists">La carpeta ya existe</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">No hay carpetas aquí</string>
-    <string name="folder_picker_choose_button_text">Elegir</string>
     <string name="folder_picker_choose_caption_text">Elegir carpeta de destino</string>
     <string name="folder_picker_copy_button_text">Copia</string>
     <string name="folder_picker_move_button_text">Mover</string>
@@ -499,7 +492,6 @@
     <string name="move_file_invalid_into_descendent">No se puede mover una carpeta dentro de una de sus propias subcarpetas.</string>
     <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
     <string name="move_file_not_found">Imposible mover. Por favor, comprueba que el archivo exista.</string>
-    <string name="move_to">Mover a…</string>
     <string name="network_error_connect_timeout_exception">Ha ocurrido un error al esperar al servidor. No se pudo completar la operación.</string>
     <string name="network_error_socket_exception">Se ha producido un error al conectarse con el servidor</string>
     <string name="network_error_socket_timeout_exception">Ha ocurrido un error al esperar al servidor. No se pudo completar la operación.</string>
@@ -520,7 +512,6 @@
     <string name="no_pdf_app_available">No hay apps disponibles para manejar PDF</string>
     <string name="no_send_app">No hay una app disponible para el envío de los archivos seleccionados</string>
     <string name="no_share_permission_selected">Por favor, selecciona al menos un permiso para compartir.</string>
-    <string name="note_confirm">Enviar</string>
     <string name="note_could_not_sent">No se puede enviar la nota</string>
     <string name="note_icon_hint">Icono de la nota</string>
     <string name="notification_action_failed">Fallo al ejecutar la acción.</string>
@@ -686,7 +677,6 @@
     <string name="select_one_template">Por favor, selecciona una plantilla</string>
     <string name="select_template">Escoge plantilla</string>
     <string name="send">Mandar</string>
-    <string name="send_note">Enviar nota al destinatario</string>
     <string name="send_share">Enviar recurso compartido</string>
     <string name="sendbutton_description">Icono del botón de enviar</string>
     <string name="set_as">Establecer como</string>
@@ -744,12 +734,6 @@
     <string name="signup_with_provider">Registrarse con un proveedor</string>
     <string name="single_sign_on_request_token" formatted="true">¿Permitir a %1$s acceder a tu cuenta de Nextcloud %2$s?</string>
     <string name="sort_by">Ordenar por</string>
-    <string name="sort_by_modification_date_ascending">Más modernos primero</string>
-    <string name="sort_by_modification_date_descending">Más antiguos primero</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z- A</string>
-    <string name="sort_by_size_ascending">Más pequeños primero</string>
-    <string name="sort_by_size_descending">Más grandes primero</string>
     <string name="ssl_validator_btn_details_hide">Ocultar</string>
     <string name="ssl_validator_btn_details_see">Detalles</string>
     <string name="ssl_validator_header">No se ha podido verificar la identidad del servidor </string>

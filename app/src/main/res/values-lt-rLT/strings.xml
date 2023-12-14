@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Tinklelio rodinys</string>
     <string name="action_switch_list_view">Sąrašo rodinys</string>
     <string name="actionbar_calendar_contacts_restore">Atkurti adresatus ir kalendorių</string>
-    <string name="actionbar_copy">Kopijuoti</string>
     <string name="actionbar_mkdir">Naujas aplankas</string>
-    <string name="actionbar_move">Perkelti</string>
     <string name="actionbar_open_with">Atverti naudojant</string>
     <string name="actionbar_search">Paieška</string>
     <string name="actionbar_see_details">Išsamiau</string>
@@ -118,7 +116,6 @@
     <string name="common_remove">Ištrinti</string>
     <string name="common_rename">Pervadinti</string>
     <string name="common_save">Įrašyti</string>
-    <string name="common_select">Pasirinkti</string>
     <string name="common_send">Siųsti</string>
     <string name="common_share">Bendrinti</string>
     <string name="common_skip">Praleisti</string>
@@ -168,7 +165,6 @@
     <string name="copy_file_not_found">Nepavyko nukopijuoti. Patikrinkite, ar failas egzistuoja.</string>
     <string name="copy_link">Kopijuoti nuorodą</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopijavimas/perkėlimas į šifruotą aplanką šiuo metu nėra palaikomas.</string>
-    <string name="copy_to">Kopijuoti į…</string>
     <string name="could_not_download_image">Nepavyko atsisiųsti viso paveikslo</string>
     <string name="could_not_retrieve_shares">Nepavyko gauti viešinių</string>
     <string name="could_not_retrieve_url">Nepavyko nuskaityti URL</string>
@@ -186,7 +182,6 @@
     <string name="data_to_back_up">Duomenys, kurių atsarginę kopiją daryti</string>
     <string name="default_credentials_wrong">Neteisingi prisijungimo duomenys</string>
     <string name="delete_account">Šalinti paskyrą</string>
-    <string name="delete_account_warning">Pašalinti paskyrą %s ir ištrinti visus vietinius failus?\n\nIštrynimo nebegalima bus atšaukti.</string>
     <string name="delete_entries">Ištrinti įrašus</string>
     <string name="delete_link">Ištrinti nuorodą</string>
     <string name="deselect_all">Panaikinti pasirinkimą</string>
@@ -362,7 +357,6 @@
     <string name="folder_already_exists">Aplankas jau yra</string>
     <string name="folder_confirm_create">Sukurti</string>
     <string name="folder_list_empty_headline">Čia aplankų nėra</string>
-    <string name="folder_picker_choose_button_text">Pasirinkti</string>
     <string name="folder_picker_choose_caption_text">Pasirinkite paskirties aplanką</string>
     <string name="folder_picker_copy_button_text">Kopija</string>
     <string name="folder_picker_move_button_text">Perkelti</string>
@@ -448,7 +442,6 @@
     <string name="move_file_invalid_into_descendent">Neįmanoma perkelti aplanko į poaplankį</string>
     <string name="move_file_invalid_overwrite">Failas jau yra paskirties aplanke</string>
     <string name="move_file_not_found">Nepavyko perkelti failo. Prašome patikrinkite  ar jis egzistuoja.</string>
-    <string name="move_to">Perkelti į…</string>
     <string name="network_error_connect_timeout_exception">Laukiant serverio įvyko klaida. Nepavyko pabaigti operacijos.</string>
     <string name="network_error_socket_exception">Prisijungimo prie serverio metu įvyko klaida</string>
     <string name="network_error_socket_timeout_exception">Laukiant serverio įvyko klaida. Nepavyko pabaigti operacijos.</string>
@@ -462,7 +455,6 @@
     <string name="no_mutliple_accounts_allowed">Leidžiama tik viena paskyra</string>
     <string name="no_pdf_app_available">Nėra programėlės, skirtos apdoroti PDF</string>
     <string name="no_share_permission_selected">Pasirinkite bent vieną teisių grupę bendrinimui.</string>
-    <string name="note_confirm">Siųsti</string>
     <string name="note_could_not_sent">nepavyko išsiųsti užrašų</string>
     <string name="note_icon_hint">Užrašo piktograma</string>
     <string name="notification_action_failed">Nepavyko įvykdyti veiksmą.</string>
@@ -609,7 +601,6 @@
     <string name="select_one_template">Pasirinkite vieną šabloną</string>
     <string name="select_template">Pasirinkite šabloną</string>
     <string name="send">Siųsti</string>
-    <string name="send_note">Siųsti pastabą gavėjui</string>
     <string name="sendbutton_description">Siuntimo mygtuko priktograma</string>
     <string name="set_as">Nustatyti kaip</string>
     <string name="set_note">Įrašyti pastabą</string>
@@ -660,12 +651,6 @@
     <string name="signup_with_provider">Registruotis su tiekėju</string>
     <string name="single_sign_on_request_token" formatted="true">Leisti %1$s gauti prieigą prie jūsų Nextcloud paskyros %2$s?</string>
     <string name="sort_by">Rikiuoti pagal</string>
-    <string name="sort_by_modification_date_ascending">Naujausi pirma</string>
-    <string name="sort_by_modification_date_descending">Seniausi pirma</string>
-    <string name="sort_by_name_ascending">A - Ž</string>
-    <string name="sort_by_name_descending">Ž - A</string>
-    <string name="sort_by_size_ascending">Mažiausi pirma</string>
-    <string name="sort_by_size_descending">Didžiausi pirma</string>
     <string name="ssl_validator_btn_details_hide">Slėpti</string>
     <string name="ssl_validator_btn_details_see">Informacija</string>
     <string name="ssl_validator_header">Nepavyko patikrinti serverio tapatybės</string>
