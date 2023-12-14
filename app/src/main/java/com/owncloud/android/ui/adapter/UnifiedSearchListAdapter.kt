@@ -50,6 +50,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 class UnifiedSearchListAdapter(
     private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
+    private val filesAction: UnifiedSearchItemViewHolder.FilesAction,
     private val user: User,
     private val clientFactory: ClientFactory,
     private val context: Context,
@@ -92,6 +93,7 @@ class UnifiedSearchListAdapter(
                     clientFactory,
                     storageManager,
                     listInterface,
+                    filesAction,
                     context,
                     viewThemeUtils
                 )
