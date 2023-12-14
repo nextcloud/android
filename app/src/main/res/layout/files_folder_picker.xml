@@ -20,6 +20,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_standard" />
@@ -79,6 +80,17 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/folder_picker_move_button_text"
+            app:cornerRadius="@dimen/button_corner_radius" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/folder_picker_btn_choose"
+            android:visibility="gone"
+            tools:visibility="visible"
+            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/folder_picker_choose_button_text"
             app:cornerRadius="@dimen/button_corner_radius" />
 
 	</LinearLayout>
