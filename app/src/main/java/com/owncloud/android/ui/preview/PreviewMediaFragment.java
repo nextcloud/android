@@ -31,6 +31,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -44,7 +45,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 
 import com.nextcloud.client.account.User;
@@ -82,22 +85,15 @@ import java.util.concurrent.Executors;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.OptIn;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.media3.common.MediaItem;
-import androidx.media3.common.util.UnstableApi;
 import androidx.media3.exoplayer.ExoPlayer;
 
-@OptIn(markerClass = UnstableApi.class)
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
  * <p>
@@ -107,7 +103,7 @@ import androidx.media3.exoplayer.ExoPlayer;
  * By now, if the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
  * instantiation too.
  */
-public class PreviewMediaFragment extends FileFragment implements
+public class PreviewMediaFragment extends FileFragment implements OnTouchListener,
     Injectable {
 
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
@@ -144,8 +140,6 @@ public class PreviewMediaFragment extends FileFragment implements
     private ViewGroup emptyListView;
     private ExoPlayer exoPlayer;
     private NextcloudClient nextcloudClient;
-    private WindowInsetsControllerCompat windowInsetsController;
-    private ActionBar actionBar;
 
     /**
      * Creates a fragment to preview a file.
@@ -260,7 +254,6 @@ public class PreviewMediaFragment extends FileFragment implements
             if (MimeTypeUtil.isVideo(file)) {
                 binding.exoplayerView.setVisibility(View.VISIBLE);
                 binding.imagePreview.setVisibility(View.GONE);
-                binding.getRoot().setBackgroundColor(getResources().getColor(R.color.black, null));
             } else {
                 binding.exoplayerView.setVisibility(View.GONE);
                 binding.imagePreview.setVisibility(View.VISIBLE);
@@ -404,32 +397,9 @@ public class PreviewMediaFragment extends FileFragment implements
         }
     }
 
-    private void initWindowInsetsController() {
-        windowInsetsController = WindowCompat.getInsetsController(requireActivity().getWindow(), requireActivity().getWindow().getDecorView());
-        windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-    }
-
-    private void initActionBar() {
-        AppCompatActivity appCompatActivity = (AppCompatActivity) requireActivity();
-        actionBar = appCompatActivity.getSupportActionBar();
-    }
-
     private void setupVideoView() {
-        initWindowInsetsController();
-        initActionBar();
-
-        int type = WindowInsetsCompat.Type.systemBars();
-        binding.exoplayerView.setFullscreenButtonClickListener(isFullScreen -> {
-            Log_OC.e(TAG, "Fullscreen: " + isFullScreen);
-            if (isFullScreen) {
-                windowInsetsController.hide(type);
-                actionBar.hide();
-            } else {
-                windowInsetsController.show(type);
-                actionBar.show();
-            }
-        });
         binding.exoplayerView.setPlayer(exoPlayer);
+        binding.exoplayerView.setFullscreenButtonClickListener(isFullScreen -> startFullScreenVideo());
     }
 
     private void stopAudio() {
@@ -636,10 +606,6 @@ public class PreviewMediaFragment extends FileFragment implements
     public void onDestroyView() {
         Log_OC.v(TAG, "onDestroyView");
         super.onDestroyView();
-        if (windowInsetsController != null && actionBar != null) {
-            windowInsetsController.show(WindowInsetsCompat.Type.systemBars());
-            actionBar.show();
-        }
         binding = null;
     }
 
@@ -657,6 +623,25 @@ public class PreviewMediaFragment extends FileFragment implements
         mediaPlayerServiceConnection.unbind();
         toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_UNLOCKED);
         super.onStop();
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN && v.equals(binding.exoplayerView)) {
+            // added a margin on the left to avoid interfering with gesture to open navigation drawer
+            if (event.getX() / Resources.getSystem().getDisplayMetrics().density > MIN_DENSITY_RATIO) {
+                startFullScreenVideo();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private void startFullScreenVideo() {
+        final FragmentActivity activity = getActivity();
+        if (activity != null) {
+            new PreviewVideoFullscreenDialog(activity, nextcloudClient, exoPlayer, binding.exoplayerView).show();
+        }
     }
 
     @Override
