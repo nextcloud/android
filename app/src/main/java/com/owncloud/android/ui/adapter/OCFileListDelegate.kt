@@ -207,6 +207,7 @@ class OCFileListDelegate(
         searchType: SearchType?
     ) {
         // thumbnail
+        gridViewHolder.imageFileName?.text = file.fileName
         gridViewHolder.thumbnail.tag = file.fileId
         DisplayUtils.setThumbnail(
             file,
@@ -221,6 +222,7 @@ class OCFileListDelegate(
             viewThemeUtils,
             syncFolderProvider
         )
+
         // item layout + click listeners
         bindGridItemLayout(file, gridViewHolder)
 
