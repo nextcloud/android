@@ -39,6 +39,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
@@ -429,6 +430,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             ocFileListDelegate.bindGridViewHolder(gridViewHolder, file, searchType);
             gridViewHolder.checkVisibilityOfFileFeaturesLayout();
+            checkVisibilityOfMoreButtons(gridViewHolder);
 
             if (holder instanceof ListItemViewHolder) {
                 bindListItemViewHolder((ListItemViewHolder) gridViewHolder, file);
@@ -436,9 +438,24 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             if (holder instanceof ListGridItemViewHolder) {
                 bindListGridItemViewHolder((ListGridItemViewHolder) holder, file);
+                ((ListGridItemViewHolder) holder).checkVisibilityOfFileFeaturesLayout();
+                checkVisibilityOfMoreButtons((ListGridItemViewHolder) holder);
             }
 
             updateLivePhotoIndicators(gridViewHolder, file);
+        }
+    }
+
+    private void checkVisibilityOfMoreButtons(ListGridImageViewHolder holder) {
+        ImageButton moreButton = holder.getMore();
+        if (moreButton == null) {
+            return;
+        }
+
+        if (isMultiSelect()) {
+            moreButton.setVisibility(View.GONE);
+        } else {
+            moreButton.setVisibility(View.VISIBLE);
         }
     }
 
