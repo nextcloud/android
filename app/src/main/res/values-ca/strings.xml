@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de llista</string>
     <string name="actionbar_calendar_contacts_restore">Restaura el calendari de contactes&amp;</string>
-    <string name="actionbar_copy">Copia</string>
     <string name="actionbar_mkdir">Crea una carpeta</string>
-    <string name="actionbar_move">Mou</string>
     <string name="actionbar_open_with">Obre amb</string>
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Detalls</string>
@@ -91,7 +89,6 @@
     <string name="check_back_later_or_reload">Torneu-ho a comprovar més tard o torneu a carregar.</string>
     <string name="checkbox">Casella de selecció</string>
     <string name="choose_local_folder">Escolliu una carpeta local…</string>
-    <string name="choose_location">Escull localització</string>
     <string name="choose_remote_folder">Escolliu una carpeta remota…</string>
     <string name="choose_template_helper_text">Trieu una plantilla i introduïu un nom de fitxer.</string>
     <string name="choose_which_file">Trieu quin fixer conservar!</string>
@@ -121,7 +118,6 @@
     <string name="common_remove">Suprimeix</string>
     <string name="common_rename">Canvia el nom</string>
     <string name="common_save">Desa</string>
-    <string name="common_select">Selecciona</string>
     <string name="common_send">Envia</string>
     <string name="common_share">Compartir</string>
     <string name="common_skip">Omet</string>
@@ -172,7 +168,6 @@
     <string name="copy_file_not_found">No s\'ha pogut copiar. Assegureu-vos que el fitxer existeix.</string>
     <string name="copy_link">Copia l\'enllaç</string>
     <string name="copy_move_to_encrypted_folder_not_supported">No hi ha suport actualment per copiar o moure a una carpeta xifrada.</string>
-    <string name="copy_to">Copia a…</string>
     <string name="could_not_download_image">No s\'ha pogut baixar la imatge completa</string>
     <string name="could_not_retrieve_shares">No s\'ha pogut recuperar la compartició</string>
     <string name="could_not_retrieve_url">No s\'ha pogut recuperar la URL</string>
@@ -190,7 +185,6 @@
     <string name="data_to_back_up">Dades a fer una còpia de seguretat</string>
     <string name="default_credentials_wrong">Credencials incorrectes</string>
     <string name="delete_account">Suprimeix el compte</string>
-    <string name="delete_account_warning">Suprimeix el compte %s i tots els fitxers locals?\n\nAquesta acció no es pot desfer.</string>
     <string name="delete_entries">Suprimeix les entrades</string>
     <string name="delete_link">Suprimir enllaç</string>
     <string name="deselect_all">No seleccionis res</string>
@@ -376,7 +370,6 @@
     <string name="folder_already_exists">La carpeta ja existeix</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">No hi ha carpetes</string>
-    <string name="folder_picker_choose_button_text">Escolliu</string>
     <string name="folder_picker_choose_caption_text">Trieu la carpeta de destinació</string>
     <string name="folder_picker_copy_button_text">Còpia</string>
     <string name="folder_picker_move_button_text">Mou</string>
@@ -467,7 +460,6 @@
     <string name="move_file_invalid_into_descendent">No és possible moure una carpeta en una de les seves pròpies carpetes</string>
     <string name="move_file_invalid_overwrite">Aquest fitxer ja existeix a la carpeta de destinació</string>
     <string name="move_file_not_found">Aquest fitxer no es pot moure. Si us plau comproveu que existeixi.</string>
-    <string name="move_to">Mou a…</string>
     <string name="network_error_connect_timeout_exception">S\'ha produït un error mentre s\'esperava el servidor. L\'operació no s\'ha pogut completar</string>
     <string name="network_error_socket_exception">S\'ha produït un error durant la connexió al servidor</string>
     <string name="network_error_socket_timeout_exception">S\'ha produït un error mentre s\'esperava el servidor. L\'operació no s\'ha pogut completar</string>
@@ -487,7 +479,6 @@
     <string name="no_pdf_app_available">No hi ha cap aplicació disponible per manegar els PDF</string>
     <string name="no_send_app">No hi ha cap aplicació disponible per enviar els fitxers seleccionats</string>
     <string name="no_share_permission_selected">Seleccioneu almenys un permís per compartir.</string>
-    <string name="note_confirm">Envia</string>
     <string name="note_could_not_sent">No s\'ha pogut enviar la nota</string>
     <string name="note_icon_hint">Icona de nota</string>
     <string name="notification_action_failed">L\'execució de l\'acció ha fallat.</string>
@@ -647,7 +638,6 @@
     <string name="select_one_template">Seleccioneu una plantilla</string>
     <string name="select_template">Selecciona una plantilla</string>
     <string name="send">Envia</string>
-    <string name="send_note">Envia una nota al destinatari</string>
     <string name="send_share">Envia la compartició</string>
     <string name="sendbutton_description">Icona de botó d\'enviar</string>
     <string name="set_as">Configura com</string>
@@ -704,12 +694,6 @@
     <string name="signup_with_provider">Registreu-vos amb el proveïdor</string>
     <string name="single_sign_on_request_token" formatted="true">Voleu permetre que %1$s accedeixi al vostre compte de Nextcloud %2$s?</string>
     <string name="sort_by">Ordena per</string>
-    <string name="sort_by_modification_date_ascending">Més nou primer</string>
-    <string name="sort_by_modification_date_descending">Més antic primer</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Més petit primer</string>
-    <string name="sort_by_size_descending">Més gran primer</string>
     <string name="ssl_validator_btn_details_hide">Amaga</string>
     <string name="ssl_validator_btn_details_see">Detalls</string>
     <string name="ssl_validator_header">No s\'ha pogut verificar la identitat del servidor</string>

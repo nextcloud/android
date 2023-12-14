@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Rasteransicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
     <string name="actionbar_calendar_contacts_restore">Kontakte &amp; Kalender wiederherstellen</string>
-    <string name="actionbar_copy">Kopieren</string>
     <string name="actionbar_mkdir">Neuer Ordner</string>
-    <string name="actionbar_move">Verschieben</string>
     <string name="actionbar_move_or_copy">Verschieben oder kopieren</string>
     <string name="actionbar_open_with">Öffnen mit</string>
     <string name="actionbar_search">Suche</string>
@@ -93,7 +91,6 @@
     <string name="check_back_later_or_reload">Schauen Sie später noch einmal vorbei oder laden Sie neu.</string>
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Wähle einen lokalen Ordner…</string>
-    <string name="choose_location">Ort wählen</string>
     <string name="choose_remote_folder">Wähle einen entfernten Ordner …</string>
     <string name="choose_template_helper_text">Bitte eine Vorlage auswählen und einen Dateinamen eingeben.</string>
     <string name="choose_which_file">Wählen Sie, welche Datei behalten werden soll!</string>
@@ -123,7 +120,6 @@
     <string name="common_remove">Löschen</string>
     <string name="common_rename">Umbenennen</string>
     <string name="common_save">Speichern</string>
-    <string name="common_select">Auswählen</string>
     <string name="common_send">Senden</string>
     <string name="common_share">Teilen</string>
     <string name="common_skip">Überspringen</string>
@@ -176,7 +172,6 @@
     <string name="copy_file_not_found">Kopieren nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
     <string name="copy_link">Link kopieren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
-    <string name="copy_to">Kopieren nach…</string>
     <string name="could_not_download_image">Originalbild konnte nicht heruntergeladen werden</string>
     <string name="could_not_retrieve_shares">Konnte die Freigaben nicht abrufen</string>
     <string name="could_not_retrieve_url">Konnte URL nicht abrufen</string>
@@ -194,7 +189,6 @@
     <string name="data_to_back_up">Zu sichernde Daten</string>
     <string name="default_credentials_wrong">Zugangsdaten falsch</string>
     <string name="delete_account">Benutzerkonto löschen</string>
-    <string name="delete_account_warning">Konto %s und alle lokalen Dateien löschen?\n\nLöschung kann nicht rückgängig gemacht werden.</string>
     <string name="delete_entries">Einträgen entfernen</string>
     <string name="delete_link">Link löschen</string>
     <string name="deselect_all">Auswahl aufheben</string>
@@ -395,7 +389,6 @@
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="folder_confirm_create">Erstellen</string>
     <string name="folder_list_empty_headline">Keine Ordner vorhanden</string>
-    <string name="folder_picker_choose_button_text">Auswählen</string>
     <string name="folder_picker_choose_caption_text">Zielordner auswählen</string>
     <string name="folder_picker_copy_button_text">Kopieren</string>
     <string name="folder_picker_move_button_text">Verschieben</string>
@@ -500,7 +493,6 @@
     <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
     <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
     <string name="move_file_not_found">Verschieben nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
-    <string name="move_to">Verschieben nach…</string>
     <string name="network_error_connect_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation konnte nicht abgeschlossen werden.</string>
     <string name="network_error_socket_exception">Es ist ein Fehler beim Verbinden mit dem Server aufgetreten.</string>
     <string name="network_error_socket_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation konnte nicht abgeschlossen werden</string>
@@ -521,7 +513,6 @@
     <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
     <string name="no_send_app">Keine App zum Senden der ausgewählten Dateien verfügbar</string>
     <string name="no_share_permission_selected">Bitte mindestens eine Berechtigung zum Teilen auswählen.</string>
-    <string name="note_confirm">Senden</string>
     <string name="note_could_not_sent">Notiz konnte nicht versandt werden</string>
     <string name="note_icon_hint">Notiz-Symbol</string>
     <string name="notification_action_failed">Ausführen der Aktion fehlgeschlagen.</string>
@@ -691,7 +682,6 @@
     <string name="select_one_template">Bitte eine Vorlage auswählen</string>
     <string name="select_template">Vorlage auswählen</string>
     <string name="send">Senden</string>
-    <string name="send_note">Notiz an Empfänger senden</string>
     <string name="send_share">Freigabe senden</string>
     <string name="sendbutton_description">Icon für den Senden-Button</string>
     <string name="set_as">Setze als</string>
@@ -749,12 +739,6 @@
     <string name="signup_with_provider">Mit Provider anmelden</string>
     <string name="single_sign_on_request_token" formatted="true">Zulassen, dass %1$s auf Ihr Nextcloud Konto %2$s zugreifen darf?</string>
     <string name="sort_by">Sortiere nach</string>
-    <string name="sort_by_modification_date_ascending">Neue zuerst</string>
-    <string name="sort_by_modification_date_descending">Älteste zuerst</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Kleinste zuerst</string>
-    <string name="sort_by_size_descending">Größste zuerst</string>
     <string name="ssl_validator_btn_details_hide">Ausblenden</string>
     <string name="ssl_validator_btn_details_see">Details</string>
     <string name="ssl_validator_header">Die Identität des Servers konnte nicht verifiziert werden</string>
@@ -898,7 +882,10 @@
     <string name="uploader_error_message_source_file_not_found">Die zum Hochladen ausgewählte Datei kann nicht gefunden werden. Bitte prüfen Sie ob die Datei existiert.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Diese Datei kann nicht hochgeladen werden</string>
     <string name="uploader_error_title_no_file_to_upload">Keine Datei zum Hochladen</string>
+    <string name="uploader_file_not_found_message">Datei nicht gefunden. Sind Sie sicher, dass diese Datei existiert, oder wurde der vorherige Konflikt nicht behoben?</string>
+    <string name="uploader_file_not_found_on_server_message">Wir konnten die Datei auf dem Server nicht finden. Ein anderer Benutzer hat möglicherweise die Datei gelöscht.</string>
     <string name="uploader_info_dirname">Ordnername</string>
+    <string name="uploader_local_files_uploaded">Versuchen Sie, lokale Dateien erneut hochzuladen.</string>
     <string name="uploader_top_message">Hochladeordner auswählen</string>
     <string name="uploader_upload_failed_content_single">Konnte %1$s nicht hochladen</string>
     <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, bitte erneut anmelden</string>

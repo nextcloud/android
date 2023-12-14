@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
     <string name="actionbar_calendar_contacts_restore">Przywróć kontakty i kalendarz</string>
-    <string name="actionbar_copy">Kopiuj</string>
     <string name="actionbar_mkdir">Nowy katalog</string>
-    <string name="actionbar_move">Przenieś</string>
     <string name="actionbar_move_or_copy">Przenieś lub kopiuj</string>
     <string name="actionbar_open_with">Otwórz za pomocą</string>
     <string name="actionbar_search">Wyszukaj</string>
@@ -93,7 +91,6 @@
     <string name="check_back_later_or_reload">Sprawdź później lub załaduj ponownie.</string>
     <string name="checkbox">Pole checkbox</string>
     <string name="choose_local_folder">Wybierz katalog lokalny…</string>
-    <string name="choose_location">Wybierz lokację</string>
     <string name="choose_remote_folder">Wybierz katalog zdalny…</string>
     <string name="choose_template_helper_text">Wybierz szablon i wprowadź nazwę pliku.</string>
     <string name="choose_which_file">Wybierz, który plik chcesz zachować!</string>
@@ -123,7 +120,6 @@
     <string name="common_remove">Usuń</string>
     <string name="common_rename">Zmień nazwę</string>
     <string name="common_save">Zapisz</string>
-    <string name="common_select">Wybierz</string>
     <string name="common_send">Wyślij</string>
     <string name="common_share">Udostępnij</string>
     <string name="common_skip">Pomiń</string>
@@ -176,7 +172,6 @@
     <string name="copy_file_not_found">Nie można skopiować. Sprawdź, czy plik istnieje.</string>
     <string name="copy_link">Kopiuj link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiuj/przenieś do zaszyfrowanego katalogu, który nie jest obecnie obsługiwany.</string>
-    <string name="copy_to">Kopiuj do…</string>
     <string name="could_not_download_image">Nie można pobrać pełnego obrazu</string>
     <string name="could_not_retrieve_shares">Nie udało się pobrać udziałów</string>
     <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
@@ -194,7 +189,6 @@
     <string name="data_to_back_up">Dane dla kopii zapasowej</string>
     <string name="default_credentials_wrong">Błedne poświadczenia</string>
     <string name="delete_account">Usuń konto</string>
-    <string name="delete_account_warning">Usunąć konto %s i wszystkie jego pliki lokalne? Usunięcia nie będzie można cofnąć.</string>
     <string name="delete_entries">Usuń wpisy</string>
     <string name="delete_link">Usuń link</string>
     <string name="deselect_all">Odznacz wszystkie</string>
@@ -394,7 +388,6 @@
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
-    <string name="folder_picker_choose_button_text">Wybierz</string>
     <string name="folder_picker_choose_caption_text">Wybierz katalog docelowy</string>
     <string name="folder_picker_copy_button_text">Skopiuj</string>
     <string name="folder_picker_move_button_text">Przenieś</string>
@@ -499,7 +492,6 @@
     <string name="move_file_invalid_into_descendent">Nie można przenieść katalogu do jednego z jego podkatalogów</string>
     <string name="move_file_invalid_overwrite">Plik już istnieje w katalogu docelowym</string>
     <string name="move_file_not_found">Nie można przenieść. Sprawdź, czy plik istnieje.</string>
-    <string name="move_to">Przenieś do…</string>
     <string name="network_error_connect_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji.</string>
     <string name="network_error_socket_exception">Wystąpił błąd podczas połączenia z serwerem</string>
     <string name="network_error_socket_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji.</string>
@@ -520,7 +512,6 @@
     <string name="no_pdf_app_available">Brak aplikacji obsługującej PDF</string>
     <string name="no_send_app">Brak dostępnej aplikacji do wysyłania wybranych plików</string>
     <string name="no_share_permission_selected">Wybierz co najmniej jedno uprawnienie do udostępniania.</string>
-    <string name="note_confirm">Wyślij</string>
     <string name="note_could_not_sent">Nie można wysłać notatki</string>
     <string name="note_icon_hint">Ikona notatki</string>
     <string name="notification_action_failed">Wykonanie akcji nie powiodło się.</string>
@@ -686,7 +677,6 @@
     <string name="select_one_template">Wybierz jeden szablon</string>
     <string name="select_template">Wybierz szablon</string>
     <string name="send">Wyślij</string>
-    <string name="send_note">Wyślij notatkę do odbiorcy</string>
     <string name="send_share">Wyślij udostępnienie</string>
     <string name="sendbutton_description">Ikona przycisku wysyłania</string>
     <string name="set_as">Ustaw jako</string>
@@ -744,12 +734,6 @@
     <string name="signup_with_provider">Zarejestruj się u usługodawcy</string>
     <string name="single_sign_on_request_token" formatted="true">Zezwolić %1$s na dostęp do Twojego konta Nextcloud %2$s?</string>
     <string name="sort_by">Sortuj według</string>
-    <string name="sort_by_modification_date_ascending">Od najnowszych</string>
-    <string name="sort_by_modification_date_descending">Od najstarszych</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Od najmniejszych</string>
-    <string name="sort_by_size_descending">Od największych</string>
     <string name="ssl_validator_btn_details_hide">Ukryj</string>
     <string name="ssl_validator_btn_details_see">Szczegóły</string>
     <string name="ssl_validator_header">Nie można zweryfikować identyfikacji serwera</string>

@@ -13,9 +13,7 @@
     <string name="action_send_share">Dërgoje/Shpërndaje</string>
     <string name="action_switch_grid_view">Pamje galeri</string>
     <string name="action_switch_list_view">Pamje listë</string>
-    <string name="actionbar_copy">Kopjoni</string>
     <string name="actionbar_mkdir">Dosje e re</string>
-    <string name="actionbar_move">Zhvendose</string>
     <string name="actionbar_open_with">Hapeni me</string>
     <string name="actionbar_search">Kërkoni</string>
     <string name="actionbar_see_details">Hollësi</string>
@@ -103,7 +101,6 @@
     <string name="common_remove">Hiqe</string>
     <string name="common_rename">Riemërtojeni</string>
     <string name="common_save">Ruaj</string>
-    <string name="common_select">Zgjidhni</string>
     <string name="common_send">Dërgojeni</string>
     <string name="common_share">Shpërndaje</string>
     <string name="common_skip">Kalo</string>
@@ -147,7 +144,6 @@
     <string name="copy_file_invalid_overwrite">Kartela gjendet tashmë te dosja destinacion</string>
     <string name="copy_link">Kopjoje lidhjen</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopjimi/lëvizja në direktorinë e enkriptuar për momentin nuk suportohet.</string>
-    <string name="copy_to">Kopjojeni tek…</string>
     <string name="could_not_download_image">Nuk mund të shkarkohet imazhi i plotë</string>
     <string name="could_not_retrieve_url">Nuk mund të rikthej URL-në</string>
     <string name="create">Krijo</string>
@@ -162,7 +158,6 @@
     <string name="credentials_disabled">Kredencialet të pa aktivizuara</string>
     <string name="default_credentials_wrong">Kredenciele jo të sakta</string>
     <string name="delete_account">Hiqe llogarinë</string>
-    <string name="delete_account_warning">Fshij llogarinë %s me të gjithë skedarët lokalë?\n\nFshirja nuk mund të zhbëhet.</string>
     <string name="delete_entries">Fshini shënimet</string>
     <string name="deselect_all">Hiqi të gjithë</string>
     <string name="dev_version_new_version_available">Version i ri i disponueshëm</string>
@@ -311,7 +306,6 @@
     <string name="folder_already_exists">Dosja ekziston tashmë</string>
     <string name="folder_confirm_create">Krijo</string>
     <string name="folder_list_empty_headline">Këtu nuk ka dosje</string>
-    <string name="folder_picker_choose_button_text">Zgjidhni</string>
     <string name="folder_picker_copy_button_text">Kopjoni</string>
     <string name="folder_picker_move_button_text">Zhvendos</string>
     <string name="forbidden_permissions">Nuk keni leje %s</string>
@@ -378,7 +372,6 @@
     <string name="move_file_error">Ndodhi një gabim teksa përpiqej të zhvendosej ky skedar apo kjo dosje</string>
     <string name="move_file_invalid_into_descendent">S’është e mundur të zhvendoset një dosje në një tjetër brenda saj</string>
     <string name="move_file_invalid_overwrite">Skedri gjendet tashmë te dosja destinacion</string>
-    <string name="move_to">Lëvizni tek…</string>
     <string name="network_error_socket_exception">Ndodhi një gabim gjatë lidhjes me serverin</string>
     <string name="new_comment">Koment i ri…</string>
     <string name="new_media_folder_detected">Dosja %1$se re e mediave u zbulua.</string>
@@ -389,7 +382,6 @@
     <string name="no_browser_available">Nuk ka asnjë aplikacion në dispozicion për të trajtuar lidhjet</string>
     <string name="no_mutliple_accounts_allowed">Vetëm një llogari e lejuar</string>
     <string name="no_pdf_app_available">Nuk ka asnjë aplikacion në dispozicion për të trajtuar PDF</string>
-    <string name="note_confirm">Dërgo</string>
     <string name="note_could_not_sent">Shënimi nuk mund të dërgohej</string>
     <string name="notification_action_failed">Dështoi ekzekutimi i veprimeve.</string>
     <string name="notification_channel_download_description">Tregon progresin e shkarkimit</string>
@@ -514,7 +506,6 @@
     <string name="select_all">Zgjidhi të gjitha</string>
     <string name="select_template">Zgjidh shabllonin</string>
     <string name="send">Dërgo</string>
-    <string name="send_note">Dërgo shënim për marrësin</string>
     <string name="sendbutton_description">Ikona e butonit dërgo</string>
     <string name="set_as">Vendos Si</string>
     <string name="set_picture_as">Vendos fotografinë</string>
@@ -553,12 +544,6 @@
     <string name="signup_with_provider">Regjistrohu me ofruesin</string>
     <string name="single_sign_on_request_token" formatted="true">Lejo %1$s të hyjë në llogarinë tënde Nextcloud %2$s?</string>
     <string name="sort_by">Rendit sipas</string>
-    <string name="sort_by_modification_date_ascending">Më i riu i pari</string>
-    <string name="sort_by_modification_date_descending">Më i vjetri i pari</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Më e vogla në fillim</string>
-    <string name="sort_by_size_descending">Më i madhi i pari</string>
     <string name="ssl_validator_btn_details_hide">Fshihe</string>
     <string name="ssl_validator_btn_details_see">Hollësi</string>
     <string name="ssl_validator_header">Identiteti i serverit nuk mund të verifikohet</string>

@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">نمایش گرید</string>
     <string name="action_switch_list_view">نمایش لیست</string>
     <string name="actionbar_calendar_contacts_restore">بازگردانی آشنایان و تقویم</string>
-    <string name="actionbar_copy">کپی کردن</string>
     <string name="actionbar_mkdir">پوشه جدید</string>
-    <string name="actionbar_move">انتقال</string>
     <string name="actionbar_open_with">باز کردن با</string>
     <string name="actionbar_search">جستجو</string>
     <string name="actionbar_see_details">جزئیات</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">بعدا چک فرمایید یا مجددا بارگذاری کنید.</string>
     <string name="checkbox">جعبه علامت</string>
     <string name="choose_local_folder">پوشه محلی را انتخاب کردن...</string>
-    <string name="choose_location">گزینش مکان</string>
     <string name="choose_remote_folder">پوشه راه دور را انتخاب کردن ...</string>
     <string name="choose_template_helper_text">لطفا یک قالب را انتخاب و نامی برای پرونده وارد کنید.</string>
     <string name="choose_which_file">انتخاب کنید کدام فایل را نگه‌ دارید!</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">حذف</string>
     <string name="common_rename">تغییرنام</string>
     <string name="common_save">ذخیره</string>
-    <string name="common_select">انتخاب</string>
     <string name="common_send">ارسال</string>
     <string name="common_share">هم‌رسانی</string>
     <string name="common_skip">پرش</string>
@@ -174,7 +170,6 @@
     <string name="copy_file_not_found">امکان کپی وجود ندارد. لطفا موجود بودن فایل را بررسی کنید</string>
     <string name="copy_link">کپی کردن لینک</string>
     <string name="copy_move_to_encrypted_folder_not_supported">کپی کردن / انتقال به پوشه رمزگذاری شده در حال حاضر پشتیبانی نمی‌شود.</string>
-    <string name="copy_to">کپی کردن در...</string>
     <string name="could_not_download_image">تصویر کامل دریافت نشد</string>
     <string name="could_not_retrieve_shares">امکان بازگردانی اشتراک گذاری‌ها وجود ندارد</string>
     <string name="could_not_retrieve_url">امکان بازیابی URL وجود ندارد</string>
@@ -192,7 +187,6 @@
     <string name="data_to_back_up">داده برای پشتیبان‌گیری</string>
     <string name="default_credentials_wrong">اعتبارنامه نادرست است</string>
     <string name="delete_account">حذف حساب کاربری</string>
-    <string name="delete_account_warning">برداشتن حساب %s و حذف تمام پرونده‌ّای محلّی؟\n\nحذف قابل بازگردانی نیست.</string>
     <string name="delete_entries">ورودی ها را حذف کنید</string>
     <string name="delete_link">حذف پیوند</string>
     <string name="deselect_all">لغو انتخاب همه</string>
@@ -391,7 +385,6 @@
     <string name="folder_already_exists">پوشه از قبل موجود است</string>
     <string name="folder_confirm_create">ایجاد کردن</string>
     <string name="folder_list_empty_headline">هیچ  پوشه ای اینجا وجود ندارد</string>
-    <string name="folder_picker_choose_button_text">انتخاب کردن</string>
     <string name="folder_picker_choose_caption_text">پوشهٔ هدف را انتخاب کنید</string>
     <string name="folder_picker_copy_button_text">رونوشت</string>
     <string name="folder_picker_move_button_text">انتقال</string>
@@ -496,7 +489,6 @@
     <string name="move_file_invalid_into_descendent">انتقال یک پوشه در یکی از پوشه های زیرین خود امکان پذیر نیست</string>
     <string name="move_file_invalid_overwrite">فایل در حال حاضر در پوشه مقصد موجود است</string>
     <string name="move_file_not_found">انتقال فایل امکان پذیر نمی‌باشد. لطفا موجود بودن فایل را بررسی کنید.</string>
-    <string name="move_to">انتقال به...</string>
     <string name="network_error_connect_timeout_exception">هنگام اتصال به سرور خطایی روی داد. تکمیل عملیات میسر نیست.</string>
     <string name="network_error_socket_exception">هنگام اتصال به سرور خطایی روی داد</string>
     <string name="network_error_socket_timeout_exception">هنگام اتصال به سرور خطایی روی داد. تکمیل عملیات میسر نیست.</string>
@@ -517,7 +509,6 @@
     <string name="no_pdf_app_available">هیچ برنامه‌ای برای اجرای PDF موجود نیست</string>
     <string name="no_send_app">هیچ برنامه ای برای ارسال فایل های انتخابی موجود نیست.</string>
     <string name="no_share_permission_selected">لطفاً حداقل یک مجوز برای اشتراک‌گذاری انتخاب کنید.</string>
-    <string name="note_confirm">ارسال</string>
     <string name="note_could_not_sent">یادداشت ارسال نشد</string>
     <string name="note_icon_hint">آیکون یادداشت</string>
     <string name="notification_action_failed">اقدام انجام نشد.</string>
@@ -683,7 +674,6 @@
     <string name="select_one_template">لطفا یک قالب را انتخاب کنید</string>
     <string name="select_template">الگو را انتخاب کنید</string>
     <string name="send">ارسال</string>
-    <string name="send_note">ارسال یادداشت به گیرنده</string>
     <string name="send_share">ارسال اشتراک</string>
     <string name="sendbutton_description">ایکون دکمه ارسال</string>
     <string name="set_as">تنظیم به عنوان</string>
@@ -741,12 +731,6 @@
     <string name="signup_with_provider">ثبت‌نام با ارائه دهنده</string>
     <string name="single_sign_on_request_token" formatted="true">اجازه به %1$s برای دسترسی به حساب نکست‌کلود %2$s؟</string>
     <string name="sort_by">مرتب سازی بر اساس</string>
-    <string name="sort_by_modification_date_ascending">نخست جدیدترین</string>
-    <string name="sort_by_modification_date_descending">نخست قدیمی‌ترین</string>
-    <string name="sort_by_name_ascending">آ - ی</string>
-    <string name="sort_by_name_descending">ی - آ</string>
-    <string name="sort_by_size_ascending">نخست کوچک‌ترین</string>
-    <string name="sort_by_size_descending">نخست بزرگ‌ترین</string>
     <string name="ssl_validator_btn_details_hide">پنهان کردن</string>
     <string name="ssl_validator_btn_details_see">جزییات</string>
     <string name="ssl_validator_header">هویت کارساز نتوانست تأیید شود</string>

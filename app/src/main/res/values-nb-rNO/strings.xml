@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Rutenett-visning</string>
     <string name="action_switch_list_view">Listevisning</string>
     <string name="actionbar_calendar_contacts_restore">Gjenopprett kontakter &amp; kalender</string>
-    <string name="actionbar_copy">Kopier</string>
     <string name="actionbar_mkdir">Ny mappe</string>
-    <string name="actionbar_move">Flytt</string>
     <string name="actionbar_move_or_copy">Flytt eller kopier</string>
     <string name="actionbar_open_with">Åpne med</string>
     <string name="actionbar_search">Søk</string>
@@ -93,7 +91,6 @@
     <string name="check_back_later_or_reload">Kom tilbake senere eller last på nytt.</string>
     <string name="checkbox">Avkryssningsboks</string>
     <string name="choose_local_folder">Velg lokal mappe…</string>
-    <string name="choose_location">Velg lokasjon</string>
     <string name="choose_remote_folder">Velg mappe annensteds hen…</string>
     <string name="choose_template_helper_text">Velg en mal og oppgi filnavn</string>
     <string name="choose_which_file">Velg filen du ønsker å beholde!</string>
@@ -123,7 +120,6 @@
     <string name="common_remove">Slett</string>
     <string name="common_rename">Gi nytt navn</string>
     <string name="common_save">Lagre</string>
-    <string name="common_select">Velg</string>
     <string name="common_send">Send</string>
     <string name="common_share">Del</string>
     <string name="common_skip">Hopp over</string>
@@ -175,7 +171,6 @@
     <string name="copy_file_not_found">Kan ikke kopiere. Sjekk om filen eksisterer.</string>
     <string name="copy_link">Kopier lenke</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiering/flytting til kryptert mappe støttes ikke enda.</string>
-    <string name="copy_to">Kopier til…</string>
     <string name="could_not_download_image">Kunne ikke laste ned det fulle bildet</string>
     <string name="could_not_retrieve_shares">Kunne ikke hente ressursen</string>
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
@@ -193,7 +188,6 @@
     <string name="data_to_back_up">Data å sikkerhetskopiere</string>
     <string name="default_credentials_wrong">Feil legitimasjon</string>
     <string name="delete_account">Fjern konto</string>
-    <string name="delete_account_warning">Fjern kontoen %s og slett alle lokale filer?\n\nSletting kan ikke angres.</string>
     <string name="delete_entries">Slett oppførigner</string>
     <string name="delete_link">Slett lenke</string>
     <string name="deselect_all">Fjern all markering</string>
@@ -392,7 +386,6 @@
     <string name="folder_already_exists">Mappe finnes allerede</string>
     <string name="folder_confirm_create">Opprett</string>
     <string name="folder_list_empty_headline">Ingen mapper her</string>
-    <string name="folder_picker_choose_button_text">Velg</string>
     <string name="folder_picker_choose_caption_text">Velg målmappe</string>
     <string name="folder_picker_copy_button_text">Kopi</string>
     <string name="folder_picker_move_button_text">Flytt</string>
@@ -497,7 +490,6 @@
     <string name="move_file_invalid_into_descendent">Det er ikke mulig å flytte en mappe inn i sin egen undermappe</string>
     <string name="move_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
     <string name="move_file_not_found">Kan ikke flytte filen. Sjekk om den eksisterer.</string>
-    <string name="move_to">Flytt til…</string>
     <string name="network_error_connect_timeout_exception">Feil oppstått ved venting på server. Kunne ikke fullføre operasjonen.</string>
     <string name="network_error_socket_exception">Feil oppstått ved forbindelsen til serveren</string>
     <string name="network_error_socket_timeout_exception">Feil oppstått ved venting på server. Kunne ikke fullføre operasjonen.</string>
@@ -518,7 +510,6 @@
     <string name="no_pdf_app_available">Ingen app tilgjengelig for å håndtere PDF</string>
     <string name="no_send_app">Ingen program for å sende valgt fil</string>
     <string name="no_share_permission_selected">Velg minst en rettighet for å dele.</string>
-    <string name="note_confirm">Send</string>
     <string name="note_could_not_sent">Kan ikke sende melding</string>
     <string name="note_icon_hint">Notatikon</string>
     <string name="notification_action_failed">Feilet å utføre aksjon.</string>
@@ -684,7 +675,6 @@
     <string name="select_one_template">Velg en mal</string>
     <string name="select_template">Velg mal</string>
     <string name="send">Send</string>
-    <string name="send_note">Send melding til mottaker</string>
     <string name="send_share">Send deling</string>
     <string name="sendbutton_description">Ikon for forsendelsesknapp</string>
     <string name="set_as">Bruk som</string>
@@ -742,12 +732,6 @@
     <string name="signup_with_provider">Logg på med tilbyder</string>
     <string name="single_sign_on_request_token" formatted="true">Tillat %1$s  adgang til din Nextcloud konto %2$s?</string>
     <string name="sort_by">Sorter etter</string>
-    <string name="sort_by_modification_date_ascending">Nyeste først</string>
-    <string name="sort_by_modification_date_descending">Eldste først</string>
-    <string name="sort_by_name_ascending">A - Å</string>
-    <string name="sort_by_name_descending">Å - A</string>
-    <string name="sort_by_size_ascending">Minste først</string>
-    <string name="sort_by_size_descending">Største først</string>
     <string name="ssl_validator_btn_details_hide">Skjul</string>
     <string name="ssl_validator_btn_details_see">Detaljer</string>
     <string name="ssl_validator_header">Serverens identitet kunne ikke bekreftes</string>

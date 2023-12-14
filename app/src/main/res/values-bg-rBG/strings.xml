@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
     <string name="actionbar_calendar_contacts_restore">Възстановяване на контакти &amp; календар</string>
-    <string name="actionbar_copy">Копиране</string>
     <string name="actionbar_mkdir">Нова папка</string>
-    <string name="actionbar_move">Преместване</string>
     <string name="actionbar_open_with">Отвори с</string>
     <string name="actionbar_search">Търсене</string>
     <string name="actionbar_see_details">Подробности</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">Проверка отново по-късно или презареждане.</string>
     <string name="checkbox">Отметка</string>
     <string name="choose_local_folder">Изберете локална папка…</string>
-    <string name="choose_location">Избор на местоположение</string>
     <string name="choose_remote_folder">Изберете отдалечена папка…</string>
     <string name="choose_template_helper_text">Моля, изберете шаблон и въведете име на файл.</string>
     <string name="choose_which_file">Изберете кой файл да бъде запазен!</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">Изтриване</string>
     <string name="common_rename">Преименуване</string>
     <string name="common_save">Запазване</string>
-    <string name="common_select">Избери</string>
     <string name="common_send">Изпращане</string>
     <string name="common_share">Сподели</string>
     <string name="common_skip">Пропусни</string>
@@ -173,7 +169,6 @@
     <string name="copy_file_not_found">Невъзможно копиране. Проверете дали файла съществува .</string>
     <string name="copy_link">Копиране на връзката</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирането/преместването в криптирана папка за момента не се поддържа. </string>
-    <string name="copy_to">Копирай в…</string>
     <string name="could_not_download_image">Пълното изображение не можа да се изтегли</string>
     <string name="could_not_retrieve_shares"> 60% match 
 Споделянията не могат да бъдат извлечени</string>
@@ -192,7 +187,6 @@
     <string name="data_to_back_up">Данни за архивиране</string>
     <string name="default_credentials_wrong">Грешни данни за вход</string>
     <string name="delete_account">Изтриване</string>
-    <string name="delete_account_warning">Изтриване на профила %s и всички локални файлове?\n\nИзтриването е необратима операция.</string>
     <string name="delete_entries">Изтрий записите</string>
     <string name="delete_link">Изтриване на връзка</string>
     <string name="deselect_all">Откажи всички избрани</string>
@@ -385,7 +379,6 @@
     <string name="folder_already_exists">Папката вече съществува</string>
     <string name="folder_confirm_create">Създай</string>
     <string name="folder_list_empty_headline">Няма папки</string>
-    <string name="folder_picker_choose_button_text">Изберете</string>
     <string name="folder_picker_choose_caption_text">Избор на папка</string>
     <string name="folder_picker_copy_button_text">Копие</string>
     <string name="folder_picker_move_button_text">Преместване</string>
@@ -476,7 +469,6 @@
     <string name="move_file_invalid_into_descendent">Не може да премествате папка в нейна подпапка</string>
     <string name="move_file_invalid_overwrite">Файлът вече съществува в избраната папка</string>
     <string name="move_file_not_found">Файлът не може да се мести. Моля, проверете дали съществува.</string>
-    <string name="move_to">Премести в…</string>
     <string name="network_error_connect_timeout_exception">Възникна грешка докато се изчаква сървъра. Операцията не можа да се завърши.</string>
     <string name="network_error_socket_exception">Възникна грешка при свързването със сървъра.</string>
     <string name="network_error_socket_timeout_exception">Възникна грешка докато се изчаква сървъра. Операцията не можа да се завърши.</string>
@@ -496,7 +488,6 @@
     <string name="no_pdf_app_available">Няма налично приложение за обработка на в PDF</string>
     <string name="no_send_app">Няма налично приложение за изпращане на избраните файлове</string>
     <string name="no_share_permission_selected">Моля, изберете поне едно право за споделяне.</string>
-    <string name="note_confirm">Изпрати</string>
     <string name="note_could_not_sent">Бележката не може да бъде изпратена</string>
     <string name="note_icon_hint">Икона на бележка</string>
     <string name="notification_action_failed">Грешка при изпълнение на действие</string>
@@ -657,7 +648,6 @@
     <string name="select_one_template">Моля, изберете един шаблон </string>
     <string name="select_template">Изберете шаблон</string>
     <string name="send">Изпрати</string>
-    <string name="send_note">Изпращане на бележка</string>
     <string name="send_share">Изпращане на Споделяне</string>
     <string name="sendbutton_description">Икона на бутон за изпращане</string>
     <string name="set_as">Задай като</string>
@@ -715,12 +705,6 @@
     <string name="signup_with_provider">Абониране при доставчик</string>
     <string name="single_sign_on_request_token" formatted="true">Разрешавате ли на %1$s да достъпва вашия Nextcloud профил %2$s?</string>
     <string name="sort_by">Сортиране по</string>
-    <string name="sort_by_modification_date_ascending">Най-нов</string>
-    <string name="sort_by_modification_date_descending">Най-стар</string>
-    <string name="sort_by_name_ascending">А - Я</string>
-    <string name="sort_by_name_descending">Я - А</string>
-    <string name="sort_by_size_ascending">Най-малък</string>
-    <string name="sort_by_size_descending">Най-голям</string>
     <string name="ssl_validator_btn_details_hide">Скриване</string>
     <string name="ssl_validator_btn_details_see">Подробности</string>
     <string name="ssl_validator_header">Идентичността на сървъра не може да бъде потвърдена</string>

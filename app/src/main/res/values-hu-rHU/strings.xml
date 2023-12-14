@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Rács nézet</string>
     <string name="action_switch_list_view">Lista nézet</string>
     <string name="actionbar_calendar_contacts_restore">Névjegyek és naptár helyreállítása</string>
-    <string name="actionbar_copy">Másolás</string>
     <string name="actionbar_mkdir">Új mappa</string>
-    <string name="actionbar_move">Áthelyezés</string>
     <string name="actionbar_move_or_copy">Áthelyezés vagy Másolás</string>
     <string name="actionbar_open_with">Megnyitás ezzel</string>
     <string name="actionbar_search">Keresés</string>
@@ -93,7 +91,6 @@
     <string name="check_back_later_or_reload">Nézzen vissza később vagy töltse újra.</string>
     <string name="checkbox">Jelölőmező</string>
     <string name="choose_local_folder">Válasszon helyi mappát…</string>
-    <string name="choose_location">Válasszon helyet</string>
     <string name="choose_remote_folder">Válasszon távoli mappát…</string>
     <string name="choose_template_helper_text">Válasszon egy sablont, és írja be a fájl nevét.</string>
     <string name="choose_which_file">Válasszon melyik fájl legyen megtartva!</string>
@@ -123,7 +120,6 @@
     <string name="common_remove">Törlés</string>
     <string name="common_rename">Átnevezés</string>
     <string name="common_save">Mentés</string>
-    <string name="common_select">Kiválasztás</string>
     <string name="common_send">Küldés</string>
     <string name="common_share">Megosztás</string>
     <string name="common_skip">Kihagyás</string>
@@ -175,7 +171,6 @@
     <string name="copy_file_not_found">Nem lehet másolni. Ellenőrizze, hogy létezik-e a fájl.</string>
     <string name="copy_link">Hivatkozás másolása</string>
     <string name="copy_move_to_encrypted_folder_not_supported">A titkosított mappába másolás/áthelyezés jelenleg nem támogatott.</string>
-    <string name="copy_to">Másolás ide…</string>
     <string name="could_not_download_image">Nem sikerült letölteni a teljes képet</string>
     <string name="could_not_retrieve_shares">Nem sikerült lekérni a megosztásokat</string>
     <string name="could_not_retrieve_url">Az URL nem kérhető le</string>
@@ -193,7 +188,6 @@
     <string name="data_to_back_up">Mentendő adatok</string>
     <string name="default_credentials_wrong">Hibás hitelesítési adatok</string>
     <string name="delete_account">Fiók eltávolítása</string>
-    <string name="delete_account_warning">A(z) %s fiók törlése az összes helyi fájlal együtt?\n\nA törlés nem vonható vissza.</string>
     <string name="delete_entries">Bejegyzések törlése</string>
     <string name="delete_link">Hivatkozás törlése</string>
     <string name="deselect_all">Kijelölés megszüntetése</string>
@@ -392,7 +386,6 @@
     <string name="folder_already_exists">A mappa már létezik</string>
     <string name="folder_confirm_create">Létrehozás</string>
     <string name="folder_list_empty_headline">Itt nincsenek mappák</string>
-    <string name="folder_picker_choose_button_text">Válasszon</string>
     <string name="folder_picker_choose_caption_text">Válasszon célmappát</string>
     <string name="folder_picker_copy_button_text">Másolás</string>
     <string name="folder_picker_move_button_text">Áthelyezés</string>
@@ -497,7 +490,6 @@
     <string name="move_file_invalid_into_descendent">Nem helyezhető át egy mappa a saját almappájába</string>
     <string name="move_file_invalid_overwrite">A fájl már létezik a célmappában</string>
     <string name="move_file_not_found">A fájl nem helyezhető át. Ellenőrizze, hogy létezik-e.</string>
-    <string name="move_to">Áthelyezés ide…</string>
     <string name="network_error_connect_timeout_exception">Hiba történt a kiszolgálóra várakozás közben. A művelet nem teljesíthető.</string>
     <string name="network_error_socket_exception">Hiba történt a kiszolgálóhoz kapcsolódás közben.</string>
     <string name="network_error_socket_timeout_exception">Hiba történt a kiszolgálóra várakozás közben. A művelet nem teljesíthető.</string>
@@ -518,7 +510,6 @@
     <string name="no_pdf_app_available">Nincs elérhető alkalmazás PDF kezeléséhez</string>
     <string name="no_send_app">Nem érhető el alkalmazás a kiválasztott fájlok küldéséhez</string>
     <string name="no_share_permission_selected">Válasszon legalább egy jogosultságot a megosztáshoz.</string>
-    <string name="note_confirm">Küldés</string>
     <string name="note_could_not_sent">A jegyzet nem küldhető el</string>
     <string name="note_icon_hint">Megjegyzés ikon</string>
     <string name="notification_action_failed">A művelet végrehajtása sikertelen.</string>
@@ -684,7 +675,6 @@
     <string name="select_one_template">Válasszon egy sablont</string>
     <string name="select_template">Válasszon sablont</string>
     <string name="send">Küldés</string>
-    <string name="send_note">Jegyzet küldése a címzettnek</string>
     <string name="send_share">Megosztás küldése</string>
     <string name="sendbutton_description">Küldés gomb ikon</string>
     <string name="set_as">Beállítás mint</string>
@@ -742,12 +732,6 @@
     <string name="signup_with_provider">Regisztráció egy szolgáltatóval</string>
     <string name="single_sign_on_request_token" formatted="true">Engedélyezi, hogy a(z) %1$s hozzáférjen a(z) %2$s Nextcloud fiókjához?</string>
     <string name="sort_by">Rendezés elve</string>
-    <string name="sort_by_modification_date_ascending">Legújabb elöl</string>
-    <string name="sort_by_modification_date_descending">Régebbi elöl</string>
-    <string name="sort_by_name_ascending">A – Z</string>
-    <string name="sort_by_name_descending">Z – A</string>
-    <string name="sort_by_size_ascending">Legkisebb elöl</string>
-    <string name="sort_by_size_descending">Legnagyobb elöl</string>
     <string name="ssl_validator_btn_details_hide">Elrejtés</string>
     <string name="ssl_validator_btn_details_see">Részletek</string>
     <string name="ssl_validator_header">A kiszolgáló személyazonosságát nem sikerült azonosítani</string>

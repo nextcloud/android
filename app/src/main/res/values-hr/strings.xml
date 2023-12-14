@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Prikaz rešetke</string>
     <string name="action_switch_list_view">Prikaz popisa</string>
     <string name="actionbar_calendar_contacts_restore">Vrati kontakte i kalendar</string>
-    <string name="actionbar_copy">Kopiraj</string>
     <string name="actionbar_mkdir">Nova mapa</string>
-    <string name="actionbar_move">Premjesti</string>
     <string name="actionbar_open_with">Otvori s</string>
     <string name="actionbar_search">Traži</string>
     <string name="actionbar_see_details">Pojedinosti</string>
@@ -89,7 +87,6 @@
     <string name="changelog_dev_version">Zapis promjena razvojne inačice</string>
     <string name="checkbox">Potvrdni okvir</string>
     <string name="choose_local_folder">Odaberite lokalnu mapu...</string>
-    <string name="choose_location">Odaberi lokaciju</string>
     <string name="choose_remote_folder">Odaberite udaljenu mapu...</string>
     <string name="choose_template_helper_text">Odaberite predložak i unesite naziv datoteke.</string>
     <string name="choose_which_file">Odaberite datoteku koju želite zadržati!</string>
@@ -118,7 +115,6 @@
     <string name="common_remove">Izbriši</string>
     <string name="common_rename">Preimenuj</string>
     <string name="common_save">Spremi</string>
-    <string name="common_select">Odaberi</string>
     <string name="common_send">Pošalji</string>
     <string name="common_share">Dijeli</string>
     <string name="common_skip">Preskoči</string>
@@ -168,7 +164,6 @@
     <string name="copy_file_not_found">Nije moguće kopirati. Provjerite postoji li datoteka.</string>
     <string name="copy_link">Kopiraj poveznicu</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Trenutno nije podržano kopiranje/premještanje u šifriranu mapu.</string>
-    <string name="copy_to">Kopiraj u…</string>
     <string name="could_not_download_image">Nije moguće preuzeti cijelu sliku</string>
     <string name="could_not_retrieve_shares">Dohvaćanje dijeljenja nije uspjelo</string>
     <string name="could_not_retrieve_url">Nije moguće dohvatiti URL</string>
@@ -186,7 +181,6 @@
     <string name="data_to_back_up">Podaci za sigurnosno kopiranje</string>
     <string name="default_credentials_wrong">Netočne vjerodajnice</string>
     <string name="delete_account">Izbriši račun</string>
-    <string name="delete_account_warning">Želite li ukloniti račun %s i izbrisati sve lokalne datoteke?\n\nBrisanje se ne može poništiti.</string>
     <string name="delete_entries">Izbriši unose</string>
     <string name="delete_link">Izbriši poveznicu</string>
     <string name="deselect_all">Odznači sve</string>
@@ -368,7 +362,6 @@
     <string name="folder_already_exists">Mapa već postoji</string>
     <string name="folder_confirm_create">Stvori</string>
     <string name="folder_list_empty_headline">Ovdje nema mapa</string>
-    <string name="folder_picker_choose_button_text">Odaberite</string>
     <string name="folder_picker_choose_caption_text">Odaberi ciljnu mapu</string>
     <string name="folder_picker_copy_button_text">Kopirajte</string>
     <string name="folder_picker_move_button_text">Premjesti</string>
@@ -456,7 +449,6 @@
     <string name="move_file_invalid_into_descendent">Nije moguće premjestiti mapu u jednu od svojih osnovnih mapa</string>
     <string name="move_file_invalid_overwrite">Datoteka je već prisutna u odredišnoj mapi</string>
     <string name="move_file_not_found">Nije moguće premjestiti datoteku. Provjerite postoji li datoteka.</string>
-    <string name="move_to">Premjesti u...</string>
     <string name="network_error_connect_timeout_exception">Došlo je do pogreške tijekom čekanja poslužitelja. Nije moguće dovršiti radnju.</string>
     <string name="network_error_socket_exception">Došlo je do pogreške tijekom povezivanja s poslužiteljem</string>
     <string name="network_error_socket_timeout_exception">Došlo je do pogreške tijekom čekanja poslužitelja. Nije moguće dovršiti radnju.</string>
@@ -475,7 +467,6 @@
     <string name="no_pdf_app_available">Nema dostupnih aplikacija za upravljanje PDF datotekama</string>
     <string name="no_send_app">Aplikacija za slanje odabranih datoteka ne postoji na uređaju ili nije dostupna</string>
     <string name="no_share_permission_selected">Odaberite barem jedno dopuštenje za dijeljenje.</string>
-    <string name="note_confirm">Pošalji</string>
     <string name="note_could_not_sent">Nije moguće poslati bilješku</string>
     <string name="note_icon_hint">Ikona bilješke</string>
     <string name="notification_action_failed">Izvršavanje radnje nije uspjelo.</string>
@@ -625,7 +616,6 @@
     <string name="select_one_template">Odaberite jedan predložak</string>
     <string name="select_template">Odaberi predložak</string>
     <string name="send">Pošalji</string>
-    <string name="send_note">Pošalji bilješku primatelju</string>
     <string name="send_share">Pošalji dijeljenje</string>
     <string name="sendbutton_description">Ikona gumba za slanje</string>
     <string name="set_as">Postavi kao</string>
@@ -681,12 +671,6 @@
     <string name="signup_with_provider">Prijavite se kod davatelja usluga</string>
     <string name="single_sign_on_request_token" formatted="true">Dopusti %1$s pristup Nextcloud računu %2$s?</string>
     <string name="sort_by">Razvrstaj prema</string>
-    <string name="sort_by_modification_date_ascending">Najnoviji prvi</string>
-    <string name="sort_by_modification_date_descending">Najstariji prvi</string>
-    <string name="sort_by_name_ascending">A – Z</string>
-    <string name="sort_by_name_descending">Z – A</string>
-    <string name="sort_by_size_ascending">Najmanji prvi</string>
-    <string name="sort_by_size_descending">Najveći prvi</string>
     <string name="ssl_validator_btn_details_hide">Sakrij</string>
     <string name="ssl_validator_btn_details_see">Pojedinosti</string>
     <string name="ssl_validator_header">Nije moguće provjeriti identitet poslužitelja</string>

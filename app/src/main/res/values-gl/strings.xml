@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Ver como grade</string>
     <string name="action_switch_list_view">Ver como lista</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar o calendario &amp; de contactos</string>
-    <string name="actionbar_copy">Copiar</string>
     <string name="actionbar_mkdir">Novo cartafol</string>
-    <string name="actionbar_move">Mover</string>
     <string name="actionbar_move_or_copy">Mover ou copiar</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
@@ -93,7 +91,6 @@
     <string name="check_back_later_or_reload">Volver máis tarde ou volver cargar.</string>
     <string name="checkbox">Caixa de selección</string>
     <string name="choose_local_folder">Escoller o cartafol local…</string>
-    <string name="choose_location">Escoller a localización</string>
     <string name="choose_remote_folder">Escoller o cartafol remoto…</string>
     <string name="choose_template_helper_text">Escolla un modelo e introduza un nome de ficheiro.</string>
     <string name="choose_which_file">Escolla o ficheiro que quere conservar.</string>
@@ -123,7 +120,6 @@
     <string name="common_remove">Eliminar</string>
     <string name="common_rename">Renomear</string>
     <string name="common_save">Gardar</string>
-    <string name="common_select">Seleccionar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
     <string name="common_skip">Omitir</string>
@@ -176,7 +172,6 @@
     <string name="copy_file_not_found">Non é posíbel copiar. Comprobe que o ficheiro existe.</string>
     <string name="copy_link">Copiar a ligazón</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/mover dentro dun cartafol cifrado aínda non está admitido.</string>
-    <string name="copy_to">Copiar en…</string>
     <string name="could_not_download_image">Non foi posíbel descargar a imaxe completa</string>
     <string name="could_not_retrieve_shares">Non foi posíbel recuperar as comparticións</string>
     <string name="could_not_retrieve_url">Non foi posíbel recuperar o URL</string>
@@ -194,7 +189,6 @@
     <string name="data_to_back_up">Datos para facer a copia de seguranza</string>
     <string name="default_credentials_wrong">Credenciais incorrectas</string>
     <string name="delete_account">Retirar a conta</string>
-    <string name="delete_account_warning">Retirar a conta %s e eliminar os ficheiros locais?\n\n Esta eliminación non pode desfacerse.</string>
     <string name="delete_entries">Eliminar entradas</string>
     <string name="delete_link">Eliminar a ligazón</string>
     <string name="deselect_all">Desmarcar todo</string>
@@ -395,7 +389,6 @@
     <string name="folder_already_exists">Xa existe o cartafol</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">Aquí non hai cartafoles</string>
-    <string name="folder_picker_choose_button_text">Escoller</string>
     <string name="folder_picker_choose_caption_text">Escoller o cartafol de destino</string>
     <string name="folder_picker_copy_button_text">Copiar</string>
     <string name="folder_picker_move_button_text">Mover</string>
@@ -500,7 +493,6 @@
     <string name="move_file_invalid_into_descendent">Non é posíbel mover un cartafol cara a un dos seus propios subcartafoles</string>
     <string name="move_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
     <string name="move_file_not_found">Non é posíbel mover o ficheiro. Comprobe que existe.</string>
-    <string name="move_to">Mover a…</string>
     <string name="network_error_connect_timeout_exception">Produciuse un erro agardando a resposta do servidor. Non foi posíbel completar a operación.</string>
     <string name="network_error_socket_exception">Produciuse un erro durante a conexión co servidor</string>
     <string name="network_error_socket_timeout_exception">Produciuse un erro agardando a resposta do servidor. Non foi posíbel completar a operación.</string>
@@ -521,7 +513,6 @@
     <string name="no_pdf_app_available">Non hai ningunha aplicación para manexar PDF</string>
     <string name="no_send_app">Non hai ningunha aplicación dispoñíbel para enviar os ficheiros seleccionados</string>
     <string name="no_share_permission_selected">Seleccione polo menos un permiso para compartir.</string>
-    <string name="note_confirm">Enviar</string>
     <string name="note_could_not_sent">Non foi posíbel enviar a nota</string>
     <string name="note_icon_hint">Icona de nota</string>
     <string name="notification_action_failed">Produciuse un fallo ao executar a acción.</string>
@@ -692,7 +683,6 @@
     <string name="select_one_template">Seleccione un modelo</string>
     <string name="select_template">Seleccionar o modelo</string>
     <string name="send">Enviar</string>
-    <string name="send_note">Enviar nota o destinatario</string>
     <string name="send_share">Enviar o compartido</string>
     <string name="sendbutton_description">Icona do botón de envío</string>
     <string name="set_as">Estabelecer como</string>
@@ -750,12 +740,6 @@
     <string name="signup_with_provider">Rexistrarse cun provedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitirlle a %1$s acceder a súa conta %2$s en Nextcloud?</string>
     <string name="sort_by">Ordenar por</string>
-    <string name="sort_by_modification_date_ascending">Primeiro o máis recente</string>
-    <string name="sort_by_modification_date_descending">Primeiro o máis antigo</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Primeiro o máis pequeno</string>
-    <string name="sort_by_size_descending">Primeiro o máis grande</string>
     <string name="ssl_validator_btn_details_hide">Agochar</string>
     <string name="ssl_validator_btn_details_see">Detalles</string>
     <string name="ssl_validator_header">Non foi posíbel verificar a identidade do sitio</string>

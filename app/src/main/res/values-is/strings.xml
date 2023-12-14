@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Reitasýn</string>
     <string name="action_switch_list_view">Listasýn</string>
     <string name="actionbar_calendar_contacts_restore">Endurheimta tengiliði og dagatal</string>
-    <string name="actionbar_copy">Afrita</string>
     <string name="actionbar_mkdir">Ný mappa</string>
-    <string name="actionbar_move">Færa</string>
     <string name="actionbar_move_or_copy">Færa eða afrita</string>
     <string name="actionbar_open_with">Opna með</string>
     <string name="actionbar_search">Leita</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">Athugaðu aftur síðar eða endurlestu.</string>
     <string name="checkbox">Gátreitur</string>
     <string name="choose_local_folder">Veldu staðværa möppu…</string>
-    <string name="choose_location">Veldu staðsetningu</string>
     <string name="choose_remote_folder">Veldu fjartengda möppu…</string>
     <string name="choose_template_helper_text">Veldu sniðmát og settu inn skráarheiti.</string>
     <string name="choose_which_file">Veldu hvaða skrá á að halda!</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">Eyða</string>
     <string name="common_rename">Endurnefna</string>
     <string name="common_save">Vista</string>
-    <string name="common_select">Velja</string>
     <string name="common_send">Senda</string>
     <string name="common_share">Deila</string>
     <string name="common_skip">Sleppa</string>
@@ -174,7 +170,6 @@
     <string name="copy_file_not_found">Get ekki afritað. Athugaðu hvort skráin sé til.</string>
     <string name="copy_link">Afrita tengil</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Ekki er stuðningur ennþá við afritun/færslu inn í dulritaða möppu.</string>
-    <string name="copy_to">Afrita í</string>
     <string name="could_not_download_image">Gat ekki sótt alla myndina</string>
     <string name="could_not_retrieve_shares">Tókst ekki að ná í sameignir</string>
     <string name="could_not_retrieve_url">Tókst ekki að ná í slóð</string>
@@ -192,7 +187,6 @@
     <string name="data_to_back_up">Gögn sem á að taka öryggisafrit af</string>
     <string name="default_credentials_wrong">Röng auðkenni</string>
     <string name="delete_account">Fjarlægja reikning</string>
-    <string name="delete_account_warning">Fjarlægja notandaaðgang %s og eyða öllum staðværum skrám?\n\nEkki er hægt að afturkalla aðgerðina.</string>
     <string name="delete_entries">Eyða færslum</string>
     <string name="delete_link">Eyða tengli</string>
     <string name="deselect_all">Afvelja allt</string>
@@ -389,7 +383,6 @@
     <string name="folder_already_exists">Mappa er þegar til staðar</string>
     <string name="folder_confirm_create">Búa til</string>
     <string name="folder_list_empty_headline">Engar möppur hér</string>
-    <string name="folder_picker_choose_button_text">Velja</string>
     <string name="folder_picker_choose_caption_text">Veldu úttaksmöppu</string>
     <string name="folder_picker_copy_button_text">Afrita</string>
     <string name="folder_picker_move_button_text">Færa</string>
@@ -492,7 +485,6 @@
     <string name="move_file_invalid_into_descendent">Ekki er hægt að færa möppu inn í eina af undirmöppum sínum</string>
     <string name="move_file_invalid_overwrite">Skráin er þegar til í móttökumöppunni</string>
     <string name="move_file_not_found">Get ekki fært skrá. Athugaðu hvort hún sé til.</string>
-    <string name="move_to">Færa í…</string>
     <string name="network_error_connect_timeout_exception">Villa kom upp á meðan beðið var eftir þjóninum. Ekki var hægt að ljúka aðgerðinni.</string>
     <string name="network_error_socket_exception">Villa kom upp við að tengjast þjóninum</string>
     <string name="network_error_socket_timeout_exception">Villa kom upp á meðan beðið var eftir þjóninum. Ekki var hægt að ljúka aðgerðinni.</string>
@@ -512,7 +504,6 @@
     <string name="no_mutliple_accounts_allowed">Aðeins leyfður einn notandaaðgangur</string>
     <string name="no_pdf_app_available">Ekkert forrit tiltækt til að meðhöndla PDF-skrár</string>
     <string name="no_send_app">Ekkert forrit er tiltækt sem getur sent völdu skrárnar</string>
-    <string name="note_confirm">Senda</string>
     <string name="note_could_not_sent">Gat ekki sent minnispunkt</string>
     <string name="note_icon_hint">Táknmynd fyrir athugasemd</string>
     <string name="notification_action_failed">Mistókst að framkvæma aðgerð.</string>
@@ -676,7 +667,6 @@
     <string name="select_one_template">Veldu eitt sniðmát</string>
     <string name="select_template">Veldu sniðmát</string>
     <string name="send">Senda</string>
-    <string name="send_note">Senda minnispunkt til viðtakanda</string>
     <string name="send_share">Senda sameign</string>
     <string name="sendbutton_description">Táknmynd á sendihnappi</string>
     <string name="set_as">Setja sem</string>
@@ -732,12 +722,6 @@
     <string name="signup_with_provider">Skráðu þig hjá þjónustu</string>
     <string name="single_sign_on_request_token" formatted="true">Leyfa %1$s að að fá aðgang að %2$s Nextcloud-aðgangnum þínum?</string>
     <string name="sort_by">Raða eftir</string>
-    <string name="sort_by_modification_date_ascending">Nýjast fyrst</string>
-    <string name="sort_by_modification_date_descending">Elsta fyrst</string>
-    <string name="sort_by_name_ascending">A-Ö</string>
-    <string name="sort_by_name_descending">Ö-A</string>
-    <string name="sort_by_size_ascending">minnsta fyrst</string>
-    <string name="sort_by_size_descending">stærsta fyrst</string>
     <string name="ssl_validator_btn_details_hide">Fela</string>
     <string name="ssl_validator_btn_details_see">Nánar</string>
     <string name="ssl_validator_header">Ekki tókst að sannvotta auðkenni þjónsins</string>

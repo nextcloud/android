@@ -15,9 +15,7 @@
     <string name="action_switch_grid_view">Zobrazení v mřížce</string>
     <string name="action_switch_list_view">Zobrazení v seznamu</string>
     <string name="actionbar_calendar_contacts_restore">Obnovit kontakty a kalendář</string>
-    <string name="actionbar_copy">Zkopírovat</string>
     <string name="actionbar_mkdir">Nová složka</string>
-    <string name="actionbar_move">Přesunout</string>
     <string name="actionbar_move_or_copy">Přesunout</string>
     <string name="actionbar_open_with">Otevřít pomocí</string>
     <string name="actionbar_search">Hledat</string>
@@ -93,7 +91,6 @@
     <string name="check_back_later_or_reload">Vraťte se sem později nebo načtěte znovu.</string>
     <string name="checkbox">Zatržítko</string>
     <string name="choose_local_folder">Zvolte místní složku…</string>
-    <string name="choose_location">Zvolte umístění</string>
     <string name="choose_remote_folder">Zvolte vzdálenou složku…</string>
     <string name="choose_template_helper_text">Vyberte šablonu a zadejte název pro soubor.</string>
     <string name="choose_which_file">Zvolte který soubor ponechat!</string>
@@ -123,7 +120,6 @@
     <string name="common_remove">Smazat</string>
     <string name="common_rename">Přejmenovat</string>
     <string name="common_save">Uložit</string>
-    <string name="common_select">Vybrat</string>
     <string name="common_send">Odeslat</string>
     <string name="common_share">Sdílet</string>
     <string name="common_skip">Přeskočit</string>
@@ -176,7 +172,6 @@
     <string name="copy_file_not_found">Nedaří se zkopírovat. Zkontrolujte zda soubor existuje.</string>
     <string name="copy_link">Zkopírovat odkaz</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopírování/přesouvání do šifrované složky není v tuto chvíli podporováno.</string>
-    <string name="copy_to">Zkopírovat do…</string>
     <string name="could_not_download_image">Nepodařilo se stáhnout celý obrázek</string>
     <string name="could_not_retrieve_shares">Nedaří se získat sdílení</string>
     <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
@@ -194,7 +189,6 @@
     <string name="data_to_back_up">Data k zálohování</string>
     <string name="default_credentials_wrong">Neplatné přihlašovací údaje</string>
     <string name="delete_account">Odebrat účet</string>
-    <string name="delete_account_warning">Odebrat účet %s a smazat všechny místní soubory?\n\nTuto akci nelze vzít zpět.</string>
     <string name="delete_entries">Smazat položky</string>
     <string name="delete_link">Smazat odkaz</string>
     <string name="deselect_all">Zrušit označení všeho</string>
@@ -394,7 +388,6 @@
     <string name="folder_already_exists">Složka už existuje</string>
     <string name="folder_confirm_create">Vytvořit</string>
     <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
-    <string name="folder_picker_choose_button_text">Vybrat</string>
     <string name="folder_picker_choose_caption_text">Zvolte cílovou složku</string>
     <string name="folder_picker_copy_button_text">Zkopírovat</string>
     <string name="folder_picker_move_button_text">Přesunout</string>
@@ -499,7 +492,6 @@
     <string name="move_file_invalid_into_descendent">Není možné přesunout složku do její vlastní podsložky</string>
     <string name="move_file_invalid_overwrite">Soubor už v cílové složce existuje</string>
     <string name="move_file_not_found">Soubor se nedaří přesunout – zkontrolujte zda existuje.</string>
-    <string name="move_to">Přesunout do…</string>
     <string name="network_error_connect_timeout_exception">Při čekání na server se vyskytla chyba. Operace proto nemohla být dokončena.</string>
     <string name="network_error_socket_exception">Při připojování k serveru došlo k chybě</string>
     <string name="network_error_socket_timeout_exception">Při čekání na server se vyskytla chyba. Operace proto nemohla být dokončena.</string>
@@ -520,7 +512,6 @@
     <string name="no_pdf_app_available">Není k dispozice žádná aplikace pro práci s PDF</string>
     <string name="no_send_app">Není k dispozici žádná aplikace pro odeslání vybraných souborů</string>
     <string name="no_share_permission_selected">Vyberte alespoň jedno oprávnění pro sdílení.</string>
-    <string name="note_confirm">Poslat</string>
     <string name="note_could_not_sent">Poznámku se nepodařilo odeslat</string>
     <string name="note_icon_hint">Ikona poznámky</string>
     <string name="notification_action_failed">Akci se nepodařilo provést.</string>
@@ -690,7 +681,6 @@
     <string name="select_one_template">Vyberte jednu šablonu</string>
     <string name="select_template">Vybrat šablonu</string>
     <string name="send">Odeslat</string>
-    <string name="send_note">Poslat příjemci poznámku</string>
     <string name="send_share">Odeslat sdílení</string>
     <string name="sendbutton_description">Ikona tlačítka pro odesílání</string>
     <string name="set_as">Nastavit jako</string>
@@ -748,12 +738,6 @@
     <string name="signup_with_provider">Zaregistrovat se u poskytovatele</string>
     <string name="single_sign_on_request_token" formatted="true">Povolit %1$s přístup k vašemu Nextcloud účtu %2$s?</string>
     <string name="sort_by">Řadit podle</string>
-    <string name="sort_by_modification_date_ascending">Nejnovější první</string>
-    <string name="sort_by_modification_date_descending">Nejstarší první</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Nejmenší první</string>
-    <string name="sort_by_size_descending">Největší první</string>
     <string name="ssl_validator_btn_details_hide">Skrýt</string>
     <string name="ssl_validator_btn_details_see">Podrobnosti</string>
     <string name="ssl_validator_header">Totožnost serveru se nepodařilo ověřit</string>

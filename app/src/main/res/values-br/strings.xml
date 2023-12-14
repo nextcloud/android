@@ -13,9 +13,7 @@
     <string name="action_send_share">Kas/Rannan</string>
     <string name="action_switch_grid_view">Gwelidik roued</string>
     <string name="action_switch_list_view">Gwelidik listenn</string>
-    <string name="actionbar_copy">Eilañ</string>
     <string name="actionbar_mkdir">Teuliad nevez</string>
-    <string name="actionbar_move">Diplasañ</string>
     <string name="actionbar_open_with">Digeriñ gant</string>
     <string name="actionbar_search">Klask</string>
     <string name="actionbar_see_details">Munudoù</string>
@@ -106,7 +104,6 @@
     <string name="common_remove">Dilemel</string>
     <string name="common_rename">Adenvel</string>
     <string name="common_save">Enrollañ</string>
-    <string name="common_select">Dibab</string>
     <string name="common_send">Kas</string>
     <string name="common_share">Rannan</string>
     <string name="common_skip">Tremen</string>
@@ -153,7 +150,6 @@
     <string name="copy_file_not_found">Dibosupl eilan. Gwiriit m\'az eus eus ar restr mar-plij.</string>
     <string name="copy_link">Kopiañ al liamm</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Eilan/diblasañ en un teuliad sifred n\'a vez ket douget evit poent.</string>
-    <string name="copy_to">Eilan da ...</string>
     <string name="could_not_download_image">Diposuple eo pellgargañ tout ar skeudenn</string>
     <string name="could_not_retrieve_url">Dibosuple adtapout an URL</string>
     <string name="create">Krouiñ</string>
@@ -168,7 +164,6 @@
     <string name="credentials_disabled">Titouroù identitelez disaotreet</string>
     <string name="default_credentials_wrong">Titouroù identitelez fall</string>
     <string name="delete_account">Lemel ar c\'hont</string>
-    <string name="delete_account_warning">Lemel ar c\'hont %s ha toud e restroù ?\n\nN\'eo ket posuple disober ur wech graet.</string>
     <string name="delete_entries">Lemel an traoù</string>
     <string name="deselect_all">Disibab pep tra</string>
     <string name="dev_version_new_version_available">Posuple eo kaout ur stumm nevez</string>
@@ -325,7 +320,6 @@
     <string name="folder_already_exists">Bez ez eus dija eus an teuliad</string>
     <string name="folder_confirm_create">Krouiñ</string>
     <string name="folder_list_empty_headline">Emañ heuliad ebet amañ</string>
-    <string name="folder_picker_choose_button_text">Dibab</string>
     <string name="folder_picker_choose_caption_text">Dibab an teuliad moned</string>
     <string name="folder_picker_move_button_text">Diplasañ</string>
     <string name="forbidden_permissions">N\'oc\'h ket aotreet %s</string>
@@ -396,7 +390,6 @@
     <string name="move_file_invalid_into_descendent">N\'eo ket posuple diblasa un teuliad en unan eus e teuliadoù diabarzh</string>
     <string name="move_file_invalid_overwrite">Bez ez eus eus ar restr en teuliad termen</string>
     <string name="move_file_not_found">Dibosupl eo diblasa ar restr. Gwiriit m\'az eus eus ar restr mar-plij.</string>
-    <string name="move_to">Diblasa da ...</string>
     <string name="network_error_connect_timeout_exception">Ur fazi a zo bet en ur gortoz ar servijour. N\'eo ket posuple echuiñ an oberenn.</string>
     <string name="network_error_socket_exception">Ur fazi a zo bet e pad ar c\'henstagadur gant ar servijour</string>
     <string name="network_error_socket_timeout_exception">Ur fazi a zo bet en ur gortoz ar servijour. N\'eo ket posuple echuiñ an oberenn.</string>
@@ -410,7 +403,6 @@
     <string name="no_browser_available">Meziant dieup ebet evit dougiñ al liamm</string>
     <string name="no_mutliple_accounts_allowed">Ur c\'hont aotreet nemetken</string>
     <string name="no_pdf_app_available">Meziant ebt evit dougiñ ar PDF</string>
-    <string name="note_confirm">Kas</string>
     <string name="note_could_not_sent">Dibosuple kas an notenn</string>
     <string name="note_icon_hint">Skeuden notenn</string>
     <string name="notification_action_failed">C\'hxitet ober an oberenn</string>
@@ -542,7 +534,6 @@
     <string name="select_all">Dibab pep tra</string>
     <string name="select_template">Choaz ur stumm skouer</string>
     <string name="send">Kas</string>
-    <string name="send_note">Kas un notenn d\'an degemerer</string>
     <string name="sendbutton_description">Kas skeudenn ar bouton</string>
     <string name="set_as">Lakaat evel</string>
     <string name="set_picture_as">Implij skeudenn evel</string>
@@ -583,12 +574,6 @@
     <string name="signup_with_provider">En em kemprenn gant ur pourvezher</string>
     <string name="single_sign_on_request_token" formatted="true">Aotreiñ %1$s mont war o c\'hont Nextcloud %2$s ?</string>
     <string name="sort_by">Renkañ dre</string>
-    <string name="sort_by_modification_date_ascending">An hini nevesañ da gentañ</string>
-    <string name="sort_by_modification_date_descending">An hini kozhoñ da gentañ</string>
-    <string name="sort_by_name_ascending">A-Z</string>
-    <string name="sort_by_name_descending">Z-A</string>
-    <string name="sort_by_size_ascending">An hini bihanañ da gentañ</string>
-    <string name="sort_by_size_descending">An hini brasañ da genta</string>
     <string name="ssl_validator_btn_details_hide">Kouacha</string>
     <string name="ssl_validator_btn_details_see">Munudoù</string>
     <string name="ssl_validator_header">Identitelez ar servijour na c\'hell get bezhañ gwiriet</string>
