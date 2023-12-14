@@ -365,8 +365,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
-            default:
-            case VIEWTYPE_ITEM:
+            default -> {
                 if (gridView) {
                     return new OCFileListGridItemViewHolder(
                         GridItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
@@ -376,8 +375,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         ListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
                     );
                 }
-
-            case VIEWTYPE_IMAGE:
+            }
+            case VIEWTYPE_IMAGE -> {
                 if (gridView) {
                     return new OCFileListGridImageViewHolder(
                         GridImageBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
@@ -387,23 +386,22 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         ListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
                     );
                 }
-
-            case VIEWTYPE_FOOTER:
+            }
+            case VIEWTYPE_FOOTER -> {
                 return new OCFileListFooterViewHolder(
                     ListFooterBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
                 );
-
-            case VIEWTYPE_HEADER:
+            }
+            case VIEWTYPE_HEADER -> {
                 ListHeaderBinding binding = ListHeaderBinding.inflate(
                     LayoutInflater.from(parent.getContext()),
                     parent,
                     false);
-
                 ViewGroup.LayoutParams layoutParams = binding.headerView.getLayoutParams();
                 layoutParams.height = (int) (parent.getHeight() * 0.3);
                 binding.headerView.setLayoutParams(layoutParams);
-
                 return new OCFileListHeaderViewHolder(binding);
+            }
         }
     }
 
