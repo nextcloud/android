@@ -132,7 +132,7 @@ open class FolderPickerActivity :
     }
 
     private fun setupUIForChooseButton() {
-        caption = resources.getText(R.string.folder_picker_choose_button_text).toString()
+        caption = resources.getText(R.string.folder_picker_choose_caption_text).toString()
         mSearchOnlyFolders = true
         isDoNotEnterEncryptedFolder = true
 
