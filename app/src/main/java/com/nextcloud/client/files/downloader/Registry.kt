@@ -20,7 +20,6 @@
 package com.nextcloud.client.files.downloader
 
 import com.owncloud.android.datamodel.OCFile
-import java.util.LinkedHashMap
 import java.util.UUID
 import kotlin.math.max
 import kotlin.math.min

@@ -95,8 +95,6 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function0;
 
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
