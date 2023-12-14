@@ -295,8 +295,15 @@ class OCFileListDelegate(
     private fun setItemLayoutBackgroundColor(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
         val cornerRadius = context.resources.getDimension(R.dimen.selected_grid_container_radius)
 
-        val itemLayoutBackgroundColorId: Int = if (file.fileId == highlightedItem?.fileId || isCheckedFile(file)) {
+        val isDarkModeActive = (syncFolderProvider?.preferences?.isDarkModeEnabled == true)
+        val selectedItemBackgroundColorId: Int = if (isDarkModeActive) {
+            R.color.action_mode_background
+        } else {
             R.color.selected_item_background
+        }
+
+        val itemLayoutBackgroundColorId: Int = if (file.fileId == highlightedItem?.fileId || isCheckedFile(file)) {
+            selectedItemBackgroundColorId
         } else {
             R.color.bg_default
         }
