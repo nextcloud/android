@@ -51,4 +51,7 @@ jobs:
                 run: |
                     mkdir -p $HOME/.gradle
                     echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
+                    xargs --show-limits </dev/null
+                    getconf ARG_MAX
+                    ./gradlew spotbugsGplayDebug
                     scripts/analysis/analysis-wrapper.sh ${{ steps.get-vars.outputs.branch }} ${{ secrets.LOG_USERNAME }} ${{ secrets.LOG_PASSWORD }} $GITHUB_RUN_NUMBER ${{ steps.get-vars.outputs.pr }}
