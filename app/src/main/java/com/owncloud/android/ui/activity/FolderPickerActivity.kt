@@ -139,6 +139,12 @@ open class FolderPickerActivity :
         mCopyBtn?.visibility = View.GONE
         mMoveBtn?.visibility = View.GONE
         mChooseBtn?.visibility = View.VISIBLE
+
+        val chooseButtonSpacer = findViewById<View>(R.id.choose_button_spacer)
+        val moveOrCopyButtonSpacer = findViewById<View>(R.id.move_or_copy_button_spacer)
+
+        chooseButtonSpacer.visibility = View.VISIBLE
+        moveOrCopyButtonSpacer.visibility = View.GONE
     }
 
     private fun handleOnBackPressed() {
