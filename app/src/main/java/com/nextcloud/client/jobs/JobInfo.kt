@@ -19,6 +19,8 @@
  */
 package com.nextcloud.client.jobs
 
+import androidx.work.ListenableWorker
+import com.google.common.util.concurrent.ListenableFuture
 import java.util.Date
 import java.util.UUID
 
@@ -28,5 +30,14 @@ data class JobInfo(
     val name: String = "",
     val user: String = "",
     val started: Date = Date(0),
-    val progress: Int = 0
+    val progress: Int = 0,
+    val executionLog: MutableList<LogEntry>? = null
+)
+
+
+data class LogEntry (
+    val started: Date? = null,
+    val finished: Date? = null,
+    val result: String? = null,
+    var worker: String = "None"
 )
