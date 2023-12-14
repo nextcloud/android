@@ -316,13 +316,11 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == SELECT_LOCATION_REQUEST_CODE && data != null) {
-            if (FolderPickerActivity.EXTRA_FOLDER != null) {
-                OCFile chosenFolder = IntentExtensionsKt.getParcelableArgument(data, FolderPickerActivity.EXTRA_FOLDER, OCFile.class);
-                if (chosenFolder != null) {
-                    preferences.setLastSelectedMediaFolder(chosenFolder.getRemotePath());
-                    searchAndDisplayAfterChangingFolder();
-                }
+        if (requestCode == SELECT_LOCATION_REQUEST_CODE && data != null && FolderPickerActivity.EXTRA_FOLDER != null) {
+            OCFile chosenFolder = IntentExtensionsKt.getParcelableArgument(data, FolderPickerActivity.EXTRA_FOLDER, OCFile.class);
+            if (chosenFolder != null) {
+                preferences.setLastSelectedMediaFolder(chosenFolder.getRemotePath());
+                searchAndDisplayAfterChangingFolder();
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
