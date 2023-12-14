@@ -46,7 +46,11 @@ public class FeatureFragment extends Fragment implements Injectable {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
         super.onCreate(savedInstanceState);
-        item = getArguments() != null ? BundleExtensionsKt.getParcelableArgument(getArguments(), "feature", FeatureItem.class) : null;
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            item = BundleExtensionsKt.getParcelableArgument(bundle, "feature", FeatureItem.class);
+        }
     }
 
     @Nullable
