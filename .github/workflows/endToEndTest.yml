@@ -11,13 +11,14 @@ permissions:
     contents: read
     pull-requests: write
 
-concurrency:
-    group: screenshot-test-${{ github.head_ref || github.run_id }}
-    cancel-in-progress: true
-
 jobs:
     screenshot:
         runs-on: ubuntu-latest
+        services:
+            sso:
+                image: hcr.io/nextcloud/continuous-integration-shallow-server:latest
+                ports:
+                    - 80:80/tcp
         strategy:
             fail-fast: false
             matrix:
@@ -86,7 +87,8 @@ jobs:
                     sdcard-path-or-size: 100M
                     target: google_apis
                     emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
-                    script: ./gradlew uninstallAll gplayDebugExecuteScreenshotTests -Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED" -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.COLOR=${{ matrix.color }} -Pandroid.testInstrumentationRunnerArguments.DARKMODE=${{ matrix.scheme }}
+                    script: scripts/wait_for_emulator.sh &&  ./gradlew createGplayDebugCoverageReport -Pcoverage
+
             -   name: upload failing results
                 if: ${{ failure() }}
                 env:
