@@ -50,6 +50,9 @@ class EtmBackgroundJobsFragment : EtmBaseFragment() {
             val started = view.findViewById<TextView>(R.id.etm_background_job_started)
             val progress = view.findViewById<TextView>(R.id.etm_background_job_progress)
             private val progressRow = view.findViewById<View>(R.id.etm_background_job_progress_row)
+            val executionCount = view.findViewById<TextView>(R.id.etm_background_execution_count)
+            val executionLog = view.findViewById<TextView>(R.id.etm_background_execution_logs)
+            private val executionLogRow = view.findViewById<View>(R.id.etm_background_execution_logs_row)
 
             var progressEnabled: Boolean = progressRow.visibility == View.VISIBLE
                 get() {
@@ -63,6 +66,20 @@ class EtmBackgroundJobsFragment : EtmBaseFragment() {
                         View.GONE
                     }
                 }
+
+            var logsEnabled: Boolean = executionLogRow.visibility == View.VISIBLE
+                get() {
+                    return executionLogRow.visibility == View.VISIBLE
+                }
+                set(value) {
+                    field = value
+                    executionLogRow.visibility = if (value) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
+                }
+
         }
 
         private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:MM:ssZ", Locale.getDefault())
@@ -74,7 +91,12 @@ class EtmBackgroundJobsFragment : EtmBaseFragment() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = inflater.inflate(R.layout.etm_background_job_list_item, parent, false)
-            return ViewHolder(view)
+            val viewHolder = ViewHolder(view)
+            viewHolder.logsEnabled = false
+            view.setOnClickListener {
+                viewHolder.logsEnabled = !viewHolder.logsEnabled
+            }
+            return viewHolder
         }
 
         override fun getItemCount(): Int {
@@ -94,6 +116,8 @@ class EtmBackgroundJobsFragment : EtmBaseFragment() {
             } else {
                 vh.progressEnabled = false
             }
+            vh.executionCount.text = "0"
+            vh.executionLog.text = "None"
         }
     }
 

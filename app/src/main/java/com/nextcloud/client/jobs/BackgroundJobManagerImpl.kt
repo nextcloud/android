@@ -37,10 +37,13 @@ import androidx.work.workDataOf
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
+import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.OCFile
+import java.time.LocalDate
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import kotlin.reflect.KClass
 
 /**
@@ -63,7 +66,11 @@ internal class BackgroundJobManagerImpl(
     private val clock: Clock
 ) : BackgroundJobManager {
 
+    @Inject
+    private var preferences: AppPreferences? = null
+
     companion object {
+
         const val TAG_ALL = "*" // This tag allows us to retrieve list of all jobs run by Nextcloud client
         const val JOB_CONTENT_OBSERVER = "content_observer"
         const val JOB_PERIODIC_CONTACTS_BACKUP = "periodic_contacts_backup"
@@ -97,6 +104,8 @@ internal class BackgroundJobManagerImpl(
         const val PERIODIC_BACKUP_INTERVAL_MINUTES = 24 * 60L
         const val DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES = 15L
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
+
+        private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 *3L
 
         fun formatNameTag(name: String, user: User? = null): String {
             return if (user == null) {
@@ -143,13 +152,33 @@ internal class BackgroundJobManagerImpl(
                     name = metadata.get(TAG_PREFIX_NAME) ?: NOT_SET_VALUE,
                     user = metadata.get(TAG_PREFIX_USER) ?: NOT_SET_VALUE,
                     started = timestamp,
-                    progress = info.progress.getInt("progress", -1)
+                    progress = info.progress.getInt("progress", -1),
                 )
             } else {
                 null
             }
         }
+
+        fun deleteOldLogs(logEntries: MutableList<LogEntry>) : MutableList<LogEntry>{
+
+            logEntries.removeIf {
+                return@removeIf it.started != null &&
+                    Date(Date().time - KEEP_LOG_MILLIS).before(it.started)
+            }
+            return logEntries
+
+        }
+
+
     }
+
+    fun logStartOfWorker(workerName : String){
+        if (preferences == null) return;
+
+        preferences!!.readLogEntry()
+    }
+
+    fun logEndOfWorker(workerName: String)
 
     /**
      * Create [OneTimeWorkRequest.Builder] pre-set with common attributes

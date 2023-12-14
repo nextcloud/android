@@ -880,6 +880,8 @@
     <string name="etm_background_job_state">State</string>
     <string name="etm_background_job_started">Started</string>
     <string name="etm_background_job_progress">Progress</string>
+    <string name="etm_background_execution_count">Times run in 48h</string>
+    <string name="etm_background_execution_log">Execution logs</string>
     <string name="etm_migrations">Migrations (app upgrade)</string>
     <string name="etm_transfer">File transfer</string>
     <string name="etm_transfer_remote_path">Remote path</string>

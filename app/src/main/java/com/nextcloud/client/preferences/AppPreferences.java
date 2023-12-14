@@ -23,8 +23,11 @@
 package com.nextcloud.client.preferences;
 
 import com.nextcloud.appReview.AppReviewShownModel;
+import com.nextcloud.client.jobs.LogEntry;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.FileSortOrder;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -316,6 +319,12 @@ public interface AppPreferences {
      * @return grid columns     grid columns
      */
     int getLastSeenVersionCode();
+
+    void saveLogEntry(List<LogEntry> logEntryList);
+
+    List<LogEntry> readLogEntry();
+
+
 
     /**
      * Saves the version code as the last seen version code.

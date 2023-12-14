@@ -136,4 +136,45 @@
 
     </TableRow>
 
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="@string/etm_background_execution_count" />
+
+        <TextView
+            android:id="@+id/etm_background_execution_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="0" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/etm_background_execution_logs_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="@string/etm_background_execution_log" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <TextView
+                android:id="@+id/etm_background_execution_logs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+    </TableRow>
+
 </TableLayout>
