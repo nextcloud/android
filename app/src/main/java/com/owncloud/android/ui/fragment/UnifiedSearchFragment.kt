@@ -64,7 +64,12 @@ import javax.inject.Inject
  * Starts query to all capable unified search providers and displays them Opens result in our app, redirect to other
  * apps, if installed, or opens browser
  */
-class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface, SearchView.OnQueryTextListener, UnifiedSearchItemViewHolder.FilesAction {
+class UnifiedSearchFragment :
+    Fragment(),
+    Injectable,
+    UnifiedSearchListInterface,
+    SearchView.OnQueryTextListener,
+    UnifiedSearchItemViewHolder.FilesAction {
     private lateinit var adapter: UnifiedSearchListAdapter
     private var _binding: ListFragmentBinding? = null
     private val binding get() = _binding!!
@@ -106,6 +111,8 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     lateinit var viewThemeUtils: ViewThemeUtils
 
     private var listOfHiddenFiles = ArrayList<String>()
+
+    private var showMoreActions = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -201,17 +208,28 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
             startActivity(browserIntent)
         }
         vm.file.observe(this) {
-            if (showMoreActions) {
-                showFileActions(it)
-            } else {
-                showFile(it)
-            }
+            showFile(it, showMoreActions)
         }
     }
 
     private fun setUpBinding() {
         binding.swipeContainingList.setOnRefreshListener {
             vm.initialQuery()
+        }
+    }
+
+    private fun showFile(file: OCFile, showFileActions: Boolean) {
+        activity.let {
+            if (activity is FileDisplayActivity) {
+                val fda = activity as FileDisplayActivity
+                fda.file = file
+
+                if (showFileActions) {
+                    fda.showFileActions(file)
+                } else {
+                    fda.showFile(file, "")
+                }
+            }
         }
     }
 
@@ -237,13 +255,6 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
         adapter.setLayoutManager(gridLayoutManager)
         binding.listRoot.layoutManager = gridLayoutManager
         binding.listRoot.adapter = adapter
-    }
-
-    private fun showFile(file: OCFile) {
-        (activity as? FileDisplayActivity)?.let {
-            it.file = file
-            it.showFile("")
-        }
     }
 
     override fun onSearchResultClicked(searchResultEntry: SearchResultEntry) {
@@ -283,5 +294,10 @@ class UnifiedSearchFragment : Fragment(), Injectable, UnifiedSearchListInterface
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun showFilesAction(searchResultEntry: SearchResultEntry) {
+        showMoreActions = true
+        vm.openResult(searchResultEntry)
     }
 }
