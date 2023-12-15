@@ -260,24 +260,6 @@ public final class ThumbnailsCacheManager {
         return null;
     }
 
-    public static class GalleryImageGenerationTaskObject {
-        private final OCFile file;
-        private final String imageKey;
-
-        public GalleryImageGenerationTaskObject(OCFile file, String imageKey) {
-            this.file = file;
-            this.imageKey = imageKey;
-        }
-
-        private OCFile getFile() {
-            return file;
-        }
-
-        private String getImageKey() {
-            return imageKey;
-        }
-    }
-
     public static class GalleryImageGenerationTask extends AsyncTask<Object, Void, Bitmap> {
         private final User user;
         private final FileDataStorageManager storageManager;
