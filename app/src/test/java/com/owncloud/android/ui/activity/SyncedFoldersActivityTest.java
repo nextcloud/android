@@ -179,6 +179,7 @@ public class SyncedFoldersActivityTest {
                                            2,
                                            MediaFolderType.IMAGE,
                                            false,
-                                           SubFolderRule.YEAR_MONTH);
+                                           SubFolderRule.YEAR_MONTH,
+                                           true);
     }
 }
