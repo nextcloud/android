@@ -596,6 +596,8 @@
     <string name="prefs_instant_behaviour_title">原始文件将会被…</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">依据日期存储在子文件夹內</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">排除隐藏</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">排除隐藏文件或目录</string>
     <string name="prefs_instant_upload_subfolder_rule_title">子文件夹选项</string>
     <string name="prefs_keys_exist">添加端对端加密到该客户端</string>
     <string name="prefs_license">许可证</string>

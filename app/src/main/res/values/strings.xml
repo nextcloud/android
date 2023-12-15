@@ -361,6 +361,8 @@
     <string name="prefs_synced_folders_remote_path_title">Remote folder</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Store in subfolders based on date</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Exclude hidden</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Exclude hidden file or folder</string>
 
     <string name="prefs_instant_upload_subfolder_rule_title">Subfolder options</string>
 
