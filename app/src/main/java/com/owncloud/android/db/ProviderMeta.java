@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 76;
+    public static final int DB_VERSION = 77;
 
     private ProviderMeta() {
         // No instance
@@ -299,6 +299,7 @@ public class ProviderMeta {
         public static final String SYNCED_FOLDER_NAME_COLLISION_POLICY = "name_collision_policy";
         public static final String SYNCED_FOLDER_HIDDEN = "hidden";
         public static final String SYNCED_FOLDER_SUBFOLDER_RULE = "sub_folder_rule";
+        public static final String SYNCED_EXCLUDE_HIDDEN = "exclude_hidden";
 
         // Columns of external links table
         public static final String EXTERNAL_LINKS_ICON_URL = "icon_url";

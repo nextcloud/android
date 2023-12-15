@@ -46,7 +46,6 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.lukhnos.nnio.file.FileVisitResult;
-import org.lukhnos.nnio.file.Files;
 import org.lukhnos.nnio.file.Path;
 import org.lukhnos.nnio.file.Paths;
 import org.lukhnos.nnio.file.SimpleFileVisitor;
@@ -94,16 +93,28 @@ public final class FilesSyncHelper {
                     FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
                     Path path = Paths.get(syncedFolder.getLocalPath());
 
-                    Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+                    FileUtil.walkFileTree(path, new SimpleFileVisitor<Path>() {
                         @Override
                         public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
                             File file = path.toFile();
+                            if (syncedFolder.isExcludeHidden() && file.isHidden()) {
+                                // exclude hidden file or folder
+                                return FileVisitResult.CONTINUE;
+                            }
                             if (syncedFolder.isExisting() || attrs.lastModifiedTime().toMillis() >= enabledTimestampMs) {
                                 filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
                                                                               attrs.lastModifiedTime().toMillis(),
                                                                               file.isDirectory(), syncedFolder);
                             }
 
+                            return FileVisitResult.CONTINUE;
+                        }
+
+                        @Override
+                        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                            if (syncedFolder.isExcludeHidden() && dir.compareTo(Paths.get(syncedFolder.getLocalPath())) != 0 && dir.toFile().isHidden()) {
+                                return null;
+                            }
                             return FileVisitResult.CONTINUE;
                         }
 
@@ -185,11 +196,10 @@ public final class FilesSyncHelper {
 
         for (OCUpload failedUpload : failedUploads) {
             accountExists = false;
-            if(!failedUpload.isWhileChargingOnly()){
+            if (!failedUpload.isWhileChargingOnly()) {
                 whileChargingOnly = false;
             }
-            if(!failedUpload.isUseWifiOnly())
-            {
+            if (!failedUpload.isUseWifiOnly()) {
                 useWifiOnly = false;
             }
 
@@ -207,22 +217,21 @@ public final class FilesSyncHelper {
         }
 
         failedUploads = uploadsStorageManager.getFailedUploads();
-        if(failedUploads.length == 0)
-        {
+        if (failedUploads.length == 0) {
             //nothing to do
             return;
         }
 
-        if(whileChargingOnly){
+        if (whileChargingOnly) {
             final BatteryStatus batteryStatus = powerManagementService.getBattery();
             final boolean charging = batteryStatus.isCharging() || batteryStatus.isFull();
-            if(!charging){
+            if (!charging) {
                 //all uploads requires charging
                 return;
             }
         }
 
-        if (useWifiOnly && !connectivityService.getConnectivity().isWifi()){
+        if (useWifiOnly && !connectivityService.getConnectivity().isWifi()) {
             //all uploads requires wifi
             return;
         }
