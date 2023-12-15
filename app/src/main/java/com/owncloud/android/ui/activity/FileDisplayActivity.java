@@ -1395,7 +1395,7 @@ public class FileDisplayActivity extends FileActivity
                 if (uploadWasFine) {
                     OCFile ocFile = getFile();
                     if (PreviewImageFragment.canBePreviewed(ocFile)) {
-                        startImagePreview(getFile(),true);
+                        startImagePreview(getFile(), true);
                     } else if (PreviewTextFileFragment.canBePreviewed(ocFile)) {
                         startTextPreview(ocFile, true);
                     }
@@ -2044,7 +2044,7 @@ public class FileDisplayActivity extends FileActivity
         }
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
             if (showInActivity) {
-                startMediaActivity(file, startPlaybackPosition, autoplay, showPreview, streamMedia, user);
+                startMediaActivity(file, startPlaybackPosition, autoplay, user);
             } else {
                 configureToolbarForPreview(file);
                 Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay, false);
@@ -2060,7 +2060,7 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    private void startMediaActivity(OCFile file, long startPlaybackPosition, boolean autoplay, boolean showPreview, boolean streamMedia, Optional<User> user) {
+    private void startMediaActivity(OCFile file, long startPlaybackPosition, boolean autoplay, Optional<User> user) {
         Intent previewMediaIntent = new Intent(this, PreviewMediaActivity.class);
         previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_FILE, file);
         previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_USER, user.get());

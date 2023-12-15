@@ -128,7 +128,6 @@ class PreviewVideoFullscreenDialog(
         }
     }
 
-
     override fun onBackPressed() {
         val isPlaying = mExoPlayer.isPlaying
         if (isPlaying) {

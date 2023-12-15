@@ -250,10 +250,6 @@
         <item name="windowActionBarOverlay">true</item>
     </style>
 
-    <style name="Theme.ownCloud.Media" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
-    </style>
-
     <style name="Theme.ownCloud.Overlay" parent="Theme.ownCloud.OverlayBase">
         <item name="android:navigationBarColor">@color/black</item>
         <item name="toolbarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
@@ -456,10 +452,6 @@
     <style name="Nextcloud.Material.TextButton" parent="Widget.Material3.Button.TextButton.Icon">
         <item name="android:typeface">sans</item>
         <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="FullScreenExoControlButton" parent="ExoStyledControls.Button.Center">
-        <item name="android:background">@drawable/ripple</item>
     </style>
 
     <style name="Widget.Nextcloud.AppWidget.Container" parent="android:Widget">

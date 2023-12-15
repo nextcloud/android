@@ -109,10 +109,14 @@ import javax.inject.Inject
  * By now, if the [OCFile] passed is not downloaded, an [IllegalStateException] is generated on
  * instantiation too.
  */
-class PreviewMediaActivity
+@Suppress("TooManyFunctions")
+class PreviewMediaActivity :
 
-    : FileActivity(), FileFragment.ContainerActivity, OnRemoteOperationListener,
-    SendShareDialog.SendShareDialogDownloader, Injectable {
+    FileActivity(),
+    FileFragment.ContainerActivity,
+    OnRemoteOperationListener,
+    SendShareDialog.SendShareDialogDownloader,
+    Injectable {
     private var user: User? = null
     private var savedPlaybackPosition: Long = 0
     private var autoplay = true
@@ -206,6 +210,7 @@ class PreviewMediaActivity
      *
      * @param file audio file with potential cover art
      */
+    @Suppress("TooGenericExceptionCaught", "NestedBlockDepth")
     private fun extractAndSetCoverArt(file: OCFile) {
         if (MimeTypeUtil.isAudio(file)) {
             if (file.storagePath == null) {
@@ -217,7 +222,7 @@ class PreviewMediaActivity
                     val data = mmr.embeddedPicture
                     if (data != null) {
                         val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
-                        binding.imagePreview.setImageBitmap(bitmap) //associated cover art in bitmap
+                        binding.imagePreview.setImageBitmap(bitmap) // associated cover art in bitmap
                     } else {
                         setThumbnailForAudio(file)
                     }
@@ -349,21 +354,24 @@ class PreviewMediaActivity
             WindowInsetsCompat.CONSUMED
         }
     }
+
     @OptIn(UnstableApi::class)
     private fun setupVideoView() {
         initWindowInsetsController()
         val type = WindowInsetsCompat.Type.systemBars()
         binding.exoplayerView.setShowNextButton(false)
         binding.exoplayerView.setShowPreviousButton(false)
-        binding.exoplayerView.setControllerVisibilityListener(PlayerView.ControllerVisibilityListener { visibility ->
-            if (visibility == View.VISIBLE) {
-                windowInsetsController.show(type)
-                supportActionBar!!.show()
-            } else if (visibility == View.GONE) {
-                windowInsetsController.hide(type)
-                supportActionBar!!.hide()
+        binding.exoplayerView.setControllerVisibilityListener(
+            PlayerView.ControllerVisibilityListener { visibility ->
+                if (visibility == View.VISIBLE) {
+                    windowInsetsController.show(type)
+                    supportActionBar!!.show()
+                } else if (visibility == View.GONE) {
+                    windowInsetsController.hide(type)
+                    supportActionBar!!.hide()
+                }
             }
-        })
+        )
         binding.exoplayerView.player = exoPlayer
     }
 
@@ -409,11 +417,15 @@ class PreviewMediaActivity
             additionalFilter.add(R.id.action_send_share_file)
         }
         newInstance(file, false, additionalFilter)
-            .setResultListener(supportFragmentManager, this, object : ResultListener {
-                override fun onResult(actionId: Int) {
-                    onFileActionChosen(actionId)
+            .setResultListener(
+                supportFragmentManager,
+                this,
+                object : ResultListener {
+                    override fun onResult(actionId: Int) {
+                        onFileActionChosen(actionId)
+                    }
                 }
-            })
+            )
             .show(supportFragmentManager, "actions")
     }
 
@@ -541,6 +553,7 @@ class PreviewMediaActivity
         fileOperationsHelper.sendShareFile(file)
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private fun playVideo() {
         setupVideoView()
         // load the video file in the video player
@@ -588,7 +601,9 @@ class PreviewMediaActivity
             val result = sfo.execute(client)
             return if (!result.isSuccess) {
                 null
-            } else Uri.parse(result.data[0] as String)
+            } else {
+                Uri.parse(result.data[0] as String)
+            }
         }
 
         override fun onPostExecute(uri: Uri?) {
