@@ -89,6 +89,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -133,6 +134,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
     private final ViewThemeUtils viewThemeUtils;
     private SearchType searchType;
+
+    private final long footerId = UUID.randomUUID().getLeastSignificantBits();
+    private final long headerId = UUID.randomUUID().getLeastSignificantBits();
 
     public OCFileListAdapter(
         Activity activity,
@@ -289,21 +293,67 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
-
     @Override
     public long getItemId(int position) {
-        if (mFiles == null || mFiles.size() <= position) {
-            return 0;
+        if (shouldShowHeader()) {
+            if (position == 0) {
+                return headerId;
+            }
+
+            // skip header
+            position--;
         }
-        return mFiles.get(position).getFileId();
+
+        if (position == mFiles.size()) {
+            return footerId;
+        } if (position < mFiles.size()) {
+            return mFiles.get(position).getFileId();
+        }
+
+        // fallback
+        return RecyclerView.NO_ID;
     }
 
     @Override
     public int getItemCount() {
-        if (shouldShowHeader()) {
-            return mFiles.size() + 2; // for header and footer
+        return mFiles.size() + (shouldShowHeader() ? 2 : 1);
+    }
+
+    @Nullable
+    public OCFile getItem(int position) {
+        int newPosition = position;
+
+        if (shouldShowHeader() && position > 0) {
+            newPosition = position - 1;
+        }
+
+        if (newPosition >= mFiles.size()) {
+            return null;
+        }
+
+        return mFiles.get(newPosition);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (shouldShowHeader() && position == 0) {
+            return VIEWTYPE_HEADER;
+        }
+
+        if (shouldShowHeader() && position == mFiles.size() + 1 ||
+            (!shouldShowHeader() && position == mFiles.size())) {
+            return VIEWTYPE_FOOTER;
+        }
+
+        OCFile item = getItem(position);
+        if (item == null) {
+            return VIEWTYPE_ITEM;
+        }
+
+        if (MimeTypeUtil.isImageOrVideo(item)) {
+            return VIEWTYPE_IMAGE;
         } else {
-            return mFiles.size() + 1; // for footer
+            return VIEWTYPE_ITEM;
         }
     }
 
@@ -607,21 +657,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return output;
     }
 
-    public @Nullable
-    OCFile getItem(int position) {
-        int newPosition = position;
-
-        if (shouldShowHeader() && position > 0) {
-            newPosition = position - 1;
-        }
-
-        if (newPosition >= mFiles.size()) {
-            return null;
-        }
-
-        return mFiles.get(newPosition);
-    }
-
     public boolean shouldShowHeader() {
         if (currentDirectory == null) {
             return false;
@@ -638,34 +673,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return !TextUtils.isEmpty(currentDirectory.getRichWorkspace().trim());
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (shouldShowHeader()) {
-            if (position == 0) {
-                return VIEWTYPE_HEADER;
-            } else {
-                if (position == mFiles.size() + 1) {
-                    return VIEWTYPE_FOOTER;
-                }
-            }
-        } else {
-            if (position == mFiles.size()) {
-                return VIEWTYPE_FOOTER;
-            }
-        }
-
-        OCFile item = getItem(position);
-        if (item == null) {
-            return VIEWTYPE_ITEM;
-        }
-
-        if (MimeTypeUtil.isImageOrVideo(item)) {
-            return VIEWTYPE_IMAGE;
-        } else {
-            return VIEWTYPE_ITEM;
-        }
-    }
-
     /**
      * Change the adapted directory for a new one
      *
@@ -678,7 +685,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @NonNull User account,
         @NonNull OCFile directory,
         @NonNull FileDataStorageManager updatedStorageManager,
-        boolean onlyOnDevice, @NonNull String limitToMimeType) {
+        boolean onlyOnDevice,
+        @NonNull String limitToMimeType) {
         this.onlyOnDevice = onlyOnDevice;
 
         if (!updatedStorageManager.equals(mStorageManager)) {
