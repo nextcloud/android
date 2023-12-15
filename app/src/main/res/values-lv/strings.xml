@@ -10,6 +10,7 @@
     <string name="action_clear_failed_uploads">Notīrīt neizdevušās augšupielādes</string>
     <string name="action_edit">Rediģēt</string>
     <string name="action_empty_notifications">Notīrīt visus paziņojumus</string>
+    <string name="action_empty_trashbin">Izdzēst miskastes saturu</string>
     <string name="action_send_share">Sūtīt/Kopīgot</string>
     <string name="action_switch_grid_view">Režģa izkārtojums</string>
     <string name="action_switch_list_view">Saraksta izkārtojums</string>
@@ -436,6 +437,7 @@
     <string name="status_message">Statusa ziņojums</string>
     <string name="storage_description_default">Noklusējuma</string>
     <string name="storage_downloads">Lejupielādes</string>
+    <string name="sub_folder_rule_year">Gads</string>
     <string name="subject_shared_with_you">\"%1$s\" ir bijis kopīgots ar jums</string>
     <string name="subject_user_shared_with_you">%1$s koplietots \"%2$s\" ar tevi</string>
     <string name="sync_conflicts_in_favourites_ticker">Ir atrasti konflikti</string>
