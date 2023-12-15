@@ -43,6 +43,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.annotation.OptIn
 import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
@@ -54,6 +55,7 @@ import androidx.core.view.marginBottom
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.media3.common.MediaItem
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.DefaultTimeBar
 import androidx.media3.ui.PlayerView
@@ -347,10 +349,12 @@ class PreviewMediaActivity
             WindowInsetsCompat.CONSUMED
         }
     }
-
+    @OptIn(UnstableApi::class)
     private fun setupVideoView() {
         initWindowInsetsController()
         val type = WindowInsetsCompat.Type.systemBars()
+        binding.exoplayerView.setShowNextButton(false)
+        binding.exoplayerView.setShowPreviousButton(false)
         binding.exoplayerView.setControllerVisibilityListener(PlayerView.ControllerVisibilityListener { visibility ->
             if (visibility == View.VISIBLE) {
                 windowInsetsController.show(type)

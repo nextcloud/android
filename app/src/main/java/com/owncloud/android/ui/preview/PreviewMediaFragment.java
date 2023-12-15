@@ -85,6 +85,7 @@ import java.util.concurrent.Executors;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.OptIn;
 import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -92,6 +93,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.media3.common.MediaItem;
+import androidx.media3.common.util.UnstableApi;
 import androidx.media3.exoplayer.ExoPlayer;
 
 /**
@@ -396,8 +398,10 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             activity.toggleActionBarVisibility(false);
         }
     }
-
+    @OptIn(markerClass = UnstableApi.class)
     private void setupVideoView() {
+        binding.exoplayerView.setShowNextButton(false);
+        binding.exoplayerView.setShowPreviousButton(false);
         binding.exoplayerView.setPlayer(exoPlayer);
         binding.exoplayerView.setFullscreenButtonClickListener(isFullScreen -> startFullScreenVideo());
     }
