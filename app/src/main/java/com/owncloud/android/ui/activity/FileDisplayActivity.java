@@ -106,6 +106,7 @@ import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment;
 import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -131,10 +132,13 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -248,6 +252,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         Log_OC.v(TAG, "onCreate() start");
         // Set the default theme to replace the launch screen theme.
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
@@ -607,7 +612,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
 
     private OCFileListFragment getOCFileListFragmentFromFile() {
         final Fragment leftFragment = getLeftFragment();
-        OCFileListFragment listOfFiles;
+        OCFileListFragment listOfFiles = null;
         if (leftFragment instanceof OCFileListFragment) {
             listOfFiles = (OCFileListFragment) leftFragment;
         } else {
@@ -624,6 +629,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
     public void showFileActions(OCFile file) {
         dismissLoadingDialog();
         OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
+        browseUp(listOfFiles);
         listOfFiles.onOverflowIconClicked(file, null);
     }
 
@@ -942,6 +948,11 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         }
     }
 
+    private Boolean isRootDirectory() {
+        OCFile currentDir = getCurrentDir();
+        return (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID);
+    }
+
     /*
      * BackPressed priority/hierarchy:
      *    1. close search view if opened
@@ -961,8 +972,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             resetSearchAction();
         } else if (isDrawerOpen) {
             super.onBackPressed();
-        } else if (leftFragment instanceof OCFileListFragment) {
-            OCFileListFragment listOfFiles = (OCFileListFragment) leftFragment;
+        } else if (leftFragment instanceof OCFileListFragment listOfFiles) {
 
             // all closed
             OCFile currentDir = getCurrentDir();
@@ -976,18 +986,6 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         }
     }
 
-    /**
-     * Use this method when want to pop the fragment on back press. It resets Scrolling (See
-     * {@link #resetScrolling(boolean) with true} and pop the visibility for sortListGroup (See
-     * {@link #setSortListGroup(boolean, boolean)}. At last call to super.onBackPressed()
-     */
-    private void popBack() {
-        // pop back fragment
-        resetScrolling(true);
-        popSortListGroupVisibility();
-        super.onBackPressed();
-    }
-
     private void browseUp(OCFileListFragment listOfFiles) {
         listOfFiles.onBrowseUp();
         setFile(listOfFiles.getCurrentFile());
@@ -997,9 +995,6 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         setDrawerAllFiles();
     }
 
-    /**
-     * It resets the Search Action (call when search is open)
-     */
     private void resetSearchAction() {
         Fragment leftFragment = getLeftFragment();
         if (isSearchOpen() && searchView != null) {
@@ -1007,8 +1002,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             searchView.onActionViewCollapsed();
             searchView.clearFocus();
 
-            if (isRoot(getCurrentDir()) && leftFragment instanceof OCFileListFragment) {
-                OCFileListFragment listOfFiles = (OCFileListFragment) leftFragment;
+            if (isRoot(getCurrentDir()) && leftFragment instanceof OCFileListFragment listOfFiles) {
 
                 // Remove the list to the original state
                 ArrayList<String> listOfHiddenFiles = listOfFiles.getAdapter().listOfHiddenFiles;
@@ -1022,6 +1016,18 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
                 super.onBackPressed();
             }
         }
+    }
+
+    /**
+     * Use this method when want to pop the fragment on back press. It resets Scrolling (See
+     * {@link #resetScrolling(boolean) with true} and pop the visibility for sortListGroup (See
+     * {@link #setSortListGroup(boolean, boolean)}. At last call to super.onBackPressed()
+     */
+    private void popBack() {
+        // pop back fragment
+        resetScrolling(true);
+        popSortListGroupVisibility();
+        super.onBackPressed();
     }
 
     @Override
@@ -1371,7 +1377,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
                 if (uploadWasFine) {
                     OCFile ocFile = getFile();
                     if (PreviewImageFragment.canBePreviewed(ocFile)) {
-                        startImagePreview(getFile(), null, true);
+                        startImagePreview(getFile(),true);
                     } else if (PreviewTextFileFragment.canBePreviewed(ocFile)) {
                         startTextPreview(ocFile, true);
                     }
@@ -1981,39 +1987,33 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         requestForDownload(mWaitingToSend, downloadBehaviour, packageName, activityName);
     }
 
-    /**
-     * Opens the image gallery showing the image {@link OCFile} received as parameter.
-     *
-     * @param file Image {@link OCFile} to show.
-     */
     public void startImagePreview(OCFile file, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(EXTRA_FILE, file);
         showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo);
         showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
         if (showPreview) {
-            startActivity(intent);
+            startActivity(showDetailsIntent);
         } else {
             FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService, editorUtils);
             fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent);
         }
     }
 
-    public void startImagePreview(OCFile file, boolean showPreview) {
-        previewImage(file, null, showPreview);
-    }
-
     public void startImagePreview(OCFile file, VirtualFolderType type, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_FILE, file);
-
+        showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo);
         showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, type);
 
         if (showPreview) {
             startActivity(showDetailsIntent);
         } else {
-            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService, editorUtils);
+            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this,
+                                                                                 getUserAccountManager(),
+                                                                                 connectivityService,
+                                                                                 editorUtils);
             fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent);
         }
     }
@@ -2445,18 +2445,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
     public void showFile(OCFile selectedFile, String message) {
         dismissLoadingDialog();
 
-        final Fragment leftFragment = getLeftFragment();
-        OCFileListFragment listOfFiles;
-        if (leftFragment instanceof OCFileListFragment) {
-            listOfFiles = (OCFileListFragment) leftFragment;
-        } else {
-            listOfFiles = new OCFileListFragment();
-            Bundle args = new Bundle();
-            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
-            listOfFiles.setArguments(args);
-            setLeftFragment(listOfFiles);
-            getSupportFragmentManager().executePendingTransactions();
-        }
+        OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
 
         if (TextUtils.isEmpty(message)) {
             OCFile temp = getFile();
