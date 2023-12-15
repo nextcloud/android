@@ -171,7 +171,6 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
     public static final String RESTART = "RESTART";
     public static final String ALL_FILES = "ALL_FILES";
     public static final String LIST_GROUPFOLDERS = "LIST_GROUPFOLDERS";
-    public static final String PHOTO_SEARCH = "PHOTO_SEARCH";
     public static final int SINGLE_USER_SIZE = 1;
     public static final String OPEN_FILE = "NC_OPEN_FILE";
 
@@ -205,7 +204,6 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
     public static final int REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM = REQUEST_CODE__LAST_SHARED + 2;
     public static final int REQUEST_CODE__MOVE_OR_COPY_FILES = REQUEST_CODE__LAST_SHARED + 3;
     public static final int REQUEST_CODE__UPLOAD_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 5;
-    public static final int REQUEST_CODE__UPLOAD_SCAN_DOC_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 6;
 
     protected static final long DELAY_TO_REQUEST_REFRESH_OPERATION_LATER = DELAY_TO_REQUEST_OPERATIONS_LATER + 350;
 
@@ -899,24 +897,11 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
                 remotePaths[j] = remotePathBase + relativePath;
             }
 
-            int behaviour;
-            switch (resultCode) {
-                case UploadFilesActivity.RESULT_OK_AND_MOVE:
-                    behaviour = FileUploader.LOCAL_BEHAVIOUR_MOVE;
-                    break;
-
-                case UploadFilesActivity.RESULT_OK_AND_DELETE:
-                    behaviour = FileUploader.LOCAL_BEHAVIOUR_DELETE;
-                    break;
-
-                case UploadFilesActivity.RESULT_OK_AND_DO_NOTHING:
-                    behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
-                    break;
-
-                default:
-                    behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
-                    break;
-            }
+            int behaviour = switch (resultCode) {
+                case UploadFilesActivity.RESULT_OK_AND_MOVE -> FileUploader.LOCAL_BEHAVIOUR_MOVE;
+                case UploadFilesActivity.RESULT_OK_AND_DELETE -> FileUploader.LOCAL_BEHAVIOUR_DELETE;
+                default -> FileUploader.LOCAL_BEHAVIOUR_FORGET;
+            };
 
             FileUploader.uploadNewFile(this, getUser().orElseThrow(RuntimeException::new), filePaths, remotePaths, null,           // MIME type will be detected from file name
                                        behaviour, true, UploadFileOperation.CREATED_BY_USER, false, false, NameCollisionPolicy.ASK_USER);
@@ -1392,7 +1377,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
                 if (uploadWasFine) {
                     OCFile ocFile = getFile();
                     if (PreviewImageFragment.canBePreviewed(ocFile)) {
-                        startImagePreview(getFile(), true);
+                        startImagePreview(getFile(),true);
                     } else if (PreviewTextFileFragment.canBePreviewed(ocFile)) {
                         startTextPreview(ocFile, true);
                     }
@@ -2002,11 +1987,6 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         requestForDownload(mWaitingToSend, downloadBehaviour, packageName, activityName);
     }
 
-    /**
-     * Opens the image gallery showing the image {@link OCFile} received as parameter.
-     *
-     * @param file Image {@link OCFile} to show.
-     */
     public void startImagePreview(OCFile file, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(EXTRA_FILE, file);
@@ -2020,22 +2000,20 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         }
     }
 
-    /**
-     * Opens the image gallery showing the image {@link OCFile} received as parameter.
-     *
-     * @param file Image {@link OCFile} to show.
-     */
     public void startImagePreview(OCFile file, VirtualFolderType type, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_FILE, file);
-
+        showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo);
         showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, type);
 
         if (showPreview) {
             startActivity(showDetailsIntent);
         } else {
-            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService, editorUtils);
+            FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this,
+                                                                                 getUserAccountManager(),
+                                                                                 connectivityService,
+                                                                                 editorUtils);
             fileOperationsHelper.startSyncForFileAndIntent(file, showDetailsIntent);
         }
     }
@@ -2464,7 +2442,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         binding.fabMain.setVisibility(visibility);
     }
 
-    public void showFile(String message) {
+    public void showFile(OCFile selectedFile, String message) {
         dismissLoadingDialog();
 
         OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
@@ -2476,6 +2454,10 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             updateActionBarTitleAndHomeButton(null);
         } else {
             DisplayUtils.showSnackMessage(listOfFiles.getView(), message);
+        }
+
+        if (selectedFile != null) {
+            listOfFiles.onItemClicked(selectedFile);
         }
     }
 

@@ -227,7 +227,7 @@ class UnifiedSearchFragment :
                 if (showFileActions) {
                     fda.showFileActions(file)
                 } else {
-                    fda.showFile("")
+                    fda.showFile(file, "")
                 }
             }
         }
