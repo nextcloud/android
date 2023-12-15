@@ -429,7 +429,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             ocFileListDelegate.bindGridViewHolder(gridViewHolder, file, searchType);
-            gridViewHolder.checkVisibilityOfFileFeaturesLayout();
             checkVisibilityOfMoreButtons(gridViewHolder);
 
             if (holder instanceof ListItemViewHolder) {
@@ -438,7 +437,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             if (holder instanceof ListGridItemViewHolder) {
                 bindListGridItemViewHolder((ListGridItemViewHolder) holder, file);
-                ((ListGridItemViewHolder) holder).checkVisibilityOfFileFeaturesLayout();
                 checkVisibilityOfMoreButtons((ListGridItemViewHolder) holder);
             }
 
