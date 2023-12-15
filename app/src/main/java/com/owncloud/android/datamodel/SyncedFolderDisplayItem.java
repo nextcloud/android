@@ -54,6 +54,7 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
      * @param type            the type of the folder
      * @param hidden          hide item flag
      * @param subFolderRule   whether to filter subFolder by year/month/day
+     * @param excludeHidden   exclude hidden file or folder, for {@link MediaFolderType#CUSTOM} only
      */
     public SyncedFolderDisplayItem(long id,
                                    String localPath,
@@ -72,7 +73,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    long numberOfFiles,
                                    MediaFolderType type,
                                    boolean hidden,
-                                   SubFolderRule subFolderRule) {
+                                   SubFolderRule subFolderRule,
+                                   boolean excludeHidden) {
         super(id,
               localPath,
               remotePath,
@@ -87,7 +89,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
               timestampMs,
               type,
               hidden,
-              subFolderRule);
+              subFolderRule,
+              excludeHidden);
         this.filePaths = filePaths;
         this.folderName = folderName;
         this.numberOfFiles = numberOfFiles;
@@ -108,7 +111,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    String folderName,
                                    MediaFolderType type,
                                    boolean hidden,
-                                   SubFolderRule subFolderRule) {
+                                   SubFolderRule subFolderRule,
+                                   boolean excludeHidden) {
         super(id,
               localPath,
               remotePath,
@@ -123,7 +127,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
               timestampMs,
               type,
               hidden,
-              subFolderRule);
+              subFolderRule,
+              excludeHidden);
         this.folderName = folderName;
     }
 
