@@ -49,6 +49,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private String account;
     private int section;
     private SubFolderRule subFolderRule;
+    private boolean excludeHidden;
 
     public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
         id = syncedFolderDisplayItem.getId();
@@ -68,6 +69,7 @@ public class SyncedFolderParcelable implements Parcelable {
         this.section = section;
         hidden = syncedFolderDisplayItem.isHidden();
         subFolderRule = syncedFolderDisplayItem.getSubfolderRule();
+        excludeHidden = syncedFolderDisplayItem.isExcludeHidden();
     }
 
     private SyncedFolderParcelable(Parcel read) {
@@ -87,6 +89,7 @@ public class SyncedFolderParcelable implements Parcelable {
         section = read.readInt();
         hidden = read.readInt() != 0;
         subFolderRule = SubFolderRule.values()[read.readInt()];
+        excludeHidden = read.readInt() != 0;
     }
 
     public SyncedFolderParcelable() {
@@ -111,6 +114,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(section);
         dest.writeInt(hidden ? 1 : 0);
         dest.writeInt(subFolderRule.ordinal());
+        dest.writeInt(excludeHidden ? 1 : 0);
     }
 
     public static final Creator<SyncedFolderParcelable> CREATOR =
@@ -279,4 +283,12 @@ public class SyncedFolderParcelable implements Parcelable {
         this.section = section;
     }
     public void setSubFolderRule(SubFolderRule subFolderRule) { this.subFolderRule = subFolderRule; }
+
+    public boolean isExcludeHidden() {
+        return excludeHidden;
+    }
+
+    public void setExcludeHidden(boolean excludeHidden) {
+        this.excludeHidden = excludeHidden;
+    }
 }

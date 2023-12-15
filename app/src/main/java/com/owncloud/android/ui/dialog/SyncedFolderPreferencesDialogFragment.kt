@@ -130,11 +130,15 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             // hide local folder chooser and delete for non-custom folders
             binding.localFolderContainer.visibility = View.GONE
             isNeutralButtonActive = false
+            binding.settingInstantUploadExcludeHiddenContainer.visibility = View.GONE
         } else if (syncedFolder!!.id <= SyncedFolder.UNPERSISTED_ID) {
             isNeutralButtonActive = false
 
             // Hide delete/enabled for unpersisted custom folders
             binding.syncEnabled.visibility = View.GONE
+
+            // Show exclude hidden checkbox when {@link MediaFolderType#CUSTOM}
+            binding.settingInstantUploadExcludeHiddenContainer.visibility = View.VISIBLE
 
             // auto set custom folder to enabled
             syncedFolder?.isEnabled = true
@@ -146,6 +150,10 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding.btnPositive.isEnabled = false
         } else {
             binding.localFolderContainer.visibility = View.GONE
+            if (MediaFolderType.CUSTOM.id == syncedFolder!!.type.id) {
+                // Show exclude hidden checkbox when {@link MediaFolderType#CUSTOM}
+                binding.settingInstantUploadExcludeHiddenContainer.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -156,7 +164,8 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding.settingInstantUploadOnWifiCheckbox,
             binding.settingInstantUploadOnChargingCheckbox,
             binding.settingInstantUploadExistingCheckbox,
-            binding.settingInstantUploadPathUseSubfoldersCheckbox
+            binding.settingInstantUploadPathUseSubfoldersCheckbox,
+            binding.settingInstantUploadExcludeHiddenCheckbox
         )
 
         viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(binding.btnPositive)
@@ -209,6 +218,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding.settingInstantUploadOnChargingCheckbox.isChecked = it.isChargingOnly
             binding.settingInstantUploadExistingCheckbox.isChecked = it.isExisting
             binding.settingInstantUploadPathUseSubfoldersCheckbox.isChecked = it.isSubfolderByDate
+            binding.settingInstantUploadExcludeHiddenCheckbox.isChecked = it.isExcludeHidden
 
             binding.settingInstantUploadSubfolderRuleSpinner.setSelection(it.subFolderRule.ordinal)
 
@@ -311,6 +321,8 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding.settingInstantUploadExistingContainer.alpha = alpha
             binding.settingInstantUploadPathUseSubfoldersContainer.isEnabled = enable
             binding.settingInstantUploadPathUseSubfoldersContainer.alpha = alpha
+            binding.settingInstantUploadExcludeHiddenContainer.isEnabled = enable
+            binding.settingInstantUploadExcludeHiddenContainer.alpha = alpha
             binding.remoteFolderContainer.isEnabled = enable
             binding.remoteFolderContainer.alpha = alpha
             binding.localFolderContainer.isEnabled = enable
@@ -321,6 +333,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding.settingInstantUploadOnChargingCheckbox.isEnabled = enable
             binding.settingInstantUploadExistingCheckbox.isEnabled = enable
             binding.settingInstantUploadPathUseSubfoldersCheckbox.isEnabled = enable
+            binding.settingInstantUploadExcludeHiddenCheckbox.isEnabled = enable
         }
 
         checkWritableFolder()
@@ -363,6 +376,10 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
                 } else {
                     binding.settingInstantUploadSubfolderRuleContainer.visibility = View.GONE
                 }
+            }
+            binding.settingInstantUploadExcludeHiddenContainer.setOnClickListener {
+                syncedFolder.isExcludeHidden = !syncedFolder.isExcludeHidden
+                binding.settingInstantUploadExcludeHiddenCheckbox.toggle()
             }
             binding.settingInstantUploadSubfolderRuleSpinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
