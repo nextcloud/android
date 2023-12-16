@@ -886,7 +886,6 @@
     <string name="uploader_error_message_source_file_not_found">没找到要上传的文件。请检查文件是否存在。</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">无法上传此文件</string>
     <string name="uploader_error_title_no_file_to_upload">没有要上传的文件</string>
-    <string name="uploader_file_not_found_message">未找到文件。你确定文件存在或冲突未解决吗？</string>
     <string name="uploader_file_not_found_on_server_message">我们无法定位服务器上的该文件。其他用户可能已删除该文件</string>
     <string name="uploader_info_dirname">文件夹名称</string>
     <string name="uploader_local_files_uploaded">请尝试重新上传本地文件</string>

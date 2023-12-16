@@ -881,7 +881,6 @@
     <string name="uploader_error_message_source_file_not_found">Фајл за отпремање није нађен. Проверите да ли постоји.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Фајл се не може отпремити</string>
     <string name="uploader_error_title_no_file_to_upload">Нема фајлова за отпремање</string>
-    <string name="uploader_file_not_found_message">Фајл није пронађен. Да ли сте стигурни да постоји, или да конфилкт већ није разрешен раније?</string>
     <string name="uploader_file_not_found_on_server_message">Нисмо могли да лоцирамо фајл на серверу. Можда га је обрисао неки други корисник</string>
     <string name="uploader_info_dirname">Назив фасцикле</string>
     <string name="uploader_local_files_uploaded">Покушајте поново да отпремите локалне фајлове</string>
