@@ -48,6 +48,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
