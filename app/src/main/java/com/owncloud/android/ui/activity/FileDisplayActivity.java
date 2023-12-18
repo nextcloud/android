@@ -289,7 +289,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             previousSortGroupState = BundleExtensionsKt.getSerializableArgument(savedInstanceState, KEY_SORT_GROUP_STATE, Stack.class);
             mWaitingToPreview = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_WAITING_TO_PREVIEW, OCFile.class);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
-            mWaitingToSend = BundleExtensionsKt.getParcelableArgument(savedInstanceState, FileDisplayActivity.KEY_WAITING_TO_SEND, OCFile.class);
+            mWaitingToSend = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_WAITING_TO_SEND, OCFile.class);
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
             searchOpen = savedInstanceState.getBoolean(FileDisplayActivity.KEY_IS_SEARCH_OPEN, false);
         } else {
