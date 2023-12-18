@@ -256,7 +256,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (savedInstanceState != null) {
             currentSearchType = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_CURRENT_SEARCH_TYPE, SearchType.class);
-            searchEvent = BundleExtensionsKt.getParcelableArgument(savedInstanceState, OCFileListFragment.SEARCH_EVENT, SearchEvent.class);
+            searchEvent = BundleExtensionsKt.getParcelableArgument(savedInstanceState, SEARCH_EVENT, SearchEvent.class);
             mFile = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_FILE, OCFile.class);
         }
 
