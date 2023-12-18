@@ -51,6 +51,7 @@ import com.owncloud.android.databinding.BackuplistFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.asynctasks.LoadContactsTask;
+import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.events.VCardToggleEvent;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
