@@ -272,7 +272,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         Intent intent = getActivity().getIntent();
 
         if (IntentExtensionsKt.getParcelableArgument(intent, SEARCH_EVENT, SearchEvent.class) != null) {
-            searchEvent = IntentExtensionsKt.getParcelableArgument(intent, OCFileListFragment.SEARCH_EVENT, SearchEvent.class);
+            searchEvent = IntentExtensionsKt.getParcelableArgument(intent, SEARCH_EVENT, SearchEvent.class);
         }
 
         if (isSearchEventSet(searchEvent)) {
