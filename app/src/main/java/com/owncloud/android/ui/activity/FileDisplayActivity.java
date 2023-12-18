@@ -287,7 +287,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
     private void loadSavedInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             previousSortGroupState = BundleExtensionsKt.getSerializableArgument(savedInstanceState, KEY_SORT_GROUP_STATE, Stack.class);
-            mWaitingToPreview = BundleExtensionsKt.getParcelableArgument(savedInstanceState, FileDisplayActivity.KEY_WAITING_TO_PREVIEW, OCFile.class);
+            mWaitingToPreview = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_WAITING_TO_PREVIEW, OCFile.class);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
             mWaitingToSend = BundleExtensionsKt.getParcelableArgument(savedInstanceState, FileDisplayActivity.KEY_WAITING_TO_SEND, OCFile.class);
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
