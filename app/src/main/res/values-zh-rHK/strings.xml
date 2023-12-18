@@ -881,6 +881,7 @@
     <string name="uploader_error_message_source_file_not_found">找不到要上傳的檔案。請檢查該檔案存在與否。</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">無法上傳此檔案</string>
     <string name="uploader_error_title_no_file_to_upload">沒有要上傳的檔案</string>
+    <string name="uploader_file_not_found_message">找不到檔案。您確定該檔案存在，或之前的衝突尚未解決？</string>
     <string name="uploader_file_not_found_on_server_message">我們無法在伺服器上找到檔案。可能有其他用戶刪除了該檔案。</string>
     <string name="uploader_info_dirname">資料夾名稱</string>
     <string name="uploader_local_files_uploaded">請嘗試重新上傳近端檔案。</string>

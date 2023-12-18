@@ -882,7 +882,10 @@
     <string name="uploader_error_message_source_file_not_found">Non foi atopado o ficheiro seleccionado para enviar. Comprobe se existe o ficheiro.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Non é posíbel enviar este ficheiro</string>
     <string name="uploader_error_title_no_file_to_upload">Non hai ficheiros para enviar</string>
+    <string name="uploader_file_not_found_message">Non se atopou o ficheiro. Está seguro de que este ficheiro existe ou non se resolveu un conflito anterior?</string>
+    <string name="uploader_file_not_found_on_server_message">Non foi posíbel localizar o ficheiro no servidor. Outro usuario pode ter eliminado o ficheiro</string>
     <string name="uploader_info_dirname">Nome do cartafol</string>
+    <string name="uploader_local_files_uploaded">Tente enviar os ficheiros locais de novo</string>
     <string name="uploader_top_message">Escoller o cartafol de envío</string>
     <string name="uploader_upload_failed_content_single">Non foi posíbel enviar: %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Produciuse un fallo no envío, acceda de novo.</string>
