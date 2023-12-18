@@ -124,12 +124,10 @@ class GeneratePdfFromImagesWork(
         val uploadPath = uploadFolder + OCFile.PATH_SEPARATOR + File(pdfPath).name
 
         FileUploader.uploadNewFile(
-            appContext,
             user,
             pdfPath,
             uploadPath,
             FileUploader.LOCAL_BEHAVIOUR_DELETE, // MIME type will be detected from file name
-            MimeType.PDF,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,

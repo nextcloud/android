@@ -126,12 +126,10 @@ class UriUploader(
      */
     private fun requestUpload(localPath: String?, remotePath: String) {
         FileUploader.uploadNewFile(
-            mActivity,
             user,
             localPath,
             remotePath,
             mBehaviour,
-            null, // MIME type will be detected from file name
             false, // do not create parent folder if not existent
             UploadFileOperation.CREATED_BY_USER,
             false,
