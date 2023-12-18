@@ -79,6 +79,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
@@ -1110,7 +1111,7 @@ public class FileUploader extends Service
          * @param account ownCloud account where the remote file will be stored.
          * @param file    A file in the queue of pending uploads
          */
-        public void cancel(Account account, OCFile file) {
+        public void cancel(Account account, ServerFileInterface file) {
             cancel(account.name, file.getRemotePath(), null);
         }
 
@@ -1206,7 +1207,7 @@ public class FileUploader extends Service
         public void addDatatransferProgressListener(
             OnDatatransferProgressListener listener,
             User user,
-            OCFile file
+            ServerFileInterface file
                                                    ) {
             if (user == null || file == null || listener == null) {
                 return;
@@ -1244,7 +1245,7 @@ public class FileUploader extends Service
         public void removeDatatransferProgressListener(
             OnDatatransferProgressListener listener,
             User user,
-            OCFile file
+            ServerFileInterface file
                                                       ) {
             if (user == null || file == null || listener == null) {
                 return;
