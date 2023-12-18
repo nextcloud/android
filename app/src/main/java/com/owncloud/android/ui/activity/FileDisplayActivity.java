@@ -1081,9 +1081,12 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         syncAndUpdateFolder(false, true);
 
         OCFile startFile = null;
-        OCFile fileArgs = IntentExtensionsKt.getParcelableArgument(getIntent(), EXTRA_FILE, OCFile.class);
-        if (getIntent() != null && fileArgs != null) {
-            startFile = fileArgs;
+        if (getIntent() != null) {
+            OCFile fileArgs = IntentExtensionsKt.getParcelableArgument(getIntent(), EXTRA_FILE, OCFile.class);
+            if (fileArgs != null) {
+                startFile = fileArgs;
+                setFile(startFile);
+            }
             setFile(startFile);
         }
 
