@@ -139,12 +139,10 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val file = getDummyFile("chunkedFile.txt")
 
         FileUploader.uploadNewFile(
-            targetContext,
             user,
             file.absolutePath,
             "/testFile.txt",
             FileUploader.LOCAL_BEHAVIOUR_COPY,
-            null,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,
@@ -258,12 +256,10 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val file = getDummyFile("nonEmpty.txt")
 
         FileUploader.uploadNewFile(
-            targetContext,
             user,
             file.absolutePath,
             "/testFile.txt",
             FileUploader.LOCAL_BEHAVIOUR_COPY,
-            null,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,
@@ -369,12 +365,10 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val file = getDummyFile("chunkedFile.txt")
 
         FileUploader.uploadNewFile(
-            targetContext,
             user,
             file.absolutePath,
             "/testFile.txt",
             FileUploader.LOCAL_BEHAVIOUR_COPY,
-            null,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,
@@ -476,12 +470,10 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val file = getDummyFile("chunkedFile.txt")
 
         FileUploader.uploadNewFile(
-            targetContext,
             user,
             file.absolutePath,
             "/testFile.txt",
             FileUploader.LOCAL_BEHAVIOUR_COPY,
-            null,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,

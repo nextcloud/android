@@ -184,16 +184,10 @@ class DocumentScanViewModel @Inject constructor(
             uploadFolder + OCFile.PATH_SEPARATOR + File(it).name
         }.toTypedArray()
 
-        val mimetypes = pageList.map {
-            MimeType.JPEG
-        }.toTypedArray()
-
         FileUploader.uploadNewFile(
-            getApplication(),
             currentAccountProvider.user,
             pageList.toTypedArray(),
             uploadPaths,
-            mimetypes,
             FileUploader.LOCAL_BEHAVIOUR_DELETE,
             true,
             UploadFileOperation.CREATED_BY_USER,
