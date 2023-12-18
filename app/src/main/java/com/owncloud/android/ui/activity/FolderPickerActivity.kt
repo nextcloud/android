@@ -34,9 +34,12 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
+import com.owncloud.android.databinding.FilesFolderPickerBinding
+import com.owncloud.android.databinding.FilesPickerBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -80,59 +83,78 @@ open class FolderPickerActivity :
     private var mChooseBtn: MaterialButton? = null
     private var mMoveBtn: MaterialButton? = null
 
-    private var caption: String? = null
+    private var captionText: String? = null
 
-    private var mAction: String? = null
-    private var mTargetFilePaths: ArrayList<String>? = null
+    private var action: String? = null
+    private var targetFilePaths: ArrayList<String>? = null
+
+    private lateinit var filesPickerBinding: FilesPickerBinding
+    private lateinit var folderPickerBinding: FilesFolderPickerBinding
 
     @Inject
     lateinit var localBroadcastManager: LocalBroadcastManager
 
+    private fun initBinding() {
+        if (this is FilePickerActivity) {
+            filesPickerBinding = FilesPickerBinding.inflate(layoutInflater)
+        } else {
+            folderPickerBinding = FilesFolderPickerBinding.inflate(layoutInflater)
+        }
+    }
+
+    private fun binding(): ViewBinding {
+        return if (this is FilePickerActivity) {
+            filesPickerBinding
+        } else {
+            folderPickerBinding
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Log_OC.d(TAG, "onCreate() start")
+
         super.onCreate(savedInstanceState)
 
-        if (this is FilePickerActivity) {
-            setContentView(R.layout.files_picker)
-        } else {
-            setContentView(R.layout.files_folder_picker)
-        }
-
-        // sets callback listeners for UI elements
+        initBinding()
+        setContentView(binding().root)
         initControls()
-
-        // Action bar setup
         setupToolbar()
-        findViewById<View>(R.id.sort_list_button_group).visibility =
-            View.VISIBLE
-        findViewById<View>(R.id.switch_grid_view_button).visibility =
-            View.GONE
-        mAction = intent.getStringExtra(EXTRA_ACTION)
-
-        if (mAction != null && mAction == CHOOSE_LOCATION) {
-            setupUIForChooseButton()
-        } else {
-            caption = themeUtils.getDefaultDisplayNameForRootFolder(this)
-        }
-
-        mTargetFilePaths = intent.getStringArrayListExtra(EXTRA_FILE_PATHS)
+        setupActionBar()
+        setupAction()
+        initTargetFilesPath()
 
         if (savedInstanceState == null) {
             createFragments()
         }
-        updateActionBarTitleAndHomeButtonByString(caption)
 
-        // always AFTER setContentView(...) ; to work around bug in its implementation
-
-        // sets message for empty list of folders
+        updateActionBarTitleAndHomeButtonByString(captionText)
         setBackgroundText()
         handleOnBackPressed()
+    }
 
-        Log_OC.d(TAG, "onCreate() end")
+    private fun setupActionBar() {
+        findViewById<View>(R.id.sort_list_button_group).visibility =
+            View.VISIBLE
+        findViewById<View>(R.id.switch_grid_view_button).visibility =
+            View.GONE
+    }
+
+    private fun setupAction() {
+        action = intent.getStringExtra(EXTRA_ACTION)
+
+        if (action != null && action == CHOOSE_LOCATION) {
+            setupUIForChooseButton()
+        } else {
+            captionText = themeUtils.getDefaultDisplayNameForRootFolder(this)
+        }
+    }
+
+    private fun initTargetFilesPath() {
+        targetFilePaths = intent.getStringArrayListExtra(EXTRA_FILE_PATHS)
     }
 
     private fun setupUIForChooseButton() {
-        caption = resources.getText(R.string.folder_picker_choose_caption_text).toString()
+        captionText = resources.getText(R.string.folder_picker_choose_caption_text).toString()
         mSearchOnlyFolders = true
         isDoNotEnterEncryptedFolder = true
 
@@ -374,13 +396,13 @@ open class FolderPickerActivity :
     // for copy and move, disable selecting parent folder of target files
     private fun checkFolderSelectable(): Boolean {
         return when {
-            mAction != MOVE_OR_COPY -> true
-            mTargetFilePaths.isNullOrEmpty() -> true
+            action != MOVE_OR_COPY -> true
+            targetFilePaths.isNullOrEmpty() -> true
             file?.isFolder != true -> true
             // all of the target files are already in the selected directory
-            mTargetFilePaths!!.all { PathUtils.isDirectParent(file.remotePath, it) } -> false
+            targetFilePaths!!.all { PathUtils.isDirectParent(file.remotePath, it) } -> false
             // some of the target files are parents of the selected folder
-            mTargetFilePaths!!.any { PathUtils.isAncestor(it, file.remotePath) } -> false
+            targetFilePaths!!.any { PathUtils.isAncestor(it, file.remotePath) } -> false
             else -> true
         }
     }
@@ -392,7 +414,7 @@ open class FolderPickerActivity :
             val atRoot = currentDir == null || currentDir.parentId == 0L
             actionBar.setDisplayHomeAsUpEnabled(!atRoot)
             actionBar.setHomeButtonEnabled(!atRoot)
-            val title = if (atRoot) caption ?: "" else currentDir!!.fileName
+            val title = if (atRoot) captionText ?: "" else currentDir!!.fileName
             viewThemeUtils.files.themeActionBar(this, actionBar, title)
         }
     }
@@ -449,7 +471,7 @@ open class FolderPickerActivity :
             resultData.putParcelableArrayListExtra(EXTRA_FILES, targetFiles)
         }
 
-        mTargetFilePaths?.let {
+        targetFilePaths?.let {
             if (v == mCopyBtn || v == mMoveBtn) {
                 moveOrCopyFiles(v, it)
             }
