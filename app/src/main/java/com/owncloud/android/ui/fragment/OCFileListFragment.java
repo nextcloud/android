@@ -399,7 +399,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (getArguments() == null) {
                 searchEvent = null;
             } else {
-                searchEvent = BundleExtensionsKt.getParcelableArgument(getArguments(), OCFileListFragment.SEARCH_EVENT, SearchEvent.class);
+                searchEvent = BundleExtensionsKt.getParcelableArgument(getArguments(), SEARCH_EVENT, SearchEvent.class);
             }
         }
         prepareCurrentSearch(searchEvent);
