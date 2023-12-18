@@ -519,7 +519,6 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             OCFile file = IntentExtensionsKt.getParcelableArgument(intent, EXTRA_FILE, OCFile.class);
             setFile(file);
             setIntent(intent);
-            setFile(IntentExtensionsKt.getParcelableArgument(intent, EXTRA_FILE, OCFile.class)); // is it needed?
             showDetails(file);
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             handleOpenFileViaIntent(intent);
