@@ -41,6 +41,7 @@ import android.view.View;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.files.downloader.FilesDownloadWorker;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.java.util.Optional;
@@ -51,7 +52,6 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.UserInfo;
@@ -243,8 +243,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     private void initializeComponentGetters() {
         downloadServiceConnection = newTransferenceServiceConnection();
         if (downloadServiceConnection != null) {
-            bindService(new Intent(this, FileDownloader.class), downloadServiceConnection,
-                        Context.BIND_AUTO_CREATE);
+            // FIXME check this usage
+            // bindService(new Intent(this, FileDownloader.class), downloadServiceConnection, Context.BIND_AUTO_CREATE);
         }
         uploadServiceConnection = newTransferenceServiceConnection();
         if (uploadServiceConnection != null) {
@@ -535,8 +535,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
 
-            if (component.equals(new ComponentName(ManageAccountsActivity.this, FileDownloader.class))) {
-                mDownloaderBinder = (FileDownloader.FileDownloaderBinder) service;
+            if (component.equals(new ComponentName(ManageAccountsActivity.this, FilesDownloadWorker.class))) {
+                mDownloaderBinder = (FilesDownloadWorker.FileDownloaderBinder) service;
 
             } else if (component.equals(new ComponentName(ManageAccountsActivity.this, FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
@@ -546,7 +546,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
 
         @Override
         public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(ManageAccountsActivity.this, FileDownloader.class))) {
+            if (component.equals(new ComponentName(ManageAccountsActivity.this, FilesDownloadWorker.class))) {
                 Log_OC.d(TAG, "Download service suddenly disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(ManageAccountsActivity.this, FileUploader.class))) {

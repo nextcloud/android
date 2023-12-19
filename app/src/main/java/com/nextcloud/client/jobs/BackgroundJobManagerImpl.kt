@@ -42,7 +42,6 @@ import com.nextcloud.client.files.downloader.FilesDownloadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.operations.DownloadType
-import java.io.File
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
@@ -513,10 +512,10 @@ internal class BackgroundJobManagerImpl(
         user: User,
         ocFile: OCFile,
         behaviour: String,
-        downloadType: DownloadType,
+        downloadType: DownloadType?,
         activityName: String,
         packageName: String,
-        conflictUploadId: Long
+        conflictUploadId: Long?
     ) {
         val data = workDataOf(
             FilesDownloadWorker.USER to user,

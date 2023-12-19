@@ -25,10 +25,10 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.files.downloader.FilesDownloadHelper;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -451,14 +451,17 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 if (mCancellationRequested.get()) {
                     throw new OperationCancelledException();
                 }
-                Intent i = new Intent(mContext, FileDownloader.class);
-                i.putExtra(FileDownloader.EXTRA_USER, user);
-                i.putExtra(FileDownloader.EXTRA_FILE, file);
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    mContext.startForegroundService(i);
-                } else {
-                    mContext.startService(i);
-                }
+
+                FilesDownloadHelper downloadHelper = new FilesDownloadHelper();
+
+                downloadHelper.downloadFile(
+                    user,
+                    file,
+                    "",
+                    null,
+                    "",
+                    "",
+                    null);
             }
         }
     }

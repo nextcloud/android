@@ -25,6 +25,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.nextcloud.client.files.downloader.FilesDownloadWorker
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.EditorUtils
@@ -33,7 +34,6 @@ import com.owncloud.android.databinding.TestLayoutBinding
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.services.FileDownloader
 import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
@@ -130,7 +130,7 @@ class TestActivity :
         return null
     }
 
-    override fun getFileDownloaderBinder(): FileDownloader.FileDownloaderBinder? {
+    override fun getFileDownloaderBinder(): FilesDownloadWorker.FileDownloaderBinder? {
         return null
     }
 

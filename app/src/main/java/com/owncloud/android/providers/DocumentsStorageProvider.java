@@ -52,7 +52,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -308,7 +307,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     /**
      * Updates the OC File after a successful download.
      *
-     * TODO unify with code from {@link FileDownloader} and {@link DownloadTask}.
+     * TODO unify with code from {@link com.nextcloud.client.files.downloader.FilesDownloadWorker} and {@link DownloadTask}.
      */
     private void saveDownloadedFile(FileDataStorageManager storageManager, DownloadFileOperation dfo, OCFile file) {
         long syncDate = System.currentTimeMillis();

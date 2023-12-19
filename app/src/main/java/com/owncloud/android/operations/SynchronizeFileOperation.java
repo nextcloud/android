@@ -22,13 +22,12 @@
 package com.owncloud.android.operations;
 
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.files.downloader.FilesDownloadHelper;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -317,11 +316,17 @@ public class SynchronizeFileOperation extends SyncOperation {
      * @param file OCFile object representing the file to download
      */
     private void requestForDownload(OCFile file) {
-        Intent i = new Intent(mContext, FileDownloader.class);
-        i.putExtra(FileDownloader.EXTRA_USER, mUser);
-        i.putExtra(FileDownloader.EXTRA_FILE, file);
+        FilesDownloadHelper downloadHelper = new FilesDownloadHelper();
 
-        new FileDownloader(i);
+        downloadHelper.downloadFile(
+            mUser,
+            file,
+            "",
+            null,
+            "",
+            "",
+            null);
+
         mTransferWasRequested = true;
     }
 

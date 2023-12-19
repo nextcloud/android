@@ -21,13 +21,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.nextcloud.client.account.User
+import com.nextcloud.client.files.downloader.FilesDownloadHelper
 import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
-import com.owncloud.android.files.services.FileDownloader
 import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -114,12 +114,17 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
                 Decision.KEEP_SERVER -> if (!shouldDeleteLocal()) {
                     // Overwrite local file
-                    val intent = Intent(baseContext, FileDownloader::class.java)
-                    intent.putExtra(FileDownloader.EXTRA_USER, getUser().orElseThrow { RuntimeException() })
-                    intent.putExtra(FileDownloader.EXTRA_FILE, file)
-                    intent.putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
-
-                    FileDownloader(intent)
+                    file?.let {
+                        FilesDownloadHelper().downloadFile(
+                            user = getUser().orElseThrow { RuntimeException() },
+                            ocFile = file,
+                            conflictUploadId = conflictUploadId,
+                            behaviour = "",
+                            packageName = "",
+                            activityName = "",
+                            downloadType = null
+                        )
+                    }
                 } else {
                     uploadsStorageManager!!.removeUpload(upload)
                 }

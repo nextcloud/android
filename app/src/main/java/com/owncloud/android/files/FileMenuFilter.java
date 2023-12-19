@@ -31,11 +31,11 @@ import android.view.Menu;
 import com.nextcloud.android.files.FileLockingHelper;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.editimage.EditImageActivity;
+import com.nextcloud.client.files.downloader.FilesDownloadWorker;
 import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
@@ -380,7 +380,7 @@ public class FileMenuFilter {
         if (componentsGetter != null && !files.isEmpty() && user != null) {
             OperationsServiceBinder opsBinder = componentsGetter.getOperationsServiceBinder();
             FileUploaderBinder uploaderBinder = componentsGetter.getFileUploaderBinder();
-            FileDownloaderBinder downloaderBinder = componentsGetter.getFileDownloaderBinder();
+            FilesDownloadWorker.FileDownloaderBinder downloaderBinder = componentsGetter.getFileDownloaderBinder();
             synchronizing = anyFileSynchronizing(opsBinder) ||      // comparing local and remote
                             anyFileDownloading(downloaderBinder) ||
                             anyFileUploading(uploaderBinder);
@@ -398,7 +398,7 @@ public class FileMenuFilter {
         return synchronizing;
     }
 
-    private boolean anyFileDownloading(FileDownloaderBinder downloaderBinder) {
+    private boolean anyFileDownloading(FilesDownloadWorker.FileDownloaderBinder downloaderBinder) {
         boolean downloading = false;
         if (downloaderBinder != null) {
             for (Iterator<OCFile> iterator = files.iterator(); !downloading && iterator.hasNext(); ) {

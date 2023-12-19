@@ -45,10 +45,10 @@ class FilesDownloadHelper {
         user: User,
         ocFile: OCFile,
         behaviour: String,
-        downloadType: DownloadType,
+        downloadType: DownloadType?,
         activityName: String,
         packageName: String,
-        conflictUploadId: Long
+        conflictUploadId: Long?
     ) {
         backgroundJobManager.startFilesDownloadJob(
             user,

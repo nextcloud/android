@@ -23,6 +23,7 @@ package com.owncloud.android.files
 import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextcloud.client.account.User
+import com.nextcloud.client.files.downloader.FilesDownloadWorker
 import com.nextcloud.test.TestActivity
 import com.nextcloud.utils.EditorUtils
 import com.owncloud.android.AbstractIT
@@ -30,7 +31,6 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.services.FileDownloader
 import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType
@@ -62,7 +62,7 @@ class FileMenuFilterIT : AbstractIT() {
     private lateinit var mockFileUploaderBinder: FileUploader.FileUploaderBinder
 
     @MockK
-    private lateinit var mockFileDownloaderBinder: FileDownloader.FileDownloaderBinder
+    private lateinit var mockFileDownloaderBinder: FilesDownloadWorker.FileDownloaderBinder
 
     @MockK
     private lateinit var mockOperationsServiceBinder: OperationsService.OperationsServiceBinder
