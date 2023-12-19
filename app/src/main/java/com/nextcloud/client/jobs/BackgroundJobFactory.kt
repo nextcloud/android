@@ -266,6 +266,17 @@ class BackgroundJobFactory @Inject constructor(
         )
     }
 
+    private fun createFilesDownloadWorker(context: Context, params: WorkerParameters): FilesDownloadWorker {
+        return FilesDownloadWorker(
+            viewThemeUtils.get(),
+            accountManager,
+            uploadsStorageManager,
+            localBroadcastManager.get(),
+            context,
+            params
+        )
+    }
+
     private fun createPDFGenerateWork(context: Context, params: WorkerParameters): GeneratePdfFromImagesWork {
         return GeneratePdfFromImagesWork(
             appContext = context,
