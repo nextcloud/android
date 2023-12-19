@@ -388,6 +388,7 @@
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
+    <string name="folder_picker_choose_button_text">Wybierz</string>
     <string name="folder_picker_choose_caption_text">Wybierz katalog docelowy</string>
     <string name="folder_picker_copy_button_text">Skopiuj</string>
     <string name="folder_picker_move_button_text">Przenieś</string>

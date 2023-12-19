@@ -327,6 +327,7 @@
     <string name="folder_already_exists">โฟลเดอร์มีอยู่แล้ว</string>
     <string name="folder_confirm_create">สร้าง</string>
     <string name="folder_list_empty_headline">ไม่มีโฟลเดอร์ที่นี่</string>
+    <string name="folder_picker_choose_button_text">เลือก</string>
     <string name="folder_picker_choose_caption_text">เลือกโฟลเดอร์เป้าหมาย</string>
     <string name="folder_picker_copy_button_text">คัดลอก</string>
     <string name="folder_picker_move_button_text">ย้าย</string>

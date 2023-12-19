@@ -389,6 +389,7 @@
     <string name="folder_already_exists">A mappa már létezik</string>
     <string name="folder_confirm_create">Létrehozás</string>
     <string name="folder_list_empty_headline">Itt nincsenek mappák</string>
+    <string name="folder_picker_choose_button_text">Válasszon</string>
     <string name="folder_picker_choose_caption_text">Válasszon célmappát</string>
     <string name="folder_picker_copy_button_text">Másolás</string>
     <string name="folder_picker_move_button_text">Áthelyezés</string>

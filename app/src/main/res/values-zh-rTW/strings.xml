@@ -389,6 +389,7 @@
     <string name="folder_already_exists">資料夾已存在</string>
     <string name="folder_confirm_create">建立</string>
     <string name="folder_list_empty_headline">這裡沒有資料夾</string>
+    <string name="folder_picker_choose_button_text">選擇</string>
     <string name="folder_picker_choose_caption_text">選擇目標資料夾</string>
     <string name="folder_picker_copy_button_text">複製</string>
     <string name="folder_picker_move_button_text">移動</string>

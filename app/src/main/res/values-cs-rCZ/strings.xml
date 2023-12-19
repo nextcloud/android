@@ -388,6 +388,7 @@
     <string name="folder_already_exists">Složka už existuje</string>
     <string name="folder_confirm_create">Vytvořit</string>
     <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
+    <string name="folder_picker_choose_button_text">Vybrat</string>
     <string name="folder_picker_choose_caption_text">Zvolte cílovou složku</string>
     <string name="folder_picker_copy_button_text">Zkopírovat</string>
     <string name="folder_picker_move_button_text">Přesunout</string>

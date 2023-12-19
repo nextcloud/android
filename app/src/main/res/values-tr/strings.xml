@@ -389,6 +389,7 @@
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="folder_confirm_create">Ekle</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
+    <string name="folder_picker_choose_button_text">Seçin</string>
     <string name="folder_picker_choose_caption_text">Hedef klasörü seçin</string>
     <string name="folder_picker_copy_button_text">Kopyala</string>
     <string name="folder_picker_move_button_text">Taşı</string>

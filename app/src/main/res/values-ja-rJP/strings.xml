@@ -382,6 +382,7 @@
     <string name="folder_already_exists">フォルダーはすでに存在します</string>
     <string name="folder_confirm_create">作成</string>
     <string name="folder_list_empty_headline">フォルダーがありません</string>
+    <string name="folder_picker_choose_button_text">選択</string>
     <string name="folder_picker_choose_caption_text">ターゲットフォルダーを選択</string>
     <string name="folder_picker_copy_button_text">コピー</string>
     <string name="folder_picker_move_button_text">移動</string>

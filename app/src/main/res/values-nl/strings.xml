@@ -367,6 +367,7 @@
     <string name="folder_already_exists">Map bestaat al</string>
     <string name="folder_confirm_create">Aanmaken</string>
     <string name="folder_list_empty_headline">Hier zijn geen bestanden</string>
+    <string name="folder_picker_choose_button_text">Kies</string>
     <string name="folder_picker_choose_caption_text">Kies doelmap…</string>
     <string name="folder_picker_copy_button_text">Kopiëren</string>
     <string name="folder_picker_move_button_text">Verplaatsen</string>

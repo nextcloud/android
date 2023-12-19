@@ -323,6 +323,7 @@
     <string name="folder_already_exists">Carpeta ya existente</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">No hay carpetas aquí</string>
+    <string name="folder_picker_choose_button_text">Seleccionar</string>
     <string name="folder_picker_choose_caption_text">Elegir carpeta destino</string>
     <string name="folder_picker_move_button_text">Mover</string>
     <string name="forbidden_permissions">No se te permite %s</string>

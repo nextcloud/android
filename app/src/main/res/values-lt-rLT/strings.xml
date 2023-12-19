@@ -357,6 +357,7 @@
     <string name="folder_already_exists">Aplankas jau yra</string>
     <string name="folder_confirm_create">Sukurti</string>
     <string name="folder_list_empty_headline">Čia aplankų nėra</string>
+    <string name="folder_picker_choose_button_text">Pasirinkite</string>
     <string name="folder_picker_choose_caption_text">Pasirinkite paskirties aplanką</string>
     <string name="folder_picker_copy_button_text">Kopija</string>
     <string name="folder_picker_move_button_text">Perkelti</string>

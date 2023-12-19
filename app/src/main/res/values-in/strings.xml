@@ -359,6 +359,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="folder_already_exists">Direktori sudah ada</string>
     <string name="folder_confirm_create">Buat</string>
     <string name="folder_list_empty_headline">Tidak ada folder</string>
+    <string name="folder_picker_choose_button_text">Pilih</string>
     <string name="folder_picker_choose_caption_text">Pilih folder target</string>
     <string name="folder_picker_move_button_text">Pindah</string>
     <string name="forbidden_permissions">Anda tidak memiliki izin %s</string>

@@ -383,6 +383,7 @@
     <string name="folder_already_exists">Mappa er þegar til staðar</string>
     <string name="folder_confirm_create">Búa til</string>
     <string name="folder_list_empty_headline">Engar möppur hér</string>
+    <string name="folder_picker_choose_button_text">Velja</string>
     <string name="folder_picker_choose_caption_text">Veldu úttaksmöppu</string>
     <string name="folder_picker_copy_button_text">Afrita</string>
     <string name="folder_picker_move_button_text">Færa</string>

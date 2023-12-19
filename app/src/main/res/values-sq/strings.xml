@@ -306,6 +306,7 @@
     <string name="folder_already_exists">Dosja ekziston tashmë</string>
     <string name="folder_confirm_create">Krijo</string>
     <string name="folder_list_empty_headline">Këtu nuk ka dosje</string>
+    <string name="folder_picker_choose_button_text">Zgjidhni</string>
     <string name="folder_picker_copy_button_text">Kopjoni</string>
     <string name="folder_picker_move_button_text">Zhvendos</string>
     <string name="forbidden_permissions">Nuk keni leje %s</string>
