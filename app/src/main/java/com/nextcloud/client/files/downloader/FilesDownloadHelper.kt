@@ -41,6 +41,54 @@ class FilesDownloadHelper {
         MainApp.getAppComponent().inject(this)
     }
 
+    fun downloadFile(user: User, ocFile: OCFile) {
+        backgroundJobManager.startFilesDownloadJob(
+            user,
+            ocFile,
+            "",
+            null,
+            "",
+            "",
+            null
+        )
+    }
+
+    fun downloadFile(user: User, ocFile: OCFile, behaviour: String) {
+        backgroundJobManager.startFilesDownloadJob(
+            user,
+            ocFile,
+            behaviour,
+            null,
+            "",
+            "",
+            null
+        )
+    }
+
+    fun downloadFile(user: User, ocFile: OCFile, downloadType: DownloadType) {
+        backgroundJobManager.startFilesDownloadJob(
+            user,
+            ocFile,
+            "",
+            downloadType,
+            "",
+            "",
+            null
+        )
+    }
+
+    fun downloadFile(user: User, ocFile: OCFile, conflictUploadId: Long) {
+        backgroundJobManager.startFilesDownloadJob(
+            user,
+            ocFile,
+            "",
+            null,
+            "",
+            "",
+            conflictUploadId
+        )
+    }
+
     fun downloadFile(
         user: User,
         ocFile: OCFile,

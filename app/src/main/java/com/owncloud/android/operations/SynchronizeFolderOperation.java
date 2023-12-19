@@ -454,14 +454,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
                 FilesDownloadHelper downloadHelper = new FilesDownloadHelper();
 
-                downloadHelper.downloadFile(
-                    user,
-                    file,
-                    "",
-                    null,
-                    "",
-                    "",
-                    null);
+                downloadHelper.downloadFile(user, file);
             }
         }
     }

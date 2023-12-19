@@ -1885,7 +1885,7 @@ public class FileDisplayActivity extends FileActivity
         User user = getUser().orElseThrow(RuntimeException::new);
         //if (!mWaitingToPreview.isDownloading()) {
         if (!mDownloaderBinder.isDownloading(user, mWaitingToPreview)) {
-            new FilesDownloadHelper().downloadFile(user, mWaitingToPreview, "", null, "", "", null);
+            new FilesDownloadHelper().downloadFile(user, mWaitingToPreview);
         }
     }
 
