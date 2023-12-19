@@ -50,6 +50,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.files.services.IndexedForest
+import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
@@ -123,11 +124,12 @@ class FilesDownloadWorker(
             val behaviour = inputData.keyValueMap[BEHAVIOUR] as String
             val activityName = inputData.keyValueMap[ACTIVITY_NAME] as String
             val packageName = inputData.keyValueMap[PACKAGE_NAME] as String
+
             downloadBinder = FileDownloaderBinder()
 
             showDownloadingFilesNotification()
             addAccountUpdateListener()
-            download(user, file, behaviour, downloadType, activityName, packageName)
+            requestDownloads(user, file, behaviour, downloadType, activityName, packageName)
 
             Result.success()
         } catch (t: Throwable) {
@@ -135,7 +137,7 @@ class FilesDownloadWorker(
         }
     }
 
-    private fun download(
+    private fun requestDownloads(
         user: User,
         file: OCFile,
         behaviour: String,
@@ -145,7 +147,7 @@ class FilesDownloadWorker(
     ) {
         val requestedDownloads: AbstractList<String> = Vector()
         try {
-            val newDownload = DownloadFileOperation(
+            val operation = DownloadFileOperation(
                 user,
                 file,
                 behaviour,
@@ -154,17 +156,17 @@ class FilesDownloadWorker(
                 context,
                 downloadType
             )
-            newDownload.addDatatransferProgressListener(this)
-            newDownload.addDatatransferProgressListener(downloadBinder as FileDownloaderBinder?)
+            operation.addDatatransferProgressListener(this)
+            operation.addDatatransferProgressListener(downloadBinder as FileDownloaderBinder?)
             val putResult: Pair<String, String> = pendingDownloads.putIfAbsent(
                 user.accountName,
                 file.remotePath,
-                newDownload
+                operation
             )
 
             val downloadKey = putResult.first
             requestedDownloads.add(downloadKey)
-            sendBroadcastNewDownload(newDownload, putResult.second)
+            sendBroadcastNewDownload(operation, putResult.second)
         } catch (e: IllegalArgumentException) {
             Log_OC.e(TAG, "Not enough information provided in intent: " + e.message)
         }
@@ -183,47 +185,59 @@ class FilesDownloadWorker(
     private fun downloadFile(downloadKey: String) {
         startedDownload = true
         currentDownload = pendingDownloads.get(downloadKey)
-        if (currentDownload != null) {
-            if (accountManager.exists(currentDownload?.user?.toPlatformAccount())) {
-                notifyDownloadStart(currentDownload!!)
-                var downloadResult: RemoteOperationResult<*>? = null
-                try {
-                    /// prepare client object to send the request to the ownCloud server
-                    val currentDownloadAccount: Account? = currentDownload?.user?.toPlatformAccount()
-                    val currentDownloadUser = accountManager.getUser(currentDownloadAccount?.name)
-                    if (currentUser != currentDownloadUser) {
-                        currentUser = currentDownloadUser
-                        storageManager = FileDataStorageManager(currentUser.get(), context.contentResolver)
-                    } // else, reuse storage manager from previous operation
 
-                    val ocAccount = currentDownloadUser.get().toOwnCloudAccount()
-                    downloadClient =
-                        OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
+        if (currentDownload == null) {
+            return
+        }
 
-                    downloadResult = currentDownload!!.execute(downloadClient)
-                    if (downloadResult?.isSuccess == true && currentDownload?.downloadType === DownloadType.DOWNLOAD) {
-                        saveDownloadedFile()
-                    }
-                } catch (e: Exception) {
-                    Log_OC.e(TAG, "Error downloading", e)
-                    downloadResult = RemoteOperationResult<Any?>(e)
-                } finally {
-                    val removeResult: Pair<DownloadFileOperation, String> = pendingDownloads.removePayload(
-                        currentDownload?.user?.accountName, currentDownload?.remotePath
-                    )
+        val isAccountExist = accountManager.exists(currentDownload?.user?.toPlatformAccount())
+        if (!isAccountExist) {
+            cancelPendingDownloads(currentDownload?.user?.accountName)
+            return
+        }
 
-                    if (downloadResult == null) {
-                        downloadResult = RemoteOperationResult<Any?>(RuntimeException("Error downloading…"))
-                    }
+        notifyDownloadStart(currentDownload!!)
+        var downloadResult: RemoteOperationResult<*>? = null
+        try {
+            val ocAccount = getOCAccountForDownload()
+            downloadClient =
+                OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
 
-                    currentDownload?.let {
-                        notifyDownloadResult(it, downloadResult)
-                        sendBroadcastDownloadFinished(it, downloadResult, removeResult.second)
-                    }
-                }
-            } else {
-                cancelPendingDownloads(currentDownload?.user?.accountName)
+            downloadResult = currentDownload?.execute(downloadClient)
+            if (downloadResult?.isSuccess == true && currentDownload?.downloadType === DownloadType.DOWNLOAD) {
+                saveDownloadedFile()
             }
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Error downloading", e)
+            downloadResult = RemoteOperationResult<Any?>(e)
+        } finally {
+            cleanupDownloadProcess(downloadResult)
+        }
+    }
+
+    private fun getOCAccountForDownload(): OwnCloudAccount {
+        val currentDownloadAccount = currentDownload?.user?.toPlatformAccount()
+        val currentDownloadUser = accountManager.getUser(currentDownloadAccount?.name)
+        if (currentUser != currentDownloadUser) {
+            currentUser = currentDownloadUser
+            storageManager = FileDataStorageManager(currentUser.get(), context.contentResolver)
+        }
+        return currentDownloadUser.get().toOwnCloudAccount()
+    }
+
+    private fun cleanupDownloadProcess(result: RemoteOperationResult<*>?) {
+        var downloadResult = result
+        val removeResult: Pair<DownloadFileOperation, String> = pendingDownloads.removePayload(
+            currentDownload?.user?.accountName, currentDownload?.remotePath
+        )
+
+        if (downloadResult == null) {
+            downloadResult = RemoteOperationResult<Any?>(RuntimeException("Error downloading…"))
+        }
+
+        currentDownload?.let {
+            notifyDownloadResult(it, downloadResult)
+            sendBroadcastDownloadFinished(it, downloadResult, removeResult.second)
         }
     }
 
