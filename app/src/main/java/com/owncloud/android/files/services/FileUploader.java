@@ -977,8 +977,7 @@ public class FileUploader extends Service
         OCFile existingFile,
         Integer behaviour,
         NameCollisionPolicy nameCollisionPolicy,
-        boolean disableRetries
-                                       ) {
+        boolean disableRetries) {
         uploadUpdateFile(context,
                          user,
                          new OCFile[]{existingFile},
