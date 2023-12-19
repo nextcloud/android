@@ -44,6 +44,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -168,7 +169,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         if (resultCode == KEY_DELETE_CODE && data != null) {
             Bundle bundle = data.getExtras();
             if (bundle != null && bundle.containsKey(UserInfoActivity.KEY_ACCOUNT)) {
-                final Account account = bundle.getParcelable(UserInfoActivity.KEY_ACCOUNT);
+                final Account account = BundleExtensionsKt.getParcelableArgument(bundle, UserInfoActivity.KEY_ACCOUNT, Account.class);
                 if (account != null) {
                     User user = accountManager.getUser(account.name).orElseThrow(RuntimeException::new);
                     accountName = account.name;

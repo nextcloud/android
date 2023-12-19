@@ -25,7 +25,6 @@ import android.os.Parcelable;
 
 import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.datamodel.MediaFolderType;
-import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;

@@ -24,6 +24,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.storage.StorageManager
 import androidx.annotation.RequiresApi
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
@@ -40,15 +41,8 @@ class SyncFileNotEnoughSpaceDialogFragment :
     private var targetFile: OCFile? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        targetFile = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getParcelable(ARG_PASSED_FILE, OCFile::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            requireArguments().getParcelable(ARG_PASSED_FILE)
-        }
-
+        targetFile = requireArguments().getParcelableArgument(ARG_PASSED_FILE, OCFile::class.java)
         setOnConfirmationListener(this)
-
         return super.onCreateDialog(savedInstanceState)
     }
 

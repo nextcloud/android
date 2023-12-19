@@ -39,6 +39,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -123,7 +124,7 @@ public class PreviewImageActivity extends FileActivity implements
 
         setContentView(R.layout.preview_image_activity);
 
-        livePhotoFile = getIntent().getParcelableExtra(EXTRA_LIVE_PHOTO_FILE);
+        livePhotoFile = IntentExtensionsKt.getParcelableArgument(getIntent(), EXTRA_LIVE_PHOTO_FILE, OCFile.class);
 
         // Navigation Drawer
         setupDrawer();
@@ -161,7 +162,7 @@ public class PreviewImageActivity extends FileActivity implements
 
     private void initViewPager(User user) {
         // virtual folder
-        final Serializable virtualFolderType = getIntent().getSerializableExtra(EXTRA_VIRTUAL_TYPE);
+        final Serializable virtualFolderType = IntentExtensionsKt.getSerializableArgument(getIntent(), EXTRA_VIRTUAL_TYPE, Serializable.class);
         if (virtualFolderType != null && virtualFolderType != VirtualFolderType.NONE) {
             VirtualFolderType type = (VirtualFolderType) virtualFolderType;
 

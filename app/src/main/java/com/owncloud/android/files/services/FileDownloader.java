@@ -43,6 +43,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.files.downloader.DownloadTask;
 import com.nextcloud.java.util.Optional;
 import com.nextcloud.utils.ForegroundServiceHelper;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -208,13 +209,13 @@ public class FileDownloader extends Service
             Log_OC.e(TAG, "Not enough information provided in intent");
             return START_NOT_STICKY;
         } else {
-            final User user = intent.getParcelableExtra(EXTRA_USER);
-            final OCFile file = intent.getParcelableExtra(EXTRA_FILE);
+            final User user = IntentExtensionsKt.getParcelableArgument(intent, EXTRA_USER, User.class);
+            final OCFile file = IntentExtensionsKt.getParcelableArgument(intent, EXTRA_FILE, OCFile.class);
             final String behaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
 
             DownloadType downloadType = DownloadType.DOWNLOAD;
             if (intent.hasExtra(DOWNLOAD_TYPE)) {
-                downloadType = (DownloadType) intent.getSerializableExtra(DOWNLOAD_TYPE);
+                downloadType = IntentExtensionsKt.getSerializableArgument(intent, DOWNLOAD_TYPE, DownloadType.class);
             }
             String activityName = intent.getStringExtra(SendShareDialog.ACTIVITY_NAME);
             String packageName = intent.getStringExtra(SendShareDialog.PACKAGE_NAME);

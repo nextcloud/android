@@ -37,6 +37,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.NominatimClient
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewImageDetailsFragmentBinding
@@ -95,13 +96,13 @@ class ImageDetailFragment : Fragment(), Injectable {
         )
 
         val arguments = arguments ?: throw IllegalStateException("arguments are mandatory")
-        file = arguments.getParcelable(ARG_FILE)!!
-        user = arguments.getParcelable(ARG_USER)!!
+        file = arguments.getParcelableArgument(ARG_FILE, OCFile::class.java)!!
+        user = arguments.getParcelableArgument(ARG_USER, User::class.java)!!
 
         if (savedInstanceState != null) {
-            file = savedInstanceState.getParcelable(ARG_FILE)!!
-            user = savedInstanceState.getParcelable(ARG_USER)!!
-            metadata = savedInstanceState.getParcelable(ARG_METADATA)!!
+            file = savedInstanceState.getParcelableArgument(ARG_FILE, OCFile::class.java)!!
+            user = savedInstanceState.getParcelableArgument(ARG_USER, User::class.java)!!
+            metadata = savedInstanceState.getParcelableArgument(ARG_METADATA, ImageMetadata::class.java)!!
         }
 
         nominatimClient = NominatimClient(

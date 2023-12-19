@@ -20,7 +20,6 @@
  */
 package com.owncloud.android.datamodel;
 
-import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
