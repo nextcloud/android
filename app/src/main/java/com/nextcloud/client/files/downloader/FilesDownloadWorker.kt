@@ -41,6 +41,10 @@ import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.google.gson.Gson
+import com.google.gson.JsonElement
+import com.google.gson.JsonSerializationContext
+import com.google.gson.JsonSerializer
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.java.util.Optional
@@ -86,6 +90,8 @@ class FilesDownloadWorker(
 
     companion object {
         private val TAG = FilesDownloadWorker::class.java.simpleName
+
+        var user: User? = null
         const val USER = "USER"
         const val FILE = "FILE"
         const val BEHAVIOUR = "BEHAVIOUR"
@@ -122,13 +128,22 @@ class FilesDownloadWorker(
     private var startedDownload = false
     private var storageManager: FileDataStorageManager? = null
     private var downloadClient: OwnCloudClient? = null
+    private val gson = Gson()
 
     override fun doWork(): Result {
         return try {
-            conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long
-            val user = inputData.keyValueMap[USER] as User
-            val file = inputData.keyValueMap[FILE] as OCFile
-            val downloadType = inputData.keyValueMap[DOWNLOAD_TYPE] as DownloadType
+            conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long?
+            val file = gson.fromJson(inputData.keyValueMap[FILE] as String, OCFile::class.java)
+            val downloadTypeAsString = inputData.keyValueMap[DOWNLOAD_TYPE] as String?
+            val downloadType = if (downloadTypeAsString != null) {
+                if (downloadTypeAsString == DownloadType.DOWNLOAD.toString()) {
+                    DownloadType.DOWNLOAD
+                } else {
+                    DownloadType.EXPORT
+                }
+            } else {
+                null
+            }
             val behaviour = inputData.keyValueMap[BEHAVIOUR] as String
             val activityName = inputData.keyValueMap[ACTIVITY_NAME] as String
             val packageName = inputData.keyValueMap[PACKAGE_NAME] as String
@@ -137,10 +152,12 @@ class FilesDownloadWorker(
 
             showDownloadingFilesNotification()
             addAccountUpdateListener()
-            requestDownloads(user, file, behaviour, downloadType, activityName, packageName)
+            requestDownloads(user!!, file, behaviour, downloadType, activityName, packageName)
 
+            Log_OC.e(TAG, "FilesDownloadWorker successfully completed")
             Result.success()
         } catch (t: Throwable) {
+            Log_OC.e(TAG, "Error caught at FilesDownloadWorker(): " + t.localizedMessage)
             Result.failure()
         }
     }
@@ -149,7 +166,7 @@ class FilesDownloadWorker(
         user: User,
         file: OCFile,
         behaviour: String,
-        downloadType: DownloadType,
+        downloadType: DownloadType?,
         activityName: String,
         packageName: String,
     ) {
