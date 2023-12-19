@@ -1098,7 +1098,6 @@ public class FileUploader extends Service
      * It provides by itself the available operations.
      */
     public class FileUploaderBinder extends Binder implements OnDatatransferProgressListener {
-
         /**
          * Map of listeners that will be reported about progress of uploads from a {@link FileUploaderBinder} instance
          */
