@@ -97,11 +97,11 @@ public class FileDownloader implements OnDatatransferProgressListener, OnAccount
     private final Context context = MainApp.getAppContext();
     private final Intent intent;
 
-    public static final String EXTRA_USER = "USER";
-    public static final String EXTRA_FILE = "FILE";
-
     private static final String DOWNLOAD_ADDED_MESSAGE = "DOWNLOAD_ADDED";
     private static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
+
+    public static final String EXTRA_USER = "USER";
+    public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_DOWNLOAD_RESULT = "RESULT";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
