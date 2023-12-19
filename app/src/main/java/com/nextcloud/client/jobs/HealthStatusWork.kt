@@ -42,9 +42,12 @@ class HealthStatusWork(
     private val context: Context,
     params: WorkerParameters,
     private val userAccountManager: UserAccountManager,
-    private val arbitraryDataProvider: ArbitraryDataProvider
+    private val arbitraryDataProvider: ArbitraryDataProvider,
+    private val backgroundJobManager: BackgroundJobManager
 ) : Worker(context, params) {
     override fun doWork(): Result {
+        backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
+
         for (user in userAccountManager.allUsers) {
             // only if security guard is enabled
             if (!CapabilityUtils.getCapability(user, context).securityGuard.isTrue) {
@@ -92,7 +95,9 @@ class HealthStatusWork(
             }
         }
 
-        return Result.success()
+        val result = Result.success()
+        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class),result)
+        return result
     }
 
     private fun collectSyncConflicts(user: User): Problem? {

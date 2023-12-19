@@ -29,9 +29,9 @@ data class JobInfo(
     val state: String = "",
     val name: String = "",
     val user: String = "",
+    val workerClass: String = "",
     val started: Date = Date(0),
     val progress: Int = 0,
-    val executionLog: MutableList<LogEntry>? = null
 )
 
 
@@ -39,5 +39,5 @@ data class LogEntry (
     val started: Date? = null,
     val finished: Date? = null,
     val result: String? = null,
-    var worker: String = "None"
+    var workerClass: String = BackgroundJobManagerImpl.NOT_SET_VALUE
 )

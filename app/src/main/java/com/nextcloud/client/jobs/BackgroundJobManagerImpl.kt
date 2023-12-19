@@ -36,14 +36,13 @@ import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.OCFile
-import java.time.LocalDate
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 import kotlin.reflect.KClass
 
 /**
@@ -63,11 +62,10 @@ import kotlin.reflect.KClass
 @Suppress("TooManyFunctions") // we expect this implementation to have rich API
 internal class BackgroundJobManagerImpl(
     private val workManager: WorkManager,
-    private val clock: Clock
-) : BackgroundJobManager {
+    private val clock: Clock,
+    private val preferences: AppPreferences
+) : BackgroundJobManager, Injectable {
 
-    @Inject
-    private var preferences: AppPreferences? = null
 
     companion object {
 
@@ -89,6 +87,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PDF_GENERATION = "pdf_generation"
         const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
         const val JOB_IMMEDIATE_FILES_EXPORT = "immediate_files_export"
+
         const val JOB_PERIODIC_HEALTH_STATUS = "periodic_health_status"
         const val JOB_IMMEDIATE_HEALTH_STATUS = "immediate_health_status"
 
@@ -98,8 +97,9 @@ internal class BackgroundJobManagerImpl(
 
         const val TAG_PREFIX_NAME = "name"
         const val TAG_PREFIX_USER = "user"
+        const val TAG_PREFIX_CLASS = "class"
         const val TAG_PREFIX_START_TIMESTAMP = "timestamp"
-        val PREFIXES = setOf(TAG_PREFIX_NAME, TAG_PREFIX_USER, TAG_PREFIX_START_TIMESTAMP)
+        val PREFIXES = setOf(TAG_PREFIX_NAME, TAG_PREFIX_USER, TAG_PREFIX_START_TIMESTAMP, TAG_PREFIX_CLASS)
         const val NOT_SET_VALUE = "not set"
         const val PERIODIC_BACKUP_INTERVAL_MINUTES = 24 * 60L
         const val DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES = 15L
@@ -116,6 +116,7 @@ internal class BackgroundJobManagerImpl(
         }
 
         fun formatUserTag(user: User): String = "$TAG_PREFIX_USER:${user.accountName}"
+        fun formatClassTag(jobClass: KClass<out ListenableWorker>): String = "$TAG_PREFIX_CLASS:${jobClass.simpleName}"
         fun formatTimeTag(startTimestamp: Long): String = "$TAG_PREFIX_START_TIMESTAMP:$startTimestamp"
 
         fun parseTag(tag: String): Pair<String, String>? {
@@ -153,6 +154,7 @@ internal class BackgroundJobManagerImpl(
                     user = metadata.get(TAG_PREFIX_USER) ?: NOT_SET_VALUE,
                     started = timestamp,
                     progress = info.progress.getInt("progress", -1),
+                    workerClass = metadata.get(TAG_PREFIX_CLASS) ?: NOT_SET_VALUE
                 )
             } else {
                 null
@@ -162,8 +164,11 @@ internal class BackgroundJobManagerImpl(
         fun deleteOldLogs(logEntries: MutableList<LogEntry>) : MutableList<LogEntry>{
 
             logEntries.removeIf {
-                return@removeIf it.started != null &&
-                    Date(Date().time - KEEP_LOG_MILLIS).before(it.started)
+                return@removeIf (it.started != null &&
+                        Date(Date().time - KEEP_LOG_MILLIS).after(it.started)) ||
+                    (it.finished != null &&
+                        Date(Date().time - KEEP_LOG_MILLIS).after(it.finished))
+
             }
             return logEntries
 
@@ -172,13 +177,27 @@ internal class BackgroundJobManagerImpl(
 
     }
 
-    fun logStartOfWorker(workerName : String){
-        if (preferences == null) return;
+    override fun logStartOfWorker(workerName : String?) {
+        val logs = deleteOldLogs(preferences.readLogEntry().toMutableList())
 
-        preferences!!.readLogEntry()
+        if (workerName == null) {
+            logs.add(LogEntry(Date(), null, null, NOT_SET_VALUE))
+        }else{
+            logs.add(LogEntry(Date(), null, null, workerName))
+        }
+        preferences.saveLogEntry(logs)
     }
 
-    fun logEndOfWorker(workerName: String)
+    override fun logEndOfWorker(workerName: String?, result: ListenableWorker.Result){
+
+        val logs = deleteOldLogs(preferences.readLogEntry().toMutableList())
+        if (workerName == null) {
+            logs.add(LogEntry(null,Date(),result.toString(), NOT_SET_VALUE))
+        }else{
+            logs.add(LogEntry(null,Date(),result.toString(),workerName))
+        }
+        preferences.saveLogEntry(logs)
+    }
 
     /**
      * Create [OneTimeWorkRequest.Builder] pre-set with common attributes
@@ -192,6 +211,7 @@ internal class BackgroundJobManagerImpl(
             .addTag(TAG_ALL)
             .addTag(formatNameTag(jobName, user))
             .addTag(formatTimeTag(clock.currentTime))
+            .addTag(formatClassTag(jobClass))
         user?.let { builder.addTag(formatUserTag(it)) }
         return builder
     }
@@ -216,6 +236,7 @@ internal class BackgroundJobManagerImpl(
             .addTag(TAG_ALL)
             .addTag(formatNameTag(jobName, user))
             .addTag(formatTimeTag(clock.currentTime))
+            .addTag(formatClassTag(jobClass))
         user?.let { builder.addTag(formatUserTag(it)) }
         return builder
     }

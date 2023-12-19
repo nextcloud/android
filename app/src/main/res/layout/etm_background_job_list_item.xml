@@ -137,8 +137,10 @@
     </TableRow>
 
     <TableRow
+        android:id="@+id/etm_background_execution_times_row"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
         <TextView
             android:layout_width="wrap_content"
@@ -154,27 +156,28 @@
 
     </TableRow>
 
-    <TableRow
-        android:id="@+id/etm_background_execution_logs_row"
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" >
 
-        <TextView
+        <TableRow
+            android:id="@+id/etm_background_execution_logs_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:text="@string/etm_background_execution_log" />
+            android:fadeScrollbars="false"
+            android:scrollbars="horizontal"
+            android:scrollHorizontally="true">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="80dp">
 
-            <TextView
-                android:id="@+id/etm_background_execution_logs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
+                <TextView
+                    android:id="@+id/etm_background_execution_logs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="2" />
 
-    </TableRow>
+
+        </TableRow>
+    </HorizontalScrollView>
+
 
 </TableLayout>

@@ -104,6 +104,7 @@ class BackgroundJobFactory @Inject constructor(
                 FilesUploadWorker::class -> createFilesUploadWorker(context, workerParameters)
                 GeneratePdfFromImagesWork::class -> createPDFGenerateWork(context, workerParameters)
                 HealthStatusWork::class -> createHealthStatusWork(context, workerParameters)
+                TestJob::class -> createTestJob(context, workerParameters)
                 else -> null // caller falls back to default factory
             }
         }
@@ -142,7 +143,7 @@ class BackgroundJobFactory @Inject constructor(
             resources,
             arbitraryDataProvider,
             contentResolver,
-            accountManager
+            accountManager,
         )
     }
 
@@ -151,7 +152,7 @@ class BackgroundJobFactory @Inject constructor(
             context,
             params,
             logger,
-            contentResolver
+            contentResolver,
         )
     }
 
@@ -161,7 +162,7 @@ class BackgroundJobFactory @Inject constructor(
             params,
             contentResolver,
             accountManager,
-            preferences
+            preferences,
         )
     }
 
@@ -170,7 +171,7 @@ class BackgroundJobFactory @Inject constructor(
             context,
             params,
             logger,
-            contentResolver
+            contentResolver,
         )
     }
 
@@ -183,7 +184,8 @@ class BackgroundJobFactory @Inject constructor(
             uploadsStorageManager = uploadsStorageManager,
             connectivityService = connectivityService,
             powerManagementService = powerManagementService,
-            syncedFolderProvider = syncedFolderProvider
+            syncedFolderProvider = syncedFolderProvider,
+            backgroundJobManager = backgroundJobManager.get()
         )
     }
 
@@ -208,7 +210,7 @@ class BackgroundJobFactory @Inject constructor(
             preferences,
             clock,
             viewThemeUtils.get(),
-            syncedFolderProvider
+            syncedFolderProvider,
         )
     }
 
@@ -219,7 +221,7 @@ class BackgroundJobFactory @Inject constructor(
             notificationManager,
             accountManager,
             deckApi,
-            viewThemeUtils.get()
+            viewThemeUtils.get(),
         )
     }
 
@@ -245,8 +247,9 @@ class BackgroundJobFactory @Inject constructor(
             accountManager,
             viewThemeUtils.get(),
             localBroadcastManager.get(),
+            backgroundJobManager.get(),
             context,
-            params
+            params,
         )
     }
 
@@ -258,7 +261,7 @@ class BackgroundJobFactory @Inject constructor(
             notificationManager = notificationManager,
             userAccountManager = accountManager,
             logger = logger,
-            params = params
+            params = params,
         )
     }
 
@@ -267,7 +270,16 @@ class BackgroundJobFactory @Inject constructor(
             context,
             params,
             accountManager,
-            arbitraryDataProvider
+            arbitraryDataProvider,
+            backgroundJobManager.get()
+        )
+    }
+
+    private fun createTestJob(context: Context, params: WorkerParameters): TestJob {
+        return TestJob(
+            context,
+            params,
+            backgroundJobManager.get()
         )
     }
 }

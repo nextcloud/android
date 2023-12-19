@@ -53,6 +53,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
 import static com.owncloud.android.ui.fragment.OCFileListFragment.FOLDER_LAYOUT_LIST;
+import static java.util.Collections.emptyList;
 
 /**
  * Implementation of application-wide preferences using {@link SharedPreferences}.
@@ -515,6 +516,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public List<LogEntry> readLogEntry() {
         String json = preferences.getString(LOG_ENTRY, null);
+        if (json == null) return emptyList();
         Gson gson = new Gson();
         Type listType = new TypeToken<List<LogEntry>>() {}.getType();
         return gson.fromJson(json, listType);
