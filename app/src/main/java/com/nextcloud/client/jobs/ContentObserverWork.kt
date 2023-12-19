@@ -50,7 +50,7 @@ class ContentObserverWork(
         recheduleSelf()
 
         val result = Result.success()
-        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class),result)
+        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
         return result
     }
 

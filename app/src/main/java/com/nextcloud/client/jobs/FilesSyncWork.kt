@@ -81,7 +81,7 @@ class FilesSyncWork(
         // If we are in power save mode, better to postpone upload
         if (powerManagementService.isPowerSavingEnabled && !overridePowerSaving) {
             val result = Result.success()
-            backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class),result)
+            backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
             return result
         }
         val resources = context.resources
@@ -113,7 +113,7 @@ class FilesSyncWork(
             }
         }
         val result = Result.success()
-        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class),result)
+        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
         return result
     }
 

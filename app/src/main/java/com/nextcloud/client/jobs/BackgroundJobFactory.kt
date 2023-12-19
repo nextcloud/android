@@ -51,7 +51,7 @@ import javax.inject.Provider
  *
  * This class is doing too many things and should be split up into smaller factories.
  */
-@Suppress("LongParameterList") // satisfied by DI
+@Suppress("LongParameterList", "TooManyFunctions") // satisfied by DI
 class BackgroundJobFactory @Inject constructor(
     private val logger: Logger,
     private val preferences: AppPreferences,
@@ -143,7 +143,7 @@ class BackgroundJobFactory @Inject constructor(
             resources,
             arbitraryDataProvider,
             contentResolver,
-            accountManager,
+            accountManager
         )
     }
 
@@ -152,7 +152,7 @@ class BackgroundJobFactory @Inject constructor(
             context,
             params,
             logger,
-            contentResolver,
+            contentResolver
         )
     }
 
@@ -162,7 +162,7 @@ class BackgroundJobFactory @Inject constructor(
             params,
             contentResolver,
             accountManager,
-            preferences,
+            preferences
         )
     }
 
@@ -171,7 +171,7 @@ class BackgroundJobFactory @Inject constructor(
             context,
             params,
             logger,
-            contentResolver,
+            contentResolver
         )
     }
 
@@ -210,7 +210,7 @@ class BackgroundJobFactory @Inject constructor(
             preferences,
             clock,
             viewThemeUtils.get(),
-            syncedFolderProvider,
+            syncedFolderProvider
         )
     }
 
@@ -221,7 +221,7 @@ class BackgroundJobFactory @Inject constructor(
             notificationManager,
             accountManager,
             deckApi,
-            viewThemeUtils.get(),
+            viewThemeUtils.get()
         )
     }
 
@@ -249,7 +249,7 @@ class BackgroundJobFactory @Inject constructor(
             localBroadcastManager.get(),
             backgroundJobManager.get(),
             context,
-            params,
+            params
         )
     }
 
@@ -261,7 +261,7 @@ class BackgroundJobFactory @Inject constructor(
             notificationManager = notificationManager,
             userAccountManager = accountManager,
             logger = logger,
-            params = params,
+            params = params
         )
     }
 

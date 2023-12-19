@@ -66,7 +66,6 @@ internal class BackgroundJobManagerImpl(
     private val preferences: AppPreferences
 ) : BackgroundJobManager, Injectable {
 
-
     companion object {
 
         const val TAG_ALL = "*" // This tag allows us to retrieve list of all jobs run by Nextcloud client
@@ -105,7 +104,7 @@ internal class BackgroundJobManagerImpl(
         const val DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES = 15L
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
 
-        private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 *3L
+        private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 * 3L
 
         fun formatNameTag(name: String, user: User? = null): String {
             return if (user == null) {
@@ -130,11 +129,11 @@ internal class BackgroundJobManagerImpl(
         }
 
         fun parseTimestamp(timestamp: String): Date {
-            try {
+            return try {
                 val ms = timestamp.toLong()
-                return Date(ms)
+                Date(ms)
             } catch (ex: NumberFormatException) {
-                return Date(0)
+                Date(0)
             }
         }
 
@@ -161,40 +160,38 @@ internal class BackgroundJobManagerImpl(
             }
         }
 
-        fun deleteOldLogs(logEntries: MutableList<LogEntry>) : MutableList<LogEntry>{
-
+        fun deleteOldLogs(logEntries: MutableList<LogEntry>): MutableList<LogEntry> {
             logEntries.removeIf {
-                return@removeIf (it.started != null &&
-                        Date(Date().time - KEEP_LOG_MILLIS).after(it.started)) ||
-                    (it.finished != null &&
-                        Date(Date().time - KEEP_LOG_MILLIS).after(it.finished))
-
+                return@removeIf (
+                    it.started != null &&
+                        Date(Date().time - KEEP_LOG_MILLIS).after(it.started)
+                    ) ||
+                    (
+                        it.finished != null &&
+                            Date(Date().time - KEEP_LOG_MILLIS).after(it.finished)
+                        )
             }
             return logEntries
-
         }
-
-
     }
 
-    override fun logStartOfWorker(workerName : String?) {
+    override fun logStartOfWorker(workerName: String?) {
         val logs = deleteOldLogs(preferences.readLogEntry().toMutableList())
 
         if (workerName == null) {
             logs.add(LogEntry(Date(), null, null, NOT_SET_VALUE))
-        }else{
+        } else {
             logs.add(LogEntry(Date(), null, null, workerName))
         }
         preferences.saveLogEntry(logs)
     }
 
-    override fun logEndOfWorker(workerName: String?, result: ListenableWorker.Result){
-
+    override fun logEndOfWorker(workerName: String?, result: ListenableWorker.Result) {
         val logs = deleteOldLogs(preferences.readLogEntry().toMutableList())
         if (workerName == null) {
-            logs.add(LogEntry(null,Date(),result.toString(), NOT_SET_VALUE))
-        }else{
-            logs.add(LogEntry(null,Date(),result.toString(),workerName))
+            logs.add(LogEntry(null, Date(), result.toString(), NOT_SET_VALUE))
+        } else {
+            logs.add(LogEntry(null, Date(), result.toString(), workerName))
         }
         preferences.saveLogEntry(logs)
     }
