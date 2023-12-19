@@ -248,6 +248,7 @@
     <string name="first_run_1_text">Turi savus datus drošībā un zem savas kontroles</string>
     <string name="folder_confirm_create">Izveidot</string>
     <string name="folder_list_empty_headline">Šeit nav mapju</string>
+    <string name="folder_picker_choose_button_text">Izvēlies</string>
     <string name="folder_picker_move_button_text">Pārvietot</string>
     <string name="forbidden_permissions">Jums nav atļaujas %s</string>
     <string name="forbidden_permissions_copy">lai kopētu šo datni</string>

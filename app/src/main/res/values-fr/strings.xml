@@ -253,6 +253,7 @@
     <string name="ecosystem_apps_more">Plus d’applications Nextcloud</string>
     <string name="ecosystem_apps_notes">Nextcloud Notes</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Le choix de l\'adresse e-mail a échoué.</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_decrypting">Décryptage…</string>
@@ -388,6 +389,7 @@
     <string name="folder_already_exists">Le dossier existe déjà</string>
     <string name="folder_confirm_create">Créer</string>
     <string name="folder_list_empty_headline">Aucun dossier</string>
+    <string name="folder_picker_choose_button_text">Choisir</string>
     <string name="folder_picker_choose_caption_text">Sélectionner le dossier cible</string>
     <string name="folder_picker_copy_button_text">Copier</string>
     <string name="folder_picker_move_button_text">Déplacer</string>
@@ -651,6 +653,7 @@
     <string name="rename_server_fail_msg">Impossible de renommer, le nom est déjà utilisé</string>
     <string name="request_account_deletion">Demander la suppression du compte</string>
     <string name="request_account_deletion_button">Demander la suppression</string>
+    <string name="request_account_deletion_details">Demander la suppression permanente du compte par le fournisseur de services</string>
     <string name="reshare_not_allowed">Le repartage n\'est pas autorisé</string>
     <string name="resharing_is_not_allowed">Le repartage est interdit</string>
     <string name="resized_image_not_possible_download">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
@@ -867,6 +870,7 @@
     <string name="upload_lock_failed">Impossible de verrouiller le dossier</string>
     <string name="upload_old_android">Le chiffrement n\'est disponible que pour les versions d\'Android&gt;= 5.0</string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
+    <string name="upload_quota_exceeded">Quota de stockage dépassé</string>
     <string name="upload_scan_doc_upload">Numériser un document depuis l\'appareil photo</string>
     <string name="upload_sync_conflict">Conflit de synchronisation, veuillez le résoudre manuellement</string>
     <string name="upload_unknown_error">Erreur inconnue </string>
@@ -878,7 +882,10 @@
     <string name="uploader_error_message_source_file_not_found">Le fichier à téléverser n\'a pas été trouvé. Merci de vérifier si ce fichier existe.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">le fichier ne peut être téléchargé </string>
     <string name="uploader_error_title_no_file_to_upload">Aucun fichier à téléverser</string>
+    <string name="uploader_file_not_found_message">Fichier non trouvé. Êtes-vous sûr que ce fichier existe ou qu\'un conflit précédent n\'a pas été résolu ?</string>
+    <string name="uploader_file_not_found_on_server_message">Impossible de retrouver le fichier sur le serveur. Un autre utilisateur l\'a peut-être supprimé</string>
     <string name="uploader_info_dirname">Nom du dossier</string>
+    <string name="uploader_local_files_uploaded">Réessayer de téléverser les fichiers locaux</string>
     <string name="uploader_top_message">Sélectionnez le dossier de téléversement</string>
     <string name="uploader_upload_failed_content_single">Impossible d\'envoyer %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Le téléversement a échoué, reconnectez-vous</string>

@@ -882,7 +882,7 @@
     <string name="uploader_error_message_source_file_not_found">Die zum Hochladen ausgewählte Datei kann nicht gefunden werden. Bitte prüfen Sie ob die Datei existiert.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Diese Datei kann nicht hochgeladen werden</string>
     <string name="uploader_error_title_no_file_to_upload">Keine Datei zum Hochladen</string>
-    <string name="uploader_file_not_found_message">Datei nicht gefunden. Sind Sie sicher, dass diese Datei existiert, oder wurde der vorherige Konflikt nicht behoben?</string>
+    <string name="uploader_file_not_found_message">Datei nicht gefunden. Sind Sie sicher, dass diese Datei existiert oder wurde ein früherer Konflikt nicht gelöst?</string>
     <string name="uploader_file_not_found_on_server_message">Wir konnten die Datei auf dem Server nicht finden. Ein anderer Benutzer hat möglicherweise die Datei gelöscht.</string>
     <string name="uploader_info_dirname">Ordnername</string>
     <string name="uploader_local_files_uploaded">Versuchen Sie, lokale Dateien erneut hochzuladen.</string>

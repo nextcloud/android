@@ -44,7 +44,7 @@
     <string name="auth_account_not_the_same">Yazdığınız kullanıcı adı bu hesabın kullanıcı adı ile eşleşmiyor</string>
     <string name="auth_bad_oc_version_title">Sunucu sürümü anlaşılamadı</string>
     <string name="auth_connection_established">Bağlantı kuruldu</string>
-    <string name="auth_fail_get_user_name">Sunucunuz doğru bir kullanıcı kodu döndürmüyor, lütfen bir yönetici ile görüşün.</string>
+    <string name="auth_fail_get_user_name">Sunucunuz doğru bir kullanıcı kimliği döndürmüyor. Lütfen bir yönetici ile görüşün.</string>
     <string name="auth_host_url">Sunucu adresi https://…</string>
     <string name="auth_incorrect_address_title">Sunucu adresi biçimi yanlış</string>
     <string name="auth_incorrect_path_title">Sunucu bulunamadı</string>
@@ -338,6 +338,7 @@
     <string name="file_list_empty_shared_headline">Henüz hiçbir şey paylaşılmamış</string>
     <string name="file_list_empty_unified_search_no_results">Sorgunuzdan bir sonuç alınamadı</string>
     <string name="file_list_folder">klasör</string>
+    <string name="file_list_live">CANLI</string>
     <string name="file_list_loading">Yükleniyor …</string>
     <string name="file_list_no_app_for_file_type">Bu dosya türü için uygulama bulunamadı.</string>
     <string name="file_list_seconds_ago">saniyeler önce</string>
@@ -388,6 +389,7 @@
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="folder_confirm_create">Ekle</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
+    <string name="folder_picker_choose_button_text">Seçin</string>
     <string name="folder_picker_choose_caption_text">Hedef klasörü seçin</string>
     <string name="folder_picker_copy_button_text">Kopyala</string>
     <string name="folder_picker_move_button_text">Taşı</string>
@@ -642,6 +644,7 @@
     <string name="remove_e2e_message">Bu istemcide yerel olarak uçtan uca şifrelemeyi kaldırabilirsiniz. Şifrelenmiş dosyalar sunucuda kalır, ancak artık bu bilgisayarla eşitlenmez.</string>
     <string name="remove_fail_msg">Silinemedi</string>
     <string name="remove_local_account">Yerel hesabı sil</string>
+    <string name="remove_local_account_details">Hesabı aygıtttan kaldırın ve tüm yerel dosyaları silin</string>
     <string name="remove_notification_failed">Bildirim silinemedi.</string>
     <string name="remove_push_notification">Sil</string>
     <string name="remove_success_msg">Silindi</string>
@@ -649,6 +652,8 @@
     <string name="rename_local_fail_msg">Yerel kopyanın adı değiştirilemedi. Lütfen başka bir ad deneyin</string>
     <string name="rename_server_fail_msg">Ad zaten kullanıldığından yeniden adlandırılamadı</string>
     <string name="request_account_deletion">Hesabınızın silinmesini isteyin</string>
+    <string name="request_account_deletion_button">Silme isteğinde bulunun</string>
+    <string name="request_account_deletion_details">Hesabın hizmet sağlayıcı tarafından kalıcı olarak silinmesini isteyin</string>
     <string name="reshare_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
     <string name="resharing_is_not_allowed">Yeniden paylaşıma izin verilmiyor</string>
     <string name="resized_image_not_possible_download">Boyutu değiştirilmiş bir görsel yok. Tam boyuttaki görsel indirilsin mi?</string>
@@ -715,7 +720,7 @@
     <string name="share_permissions">İzinleri paylaş</string>
     <string name="share_remote_clarification">%1$s (uzak)</string>
     <string name="share_room_clarification">%1$s (görüşme)</string>
-    <string name="share_search">Ad, Birleşik Bulut Kodu ya da e-posta adresi …</string>
+    <string name="share_search">Ad, birleşik bulut kimliği ya da e-posta adresi …</string>
     <string name="share_send_new_email">Yeni e-posta gönder</string>
     <string name="share_send_note">Alıcıya not</string>
     <string name="share_settings">Ayarlar</string>
@@ -772,7 +777,7 @@
     <string name="storage_permission_full_access">Tüm dosyalara erişim</string>
     <string name="storage_permission_media_read_only">Ortam dosyalarına salt okunur erişim</string>
     <string name="storage_pictures">Fotoğraflar</string>
-    <string name="store_full_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu.\n\nÖzellikleri:\n* Sunucunuzun temasına uygun, kolay kullanılan, modern arayüz\n* Dosyaları Nextcloud sunucunuza yükleme\n* Başkaları ile paylaşma\n* İstediğiniz dosya ve klasörleri eşitleme\n* Sunucunuzdaki tüm klasörlerde arama\n* Aygıtınızdaki fotoğraf ve görüntüleri otomatik olarak yükleme\n* Güncelleme bildirimleri\n* Birden çok hesap desteği\n* Verilere parmak izi y ada pin kodu ile güvenli erişim\n* Kolay takvim ve kişi eşitleme kurulumu için DAVx5 bütünleştirmesi (eski adı DAVdroid)\n\nLütfen olabilecek sorunları https://github.com/nextcloud/android/issues adresine bildirin ve uygulama ile ilgili görüşlerinizi https://help.nextcloud.com/c/clients/android adresine yazın\n\nNextcloud kullanmaya yeni mi başladınız? Nextcloud kişisel dosyaları eşitlemek ve paylaşmak için kullanılan bir iletişim sunucusudur. Özgür bir yazılımdır ve kendiniz barındırabileceğiniz gibi bir kuruluş üzerinde ücretli olarak barındırabilirsiniz. Böylece fotoğraflarınız, takviminiz, kişi bilgileriniz ve belgeleriniz gibi pek çok veriyi kendi kontrolunuz altında tutabilirsiniz.\n\nNextcloud hakkında bilgi almak için https://nextcloud.com sitesine bakabilirsiniz.</string>
+    <string name="store_full_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu.\n\nÖzellikleri:\n* Sunucunuzun temasına uygun, kolay kullanılan, modern arayüz\n* Dosyaları Nextcloud sunucunuza yükleme\n* Başkaları ile paylaşma\n* İstediğiniz dosya ve klasörleri eşitleme\n* Sunucunuzdaki tüm klasörlerde arama\n* Aygıtınızdaki fotoğraf ve görüntüleri otomatik olarak yükleme\n* Güncelleme bildirimleri\n* Birden çok hesap desteği\n* Verilere parmak izi ya da PIN kodu ile güvenli erişim\n* Kolay takvim ve kişi eşitleme kurulumu için DAVx5 bütünleştirmesi (eski adı DAVdroid)\n\nLütfen olabilecek sorunları https://github.com/nextcloud/android/issues adresine bildirin ve uygulama ile ilgili görüşlerinizi https://help.nextcloud.com/c/clients/android adresine yazın\n\nNextcloud kullanmaya yeni mi başladınız? Nextcloud kişisel dosyaları eşitlemek ve paylaşmak için kullanılan bir iletişim sunucusudur. Özgür bir yazılımdır ve kendiniz barındırabileceğiniz gibi bir kuruluş üzerinde ücretli olarak barındırabilirsiniz. Böylece fotoğraflarınız, takviminiz, kişi bilgileriniz ve belgeleriniz gibi pek çok veriyi kendi kontrolunuz altında tutabilirsiniz.\n\nNextcloud hakkında bilgi almak için https://nextcloud.com sitesine bakabilirsiniz.</string>
     <string name="store_full_dev_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu.\nBu sürüm resmi Nextcloud uygulamasının geliştirici sürümü olduğundan, kararsız çalışabilir ve veri kaybına yol açabilecek yeterince sınanmamış yeni özellikler bulundurur. Bu sürüm yeni özellikleri sınamak ve hataları bildirmek isteyen kullanıcılar için tasarlanmıştır. Bu sürümü günlük işleriniz için kullanmayın!\n\nNormal ve Geliştirici sürümleri F-Droid üzerinde bulunur ve aynı anda kurulup kullanılabilir.</string>
     <string name="store_short_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu</string>
     <string name="store_short_dev_desc">Sizin denetiminiz altında barındırılan üretkenlik platformu (geliştirici ön izlemesi)</string>
@@ -865,6 +870,7 @@
     <string name="upload_lock_failed">Klasör kilitlenemedi</string>
     <string name="upload_old_android">Şifreleme yalnızca >=Android 5.0 üzerinde kullanılabilir </string>
     <string name="upload_query_move_foreign_files">Seçilmiş dosyaları %1$s klasörüne kopyalamak için yeterli boş alan yok. Bu dosyaları kopyalamak yerine taşımak ister misiniz?</string>
+    <string name="upload_quota_exceeded">Depolama sınırına ulaşıldı</string>
     <string name="upload_scan_doc_upload">Kamera ile belge tarama</string>
     <string name="upload_sync_conflict">Eşitleme çakışması, lütfen sorunu el ile çözün</string>
     <string name="upload_unknown_error">Bilinmeyen sorun</string>
@@ -876,7 +882,10 @@
     <string name="uploader_error_message_source_file_not_found">Yüklenmek üzere seçilmiş dosya bulunamadı. Lütfen dosyanın var olup olmadığını denetleyin.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Bu dosya yüklenemez</string>
     <string name="uploader_error_title_no_file_to_upload">Yüklenecek bir dosya yok</string>
+    <string name="uploader_file_not_found_message">Dosya bulunamadı. Bu dosyanın var olduğundan ya da daha önceki bir çakışmanın çözüldüğünden emin misiniz?</string>
+    <string name="uploader_file_not_found_on_server_message">Dosya sunucuda bulunamadı. Başka bir kullanıcı dosyayı silmiş olabilir</string>
     <string name="uploader_info_dirname">Klasör adı</string>
+    <string name="uploader_local_files_uploaded">Yerel dosyaları yeniden yüklemeyi deneyin</string>
     <string name="uploader_top_message">Yüklenecek klasörü seçin</string>
     <string name="uploader_upload_failed_content_single">%1$s yüklemesi tamamlanamadı</string>
     <string name="uploader_upload_failed_credentials_error">Yüklenemedi, yeniden oturum açmalısınız</string>

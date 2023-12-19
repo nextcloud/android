@@ -388,6 +388,7 @@
     <string name="folder_already_exists">Mapa že obstaja</string>
     <string name="folder_confirm_create">Ustvari</string>
     <string name="folder_list_empty_headline">Ni map</string>
+    <string name="folder_picker_choose_button_text">Izbor</string>
     <string name="folder_picker_choose_caption_text">Izbor ciljne mape</string>
     <string name="folder_picker_copy_button_text">Kopiraj</string>
     <string name="folder_picker_move_button_text">Premakni</string>

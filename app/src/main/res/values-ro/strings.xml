@@ -380,6 +380,7 @@
     <string name="folder_already_exists">Dosar existent</string>
     <string name="folder_confirm_create">Creați</string>
     <string name="folder_list_empty_headline">Niciun dosar aici</string>
+    <string name="folder_picker_choose_button_text">Alege</string>
     <string name="folder_picker_choose_caption_text">Alege directorul destinație</string>
     <string name="folder_picker_copy_button_text">Copiază</string>
     <string name="folder_picker_move_button_text">Mută</string>

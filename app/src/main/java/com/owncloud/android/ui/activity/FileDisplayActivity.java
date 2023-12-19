@@ -1025,6 +1025,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
      */
     private void popBack() {
         // pop back fragment
+        binding.fabMain.setImageResource(R.drawable.ic_plus);
         resetScrolling(true);
         popSortListGroupVisibility();
         super.onBackPressed();

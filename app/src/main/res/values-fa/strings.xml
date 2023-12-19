@@ -385,6 +385,7 @@
     <string name="folder_already_exists">پوشه از قبل موجود است</string>
     <string name="folder_confirm_create">ایجاد کردن</string>
     <string name="folder_list_empty_headline">هیچ  پوشه ای اینجا وجود ندارد</string>
+    <string name="folder_picker_choose_button_text">انتخاب کنید</string>
     <string name="folder_picker_choose_caption_text">پوشهٔ هدف را انتخاب کنید</string>
     <string name="folder_picker_copy_button_text">رونوشت</string>
     <string name="folder_picker_move_button_text">انتقال</string>

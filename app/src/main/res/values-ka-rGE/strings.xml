@@ -214,6 +214,7 @@
     <string name="filename_hint">ფაილის სახელი</string>
     <string name="folder_confirm_create">შექმნა</string>
     <string name="folder_list_empty_headline">აქ დირექტორიები არაა</string>
+    <string name="folder_picker_choose_button_text">აირჩიეთ</string>
     <string name="folder_picker_move_button_text">გადატანა</string>
     <string name="forbidden_permissions">თქვენ არ გაქვთ უფლება, %s</string>
     <string name="forbidden_permissions_copy">რომ დააკოპიროთ ეს ფაილი</string>

@@ -331,6 +331,7 @@
     <string name="folder_already_exists">Tha am pasgan seo ann mu thràth</string>
     <string name="folder_confirm_create">Cruthaich</string>
     <string name="folder_list_empty_headline">Chan eil pasgan an-seo</string>
+    <string name="folder_picker_choose_button_text">Tagh</string>
     <string name="folder_picker_copy_button_text">Dèan lethbhreac</string>
     <string name="folder_picker_move_button_text">Gluais</string>
     <string name="forbidden_permissions">Chan fhad thu %s</string>

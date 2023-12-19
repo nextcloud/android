@@ -20,6 +20,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_standard" />
@@ -49,6 +50,13 @@
         android:orientation="horizontal"
 		android:padding="@dimen/standard_padding">
 
+        <View
+            android:id="@+id/choose_button_spacer"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/folder_picker_btn_cancel"
             style="@style/Widget.Material3.Button.TextButton"
@@ -58,7 +66,19 @@
             android:layout_weight="1"
             app:cornerRadius="@dimen/button_corner_radius" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/folder_picker_btn_choose"
+            android:visibility="gone"
+            tools:visibility="visible"
+            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/folder_picker_choose_button_text"
+            app:cornerRadius="@dimen/button_corner_radius" />
+
         <View
+            android:id="@+id/move_or_copy_button_spacer"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"/>

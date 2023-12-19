@@ -325,6 +325,7 @@
     <string name="folder_already_exists">Bukja eýýäm bar</string>
     <string name="folder_confirm_create">Dörediň</string>
     <string name="folder_list_empty_headline">Bu ýerde bukjalar ýok</string>
+    <string name="folder_picker_choose_button_text">saýlamak</string>
     <string name="folder_picker_copy_button_text">Göçüriň</string>
     <string name="folder_picker_move_button_text">Göçüriň</string>
     <string name="forbidden_permissions">%sSize rugsat berilmeýär</string>

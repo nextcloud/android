@@ -341,6 +341,7 @@
     <string name="folder_already_exists">התיקייה כבר קיימת</string>
     <string name="folder_confirm_create">יצירה</string>
     <string name="folder_list_empty_headline">אין כאן תיקיות</string>
+    <string name="folder_picker_choose_button_text">בחר</string>
     <string name="folder_picker_choose_caption_text">נא לבחור תיקיית יעד</string>
     <string name="folder_picker_copy_button_text">העתקה</string>
     <string name="folder_picker_move_button_text">העברה</string>

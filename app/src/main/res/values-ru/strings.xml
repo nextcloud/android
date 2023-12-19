@@ -156,6 +156,7 @@
     <string name="conflict_message_description">Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
     <string name="conflict_server_file">Файл с сервера</string>
     <string name="contact_backup_title">Резервная копия контактов</string>
+    <string name="contact_no_permission">Требуется разрешение на контакт.</string>
     <string name="contactlist_item_icon">Значок пользователя в списке контактов</string>
     <string name="contactlist_no_permission">Отсутствуют разрешения, ничего не импортировано.</string>
     <string name="contacts">Контакты</string>
@@ -252,6 +253,7 @@
     <string name="ecosystem_apps_more">Больше приложений для Nextcloud</string>
     <string name="ecosystem_apps_notes">Заметки для Nextcloud</string>
     <string name="ecosystem_apps_talk">Конференции для Nextcloud</string>
+    <string name="email_pick_failed">Невозможно выбрать адрес электронной почты.</string>
     <string name="encrypted">Зашифровать</string>
     <string name="end_to_end_encryption_confirm_button">Параметры шифрования</string>
     <string name="end_to_end_encryption_decrypting">Расшифровка…</string>
@@ -336,6 +338,7 @@
     <string name="file_list_empty_shared_headline">Вы ничем не поделились</string>
     <string name="file_list_empty_unified_search_no_results">По вашему запросу ничего не найдено</string>
     <string name="file_list_folder">каталог</string>
+    <string name="file_list_live">ТРАНСЛИРУЕТСЯ</string>
     <string name="file_list_loading">Получение данных…</string>
     <string name="file_list_no_app_for_file_type">Не найдено приложение для открытия этого типа файлов.</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
@@ -387,6 +390,7 @@
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="folder_confirm_create">Создать</string>
     <string name="folder_list_empty_headline">Здесь нет каталогов</string>
+    <string name="folder_picker_choose_button_text">Выберите</string>
     <string name="folder_picker_choose_caption_text">Выбор папки назначения</string>
     <string name="folder_picker_copy_button_text">Копировать</string>
     <string name="folder_picker_move_button_text">Переместить</string>
@@ -640,6 +644,7 @@
     <string name="remove_e2e">Вы можете удалить сквозное шифрование локально на этом клиенте</string>
     <string name="remove_e2e_message">Вы можете удалить сквозное шифрование локально на этом клиенте. Зашифрованные файлы останутся на сервере, но больше не будут синхронизироваться с этим компьютером.</string>
     <string name="remove_fail_msg">Ошибка при удалении</string>
+    <string name="remove_local_account">Удалить локальную учетную запись</string>
     <string name="remove_notification_failed">Не удалось скрыть уведомление.</string>
     <string name="remove_push_notification">Удалить</string>
     <string name="remove_success_msg">Удалено</string>

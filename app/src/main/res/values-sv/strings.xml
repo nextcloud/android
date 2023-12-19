@@ -389,6 +389,7 @@
     <string name="folder_already_exists">Mapp finns redan</string>
     <string name="folder_confirm_create">Skapa</string>
     <string name="folder_list_empty_headline">Inga mappar här</string>
+    <string name="folder_picker_choose_button_text">Välj</string>
     <string name="folder_picker_choose_caption_text">Välj målmapp</string>
     <string name="folder_picker_copy_button_text">Kopiera</string>
     <string name="folder_picker_move_button_text">Flytta</string>
@@ -882,7 +883,10 @@
     <string name="uploader_error_message_source_file_not_found">Filen vald för uppladdning hittades inte. Vänligen kontrollera om filen finns.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Filen kan inte laddas upp</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen fil att ladda upp</string>
+    <string name="uploader_file_not_found_message">Filen hittades inte. Är du säker på att denna fil existerar eller har en tidigare konflikt inte blivit löst?</string>
+    <string name="uploader_file_not_found_on_server_message">Vi kunde inte hitta filen på servern. En annan användare kan ha raderat filen.</string>
     <string name="uploader_info_dirname">Mappnamn</string>
+    <string name="uploader_local_files_uploaded">Försök att ladda upp lokala filer igen</string>
     <string name="uploader_top_message">Välj mapp för uppladdning</string>
     <string name="uploader_upload_failed_content_single">Kunde inte ladda upp %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Uppladdningen misslyckades, logga in igen</string>

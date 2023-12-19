@@ -248,10 +248,10 @@
     <string name="e2e_not_yet_setup">尚未設定端到端加密</string>
     <string name="e2e_offline">沒有網際網路連線就無法使用</string>
     <string name="ecosystem_apps_display_more">更多</string>
-    <string name="ecosystem_apps_display_notes">註解</string>
+    <string name="ecosystem_apps_display_notes">筆記</string>
     <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">更多 Nextcloud 應用程式</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
+    <string name="ecosystem_apps_notes">Nextcloud 筆記</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">挑選電子郵件地址失敗。</string>
     <string name="encrypted">設為已加密的</string>
@@ -263,7 +263,7 @@
     <string name="end_to_end_encryption_generating_keys">正在產生金鑰……</string>
     <string name="end_to_end_encryption_keywords_description">透過組合 12 個字來產生安全的密碼，使你可以安全的瀏覽與加密檔案。請確保這組密碼只有你知道，並寫記在紙上妥善保管。</string>
     <string name="end_to_end_encryption_not_enabled">伺服器上的端對端加密被停用</string>
-    <string name="end_to_end_encryption_passphrase_title">為您 12 個字的加密密碼加上註解</string>
+    <string name="end_to_end_encryption_passphrase_title">記住您的 12 字加密密碼</string>
     <string name="end_to_end_encryption_password">密碼……</string>
     <string name="end_to_end_encryption_retrieving_keys">正在擷取金鑰……</string>
     <string name="end_to_end_encryption_storing_keys">儲存金鑰</string>
@@ -389,6 +389,7 @@
     <string name="folder_already_exists">資料夾已存在</string>
     <string name="folder_confirm_create">建立</string>
     <string name="folder_list_empty_headline">這裡沒有資料夾</string>
+    <string name="folder_picker_choose_button_text">選擇</string>
     <string name="folder_picker_choose_caption_text">選擇目標資料夾</string>
     <string name="folder_picker_copy_button_text">複製</string>
     <string name="folder_picker_move_button_text">移動</string>
@@ -881,7 +882,7 @@
     <string name="uploader_error_message_source_file_not_found">該位置無法找到要上傳的檔案，請檢查該檔案是否存在</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">無法上傳檔案</string>
     <string name="uploader_error_title_no_file_to_upload">沒有要上傳的檔案</string>
-    <string name="uploader_file_not_found_message">找不到檔案。您確定該檔案存在，或是之前的衝突尚未解決？</string>
+    <string name="uploader_file_not_found_message">找不到檔案。您確定該檔案存在，或之前的衝突尚未解決？</string>
     <string name="uploader_file_not_found_on_server_message">我們在伺服器上找不到檔案。可能有其他使用者刪除了該檔案</string>
     <string name="uploader_info_dirname">資料夾名稱</string>
     <string name="uploader_local_files_uploaded">請嘗試重新上傳本機檔案</string>

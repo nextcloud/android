@@ -280,6 +280,7 @@
     <string name="folder_already_exists">Fascikla već postoji</string>
     <string name="folder_confirm_create">Napravi</string>
     <string name="folder_list_empty_headline">Bez fascikli</string>
+    <string name="folder_picker_choose_button_text">Odaberi</string>
     <string name="folder_picker_copy_button_text">Kopiraj</string>
     <string name="folder_picker_move_button_text">Premesti</string>
     <string name="forbidden_permissions">Nije vam dozvoljeno da %s</string>
