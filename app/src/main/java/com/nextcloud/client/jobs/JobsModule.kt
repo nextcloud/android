@@ -51,7 +51,11 @@ class JobsModule {
 
     @Provides
     @Singleton
-    fun backgroundJobManager(workManager: WorkManager, clock: Clock, preferences: AppPreferences): BackgroundJobManager {
+    fun backgroundJobManager(
+        workManager: WorkManager,
+        clock: Clock,
+        preferences: AppPreferences
+    ): BackgroundJobManager {
         return BackgroundJobManagerImpl(workManager, clock, preferences)
     }
 }

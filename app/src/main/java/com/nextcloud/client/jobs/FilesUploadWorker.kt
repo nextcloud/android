@@ -88,7 +88,7 @@ class FilesUploadWorker(
             Log_OC.w(TAG, "User was null for file upload worker")
 
             val result = Result.failure()
-            backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class),result)
+            backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
             return result // user account is needed
         }
 
@@ -107,7 +107,7 @@ class FilesUploadWorker(
 
         Log_OC.d(TAG, "No more pending uploads for account $accountName, stopping work")
         val result = Result.success()
-        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class),result)
+        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
         return result // user account is needed
     }
 

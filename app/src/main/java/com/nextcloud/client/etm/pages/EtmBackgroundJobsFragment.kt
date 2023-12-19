@@ -46,9 +46,10 @@ import javax.inject.Inject
 class EtmBackgroundJobsFragment : EtmBaseFragment(), Injectable {
 
     @Inject
-    lateinit var preferences : AppPreferences
+    lateinit var preferences: AppPreferences
 
-    class Adapter(private val inflater: LayoutInflater, private val preferences: AppPreferences) : RecyclerView.Adapter<Adapter.ViewHolder>(){
+    class Adapter(private val inflater: LayoutInflater, private val preferences: AppPreferences) :
+        RecyclerView.Adapter<Adapter.ViewHolder>() {
 
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val uuid = view.findViewById<TextView>(R.id.etm_background_job_uuid)
@@ -88,7 +89,6 @@ class EtmBackgroundJobsFragment : EtmBaseFragment(), Injectable {
                         View.GONE
                     }
                 }
-
         }
 
         private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:MM:ssZ", Locale.getDefault())
@@ -128,31 +128,33 @@ class EtmBackgroundJobsFragment : EtmBaseFragment(), Injectable {
                 vh.progressEnabled = false
             }
 
-            val logs =  preferences.readLogEntry()
-            val logsForThisWorker = logs.filter { BackgroundJobManagerImpl.parseTag(it.workerClass)?.second == info.workerClass }
-            if(logsForThisWorker.isNotEmpty()) {
+            val logs = preferences.readLogEntry()
+            val logsForThisWorker =
+                logs.filter { BackgroundJobManagerImpl.parseTag(it.workerClass)?.second == info.workerClass }
+            if (logsForThisWorker.isNotEmpty()) {
                 vh.executionTimesRow.visibility = View.VISIBLE
-                vh.executionCount.text = logsForThisWorker.filter { it.started != null }.size.toString() + " (${logsForThisWorker.filter { it.finished != null }.size})"
+                vh.executionCount.text =
+                    "${logsForThisWorker.filter { it.started != null }.size} " +
+                    "(${logsForThisWorker.filter { it.finished != null }.size})"
                 var logText = "Worker Logs\n\n" +
-                    "*** Does NOT differentiate between imitate or periodic kinds of Work! ***\n"+
+                    "*** Does NOT differentiate between imitate or periodic kinds of Work! ***\n" +
                     "*** Times run in 48h: Times started (Times finished) ***\n"
-                logsForThisWorker.forEach{
+                logsForThisWorker.forEach {
                     logText += "----------------------\n"
                     logText += "Worker ${BackgroundJobManagerImpl.parseTag(it.workerClass)?.second}\n"
-                    logText += if (it.started == null){
+                    logText += if (it.started == null) {
                         "ENDED at\n${it.finished}\nWith result: ${it.result}\n"
-                    }else{
+                    } else {
                         "STARTED at\n${it.started}\n"
                     }
                 }
                 vh.executionLog.text = logText
-            }else{
+            } else {
                 vh.executionLog.text = "Worker Logs\n\n" +
                     "No Entries -> Maybe logging is not implemented for Worker or it has not run yet."
                 vh.executionCount.text = "0"
                 vh.executionTimesRow.visibility = View.GONE
             }
-
         }
     }
 
@@ -186,22 +188,27 @@ class EtmBackgroundJobsFragment : EtmBaseFragment(), Injectable {
                 vm.cancelAllJobs()
                 true
             }
+
             R.id.etm_background_jobs_prune -> {
                 vm.pruneJobs()
                 true
             }
+
             R.id.etm_background_jobs_start_test -> {
                 vm.startTestJob(periodic = false)
                 true
             }
+
             R.id.etm_background_jobs_schedule_test -> {
                 vm.startTestJob(periodic = true)
                 true
             }
+
             R.id.etm_background_jobs_cancel_test -> {
                 vm.cancelTestJob()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

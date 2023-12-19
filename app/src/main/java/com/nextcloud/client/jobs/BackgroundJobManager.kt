@@ -36,7 +36,7 @@ interface BackgroundJobManager {
      */
     val jobs: LiveData<List<JobInfo>>
 
-    fun logStartOfWorker(workerName : String?)
+    fun logStartOfWorker(workerName: String?)
 
     fun logEndOfWorker(workerName: String?, result: ListenableWorker.Result)
 
