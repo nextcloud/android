@@ -247,7 +247,7 @@ public class FileDownloader implements OnDatatransferProgressListener, OnAccount
      * <p/>
      * It provides by itself the available operations.
      */
-    public class FileDownloaderBinder extends Binder implements OnDatatransferProgressListener {
+    public class FileDownloaderBinder2 extends Binder implements OnDatatransferProgressListener {
 
         /**
          * Map of listeners that will be reported about progress of downloads from a
@@ -390,12 +390,7 @@ public class FileDownloader implements OnDatatransferProgressListener, OnAccount
     }
 
 
-    /**
-     * Core download method: requests a file to download and stores it.
-     *
-     * @param downloadKey Key to access the download to perform, contained in mPendingDownloads
-     */
-    private void downloadFile(String downloadKey) {
+    void downloadFile(String downloadKey) {
 
         mStartedDownload = true;
         mCurrentDownload = mPendingDownloads.get(downloadKey);
