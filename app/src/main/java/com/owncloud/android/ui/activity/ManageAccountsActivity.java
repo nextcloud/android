@@ -341,7 +341,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                     mUploaderBinder.cancel(accountName);
                 }
                 if (mDownloaderBinder != null) {
-                    mDownloaderBinder.cancel(accountName);
+                    mDownloaderBinder.cancelAllDownloadsForAccount(accountName);
                 }
             }
 
@@ -436,7 +436,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
             mUploaderBinder.cancel(user);
         }
         if (mDownloaderBinder != null) {
-            mDownloaderBinder.cancel(user.getAccountName());
+            mDownloaderBinder.cancelAllDownloadsForAccount(user.getAccountName());
         }
 
         backgroundJobManager.startAccountRemovalJob(user.getAccountName(), false);
