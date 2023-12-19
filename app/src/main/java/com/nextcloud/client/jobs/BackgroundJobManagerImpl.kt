@@ -520,9 +520,8 @@ internal class BackgroundJobManagerImpl(
     ) {
         val gson = Gson()
 
-        // FIXME user interface cant serialize and deserialize
         val data = workDataOf(
-            //FilesDownloadWorker.USER to gson.toJson(user),
+            FilesDownloadWorker.USER to gson.toJson(user),
             FilesDownloadWorker.FILE to gson.toJson(ocFile),
             FilesDownloadWorker.BEHAVIOUR to behaviour,
             FilesDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),
@@ -530,8 +529,6 @@ internal class BackgroundJobManagerImpl(
             FilesDownloadWorker.PACKAGE_NAME to packageName,
             FilesDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId,
         )
-
-        FilesDownloadWorker.user = user
 
         val request = oneTimeRequestBuilder(FilesDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
             .setInputData(data)
