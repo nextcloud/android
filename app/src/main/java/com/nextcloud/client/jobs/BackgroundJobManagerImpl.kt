@@ -34,6 +34,7 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.workDataOf
+import com.google.gson.Gson
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
@@ -517,15 +518,20 @@ internal class BackgroundJobManagerImpl(
         packageName: String,
         conflictUploadId: Long?
     ) {
+        val gson = Gson()
+
+        // FIXME user interface cant serialize and deserialize
         val data = workDataOf(
-            FilesDownloadWorker.USER to user,
-            FilesDownloadWorker.FILE to ocFile,
+            //FilesDownloadWorker.USER to gson.toJson(user),
+            FilesDownloadWorker.FILE to gson.toJson(ocFile),
             FilesDownloadWorker.BEHAVIOUR to behaviour,
-            FilesDownloadWorker.DOWNLOAD_TYPE to downloadType,
+            FilesDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),
             FilesDownloadWorker.ACTIVITY_NAME to activityName,
             FilesDownloadWorker.PACKAGE_NAME to packageName,
             FilesDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId,
         )
+
+        FilesDownloadWorker.user = user
 
         val request = oneTimeRequestBuilder(FilesDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
             .setInputData(data)
