@@ -413,7 +413,7 @@ public class PreviewImageActivity extends FileActivity implements
 
         } else if (!mDownloaderBinder.isDownloading(getUserAccountManager().getUser(), file)) {
             final User user = getUser().orElseThrow(RuntimeException::new);
-            new FilesDownloadHelper().downloadFile(user, file, downloadBehaviour, null, "", "", null);
+            new FilesDownloadHelper().downloadFile(user, file, downloadBehaviour);
         }
     }
 

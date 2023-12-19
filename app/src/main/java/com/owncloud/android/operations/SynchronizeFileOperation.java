@@ -320,12 +320,7 @@ public class SynchronizeFileOperation extends SyncOperation {
 
         downloadHelper.downloadFile(
             mUser,
-            file,
-            "",
-            null,
-            "",
-            "",
-            null);
+            file);
 
         mTransferWasRequested = true;
     }

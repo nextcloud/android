@@ -116,13 +116,9 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                     // Overwrite local file
                     file?.let {
                         FilesDownloadHelper().downloadFile(
-                            user = getUser().orElseThrow { RuntimeException() },
-                            ocFile = file,
-                            conflictUploadId = conflictUploadId,
-                            behaviour = "",
-                            packageName = "",
-                            activityName = "",
-                            downloadType = null
+                            getUser().orElseThrow { RuntimeException() },
+                            file,
+                            conflictUploadId
                         )
                     }
                 } else {

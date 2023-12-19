@@ -236,7 +236,7 @@ public abstract class FileActivity extends DrawerActivity
 
         mDownloadServiceConnection = newTransferenceServiceConnection();
         if (mDownloadServiceConnection != null && user != null) {
-            new FilesDownloadHelper().downloadFile(user, mFile, "", null, "", "", null);
+            new FilesDownloadHelper().downloadFile(user, mFile);
         }
         mUploadServiceConnection = newTransferenceServiceConnection();
         if (mUploadServiceConnection != null) {

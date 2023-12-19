@@ -114,11 +114,7 @@ class FilesExportWork(
         FilesDownloadHelper().downloadFile(
             user,
             ocFile,
-            behaviour = "",
-            packageName = "",
-            activityName = "",
-            conflictUploadId = 0L,
-            downloadType = DownloadType.EXPORT
+            DownloadType.EXPORT
         )
     }
 
