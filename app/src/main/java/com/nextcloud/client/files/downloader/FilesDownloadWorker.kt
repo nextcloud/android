@@ -49,7 +49,6 @@ import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
-import com.owncloud.android.files.services.FileDownloader
 import com.owncloud.android.files.services.IndexedForest
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
@@ -93,6 +92,12 @@ class FilesDownloadWorker(
         const val ACTIVITY_NAME = "ACTIVITY_NAME"
         const val PACKAGE_NAME = "PACKAGE_NAME"
         const val CONFLICT_UPLOAD_ID = "CONFLICT_UPLOAD_ID"
+        const val EXTRA_USER = "USER"
+        const val EXTRA_FILE = "FILE"
+        const val EXTRA_DOWNLOAD_RESULT = "RESULT"
+        const val EXTRA_REMOTE_PATH = "REMOTE_PATH"
+        const val EXTRA_LINKED_TO_PATH = "LINKED_TO"
+        const val ACCOUNT_NAME = "ACCOUNT_NAME"
     }
 
     private var notification: Notification? = null
@@ -257,15 +262,15 @@ class FilesDownloadWorker(
         downloadResult: RemoteOperationResult<*>,
         unlinkedFromRemotePath: String?
     ) {
-        val end = Intent(FileDownloader.getDownloadFinishMessage())
-        end.putExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess)
-        end.putExtra(FileDownloader.ACCOUNT_NAME, download.user.accountName)
-        end.putExtra(FileDownloader.EXTRA_REMOTE_PATH, download.remotePath)
+        val end = Intent(getDownloadFinishMessage())
+        end.putExtra(EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess)
+        end.putExtra(ACCOUNT_NAME, download.user.accountName)
+        end.putExtra(EXTRA_REMOTE_PATH, download.remotePath)
         end.putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, download.behaviour)
         end.putExtra(SendShareDialog.ACTIVITY_NAME, download.activityName)
         end.putExtra(SendShareDialog.PACKAGE_NAME, download.packageName)
         if (unlinkedFromRemotePath != null) {
-            end.putExtra(FileDownloader.EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
+            end.putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
         }
         end.setPackage(context.packageName)
         localBroadcastManager.sendBroadcast(end)
@@ -417,14 +422,22 @@ class FilesDownloadWorker(
         pendingDownloads.remove(accountName)
     }
 
+    private fun getDownloadAddedMessage(): String {
+        return FilesDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
+    }
+
+    private fun getDownloadFinishMessage(): String {
+        return FilesDownloadWorker::class.java.name + "DOWNLOAD_FINISH"
+    }
+
     private fun sendBroadcastNewDownload(
         download: DownloadFileOperation,
         linkedToRemotePath: String
     ) {
-        val added = Intent(FileDownloader.getDownloadAddedMessage())
-        added.putExtra(FileDownloader.ACCOUNT_NAME, download.user.accountName)
-        added.putExtra(FileDownloader.EXTRA_REMOTE_PATH, download.remotePath)
-        added.putExtra(FileDownloader.EXTRA_LINKED_TO_PATH, linkedToRemotePath)
+        val added = Intent(getDownloadAddedMessage())
+        added.putExtra(ACCOUNT_NAME, download.user.accountName)
+        added.putExtra(EXTRA_REMOTE_PATH, download.remotePath)
+        added.putExtra(EXTRA_LINKED_TO_PATH, linkedToRemotePath)
         added.setPackage(context.packageName)
         localBroadcastManager.sendBroadcast(added)
     }
