@@ -438,6 +438,7 @@
     <string name="actionbar_move_or_copy">Move or Copy</string>
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
 
+    <string name="folder_picker_choose_button_text">Choose</string>
     <string name="folder_picker_copy_button_text">Copy</string>
     <string name="folder_picker_move_button_text">Move</string>
     <string name="folder_picker_choose_caption_text">Choose target folder</string>
