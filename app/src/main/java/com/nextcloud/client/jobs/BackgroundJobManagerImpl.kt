@@ -521,7 +521,7 @@ internal class BackgroundJobManagerImpl(
         val gson = Gson()
 
         val data = workDataOf(
-            FilesDownloadWorker.USER to gson.toJson(user),
+            FilesDownloadWorker.USER_NAME to user.accountName,
             FilesDownloadWorker.FILE to gson.toJson(ocFile),
             FilesDownloadWorker.BEHAVIOUR to behaviour,
             FilesDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),

@@ -39,12 +39,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.java.util.Optional
-import com.nextcloud.utils.InterfaceSerializer
-import com.nextcloud.utils.InterfaceSerializer.interfaceSerializer
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -88,7 +85,7 @@ class FilesDownloadWorker(
     companion object {
         private val TAG = FilesDownloadWorker::class.java.simpleName
 
-        const val USER = "USER"
+        const val USER_NAME = "USER"
         const val FILE = "FILE"
         const val BEHAVIOUR = "BEHAVIOUR"
         const val DOWNLOAD_TYPE = "DOWNLOAD_TYPE"
@@ -146,17 +143,11 @@ class FilesDownloadWorker(
         }
     }
 
-    // FIXME stackoverflow
-    private fun getUserGson(): Gson {
-        return GsonBuilder()
-            .registerTypeAdapter(User::class.java, interfaceSerializer(User::class.java))
-            .create()
-    }
-
     private fun getRequestDownloads(): AbstractList<String> {
         conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long?
         val file = gson.fromJson(inputData.keyValueMap[FILE] as String, OCFile::class.java)
-        val user = getUserGson().fromJson(inputData.keyValueMap[USER] as String, User::class.java)
+        val accountName = inputData.keyValueMap[USER_NAME] as String
+        val user = accountManager.getUser(accountName).get()
         val downloadTypeAsString = inputData.keyValueMap[DOWNLOAD_TYPE] as String?
         val downloadType = if (downloadTypeAsString != null) {
             if (downloadTypeAsString == DownloadType.DOWNLOAD.toString()) {
