@@ -98,4 +98,8 @@ internal class OCFileListItemViewHolder(private var binding: ListItemBinding) :
     init {
         binding.favoriteAction.drawable.mutate()
     }
+
+    @Suppress("EmptyFunctionBlock")
+    override fun checkVisibilityOfFileFeaturesLayout() {
+    }
 }
