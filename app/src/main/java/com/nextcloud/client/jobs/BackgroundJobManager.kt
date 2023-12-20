@@ -145,6 +145,7 @@ interface BackgroundJobManager {
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
     fun cancelFilesUploadJob(user: User)
 
+    @Suppress("LongParameterList")
     fun startFilesDownloadJob(
         user: User,
         ocFile: OCFile,
