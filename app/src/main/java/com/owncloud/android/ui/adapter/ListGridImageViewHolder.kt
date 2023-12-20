@@ -31,6 +31,7 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView
 interface ListGridImageViewHolder {
     val thumbnail: ImageView
     fun showVideoOverlay()
+    fun checkVisibilityOfFileFeaturesLayout()
     val shimmerThumbnail: LoaderImageView
     val favorite: ImageView
     val localFileIndicator: ImageView
