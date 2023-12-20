@@ -302,6 +302,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 return headerId;
             }
 
+
             // skip header
             position--;
         }
