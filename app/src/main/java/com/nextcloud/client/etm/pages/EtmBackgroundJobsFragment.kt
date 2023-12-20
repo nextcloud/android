@@ -137,7 +137,7 @@ class EtmBackgroundJobsFragment : EtmBaseFragment(), Injectable {
                     "${logsForThisWorker.filter { it.started != null }.size} " +
                     "(${logsForThisWorker.filter { it.finished != null }.size})"
                 var logText = "Worker Logs\n\n" +
-                    "*** Does NOT differentiate between imitate or periodic kinds of Work! ***\n" +
+                    "*** Does NOT differentiate between immediate or periodic kinds of Work! ***\n" +
                     "*** Times run in 48h: Times started (Times finished) ***\n"
                 logsForThisWorker.forEach {
                     logText += "----------------------\n"
