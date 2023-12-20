@@ -41,6 +41,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
@@ -430,6 +431,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             ocFileListDelegate.bindGridViewHolder(gridViewHolder, file, searchType);
             checkVisibilityOfMoreButtons(gridViewHolder);
+            checkVisibilityOfFileFeaturesLayout(gridViewHolder);
 
             if (holder instanceof ListItemViewHolder) {
                 bindListItemViewHolder((ListItemViewHolder) gridViewHolder, file);
@@ -438,10 +440,29 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (holder instanceof ListGridItemViewHolder) {
                 bindListGridItemViewHolder((ListGridItemViewHolder) holder, file);
                 checkVisibilityOfMoreButtons((ListGridItemViewHolder) holder);
+                checkVisibilityOfFileFeaturesLayout((ListGridItemViewHolder) holder);
             }
 
             updateLivePhotoIndicators(gridViewHolder, file);
         }
+    }
+
+    private void checkVisibilityOfFileFeaturesLayout(ListGridImageViewHolder holder) {
+        int fileFeaturesVisibility = View.GONE;
+        LinearLayout fileFeaturesLayout = holder.getFileFeaturesLayout();
+
+        if (fileFeaturesLayout == null) {
+            return;
+        }
+
+        for (int i = 0; i < fileFeaturesLayout.getChildCount(); i++) {
+            View child = fileFeaturesLayout.getChildAt(i);
+            if (child.getVisibility() == View.VISIBLE) {
+                fileFeaturesVisibility = View.VISIBLE;
+            }
+        }
+
+        fileFeaturesLayout.setVisibility(fileFeaturesVisibility);
     }
 
     private void checkVisibilityOfMoreButtons(ListGridImageViewHolder holder) {
