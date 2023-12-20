@@ -73,7 +73,6 @@ import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
-import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -1086,7 +1085,6 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
                 startFile = fileArgs;
                 setFile(startFile);
             }
-            setFile(startFile);
         }
 
         // refresh list of files
