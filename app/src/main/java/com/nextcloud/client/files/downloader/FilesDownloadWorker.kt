@@ -24,26 +24,19 @@ package com.nextcloud.client.files.downloader
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.OnAccountsUpdateListener
-import android.app.Notification
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Binder
-import android.os.Build
 import android.os.IBinder
 import android.util.Pair
-import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.gson.Gson
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.notifications.download.DownloadNotificationManager
 import com.nextcloud.java.util.Optional
-import com.owncloud.android.R
-import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -55,31 +48,20 @@ import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.lib.resources.files.FileUtils
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
-import com.owncloud.android.ui.activity.FileActivity
-import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.dialog.SendShareDialog
-import com.owncloud.android.ui.fragment.OCFileListFragment
-import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.ui.preview.PreviewImageActivity
-import com.owncloud.android.ui.preview.PreviewImageFragment
-import com.owncloud.android.utils.ErrorMessageAdapter
-import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import java.io.File
-import java.security.SecureRandom
 import java.util.AbstractList
 import java.util.Vector
 
+@Suppress("LongParameterList")
 class FilesDownloadWorker(
     private val viewThemeUtils: ViewThemeUtils,
     private val accountManager: UserAccountManager,
     private val uploadsStorageManager: UploadsStorageManager,
     private var localBroadcastManager: LocalBroadcastManager,
     private val context: Context,
-    params: WorkerParameters,
+    params: WorkerParameters
 ) : Worker(context, params), OnAccountsUpdateListener, OnDatatransferProgressListener {
 
     companion object {
@@ -108,25 +90,26 @@ class FilesDownloadWorker(
         }
     }
 
-    private var notification: Notification? = null
     private var currentDownload: DownloadFileOperation? = null
     private var conflictUploadId: Long? = null
     private var lastPercent = 0
-    private lateinit var notificationBuilder: NotificationCompat.Builder
-    private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private val intents = FilesDownloadIntents(context)
+    private val notificationManager = DownloadNotificationManager(context, viewThemeUtils)
     private val pendingDownloads = IndexedForest<DownloadFileOperation>()
     private var downloadBinder: IBinder = FileDownloaderBinder()
     private var currentUser = Optional.empty<User>()
+    private val helper = FilesDownloadHelper()
     private var startedDownload = false
     private var storageManager: FileDataStorageManager? = null
     private var downloadClient: OwnCloudClient? = null
     private val gson = Gson()
 
+    @Suppress("TooGenericExceptionCaught")
     override fun doWork(): Result {
         return try {
             val requestDownloads = getRequestDownloads()
 
-            initNotificationBuilder()
+            notificationManager.init()
             addAccountUpdateListener()
             startDownloadForEachRequest(requestDownloads)
 
@@ -180,28 +163,13 @@ class FilesDownloadWorker(
             if (putResult != null) {
                 val downloadKey = putResult.first
                 requestedDownloads.add(downloadKey)
-                sendBroadcastNewDownload(operation, putResult.second)
+                localBroadcastManager.sendBroadcast(intents.newDownloadIntent(operation, putResult.second))
             }
-
         } catch (e: IllegalArgumentException) {
             Log_OC.e(TAG, "Not enough information provided in intent: " + e.message)
         }
 
         return requestedDownloads
-    }
-    
-    private fun initNotificationBuilder() {
-        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
-            .setContentTitle(context.resources.getString(R.string.app_name))
-            .setContentText(context.resources.getString(R.string.foreground_service_download))
-            .setSmallIcon(R.drawable.notification_icon)
-            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
-        }
-
-        notification = notificationBuilder.build()
     }
 
     private fun addAccountUpdateListener() {
@@ -221,6 +189,7 @@ class FilesDownloadWorker(
         startedDownload = false
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private fun downloadFile(downloadKey: String) {
         startedDownload = true
         currentDownload = pendingDownloads.get(downloadKey)
@@ -244,7 +213,9 @@ class FilesDownloadWorker(
 
             downloadResult = currentDownload?.execute(downloadClient)
             if (downloadResult?.isSuccess == true && currentDownload?.downloadType === DownloadType.DOWNLOAD) {
-                saveDownloadedFile()
+                getCurrentFile()?.let {
+                    helper.saveFile(it, currentDownload, storageManager)
+                }
             }
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error downloading", e)
@@ -261,14 +232,9 @@ class FilesDownloadWorker(
     private fun notifyDownloadStart(download: DownloadFileOperation) {
         lastPercent = 0
 
-        configureNotificationBuilderForDownloadStart(download)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
-        }
-
-        showDetailsIntent(download)
-        notifyDownloadInProgressNotification()
+        notificationManager.notifyForStart(download)
+        notificationManager.setContentIntent(intents.detailsIntent(download), PendingIntent.FLAG_IMMUTABLE)
+        notificationManager.showDownloadInProgressNotification()
     }
 
     private fun getOCAccountForDownload(): OwnCloudAccount {
@@ -279,38 +245,6 @@ class FilesDownloadWorker(
             storageManager = FileDataStorageManager(currentUser.get(), context.contentResolver)
         }
         return currentDownloadUser.get().toOwnCloudAccount()
-    }
-
-    private fun saveDownloadedFile() {
-        val file = getCurrentFile() ?: return
-
-        val syncDate = System.currentTimeMillis()
-
-        file.apply {
-            lastSyncDateForProperties = syncDate
-            lastSyncDateForData = syncDate
-            isUpdateThumbnailNeeded = true
-            modificationTimestamp = currentDownload?.modificationTimestamp ?: 0L
-            modificationTimestampAtLastSyncForData = currentDownload?.modificationTimestamp ?: 0L
-            etag = currentDownload?.etag
-            mimeType = currentDownload?.mimeType
-            storagePath = currentDownload?.savePath
-
-            val savePathFile = currentDownload?.savePath?.let { File(it) }
-            savePathFile?.let {
-                fileLength = savePathFile.length()
-            }
-
-            remoteId = currentDownload?.file?.remoteId
-        }
-
-        storageManager?.saveFile(file)
-
-        if (MimeTypeUtil.isMedia(currentDownload?.mimeType)) {
-            FileDataStorageManager.triggerMediaScan(file.storagePath, file)
-        }
-
-        storageManager?.saveConflict(file, null)
     }
 
     private fun getCurrentFile(): OCFile? {
@@ -330,14 +264,20 @@ class FilesDownloadWorker(
 
     private fun cleanupDownloadProcess(result: RemoteOperationResult<*>?) {
         val removeResult = pendingDownloads.removePayload(
-            currentDownload?.user?.accountName, currentDownload?.remotePath
+            currentDownload?.user?.accountName,
+            currentDownload?.remotePath
         )
 
         val downloadResult = result ?: RemoteOperationResult<Any?>(RuntimeException("Error downloading…"))
 
         currentDownload?.run {
             notifyDownloadResult(this, downloadResult)
-            sendBroadcastDownloadFinished(this, downloadResult, removeResult.second)
+            val downloadFinishedIntent = intents.downloadFinishedIntent(
+                this,
+                downloadResult,
+                removeResult.second
+            )
+            localBroadcastManager.sendBroadcast(downloadFinishedIntent)
         }
     }
 
@@ -355,72 +295,15 @@ class FilesDownloadWorker(
         }
 
         val needsToUpdateCredentials = (ResultCode.UNAUTHORIZED == downloadResult.code)
-        configureNotificationBuilderForDownloadResult(downloadResult, needsToUpdateCredentials)
+        notificationManager.prepareForResult(downloadResult, needsToUpdateCredentials)
 
         if (needsToUpdateCredentials) {
-            configureUpdateCredentialsNotification(download.user)
+            notificationManager.setCredentialContentIntent(download.user)
         } else {
-            showDetailsIntent(null)
+            notificationManager.setContentIntent(intents.detailsIntent(null), PendingIntent.FLAG_IMMUTABLE)
         }
 
-        notifyNotificationBuilderForDownloadResult(downloadResult, download)
-    }
-
-    private fun configureNotificationBuilderForDownloadResult(
-        downloadResult: RemoteOperationResult<*>,
-        needsToUpdateCredentials: Boolean
-    ) {
-        var tickerId =
-            if (downloadResult.isSuccess) R.string.downloader_download_succeeded_ticker else R.string.downloader_download_failed_ticker
-        tickerId = if (needsToUpdateCredentials) R.string.downloader_download_failed_credentials_error else tickerId
-
-        notificationBuilder
-            .setTicker(context.getString(tickerId))
-            .setContentTitle(context.getString(tickerId))
-            .setAutoCancel(true)
-            .setOngoing(false)
-            .setProgress(0, 0, false)
-    }
-
-    private fun notifyNotificationBuilderForDownloadResult(downloadResult: RemoteOperationResult<*>, download: DownloadFileOperation) {
-        val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(
-            downloadResult,
-            download,
-            context.resources
-        )
-
-        notificationBuilder.setContentText(errorMessage)
-
-        notificationManager.notify(SecureRandom().nextInt(), notificationBuilder.build())
-
-        if (downloadResult.isSuccess) {
-            NotificationUtils.cancelWithDelay(
-                notificationManager,
-                R.string.downloader_download_succeeded_ticker,
-                2000
-            )
-        }
-    }
-
-    private fun sendBroadcastDownloadFinished(
-        download: DownloadFileOperation,
-        downloadResult: RemoteOperationResult<*>,
-        unlinkedFromRemotePath: String?
-    ) {
-        val intent = Intent(getDownloadFinishMessage()).apply {
-            putExtra(EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess)
-            putExtra(ACCOUNT_NAME, download.user.accountName)
-            putExtra(EXTRA_REMOTE_PATH, download.remotePath)
-            putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, download.behaviour)
-            putExtra(SendShareDialog.ACTIVITY_NAME, download.activityName)
-            putExtra(SendShareDialog.PACKAGE_NAME, download.packageName)
-            if (unlinkedFromRemotePath != null) {
-                putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
-            }
-            setPackage(context.packageName)
-        }
-
-        localBroadcastManager.sendBroadcast(intent)
+        notificationManager.notifyForResult(downloadResult, download)
     }
 
     private fun dismissDownloadInProgressNotification() {
@@ -430,82 +313,7 @@ class FilesDownloadWorker(
             }
         }
 
-        notificationManager.cancel(R.string.downloader_download_in_progress_ticker)
-    }
-
-    private fun configureUpdateCredentialsNotification(user: User) {
-        val intent = Intent(context, AuthenticatorActivity::class.java).apply {
-            putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, user.toPlatformAccount())
-            putExtra(
-                AuthenticatorActivity.EXTRA_ACTION,
-                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
-            )
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
-            addFlags(Intent.FLAG_FROM_BACKGROUND)
-        }
-
-        notificationBuilder.setContentIntent(
-            PendingIntent.getActivity(
-                context, System.currentTimeMillis().toInt(),
-                intent,
-                PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-            )
-        )
-    }
-
-    private fun configureNotificationBuilderForDownloadStart(download: DownloadFileOperation) {
-        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
-            .setSmallIcon(R.drawable.notification_icon)
-            .setTicker(context.getString(R.string.downloader_download_in_progress_ticker))
-            .setContentTitle(context.getString(R.string.downloader_download_in_progress_ticker))
-            .setOngoing(true)
-            .setProgress(100, 0, download.size < 0)
-            .setContentText(
-                String.format(
-                    context.getString(R.string.downloader_download_in_progress_content), 0,
-                    File(download.savePath).name
-                )
-            )
-    }
-
-    private fun showDetailsIntent(operation: DownloadFileOperation?) {
-        val intent: Intent = if (operation != null) {
-            if (PreviewImageFragment.canBePreviewed(operation.file)) {
-                Intent(context, PreviewImageActivity::class.java)
-            } else {
-                Intent(context, FileDisplayActivity::class.java)
-            }.apply {
-                putExtra(FileActivity.EXTRA_FILE, operation.file)
-                putExtra(FileActivity.EXTRA_USER, operation.user)
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            }
-        } else {
-            Intent()
-        }
-
-        notificationBuilder.setContentIntent(
-            PendingIntent.getActivity(
-                context,
-                System.currentTimeMillis().toInt(),
-                intent,
-                PendingIntent.FLAG_IMMUTABLE
-            )
-        )
-    }
-
-    private fun sendBroadcastNewDownload(
-        download: DownloadFileOperation,
-        linkedToRemotePath: String
-    ) {
-        val intent = Intent(getDownloadAddedMessage()).apply {
-            putExtra(ACCOUNT_NAME, download.user.accountName)
-            putExtra(EXTRA_REMOTE_PATH, download.remotePath)
-            putExtra(EXTRA_LINKED_TO_PATH, linkedToRemotePath)
-            setPackage(context.packageName)
-        }
-
-        localBroadcastManager.sendBroadcast(intent)
+        notificationManager.dismissDownloadInProgressNotification()
     }
 
     override fun onAccountsUpdated(accounts: Array<out Account>?) {
@@ -514,6 +322,7 @@ class FilesDownloadWorker(
         }
     }
 
+    @Suppress("MagicNumber")
     override fun onTransferProgress(
         progressRate: Long,
         totalTransferredSoFar: Long,
@@ -523,23 +332,11 @@ class FilesDownloadWorker(
         val percent: Int = (100.0 * totalTransferredSoFar.toDouble() / totalToTransfer.toDouble()).toInt()
 
         if (percent != lastPercent) {
-            notificationBuilder.setProgress(100, percent, totalToTransfer < 0)
-            val fileName: String = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1)
-            val text =
-                String.format(context.getString(R.string.downloader_download_in_progress_content), percent, fileName)
-            notificationBuilder.setContentText(text)
-
-            notifyDownloadInProgressNotification()
+            notificationManager.updateDownloadProgressNotification(filePath, percent, totalToTransfer)
+            notificationManager.showDownloadInProgressNotification()
         }
 
         lastPercent = percent
-    }
-
-    private fun notifyDownloadInProgressNotification() {
-        notificationManager.notify(
-            R.string.downloader_download_in_progress_ticker,
-            notificationBuilder.build()
-        )
     }
 
     inner class FileDownloaderBinder : Binder(), OnDatatransferProgressListener {
@@ -601,8 +398,10 @@ class FilesDownloadWorker(
         ) {
             val listener = boundListeners[currentDownload?.file?.fileId]
             listener?.onTransferProgress(
-                progressRate, totalTransferredSoFar,
-                totalToTransfer, fileName
+                progressRate,
+                totalTransferredSoFar,
+                totalToTransfer,
+                fileName
             )
         }
     }

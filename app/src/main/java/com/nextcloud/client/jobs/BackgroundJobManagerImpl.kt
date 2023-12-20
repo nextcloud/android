@@ -527,7 +527,7 @@ internal class BackgroundJobManagerImpl(
             FilesDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),
             FilesDownloadWorker.ACTIVITY_NAME to activityName,
             FilesDownloadWorker.PACKAGE_NAME to packageName,
-            FilesDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId,
+            FilesDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId
         )
 
         val request = oneTimeRequestBuilder(FilesDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
