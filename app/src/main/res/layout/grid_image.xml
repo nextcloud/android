@@ -21,6 +21,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ListItemLayout"
     android:orientation="vertical"
+    android:layout_marginEnd="@dimen/grid_container_margin"
+    android:layout_marginTop="@dimen/grid_container_margin"
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="@dimen/grid_container_height">
