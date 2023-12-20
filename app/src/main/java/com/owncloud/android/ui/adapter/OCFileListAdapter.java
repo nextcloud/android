@@ -447,7 +447,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             updateLivePhotoIndicators(gridViewHolder, file);
         }
     }
-
     private void checkVisibilityOfFileFeaturesLayout(ListGridImageViewHolder holder) {
         int fileFeaturesVisibility = View.GONE;
         LinearLayout fileFeaturesLayout = holder.getFileFeaturesLayout();
