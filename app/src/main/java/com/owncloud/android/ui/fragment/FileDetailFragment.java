@@ -50,6 +50,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.MenuUtils;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsFragmentBinding;
@@ -214,14 +215,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             throw new IllegalArgumentException("Arguments may not be null");
         }
 
-        setFile(arguments.getParcelable(ARG_FILE));
-        parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER);
-        user = arguments.getParcelable(ARG_USER);
+        setFile(BundleExtensionsKt.getParcelableArgument(arguments, ARG_FILE, OCFile.class));
+        parentFolder = BundleExtensionsKt.getParcelableArgument(arguments, ARG_PARENT_FOLDER, OCFile.class);
+        user = BundleExtensionsKt.getParcelableArgument(arguments, ARG_USER, User.class);
         activeTab = arguments.getInt(ARG_ACTIVE_TAB, 0);
 
         if (savedInstanceState != null) {
-            setFile(savedInstanceState.getParcelable(ARG_FILE));
-            user = savedInstanceState.getParcelable(ARG_USER);
+            setFile(BundleExtensionsKt.getParcelableArgument(savedInstanceState, ARG_FILE, OCFile.class));
+            user = BundleExtensionsKt.getParcelableArgument(savedInstanceState, ARG_USER, User.class);
         }
 
         binding = FileDetailsFragmentBinding.inflate(inflater, container, false);

@@ -46,6 +46,8 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -206,7 +208,7 @@ public abstract class FileActivity extends DrawerActivity
         mFileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService, editorUtils);
 
         if (savedInstanceState != null) {
-            mFile = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
+            mFile = BundleExtensionsKt.getParcelableArgument(savedInstanceState, FileActivity.EXTRA_FILE, OCFile.class);
             mFromNotification = savedInstanceState.getBoolean(FileActivity.EXTRA_FROM_NOTIFICATION);
             mFileOperationsHelper.setOpIdWaitingFor(
                 savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
@@ -216,8 +218,8 @@ public abstract class FileActivity extends DrawerActivity
                 viewThemeUtils.files.themeActionBar(this, actionBar, savedInstanceState.getString(KEY_ACTION_BAR_TITLE));
             }
         } else {
-            User user = getIntent().getParcelableExtra(FileActivity.EXTRA_USER);
-            mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
+            User user = IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_USER, User.class);
+            mFile = IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_FILE, OCFile.class);
             mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION,
                     false);
             if (user != null) {

@@ -36,6 +36,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -91,7 +92,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
 
                 /// read extra parameters in intent
         Intent intent = getIntent();
-        user = intent.getParcelableExtra(EXTRA_USER);
+        user = IntentExtensionsKt.getParcelableArgument(intent, EXTRA_USER, User.class);
         mRemotePaths = intent.getStringArrayListExtra(EXTRA_REMOTE_PATHS);
         mLocalPaths = intent.getStringArrayListExtra(EXTRA_LOCAL_PATHS);
         mStorageManager = new FileDataStorageManager(user, getContentResolver());

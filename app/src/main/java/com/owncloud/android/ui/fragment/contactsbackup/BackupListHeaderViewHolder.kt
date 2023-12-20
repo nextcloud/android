@@ -26,7 +26,6 @@ import android.content.Context
 import android.widget.ArrayAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.owncloud.android.databinding.BackupListItemHeaderBinding
-import java.util.ArrayList
 
 class BackupListHeaderViewHolder(
     val binding: BackupListItemHeaderBinding,

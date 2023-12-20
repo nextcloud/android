@@ -33,7 +33,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
@@ -421,7 +420,13 @@ public final class FileStorageUtils {
             return false;
         }
 
-        for (File f : sourceFolder.listFiles()) {
+        File[] listFiles = sourceFolder.listFiles();
+
+        if (listFiles == null) {
+            return false;
+        }
+
+        for (File f : listFiles) {
             if (f.isDirectory()) {
                 if (!copyDirs(f, new File(targetFolder, f.getName()))) {
                     return false;
@@ -436,7 +441,13 @@ public final class FileStorageUtils {
 
     public static void deleteRecursively(File file, FileDataStorageManager storageManager) {
         if (file.isDirectory()) {
-            for (File child : file.listFiles()) {
+            File[] listFiles = file.listFiles();
+
+            if (listFiles == null) {
+                return;
+            }
+
+            for (File child : listFiles) {
                 deleteRecursively(child, storageManager);
             }
         }
@@ -447,11 +458,19 @@ public final class FileStorageUtils {
 
     public static boolean deleteRecursive(File file) {
         boolean res = true;
+
         if (file.isDirectory()) {
-            for (File c : file.listFiles()) {
+            File[] listFiles = file.listFiles();
+
+            if (listFiles == null) {
+                return true;
+            }
+
+            for (File c : listFiles) {
                 res = deleteRecursive(c) && res;
             }
         }
+
         return file.delete() && res;
     }
 

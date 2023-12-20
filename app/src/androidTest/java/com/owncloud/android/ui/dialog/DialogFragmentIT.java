@@ -92,7 +92,6 @@ import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
-import androidx.test.rule.GrantPermissionRule;
 import kotlin.Unit;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;

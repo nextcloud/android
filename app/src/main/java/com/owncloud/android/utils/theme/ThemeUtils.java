@@ -23,7 +23,6 @@
 package com.owncloud.android.utils.theme;
 
 import android.content.Context;
-import android.content.res.Configuration;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -34,8 +33,10 @@ import com.owncloud.android.lib.resources.status.OCCapability;
  */
 public final class ThemeUtils {
     public boolean themingEnabled(Context context) {
-        return CapabilityUtils.getCapability(context).getServerColor() != null
-            && !CapabilityUtils.getCapability(context).getServerColor().isEmpty();
+        OCCapability capability = CapabilityUtils.getCapability(context);
+
+        return capability.getServerColor() != null
+            && !capability.getServerColor().isEmpty();
     }
 
     public String getDefaultDisplayNameForRootFolder(Context context) {

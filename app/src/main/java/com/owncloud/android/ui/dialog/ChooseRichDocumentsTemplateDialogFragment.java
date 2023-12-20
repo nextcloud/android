@@ -33,7 +33,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -42,6 +41,7 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ChooseTemplateBinding;
@@ -168,7 +168,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
             throw new RuntimeException(e); // we'll NPE without the client
         }
 
-        parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER);
+        parentFolder = BundleExtensionsKt.getParcelableArgument(arguments, ARG_PARENT_FOLDER, OCFile.class);
         List<OCFile> folderContent = fileDataStorageManager.getFolderContent(parentFolder, false);
         fileNames = Sets.newHashSetWithExpectedSize(folderContent.size());
 

@@ -370,6 +370,7 @@
     <string name="folder_already_exists">La carpeta ja existeix</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">No hi ha carpetes</string>
+    <string name="folder_picker_choose_button_text">Tria</string>
     <string name="folder_picker_choose_caption_text">Trieu la carpeta de destinació</string>
     <string name="folder_picker_copy_button_text">Còpia</string>
     <string name="folder_picker_move_button_text">Mou</string>
