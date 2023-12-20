@@ -94,6 +94,7 @@ import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperatio
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.DownloadType;
 import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
@@ -1957,7 +1958,7 @@ public class FileDisplayActivity extends FileActivity
     private void requestForDownload(OCFile file, String downloadBehaviour, String packageName, String activityName) {
         final User currentUser = getUser().orElseThrow(RuntimeException::new);
         if (!mDownloaderBinder.isDownloading(currentUser, mWaitingToPreview)) {
-            new FilesDownloadHelper().downloadFile(currentUser, file, downloadBehaviour, null, activityName, packageName, null);
+            new FilesDownloadHelper().downloadFile(currentUser, file, downloadBehaviour, DownloadType.DOWNLOAD, activityName, packageName, null);
         }
     }
 

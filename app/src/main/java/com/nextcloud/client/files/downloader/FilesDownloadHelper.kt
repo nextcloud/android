@@ -46,7 +46,7 @@ class FilesDownloadHelper {
             user,
             ocFile,
             "",
-            null,
+            DownloadType.DOWNLOAD,
             "",
             "",
             null
@@ -58,7 +58,7 @@ class FilesDownloadHelper {
             user,
             ocFile,
             behaviour,
-            null,
+            DownloadType.DOWNLOAD,
             "",
             "",
             null
@@ -82,7 +82,7 @@ class FilesDownloadHelper {
             user,
             ocFile,
             "",
-            null,
+            DownloadType.DOWNLOAD,
             "",
             "",
             conflictUploadId

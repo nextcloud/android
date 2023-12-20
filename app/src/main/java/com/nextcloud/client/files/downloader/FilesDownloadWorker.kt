@@ -115,7 +115,7 @@ class FilesDownloadWorker(
     private lateinit var notificationBuilder: NotificationCompat.Builder
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     private val pendingDownloads = IndexedForest<DownloadFileOperation>()
-    private var downloadBinder: IBinder? = null
+    private var downloadBinder: IBinder = FileDownloaderBinder()
     private var currentUser = Optional.empty<User>()
     private var startedDownload = false
     private var storageManager: FileDataStorageManager? = null
@@ -158,6 +158,7 @@ class FilesDownloadWorker(
         val packageName = inputData.keyValueMap[PACKAGE_NAME] as String
 
         val requestedDownloads: AbstractList<String> = Vector()
+
         try {
             val operation = DownloadFileOperation(
                 user,
@@ -169,16 +170,19 @@ class FilesDownloadWorker(
                 downloadType
             )
             operation.addDatatransferProgressListener(this)
-            operation.addDatatransferProgressListener(downloadBinder as FileDownloaderBinder?)
+            operation.addDatatransferProgressListener(downloadBinder as FileDownloaderBinder)
             val putResult = pendingDownloads.putIfAbsent(
                 user?.accountName,
                 file.remotePath,
                 operation
             )
 
-            val downloadKey = putResult.first
-            requestedDownloads.add(downloadKey)
-            sendBroadcastNewDownload(operation, putResult.second)
+            if (putResult != null) {
+                val downloadKey = putResult.first
+                requestedDownloads.add(downloadKey)
+                sendBroadcastNewDownload(operation, putResult.second)
+            }
+
         } catch (e: IllegalArgumentException) {
             Log_OC.e(TAG, "Not enough information provided in intent: " + e.message)
         }
@@ -207,12 +211,14 @@ class FilesDownloadWorker(
 
     private fun startDownloadForEachRequest(requestDownloads: AbstractList<String>) {
         val it: Iterator<String> = requestDownloads.iterator()
+
         while (it.hasNext()) {
             val next = it.next()
             Log_OC.e(TAG, "Download Key: $next")
-
             downloadFile(next)
         }
+
+        startedDownload = false
     }
 
     private fun downloadFile(downloadKey: String) {
