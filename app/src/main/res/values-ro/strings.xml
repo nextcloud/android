@@ -16,6 +16,7 @@
     <string name="action_switch_list_view">Afișare în listă</string>
     <string name="actionbar_calendar_contacts_restore">Restaurare contacte 1&amp; calendar</string>
     <string name="actionbar_mkdir">Dosar nou</string>
+    <string name="actionbar_move_or_copy">Mută sau copiază</string>
     <string name="actionbar_open_with">Deschideţi cu </string>
     <string name="actionbar_search">Caută</string>
     <string name="actionbar_see_details">Detalii</string>
@@ -408,6 +409,11 @@
     <string name="icon_for_empty_list">Pictogramă pentru liste goale</string>
     <string name="icon_of_dashboard_widget">Pictogramă pentru widgetul panoului principal</string>
     <string name="icon_of_widget_entry">Pictogramă pentru alegerea widgetului</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">în folderul %1$s</string>
     <string name="instant_upload_existing">De asemenea încarcă fisiere existente</string>
     <string name="instant_upload_on_charging">Se încarcă numai în timpul alimentării cu curent</string>

@@ -389,6 +389,7 @@
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="folder_confirm_create">Erstellen</string>
     <string name="folder_list_empty_headline">Keine Ordner vorhanden</string>
+    <string name="folder_picker_choose_button_text">Auswählen</string>
     <string name="folder_picker_choose_caption_text">Zielordner auswählen</string>
     <string name="folder_picker_copy_button_text">Kopieren</string>
     <string name="folder_picker_move_button_text">Verschieben</string>
