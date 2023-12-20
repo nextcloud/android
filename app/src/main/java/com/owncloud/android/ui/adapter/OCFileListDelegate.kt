@@ -256,19 +256,6 @@ class OCFileListDelegate(
         } else {
             showShareIcon(gridViewHolder, file)
         }
-
-        /*
-        val hideFilesLayout = (hideItemOptions ||
-            !file.isFolder && file.isEncrypted ||
-            file.isEncrypted && !EncryptionUtils.supportsSecureFiledrop(file, user) ||
-            searchType == SearchType.FAVORITE_SEARCH)
-
-        if (hideFilesLayout) {
-            gridViewHolder.fileFeaturesLayout?.let { it.visibility = View.GONE }
-        } else {
-            showShareIcon(gridViewHolder, file)
-        }
-         */
     }
 
     private fun bindUnreadComments(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
