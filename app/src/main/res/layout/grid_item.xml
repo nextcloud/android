@@ -141,8 +141,8 @@
             android:id="@+id/Filename"
             android:layout_width="@dimen/grid_filename_width"
             android:layout_height="@dimen/grid_bottom_view_height"
-            android:layout_marginBottom="@dimen/grid_bottom_view_margin_bottom"
             android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/grid_bottom_view_margin_bottom"
             android:ellipsize="middle"
             android:gravity="center"
             android:singleLine="true"
@@ -150,7 +150,8 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/grid_item_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/more"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             tools:visibility="visible" />
 
         <ImageButton
