@@ -112,8 +112,8 @@ class FilesDownloadWorker(
     private var currentDownload: DownloadFileOperation? = null
     private var conflictUploadId: Long? = null
     private var lastPercent = 0
-    private var notificationBuilder: NotificationCompat.Builder? = null
-    private var notificationManager: NotificationManager? = null
+    private lateinit var notificationBuilder: NotificationCompat.Builder
+    private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     private val pendingDownloads = IndexedForest<DownloadFileOperation>()
     private var downloadBinder: IBinder? = null
     private var currentUser = Optional.empty<User>()
@@ -126,15 +126,9 @@ class FilesDownloadWorker(
         return try {
             val requestDownloads = getRequestDownloads()
 
-            showDownloadingFilesNotification()
+            initNotificationBuilder()
             addAccountUpdateListener()
-
-            val it: Iterator<String> = requestDownloads.iterator()
-            while (it.hasNext()) {
-                val next = it.next()
-                Log_OC.e(TAG, "Download Key: $next")
-                downloadFile(next)
-            }
+            startDownloadForEachRequest(requestDownloads)
 
             Log_OC.e(TAG, "FilesDownloadWorker successfully completed")
             Result.success()
@@ -191,6 +185,35 @@ class FilesDownloadWorker(
 
         return requestedDownloads
     }
+    
+    private fun initNotificationBuilder() {
+        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
+            .setContentTitle(context.resources.getString(R.string.app_name))
+            .setContentText(context.resources.getString(R.string.foreground_service_download))
+            .setSmallIcon(R.drawable.notification_icon)
+            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
+        }
+
+        notification = notificationBuilder.build()
+    }
+
+    private fun addAccountUpdateListener() {
+        val am = AccountManager.get(context)
+        am.addOnAccountsUpdatedListener(this, null, false)
+    }
+
+    private fun startDownloadForEachRequest(requestDownloads: AbstractList<String>) {
+        val it: Iterator<String> = requestDownloads.iterator()
+        while (it.hasNext()) {
+            val next = it.next()
+            Log_OC.e(TAG, "Download Key: $next")
+
+            downloadFile(next)
+        }
+    }
 
     private fun downloadFile(downloadKey: String) {
         startedDownload = true
@@ -225,6 +248,23 @@ class FilesDownloadWorker(
         }
     }
 
+    private fun cancelPendingDownloads(accountName: String?) {
+        pendingDownloads.remove(accountName)
+    }
+
+    private fun notifyDownloadStart(download: DownloadFileOperation) {
+        lastPercent = 0
+
+        configureNotificationBuilderForDownloadStart(download)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
+        }
+
+        showDetailsIntent(download)
+        notifyDownloadInProgressNotification()
+    }
+
     private fun getOCAccountForDownload(): OwnCloudAccount {
         val currentDownloadAccount = currentDownload?.user?.toPlatformAccount()
         val currentDownloadUser = accountManager.getUser(currentDownloadAccount?.name)
@@ -233,34 +273,6 @@ class FilesDownloadWorker(
             storageManager = FileDataStorageManager(currentUser.get(), context.contentResolver)
         }
         return currentDownloadUser.get().toOwnCloudAccount()
-    }
-
-    private fun cleanupDownloadProcess(result: RemoteOperationResult<*>?) {
-        val removeResult = pendingDownloads.removePayload(
-            currentDownload?.user?.accountName, currentDownload?.remotePath
-        )
-
-        val downloadResult = result ?: RemoteOperationResult<Any?>(RuntimeException("Error downloading…"))
-
-        currentDownload?.run {
-            notifyDownloadResult(this, downloadResult)
-            sendBroadcastDownloadFinished(this, downloadResult, removeResult.second)
-        }
-    }
-
-    private fun getCurrentFile(): OCFile? {
-        var file: OCFile? = currentDownload?.file?.fileId?.let { storageManager?.getFileById(it) }
-
-        if (file == null) {
-            file = storageManager?.getFileByDecryptedRemotePath(currentDownload?.file?.remotePath)
-        }
-
-        if (file == null) {
-            Log_OC.e(this, "Could not save " + currentDownload?.file?.remotePath)
-            return null
-        }
-
-        return file
     }
 
     private fun saveDownloadedFile() {
@@ -295,6 +307,95 @@ class FilesDownloadWorker(
         storageManager?.saveConflict(file, null)
     }
 
+    private fun getCurrentFile(): OCFile? {
+        var file: OCFile? = currentDownload?.file?.fileId?.let { storageManager?.getFileById(it) }
+
+        if (file == null) {
+            file = storageManager?.getFileByDecryptedRemotePath(currentDownload?.file?.remotePath)
+        }
+
+        if (file == null) {
+            Log_OC.e(this, "Could not save " + currentDownload?.file?.remotePath)
+            return null
+        }
+
+        return file
+    }
+
+    private fun cleanupDownloadProcess(result: RemoteOperationResult<*>?) {
+        val removeResult = pendingDownloads.removePayload(
+            currentDownload?.user?.accountName, currentDownload?.remotePath
+        )
+
+        val downloadResult = result ?: RemoteOperationResult<Any?>(RuntimeException("Error downloading…"))
+
+        currentDownload?.run {
+            notifyDownloadResult(this, downloadResult)
+            sendBroadcastDownloadFinished(this, downloadResult, removeResult.second)
+        }
+    }
+
+    private fun notifyDownloadResult(
+        download: DownloadFileOperation,
+        downloadResult: RemoteOperationResult<*>
+    ) {
+        if (downloadResult.isCancelled) {
+            return
+        }
+
+        if (downloadResult.isSuccess) {
+            dismissDownloadInProgressNotification()
+            return
+        }
+
+        val needsToUpdateCredentials = (ResultCode.UNAUTHORIZED == downloadResult.code)
+        configureNotificationBuilderForDownloadResult(downloadResult, needsToUpdateCredentials)
+
+        if (needsToUpdateCredentials) {
+            configureUpdateCredentialsNotification(download.user)
+        } else {
+            showDetailsIntent(null)
+        }
+
+        notifyNotificationBuilderForDownloadResult(downloadResult, download)
+    }
+
+    private fun configureNotificationBuilderForDownloadResult(
+        downloadResult: RemoteOperationResult<*>,
+        needsToUpdateCredentials: Boolean
+    ) {
+        var tickerId =
+            if (downloadResult.isSuccess) R.string.downloader_download_succeeded_ticker else R.string.downloader_download_failed_ticker
+        tickerId = if (needsToUpdateCredentials) R.string.downloader_download_failed_credentials_error else tickerId
+
+        notificationBuilder
+            .setTicker(context.getString(tickerId))
+            .setContentTitle(context.getString(tickerId))
+            .setAutoCancel(true)
+            .setOngoing(false)
+            .setProgress(0, 0, false)
+    }
+
+    private fun notifyNotificationBuilderForDownloadResult(downloadResult: RemoteOperationResult<*>, download: DownloadFileOperation) {
+        val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(
+            downloadResult,
+            download,
+            context.resources
+        )
+
+        notificationBuilder.setContentText(errorMessage)
+
+        notificationManager.notify(SecureRandom().nextInt(), notificationBuilder.build())
+
+        if (downloadResult.isSuccess) {
+            NotificationUtils.cancelWithDelay(
+                notificationManager,
+                R.string.downloader_download_succeeded_ticker,
+                2000
+            )
+        }
+    }
+
     private fun sendBroadcastDownloadFinished(
         download: DownloadFileOperation,
         downloadResult: RemoteOperationResult<*>,
@@ -316,61 +417,14 @@ class FilesDownloadWorker(
         localBroadcastManager.sendBroadcast(intent)
     }
 
-    private fun notifyDownloadResult(
-        download: DownloadFileOperation,
-        downloadResult: RemoteOperationResult<*>
-    ) {
-        if (notificationManager == null) {
-            notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        }
-
-        if (downloadResult.isCancelled) {
-            return
-        }
-
-        if (downloadResult.isSuccess) {
-            conflictUploadId?.let {
-                if (it > 0) {
-                    uploadsStorageManager.removeUpload(it)
-                }
+    private fun dismissDownloadInProgressNotification() {
+        conflictUploadId?.let {
+            if (it > 0) {
+                uploadsStorageManager.removeUpload(it)
             }
-
-            return
         }
 
-        var tickerId =
-            if (downloadResult.isSuccess) R.string.downloader_download_succeeded_ticker else R.string.downloader_download_failed_ticker
-        val needsToUpdateCredentials = (ResultCode.UNAUTHORIZED == downloadResult.code)
-        tickerId = if (needsToUpdateCredentials) R.string.downloader_download_failed_credentials_error else tickerId
-
-        notificationBuilder
-            ?.setTicker(context.getString(tickerId))
-            ?.setContentTitle(context.getString(tickerId))
-            ?.setAutoCancel(true)
-            ?.setOngoing(false)
-            ?.setProgress(0, 0, false)
-
-        if (needsToUpdateCredentials) {
-            configureUpdateCredentialsNotification(download.user)
-        } else {
-            showDetailsIntent(null)
-        }
-
-        notificationBuilder?.setContentText(
-            ErrorMessageAdapter.getErrorCauseMessage(
-                downloadResult,
-                download, context.resources
-            )
-        )
-
-        notificationManager?.notify(SecureRandom().nextInt(), notificationBuilder?.build())
-
-        if (downloadResult.isSuccess) {
-            NotificationUtils.cancelWithDelay(
-                notificationManager,
-                R.string.downloader_download_succeeded_ticker, 2000
-            )
-        }
+        notificationManager.cancel(R.string.downloader_download_in_progress_ticker)
     }
 
     private fun configureUpdateCredentialsNotification(user: User) {
@@ -385,7 +439,7 @@ class FilesDownloadWorker(
             addFlags(Intent.FLAG_FROM_BACKGROUND)
         }
 
-        notificationBuilder?.setContentIntent(
+        notificationBuilder.setContentIntent(
             PendingIntent.getActivity(
                 context, System.currentTimeMillis().toInt(),
                 intent,
@@ -394,8 +448,7 @@ class FilesDownloadWorker(
         )
     }
 
-    private fun notifyDownloadStart(download: DownloadFileOperation) {
-        lastPercent = 0
+    private fun configureNotificationBuilderForDownloadStart(download: DownloadFileOperation) {
         notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
             .setSmallIcon(R.drawable.notification_icon)
             .setTicker(context.getString(R.string.downloader_download_in_progress_ticker))
@@ -408,13 +461,6 @@ class FilesDownloadWorker(
                     File(download.savePath).name
                 )
             )
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationBuilder?.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
-        }
-
-        showDetailsIntent(download)
-        notifyDownloadInProgressNotification()
     }
 
     private fun showDetailsIntent(operation: DownloadFileOperation?) {
@@ -432,7 +478,7 @@ class FilesDownloadWorker(
             Intent()
         }
 
-        notificationBuilder?.setContentIntent(
+        notificationBuilder.setContentIntent(
             PendingIntent.getActivity(
                 context,
                 System.currentTimeMillis().toInt(),
@@ -440,29 +486,6 @@ class FilesDownloadWorker(
                 PendingIntent.FLAG_IMMUTABLE
             )
         )
-    }
-
-    private fun showDownloadingFilesNotification() {
-        val builder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
-            .setContentTitle(context.resources.getString(R.string.app_name))
-            .setContentText(context.resources.getString(R.string.foreground_service_download))
-            .setSmallIcon(R.drawable.notification_icon)
-            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
-        }
-
-        notification = builder.build()
-    }
-
-    private fun addAccountUpdateListener() {
-        val am = AccountManager.get(context)
-        am.addOnAccountsUpdatedListener(this, null, false)
-    }
-
-    private fun cancelPendingDownloads(accountName: String?) {
-        pendingDownloads.remove(accountName)
     }
 
     private fun sendBroadcastNewDownload(
@@ -494,11 +517,11 @@ class FilesDownloadWorker(
         val percent: Int = (100.0 * totalTransferredSoFar.toDouble() / totalToTransfer.toDouble()).toInt()
 
         if (percent != lastPercent) {
-            notificationBuilder?.setProgress(100, percent, totalToTransfer < 0)
+            notificationBuilder.setProgress(100, percent, totalToTransfer < 0)
             val fileName: String = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1)
             val text =
                 String.format(context.getString(R.string.downloader_download_in_progress_content), percent, fileName)
-            notificationBuilder?.setContentText(text)
+            notificationBuilder.setContentText(text)
 
             notifyDownloadInProgressNotification()
         }
@@ -507,12 +530,9 @@ class FilesDownloadWorker(
     }
 
     private fun notifyDownloadInProgressNotification() {
-        if (notificationManager == null) {
-            notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        }
-        notificationManager?.notify(
+        notificationManager.notify(
             R.string.downloader_download_in_progress_ticker,
-            notificationBuilder?.build()
+            notificationBuilder.build()
         )
     }
 
