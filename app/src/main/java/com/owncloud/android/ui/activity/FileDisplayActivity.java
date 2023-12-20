@@ -1216,8 +1216,10 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
                         OCFile currentDir = (getCurrentDir() == null) ? null : getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
 
                         if (currentDir == null) {
-                            // current folder was removed from the server
-                            DisplayUtils.showSnackMessage(getActivity(), R.string.sync_current_folder_was_removed, synchFolderRemotePath);
+                            if (getCurrentDir() != null){
+                                // current folder was removed from the server
+                                DisplayUtils.showSnackMessage(getActivity(), R.string.sync_current_folder_was_removed, synchFolderRemotePath);
+                            }
 
                             browseToRoot();
 
