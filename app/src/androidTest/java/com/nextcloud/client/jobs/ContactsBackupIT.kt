@@ -47,7 +47,6 @@ class ContactsBackupIT : AbstractOnServerIT() {
     val preferences = AppPreferencesImpl.fromContext(targetContext)
     private val backgroundJobManager = BackgroundJobManagerImpl(workmanager, ClockImpl(), preferences)
 
-
     @get:Rule
     val writeContactsRule = GrantPermissionRule.grant(Manifest.permission.WRITE_CONTACTS)
 
