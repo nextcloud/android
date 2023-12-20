@@ -30,7 +30,7 @@ public interface ComponentsGetter {
 
     /**
      * To be invoked when the parent activity is fully created to get a reference
-     * to the FileDownloader service API.
+     * to the FileDownloadWorker.
      */
     public FilesDownloadWorker.FileDownloaderBinder getFileDownloaderBinder();
 
