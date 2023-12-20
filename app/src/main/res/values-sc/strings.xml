@@ -340,6 +340,7 @@
     <string name="folder_already_exists">Sa cartella esistit giai</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">Peruna cartella inoghe</string>
+    <string name="folder_picker_choose_button_text">Sèbera</string>
     <string name="folder_picker_choose_caption_text">Sèbera cartella de destinatzione</string>
     <string name="folder_picker_copy_button_text">Còpia</string>
     <string name="folder_picker_move_button_text">Tràmuda</string>

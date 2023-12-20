@@ -389,6 +389,7 @@
     <string name="folder_already_exists">Mapp finns redan</string>
     <string name="folder_confirm_create">Skapa</string>
     <string name="folder_list_empty_headline">Inga mappar här</string>
+    <string name="folder_picker_choose_button_text">Välj</string>
     <string name="folder_picker_choose_caption_text">Välj målmapp</string>
     <string name="folder_picker_copy_button_text">Kopiera</string>
     <string name="folder_picker_move_button_text">Flytta</string>

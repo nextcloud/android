@@ -282,6 +282,7 @@
     <string name="folder_already_exists">La dosierujo jam ekzistas</string>
     <string name="folder_confirm_create">Krei</string>
     <string name="folder_list_empty_headline">Neniu dosierujo ĉi tie</string>
+    <string name="folder_picker_choose_button_text">Elekti</string>
     <string name="folder_picker_choose_caption_text">Elekti celan dosierujon</string>
     <string name="folder_picker_move_button_text">Movi</string>
     <string name="forbidden_permissions">Vi ne estas permesita %s</string>

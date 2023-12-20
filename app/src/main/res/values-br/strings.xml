@@ -320,6 +320,7 @@
     <string name="folder_already_exists">Bez ez eus dija eus an teuliad</string>
     <string name="folder_confirm_create">Krouiñ</string>
     <string name="folder_list_empty_headline">Emañ heuliad ebet amañ</string>
+    <string name="folder_picker_choose_button_text">Dibab</string>
     <string name="folder_picker_choose_caption_text">Dibab an teuliad moned</string>
     <string name="folder_picker_move_button_text">Diplasañ</string>
     <string name="forbidden_permissions">N\'oc\'h ket aotreet %s</string>

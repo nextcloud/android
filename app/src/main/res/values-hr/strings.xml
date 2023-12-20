@@ -362,6 +362,7 @@
     <string name="folder_already_exists">Mapa već postoji</string>
     <string name="folder_confirm_create">Stvori</string>
     <string name="folder_list_empty_headline">Ovdje nema mapa</string>
+    <string name="folder_picker_choose_button_text">Odaberite</string>
     <string name="folder_picker_choose_caption_text">Odaberi ciljnu mapu</string>
     <string name="folder_picker_copy_button_text">Kopirajte</string>
     <string name="folder_picker_move_button_text">Premjesti</string>

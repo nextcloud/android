@@ -388,6 +388,7 @@
     <string name="folder_already_exists">Karpeta dagoeneko existitzen da</string>
     <string name="folder_confirm_create">Sortu</string>
     <string name="folder_list_empty_headline">Ez dago karpetarik hemen</string>
+    <string name="folder_picker_choose_button_text">Aukeratu</string>
     <string name="folder_picker_choose_caption_text">Aukeratu helburuko karpeta</string>
     <string name="folder_picker_copy_button_text">Kopiatu</string>
     <string name="folder_picker_move_button_text">Mugitu</string>

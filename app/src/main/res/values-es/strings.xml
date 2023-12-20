@@ -388,6 +388,7 @@
     <string name="folder_already_exists">La carpeta ya existe</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">No hay carpetas aquí</string>
+    <string name="folder_picker_choose_button_text">Selecciona</string>
     <string name="folder_picker_choose_caption_text">Elegir carpeta de destino</string>
     <string name="folder_picker_copy_button_text">Copia</string>
     <string name="folder_picker_move_button_text">Mover</string>

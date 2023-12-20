@@ -22,7 +22,6 @@
  */
 package com.owncloud.android.ui.activities.data.activities;
 
-import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;

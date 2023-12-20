@@ -47,6 +47,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UserInfoDetailsTableItemBinding;
 import com.owncloud.android.databinding.UserInfoLayoutBinding;
@@ -106,16 +107,16 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             return;
         }
 
-        user = bundle.getParcelable(KEY_ACCOUNT);
+        user = BundleExtensionsKt.getParcelableArgument(bundle, KEY_ACCOUNT, User.class);
         if(user == null) {
             finish();
             return;
         }
 
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_USER_DATA)) {
-            userInfo = savedInstanceState.getParcelable(KEY_USER_DATA);
+            userInfo = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_USER_DATA, UserInfo.class);
         } else if (bundle.containsKey(KEY_ACCOUNT)) {
-            userInfo = bundle.getParcelable(KEY_USER_DATA);
+            userInfo =  BundleExtensionsKt.getParcelableArgument(bundle, KEY_USER_DATA, UserInfo.class);
         }
 
         mCurrentAccountAvatarRadiusDimension = getResources().getDimension(R.dimen.user_icon_radius);

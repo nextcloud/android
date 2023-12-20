@@ -25,6 +25,7 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -61,7 +62,9 @@ public class FileFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getArguments();
-        setFile(bundle.getParcelable(EXTRA_FILE));
+        if (bundle != null) {
+            setFile(BundleExtensionsKt.getParcelableArgument(bundle, EXTRA_FILE, OCFile.class));
+        }
     }
 
     /**

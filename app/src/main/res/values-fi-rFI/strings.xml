@@ -373,6 +373,7 @@
     <string name="folder_already_exists">Kansio on jo olemassa</string>
     <string name="folder_confirm_create">Luo</string>
     <string name="folder_list_empty_headline">Ei kansioita täällä</string>
+    <string name="folder_picker_choose_button_text">Valitse</string>
     <string name="folder_picker_choose_caption_text">Valitse kohdekansio</string>
     <string name="folder_picker_copy_button_text">Kopioi</string>
     <string name="folder_picker_move_button_text">Siirrä</string>

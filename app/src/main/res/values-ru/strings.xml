@@ -390,6 +390,7 @@
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="folder_confirm_create">Создать</string>
     <string name="folder_list_empty_headline">Здесь нет каталогов</string>
+    <string name="folder_picker_choose_button_text">Выберите</string>
     <string name="folder_picker_choose_caption_text">Выбор папки назначения</string>
     <string name="folder_picker_copy_button_text">Копировать</string>
     <string name="folder_picker_move_button_text">Переместить</string>

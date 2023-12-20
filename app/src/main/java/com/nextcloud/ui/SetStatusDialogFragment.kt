@@ -46,6 +46,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogSetStatusBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -119,8 +120,8 @@ class SetStatusDialogFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            currentUser = it.getParcelable(ARG_CURRENT_USER_PARAM)
-            currentStatus = it.getParcelable(ARG_CURRENT_STATUS_PARAM)
+            currentUser = it.getParcelableArgument(ARG_CURRENT_USER_PARAM, User::class.java)
+            currentStatus = it.getParcelableArgument(ARG_CURRENT_STATUS_PARAM, Status::class.java)
 
             val json = arbitraryDataProvider.getValue(currentUser, ArbitraryDataProvider.PREDEFINED_STATUS)
 

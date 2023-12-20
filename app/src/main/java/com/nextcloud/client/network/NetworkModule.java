@@ -22,7 +22,6 @@ package com.nextcloud.client.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.os.Build;
 
 import com.nextcloud.client.account.UserAccountManager;
 

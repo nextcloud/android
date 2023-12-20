@@ -34,8 +34,6 @@ import org.junit.rules.TestRule;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-
 
 public class AuthenticatorActivityIT extends AbstractIT {
     private static final String URL = "cloud.nextcloud.com";

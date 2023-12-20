@@ -29,7 +29,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.AsyncTask
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.VisibleForTesting
@@ -39,6 +38,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SetupEncryptionDialogBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -109,12 +109,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         checkNotNull(arguments) { "Arguments may not be null" }
 
-        user = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getParcelable(ARG_USER, User::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            requireArguments().getParcelable(ARG_USER)
-        }
+        user = requireArguments().getParcelableArgument(ARG_USER, User::class.java)
 
         if (savedInstanceState != null) {
             keyWords = savedInstanceState.getStringArrayList(EncryptionUtils.MNEMONIC)

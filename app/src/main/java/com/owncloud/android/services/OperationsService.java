@@ -42,6 +42,7 @@ import android.util.Pair;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -190,7 +191,8 @@ public class OperationsService extends Service {
                 Log_OC.e(TAG, "Not enough information provided in intent");
                 return START_NOT_STICKY;
             }
-            Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
+
+            Account account = IntentExtensionsKt.getParcelableArgument(intent, EXTRA_ACCOUNT, Account.class);
             String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
 
             Pair<Account, String> itemSyncKey = new Pair<>(account, remotePath);
@@ -497,7 +499,7 @@ public class OperationsService extends Service {
                 Log_OC.e(TAG, "Not enough information provided in intent");
 
             } else {
-                Account account = operationIntent.getParcelableExtra(EXTRA_ACCOUNT);
+                Account account = IntentExtensionsKt.getParcelableArgument(operationIntent, EXTRA_ACCOUNT, Account.class);
                 User user = toUser(account);
                 String serverUrl = operationIntent.getStringExtra(EXTRA_SERVER_URL);
                 target = new Target(account, (serverUrl == null) ? null : Uri.parse(serverUrl));
@@ -590,7 +592,7 @@ public class OperationsService extends Service {
                     case ACTION_CREATE_SHARE_WITH_SHAREE:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         String shareeName = operationIntent.getStringExtra(EXTRA_SHARE_WITH);
-                        shareType = (ShareType) operationIntent.getSerializableExtra(EXTRA_SHARE_TYPE);
+                        shareType = IntentExtensionsKt.getSerializableArgument(operationIntent, EXTRA_SHARE_TYPE, ShareType.class);
                         int permissions = operationIntent.getIntExtra(EXTRA_SHARE_PERMISSIONS, -1);
                         String noteMessage = operationIntent.getStringExtra(EXTRA_SHARE_NOTE);
                         String sharePassword = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
@@ -672,7 +674,7 @@ public class OperationsService extends Service {
 
                     case ACTION_REMOVE:
                         // Remove file or folder
-                        OCFile file = operationIntent.getParcelableExtra(EXTRA_FILE);
+                        OCFile file = IntentExtensionsKt.getParcelableArgument(operationIntent, EXTRA_FILE, OCFile.class);
                         boolean onlyLocalCopy = operationIntent.getBooleanExtra(EXTRA_REMOVE_ONLY_LOCAL, false);
                         boolean inBackground = operationIntent.getBooleanExtra(EXTRA_IN_BACKGROUND, false);
                         operation = new RemoveFileOperation(file,
@@ -729,7 +731,7 @@ public class OperationsService extends Service {
                         break;
 
                     case ACTION_RESTORE_VERSION:
-                        FileVersion fileVersion = operationIntent.getParcelableExtra(EXTRA_FILE_VERSION);
+                        FileVersion fileVersion = IntentExtensionsKt.getParcelableArgument(operationIntent, EXTRA_FILE_VERSION, FileVersion.class);
                         operation = new RestoreFileVersionRemoteOperation(fileVersion.getLocalId(),
                                                                           fileVersion.getFileName());
                         break;

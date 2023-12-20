@@ -389,6 +389,7 @@
     <string name="folder_already_exists">目录已经存在</string>
     <string name="folder_confirm_create">创建</string>
     <string name="folder_list_empty_headline">这里没有文件夹</string>
+    <string name="folder_picker_choose_button_text">选择</string>
     <string name="folder_picker_choose_caption_text">选择目标文件夹</string>
     <string name="folder_picker_copy_button_text">复制</string>
     <string name="folder_picker_move_button_text">移动</string>

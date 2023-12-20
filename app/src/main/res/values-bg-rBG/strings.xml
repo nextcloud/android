@@ -379,6 +379,7 @@
     <string name="folder_already_exists">Папката вече съществува</string>
     <string name="folder_confirm_create">Създай</string>
     <string name="folder_list_empty_headline">Няма папки</string>
+    <string name="folder_picker_choose_button_text">Изберете</string>
     <string name="folder_picker_choose_caption_text">Избор на папка</string>
     <string name="folder_picker_copy_button_text">Копие</string>
     <string name="folder_picker_move_button_text">Преместване</string>

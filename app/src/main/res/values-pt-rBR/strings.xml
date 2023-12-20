@@ -389,6 +389,7 @@
     <string name="folder_already_exists">Pasta já existe</string>
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
+    <string name="folder_picker_choose_button_text">Escolher</string>
     <string name="folder_picker_choose_caption_text">Escolher pasta destino</string>
     <string name="folder_picker_copy_button_text">Copiar</string>
     <string name="folder_picker_move_button_text">Mover</string>
@@ -881,6 +882,7 @@
     <string name="uploader_error_message_source_file_not_found">O arquivo selecionado para envio não foi encontrado. Verifique se ele existe.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Este arquivo não pode ser enviado</string>
     <string name="uploader_error_title_no_file_to_upload">Nenhum arquivo para envio</string>
+    <string name="uploader_file_not_found_message">Arquivo não encontrado. Tem certeza de que este arquivo existe ou algum conflito anterior não foi resolvido?</string>
     <string name="uploader_file_not_found_on_server_message">Não conseguimos localizar o arquivo no servidor. Outro usuário pode ter excluído o arquivo</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
     <string name="uploader_local_files_uploaded">Tente fazer upload dos arquivos locais novamente</string>

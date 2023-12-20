@@ -37,6 +37,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -56,7 +57,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -315,8 +315,9 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == SELECT_LOCATION_REQUEST_CODE && data != null) {
-            OCFile chosenFolder = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+        if (requestCode == SELECT_LOCATION_REQUEST_CODE && data != null && FolderPickerActivity.EXTRA_FOLDER != null) {
+            OCFile chosenFolder = IntentExtensionsKt.getParcelableArgument(data, FolderPickerActivity.EXTRA_FOLDER, OCFile.class);
+
             if (chosenFolder != null) {
                 preferences.setLastSelectedMediaFolder(chosenFolder.getRemotePath());
                 searchAndDisplayAfterChangingFolder();

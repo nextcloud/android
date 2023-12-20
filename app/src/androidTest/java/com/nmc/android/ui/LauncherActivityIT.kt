@@ -34,7 +34,6 @@ import com.owncloud.android.R
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.AdditionalMatchers.not
 
 @RunWith(AndroidJUnit4::class)
 class LauncherActivityIT : AbstractIT() {

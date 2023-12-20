@@ -389,6 +389,7 @@
     <string name="folder_already_exists">Xa existe o cartafol</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">Aquí non hai cartafoles</string>
+    <string name="folder_picker_choose_button_text">Escoller</string>
     <string name="folder_picker_choose_caption_text">Escoller o cartafol de destino</string>
     <string name="folder_picker_copy_button_text">Copiar</string>
     <string name="folder_picker_move_button_text">Mover</string>

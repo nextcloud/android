@@ -40,8 +40,8 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -144,7 +144,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
             }
         });
 
-        setFile(getIntent().getParcelableExtra(ExternalSiteWebView.EXTRA_FILE));
+        setFile(IntentExtensionsKt.getParcelableArgument(getIntent(), ExternalSiteWebView.EXTRA_FILE, OCFile.class));
 
         if (getFile() == null) {
             Toast.makeText(getApplicationContext(),

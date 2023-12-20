@@ -374,6 +374,7 @@
     <string name="folder_already_exists">A pasta já existe</string>
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
+    <string name="folder_picker_choose_button_text">Escolher</string>
     <string name="folder_picker_choose_caption_text">Escolher pasta de destino</string>
     <string name="folder_picker_copy_button_text">copiar</string>
     <string name="folder_picker_move_button_text">Mover</string>

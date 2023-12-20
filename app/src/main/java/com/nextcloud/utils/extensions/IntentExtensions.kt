@@ -21,25 +21,25 @@
 
 package com.nextcloud.utils.extensions
 
+import android.content.Intent
 import android.os.Build
-import android.os.Bundle
 import android.os.Parcelable
 import java.io.Serializable
 
-fun <T : Serializable?> Bundle.getSerializableArgument(key: String, type: Class<T>): T? {
+fun <T : Serializable?> Intent.getSerializableArgument(key: String, type: Class<T>): T? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        this.getSerializable(key, type)
+        this.getSerializableExtra(key, type)
     } else {
         @Suppress("UNCHECKED_CAST", "DEPRECATION")
-        this.getSerializable(key) as T
+        this.getSerializableExtra(key) as T
     }
 }
 
-fun <T : Parcelable?> Bundle.getParcelableArgument(key: String, type: Class<T>): T? {
+fun <T : Parcelable?> Intent.getParcelableArgument(key: String, type: Class<T>): T? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        this.getParcelable(key, type)
+        this.getParcelableExtra(key, type)
     } else {
         @Suppress("DEPRECATION")
-        this.getParcelable(key)
+        this.getParcelableExtra(key)
     }
 }
