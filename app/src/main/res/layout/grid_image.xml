@@ -65,7 +65,7 @@
             android:layout_marginBottom="@dimen/grid_layout_margin_bottom"
             android:alpha="0.9"
             android:background="@drawable/rounded_rect"
-            android:backgroundTint="@color/grid_background_color"
+            android:backgroundTint="@color/grid_file_features_background_color"
             android:orientation="horizontal"
             android:padding="@dimen/standard_quarter_padding"
             android:translationZ="4dp"
@@ -88,7 +88,7 @@
                 android:contentDescription="@string/video_overlay_icon"
                 android:src="@drawable/video_white"
                 android:visibility="gone"
-                app:tint="@color/grid_icon_color"
+                app:tint="@color/grid_file_features_icon_color"
                 tools:visibility="visible" />
 
             <ImageView
@@ -98,11 +98,12 @@
                 android:layout_marginEnd="@dimen/grid_layout_margin_end"
                 android:contentDescription="@string/shared_icon_shared_via_link"
                 android:src="@drawable/shared_via_link"
-                app:tint="@color/grid_icon_color"
+                app:tint="@color/grid_file_features_icon_color"
                 tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/unreadComments"
+                tools:ignore="TouchTargetSizeCheck"
                 android:layout_width="@dimen/grid_layout_item_size"
                 android:layout_height="@dimen/grid_layout_item_size"
                 android:layout_marginEnd="@dimen/grid_layout_margin_end"
@@ -111,20 +112,21 @@
                 android:focusable="true"
                 android:src="@drawable/ic_comment_grid"
                 android:visibility="gone"
-                app:tint="@color/grid_icon_color"
+                app:tint="@color/grid_file_features_icon_color"
                 tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/grid_live_photo_indicator"
+                tools:ignore="TouchTargetSizeCheck"
                 android:layout_width="@dimen/grid_layout_item_size"
                 android:layout_height="@dimen/grid_layout_item_size"
                 android:layout_marginEnd="@dimen/grid_layout_margin_end"
                 android:clickable="true"
-                android:contentDescription="@string/unread_comments"
+                android:contentDescription="@string/grid_file_features_live_photo_content_description"
                 android:focusable="true"
                 android:src="@drawable/ic_live_photo"
                 android:visibility="gone"
-                app:tint="@color/grid_icon_color"
+                app:tint="@color/grid_file_features_icon_color"
                 tools:visibility="visible" />
 
             <ImageView
@@ -149,10 +151,11 @@
         <ImageButton
             android:id="@+id/more"
             android:layout_width="wrap_content"
+            tools:ignore="TouchTargetSizeCheck"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent"
-            android:contentDescription="@string/ecosystem_apps_display_more"
+            android:contentDescription="@string/overflow_menu"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_dots_vertical" />
