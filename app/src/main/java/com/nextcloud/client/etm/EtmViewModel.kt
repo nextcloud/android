@@ -35,6 +35,8 @@ import com.nextcloud.client.etm.pages.EtmBackgroundJobsFragment
 import com.nextcloud.client.etm.pages.EtmFileTransferFragment
 import com.nextcloud.client.etm.pages.EtmMigrations
 import com.nextcloud.client.etm.pages.EtmPreferencesFragment
+import com.nextcloud.client.files.downloader.FileTransferHelper
+import com.nextcloud.client.files.downloader.FileTransferWorker
 import com.nextcloud.client.files.downloader.TransferManagerConnection
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.JobInfo
@@ -148,6 +150,10 @@ class EtmViewModel @Inject constructor(
         (currentPage as MutableLiveData).apply {
             value = null
         }
+    }
+
+    fun getManager(helper: FileTransferHelper): FileTransferWorker.Manager {
+        return helper.getTransferManager(context, currentUser)
     }
 
     fun onPageSelected(index: Int) {

@@ -24,7 +24,6 @@ import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.gson.Gson
-import com.nextcloud.client.account.User
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.logger.Logger
@@ -37,24 +36,30 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 @Suppress("LongParameterList")
 class FileTransferWorker(
     private val notificationsManager: AppNotificationManager,
-    private val clientFactory: ClientFactory,
-    private val runner: AsyncRunner,
+    clientFactory: ClientFactory,
+    runner: AsyncRunner,
     private val logger: Logger,
-    private val uploadsStorageManager: UploadsStorageManager,
-    private val connectivityService: ConnectivityService,
-    private val powerManagementService: PowerManagementService,
-    private val fileDataStorageManager: FileDataStorageManager,
+    uploadsStorageManager: UploadsStorageManager,
+    connectivityService: ConnectivityService,
+    powerManagementService: PowerManagementService,
+    fileDataStorageManager: FileDataStorageManager,
     private val context: Context,
     params: WorkerParameters
 ) : Worker(context, params) {
 
+    private val helper = FileTransferHelper(
+        clientFactory,
+        fileDataStorageManager,
+        runner,
+        powerManagementService,
+        connectivityService,
+        uploadsStorageManager
+    )
     private val gson = Gson()
 
     companion object {
         const val TAG = "DownloaderService"
         const val EXTRA_REQUEST = "request"
-
-        var manager: Manager? = null
     }
 
     @Suppress("TooGenericExceptionCaught")
@@ -66,9 +71,8 @@ class FileTransferWorker(
                 notificationsManager.buildDownloadServiceForegroundNotification()
             }
 
-            val transferManager = getTransferManager(request.user)
+            val transferManager = helper.getTransferManager(downloader, context, request.user, this::onTransferUpdate)
             transferManager.enqueue(request)
-            manager = Manager(transferManager)
 
             logger.d(TAG, "Enqueued new transfer: ${request.uuid} ${request.file.remotePath}")
 
@@ -104,31 +108,6 @@ class FileTransferWorker(
                 file = transfer.request.file,
                 progress = transfer.progress
             )
-        }
-    }
-
-    private fun getTransferManager(user: User): TransferManagerImpl {
-        val existingDownloader = downloader[user.accountName]
-        return if (existingDownloader != null) {
-            existingDownloader
-        } else {
-            val downloadTaskFactory = DownloadTask.Factory(
-                applicationContext,
-                { clientFactory.create(user) },
-                context.contentResolver
-            )
-            val uploadTaskFactory = UploadTask.Factory(
-                applicationContext,
-                uploadsStorageManager,
-                connectivityService,
-                powerManagementService,
-                { clientFactory.create(user) },
-                fileDataStorageManager
-            )
-            val newDownloader = TransferManagerImpl(runner, downloadTaskFactory, uploadTaskFactory)
-            newDownloader.registerTransferListener(this::onTransferUpdate)
-            downloader[user.accountName] = newDownloader
-            newDownloader
         }
     }
 }

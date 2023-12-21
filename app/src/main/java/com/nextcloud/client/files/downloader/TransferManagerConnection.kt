@@ -72,8 +72,8 @@ class TransferManagerConnection(
         manager?.removeStatusListener(listener)
     }
 
-    fun onBound() {
-        this.manager = FileTransferWorker.manager
+    fun onBound(manager: FileTransferWorker.Manager?) {
+        this.manager = manager
 
         transferListeners.forEach { listener ->
             manager?.registerTransferListener(listener)

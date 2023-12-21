@@ -79,7 +79,7 @@ class TransferManagerConnectionTest {
 
         // WHEN
         //      service is bound
-        connection.onBound()
+        connection.onBound(manager)
 
         // THEN
         //      all listeners are passed to the service
@@ -92,7 +92,7 @@ class TransferManagerConnectionTest {
     fun listeners_are_set_immediately_when_connected() {
         // GIVEN
         //      service is bound
-        connection.onBound()
+        connection.onBound(manager)
 
         // WHEN
         //      listeners are added
@@ -108,7 +108,7 @@ class TransferManagerConnectionTest {
         // GIVEN
         //      service is bound
         //      service has some listeners
-        connection.onBound()
+        connection.onBound(manager)
         connection.registerTransferListener(firstDownloadListener)
         connection.registerTransferListener(secondDownloadListener)
 
@@ -144,7 +144,7 @@ class TransferManagerConnectionTest {
 
         // WHEN
         //      service is bound
-        connection.onBound()
+        connection.onBound(manager)
 
         // THEN
         //      listeners receive current download state for pending downloads
@@ -169,7 +169,7 @@ class TransferManagerConnectionTest {
 
         // WHEN
         //      service is bound
-        connection.onBound()
+        connection.onBound(manager)
 
         // THEN
         //      downloader status is delivered
@@ -185,7 +185,7 @@ class TransferManagerConnectionTest {
 
         // WHEN
         //      service is bound
-        connection.onBound()
+        connection.onBound(manager)
 
         // THEN
         //      downloader status is not requested
@@ -209,7 +209,7 @@ class TransferManagerConnectionTest {
         // GIVEN
         //      service bound
         every { manager.isRunning } returns true
-        connection.onBound()
+        connection.onBound(manager)
 
         // WHEN
         //      is runnign flag accessed
@@ -234,7 +234,7 @@ class TransferManagerConnectionTest {
 
         // WHEN
         //      service is bound
-        connection.onBound()
+        connection.onBound(manager)
 
         // THEN
         //      missed updates not redelivered

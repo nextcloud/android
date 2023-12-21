@@ -39,6 +39,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.downloader.DownloadRequest;
+import com.nextcloud.client.files.downloader.FileTransferHelper;
 import com.nextcloud.client.files.downloader.Request;
 import com.nextcloud.client.files.downloader.Transfer;
 import com.nextcloud.client.files.downloader.TransferManagerConnection;
@@ -91,6 +92,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
     private BackupListAdapter listAdapter;
     private final List<VCard> vCards = new ArrayList<>();
     private final List<OCFile> ocFiles = new ArrayList<>();
+    @Inject FileTransferHelper fileTransferHelper;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject BackgroundJobManager backgroundJobManager;
@@ -208,7 +210,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
         User user = BundleExtensionsKt.getParcelableArgument(getArguments(), USER, User.class);
         fileDownloader = new TransferManagerConnection(backgroundJobManager, requireContext(), user);
         fileDownloader.registerTransferListener(this::onDownloadUpdate);
-        fileDownloader.onBound();
+        fileDownloader.onBound(fileTransferHelper.getTransferManager(requireContext(), user));
 
         for (OCFile file : ocFiles) {
             if (!file.isDown()) {

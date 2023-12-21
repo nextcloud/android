@@ -12,16 +12,22 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.etm.EtmBaseFragment
 import com.nextcloud.client.files.downloader.DownloadRequest
+import com.nextcloud.client.files.downloader.FileTransferHelper
 import com.nextcloud.client.files.downloader.Transfer
 import com.nextcloud.client.files.downloader.TransferManager
 import com.nextcloud.client.files.downloader.UploadRequest
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload
+import javax.inject.Inject
 
-class EtmFileTransferFragment : EtmBaseFragment() {
+class EtmFileTransferFragment : EtmBaseFragment(), Injectable {
+
+    @Inject
+    lateinit var fileTransferHelper: FileTransferHelper
 
     companion object {
         private const val TEST_DOWNLOAD_DUMMY_PATH = "/test/dummy_file.txt"
@@ -117,7 +123,8 @@ class EtmFileTransferFragment : EtmBaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        vm.transferManagerConnection.onBound()
+        val manager = vm.getManager(fileTransferHelper)
+        vm.transferManagerConnection.onBound(manager)
         vm.transferManagerConnection.registerStatusListener(this::onDownloaderStatusChanged)
     }
 
