@@ -24,14 +24,18 @@ jobs:
                 run: |
                     if [ -z "$GITHUB_HEAD_REF" ]; then
                         # push
-                        echo "branch=$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
-                        echo "pr=$GITHUB_RUN_ID" >> "$GITHUB_OUTPUT"
-                        echo "repo=${{ github.repository }}" >> "$GITHUB_OUTPUT"
+                        {
+                            echo "branch=$GITHUB_REF_NAME"
+                            echo "pr=$GITHUB_RUN_ID"
+                            echo "repo=${{ github.repository }}"
+                        } >> "$GITHUB_OUTPUT"
                     else
                         # pull request
-                        echo "branch=$GITHUB_HEAD_REF" >> "$GITHUB_OUTPUT"
-                        echo "pr=${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
-                        echo "repo=${{ github.event.pull_request.head.repo.full_name }}" >> "$GITHUB_OUTPUT"
+                        {
+                            echo "branch=$GITHUB_HEAD_REF"
+                            echo "pr=${{ github.event.pull_request.number }}"
+                            echo "repo=${{ github.event.pull_request.head.repo.full_name }}"
+                        } >> "$GITHUB_OUTPUT"
                     fi
             -   uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
                 with:
@@ -49,6 +53,6 @@ jobs:
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 run: |
-                    mkdir -p $HOME/.gradle
-                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > $HOME/.gradle/gradle.properties
-                    scripts/analysis/analysis-wrapper.sh ${{ steps.get-vars.outputs.branch }} ${{ secrets.LOG_USERNAME }} ${{ secrets.LOG_PASSWORD }} $GITHUB_RUN_NUMBER ${{ steps.get-vars.outputs.pr }}
+                    mkdir -p "$HOME/.gradle"
+                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > "$HOME/.gradle/gradle.properties"
+                    scripts/analysis/analysis-wrapper.sh ${{ steps.get-vars.outputs.branch }} ${{ secrets.LOG_USERNAME }} ${{ secrets.LOG_PASSWORD }} "$GITHUB_RUN_NUMBER" ${{ steps.get-vars.outputs.pr }}
