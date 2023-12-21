@@ -1471,6 +1471,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root, false);
         }
+        binding.fabMain.setImageResource(R.drawable.ic_plus);
         resetTitleBarAndScrolling();
     }
 
