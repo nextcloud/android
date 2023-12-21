@@ -59,7 +59,7 @@ import java.util.Calendar
 
 @Suppress("LongParameterList") // legacy code
 class ContactsBackupWork(
-    appContext: Context,
+    private val appContext: Context,
     params: WorkerParameters,
     private val resources: Resources,
     private val arbitraryDataProvider: ArbitraryDataProvider,
@@ -173,7 +173,7 @@ class ContactsBackupWork(
             .setRequireCharging(false)
             .build()
 
-        val connection = TransferManagerConnection(backgroundJobManager, user)
+        val connection = TransferManagerConnection(backgroundJobManager, appContext, user)
         connection.enqueue(request)
     }
 

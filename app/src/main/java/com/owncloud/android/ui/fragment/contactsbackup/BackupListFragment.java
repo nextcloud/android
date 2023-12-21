@@ -206,7 +206,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
         }
 
         User user = BundleExtensionsKt.getParcelableArgument(getArguments(), USER, User.class);
-        fileDownloader = new TransferManagerConnection(backgroundJobManager, user);
+        fileDownloader = new TransferManagerConnection(backgroundJobManager, requireContext(), user);
         fileDownloader.registerTransferListener(this::onDownloadUpdate);
         fileDownloader.onBound();
 

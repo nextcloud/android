@@ -109,7 +109,7 @@ class EtmViewModel @Inject constructor(
             pageClass = EtmFileTransferFragment::class
         )
     )
-    val transferManagerConnection = TransferManagerConnection(backgroundJobManager, accountManager.user)
+    val transferManagerConnection = TransferManagerConnection(backgroundJobManager, context, accountManager.user)
 
     val preferences: Map<String, String> get() {
         return defaultPreferences.all

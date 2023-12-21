@@ -19,6 +19,7 @@
  */
 package com.nextcloud.client.files.downloader
 
+import android.content.Context
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.datamodel.OCFile
@@ -26,6 +27,7 @@ import java.util.UUID
 
 class TransferManagerConnection(
     private val backgroundJobManager: BackgroundJobManager,
+    private val context: Context,
     val user: User
 ) : TransferManager {
 

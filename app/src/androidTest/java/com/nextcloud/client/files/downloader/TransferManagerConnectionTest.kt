@@ -36,7 +36,7 @@ import org.junit.Test
 
 class TransferManagerConnectionTest {
 
-    lateinit var connection: TransferManagerConnection
+    private lateinit var connection: TransferManagerConnection
 
     @MockK
     lateinit var context: Context
@@ -65,7 +65,8 @@ class TransferManagerConnectionTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this, relaxed = true)
-        connection = TransferManagerConnection(backgroundJobManager, user)
+        context = mockk()
+        connection = TransferManagerConnection(backgroundJobManager, context, user)
     }
 
     @Test

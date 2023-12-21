@@ -621,7 +621,7 @@ public class SaveCalendar {
             .setRequireCharging(false)
             .build();
 
-        TransferManagerConnection connection = new TransferManagerConnection(backgroundJobManager, user);
+        TransferManagerConnection connection = new TransferManagerConnection(backgroundJobManager, activity, user);
         connection.enqueue(request);
     }
 }
