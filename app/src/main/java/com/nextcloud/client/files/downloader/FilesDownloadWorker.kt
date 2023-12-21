@@ -22,18 +22,37 @@
 package com.nextcloud.client.files.downloader
 
 import android.content.Context
-import android.content.Intent
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.owncloud.android.files.services.FileDownloader
+import com.nextcloud.client.account.UserAccountManager
+import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class DownloadWorker(
-    private val context: Context,
+class FilesDownloadWorker(
+    private val viewThemeUtils: ViewThemeUtils,
+    private val accountManager: UserAccountManager,
+    private val uploadsStorageManager: UploadsStorageManager,
+    private var localBroadcastManager: LocalBroadcastManager,
+    context: Context,
     params: WorkerParameters,
-    private val intent: Intent,
-    private val fileDownloader: FileDownloader,
 ) : Worker(context, params) {
+
+    companion object {
+        const val USER = "USER"
+        const val FILE = "FILE"
+        const val BEHAVIOUR = "BEHAVIOUR"
+        const val DOWNLOAD_TYPE = "DOWNLOAD_TYPE"
+        const val ACTIVITY_NAME = "ACTIVITY_NAME"
+        const val PACKAGE_NAME = "PACKAGE_NAME"
+        const val CONFLICT_UPLOAD_ID = "CONFLICT_UPLOAD_ID"
+    }
+
     override fun doWork(): Result {
-        TODO("Not yet implemented")
+        return try {
+            Result.success()
+        } catch (t: Throwable) {
+            Result.failure()
+        }
     }
 }

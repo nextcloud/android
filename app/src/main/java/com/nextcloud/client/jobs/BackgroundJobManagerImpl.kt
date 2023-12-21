@@ -38,8 +38,11 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
+import com.nextcloud.client.files.downloader.FilesDownloadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.operations.DownloadType
+import java.io.File
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
@@ -83,6 +86,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_NOTIFICATION = "notification"
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
         const val JOB_FILES_UPLOAD = "files_upload"
+        const val JOB_FILES_DOWNLOAD = "files_download"
         const val JOB_PDF_GENERATION = "pdf_generation"
         const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
         const val JOB_IMMEDIATE_FILES_EXPORT = "immediate_files_export"
@@ -503,6 +507,32 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         workManager.enqueueUniqueWork(JOB_FILES_UPLOAD + user.accountName, ExistingWorkPolicy.KEEP, request)
+    }
+
+    override fun startFilesDownloadJob(
+        user: User,
+        ocFile: OCFile,
+        behaviour: String,
+        downloadType: DownloadType,
+        activityName: String,
+        packageName: String,
+        conflictUploadId: Long
+    ) {
+        val data = workDataOf(
+            FilesDownloadWorker.USER to user,
+            FilesDownloadWorker.FILE to ocFile,
+            FilesDownloadWorker.BEHAVIOUR to behaviour,
+            FilesDownloadWorker.DOWNLOAD_TYPE to downloadType,
+            FilesDownloadWorker.ACTIVITY_NAME to activityName,
+            FilesDownloadWorker.PACKAGE_NAME to packageName,
+            FilesDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId,
+        )
+
+        val request = oneTimeRequestBuilder(FilesDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueueUniqueWork(JOB_FILES_DOWNLOAD + user.accountName, ExistingWorkPolicy.REPLACE, request)
     }
 
     override fun getFileUploads(user: User): LiveData<List<JobInfo>> {

@@ -234,8 +234,7 @@ public abstract class FileActivity extends DrawerActivity
 
         mDownloadServiceConnection = newTransferenceServiceConnection();
         if (mDownloadServiceConnection != null) {
-            bindService(new Intent(this, FileDownloader.class), mDownloadServiceConnection,
-                    Context.BIND_AUTO_CREATE);
+            new FileDownloader(new Intent(this, FileDownloader.class));
         }
         mUploadServiceConnection = newTransferenceServiceConnection();
         if (mUploadServiceConnection != null) {

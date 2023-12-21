@@ -419,7 +419,7 @@ public class PreviewImageActivity extends FileActivity implements
             if (downloadBehaviour != null) {
                 i.putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, downloadBehaviour);
             }
-            startService(i);
+            new FileDownloader(i);
         }
     }
 

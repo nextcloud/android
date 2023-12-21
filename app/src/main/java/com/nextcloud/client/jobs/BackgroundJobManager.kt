@@ -23,6 +23,7 @@ import androidx.lifecycle.LiveData
 import androidx.work.ListenableWorker
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.operations.DownloadType
 
 /**
  * This interface allows to control, schedule and monitor all application
@@ -143,6 +144,16 @@ interface BackgroundJobManager {
     fun startFilesUploadJob(user: User)
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
     fun cancelFilesUploadJob(user: User)
+
+    fun startFilesDownloadJob(
+        user: User,
+        ocFile: OCFile,
+        behaviour: String,
+        downloadType: DownloadType,
+        activityName: String,
+        packageName: String,
+        conflictUploadId: Long
+    )
 
     fun startPdfGenerateAndUploadWork(user: User, uploadFolder: String, imagePaths: List<String>, pdfPath: String)
 

@@ -118,7 +118,8 @@ class FilesExportWork(
         i.putExtra(SendShareDialog.PACKAGE_NAME, "")
         i.putExtra(SendShareDialog.ACTIVITY_NAME, "")
         i.putExtra(FileDownloader.DOWNLOAD_TYPE, DownloadType.EXPORT)
-        appContext.startService(i)
+
+        FileDownloader(i)
     }
 
     private fun showErrorNotification(successfulExports: Int) {

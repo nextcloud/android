@@ -482,7 +482,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                 Intent i = new Intent(requireActivity(), FileDownloader.class);
                 i.putExtra(FileDownloader.EXTRA_USER, user);
                 i.putExtra(FileDownloader.EXTRA_FILE, getFile());
-                requireActivity().startService(i);
+                new FileDownloader(i);
             }
         }
     }

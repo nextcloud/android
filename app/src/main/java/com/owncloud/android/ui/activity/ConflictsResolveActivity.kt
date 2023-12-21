@@ -118,7 +118,8 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                     intent.putExtra(FileDownloader.EXTRA_USER, getUser().orElseThrow { RuntimeException() })
                     intent.putExtra(FileDownloader.EXTRA_FILE, file)
                     intent.putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
-                    startService(intent)
+
+                    FileDownloader(intent)
                 } else {
                     uploadsStorageManager!!.removeUpload(upload)
                 }
