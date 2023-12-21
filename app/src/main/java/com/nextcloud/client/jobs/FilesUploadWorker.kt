@@ -69,6 +69,7 @@ class FilesUploadWorker(
     val userAccountManager: UserAccountManager,
     val viewThemeUtils: ViewThemeUtils,
     val localBroadcastManager: LocalBroadcastManager,
+    private val backgroundJobManager: BackgroundJobManager,
     val context: Context,
     params: WorkerParameters
 ) : Worker(context, params), OnDatatransferProgressListener {
@@ -80,10 +81,15 @@ class FilesUploadWorker(
     private val fileUploaderDelegate = FileUploaderDelegate()
 
     override fun doWork(): Result {
+        backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
+
         val accountName = inputData.getString(ACCOUNT)
         if (accountName.isNullOrEmpty()) {
             Log_OC.w(TAG, "User was null for file upload worker")
-            return Result.failure() // user account is needed
+
+            val result = Result.failure()
+            backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
+            return result // user account is needed
         }
 
         /*
@@ -100,7 +106,9 @@ class FilesUploadWorker(
         }
 
         Log_OC.d(TAG, "No more pending uploads for account $accountName, stopping work")
-        return Result.success()
+        val result = Result.success()
+        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
+        return result // user account is needed
     }
 
     private fun handlePendingUploads(uploads: List<OCUpload>, accountName: String) {
