@@ -810,6 +810,7 @@
     <string name="no_map_app_availble">No App available to handle maps</string>
     <string name="share_via_link_hide_download">Hide download</string>
     <string name="unread_comments">Unread comments exist</string>
+    <string name="grid_file_features_live_photo_content_description">This icon indicates availability of live photo</string>
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
     <string name="create_new_document">Create new document</string>
     <string name="create_new_spreadsheet">Create new spreadsheet</string>
@@ -879,8 +880,9 @@
     <string name="etm_background_job_name">Job name</string>
     <string name="etm_background_job_user">User</string>
     <string name="etm_background_job_state">State</string>
-    <string name="etm_background_job_started">Started</string>
+    <string name="etm_background_job_started">Created</string>
     <string name="etm_background_job_progress">Progress</string>
+    <string name="etm_background_execution_count">Times run in 48h</string>
     <string name="etm_migrations">Migrations (app upgrade)</string>
     <string name="etm_transfer">File transfer</string>
     <string name="etm_transfer_remote_path">Remote path</string>

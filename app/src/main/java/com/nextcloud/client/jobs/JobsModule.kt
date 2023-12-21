@@ -24,6 +24,7 @@ import android.content.ContextWrapper
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.preferences.AppPreferences
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -50,7 +51,11 @@ class JobsModule {
 
     @Provides
     @Singleton
-    fun backgroundJobManager(workManager: WorkManager, clock: Clock): BackgroundJobManager {
-        return BackgroundJobManagerImpl(workManager, clock)
+    fun backgroundJobManager(
+        workManager: WorkManager,
+        clock: Clock,
+        preferences: AppPreferences
+    ): BackgroundJobManager {
+        return BackgroundJobManagerImpl(workManager, clock, preferences)
     }
 }

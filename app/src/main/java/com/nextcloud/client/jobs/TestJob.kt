@@ -26,7 +26,8 @@ import androidx.work.WorkerParameters
 
 class TestJob(
     appContext: Context,
-    params: WorkerParameters
+    params: WorkerParameters,
+    private val backgroundJobManager: BackgroundJobManager
 ) : Worker(appContext, params) {
 
     companion object {
@@ -36,6 +37,8 @@ class TestJob(
     }
 
     override fun doWork(): Result {
+        backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
+
         for (i in 0..MAX_PROGRESS) {
             Thread.sleep(DELAY_MS)
             val progress = Data.Builder()
@@ -43,6 +46,9 @@ class TestJob(
                 .build()
             setProgressAsync(progress)
         }
-        return Result.success()
+
+        val result = Result.success()
+        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
+        return result
     }
 }

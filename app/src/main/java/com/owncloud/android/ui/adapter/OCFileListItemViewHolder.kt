@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.adapter
 
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -37,7 +38,7 @@ internal class OCFileListItemViewHolder(private var binding: ListItemBinding) :
         binding.root
     ),
     ListItemViewHolder {
-    override val gridLivePhotoIndicator: TextView?
+    override val gridLivePhotoIndicator: ImageView?
         get() = null
     override val livePhotoIndicator: TextView
         get() = binding.livePhotoIndicator
@@ -73,12 +74,18 @@ internal class OCFileListItemViewHolder(private var binding: ListItemBinding) :
         binding.thumbnailLayout.videoOverlay.visibility = View.VISIBLE
     }
 
+    override val more: ImageButton?
+        get() = null
+    override val fileFeaturesLayout: LinearLayout?
+        get() = null
     override val shimmerThumbnail: LoaderImageView
         get() = binding.thumbnailLayout.thumbnailShimmer
     override val favorite: ImageView
         get() = binding.favoriteAction
     override val localFileIndicator: ImageView
         get() = binding.localFileIndicator
+    override val imageFileName: TextView?
+        get() = null
     override val shared: ImageView
         get() = binding.sharedIcon
     override val checkbox: ImageView

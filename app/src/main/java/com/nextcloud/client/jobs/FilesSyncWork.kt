@@ -64,7 +64,8 @@ class FilesSyncWork(
     private val uploadsStorageManager: UploadsStorageManager,
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
-    private val syncedFolderProvider: SyncedFolderProvider
+    private val syncedFolderProvider: SyncedFolderProvider,
+    private val backgroundJobManager: BackgroundJobManager
 ) : Worker(context, params) {
 
     companion object {
@@ -74,10 +75,14 @@ class FilesSyncWork(
     }
 
     override fun doWork(): Result {
+        backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
+
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         // If we are in power save mode, better to postpone upload
         if (powerManagementService.isPowerSavingEnabled && !overridePowerSaving) {
-            return Result.success()
+            val result = Result.success()
+            backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
+            return result
         }
         val resources = context.resources
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
@@ -107,7 +112,9 @@ class FilesSyncWork(
                 )
             }
         }
-        return Result.success()
+        val result = Result.success()
+        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
+        return result
     }
 
     @Suppress("LongMethod") // legacy code

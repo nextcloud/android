@@ -104,7 +104,7 @@ class BackgroundJobManagerTest {
             clock = mock()
             whenever(clock.currentTime).thenReturn(TIMESTAMP)
             whenever(clock.currentDate).thenReturn(Date(TIMESTAMP))
-            backgroundJobManager = BackgroundJobManagerImpl(workManager, clock)
+            backgroundJobManager = BackgroundJobManagerImpl(workManager, clock, mock())
         }
 
         fun assertHasRequiredTags(tags: Set<String>, jobName: String, user: User? = null) {
