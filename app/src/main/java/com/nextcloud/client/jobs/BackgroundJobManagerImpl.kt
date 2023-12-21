@@ -34,10 +34,13 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.workDataOf
+import com.google.gson.Gson
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
+import com.nextcloud.client.files.downloader.FileTransferWorker
+import com.nextcloud.client.files.downloader.Request
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.OCFile
 import java.util.Date
@@ -80,6 +83,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PERIODIC_OFFLINE_SYNC = "periodic_offline_sync"
         const val JOB_PERIODIC_MEDIA_FOLDER_DETECTION = "periodic_media_folder_detection"
         const val JOB_IMMEDIATE_MEDIA_FOLDER_DETECTION = "immediate_media_folder_detection"
+        const val JOB_FILES_TRANSFER = "files_transfer"
         const val JOB_NOTIFICATION = "notification"
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
         const val JOB_FILES_UPLOAD = "files_upload"
@@ -512,6 +516,20 @@ internal class BackgroundJobManagerImpl(
 
     override fun cancelFilesUploadJob(user: User) {
         workManager.cancelJob(JOB_FILES_UPLOAD, user)
+    }
+
+    override fun startFileTransfer(request: Request) {
+        val gson = Gson()
+
+        val data = workDataOf(
+            FileTransferWorker.EXTRA_REQUEST to gson.toJson(request)
+        )
+
+        val requestData = oneTimeRequestBuilder(FileTransferWorker::class, JOB_FILES_TRANSFER)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueueUniqueWork(JOB_FILES_TRANSFER + request.uuid, ExistingWorkPolicy.REPLACE, requestData)
     }
 
     override fun startPdfGenerateAndUploadWork(

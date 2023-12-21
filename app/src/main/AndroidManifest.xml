@@ -392,10 +392,6 @@
             android:foregroundServiceType="dataSync"
             android:exported="false" />
         <service
-            android:name="com.nextcloud.client.files.downloader.FileTransferService"
-            android:foregroundServiceType="dataSync"
-            android:exported="false" />
-        <service
             android:name=".files.services.FileUploader"
             android:foregroundServiceType="dataSync"
             android:exported="false" />

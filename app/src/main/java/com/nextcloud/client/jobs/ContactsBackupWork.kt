@@ -64,6 +64,7 @@ class ContactsBackupWork(
     private val resources: Resources,
     private val arbitraryDataProvider: ArbitraryDataProvider,
     private val contentResolver: ContentResolver,
+    private val backgroundJobManager: BackgroundJobManager,
     private val accountManager: UserAccountManager
 ) : Worker(appContext, params) {
 
@@ -172,7 +173,7 @@ class ContactsBackupWork(
             .setRequireCharging(false)
             .build()
 
-        val connection = TransferManagerConnection(applicationContext, user)
+        val connection = TransferManagerConnection(backgroundJobManager, user)
         connection.enqueue(request)
     }
 

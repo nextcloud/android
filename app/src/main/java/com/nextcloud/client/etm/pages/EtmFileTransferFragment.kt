@@ -117,13 +117,13 @@ class EtmFileTransferFragment : EtmBaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        vm.transferManagerConnection.bind()
+        vm.transferManagerConnection.onBound()
         vm.transferManagerConnection.registerStatusListener(this::onDownloaderStatusChanged)
     }
 
     override fun onPause() {
         super.onPause()
-        vm.transferManagerConnection.unbind()
+        vm.transferManagerConnection.onUnbind()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -26,7 +26,7 @@ import com.nextcloud.android.sso.QueryParam
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class InputStreamBinderTest {
+class InputStreamManagerTest {
     @Test
     fun convertMapToNVP() {
         val source = mutableMapOf<String, String>()

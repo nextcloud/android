@@ -34,12 +34,14 @@ import third_parties.sufficientlysecure.AndroidCalendar
 import third_parties.sufficientlysecure.SaveCalendar
 import java.util.Calendar
 
+@Suppress("LongParameterList")
 class CalendarBackupWork(
     appContext: Context,
     params: WorkerParameters,
     private val contentResolver: ContentResolver,
     private val accountManager: UserAccountManager,
-    private val preferences: AppPreferences
+    private val preferences: AppPreferences,
+    private val backgroundJobManager: BackgroundJobManager
 ) : Worker(appContext, params) {
 
     companion object {
@@ -68,7 +70,8 @@ class CalendarBackupWork(
                     applicationContext,
                     calendar,
                     preferences,
-                    optionalUser.get()
+                    optionalUser.get(),
+                    backgroundJobManager
                 ).start()
             }
 

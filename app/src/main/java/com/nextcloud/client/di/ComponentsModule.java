@@ -23,6 +23,7 @@ package com.nextcloud.client.di;
 import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.etm.EtmActivity;
+import com.nextcloud.client.files.downloader.FileTransferWorker;
 import com.nextcloud.client.etm.pages.EtmBackgroundJobsFragment;
 import com.nextcloud.client.files.downloader.FileTransferService;
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl;
@@ -355,7 +356,7 @@ abstract class ComponentsModule {
     abstract PlayerService playerService();
 
     @ContributesAndroidInjector
-    abstract FileTransferService fileDownloaderService();
+    abstract FileTransferWorker fileDownloaderService();
 
     @ContributesAndroidInjector
     abstract FileSyncService fileSyncService();

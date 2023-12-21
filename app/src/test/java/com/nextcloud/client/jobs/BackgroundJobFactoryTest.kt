@@ -27,15 +27,19 @@ import android.os.Build
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.logger.Logger
+import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.notifications.AppNotificationManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -112,12 +116,28 @@ class BackgroundJobFactoryTest {
     @Mock
     private lateinit var syncedFolderProvider: SyncedFolderProvider
 
+    @Mock
+    private lateinit var appNotificationManager: AppNotificationManager
+
+    @Mock
+    private lateinit var clientFactory: ClientFactory
+
+    @Mock
+    private lateinit var fileDataStorageManager: FileDataStorageManager
+
+    @Mock
+    private lateinit var asyncRunner: AsyncRunner
+
     private lateinit var factory: BackgroundJobFactory
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         factory = BackgroundJobFactory(
+            appNotificationManager,
+            clientFactory,
+            fileDataStorageManager,
+            asyncRunner,
             logger,
             preferences,
             contentResolver,

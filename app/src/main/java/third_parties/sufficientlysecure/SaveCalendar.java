@@ -47,6 +47,7 @@ import com.nextcloud.client.files.downloader.Request;
 import com.nextcloud.client.files.downloader.TransferManagerConnection;
 import com.nextcloud.client.files.downloader.UploadRequest;
 import com.nextcloud.client.files.downloader.UploadTrigger;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -112,6 +113,7 @@ public class SaveCalendar {
     private final Context activity;
     private final AndroidCalendar selectedCal;
     private final AppPreferences preferences;
+    private final BackgroundJobManager backgroundJobManager;
     private final User user;
 
     // UID generation
@@ -134,11 +136,12 @@ public class SaveCalendar {
         Reminders.MINUTES, Reminders.METHOD
     };
 
-    public SaveCalendar(Context activity, AndroidCalendar calendar, AppPreferences preferences, User user) {
+    public SaveCalendar(Context activity, AndroidCalendar calendar, AppPreferences preferences, User user, BackgroundJobManager backgroundJobManager) {
         this.activity = activity; // TODO rename
         this.selectedCal = calendar;
         this.preferences = preferences;
         this.user = user;
+        this.backgroundJobManager = backgroundJobManager;
     }
 
     public void start() throws Exception {
@@ -618,7 +621,7 @@ public class SaveCalendar {
             .setRequireCharging(false)
             .build();
 
-        TransferManagerConnection connection = new TransferManagerConnection(activity, user);
+        TransferManagerConnection connection = new TransferManagerConnection(backgroundJobManager, user);
         connection.enqueue(request);
     }
 }

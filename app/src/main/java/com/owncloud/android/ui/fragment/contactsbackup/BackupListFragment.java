@@ -206,9 +206,9 @@ public class BackupListFragment extends FileFragment implements Injectable {
         }
 
         User user = BundleExtensionsKt.getParcelableArgument(getArguments(), USER, User.class);
-        fileDownloader = new TransferManagerConnection(getActivity(), user);
+        fileDownloader = new TransferManagerConnection(backgroundJobManager, user);
         fileDownloader.registerTransferListener(this::onDownloadUpdate);
-        fileDownloader.bind();
+        fileDownloader.onBound();
 
         for (OCFile file : ocFiles) {
             if (!file.isDown()) {
@@ -258,7 +258,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
     public void onDetach() {
         super.onDetach();
         if (fileDownloader != null) {
-            fileDownloader.unbind();
+            fileDownloader.onUnbind();
         }
     }
 

@@ -19,9 +19,9 @@
  */
 package com.nextcloud.client.files.downloader
 
-import android.content.ComponentName
 import android.content.Context
 import com.nextcloud.client.account.MockUser
+import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.datamodel.OCFile
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -54,16 +54,18 @@ class TransferManagerConnectionTest {
     lateinit var secondStatusListener: (TransferManager.Status) -> Unit
 
     @MockK
-    lateinit var binder: FileTransferService.Binder
+    lateinit var manager: FileTransferWorker.Manager
+
+    @MockK
+    lateinit var backgroundJobManager: BackgroundJobManager
 
     val file get() = OCFile("/path")
-    val componentName = ComponentName("", FileTransferService::class.java.simpleName)
     val user = MockUser()
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this, relaxed = true)
-        connection = TransferManagerConnection(context, user)
+        connection = TransferManagerConnection(backgroundJobManager, user)
     }
 
     @Test
@@ -76,12 +78,12 @@ class TransferManagerConnectionTest {
 
         // WHEN
         //      service is bound
-        connection.onServiceConnected(componentName, binder)
+        connection.onBound()
 
         // THEN
         //      all listeners are passed to the service
         val listeners = mutableListOf<(Transfer) -> Unit>()
-        verify { binder.registerTransferListener(capture(listeners)) }
+        verify { manager.registerTransferListener(capture(listeners)) }
         assertEquals(listOf(firstDownloadListener, secondDownloadListener), listeners)
     }
 
@@ -89,7 +91,7 @@ class TransferManagerConnectionTest {
     fun listeners_are_set_immediately_when_connected() {
         // GIVEN
         //      service is bound
-        connection.onServiceConnected(componentName, binder)
+        connection.onBound()
 
         // WHEN
         //      listeners are added
@@ -97,7 +99,7 @@ class TransferManagerConnectionTest {
 
         // THEN
         //      listener is forwarded to service
-        verify { binder.registerTransferListener(firstDownloadListener) }
+        verify { manager.registerTransferListener(firstDownloadListener) }
     }
 
     @Test
@@ -105,18 +107,18 @@ class TransferManagerConnectionTest {
         // GIVEN
         //      service is bound
         //      service has some listeners
-        connection.onServiceConnected(componentName, binder)
+        connection.onBound()
         connection.registerTransferListener(firstDownloadListener)
         connection.registerTransferListener(secondDownloadListener)
 
         // WHEN
         //      service unbound
-        connection.unbind()
+        connection.onUnbind()
 
         // THEN
         //      listeners removed from service
-        verify { binder.removeTransferListener(firstDownloadListener) }
-        verify { binder.removeTransferListener(secondDownloadListener) }
+        verify { manager.removeTransferListener(firstDownloadListener) }
+        verify { manager.removeTransferListener(secondDownloadListener) }
     }
 
     @Test
@@ -136,12 +138,12 @@ class TransferManagerConnectionTest {
         connection.enqueue(request2)
         val download2 = Transfer(request2.uuid, TransferState.RUNNING, 50, request2.file, request1)
 
-        every { binder.getTransfer(request1.uuid) } returns download1
-        every { binder.getTransfer(request2.uuid) } returns download2
+        every { manager.getTransfer(request1.uuid) } returns download1
+        every { manager.getTransfer(request2.uuid) } returns download2
 
         // WHEN
         //      service is bound
-        connection.onServiceConnected(componentName, binder)
+        connection.onBound()
 
         // THEN
         //      listeners receive current download state for pending downloads
@@ -160,13 +162,13 @@ class TransferManagerConnectionTest {
         //      not bound
         //      has status listeners
         val mockStatus: TransferManager.Status = mockk()
-        every { binder.status } returns mockStatus
+        every { manager.status } returns mockStatus
         connection.registerStatusListener(firstStatusListener)
         connection.registerStatusListener(secondStatusListener)
 
         // WHEN
         //      service is bound
-        connection.onServiceConnected(componentName, binder)
+        connection.onBound()
 
         // THEN
         //      downloader status is delivered
@@ -182,11 +184,11 @@ class TransferManagerConnectionTest {
 
         // WHEN
         //      service is bound
-        connection.onServiceConnected(componentName, binder)
+        connection.onBound()
 
         // THEN
         //      downloader status is not requested
-        verify(exactly = 0) { binder.status }
+        verify(exactly = 0) { manager.status }
     }
 
     @Test
@@ -194,7 +196,7 @@ class TransferManagerConnectionTest {
         // GIVEN
         //      downloader is running
         //      connection not bound
-        every { binder.isRunning } returns true
+        every { manager.isRunning } returns true
 
         // THEN
         //      not running
@@ -205,8 +207,8 @@ class TransferManagerConnectionTest {
     fun is_running_from_binder_if_connected() {
         // GIVEN
         //      service bound
-        every { binder.isRunning } returns true
-        connection.onServiceConnected(componentName, binder)
+        every { manager.isRunning } returns true
+        connection.onBound()
 
         // WHEN
         //      is runnign flag accessed
@@ -215,7 +217,7 @@ class TransferManagerConnectionTest {
         // THEN
         //      call delegated to binder
         assertTrue(isRunning)
-        verify(exactly = 1) { binder.isRunning }
+        verify(exactly = 1) { manager.isRunning }
     }
 
     @Test
@@ -227,11 +229,11 @@ class TransferManagerConnectionTest {
         connection.enqueue(request)
         val download = Transfer(request.uuid, TransferState.RUNNING, 50, request.file, request)
         connection.registerTransferListener(firstDownloadListener)
-        every { binder.getTransfer(request.uuid) } returns download
+        every { manager.getTransfer(request.uuid) } returns download
 
         // WHEN
         //      service is bound
-        connection.onServiceConnected(componentName, binder)
+        connection.onBound()
 
         // THEN
         //      missed updates not redelivered

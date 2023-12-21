@@ -22,6 +22,7 @@ package com.nextcloud.client.jobs
 import androidx.lifecycle.LiveData
 import androidx.work.ListenableWorker
 import com.nextcloud.client.account.User
+import com.nextcloud.client.files.downloader.Request
 import com.owncloud.android.datamodel.OCFile
 
 /**
@@ -154,4 +155,6 @@ interface BackgroundJobManager {
     fun cancelAllJobs()
     fun schedulePeriodicHealthStatus()
     fun startHealthStatus()
+
+    fun startFileTransfer(request: Request)
 }
