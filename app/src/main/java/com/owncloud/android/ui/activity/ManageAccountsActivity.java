@@ -105,7 +105,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     private final Handler handler = new Handler();
     private String accountName;
     private UserListAdapter userListAdapter;
-    private ServiceConnection downloadServiceConnection;
     private ServiceConnection uploadServiceConnection;
     private Set<String> originalUsers;
     private String originalCurrentUser;
@@ -241,11 +240,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
      * Initialize ComponentsGetters.
      */
     private void initializeComponentGetters() {
-        downloadServiceConnection = newTransferenceServiceConnection();
-        if (downloadServiceConnection != null) {
-            // FIXME check this usage
-            // bindService(new Intent(this, FileDownloader.class), downloadServiceConnection, Context.BIND_AUTO_CREATE);
-        }
         uploadServiceConnection = newTransferenceServiceConnection();
         if (uploadServiceConnection != null) {
             bindService(new Intent(this, FileUploader.class), uploadServiceConnection,
@@ -374,10 +368,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
 
     @Override
     protected void onDestroy() {
-        if (downloadServiceConnection != null) {
-            unbindService(downloadServiceConnection);
-            downloadServiceConnection = null;
-        }
         if (uploadServiceConnection != null) {
             unbindService(uploadServiceConnection);
             uploadServiceConnection = null;

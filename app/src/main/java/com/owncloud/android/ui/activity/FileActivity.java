@@ -168,7 +168,6 @@ public abstract class FileActivity extends DrawerActivity
 
     protected FilesDownloadWorker.FileDownloaderBinder mDownloaderBinder;
     protected FileUploaderBinder mUploaderBinder;
-    private ServiceConnection mDownloadServiceConnection;
     private ServiceConnection mUploadServiceConnection;
 
     @Inject
@@ -234,10 +233,10 @@ public abstract class FileActivity extends DrawerActivity
         bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection,
                 Context.BIND_AUTO_CREATE);
 
-        mDownloadServiceConnection = newTransferenceServiceConnection();
-        if (mDownloadServiceConnection != null && user != null) {
+        if (user != null) {
             new FilesDownloadHelper().downloadFile(user, mFile);
         }
+
         mUploadServiceConnection = newTransferenceServiceConnection();
         if (mUploadServiceConnection != null) {
             bindService(new Intent(this, FileUploader.class), mUploadServiceConnection,
@@ -280,10 +279,6 @@ public abstract class FileActivity extends DrawerActivity
         if (mOperationsServiceConnection != null) {
             unbindService(mOperationsServiceConnection);
             mOperationsServiceBinder = null;
-        }
-        if (mDownloadServiceConnection != null) {
-            unbindService(mDownloadServiceConnection);
-            mDownloadServiceConnection = null;
         }
         if (mUploadServiceConnection != null) {
             unbindService(mUploadServiceConnection);
