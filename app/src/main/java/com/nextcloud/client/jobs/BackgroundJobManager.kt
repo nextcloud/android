@@ -20,6 +20,7 @@
 package com.nextcloud.client.jobs
 
 import androidx.lifecycle.LiveData
+import androidx.work.ListenableWorker
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
 
@@ -34,6 +35,10 @@ interface BackgroundJobManager {
      * Information about all application background jobs.
      */
     val jobs: LiveData<List<JobInfo>>
+
+    fun logStartOfWorker(workerName: String?)
+
+    fun logEndOfWorker(workerName: String?, result: ListenableWorker.Result)
 
     /**
      * Start content observer job that monitors changes in media folders

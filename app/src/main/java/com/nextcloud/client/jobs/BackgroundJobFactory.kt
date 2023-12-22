@@ -51,7 +51,7 @@ import javax.inject.Provider
  *
  * This class is doing too many things and should be split up into smaller factories.
  */
-@Suppress("LongParameterList") // satisfied by DI
+@Suppress("LongParameterList", "TooManyFunctions") // satisfied by DI
 class BackgroundJobFactory @Inject constructor(
     private val logger: Logger,
     private val preferences: AppPreferences,
@@ -104,6 +104,7 @@ class BackgroundJobFactory @Inject constructor(
                 FilesUploadWorker::class -> createFilesUploadWorker(context, workerParameters)
                 GeneratePdfFromImagesWork::class -> createPDFGenerateWork(context, workerParameters)
                 HealthStatusWork::class -> createHealthStatusWork(context, workerParameters)
+                TestJob::class -> createTestJob(context, workerParameters)
                 else -> null // caller falls back to default factory
             }
         }
@@ -183,7 +184,8 @@ class BackgroundJobFactory @Inject constructor(
             uploadsStorageManager = uploadsStorageManager,
             connectivityService = connectivityService,
             powerManagementService = powerManagementService,
-            syncedFolderProvider = syncedFolderProvider
+            syncedFolderProvider = syncedFolderProvider,
+            backgroundJobManager = backgroundJobManager.get()
         )
     }
 
@@ -245,6 +247,7 @@ class BackgroundJobFactory @Inject constructor(
             accountManager,
             viewThemeUtils.get(),
             localBroadcastManager.get(),
+            backgroundJobManager.get(),
             context,
             params
         )
@@ -267,7 +270,16 @@ class BackgroundJobFactory @Inject constructor(
             context,
             params,
             accountManager,
-            arbitraryDataProvider
+            arbitraryDataProvider,
+            backgroundJobManager.get()
+        )
+    }
+
+    private fun createTestJob(context: Context, params: WorkerParameters): TestJob {
+        return TestJob(
+            context,
+            params,
+            backgroundJobManager.get()
         )
     }
 }

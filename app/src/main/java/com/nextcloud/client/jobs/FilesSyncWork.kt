@@ -64,7 +64,8 @@ class FilesSyncWork(
     private val uploadsStorageManager: UploadsStorageManager,
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
-    private val syncedFolderProvider: SyncedFolderProvider
+    private val syncedFolderProvider: SyncedFolderProvider,
+    private val backgroundJobManager: BackgroundJobManager
 ) : Worker(context, params) {
 
     companion object {
@@ -74,10 +75,14 @@ class FilesSyncWork(
     }
 
     override fun doWork(): Result {
+        backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
+
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         // If we are in power save mode, better to postpone upload
         if (powerManagementService.isPowerSavingEnabled && !overridePowerSaving) {
-            return Result.success()
+            val result = Result.success()
+            backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
+            return result
         }
         val resources = context.resources
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
@@ -107,7 +112,9 @@ class FilesSyncWork(
                 )
             }
         }
-        return Result.success()
+        val result = Result.success()
+        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
+        return result
     }
 
     @Suppress("LongMethod") // legacy code
@@ -155,7 +162,6 @@ class FilesSyncWork(
         }
         val localPaths = pathsAndMimes.map { it.first }.toTypedArray()
         val remotePaths = pathsAndMimes.map { it.second }.toTypedArray()
-        val mimetypes = pathsAndMimes.map { it.third }.toTypedArray()
 
         if (lightVersion) {
             needsCharging = resources.getBoolean(R.bool.syncedFolder_light_on_charging)
@@ -170,12 +176,11 @@ class FilesSyncWork(
             needsWifi = syncedFolder.isWifiOnly
             uploadAction = syncedFolder.uploadAction
         }
+
         FileUploader.uploadNewFile(
-            context,
             user,
             localPaths,
             remotePaths,
-            mimetypes,
             uploadAction!!,
             true, // create parent folder if not existent
             UploadFileOperation.CREATED_AS_INSTANT_PICTURE,

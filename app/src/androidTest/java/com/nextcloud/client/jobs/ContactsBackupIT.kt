@@ -25,6 +25,7 @@ import android.Manifest
 import androidx.test.rule.GrantPermissionRule
 import androidx.work.WorkManager
 import com.nextcloud.client.core.ClockImpl
+import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.test.RetryTestRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.AbstractOnServerIT
@@ -43,7 +44,8 @@ import java.io.FileInputStream
 
 class ContactsBackupIT : AbstractOnServerIT() {
     val workmanager = WorkManager.getInstance(targetContext)
-    private val backgroundJobManager = BackgroundJobManagerImpl(workmanager, ClockImpl())
+    val preferences = AppPreferencesImpl.fromContext(targetContext)
+    private val backgroundJobManager = BackgroundJobManagerImpl(workmanager, ClockImpl(), preferences)
 
     @get:Rule
     val writeContactsRule = GrantPermissionRule.grant(Manifest.permission.WRITE_CONTACTS)

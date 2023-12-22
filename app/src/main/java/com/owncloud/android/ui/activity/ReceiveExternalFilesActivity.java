@@ -885,12 +885,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     public void uploadFile(String tmpName, String filename) {
         FileUploader.uploadNewFile(
-            getBaseContext(),
             getUser().orElseThrow(RuntimeException::new),
             tmpName,
             mFile.getRemotePath() + filename,
             FileUploader.LOCAL_BEHAVIOUR_COPY,
-            null,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,
