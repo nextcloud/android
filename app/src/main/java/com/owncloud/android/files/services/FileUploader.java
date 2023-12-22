@@ -53,6 +53,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.files.uploader.UploadNotificationManager;
 import com.nextcloud.client.jobs.FilesUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
@@ -204,7 +205,6 @@ public class FileUploader extends Service
 
     private static boolean forceNewUploadWorker = false;
 
-    private Notification mNotification;
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     private static IBinder mBinder;
@@ -229,11 +229,9 @@ public class FileUploader extends Service
      */
     private UploadFileOperation mCurrentUpload;
 
-    private NotificationManager mNotificationManager;
-    private NotificationCompat.Builder mNotificationBuilder;
     private int mLastPercent;
     private FileUploaderDelegate fileUploaderDelegate;
-
+    private UploadNotificationManager notificationManager;
 
     @Override
     public void onRenameUpload() {
@@ -250,7 +248,6 @@ public class FileUploader extends Service
         super.onCreate();
         AndroidInjection.inject(this);
         Log_OC.d(TAG, "Creating service");
-        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         HandlerThread thread = new HandlerThread("FileUploaderThread", Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
         mServiceLooper = thread.getLooper();
@@ -258,35 +255,18 @@ public class FileUploader extends Service
         mBinder = new FileUploaderBinder();
         fileUploaderDelegate = new FileUploaderDelegate();
 
-        NotificationCompat.Builder builder = NotificationUtils.newNotificationBuilder(this, viewThemeUtils).setContentTitle(
-                getApplicationContext().getResources().getString(R.string.app_name))
-            .setContentText(getApplicationContext().getResources().getString(R.string.foreground_service_upload))
-            .setSmallIcon(R.drawable.notification_icon)
-            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon));
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
-        }
-
-        mNotification = builder.build();
+        notificationManager = new UploadNotificationManager(this, viewThemeUtils);
+        notificationManager.init();
 
         // TODO Add UploadResult.KILLED?
         int failedCounter = mUploadsStorageManager.failInProgressUploads(UploadResult.SERVICE_INTERRUPTED);
         if (failedCounter > 0) {
-            resurrection();
+            notificationManager.dismissWorkerNotifications();
         }
 
         // add AccountsUpdatedListener
         AccountManager am = AccountManager.get(getApplicationContext());
         am.addOnAccountsUpdatedListener(this, null, false);
-    }
-
-    /**
-     * Service clean-up when restarted after being killed
-     */
-    private void resurrection() {
-        // remove stucked notification
-        mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
     }
 
     /**
@@ -300,9 +280,7 @@ public class FileUploader extends Service
         mServiceHandler = null;
         mServiceLooper.quit();
         mServiceLooper = null;
-        if (mNotificationManager != null) {
-            mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
-        }
+        notificationManager.dismissWorkerNotifications();
         // remove AccountsUpdatedListener
         AccountManager am = AccountManager.get(getApplicationContext());
         am.removeOnAccountsUpdatedListener(this);
@@ -319,7 +297,8 @@ public class FileUploader extends Service
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
 
-        ForegroundServiceHelper.INSTANCE.startService(this, FOREGROUND_SERVICE_ID, mNotification, ForegroundServiceType.DataSync);
+        // No more needed will be deleted
+        // ForegroundServiceHelper.INSTANCE.startService(this, FOREGROUND_SERVICE_ID, mNotification, ForegroundServiceType.DataSync);
 
         if (intent == null) {
             Log_OC.e(TAG, "Intent is null");
@@ -388,8 +367,7 @@ public class FileUploader extends Service
         User user,
         List<String> requestedUploads,
         boolean onWifiOnly,
-        boolean whileChargingOnly
-                                            ) {
+        boolean whileChargingOnly) {
         String[] localPaths = null;
         String[] remotePaths = null;
         String[] mimeTypes = null;
@@ -725,44 +703,7 @@ public class FileUploader extends Service
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), secureRandomGenerator.nextInt(), notificationActionIntent, PendingIntent.FLAG_IMMUTABLE);
         mLastPercent = 0;
-        mNotificationBuilder = NotificationUtils.newNotificationBuilder(this, viewThemeUtils);
-        mNotificationBuilder
-            .setOngoing(true)
-            .setSmallIcon(R.drawable.notification_icon)
-            .setTicker(getString(R.string.uploader_upload_in_progress_ticker))
-            .setContentTitle(getString(R.string.uploader_upload_in_progress_ticker))
-            .setProgress(100, 0, false)
-            .setContentText(
-                String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName())
-                           )
-            .clearActions() // to make sure there is only one action
-            .addAction(R.drawable.ic_action_cancel_grey, getApplicationContext().getString(R.string.common_cancel), pendingIntent);
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            mNotificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD);
-        }
-
-        /// includes a pending intent in the notification showing the details
-        Intent intent = UploadListActivity.createIntent(upload.getFile(),
-                                                        upload.getUser(),
-                                                        Intent.FLAG_ACTIVITY_CLEAR_TOP,
-                                                        this);
-        mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this,
-                                                                        (int) System.currentTimeMillis(),
-                                                                        intent,
-                                                                        PendingIntent.FLAG_IMMUTABLE)
-                                             );
-
-        if (!upload.isInstantPicture() && !upload.isInstantVideo()) {
-            if (mNotificationManager == null) {
-                mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            }
-
-            mNotificationManager.notify(FOREGROUND_SERVICE_ID, mNotificationBuilder.build());
-        }   // else wait until the upload really start (onTransferProgress is called), so that if it's discarded
-        // due to lack of Wifi, no notification is shown
-        // TODO generalize for automated uploads
+        notificationManager.notifyForStart(upload, pendingIntent);
     }
 
     /**
@@ -773,19 +714,10 @@ public class FileUploader extends Service
         long progressRate,
         long totalTransferredSoFar,
         long totalToTransfer,
-        String filePath
-                                  ) {
+        String filePath) {
         int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
         if (percent != mLastPercent) {
-            mNotificationBuilder.setProgress(100, percent, false);
-            String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
-            String text = String.format(getString(R.string.uploader_upload_in_progress_content), percent, fileName);
-            mNotificationBuilder.setContentText(text);
-            if (mNotificationManager == null) {
-                mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            }
-            mNotificationManager.notify(FOREGROUND_SERVICE_ID, mNotificationBuilder.build());
-            cancelOldErrorNotification(mCurrentUpload);
+            notificationManager.updateUploadProgressNotification(filePath, percent, mCurrentUpload);
         }
         mLastPercent = percent;
     }
@@ -800,12 +732,9 @@ public class FileUploader extends Service
     private void notifyUploadResult(UploadFileOperation upload, RemoteOperationResult uploadResult) {
         Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.getCode());
         // cancelled operation or success -> silent removal of progress notification
-        if (mNotificationManager == null) {
-            mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        }
 
         if (uploadResult.isSuccess()){
-            cancelOldErrorNotification(upload);
+            notificationManager.dismissOldErrorNotification(upload);
         }
 
         // Only notify if the upload fails
@@ -830,13 +759,7 @@ public class FileUploader extends Service
                 tickerId = R.string.uploader_upload_failed_sync_conflict_error;
             }
 
-            mNotificationBuilder
-                .setTicker(getString(tickerId))
-                .setContentTitle(getString(tickerId))
-                .setAutoCancel(true)
-                .setOngoing(false)
-                .setProgress(0, 0, false)
-                .clearActions();
+            notificationManager.notifyForResult(tickerId);
 
             content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, upload, getResources());
 
@@ -854,12 +777,11 @@ public class FileUploader extends Service
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
-                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(
+                notificationManager.setContentIntent(PendingIntent.getActivity(
                     this,
                     (int) System.currentTimeMillis(),
                     updateAccountCredentials,
-                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE
-                                                                               ));
+                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE));
             } else {
                 Intent intent;
                 if (uploadResult.getCode() == ResultCode.SYNC_CONFLICT) {
@@ -875,16 +797,15 @@ public class FileUploader extends Service
                                                              this);
                 }
 
-                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this,
-                                                                                (int) System.currentTimeMillis(),
-                                                                                intent,
-                                                                                PendingIntent.FLAG_IMMUTABLE)
-                                                     );
+                notificationManager.setContentIntent(PendingIntent.getActivity(this,
+                                                                               (int) System.currentTimeMillis(),
+                                                                               intent,
+                                                                               PendingIntent.FLAG_IMMUTABLE));
             }
 
-            mNotificationBuilder.setContentText(content);
+            notificationManager.setContentText(content);
             if (!uploadResult.isSuccess()) {
-                mNotificationManager.notify(secureRandomGenerator.nextInt(), mNotificationBuilder.build());
+                notificationManager.showRandomNotification();
             }
         }
     }
@@ -1322,27 +1243,6 @@ public class FileUploader extends Service
         }
     }
 
-    private void cancelOldErrorNotification(UploadFileOperation uploadFileOperation){
-        if (mNotificationManager == null) {
-            mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        }
-
-        if (uploadFileOperation == null) return;
-
-        mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(uploadFileOperation.getFile()),
-                                    NOTIFICATION_ERROR_ID);
-
-        //cancel for old file because of file conflicts
-        OCFile oldFile = uploadFileOperation.getOldFile();
-        if ( oldFile != null) {
-            mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(oldFile),
-                                        NOTIFICATION_ERROR_ID);
-        }
-
-
-    }
-
-
     /**
      * Upload worker. Performs the pending uploads in the order they were requested.
      *
@@ -1371,7 +1271,7 @@ public class FileUploader extends Service
                 }
             }
             Log_OC.d(TAG, "Stopping command after id " + msg.arg1);
-            mService.mNotificationManager.cancel(FOREGROUND_SERVICE_ID);
+            mService.notificationManager.dismissWorkerNotifications();
             mService.stopForeground(true);
             mService.stopSelf(msg.arg1);
         }

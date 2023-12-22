@@ -398,10 +398,6 @@
             android:foregroundServiceType="dataSync"
             android:exported="false" />
         <service
-            android:name=".files.services.FileUploader"
-            android:foregroundServiceType="dataSync"
-            android:exported="false" />
-        <service
             android:name="com.nextcloud.client.media.PlayerService"
             android:foregroundServiceType="mediaPlayback"
             android:exported="false" />
