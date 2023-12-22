@@ -32,6 +32,7 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener
 import com.owncloud.android.ui.fragment.TaskRetainerFragment
+import com.owncloud.android.utils.FilesUploadHelper
 import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
 
 /**
@@ -125,10 +126,10 @@ class UriUploader(
      * @param remotePath    Absolute path in the current OC account to set to the uploaded file.
      */
     private fun requestUpload(localPath: String?, remotePath: String) {
-        FileUploader.uploadNewFile(
+        FilesUploadHelper().uploadNewFiles(
             user,
-            localPath,
-            remotePath,
+            arrayOf(localPath ?: ""),
+            arrayOf(remotePath),
             mBehaviour,
             false, // do not create parent folder if not existent
             UploadFileOperation.CREATED_BY_USER,

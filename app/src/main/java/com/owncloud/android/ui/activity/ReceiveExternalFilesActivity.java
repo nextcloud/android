@@ -92,6 +92,7 @@ import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
+import com.owncloud.android.utils.FilesUploadHelper;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -884,17 +885,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     public void uploadFile(String tmpName, String filename) {
-        FileUploader.uploadNewFile(
+        new FilesUploadHelper().uploadNewFiles(
             getUser().orElseThrow(RuntimeException::new),
-            tmpName,
-            mFile.getRemotePath() + filename,
+            new String[]{ tmpName },
+            new String[]{ mFile.getRemotePath() + filename},
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
             NameCollisionPolicy.ASK_USER
-                                  );
+                                              );
         finish();
     }
 

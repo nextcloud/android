@@ -136,6 +136,7 @@ import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
+import com.owncloud.android.utils.FilesUploadHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
@@ -914,15 +915,15 @@ public class FileDisplayActivity extends FileActivity
                 default -> FileUploader.LOCAL_BEHAVIOUR_FORGET;
             };
 
-            FileUploader.uploadNewFile(getUser().orElseThrow(RuntimeException::new),
-                                       filePaths,
-                                       remotePaths,
-                                       behaviour,
-                                       true,
-                                       UploadFileOperation.CREATED_BY_USER,
-                                       false,
-                                       false,
-                                       NameCollisionPolicy.ASK_USER);
+            new FilesUploadHelper().uploadNewFiles(getUser().orElseThrow(RuntimeException::new),
+                                                   filePaths,
+                                                   remotePaths,
+                                                   behaviour,
+                                                   true,
+                                                   UploadFileOperation.CREATED_BY_USER,
+                                                   false,
+                                                   false,
+                                                   NameCollisionPolicy.ASK_USER);
 
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");

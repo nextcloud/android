@@ -125,9 +125,6 @@ public class FileUploader extends Service
     public static final String ACTION_CANCEL_BROADCAST = "CANCEL";
     public static final String ACTION_PAUSE_BROADCAST = "PAUSE";
 
-    private static final int FOREGROUND_SERVICE_ID = 411;
-    private static final int NOTIFICATION_ERROR_ID = FilesUploadWorker.NOTIFICATION_ERROR_ID;
-
     public static final String KEY_FILE = "FILE";
     public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
@@ -768,58 +765,6 @@ public class FileUploader extends Service
     private void cancelPendingUploads(String accountName) {
         mPendingUploads.remove(accountName);
         mUploadsStorageManager.removeUploads(accountName);
-    }
-
-    /**
-     * Upload a new file
-     */
-    public static void uploadNewFile(
-        User user,
-        String localPath,
-        String remotePath,
-        int behaviour,
-        boolean createRemoteFile,
-        int createdBy,
-        boolean requiresWifi,
-        boolean requiresCharging,
-        NameCollisionPolicy nameCollisionPolicy
-                                    ) {
-        uploadNewFile(
-            user,
-            new String[]{localPath},
-            new String[]{remotePath},
-            behaviour,
-            createRemoteFile,
-            createdBy,
-            requiresWifi,
-            requiresCharging,
-            nameCollisionPolicy
-                     );
-    }
-
-    /**
-     * Upload multiple new files
-     */
-    public static void uploadNewFile(
-        User user,
-        String[] localPaths,
-        String[] remotePaths,
-        Integer behaviour,
-        Boolean createRemoteFolder,
-        int createdBy,
-        boolean requiresWifi,
-        boolean requiresCharging,
-        NameCollisionPolicy nameCollisionPolicy
-                                    ) {
-        new FilesUploadHelper().uploadNewFiles(user,
-                                               localPaths,
-                                               remotePaths,
-                                               createRemoteFolder,
-                                               createdBy,
-                                               requiresWifi,
-                                               requiresCharging,
-                                               nameCollisionPolicy,
-                                               behaviour);
     }
 
     /**

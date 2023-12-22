@@ -22,12 +22,15 @@
 
 package com.owncloud.android.utils
 
+import android.content.Context
+import android.content.Intent
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
@@ -50,12 +53,12 @@ class FilesUploadHelper {
         user: User,
         localPaths: Array<String>,
         remotePaths: Array<String>,
+        localBehavior: Int,
         createRemoteFolder: Boolean,
         createdBy: Int,
         requiresWifi: Boolean,
         requiresCharging: Boolean,
         nameCollisionPolicy: NameCollisionPolicy,
-        localBehavior: Int
     ) {
         val uploads = localPaths.mapIndexed { index, localPath ->
             OCUpload(localPath, remotePaths[index], user.accountName).apply {

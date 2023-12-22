@@ -36,6 +36,7 @@ import com.owncloud.android.lib.common.operations.OperationCancelledException
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.utils.FilesUploadHelper
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
@@ -138,10 +139,10 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     fun testKeepLocalAndOverwriteRemoteStatic() {
         val file = getDummyFile("chunkedFile.txt")
 
-        FileUploader.uploadNewFile(
+        FilesUploadHelper().uploadNewFiles(
             user,
-            file.absolutePath,
-            "/testFile.txt",
+            arrayOf(file.absolutePath),
+            arrayOf("/testFile.txt"),
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             true,
             UploadFileOperation.CREATED_BY_USER,
@@ -255,10 +256,10 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     fun testKeepBothStatic() {
         val file = getDummyFile("nonEmpty.txt")
 
-        FileUploader.uploadNewFile(
+        FilesUploadHelper().uploadNewFiles(
             user,
-            file.absolutePath,
-            "/testFile.txt",
+            arrayOf(file.absolutePath),
+            arrayOf("/testFile.txt"),
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             true,
             UploadFileOperation.CREATED_BY_USER,
@@ -364,10 +365,10 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     fun testKeepServerStatic() {
         val file = getDummyFile("chunkedFile.txt")
 
-        FileUploader.uploadNewFile(
+        FilesUploadHelper().uploadNewFiles(
             user,
-            file.absolutePath,
-            "/testFile.txt",
+            arrayOf(file.absolutePath),
+            arrayOf("/testFile.txt"),
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             true,
             UploadFileOperation.CREATED_BY_USER,
@@ -469,10 +470,10 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     fun testKeepCancelStatic() {
         val file = getDummyFile("chunkedFile.txt")
 
-        FileUploader.uploadNewFile(
+        FilesUploadHelper().uploadNewFiles(
             user,
-            file.absolutePath,
-            "/testFile.txt",
+            arrayOf(file.absolutePath),
+            arrayOf("/testFile.txt"),
             FileUploader.LOCAL_BEHAVIOUR_COPY,
             true,
             UploadFileOperation.CREATED_BY_USER,
