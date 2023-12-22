@@ -30,16 +30,11 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.OnAccountsUpdateListener;
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -53,19 +48,17 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.files.uploader.FileUploaderIntents;
 import com.nextcloud.client.files.uploader.UploadNotificationManager;
 import com.nextcloud.client.jobs.FilesUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.utils.FileUploaderDelegate;
 import com.nextcloud.java.util.Optional;
-import com.nextcloud.utils.ForegroundServiceHelper;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.ForegroundServiceType;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -79,12 +72,8 @@ import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.ui.activity.ConflictsResolveActivity;
-import com.owncloud.android.ui.activity.UploadListActivity;
-import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesUploadHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -102,7 +91,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
-import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import dagger.android.AndroidInjection;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -232,6 +220,7 @@ public class FileUploader extends Service
     private int mLastPercent;
     private FileUploaderDelegate fileUploaderDelegate;
     private UploadNotificationManager notificationManager;
+    private FileUploaderIntents intents;
 
     @Override
     public void onRenameUpload() {
@@ -254,6 +243,8 @@ public class FileUploader extends Service
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileUploaderBinder();
         fileUploaderDelegate = new FileUploaderDelegate();
+
+        intents = new FileUploaderIntents(this);
 
         notificationManager = new UploadNotificationManager(this, viewThemeUtils);
         notificationManager.init();
@@ -695,15 +686,8 @@ public class FileUploader extends Service
      * @param upload Upload operation starting.
      */
     private void notifyUploadStart(UploadFileOperation upload) {
-        // / create status notification with a progress bar
-        Intent notificationActionIntent = new Intent(getApplicationContext(), UploadNotificationActionReceiver.class);
-        notificationActionIntent.putExtra(EXTRA_ACCOUNT_NAME, upload.getUser().getAccountName());
-        notificationActionIntent.putExtra(EXTRA_REMOTE_PATH, upload.getRemotePath());
-        notificationActionIntent.setAction(ACTION_CANCEL_BROADCAST);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), secureRandomGenerator.nextInt(), notificationActionIntent, PendingIntent.FLAG_IMMUTABLE);
         mLastPercent = 0;
-        notificationManager.notifyForStart(upload, pendingIntent);
+        notificationManager.notifyForStart(upload, intents.startIntent(upload));
     }
 
     /**
@@ -764,43 +748,9 @@ public class FileUploader extends Service
             content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, upload, getResources());
 
             if (needsToUpdateCredentials) {
-                // let the user update credentials with one click
-                Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-                updateAccountCredentials.putExtra(
-                    AuthenticatorActivity.EXTRA_ACCOUNT, upload.getUser().toPlatformAccount()
-                                                 );
-                updateAccountCredentials.putExtra(
-                    AuthenticatorActivity.EXTRA_ACTION,
-                    AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
-                                                 );
-
-                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
-                notificationManager.setContentIntent(PendingIntent.getActivity(
-                    this,
-                    (int) System.currentTimeMillis(),
-                    updateAccountCredentials,
-                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE));
+                notificationManager.setContentIntent(intents.credentialIntent(upload));
             } else {
-                Intent intent;
-                if (uploadResult.getCode() == ResultCode.SYNC_CONFLICT) {
-                    intent = ConflictsResolveActivity.createIntent(upload.getFile(),
-                                                                   upload.getUser(),
-                                                                   upload.getOCUploadId(),
-                                                                   Intent.FLAG_ACTIVITY_CLEAR_TOP,
-                                                                   this);
-                } else {
-                    intent = UploadListActivity.createIntent(upload.getFile(),
-                                                             upload.getUser(),
-                                                             Intent.FLAG_ACTIVITY_CLEAR_TOP,
-                                                             this);
-                }
-
-                notificationManager.setContentIntent(PendingIntent.getActivity(this,
-                                                                               (int) System.currentTimeMillis(),
-                                                                               intent,
-                                                                               PendingIntent.FLAG_IMMUTABLE));
+                notificationManager.setContentIntent(intents.resultIntent(uploadResult.getCode(), upload));
             }
 
             notificationManager.setContentText(content);
@@ -916,8 +866,7 @@ public class FileUploader extends Service
         OCFile[] existingFiles,
         Integer behaviour,
         NameCollisionPolicy nameCollisionPolicy,
-        boolean disableRetries
-                                       ) {
+        boolean disableRetries) {
         Intent intent = new Intent(context, FileUploader.class);
 
         intent.putExtra(FileUploader.KEY_USER, user);
@@ -953,8 +902,7 @@ public class FileUploader extends Service
         @NonNull final UploadsStorageManager uploadsStorageManager,
         @NonNull final ConnectivityService connectivityService,
         @NonNull final UserAccountManager accountManager,
-        @NonNull final PowerManagementService powerManagementService
-                                         ) {
+        @NonNull final PowerManagementService powerManagementService) {
         OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
         if (failedUploads == null || failedUploads.length == 0) {
             return; //nothing to do
