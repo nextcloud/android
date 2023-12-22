@@ -39,7 +39,6 @@ import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.security.SecureRandom
@@ -124,12 +123,10 @@ class GeneratePdfFromImagesWork(
         val uploadPath = uploadFolder + OCFile.PATH_SEPARATOR + File(pdfPath).name
 
         FileUploader.uploadNewFile(
-            appContext,
             user,
             pdfPath,
             uploadPath,
             FileUploader.LOCAL_BEHAVIOUR_DELETE, // MIME type will be detected from file name
-            MimeType.PDF,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,

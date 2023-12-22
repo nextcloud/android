@@ -162,7 +162,6 @@ class FilesSyncWork(
         }
         val localPaths = pathsAndMimes.map { it.first }.toTypedArray()
         val remotePaths = pathsAndMimes.map { it.second }.toTypedArray()
-        val mimetypes = pathsAndMimes.map { it.third }.toTypedArray()
 
         if (lightVersion) {
             needsCharging = resources.getBoolean(R.bool.syncedFolder_light_on_charging)
@@ -177,12 +176,11 @@ class FilesSyncWork(
             needsWifi = syncedFolder.isWifiOnly
             uploadAction = syncedFolder.uploadAction
         }
+
         FileUploader.uploadNewFile(
-            context,
             user,
             localPaths,
             remotePaths,
-            mimetypes,
             uploadAction!!,
             true, // create parent folder if not existent
             UploadFileOperation.CREATED_AS_INSTANT_PICTURE,

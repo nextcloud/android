@@ -192,8 +192,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                     user,
                     fullTempPath,
                     currentRemotePath,
-                    behaviour,
-                    leakedContentResolver.getType(currentUri)
+                    behaviour
                 );
                 fullTempPath = null;
             }
@@ -247,14 +246,12 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
         return result;
     }
 
-    private void requestUpload(User user, String localPath, String remotePath, int behaviour, String mimeType) {
+    private void requestUpload(User user, String localPath, String remotePath, int behaviour) {
         FileUploader.uploadNewFile(
-            mAppContext,
             user,
             localPath,
             remotePath,
             behaviour,
-            mimeType,
             false,      // do not create parent folder if not existent
             UploadFileOperation.CREATED_BY_USER,
             false,

@@ -151,7 +151,6 @@ class FilesUploadHelper {
             val boundListener = mBoundListeners[key]
 
             boundListener?.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName)
-            Log_OC.d("TAG", "Hello")
         }
     }
 }

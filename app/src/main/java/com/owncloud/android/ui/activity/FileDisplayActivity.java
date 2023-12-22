@@ -906,8 +906,15 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
                 default -> FileUploader.LOCAL_BEHAVIOUR_FORGET;
             };
 
-            FileUploader.uploadNewFile(this, getUser().orElseThrow(RuntimeException::new), filePaths, remotePaths, null,           // MIME type will be detected from file name
-                                       behaviour, true, UploadFileOperation.CREATED_BY_USER, false, false, NameCollisionPolicy.ASK_USER);
+            FileUploader.uploadNewFile(getUser().orElseThrow(RuntimeException::new),
+                                       filePaths,
+                                       remotePaths,
+                                       behaviour,
+                                       true,
+                                       UploadFileOperation.CREATED_BY_USER,
+                                       false,
+                                       false,
+                                       NameCollisionPolicy.ASK_USER);
 
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
@@ -1471,6 +1478,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root, false);
         }
+        binding.fabMain.setImageResource(R.drawable.ic_plus);
         resetTitleBarAndScrolling();
     }
 
