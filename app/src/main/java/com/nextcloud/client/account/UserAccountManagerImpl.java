@@ -66,7 +66,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
     private static final String TAG = UserAccountManagerImpl.class.getSimpleName();
     private static final String PREF_SELECT_OC_ACCOUNT = "select_oc_account";
 
-    private Context context;
+    private final Context context;
     private AccountManager accountManager;
 
     public static UserAccountManagerImpl fromContext(Context context) {
@@ -196,10 +196,10 @@ public class UserAccountManagerImpl implements UserAccountManager {
             return null;
         }
 
-        OwnCloudAccount ownCloudAccount = null;
+        OwnCloudAccount ownCloudAccount;
         try {
             ownCloudAccount = new OwnCloudAccount(account, context);
-        } catch (AccountUtils.AccountNotFoundException ex) {
+        } catch (Throwable t) {
             return null;
         }
 
