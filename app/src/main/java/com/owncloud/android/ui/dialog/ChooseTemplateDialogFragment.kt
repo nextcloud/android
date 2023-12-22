@@ -323,6 +323,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
                 file = storageManager.getFileByPath(path)
                 result.resultData
             } catch (e: CreationException) {
+
                 Log_OC.e(TAG, "Error creating file from template!", e)
                 ""
             }
