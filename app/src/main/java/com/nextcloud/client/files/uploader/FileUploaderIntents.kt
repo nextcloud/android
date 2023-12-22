@@ -24,6 +24,7 @@ package com.nextcloud.client.files.uploader
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.FileUploader.UploadNotificationActionReceiver
@@ -96,5 +97,26 @@ class FileUploaderIntents(private val context: Context) {
             intent,
             PendingIntent.FLAG_IMMUTABLE
         )
+    }
+
+    fun conflictResolveActionIntents(context: Context, uploadFileOperation: UploadFileOperation): PendingIntent {
+        val intent = createIntent(
+            uploadFileOperation.file,
+            uploadFileOperation.user,
+            uploadFileOperation.ocUploadId,
+            Intent.FLAG_ACTIVITY_CLEAR_TOP,
+            context
+        )
+
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_MUTABLE)
+        } else {
+            PendingIntent.getActivity(
+                context,
+                0,
+                intent,
+                PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            )
+        }
     }
 }

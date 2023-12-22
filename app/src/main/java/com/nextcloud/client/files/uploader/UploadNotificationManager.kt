@@ -31,7 +31,6 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.nextcloud.client.jobs.FilesUploadWorker
 import com.owncloud.android.R
-import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.files.FileUtils
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.UploadListActivity
@@ -49,6 +48,10 @@ class UploadNotificationManager(private val context: Context, private val viewTh
     private var notification: Notification? = null
     private lateinit var notificationBuilder: NotificationCompat.Builder
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+    init {
+        init()
+    }
 
     fun init() {
         notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
@@ -135,11 +138,27 @@ class UploadNotificationManager(private val context: Context, private val viewTh
         notificationManager.notify(secureRandomGenerator.nextInt(), notificationBuilder.build())
     }
 
+    fun addAction(icon: Int, textId: Int, intent: PendingIntent) {
+        notificationBuilder.addAction(
+            icon,
+            context.getString(textId),
+            intent
+        )
+    }
+
+    fun showNotificationTag(operation: UploadFileOperation) {
+        notificationManager.notify(
+            NotificationUtils.createUploadNotificationTag(operation.file),
+            FilesUploadWorker.NOTIFICATION_ERROR_ID,
+            notificationBuilder.build()
+        )
+    }
+
     private fun showWorkerNotification() {
         notificationManager.notify(WORKER_ID, notificationBuilder.build())
     }
 
-    fun updateUploadProgressNotification(filePath: String, percent: Int, currentOperation: UploadFileOperation) {
+    fun updateUploadProgressNotification(filePath: String, percent: Int, currentOperation: UploadFileOperation?) {
         notificationBuilder.setProgress(100, percent, false)
 
         val fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1)
@@ -160,10 +179,9 @@ class UploadNotificationManager(private val context: Context, private val viewTh
             FilesUploadWorker.NOTIFICATION_ERROR_ID
         )
 
-        val oldFile: OCFile? = operation.oldFile
-        if (oldFile != null) {
+        operation.oldFile?.let {
             notificationManager.cancel(
-                NotificationUtils.createUploadNotificationTag(oldFile),
+                NotificationUtils.createUploadNotificationTag(it),
                 FilesUploadWorker.NOTIFICATION_ERROR_ID
             )
         }
