@@ -40,6 +40,7 @@ class FileTransferHelper @Inject constructor(
     private val connectivityService: ConnectivityService,
     private val uploadsStorageManager: UploadsStorageManager
 ) {
+
     private val downloader: MutableMap<String, TransferManagerImpl> = mutableMapOf()
 
     fun getTransferManager(context: Context, user: User): FileTransferWorker.Manager {
