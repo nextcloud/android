@@ -126,6 +126,9 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         if (type == VirtualFolderType.GALLERY) {
             mImageFiles = mStorageManager.getAllGalleryItems();
             mImageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mImageFiles);
+        } else if (type == VirtualFolderType.FAVORITE) {
+            mImageFiles = mStorageManager.getImageFavorites();
+            mImageFiles = FileStorageUtils.sortOcFolderDescDateModified(mImageFiles);
         } else {
             mImageFiles = mStorageManager.getVirtualFolderContent(type, true);
         }

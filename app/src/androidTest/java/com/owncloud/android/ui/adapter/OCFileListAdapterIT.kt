@@ -77,4 +77,49 @@ class OCFileListAdapterIT : AbstractIT() {
         assertEquals(3, storageManager.getGalleryItems(startDate, endDate).size)
         assertEquals(4, storageManager.allGalleryItems.size)
     }
+
+    @Test
+    fun testParseFavorites() {
+        // empty start
+        storageManager.deleteAllFiles()
+
+        assertEquals(0, storageManager.allFavorites.size)
+
+        // create dummy files
+        OCFile("/test.txt", "01").apply {
+            mimeType = "text/plain"
+            isFavorite = true
+        }.let {
+            storageManager.saveFile(it)
+        }
+
+        OCFile("/image.png", "02").apply {
+            mimeType = "image/png"
+        }.let {
+            storageManager.saveFile(it)
+        }
+
+        OCFile("/image2.png", "03").apply {
+            mimeType = "image/png"
+        }.let {
+            storageManager.saveFile(it)
+        }
+
+        OCFile("/video.mpg", "04").apply {
+            mimeType = "video/mpg"
+        }.let {
+            storageManager.saveFile(it)
+        }
+
+        OCFile("/video2.avi", "05").apply {
+            mimeType = "video/avi"
+            isFavorite = true
+        }.let {
+            storageManager.saveFile(it)
+        }
+
+        // list of remoteFiles
+        assertEquals(5, storageManager.allFiles.size)
+        assertEquals(2, storageManager.allFavorites.size)
+    }
 }
