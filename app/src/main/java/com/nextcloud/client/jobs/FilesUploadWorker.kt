@@ -407,15 +407,15 @@ class FilesUploadWorker(
         }
 
         fun getUploadsAddedMessage(): String {
-            return FileUploader::class.java.name + UPLOADS_ADDED_MESSAGE
+            return FilesUploadWorker::class.java.name + UPLOADS_ADDED_MESSAGE
         }
 
         fun getUploadStartMessage(): String {
-            return FileUploader::class.java.name + UPLOAD_START_MESSAGE
+            return FilesUploadWorker::class.java.name + UPLOAD_START_MESSAGE
         }
 
         fun getUploadFinishMessage(): String {
-            return FileUploader::class.java.name + UPLOAD_FINISH_MESSAGE
+            return FilesUploadWorker::class.java.name + UPLOAD_FINISH_MESSAGE
         }
 
         fun buildRemoteName(accountName: String, remotePath: String): String {
