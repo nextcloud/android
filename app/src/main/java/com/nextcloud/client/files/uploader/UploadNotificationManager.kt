@@ -44,16 +44,16 @@ class UploadNotificationManager(private val context: Context, private val viewTh
         private const val WORKER_ID = 411
     }
 
-    private val secureRandomGenerator = SecureRandom()
     private var notification: Notification? = null
+    private val secureRandomGenerator = SecureRandom()
     private lateinit var notificationBuilder: NotificationCompat.Builder
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     init {
-        init()
+        initNotificationBuilder()
     }
 
-    fun init() {
+    private fun initNotificationBuilder() {
         notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
             .setContentTitle(context.resources.getString(R.string.app_name))
             .setContentText(context.resources.getString(R.string.foreground_service_upload))
@@ -134,10 +134,6 @@ class UploadNotificationManager(private val context: Context, private val viewTh
         notificationBuilder.setContentText(text)
     }
 
-    fun showRandomNotification() {
-        notificationManager.notify(secureRandomGenerator.nextInt(), notificationBuilder.build())
-    }
-
     fun addAction(icon: Int, textId: Int, intent: PendingIntent) {
         notificationBuilder.addAction(
             icon,
@@ -152,6 +148,10 @@ class UploadNotificationManager(private val context: Context, private val viewTh
             FilesUploadWorker.NOTIFICATION_ERROR_ID,
             notificationBuilder.build()
         )
+    }
+
+    fun showRandomNotification() {
+        notificationManager.notify(secureRandomGenerator.nextInt(), notificationBuilder.build())
     }
 
     private fun showWorkerNotification() {

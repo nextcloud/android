@@ -246,6 +246,11 @@ class FilesUploadWorker(
             }
 
             notificationManager.setContentText(content)
+
+            if (!uploadResult.isSuccess) {
+                notificationManager.showRandomNotification()
+            }
+
             notificationManager.showNotificationTag(uploadFileOperation)
         }
     }
