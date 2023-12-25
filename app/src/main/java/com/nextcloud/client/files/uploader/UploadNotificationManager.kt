@@ -67,6 +67,7 @@ class UploadNotificationManager(private val context: Context, private val viewTh
         notification = notificationBuilder.build()
     }
 
+    @Suppress("MagicNumber")
     fun notifyForStart(upload: UploadFileOperation, pendingIntent: PendingIntent) {
         notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
 
@@ -89,7 +90,6 @@ class UploadNotificationManager(private val context: Context, private val viewTh
                 context.getString(R.string.common_cancel),
                 pendingIntent
             )
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
@@ -117,7 +117,7 @@ class UploadNotificationManager(private val context: Context, private val viewTh
     }
 
     fun notifyForResult(tickerId: Int) {
-         notificationBuilder
+        notificationBuilder
             .setTicker(context.getString(tickerId))
             .setContentTitle(context.getString(tickerId))
             .setAutoCancel(true)
@@ -158,6 +158,7 @@ class UploadNotificationManager(private val context: Context, private val viewTh
         notificationManager.notify(WORKER_ID, notificationBuilder.build())
     }
 
+    @Suppress("MagicNumber")
     fun updateUploadProgressNotification(filePath: String, percent: Int, currentOperation: UploadFileOperation?) {
         notificationBuilder.setProgress(100, percent, false)
 

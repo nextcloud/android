@@ -339,9 +339,7 @@ class FilesUploadWorker(
             FilesUploadHelper().retryUpload(upload, user)
         }
 
-        /**
-         * Retry a subset of all the stored failed uploads.
-         */
+        @Suppress("ComplexCondition")
         fun retryFailedUploads(
             context: Context,
             uploadsStorageManager: UploadsStorageManager,
@@ -351,7 +349,7 @@ class FilesUploadWorker(
         ) {
             val failedUploads = uploadsStorageManager.failedUploads
             if (failedUploads == null || failedUploads.size == 0) {
-                return  //nothing to do
+                return // nothing to do
             }
             val (gotNetwork, _, gotWifi) = connectivityService.connectivity
             val batteryStatus = powerManagementService.battery
@@ -402,6 +400,7 @@ class FilesUploadWorker(
             return accountName + remotePath
         }
 
+        @Suppress("EmptyIfBlock")
         class UploadNotificationActionReceiver : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 val accountName = intent.getStringExtra(EXTRA_ACCOUNT_NAME)
@@ -418,7 +417,6 @@ class FilesUploadWorker(
                     val uploadHelper = FilesUploadHelper()
                     uploadHelper.cancel(accountName, remotePath, null)
                 } else if (ACTION_PAUSE_BROADCAST == action) {
-
                 } else {
                     Log_OC.d(TAG, "Unknown action to perform as UploadNotificationActionReceiver.")
                 }

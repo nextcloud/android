@@ -166,7 +166,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             user,
             arrayOf(ocFile2),
             FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
-            NameCollisionPolicy.OVERWRITE,
+            NameCollisionPolicy.OVERWRITE
         )
 
         shortSleep()

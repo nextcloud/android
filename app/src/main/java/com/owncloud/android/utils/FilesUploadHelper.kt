@@ -46,6 +46,7 @@ import com.owncloud.android.lib.resources.files.model.ServerFileInterface
 import java.util.concurrent.ExecutionException
 import javax.inject.Inject
 
+@Suppress("TooManyFunctions")
 class FilesUploadHelper {
     @Inject
     lateinit var backgroundJobManager: BackgroundJobManager
@@ -114,7 +115,7 @@ class FilesUploadHelper {
         createdBy: Int,
         requiresWifi: Boolean,
         requiresCharging: Boolean,
-        nameCollisionPolicy: NameCollisionPolicy,
+        nameCollisionPolicy: NameCollisionPolicy
     ) {
         val uploads = localPaths.mapIndexed { index, localPath ->
             OCUpload(localPath, remotePaths[index], user.accountName).apply {
@@ -144,6 +145,7 @@ class FilesUploadHelper {
         backgroundJobManager.startFilesUploadJob(user)
     }
 
+    @Suppress("ReturnCount")
     fun isUploading(user: User?, file: OCFile?): Boolean {
         if (user == null || file == null || !isWorkScheduled(BackgroundJobManagerImpl.JOB_FILES_UPLOAD)) {
             return false
@@ -153,15 +155,19 @@ class FilesUploadHelper {
         return upload.uploadStatus == UploadStatus.UPLOAD_IN_PROGRESS
     }
 
+    @Suppress("ReturnCount")
     fun isUploadingNow(upload: OCUpload?): Boolean {
         val currentUploadFileOperation = currentUploadFileOperation
         if (currentUploadFileOperation == null || currentUploadFileOperation.user == null) return false
         if (upload == null || upload.accountName != currentUploadFileOperation.user.accountName) return false
         return if (currentUploadFileOperation.oldFile != null) {
             // For file conflicts check old file remote path
-            upload.remotePath == currentUploadFileOperation.remotePath || upload.remotePath == currentUploadFileOperation.oldFile!!
-                .remotePath
-        } else upload.remotePath == currentUploadFileOperation.remotePath
+            upload.remotePath == currentUploadFileOperation.remotePath ||
+                upload.remotePath == currentUploadFileOperation.oldFile!!
+                    .remotePath
+        } else {
+            upload.remotePath == currentUploadFileOperation.remotePath
+        }
     }
 
     fun uploadUpdatedFile(
