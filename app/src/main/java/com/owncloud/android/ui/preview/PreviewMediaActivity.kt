@@ -359,20 +359,22 @@ class PreviewMediaActivity :
     private fun setupVideoView() {
         initWindowInsetsController()
         val type = WindowInsetsCompat.Type.systemBars()
-        binding.exoplayerView.setShowNextButton(false)
-        binding.exoplayerView.setShowPreviousButton(false)
-        binding.exoplayerView.setControllerVisibilityListener(
-            PlayerView.ControllerVisibilityListener { visibility ->
-                if (visibility == View.VISIBLE) {
-                    windowInsetsController.show(type)
-                    supportActionBar!!.show()
-                } else if (visibility == View.GONE) {
-                    windowInsetsController.hide(type)
-                    supportActionBar!!.hide()
+        binding.exoplayerView.let {
+            it.setShowNextButton(false)
+            it.setShowPreviousButton(false)
+            it.setControllerVisibilityListener(
+                PlayerView.ControllerVisibilityListener { visibility ->
+                    if (visibility == View.VISIBLE) {
+                        windowInsetsController.show(type)
+                        supportActionBar!!.show()
+                    } else if (visibility == View.GONE) {
+                        windowInsetsController.hide(type)
+                        supportActionBar!!.hide()
+                    }
                 }
-            }
-        )
-        binding.exoplayerView.player = exoPlayer
+            )
+            it.player = exoPlayer
+        }
     }
 
     private fun stopAudio() {
@@ -571,9 +573,11 @@ class PreviewMediaActivity :
 
     private fun playVideoUri(uri: Uri) {
         binding.progress.visibility = View.GONE
-        exoPlayer!!.setMediaItem(MediaItem.fromUri(uri))
-        exoPlayer!!.playWhenReady = autoplay
-        exoPlayer!!.prepare()
+        exoPlayer?.let {
+            it.setMediaItem(MediaItem.fromUri(uri))
+            it.playWhenReady = autoplay
+            it.prepare()
+        }
         if (savedPlaybackPosition >= 0) {
             exoPlayer!!.seekTo(savedPlaybackPosition)
         }
@@ -608,15 +612,17 @@ class PreviewMediaActivity :
 
         override fun onPostExecute(uri: Uri?) {
             val weakReference = previewMediaActivityWeakReference.get()
-            if (uri != null) {
-                weakReference?.videoUri = uri
-                weakReference?.playVideoUri(uri)
-            } else {
-                weakReference?.emptyListView!!.visibility = View.VISIBLE
-                weakReference.setVideoErrorMessage(
-                    weakReference.getString(R.string.stream_not_possible_headline),
-                    R.string.stream_not_possible_message
-                )
+            weakReference?.apply {
+                if (uri != null) {
+                    videoUri = uri
+                    playVideoUri(uri)
+                } else {
+                    emptyListView!!.visibility = View.VISIBLE
+                    setVideoErrorMessage(
+                        weakReference.getString(R.string.stream_not_possible_headline),
+                        R.string.stream_not_possible_message
+                    )
+                }
             }
         }
     }
@@ -653,9 +659,11 @@ class PreviewMediaActivity :
 
     override fun showDetails(file: OCFile?) {
         val showDetailsIntent = Intent(this, FileDisplayActivity::class.java)
-        showDetailsIntent.action = FileDisplayActivity.ACTION_DETAILS
-        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, file)
-        showDetailsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        showDetailsIntent.apply {
+            action = FileDisplayActivity.ACTION_DETAILS
+            putExtra(FileActivity.EXTRA_FILE, file)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        }
         startActivity(showDetailsIntent)
         finish()
     }
