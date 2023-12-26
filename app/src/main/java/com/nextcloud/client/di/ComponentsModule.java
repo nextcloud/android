@@ -356,7 +356,7 @@ abstract class ComponentsModule {
     abstract PlayerService playerService();
 
     @ContributesAndroidInjector
-    abstract FileTransferWorker fileDownloaderService();
+    abstract FileTransferWorker fileTransferWorker();
 
     @ContributesAndroidInjector
     abstract FileSyncService fileSyncService();
