@@ -182,6 +182,7 @@ class FileUploadWorker(
         return uploadResult
     }
 
+    @Suppress("ReturnCount")
     private fun notifyUploadResult(
         uploadFileOperation: UploadFileOperation,
         uploadResult: RemoteOperationResult<Any?>
