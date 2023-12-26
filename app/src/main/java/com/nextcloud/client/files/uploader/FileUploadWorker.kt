@@ -205,7 +205,7 @@ class FileUploadWorker(
 
         val isValidFile = uploadResult.code !in setOf(
             ResultCode.LOCAL_FILE_NOT_FOUND,
-            ResultCode.LOCK_FAILED,
+            ResultCode.LOCK_FAILED
         )
 
         if (!notDelayed || !isValidFile) {
