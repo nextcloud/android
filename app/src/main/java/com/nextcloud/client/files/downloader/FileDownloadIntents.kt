@@ -32,16 +32,16 @@ import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.preview.PreviewImageActivity
 import com.owncloud.android.ui.preview.PreviewImageFragment
 
-class FilesDownloadIntents(private val context: Context) {
+class FileDownloadIntents(private val context: Context) {
 
     fun newDownloadIntent(
         download: DownloadFileOperation,
         linkedToRemotePath: String
     ): Intent {
-        return Intent(FilesDownloadWorker.getDownloadAddedMessage()).apply {
-            putExtra(FilesDownloadWorker.ACCOUNT_NAME, download.user.accountName)
-            putExtra(FilesDownloadWorker.EXTRA_REMOTE_PATH, download.remotePath)
-            putExtra(FilesDownloadWorker.EXTRA_LINKED_TO_PATH, linkedToRemotePath)
+        return Intent(FileDownloadWorker.getDownloadAddedMessage()).apply {
+            putExtra(FileDownloadWorker.ACCOUNT_NAME, download.user.accountName)
+            putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, download.remotePath)
+            putExtra(FileDownloadWorker.EXTRA_LINKED_TO_PATH, linkedToRemotePath)
             setPackage(context.packageName)
         }
     }
@@ -51,15 +51,15 @@ class FilesDownloadIntents(private val context: Context) {
         downloadResult: RemoteOperationResult<*>,
         unlinkedFromRemotePath: String?
     ): Intent {
-        return Intent(FilesDownloadWorker.getDownloadFinishMessage()).apply {
-            putExtra(FilesDownloadWorker.EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess)
-            putExtra(FilesDownloadWorker.ACCOUNT_NAME, download.user.accountName)
-            putExtra(FilesDownloadWorker.EXTRA_REMOTE_PATH, download.remotePath)
+        return Intent(FileDownloadWorker.getDownloadFinishMessage()).apply {
+            putExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess)
+            putExtra(FileDownloadWorker.ACCOUNT_NAME, download.user.accountName)
+            putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, download.remotePath)
             putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, download.behaviour)
             putExtra(SendShareDialog.ACTIVITY_NAME, download.activityName)
             putExtra(SendShareDialog.PACKAGE_NAME, download.packageName)
             if (unlinkedFromRemotePath != null) {
-                putExtra(FilesDownloadWorker.EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
+                putExtra(FileDownloadWorker.EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
             }
             setPackage(context.packageName)
         }

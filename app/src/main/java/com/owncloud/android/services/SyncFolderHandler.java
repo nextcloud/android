@@ -28,7 +28,7 @@ import android.os.Message;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.files.downloader.FilesDownloadWorker;
+import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.IndexedForest;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -169,9 +169,9 @@ class SyncFolderHandler extends Handler {
      * this is a fast and ugly patch.
      */
     private void sendBroadcastNewSyncFolder(Account account, String remotePath) {
-        Intent added = new Intent(FilesDownloadWorker.Companion.getDownloadAddedMessage());
-        added.putExtra(FilesDownloadWorker.ACCOUNT_NAME, account.name);
-        added.putExtra(FilesDownloadWorker.EXTRA_REMOTE_PATH, remotePath);
+        Intent added = new Intent(FileDownloadWorker.Companion.getDownloadAddedMessage());
+        added.putExtra(FileDownloadWorker.ACCOUNT_NAME, account.name);
+        added.putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, remotePath);
         added.setPackage(mService.getPackageName());
         LocalBroadcastManager.getInstance(mService.getApplicationContext()).sendBroadcast(added);
     }
@@ -182,10 +182,10 @@ class SyncFolderHandler extends Handler {
      */
     private void sendBroadcastFinishedSyncFolder(Account account, String remotePath,
                                                  boolean success) {
-        Intent finished = new Intent(FilesDownloadWorker.Companion.getDownloadFinishMessage());
-        finished.putExtra(FilesDownloadWorker.ACCOUNT_NAME, account.name);
-        finished.putExtra(FilesDownloadWorker.EXTRA_REMOTE_PATH, remotePath);
-        finished.putExtra(FilesDownloadWorker.EXTRA_DOWNLOAD_RESULT, success);
+        Intent finished = new Intent(FileDownloadWorker.Companion.getDownloadFinishMessage());
+        finished.putExtra(FileDownloadWorker.ACCOUNT_NAME, account.name);
+        finished.putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, remotePath);
+        finished.putExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, success);
         finished.setPackage(mService.getPackageName());
         LocalBroadcastManager.getInstance(mService.getApplicationContext()).sendBroadcast(finished);
     }

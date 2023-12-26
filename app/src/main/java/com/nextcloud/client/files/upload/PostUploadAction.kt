@@ -2,7 +2,7 @@
  * Nextcloud Android client application
  *
  * @author Chris Narkiewicz
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * Copyright (C) 2021 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,11 +17,13 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.files.downloader
+package com.nextcloud.client.files.upload
 
-enum class TransferState {
-    PENDING,
-    RUNNING,
-    COMPLETED,
-    FAILED
+import com.owncloud.android.files.services.FileUploader
+
+enum class PostUploadAction(val value: Int) {
+    NONE(FileUploader.LOCAL_BEHAVIOUR_FORGET),
+    COPY_TO_APP(FileUploader.LOCAL_BEHAVIOUR_COPY),
+    MOVE_TO_APP(FileUploader.LOCAL_BEHAVIOUR_MOVE),
+    DELETE_SOURCE(FileUploader.LOCAL_BEHAVIOUR_DELETE)
 }

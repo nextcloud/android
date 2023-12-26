@@ -43,8 +43,8 @@ import android.text.TextUtils;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.files.downloader.FilesDownloadHelper;
-import com.nextcloud.client.files.downloader.FilesDownloadWorker;
+import com.nextcloud.client.files.downloader.FileDownloadHelper;
+import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
@@ -166,7 +166,7 @@ public abstract class FileActivity extends DrawerActivity
 
     private boolean mResumed;
 
-    protected FilesDownloadWorker.FileDownloaderBinder mDownloaderBinder;
+    protected FileDownloadWorker.FileDownloaderBinder mDownloaderBinder;
     protected FileUploaderBinder mUploaderBinder;
     private ServiceConnection mUploadServiceConnection;
 
@@ -234,7 +234,7 @@ public abstract class FileActivity extends DrawerActivity
                 Context.BIND_AUTO_CREATE);
 
         if (user != null) {
-            new FilesDownloadHelper().downloadFile(user, mFile);
+            new FileDownloadHelper().downloadFile(user, mFile);
         }
 
         mUploadServiceConnection = newTransferenceServiceConnection();
@@ -612,7 +612,7 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     @Override
-    public FilesDownloadWorker.FileDownloaderBinder getFileDownloaderBinder() {
+    public FileDownloadWorker.FileDownloaderBinder getFileDownloaderBinder() {
         return mDownloaderBinder;
     }
 

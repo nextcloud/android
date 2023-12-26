@@ -1,8 +1,9 @@
 /*
  * Nextcloud Android client application
  *
- * @author Chris Narkiewicz
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * @author Alper Ozturk
+ * Copyright (C) 2023 Alper Ozturk
+ * Copyright (C) 2023 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -15,14 +16,20 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.files.downloader
+package com.nextcloud.client.files.transfer
 
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.core.IsCancelled
 import com.nextcloud.client.core.OnProgressCallback
 import com.nextcloud.client.core.TaskFunction
+import com.nextcloud.client.files.DownloadRequest
+import com.nextcloud.client.files.Registry
+import com.nextcloud.client.files.Request
+import com.nextcloud.client.files.UploadRequest
+import com.nextcloud.client.files.downloader.DownloadTask
+import com.nextcloud.client.files.upload.UploadTask
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.operations.UploadFileOperation
 import java.util.UUID
@@ -131,8 +138,8 @@ class TransferManagerImpl(
             }
         } else {
             val downloadTask = downloadTaskFactory.create()
-            val wrapper: TaskFunction<DownloadTask.Result, Int> = { progress: ((Int) -> Unit), isCancelled ->
-                downloadTask.download(request, progress, isCancelled)
+            val wrapper: TaskFunction<DownloadTask.Result, Int> = { _: ((Int) -> Unit), _ ->
+                downloadTask.download(request)
             }
             wrapper
         }
@@ -150,7 +157,7 @@ class TransferManagerImpl(
             }
         } else {
             val uploadTask = uploadTaskFactory.create()
-            val wrapper: TaskFunction<UploadTask.Result, Int> = { progress: ((Int) -> Unit), isCancelled ->
+            val wrapper: TaskFunction<UploadTask.Result, Int> = { _: ((Int) -> Unit), _ ->
                 uploadTask.upload(request.user, request.upload)
             }
             wrapper

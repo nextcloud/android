@@ -21,7 +21,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.nextcloud.client.account.User
-import com.nextcloud.client.files.downloader.FilesDownloadHelper
+import com.nextcloud.client.files.downloader.FileDownloadHelper
 import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
@@ -115,7 +115,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 Decision.KEEP_SERVER -> if (!shouldDeleteLocal()) {
                     // Overwrite local file
                     file?.let {
-                        FilesDownloadHelper().downloadFile(
+                        FileDownloadHelper().downloadFile(
                             getUser().orElseThrow { RuntimeException() },
                             file,
                             conflictUploadId

@@ -394,7 +394,7 @@
             android:name=".services.OperationsService"
             android:exported="false" />
         <service
-            android:name="com.nextcloud.client.files.downloader.FileTransferService"
+            android:name="com.nextcloud.client.files.transfer.FileTransferService"
             android:foregroundServiceType="dataSync"
             android:exported="false" />
         <service

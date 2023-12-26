@@ -39,7 +39,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
-import com.nextcloud.client.files.downloader.FilesDownloadWorker
+import com.nextcloud.client.files.downloader.FileDownloadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.operations.DownloadType
@@ -521,16 +521,16 @@ internal class BackgroundJobManagerImpl(
         val gson = Gson()
 
         val data = workDataOf(
-            FilesDownloadWorker.USER_NAME to user.accountName,
-            FilesDownloadWorker.FILE to gson.toJson(ocFile),
-            FilesDownloadWorker.BEHAVIOUR to behaviour,
-            FilesDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),
-            FilesDownloadWorker.ACTIVITY_NAME to activityName,
-            FilesDownloadWorker.PACKAGE_NAME to packageName,
-            FilesDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId
+            FileDownloadWorker.USER_NAME to user.accountName,
+            FileDownloadWorker.FILE to gson.toJson(ocFile),
+            FileDownloadWorker.BEHAVIOUR to behaviour,
+            FileDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),
+            FileDownloadWorker.ACTIVITY_NAME to activityName,
+            FileDownloadWorker.PACKAGE_NAME to packageName,
+            FileDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId
         )
 
-        val request = oneTimeRequestBuilder(FilesDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
+        val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
             .setInputData(data)
             .build()
 

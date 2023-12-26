@@ -33,7 +33,7 @@ import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
 import javax.inject.Inject
 
-class FilesDownloadHelper {
+class FileDownloadHelper {
 
     @Inject
     lateinit var backgroundJobManager: BackgroundJobManager

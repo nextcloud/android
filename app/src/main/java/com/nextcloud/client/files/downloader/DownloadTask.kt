@@ -21,7 +21,7 @@ package com.nextcloud.client.files.downloader
 
 import android.content.ContentResolver
 import android.content.Context
-import com.nextcloud.client.core.IsCancelled
+import com.nextcloud.client.files.DownloadRequest
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -37,9 +37,9 @@ import java.io.File
  * This design can be regarded as intermediary refactoring step.
  */
 class DownloadTask(
-    val context: Context,
-    val contentResolver: ContentResolver,
-    val clientProvider: () -> OwnCloudClient
+    private val context: Context,
+    private val contentResolver: ContentResolver,
+    private val clientProvider: () -> OwnCloudClient
 ) {
 
     data class Result(val file: OCFile, val success: Boolean)
@@ -62,39 +62,46 @@ class DownloadTask(
         }
     }
 
-    fun download(request: DownloadRequest, progress: (Int) -> Unit, isCancelled: IsCancelled): Result {
+    fun download(request: DownloadRequest): Result {
         val op = DownloadFileOperation(request.user, request.file, context)
         val client = clientProvider.invoke()
         val result = op.execute(client)
-        if (result.isSuccess) {
+
+        return if (result.isSuccess) {
             val storageManager = FileDataStorageManager(
                 request.user,
                 contentResolver
             )
             val file = saveDownloadedFile(op, storageManager)
-            return Result(file, true)
+            Result(file, true)
         } else {
-            return Result(request.file, false)
+            Result(request.file, false)
         }
     }
 
     private fun saveDownloadedFile(op: DownloadFileOperation, storageManager: FileDataStorageManager): OCFile {
-        val file = storageManager.getFileById(op.getFile().getFileId()) as OCFile
-        val syncDate = System.currentTimeMillis()
-        file.lastSyncDateForProperties = syncDate
-        file.lastSyncDateForData = syncDate
-        file.isUpdateThumbnailNeeded = true
-        file.modificationTimestamp = op.getModificationTimestamp()
-        file.modificationTimestampAtLastSyncForData = op.getModificationTimestamp()
-        file.etag = op.getEtag()
-        file.mimeType = op.getMimeType()
-        file.storagePath = op.getSavePath()
-        file.fileLength = File(op.getSavePath()).length()
-        file.remoteId = op.getFile().getRemoteId()
+        val file = storageManager.getFileById(op.file.fileId) as OCFile
+
+        file.apply {
+            val syncDate = System.currentTimeMillis()
+            lastSyncDateForProperties = syncDate
+            lastSyncDateForData = syncDate
+            isUpdateThumbnailNeeded = true
+            modificationTimestamp = op.modificationTimestamp
+            modificationTimestampAtLastSyncForData = op.modificationTimestamp
+            etag = op.etag
+            mimeType = op.mimeType
+            storagePath = op.savePath
+            fileLength = File(op.savePath).length()
+            remoteId = op.file.remoteId
+        }
+
         storageManager.saveFile(file)
-        if (MimeTypeUtil.isMedia(op.getMimeType())) {
+
+        if (MimeTypeUtil.isMedia(op.mimeType)) {
             FileDataStorageManager.triggerMediaScan(file.storagePath)
         }
+
         return file
     }
 }

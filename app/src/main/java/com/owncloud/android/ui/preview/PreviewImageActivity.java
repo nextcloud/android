@@ -37,8 +37,8 @@ import android.view.View;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.editimage.EditImageActivity;
-import com.nextcloud.client.files.downloader.FilesDownloadHelper;
-import com.nextcloud.client.files.downloader.FilesDownloadWorker;
+import com.nextcloud.client.files.downloader.FileDownloadHelper;
+import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
@@ -311,8 +311,8 @@ public class PreviewImageActivity extends FileActivity implements
         public void onServiceConnected(ComponentName component, IBinder service) {
 
             if (component.equals(new ComponentName(PreviewImageActivity.this,
-                    FilesDownloadWorker.class))) {
-                mDownloaderBinder = (FilesDownloadWorker.FileDownloaderBinder) service;
+                                                   FileDownloadWorker.class))) {
+                mDownloaderBinder = (FileDownloadWorker.FileDownloaderBinder) service;
                 if (mRequestWaitingForBinder) {
                     mRequestWaitingForBinder = false;
                     Log_OC.d(TAG, "Simulating reselection of current page after connection " +
@@ -331,7 +331,7 @@ public class PreviewImageActivity extends FileActivity implements
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(PreviewImageActivity.this,
-                    FilesDownloadWorker.class))) {
+                                                   FileDownloadWorker.class))) {
                 Log_OC.d(TAG, "Download service suddenly disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(PreviewImageActivity.this,
@@ -359,7 +359,7 @@ public class PreviewImageActivity extends FileActivity implements
         super.onResume();
 
         mDownloadFinishReceiver = new DownloadFinishReceiver();
-        IntentFilter downloadIntentFilter = new IntentFilter(FilesDownloadWorker.Companion.getDownloadFinishMessage());
+        IntentFilter downloadIntentFilter = new IntentFilter(FileDownloadWorker.Companion.getDownloadFinishMessage());
         localBroadcastManager.registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
 
         mUploadFinishReceiver = new UploadFinishReceiver();
@@ -413,7 +413,7 @@ public class PreviewImageActivity extends FileActivity implements
 
         } else if (!mDownloaderBinder.isDownloading(getUserAccountManager().getUser(), file)) {
             final User user = getUser().orElseThrow(RuntimeException::new);
-            new FilesDownloadHelper().downloadFile(user, file, downloadBehaviour);
+            new FileDownloadHelper().downloadFile(user, file, downloadBehaviour);
         }
     }
 
@@ -478,7 +478,7 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     /**
-     * Class waiting for broadcast events from the {@link FilesDownloadWorker} service.
+     * Class waiting for broadcast events from the {@link FileDownloadWorker} service.
      *
      * Updates the UI when a download is started or finished, provided that it is relevant for the
      * folder displayed in the gallery.
@@ -498,12 +498,12 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     private void previewNewImage(Intent intent) {
-        String accountName = intent.getStringExtra(FilesDownloadWorker.ACCOUNT_NAME);
-        String downloadedRemotePath = intent.getStringExtra(FilesDownloadWorker.EXTRA_REMOTE_PATH);
+        String accountName = intent.getStringExtra(FileDownloadWorker.ACCOUNT_NAME);
+        String downloadedRemotePath = intent.getStringExtra(FileDownloadWorker.EXTRA_REMOTE_PATH);
         String downloadBehaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
         if (getAccount().name.equals(accountName) && downloadedRemotePath != null) {
             OCFile file = getStorageManager().getFileByPath(downloadedRemotePath);
-            boolean downloadWasFine = intent.getBooleanExtra(FilesDownloadWorker.EXTRA_DOWNLOAD_RESULT, false);
+            boolean downloadWasFine = intent.getBooleanExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, false);
 
             if (EditImageActivity.OPEN_IMAGE_EDITOR.equals(downloadBehaviour)) {
                 startImageEditor(file);

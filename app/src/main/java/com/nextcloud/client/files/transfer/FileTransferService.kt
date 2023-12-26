@@ -1,8 +1,9 @@
 /*
  * Nextcloud Android client application
  *
- * @author Chris Narkiewicz
- * Copyright (C) 2021 Chris Narkiewicz <hello@ezaquarii.com>
+ * @author Alper Ozturk
+ * Copyright (C) 2023 Alper Ozturk
+ * Copyright (C) 2023 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -15,9 +16,9 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.files.downloader
+package com.nextcloud.client.files.transfer
 
 import android.app.Service
 import android.content.Context
@@ -27,6 +28,10 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.core.LocalBinder
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.files.Direction
+import com.nextcloud.client.files.Request
+import com.nextcloud.client.files.downloader.DownloadTask
+import com.nextcloud.client.files.upload.UploadTask
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ConnectivityService

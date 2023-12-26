@@ -22,6 +22,12 @@ package com.nextcloud.client.files.downloader
 import android.content.ComponentName
 import android.content.Context
 import com.nextcloud.client.account.MockUser
+import com.nextcloud.client.files.DownloadRequest
+import com.nextcloud.client.files.transfer.FileTransferService
+import com.nextcloud.client.files.transfer.Transfer
+import com.nextcloud.client.files.transfer.TransferManager
+import com.nextcloud.client.files.transfer.TransferManagerConnection
+import com.nextcloud.client.files.transfer.TransferState
 import com.owncloud.android.datamodel.OCFile
 import io.mockk.MockKAnnotations
 import io.mockk.every

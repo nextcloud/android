@@ -55,7 +55,7 @@ import java.util.AbstractList
 import java.util.Vector
 
 @Suppress("LongParameterList")
-class FilesDownloadWorker(
+class FileDownloadWorker(
     private val viewThemeUtils: ViewThemeUtils,
     private val accountManager: UserAccountManager,
     private val uploadsStorageManager: UploadsStorageManager,
@@ -65,7 +65,7 @@ class FilesDownloadWorker(
 ) : Worker(context, params), OnAccountsUpdateListener, OnDatatransferProgressListener {
 
     companion object {
-        private val TAG = FilesDownloadWorker::class.java.simpleName
+        private val TAG = FileDownloadWorker::class.java.simpleName
 
         const val USER_NAME = "USER"
         const val FILE = "FILE"
@@ -82,23 +82,23 @@ class FilesDownloadWorker(
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
 
         fun getDownloadAddedMessage(): String {
-            return FilesDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
+            return FileDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
         }
 
         fun getDownloadFinishMessage(): String {
-            return FilesDownloadWorker::class.java.name + "DOWNLOAD_FINISH"
+            return FileDownloadWorker::class.java.name + "DOWNLOAD_FINISH"
         }
     }
 
     private var currentDownload: DownloadFileOperation? = null
     private var conflictUploadId: Long? = null
     private var lastPercent = 0
-    private val intents = FilesDownloadIntents(context)
+    private val intents = FileDownloadIntents(context)
     private val notificationManager = DownloadNotificationManager(context, viewThemeUtils)
     private val pendingDownloads = IndexedForest<DownloadFileOperation>()
     private var downloadBinder: IBinder = FileDownloaderBinder()
     private var currentUser = Optional.empty<User>()
-    private val helper = FilesDownloadHelper()
+    private val helper = FileDownloadHelper()
     private var startedDownload = false
     private var storageManager: FileDataStorageManager? = null
     private var downloadClient: OwnCloudClient? = null

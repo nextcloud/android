@@ -23,6 +23,12 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.ManualAsyncRunner
 import com.nextcloud.client.core.OnProgressCallback
+import com.nextcloud.client.files.DownloadRequest
+import com.nextcloud.client.files.Request
+import com.nextcloud.client.files.transfer.Transfer
+import com.nextcloud.client.files.transfer.TransferManagerImpl
+import com.nextcloud.client.files.transfer.TransferState
+import com.nextcloud.client.files.upload.UploadTask
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
 import io.mockk.MockKAnnotations
@@ -101,7 +107,7 @@ class TransferManagerTest {
 
         private fun createMockTask(): DownloadTask {
             val task = mockk<DownloadTask>()
-            every { task.download(any(), any(), any()) } answers {
+            every { task.download(any()) } answers {
                 taskProgress.forEach {
                     arg<OnProgressCallback<Int>>(1).invoke(it)
                 }
