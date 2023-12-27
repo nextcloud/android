@@ -309,6 +309,7 @@ class FileDownloadWorker(
     }
 
     private fun dismissDownloadInProgressNotification() {
+        // TODO Check necessity of this function call
         conflictUploadId?.let {
             if (it > 0) {
                 uploadsStorageManager.removeUpload(it)
