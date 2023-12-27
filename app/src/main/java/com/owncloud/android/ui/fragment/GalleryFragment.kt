@@ -52,7 +52,6 @@ import com.owncloud.android.ui.activity.ToolbarActivity
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface
 import com.owncloud.android.ui.adapter.GalleryAdapter
 import com.owncloud.android.ui.adapter.GalleryRowHolder
-import com.owncloud.android.ui.adapter.OCFileListDelegate
 import com.owncloud.android.ui.asynctasks.GallerySearchTask
 import com.owncloud.android.ui.events.ChangeMenuEvent
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
@@ -75,9 +74,8 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions,
     private var mAdapter: GalleryAdapter? = null
     private var galleryFragmentBottomSheetDialog: GalleryFragmentBottomSheetDialog? = null
 
-    @JvmField
     @Inject
-    var fileDataStorageManager: FileDataStorageManager? = null
+    lateinit var fileDataStorageManager: FileDataStorageManager
 
     @JvmField
     @Inject
@@ -143,7 +141,7 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions,
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+         super.onActivityCreated(savedInstanceState)
 
         currentSearchType = SearchType.GALLERY_SEARCH
         menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT
@@ -153,32 +151,12 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions,
         handleSearchEvent()
     }
 
-    private lateinit var ocFileListDelegate: OCFileListDelegate
-
-    private fun initOCFileListDelegate() {
-        val storageManager: FileDataStorageManager = mContainerActivity.storageManager
-
-        ocFileListDelegate = OCFileListDelegate(
-            requireContext(),
-            this,
-            accountManager.user,
-            storageManager,
-            false,
-            preferences,
-            true,
-            mContainerActivity,
-            showMetadata = false,
-            showShareAvatar = false,
-            viewThemeUtils
-        )
-    }
-
     override fun setAdapter(args: Bundle) {
-        initOCFileListDelegate()
+        super.setAdapter(args)
 
         mAdapter = GalleryAdapter(
             requireContext(),
-            accountManager.user,
+            fileDataStorageManager.user,
             mContainerActivity,
             columnSize,
             viewThemeUtils,

@@ -95,6 +95,7 @@ import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
+import com.owncloud.android.ui.adapter.OCFileListDelegate;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -432,6 +433,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir());
         }
         listDirectory(MainApp.isOnlyOnDevice(), false);
+    }
+
+    public OCFileListDelegate getOCFileListDelegate() {
+        return mAdapter.getOCFileListDelegate();
     }
 
     protected void setAdapter(Bundle args) {
