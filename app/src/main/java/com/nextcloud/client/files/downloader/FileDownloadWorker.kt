@@ -295,7 +295,6 @@ class FileDownloadWorker(
         // TODO Check why we calling only for success?
         if (downloadResult.isSuccess) {
             dismissDownloadInProgressNotification()
-            return
         }
 
         val needsToUpdateCredentials = (ResultCode.UNAUTHORIZED == downloadResult.code)
