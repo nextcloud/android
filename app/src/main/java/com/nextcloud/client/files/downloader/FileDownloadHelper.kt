@@ -31,6 +31,7 @@ import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 class FileDownloadHelper {
@@ -79,8 +80,21 @@ class FileDownloadHelper {
         storageManager?.saveConflict(file, null)
     }
 
-    fun downloadFile(user: User, ocFile: OCFile) {
+    fun downloadFiles(user: User, ocFile: List<OCFile>, cancelRequest: AtomicBoolean) {
         backgroundJobManager.startFilesDownloadJob(
+            user,
+            ocFile,
+            "",
+            DownloadType.DOWNLOAD,
+            "",
+            "",
+            null,
+            cancelRequest
+        )
+    }
+
+    fun downloadFile(user: User, ocFile: OCFile) {
+        backgroundJobManager.startFileDownloadJob(
             user,
             ocFile,
             "",
@@ -92,7 +106,7 @@ class FileDownloadHelper {
     }
 
     fun downloadFile(user: User, ocFile: OCFile, behaviour: String) {
-        backgroundJobManager.startFilesDownloadJob(
+        backgroundJobManager.startFileDownloadJob(
             user,
             ocFile,
             behaviour,
@@ -104,7 +118,7 @@ class FileDownloadHelper {
     }
 
     fun downloadFile(user: User, ocFile: OCFile, downloadType: DownloadType) {
-        backgroundJobManager.startFilesDownloadJob(
+        backgroundJobManager.startFileDownloadJob(
             user,
             ocFile,
             "",
@@ -116,7 +130,7 @@ class FileDownloadHelper {
     }
 
     fun downloadFile(user: User, ocFile: OCFile, conflictUploadId: Long) {
-        backgroundJobManager.startFilesDownloadJob(
+        backgroundJobManager.startFileDownloadJob(
             user,
             ocFile,
             "",
@@ -137,7 +151,7 @@ class FileDownloadHelper {
         packageName: String,
         conflictUploadId: Long?
     ) {
-        backgroundJobManager.startFilesDownloadJob(
+        backgroundJobManager.startFileDownloadJob(
             user,
             ocFile,
             behaviour,
