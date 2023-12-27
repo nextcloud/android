@@ -42,10 +42,12 @@ import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.files.downloader.FileDownloadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.operations.OperationCancelledException
 import com.owncloud.android.operations.DownloadType
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.reflect.KClass
 
 /**
@@ -509,7 +511,73 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniqueWork(JOB_FILES_UPLOAD + user.accountName, ExistingWorkPolicy.KEEP, request)
     }
 
+    private fun getOneTimeDownloadRequest(
+        user: User,
+        file: OCFile,
+        behaviour: String,
+        downloadType: DownloadType?,
+        activityName: String,
+        packageName: String,
+        conflictUploadId: Long?
+    ): OneTimeWorkRequest {
+        val gson = Gson()
+
+        val data = workDataOf(
+            FileDownloadWorker.USER_NAME to user.accountName,
+            FileDownloadWorker.FILE to gson.toJson(file),
+            FileDownloadWorker.BEHAVIOUR to behaviour,
+            FileDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),
+            FileDownloadWorker.ACTIVITY_NAME to activityName,
+            FileDownloadWorker.PACKAGE_NAME to packageName,
+            FileDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId
+        )
+
+        return oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
+            .setInputData(data)
+            .build()
+    }
+
+    @Throws(OperationCancelledException::class)
     override fun startFilesDownloadJob(
+        user: User,
+        files: List<OCFile>,
+        behaviour: String,
+        downloadType: DownloadType?,
+        activityName: String,
+        packageName: String,
+        conflictUploadId: Long?,
+        cancelRequest: AtomicBoolean
+    ) {
+        val workRequestList = mutableListOf<OneTimeWorkRequest>()
+
+        for (file in files) {
+            synchronized(cancelRequest) {
+                if (cancelRequest.get()) {
+                    throw OperationCancelledException()
+                }
+
+                workRequestList.add(
+                    getOneTimeDownloadRequest(
+                        user,
+                        file,
+                        behaviour,
+                        downloadType,
+                        activityName,
+                        packageName,
+                        conflictUploadId
+                    )
+                )
+            }
+        }
+
+        val chain = workManager
+            .beginWith(workRequestList.first())
+            .then(workRequestList.subList(1, workRequestList.size))
+
+        chain.enqueue()
+    }
+
+    override fun startFileDownloadJob(
         user: User,
         ocFile: OCFile,
         behaviour: String,
@@ -518,21 +586,15 @@ internal class BackgroundJobManagerImpl(
         packageName: String,
         conflictUploadId: Long?
     ) {
-        val gson = Gson()
-
-        val data = workDataOf(
-            FileDownloadWorker.USER_NAME to user.accountName,
-            FileDownloadWorker.FILE to gson.toJson(ocFile),
-            FileDownloadWorker.BEHAVIOUR to behaviour,
-            FileDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),
-            FileDownloadWorker.ACTIVITY_NAME to activityName,
-            FileDownloadWorker.PACKAGE_NAME to packageName,
-            FileDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId
+        val request = getOneTimeDownloadRequest(
+            user,
+            ocFile,
+            behaviour,
+            downloadType,
+            activityName,
+            packageName,
+            conflictUploadId
         )
-
-        val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
-            .setInputData(data)
-            .build()
 
         workManager.enqueueUniqueWork(JOB_FILES_DOWNLOAD + user.accountName, ExistingWorkPolicy.REPLACE, request)
     }

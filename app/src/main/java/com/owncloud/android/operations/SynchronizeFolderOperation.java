@@ -444,19 +444,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
         startContentSynchronizations(mFilesToSyncContents);
     }
 
-
-    private void startDirectDownloads() throws OperationCancelledException {
-        for (OCFile file : mFilesForDirectDownload) {
-            synchronized(mCancellationRequested) {
-                if (mCancellationRequested.get()) {
-                    throw new OperationCancelledException();
-                }
-
-                FileDownloadHelper downloadHelper = new FileDownloadHelper();
-
-                downloadHelper.downloadFile(user, file);
-            }
-        }
+    private void startDirectDownloads() {
+        FileDownloadHelper downloadHelper = new FileDownloadHelper();
+        downloadHelper.downloadFiles(user, mFilesForDirectDownload, mCancellationRequested);
     }
 
     /**
