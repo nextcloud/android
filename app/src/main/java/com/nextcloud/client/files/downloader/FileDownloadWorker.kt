@@ -152,6 +152,7 @@ class FileDownloadWorker(
                 context,
                 downloadType
             )
+
             operation.addDatatransferProgressListener(this)
             operation.addDatatransferProgressListener(downloadBinder as FileDownloaderBinder)
             val putResult = pendingDownloads.putIfAbsent(
@@ -232,9 +233,11 @@ class FileDownloadWorker(
     private fun notifyDownloadStart(download: DownloadFileOperation) {
         lastPercent = 0
 
-        notificationManager.notifyForStart(download)
-        notificationManager.setContentIntent(intents.detailsIntent(download), PendingIntent.FLAG_IMMUTABLE)
-        notificationManager.showDownloadInProgressNotification()
+        notificationManager.run {
+            notifyForStart(download)
+            setContentIntent(intents.detailsIntent(download), PendingIntent.FLAG_IMMUTABLE)
+            showDownloadInProgressNotification()
+        }
     }
 
     private fun getOCAccountForDownload(): OwnCloudAccount {
@@ -285,25 +288,24 @@ class FileDownloadWorker(
         download: DownloadFileOperation,
         downloadResult: RemoteOperationResult<*>
     ) {
+        dismissDownloadInProgressNotification()
+
         if (downloadResult.isCancelled) {
             return
         }
 
-        if (downloadResult.isSuccess) {
-            dismissDownloadInProgressNotification()
-            return
-        }
-
         val needsToUpdateCredentials = (ResultCode.UNAUTHORIZED == downloadResult.code)
-        notificationManager.prepareForResult(downloadResult, needsToUpdateCredentials)
+        notificationManager.run {
+            prepareForResult(downloadResult, needsToUpdateCredentials)
 
-        if (needsToUpdateCredentials) {
-            notificationManager.setCredentialContentIntent(download.user)
-        } else {
-            notificationManager.setContentIntent(intents.detailsIntent(null), PendingIntent.FLAG_IMMUTABLE)
+            if (needsToUpdateCredentials) {
+                setCredentialContentIntent(download.user)
+            } else {
+                setContentIntent(intents.detailsIntent(null), PendingIntent.FLAG_IMMUTABLE)
+            }
+
+            notifyForResult(downloadResult, download)
         }
-
-        notificationManager.notifyForResult(downloadResult, download)
     }
 
     private fun dismissDownloadInProgressNotification() {

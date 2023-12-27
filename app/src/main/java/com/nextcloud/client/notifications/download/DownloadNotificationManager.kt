@@ -83,22 +83,41 @@ class DownloadNotificationManager(private val context: Context, private val view
 
     @Suppress("MagicNumber")
     fun notifyForResult(result: RemoteOperationResult<*>, download: DownloadFileOperation) {
-        val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(
-            result,
-            download,
-            context.resources
-        )
+        val tickerId = getTickerId(result.isSuccess, null)
+        val notifyId = SecureRandom().nextInt()
 
-        notificationBuilder.setContentText(errorMessage)
-
-        notificationManager.notify(SecureRandom().nextInt(), notificationBuilder.build())
-
-        if (result.isSuccess) {
-            NotificationUtils.cancelWithDelay(
-                notificationManager,
-                R.string.downloader_download_succeeded_ticker,
-                2000
+        val contentText = if (result.isSuccess) {
+            context.getString(R.string.downloader_download_succeeded_ticker)
+        } else {
+            ErrorMessageAdapter.getErrorCauseMessage(
+                result,
+                download,
+                context.resources
             )
+        }
+
+        notificationBuilder.run {
+            setTicker(context.getString(tickerId))
+            setContentText(contentText)
+            notificationManager.notify(notifyId, this.build())
+        }
+
+        NotificationUtils.cancelWithDelay(
+            notificationManager,
+            notifyId,
+            2000
+        )
+    }
+
+    private fun getTickerId(isSuccess: Boolean, needsToUpdateCredentials: Boolean?): Int {
+        return if (needsToUpdateCredentials == true) {
+            R.string.downloader_download_failed_credentials_error
+        } else {
+            if (isSuccess) {
+                R.string.downloader_download_succeeded_ticker
+            } else {
+                R.string.downloader_download_failed_ticker
+            }
         }
     }
 
@@ -106,18 +125,7 @@ class DownloadNotificationManager(private val context: Context, private val view
         downloadResult: RemoteOperationResult<*>,
         needsToUpdateCredentials: Boolean
     ) {
-        var tickerId =
-            if (downloadResult.isSuccess) {
-                R.string.downloader_download_succeeded_ticker
-            } else {
-                R.string.downloader_download_failed_ticker
-            }
-
-        tickerId = if (needsToUpdateCredentials) {
-            R.string.downloader_download_failed_credentials_error
-        } else {
-            tickerId
-        }
+        val tickerId = getTickerId(downloadResult.isSuccess, needsToUpdateCredentials)
 
         notificationBuilder
             .setTicker(context.getString(tickerId))
