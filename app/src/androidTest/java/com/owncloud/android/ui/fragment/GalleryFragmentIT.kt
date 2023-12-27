@@ -70,9 +70,7 @@ class GalleryFragmentIT : AbstractIT() {
     fun showEmpty() {
         val sut = GalleryFragment()
         activity.addFragment(sut)
-
         waitForIdleSync()
-
         screenshot(activity)
     }
 
