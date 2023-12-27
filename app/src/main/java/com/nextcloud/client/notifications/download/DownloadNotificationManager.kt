@@ -83,6 +83,8 @@ class DownloadNotificationManager(private val context: Context, private val view
 
     @Suppress("MagicNumber")
     fun notifyForResult(result: RemoteOperationResult<*>, download: DownloadFileOperation) {
+        dismissDownloadInProgressNotification()
+
         val tickerId = getTickerId(result.isSuccess, null)
         val notifyId = SecureRandom().nextInt()
 

@@ -288,9 +288,13 @@ class FileDownloadWorker(
         download: DownloadFileOperation,
         downloadResult: RemoteOperationResult<*>
     ) {
-        dismissDownloadInProgressNotification()
-
         if (downloadResult.isCancelled) {
+            return
+        }
+
+        // TODO Check why we calling only for success?
+        if (downloadResult.isSuccess) {
+            dismissDownloadInProgressNotification()
             return
         }
 
