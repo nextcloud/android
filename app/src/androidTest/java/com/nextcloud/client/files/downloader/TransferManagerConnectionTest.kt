@@ -20,6 +20,8 @@
 package com.nextcloud.client.files.downloader
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import com.nextcloud.client.account.MockUser
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.datamodel.OCFile
@@ -33,6 +35,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import java.util.concurrent.CountDownLatch
 
 class TransferManagerConnectionTest {
 
@@ -65,7 +68,6 @@ class TransferManagerConnectionTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this, relaxed = true)
-        context = mockk()
         connection = TransferManagerConnection(backgroundJobManager, context, user)
     }
 
@@ -148,13 +150,15 @@ class TransferManagerConnectionTest {
 
         // THEN
         //      listeners receive current download state for pending downloads
-        val firstListenerNotifications = mutableListOf<Transfer>()
-        verify { firstDownloadListener(capture(firstListenerNotifications)) }
-        assertEquals(listOf(download1, download2), firstListenerNotifications)
+        Handler(Looper.getMainLooper()).postDelayed({
+            val firstListenerNotifications = mutableListOf<Transfer>()
+            verify { firstDownloadListener(capture(firstListenerNotifications)) }
+            assertEquals(listOf(download1, download2), firstListenerNotifications)
 
-        val secondListenerNotifications = mutableListOf<Transfer>()
-        verify { secondDownloadListener(capture(secondListenerNotifications)) }
-        assertEquals(listOf(download1, download2), secondListenerNotifications)
+            val secondListenerNotifications = mutableListOf<Transfer>()
+            verify { secondDownloadListener(capture(secondListenerNotifications)) }
+            assertEquals(listOf(download1, download2), secondListenerNotifications)
+        }, 100)
     }
 
     @Test
