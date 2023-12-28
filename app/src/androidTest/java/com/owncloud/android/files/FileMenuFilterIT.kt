@@ -189,6 +189,10 @@ class FileMenuFilterIT : AbstractIT() {
             mimeType = MimeType.DIRECTORY
         }
 
+        val encryptedFile = OCFile("/foo.md").apply {
+            isEncrypted = true
+        }
+
         configureCapability(capability)
 
         launchActivity<TestActivity>().use {
@@ -226,6 +230,16 @@ class FileMenuFilterIT : AbstractIT() {
 
                 assertTrue(toHide.contains(R.id.action_unset_encrypted))
                 assertFalse(toHide.contains(R.id.action_encrypted))
+                assertFalse(toHide.contains(R.id.action_remove_file))
+
+                // encrypted file
+                sut = filterFactory.newInstance(encryptedFile, mockComponentsGetter, true, user)
+                toHide = sut.getToHide(false)
+
+                assertTrue(toHide.contains(R.id.action_unset_encrypted))
+                assertTrue(toHide.contains(R.id.action_encrypted))
+                assertTrue(toHide.contains(R.id.action_move_or_copy))
+                assertTrue(toHide.contains(R.id.action_rename_file))
                 assertFalse(toHide.contains(R.id.action_remove_file))
             }
         }

@@ -339,8 +339,7 @@ public class FileMenuFilter {
     }
 
     private void filterRemove(List<Integer> toHide, boolean synchronizing) {
-        if (files.isEmpty() || synchronizing || containsLockedFile()
-            || containsEncryptedFolder() || containsEncryptedFile()) {
+        if (files.isEmpty() || synchronizing || containsLockedFile() || isEncryptedRoot()) {
             toHide.add(R.id.action_remove_file);
         }
     }
@@ -564,5 +563,9 @@ public class FileMenuFilter {
             }
         }
         return false;
+    }
+
+    private boolean isEncryptedRoot() {
+        return isEncryptedFolder() && !hasEncryptedParent();
     }
 }
