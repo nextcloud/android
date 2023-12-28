@@ -1587,6 +1587,7 @@ public class FileDisplayActivity extends FileActivity
             } else {
                 return;
             }
+
             // a new chance to get the mDownloadBinder through
             // getFileDownloadBinder() - THIS IS A MESS
             OCFileListFragment listOfFiles = getListOfFilesFragment();
@@ -1594,9 +1595,9 @@ public class FileDisplayActivity extends FileActivity
                 IntentExtensionsKt.getParcelableArgument(getIntent(), EXTRA_FILE, OCFile.class) == null))) {
                 listOfFiles.listDirectory(MainApp.isOnlyOnDevice(), false);
             }
+
             Fragment leftFragment = getLeftFragment();
-            if (leftFragment instanceof FileDetailFragment) {
-                FileDetailFragment detailFragment = (FileDetailFragment) leftFragment;
+            if (leftFragment instanceof FileDetailFragment detailFragment) {
                 detailFragment.listenForTransferProgress();
                 detailFragment.updateFileDetails(false, false);
             }

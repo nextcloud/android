@@ -34,10 +34,8 @@ import androidx.work.WorkerParameters
 import com.google.gson.Gson
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.jobs.BackgroundJobManagerImpl.Companion.JOB_FILES_DOWNLOAD
 import com.nextcloud.client.notifications.download.DownloadNotificationManager
 import com.nextcloud.java.util.Optional
-import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -122,7 +120,6 @@ class FileDownloadWorker(
         }
     }
 
-    // FIXME not returning multiple string for folder
     private fun getRequestDownloads(): AbstractList<String> {
         conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long?
         val file = gson.fromJson(inputData.keyValueMap[FILE] as String, OCFile::class.java)
@@ -144,7 +141,7 @@ class FileDownloadWorker(
 
         val requestedDownloads: AbstractList<String> = Vector()
 
-        try {
+        return try {
             val operation = DownloadFileOperation(
                 user,
                 file,
@@ -168,11 +165,12 @@ class FileDownloadWorker(
                 requestedDownloads.add(downloadKey)
                 localBroadcastManager.sendBroadcast(intents.newDownloadIntent(operation, putResult.second))
             }
+
+            requestedDownloads
         } catch (e: IllegalArgumentException) {
             Log_OC.e(TAG, "Not enough information provided in intent: " + e.message)
+            requestedDownloads
         }
-
-        return requestedDownloads
     }
 
     private fun addAccountUpdateListener() {
