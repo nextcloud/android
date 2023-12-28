@@ -56,8 +56,6 @@ class FileUploadHelper {
     companion object {
         private val TAG = FileUploadWorker::class.java.simpleName
 
-        // TODO is needed with worker?
-        // val pendingUploads = IndexedForest<UploadFileOperation>()
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
 
         fun buildRemoteName(accountName: String, remotePath: String): String {
@@ -100,13 +98,13 @@ class FileUploadHelper {
             // since the operation will not get to be run by FileUploader#uploadFile
             uploadsStorageManager.removeUpload(accountName, remotePath)
 
-            restartUploadJob(user)
+            cancelAndRestartUploadJob(user)
         } catch (e: NoSuchElementException) {
             Log_OC.e(TAG, "Error cancelling current upload because user does not exist!")
         }
     }
 
-    private fun restartUploadJob(user: User) {
+    private fun cancelAndRestartUploadJob(user: User) {
         backgroundJobManager.run {
             cancelFilesUploadJob(user)
             startFilesUploadJob(user)
@@ -180,9 +178,8 @@ class FileUploadHelper {
     }
 
     fun cancel(accountName: String) {
-        // pendingUploads.remove(accountName)
         uploadsStorageManager.removeUploads(accountName)
-        restartUploadJob(accountManager.getUser(accountName).get())
+        cancelAndRestartUploadJob(accountManager.getUser(accountName).get())
     }
 
     fun addUploadTransferProgressListener(
