@@ -344,7 +344,7 @@ class OCFileListDelegate(
         val fileUploaderBinder = transferServiceGetter.fileUploaderBinder
         when {
             operationsServiceBinder?.isSynchronizing(user, file) == true ||
-                fileDownloaderBinder?.isDownloading(user, file) == true ||
+                fileDownloaderBinder?.isDownloading() == true ||
                 fileUploaderBinder?.isUploading(user, file) == true -> {
                 // synchronizing, downloading or uploading
                 gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing)
