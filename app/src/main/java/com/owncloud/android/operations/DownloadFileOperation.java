@@ -260,7 +260,7 @@ public class DownloadFileOperation extends RemoteOperation {
     }
 
 
-    public void addDatatransferProgressListener (OnDatatransferProgressListener listener) {
+    public void addDownloadDataTransferProgressListener(OnDatatransferProgressListener listener) {
         synchronized (dataTransferListeners) {
             dataTransferListeners.add(listener);
         }

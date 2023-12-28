@@ -155,8 +155,8 @@ class FileDownloadWorker(
                 downloadType
             )
 
-            operation.addDatatransferProgressListener(this)
-            operation.addDatatransferProgressListener(downloadBinder as FileDownloaderBinder)
+            operation.addDownloadDataTransferProgressListener(this)
+            operation.addDownloadDataTransferProgressListener(downloadBinder as FileDownloaderBinder)
             val putResult = pendingDownloads.putIfAbsent(
                 user?.accountName,
                 file.remotePath,
@@ -203,7 +203,7 @@ class FileDownloadWorker(
 
         val isAccountExist = accountManager.exists(currentDownload?.user?.toPlatformAccount())
         if (!isAccountExist) {
-            cancelPendingDownloads(currentDownload?.user?.accountName)
+            removePendingDownload(currentDownload?.user?.accountName)
             return
         }
 
@@ -228,7 +228,7 @@ class FileDownloadWorker(
         }
     }
 
-    private fun cancelPendingDownloads(accountName: String?) {
+    private fun removePendingDownload(accountName: String?) {
         pendingDownloads.remove(accountName)
     }
 
@@ -358,10 +358,11 @@ class FileDownloadWorker(
 
         fun cancelAllDownloadsForAccount(accountName: String?) {
             if (currentDownload?.user?.nameEquals(accountName) == true) {
+                context.cancelWork(JOB_FILES_DOWNLOAD)
                 currentDownload?.cancel()
             }
 
-            cancelPendingDownloads(accountName)
+            removePendingDownload(accountName)
         }
 
         fun isDownloading(): Boolean {
