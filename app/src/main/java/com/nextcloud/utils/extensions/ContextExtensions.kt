@@ -64,7 +64,3 @@ fun Context.isWorkScheduled(tag: String): Boolean {
 
     return running
 }
-
-fun Context.cancelWork(tag: String) {
-    WorkManager.getInstance(this).cancelAllWorkByTag(tag)
-}
