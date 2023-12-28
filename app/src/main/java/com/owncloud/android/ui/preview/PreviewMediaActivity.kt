@@ -31,13 +31,16 @@ import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
 import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -93,6 +96,7 @@ import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
 import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.OCFileListFragment
+import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.MimeTypeUtil
@@ -112,12 +116,12 @@ import javax.inject.Inject
  */
 @Suppress("TooManyFunctions")
 class PreviewMediaActivity :
-
     FileActivity(),
     FileFragment.ContainerActivity,
     OnRemoteOperationListener,
     SendShareDialog.SendShareDialogDownloader,
     Injectable {
+
     private var user: User? = null
     private var savedPlaybackPosition: Long = 0
     private var autoplay = true
@@ -146,59 +150,67 @@ class PreviewMediaActivity :
         setContentView(binding.root)
 
         setSupportActionBar(binding.materialToolbar)
-
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
         applyWindowInsets()
-        initializeWithArgs()
-
+        initArguments(savedInstanceState)
         mediaPlayerServiceConnection = PlayerServiceConnection(this)
-
-        if (savedInstanceState == null) {
-            checkNotNull(file) { "Instanced with a NULL OCFile" }
-            checkNotNull(user) { "Instanced with a NULL ownCloud Account" }
-        } else {
-            file = savedInstanceState.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
-            user = savedInstanceState.getParcelableArgument(EXTRA_USER, User::class.java)
-            savedPlaybackPosition = savedInstanceState.getInt(EXTRA_PLAY_POSITION).toLong()
-            autoplay = savedInstanceState.getBoolean(EXTRA_PLAYING)
-        }
-
         showMediaTypeViews()
         configureSystemBars()
         emptyListView = binding.emptyView.emptyListView
         setLoadingView()
     }
 
-    private fun initializeWithArgs() {
-        val bundle = intent
-        bundle?.let {
-            file = it.getParcelableArgument(FILE, OCFile::class.java)
-            user = it.getParcelableArgument(USER, User::class.java)
-            savedPlaybackPosition = it.getLongExtra(PLAYBACK_POSITION, 0L)
-            autoplay = it.getBooleanExtra(AUTOPLAY, true)
+    private fun initArguments(savedInstanceState: Bundle?) {
+        intent?.let {
+            initWithIntent(it)
+        }
+
+        if (savedInstanceState == null) {
+            checkNotNull(file) { "Instanced with a NULL OCFile" }
+            checkNotNull(user) { "Instanced with a NULL ownCloud Account" }
+        } else {
+            initWithBundle(savedInstanceState)
         }
     }
 
+    private fun initWithIntent(intent: Intent) {
+        file = intent.getParcelableArgument(FILE, OCFile::class.java)
+        user = intent.getParcelableArgument(USER, User::class.java)
+        savedPlaybackPosition = intent.getLongExtra(PLAYBACK_POSITION, 0L)
+        autoplay = intent.getBooleanExtra(AUTOPLAY, true)
+    }
+
+    private fun initWithBundle(bundle: Bundle) {
+        file = bundle.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
+        user = bundle.getParcelableArgument(EXTRA_USER, User::class.java)
+        savedPlaybackPosition = bundle.getInt(EXTRA_PLAY_POSITION).toLong()
+        autoplay = bundle.getBoolean(EXTRA_PLAYING)
+    }
+
     private fun showMediaTypeViews() {
-        if (file != null) {
-            if (MimeTypeUtil.isVideo(file)) {
-                binding.exoplayerView.visibility = View.VISIBLE
-                binding.imagePreview.visibility = View.GONE
-                binding.root.setBackgroundColor(resources.getColor(R.color.black, null))
-            } else {
-                binding.exoplayerView.visibility = View.GONE
-                binding.imagePreview.visibility = View.VISIBLE
-                extractAndSetCoverArt(file)
-            }
+        if (file == null) {
+            return
+        }
+
+        val isFileVideo = MimeTypeUtil.isVideo(file)
+
+        binding.exoplayerView.visibility = if (isFileVideo) View.VISIBLE else View.GONE
+        binding.imagePreview.visibility = if (isFileVideo) View.GONE else View.VISIBLE
+
+        if (isFileVideo) {
+            binding.root.setBackgroundColor(resources.getColor(R.color.black, null))
+        } else {
+            extractAndSetCoverArt(file)
         }
     }
 
     private fun configureSystemBars() {
         updateActionBarTitleAndHomeButton(file)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        viewThemeUtils.files.themeActionBar(this, supportActionBar!!)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            viewThemeUtils.files.themeActionBar(this, it)
+        }
 
         viewThemeUtils.platform.themeStatusBar(
             this
@@ -233,48 +245,50 @@ class PreviewMediaActivity :
             return
         }
 
-        if (file.storagePath == null) {
-            setThumbnailForAudio(file)
+        val bitmap = if (file.storagePath == null) {
+            getAudioThumbnail(file)
         } else {
-            try {
-                val mmr = MediaMetadataRetriever()
-                mmr.setDataSource(file.storagePath)
-                val data = mmr.embeddedPicture
-                if (data != null) {
-                    val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
-                    binding.imagePreview.setImageBitmap(bitmap) // associated cover art in bitmap
-                } else {
-                    setThumbnailForAudio(file)
-                }
-            } catch (t: Throwable) {
-                setGenericThumbnail()
-            }
+            getThumbnail(file.storagePath) ?: getAudioThumbnail(file)
         }
-    }
 
-    private fun setThumbnailForAudio(file: OCFile) {
-        val thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-            ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId
-        )
-        if (thumbnail != null) {
-            binding.imagePreview.setImageBitmap(thumbnail)
+        if (bitmap != null) {
+            binding.imagePreview.setImageBitmap(bitmap)
         } else {
             setGenericThumbnail()
         }
     }
 
-    /**
-     * Set generic icon (logo) as placeholder for thumbnail in preview.
-     */
+    @Suppress("TooGenericExceptionCaught")
+    private fun getThumbnail(storagePath: String?): Bitmap? {
+        return try {
+            MediaMetadataRetriever().run {
+                setDataSource(storagePath)
+                BitmapFactory.decodeByteArray(embeddedPicture, 0, embeddedPicture?.size ?: 0)
+            }
+        } catch (t: Throwable) {
+            BitmapUtils.drawableToBitmap(genericThumbnail())
+        }
+    }
+
+    private fun getAudioThumbnail(file: OCFile): Bitmap? {
+        return ThumbnailsCacheManager.getBitmapFromDiskCache(
+            ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId
+        )
+    }
+
     private fun setGenericThumbnail() {
-        val logo = AppCompatResources.getDrawable(this, R.drawable.logo)
-        logo?.let {
+        binding.imagePreview.setImageDrawable(genericThumbnail())
+    }
+
+    private fun genericThumbnail(): Drawable? {
+        val result = AppCompatResources.getDrawable(this, R.drawable.logo)
+        result?.let {
             if (!resources.getBoolean(R.bool.is_branded_client)) {
-                // only colour logo of non-branded client
                 DrawableCompat.setTint(it, resources.getColor(R.color.primary, this.theme))
             }
-            binding.imagePreview.setImageDrawable(it)
         }
+
+        return result
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -305,17 +319,19 @@ class PreviewMediaActivity :
 
     override fun onStart() {
         super.onStart()
+
         Log_OC.v(TAG, "onStart")
+
         if (file != null) {
-            // bind to any existing player
-            mediaPlayerServiceConnection!!.bind()
+            mediaPlayerServiceConnection?.bind()
+
             if (MimeTypeUtil.isAudio(file)) {
                 setupAudioPlayerServiceConnection()
             } else if (MimeTypeUtil.isVideo(file)) {
-                if (mediaPlayerServiceConnection!!.isConnected) {
-                    // always stop player
+                if (mediaPlayerServiceConnection?.isConnected == true) {
                     stopAudio()
                 }
+
                 if (exoPlayer != null) {
                     playVideo()
                 } else {
@@ -326,28 +342,41 @@ class PreviewMediaActivity :
     }
 
     private fun setupAudioPlayerServiceConnection() {
-        binding.mediaController.setMediaPlayer(mediaPlayerServiceConnection)
-        binding.mediaController.visibility = View.VISIBLE
-        mediaPlayerServiceConnection!!.start(user!!, file, autoplay, savedPlaybackPosition)
+        binding.mediaController.run {
+            setMediaPlayer(mediaPlayerServiceConnection)
+            visibility = View.VISIBLE
+        }
+
+        user?.let {
+            mediaPlayerServiceConnection?.start(it, file, autoplay, savedPlaybackPosition)
+        }
+
         binding.emptyView.emptyListView.visibility = View.GONE
         binding.progress.visibility = View.GONE
     }
 
     private fun initNextcloudExoPlayer() {
-        val handler = Handler()
+        val handler = Handler(Looper.getMainLooper())
         Executors.newSingleThreadExecutor().execute {
             try {
                 nextcloudClient = clientFactory.createNextcloudClient(accountManager.user)
-                handler.post {
-                    exoPlayer = createNextcloudExoplayer(this, nextcloudClient!!)
-                    exoPlayer!!.addListener(
-                        ExoplayerListener(
-                            this,
-                            binding.exoplayerView,
-                            exoPlayer!!
-                        )
-                    )
-                    playVideo()
+
+                nextcloudClient?.let { client ->
+                    handler.post {
+                        exoPlayer = createNextcloudExoplayer(this, client)
+
+                        exoPlayer?.let { player ->
+                            player.addListener(
+                                ExoplayerListener(
+                                    this,
+                                    binding.exoplayerView,
+                                    player
+                                )
+                            )
+
+                            playVideo()
+                        }
+                    }
                 }
             } catch (e: CreationException) {
                 handler.post { Log_OC.e(TAG, "error setting up ExoPlayer", e) }
@@ -415,7 +444,7 @@ class PreviewMediaActivity :
     }
 
     private fun stopAudio() {
-        mediaPlayerServiceConnection!!.stop()
+        mediaPlayerServiceConnection?.stop()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -428,16 +457,18 @@ class PreviewMediaActivity :
             finish()
             return true
         }
+
         if (item.itemId == R.id.custom_menu_placeholder_item) {
             val file = file
+
             if (storageManager != null && file != null) {
-                // Update the file
                 val updatedFile = storageManager.getFileById(file.fileId)
                 setFile(updatedFile)
                 val fileNew = getFile()
                 fileNew?.let { showFileActions(it) }
             }
         }
+
         return super.onOptionsItemSelected(item)
     }
 
@@ -455,6 +486,7 @@ class PreviewMediaActivity :
         if (getFile() != null && getFile().isSharedWithMe && !getFile().canReshare()) {
             additionalFilter.add(R.id.action_send_share_file)
         }
+
         newInstance(file, false, additionalFilter)
             .setResultListener(
                 supportFragmentManager,
@@ -522,7 +554,6 @@ class PreviewMediaActivity :
             DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, resources))
 
             val removedFile = operation.file
-            // check if file is still available, if so do nothing
             val fileAvailable: Boolean = storageManager.fileExists(removedFile.fileId)
             if (!fileAvailable && removedFile == file) {
                 finish()
@@ -544,8 +575,8 @@ class PreviewMediaActivity :
 
     private inner class PreviewMediaServiceConnection : ServiceConnection {
         override fun onServiceConnected(componentName: ComponentName?, service: IBinder?) {
-            if (componentName != null) {
-                if (componentName == ComponentName(this@PreviewMediaActivity, FileDownloader::class.java)) {
+            componentName?.let {
+                if (it == ComponentName(this@PreviewMediaActivity, FileDownloader::class.java)) {
                     mDownloaderBinder = service as FileDownloaderBinder
                 }
             }
@@ -569,19 +600,21 @@ class PreviewMediaActivity :
         packageName: String? = null,
         activityName: String? = null
     ) {
-        if (!fileDownloaderBinder.isDownloading(user, file)) {
-            val i = Intent(this, FileDownloader::class.java)
-            i.run {
-                putExtra(FileDownloader.EXTRA_USER, user)
-                putExtra(FileDownloader.EXTRA_FILE, file)
-                downloadBehavior?.let { behavior ->
-                    putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, behavior)
-                }
-                putExtra(SendShareDialog.PACKAGE_NAME, packageName)
-                putExtra(SendShareDialog.ACTIVITY_NAME, activityName)
-            }
-            startService(i)
+        if (fileDownloaderBinder.isDownloading(user, file)) {
+            return
         }
+
+        val intent = Intent(this, FileDownloader::class.java).apply {
+            putExtra(FileDownloader.EXTRA_USER, user)
+            putExtra(FileDownloader.EXTRA_FILE, file)
+            downloadBehavior?.let { behavior ->
+                putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, behavior)
+            }
+            putExtra(SendShareDialog.PACKAGE_NAME, packageName)
+            putExtra(SendShareDialog.ACTIVITY_NAME, activityName)
+        }
+
+        startService(intent)
     }
 
     private fun seeDetails() {
@@ -597,8 +630,7 @@ class PreviewMediaActivity :
     @Suppress("TooGenericExceptionCaught")
     private fun playVideo() {
         setupVideoView()
-        // load the video file in the video player
-        // when done, VideoHelper#onPrepared() will be called
+
         if (file.isDown) {
             playVideoUri(file.storageUri)
         } else {
@@ -612,6 +644,7 @@ class PreviewMediaActivity :
 
     private fun playVideoUri(uri: Uri) {
         binding.progress.visibility = View.GONE
+
         exoPlayer?.run {
             setMediaItem(MediaItem.fromUri(uri))
             playWhenReady = autoplay
@@ -621,7 +654,7 @@ class PreviewMediaActivity :
                 seekTo(savedPlaybackPosition)
             }
         }
-        // only autoplay video once
+
         autoplay = false
     }
 
@@ -633,15 +666,18 @@ class PreviewMediaActivity :
         private val previewMediaActivityWeakReference: WeakReference<PreviewMediaActivity> =
             WeakReference(previewMediaActivity)
 
+        @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg fileId: Long?): Uri? {
-            val client: OwnCloudClient = try {
-                clientFactory!!.create(user)
+            val client: OwnCloudClient? = try {
+                clientFactory?.create(user)
             } catch (e: CreationException) {
                 Log_OC.e(TAG, "Loading stream url not possible: $e")
                 return null
             }
+
             val sfo = StreamMediaFileOperation(fileId[0]!!)
             val result = sfo.execute(client)
+
             return if (!result.isSuccess) {
                 null
             } else {
@@ -649,6 +685,7 @@ class PreviewMediaActivity :
             }
         }
 
+        @Deprecated("Deprecated in Java")
         override fun onPostExecute(uri: Uri?) {
             val weakReference = previewMediaActivityWeakReference.get()
             weakReference?.apply {
@@ -656,7 +693,7 @@ class PreviewMediaActivity :
                     videoUri = uri
                     playVideoUri(uri)
                 } else {
-                    emptyListView!!.visibility = View.VISIBLE
+                    emptyListView?.visibility = View.VISIBLE
                     setVideoErrorMessage(
                         weakReference.getString(R.string.stream_not_possible_headline),
                         R.string.stream_not_possible_message
@@ -668,17 +705,21 @@ class PreviewMediaActivity :
 
     override fun onPause() {
         Log_OC.v(TAG, "onPause")
+
         super.onPause()
     }
 
     override fun onResume() {
         super.onResume()
+
         Log_OC.v(TAG, "onResume")
     }
 
     override fun onDestroy() {
         Log_OC.v(TAG, "onDestroy")
+
         super.onDestroy()
+
         exoPlayer?.run {
             stop()
             release()
@@ -687,25 +728,28 @@ class PreviewMediaActivity :
 
     override fun onStop() {
         Log_OC.v(TAG, "onStop")
+
         val file = file
-        if (MimeTypeUtil.isAudio(file) && !mediaPlayerServiceConnection!!.isPlaying) {
+        if (MimeTypeUtil.isAudio(file) && mediaPlayerServiceConnection?.isPlaying == false) {
             stopAudio()
-        } else if (MimeTypeUtil.isVideo(file) && exoPlayer != null && exoPlayer!!.isPlaying) {
-            savedPlaybackPosition = exoPlayer!!.currentPosition
-            exoPlayer!!.pause()
+        } else if (MimeTypeUtil.isVideo(file) && exoPlayer != null && exoPlayer?.isPlaying == true) {
+            savedPlaybackPosition = exoPlayer?.currentPosition ?: 0L
+            exoPlayer?.pause()
         }
-        mediaPlayerServiceConnection!!.unbind()
+
+        mediaPlayerServiceConnection?.unbind()
+
         super.onStop()
     }
 
     override fun showDetails(file: OCFile?) {
-        val showDetailsIntent = Intent(this, FileDisplayActivity::class.java)
-        showDetailsIntent.apply {
+        val intent = Intent(this, FileDisplayActivity::class.java).apply {
             action = FileDisplayActivity.ACTION_DETAILS
             putExtra(FileActivity.EXTRA_FILE, file)
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }
-        startActivity(showDetailsIntent)
+
+        startActivity(intent)
         finish()
     }
 
@@ -726,12 +770,15 @@ class PreviewMediaActivity :
         Log_OC.v(TAG, "onConfigurationChanged $this")
     }
 
+    @Suppress("DEPRECATION")
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Log_OC.v(TAG, "onActivityResult $this")
         super.onActivityResult(requestCode, resultCode, data)
+
         if (resultCode == Activity.RESULT_OK) {
-            savedPlaybackPosition = data!!.getLongExtra(EXTRA_START_POSITION, 0)
-            autoplay = data.getBooleanExtra(EXTRA_AUTOPLAY, false)
+            savedPlaybackPosition = data?.getLongExtra(EXTRA_START_POSITION, 0) ?: 0
+            autoplay = data?.getBooleanExtra(EXTRA_AUTOPLAY, false) ?: false
         }
     }
 
@@ -744,19 +791,18 @@ class PreviewMediaActivity :
     }
 
     private fun stopPreview(stopAudio: Boolean) {
-        val file = file
         if (MimeTypeUtil.isAudio(file) && stopAudio) {
-            mediaPlayerServiceConnection!!.pause()
+            mediaPlayerServiceConnection?.pause()
         } else if (MimeTypeUtil.isVideo(file)) {
-            savedPlaybackPosition = exoPlayer!!.currentPosition
-            exoPlayer!!.stop()
+            savedPlaybackPosition = exoPlayer?.currentPosition ?: 0
+            exoPlayer?.stop()
         }
     }
 
     val position: Long
         get() {
             if (prepared) {
-                savedPlaybackPosition = exoPlayer!!.currentPosition
+                savedPlaybackPosition = exoPlayer?.currentPosition ?: 0
             }
             Log_OC.v(TAG, "getting position: $savedPlaybackPosition")
             return savedPlaybackPosition
