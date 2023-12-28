@@ -24,7 +24,6 @@ import androidx.work.ListenableWorker
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.operations.DownloadType
-import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * This interface allows to control, schedule and monitor all application

@@ -31,7 +31,6 @@ import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
-import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 class FileDownloadHelper {
