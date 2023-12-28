@@ -144,9 +144,9 @@ open class FolderPickerActivity :
         isDoNotEnterEncryptedFolder = true
 
         if (this is FilePickerActivity) {
-            filesPickerBinding.folderPickerBtnCancel.visibility = View.GONE
+            return
         } else {
-            folderPickerBinding.folderPickerBtnCancel.visibility = View.GONE
+            folderPickerBinding.folderPickerBtnCopy.visibility = View.GONE
             folderPickerBinding.folderPickerBtnMove.visibility = View.GONE
             folderPickerBinding.folderPickerBtnChoose.visibility = View.VISIBLE
             folderPickerBinding.chooseButtonSpacer.visibility = View.VISIBLE
