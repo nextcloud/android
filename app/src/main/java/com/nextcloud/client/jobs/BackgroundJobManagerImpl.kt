@@ -609,6 +609,10 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelJob(JOB_FILES_UPLOAD, user)
     }
 
+    override fun cancelFilesDownloadJob(user: User) {
+        workManager.cancelJob(JOB_FILES_DOWNLOAD, user)
+    }
+
     override fun startPdfGenerateAndUploadWork(
         user: User,
         uploadFolder: String,

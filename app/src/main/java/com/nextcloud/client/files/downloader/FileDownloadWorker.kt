@@ -37,7 +37,6 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl.Companion.JOB_FILES_DOWNLOAD
 import com.nextcloud.client.notifications.download.DownloadNotificationManager
 import com.nextcloud.java.util.Optional
-import com.nextcloud.utils.extensions.cancelWork
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -353,13 +352,15 @@ class FileDownloadWorker(
         private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
 
         fun cancelPendingOrCurrentDownloads() {
-            context.cancelWork(JOB_FILES_DOWNLOAD)
+            helper.backgroundJobManager.cancelFilesDownloadJob(currentUser.get())
         }
 
         fun cancelAllDownloadsForAccount(accountName: String?) {
-            if (currentDownload?.user?.nameEquals(accountName) == true) {
-                context.cancelWork(JOB_FILES_DOWNLOAD)
-                currentDownload?.cancel()
+            currentDownload?.user?.let {
+                if (it.nameEquals(accountName)) {
+                    helper.backgroundJobManager.cancelFilesDownloadJob(it)
+                    currentDownload?.cancel()
+                }
             }
 
             removePendingDownload(accountName)
