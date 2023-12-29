@@ -1563,7 +1563,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void observeWorkerState() {
-        WorkerStateLiveData.Companion.getInstance().observe(this, state -> {
+        WorkerStateLiveData.Companion.instance().observe(this, state -> {
             if (state instanceof WorkerState.Download) {
                 Log_OC.d(TAG, "Download worker started");
                 handleDownloadWorkerState();

@@ -307,7 +307,7 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     private void observeWorkerState() {
-        WorkerStateLiveData.Companion.getInstance().observe(this, state -> {
+        WorkerStateLiveData.Companion.instance().observe(this, state -> {
             if (state instanceof WorkerState.Download) {
                 Log_OC.d(TAG, "Download worker started");
                 isDownloadWorkStarted = true;

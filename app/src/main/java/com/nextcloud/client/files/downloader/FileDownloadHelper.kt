@@ -45,10 +45,8 @@ class FileDownloadHelper {
         private var instance: FileDownloadHelper? = null
 
         fun instance(): FileDownloadHelper {
-            return if (instance == null) {
-                FileDownloadHelper()
-            } else {
-                instance!!
+            return instance ?: synchronized(this) {
+                instance ?: FileDownloadHelper().also { instance = it }
             }
         }
     }

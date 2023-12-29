@@ -179,11 +179,11 @@ class FileDownloadWorker(
     }
 
     private fun setWorkerState(user: User?, file: DownloadFileOperation?) {
-        WorkerStateLiveData.instance?.setWorkState(WorkerState.Download(user, file))
+        WorkerStateLiveData.instance().setWorkState(WorkerState.Download(user, file))
     }
 
     private fun setIdleWorkerState() {
-        WorkerStateLiveData.instance?.setWorkState(WorkerState.Idle)
+        WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
     }
 
     private fun addAccountUpdateListener() {
