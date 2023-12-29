@@ -127,6 +127,7 @@ import com.owncloud.android.ui.preview.FileDownloadFragment;
 import com.owncloud.android.ui.preview.PreviewBitmapActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.ui.preview.PreviewMediaActivity;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -205,6 +206,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract PreviewImageActivity previewImageActivity();
+
+    @ContributesAndroidInjector
+    abstract PreviewMediaActivity previewMediaActivity();
 
     @ContributesAndroidInjector
     abstract ReceiveExternalFilesActivity receiveExternalFilesActivity();

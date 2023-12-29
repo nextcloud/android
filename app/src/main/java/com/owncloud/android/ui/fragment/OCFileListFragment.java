@@ -112,7 +112,7 @@ import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.ui.preview.PreviewMediaActivity;
 import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
@@ -139,6 +139,7 @@ import javax.inject.Inject;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.OptIn;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -146,6 +147,7 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.media3.common.util.UnstableApi;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -977,6 +979,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
+    @OptIn(markerClass = UnstableApi.class)
     public void onItemClicked(OCFile file) {
         ((FileActivity) mContainerActivity).checkInternetConnection();
 
@@ -1068,10 +1071,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         setFabVisible(false);
                         ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
                     } else if (file.isDown()) {
-                        if (PreviewMediaFragment.canBePreviewed(file)) {
+                        if (PreviewMediaActivity.Companion.canBePreviewed(file)) {
                             // media preview
                             setFabVisible(false);
-                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false);
+                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false, true);
                         } else {
                             mContainerActivity.getFileOperationsHelper().openFile(file);
                         }
@@ -1081,10 +1084,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         OCCapability capability = mContainerActivity.getStorageManager()
                             .getCapability(account.getAccountName());
 
-                        if (PreviewMediaFragment.canBePreviewed(file) && !file.isEncrypted()) {
+                        if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted()) {
                             // stream media preview on >= NC14
                             setFabVisible(false);
-                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true);
+                            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true, true);
                         } else if (editorUtils.isEditorAvailable(accountManager.getUser(),
                                                                  file.getMimeType()) &&
                             !file.isEncrypted()) {
@@ -1822,8 +1825,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     /**
-     * Theme default action bar according to provided parameters.
-     * Replaces back arrow with hamburger menu icon.
+     * Theme default action bar according to provided parameters. Replaces back arrow with hamburger menu icon.
      *
      * @param title string res id of title to be shown in action bar
      */
@@ -1834,7 +1836,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     /**
      * Theme default action bar according to provided parameters.
      *
-     * @param title title to be shown in action bar
+     * @param title          title to be shown in action bar
      * @param showBackAsMenu iff true replace back arrow with hamburger menu icon
      */
     protected void setTitle(final String title, Boolean showBackAsMenu) {
