@@ -25,8 +25,6 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.files.uploader.FileUploadWorker.Companion.currentUploadFileOperation
 import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.client.jobs.BackgroundJobManagerImpl
-import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
