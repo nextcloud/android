@@ -408,11 +408,11 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     public void requestForDownload(OCFile file, String downloadBehaviour) {
+        final User user = getUser().orElseThrow(RuntimeException::new);
+
         if (mDownloaderBinder == null) {
             Log_OC.d(TAG, "requestForDownload called without binder to download service");
-
-        } else if (!mDownloaderBinder.isDownloading()) {
-            final User user = getUser().orElseThrow(RuntimeException::new);
+        } else if (!mDownloaderBinder.isDownloading(user, file)) {
             new FileDownloadHelper().downloadFile(user, file, downloadBehaviour);
         }
     }

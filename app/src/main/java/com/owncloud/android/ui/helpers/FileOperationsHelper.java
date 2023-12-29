@@ -998,7 +998,7 @@ public class FileOperationsHelper {
 
         // for both files and folders
         FileDownloadWorker.FileDownloaderBinder downloaderBinder = fileActivity.getFileDownloaderBinder();
-        if (downloaderBinder != null && downloaderBinder.isDownloading()) {
+        if (downloaderBinder != null && downloaderBinder.isDownloading(currentUser, file)) {
             downloaderBinder.cancelPendingOrCurrentDownloads();
         }
         FileUploaderBinder uploaderBinder = fileActivity.getFileUploaderBinder();

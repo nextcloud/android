@@ -537,7 +537,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             FileDownloadWorker.FileDownloaderBinder downloaderBinder = containerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = containerActivity.getFileUploaderBinder();
             if (transferring
-                || (downloaderBinder != null && downloaderBinder.isDownloading())
+                || (downloaderBinder != null && downloaderBinder.isDownloading(user, file))
                 || (uploaderBinder != null && uploaderBinder.isUploading(user, file))) {
                 setButtonsForTransferring();
 
@@ -661,8 +661,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             binding.progressText.setVisibility(View.VISIBLE);
             FileDownloadWorker.FileDownloaderBinder downloaderBinder = containerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = containerActivity.getFileUploaderBinder();
-            //if (getFile().isDownloading()) {
-            if (downloaderBinder != null && downloaderBinder.isDownloading()) {
+            if (downloaderBinder != null && downloaderBinder.isDownloading(user, getFile())) {
                 binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
             } else {
                 if (uploaderBinder != null && uploaderBinder.isUploading(user, getFile())) {

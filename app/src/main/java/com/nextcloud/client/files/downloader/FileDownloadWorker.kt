@@ -34,10 +34,8 @@ import androidx.work.WorkerParameters
 import com.google.gson.Gson
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.jobs.BackgroundJobManagerImpl.Companion.JOB_FILES_DOWNLOAD
 import com.nextcloud.client.notifications.download.DownloadNotificationManager
 import com.nextcloud.java.util.Optional
-import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -122,6 +120,7 @@ class FileDownloadWorker(
         }
     }
 
+    // FIXME not returning multiple string for folder
     private fun getRequestDownloads(): AbstractList<String> {
         conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long?
         val file = gson.fromJson(inputData.keyValueMap[FILE] as String, OCFile::class.java)
@@ -366,8 +365,11 @@ class FileDownloadWorker(
             removePendingDownload(accountName)
         }
 
-        fun isDownloading(): Boolean {
-            return context.isWorkScheduled(JOB_FILES_DOWNLOAD)
+        fun isDownloading(user: User?, file: OCFile?): Boolean {
+            return user != null && file != null && helper.backgroundJobManager.isStartFileDownloadJobScheduled(
+                user,
+                file
+            )
         }
 
         fun addDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {

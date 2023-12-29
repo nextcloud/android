@@ -27,12 +27,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
-import androidx.work.WorkInfo
 import androidx.work.WorkManager
-import com.google.common.util.concurrent.ListenableFuture
 import com.owncloud.android.datamodel.ReceiverFlag
-import com.owncloud.android.lib.common.utils.Log_OC
-import java.util.concurrent.ExecutionException
 
 @SuppressLint("UnspecifiedRegisterReceiverFlag")
 fun Context.registerBroadcastReceiver(receiver: BroadcastReceiver?, filter: IntentFilter, flag: ReceiverFlag): Intent? {
@@ -44,23 +40,5 @@ fun Context.registerBroadcastReceiver(receiver: BroadcastReceiver?, filter: Inte
 }
 
 fun Context.isWorkScheduled(tag: String): Boolean {
-    val instance = WorkManager.getInstance(this)
-    val statuses: ListenableFuture<List<WorkInfo>> = instance.getWorkInfosByTag(tag)
-    var running = false
-    var workInfoList: List<WorkInfo> = emptyList()
-
-    try {
-        workInfoList = statuses.get()
-    } catch (e: ExecutionException) {
-        Log_OC.d("Worker", "ExecutionException in isWorkScheduled: $e")
-    } catch (e: InterruptedException) {
-        Log_OC.d("Worker", "InterruptedException in isWorkScheduled: $e")
-    }
-
-    for (workInfo in workInfoList) {
-        val state = workInfo.state
-        running = running || (state == WorkInfo.State.RUNNING || state == WorkInfo.State.ENQUEUED)
-    }
-
-    return running
+    return WorkManager.getInstance(this).isWorkScheduled(tag)
 }

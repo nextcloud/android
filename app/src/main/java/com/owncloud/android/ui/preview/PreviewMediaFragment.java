@@ -478,7 +478,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                                                                     getView(),
                                                                     backgroundJobManager);
         } else if (itemId == R.id.action_download_file) {
-            if (!containerActivity.getFileDownloaderBinder().isDownloading()) {
+            if (!containerActivity.getFileDownloaderBinder().isDownloading(user, getFile())) {
                 new FileDownloadHelper().downloadFile(user, getFile());
             }
         }
