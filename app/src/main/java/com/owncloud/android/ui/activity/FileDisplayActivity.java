@@ -73,6 +73,8 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.model.WorkerState;
+import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.view.FastScrollUtils;
@@ -160,6 +162,7 @@ import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.Unit;
@@ -285,6 +288,7 @@ public class FileDisplayActivity extends FileActivity
         checkStoragePath();
 
         initSyncBroadcastReceiver();
+        observeWorkerState();
     }
 
     @SuppressWarnings("unchecked")
@@ -1559,6 +1563,24 @@ public class FileDisplayActivity extends FileActivity
         return isRoot(getCurrentDir());
     }
 
+    private void observeWorkerState() {
+        WorkerStateLiveData.Companion.getInstance().observe(this, state -> {
+            if (state instanceof WorkerState.Download) {
+                Log_OC.d(TAG, "Download worker started");
+                handleDownloadWorkerState();
+            }
+        });
+    }
+
+    private void handleDownloadWorkerState() {
+        if (mWaitingToPreview != null && getStorageManager() != null) {
+            mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
+            if (mWaitingToPreview != null && !mWaitingToPreview.isDown()) {
+                requestForDownload();
+            }
+        }
+    }
+
     @Override
     protected ServiceConnection newTransferenceServiceConnection() {
         return new ListServiceConnection();
@@ -1572,17 +1594,7 @@ public class FileDisplayActivity extends FileActivity
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
-            if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloadWorker.class))) {
-                Log_OC.d(TAG, "Download service connected");
-                mDownloaderBinder = (FileDownloadWorker.FileDownloaderBinder) service;
-                if (mWaitingToPreview != null && getStorageManager() != null) {
-                    // update the file
-                    mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
-                    if (mWaitingToPreview != null && !mWaitingToPreview.isDown()) {
-                        requestForDownload();
-                    }
-                }
-            } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
+            if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             } else {
