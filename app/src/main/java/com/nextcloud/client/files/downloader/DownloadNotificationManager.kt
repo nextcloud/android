@@ -19,7 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.client.notifications.download
+package com.nextcloud.client.files.downloader
 
 import android.app.Notification
 import android.app.NotificationManager
