@@ -43,12 +43,10 @@ import com.nextcloud.client.files.downloader.FileDownloadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.common.operations.OperationCancelledException
 import com.owncloud.android.operations.DownloadType
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.reflect.KClass
 
 /**
@@ -545,46 +543,6 @@ internal class BackgroundJobManagerImpl(
 
     override fun isStartFileDownloadJobScheduled(user: User, file: OCFile): Boolean {
         return workManager.isWorkScheduled(startFileDownloadJobTag(user, file))
-    }
-
-    @Throws(OperationCancelledException::class)
-    override fun startFilesDownloadJob(
-        user: User,
-        files: List<OCFile>,
-        behaviour: String,
-        downloadType: DownloadType?,
-        activityName: String,
-        packageName: String,
-        conflictUploadId: Long?,
-        cancelRequest: AtomicBoolean
-    ) {
-        val workRequestList = mutableListOf<OneTimeWorkRequest>()
-
-        for (file in files) {
-            synchronized(cancelRequest) {
-                if (cancelRequest.get()) {
-                    throw OperationCancelledException()
-                }
-
-                workRequestList.add(
-                    getOneTimeDownloadRequest(
-                        user,
-                        file,
-                        behaviour,
-                        downloadType,
-                        activityName,
-                        packageName,
-                        conflictUploadId
-                    )
-                )
-            }
-        }
-
-        val chain = workManager
-            .beginWith(workRequestList.first())
-            .then(workRequestList.subList(1, workRequestList.size))
-
-        chain.enqueue()
     }
 
     override fun startFileDownloadJob(

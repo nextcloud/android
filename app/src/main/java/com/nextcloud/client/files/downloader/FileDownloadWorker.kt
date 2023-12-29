@@ -34,8 +34,10 @@ import androidx.work.WorkerParameters
 import com.google.gson.Gson
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.jobs.BackgroundJobManagerImpl.Companion.JOB_FILES_DOWNLOAD
 import com.nextcloud.client.notifications.download.DownloadNotificationManager
 import com.nextcloud.java.util.Optional
+import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
