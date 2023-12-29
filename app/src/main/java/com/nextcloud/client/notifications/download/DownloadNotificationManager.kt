@@ -48,14 +48,14 @@ class DownloadNotificationManager(private val context: Context, private val view
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     fun init() {
-        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
-            .setContentTitle(context.resources.getString(R.string.app_name))
-            .setContentText(context.resources.getString(R.string.foreground_service_download))
-            .setSmallIcon(R.drawable.notification_icon)
-            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
+        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
+            setContentTitle(context.resources.getString(R.string.app_name))
+            setContentText(context.resources.getString(R.string.worker_download))
+            setSmallIcon(R.drawable.notification_icon)
+            setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
+            }
         }
 
         notification = notificationBuilder.build()
@@ -63,62 +63,21 @@ class DownloadNotificationManager(private val context: Context, private val view
 
     @Suppress("MagicNumber")
     fun notifyForStart(operation: DownloadFileOperation) {
-        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
-            .setSmallIcon(R.drawable.notification_icon)
-            .setTicker(context.getString(R.string.downloader_download_in_progress_ticker))
-            .setContentTitle(context.getString(R.string.downloader_download_in_progress_ticker))
-            .setOngoing(true)
-            .setProgress(100, 0, operation.size < 0)
-            .setContentText(
+        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
+            setSmallIcon(R.drawable.notification_icon)
+            setTicker(context.getString(R.string.downloader_download_in_progress_ticker))
+            setContentTitle(context.getString(R.string.downloader_download_in_progress_ticker))
+            setOngoing(true)
+            setProgress(100, 0, operation.size < 0)
+            setContentText(
                 String.format(
                     context.getString(R.string.downloader_download_in_progress_content), 0,
                     File(operation.savePath).name
                 )
             )
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
-        }
-    }
-
-    @Suppress("MagicNumber")
-    fun notifyForResult(result: RemoteOperationResult<*>, download: DownloadFileOperation) {
-        dismissDownloadInProgressNotification()
-
-        val tickerId = getTickerId(result.isSuccess, null)
-        val notifyId = SecureRandom().nextInt()
-
-        val contentText = if (result.isSuccess) {
-            download.file.fileName
-        } else {
-            ErrorMessageAdapter.getErrorCauseMessage(
-                result,
-                download,
-                context.resources
-            )
-        }
-
-        notificationBuilder.run {
-            setTicker(context.getString(tickerId))
-            setContentText(contentText)
-            notificationManager.notify(notifyId, this.build())
-        }
-
-        NotificationUtils.cancelWithDelay(
-            notificationManager,
-            notifyId,
-            2000
-        )
-    }
-
-    private fun getTickerId(isSuccess: Boolean, needsToUpdateCredentials: Boolean?): Int {
-        return if (needsToUpdateCredentials == true) {
-            R.string.downloader_download_failed_credentials_error
-        } else {
-            if (isSuccess) {
-                R.string.downloader_download_succeeded_ticker
-            } else {
-                R.string.downloader_download_failed_ticker
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
             }
         }
     }
@@ -135,6 +94,51 @@ class DownloadNotificationManager(private val context: Context, private val view
             .setAutoCancel(true)
             .setOngoing(false)
             .setProgress(0, 0, false)
+    }
+
+    @Suppress("MagicNumber")
+    fun notifyForResult(result: RemoteOperationResult<*>, download: DownloadFileOperation) {
+        dismissDownloadInProgressNotification()
+
+        val tickerId = getTickerId(result.isSuccess, null)
+        val notifyId = SecureRandom().nextInt()
+        val resultText = getResultText(result, download)
+
+        notificationBuilder.run {
+            setTicker(context.getString(tickerId))
+            setContentText(resultText)
+            notificationManager.notify(notifyId, this.build())
+        }
+
+        NotificationUtils.cancelWithDelay(
+            notificationManager,
+            notifyId,
+            2000
+        )
+    }
+
+    private fun getResultText(result: RemoteOperationResult<*>, download: DownloadFileOperation): String {
+        return if (result.isSuccess) {
+            download.file.fileName
+        } else {
+            ErrorMessageAdapter.getErrorCauseMessage(
+                result,
+                download,
+                context.resources
+            )
+        }
+    }
+
+    private fun getTickerId(isSuccess: Boolean, needsToUpdateCredentials: Boolean?): Int {
+        return if (needsToUpdateCredentials == true) {
+            R.string.downloader_download_failed_credentials_error
+        } else {
+            if (isSuccess) {
+                R.string.downloader_download_succeeded_ticker
+            } else {
+                R.string.downloader_download_failed_ticker
+            }
+        }
     }
 
     @Suppress("MagicNumber")
