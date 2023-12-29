@@ -77,8 +77,6 @@ class FileDownloadHelper {
 
             currentDownload.cancel()
         }
-
-        // removePendingDownload(accountName)
     }
 
     fun saveFile(

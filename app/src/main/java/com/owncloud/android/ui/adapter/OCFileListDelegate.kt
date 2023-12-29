@@ -365,7 +365,6 @@ class OCFileListDelegate(
                 visibility = View.VISIBLE
             }
         }
-
     }
 
     private fun showShareIcon(gridViewHolder: ListGridImageViewHolder, file: OCFile) {
