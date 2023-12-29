@@ -145,7 +145,7 @@ interface BackgroundJobManager {
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
     fun cancelFilesUploadJob(user: User)
 
-    fun cancelFilesDownloadJob(user: User)
+    fun cancelFilesDownloadJob(user: User, file: OCFile)
 
     fun isStartFileDownloadJobScheduled(user: User, file: OCFile): Boolean
 

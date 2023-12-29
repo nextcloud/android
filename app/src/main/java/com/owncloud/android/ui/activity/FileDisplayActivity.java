@@ -1564,6 +1564,7 @@ public class FileDisplayActivity extends FileActivity
         return new ListServiceConnection();
     }
 
+    // FIXME ServiceConnection will not trigger anymore
     /**
      * Defines callbacks for service binding, passed to bindService()
      */
@@ -1885,8 +1886,8 @@ public class FileDisplayActivity extends FileActivity
 
     private void requestForDownload() {
         User user = getUser().orElseThrow(RuntimeException::new);
-        if (!mDownloaderBinder.isDownloading(user, mWaitingToPreview)) {
-            new FileDownloadHelper().downloadFile(user, mWaitingToPreview);
+        if (!fileDownloadHelper.isDownloading(user, mWaitingToPreview)) {
+            fileDownloadHelper.downloadFile(user, mWaitingToPreview);
         }
     }
 
@@ -1957,8 +1958,8 @@ public class FileDisplayActivity extends FileActivity
 
     private void requestForDownload(OCFile file, String downloadBehaviour, String packageName, String activityName) {
         final User currentUser = getUser().orElseThrow(RuntimeException::new);
-        if (!mDownloaderBinder.isDownloading(currentUser, file)) {
-            new FileDownloadHelper().downloadFile(currentUser, file, downloadBehaviour, DownloadType.DOWNLOAD, activityName, packageName, null);
+        if (!fileDownloadHelper.isDownloading(currentUser, file)) {
+            fileDownloadHelper.downloadFile(currentUser, file, downloadBehaviour, DownloadType.DOWNLOAD, activityName, packageName, null);
         }
     }
 

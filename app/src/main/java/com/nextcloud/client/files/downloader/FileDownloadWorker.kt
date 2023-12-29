@@ -351,13 +351,18 @@ class FileDownloadWorker(
         private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
 
         fun cancelPendingOrCurrentDownloads() {
-            helper.backgroundJobManager.cancelFilesDownloadJob(currentUser.get())
+            currentDownload?.file?.let { file ->
+                helper.backgroundJobManager.cancelFilesDownloadJob(currentUser.get(), file)
+            }
         }
 
         fun cancelAllDownloadsForAccount(accountName: String?) {
             currentDownload?.user?.let {
                 if (it.nameEquals(accountName)) {
-                    helper.backgroundJobManager.cancelFilesDownloadJob(it)
+                    currentDownload?.file?.let { file ->
+                        helper.backgroundJobManager.cancelFilesDownloadJob(it, file)
+                    }
+
                     currentDownload?.cancel()
                 }
             }

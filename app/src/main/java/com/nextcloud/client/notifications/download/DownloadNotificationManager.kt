@@ -89,7 +89,7 @@ class DownloadNotificationManager(private val context: Context, private val view
         val notifyId = SecureRandom().nextInt()
 
         val contentText = if (result.isSuccess) {
-            context.getString(R.string.downloader_download_succeeded_ticker)
+            download.file.fileName + " " + context.getString(R.string.downloader_download_succeeded_ticker)
         } else {
             ErrorMessageAdapter.getErrorCauseMessage(
                 result,

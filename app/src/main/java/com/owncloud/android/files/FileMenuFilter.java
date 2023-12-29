@@ -31,6 +31,7 @@ import android.view.Menu;
 import com.nextcloud.android.files.FileLockingHelper;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.editimage.EditImageActivity;
+import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.R;
@@ -380,9 +381,9 @@ public class FileMenuFilter {
         if (componentsGetter != null && !files.isEmpty() && user != null) {
             OperationsServiceBinder opsBinder = componentsGetter.getOperationsServiceBinder();
             FileUploaderBinder uploaderBinder = componentsGetter.getFileUploaderBinder();
-            FileDownloadWorker.FileDownloaderBinder downloaderBinder = componentsGetter.getFileDownloaderBinder();
+            FileDownloadHelper fileDownloadHelper = new FileDownloadHelper();
             synchronizing = anyFileSynchronizing(opsBinder) ||      // comparing local and remote
-                            anyFileDownloading(downloaderBinder) ||
+                            anyFileDownloading(fileDownloadHelper) ||
                             anyFileUploading(uploaderBinder);
         }
         return synchronizing;
@@ -398,15 +399,14 @@ public class FileMenuFilter {
         return synchronizing;
     }
 
-    private boolean anyFileDownloading(FileDownloadWorker.FileDownloaderBinder downloaderBinder) {
-        boolean downloading = false;
-
-        if (downloaderBinder != null) {
-            for (Iterator<OCFile> iterator = files.iterator(); !downloading && iterator.hasNext(); ) {
-                downloading = downloaderBinder.isDownloading(user, iterator.next());
+    private boolean anyFileDownloading(FileDownloadHelper downloadHelper) {
+        for (OCFile file : files) {
+            if (downloadHelper.isDownloading(user, file)) {
+                return true;
             }
         }
-        return downloading;
+
+        return false;
     }
 
     private boolean anyFileUploading(FileUploaderBinder uploaderBinder) {

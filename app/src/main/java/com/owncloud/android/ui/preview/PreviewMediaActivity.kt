@@ -65,6 +65,8 @@ import androidx.media3.ui.PlayerView
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.files.downloader.FileDownloadHelper
+import com.nextcloud.client.files.downloader.FileDownloadWorker
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
@@ -80,8 +82,6 @@ import com.owncloud.android.databinding.ActivityPreviewMediaBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.files.StreamMediaFileOperation
-import com.owncloud.android.files.services.FileDownloader
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener
 import com.owncloud.android.lib.common.operations.RemoteOperation
@@ -576,14 +576,14 @@ class PreviewMediaActivity :
     private inner class PreviewMediaServiceConnection : ServiceConnection {
         override fun onServiceConnected(componentName: ComponentName?, service: IBinder?) {
             componentName?.let {
-                if (it == ComponentName(this@PreviewMediaActivity, FileDownloader::class.java)) {
-                    mDownloaderBinder = service as FileDownloaderBinder
+                if (it == ComponentName(this@PreviewMediaActivity, FileDownloadWorker::class.java)) {
+                    mDownloaderBinder = service as FileDownloadWorker.FileDownloaderBinder
                 }
             }
         }
 
         override fun onServiceDisconnected(componentName: ComponentName?) {
-            if (componentName == ComponentName(this@PreviewMediaActivity, FileDownloader::class.java)) {
+            if (componentName == ComponentName(this@PreviewMediaActivity, FileDownloadWorker::class.java)) {
                 Log_OC.d(PreviewImageActivity.TAG, "Download service suddenly disconnected")
                 mDownloaderBinder = null
             }
@@ -600,21 +600,21 @@ class PreviewMediaActivity :
         packageName: String? = null,
         activityName: String? = null
     ) {
-        if (fileDownloaderBinder.isDownloading(user, file)) {
+        if (fileDownloadHelper.isDownloading(user, file)) {
             return
         }
 
-        val intent = Intent(this, FileDownloader::class.java).apply {
-            putExtra(FileDownloader.EXTRA_USER, user)
-            putExtra(FileDownloader.EXTRA_FILE, file)
-            downloadBehavior?.let { behavior ->
-                putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, behavior)
+        user?.let { user ->
+            file?.let { file ->
+                fileDownloadHelper.downloadFile(
+                    user,
+                    file,
+                    downloadBehavior ?: "",
+                    packageName ?: "",
+                    activityName ?: ""
+                )
             }
-            putExtra(SendShareDialog.PACKAGE_NAME, packageName)
-            putExtra(SendShareDialog.ACTIVITY_NAME, activityName)
         }
-
-        startService(intent)
     }
 
     private fun seeDetails() {

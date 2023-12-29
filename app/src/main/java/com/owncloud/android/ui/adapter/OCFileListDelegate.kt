@@ -32,6 +32,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
+import com.nextcloud.client.files.downloader.FileDownloadHelper
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.createRoundedOutline
 import com.owncloud.android.R
@@ -340,11 +341,11 @@ class OCFileListDelegate(
 
     private fun showLocalFileIndicator(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
-        val fileDownloaderBinder = transferServiceGetter.fileDownloaderBinder
+        val fileDownloadHelper = FileDownloadHelper()
         val fileUploaderBinder = transferServiceGetter.fileUploaderBinder
         when {
             operationsServiceBinder?.isSynchronizing(user, file) == true ||
-                fileDownloaderBinder?.isDownloading(user, file) == true ||
+                fileDownloadHelper.isDownloading(user, file) ||
                 fileUploaderBinder?.isUploading(user, file) == true -> {
                 // synchronizing, downloading or uploading
                 gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing)

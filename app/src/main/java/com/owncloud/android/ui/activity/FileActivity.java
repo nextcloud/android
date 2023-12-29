@@ -166,6 +166,7 @@ public abstract class FileActivity extends DrawerActivity
 
     private boolean mResumed;
 
+    protected FileDownloadHelper fileDownloadHelper = new FileDownloadHelper();
     protected FileDownloadWorker.FileDownloaderBinder mDownloaderBinder;
     protected FileUploaderBinder mUploaderBinder;
     private ServiceConnection mUploadServiceConnection;
