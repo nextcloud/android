@@ -148,6 +148,8 @@ interface BackgroundJobManager {
 
     fun cancelFilesDownloadJob(user: User)
 
+    fun isStartFileDownloadJobScheduled(user: User, file: OCFile): Boolean
+
     @Suppress("LongParameterList")
     fun startFilesDownloadJob(
         user: User,

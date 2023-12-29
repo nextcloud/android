@@ -400,9 +400,10 @@ public class FileMenuFilter {
 
     private boolean anyFileDownloading(FileDownloadWorker.FileDownloaderBinder downloaderBinder) {
         boolean downloading = false;
+
         if (downloaderBinder != null) {
             for (Iterator<OCFile> iterator = files.iterator(); !downloading && iterator.hasNext(); ) {
-                downloading = downloaderBinder.isDownloading();
+                downloading = downloaderBinder.isDownloading(user, iterator.next());
             }
         }
         return downloading;

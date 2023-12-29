@@ -21,24 +21,29 @@
 
 package com.nextcloud.utils.extensions
 
-import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.os.Build
+import androidx.work.WorkInfo
 import androidx.work.WorkManager
-import com.owncloud.android.datamodel.ReceiverFlag
+import com.google.common.util.concurrent.ListenableFuture
+import com.owncloud.android.lib.common.utils.Log_OC
+import java.util.concurrent.ExecutionException
 
-@SuppressLint("UnspecifiedRegisterReceiverFlag")
-fun Context.registerBroadcastReceiver(receiver: BroadcastReceiver?, filter: IntentFilter, flag: ReceiverFlag): Intent? {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        registerReceiver(receiver, filter, flag.getId())
-    } else {
-        registerReceiver(receiver, filter)
+fun WorkManager.isWorkScheduled(tag: String): Boolean {
+    val statuses: ListenableFuture<List<WorkInfo>> = this.getWorkInfosByTag(tag)
+    var running = false
+    var workInfoList: List<WorkInfo> = emptyList()
+
+    try {
+        workInfoList = statuses.get()
+    } catch (e: ExecutionException) {
+        Log_OC.d("Worker", "ExecutionException in isWorkScheduled: $e")
+    } catch (e: InterruptedException) {
+        Log_OC.d("Worker", "InterruptedException in isWorkScheduled: $e")
     }
-}
 
-fun Context.isWorkScheduled(tag: String): Boolean {
-    return WorkManager.getInstance(this).isWorkScheduled(tag)
+    for (workInfo in workInfoList) {
+        val state = workInfo.state
+        running = running || (state == WorkInfo.State.RUNNING || state == WorkInfo.State.ENQUEUED)
+    }
+
+    return running
 }

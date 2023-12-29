@@ -41,6 +41,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.files.downloader.FileDownloadWorker
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.OperationCancelledException
 import com.owncloud.android.operations.DownloadType
@@ -538,6 +539,14 @@ internal class BackgroundJobManagerImpl(
             .build()
     }
 
+    private fun startFileDownloadJobTag(user: User, file: OCFile): String {
+        return JOB_FILES_DOWNLOAD + user.accountName + file.fileId
+    }
+
+    override fun isStartFileDownloadJobScheduled(user: User, file: OCFile): Boolean {
+        return workManager.isWorkScheduled(startFileDownloadJobTag(user, file))
+    }
+
     @Throws(OperationCancelledException::class)
     override fun startFilesDownloadJob(
         user: User,
@@ -597,7 +606,8 @@ internal class BackgroundJobManagerImpl(
             conflictUploadId
         )
 
-        workManager.enqueueUniqueWork(JOB_FILES_DOWNLOAD + user.accountName, ExistingWorkPolicy.REPLACE, request)
+        val tag = startFileDownloadJobTag(user, ocFile)
+        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, request)
     }
 
     override fun getFileUploads(user: User): LiveData<List<JobInfo>> {
