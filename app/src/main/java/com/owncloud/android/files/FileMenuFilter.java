@@ -380,9 +380,8 @@ public class FileMenuFilter {
         if (componentsGetter != null && !files.isEmpty() && user != null) {
             OperationsServiceBinder opsBinder = componentsGetter.getOperationsServiceBinder();
             FileUploaderBinder uploaderBinder = componentsGetter.getFileUploaderBinder();
-            FileDownloadHelper fileDownloadHelper = new FileDownloadHelper();
             synchronizing = anyFileSynchronizing(opsBinder) ||      // comparing local and remote
-                            anyFileDownloading(fileDownloadHelper) ||
+                            anyFileDownloading() ||
                             anyFileUploading(uploaderBinder);
         }
         return synchronizing;
@@ -398,9 +397,9 @@ public class FileMenuFilter {
         return synchronizing;
     }
 
-    private boolean anyFileDownloading(FileDownloadHelper downloadHelper) {
+    private boolean anyFileDownloading() {
         for (OCFile file : files) {
-            if (downloadHelper.isDownloading(user, file)) {
+            if (FileDownloadHelper.Companion.instance().isDownloading(user, file)) {
                 return true;
             }
         }

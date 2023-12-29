@@ -445,14 +445,12 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
     private void startDirectDownloads() throws OperationCancelledException {
-        FileDownloadHelper downloadHelper = new FileDownloadHelper();
-
         for (OCFile file : mFilesForDirectDownload) {
             synchronized(mCancellationRequested) {
                 if (mCancellationRequested.get()) {
                     throw new OperationCancelledException();
                 }
-                downloadHelper.downloadFile(user, file);
+                FileDownloadHelper.Companion.instance().downloadFile(user, file);
             }
         }
     }

@@ -65,6 +65,7 @@ import com.nextcloud.client.core.AsyncRunner;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.files.DeepLinkHandler;
+import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
@@ -1896,9 +1897,7 @@ public class FileDisplayActivity extends FileActivity
 
     private void requestForDownload() {
         User user = getUser().orElseThrow(RuntimeException::new);
-        if (!fileDownloadHelper.isDownloading(user, mWaitingToPreview)) {
-            fileDownloadHelper.downloadFile(user, mWaitingToPreview);
-        }
+        FileDownloadHelper.Companion.instance().downloadFileIfNotStartedBefore(user, mWaitingToPreview);
     }
 
     @Override
@@ -1968,8 +1967,8 @@ public class FileDisplayActivity extends FileActivity
 
     private void requestForDownload(OCFile file, String downloadBehaviour, String packageName, String activityName) {
         final User currentUser = getUser().orElseThrow(RuntimeException::new);
-        if (!fileDownloadHelper.isDownloading(currentUser, file)) {
-            fileDownloadHelper.downloadFile(currentUser, file, downloadBehaviour, DownloadType.DOWNLOAD, activityName, packageName, null);
+        if (!FileDownloadHelper.Companion.instance().isDownloading(currentUser, file)) {
+            FileDownloadHelper.Companion.instance().downloadFile(currentUser, file, downloadBehaviour, DownloadType.DOWNLOAD, activityName, packageName, null);
         }
     }
 

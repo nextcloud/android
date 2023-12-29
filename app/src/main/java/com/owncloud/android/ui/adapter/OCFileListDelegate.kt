@@ -341,27 +341,31 @@ class OCFileListDelegate(
 
     private fun showLocalFileIndicator(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
-        val fileDownloadHelper = FileDownloadHelper()
         val fileUploaderBinder = transferServiceGetter.fileUploaderBinder
-        when {
+
+        val icon: Int? = when {
             operationsServiceBinder?.isSynchronizing(user, file) == true ||
-                fileDownloadHelper.isDownloading(user, file) ||
+                FileDownloadHelper.instance().isDownloading(user, file) ||
                 fileUploaderBinder?.isUploading(user, file) == true -> {
                 // synchronizing, downloading or uploading
-                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing)
-                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
+                R.drawable.ic_synchronizing
             }
             file.etagInConflict != null -> {
-                // conflict
-                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing_error)
-                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
+                R.drawable.ic_synchronizing_error
             }
             file.isDown -> {
-                // downloaded
-                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synced)
-                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
+                R.drawable.ic_synced
+            }
+            else -> { null }
+        }
+
+        gridViewHolder.localFileIndicator.run {
+            icon?.let {
+                setImageResource(icon)
+                visibility = View.VISIBLE
             }
         }
+
     }
 
     private fun showShareIcon(gridViewHolder: ListGridImageViewHolder, file: OCFile) {

@@ -62,6 +62,7 @@ import androidx.media3.ui.PlayerView
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.files.downloader.FileDownloadHelper
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
@@ -82,6 +83,7 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.SynchronizeFileOperation
 import com.owncloud.android.ui.activity.FileActivity
@@ -574,16 +576,17 @@ class PreviewMediaActivity :
         packageName: String? = null,
         activityName: String? = null
     ) {
-        if (fileDownloadHelper.isDownloading(user, file)) {
+        if (FileDownloadHelper.instance().isDownloading(user, file)) {
             return
         }
 
         user?.let { user ->
             file?.let { file ->
-                fileDownloadHelper.downloadFile(
+                FileDownloadHelper.instance().downloadFile(
                     user,
                     file,
                     downloadBehavior ?: "",
+                    DownloadType.DOWNLOAD,
                     packageName ?: "",
                     activityName ?: ""
                 )

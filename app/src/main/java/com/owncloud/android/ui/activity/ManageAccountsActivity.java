@@ -41,6 +41,7 @@ import android.view.View;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.java.util.Optional;
@@ -341,7 +342,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                     mUploaderBinder.cancel(accountName);
                 }
 
-                fileDownloadHelper.cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload);
+                FileDownloadHelper.Companion.instance().cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload);
             }
 
             User currentUser = getUserAccountManager().getUser();
@@ -431,7 +432,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
             mUploaderBinder.cancel(user);
         }
 
-        fileDownloadHelper.cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload);
+        FileDownloadHelper.Companion.instance().cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload);
 
         backgroundJobManager.startAccountRemovalJob(user.getAccountName(), false);
 
