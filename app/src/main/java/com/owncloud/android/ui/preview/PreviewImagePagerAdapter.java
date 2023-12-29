@@ -19,7 +19,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import android.content.Intent;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
