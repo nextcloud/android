@@ -26,8 +26,6 @@ import android.accounts.AccountManager
 import android.accounts.OnAccountsUpdateListener
 import android.app.PendingIntent
 import android.content.Context
-import android.os.Binder
-import android.os.IBinder
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -97,12 +95,13 @@ class FileDownloadWorker(
     private val intents = FileDownloadIntents(context)
     private val notificationManager = DownloadNotificationManager(context, viewThemeUtils)
     private val pendingDownloads = IndexedForest<DownloadFileOperation>()
-    private var downloadBinder: IBinder = FileDownloaderBinder()
+    private var downloadProgressListener = FileDownloadProgressListener()
     private var currentUser = Optional.empty<User>()
     private val helper = FileDownloadHelper()
     private var startedDownload = false
     private var storageManager: FileDataStorageManager? = null
     private var downloadClient: OwnCloudClient? = null
+    private var user: User? = null
     private val gson = Gson()
 
     @Suppress("TooGenericExceptionCaught")
@@ -122,11 +121,16 @@ class FileDownloadWorker(
         }
     }
 
+    override fun onStopped() {
+        super.onStopped()
+        setIdleWorkerState()
+    }
+
     private fun getRequestDownloads(): AbstractList<String> {
         conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long?
         val file = gson.fromJson(inputData.keyValueMap[FILE] as String, OCFile::class.java)
         val accountName = inputData.keyValueMap[USER_NAME] as String
-        val user = accountManager.getUser(accountName).get()
+        user = accountManager.getUser(accountName).get()
         val downloadTypeAsString = inputData.keyValueMap[DOWNLOAD_TYPE] as String?
         val downloadType = if (downloadTypeAsString != null) {
             if (downloadTypeAsString == DownloadType.DOWNLOAD.toString()) {
@@ -140,7 +144,6 @@ class FileDownloadWorker(
         val behaviour = inputData.keyValueMap[BEHAVIOUR] as String
         val activityName = inputData.keyValueMap[ACTIVITY_NAME] as String
         val packageName = inputData.keyValueMap[PACKAGE_NAME] as String
-        setWorkerState(user, file)
 
         val requestedDownloads: AbstractList<String> = Vector()
 
@@ -156,7 +159,7 @@ class FileDownloadWorker(
             )
 
             operation.addDownloadDataTransferProgressListener(this)
-            operation.addDownloadDataTransferProgressListener(downloadBinder as FileDownloaderBinder)
+            operation.addDownloadDataTransferProgressListener(downloadProgressListener)
             val putResult = pendingDownloads.putIfAbsent(
                 user?.accountName,
                 file.remotePath,
@@ -176,8 +179,12 @@ class FileDownloadWorker(
         }
     }
 
-    private fun setWorkerState(user: User, file: OCFile) {
+    private fun setWorkerState(user: User?, file: DownloadFileOperation?) {
         WorkerStateLiveData.instance?.setWorkState(WorkerState.Download(user, file))
+    }
+
+    private fun setIdleWorkerState() {
+        WorkerStateLiveData.instance?.setWorkState(WorkerState.Idle)
     }
 
     private fun addAccountUpdateListener() {
@@ -205,6 +212,7 @@ class FileDownloadWorker(
         if (currentDownload == null) {
             return
         }
+        setWorkerState(user, currentDownload)
 
         val isAccountExist = accountManager.exists(currentDownload?.user?.toPlatformAccount())
         if (!isAccountExist) {
@@ -354,34 +362,11 @@ class FileDownloadWorker(
         lastPercent = percent
     }
 
-    inner class FileDownloaderBinder : Binder(), OnDatatransferProgressListener {
+    inner class FileDownloadProgressListener : OnDatatransferProgressListener {
         private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
 
-        fun cancelPendingOrCurrentDownloads() {
-            currentDownload?.file?.let { file ->
-                helper.backgroundJobManager.cancelFilesDownloadJob(currentUser.get(), file)
-            }
-        }
-
-        fun cancelAllDownloadsForAccount(accountName: String?) {
-            currentDownload?.user?.let {
-                if (it.nameEquals(accountName)) {
-                    currentDownload?.file?.let { file ->
-                        helper.backgroundJobManager.cancelFilesDownloadJob(it, file)
-                    }
-
-                    currentDownload?.cancel()
-                }
-            }
-
-            removePendingDownload(accountName)
-        }
-
         fun isDownloading(user: User?, file: OCFile?): Boolean {
-            return user != null && file != null && helper.backgroundJobManager.isStartFileDownloadJobScheduled(
-                user,
-                file
-            )
+            return helper.isDownloading(user, file)
         }
 
         fun addDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {

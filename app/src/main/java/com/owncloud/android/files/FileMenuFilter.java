@@ -32,7 +32,6 @@ import com.nextcloud.android.files.FileLockingHelper;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.files.downloader.FileDownloadHelper;
-import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;

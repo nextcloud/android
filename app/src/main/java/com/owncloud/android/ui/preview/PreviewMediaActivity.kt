@@ -27,9 +27,7 @@
 package com.owncloud.android.ui.preview
 
 import android.app.Activity
-import android.content.ComponentName
 import android.content.Intent
-import android.content.ServiceConnection
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -39,7 +37,6 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
-import android.os.IBinder
 import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
@@ -65,8 +62,6 @@ import androidx.media3.ui.PlayerView
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.files.downloader.FileDownloadHelper
-import com.nextcloud.client.files.downloader.FileDownloadWorker
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
@@ -563,30 +558,9 @@ class PreviewMediaActivity :
         }
     }
 
-    override fun newTransferenceServiceConnection(): ServiceConnection {
-        return PreviewMediaServiceConnection()
-    }
-
     private fun onSynchronizeFileOperationFinish(result: RemoteOperationResult<*>?) {
         result?.let {
             invalidateOptionsMenu()
-        }
-    }
-
-    private inner class PreviewMediaServiceConnection : ServiceConnection {
-        override fun onServiceConnected(componentName: ComponentName?, service: IBinder?) {
-            componentName?.let {
-                if (it == ComponentName(this@PreviewMediaActivity, FileDownloadWorker::class.java)) {
-                    mDownloaderBinder = service as FileDownloadWorker.FileDownloaderBinder
-                }
-            }
-        }
-
-        override fun onServiceDisconnected(componentName: ComponentName?) {
-            if (componentName == ComponentName(this@PreviewMediaActivity, FileDownloadWorker::class.java)) {
-                Log_OC.d(PreviewImageActivity.TAG, "Download service suddenly disconnected")
-                mDownloaderBinder = null
-            }
         }
     }
 

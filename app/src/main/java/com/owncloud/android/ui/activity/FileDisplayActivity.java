@@ -65,7 +65,6 @@ import com.nextcloud.client.core.AsyncRunner;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.files.DeepLinkHandler;
-import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
@@ -162,7 +161,6 @@ import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.Unit;
@@ -1620,7 +1618,7 @@ public class FileDisplayActivity extends FileActivity
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloadWorker.class))) {
                 Log_OC.d(TAG, "Download service disconnected");
-                mDownloaderBinder = null;
+                fileDownloadProgressListener = null;
             } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service disconnected");
                 mUploaderBinder = null;

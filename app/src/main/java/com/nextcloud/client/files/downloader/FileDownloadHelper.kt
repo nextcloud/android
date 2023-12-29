@@ -27,13 +27,14 @@ import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
 import javax.inject.Inject
 
-class FileDownloadHelper {
+class FileDownloadHelper : OnDatatransferProgressListener {
 
     @Inject
     lateinit var backgroundJobManager: BackgroundJobManager
@@ -41,8 +42,49 @@ class FileDownloadHelper {
     @Inject
     lateinit var uploadsStorageManager: UploadsStorageManager
 
+    private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
+    private var currentDownload: DownloadFileOperation? = null
+
     init {
         MainApp.getAppComponent().inject(this)
+    }
+
+    fun addDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
+        if (file == null || listener == null) {
+            return
+        }
+
+        boundListeners[file.fileId] = listener
+    }
+
+    fun removeDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
+        if (file == null || listener == null) {
+            return
+        }
+
+        val fileId = file.fileId
+        if (boundListeners[fileId] === listener) {
+            boundListeners.remove(fileId)
+        }
+    }
+
+    override fun onTransferProgress(
+        progressRate: Long,
+        totalTransferredSoFar: Long,
+        totalToTransfer: Long,
+        fileName: String
+    ) {
+        val listener = boundListeners[currentDownload?.file?.fileId]
+        listener?.onTransferProgress(
+            progressRate,
+            totalTransferredSoFar,
+            totalToTransfer,
+            fileName
+        )
+    }
+
+    fun setCurrentDownload(operation: DownloadFileOperation) {
+        currentDownload = operation
     }
 
     fun isDownloading(user: User?, file: OCFile?): Boolean {
@@ -50,6 +92,23 @@ class FileDownloadHelper {
             user,
             file
         )
+    }
+
+    fun cancelPendingOrCurrentDownloads(user: User?, file: OCFile?) {
+        if (user == null || file == null) return
+        backgroundJobManager.cancelFilesDownloadJob(user, file)
+    }
+
+    fun cancelAllDownloadsForAccount(accountName: String?, currentDownload: DownloadFileOperation) {
+        if (currentDownload.user.nameEquals(accountName)) {
+            currentDownload.file?.let { file ->
+                backgroundJobManager.cancelFilesDownloadJob(currentDownload.user, file)
+            }
+
+            currentDownload.cancel()
+        }
+
+        // removePendingDownload(accountName)
     }
 
     fun saveFile(

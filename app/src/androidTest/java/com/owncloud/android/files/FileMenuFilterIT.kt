@@ -62,7 +62,7 @@ class FileMenuFilterIT : AbstractIT() {
     private lateinit var mockFileUploaderBinder: FileUploader.FileUploaderBinder
 
     @MockK
-    private lateinit var mockFileDownloaderBinder: FileDownloadWorker.FileDownloaderBinder
+    private lateinit var mockFileDownloadProgressListener: FileDownloadWorker.FileDownloadProgressListener
 
     @MockK
     private lateinit var mockOperationsServiceBinder: OperationsService.OperationsServiceBinder
@@ -77,8 +77,8 @@ class FileMenuFilterIT : AbstractIT() {
         MockKAnnotations.init(this)
         every { mockFileUploaderBinder.isUploading(any(), any()) } returns false
         every { mockComponentsGetter.fileUploaderBinder } returns mockFileUploaderBinder
-        every { mockFileDownloaderBinder.isDownloading(any(), any()) } returns false
-        every { mockComponentsGetter.fileDownloaderBinder } returns mockFileDownloaderBinder
+        every { mockFileDownloadProgressListener.isDownloading(any(), any()) } returns false
+        every { mockComponentsGetter.fileDownloadProgressListener } returns mockFileDownloadProgressListener
         every { mockOperationsServiceBinder.isSynchronizing(any(), any()) } returns false
         every { mockComponentsGetter.operationsServiceBinder } returns mockOperationsServiceBinder
         every { mockStorageManager.getFileById(any()) } returns OCFile("/")

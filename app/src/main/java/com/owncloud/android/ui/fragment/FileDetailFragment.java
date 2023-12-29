@@ -45,7 +45,6 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.downloader.FileDownloadHelper;
-import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
@@ -694,8 +693,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     public void listenForTransferProgress() {
         if (progressListener != null) {
-            if (containerActivity.getFileDownloaderBinder() != null) {
-                containerActivity.getFileDownloaderBinder().
+            if (containerActivity.getFileDownloadProgressListener() != null) {
+                containerActivity.getFileDownloadProgressListener().
                     addDataTransferProgressListener(progressListener, getFile());
             }
             if (containerActivity.getFileUploaderBinder() != null) {
@@ -709,8 +708,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void leaveTransferProgress() {
         if (progressListener != null) {
-            if (containerActivity.getFileDownloaderBinder() != null) {
-                containerActivity.getFileDownloaderBinder().
+            if (containerActivity.getFileDownloadProgressListener() != null) {
+                containerActivity.getFileDownloadProgressListener().
                     removeDataTransferProgressListener(progressListener, getFile());
             }
             if (containerActivity.getFileUploaderBinder() != null) {

@@ -32,9 +32,9 @@ public interface ComponentsGetter {
      * To be invoked when the parent activity is fully created to get a reference
      * to the FileDownloadWorker.
      */
-    public FileDownloadWorker.FileDownloaderBinder getFileDownloaderBinder();
+    public FileDownloadWorker.FileDownloadProgressListener getFileDownloadProgressListener();
 
-    
+
     /**
      * To be invoked when the parent activity is fully created to get a reference
      * to the FileUploader service API.

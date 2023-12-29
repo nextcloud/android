@@ -130,7 +130,7 @@ class TestActivity :
         return null
     }
 
-    override fun getFileDownloaderBinder(): FileDownloadWorker.FileDownloaderBinder? {
+    override fun getFileDownloadProgressListener(): FileDownloadWorker.FileDownloadProgressListener? {
         return null
     }
 

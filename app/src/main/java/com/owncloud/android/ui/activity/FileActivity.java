@@ -167,7 +167,7 @@ public abstract class FileActivity extends DrawerActivity
     private boolean mResumed;
 
     protected FileDownloadHelper fileDownloadHelper = new FileDownloadHelper();
-    protected FileDownloadWorker.FileDownloaderBinder mDownloaderBinder;
+    protected FileDownloadWorker.FileDownloadProgressListener fileDownloadProgressListener;
     protected FileUploaderBinder mUploaderBinder;
     private ServiceConnection mUploadServiceConnection;
 
@@ -613,8 +613,8 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     @Override
-    public FileDownloadWorker.FileDownloaderBinder getFileDownloaderBinder() {
-        return mDownloaderBinder;
+    public FileDownloadWorker.FileDownloadProgressListener getFileDownloadProgressListener() {
+        return fileDownloadProgressListener;
     }
 
     @Override
