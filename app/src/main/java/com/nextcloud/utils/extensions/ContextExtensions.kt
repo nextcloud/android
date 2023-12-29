@@ -27,7 +27,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
-import androidx.work.WorkManager
 import com.owncloud.android.datamodel.ReceiverFlag
 
 @SuppressLint("UnspecifiedRegisterReceiverFlag")
@@ -37,8 +36,4 @@ fun Context.registerBroadcastReceiver(receiver: BroadcastReceiver?, filter: Inte
     } else {
         registerReceiver(receiver, filter)
     }
-}
-
-fun Context.isWorkScheduled(tag: String): Boolean {
-    return WorkManager.getInstance(this).isWorkScheduled(tag)
 }

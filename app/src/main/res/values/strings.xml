@@ -636,7 +636,7 @@
     <string name="resharing_is_not_allowed">Resharing is not allowed</string>
 
     <string name="foreground_service_upload">Uploading files…</string>
-    <string name="foreground_service_download">Downloading files…</string>
+    <string name="worker_download">Downloading files…</string>
 
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_license">License</string>
