@@ -26,6 +26,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -56,7 +57,10 @@ class UploadNotificationManager(private val context: Context, private val viewTh
             setContentText(context.getString(R.string.worker_upload))
             setSmallIcon(R.drawable.notification_icon)
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-            setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
+            }
         }
 
         notification = notificationBuilder.build()
@@ -83,7 +87,9 @@ class UploadNotificationManager(private val context: Context, private val viewTh
                 context.getString(R.string.common_cancel),
                 pendingIntent
             )
-            setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
+            }
             setContentIntent(startIntent)
         }
 
