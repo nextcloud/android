@@ -80,19 +80,6 @@ class FileDownloadHelper {
         storageManager?.saveConflict(file, null)
     }
 
-    fun downloadFiles(user: User, ocFile: List<OCFile>, cancelRequest: AtomicBoolean) {
-        backgroundJobManager.startFilesDownloadJob(
-            user,
-            ocFile,
-            "",
-            DownloadType.DOWNLOAD,
-            "",
-            "",
-            null,
-            cancelRequest
-        )
-    }
-
     fun downloadFile(user: User, ocFile: OCFile) {
         backgroundJobManager.startFileDownloadJob(
             user,
