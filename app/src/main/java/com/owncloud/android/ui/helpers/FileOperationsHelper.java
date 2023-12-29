@@ -996,11 +996,10 @@ public class FileOperationsHelper {
             }
         }
 
-        // for both files and folders
-        FileDownloadHelper fileDownloadHelper = new FileDownloadHelper();
-        if (fileDownloadHelper.isDownloading(currentUser, file)) {
-            fileDownloadHelper.cancelPendingOrCurrentDownloads(currentUser, file);
+        if (FileDownloadHelper.Companion.instance().isDownloading(currentUser, file)) {
+            FileDownloadHelper.Companion.instance().cancelPendingOrCurrentDownloads(currentUser, file);
         }
+
         FileUploaderBinder uploaderBinder = fileActivity.getFileUploaderBinder();
         if (uploaderBinder != null && uploaderBinder.isUploading(currentUser, file)) {
             uploaderBinder.cancel(currentUser.toPlatformAccount(), file);

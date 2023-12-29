@@ -309,30 +309,19 @@ public class SynchronizeFileOperation extends SyncOperation {
         mTransferWasRequested = true;
     }
 
-
-    /**
-     * Requests for a download to the FileDownloader service
-     *
-     * @param file OCFile object representing the file to download
-     */
     private void requestForDownload(OCFile file) {
-        FileDownloadHelper downloadHelper = new FileDownloadHelper();
-
-        downloadHelper.downloadFile(
+        FileDownloadHelper.Companion.instance().downloadFile(
             mUser,
             file);
 
         mTransferWasRequested = true;
     }
 
-
     public boolean transferWasRequested() {
         return mTransferWasRequested;
     }
 
-
     public OCFile getLocalFile() {
         return mLocalFile;
     }
-
 }

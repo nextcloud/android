@@ -27,14 +27,13 @@ import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
-import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
 import javax.inject.Inject
 
-class FileDownloadHelper : OnDatatransferProgressListener {
+class FileDownloadHelper {
 
     @Inject
     lateinit var backgroundJobManager: BackgroundJobManager
@@ -42,49 +41,20 @@ class FileDownloadHelper : OnDatatransferProgressListener {
     @Inject
     lateinit var uploadsStorageManager: UploadsStorageManager
 
-    private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
-    private var currentDownload: DownloadFileOperation? = null
+    companion object {
+        private var instance: FileDownloadHelper? = null
+
+        fun instance(): FileDownloadHelper {
+            return if (instance == null) {
+                FileDownloadHelper()
+            } else {
+                instance!!
+            }
+        }
+    }
 
     init {
         MainApp.getAppComponent().inject(this)
-    }
-
-    fun addDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
-        if (file == null || listener == null) {
-            return
-        }
-
-        boundListeners[file.fileId] = listener
-    }
-
-    fun removeDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
-        if (file == null || listener == null) {
-            return
-        }
-
-        val fileId = file.fileId
-        if (boundListeners[fileId] === listener) {
-            boundListeners.remove(fileId)
-        }
-    }
-
-    override fun onTransferProgress(
-        progressRate: Long,
-        totalTransferredSoFar: Long,
-        totalToTransfer: Long,
-        fileName: String
-    ) {
-        val listener = boundListeners[currentDownload?.file?.fileId]
-        listener?.onTransferProgress(
-            progressRate,
-            totalTransferredSoFar,
-            totalToTransfer,
-            fileName
-        )
-    }
-
-    fun setCurrentDownload(operation: DownloadFileOperation) {
-        currentDownload = operation
     }
 
     fun isDownloading(user: User?, file: OCFile?): Boolean {
@@ -145,75 +115,25 @@ class FileDownloadHelper : OnDatatransferProgressListener {
         storageManager?.saveConflict(file, null)
     }
 
+    fun downloadFileIfNotStartedBefore(user: User, file: OCFile) {
+        if (!isDownloading(user, file)) {
+            downloadFile(user, file, downloadType = DownloadType.DOWNLOAD)
+        }
+    }
+
     fun downloadFile(user: User, ocFile: OCFile) {
-        backgroundJobManager.startFileDownloadJob(
-            user,
-            ocFile,
-            "",
-            DownloadType.DOWNLOAD,
-            "",
-            "",
-            null
-        )
-    }
-
-    fun downloadFile(user: User, ocFile: OCFile, behaviour: String) {
-        backgroundJobManager.startFileDownloadJob(
-            user,
-            ocFile,
-            behaviour,
-            DownloadType.DOWNLOAD,
-            "",
-            "",
-            null
-        )
-    }
-
-    fun downloadFile(user: User, ocFile: OCFile, behaviour: String, packageName: String, activityName: String) {
-        backgroundJobManager.startFileDownloadJob(
-            user,
-            ocFile,
-            behaviour,
-            DownloadType.DOWNLOAD,
-            packageName,
-            packageName,
-            null
-        )
-    }
-
-    fun downloadFile(user: User, ocFile: OCFile, downloadType: DownloadType) {
-        backgroundJobManager.startFileDownloadJob(
-            user,
-            ocFile,
-            "",
-            downloadType,
-            "",
-            "",
-            null
-        )
-    }
-
-    fun downloadFile(user: User, ocFile: OCFile, conflictUploadId: Long) {
-        backgroundJobManager.startFileDownloadJob(
-            user,
-            ocFile,
-            "",
-            DownloadType.DOWNLOAD,
-            "",
-            "",
-            conflictUploadId
-        )
+        downloadFile(user, ocFile, downloadType = DownloadType.DOWNLOAD)
     }
 
     @Suppress("LongParameterList")
     fun downloadFile(
         user: User,
         ocFile: OCFile,
-        behaviour: String,
-        downloadType: DownloadType?,
-        activityName: String,
-        packageName: String,
-        conflictUploadId: Long?
+        behaviour: String = "",
+        downloadType: DownloadType? = DownloadType.DOWNLOAD,
+        activityName: String = "",
+        packageName: String = "",
+        conflictUploadId: Long? = null
     ) {
         backgroundJobManager.startFileDownloadJob(
             user,

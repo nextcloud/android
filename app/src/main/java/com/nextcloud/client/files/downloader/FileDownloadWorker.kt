@@ -97,7 +97,6 @@ class FileDownloadWorker(
     private val pendingDownloads = IndexedForest<DownloadFileOperation>()
     private var downloadProgressListener = FileDownloadProgressListener()
     private var currentUser = Optional.empty<User>()
-    private val helper = FileDownloadHelper()
     private var startedDownload = false
     private var storageManager: FileDataStorageManager? = null
     private var downloadClient: OwnCloudClient? = null
@@ -230,7 +229,7 @@ class FileDownloadWorker(
             downloadResult = currentDownload?.execute(downloadClient)
             if (downloadResult?.isSuccess == true && currentDownload?.downloadType === DownloadType.DOWNLOAD) {
                 getCurrentFile()?.let {
-                    helper.saveFile(it, currentDownload, storageManager)
+                    FileDownloadHelper.instance().saveFile(it, currentDownload, storageManager)
                 }
             }
         } catch (e: Exception) {
@@ -366,7 +365,7 @@ class FileDownloadWorker(
         private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
 
         fun isDownloading(user: User?, file: OCFile?): Boolean {
-            return helper.isDownloading(user, file)
+            return FileDownloadHelper.instance().isDownloading(user, file)
         }
 
         fun addDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {

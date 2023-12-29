@@ -131,7 +131,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
     private boolean autoplay;
     private boolean isLivePhoto;
-    private final FileDownloadHelper downloadHelper = new FileDownloadHelper();
     private boolean prepared;
     private PlayerServiceConnection mediaPlayerServiceConnection;
 
@@ -479,9 +478,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                                                                     getView(),
                                                                     backgroundJobManager);
         } else if (itemId == R.id.action_download_file) {
-            if (!downloadHelper.isDownloading(user, getFile())) {
-                downloadHelper.downloadFile(user, getFile());
-            }
+            FileDownloadHelper.Companion.instance().downloadFileIfNotStartedBefore(user, getFile());
         }
     }
 

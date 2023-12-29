@@ -111,10 +111,10 @@ class FilesExportWork(
     }
 
     private fun downloadFile(ocFile: OCFile) {
-        FileDownloadHelper().downloadFile(
+        FileDownloadHelper.instance().downloadFile(
             user,
             ocFile,
-            DownloadType.EXPORT
+            downloadType = DownloadType.EXPORT
         )
     }
 

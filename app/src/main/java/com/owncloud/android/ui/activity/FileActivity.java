@@ -166,7 +166,6 @@ public abstract class FileActivity extends DrawerActivity
 
     private boolean mResumed;
 
-    protected FileDownloadHelper fileDownloadHelper = new FileDownloadHelper();
     protected FileDownloadWorker.FileDownloadProgressListener fileDownloadProgressListener;
     protected FileUploaderBinder mUploaderBinder;
     private ServiceConnection mUploadServiceConnection;
@@ -235,7 +234,7 @@ public abstract class FileActivity extends DrawerActivity
                 Context.BIND_AUTO_CREATE);
 
         if (user != null) {
-            new FileDownloadHelper().downloadFile(user, mFile);
+            FileDownloadHelper.Companion.instance().downloadFile(user, mFile);
         }
 
         mUploadServiceConnection = newTransferenceServiceConnection();

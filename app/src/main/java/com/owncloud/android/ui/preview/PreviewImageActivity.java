@@ -37,6 +37,7 @@ import android.view.View;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.editimage.EditImageActivity;
+import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
@@ -54,6 +55,7 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.DownloadType;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -419,8 +421,8 @@ public class PreviewImageActivity extends FileActivity implements
     public void requestForDownload(OCFile file, String downloadBehaviour) {
         final User user = getUser().orElseThrow(RuntimeException::new);
 
-        if (!fileDownloadHelper.isDownloading(user, file)) {
-            fileDownloadHelper.downloadFile(user, file, downloadBehaviour);
+        if (!FileDownloadHelper.Companion.instance().isDownloading(user, file)) {
+            FileDownloadHelper.Companion.instance().downloadFile(user, file, downloadBehaviour, DownloadType.DOWNLOAD, "", "", null);
         }
     }
 

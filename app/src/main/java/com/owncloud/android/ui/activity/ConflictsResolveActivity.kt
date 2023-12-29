@@ -115,10 +115,10 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 Decision.KEEP_SERVER -> if (!shouldDeleteLocal()) {
                     // Overwrite local file
                     file?.let {
-                        FileDownloadHelper().downloadFile(
+                        FileDownloadHelper.instance().downloadFile(
                             getUser().orElseThrow { RuntimeException() },
                             file,
-                            conflictUploadId
+                            conflictUploadId = conflictUploadId
                         )
                     }
                 } else {

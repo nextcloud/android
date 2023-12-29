@@ -534,10 +534,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             setFavoriteIconStatus(file.isFavorite());
 
             // configure UI for depending upon local state of the file
-            FileDownloadHelper fileDownloadHelper = new FileDownloadHelper();
             FileUploaderBinder uploaderBinder = containerActivity.getFileUploaderBinder();
             if (transferring
-                || (fileDownloadHelper.isDownloading(user, file))
+                || (FileDownloadHelper.Companion.instance().isDownloading(user, file))
                 || (uploaderBinder != null && uploaderBinder.isUploading(user, file))) {
                 setButtonsForTransferring();
 
@@ -659,9 +658,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             // show the progress bar for the transfer
             binding.progressBlock.setVisibility(View.VISIBLE);
             binding.progressText.setVisibility(View.VISIBLE);
-            FileDownloadHelper fileDownloadHelper = new FileDownloadHelper();
             FileUploaderBinder uploaderBinder = containerActivity.getFileUploaderBinder();
-            if (fileDownloadHelper.isDownloading(user, getFile())) {
+            if (FileDownloadHelper.Companion.instance().isDownloading(user, getFile())) {
                 binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
             } else {
                 if (uploaderBinder != null && uploaderBinder.isUploading(user, getFile())) {
