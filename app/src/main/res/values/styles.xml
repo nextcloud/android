@@ -454,10 +454,6 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="FullScreenExoControlButton" parent="ExoStyledControls.Button.Center">
-        <item name="android:background">@drawable/ripple</item>
-    </style>
-
     <style name="Widget.Nextcloud.AppWidget.Container" parent="android:Widget">
         <item name="android:id">@android:id/background</item>
         <item name="android:background">?android:attr/colorBackground</item>

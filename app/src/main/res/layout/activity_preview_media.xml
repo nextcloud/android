@@ -26,7 +26,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".ui.preview.PreviewMediaFragment">
+    tools:context=".ui.preview.PreviewMediaActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/material_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="@dimen/standard_quarter_margin"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageView
         android:id="@+id/image_preview"
@@ -73,7 +82,6 @@
             android:padding="@dimen/standard_half_padding"
             android:src="@drawable/file_movie"
             app:tint="@color/bg_default" />
-
     </FrameLayout>
 
     <FrameLayout

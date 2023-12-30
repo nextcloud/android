@@ -5,10 +5,13 @@
  *   @author Chris Narkiewicz
  *   @author Andy Scherzinger
  *   @author TSI-mc
+ *   @author Parneet Singh
+ *
  *   Copyright (C) 2016 ownCloud Inc.
  *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
  *   Copyright (C) 2020 Andy Scherzinger
  *   Copyright (C) 2023 TSI-mc
+ *   Copyright (C) 2023 Parneet Singh
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -31,7 +34,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
@@ -47,12 +49,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
-import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.ui.StyledPlayerControlView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -88,13 +85,16 @@ import java.util.concurrent.Executors;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.OptIn;
 import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.media3.common.MediaItem;
+import androidx.media3.common.util.UnstableApi;
+import androidx.media3.exoplayer.ExoPlayer;
 
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
@@ -106,7 +106,7 @@ import androidx.fragment.app.FragmentManager;
  * instantiation too.
  */
 public class PreviewMediaFragment extends FileFragment implements OnTouchListener,
-    Injectable, StyledPlayerControlView.OnFullScreenModeChangedListener {
+    Injectable {
 
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
 
@@ -374,9 +374,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                                 playVideo();
                             });
                         } catch (ClientFactory.CreationException e) {
-                            handler.post(() -> {
-                                Log_OC.e(TAG, "error setting up ExoPlayer", e);
-                            });
+                            handler.post(() -> Log_OC.e(TAG, "error setting up ExoPlayer", e));
                         }
                     });
                 }
@@ -400,25 +398,12 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             activity.toggleActionBarVisibility(false);
         }
     }
-
+    @OptIn(markerClass = UnstableApi.class)
     private void setupVideoView() {
+        binding.exoplayerView.setShowNextButton(false);
+        binding.exoplayerView.setShowPreviousButton(false);
         binding.exoplayerView.setPlayer(exoPlayer);
-        LinearLayout linearLayout = binding.exoplayerView.findViewById(R.id.exo_center_controls);
-
-        if (linearLayout.getChildCount() == 5) {
-            AppCompatImageButton fullScreenButton = new AppCompatImageButton(requireContext());
-            fullScreenButton.setImageResource(R.drawable.exo_styled_controls_fullscreen_exit);
-            fullScreenButton.setLayoutParams(new LinearLayout.LayoutParams(143, 143));
-            fullScreenButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            fullScreenButton.setBackgroundColor(Color.TRANSPARENT);
-
-            fullScreenButton.setOnClickListener(l -> {
-                startFullScreenVideo();
-            });
-
-            linearLayout.addView(fullScreenButton);
-            linearLayout.invalidate();
-        }
+        binding.exoplayerView.setFullscreenButtonClickListener(isFullScreen -> startFullScreenVideo());
     }
 
     private void stopAudio() {
@@ -549,11 +534,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
         // only autoplay video once
         autoplay = false;
-    }
-
-    @Override
-    public void onFullScreenModeChanged(boolean isFullScreen) {
-        Log_OC.e(TAG, "Fullscreen: " + isFullScreen);
     }
 
     private static class LoadStreamUrl extends AsyncTask<Long, Void, Uri> {

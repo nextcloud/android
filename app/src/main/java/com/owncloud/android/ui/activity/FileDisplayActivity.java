@@ -123,6 +123,7 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.ui.preview.PreviewMediaActivity;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -168,7 +169,10 @@ import static com.owncloud.android.utils.PermissionUtil.PERMISSION_CHOICE_DIALOG
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
  */
-public class FileDisplayActivity extends FileActivity implements FileFragment.ContainerActivity, OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener, SendShareDialog.SendShareDialogDownloader, Injectable {
+public class FileDisplayActivity extends FileActivity
+    implements FileFragment.ContainerActivity,
+    OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener,
+    SendShareDialog.SendShareDialogDownloader, Injectable {
 
     public static final String RESTART = "RESTART";
     public static final String ALL_FILES = "ALL_FILES";
@@ -693,8 +697,8 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
                         // update the file from database, for the local storage path
                         mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
 
-                        if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
-                            startMediaPreview(mWaitingToPreview, 0, true, true, true);
+                        if (PreviewMediaActivity.Companion.canBePreviewed(mWaitingToPreview)) {
+                            startMediaPreview(mWaitingToPreview, 0, true, true, true, true);
                             detailsFragmentChanged = true;
                         } else if (MimeTypeUtil.isVCard(mWaitingToPreview.getMimeType())) {
                             startContactListFragment(mWaitingToPreview);
@@ -1391,7 +1395,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
                 if (uploadWasFine) {
                     OCFile ocFile = getFile();
                     if (PreviewImageFragment.canBePreviewed(ocFile)) {
-                        startImagePreview(getFile(),true);
+                        startImagePreview(getFile(), true);
                     } else if (PreviewTextFileFragment.canBePreviewed(ocFile)) {
                         startTextPreview(ocFile, true);
                     }
@@ -1643,10 +1647,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             OCFile file = ((FileFragment) details).getFile();
             if (file != null) {
                 file = getStorageManager().getFileByPath(file.getRemotePath());
-                if (details instanceof PreviewMediaFragment) {
-                    // Refresh  OCFile of the fragment
-                    ((PreviewMediaFragment) details).updateFile(file);
-                } else if (details instanceof PreviewTextFragment) {
+                if (details instanceof PreviewTextFragment) {
                     // Refresh  OCFile of the fragment
                     ((PreviewTextFileFragment) details).updateFile(file);
                 } else {
@@ -1676,12 +1677,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
 
             // check if file is still available, if so do nothing
             boolean fileAvailable = getStorageManager().fileExists(removedFile.getFileId());
-
             if (leftFragment instanceof FileFragment && !fileAvailable && removedFile.equals(((FileFragment) leftFragment).getFile())) {
-                if (leftFragment instanceof PreviewMediaFragment previewMediaFragment) {
-                    previewMediaFragment.stopPreview(true);
-                    onBackPressed();
-                }
                 setFile(getStorageManager().getFileById(removedFile.getParentId()));
                 resetTitleBarAndScrolling();
             }
@@ -1796,7 +1792,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
                     ((PreviewMediaFragment) fileFragment).updateFile(renamedFile);
                     if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
                         long position = ((PreviewMediaFragment) fileFragment).getPosition();
-                        startMediaPreview(renamedFile, position, true, true, true);
+                        startMediaPreview(renamedFile, position, true, true, true, false);
                     } else {
                         getFileOperationsHelper().openFile(renamedFile);
                     }
@@ -2041,15 +2037,19 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
      * @param startPlaybackPosition Media position where the playback will be started, in milliseconds.
      * @param autoplay              When 'true', the playback will start without user interactions.
      */
-    public void startMediaPreview(OCFile file, long startPlaybackPosition, boolean autoplay, boolean showPreview, boolean streamMedia) {
+    public void startMediaPreview(OCFile file, long startPlaybackPosition, boolean autoplay, boolean showPreview, boolean streamMedia, boolean showInActivity) {
         Optional<User> user = getUser();
         if (!user.isPresent()) {
             return; // not reachable under normal conditions
         }
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
-            configureToolbarForPreview(file);
-            Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay, false);
-            setLeftFragment(mediaFragment, false);
+            if (showInActivity) {
+                startMediaActivity(file, startPlaybackPosition, autoplay, user);
+            } else {
+                configureToolbarForPreview(file);
+                Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay, false);
+                setLeftFragment(mediaFragment, false);
+            }
         } else {
             Intent previewIntent = new Intent();
             previewIntent.putExtra(EXTRA_FILE, file);
@@ -2058,6 +2058,15 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
             FileOperationsHelper fileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService, editorUtils);
             fileOperationsHelper.startSyncForFileAndIntent(file, previewIntent);
         }
+    }
+
+    private void startMediaActivity(OCFile file, long startPlaybackPosition, boolean autoplay, Optional<User> user) {
+        Intent previewMediaIntent = new Intent(this, PreviewMediaActivity.class);
+        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_FILE, file);
+        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_USER, user.get());
+        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_START_POSITION, startPlaybackPosition);
+        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_AUTOPLAY, autoplay);
+        startActivity(previewMediaIntent);
     }
 
     public void configureToolbarForPreview(OCFile file) {
@@ -2242,7 +2251,7 @@ public class FileDisplayActivity extends FileActivity implements FileFragment.Co
         if (event.getIntent().getBooleanExtra(TEXT_PREVIEW, false)) {
             startTextPreview((OCFile) bundle.get(EXTRA_FILE), true);
         } else if (bundle.containsKey(PreviewMediaFragment.EXTRA_START_POSITION)) {
-            startMediaPreview((OCFile) bundle.get(EXTRA_FILE), (long) bundle.get(PreviewMediaFragment.EXTRA_START_POSITION), (boolean) bundle.get(PreviewMediaFragment.EXTRA_AUTOPLAY), true, true);
+            startMediaPreview((OCFile) bundle.get(EXTRA_FILE), (long) bundle.get(PreviewMediaFragment.EXTRA_START_POSITION), (boolean) bundle.get(PreviewMediaFragment.EXTRA_AUTOPLAY), true, true, true);
         } else if (bundle.containsKey(PreviewImageActivity.EXTRA_VIRTUAL_TYPE)) {
             startImagePreview((OCFile) bundle.get(EXTRA_FILE), (VirtualFolderType) bundle.get(PreviewImageActivity.EXTRA_VIRTUAL_TYPE), true);
         } else {

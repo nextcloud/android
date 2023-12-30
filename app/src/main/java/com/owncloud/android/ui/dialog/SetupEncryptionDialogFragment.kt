@@ -155,6 +155,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 dialog.dismiss()
                 notifyResult()
             }
+
             KEY_EXISTING_USED -> {
                 decryptPrivateKey(dialog)
             }
@@ -162,6 +163,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             KEY_GENERATE -> {
                 generateKey()
             }
+
             else -> dialog.dismiss()
         }
     }
@@ -376,7 +378,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             binding.encryptionStatus.setText(R.string.end_to_end_encryption_generating_keys)
         }
 
-        @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "ReturnCount")
+        @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "ReturnCount", "LongMethod")
         @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg voids: Void?): String {
             //  - create CSR, push to server, store returned public key in database
