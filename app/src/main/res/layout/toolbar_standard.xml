@@ -174,7 +174,7 @@
                     app:layout_constraintLeft_toRightOf="@id/menu_button"
                     app:layout_constraintRight_toLeftOf="@id/switch_account_button"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Search in Nextcloud" />
+                    tools:text="Explore in Nextcloud" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/switch_account_button"
