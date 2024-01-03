@@ -46,7 +46,6 @@ import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
-import com.owncloud.android.lib.common.operations.OperationCancelledException
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -55,11 +54,10 @@ import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.AbstractList
 import java.util.Vector
-import java.util.concurrent.atomic.AtomicBoolean
 
 @Suppress("LongParameterList")
 class FileDownloadWorker(
-    private val viewThemeUtils: ViewThemeUtils,
+    viewThemeUtils: ViewThemeUtils,
     private val accountManager: UserAccountManager,
     private val uploadsStorageManager: UploadsStorageManager,
     private var localBroadcastManager: LocalBroadcastManager,
@@ -70,6 +68,9 @@ class FileDownloadWorker(
     companion object {
         private val TAG = FileDownloadWorker::class.java.simpleName
 
+        var folderDownloadStatusPair = HashMap<Long, Boolean>()
+
+        const val FOLDER_ID = "FOLDER_ID"
         const val USER_NAME = "USER"
         const val FILE = "FILE"
         const val FILES = "FILES"
@@ -214,6 +215,11 @@ class FileDownloadWorker(
     }
 
     private fun setIdleWorkerState() {
+        val folderId = inputData.keyValueMap[FOLDER_ID] as Long?
+        folderId?.let {
+            folderDownloadStatusPair.remove(folderId)
+        }
+
         WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
     }
 

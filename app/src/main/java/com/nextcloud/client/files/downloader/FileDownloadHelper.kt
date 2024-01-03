@@ -22,6 +22,7 @@
 package com.nextcloud.client.files.downloader
 
 import com.nextcloud.client.account.User
+import com.nextcloud.client.files.downloader.FileDownloadWorker.Companion.folderDownloadStatusPair
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -29,10 +30,8 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
-import com.owncloud.android.operations.SynchronizeFolderOperation
 import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
-import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 class FileDownloadHelper {
@@ -62,14 +61,18 @@ class FileDownloadHelper {
             return false
         }
 
-        return backgroundJobManager.isStartFileDownloadJobScheduled(
-            user,
-            file
-        )
+        return if (file.isFolder) {
+            isFolderDownloading(file)
+        } else {
+            backgroundJobManager.isStartFileDownloadJobScheduled(
+                user,
+                file
+            )
+        }
     }
 
     private fun isFolderDownloading(folder: OCFile): Boolean {
-        for ((id, status) in SynchronizeFolderOperation.folderDownloadStatusPair) {
+        for ((id, status) in folderDownloadStatusPair) {
             return id == folder.fileId && status
         }
 
@@ -132,6 +135,7 @@ class FileDownloadHelper {
     }
 
     fun downloadFolder(folder: OCFile, user: User, files: List<OCFile>) {
+        folderDownloadStatusPair[folder.fileId] = true
         backgroundJobManager.startFolderDownloadJob(folder, user, files)
     }
 
