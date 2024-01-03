@@ -47,6 +47,7 @@ import com.owncloud.android.operations.DownloadType
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.reflect.KClass
 
 /**
@@ -108,6 +109,7 @@ internal class BackgroundJobManagerImpl(
         const val PERIODIC_BACKUP_INTERVAL_MINUTES = 24 * 60L
         const val DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES = 15L
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
+        private val gson = Gson()
 
         private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 * 3L
 
@@ -510,33 +512,6 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniqueWork(JOB_FILES_UPLOAD + user.accountName, ExistingWorkPolicy.KEEP, request)
     }
 
-    @Suppress("LongParameterList")
-    private fun getOneTimeDownloadRequest(
-        user: User,
-        file: OCFile,
-        behaviour: String,
-        downloadType: DownloadType?,
-        activityName: String,
-        packageName: String,
-        conflictUploadId: Long?
-    ): OneTimeWorkRequest {
-        val gson = Gson()
-
-        val data = workDataOf(
-            FileDownloadWorker.USER_NAME to user.accountName,
-            FileDownloadWorker.FILE to gson.toJson(file),
-            FileDownloadWorker.BEHAVIOUR to behaviour,
-            FileDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),
-            FileDownloadWorker.ACTIVITY_NAME to activityName,
-            FileDownloadWorker.PACKAGE_NAME to packageName,
-            FileDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId
-        )
-
-        return oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
-            .setInputData(data)
-            .build()
-    }
-
     private fun startFileDownloadJobTag(user: User, file: OCFile): String {
         return JOB_FILES_DOWNLOAD + user.accountName + file.fileId
     }
@@ -545,26 +520,45 @@ internal class BackgroundJobManagerImpl(
         return workManager.isWorkScheduled(startFileDownloadJobTag(user, file))
     }
 
+    override fun startFolderDownloadJob(folder: OCFile, user: User, files: List<OCFile>) {
+        val data = workDataOf(
+            FileDownloadWorker.USER_NAME to user.accountName,
+            FileDownloadWorker.FILES to gson.toJson(files),
+            FileDownloadWorker.DOWNLOAD_TYPE to DownloadType.DOWNLOAD.toString(),
+        )
+
+        val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
+            .setInputData(data)
+            .build()
+
+        val tag = startFileDownloadJobTag(user, folder)
+        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, request)
+    }
+
     override fun startFileDownloadJob(
         user: User,
-        ocFile: OCFile,
+        file: OCFile,
         behaviour: String,
         downloadType: DownloadType?,
         activityName: String,
         packageName: String,
         conflictUploadId: Long?
     ) {
-        val request = getOneTimeDownloadRequest(
-            user,
-            ocFile,
-            behaviour,
-            downloadType,
-            activityName,
-            packageName,
-            conflictUploadId
+        val data = workDataOf(
+            FileDownloadWorker.USER_NAME to user.accountName,
+            FileDownloadWorker.FILE to gson.toJson(file),
+            FileDownloadWorker.BEHAVIOUR to behaviour,
+            FileDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),
+            FileDownloadWorker.ACTIVITY_NAME to activityName,
+            FileDownloadWorker.PACKAGE_NAME to packageName,
+            FileDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId,
         )
 
-        val tag = startFileDownloadJobTag(user, ocFile)
+        val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
+            .setInputData(data)
+            .build()
+
+        val tag = startFileDownloadJobTag(user, file)
         workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, request)
     }
 

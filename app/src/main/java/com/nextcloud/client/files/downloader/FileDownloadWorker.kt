@@ -26,10 +26,13 @@ import android.accounts.AccountManager
 import android.accounts.OnAccountsUpdateListener
 import android.app.PendingIntent
 import android.content.Context
+import androidx.core.util.component1
+import androidx.core.util.component2
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.java.util.Optional
@@ -43,6 +46,7 @@ import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
+import com.owncloud.android.lib.common.operations.OperationCancelledException
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -51,6 +55,7 @@ import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.AbstractList
 import java.util.Vector
+import java.util.concurrent.atomic.AtomicBoolean
 
 @Suppress("LongParameterList")
 class FileDownloadWorker(
@@ -67,6 +72,7 @@ class FileDownloadWorker(
 
         const val USER_NAME = "USER"
         const val FILE = "FILE"
+        const val FILES = "FILES"
         const val BEHAVIOUR = "BEHAVIOUR"
         const val DOWNLOAD_TYPE = "DOWNLOAD_TYPE"
         const val ACTIVITY_NAME = "ACTIVITY_NAME"
@@ -123,56 +129,83 @@ class FileDownloadWorker(
         }
     }
 
+    override fun onStopped() {
+        setIdleWorkerState()
+        super.onStopped()
+    }
+
     private fun getRequestDownloads(): AbstractList<String> {
+        val files = getFiles()
+        val downloadType = getDownloadType()
+        setUser()
+
         conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long?
-        val file = gson.fromJson(inputData.keyValueMap[FILE] as String, OCFile::class.java)
-        val accountName = inputData.keyValueMap[USER_NAME] as String
-        user = accountManager.getUser(accountName).get()
-        val downloadTypeAsString = inputData.keyValueMap[DOWNLOAD_TYPE] as String?
-        val downloadType = if (downloadTypeAsString != null) {
-            if (downloadTypeAsString == DownloadType.DOWNLOAD.toString()) {
-                DownloadType.DOWNLOAD
-            } else {
-                DownloadType.EXPORT
-            }
-        } else {
-            null
-        }
-        val behaviour = inputData.keyValueMap[BEHAVIOUR] as String
-        val activityName = inputData.keyValueMap[ACTIVITY_NAME] as String
-        val packageName = inputData.keyValueMap[PACKAGE_NAME] as String
+        val behaviour = inputData.keyValueMap[BEHAVIOUR] as String? ?: ""
+        val activityName = inputData.keyValueMap[ACTIVITY_NAME] as String? ?: ""
+        val packageName = inputData.keyValueMap[PACKAGE_NAME] as String? ?: ""
 
         val requestedDownloads: AbstractList<String> = Vector()
 
         return try {
-            val operation = DownloadFileOperation(
-                user,
-                file,
-                behaviour,
-                activityName,
-                packageName,
-                context,
-                downloadType
-            )
+            files.forEach { file ->
+                val operation = DownloadFileOperation(
+                    user,
+                    file,
+                    behaviour,
+                    activityName,
+                    packageName,
+                    context,
+                    downloadType
+                )
 
-            operation.addDownloadDataTransferProgressListener(this)
-            operation.addDownloadDataTransferProgressListener(downloadProgressListener)
-            val putResult = pendingDownloads.putIfAbsent(
-                user?.accountName,
-                file.remotePath,
-                operation
-            )
+                operation.addDownloadDataTransferProgressListener(this)
+                operation.addDownloadDataTransferProgressListener(downloadProgressListener)
+                val (downloadKey, linkedToRemotePath) = pendingDownloads.putIfAbsent(
+                    user?.accountName,
+                    file.remotePath,
+                    operation
+                )
 
-            if (putResult != null) {
-                val downloadKey = putResult.first
-                requestedDownloads.add(downloadKey)
-                localBroadcastManager.sendBroadcast(intents.newDownloadIntent(operation, putResult.second))
+                if (downloadKey != null) {
+                    requestedDownloads.add(downloadKey)
+                    localBroadcastManager.sendBroadcast(intents.newDownloadIntent(operation, linkedToRemotePath))
+                }
             }
 
             requestedDownloads
         } catch (e: IllegalArgumentException) {
             Log_OC.e(TAG, "Not enough information provided in intent: " + e.message)
             requestedDownloads
+        }
+    }
+
+    private fun setUser() {
+        val accountName = inputData.keyValueMap[USER_NAME] as String
+        user = accountManager.getUser(accountName).get()
+    }
+
+    private fun getFiles(): List<OCFile> {
+        val filesJson = inputData.keyValueMap[FILES] as String?
+
+        return if (filesJson != null) {
+            val ocFileListType = object : TypeToken<ArrayList<OCFile>>() {}.type
+            gson.fromJson(filesJson, ocFileListType)
+        } else {
+            val file = gson.fromJson(inputData.keyValueMap[FILE] as String, OCFile::class.java)
+            listOf(file)
+        }
+    }
+
+    private fun getDownloadType(): DownloadType? {
+        val typeAsString = inputData.keyValueMap[DOWNLOAD_TYPE] as String?
+        return if (typeAsString != null) {
+            if (typeAsString == DownloadType.DOWNLOAD.toString()) {
+                DownloadType.DOWNLOAD
+            } else {
+                DownloadType.EXPORT
+            }
+        } else {
+            null
         }
     }
 

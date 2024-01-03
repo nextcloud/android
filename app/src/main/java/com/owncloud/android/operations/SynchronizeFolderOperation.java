@@ -44,6 +44,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -438,13 +439,22 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
     }
 
-
     private void syncContents() throws OperationCancelledException {
         startDirectDownloads();
         startContentSynchronizations(mFilesToSyncContents);
     }
 
-    private void startDirectDownloads() throws OperationCancelledException {
+    public static HashMap<Long, Boolean> folderDownloadStatusPair = new HashMap<>();
+
+    private void startDirectDownloads() {
+        FileDownloadHelper.Companion.instance().downloadFolder(mLocalFolder,
+                                                               user,
+                                                               mFilesForDirectDownload);
+
+        // FIXME cancel request
+        /*
+        folderDownloadStatusPair.put(mLocalFolder.getFileId(), true);
+
         for (OCFile file : mFilesForDirectDownload) {
             synchronized(mCancellationRequested) {
                 if (mCancellationRequested.get()) {
@@ -453,6 +463,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 FileDownloadHelper.Companion.instance().downloadFile(user, file);
             }
         }
+
+        folderDownloadStatusPair.replace(mLocalFolder.getFileId(), false);
+         */
+
     }
 
     /**
