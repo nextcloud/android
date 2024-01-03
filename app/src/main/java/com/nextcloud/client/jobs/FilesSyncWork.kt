@@ -78,8 +78,9 @@ class FilesSyncWork(
         const val FOREGROUND_SERVICE_ID = 414
     }
 
+    @Suppress("MagicNumber")
     private fun createForegroundInfo(progressPercent: Int): ForegroundInfo {
-        //update throughout worker execution to give use feedback how far worker is
+        // update throughout worker execution to give use feedback how far worker is
 
         val notification = NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC)
             .setTicker(context.getString(R.string.autoupload_worker_foreground_info))
@@ -93,6 +94,7 @@ class FilesSyncWork(
         return ForegroundInfo(FOREGROUND_SERVICE_ID, notification)
     }
 
+    @Suppress("MagicNumber")
     override suspend fun doWork(): Result {
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
         setForeground(createForegroundInfo(0))
@@ -123,8 +125,8 @@ class FilesSyncWork(
         dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
 
         val syncedFolders = syncedFolderProvider.syncedFolders
-        for ((index,syncedFolder) in syncedFolders.withIndex()) {
-            setForeground(createForegroundInfo((50+(index.toDouble()/syncedFolders.size.toDouble())*50).toInt()))
+        for ((index, syncedFolder) in syncedFolders.withIndex()) {
+            setForeground(createForegroundInfo((50 + (index.toDouble() / syncedFolders.size.toDouble()) * 50).toInt()))
             if (syncedFolder.isEnabled && (!skipCustom || MediaFolderType.CUSTOM != syncedFolder.type)) {
                 syncFolder(
                     context,
