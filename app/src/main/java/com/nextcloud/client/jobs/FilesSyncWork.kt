@@ -26,8 +26,10 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Resources
 import android.text.TextUtils
+import androidx.core.app.NotificationCompat
 import androidx.exifinterface.media.ExifInterface
-import androidx.work.Worker
+import androidx.work.CoroutineWorker
+import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
@@ -45,6 +47,7 @@ import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
+import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.MimeType
@@ -66,16 +69,33 @@ class FilesSyncWork(
     private val powerManagementService: PowerManagementService,
     private val syncedFolderProvider: SyncedFolderProvider,
     private val backgroundJobManager: BackgroundJobManager
-) : Worker(context, params) {
+) : CoroutineWorker(context, params) {
 
     companion object {
         const val TAG = "FilesSyncJob"
         const val SKIP_CUSTOM = "skipCustom"
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
+        const val FOREGROUND_SERVICE_ID = 414
     }
 
-    override fun doWork(): Result {
+    private fun createForegroundInfo(progressPercent: Int): ForegroundInfo {
+        //update throughout worker execution to give use feedback how far worker is
+
+        val notification = NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC)
+            .setTicker(context.getString(R.string.autoupload_worker_foreground_info))
+            .setContentText(context.getString(R.string.autoupload_worker_foreground_info))
+            .setSmallIcon(R.drawable.notification_icon)
+            .setContentTitle(context.getString(R.string.autoupload_worker_foreground_info))
+            .setOngoing(true)
+            .setProgress(100, progressPercent, false)
+            .build()
+
+        return ForegroundInfo(FOREGROUND_SERVICE_ID, notification)
+    }
+
+    override suspend fun doWork(): Result {
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
+        setForeground(createForegroundInfo(0))
 
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         // If we are in power save mode, better to postpone upload
@@ -93,13 +113,18 @@ class FilesSyncWork(
             connectivityService,
             powerManagementService
         )
+        setForeground(createForegroundInfo(5))
         FilesSyncHelper.insertAllDBEntries(skipCustom, syncedFolderProvider)
+        setForeground(createForegroundInfo(50))
         // Create all the providers we'll need
         val filesystemDataProvider = FilesystemDataProvider(contentResolver)
         val currentLocale = resources.configuration.locale
         val dateFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale)
         dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
-        for (syncedFolder in syncedFolderProvider.syncedFolders) {
+
+        val syncedFolders = syncedFolderProvider.syncedFolders
+        for ((index,syncedFolder) in syncedFolders.withIndex()) {
+            setForeground(createForegroundInfo((50+(index.toDouble()/syncedFolders.size.toDouble())*50).toInt()))
             if (syncedFolder.isEnabled && (!skipCustom || MediaFolderType.CUSTOM != syncedFolder.type)) {
                 syncFolder(
                     context,
