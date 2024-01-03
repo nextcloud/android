@@ -527,12 +527,15 @@ internal class BackgroundJobManagerImpl(
             FileDownloadWorker.DOWNLOAD_TYPE to DownloadType.DOWNLOAD.toString()
         )
 
+        val tag = startFileDownloadJobTag(user, folder)
+
         val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
+            .addTag(tag)
             .setInputData(data)
             .build()
 
-        val tag = startFileDownloadJobTag(user, folder)
-        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, request)
+        workManager
+            .enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, request)
     }
 
     override fun startFileDownloadJob(
@@ -554,11 +557,13 @@ internal class BackgroundJobManagerImpl(
             FileDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId
         )
 
+        val tag = startFileDownloadJobTag(user, file)
+
         val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
+            .addTag(tag)
             .setInputData(data)
             .build()
 
-        val tag = startFileDownloadJobTag(user, file)
         workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, request)
     }
 

@@ -24,7 +24,6 @@ package com.nextcloud.client.files.downloader
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.OnAccountsUpdateListener
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import androidx.core.util.component1
@@ -39,8 +38,6 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.java.util.Optional
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
-import com.owncloud.android.MainApp
-import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -71,7 +68,7 @@ class FileDownloadWorker(
     companion object {
         private val TAG = FileDownloadWorker::class.java.simpleName
 
-        var folderDownloadStatusPair = HashMap<Long, Boolean>()
+        private var folderDownloadStatusPair = HashMap<Long, Boolean>()
 
         const val FOLDER_ID = "FOLDER_ID"
         const val USER_NAME = "USER"
@@ -89,30 +86,20 @@ class FileDownloadWorker(
         const val EXTRA_LINKED_TO_PATH = "LINKED_TO"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
 
+        fun isFolderDownloading(folder: OCFile): Boolean {
+            for ((id, status) in folderDownloadStatusPair) {
+                return id == folder.fileId && status
+            }
+
+            return false
+        }
+
         fun getDownloadAddedMessage(): String {
             return FileDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
         }
 
         fun getDownloadFinishMessage(): String {
             return FileDownloadWorker::class.java.name + "DOWNLOAD_FINISH"
-        }
-
-        private val pendingDownloads = IndexedForest<DownloadFileOperation>()
-
-        fun removePendingDownload(accountName: String?) {
-            pendingDownloads.remove(accountName)
-        }
-
-        fun cancelAllDownloads() {
-            pendingDownloads.all.forEach {
-                it.value.payload?.cancel()
-            }
-
-            val notificationManager =
-                MainApp.getAppContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.cancel(R.string.downloader_download_in_progress_ticker)
-
-            pendingDownloads.all.clear()
         }
     }
 
@@ -127,6 +114,7 @@ class FileDownloadWorker(
     private var downloadClient: OwnCloudClient? = null
     private var user: User? = null
     private val gson = Gson()
+    private val pendingDownloads = IndexedForest<DownloadFileOperation>()
 
     @Suppress("TooGenericExceptionCaught")
     override fun doWork(): Result {
@@ -151,7 +139,13 @@ class FileDownloadWorker(
     }
 
     override fun onStopped() {
+        Log_OC.e(TAG, "FilesDownloadWorker stopped")
+
+        cancelAllDownloads()
+        notificationManager.dismissDownloadInProgressNotification()
+        removePendingDownload(currentDownload?.user?.accountName)
         setIdleWorkerState()
+
         super.onStopped()
     }
 
@@ -200,6 +194,17 @@ class FileDownloadWorker(
         }
     }
 
+    private fun removePendingDownload(accountName: String?) {
+        pendingDownloads.remove(accountName)
+    }
+
+    private fun cancelAllDownloads() {
+        pendingDownloads.all.forEach {
+            it.value.payload?.cancel()
+        }
+        pendingDownloads.all.clear()
+    }
+
     private fun setUser() {
         val accountName = inputData.keyValueMap[USER_NAME] as String
         user = accountManager.getUser(accountName).get()
@@ -231,6 +236,11 @@ class FileDownloadWorker(
     }
 
     private fun setWorkerState(user: User?, file: DownloadFileOperation?) {
+        val folderId = inputData.keyValueMap[FOLDER_ID] as Long?
+        folderId?.let {
+            folderDownloadStatusPair[folderId] = true
+        }
+
         WorkerStateLiveData.instance().setWorkState(WorkerState.Download(user, file))
     }
 
