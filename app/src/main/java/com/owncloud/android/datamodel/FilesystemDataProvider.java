@@ -225,9 +225,10 @@ public class FilesystemDataProvider {
 
         try (InputStream inputStream = new BufferedInputStream(new FileInputStream(filepath))){
             CRC32 crc = new CRC32();
-            int cnt;
-            while ((cnt = inputStream.read()) != -1) {
-                crc.update(cnt);
+            byte[] buf = new byte[1024*64];
+            int size;
+            while ((size = inputStream.read(buf)) > 0) {
+                crc.update(buf,0,size);
             }
 
             return crc.getValue();
