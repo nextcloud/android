@@ -55,7 +55,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.AbstractList
 import java.util.Vector
 
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "TooManyFunctions")
 class FileDownloadWorker(
     private val viewThemeUtils: ViewThemeUtils,
     private val accountManager: UserAccountManager,
