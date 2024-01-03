@@ -448,23 +448,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
         FileDownloadHelper.Companion.instance().downloadFolder(mLocalFolder,
                                                                user,
                                                                mFilesForDirectDownload);
-
-        // FIXME cancel request
-        /*
-        folderDownloadStatusPair.put(mLocalFolder.getFileId(), true);
-
-        for (OCFile file : mFilesForDirectDownload) {
-            synchronized(mCancellationRequested) {
-                if (mCancellationRequested.get()) {
-                    throw new OperationCancelledException();
-                }
-                FileDownloadHelper.Companion.instance().downloadFile(user, file);
-            }
-        }
-
-        folderDownloadStatusPair.replace(mLocalFolder.getFileId(), false);
-         */
-
     }
 
     /**
