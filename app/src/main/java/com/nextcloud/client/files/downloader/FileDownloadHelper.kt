@@ -22,7 +22,9 @@
 package com.nextcloud.client.files.downloader
 
 import com.nextcloud.client.account.User
+import com.nextcloud.client.files.downloader.FileDownloadWorker.Companion.cancelAllDownloads
 import com.nextcloud.client.files.downloader.FileDownloadWorker.Companion.folderDownloadStatusPair
+import com.nextcloud.client.files.downloader.FileDownloadWorker.Companion.removePendingDownload
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -81,6 +83,7 @@ class FileDownloadHelper {
 
     fun cancelPendingOrCurrentDownloads(user: User?, file: OCFile?) {
         if (user == null || file == null) return
+        cancelAllDownloads()
         backgroundJobManager.cancelFilesDownloadJob(user, file)
     }
 
@@ -92,6 +95,8 @@ class FileDownloadHelper {
 
             currentDownload.cancel()
         }
+
+        removePendingDownload(accountName)
     }
 
     fun saveFile(

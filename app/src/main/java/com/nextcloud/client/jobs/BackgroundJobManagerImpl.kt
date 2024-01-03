@@ -524,7 +524,7 @@ internal class BackgroundJobManagerImpl(
             FileDownloadWorker.USER_NAME to user.accountName,
             FileDownloadWorker.FOLDER_ID to folder.fileId,
             FileDownloadWorker.FILES to gson.toJson(files),
-            FileDownloadWorker.DOWNLOAD_TYPE to DownloadType.DOWNLOAD.toString(),
+            FileDownloadWorker.DOWNLOAD_TYPE to DownloadType.DOWNLOAD.toString()
         )
 
         val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
@@ -551,7 +551,7 @@ internal class BackgroundJobManagerImpl(
             FileDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),
             FileDownloadWorker.ACTIVITY_NAME to activityName,
             FileDownloadWorker.PACKAGE_NAME to packageName,
-            FileDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId,
+            FileDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId
         )
 
         val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)

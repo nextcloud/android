@@ -24,6 +24,7 @@ package com.nextcloud.client.files.downloader
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.OnAccountsUpdateListener
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import androidx.core.util.component1
@@ -38,6 +39,8 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.java.util.Optional
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -57,7 +60,7 @@ import java.util.Vector
 
 @Suppress("LongParameterList")
 class FileDownloadWorker(
-    viewThemeUtils: ViewThemeUtils,
+    private val viewThemeUtils: ViewThemeUtils,
     private val accountManager: UserAccountManager,
     private val uploadsStorageManager: UploadsStorageManager,
     private var localBroadcastManager: LocalBroadcastManager,
@@ -93,6 +96,24 @@ class FileDownloadWorker(
         fun getDownloadFinishMessage(): String {
             return FileDownloadWorker::class.java.name + "DOWNLOAD_FINISH"
         }
+
+        private val pendingDownloads = IndexedForest<DownloadFileOperation>()
+
+        fun removePendingDownload(accountName: String?) {
+            pendingDownloads.remove(accountName)
+        }
+
+        fun cancelAllDownloads() {
+            pendingDownloads.all.forEach {
+                it.value.payload?.cancel()
+            }
+
+            val notificationManager =
+                MainApp.getAppContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.cancel(R.string.downloader_download_in_progress_ticker)
+
+            pendingDownloads.all.clear()
+        }
     }
 
     private var currentDownload: DownloadFileOperation? = null
@@ -100,7 +121,6 @@ class FileDownloadWorker(
     private var lastPercent = 0
     private val intents = FileDownloadIntents(context)
     private val notificationManager = DownloadNotificationManager(context, viewThemeUtils)
-    private val pendingDownloads = IndexedForest<DownloadFileOperation>()
     private var downloadProgressListener = FileDownloadProgressListener()
     private var currentUser = Optional.empty<User>()
     private var storageManager: FileDataStorageManager? = null
@@ -264,10 +284,6 @@ class FileDownloadWorker(
         } finally {
             cleanupDownloadProcess(downloadResult)
         }
-    }
-
-    private fun removePendingDownload(accountName: String?) {
-        pendingDownloads.remove(accountName)
     }
 
     private fun notifyDownloadStart(download: DownloadFileOperation) {
