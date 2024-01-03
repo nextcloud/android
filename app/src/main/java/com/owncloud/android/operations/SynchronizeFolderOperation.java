@@ -44,7 +44,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -444,7 +443,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
         startContentSynchronizations(mFilesToSyncContents);
     }
 
-    public static HashMap<Long, Boolean> folderDownloadStatusPair = new HashMap<>();
 
     private void startDirectDownloads() {
         FileDownloadHelper.Companion.instance().downloadFolder(mLocalFolder,

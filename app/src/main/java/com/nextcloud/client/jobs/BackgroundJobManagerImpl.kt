@@ -47,7 +47,6 @@ import com.owncloud.android.operations.DownloadType
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.reflect.KClass
 
 /**
@@ -523,6 +522,7 @@ internal class BackgroundJobManagerImpl(
     override fun startFolderDownloadJob(folder: OCFile, user: User, files: List<OCFile>) {
         val data = workDataOf(
             FileDownloadWorker.USER_NAME to user.accountName,
+            FileDownloadWorker.FOLDER_ID to folder.fileId,
             FileDownloadWorker.FILES to gson.toJson(files),
             FileDownloadWorker.DOWNLOAD_TYPE to DownloadType.DOWNLOAD.toString(),
         )
