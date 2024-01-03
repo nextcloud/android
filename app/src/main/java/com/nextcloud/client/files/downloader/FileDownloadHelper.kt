@@ -29,8 +29,10 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
+import com.owncloud.android.operations.SynchronizeFolderOperation
 import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 class FileDownloadHelper {
@@ -56,10 +58,22 @@ class FileDownloadHelper {
     }
 
     fun isDownloading(user: User?, file: OCFile?): Boolean {
-        return user != null && file != null && backgroundJobManager.isStartFileDownloadJobScheduled(
+        if (user == null || file == null) {
+            return false
+        }
+
+        return backgroundJobManager.isStartFileDownloadJobScheduled(
             user,
             file
         )
+    }
+
+    private fun isFolderDownloading(folder: OCFile): Boolean {
+        for ((id, status) in SynchronizeFolderOperation.folderDownloadStatusPair) {
+            return id == folder.fileId && status
+        }
+
+        return false
     }
 
     fun cancelPendingOrCurrentDownloads(user: User?, file: OCFile?) {
@@ -117,8 +131,12 @@ class FileDownloadHelper {
         }
     }
 
-    fun downloadFile(user: User, ocFile: OCFile) {
-        downloadFile(user, ocFile, downloadType = DownloadType.DOWNLOAD)
+    fun downloadFolder(folder: OCFile, user: User, files: List<OCFile>) {
+        backgroundJobManager.startFolderDownloadJob(folder, user, files)
+    }
+
+    fun downloadFile(user: User, file: OCFile) {
+        downloadFile(user, file, downloadType = DownloadType.DOWNLOAD)
     }
 
     @Suppress("LongParameterList")

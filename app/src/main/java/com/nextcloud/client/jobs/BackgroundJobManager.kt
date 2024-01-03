@@ -24,6 +24,7 @@ import androidx.work.ListenableWorker
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.operations.DownloadType
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * This interface allows to control, schedule and monitor all application
@@ -152,12 +153,18 @@ interface BackgroundJobManager {
     @Suppress("LongParameterList")
     fun startFileDownloadJob(
         user: User,
-        ocFile: OCFile,
+        file: OCFile,
         behaviour: String,
         downloadType: DownloadType?,
         activityName: String,
         packageName: String,
         conflictUploadId: Long?
+    )
+
+    fun startFolderDownloadJob(
+        folder: OCFile,
+        user: User,
+        files: List<OCFile>
     )
 
     fun startPdfGenerateAndUploadWork(user: User, uploadFolder: String, imagePaths: List<String>, pdfPath: String)
