@@ -96,7 +96,6 @@ class FileDownloadWorker(
     private val pendingDownloads = IndexedForest<DownloadFileOperation>()
     private var downloadProgressListener = FileDownloadProgressListener()
     private var currentUser = Optional.empty<User>()
-    private var startedDownload = false
     private var storageManager: FileDataStorageManager? = null
     private var downloadClient: OwnCloudClient? = null
     private var user: User? = null
@@ -109,7 +108,12 @@ class FileDownloadWorker(
 
             notificationManager.init()
             addAccountUpdateListener()
-            startDownloadForEachRequest(requestDownloads)
+
+            requestDownloads.forEach {
+                downloadFile(it)
+            }
+
+            setIdleWorkerState()
 
             Log_OC.e(TAG, "FilesDownloadWorker successfully completed")
             Result.success()
@@ -117,11 +121,6 @@ class FileDownloadWorker(
             Log_OC.e(TAG, "Error caught at FilesDownloadWorker(): " + t.localizedMessage)
             Result.failure()
         }
-    }
-
-    override fun onStopped() {
-        super.onStopped()
-        setIdleWorkerState()
     }
 
     private fun getRequestDownloads(): AbstractList<String> {
@@ -190,26 +189,15 @@ class FileDownloadWorker(
         am.addOnAccountsUpdatedListener(this, null, false)
     }
 
-    private fun startDownloadForEachRequest(requestDownloads: AbstractList<String>) {
-        val it: Iterator<String> = requestDownloads.iterator()
-
-        while (it.hasNext()) {
-            val next = it.next()
-            Log_OC.e(TAG, "Download Key: $next")
-            downloadFile(next)
-        }
-
-        startedDownload = false
-    }
-
     @Suppress("TooGenericExceptionCaught")
     private fun downloadFile(downloadKey: String) {
-        startedDownload = true
         currentDownload = pendingDownloads.get(downloadKey)
 
         if (currentDownload == null) {
             return
         }
+
+        Log_OC.e(TAG, "FilesDownloadWorker downloading: $downloadKey")
         setWorkerState(user, currentDownload)
 
         val isAccountExist = accountManager.exists(currentDownload?.user?.toPlatformAccount())
