@@ -34,7 +34,9 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.files.downloader.FileDownloadHelper
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.model.DownloadWorkerStateLiveData
 import com.nextcloud.utils.extensions.createRoundedOutline
+import com.nextcloud.utils.extensions.lifecycleOwner
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -73,6 +75,11 @@ class OCFileListDelegate(
     private val asyncGalleryTasks: MutableList<ThumbnailsCacheManager.GalleryImageGenerationTask> = ArrayList()
     fun setHighlightedItem(highlightedItem: OCFile?) {
         this.highlightedItem = highlightedItem
+    }
+    private var isDownloading = false
+
+    init {
+        isDownloading()
     }
 
     fun isCheckedFile(file: OCFile): Boolean {
@@ -339,13 +346,24 @@ class OCFileListDelegate(
         }
     }
 
+    // FIXME
+    private fun isDownloading() {
+        context.lifecycleOwner()?.let {
+            DownloadWorkerStateLiveData.instance().observe(it) { downloadWorkerStates ->
+                downloadWorkerStates.forEach { state ->
+                    isDownloading = FileDownloadHelper.instance().isDownloading(user, state.currentDownload?.file)
+                }
+            }
+        }
+    }
+
     private fun showLocalFileIndicator(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
         val fileUploaderBinder = transferServiceGetter.fileUploaderBinder
 
         val icon: Int? = when {
             operationsServiceBinder?.isSynchronizing(user, file) == true ||
-                FileDownloadHelper.instance().isDownloading(user, file) ||
+                isDownloading ||
                 fileUploaderBinder?.isUploading(user, file) == true -> {
                 // synchronizing, downloading or uploading
                 R.drawable.ic_synchronizing

@@ -41,8 +41,7 @@ import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
-import com.nextcloud.model.WorkerState;
-import com.nextcloud.model.WorkerStateLiveData;
+import com.nextcloud.model.DownloadWorkerStateLiveData;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -152,7 +151,7 @@ public class PreviewImageActivity extends FileActivity implements
             mRequestWaitingForBinder = false;
         }
 
-        observeWorkerState();
+        observeDownloadWorkerState();
     }
 
     public void toggleActionBarVisibility(boolean hide) {
@@ -306,9 +305,9 @@ public class PreviewImageActivity extends FileActivity implements
         }
     }
 
-    private void observeWorkerState() {
-        WorkerStateLiveData.Companion.instance().observe(this, state -> {
-            if (state instanceof WorkerState.Download) {
+    private void observeDownloadWorkerState() {
+        DownloadWorkerStateLiveData.Companion.instance().observe(this, state -> {
+            if (!state.isEmpty()) {
                 Log_OC.d(TAG, "Download worker started");
                 isDownloadWorkStarted = true;
 

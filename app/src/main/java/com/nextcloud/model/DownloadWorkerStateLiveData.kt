@@ -23,18 +23,30 @@ package com.nextcloud.model
 
 import androidx.lifecycle.LiveData
 
-class WorkerStateLiveData private constructor() : LiveData<WorkerState>() {
+class DownloadWorkerStateLiveData private constructor() : LiveData<ArrayList<DownloadWorkerState>>() {
 
-    fun setWorkState(state: WorkerState) {
-        postValue(state)
+    private var workers: ArrayList<DownloadWorkerState> = arrayListOf()
+
+    fun removeWorker(tag: String) {
+        workers.forEach {
+            if (it.tag == tag) {
+                workers.remove(it)
+            }
+        }
+        postValue(workers)
+    }
+
+    fun addWorker(state: DownloadWorkerState) {
+        workers.add(state)
+        postValue(workers)
     }
 
     companion object {
-        private var instance: WorkerStateLiveData? = null
+        private var instance: DownloadWorkerStateLiveData? = null
 
-        fun instance(): WorkerStateLiveData {
+        fun instance(): DownloadWorkerStateLiveData {
             return instance ?: synchronized(this) {
-                instance ?: WorkerStateLiveData().also { instance = it }
+                instance ?: DownloadWorkerStateLiveData().also { instance = it }
             }
         }
     }
