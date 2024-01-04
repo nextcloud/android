@@ -525,11 +525,14 @@ internal class BackgroundJobManagerImpl(
             FileTransferWorker.EXTRA_REQUEST to gson.toJson(request)
         )
 
+        val tag = JOB_FILES_TRANSFER + request.uuid
+
         val requestData = oneTimeRequestBuilder(FileTransferWorker::class, JOB_FILES_TRANSFER)
+            .addTag(tag)
             .setInputData(data)
             .build()
 
-        workManager.enqueueUniqueWork(JOB_FILES_TRANSFER + request.uuid, ExistingWorkPolicy.REPLACE, requestData)
+        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, requestData)
     }
 
     override fun startPdfGenerateAndUploadWork(

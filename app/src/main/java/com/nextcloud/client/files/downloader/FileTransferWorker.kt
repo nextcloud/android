@@ -24,37 +24,18 @@ import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.gson.Gson
-import com.nextcloud.client.core.AsyncRunner
-import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.logger.Logger
-import com.nextcloud.client.network.ClientFactory
-import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppNotificationManager
-import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.datamodel.UploadsStorageManager
 
 @Suppress("LongParameterList")
 class FileTransferWorker(
     private val notificationsManager: AppNotificationManager,
-    clientFactory: ClientFactory,
-    runner: AsyncRunner,
     private val logger: Logger,
-    uploadsStorageManager: UploadsStorageManager,
-    connectivityService: ConnectivityService,
-    powerManagementService: PowerManagementService,
-    fileDataStorageManager: FileDataStorageManager,
+    private val helper: FileTransferHelper,
     private val context: Context,
     params: WorkerParameters
 ) : Worker(context, params) {
 
-    private val helper = FileTransferHelper(
-        clientFactory,
-        fileDataStorageManager,
-        runner,
-        powerManagementService,
-        connectivityService,
-        uploadsStorageManager
-    )
     private val gson = Gson()
 
     companion object {
@@ -74,13 +55,17 @@ class FileTransferWorker(
             val transferManager = helper.getTransferManager(downloader, context, request.user, this::onTransferUpdate)
             transferManager.enqueue(request)
 
-            logger.d(TAG, "Enqueued new transfer: ${request.uuid} ${request.file.remotePath}")
-
+            logger.d(TAG, "FileTransferWorker successfully completed: ${request.uuid} ${request.file.remotePath}")
             Result.success()
         } catch (t: Throwable) {
             logger.d(TAG, "Error caught at FileTransferWorker: ${t.localizedMessage}")
             Result.failure()
         }
+    }
+
+    override fun onStopped() {
+        logger.d(TAG, "FileTransferWorker stopped")
+        super.onStopped()
     }
 
     class Manager(downloader: TransferManagerImpl) : TransferManager by downloader

@@ -29,21 +29,18 @@ import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.core.Clock
-import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
+import com.nextcloud.client.files.downloader.FileTransferHelper
 import com.nextcloud.client.files.downloader.FileTransferWorker
 import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.logger.Logger
-import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppNotificationManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.ArbitraryDataProvider
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -59,16 +56,13 @@ import javax.inject.Provider
 @Suppress("LongParameterList", "TooManyFunctions") // satisfied by DI
 class BackgroundJobFactory @Inject constructor(
     private val appNotificationManager: AppNotificationManager,
-    private val clientFactory: ClientFactory,
-    private val fileDataStorageManager: FileDataStorageManager,
-    private val runner: AsyncRunner,
+    private val transferHelper: FileTransferHelper,
     private val logger: Logger,
     private val preferences: AppPreferences,
     private val contentResolver: ContentResolver,
     private val clock: Clock,
     private val powerManagementService: PowerManagementService,
     private val backgroundJobManager: Provider<BackgroundJobManager>,
-    private val deviceInfo: DeviceInfo,
     private val accountManager: UserAccountManager,
     private val resources: Resources,
     private val arbitraryDataProvider: ArbitraryDataProvider,
@@ -254,13 +248,8 @@ class BackgroundJobFactory @Inject constructor(
     private fun createFileTransferWorker(context: Context, params: WorkerParameters): FileTransferWorker {
         return FileTransferWorker(
             appNotificationManager,
-            clientFactory,
-            runner,
             logger,
-            uploadsStorageManager,
-            connectivityService,
-            powerManagementService,
-            fileDataStorageManager,
+            transferHelper,
             context,
             params
         )

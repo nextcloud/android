@@ -41,6 +41,8 @@ import com.nextcloud.client.core.ClockImpl;
 import com.nextcloud.client.core.ThreadPoolAsyncRunner;
 import com.nextcloud.client.database.dao.ArbitraryDataDao;
 import com.nextcloud.client.device.DeviceInfo;
+import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.files.downloader.FileTransferHelper;
 import com.nextcloud.client.logger.FileLogHandler;
 import com.nextcloud.client.logger.Logger;
 import com.nextcloud.client.logger.LoggerImpl;
@@ -50,6 +52,7 @@ import com.nextcloud.client.migrations.MigrationsDb;
 import com.nextcloud.client.migrations.MigrationsManager;
 import com.nextcloud.client.migrations.MigrationsManagerImpl;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.notifications.AppNotificationManager;
 import com.nextcloud.client.notifications.AppNotificationManagerImpl;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -244,6 +247,12 @@ class AppModule {
                                               context.getResources(),
                                               platformNotificationsManager,
                                               viewThemeUtilsProvider.get());
+    }
+
+    @Provides
+    @Singleton
+    FileTransferHelper fileTransferHelper(ClientFactory clientFactory, FileDataStorageManager fileDataStorageManager, AsyncRunner runner, PowerManagementService powerManagementService, ConnectivityService connectivityService, UploadsStorageManager uploadsStorageManager) {
+        return new FileTransferHelper(clientFactory, fileDataStorageManager, runner, powerManagementService, connectivityService, uploadsStorageManager);
     }
 
     @Provides

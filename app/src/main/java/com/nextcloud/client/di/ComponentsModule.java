@@ -495,7 +495,4 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract TestJob testJob();
-
-    @ContributesAndroidInjector
-    abstract FileTransferHelper fileTransferHelper();
 }
