@@ -68,8 +68,6 @@ class FileDownloadWorker(
     companion object {
         private val TAG = FileDownloadWorker::class.java.simpleName
 
-        private var folderDownloadStatusPair = HashMap<Long, Boolean>()
-
         const val FOLDER_ID = "FOLDER_ID"
         const val USER_NAME = "USER"
         const val FILE = "FILE"
@@ -85,14 +83,6 @@ class FileDownloadWorker(
         const val EXTRA_REMOTE_PATH = "REMOTE_PATH"
         const val EXTRA_LINKED_TO_PATH = "LINKED_TO"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
-
-        fun isFolderDownloading(folder: OCFile): Boolean {
-            for ((id, status) in folderDownloadStatusPair) {
-                return id == folder.fileId && status
-            }
-
-            return false
-        }
 
         fun getDownloadAddedMessage(): String {
             return FileDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
@@ -236,20 +226,10 @@ class FileDownloadWorker(
     }
 
     private fun setWorkerState(user: User?, file: DownloadFileOperation?) {
-        val folderId = inputData.keyValueMap[FOLDER_ID] as Long?
-        folderId?.let {
-            folderDownloadStatusPair[folderId] = true
-        }
-
         WorkerStateLiveData.instance().setWorkState(WorkerState.Download(user, file))
     }
 
     private fun setIdleWorkerState() {
-        val folderId = inputData.keyValueMap[FOLDER_ID] as Long?
-        folderId?.let {
-            folderDownloadStatusPair.remove(folderId)
-        }
-
         WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
     }
 
