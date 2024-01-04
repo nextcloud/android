@@ -53,6 +53,7 @@ class DownloadNotificationManager(private val context: Context, private val view
             setContentText(context.resources.getString(R.string.worker_download))
             setSmallIcon(R.drawable.notification_icon)
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
             }
@@ -107,6 +108,26 @@ class DownloadNotificationManager(private val context: Context, private val view
         notificationBuilder.run {
             setTicker(context.getString(tickerId))
             setContentText(resultText)
+            notificationManager.notify(notifyId, this.build())
+        }
+
+        NotificationUtils.cancelWithDelay(
+            notificationManager,
+            notifyId,
+            2000
+        )
+    }
+
+    fun notifyForFolderResult(isAnyOperationFailed: Boolean, folderName: String) {
+        val notifyId = SecureRandom().nextInt()
+        val message = if (!isAnyOperationFailed) {
+            context.getString(R.string.downloader_folder_downloaded, folderName)
+        } else {
+            context.getString(R.string.downloader_folder_download_failed, folderName)
+        }
+
+        notificationBuilder.run {
+            setContentText(message)
             notificationManager.notify(notifyId, this.build())
         }
 

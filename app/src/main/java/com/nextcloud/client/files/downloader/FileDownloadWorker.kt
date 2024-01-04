@@ -57,7 +57,7 @@ import java.util.Vector
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class FileDownloadWorker(
-    private val viewThemeUtils: ViewThemeUtils,
+    viewThemeUtils: ViewThemeUtils,
     private val accountManager: UserAccountManager,
     private val uploadsStorageManager: UploadsStorageManager,
     private var localBroadcastManager: LocalBroadcastManager,
@@ -68,7 +68,7 @@ class FileDownloadWorker(
     companion object {
         private val TAG = FileDownloadWorker::class.java.simpleName
 
-        const val FOLDER_ID = "FOLDER_ID"
+        const val FOLDER = "FOLDER"
         const val USER_NAME = "USER"
         const val FILE = "FILE"
         const val FILES = "FILES"
@@ -103,6 +103,8 @@ class FileDownloadWorker(
     private var storageManager: FileDataStorageManager? = null
     private var downloadClient: OwnCloudClient? = null
     private var user: User? = null
+    private var folder: OCFile? = null
+    private var isAnyOperationFailed = true
     private val gson = Gson()
     private val pendingDownloads = IndexedForest<DownloadFileOperation>()
 
@@ -119,6 +121,9 @@ class FileDownloadWorker(
             }
 
             setIdleWorkerState()
+            folder?.let {
+                notifyForFolderResult(it)
+            }
 
             Log_OC.e(TAG, "FilesDownloadWorker successfully completed")
             Result.success()
@@ -139,11 +144,16 @@ class FileDownloadWorker(
         super.onStopped()
     }
 
+    private fun notifyForFolderResult(folder: OCFile) {
+        notificationManager.notifyForFolderResult(isAnyOperationFailed, folder.fileName)
+    }
+
     private fun getRequestDownloads(): AbstractList<String> {
         val files = getFiles()
         val downloadType = getDownloadType()
         setUser()
 
+        folder = gson.fromJson(inputData.keyValueMap[FOLDER] as? String, OCFile::class.java) ?: null
         conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long?
         val behaviour = inputData.keyValueMap[BEHAVIOUR] as String? ?: ""
         val activityName = inputData.keyValueMap[ACTIVITY_NAME] as String? ?: ""
@@ -312,6 +322,10 @@ class FileDownloadWorker(
     }
 
     private fun cleanupDownloadProcess(result: RemoteOperationResult<*>?) {
+        result?.let {
+            isAnyOperationFailed = !it.isSuccess
+        }
+
         val removeResult = pendingDownloads.removePayload(
             currentDownload?.user?.accountName,
             currentDownload?.remotePath
@@ -321,11 +335,13 @@ class FileDownloadWorker(
 
         currentDownload?.run {
             notifyDownloadResult(this, downloadResult)
+
             val downloadFinishedIntent = intents.downloadFinishedIntent(
                 this,
                 downloadResult,
                 removeResult.second
             )
+
             localBroadcastManager.sendBroadcast(downloadFinishedIntent)
         }
     }
@@ -353,7 +369,9 @@ class FileDownloadWorker(
                 setContentIntent(intents.detailsIntent(null), PendingIntent.FLAG_IMMUTABLE)
             }
 
-            notifyForResult(downloadResult, download)
+            if (folder == null) {
+                notifyForResult(downloadResult, download)
+            }
         }
     }
 

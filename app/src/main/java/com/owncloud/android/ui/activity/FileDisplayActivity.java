@@ -1585,7 +1585,6 @@ public class FileDisplayActivity extends FileActivity
         return new ListServiceConnection();
     }
 
-    // FIXME ServiceConnection will not trigger anymore
     /**
      * Defines callbacks for service binding, passed to bindService()
      */
