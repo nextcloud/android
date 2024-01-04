@@ -145,7 +145,7 @@ class FileDownloadWorker(
     }
 
     private fun notifyForFolderResult(folder: OCFile) {
-        notificationManager.notifyForFolderResult(isAnyOperationFailed, folder.fileName)
+        notificationManager.notifyForResult(null, null, folder, isAnyOperationFailed)
     }
 
     private fun getRequestDownloads(): AbstractList<String> {
@@ -370,7 +370,7 @@ class FileDownloadWorker(
             }
 
             if (folder == null) {
-                notifyForResult(downloadResult, download)
+                notifyForResult(downloadResult, download, null, null)
             }
         }
     }
