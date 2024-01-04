@@ -32,6 +32,7 @@ import androidx.core.app.NotificationCompat
 import com.nextcloud.client.account.User
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.files.FileUtils
 import com.owncloud.android.operations.DownloadFileOperation
@@ -87,7 +88,7 @@ class DownloadNotificationManager(private val context: Context, private val view
         downloadResult: RemoteOperationResult<*>,
         needsToUpdateCredentials: Boolean
     ) {
-        val tickerId = getTickerId(downloadResult.isSuccess, needsToUpdateCredentials)
+        val tickerId = getTickerId(downloadResult.isSuccess, needsToUpdateCredentials, null, null)
 
         notificationBuilder
             .setTicker(context.getString(tickerId))
@@ -98,12 +99,17 @@ class DownloadNotificationManager(private val context: Context, private val view
     }
 
     @Suppress("MagicNumber")
-    fun notifyForResult(result: RemoteOperationResult<*>, download: DownloadFileOperation) {
+    fun notifyForResult(
+        result: RemoteOperationResult<*>?,
+        download: DownloadFileOperation?,
+        folder: OCFile?,
+        isAnyOperationFailed: Boolean?
+    ) {
         dismissDownloadInProgressNotification()
 
-        val tickerId = getTickerId(result.isSuccess, null)
+        val tickerId = getTickerId(result?.isSuccess, null, folder, isAnyOperationFailed)
         val notifyId = SecureRandom().nextInt()
-        val resultText = getResultText(result, download)
+        val resultText = getResultText(result, download, folder, isAnyOperationFailed)
 
         notificationBuilder.run {
             setTicker(context.getString(tickerId))
@@ -118,47 +124,55 @@ class DownloadNotificationManager(private val context: Context, private val view
         )
     }
 
-    fun notifyForFolderResult(isAnyOperationFailed: Boolean, folderName: String) {
-        val notifyId = SecureRandom().nextInt()
-        val message = if (!isAnyOperationFailed) {
-            context.getString(R.string.downloader_folder_downloaded, folderName)
+    private fun getResultText(
+        result: RemoteOperationResult<*>?,
+        download: DownloadFileOperation?,
+        folder: OCFile?,
+        isAnyOperationFailed: Boolean?
+    ): String {
+        return folder?.let {
+            getFolderResultText(isAnyOperationFailed, it)
+        } ?: if (result?.isSuccess == true) {
+            download?.file?.fileName ?: ""
         } else {
-            context.getString(R.string.downloader_folder_download_failed, folderName)
-        }
-
-        notificationBuilder.run {
-            setContentText(message)
-            notificationManager.notify(notifyId, this.build())
-        }
-
-        NotificationUtils.cancelWithDelay(
-            notificationManager,
-            notifyId,
-            2000
-        )
-    }
-
-    private fun getResultText(result: RemoteOperationResult<*>, download: DownloadFileOperation): String {
-        return if (result.isSuccess) {
-            download.file.fileName
-        } else {
-            ErrorMessageAdapter.getErrorCauseMessage(
-                result,
-                download,
-                context.resources
-            )
+            ErrorMessageAdapter.getErrorCauseMessage(result, download, context.resources)
         }
     }
 
-    private fun getTickerId(isSuccess: Boolean, needsToUpdateCredentials: Boolean?): Int {
+    private fun getFolderResultText(isAnyOperationFailed: Boolean?, folder: OCFile): String {
+        return if (isAnyOperationFailed == false) {
+            context.getString(R.string.downloader_folder_downloaded, folder.fileName)
+        } else {
+            context.getString(R.string.downloader_folder_download_failed, folder.fileName)
+        }
+    }
+
+    private fun getTickerId(
+        isSuccess: Boolean?,
+        needsToUpdateCredentials: Boolean?,
+        folder: OCFile?,
+        isAnyOperationFailed: Boolean?
+    ): Int {
         return if (needsToUpdateCredentials == true) {
             R.string.downloader_download_failed_credentials_error
         } else {
-            if (isSuccess) {
-                R.string.downloader_download_succeeded_ticker
-            } else {
-                R.string.downloader_download_failed_ticker
-            }
+            folder?.let { getFolderTickerId(isAnyOperationFailed) } ?: getFileTickerId(isSuccess)
+        }
+    }
+
+    private fun getFileTickerId(isSuccess: Boolean?): Int {
+        return if (isSuccess == true) {
+            R.string.downloader_download_succeeded_ticker
+        } else {
+            R.string.downloader_download_failed_ticker
+        }
+    }
+
+    private fun getFolderTickerId(isAnyOperationFailed: Boolean?): Int {
+        return if (isAnyOperationFailed == false) {
+            R.string.downloader_folder_downloaded
+        } else {
+            R.string.downloader_folder_download_failed
         }
     }
 
