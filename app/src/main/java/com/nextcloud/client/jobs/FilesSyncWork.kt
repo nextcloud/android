@@ -25,6 +25,7 @@ package com.nextcloud.client.jobs
 import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Resources
+import android.os.Build
 import android.text.TextUtils
 import androidx.core.app.NotificationCompat
 import androidx.exifinterface.media.ExifInterface
@@ -39,6 +40,7 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FilesystemDataProvider
+import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderProvider
@@ -90,8 +92,11 @@ class FilesSyncWork(
             .setOngoing(true)
             .setProgress(100, progressPercent, false)
             .build()
-
-        return ForegroundInfo(FOREGROUND_SERVICE_ID, notification)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ForegroundInfo(FOREGROUND_SERVICE_ID, notification, ForegroundServiceType.DataSync.getId())
+        } else {
+            ForegroundInfo(FOREGROUND_SERVICE_ID, notification)
+        }
     }
 
     @Suppress("MagicNumber")
