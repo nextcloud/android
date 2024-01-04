@@ -36,8 +36,8 @@ import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.java.util.Optional
-import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateLiveData
+import com.nextcloud.model.DownloadWorkerState
+import com.nextcloud.model.DownloadWorkerStateLiveData
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -68,6 +68,7 @@ class FileDownloadWorker(
     companion object {
         private val TAG = FileDownloadWorker::class.java.simpleName
 
+        const val WORKER_TAG = "WORKER_TAG"
         const val FOLDER = "FOLDER"
         const val USER_NAME = "USER"
         const val FILE = "FILE"
@@ -106,6 +107,7 @@ class FileDownloadWorker(
     private var folder: OCFile? = null
     private var isAnyOperationFailed = true
     private val gson = Gson()
+    private var workerTag: String? = null
     private val pendingDownloads = IndexedForest<DownloadFileOperation>()
 
     @Suppress("TooGenericExceptionCaught")
@@ -144,6 +146,15 @@ class FileDownloadWorker(
         super.onStopped()
     }
 
+    private fun setWorkerState(user: User?, file: DownloadFileOperation?) {
+        val worker = DownloadWorkerState(workerTag ?: "", user, file)
+        DownloadWorkerStateLiveData.instance().addWorker(worker)
+    }
+
+    private fun setIdleWorkerState() {
+        DownloadWorkerStateLiveData.instance().removeWorker(workerTag ?: "")
+    }
+
     private fun notifyForFolderResult(folder: OCFile) {
         notificationManager.notifyForResult(null, null, folder, isAnyOperationFailed)
     }
@@ -153,6 +164,7 @@ class FileDownloadWorker(
         val downloadType = getDownloadType()
         setUser()
 
+        workerTag = inputData.keyValueMap[WORKER_TAG] as String? ?: ""
         folder = gson.fromJson(inputData.keyValueMap[FOLDER] as? String, OCFile::class.java) ?: null
         conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long?
         val behaviour = inputData.keyValueMap[BEHAVIOUR] as String? ?: ""
@@ -233,14 +245,6 @@ class FileDownloadWorker(
         } else {
             null
         }
-    }
-
-    private fun setWorkerState(user: User?, file: DownloadFileOperation?) {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.Download(user, file))
-    }
-
-    private fun setIdleWorkerState() {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
     }
 
     private fun addAccountUpdateListener() {

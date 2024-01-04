@@ -547,7 +547,10 @@ internal class BackgroundJobManagerImpl(
         packageName: String,
         conflictUploadId: Long?
     ) {
+        val tag = startFileDownloadJobTag(user, file)
+
         val data = workDataOf(
+            FileDownloadWorker.WORKER_TAG to tag,
             FileDownloadWorker.USER_NAME to user.accountName,
             FileDownloadWorker.FILE to gson.toJson(file),
             FileDownloadWorker.BEHAVIOUR to behaviour,
@@ -556,8 +559,6 @@ internal class BackgroundJobManagerImpl(
             FileDownloadWorker.PACKAGE_NAME to packageName,
             FileDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId
         )
-
-        val tag = startFileDownloadJobTag(user, file)
 
         val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
             .addTag(tag)
