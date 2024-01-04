@@ -71,6 +71,7 @@ class FileUploadWorker(
     private val intents = FileUploaderIntents(context)
     private val fileUploaderDelegate = FileUploaderDelegate()
 
+    @Suppress("TooGenericExceptionCaught")
     override fun doWork(): Result {
         return try {
             backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
