@@ -1472,7 +1472,7 @@ public class FileDisplayActivity extends FileActivity
         }
 
         private boolean isSameAccount(Intent intent) {
-            String accountName = intent.getStringExtra(FileDownloadWorker.ACCOUNT_NAME);
+            String accountName = intent.getStringExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME);
             return accountName != null && getAccount() != null && accountName.equals(getAccount().name);
         }
     }

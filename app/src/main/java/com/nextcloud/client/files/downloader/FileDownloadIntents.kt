@@ -39,7 +39,7 @@ class FileDownloadIntents(private val context: Context) {
         linkedToRemotePath: String
     ): Intent {
         return Intent(FileDownloadWorker.getDownloadAddedMessage()).apply {
-            putExtra(FileDownloadWorker.ACCOUNT_NAME, download.user.accountName)
+            putExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME, download.user.accountName)
             putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, download.remotePath)
             putExtra(FileDownloadWorker.EXTRA_LINKED_TO_PATH, linkedToRemotePath)
             setPackage(context.packageName)
@@ -53,7 +53,7 @@ class FileDownloadIntents(private val context: Context) {
     ): Intent {
         return Intent(FileDownloadWorker.getDownloadFinishMessage()).apply {
             putExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess)
-            putExtra(FileDownloadWorker.ACCOUNT_NAME, download.user.accountName)
+            putExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME, download.user.accountName)
             putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, download.remotePath)
             putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, download.behaviour)
             putExtra(SendShareDialog.ACTIVITY_NAME, download.activityName)
