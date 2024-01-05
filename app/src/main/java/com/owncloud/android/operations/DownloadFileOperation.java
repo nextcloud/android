@@ -170,6 +170,11 @@ public class DownloadFileOperation extends RemoteOperation {
             }
         }
 
+        Context operationContext = context.get();
+        if (operationContext == null) {
+            return new RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);
+        }
+
         RemoteOperationResult result;
         File newFile = null;
         boolean moved;
@@ -190,6 +195,8 @@ public class DownloadFileOperation extends RemoteOperation {
 
         result = downloadOperation.execute(client);
 
+
+
         if (result.isSuccess()) {
             modificationTimestamp = downloadOperation.getModificationTimestamp();
             etag = downloadOperation.getEtag();
@@ -204,13 +211,13 @@ public class DownloadFileOperation extends RemoteOperation {
 
             // decrypt file
             if (file.isEncrypted()) {
-                FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(user, context.get().getContentResolver());
+                FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(user, operationContext.getContentResolver());
 
-                OCFile parent = fileDataStorageManager.getFileByPath(file.getParentRemotePath());
+                OCFile parent = fileDataStorageManager.getFileByEncryptedRemotePath(file.getParentRemotePath());
 
                 DecryptedFolderMetadata metadata = EncryptionUtils.downloadFolderMetadata(parent,
                                                                                           client,
-                                                                                          context.get(),
+                                                                                          operationContext,
                                                                                           user);
 
                 if (metadata == null) {
@@ -228,7 +235,7 @@ public class DownloadFileOperation extends RemoteOperation {
                                                                         key,
                                                                         iv,
                                                                         authenticationTag,
-                                                                        new ArbitraryDataProviderImpl(context.get()),
+                                                                        new ArbitraryDataProviderImpl(operationContext),
                                                                         user);
 
                     try (FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)) {
@@ -248,7 +255,7 @@ public class DownloadFileOperation extends RemoteOperation {
             } else if (downloadType == DownloadType.EXPORT) {
                 new FileExportUtils().exportFile(file.getFileName(),
                                                  file.getMimeType(),
-                                                 context.get().getContentResolver(),
+                                                 operationContext.getContentResolver(),
                                                  null,
                                                  tmpFile);
                 if (!tmpFile.delete()) {
@@ -256,6 +263,7 @@ public class DownloadFileOperation extends RemoteOperation {
                 }
             }
         }
+
         Log_OC.i(TAG, "Download of " + file.getRemotePath() + " to " + getSavePath() + ": " +
                 result.getLogMessage());
 
