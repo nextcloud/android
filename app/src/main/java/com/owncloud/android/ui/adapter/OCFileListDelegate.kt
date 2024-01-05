@@ -34,7 +34,6 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.files.downloader.FileDownloadHelper
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.model.DownloadWorkerStateLiveData
 import com.nextcloud.utils.extensions.createRoundedOutline
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -344,26 +343,25 @@ class OCFileListDelegate(
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
         val fileUploaderBinder = transferServiceGetter.fileUploaderBinder
 
-        val isDownloading = if (file.isFolder) {
-            FileDownloadHelper.instance().isDownloading(user, file)
-        } else {
-            DownloadWorkerStateLiveData.instance().isDownloading(user, file)
-        }
-
         val icon: Int? = when {
             operationsServiceBinder?.isSynchronizing(user, file) == true ||
-                isDownloading ||
+                FileDownloadHelper.instance().isDownloading(user, file) ||
                 fileUploaderBinder?.isUploading(user, file) == true -> {
                 // synchronizing, downloading or uploading
                 R.drawable.ic_synchronizing
             }
+
             file.etagInConflict != null -> {
                 R.drawable.ic_synchronizing_error
             }
+
             file.isDown -> {
                 R.drawable.ic_synced
             }
-            else -> { null }
+
+            else -> {
+                null
+            }
         }
 
         gridViewHolder.localFileIndicator.run {

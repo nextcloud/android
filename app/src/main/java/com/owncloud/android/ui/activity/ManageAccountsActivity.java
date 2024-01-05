@@ -37,6 +37,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.view.MenuItem;
 import android.view.View;
+
 import com.google.common.collect.Sets;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -44,8 +45,8 @@ import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.java.util.Optional;
-import com.nextcloud.model.DownloadWorkerState;
-import com.nextcloud.model.DownloadWorkerStateLiveData;
+import com.nextcloud.model.WorkerState;
+import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -54,7 +55,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.files.services.IndexedForest;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -115,7 +115,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     private ArbitraryDataProvider arbitraryDataProvider;
     private boolean multipleAccountsSupported;
 
-    private final ArrayList<DownloadWorkerState> downloadWorkerStates = new ArrayList<>();
+    private String workerAccountName;
+    private DownloadFileOperation workerCurrentDownload;
 
     @Inject BackgroundJobManager backgroundJobManager;
     @Inject UserAccountManager accountManager;
@@ -164,7 +165,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         recyclerView.setAdapter(userListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         initializeComponentGetters();
-        observeDownloadWorkerState();
+        observeWorkerState();
     }
 
 
@@ -341,7 +342,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                     mUploaderBinder.cancel(accountName);
                 }
 
-                cancelAllDownloadsForAccount();
+                FileDownloadHelper.Companion.instance().cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload);
             }
 
             User currentUser = getUserAccountManager().getUser();
@@ -409,20 +410,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         return new ManageAccountsServiceConnection();
     }
 
-    private void cancelAllDownloadsForAccount() {
-        for (DownloadWorkerState workerState : downloadWorkerStates) {
-            User currentUser =  workerState.getUser();
-            IndexedForest<DownloadFileOperation> pendingDownloads = workerState.getPendingDownloads();
-
-            if (currentUser != null && pendingDownloads != null) {
-                pendingDownloads.getAll().values().forEach((value) -> {
-                    DownloadFileOperation operation = value.getPayload();
-                    FileDownloadHelper.Companion.instance().cancelAllDownloadsForAccount(currentUser.getAccountName(), operation);
-                });
-            }
-        }
-    }
-
     private void performAccountRemoval(User user) {
         // disable account in recycler view
         for (int i = 0; i < userListAdapter.getItemCount(); i++) {
@@ -445,7 +432,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
             mUploaderBinder.cancel(user);
         }
 
-        cancelAllDownloadsForAccount();
+        FileDownloadHelper.Companion.instance().cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload);
+
         backgroundJobManager.startAccountRemovalJob(user.getAccountName(), false);
 
         // immediately select a new account
@@ -529,10 +517,13 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         }
     }
 
-    private void observeDownloadWorkerState() {
-        DownloadWorkerStateLiveData.Companion.instance().observe(this, state -> {
-            Log_OC.d(TAG, "Download worker started");
-            downloadWorkerStates.addAll(state);
+    private void observeWorkerState() {
+        WorkerStateLiveData.Companion.instance().observe(this, state -> {
+            if (state instanceof WorkerState.Download) {
+                Log_OC.d(TAG, "Download worker started");
+                workerAccountName = ((WorkerState.Download) state).getUser().getAccountName();
+                workerCurrentDownload = ((WorkerState.Download) state).getCurrentDownload();
+            }
         });
     }
 

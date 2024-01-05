@@ -34,7 +34,6 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.workDataOf
-import com.google.gson.Gson
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
@@ -42,7 +41,6 @@ import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.files.downloader.FileDownloadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkScheduled
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.operations.DownloadType
 import java.util.Date
@@ -549,7 +547,6 @@ internal class BackgroundJobManagerImpl(
         val tag = startFileDownloadJobTag(user, file)
 
         val data = workDataOf(
-            FileDownloadWorker.WORKER_TAG to tag,
             FileDownloadWorker.USER_NAME to user.accountName,
             FileDownloadWorker.FILE_PATH to file.remotePath,
             FileDownloadWorker.BEHAVIOUR to behaviour,

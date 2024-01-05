@@ -21,10 +21,21 @@
 
 package com.nextcloud.model
 
-import com.nextcloud.client.account.User
-import com.owncloud.android.operations.DownloadFileOperation
+import androidx.lifecycle.LiveData
 
-sealed class WorkerState {
-    object Idle : WorkerState()
-    class Download(var user: User?, var currentDownload: DownloadFileOperation?) : WorkerState()
+class WorkerStateLiveData private constructor() : LiveData<WorkerState>() {
+
+    fun setWorkState(state: WorkerState) {
+        postValue(state)
+    }
+
+    companion object {
+        private var instance: WorkerStateLiveData? = null
+
+        fun instance(): WorkerStateLiveData {
+            return instance ?: synchronized(this) {
+                instance ?: WorkerStateLiveData().also { instance = it }
+            }
+        }
+    }
 }

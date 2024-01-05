@@ -63,7 +63,7 @@ class FileDownloadHelper {
         return backgroundJobManager.isStartFileDownloadJobScheduled(
             user,
             file
-        )
+        ) || FileDownloadWorker.isDownloading(user, file)
     }
 
     fun cancelPendingOrCurrentDownloads(user: User?, file: OCFile?) {
