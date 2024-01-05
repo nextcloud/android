@@ -507,7 +507,7 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     private void previewNewImage(Intent intent) {
-        String accountName = intent.getStringExtra(FileDownloadWorker.ACCOUNT_NAME);
+        String accountName = intent.getStringExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME);
         String downloadedRemotePath = intent.getStringExtra(FileDownloadWorker.EXTRA_REMOTE_PATH);
         String downloadBehaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
         if (getAccount().name.equals(accountName) && downloadedRemotePath != null) {

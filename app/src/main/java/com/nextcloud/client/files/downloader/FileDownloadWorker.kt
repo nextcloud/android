@@ -42,7 +42,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.files.services.IndexedForest
 import com.owncloud.android.lib.common.OwnCloudAccount
-import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -71,21 +70,20 @@ class FileDownloadWorker(
         private var currentDownload: DownloadFileOperation? = null
 
         const val FILES_SEPARATOR = ","
-        const val FOLDER_PATH = "FOLDER_PATH"
-        const val USER_NAME = "USER"
-        const val FILE_PATH = "FILE_PATH"
-        const val FILES_PATH = "FILES_PATH"
+        const val FOLDER_REMOTE_PATH = "FOLDER_REMOTE_PATH"
+        const val FILE_REMOTE_PATH = "FILE_REMOTE_PATH"
+        const val FILES_REMOTE_PATH = "FILES_REMOTE_PATH"
+        const val ACCOUNT_NAME = "ACCOUNT_NAME"
         const val BEHAVIOUR = "BEHAVIOUR"
         const val DOWNLOAD_TYPE = "DOWNLOAD_TYPE"
         const val ACTIVITY_NAME = "ACTIVITY_NAME"
         const val PACKAGE_NAME = "PACKAGE_NAME"
         const val CONFLICT_UPLOAD_ID = "CONFLICT_UPLOAD_ID"
-        const val EXTRA_USER = "USER"
-        const val EXTRA_FILE = "FILE"
-        const val EXTRA_DOWNLOAD_RESULT = "RESULT"
-        const val EXTRA_REMOTE_PATH = "REMOTE_PATH"
-        const val EXTRA_LINKED_TO_PATH = "LINKED_TO"
-        const val ACCOUNT_NAME = "ACCOUNT_NAME"
+
+        const val EXTRA_DOWNLOAD_RESULT = "EXTRA_DOWNLOAD_RESULT"
+        const val EXTRA_REMOTE_PATH = "EXTRA_REMOTE_PATH"
+        const val EXTRA_LINKED_TO_PATH = "EXTRA_LINKED_TO_PATH"
+        const val EXTRA_ACCOUNT_NAME = "EXTRA_ACCOUNT_NAME"
 
         fun isDownloading(user: User, file: OCFile): Boolean {
             return currentDownload?.file?.fileId == file.fileId &&
@@ -102,16 +100,20 @@ class FileDownloadWorker(
     }
 
     private val pendingDownloads = IndexedForest<DownloadFileOperation>()
+
     private var conflictUploadId: Long? = null
     private var lastPercent = 0
+
     private val intents = FileDownloadIntents(context)
     private val notificationManager = DownloadNotificationManager(context, viewThemeUtils)
     private var downloadProgressListener = FileDownloadProgressListener()
-    private var currentUser = Optional.empty<User>()
-    private var storageManager: FileDataStorageManager? = null
-    private var fileDataStorageManager: FileDataStorageManager? = null
-    private var downloadClient: OwnCloudClient? = null
+
     private var user: User? = null
+    private var currentUser = Optional.empty<User>()
+
+    private var currentUserFileStorageManager: FileDataStorageManager? = null
+    private var fileDataStorageManager: FileDataStorageManager? = null
+
     private var folder: OCFile? = null
     private var isAnyOperationFailed = true
 
@@ -223,22 +225,22 @@ class FileDownloadWorker(
     }
 
     private fun setUser() {
-        val accountName = inputData.keyValueMap[USER_NAME] as String
+        val accountName = inputData.keyValueMap[ACCOUNT_NAME] as String
         user = accountManager.getUser(accountName).get()
         fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
     }
 
     private fun setFolder() {
-        val folderPath = inputData.keyValueMap[FOLDER_PATH] as? String?
+        val folderPath = inputData.keyValueMap[FOLDER_REMOTE_PATH] as? String?
         if (folderPath != null) {
-            folder = storageManager?.getFileByEncryptedRemotePath(folderPath)
+            folder = currentUserFileStorageManager?.getFileByEncryptedRemotePath(folderPath)
         }
     }
 
     private fun getFiles(): List<OCFile> {
         val result = arrayListOf<OCFile>()
 
-        val filesPath = inputData.keyValueMap[FILES_PATH] as String?
+        val filesPath = inputData.keyValueMap[FILES_REMOTE_PATH] as String?
         val filesPathList = filesPath?.split(FILES_SEPARATOR)
 
         if (filesPathList != null) {
@@ -248,7 +250,7 @@ class FileDownloadWorker(
                 }
             }
         } else {
-            val remotePath = inputData.keyValueMap[FILE_PATH] as String
+            val remotePath = inputData.keyValueMap[FILE_REMOTE_PATH] as String
             fileDataStorageManager?.getFileByEncryptedRemotePath(remotePath)?.let { file ->
                 result.add(file)
             }
@@ -296,13 +298,13 @@ class FileDownloadWorker(
         var downloadResult: RemoteOperationResult<*>? = null
         try {
             val ocAccount = getOCAccountForDownload()
-            downloadClient =
+            val downloadClient =
                 OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
 
             downloadResult = currentDownload?.execute(downloadClient)
             if (downloadResult?.isSuccess == true && currentDownload?.downloadType === DownloadType.DOWNLOAD) {
                 getCurrentFile()?.let {
-                    FileDownloadHelper.instance().saveFile(it, currentDownload, storageManager)
+                    FileDownloadHelper.instance().saveFile(it, currentDownload, currentUserFileStorageManager)
                 }
             }
         } catch (e: Exception) {
@@ -328,16 +330,16 @@ class FileDownloadWorker(
         val currentDownloadUser = accountManager.getUser(currentDownloadAccount?.name)
         if (currentUser != currentDownloadUser) {
             currentUser = currentDownloadUser
-            storageManager = FileDataStorageManager(currentUser.get(), context.contentResolver)
+            currentUserFileStorageManager = FileDataStorageManager(currentUser.get(), context.contentResolver)
         }
         return currentDownloadUser.get().toOwnCloudAccount()
     }
 
     private fun getCurrentFile(): OCFile? {
-        var file: OCFile? = currentDownload?.file?.fileId?.let { storageManager?.getFileById(it) }
+        var file: OCFile? = currentDownload?.file?.fileId?.let { currentUserFileStorageManager?.getFileById(it) }
 
         if (file == null) {
-            file = storageManager?.getFileByDecryptedRemotePath(currentDownload?.file?.remotePath)
+            file = currentUserFileStorageManager?.getFileByDecryptedRemotePath(currentDownload?.file?.remotePath)
         }
 
         if (file == null) {
