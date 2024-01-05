@@ -28,6 +28,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import androidx.core.app.NotificationCompat
 import com.nextcloud.client.account.User
 import com.owncloud.android.R
@@ -197,7 +199,9 @@ class DownloadNotificationManager(private val context: Context, private val view
     }
 
     fun dismissAll() {
-        notificationManager.cancelAll()
+        Handler(Looper.getMainLooper()).postDelayed({
+            notificationManager.cancelAll()
+        }, 2000)
     }
 
     fun setCredentialContentIntent(user: User) {
