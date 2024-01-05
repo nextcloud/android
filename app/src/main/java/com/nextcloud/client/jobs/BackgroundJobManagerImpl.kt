@@ -42,6 +42,7 @@ import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.files.downloader.FileDownloadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkScheduled
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.operations.DownloadType
 import java.util.Date
@@ -108,7 +109,6 @@ internal class BackgroundJobManagerImpl(
         const val PERIODIC_BACKUP_INTERVAL_MINUTES = 24 * 60L
         const val DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES = 15L
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
-        private val gson = Gson()
 
         private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 * 3L
 
@@ -500,7 +500,6 @@ internal class BackgroundJobManagerImpl(
 
         workManager.enqueue(request)
     }
-
     override fun startFilesUploadJob(user: User) {
         val data = workDataOf(FilesUploadWorker.ACCOUNT to user.accountName)
 
@@ -511,23 +510,23 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniqueWork(JOB_FILES_UPLOAD + user.accountName, ExistingWorkPolicy.KEEP, request)
     }
 
-    private fun startFileDownloadJobTag(user: User, path: String): String {
-        return JOB_FILES_DOWNLOAD + user.accountName + path
+    private fun startFileDownloadJobTag(user: User, ocFile: OCFile): String {
+        return JOB_FILES_DOWNLOAD + user.accountName + ocFile.fileId
     }
 
-    override fun isStartFileDownloadJobScheduled(user: User, path: String): Boolean {
-        return workManager.isWorkScheduled(startFileDownloadJobTag(user, path))
+    override fun isStartFileDownloadJobScheduled(user: User, ocFile: OCFile): Boolean {
+        return workManager.isWorkScheduled(startFileDownloadJobTag(user, ocFile))
     }
 
-    override fun startFolderDownloadJob(folderPath: String, user: User, filesPath: List<String>) {
+    override fun startFolderDownloadJob(folder: OCFile, user: User, filesPath: List<String>) {
         val data = workDataOf(
             FileDownloadWorker.USER_NAME to user.accountName,
-            FileDownloadWorker.FOLDER_PATH to folderPath,
+            FileDownloadWorker.FOLDER_PATH to folder.remotePath,
             FileDownloadWorker.FILES_PATH to filesPath.joinToString(FileDownloadWorker.FILES_SEPARATOR),
             FileDownloadWorker.DOWNLOAD_TYPE to DownloadType.DOWNLOAD.toString()
         )
 
-        val tag = startFileDownloadJobTag(user, folderPath)
+        val tag = startFileDownloadJobTag(user, folder)
 
         val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
             .addTag(tag)
@@ -540,19 +539,19 @@ internal class BackgroundJobManagerImpl(
 
     override fun startFileDownloadJob(
         user: User,
-        filePath: String,
+        file: OCFile,
         behaviour: String,
         downloadType: DownloadType?,
         activityName: String,
         packageName: String,
         conflictUploadId: Long?
     ) {
-        val tag = startFileDownloadJobTag(user, filePath)
+        val tag = startFileDownloadJobTag(user, file)
 
         val data = workDataOf(
             FileDownloadWorker.WORKER_TAG to tag,
             FileDownloadWorker.USER_NAME to user.accountName,
-            FileDownloadWorker.FILE_PATH to filePath,
+            FileDownloadWorker.FILE_PATH to file.remotePath,
             FileDownloadWorker.BEHAVIOUR to behaviour,
             FileDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),
             FileDownloadWorker.ACTIVITY_NAME to activityName,
@@ -577,8 +576,8 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelJob(JOB_FILES_UPLOAD, user)
     }
 
-    override fun cancelFilesDownloadJob(user: User, path: String) {
-        workManager.cancelAllWorkByTag(startFileDownloadJobTag(user, path))
+    override fun cancelFilesDownloadJob(user: User, ocFile: OCFile) {
+        workManager.cancelAllWorkByTag(startFileDownloadJobTag(user, ocFile))
     }
 
     override fun startPdfGenerateAndUploadWork(

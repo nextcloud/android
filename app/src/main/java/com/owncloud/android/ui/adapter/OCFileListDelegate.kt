@@ -344,9 +344,15 @@ class OCFileListDelegate(
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
         val fileUploaderBinder = transferServiceGetter.fileUploaderBinder
 
+        val isDownloading = if (file.isFolder) {
+            FileDownloadHelper.instance().isDownloading(user, file)
+        } else {
+            DownloadWorkerStateLiveData.instance().isDownloading(user, file)
+        }
+
         val icon: Int? = when {
             operationsServiceBinder?.isSynchronizing(user, file) == true ||
-                DownloadWorkerStateLiveData.instance().isDownloading(user, file) ||
+                isDownloading ||
                 fileUploaderBinder?.isUploading(user, file) == true -> {
                 // synchronizing, downloading or uploading
                 R.drawable.ic_synchronizing

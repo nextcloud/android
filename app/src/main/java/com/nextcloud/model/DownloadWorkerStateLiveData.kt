@@ -25,7 +25,7 @@ import androidx.lifecycle.LiveData
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
 
-class DownloadWorkerStateLiveData private constructor() : LiveData<ArrayList<DownloadWorkerState>>() {
+class DownloadWorkerStateLiveData private constructor(): LiveData<ArrayList<DownloadWorkerState>>() {
 
     private var workers: ArrayList<DownloadWorkerState> = arrayListOf()
 
