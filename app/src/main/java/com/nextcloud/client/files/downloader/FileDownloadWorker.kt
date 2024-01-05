@@ -128,11 +128,11 @@ class FileDownloadWorker(
                 downloadFile(it)
             }
 
-            setIdleWorkerState()
             folder?.let {
                 notifyForFolderResult(it)
             }
 
+            setIdleWorkerState()
             Log_OC.e(TAG, "FilesDownloadWorker successfully completed")
             Result.success()
         } catch (t: Throwable) {
@@ -144,9 +144,9 @@ class FileDownloadWorker(
     override fun onStopped() {
         Log_OC.e(TAG, "FilesDownloadWorker stopped")
 
-        cancelAllDownloads()
-        notificationManager.dismissDownloadInProgressNotification()
         removePendingDownload(currentDownload?.user?.accountName)
+        cancelAllDownloads()
+        notificationManager.dismissAll()
         setIdleWorkerState()
 
         super.onStopped()
@@ -157,6 +157,8 @@ class FileDownloadWorker(
     }
 
     private fun setIdleWorkerState() {
+        pendingDownloads.all.clear()
+        currentDownload = null
         WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
     }
 
@@ -219,8 +221,6 @@ class FileDownloadWorker(
         pendingDownloads.all.forEach {
             it.value.payload?.cancel()
         }
-        pendingDownloads.all.clear()
-        currentDownload = null
     }
 
     private fun setUser() {

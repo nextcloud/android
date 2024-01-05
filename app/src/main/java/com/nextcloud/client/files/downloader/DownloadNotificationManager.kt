@@ -196,6 +196,10 @@ class DownloadNotificationManager(private val context: Context, private val view
         notificationManager.cancel(R.string.downloader_download_in_progress_ticker)
     }
 
+    fun dismissAll() {
+        notificationManager.cancelAll()
+    }
+
     fun setCredentialContentIntent(user: User) {
         val intent = Intent(context, AuthenticatorActivity::class.java).apply {
             putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, user.toPlatformAccount())
