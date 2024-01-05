@@ -145,14 +145,14 @@ interface BackgroundJobManager {
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
     fun cancelFilesUploadJob(user: User)
 
-    fun cancelFilesDownloadJob(user: User, path: String)
+    fun cancelFilesDownloadJob(user: User, ocFile: OCFile)
 
-    fun isStartFileDownloadJobScheduled(user: User, path: String): Boolean
+    fun isStartFileDownloadJobScheduled(user: User, ocFile: OCFile): Boolean
 
     @Suppress("LongParameterList")
     fun startFileDownloadJob(
         user: User,
-        filePath: String,
+        file: OCFile,
         behaviour: String,
         downloadType: DownloadType?,
         activityName: String,
@@ -161,7 +161,7 @@ interface BackgroundJobManager {
     )
 
     fun startFolderDownloadJob(
-        folderPath: String,
+        folder: OCFile,
         user: User,
         filesPath: List<String>
     )
