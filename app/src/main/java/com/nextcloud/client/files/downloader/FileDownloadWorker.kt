@@ -66,6 +66,7 @@ class FileDownloadWorker(
         private val TAG = FileDownloadWorker::class.java.simpleName
 
         private var currentDownload: DownloadFileOperation? = null
+        private val lock = Any()
 
         const val FILES_SEPARATOR = ","
         const val FOLDER_REMOTE_PATH = "FOLDER_REMOTE_PATH"
@@ -84,12 +85,16 @@ class FileDownloadWorker(
         const val EXTRA_ACCOUNT_NAME = "EXTRA_ACCOUNT_NAME"
 
         fun isDownloading(user: User, file: OCFile): Boolean {
-            return currentDownload?.isActive(user, file) ?: false
+            synchronized(lock) {
+                return currentDownload?.isActive(user, file) ?: false
+            }
         }
 
         fun cancelCurrentDownload(user: User, file: OCFile) {
-            if (currentDownload?.isActive(user, file) == true) {
-                currentDownload?.cancel()
+            synchronized(lock) {
+                if (currentDownload?.isActive(user, file) == true) {
+                    currentDownload?.cancel()
+                }
             }
         }
 
