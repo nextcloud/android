@@ -43,6 +43,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -62,7 +63,7 @@ public class DownloadFileOperation extends RemoteOperation {
     private String packageName;
     private DownloadType downloadType;
 
-    private Context context;
+    private final WeakReference<Context> context;
     private Set<OnDatatransferProgressListener> dataTransferListeners = new HashSet<>();
     private long modificationTimestamp;
     private DownloadFileRemoteOperation downloadOperation;
@@ -90,7 +91,7 @@ public class DownloadFileOperation extends RemoteOperation {
         this.behaviour = behaviour;
         this.activityName = activityName;
         this.packageName = packageName;
-        this.context = context;
+        this.context = new WeakReference<>(context);
         this.downloadType = downloadType;
     }
 
@@ -203,13 +204,13 @@ public class DownloadFileOperation extends RemoteOperation {
 
             // decrypt file
             if (file.isEncrypted()) {
-                FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(user, context.getContentResolver());
+                FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(user, context.get().getContentResolver());
 
                 OCFile parent = fileDataStorageManager.getFileByPath(file.getParentRemotePath());
 
                 DecryptedFolderMetadata metadata = EncryptionUtils.downloadFolderMetadata(parent,
                                                                                           client,
-                                                                                          context,
+                                                                                          context.get(),
                                                                                           user);
 
                 if (metadata == null) {
@@ -227,7 +228,7 @@ public class DownloadFileOperation extends RemoteOperation {
                                                                         key,
                                                                         iv,
                                                                         authenticationTag,
-                                                                        new ArbitraryDataProviderImpl(context),
+                                                                        new ArbitraryDataProviderImpl(context.get()),
                                                                         user);
 
                     try (FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)) {
@@ -247,7 +248,7 @@ public class DownloadFileOperation extends RemoteOperation {
             } else if (downloadType == DownloadType.EXPORT) {
                 new FileExportUtils().exportFile(file.getFileName(),
                                                  file.getMimeType(),
-                                                 context.getContentResolver(),
+                                                 context.get().getContentResolver(),
                                                  null,
                                                  tmpFile);
                 if (!tmpFile.delete()) {
