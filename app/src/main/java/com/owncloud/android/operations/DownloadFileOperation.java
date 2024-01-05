@@ -98,6 +98,15 @@ public class DownloadFileOperation extends RemoteOperation {
         this(user, file, null, null, null, context, DownloadType.DOWNLOAD);
     }
 
+    public boolean isActive(User user, OCFile file) {
+        if (user == null || file == null) {
+            return false;
+        }
+
+        return getFile().getFileId() == file.getFileId() &&
+            getUser().getAccountName().equals(user.getAccountName());
+    }
+
     public String getSavePath() {
         if (file.getStoragePath() != null) {
             File parentFile = new File(file.getStoragePath()).getParentFile();

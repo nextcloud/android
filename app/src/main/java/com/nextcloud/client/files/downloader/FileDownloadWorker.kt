@@ -86,8 +86,13 @@ class FileDownloadWorker(
         const val EXTRA_ACCOUNT_NAME = "EXTRA_ACCOUNT_NAME"
 
         fun isDownloading(user: User, file: OCFile): Boolean {
-            return currentDownload?.file?.fileId == file.fileId &&
-                currentDownload?.user?.accountName == user.accountName
+            return currentDownload?.isActive(user, file) ?: false
+        }
+
+        fun cancelCurrentDownload(user: User, file: OCFile) {
+            if (currentDownload?.isActive(user, file) == true) {
+                currentDownload?.cancel()
+            }
         }
 
         fun getDownloadAddedMessage(): String {
