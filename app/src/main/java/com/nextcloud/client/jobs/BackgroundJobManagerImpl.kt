@@ -86,6 +86,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_NOTIFICATION = "notification"
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
         const val JOB_FILES_UPLOAD = "files_upload"
+        const val JOB_FOLDER_DOWNLOAD = "folder_download"
         const val JOB_FILES_DOWNLOAD = "files_download"
         const val JOB_PDF_GENERATION = "pdf_generation"
         const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
@@ -509,7 +510,11 @@ internal class BackgroundJobManagerImpl(
     }
 
     private fun startFileDownloadJobTag(user: User, ocFile: OCFile): String {
-        return JOB_FILES_DOWNLOAD + user.accountName + ocFile.fileId
+        return if (ocFile.isFolder) {
+            JOB_FOLDER_DOWNLOAD + user.accountName + ocFile.fileId
+        } else {
+            JOB_FILES_DOWNLOAD + user.accountName
+        }
     }
 
     override fun isStartFileDownloadJobScheduled(user: User, ocFile: OCFile): Boolean {
@@ -561,7 +566,7 @@ internal class BackgroundJobManagerImpl(
             .setInputData(data)
             .build()
 
-        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, request)
+        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, request)
     }
 
     override fun getFileUploads(user: User): LiveData<List<JobInfo>> {
