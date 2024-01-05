@@ -44,6 +44,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.security.SecureRandom
 
+@Suppress("TooManyFunctions")
 class DownloadNotificationManager(private val context: Context, private val viewThemeUtils: ViewThemeUtils) {
 
     private var notification: Notification? = null
@@ -198,6 +199,7 @@ class DownloadNotificationManager(private val context: Context, private val view
         notificationManager.cancel(R.string.downloader_download_in_progress_ticker)
     }
 
+    @Suppress("MagicNumber")
     fun dismissAll() {
         Handler(Looper.getMainLooper()).postDelayed({
             notificationManager.cancelAll()
