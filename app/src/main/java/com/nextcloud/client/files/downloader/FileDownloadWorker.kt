@@ -24,6 +24,7 @@ package com.nextcloud.client.files.downloader
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.OnAccountsUpdateListener
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import androidx.core.util.component1
@@ -34,8 +35,8 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.java.util.Optional
-import com.nextcloud.model.DownloadWorkerState
-import com.nextcloud.model.DownloadWorkerStateLiveData
+import com.nextcloud.model.WorkerState
+import com.nextcloud.model.WorkerStateLiveData
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -66,8 +67,10 @@ class FileDownloadWorker(
     companion object {
         private val TAG = FileDownloadWorker::class.java.simpleName
 
+        @SuppressLint("StaticFieldLeak")
+        private var currentDownload: DownloadFileOperation? = null
+
         const val FILES_SEPARATOR = ","
-        const val WORKER_TAG = "WORKER_TAG"
         const val FOLDER_PATH = "FOLDER_PATH"
         const val USER_NAME = "USER"
         const val FILE_PATH = "FILE_PATH"
@@ -84,6 +87,11 @@ class FileDownloadWorker(
         const val EXTRA_LINKED_TO_PATH = "LINKED_TO"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
 
+        fun isDownloading(user: User, file: OCFile): Boolean {
+            return currentDownload?.file?.fileId == file.fileId &&
+                currentDownload?.user?.accountName == user.accountName
+        }
+
         fun getDownloadAddedMessage(): String {
             return FileDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
         }
@@ -93,7 +101,7 @@ class FileDownloadWorker(
         }
     }
 
-    private var currentDownload: DownloadFileOperation? = null
+    private val pendingDownloads = IndexedForest<DownloadFileOperation>()
     private var conflictUploadId: Long? = null
     private var lastPercent = 0
     private val intents = FileDownloadIntents(context)
@@ -106,8 +114,6 @@ class FileDownloadWorker(
     private var user: User? = null
     private var folder: OCFile? = null
     private var isAnyOperationFailed = true
-    private var workerTag: String? = null
-    private val pendingDownloads = IndexedForest<DownloadFileOperation>()
 
     @Suppress("TooGenericExceptionCaught")
     override fun doWork(): Result {
@@ -147,12 +153,11 @@ class FileDownloadWorker(
     }
 
     private fun setWorkerState(user: User?) {
-        val worker = DownloadWorkerState(workerTag ?: "", user, pendingDownloads)
-        DownloadWorkerStateLiveData.instance().addWorker(worker)
+        WorkerStateLiveData.instance().setWorkState(WorkerState.Download(user, currentDownload))
     }
 
     private fun setIdleWorkerState() {
-        DownloadWorkerStateLiveData.instance().removeWorker(workerTag ?: "")
+        WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
     }
 
     private fun notifyForFolderResult(folder: OCFile) {
@@ -165,7 +170,6 @@ class FileDownloadWorker(
         val files = getFiles()
         val downloadType = getDownloadType()
 
-        workerTag = inputData.keyValueMap[WORKER_TAG] as String? ?: ""
         conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long?
 
         val behaviour = inputData.keyValueMap[BEHAVIOUR] as String? ?: ""
@@ -216,6 +220,7 @@ class FileDownloadWorker(
             it.value.payload?.cancel()
         }
         pendingDownloads.all.clear()
+        currentDownload = null
     }
 
     private fun setUser() {
