@@ -62,19 +62,19 @@ class FileDownloadHelper {
 
         return backgroundJobManager.isStartFileDownloadJobScheduled(
             user,
-            file
+            file.remotePath
         )
     }
 
     fun cancelPendingOrCurrentDownloads(user: User?, file: OCFile?) {
         if (user == null || file == null) return
-        backgroundJobManager.cancelFilesDownloadJob(user, file)
+        backgroundJobManager.cancelFilesDownloadJob(user, file.remotePath)
     }
 
     fun cancelAllDownloadsForAccount(accountName: String?, currentDownload: DownloadFileOperation) {
         if (currentDownload.user.nameEquals(accountName)) {
             currentDownload.file?.let { file ->
-                backgroundJobManager.cancelFilesDownloadJob(currentDownload.user, file)
+                backgroundJobManager.cancelFilesDownloadJob(currentDownload.user, file.remotePath)
             }
 
             currentDownload.cancel()
@@ -122,7 +122,8 @@ class FileDownloadHelper {
     }
 
     fun downloadFolder(folder: OCFile, user: User, files: List<OCFile>) {
-        backgroundJobManager.startFolderDownloadJob(folder, user, files)
+        val filesPath = files.map { it.remotePath }
+        backgroundJobManager.startFolderDownloadJob(folder.remotePath, user, filesPath)
     }
 
     fun downloadFile(user: User, file: OCFile) {
@@ -141,7 +142,7 @@ class FileDownloadHelper {
     ) {
         backgroundJobManager.startFileDownloadJob(
             user,
-            ocFile,
+            ocFile.remotePath,
             behaviour,
             downloadType,
             activityName,

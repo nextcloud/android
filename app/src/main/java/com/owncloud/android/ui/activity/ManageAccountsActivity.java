@@ -54,6 +54,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.IndexedForest;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -411,10 +412,13 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     private void cancelAllDownloadsForAccount() {
         for (DownloadWorkerState workerState : downloadWorkerStates) {
             User currentUser =  workerState.getUser();
-            DownloadFileOperation currentDownload = workerState.getCurrentDownload();
+            IndexedForest<DownloadFileOperation> pendingDownloads = workerState.getPendingDownloads();
 
-            if (currentUser != null && currentDownload != null) {
-                FileDownloadHelper.Companion.instance().cancelAllDownloadsForAccount(currentUser.getAccountName(), currentDownload);
+            if (currentUser != null && pendingDownloads != null) {
+                pendingDownloads.getAll().values().forEach((value) -> {
+                    DownloadFileOperation operation = value.getPayload();
+                    FileDownloadHelper.Companion.instance().cancelAllDownloadsForAccount(currentUser.getAccountName(), operation);
+                });
             }
         }
     }

@@ -22,10 +22,28 @@
 package com.nextcloud.model
 
 import androidx.lifecycle.LiveData
+import com.nextcloud.client.account.User
+import com.owncloud.android.datamodel.OCFile
 
 class DownloadWorkerStateLiveData private constructor() : LiveData<ArrayList<DownloadWorkerState>>() {
 
     private var workers: ArrayList<DownloadWorkerState> = arrayListOf()
+
+    fun isDownloading(user: User?, file: OCFile?): Boolean {
+        if (user == null || file == null) {
+            return false
+        }
+
+        var result = false
+
+        workers.forEach { downloadState ->
+            downloadState.pendingDownloads?.all?.forEach { download ->
+                result = download.value?.payload?.file?.fileId == file.fileId
+            }
+        }
+
+        return result
+    }
 
     fun removeWorker(tag: String) {
         workers.forEach {

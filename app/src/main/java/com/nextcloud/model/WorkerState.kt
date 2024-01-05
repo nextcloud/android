@@ -22,6 +22,7 @@
 package com.nextcloud.model
 
 import com.nextcloud.client.account.User
+import com.owncloud.android.files.services.IndexedForest
 import com.owncloud.android.operations.DownloadFileOperation
 
-data class DownloadWorkerState(var tag: String, var user: User?, var currentDownload: DownloadFileOperation?)
+data class DownloadWorkerState(var tag: String, var user: User?, var pendingDownloads: IndexedForest<DownloadFileOperation>?)
