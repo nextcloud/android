@@ -24,7 +24,6 @@ package com.nextcloud.client.files.downloader
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.OnAccountsUpdateListener
-import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import androidx.core.util.component1
@@ -66,7 +65,6 @@ class FileDownloadWorker(
     companion object {
         private val TAG = FileDownloadWorker::class.java.simpleName
 
-        @SuppressLint("StaticFieldLeak")
         private var currentDownload: DownloadFileOperation? = null
 
         const val FILES_SEPARATOR = ","
