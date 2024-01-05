@@ -161,6 +161,16 @@ class FileDownloadWorker(
         WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
     }
 
+    private fun cancelAllDownloads() {
+        pendingDownloads.all.forEach {
+            it.value.payload?.cancel()
+        }
+    }
+
+    private fun removePendingDownload(accountName: String?) {
+        pendingDownloads.remove(accountName)
+    }
+
     private fun notifyForFolderResult(folder: OCFile) {
         notificationManager.notifyForResult(null, null, folder, isAnyOperationFailed)
     }
@@ -209,16 +219,6 @@ class FileDownloadWorker(
         } catch (e: IllegalArgumentException) {
             Log_OC.e(TAG, "Not enough information provided in intent: " + e.message)
             requestedDownloads
-        }
-    }
-
-    private fun removePendingDownload(accountName: String?) {
-        pendingDownloads.remove(accountName)
-    }
-
-    private fun cancelAllDownloads() {
-        pendingDownloads.all.forEach {
-            it.value.payload?.cancel()
         }
     }
 
