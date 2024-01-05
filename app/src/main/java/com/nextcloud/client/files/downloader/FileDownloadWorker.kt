@@ -123,7 +123,6 @@ class FileDownloadWorker(
             notificationManager.init()
             addAccountUpdateListener()
 
-            setWorkerState(user)
             requestDownloads.forEach {
                 downloadFile(it)
             }
@@ -284,6 +283,7 @@ class FileDownloadWorker(
             return
         }
 
+        setWorkerState(user)
         Log_OC.e(TAG, "FilesDownloadWorker downloading: $downloadKey")
 
         val isAccountExist = accountManager.exists(currentDownload?.user?.toPlatformAccount())
