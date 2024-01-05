@@ -566,7 +566,7 @@ internal class BackgroundJobManagerImpl(
             .setInputData(data)
             .build()
 
-        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, request)
+        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.APPEND, request)
     }
 
     override fun getFileUploads(user: User): LiveData<List<JobInfo>> {
