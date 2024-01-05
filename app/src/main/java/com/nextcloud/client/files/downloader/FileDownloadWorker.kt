@@ -31,8 +31,6 @@ import androidx.core.util.component2
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.java.util.Optional
@@ -68,11 +66,12 @@ class FileDownloadWorker(
     companion object {
         private val TAG = FileDownloadWorker::class.java.simpleName
 
+        const val FILES_SEPARATOR = ","
         const val WORKER_TAG = "WORKER_TAG"
-        const val FOLDER = "FOLDER"
+        const val FOLDER_PATH = "FOLDER_PATH"
         const val USER_NAME = "USER"
-        const val FILE = "FILE"
-        const val FILES = "FILES"
+        const val FILE_PATH = "FILE_PATH"
+        const val FILES_PATH = "FILES_PATH"
         const val BEHAVIOUR = "BEHAVIOUR"
         const val DOWNLOAD_TYPE = "DOWNLOAD_TYPE"
         const val ACTIVITY_NAME = "ACTIVITY_NAME"
@@ -102,11 +101,11 @@ class FileDownloadWorker(
     private var downloadProgressListener = FileDownloadProgressListener()
     private var currentUser = Optional.empty<User>()
     private var storageManager: FileDataStorageManager? = null
+    private var fileDataStorageManager: FileDataStorageManager? = null
     private var downloadClient: OwnCloudClient? = null
     private var user: User? = null
     private var folder: OCFile? = null
     private var isAnyOperationFailed = true
-    private val gson = Gson()
     private var workerTag: String? = null
     private val pendingDownloads = IndexedForest<DownloadFileOperation>()
 
@@ -118,6 +117,7 @@ class FileDownloadWorker(
             notificationManager.init()
             addAccountUpdateListener()
 
+            setWorkerState(user)
             requestDownloads.forEach {
                 downloadFile(it)
             }
@@ -146,8 +146,8 @@ class FileDownloadWorker(
         super.onStopped()
     }
 
-    private fun setWorkerState(user: User?, file: DownloadFileOperation?) {
-        val worker = DownloadWorkerState(workerTag ?: "", user, file)
+    private fun setWorkerState(user: User?) {
+        val worker = DownloadWorkerState(workerTag ?: "", user, pendingDownloads)
         DownloadWorkerStateLiveData.instance().addWorker(worker)
     }
 
@@ -160,13 +160,14 @@ class FileDownloadWorker(
     }
 
     private fun getRequestDownloads(): AbstractList<String> {
+        setUser()
+        setFolder()
         val files = getFiles()
         val downloadType = getDownloadType()
-        setUser()
 
         workerTag = inputData.keyValueMap[WORKER_TAG] as String? ?: ""
-        folder = gson.fromJson(inputData.keyValueMap[FOLDER] as? String, OCFile::class.java) ?: null
         conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long?
+
         val behaviour = inputData.keyValueMap[BEHAVIOUR] as String? ?: ""
         val activityName = inputData.keyValueMap[ACTIVITY_NAME] as String? ?: ""
         val packageName = inputData.keyValueMap[PACKAGE_NAME] as String? ?: ""
@@ -220,18 +221,36 @@ class FileDownloadWorker(
     private fun setUser() {
         val accountName = inputData.keyValueMap[USER_NAME] as String
         user = accountManager.getUser(accountName).get()
+        fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
+    }
+
+    private fun setFolder() {
+        val folderPath = inputData.keyValueMap[FOLDER_PATH] as? String?
+        if (folderPath != null) {
+            folder = storageManager?.getFileByEncryptedRemotePath(folderPath)
+        }
     }
 
     private fun getFiles(): List<OCFile> {
-        val filesJson = inputData.keyValueMap[FILES] as String?
+        val result = arrayListOf<OCFile>()
 
-        return if (filesJson != null) {
-            val ocFileListType = object : TypeToken<ArrayList<OCFile>>() {}.type
-            gson.fromJson(filesJson, ocFileListType)
+        val filesPath = inputData.keyValueMap[FILES_PATH] as String?
+        val filesPathList = filesPath?.split(FILES_SEPARATOR)
+
+        if (filesPathList != null) {
+            filesPathList.forEach {
+                fileDataStorageManager?.getFileByEncryptedRemotePath(it)?.let { file ->
+                    result.add(file)
+                }
+            }
         } else {
-            val file = gson.fromJson(inputData.keyValueMap[FILE] as String, OCFile::class.java)
-            listOf(file)
+            val remotePath = inputData.keyValueMap[FILE_PATH] as String
+            fileDataStorageManager?.getFileByEncryptedRemotePath(remotePath)?.let { file ->
+                result.add(file)
+            }
         }
+
+        return result
     }
 
     private fun getDownloadType(): DownloadType? {
@@ -261,7 +280,6 @@ class FileDownloadWorker(
         }
 
         Log_OC.e(TAG, "FilesDownloadWorker downloading: $downloadKey")
-        setWorkerState(user, currentDownload)
 
         val isAccountExist = accountManager.exists(currentDownload?.user?.toPlatformAccount())
         if (!isAccountExist) {

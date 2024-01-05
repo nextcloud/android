@@ -24,11 +24,9 @@ package com.nextcloud.utils.extensions
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
-import androidx.lifecycle.LifecycleOwner
 import com.owncloud.android.datamodel.ReceiverFlag
 
 @SuppressLint("UnspecifiedRegisterReceiverFlag")
@@ -37,18 +35,5 @@ fun Context.registerBroadcastReceiver(receiver: BroadcastReceiver?, filter: Inte
         registerReceiver(receiver, filter, flag.getId())
     } else {
         registerReceiver(receiver, filter)
-    }
-}
-
-fun Context.lifecycleOwner(): LifecycleOwner? {
-    var curContext = this
-    var maxDepth = 20
-    while (maxDepth-- > 0 && curContext !is LifecycleOwner) {
-        curContext = (curContext as ContextWrapper).baseContext
-    }
-    return if (curContext is LifecycleOwner) {
-        curContext
-    } else {
-        null
     }
 }

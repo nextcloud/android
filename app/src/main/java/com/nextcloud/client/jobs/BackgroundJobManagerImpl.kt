@@ -511,23 +511,23 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniqueWork(JOB_FILES_UPLOAD + user.accountName, ExistingWorkPolicy.KEEP, request)
     }
 
-    private fun startFileDownloadJobTag(user: User, file: OCFile): String {
-        return JOB_FILES_DOWNLOAD + user.accountName + file.fileId
+    private fun startFileDownloadJobTag(user: User, path: String): String {
+        return JOB_FILES_DOWNLOAD + user.accountName + path
     }
 
-    override fun isStartFileDownloadJobScheduled(user: User, file: OCFile): Boolean {
-        return workManager.isWorkScheduled(startFileDownloadJobTag(user, file))
+    override fun isStartFileDownloadJobScheduled(user: User, path: String): Boolean {
+        return workManager.isWorkScheduled(startFileDownloadJobTag(user, path))
     }
 
-    override fun startFolderDownloadJob(folder: OCFile, user: User, files: List<OCFile>) {
+    override fun startFolderDownloadJob(folderPath: String, user: User, filesPath: List<String>) {
         val data = workDataOf(
             FileDownloadWorker.USER_NAME to user.accountName,
-            FileDownloadWorker.FOLDER to gson.toJson(folder),
-            FileDownloadWorker.FILES to gson.toJson(files),
+            FileDownloadWorker.FOLDER_PATH to folderPath,
+            FileDownloadWorker.FILES_PATH to filesPath.joinToString(FileDownloadWorker.FILES_SEPARATOR),
             FileDownloadWorker.DOWNLOAD_TYPE to DownloadType.DOWNLOAD.toString()
         )
 
-        val tag = startFileDownloadJobTag(user, folder)
+        val tag = startFileDownloadJobTag(user, folderPath)
 
         val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
             .addTag(tag)
@@ -540,19 +540,19 @@ internal class BackgroundJobManagerImpl(
 
     override fun startFileDownloadJob(
         user: User,
-        file: OCFile,
+        filePath: String,
         behaviour: String,
         downloadType: DownloadType?,
         activityName: String,
         packageName: String,
         conflictUploadId: Long?
     ) {
-        val tag = startFileDownloadJobTag(user, file)
+        val tag = startFileDownloadJobTag(user, filePath)
 
         val data = workDataOf(
             FileDownloadWorker.WORKER_TAG to tag,
             FileDownloadWorker.USER_NAME to user.accountName,
-            FileDownloadWorker.FILE to gson.toJson(file),
+            FileDownloadWorker.FILE_PATH to filePath,
             FileDownloadWorker.BEHAVIOUR to behaviour,
             FileDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),
             FileDownloadWorker.ACTIVITY_NAME to activityName,
@@ -577,8 +577,8 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelJob(JOB_FILES_UPLOAD, user)
     }
 
-    override fun cancelFilesDownloadJob(user: User, file: OCFile) {
-        workManager.cancelAllWorkByTag(startFileDownloadJobTag(user, file))
+    override fun cancelFilesDownloadJob(user: User, path: String) {
+        workManager.cancelAllWorkByTag(startFileDownloadJobTag(user, path))
     }
 
     override fun startPdfGenerateAndUploadWork(
