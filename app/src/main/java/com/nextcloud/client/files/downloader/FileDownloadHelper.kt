@@ -60,7 +60,7 @@ class FileDownloadHelper {
             return false
         }
 
-        return FileDownloadWorker.isFileInQueue(file) ||
+        return FileDownloadWorker.isFileInQueue(user, file) ||
             (file.isFolder && backgroundJobManager.isStartFileDownloadJobScheduled(user, file))
     }
 
