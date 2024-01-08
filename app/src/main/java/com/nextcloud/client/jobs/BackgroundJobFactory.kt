@@ -259,7 +259,6 @@ class BackgroundJobFactory @Inject constructor(
         return FileDownloadWorker(
             viewThemeUtils.get(),
             accountManager,
-            uploadsStorageManager,
             localBroadcastManager.get(),
             context,
             params
