@@ -117,7 +117,7 @@ class DownloadNotificationManager(
     @Suppress("MagicNumber")
     fun dismissNotification() {
         Handler(Looper.getMainLooper()).postDelayed({
-            notificationManager.cancel(id)
+            notificationManager.cancelAll()
         }, 2000)
     }
 
