@@ -37,6 +37,7 @@ import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
+import java.security.SecureRandom
 
 @Suppress("TooManyFunctions")
 class DownloadNotificationManager(
@@ -120,7 +121,16 @@ class DownloadNotificationManager(
         }, 2000)
     }
 
-    fun updateNotificationText(text: String) {
+    fun showNewNotification(text: String) {
+        val notifyId = SecureRandom().nextInt()
+
+        notificationBuilder.run {
+            setContentText(text)
+            notificationManager.notify(notifyId, this.build())
+        }
+    }
+
+    private fun updateNotificationText(text: String) {
         notificationBuilder.run {
             setContentText(text)
             notificationManager.notify(id, this.build())
