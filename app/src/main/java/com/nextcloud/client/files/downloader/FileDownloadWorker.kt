@@ -166,7 +166,6 @@ class FileDownloadWorker(
 
     private fun setIdleWorkerState() {
         pendingDownloads.all.clear()
-        pendingDownloadFileIds.clear()
         currentDownload = null
         WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
     }
