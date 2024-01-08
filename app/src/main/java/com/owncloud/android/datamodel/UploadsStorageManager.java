@@ -87,17 +87,15 @@ public class UploadsStorageManager extends Observable {
      * @return upload id, -1 if the insert process fails.
      */
     public long storeUpload(OCUpload ocUpload) {
-        long startTime = System.nanoTime();
         OCUpload existingUpload = getPendingCurrentOrFailedUpload(ocUpload);
         if(existingUpload != null){
             Log_OC.v(TAG, "Will update upload in db since " + ocUpload.getLocalPath() + " already exists as pending, current or failed upload");
-            ocUpload.setUploadId(existingUpload.getUploadId());
-            return updateUpload(ocUpload);
+            long existingId = existingUpload.getUploadId();
+            ocUpload.setUploadId(existingId);
+            updateUpload(ocUpload);
+            return existingId;
         }
 
-        long endTime = System.nanoTime();
-
-        long duration = (endTime - startTime);  // compute the elapsed time in nanoseconds
 
         Log_OC.v(TAG, "Inserting " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
 
@@ -112,9 +110,7 @@ public class UploadsStorageManager extends Observable {
             long new_id = Long.parseLong(result.getPathSegments().get(1));
             ocUpload.setUploadId(new_id);
             notifyObserversNow();
-            long endTime2 = System.nanoTime();
 
-            long duration2 = (endTime - startTime);
             return new_id;
         }
 
@@ -122,9 +118,9 @@ public class UploadsStorageManager extends Observable {
 
     public long[] storeUploads(final List<OCUpload> ocUploads) {
         Log_OC.v(TAG, "Inserting " + ocUploads.size() + " uploads");
+        storeUpload(ocUploads.get(0));
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(ocUploads.size());
         for (OCUpload ocUpload : ocUploads) {
-            long startTime = System.nanoTime();
 
             OCUpload existingUpload = getPendingCurrentOrFailedUpload(ocUpload);
             if(existingUpload != null){
@@ -133,19 +129,12 @@ public class UploadsStorageManager extends Observable {
                 updateUpload(ocUpload);
                 continue;
             }
-            long endTime = System.nanoTime();
-
-
 
             final ContentProviderOperation operation = ContentProviderOperation
                 .newInsert(ProviderTableMeta.CONTENT_URI_UPLOADS)
                 .withValues(getContentValues(ocUpload))
                 .build();
             operations.add(operation);
-            long endTime2 = System.nanoTime();
-            long duration = (endTime - startTime);  // compute the elapsed time in nanoseconds
-
-            long duration2 = (endTime2 - startTime);
         }
 
         try {
