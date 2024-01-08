@@ -175,8 +175,7 @@
     <string name="downloader_download_failed_ticker">Download failed</string>
     <string name="downloader_download_failed_content">Could not download %1$s</string>
     <string name="downloader_not_downloaded_yet">Not downloaded yet</string>
-    <string name="downloader_files_download_failed">Error occurred while downloading %s files</string>
-    <string name="downloader_folder_download_failed">Error occurred while downloading %s folder</string>
+    <string name="downloader_file_download_failed">Error occurred while downloading %s file</string>
     <string name="downloader_folder_downloaded">%s folder successfully downloaded</string>
     <string name="downloader_file_downloaded">%s file successfully downloaded</string>
     <string name="downloader_unexpected_error">Unexpected error occurred while downloading files</string>

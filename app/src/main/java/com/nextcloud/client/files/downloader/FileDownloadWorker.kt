@@ -122,7 +122,6 @@ class FileDownloadWorker(
     private var fileDataStorageManager: FileDataStorageManager? = null
 
     private var folder: OCFile? = null
-    private var failedFileNames: ArrayList<String> = arrayListOf()
 
     @Suppress("TooGenericExceptionCaught")
     override fun doWork(): Result {
@@ -164,7 +163,6 @@ class FileDownloadWorker(
     }
 
     private fun setIdleWorkerState() {
-        failedFileNames.clear()
         pendingDownloads.all.clear()
         pendingDownloadFileIds.clear()
         currentDownload = null
@@ -181,14 +179,9 @@ class FileDownloadWorker(
         pendingDownloads.remove(accountName)
     }
 
+    @Suppress("MagicNumber")
     private fun showCompleteNotification() {
-        val result = if (failedFileNames.isEmpty()) {
-            getSuccessNotificationText()
-        } else {
-            val fileNames = failedFileNames.joinToString()
-            context.getString(R.string.downloader_files_download_failed, fileNames)
-        }
-
+        val result = getSuccessNotificationText()
         notificationManager.showCompleteNotification(result)
     }
 
@@ -377,7 +370,7 @@ class FileDownloadWorker(
 
     private fun cleanupDownloadProcess(result: RemoteOperationResult<*>?) {
         result?.let {
-            checkOperationFailures(it)
+            showFailedDownloadNotifications(it)
         }
 
         val removeResult = pendingDownloads.removePayload(
@@ -401,11 +394,15 @@ class FileDownloadWorker(
         }
     }
 
-    private fun checkOperationFailures(result: RemoteOperationResult<*>) {
+    private fun showFailedDownloadNotifications(result: RemoteOperationResult<*>) {
         if (!result.isSuccess) {
-            currentDownload?.file?.fileName?.let { fileName ->
-                failedFileNames.add(fileName)
-            }
+            val fileName = currentDownload?.file?.fileName ?: ""
+            notificationManager.showNewNotification(
+                context.getString(
+                    R.string.downloader_file_download_failed,
+                    fileName
+                )
+            )
         }
     }
 
@@ -422,7 +419,7 @@ class FileDownloadWorker(
             prepareForResult()
 
             if (needsToUpdateCredentials) {
-                updateNotificationText(context.getString(R.string.downloader_download_failed_credentials_error))
+                showNewNotification(context.getString(R.string.downloader_download_failed_credentials_error))
                 setContentIntent(
                     intents.credentialContentIntent(download.user),
                     PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
