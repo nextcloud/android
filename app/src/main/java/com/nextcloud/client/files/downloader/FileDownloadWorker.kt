@@ -151,9 +151,9 @@ class FileDownloadWorker(
     override fun onStopped() {
         Log_OC.e(TAG, "FilesDownloadWorker stopped")
 
-        removePendingDownload(currentDownload?.user?.accountName)
-        cancelAllDownloads()
         notificationManager.dismissNotification()
+        cancelAllDownloads()
+        removePendingDownload(currentDownload?.user?.accountName)
         setIdleWorkerState()
 
         super.onStopped()
@@ -419,6 +419,7 @@ class FileDownloadWorker(
             prepareForResult()
 
             if (needsToUpdateCredentials) {
+                updateNotificationText(context.getString(R.string.downloader_download_failed_credentials_error))
                 setContentIntent(
                     intents.credentialContentIntent(download.user),
                     PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
