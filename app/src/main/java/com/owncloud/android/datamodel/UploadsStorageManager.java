@@ -87,6 +87,18 @@ public class UploadsStorageManager extends Observable {
      * @return upload id, -1 if the insert process fails.
      */
     public long storeUpload(OCUpload ocUpload) {
+        long startTime = System.nanoTime();
+        OCUpload existingUpload = getPendingCurrentOrFailedUpload(ocUpload);
+        if(existingUpload != null){
+            Log_OC.v(TAG, "Will update upload in db since " + ocUpload.getLocalPath() + " already exists as pending, current or failed upload");
+            ocUpload.setUploadId(existingUpload.getUploadId());
+            return updateUpload(ocUpload);
+        }
+
+        long endTime = System.nanoTime();
+
+        long duration = (endTime - startTime);  // compute the elapsed time in nanoseconds
+
         Log_OC.v(TAG, "Inserting " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
 
         ContentValues cv = getContentValues(ocUpload);
@@ -100,19 +112,40 @@ public class UploadsStorageManager extends Observable {
             long new_id = Long.parseLong(result.getPathSegments().get(1));
             ocUpload.setUploadId(new_id);
             notifyObserversNow();
+            long endTime2 = System.nanoTime();
+
+            long duration2 = (endTime - startTime);
             return new_id;
         }
+
     }
 
     public long[] storeUploads(final List<OCUpload> ocUploads) {
         Log_OC.v(TAG, "Inserting " + ocUploads.size() + " uploads");
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(ocUploads.size());
         for (OCUpload ocUpload : ocUploads) {
+            long startTime = System.nanoTime();
+
+            OCUpload existingUpload = getPendingCurrentOrFailedUpload(ocUpload);
+            if(existingUpload != null){
+                Log_OC.v(TAG, "Will update upload in db since " + ocUpload.getLocalPath() + " already exists as pending, current or failed upload");
+                ocUpload.setUploadId(existingUpload.getUploadId());
+                updateUpload(ocUpload);
+                continue;
+            }
+            long endTime = System.nanoTime();
+
+
+
             final ContentProviderOperation operation = ContentProviderOperation
                 .newInsert(ProviderTableMeta.CONTENT_URI_UPLOADS)
                 .withValues(getContentValues(ocUpload))
                 .build();
             operations.add(operation);
+            long endTime2 = System.nanoTime();
+            long duration = (endTime - startTime);  // compute the elapsed time in nanoseconds
+
+            long duration2 = (endTime2 - startTime);
         }
 
         try {
@@ -343,6 +376,27 @@ public class UploadsStorageManager extends Observable {
 
     public OCUpload[] getAllStoredUploads() {
         return getUploads(null, (String[]) null);
+    }
+
+    public OCUpload getPendingCurrentOrFailedUpload(OCUpload upload){
+        try (Cursor cursor = getDB().query(
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            null,
+            ProviderTableMeta.UPLOADS_REMOTE_PATH + "=? and "+
+                ProviderTableMeta.UPLOADS_LOCAL_PATH + "=? and "+
+                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=? and ("+
+                ProviderTableMeta.UPLOADS_STATUS + "=? or " +
+                ProviderTableMeta.UPLOADS_STATUS + "=? )",
+            new String[]{upload.getRemotePath(),upload.getLocalPath(),upload.getAccountName(),String.valueOf(UploadStatus.UPLOAD_IN_PROGRESS.value),String.valueOf(UploadStatus.UPLOAD_FAILED.value)},
+            ProviderTableMeta.UPLOADS_REMOTE_PATH + " ASC")) {
+
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    return createOCUploadFromCursor(cursor);
+                }
+            }
+        }
+        return null;
     }
 
     public OCUpload getUploadByRemotePath(String remotePath){
