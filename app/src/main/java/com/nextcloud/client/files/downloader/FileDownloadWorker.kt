@@ -36,9 +36,9 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.java.util.Optional
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.files.services.IndexedForest
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
@@ -49,14 +49,14 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.security.SecureRandom
 import java.util.AbstractList
 import java.util.Vector
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class FileDownloadWorker(
-    viewThemeUtils: ViewThemeUtils,
+    private val viewThemeUtils: ViewThemeUtils,
     private val accountManager: UserAccountManager,
-    private val uploadsStorageManager: UploadsStorageManager,
     private var localBroadcastManager: LocalBroadcastManager,
     private val context: Context,
     params: WorkerParameters
@@ -113,7 +113,7 @@ class FileDownloadWorker(
     private var lastPercent = 0
 
     private val intents = FileDownloadIntents(context)
-    private val notificationManager = DownloadNotificationManager(context, viewThemeUtils)
+    private val notificationManager = DownloadNotificationManager(SecureRandom().nextInt(), context, viewThemeUtils)
     private var downloadProgressListener = FileDownloadProgressListener()
 
     private var user: User? = null
@@ -123,28 +123,26 @@ class FileDownloadWorker(
     private var fileDataStorageManager: FileDataStorageManager? = null
 
     private var folder: OCFile? = null
-    private var isAnyOperationFailed = true
+    private var failedFileNames: ArrayList<String> = arrayListOf()
 
     @Suppress("TooGenericExceptionCaught")
     override fun doWork(): Result {
         return try {
             val requestDownloads = getRequestDownloads()
 
-            notificationManager.init()
             addAccountUpdateListener()
 
             requestDownloads.forEach {
                 downloadFile(it)
             }
 
-            folder?.let {
-                notifyForFolderResult(it)
-            }
+            showCompleteNotification()
 
             setIdleWorkerState()
             Log_OC.e(TAG, "FilesDownloadWorker successfully completed")
             Result.success()
         } catch (t: Throwable) {
+            notificationManager.showCompleteNotification(context.getString(R.string.downloader_unexpected_error))
             Log_OC.e(TAG, "Error caught at FilesDownloadWorker(): " + t.localizedMessage)
             Result.failure()
         }
@@ -155,7 +153,7 @@ class FileDownloadWorker(
 
         removePendingDownload(currentDownload?.user?.accountName)
         cancelAllDownloads()
-        notificationManager.dismissAll()
+        notificationManager.dismissNotification()
         setIdleWorkerState()
 
         super.onStopped()
@@ -166,6 +164,7 @@ class FileDownloadWorker(
     }
 
     private fun setIdleWorkerState() {
+        failedFileNames.clear()
         pendingDownloads.all.clear()
         currentDownload = null
         WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
@@ -181,8 +180,25 @@ class FileDownloadWorker(
         pendingDownloads.remove(accountName)
     }
 
-    private fun notifyForFolderResult(folder: OCFile) {
-        notificationManager.notifyForResult(null, null, folder, isAnyOperationFailed)
+    private fun showCompleteNotification() {
+        val result = if (failedFileNames.isEmpty()) {
+            getSuccessNotificationText()
+        } else {
+            val fileNames = failedFileNames.joinToString()
+            context.getString(R.string.downloader_files_download_failed, fileNames)
+        }
+
+        notificationManager.showCompleteNotification(result)
+    }
+
+    private fun getSuccessNotificationText(): String {
+        return if (folder != null) {
+            context.getString(R.string.downloader_folder_downloaded, folder?.fileName)
+        } else if (currentDownload?.file != null) {
+            context.getString(R.string.downloader_file_downloaded, currentDownload?.file?.fileName)
+        } else {
+            context.getString(R.string.downloader_download_completed)
+        }
     }
 
     private fun getRequestDownloads(): AbstractList<String> {
@@ -241,7 +257,7 @@ class FileDownloadWorker(
     private fun setFolder() {
         val folderPath = inputData.keyValueMap[FOLDER_REMOTE_PATH] as? String?
         if (folderPath != null) {
-            folder = currentUserFileStorageManager?.getFileByEncryptedRemotePath(folderPath)
+            folder = fileDataStorageManager?.getFileByEncryptedRemotePath(folderPath)
         }
     }
 
@@ -327,9 +343,8 @@ class FileDownloadWorker(
         lastPercent = 0
 
         notificationManager.run {
-            notifyForStart(download)
+            prepareForStart(download)
             setContentIntent(intents.detailsIntent(download), PendingIntent.FLAG_IMMUTABLE)
-            showDownloadInProgressNotification()
         }
     }
 
@@ -360,7 +375,7 @@ class FileDownloadWorker(
 
     private fun cleanupDownloadProcess(result: RemoteOperationResult<*>?) {
         result?.let {
-            isAnyOperationFailed = !it.isSuccess
+            checkOperationFailures(it)
         }
 
         val removeResult = pendingDownloads.removePayload(
@@ -383,6 +398,14 @@ class FileDownloadWorker(
         }
     }
 
+    private fun checkOperationFailures(result: RemoteOperationResult<*>) {
+        if (!result.isSuccess) {
+            currentDownload?.file?.fileName?.let { fileName ->
+                failedFileNames.add(fileName)
+            }
+        }
+    }
+
     private fun notifyDownloadResult(
         download: DownloadFileOperation,
         downloadResult: RemoteOperationResult<*>
@@ -391,36 +414,19 @@ class FileDownloadWorker(
             return
         }
 
-        // TODO Check why we calling only for success?
-        if (downloadResult.isSuccess) {
-            dismissDownloadInProgressNotification()
-        }
-
         val needsToUpdateCredentials = (ResultCode.UNAUTHORIZED == downloadResult.code)
         notificationManager.run {
-            prepareForResult(downloadResult, needsToUpdateCredentials)
+            prepareForResult()
 
             if (needsToUpdateCredentials) {
-                setCredentialContentIntent(download.user)
+                setContentIntent(
+                    intents.credentialContentIntent(download.user),
+                    PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+                )
             } else {
                 setContentIntent(intents.detailsIntent(null), PendingIntent.FLAG_IMMUTABLE)
             }
-
-            if (folder == null) {
-                notifyForResult(downloadResult, download, null, null)
-            }
         }
-    }
-
-    private fun dismissDownloadInProgressNotification() {
-        // TODO Check necessity of this function call
-        conflictUploadId?.let {
-            if (it > 0) {
-                uploadsStorageManager.removeUpload(it)
-            }
-        }
-
-        notificationManager.dismissDownloadInProgressNotification()
     }
 
     override fun onAccountsUpdated(accounts: Array<out Account>?) {
@@ -440,8 +446,7 @@ class FileDownloadWorker(
 
         if (percent != lastPercent) {
             notificationManager.run {
-                updateDownloadProgressNotification(filePath, percent, totalToTransfer)
-                showDownloadInProgressNotification()
+                updateDownloadProgress(filePath, percent, totalToTransfer)
             }
         }
 
