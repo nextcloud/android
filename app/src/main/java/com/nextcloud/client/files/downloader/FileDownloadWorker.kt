@@ -86,7 +86,9 @@ class FileDownloadWorker(
         const val EXTRA_ACCOUNT_NAME = "EXTRA_ACCOUNT_NAME"
 
         fun isFileInQueue(user: User, file: OCFile): Boolean {
-            return pendingDownloadFileIds.contains(Pair(user.accountName, file.fileId))
+            synchronized(lock) {
+                return pendingDownloadFileIds.contains(Pair(user.accountName, file.fileId))
+            }
         }
 
         fun cancelCurrentDownload(user: User, file: OCFile) {
