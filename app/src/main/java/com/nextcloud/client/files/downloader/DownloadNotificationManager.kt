@@ -120,7 +120,7 @@ class DownloadNotificationManager(
         }, 2000)
     }
 
-    private fun updateNotificationText(text: String) {
+    fun updateNotificationText(text: String) {
         notificationBuilder.run {
             setContentText(text)
             notificationManager.notify(id, this.build())
