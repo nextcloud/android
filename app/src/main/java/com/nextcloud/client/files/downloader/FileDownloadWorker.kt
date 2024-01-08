@@ -66,7 +66,7 @@ class FileDownloadWorker(
         private val TAG = FileDownloadWorker::class.java.simpleName
 
         private var currentDownload: DownloadFileOperation? = null
-        private var pendingDownloadFileIds: ArrayList<Long> = arrayListOf()
+        private var pendingDownloadFileIds: ArrayList<Pair<String?, Long>> = arrayListOf()
         private val lock = Any()
 
         const val FILES_SEPARATOR = ","
@@ -85,8 +85,8 @@ class FileDownloadWorker(
         const val EXTRA_LINKED_TO_PATH = "EXTRA_LINKED_TO_PATH"
         const val EXTRA_ACCOUNT_NAME = "EXTRA_ACCOUNT_NAME"
 
-        fun isFileInQueue(file: OCFile): Boolean {
-            return pendingDownloadFileIds.contains(file.fileId)
+        fun isFileInQueue(user: User, file: OCFile): Boolean {
+            return pendingDownloadFileIds.contains(Pair(user.accountName, file.fileId))
         }
 
         fun cancelCurrentDownload(user: User, file: OCFile) {
@@ -228,7 +228,7 @@ class FileDownloadWorker(
                     file.remotePath,
                     operation
                 )
-                pendingDownloadFileIds.add(file.fileId)
+                pendingDownloadFileIds.add(Pair(user?.accountName, file.fileId))
 
                 if (downloadKey != null) {
                     requestedDownloads.add(downloadKey)
@@ -377,7 +377,7 @@ class FileDownloadWorker(
             currentDownload?.user?.accountName,
             currentDownload?.remotePath
         )
-        pendingDownloadFileIds.remove(currentDownload?.file?.fileId)
+        pendingDownloadFileIds.remove(Pair(currentDownload?.user?.accountName, currentDownload?.file?.fileId))
 
         val downloadResult = result ?: RemoteOperationResult<Any?>(RuntimeException("Error downloading…"))
 
