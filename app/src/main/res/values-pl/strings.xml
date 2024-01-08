@@ -288,6 +288,7 @@
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania aparatu</string>
     <string name="error_starting_doc_scan">Błąd podczas uruchamiania skanowania dokumentu</string>
     <string name="etm_accounts">Konta</string>
+    <string name="etm_background_job_created">Utworzono</string>
     <string name="etm_background_job_name">Nazwa zadania</string>
     <string name="etm_background_job_progress">Postęp</string>
     <string name="etm_background_job_started">Rozpoczęte</string>
@@ -338,6 +339,7 @@
     <string name="file_list_empty_shared_headline">Nic nie udostępniasz</string>
     <string name="file_list_empty_unified_search_no_results">Nie znaleziono wyników dla Twojego zapytania</string>
     <string name="file_list_folder">katalog</string>
+    <string name="file_list_live">NA ŻYWO</string>
     <string name="file_list_loading">Wczytywanie…</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
     <string name="file_list_seconds_ago">przed chwilą</string>
@@ -642,6 +644,8 @@
     <string name="remove_e2e">Możesz usunąć szyfrowanie end-to-end lokalnie na tym kliencie</string>
     <string name="remove_e2e_message">Szyfrowanie end-to-end można usunąć lokalnie na tym kliencie. Zaszyfrowane pliki pozostaną na serwerze, ale nie będą już synchronizowane z tym komputerem.</string>
     <string name="remove_fail_msg">Usuwanie nie powiodło się</string>
+    <string name="remove_local_account">Usuń lokalne konto</string>
+    <string name="remove_local_account_details">Usuń konto z urządzenia i usuń wszystkie lokalne pliki</string>
     <string name="remove_notification_failed">Usunięcie powiadomienia nie powiodło się.</string>
     <string name="remove_push_notification">Usuń</string>
     <string name="remove_success_msg">Usunięto</string>
@@ -649,6 +653,8 @@
     <string name="rename_local_fail_msg">Nie można zmienić nazwy lokalnej kopii, użyj innej nazwy</string>
     <string name="rename_server_fail_msg">Nie można zmienić nazwy, nazwa jest już zajęta</string>
     <string name="request_account_deletion">Zażądaj usunięcia konta</string>
+    <string name="request_account_deletion_button">Poproś o usunięcie</string>
+    <string name="request_account_deletion_details">Prośba o stałe usunięcie konta przez dostawcę usługi</string>
     <string name="reshare_not_allowed">Udostępnianie dalej jest niedozwolone</string>
     <string name="resharing_is_not_allowed">Udostępnianie dalej jest niedozwolone</string>
     <string name="resized_image_not_possible_download">Brak obrazu o zmienionym rozmiarze. Pobrać pełny obraz?</string>
@@ -865,6 +871,7 @@
     <string name="upload_lock_failed">Nie udało się zablokować katalogu</string>
     <string name="upload_old_android">Szyfrowanie jest możliwe tylko przy &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Brak wystarczającego miejsca, aby skopiować wybrane pliki do katalogu %1$s. Czy chcesz je tam przenieść?</string>
+    <string name="upload_quota_exceeded">Limit przekroczony</string>
     <string name="upload_scan_doc_upload">Zeskanuj dokument z aparatu</string>
     <string name="upload_sync_conflict">Konflikt synchronizacji, proszę rozwiązać ręcznie</string>
     <string name="upload_unknown_error">Nieznany błąd</string>
@@ -876,6 +883,8 @@
     <string name="uploader_error_message_source_file_not_found">Wybrany plik nie został znaleziony. Sprawdź, czy plik istnieje.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Ten plik nie może być wysłany</string>
     <string name="uploader_error_title_no_file_to_upload">Brak pliku do wysłania</string>
+    <string name="uploader_file_not_found_message">Plik nie znaleziony. Czy jesteś pewien, że ten plik istnieje lub poprzedni konflikt został rozwiązany?</string>
+    <string name="uploader_file_not_found_on_server_message">Nie mogliśmy odnaleźć pliku na serwerze. Inny użytkownik mógł usunąć plik</string>
     <string name="uploader_info_dirname">Nazwa katalogu</string>
     <string name="uploader_top_message">Wybierz katalog do wysłania</string>
     <string name="uploader_upload_failed_content_single">Nie udało się wysłać %1$s</string>

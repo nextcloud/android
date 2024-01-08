@@ -34,7 +34,7 @@
     <string name="add_to_cloud">افزودن به %1$s</string>
     <string name="advanced_settings">تنظمیات پیش‌رفته</string>
     <string name="allow_resharing">مجاز به اشتراک گذاری مجدد</string>
-    <string name="app_widget_description">نمایش یک ابزارک از پیشخان</string>
+    <string name="app_widget_description">نمایش یک ابزارک از پیشخوان</string>
     <string name="appbar_search_in">جستجو در %s</string>
     <string name="associated_account_not_found">حساب مرتبط یافت نشد!</string>
     <string name="auth_access_failed">دسترسی خطای  %1$s</string>
@@ -285,6 +285,7 @@
     <string name="error_starting_direct_camera_upload">خطا در فعال‌سازی دوربین</string>
     <string name="error_starting_doc_scan">خطا در شروع اسکن سند</string>
     <string name="etm_accounts">حساب‌ها</string>
+    <string name="etm_background_job_created">ایجاد شده</string>
     <string name="etm_background_job_name">نام کار</string>
     <string name="etm_background_job_progress">پیشرفت</string>
     <string name="etm_background_job_started">آغاز شده</string>
@@ -411,7 +412,7 @@
     <string name="host_not_available">سرور در دسترس نیست</string>
     <string name="host_your_own_server">میزبان سرور خود باشید</string>
     <string name="icon_for_empty_list">نقشک برای سیاههٔ خالی</string>
-    <string name="icon_of_dashboard_widget">نقشک ابزارک پیشخان</string>
+    <string name="icon_of_dashboard_widget">نقشک ابزارک پیشخوان</string>
     <string name="icon_of_widget_entry">نقشک ورودی ابزارک</string>
     <string name="image_editor_file_edited_suffix">ویرایش شده</string>
     <string name="image_editor_flip_horizontal">به صورت افقی بچرخانید.</string>

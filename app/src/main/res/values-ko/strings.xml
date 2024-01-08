@@ -283,6 +283,7 @@
     <string name="error_starting_direct_camera_upload">카메라 시작 중 오류 발생</string>
     <string name="error_starting_doc_scan">문서 스캔 시작 오류</string>
     <string name="etm_accounts">계정</string>
+    <string name="etm_background_job_created">만든 날짜</string>
     <string name="etm_background_job_name">작업 이름</string>
     <string name="etm_background_job_progress">진행 상황</string>
     <string name="etm_background_job_started">시작됨</string>

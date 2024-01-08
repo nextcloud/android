@@ -286,6 +286,7 @@
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
     <string name="error_starting_doc_scan">Feil ved start av dokumentskanning</string>
     <string name="etm_accounts">Kontoer</string>
+    <string name="etm_background_job_created">Opprettet</string>
     <string name="etm_background_job_name">Jobbnavn</string>
     <string name="etm_background_job_progress">Fremgang</string>
     <string name="etm_background_job_started">Started</string>

@@ -248,6 +248,7 @@
     <string name="error_retrieving_templates">Errore in su recùperu de is modellos</string>
     <string name="error_starting_direct_camera_upload">Errore de aviu de sa telecàmera</string>
     <string name="etm_accounts">Contos</string>
+    <string name="etm_background_job_created">Creadu</string>
     <string name="etm_background_job_name">Nùmene de su traballu</string>
     <string name="etm_background_job_progress">Progressu</string>
     <string name="etm_background_job_started">Cumintzadu</string>

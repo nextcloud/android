@@ -226,6 +226,7 @@
     <string name="error_retrieving_templates">Gabim gjatë marrjes së shablloneve</string>
     <string name="error_starting_direct_camera_upload">Gabim në hapjen e kamerës</string>
     <string name="etm_accounts">Llogaritë</string>
+    <string name="etm_background_job_created">U krijua</string>
     <string name="etm_background_job_name">Emri i punës</string>
     <string name="etm_background_job_progress">Progresi</string>
     <string name="etm_background_job_started">Filloi</string>

@@ -288,6 +288,7 @@
     <string name="error_starting_direct_camera_upload">Fel vid start av kamera</string>
     <string name="error_starting_doc_scan">Fel vid start av dokumentskanning</string>
     <string name="etm_accounts">Konton</string>
+    <string name="etm_background_job_created">Skapat</string>
     <string name="etm_background_job_name">Uppdragsnamn</string>
     <string name="etm_background_job_progress">Status</string>
     <string name="etm_background_job_started">Påbörjat</string>
@@ -886,7 +887,6 @@
     <string name="uploader_file_not_found_message">Filen hittades inte. Är du säker på att denna fil existerar eller har en tidigare konflikt inte blivit löst?</string>
     <string name="uploader_file_not_found_on_server_message">Vi kunde inte hitta filen på servern. En annan användare kan ha raderat filen.</string>
     <string name="uploader_info_dirname">Mappnamn</string>
-    <string name="uploader_local_files_uploaded">Försök att ladda upp lokala filer igen</string>
     <string name="uploader_top_message">Välj mapp för uppladdning</string>
     <string name="uploader_upload_failed_content_single">Kunde inte ladda upp %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Uppladdningen misslyckades, logga in igen</string>

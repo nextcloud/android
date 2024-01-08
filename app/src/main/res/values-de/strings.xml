@@ -886,7 +886,6 @@
     <string name="uploader_file_not_found_message">Datei nicht gefunden. Sind Sie sicher, dass diese Datei existiert oder wurde ein früherer Konflikt nicht gelöst?</string>
     <string name="uploader_file_not_found_on_server_message">Wir konnten die Datei auf dem Server nicht finden. Ein anderer Benutzer hat möglicherweise die Datei gelöscht.</string>
     <string name="uploader_info_dirname">Ordnername</string>
-    <string name="uploader_local_files_uploaded">Versuchen Sie, lokale Dateien erneut hochzuladen.</string>
     <string name="uploader_top_message">Hochladeordner auswählen</string>
     <string name="uploader_upload_failed_content_single">Konnte %1$s nicht hochladen</string>
     <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, bitte erneut anmelden</string>

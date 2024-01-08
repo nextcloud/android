@@ -277,6 +277,7 @@
     <string name="error_showing_encryption_dialog">Erro ao mostrar a janela da configuração de encriptação!</string>
     <string name="error_starting_direct_camera_upload">Erro ao iniciar câmara</string>
     <string name="etm_accounts">Contas</string>
+    <string name="etm_background_job_created">Criado</string>
     <string name="etm_background_job_name">Nome do Trabalho</string>
     <string name="etm_background_job_progress">Progresso</string>
     <string name="etm_background_job_started">Iniciado</string>

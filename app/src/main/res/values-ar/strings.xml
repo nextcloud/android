@@ -893,7 +893,6 @@
     <string name="uploader_file_not_found_message">تعذّر العثور على الملف. هل أنت متأكد من وجود هذا الملف؛ أم أنه هنالك تعارضاً لم يُحل بعدُ؟</string>
     <string name="uploader_file_not_found_on_server_message">لم نتمكن من إيجاد الملف على الخادوم. يمكن أن يكون قد تمّ حذفه من قِبل مُستخدِمٍ آخر</string>
     <string name="uploader_info_dirname">اسم المجلد</string>
-    <string name="uploader_local_files_uploaded">حاول رفع الملفات المحلية مرةً أخرى</string>
     <string name="uploader_top_message">اختر مجلد للرفع</string>
     <string name="uploader_upload_failed_content_single">فشل الرفع %1$s</string>
     <string name="uploader_upload_failed_credentials_error">فشل الرفع ، قم بتسجيل الدخول مرة أخرى</string>

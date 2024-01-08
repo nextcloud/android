@@ -274,6 +274,7 @@
     <string name="error_retrieving_templates">Tapahtui virhe mallien lataamisessa</string>
     <string name="error_starting_direct_camera_upload">Virhe kameraa käynnistäessä</string>
     <string name="etm_accounts">Tilit</string>
+    <string name="etm_background_job_created">Luonut</string>
     <string name="etm_background_job_name">Työn nimi</string>
     <string name="etm_background_job_progress">Edistyminen</string>
     <string name="etm_background_job_started">Käynnistetty</string>

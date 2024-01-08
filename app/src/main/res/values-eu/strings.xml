@@ -288,6 +288,7 @@
     <string name="error_starting_direct_camera_upload">Errorea kamera abiaraztean</string>
     <string name="error_starting_doc_scan">Errorea dokumentuen eskaneatzea abiaraztean</string>
     <string name="etm_accounts">Kontuak</string>
+    <string name="etm_background_job_created">Sortua</string>
     <string name="etm_background_job_name">Lanaren izena</string>
     <string name="etm_background_job_progress">Aurrerapena</string>
     <string name="etm_background_job_started">Hasi da</string>

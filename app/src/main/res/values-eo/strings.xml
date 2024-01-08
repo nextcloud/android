@@ -218,6 +218,7 @@
     <string name="error_retrieving_templates">Eraro dum ricevo de ŝablonoj</string>
     <string name="error_starting_direct_camera_upload">Eraro dum ŝargo de la fotilo</string>
     <string name="etm_accounts">Kontoj</string>
+    <string name="etm_background_job_created">Kreita</string>
     <string name="etm_background_job_user">Uzanto</string>
     <string name="etm_background_jobs">Fonaj taskoj</string>
     <string name="etm_transfer_type_download">Elŝuti</string>

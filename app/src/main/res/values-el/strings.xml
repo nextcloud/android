@@ -383,6 +383,7 @@
     <string name="folder_already_exists">Ο φάκελος υπάρχει ήδη</string>
     <string name="folder_confirm_create">Δημιουργία</string>
     <string name="folder_list_empty_headline">Δεν υπάρχουν φάκελοι εδώ</string>
+    <string name="folder_picker_choose_button_text">Επιλογή</string>
     <string name="folder_picker_choose_caption_text">Επιλογή φακέλου προορισμού</string>
     <string name="folder_picker_copy_button_text">Αντιγραφή</string>
     <string name="folder_picker_move_button_text">Μετακίνηση</string>

@@ -16,6 +16,7 @@
     <string name="action_switch_list_view">มุมมองแบบรายการ</string>
     <string name="actionbar_calendar_contacts_restore">กู้คืนข้อมูลรายชื่อและปฏิทิน</string>
     <string name="actionbar_mkdir">โฟลเดอร์ใหม่</string>
+    <string name="actionbar_move_or_copy">ย้ายหรือคัดลอก</string>
     <string name="actionbar_open_with">เปิดด้วย</string>
     <string name="actionbar_search">ค้นหา</string>
     <string name="actionbar_see_details">รายละเอียด</string>
@@ -132,6 +133,11 @@
     <string name="community_contribute_headline">มีส่วนร่วมเป็นประจำ</string>
     <string name="community_contribute_translate_text">แอป</string>
     <string name="community_contribute_translate_translate">แปลภาษา</string>
+    <string name="community_dev_direct_download">ดาวน์โหลดเวอร์ชันพัฒนาโดยตรง</string>
+    <string name="community_dev_fdroid">รับเวอร์ชันการพัฒนาจากแอป F-Droid</string>
+    <string name="community_rc_fdroid">รับ release candidate จากแอป F-Droid</string>
+    <string name="community_rc_play_store">รับ release candidate จาก Google Play store</string>
+    <string name="community_release_candidate_headline">สมัครรุ่นทดสอบ</string>
     <string name="community_testing_headline">ช่วยโดยการทดสอบ</string>
     <string name="community_testing_report_text">รายงานปัญหาบน GitHub</string>
     <string name="configure_new_media_folder_detection_notifications">กำหนดค่า</string>

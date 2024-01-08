@@ -243,6 +243,7 @@
     <string name="error_retrieving_templates">Error al obtener las plantillas</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
     <string name="etm_accounts">Cuentas</string>
+    <string name="etm_background_job_created">Creado</string>
     <string name="etm_background_job_name">Nombre de la tarea</string>
     <string name="etm_background_job_progress">Avance</string>
     <string name="etm_background_job_started">Iniciado</string>

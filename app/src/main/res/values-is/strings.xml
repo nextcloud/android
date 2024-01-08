@@ -285,6 +285,7 @@
     <string name="error_showing_encryption_dialog">Villa við að birta uppsetningarglugga dulritunar!</string>
     <string name="error_starting_direct_camera_upload">Villa við að ræsa myndavél</string>
     <string name="etm_accounts">Aðgangar</string>
+    <string name="etm_background_job_created">Búið til þann</string>
     <string name="etm_background_job_name">Heiti verks</string>
     <string name="etm_background_job_progress">Framvinda</string>
     <string name="etm_background_job_started">Ræst</string>

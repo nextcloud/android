@@ -288,6 +288,7 @@
     <string name="error_starting_direct_camera_upload">Грешка при покретању камере</string>
     <string name="error_starting_doc_scan">Грешка приликом почетка скенирања документа</string>
     <string name="etm_accounts">Налози</string>
+    <string name="etm_background_job_created">Направљен</string>
     <string name="etm_background_job_name">Назив посла</string>
     <string name="etm_background_job_progress">Напредак</string>
     <string name="etm_background_job_started">Започет</string>
@@ -885,7 +886,6 @@
     <string name="uploader_file_not_found_message">Фајл није пронађен. Да ли сте стигурни да овај фајл постоји, или да можда конфилкт већ раније није разрешен?</string>
     <string name="uploader_file_not_found_on_server_message">Нисмо могли да лоцирамо фајл на серверу. Можда га је обрисао неки други корисник</string>
     <string name="uploader_info_dirname">Назив фасцикле</string>
-    <string name="uploader_local_files_uploaded">Покушајте поново да отпремите локалне фајлове</string>
     <string name="uploader_top_message">Одредите фасциклу за отпремање</string>
     <string name="uploader_upload_failed_content_single">Не могу да отпремим %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Неуспешно отпремање. Поново се пријавите</string>

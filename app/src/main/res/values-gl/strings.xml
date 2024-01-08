@@ -288,6 +288,7 @@
     <string name="error_starting_direct_camera_upload">Produciuse un erro ao iniciar a cámara</string>
     <string name="error_starting_doc_scan">Produciuse un erro ao iniciar o escaneamento do documento</string>
     <string name="etm_accounts">Contas</string>
+    <string name="etm_background_job_created">Creado</string>
     <string name="etm_background_job_name">Nome do traballo</string>
     <string name="etm_background_job_progress">Progreso</string>
     <string name="etm_background_job_started">Iniciado</string>
@@ -886,7 +887,6 @@
     <string name="uploader_file_not_found_message">Non se atopou o ficheiro. Está seguro de que este ficheiro existe ou non se resolveu un conflito anterior?</string>
     <string name="uploader_file_not_found_on_server_message">Non foi posíbel localizar o ficheiro no servidor. Outro usuario pode ter eliminado o ficheiro</string>
     <string name="uploader_info_dirname">Nome do cartafol</string>
-    <string name="uploader_local_files_uploaded">Tente enviar os ficheiros locais de novo</string>
     <string name="uploader_top_message">Escoller o cartafol de envío</string>
     <string name="uploader_upload_failed_content_single">Non foi posíbel enviar: %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Produciuse un fallo no envío, acceda de novo.</string>

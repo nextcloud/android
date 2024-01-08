@@ -29,8 +29,8 @@
     <string name="activity_chooser_send_file_title">寄出</string>
     <string name="activity_chooser_title">傳送連結到…</string>
     <string name="activity_icon">活動</string>
-    <string name="add_another_public_share_link">加入另一個連結</string>
-    <string name="add_new_public_share">增加一個新的公開連結</string>
+    <string name="add_another_public_share_link">新增另一個連結</string>
+    <string name="add_new_public_share">新增一個新的公開連結</string>
     <string name="add_new_secure_file_drop">新增安全檔案投放</string>
     <string name="add_to_cloud">新增到 %1$s </string>
     <string name="advanced_settings">進階設定</string>
@@ -60,12 +60,12 @@
     <string name="auth_testing_connection">測試連線</string>
     <string name="auth_timeout_title">伺服器回應逾時</string>
     <string name="auth_trying_to_login">正在嘗試登入……</string>
-    <string name="auth_unauthorized">錯誤的使用者或密碼</string>
+    <string name="auth_unauthorized">錯誤的使用者名稱或密碼</string>
     <string name="auth_unknown_error_exception_title">未知錯誤：%1$s</string>
     <string name="auth_unknown_error_http_title">發生未知的 HTTP 錯誤！</string>
     <string name="auth_unknown_error_title">發生未知的錯誤！</string>
     <string name="auth_unknown_host_title">無法找到主機</string>
-    <string name="auth_unsupported_multiaccount">%1$s 不支援多個賬戶</string>
+    <string name="auth_unsupported_multiaccount">%1$s 不支援多個帳號</string>
     <string name="auth_wrong_connection_title">無法建立連線</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
     <string name="auto_upload_on_wifi">僅在非計量收費的 Wi-Fi 上傳</string>
@@ -95,7 +95,7 @@
     <string name="choose_template_helper_text">請選擇範本並輸入檔案名稱。</string>
     <string name="choose_which_file">選擇要保留哪個檔案！</string>
     <string name="choose_widget">選擇小工具</string>
-    <string name="clear_notifications_failed">清空通知訊息失敗</string>
+    <string name="clear_notifications_failed">清除通知訊息失敗</string>
     <string name="clear_status_message">清空狀態訊息</string>
     <string name="clear_status_message_after">在……之後清空狀態訊息</string>
     <string name="clipboard_label">文字已從 %1$s 複製</string>
@@ -288,6 +288,7 @@
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
     <string name="error_starting_doc_scan">開始文件掃描時發生錯誤</string>
     <string name="etm_accounts">帳戶</string>
+    <string name="etm_background_job_created">Created</string>
     <string name="etm_background_job_name">工作名稱</string>
     <string name="etm_background_job_progress">進度</string>
     <string name="etm_background_job_started">開始於</string>
@@ -885,7 +886,6 @@
     <string name="uploader_file_not_found_message">找不到檔案。您確定該檔案存在，或之前的衝突尚未解決？</string>
     <string name="uploader_file_not_found_on_server_message">我們在伺服器上找不到檔案。可能有其他使用者刪除了該檔案</string>
     <string name="uploader_info_dirname">資料夾名稱</string>
-    <string name="uploader_local_files_uploaded">請嘗試重新上傳本機檔案</string>
     <string name="uploader_top_message">選擇上傳檔案夾</string>
     <string name="uploader_upload_failed_content_single">上傳 %1$s 無法完成</string>
     <string name="uploader_upload_failed_credentials_error">上傳失敗，再重新登入</string>

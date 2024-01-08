@@ -260,7 +260,7 @@
     <string name="end_to_end_encryption_dialog_close">Kapat</string>
     <string name="end_to_end_encryption_enter_password">Kişisel anahtarın şifresinin çözülmesi için parolayı yazın.</string>
     <string name="end_to_end_encryption_folder_not_empty">Bu klasör boş değil.</string>
-    <string name="end_to_end_encryption_generating_keys">Yeni anahtarlar üretiliyor …</string>
+    <string name="end_to_end_encryption_generating_keys">Yeni anahtarlar oluşturuluyor…</string>
     <string name="end_to_end_encryption_keywords_description">12 sözcüklü parola çok güçlüdür ve şifrelenmiş dosyalarınızı yalnızca sizin görüntüleyip kullanabilmenizi sağlar. Lütfen bir yere yazarak güvenli bir yerde saklayın.</string>
     <string name="end_to_end_encryption_not_enabled">Sunucu üzerinde uçtan uca şifreleme devre dışı bırakılmış.</string>
     <string name="end_to_end_encryption_passphrase_title">12 sözcüklü şifreleme parolanızı not edin</string>
@@ -288,6 +288,7 @@
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>
     <string name="error_starting_doc_scan">Belge taramasına başlanırken sorun çıktı</string>
     <string name="etm_accounts">Hesaplar</string>
+    <string name="etm_background_job_created">Oluşturulma</string>
     <string name="etm_background_job_name">Görev adı</string>
     <string name="etm_background_job_progress">İlerleme</string>
     <string name="etm_background_job_started">Başlatıldı</string>
@@ -666,7 +667,7 @@
     <string name="scanQR_description">QR kodu ile oturum aç</string>
     <string name="scan_page">Sayfayı tara</string>
     <string name="screenshot_01_gridView_heading">Verilerinizi korumak</string>
-    <string name="screenshot_01_gridView_subline">sizin barındırdığınız üretkenlik</string>
+    <string name="screenshot_01_gridView_subline">kendi barındırdığınız üretkenlik</string>
     <string name="screenshot_02_listView_heading">Göz at ve paylaş</string>
     <string name="screenshot_02_listView_subline">tüm işlemler parmaklarınızın ucunda</string>
     <string name="screenshot_03_drawer_heading">İşlemler, paylaşımlar, …</string>
@@ -885,7 +886,6 @@
     <string name="uploader_file_not_found_message">Dosya bulunamadı. Bu dosyanın var olduğundan ya da daha önceki bir çakışmanın çözüldüğünden emin misiniz?</string>
     <string name="uploader_file_not_found_on_server_message">Dosya sunucuda bulunamadı. Başka bir kullanıcı dosyayı silmiş olabilir</string>
     <string name="uploader_info_dirname">Klasör adı</string>
-    <string name="uploader_local_files_uploaded">Yerel dosyaları yeniden yüklemeyi deneyin</string>
     <string name="uploader_top_message">Yüklenecek klasörü seçin</string>
     <string name="uploader_upload_failed_content_single">%1$s yüklemesi tamamlanamadı</string>
     <string name="uploader_upload_failed_credentials_error">Yüklenemedi, yeniden oturum açmalısınız</string>

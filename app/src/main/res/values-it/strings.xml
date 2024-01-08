@@ -288,6 +288,7 @@
     <string name="error_starting_direct_camera_upload">Errore  di avvio della fotocamera</string>
     <string name="error_starting_doc_scan">Errore all\'avvio della scansione del documento</string>
     <string name="etm_accounts">Account</string>
+    <string name="etm_background_job_created">Creato il</string>
     <string name="etm_background_job_name">Nome operazione</string>
     <string name="etm_background_job_progress">Avanzamento</string>
     <string name="etm_background_job_started">Avviata</string>

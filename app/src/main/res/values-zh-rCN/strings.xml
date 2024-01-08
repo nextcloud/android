@@ -887,7 +887,6 @@
     <string name="uploader_error_title_no_file_to_upload">没有要上传的文件</string>
     <string name="uploader_file_not_found_on_server_message">我们无法定位服务器上的该文件。其他用户可能已删除该文件</string>
     <string name="uploader_info_dirname">文件夹名称</string>
-    <string name="uploader_local_files_uploaded">请尝试重新上传本地文件</string>
     <string name="uploader_top_message">选择上传文件夹</string>
     <string name="uploader_upload_failed_content_single">无法上传 %1$s</string>
     <string name="uploader_upload_failed_credentials_error">上传失败，请重新登录</string>

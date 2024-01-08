@@ -903,7 +903,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="uploader_file_not_found_message">A fájl nem található. Biztos, hogy létezik ez a fájl, vagy egy előző ütközés nem lett feloldva?</string>
     <string name="uploader_file_not_found_on_server_message">A fájl nem található a kiszolgálón. Lehet, hogy egy másik felhasználó törölte a fájlt.</string>
     <string name="uploader_info_dirname">Mappa neve</string>
-    <string name="uploader_local_files_uploaded">A helyi fájlok újbóli feltöltésének kísérlete</string>
     <string name="uploader_top_message">Válasszon feltöltési mappát</string>
     <string name="uploader_upload_failed_content_single">%1$s feltöltése sikertelen.</string>
     <string name="uploader_upload_failed_credentials_error">Feltöltés sikertelen, újra be kell jelentkeznie.</string>

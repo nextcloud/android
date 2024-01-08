@@ -386,6 +386,7 @@
     <string name="folder_already_exists">Mappe findes allerede</string>
     <string name="folder_confirm_create">Opret</string>
     <string name="folder_list_empty_headline">Ingen mappe her</string>
+    <string name="folder_picker_choose_button_text">Vælg</string>
     <string name="folder_picker_choose_caption_text">Vælg destinationsmappe</string>
     <string name="folder_picker_copy_button_text">Kopiér</string>
     <string name="folder_picker_move_button_text">Flyt</string>
