@@ -89,7 +89,8 @@ public class UploadsStorageManager extends Observable {
     public long storeUpload(OCUpload ocUpload) {
         OCUpload existingUpload = getPendingCurrentOrFailedUpload(ocUpload);
         if (existingUpload != null) {
-            Log_OC.v(TAG, "Will update upload in db since " + ocUpload.getLocalPath() + " already exists as pending, current or failed upload");
+            Log_OC.v(TAG, "Will update upload in db since " + ocUpload.getLocalPath() + " already exists as " +
+                "pending, current or failed upload");
             long existingId = existingUpload.getUploadId();
             ocUpload.setUploadId(existingId);
             updateUpload(ocUpload);
@@ -124,7 +125,8 @@ public class UploadsStorageManager extends Observable {
 
             OCUpload existingUpload = getPendingCurrentOrFailedUpload(ocUpload);
             if (existingUpload != null) {
-                Log_OC.v(TAG, "Will update upload in db since " + ocUpload.getLocalPath() + " already exists as pending, current or failed upload");
+                Log_OC.v(TAG, "Will update upload in db since " + ocUpload.getLocalPath() + " already exists as" +
+                    " pending, current or failed upload");
                 ocUpload.setUploadId(existingUpload.getUploadId());
                 updateUpload(ocUpload);
                 continue;
@@ -375,7 +377,13 @@ public class UploadsStorageManager extends Observable {
                 ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=? and (" +
                 ProviderTableMeta.UPLOADS_STATUS + "=? or " +
                 ProviderTableMeta.UPLOADS_STATUS + "=? )",
-            new String[]{upload.getRemotePath(), upload.getLocalPath(), upload.getAccountName(), String.valueOf(UploadStatus.UPLOAD_IN_PROGRESS.value), String.valueOf(UploadStatus.UPLOAD_FAILED.value)},
+            new String[]{
+                upload.getRemotePath(),
+                upload.getLocalPath(),
+                upload.getAccountName(),
+                String.valueOf(UploadStatus.UPLOAD_IN_PROGRESS.value),
+                String.valueOf(UploadStatus.UPLOAD_FAILED.value)
+            },
             ProviderTableMeta.UPLOADS_REMOTE_PATH + " ASC")) {
 
             if (cursor != null) {
