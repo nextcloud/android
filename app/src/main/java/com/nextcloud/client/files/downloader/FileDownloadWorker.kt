@@ -66,6 +66,7 @@ class FileDownloadWorker(
         private val TAG = FileDownloadWorker::class.java.simpleName
 
         private var currentDownload: DownloadFileOperation? = null
+        private var pendingDownloadFileIds: ArrayList<Long> = arrayListOf()
         private val lock = Any()
 
         const val FILES_SEPARATOR = ","
@@ -84,10 +85,8 @@ class FileDownloadWorker(
         const val EXTRA_LINKED_TO_PATH = "EXTRA_LINKED_TO_PATH"
         const val EXTRA_ACCOUNT_NAME = "EXTRA_ACCOUNT_NAME"
 
-        fun isDownloading(user: User, file: OCFile): Boolean {
-            synchronized(lock) {
-                return currentDownload?.isActive(user, file) ?: false
-            }
+        fun isFileInQueue(file: OCFile): Boolean {
+            return pendingDownloadFileIds.contains(file.fileId)
         }
 
         fun cancelCurrentDownload(user: User, file: OCFile) {
@@ -144,6 +143,7 @@ class FileDownloadWorker(
         } catch (t: Throwable) {
             notificationManager.showCompleteNotification(context.getString(R.string.downloader_unexpected_error))
             Log_OC.e(TAG, "Error caught at FilesDownloadWorker(): " + t.localizedMessage)
+            setIdleWorkerState()
             Result.failure()
         }
     }
@@ -166,6 +166,7 @@ class FileDownloadWorker(
     private fun setIdleWorkerState() {
         failedFileNames.clear()
         pendingDownloads.all.clear()
+        pendingDownloadFileIds.clear()
         currentDownload = null
         WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
     }
@@ -234,6 +235,7 @@ class FileDownloadWorker(
                     file.remotePath,
                     operation
                 )
+                pendingDownloadFileIds.add(file.fileId)
 
                 if (downloadKey != null) {
                     requestedDownloads.add(downloadKey)
@@ -382,6 +384,7 @@ class FileDownloadWorker(
             currentDownload?.user?.accountName,
             currentDownload?.remotePath
         )
+        pendingDownloadFileIds.remove(currentDownload?.file?.fileId)
 
         val downloadResult = result ?: RemoteOperationResult<Any?>(RuntimeException("Error downloading…"))
 
