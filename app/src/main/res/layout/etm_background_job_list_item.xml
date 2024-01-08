@@ -107,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="@string/etm_background_job_started" />
+            android:text="@string/etm_background_job_created" />
 
         <TextView
             android:id="@+id/etm_background_job_started"
