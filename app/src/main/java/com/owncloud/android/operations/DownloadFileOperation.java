@@ -99,13 +99,10 @@ public class DownloadFileOperation extends RemoteOperation {
         this(user, file, null, null, null, context, DownloadType.DOWNLOAD);
     }
 
-    public boolean isActive(User user, OCFile file) {
-        if (user == null || file == null) {
-            return false;
+    public void cancel(String accountName, long fileId) {
+        if (getFile().getFileId() == fileId && getUser().getAccountName().equals(accountName)) {
+            cancel();
         }
-
-        return getFile().getFileId() == file.getFileId() &&
-            getUser().getAccountName().equals(user.getAccountName());
     }
 
     public String getSavePath() {

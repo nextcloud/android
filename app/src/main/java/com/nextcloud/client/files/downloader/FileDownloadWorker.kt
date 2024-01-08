@@ -25,7 +25,10 @@ import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.OnAccountsUpdateListener
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import androidx.core.util.component1
 import androidx.core.util.component2
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -55,7 +58,7 @@ import java.util.Vector
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class FileDownloadWorker(
-    private val viewThemeUtils: ViewThemeUtils,
+    viewThemeUtils: ViewThemeUtils,
     private val accountManager: UserAccountManager,
     private var localBroadcastManager: LocalBroadcastManager,
     private val context: Context,
@@ -68,6 +71,10 @@ class FileDownloadWorker(
         private var currentDownload: DownloadFileOperation? = null
         private var pendingDownloadFileIds: ArrayList<Pair<String?, Long>> = arrayListOf()
         private val lock = Any()
+
+        const val CANCEL_EVENT = "CANCEL_EVENT"
+        const val EVENT_ACCOUNT_NAME = "EVENT_ACCOUNT_NAME"
+        const val EVENT_FILE_ID = "EVENT_FILE_ID"
 
         const val FILES_SEPARATOR = ","
         const val FOLDER_REMOTE_PATH = "FOLDER_REMOTE_PATH"
@@ -88,14 +95,6 @@ class FileDownloadWorker(
         fun isFileInQueue(user: User, file: OCFile): Boolean {
             synchronized(lock) {
                 return pendingDownloadFileIds.contains(Pair(user.accountName, file.fileId))
-            }
-        }
-
-        fun cancelCurrentDownload(user: User, file: OCFile) {
-            synchronized(lock) {
-                if (currentDownload?.isActive(user, file) == true) {
-                    currentDownload?.cancel()
-                }
             }
         }
 
@@ -131,6 +130,7 @@ class FileDownloadWorker(
             val requestDownloads = getRequestDownloads()
 
             addAccountUpdateListener()
+            registerCancelEvent()
 
             requestDownloads.forEach {
                 downloadFile(it)
@@ -166,9 +166,35 @@ class FileDownloadWorker(
     }
 
     private fun setIdleWorkerState() {
-        pendingDownloads.all.clear()
         currentDownload = null
+        LocalBroadcastManager.getInstance(context).unregisterReceiver(cancelEventReceiver)
         WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
+    }
+
+    private fun getEventPair(intent: Intent): Pair<String, Long>? {
+        val fileId = intent.getLongExtra(EVENT_FILE_ID, -1L)
+        val accountName = intent.getStringExtra(EVENT_ACCOUNT_NAME)
+
+        return if (fileId != -1L && accountName != null) {
+            Pair(accountName, fileId)
+        } else {
+            null
+        }
+    }
+
+    private fun registerCancelEvent() {
+        val filter = IntentFilter(CANCEL_EVENT)
+        LocalBroadcastManager.getInstance(context).registerReceiver(cancelEventReceiver, filter)
+    }
+
+    private val cancelEventReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val (accountName, fileId) = getEventPair(intent) ?: return
+
+            pendingDownloads.all.forEach {
+                it.value.payload?.cancel(accountName, fileId)
+            }
+        }
     }
 
     private fun cancelAllDownloads() {
@@ -184,18 +210,15 @@ class FileDownloadWorker(
 
     @Suppress("MagicNumber")
     private fun showCompleteNotification() {
-        val result = getSuccessNotificationText()
-        notificationManager.showCompleteNotification(result)
-    }
-
-    private fun getSuccessNotificationText(): String {
-        return if (folder != null) {
+        val successText = if (folder != null) {
             context.getString(R.string.downloader_folder_downloaded, folder?.fileName)
         } else if (currentDownload?.file != null) {
             context.getString(R.string.downloader_file_downloaded, currentDownload?.file?.fileName)
         } else {
             context.getString(R.string.downloader_download_completed)
         }
+
+        notificationManager.showCompleteNotification(successText)
     }
 
     private fun getRequestDownloads(): AbstractList<String> {
@@ -398,15 +421,24 @@ class FileDownloadWorker(
     }
 
     private fun showFailedDownloadNotifications(result: RemoteOperationResult<*>) {
-        if (!result.isSuccess) {
-            val fileName = currentDownload?.file?.fileName ?: ""
-            notificationManager.showNewNotification(
-                context.getString(
-                    R.string.downloader_file_download_failed,
-                    fileName
-                )
+        if (result.isSuccess) {
+            return
+        }
+
+        val fileName = currentDownload?.file?.fileName ?: ""
+        val failMessage = if (result.isCancelled) {
+            context.getString(
+                R.string.downloader_file_download_cancelled,
+                fileName
+            )
+        } else {
+            context.getString(
+                R.string.downloader_file_download_failed,
+                fileName
             )
         }
+
+        notificationManager.showNewNotification(failMessage)
     }
 
     private fun notifyDownloadResult(
