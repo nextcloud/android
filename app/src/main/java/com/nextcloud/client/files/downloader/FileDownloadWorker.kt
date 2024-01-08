@@ -139,6 +139,7 @@ class FileDownloadWorker(
             showCompleteNotification()
 
             setIdleWorkerState()
+
             Log_OC.e(TAG, "FilesDownloadWorker successfully completed")
             Result.success()
         } catch (t: Throwable) {
@@ -173,6 +174,7 @@ class FileDownloadWorker(
     private fun cancelAllDownloads() {
         pendingDownloads.all.forEach {
             it.value.payload?.cancel()
+            pendingDownloadFileIds.remove(Pair(it.value.payload?.user?.accountName, it.value.payload?.file?.fileId))
         }
     }
 
