@@ -30,6 +30,7 @@ import android.util.Pair;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.java.util.Optional;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
