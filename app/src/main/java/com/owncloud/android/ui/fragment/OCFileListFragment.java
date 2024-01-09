@@ -1341,13 +1341,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     }
                 }
 
-                mAdapter.swapDirectory(
-                    accountManager.getUser(),
-                    directory,
-                    storageManager,
-                    onlyOnDevice,
-                    mLimitToMimeType
-                                      );
+                if (mAdapter != null) {
+                    mAdapter.swapDirectory(
+                        accountManager.getUser(),
+                        directory,
+                        storageManager,
+                        onlyOnDevice,
+                        mLimitToMimeType);
+                } else {
+                    setAdapter(null);
+                }
 
                 OCFile previousDirectory = mFile;
                 mFile = directory;
