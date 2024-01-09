@@ -25,10 +25,7 @@ import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.OnAccountsUpdateListener
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import androidx.core.util.component1
 import androidx.core.util.component2
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -55,7 +52,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.security.SecureRandom
 import java.util.AbstractList
 import java.util.Vector
-import java.util.concurrent.atomic.AtomicBoolean
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class FileDownloadWorker(
@@ -69,19 +65,13 @@ class FileDownloadWorker(
     companion object {
         private val TAG = FileDownloadWorker::class.java.simpleName
 
-        private val shouldContinueExecution = AtomicBoolean(true)
+        private val pendingDownloads = IndexedForest<DownloadFileOperation>()
 
-        fun pauseWork() {
-            shouldContinueExecution.set(false)
+        fun cancelOperation(accountName: String, fileId: Long) {
+            pendingDownloads.all.forEach {
+                it.value.payload?.cancelMatchingOperation(accountName, fileId)
+            }
         }
-
-        fun resumeWork() {
-            shouldContinueExecution.set(true)
-        }
-
-        const val CANCEL_EVENT = "CANCEL_EVENT"
-        const val EVENT_ACCOUNT_NAME = "EVENT_ACCOUNT_NAME"
-        const val EVENT_FILE_ID = "EVENT_FILE_ID"
 
         const val FILES_SEPARATOR = ","
         const val FOLDER_REMOTE_PATH = "FOLDER_REMOTE_PATH"
@@ -109,7 +99,6 @@ class FileDownloadWorker(
     }
 
     private var currentDownload: DownloadFileOperation? = null
-    private val pendingDownloads = IndexedForest<DownloadFileOperation>()
 
     private var conflictUploadId: Long? = null
     private var lastPercent = 0
@@ -132,13 +121,8 @@ class FileDownloadWorker(
             val requestDownloads = getRequestDownloads()
 
             addAccountUpdateListener()
-            registerCancelEvent()
 
             requestDownloads.forEach {
-                if (!shouldContinueExecution.get()) {
-                    return@forEach
-                }
-
                 downloadFile(it)
             }
 
@@ -173,36 +157,7 @@ class FileDownloadWorker(
 
     private fun setIdleWorkerState() {
         currentDownload = null
-        LocalBroadcastManager.getInstance(context).unregisterReceiver(cancelEventReceiver)
         WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
-    }
-
-    private fun getEventPair(intent: Intent): Pair<String, Long>? {
-        val fileId = intent.getLongExtra(EVENT_FILE_ID, -1L)
-        val accountName = intent.getStringExtra(EVENT_ACCOUNT_NAME)
-
-        return if (fileId != -1L && accountName != null) {
-            Pair(accountName, fileId)
-        } else {
-            null
-        }
-    }
-
-    private fun registerCancelEvent() {
-        val filter = IntentFilter(CANCEL_EVENT)
-        LocalBroadcastManager.getInstance(context).registerReceiver(cancelEventReceiver, filter)
-    }
-
-    private val cancelEventReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            val (accountName, fileId) = getEventPair(intent) ?: return
-
-            pendingDownloads.all.forEach {
-                it.value.payload?.cancelMatchingOperation(accountName, fileId)
-            }
-
-            resumeWork()
-        }
     }
 
     private fun cancelAllDownloads() {
@@ -229,7 +184,6 @@ class FileDownloadWorker(
     }
 
     private fun getRequestDownloads(): AbstractList<String> {
-        shouldContinueExecution.set(true)
         setUser()
         setFolder()
         val files = getFiles()
