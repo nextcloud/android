@@ -102,14 +102,16 @@ class DownloadNotificationManager(
             val fileName: String = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1)
             val text =
                 String.format(context.getString(R.string.downloader_download_in_progress_content), percent, fileName)
-            updateNotificationText(text, false)
+            val title =
+                context.getString(R.string.downloader_download_in_progress_ticker)
+            updateNotificationText(title, text, false)
         }
     }
 
     @Suppress("MagicNumber")
     fun showCompleteNotification(text: String) {
         Handler(Looper.getMainLooper()).postDelayed({
-            updateNotificationText(text, true)
+            updateNotificationText(null,text, true)
             dismissNotification()
         }, 3000)
     }
@@ -126,17 +128,19 @@ class DownloadNotificationManager(
 
         notificationBuilder.run {
             setProgress(0, 0, false)
+            setContentTitle(null)
             setContentText(text)
+            setOngoing(false)
             notificationManager.notify(notifyId, this.build())
         }
     }
 
-    private fun updateNotificationText(text: String, cancelProgressBar: Boolean) {
+    private fun updateNotificationText(title: String?, text: String, cancelProgressBar: Boolean) {
         notificationBuilder.run {
             if (cancelProgressBar) {
                 setProgress(0, 0, false)
             }
-
+            setContentTitle(title)
             setContentText(text)
             notificationManager.notify(id, this.build())
         }
