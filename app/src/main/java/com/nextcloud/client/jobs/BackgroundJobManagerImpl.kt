@@ -509,16 +509,12 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniqueWork(JOB_FILES_UPLOAD + user.accountName, ExistingWorkPolicy.KEEP, request)
     }
 
-    private fun startFileDownloadJobTag(user: User, ocFile: OCFile): String {
-        return if (ocFile.isFolder) {
-            JOB_FOLDER_DOWNLOAD + user.accountName + ocFile.fileId
-        } else {
-            JOB_FILES_DOWNLOAD + user.accountName
-        }
+    private fun startFileDownloadJobTag(user: User, fileId: Long): String {
+        return JOB_FOLDER_DOWNLOAD + user.accountName + fileId
     }
 
-    override fun isStartFileDownloadJobScheduled(user: User, ocFile: OCFile): Boolean {
-        return workManager.isWorkScheduled(startFileDownloadJobTag(user, ocFile))
+    override fun isStartFileDownloadJobScheduled(user: User, fileId: Long): Boolean {
+        return workManager.isWorkScheduled(startFileDownloadJobTag(user, fileId))
     }
 
     override fun startFolderDownloadJob(folder: OCFile, user: User, filesPath: List<String>) {
@@ -529,7 +525,7 @@ internal class BackgroundJobManagerImpl(
             FileDownloadWorker.DOWNLOAD_TYPE to DownloadType.DOWNLOAD.toString()
         )
 
-        val tag = startFileDownloadJobTag(user, folder)
+        val tag = startFileDownloadJobTag(user, folder.fileId)
 
         val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
             .addTag(tag)
@@ -549,7 +545,7 @@ internal class BackgroundJobManagerImpl(
         packageName: String,
         conflictUploadId: Long?
     ) {
-        val tag = startFileDownloadJobTag(user, file)
+        val tag = startFileDownloadJobTag(user, file.fileId)
 
         val data = workDataOf(
             FileDownloadWorker.ACCOUNT_NAME to user.accountName,
@@ -566,7 +562,7 @@ internal class BackgroundJobManagerImpl(
             .setInputData(data)
             .build()
 
-        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.APPEND, request)
+        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, request)
     }
 
     override fun getFileUploads(user: User): LiveData<List<JobInfo>> {
@@ -578,8 +574,8 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelJob(JOB_FILES_UPLOAD, user)
     }
 
-    override fun cancelFilesDownloadJob(user: User, ocFile: OCFile) {
-        workManager.cancelAllWorkByTag(startFileDownloadJobTag(user, ocFile))
+    override fun cancelFilesDownloadJob(user: User, fileId: Long) {
+        workManager.cancelAllWorkByTag(startFileDownloadJobTag(user, fileId))
     }
 
     override fun startPdfGenerateAndUploadWork(

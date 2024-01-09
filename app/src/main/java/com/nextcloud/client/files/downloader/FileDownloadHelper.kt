@@ -62,23 +62,15 @@ class FileDownloadHelper {
             return false
         }
 
-        return FileDownloadWorker.isFileInQueue(user, file) ||
-            (file.isFolder && backgroundJobManager.isStartFileDownloadJobScheduled(user, file))
+        return backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId) ||
+            backgroundJobManager.isStartFileDownloadJobScheduled(user, file.parentId)
     }
 
     fun cancelPendingOrCurrentDownloads(user: User?, file: OCFile?) {
         if (user == null || file == null) return
 
         sendCancelEvent(user, file)
-        backgroundJobManager.cancelFilesDownloadJob(user, file)
-    }
-
-    private fun sendCancelEvent(user: User, file: OCFile) {
-        val intent = Intent(FileDownloadWorker.CANCEL_EVENT).apply {
-            putExtra(FileDownloadWorker.EVENT_ACCOUNT_NAME, user.accountName)
-            putExtra(FileDownloadWorker.EVENT_FILE_ID, file.fileId)
-        }
-        LocalBroadcastManager.getInstance(MainApp.getAppContext()).sendBroadcast(intent)
+        backgroundJobManager.cancelFilesDownloadJob(user, file.fileId)
     }
 
     fun cancelAllDownloadsForAccount(accountName: String?, currentDownload: DownloadFileOperation?) {
@@ -93,7 +85,15 @@ class FileDownloadHelper {
 
         currentDownload.cancel()
         sendCancelEvent(currentUser, currentFile)
-        backgroundJobManager.cancelFilesDownloadJob(currentUser, currentFile)
+        backgroundJobManager.cancelFilesDownloadJob(currentUser, currentFile.fileId)
+    }
+
+    private fun sendCancelEvent(user: User, file: OCFile) {
+        val intent = Intent(FileDownloadWorker.CANCEL_EVENT).apply {
+            putExtra(FileDownloadWorker.EVENT_ACCOUNT_NAME, user.accountName)
+            putExtra(FileDownloadWorker.EVENT_FILE_ID, file.fileId)
+        }
+        LocalBroadcastManager.getInstance(MainApp.getAppContext()).sendBroadcast(intent)
     }
 
     fun saveFile(

@@ -99,7 +99,7 @@ public class DownloadFileOperation extends RemoteOperation {
         this(user, file, null, null, null, context, DownloadType.DOWNLOAD);
     }
 
-    public void cancel(String accountName, long fileId) {
+    public void cancelMatchingOperation(String accountName, long fileId) {
         if (getFile().getFileId() == fileId && getUser().getAccountName().equals(accountName)) {
             cancel();
         }
