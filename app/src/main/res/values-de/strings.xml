@@ -288,6 +288,8 @@
     <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
     <string name="error_starting_doc_scan">Start des Dokumentenscans fehlgeschlagen</string>
     <string name="etm_accounts">Konten</string>
+    <string name="etm_background_execution_count">Zeit gelaufen in 48 Stunden</string>
+    <string name="etm_background_job_created">Erzeugt</string>
     <string name="etm_background_job_name">Aufgabenname</string>
     <string name="etm_background_job_progress">Fortschritt</string>
     <string name="etm_background_job_started">Gestartet</string>
@@ -408,6 +410,7 @@
     <string name="foreign_files_success">Alle Dateien wurden verschoben</string>
     <string name="forward">Weiterleiten</string>
     <string name="fourHours">4 Stunden</string>
+    <string name="grid_file_features_live_photo_content_description">Dieses Symbol zeigt die Verfügbarkeit von Live-Fotos an</string>
     <string name="hidden_file_name_warning">Dateiname führt dazu, das die Datei versteckt sein wird.</string>
     <string name="hint_name">Name</string>
     <string name="hint_note">Notiz</string>
@@ -886,6 +889,7 @@
     <string name="uploader_file_not_found_message">Datei nicht gefunden. Sind Sie sicher, dass diese Datei existiert oder wurde ein früherer Konflikt nicht gelöst?</string>
     <string name="uploader_file_not_found_on_server_message">Wir konnten die Datei auf dem Server nicht finden. Ein anderer Benutzer hat möglicherweise die Datei gelöscht.</string>
     <string name="uploader_info_dirname">Ordnername</string>
+    <string name="uploader_local_files_uploaded">Fehlgeschlagene lokale Dateien erneut hochladen</string>
     <string name="uploader_top_message">Hochladeordner auswählen</string>
     <string name="uploader_upload_failed_content_single">Konnte %1$s nicht hochladen</string>
     <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, bitte erneut anmelden</string>

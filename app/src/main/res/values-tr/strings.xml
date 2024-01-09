@@ -288,6 +288,7 @@
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>
     <string name="error_starting_doc_scan">Belge taramasına başlanırken sorun çıktı</string>
     <string name="etm_accounts">Hesaplar</string>
+    <string name="etm_background_execution_count">48 saat içindeki çalışmalar</string>
     <string name="etm_background_job_created">Oluşturulma</string>
     <string name="etm_background_job_name">Görev adı</string>
     <string name="etm_background_job_progress">İlerleme</string>
@@ -409,6 +410,7 @@
     <string name="foreign_files_success">Tüm dosyalar taşındı</string>
     <string name="forward">İlet</string>
     <string name="fourHours">4 saat</string>
+    <string name="grid_file_features_live_photo_content_description">Bu simge Live photo kullanılabilirliğini gösterir</string>
     <string name="hidden_file_name_warning">Bu ad gizli bir dosya oluşturacak</string>
     <string name="hint_name">Ad</string>
     <string name="hint_note">Not</string>
@@ -886,6 +888,7 @@
     <string name="uploader_file_not_found_message">Dosya bulunamadı. Bu dosyanın var olduğundan ya da daha önceki bir çakışmanın çözüldüğünden emin misiniz?</string>
     <string name="uploader_file_not_found_on_server_message">Dosya sunucuda bulunamadı. Başka bir kullanıcı dosyayı silmiş olabilir</string>
     <string name="uploader_info_dirname">Klasör adı</string>
+    <string name="uploader_local_files_uploaded">Tamamlanamamış yerel dosyaları yeniden yükle</string>
     <string name="uploader_top_message">Yüklenecek klasörü seçin</string>
     <string name="uploader_upload_failed_content_single">%1$s yüklemesi tamamlanamadı</string>
     <string name="uploader_upload_failed_credentials_error">Yüklenemedi, yeniden oturum açmalısınız</string>

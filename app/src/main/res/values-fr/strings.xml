@@ -886,6 +886,7 @@
     <string name="uploader_file_not_found_message">Fichier non trouvé. Êtes-vous sûr que ce fichier existe ou qu\'un conflit précédent n\'a pas été résolu ?</string>
     <string name="uploader_file_not_found_on_server_message">Impossible de retrouver le fichier sur le serveur. Un autre utilisateur l\'a peut-être supprimé</string>
     <string name="uploader_info_dirname">Nom du dossier</string>
+    <string name="uploader_local_files_uploaded">Réessayer de téléverser les fichiers locaux ayant échoués</string>
     <string name="uploader_top_message">Sélectionnez le dossier de téléversement</string>
     <string name="uploader_upload_failed_content_single">Impossible d\'envoyer %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Le téléversement a échoué, reconnectez-vous</string>
