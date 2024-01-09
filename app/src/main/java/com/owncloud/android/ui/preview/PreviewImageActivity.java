@@ -420,10 +420,7 @@ public class PreviewImageActivity extends FileActivity implements
 
     public void requestForDownload(OCFile file, String downloadBehaviour) {
         final User user = getUser().orElseThrow(RuntimeException::new);
-
-        if (!FileDownloadHelper.Companion.instance().isDownloading(user, file)) {
-            FileDownloadHelper.Companion.instance().downloadFile(user, file, downloadBehaviour, DownloadType.DOWNLOAD, "", "", null);
-        }
+        FileDownloadHelper.Companion.instance().downloadFileIfNotStartedBefore(user, file);
     }
 
     /**
