@@ -114,6 +114,7 @@ class FileDownloadWorker(
     private var fileDataStorageManager: FileDataStorageManager? = null
 
     private var folder: OCFile? = null
+    private var isAnyOperationFailed = false
 
     @Suppress("TooGenericExceptionCaught")
     override fun doWork(): Result {
@@ -126,8 +127,7 @@ class FileDownloadWorker(
                 downloadFile(it)
             }
 
-            showCompleteNotification()
-
+            showSuccessNotification()
             setIdleWorkerState()
 
             Log_OC.e(TAG, "FilesDownloadWorker successfully completed")
@@ -171,7 +171,12 @@ class FileDownloadWorker(
     }
 
     @Suppress("MagicNumber")
-    private fun showCompleteNotification() {
+    private fun showSuccessNotification() {
+        if (isAnyOperationFailed) {
+            notificationManager.dismissNotification()
+            return
+        }
+
         val successText = if (folder != null) {
             context.getString(R.string.downloader_folder_downloaded, folder?.fileName)
         } else if (currentDownload?.file != null) {
@@ -184,6 +189,7 @@ class FileDownloadWorker(
     }
 
     private fun getRequestDownloads(): AbstractList<String> {
+        isAnyOperationFailed = false
         setUser()
         setFolder()
         val files = getFiles()
@@ -386,6 +392,8 @@ class FileDownloadWorker(
         if (result.isSuccess) {
             return
         }
+
+        isAnyOperationFailed = true
 
         val failMessage = if (result.isCancelled) {
             context.getString(
