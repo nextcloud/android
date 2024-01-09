@@ -288,6 +288,8 @@
     <string name="error_starting_direct_camera_upload">خطأ في تشغيل الكاميرا</string>
     <string name="error_starting_doc_scan">خطأ في بدء مسح المستند</string>
     <string name="etm_accounts">الحسابات</string>
+    <string name="etm_background_execution_count">أوقات التشغيل خلال 48 ساعة</string>
+    <string name="etm_background_job_created">أُنشِئَ</string>
     <string name="etm_background_job_name">إسم المهمة</string>
     <string name="etm_background_job_progress">التقدم</string>
     <string name="etm_background_job_started">تم البدء</string>
@@ -408,6 +410,7 @@
     <string name="foreign_files_success">تم نقل كافة الملفات</string>
     <string name="forward">إعادة توجيه </string>
     <string name="fourHours">4 ساعات</string>
+    <string name="grid_file_features_live_photo_content_description">تشير الأيقونه إلى توافر صور حيَّة</string>
     <string name="hidden_file_name_warning">الاسم سيقود إلى ملف مخفي</string>
     <string name="hint_name">الاسم</string>
     <string name="hint_note">ملاحظة</string>
@@ -893,6 +896,7 @@
     <string name="uploader_file_not_found_message">تعذّر العثور على الملف. هل أنت متأكد من وجود هذا الملف؛ أم أنه هنالك تعارضاً لم يُحل بعدُ؟</string>
     <string name="uploader_file_not_found_on_server_message">لم نتمكن من إيجاد الملف على الخادوم. يمكن أن يكون قد تمّ حذفه من قِبل مُستخدِمٍ آخر</string>
     <string name="uploader_info_dirname">اسم المجلد</string>
+    <string name="uploader_local_files_uploaded">إعادة عملية الرفع غير الناجحة للملفات المحلية</string>
     <string name="uploader_top_message">اختر مجلد للرفع</string>
     <string name="uploader_upload_failed_content_single">فشل الرفع %1$s</string>
     <string name="uploader_upload_failed_credentials_error">فشل الرفع ، قم بتسجيل الدخول مرة أخرى</string>
