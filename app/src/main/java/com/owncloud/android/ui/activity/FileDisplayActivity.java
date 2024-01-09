@@ -287,7 +287,7 @@ public class FileDisplayActivity extends FileActivity
         checkStoragePath();
 
         initSyncBroadcastReceiver();
-        observeDownloadWorkerState();
+        observeWorkerState();
     }
 
     @SuppressWarnings("unchecked")
@@ -1562,7 +1562,7 @@ public class FileDisplayActivity extends FileActivity
         return isRoot(getCurrentDir());
     }
 
-    private void observeDownloadWorkerState() {
+    private void observeWorkerState() {
         WorkerStateLiveData.Companion.instance().observe(this, state -> {
             if (state instanceof WorkerState.Download) {
                 Log_OC.d(TAG, "Download worker started");

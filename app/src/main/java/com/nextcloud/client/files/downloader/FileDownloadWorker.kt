@@ -68,10 +68,6 @@ class FileDownloadWorker(
     companion object {
         private val TAG = FileDownloadWorker::class.java.simpleName
 
-        private var currentDownload: DownloadFileOperation? = null
-        private var pendingDownloadFileIds: ArrayList<Pair<String?, Long>> = arrayListOf()
-        private val lock = Any()
-
         const val CANCEL_EVENT = "CANCEL_EVENT"
         const val EVENT_ACCOUNT_NAME = "EVENT_ACCOUNT_NAME"
         const val EVENT_FILE_ID = "EVENT_FILE_ID"
@@ -92,12 +88,6 @@ class FileDownloadWorker(
         const val EXTRA_LINKED_TO_PATH = "EXTRA_LINKED_TO_PATH"
         const val EXTRA_ACCOUNT_NAME = "EXTRA_ACCOUNT_NAME"
 
-        fun isFileInQueue(user: User, file: OCFile): Boolean {
-            synchronized(lock) {
-                return pendingDownloadFileIds.contains(Pair(user.accountName, file.fileId))
-            }
-        }
-
         fun getDownloadAddedMessage(): String {
             return FileDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
         }
@@ -107,6 +97,7 @@ class FileDownloadWorker(
         }
     }
 
+    private var currentDownload: DownloadFileOperation? = null
     private val pendingDownloads = IndexedForest<DownloadFileOperation>()
 
     private var conflictUploadId: Long? = null
@@ -192,7 +183,7 @@ class FileDownloadWorker(
             val (accountName, fileId) = getEventPair(intent) ?: return
 
             pendingDownloads.all.forEach {
-                it.value.payload?.cancel(accountName, fileId)
+                it.value.payload?.cancelMatchingOperation(accountName, fileId)
             }
         }
     }
@@ -200,7 +191,6 @@ class FileDownloadWorker(
     private fun cancelAllDownloads() {
         pendingDownloads.all.forEach {
             it.value.payload?.cancel()
-            pendingDownloadFileIds.remove(Pair(it.value.payload?.user?.accountName, it.value.payload?.file?.fileId))
         }
     }
 
@@ -254,7 +244,6 @@ class FileDownloadWorker(
                     file.remotePath,
                     operation
                 )
-                pendingDownloadFileIds.add(Pair(user?.accountName, file.fileId))
 
                 if (downloadKey != null) {
                     requestedDownloads.add(downloadKey)
@@ -290,6 +279,7 @@ class FileDownloadWorker(
 
         if (filesPathList != null) {
             filesPathList.forEach {
+                // FIXME Check if folder content not exist, DownloadFileOperation will not download via content
                 fileDataStorageManager?.getFileByEncryptedRemotePath(it)?.let { file ->
                     result.add(file)
                 }
@@ -403,7 +393,6 @@ class FileDownloadWorker(
             currentDownload?.user?.accountName,
             currentDownload?.remotePath
         )
-        pendingDownloadFileIds.remove(Pair(currentDownload?.user?.accountName, currentDownload?.file?.fileId))
 
         val downloadResult = result ?: RemoteOperationResult<Any?>(RuntimeException("Error downloading…"))
 
