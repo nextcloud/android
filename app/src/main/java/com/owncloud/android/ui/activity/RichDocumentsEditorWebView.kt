@@ -71,9 +71,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
 
         webView.addJavascriptInterface(RichDocumentsMobileInterface(), "RichDocumentsMobileInterface")
 
-        intent.getStringExtra(EXTRA_URL)?.let {
-            loadUrl(it)
-        }
+        loadUrl(intent.getStringExtra(EXTRA_URL))
 
         registerActivityResult()
     }
@@ -155,7 +153,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
         PrintAsyncTask(targetFile, url.toString(), WeakReference(this)).execute()
     }
 
-    public override fun loadUrl(url: String) {
+    public override fun loadUrl(url: String?) {
         if (TextUtils.isEmpty(url)) {
             RichDocumentsLoadUrlTask(this, user.get(), file).execute()
         } else {
