@@ -21,8 +21,6 @@
 
 package com.nextcloud.client.files.downloader
 
-import android.content.Intent
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.MainApp
@@ -69,8 +67,7 @@ class FileDownloadHelper {
     fun cancelPendingOrCurrentDownloads(user: User?, file: OCFile?) {
         if (user == null || file == null) return
 
-        FileDownloadWorker.pauseWork()
-        sendCancelEvent(user, file)
+        FileDownloadWorker.cancelOperation(user.accountName, file.fileId)
         backgroundJobManager.cancelFilesDownloadJob(user, file.fileId)
     }
 
@@ -85,16 +82,8 @@ class FileDownloadHelper {
         }
 
         currentDownload.cancel()
-        sendCancelEvent(currentUser, currentFile)
+        FileDownloadWorker.cancelOperation(currentUser.accountName, currentFile.fileId)
         backgroundJobManager.cancelFilesDownloadJob(currentUser, currentFile.fileId)
-    }
-
-    private fun sendCancelEvent(user: User, file: OCFile) {
-        val intent = Intent(FileDownloadWorker.CANCEL_EVENT).apply {
-            putExtra(FileDownloadWorker.EVENT_ACCOUNT_NAME, user.accountName)
-            putExtra(FileDownloadWorker.EVENT_FILE_ID, file.fileId)
-        }
-        LocalBroadcastManager.getInstance(MainApp.getAppContext()).sendBroadcast(intent)
     }
 
     fun saveFile(
