@@ -430,7 +430,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         setTitle();
 
         FragmentActivity fragmentActivity;
-        if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity fileDisplayActivity) {
+        if (getActivity() instanceof FileDisplayActivity fileDisplayActivity) {
             fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir());
         }
         listDirectory(MainApp.isOnlyOnDevice(), false);
