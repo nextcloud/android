@@ -152,7 +152,7 @@ public class PreviewImageActivity extends FileActivity implements
             mRequestWaitingForBinder = false;
         }
 
-        observeDownloadWorkerState();
+        observeWorkerState();
     }
 
     public void toggleActionBarVisibility(boolean hide) {
@@ -306,7 +306,7 @@ public class PreviewImageActivity extends FileActivity implements
         }
     }
 
-    private void observeDownloadWorkerState() {
+    private void observeWorkerState() {
        WorkerStateLiveData.Companion.instance().observe(this, state -> {
             if (state instanceof WorkerState.Download) {
                 Log_OC.d(TAG, "Download worker started");
