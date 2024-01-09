@@ -55,6 +55,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.security.SecureRandom
 import java.util.AbstractList
 import java.util.Vector
+import java.util.concurrent.atomic.AtomicBoolean
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class FileDownloadWorker(
@@ -67,6 +68,16 @@ class FileDownloadWorker(
 
     companion object {
         private val TAG = FileDownloadWorker::class.java.simpleName
+
+        private val shouldContinueExecution = AtomicBoolean(true)
+
+        fun pauseWork() {
+            shouldContinueExecution.set(false)
+        }
+
+        fun resumeWork() {
+            shouldContinueExecution.set(true)
+        }
 
         const val CANCEL_EVENT = "CANCEL_EVENT"
         const val EVENT_ACCOUNT_NAME = "EVENT_ACCOUNT_NAME"
@@ -124,6 +135,10 @@ class FileDownloadWorker(
             registerCancelEvent()
 
             requestDownloads.forEach {
+                if (!shouldContinueExecution.get()) {
+                    return@forEach
+                }
+
                 downloadFile(it)
             }
 
@@ -185,6 +200,8 @@ class FileDownloadWorker(
             pendingDownloads.all.forEach {
                 it.value.payload?.cancelMatchingOperation(accountName, fileId)
             }
+
+            resumeWork()
         }
     }
 
@@ -212,6 +229,7 @@ class FileDownloadWorker(
     }
 
     private fun getRequestDownloads(): AbstractList<String> {
+        shouldContinueExecution.set(true)
         setUser()
         setFolder()
         val files = getFiles()
@@ -279,7 +297,6 @@ class FileDownloadWorker(
 
         if (filesPathList != null) {
             filesPathList.forEach {
-                // FIXME Check if folder content not exist, DownloadFileOperation will not download via content
                 fileDataStorageManager?.getFileByEncryptedRemotePath(it)?.let { file ->
                     result.add(file)
                 }
