@@ -228,14 +228,9 @@ public abstract class FileActivity extends DrawerActivity
             }
         }
 
-
         mOperationsServiceConnection = new OperationsServiceConnection();
         bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection,
                 Context.BIND_AUTO_CREATE);
-
-        if (user != null) {
-            FileDownloadHelper.Companion.instance().downloadFile(user, mFile);
-        }
 
         mUploadServiceConnection = newTransferenceServiceConnection();
         if (mUploadServiceConnection != null) {
