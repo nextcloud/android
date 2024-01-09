@@ -69,6 +69,7 @@ class FileDownloadHelper {
     fun cancelPendingOrCurrentDownloads(user: User?, file: OCFile?) {
         if (user == null || file == null) return
 
+        FileDownloadWorker.pauseWork()
         sendCancelEvent(user, file)
         backgroundJobManager.cancelFilesDownloadJob(user, file.fileId)
     }
