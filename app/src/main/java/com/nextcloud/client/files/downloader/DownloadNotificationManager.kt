@@ -111,7 +111,7 @@ class DownloadNotificationManager(
     @Suppress("MagicNumber")
     fun showCompleteNotification(text: String) {
         Handler(Looper.getMainLooper()).postDelayed({
-            updateNotificationText(null,text, true)
+            updateNotificationText(null, text, true)
             dismissNotification()
         }, 3000)
     }
@@ -155,5 +155,13 @@ class DownloadNotificationManager(
                 flag
             )
         )
+    }
+
+    fun getId(): Int {
+        return id
+    }
+
+    fun getNotification(): Notification {
+        return notificationBuilder.build()
     }
 }

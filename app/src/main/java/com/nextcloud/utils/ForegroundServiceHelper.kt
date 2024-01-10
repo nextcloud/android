@@ -25,6 +25,7 @@ import android.app.Notification
 import android.app.Service
 import android.os.Build
 import androidx.core.app.ServiceCompat
+import androidx.work.ForegroundInfo
 import com.owncloud.android.datamodel.ForegroundServiceType
 
 object ForegroundServiceHelper {
@@ -43,6 +44,18 @@ object ForegroundServiceHelper {
             )
         } else {
             service.startForeground(id, notification)
+        }
+    }
+
+    fun createWorkerForegroundInfo(
+        id: Int,
+        notification: Notification,
+        foregroundServiceType: ForegroundServiceType
+    ): ForegroundInfo {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ForegroundInfo(id, notification, foregroundServiceType.getId())
+        } else {
+            ForegroundInfo(id, notification)
         }
     }
 }
