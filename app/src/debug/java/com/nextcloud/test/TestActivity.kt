@@ -25,7 +25,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.nextcloud.client.files.downloader.FileDownloadWorker
+import com.nextcloud.client.files.downloader.FilesDownloadWorker
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.EditorUtils
@@ -130,7 +130,7 @@ class TestActivity :
         return null
     }
 
-    override fun getFileDownloadProgressListener(): FileDownloadWorker.FileDownloadProgressListener? {
+    override fun getFileDownloaderBinder(): FilesDownloadWorker.FileDownloaderBinder? {
         return null
     }
 

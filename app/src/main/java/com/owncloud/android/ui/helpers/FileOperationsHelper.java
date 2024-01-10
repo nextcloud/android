@@ -47,7 +47,7 @@ import android.webkit.MimeTypeMap;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.files.downloader.FileDownloadHelper;
+import com.nextcloud.client.files.downloader.FilesDownloadWorker;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
@@ -996,10 +996,11 @@ public class FileOperationsHelper {
             }
         }
 
-        if (FileDownloadHelper.Companion.instance().isDownloading(currentUser, file)) {
-            FileDownloadHelper.Companion.instance().cancelPendingOrCurrentDownloads(currentUser, file);
+        // for both files and folders
+        FilesDownloadWorker.FileDownloaderBinder downloaderBinder = fileActivity.getFileDownloaderBinder();
+        if (downloaderBinder != null && downloaderBinder.isDownloading(currentUser, file)) {
+            downloaderBinder.cancel(currentUser.toPlatformAccount(), file);
         }
-
         FileUploaderBinder uploaderBinder = fileActivity.getFileUploaderBinder();
         if (uploaderBinder != null && uploaderBinder.isUploading(currentUser, file)) {
             uploaderBinder.cancel(currentUser.toPlatformAccount(), file);

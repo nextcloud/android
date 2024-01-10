@@ -149,10 +149,10 @@ interface BackgroundJobManager {
         user: User,
         ocFile: OCFile,
         behaviour: String,
-        downloadType: DownloadType,
+        downloadType: DownloadType?,
         activityName: String,
         packageName: String,
-        conflictUploadId: Long
+        conflictUploadId: Long?
     )
 
     fun startPdfGenerateAndUploadWork(user: User, uploadFolder: String, imagePaths: List<String>, pdfPath: String)

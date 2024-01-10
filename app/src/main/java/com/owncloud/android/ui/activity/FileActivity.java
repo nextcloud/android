@@ -43,6 +43,8 @@ import android.text.TextUtils;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.files.downloader.FilesDownloadHelper;
+import com.nextcloud.client.files.downloader.FilesDownloadWorker;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
@@ -54,8 +56,6 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -166,7 +166,7 @@ public abstract class FileActivity extends DrawerActivity
 
     private boolean mResumed;
 
-    protected FileDownloaderBinder mDownloaderBinder;
+    protected FilesDownloadWorker.FileDownloaderBinder mDownloaderBinder;
     protected FileUploaderBinder mUploaderBinder;
     private ServiceConnection mDownloadServiceConnection;
     private ServiceConnection mUploadServiceConnection;
@@ -206,6 +206,7 @@ public abstract class FileActivity extends DrawerActivity
         super.onCreate(savedInstanceState);
         mHandler = new Handler();
         mFileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService, editorUtils);
+        User user = null;
 
         if (savedInstanceState != null) {
             mFile = BundleExtensionsKt.getParcelableArgument(savedInstanceState, FileActivity.EXTRA_FILE, OCFile.class);
@@ -218,10 +219,11 @@ public abstract class FileActivity extends DrawerActivity
                 viewThemeUtils.files.themeActionBar(this, actionBar, savedInstanceState.getString(KEY_ACTION_BAR_TITLE));
             }
         } else {
-            User user = IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_USER, User.class);
+            user = IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_USER, User.class);
             mFile = IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_FILE, OCFile.class);
             mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION,
                     false);
+
             if (user != null) {
                 setUser(user);
             }
@@ -233,8 +235,8 @@ public abstract class FileActivity extends DrawerActivity
                 Context.BIND_AUTO_CREATE);
 
         mDownloadServiceConnection = newTransferenceServiceConnection();
-        if (mDownloadServiceConnection != null) {
-            new FileDownloader(new Intent(this, FileDownloader.class));
+        if (mDownloadServiceConnection != null && user != null) {
+            new FilesDownloadHelper().downloadFile(user, mFile, "", null, "", "", null);
         }
         mUploadServiceConnection = newTransferenceServiceConnection();
         if (mUploadServiceConnection != null) {
@@ -615,7 +617,7 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     @Override
-    public FileDownloaderBinder getFileDownloaderBinder() {
+    public FilesDownloadWorker.FileDownloaderBinder getFileDownloaderBinder() {
         return mDownloaderBinder;
     }
 

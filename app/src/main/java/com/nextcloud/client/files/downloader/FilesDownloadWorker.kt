@@ -99,6 +99,14 @@ class FilesDownloadWorker(
         const val EXTRA_REMOTE_PATH = "REMOTE_PATH"
         const val EXTRA_LINKED_TO_PATH = "LINKED_TO"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
+
+        fun getDownloadAddedMessage(): String {
+            return FilesDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
+        }
+
+        fun getDownloadFinishMessage(): String {
+            return FilesDownloadWorker::class.java.name + "DOWNLOAD_FINISH"
+        }
     }
 
     private var notification: Notification? = null
@@ -436,14 +444,6 @@ class FilesDownloadWorker(
         pendingDownloads.remove(accountName)
     }
 
-    private fun getDownloadAddedMessage(): String {
-        return FilesDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
-    }
-
-    private fun getDownloadFinishMessage(): String {
-        return FilesDownloadWorker::class.java.name + "DOWNLOAD_FINISH"
-    }
-
     private fun sendBroadcastNewDownload(
         download: DownloadFileOperation,
         linkedToRemotePath: String
@@ -531,6 +531,23 @@ class FilesDownloadWorker(
 
         fun isDownloading(user: User?, file: OCFile?): Boolean {
             return user != null && file != null && pendingDownloads.contains(user.accountName, file.remotePath)
+        }
+
+        fun addDatatransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
+            if (file == null || listener == null) {
+                return
+            }
+            mBoundListeners[file.fileId] = listener
+        }
+
+        fun removeDatatransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
+            if (file == null || listener == null) {
+                return
+            }
+            val fileId = file.fileId
+            if (mBoundListeners[fileId] === listener) {
+                mBoundListeners.remove(fileId)
+            }
         }
 
         override fun onTransferProgress(

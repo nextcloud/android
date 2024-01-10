@@ -307,7 +307,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     /**
      * Updates the OC File after a successful download.
      *
-     * TODO unify with code from {@link com.nextcloud.client.files.downloader.FileDownloadWorker} and {@link DownloadTask}.
+     * TODO unify with code from {@link com.nextcloud.client.files.downloader.FilesDownloadWorker} and {@link DownloadTask}.
      */
     private void saveDownloadedFile(FileDataStorageManager storageManager, DownloadFileOperation dfo, OCFile file) {
         long syncDate = System.currentTimeMillis();

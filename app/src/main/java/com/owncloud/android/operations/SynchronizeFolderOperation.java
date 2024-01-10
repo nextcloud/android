@@ -25,7 +25,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.files.downloader.FileDownloadHelper;
+import com.nextcloud.client.files.downloader.FilesDownloadHelper;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -438,16 +438,32 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
     }
 
+
     private void syncContents() throws OperationCancelledException {
         startDirectDownloads();
         startContentSynchronizations(mFilesToSyncContents);
     }
 
 
-    private void startDirectDownloads() {
-        FileDownloadHelper.Companion.instance().downloadFolder(mLocalFolder,
-                                                               user,
-                                                               mFilesForDirectDownload);
+    private void startDirectDownloads() throws OperationCancelledException {
+        for (OCFile file : mFilesForDirectDownload) {
+            synchronized(mCancellationRequested) {
+                if (mCancellationRequested.get()) {
+                    throw new OperationCancelledException();
+                }
+
+                FilesDownloadHelper downloadHelper = new FilesDownloadHelper();
+
+                downloadHelper.downloadFile(
+                    user,
+                    file,
+                    "",
+                    null,
+                    "",
+                    "",
+                    null);
+            }
+        }
     }
 
     /**
