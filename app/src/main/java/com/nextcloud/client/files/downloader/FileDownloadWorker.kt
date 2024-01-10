@@ -140,13 +140,17 @@ class FileDownloadWorker(
                 downloadFile(it)
             }
 
-            showSuccessNotification()
+            if (isAnyOperationFailed) {
+                notificationManager.dismissNotification()
+            }
+
             setIdleWorkerState()
 
             Log_OC.e(TAG, "FilesDownloadWorker successfully completed")
             Result.success()
         } catch (t: Throwable) {
-            notificationManager.showCompleteNotification(context.getString(R.string.downloader_unexpected_error))
+            notificationManager.dismissNotification()
+            notificationManager.showNewNotification(context.getString(R.string.downloader_unexpected_error))
             Log_OC.e(TAG, "Error caught at FilesDownloadWorker(): " + t.localizedMessage)
             setIdleWorkerState()
             Result.failure()
@@ -181,24 +185,6 @@ class FileDownloadWorker(
 
     private fun removePendingDownload(accountName: String?) {
         pendingDownloads.remove(accountName)
-    }
-
-    @Suppress("MagicNumber")
-    private fun showSuccessNotification() {
-        if (isAnyOperationFailed) {
-            notificationManager.dismissNotification()
-            return
-        }
-
-        val successText = if (folder != null) {
-            context.getString(R.string.downloader_folder_downloaded, folder?.fileName)
-        } else if (currentDownload?.file != null) {
-            context.getString(R.string.downloader_file_downloaded, currentDownload?.file?.fileName)
-        } else {
-            context.getString(R.string.downloader_download_completed)
-        }
-
-        notificationManager.showCompleteNotification(successText)
     }
 
     private fun getRequestDownloads(): AbstractList<String> {
