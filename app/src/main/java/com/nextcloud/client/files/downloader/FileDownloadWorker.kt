@@ -36,8 +36,10 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.java.util.Optional
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
+import com.nextcloud.utils.ForegroundServiceHelper
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.services.IndexedForest
 import com.owncloud.android.lib.common.OwnCloudAccount
@@ -122,6 +124,14 @@ class FileDownloadWorker(
             val requestDownloads = getRequestDownloads()
 
             addAccountUpdateListener()
+
+            setForegroundAsync(
+                ForegroundServiceHelper.createWorkerForegroundInfo(
+                    notificationManager.getId(),
+                    notificationManager.getNotification(),
+                    ForegroundServiceType.DataSync
+                )
+            )
 
             requestDownloads.forEach {
                 downloadFile(it)
