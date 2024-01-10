@@ -36,6 +36,8 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.notifications.download.DownloadNotificationManager
 import com.nextcloud.java.util.Optional
+import com.nextcloud.model.WorkerState
+import com.nextcloud.model.WorkerStateLiveData
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -138,6 +140,7 @@ class FileDownloadWorker(
         val behaviour = inputData.keyValueMap[BEHAVIOUR] as String
         val activityName = inputData.keyValueMap[ACTIVITY_NAME] as String
         val packageName = inputData.keyValueMap[PACKAGE_NAME] as String
+        setWorkerState(user, file)
 
         val requestedDownloads: AbstractList<String> = Vector()
 
@@ -171,6 +174,10 @@ class FileDownloadWorker(
             Log_OC.e(TAG, "Not enough information provided in intent: " + e.message)
             requestedDownloads
         }
+    }
+
+    private fun setWorkerState(user: User, file: OCFile) {
+        WorkerStateLiveData.instance?.setWorkState(WorkerState.Download(user, file))
     }
 
     private fun addAccountUpdateListener() {

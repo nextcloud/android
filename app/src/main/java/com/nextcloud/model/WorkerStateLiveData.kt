@@ -30,12 +30,13 @@ class WorkerStateLiveData private constructor() : LiveData<WorkerState>() {
     }
 
     companion object {
-        private var instance: WorkerStateLiveData? = null
-
-        fun instance(): WorkerStateLiveData {
-            return instance ?: synchronized(this) {
-                instance ?: WorkerStateLiveData().also { instance = it }
+        var instance: WorkerStateLiveData? = null
+            get() {
+                if (field == null) {
+                    field = WorkerStateLiveData()
+                }
+                return field
             }
-        }
+            private set
     }
 }

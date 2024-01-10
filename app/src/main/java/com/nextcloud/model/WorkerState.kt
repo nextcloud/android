@@ -22,9 +22,9 @@
 package com.nextcloud.model
 
 import com.nextcloud.client.account.User
-import com.owncloud.android.operations.DownloadFileOperation
+import com.owncloud.android.datamodel.OCFile
 
 sealed class WorkerState {
-    object Idle : WorkerState()
-    class Download(var user: User?, var currentDownload: DownloadFileOperation?) : WorkerState()
+    object Idle
+    class Download(var user: User, var file: OCFile): WorkerState()
 }
