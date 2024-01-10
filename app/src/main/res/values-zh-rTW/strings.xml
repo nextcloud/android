@@ -6,7 +6,7 @@
     <string name="about_version_with_build">版本 %1$s，組建 #%2$s</string>
     <string name="account_creation_failed">帳號建立失敗</string>
     <string name="account_icon">帳號圖示</string>
-    <string name="account_not_found">沒有找到任何帳戶</string>
+    <string name="account_not_found">找不到帳號！</string>
     <string name="action_clear_failed_uploads">清除失敗的上傳</string>
     <string name="action_edit">編輯</string>
     <string name="action_empty_notifications">清除所有通知訊息</string>
@@ -287,8 +287,8 @@
     <string name="error_showing_encryption_dialog">顯示加密設定對話方塊時發生錯誤！</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
     <string name="error_starting_doc_scan">開始文件掃描時發生錯誤</string>
-    <string name="etm_accounts">帳戶</string>
-    <string name="etm_background_job_created">Created</string>
+    <string name="etm_accounts">帳號</string>
+    <string name="etm_background_job_created">已建立</string>
     <string name="etm_background_job_name">工作名稱</string>
     <string name="etm_background_job_progress">進度</string>
     <string name="etm_background_job_started">開始於</string>
@@ -409,6 +409,7 @@
     <string name="foreign_files_success">已經移動所有檔案</string>
     <string name="forward">向前</string>
     <string name="fourHours">4小時</string>
+    <string name="grid_file_features_live_photo_content_description">此圖示表示原況照片的可得性</string>
     <string name="hidden_file_name_warning">此名稱會將檔案變為隱藏</string>
     <string name="hint_name">名稱</string>
     <string name="hint_note">筆記</string>
@@ -576,7 +577,7 @@
     <string name="prefs_add_account">新增帳號</string>
     <string name="prefs_calendar_contacts">同步日曆與通訊錄</string>
     <string name="prefs_calendar_contacts_no_store_error">尚未安裝 F-Droid 或 Google Play</string>
-    <string name="prefs_calendar_contacts_summary">為目前使用者帳戶設定 DAVx5（以前稱為 DAVdroid）（版本 v1.3.0 以上）</string>
+    <string name="prefs_calendar_contacts_summary">為目前使用者帳號設定 DAVx5（以前稱為 DAVdroid）（版本 v1.3.0 以上）</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日曆與通訊錄同步設定</string>
     <string name="prefs_category_about">關於</string>
     <string name="prefs_category_details">詳細資料</string>
@@ -886,6 +887,7 @@
     <string name="uploader_file_not_found_message">找不到檔案。您確定該檔案存在，或之前的衝突尚未解決？</string>
     <string name="uploader_file_not_found_on_server_message">我們在伺服器上找不到檔案。可能有其他使用者刪除了該檔案</string>
     <string name="uploader_info_dirname">資料夾名稱</string>
+    <string name="uploader_local_files_uploaded">重試上傳失敗的本機檔案</string>
     <string name="uploader_top_message">選擇上傳檔案夾</string>
     <string name="uploader_upload_failed_content_single">上傳 %1$s 無法完成</string>
     <string name="uploader_upload_failed_credentials_error">上傳失敗，再重新登入</string>

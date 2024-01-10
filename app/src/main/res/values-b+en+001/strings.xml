@@ -288,6 +288,8 @@
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="error_starting_doc_scan">Error starting document scan</string>
     <string name="etm_accounts">Accounts</string>
+    <string name="etm_background_execution_count">Times run in 48h</string>
+    <string name="etm_background_job_created">Created</string>
     <string name="etm_background_job_name">Job name</string>
     <string name="etm_background_job_progress">Progress</string>
     <string name="etm_background_job_started">Started</string>
@@ -408,6 +410,7 @@
     <string name="foreign_files_success">All files were moved</string>
     <string name="forward">Forward</string>
     <string name="fourHours">4 hours</string>
+    <string name="grid_file_features_live_photo_content_description">This icon indicates availability of live photo</string>
     <string name="hidden_file_name_warning">Name will result in a hidden file</string>
     <string name="hint_name">Name</string>
     <string name="hint_note">Note</string>
@@ -885,6 +888,7 @@
     <string name="uploader_file_not_found_message">File not found. Are you sure that this file exists or has a previous conflict not been resolved?</string>
     <string name="uploader_file_not_found_on_server_message">We couldnt locate the file on server. Another user may have deleted the file</string>
     <string name="uploader_info_dirname">Folder name</string>
+    <string name="uploader_local_files_uploaded">Retry to upload failed local files</string>
     <string name="uploader_top_message">Choose upload folder</string>
     <string name="uploader_upload_failed_content_single">Could not upload %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Upload failed, log in again</string>
