@@ -168,19 +168,14 @@
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="uploads_view_group_header" translatable="false">%1$s (%2$d)</string>
     <string name="downloader_download_in_progress_ticker">Downloading…</string>
-    <string name="downloader_download_completed">Downloads are completed</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>
     <string name="downloader_download_succeeded_ticker">Downloaded</string>
     <string name="downloader_download_succeeded_content">%1$s downloaded</string>
     <string name="downloader_download_failed_ticker">Download failed</string>
     <string name="downloader_download_failed_content">Could not download %1$s</string>
     <string name="downloader_not_downloaded_yet">Not downloaded yet</string>
-    <string name="downloader_file_download_cancelled">%s file download cancelled</string>
-    <string name="downloader_file_download_failed">Error occurred while downloading %s file</string>
+    <string name="downloader_folder_download_failed">Error occurred while downloading %s folder</string>
     <string name="downloader_folder_downloaded">%s folder successfully downloaded</string>
-    <string name="downloader_file_downloaded">%s file successfully downloaded</string>
-    <string name="downloader_unexpected_error">Unexpected error occurred while downloading files</string>
     <string name="downloader_download_failed_credentials_error">Download failed, log in again</string>
     <string name="common_choose_account">Choose account</string>
     <string name="common_switch_account">Switch account</string>

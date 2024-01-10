@@ -522,7 +522,7 @@ internal class BackgroundJobManagerImpl(
     override fun startFolderDownloadJob(folder: OCFile, user: User, files: List<OCFile>) {
         val data = workDataOf(
             FileDownloadWorker.USER_NAME to user.accountName,
-            FileDownloadWorker.FOLDER_ID to folder.fileId,
+            FileDownloadWorker.FOLDER to gson.toJson(folder),
             FileDownloadWorker.FILES to gson.toJson(files),
             FileDownloadWorker.DOWNLOAD_TYPE to DownloadType.DOWNLOAD.toString()
         )
