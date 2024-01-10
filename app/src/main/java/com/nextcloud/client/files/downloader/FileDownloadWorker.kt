@@ -28,15 +28,17 @@ import android.app.PendingIntent
 import android.content.Context
 import android.os.Binder
 import android.os.IBinder
-import android.util.Pair
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.gson.Gson
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.jobs.BackgroundJobManagerImpl.Companion.JOB_FILES_DOWNLOAD
 import com.nextcloud.client.notifications.download.DownloadNotificationManager
 import com.nextcloud.java.util.Optional
+import com.nextcloud.utils.extensions.cancelWork
+import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -338,8 +340,10 @@ class FileDownloadWorker(
         val percent: Int = (100.0 * totalTransferredSoFar.toDouble() / totalToTransfer.toDouble()).toInt()
 
         if (percent != lastPercent) {
-            notificationManager.updateDownloadProgressNotification(filePath, percent, totalToTransfer)
-            notificationManager.showDownloadInProgressNotification()
+            notificationManager.run {
+                updateDownloadProgressNotification(filePath, percent, totalToTransfer)
+                showDownloadInProgressNotification()
+            }
         }
 
         lastPercent = percent
@@ -348,21 +352,8 @@ class FileDownloadWorker(
     inner class FileDownloaderBinder : Binder(), OnDatatransferProgressListener {
         private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
 
-        fun cancelPendingOrCurrentDownloads(account: Account, file: OCFile) {
-            val removeResult: Pair<DownloadFileOperation, String> =
-                pendingDownloads.remove(account.name, file.remotePath)
-            val download = removeResult.first
-
-            if (download != null) {
-                download.cancel()
-            } else {
-                if (currentUser?.isPresent == true &&
-                    currentDownload?.remotePath?.startsWith(file.remotePath) == true &&
-                    account.name == currentUser.get()?.accountName
-                ) {
-                    currentDownload?.cancel()
-                }
-            }
+        fun cancelPendingOrCurrentDownloads() {
+            context.cancelWork(JOB_FILES_DOWNLOAD)
         }
 
         fun cancelAllDownloadsForAccount(accountName: String?) {
@@ -373,8 +364,8 @@ class FileDownloadWorker(
             cancelPendingDownloads(accountName)
         }
 
-        fun isDownloading(user: User?, file: OCFile?): Boolean {
-            return user != null && file != null && pendingDownloads.contains(user.accountName, file.remotePath)
+        fun isDownloading(): Boolean {
+            return context.isWorkScheduled(JOB_FILES_DOWNLOAD)
         }
 
         fun addDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {

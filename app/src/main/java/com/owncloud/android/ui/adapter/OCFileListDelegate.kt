@@ -32,7 +32,6 @@ import androidx.core.content.res.ResourcesCompat
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
-import com.nextcloud.client.files.downloader.FileDownloadHelper
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.createRoundedOutline
 import com.owncloud.android.R
@@ -341,33 +340,25 @@ class OCFileListDelegate(
 
     private fun showLocalFileIndicator(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
+        val fileDownloaderBinder = transferServiceGetter.fileDownloaderBinder
         val fileUploaderBinder = transferServiceGetter.fileUploaderBinder
-
-        val icon: Int? = when {
+        when {
             operationsServiceBinder?.isSynchronizing(user, file) == true ||
-                FileDownloadHelper.instance().isDownloading(user, file) ||
+                fileDownloaderBinder?.isDownloading() == true ||
                 fileUploaderBinder?.isUploading(user, file) == true -> {
                 // synchronizing, downloading or uploading
-                R.drawable.ic_synchronizing
+                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing)
+                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
             }
-
             file.etagInConflict != null -> {
-                R.drawable.ic_synchronizing_error
+                // conflict
+                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing_error)
+                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
             }
-
             file.isDown -> {
-                R.drawable.ic_synced
-            }
-
-            else -> {
-                null
-            }
-        }
-
-        gridViewHolder.localFileIndicator.run {
-            icon?.let {
-                setImageResource(icon)
-                visibility = View.VISIBLE
+                // downloaded
+                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synced)
+                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
             }
         }
     }
