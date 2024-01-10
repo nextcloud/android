@@ -25,7 +25,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.files.downloader.FilesDownloadHelper;
+import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.owncloud.android.datamodel.DecryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -452,7 +452,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     throw new OperationCancelledException();
                 }
 
-                FilesDownloadHelper downloadHelper = new FilesDownloadHelper();
+                FileDownloadHelper downloadHelper = new FileDownloadHelper();
 
                 downloadHelper.downloadFile(user, file);
             }

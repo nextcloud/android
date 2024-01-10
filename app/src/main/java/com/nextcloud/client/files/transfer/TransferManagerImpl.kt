@@ -138,8 +138,8 @@ class TransferManagerImpl(
             }
         } else {
             val downloadTask = downloadTaskFactory.create()
-            val wrapper: TaskFunction<DownloadTask.Result, Int> = { progress: ((Int) -> Unit), isCancelled ->
-                downloadTask.download(request, progress, isCancelled)
+            val wrapper: TaskFunction<DownloadTask.Result, Int> = { _: ((Int) -> Unit), _ ->
+                downloadTask.download(request)
             }
             wrapper
         }

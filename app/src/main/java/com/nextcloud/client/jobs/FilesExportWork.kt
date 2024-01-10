@@ -33,7 +33,7 @@ import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
-import com.nextcloud.client.files.downloader.FilesDownloadHelper
+import com.nextcloud.client.files.downloader.FileDownloadHelper
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -111,7 +111,7 @@ class FilesExportWork(
     }
 
     private fun downloadFile(ocFile: OCFile) {
-        FilesDownloadHelper().downloadFile(
+        FileDownloadHelper().downloadFile(
             user,
             ocFile,
             DownloadType.EXPORT

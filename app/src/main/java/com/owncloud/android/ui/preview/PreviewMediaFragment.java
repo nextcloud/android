@@ -53,7 +53,7 @@ import android.view.ViewGroup;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.files.downloader.FilesDownloadHelper;
+import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.media.ExoplayerListener;
 import com.nextcloud.client.media.NextcloudExoPlayer;
@@ -479,7 +479,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                                                                     backgroundJobManager);
         } else if (itemId == R.id.action_download_file) {
             if (!containerActivity.getFileDownloaderBinder().isDownloading(user, getFile())) {
-                new FilesDownloadHelper().downloadFile(user, getFile());
+                new FileDownloadHelper().downloadFile(user, getFile());
             }
         }
     }

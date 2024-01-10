@@ -20,7 +20,7 @@
 
 package com.owncloud.android.ui.activity;
 
-import com.nextcloud.client.files.downloader.FilesDownloadWorker;
+import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
@@ -32,7 +32,7 @@ public interface ComponentsGetter {
      * To be invoked when the parent activity is fully created to get a reference
      * to the FileDownloadWorker.
      */
-    public FilesDownloadWorker.FileDownloaderBinder getFileDownloaderBinder();
+    public FileDownloadWorker.FileDownloaderBinder getFileDownloaderBinder();
 
     
     /**

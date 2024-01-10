@@ -25,7 +25,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.files.downloader.FilesDownloadHelper;
+import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
@@ -316,7 +316,7 @@ public class SynchronizeFileOperation extends SyncOperation {
      * @param file OCFile object representing the file to download
      */
     private void requestForDownload(OCFile file) {
-        FilesDownloadHelper downloadHelper = new FilesDownloadHelper();
+        FileDownloadHelper downloadHelper = new FileDownloadHelper();
 
         downloadHelper.downloadFile(
             mUser,

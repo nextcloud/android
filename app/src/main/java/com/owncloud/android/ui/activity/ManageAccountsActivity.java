@@ -41,7 +41,7 @@ import android.view.View;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.files.downloader.FilesDownloadWorker;
+import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.java.util.Optional;
@@ -525,8 +525,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
 
-            if (component.equals(new ComponentName(ManageAccountsActivity.this, FilesDownloadWorker.class))) {
-                mDownloaderBinder = (FilesDownloadWorker.FileDownloaderBinder) service;
+            if (component.equals(new ComponentName(ManageAccountsActivity.this, FileDownloadWorker.class))) {
+                mDownloaderBinder = (FileDownloadWorker.FileDownloaderBinder) service;
 
             } else if (component.equals(new ComponentName(ManageAccountsActivity.this, FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
@@ -536,7 +536,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
 
         @Override
         public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(ManageAccountsActivity.this, FilesDownloadWorker.class))) {
+            if (component.equals(new ComponentName(ManageAccountsActivity.this, FileDownloadWorker.class))) {
                 Log_OC.d(TAG, "Download service suddenly disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(ManageAccountsActivity.this, FileUploader.class))) {

@@ -41,49 +41,8 @@ class FileDownloadHelper {
     @Inject
     lateinit var uploadsStorageManager: UploadsStorageManager
 
-    companion object {
-        private var instance: FileDownloadHelper? = null
-
-        fun instance(): FileDownloadHelper {
-            return instance ?: synchronized(this) {
-                instance ?: FileDownloadHelper().also { instance = it }
-            }
-        }
-    }
-
     init {
         MainApp.getAppComponent().inject(this)
-    }
-
-    fun isDownloading(user: User?, file: OCFile?): Boolean {
-        if (user == null || file == null) {
-            return false
-        }
-
-        return backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId) ||
-            backgroundJobManager.isStartFileDownloadJobScheduled(user, file.parentId)
-    }
-
-    fun cancelPendingOrCurrentDownloads(user: User?, file: OCFile?) {
-        if (user == null || file == null) return
-
-        FileDownloadWorker.cancelOperation(user.accountName, file.fileId)
-        backgroundJobManager.cancelFilesDownloadJob(user, file.fileId)
-    }
-
-    fun cancelAllDownloadsForAccount(accountName: String?, currentDownload: DownloadFileOperation?) {
-        if (accountName == null || currentDownload == null) return
-
-        val currentUser = currentDownload.user
-        val currentFile = currentDownload.file
-
-        if (!currentUser.nameEquals(accountName)) {
-            return
-        }
-
-        currentDownload.cancel()
-        FileDownloadWorker.cancelOperation(currentUser.accountName, currentFile.fileId)
-        backgroundJobManager.cancelFilesDownloadJob(currentUser, currentFile.fileId)
     }
 
     fun saveFile(
@@ -120,32 +79,65 @@ class FileDownloadHelper {
         storageManager?.saveConflict(file, null)
     }
 
-    fun downloadFileIfNotStartedBefore(user: User, file: OCFile) {
-        if (!isDownloading(user, file)) {
-            downloadFile(user, file, downloadType = DownloadType.DOWNLOAD)
-        }
+    fun downloadFile(user: User, ocFile: OCFile) {
+        backgroundJobManager.startFilesDownloadJob(
+            user,
+            ocFile,
+            "",
+            DownloadType.DOWNLOAD,
+            "",
+            "",
+            null
+        )
     }
 
-    fun downloadFolder(folder: OCFile, user: User, files: List<OCFile>) {
-        val filesPath = files.map { it.remotePath }
-        backgroundJobManager.startFolderDownloadJob(folder, user, filesPath)
+    fun downloadFile(user: User, ocFile: OCFile, behaviour: String) {
+        backgroundJobManager.startFilesDownloadJob(
+            user,
+            ocFile,
+            behaviour,
+            DownloadType.DOWNLOAD,
+            "",
+            "",
+            null
+        )
     }
 
-    fun downloadFile(user: User, file: OCFile) {
-        downloadFile(user, file, downloadType = DownloadType.DOWNLOAD)
+    fun downloadFile(user: User, ocFile: OCFile, downloadType: DownloadType) {
+        backgroundJobManager.startFilesDownloadJob(
+            user,
+            ocFile,
+            "",
+            downloadType,
+            "",
+            "",
+            null
+        )
+    }
+
+    fun downloadFile(user: User, ocFile: OCFile, conflictUploadId: Long) {
+        backgroundJobManager.startFilesDownloadJob(
+            user,
+            ocFile,
+            "",
+            DownloadType.DOWNLOAD,
+            "",
+            "",
+            conflictUploadId
+        )
     }
 
     @Suppress("LongParameterList")
     fun downloadFile(
         user: User,
         ocFile: OCFile,
-        behaviour: String = "",
-        downloadType: DownloadType? = DownloadType.DOWNLOAD,
-        activityName: String = "",
-        packageName: String = "",
-        conflictUploadId: Long? = null
+        behaviour: String,
+        downloadType: DownloadType?,
+        activityName: String,
+        packageName: String,
+        conflictUploadId: Long?
     ) {
-        backgroundJobManager.startFileDownloadJob(
+        backgroundJobManager.startFilesDownloadJob(
             user,
             ocFile,
             behaviour,

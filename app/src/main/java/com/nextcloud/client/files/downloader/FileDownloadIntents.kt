@@ -23,8 +23,6 @@ package com.nextcloud.client.files.downloader
 
 import android.content.Context
 import android.content.Intent
-import com.nextcloud.client.account.User
-import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.ui.activity.FileActivity
@@ -41,7 +39,7 @@ class FileDownloadIntents(private val context: Context) {
         linkedToRemotePath: String
     ): Intent {
         return Intent(FileDownloadWorker.getDownloadAddedMessage()).apply {
-            putExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME, download.user.accountName)
+            putExtra(FileDownloadWorker.ACCOUNT_NAME, download.user.accountName)
             putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, download.remotePath)
             putExtra(FileDownloadWorker.EXTRA_LINKED_TO_PATH, linkedToRemotePath)
             setPackage(context.packageName)
@@ -55,7 +53,7 @@ class FileDownloadIntents(private val context: Context) {
     ): Intent {
         return Intent(FileDownloadWorker.getDownloadFinishMessage()).apply {
             putExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess)
-            putExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME, download.user.accountName)
+            putExtra(FileDownloadWorker.ACCOUNT_NAME, download.user.accountName)
             putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, download.remotePath)
             putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, download.behaviour)
             putExtra(SendShareDialog.ACTIVITY_NAME, download.activityName)
@@ -64,19 +62,6 @@ class FileDownloadIntents(private val context: Context) {
                 putExtra(FileDownloadWorker.EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
             }
             setPackage(context.packageName)
-        }
-    }
-
-    fun credentialContentIntent(user: User): Intent {
-        return Intent(context, AuthenticatorActivity::class.java).apply {
-            putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, user.toPlatformAccount())
-            putExtra(
-                AuthenticatorActivity.EXTRA_ACTION,
-                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
-            )
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
-            addFlags(Intent.FLAG_FROM_BACKGROUND)
         }
     }
 

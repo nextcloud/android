@@ -135,8 +135,6 @@ import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.FilesUploadHelper;
 
-import java.io.File;
-
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 

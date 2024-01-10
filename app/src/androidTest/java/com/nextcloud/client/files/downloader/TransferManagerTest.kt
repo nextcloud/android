@@ -107,7 +107,7 @@ class TransferManagerTest {
 
         private fun createMockTask(): DownloadTask {
             val task = mockk<DownloadTask>()
-            every { task.download(any(), any(), any()) } answers {
+            every { task.download(any()) } answers {
                 taskProgress.forEach {
                     arg<OnProgressCallback<Int>>(1).invoke(it)
                 }

@@ -21,7 +21,6 @@ package com.nextcloud.client.files.downloader
 
 import android.content.ContentResolver
 import android.content.Context
-import com.nextcloud.client.core.IsCancelled
 import com.nextcloud.client.files.DownloadRequest
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -63,8 +62,7 @@ class DownloadTask(
         }
     }
 
-    // Unused progress, isCancelled arguments needed for TransferManagerTest
-    fun download(request: DownloadRequest, progress: (Int) -> Unit, isCancelled: IsCancelled): Result {
+    fun download(request: DownloadRequest): Result {
         val op = DownloadFileOperation(request.user, request.file, context)
         val client = clientProvider.invoke()
         val result = op.execute(client)
