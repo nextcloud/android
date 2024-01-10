@@ -66,12 +66,14 @@ class FileDownloadHelper {
 
     fun cancelPendingOrCurrentDownloads(user: User?, file: OCFile?) {
         if (user == null || file == null) return
+        FileDownloadWorker.cancelCurrentDownload(user, file)
         backgroundJobManager.cancelFilesDownloadJob(user, file)
     }
 
-    fun cancelAllDownloadsForAccount(accountName: String?, currentDownload: DownloadFileOperation) {
-        if (currentDownload.user.nameEquals(accountName)) {
+    fun cancelAllDownloadsForAccount(accountName: String?, currentDownload: DownloadFileOperation?) {
+        if (currentDownload?.user?.nameEquals(accountName) == true) {
             currentDownload.file?.let { file ->
+                FileDownloadWorker.cancelCurrentDownload(currentDownload.user, file)
                 backgroundJobManager.cancelFilesDownloadJob(currentDownload.user, file)
             }
 
