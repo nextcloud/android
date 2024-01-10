@@ -32,19 +32,13 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Binder
 import android.os.Build
-import android.os.Handler
 import android.os.IBinder
-import android.os.Looper
-import android.os.Message
 import android.util.Pair
 import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.gson.Gson
-import com.google.gson.JsonElement
-import com.google.gson.JsonSerializationContext
-import com.google.gson.JsonSerializer
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.java.util.Optional
@@ -124,7 +118,6 @@ class FilesDownloadWorker(
     private val pendingDownloads = IndexedForest<DownloadFileOperation>()
     private var downloadBinder: IBinder? = null
     private var currentUser = Optional.empty<User>()
-    private val workerHandler: WorkerHandler? = null
     private var startedDownload = false
     private var storageManager: FileDataStorageManager? = null
     private var downloadClient: OwnCloudClient? = null
@@ -132,27 +125,16 @@ class FilesDownloadWorker(
 
     override fun doWork(): Result {
         return try {
-            conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long?
-            val file = gson.fromJson(inputData.keyValueMap[FILE] as String, OCFile::class.java)
-            val downloadTypeAsString = inputData.keyValueMap[DOWNLOAD_TYPE] as String?
-            val downloadType = if (downloadTypeAsString != null) {
-                if (downloadTypeAsString == DownloadType.DOWNLOAD.toString()) {
-                    DownloadType.DOWNLOAD
-                } else {
-                    DownloadType.EXPORT
-                }
-            } else {
-                null
-            }
-            val behaviour = inputData.keyValueMap[BEHAVIOUR] as String
-            val activityName = inputData.keyValueMap[ACTIVITY_NAME] as String
-            val packageName = inputData.keyValueMap[PACKAGE_NAME] as String
-
-            downloadBinder = FileDownloaderBinder()
+            val requestDownloads = getRequestDownloads()
 
             showDownloadingFilesNotification()
             addAccountUpdateListener()
-            requestDownloads(user!!, file, behaviour, downloadType, activityName, packageName)
+
+            val it: Iterator<String> = requestDownloads.iterator()
+            while (it.hasNext()) {
+                val next = it.next()
+                downloadFile(next)
+            }
 
             Log_OC.e(TAG, "FilesDownloadWorker successfully completed")
             Result.success()
@@ -162,14 +144,23 @@ class FilesDownloadWorker(
         }
     }
 
-    private fun requestDownloads(
-        user: User,
-        file: OCFile,
-        behaviour: String,
-        downloadType: DownloadType?,
-        activityName: String,
-        packageName: String,
-    ) {
+    private fun getRequestDownloads(): AbstractList<String> {
+        conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long?
+        val file = gson.fromJson(inputData.keyValueMap[FILE] as String, OCFile::class.java)
+        val downloadTypeAsString = inputData.keyValueMap[DOWNLOAD_TYPE] as String?
+        val downloadType = if (downloadTypeAsString != null) {
+            if (downloadTypeAsString == DownloadType.DOWNLOAD.toString()) {
+                DownloadType.DOWNLOAD
+            } else {
+                DownloadType.EXPORT
+            }
+        } else {
+            null
+        }
+        val behaviour = inputData.keyValueMap[BEHAVIOUR] as String
+        val activityName = inputData.keyValueMap[ACTIVITY_NAME] as String
+        val packageName = inputData.keyValueMap[PACKAGE_NAME] as String
+
         val requestedDownloads: AbstractList<String> = Vector()
         try {
             val operation = DownloadFileOperation(
@@ -184,7 +175,7 @@ class FilesDownloadWorker(
             operation.addDatatransferProgressListener(this)
             operation.addDatatransferProgressListener(downloadBinder as FileDownloaderBinder?)
             val putResult: Pair<String, String> = pendingDownloads.putIfAbsent(
-                user.accountName,
+                user?.accountName,
                 file.remotePath,
                 operation
             )
@@ -196,15 +187,7 @@ class FilesDownloadWorker(
             Log_OC.e(TAG, "Not enough information provided in intent: " + e.message)
         }
 
-        if (requestedDownloads.size > 0) {
-            val msg: Message? = workerHandler?.obtainMessage()
-            // msg.arg1 = startId;
-            msg?.obj = requestedDownloads
-
-            msg?.let {
-                workerHandler?.sendMessage(msg)
-            }
-        }
+        return requestedDownloads
     }
 
     private fun downloadFile(downloadKey: String) {
@@ -266,16 +249,24 @@ class FilesDownloadWorker(
         }
     }
 
-    private fun saveDownloadedFile() {
+    private fun getCurrentFile(): OCFile? {
         var file: OCFile? = currentDownload?.file?.fileId?.let { storageManager?.getFileById(it) }
+
         if (file == null) {
-            // try to get file via path, needed for overwriting existing files on conflict dialog
             file = storageManager?.getFileByDecryptedRemotePath(currentDownload?.file?.remotePath)
         }
+
         if (file == null) {
             Log_OC.e(this, "Could not save " + currentDownload?.file?.remotePath)
-            return
+            return null
         }
+
+        return file
+    }
+
+    private fun saveDownloadedFile() {
+        val file = getCurrentFile() ?: return
+
         val syncDate = System.currentTimeMillis()
         file.lastSyncDateForProperties = syncDate
         file.lastSyncDateForData = syncDate
@@ -325,10 +316,12 @@ class FilesDownloadWorker(
 
         if (!downloadResult.isCancelled) {
             if (downloadResult.isSuccess) {
-                if (conflictUploadId!! > 0) {
-                    uploadsStorageManager.removeUpload(conflictUploadId!!)
+                conflictUploadId?.let {
+                    if (it > 0) {
+                        uploadsStorageManager.removeUpload(it)
+                    }
                 }
-                // Dont show notification except an error has occured.
+
                 return
             }
             var tickerId =
@@ -363,14 +356,12 @@ class FilesDownloadWorker(
                 )
             )
 
-            if (notificationManager != null) {
-                notificationManager?.notify(SecureRandom().nextInt(), notificationBuilder?.build())
-                if (downloadResult.isSuccess) {
-                    NotificationUtils.cancelWithDelay(
-                        notificationManager,
-                        R.string.downloader_download_succeeded_ticker, 2000
-                    )
-                }
+            notificationManager?.notify(SecureRandom().nextInt(), notificationBuilder?.build())
+            if (downloadResult.isSuccess) {
+                NotificationUtils.cancelWithDelay(
+                    notificationManager,
+                    R.string.downloader_download_succeeded_ticker, 2000
+                )
             }
         }
     }
@@ -432,9 +423,8 @@ class FilesDownloadWorker(
         if (notificationManager == null) {
             notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         }
-        if (notificationManager != null) {
-            notificationManager?.notify(R.string.downloader_download_in_progress_ticker, notificationBuilder?.build())
-        }
+
+        notificationManager?.notify(R.string.downloader_download_in_progress_ticker, notificationBuilder?.build())
     }
 
     private fun showDownloadingFilesNotification() {
@@ -474,7 +464,7 @@ class FilesDownloadWorker(
     }
 
     override fun onAccountsUpdated(accounts: Array<out Account>?) {
-        if (currentDownload != null && !accountManager.exists(currentDownload?.user?.toPlatformAccount())) {
+        if (!accountManager.exists(currentDownload?.user?.toPlatformAccount())) {
             currentDownload?.cancel()
         }
     }
@@ -496,31 +486,18 @@ class FilesDownloadWorker(
             if (notificationManager == null) {
                 notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             }
-            if (notificationManager != null) {
-                notificationManager?.notify(
-                    R.string.downloader_download_in_progress_ticker,
-                    notificationBuilder?.build()
-                )
-            }
+            notificationManager?.notify(
+                R.string.downloader_download_in_progress_ticker,
+                notificationBuilder?.build()
+            )
         }
         lastPercent = percent
     }
 
     inner class FileDownloaderBinder : Binder(), OnDatatransferProgressListener {
-        /**
-         * Map of listeners that will be reported about progress of downloads from a
-         * [FileDownloaderBinder]
-         * instance.
-         */
-        private val mBoundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
+        private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
 
-        /**
-         * Cancels a pending or current download of a remote file.
-         *
-         * @param account ownCloud account where the remote file is stored.
-         * @param file    A file in the queue of pending downloads
-         */
-        fun cancel(account: Account, file: OCFile) {
+        fun cancelPendingOrCurrentDownloads(account: Account, file: OCFile) {
             val removeResult: Pair<DownloadFileOperation, String> =
                 pendingDownloads.remove(account.name, file.remotePath)
             val download = removeResult.first
@@ -535,10 +512,7 @@ class FilesDownloadWorker(
             }
         }
 
-        /**
-         * Cancels all the downloads for an account
-         */
-        fun cancel(accountName: String?) {
+        fun cancelAllDownloadsForAccount(accountName: String?) {
             if (currentDownload != null && currentDownload?.user?.nameEquals(accountName) == true) {
                 currentDownload?.cancel()
             }
@@ -550,20 +524,20 @@ class FilesDownloadWorker(
             return user != null && file != null && pendingDownloads.contains(user.accountName, file.remotePath)
         }
 
-        fun addDatatransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
+        fun addDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
             if (file == null || listener == null) {
                 return
             }
-            mBoundListeners[file.fileId] = listener
+            boundListeners[file.fileId] = listener
         }
 
-        fun removeDatatransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
+        fun removeDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
             if (file == null || listener == null) {
                 return
             }
             val fileId = file.fileId
-            if (mBoundListeners[fileId] === listener) {
-                mBoundListeners.remove(fileId)
+            if (boundListeners[fileId] === listener) {
+                boundListeners.remove(fileId)
             }
         }
 
@@ -571,34 +545,11 @@ class FilesDownloadWorker(
             progressRate: Long, totalTransferredSoFar: Long,
             totalToTransfer: Long, fileName: String
         ) {
-            val boundListener = mBoundListeners[currentDownload?.file?.fileId]
+            val boundListener = boundListeners[currentDownload?.file?.fileId]
             boundListener?.onTransferProgress(
                 progressRate, totalTransferredSoFar,
                 totalToTransfer, fileName
             )
-        }
-    }
-
-    private class WorkerHandler(looper: Looper, private val worker: FilesDownloadWorker) : Handler(looper) {
-        override fun handleMessage(msg: Message) {
-            val requestedDownloads = msg.obj as AbstractList<String>
-
-            if (msg.obj != null) {
-                val it: Iterator<String> = requestedDownloads.iterator()
-                while (it.hasNext()) {
-                    val next = it.next()
-                    worker.downloadFile(next)
-                }
-            }
-
-            worker.startedDownload = false
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                if (!worker.startedDownload) {
-                    worker.notificationManager?.cancel(R.string.downloader_download_in_progress_ticker)
-                }
-                Log_OC.d(TAG, "Stopping after command with id " + msg.arg1)
-            }, 2000)
         }
     }
 }
