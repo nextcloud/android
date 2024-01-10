@@ -45,6 +45,13 @@ class FileDownloadHelper {
         MainApp.getAppComponent().inject(this)
     }
 
+    fun isDownloading(user: User?, file: OCFile?): Boolean {
+        return user != null && file != null && backgroundJobManager.isStartFileDownloadJobScheduled(
+            user,
+            file
+        )
+    }
+
     fun saveFile(
         file: OCFile,
         currentDownload: DownloadFileOperation?,
@@ -99,6 +106,18 @@ class FileDownloadHelper {
             DownloadType.DOWNLOAD,
             "",
             "",
+            null
+        )
+    }
+
+    fun downloadFile(user: User, ocFile: OCFile, behaviour: String, packageName: String, activityName: String) {
+        backgroundJobManager.startFileDownloadJob(
+            user,
+            ocFile,
+            behaviour,
+            DownloadType.DOWNLOAD,
+            packageName,
+            packageName,
             null
         )
     }
