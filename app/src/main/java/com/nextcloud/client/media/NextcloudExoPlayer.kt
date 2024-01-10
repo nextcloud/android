@@ -23,6 +23,7 @@ package com.nextcloud.client.media
 
 import android.content.Context
 import androidx.annotation.OptIn
+import androidx.media3.common.AudioAttributes
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.datasource.okhttp.OkHttpDataSource
@@ -53,6 +54,8 @@ object NextcloudExoPlayer {
         return ExoPlayer
             .Builder(context)
             .setMediaSourceFactory(mediaSourceFactory)
+            .setAudioAttributes(AudioAttributes.DEFAULT, true)
+            .setHandleAudioBecomingNoisy(true)
             .setSeekForwardIncrementMs(FIVE_SECONDS_IN_MILLIS)
             .build()
     }
