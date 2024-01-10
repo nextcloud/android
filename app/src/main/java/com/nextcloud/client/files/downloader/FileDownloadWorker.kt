@@ -75,6 +75,21 @@ class FileDownloadWorker(
             }
         }
 
+        /*
+                Folder 1 -- id = 100
+                    file 1-- parentID 100
+                    folder 2-- parentID 100
+                        file 3-- parentID 100
+                        file 4 -- parentID 100
+                Folder 4 -- parentID 100
+                    file 6         -- parentID 100
+
+         */
+
+        fun isDownloading(accountName: String, fileId: Long): Boolean {
+            return pendingDownloads.all.any { it.value.payload.isMatching(accountName, fileId) }
+        }
+
         const val WORKER_ID = "WORKER_ID"
         const val FILES_SEPARATOR = ","
         const val FOLDER_REMOTE_PATH = "FOLDER_REMOTE_PATH"

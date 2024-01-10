@@ -60,15 +60,17 @@ class FileDownloadHelper {
             return false
         }
 
-        return backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId) ||
-            backgroundJobManager.isStartFileDownloadJobScheduled(user, file.parentId)
+        return FileDownloadWorker.isDownloading(user.accountName, file.fileId) ||
+            FileDownloadWorker.isDownloading(user.accountName, file.parentId)
     }
 
-    fun cancelPendingOrCurrentDownloads(user: User?, file: OCFile?) {
-        if (user == null || file == null) return
+    fun cancelPendingOrCurrentDownloads(user: User?, files: List<OCFile>?) {
+        if (user == null || files == null) return
 
-        FileDownloadWorker.cancelOperation(user.accountName, file.fileId)
-        backgroundJobManager.cancelFilesDownloadJob(user, file.fileId)
+        files.forEach {
+            FileDownloadWorker.cancelOperation(user.accountName, it.fileId)
+            backgroundJobManager.cancelFilesDownloadJob(user, it.fileId)
+        }
     }
 
     fun cancelAllDownloadsForAccount(accountName: String?, currentDownload: DownloadFileOperation?) {

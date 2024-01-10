@@ -997,7 +997,8 @@ public class FileOperationsHelper {
         }
 
         if (FileDownloadHelper.Companion.instance().isDownloading(currentUser, file)) {
-            FileDownloadHelper.Companion.instance().cancelPendingOrCurrentDownloads(currentUser, file);
+            List<OCFile> files = fileActivity.getStorageManager().getAllFilesRecursivelyInsideFolder(file);
+            FileDownloadHelper.Companion.instance().cancelPendingOrCurrentDownloads(currentUser, files);
         }
 
         FileUploaderBinder uploaderBinder = fileActivity.getFileUploaderBinder();
