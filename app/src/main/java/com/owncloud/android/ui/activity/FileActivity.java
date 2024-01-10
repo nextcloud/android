@@ -43,8 +43,6 @@ import android.text.TextUtils;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.files.downloader.FileDownloadHelper;
-import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
@@ -56,6 +54,8 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -166,8 +166,9 @@ public abstract class FileActivity extends DrawerActivity
 
     private boolean mResumed;
 
-    protected FileDownloadWorker.FileDownloadProgressListener fileDownloadProgressListener;
+    protected FileDownloaderBinder mDownloaderBinder;
     protected FileUploaderBinder mUploaderBinder;
+    private ServiceConnection mDownloadServiceConnection;
     private ServiceConnection mUploadServiceConnection;
 
     @Inject
@@ -205,7 +206,6 @@ public abstract class FileActivity extends DrawerActivity
         super.onCreate(savedInstanceState);
         mHandler = new Handler();
         mFileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService, editorUtils);
-        User user = null;
 
         if (savedInstanceState != null) {
             mFile = BundleExtensionsKt.getParcelableArgument(savedInstanceState, FileActivity.EXTRA_FILE, OCFile.class);
@@ -218,20 +218,24 @@ public abstract class FileActivity extends DrawerActivity
                 viewThemeUtils.files.themeActionBar(this, actionBar, savedInstanceState.getString(KEY_ACTION_BAR_TITLE));
             }
         } else {
-            user = IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_USER, User.class);
+            User user = IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_USER, User.class);
             mFile = IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_FILE, OCFile.class);
             mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION,
                     false);
-
             if (user != null) {
                 setUser(user);
             }
         }
 
+
         mOperationsServiceConnection = new OperationsServiceConnection();
         bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection,
                 Context.BIND_AUTO_CREATE);
 
+        mDownloadServiceConnection = newTransferenceServiceConnection();
+        if (mDownloadServiceConnection != null) {
+            new FileDownloader(new Intent(this, FileDownloader.class));
+        }
         mUploadServiceConnection = newTransferenceServiceConnection();
         if (mUploadServiceConnection != null) {
             bindService(new Intent(this, FileUploader.class), mUploadServiceConnection,
@@ -274,6 +278,10 @@ public abstract class FileActivity extends DrawerActivity
         if (mOperationsServiceConnection != null) {
             unbindService(mOperationsServiceConnection);
             mOperationsServiceBinder = null;
+        }
+        if (mDownloadServiceConnection != null) {
+            unbindService(mDownloadServiceConnection);
+            mDownloadServiceConnection = null;
         }
         if (mUploadServiceConnection != null) {
             unbindService(mUploadServiceConnection);
@@ -607,8 +615,8 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     @Override
-    public FileDownloadWorker.FileDownloadProgressListener getFileDownloadProgressListener() {
-        return fileDownloadProgressListener;
+    public FileDownloaderBinder getFileDownloaderBinder() {
+        return mDownloaderBinder;
     }
 
     @Override

@@ -53,7 +53,6 @@ import android.view.ViewGroup;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.media.ExoplayerListener;
 import com.nextcloud.client.media.NextcloudExoPlayer;
@@ -67,6 +66,7 @@ import com.owncloud.android.databinding.FragmentPreviewMediaBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.StreamMediaFileOperation;
+import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -478,7 +478,12 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                                                                     getView(),
                                                                     backgroundJobManager);
         } else if (itemId == R.id.action_download_file) {
-            FileDownloadHelper.Companion.instance().downloadFileIfNotStartedBefore(user, getFile());
+            if (!containerActivity.getFileDownloaderBinder().isDownloading(user, getFile())) {
+                Intent i = new Intent(requireActivity(), FileDownloader.class);
+                i.putExtra(FileDownloader.EXTRA_USER, user);
+                i.putExtra(FileDownloader.EXTRA_FILE, getFile());
+                new FileDownloader(i);
+            }
         }
     }
 

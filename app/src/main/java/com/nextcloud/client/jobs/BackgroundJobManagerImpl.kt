@@ -38,11 +38,11 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
-import com.nextcloud.client.files.downloader.FileDownloadWorker
+import com.nextcloud.client.files.downloader.FilesDownloadWorker
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.operations.DownloadType
+import java.io.File
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
@@ -86,7 +86,6 @@ internal class BackgroundJobManagerImpl(
         const val JOB_NOTIFICATION = "notification"
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
         const val JOB_FILES_UPLOAD = "files_upload"
-        const val JOB_FOLDER_DOWNLOAD = "folder_download"
         const val JOB_FILES_DOWNLOAD = "files_download"
         const val JOB_PDF_GENERATION = "pdf_generation"
         const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
@@ -499,6 +498,7 @@ internal class BackgroundJobManagerImpl(
 
         workManager.enqueue(request)
     }
+
     override fun startFilesUploadJob(user: User) {
         val data = workDataOf(FilesUploadWorker.ACCOUNT to user.accountName)
 
@@ -509,62 +509,30 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniqueWork(JOB_FILES_UPLOAD + user.accountName, ExistingWorkPolicy.KEEP, request)
     }
 
-    private fun startFileDownloadJobTag(user: User, fileId: Long): String {
-        return JOB_FOLDER_DOWNLOAD + user.accountName + fileId
-    }
-
-    override fun isStartFileDownloadJobScheduled(user: User, fileId: Long): Boolean {
-        return workManager.isWorkScheduled(startFileDownloadJobTag(user, fileId))
-    }
-
-    override fun startFolderDownloadJob(folder: OCFile, user: User, filesPath: List<String>) {
-        val data = workDataOf(
-            FileDownloadWorker.WORKER_ID to folder.fileId.toInt(),
-            FileDownloadWorker.ACCOUNT_NAME to user.accountName,
-            FileDownloadWorker.FOLDER_REMOTE_PATH to folder.remotePath,
-            FileDownloadWorker.FILES_REMOTE_PATH to filesPath.joinToString(FileDownloadWorker.FILES_SEPARATOR),
-            FileDownloadWorker.DOWNLOAD_TYPE to DownloadType.DOWNLOAD.toString()
-        )
-
-        val tag = startFileDownloadJobTag(user, folder.fileId)
-
-        val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
-            .addTag(tag)
-            .setInputData(data)
-            .build()
-
-        workManager
-            .enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, request)
-    }
-
-    override fun startFileDownloadJob(
+    override fun startFilesDownloadJob(
         user: User,
-        file: OCFile,
+        ocFile: OCFile,
         behaviour: String,
-        downloadType: DownloadType?,
+        downloadType: DownloadType,
         activityName: String,
         packageName: String,
-        conflictUploadId: Long?
+        conflictUploadId: Long
     ) {
-        val tag = startFileDownloadJobTag(user, file.fileId)
-
         val data = workDataOf(
-            FileDownloadWorker.WORKER_ID to file.fileId.toInt(),
-            FileDownloadWorker.ACCOUNT_NAME to user.accountName,
-            FileDownloadWorker.FILE_REMOTE_PATH to file.remotePath,
-            FileDownloadWorker.BEHAVIOUR to behaviour,
-            FileDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),
-            FileDownloadWorker.ACTIVITY_NAME to activityName,
-            FileDownloadWorker.PACKAGE_NAME to packageName,
-            FileDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId
+            FilesDownloadWorker.USER to user,
+            FilesDownloadWorker.FILE to ocFile,
+            FilesDownloadWorker.BEHAVIOUR to behaviour,
+            FilesDownloadWorker.DOWNLOAD_TYPE to downloadType,
+            FilesDownloadWorker.ACTIVITY_NAME to activityName,
+            FilesDownloadWorker.PACKAGE_NAME to packageName,
+            FilesDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId,
         )
 
-        val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
-            .addTag(tag)
+        val request = oneTimeRequestBuilder(FilesDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
             .setInputData(data)
             .build()
 
-        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, request)
+        workManager.enqueueUniqueWork(JOB_FILES_DOWNLOAD + user.accountName, ExistingWorkPolicy.REPLACE, request)
     }
 
     override fun getFileUploads(user: User): LiveData<List<JobInfo>> {
@@ -574,10 +542,6 @@ internal class BackgroundJobManagerImpl(
 
     override fun cancelFilesUploadJob(user: User) {
         workManager.cancelJob(JOB_FILES_UPLOAD, user)
-    }
-
-    override fun cancelFilesDownloadJob(user: User, fileId: Long) {
-        workManager.cancelAllWorkByTag(startFileDownloadJobTag(user, fileId))
     }
 
     override fun startPdfGenerateAndUploadWork(

@@ -240,12 +240,6 @@
             android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
             android:theme="@style/Theme.ownCloud.Media" />
         <service
-            android:name="androidx.work.impl.foreground.SystemForegroundService"
-            android:directBootAware="false"
-            android:enabled="@bool/enable_system_foreground_service_default"
-            android:exported="false"
-            android:foregroundServiceType="dataSync" />
-        <service
             android:name=".authentication.AccountAuthenticatorService"
             android:exported="false">
             <intent-filter android:priority="100">
@@ -400,7 +394,7 @@
             android:name=".services.OperationsService"
             android:exported="false" />
         <service
-            android:name="com.nextcloud.client.files.transfer.FileTransferService"
+            android:name="com.nextcloud.client.files.downloader.FileTransferService"
             android:foregroundServiceType="dataSync"
             android:exported="false" />
         <service
