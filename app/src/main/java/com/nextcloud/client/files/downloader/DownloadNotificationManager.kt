@@ -28,34 +28,31 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
-import android.os.Handler
-import android.os.Looper
 import androidx.core.app.NotificationCompat
+import com.nextcloud.client.account.User
 import com.owncloud.android.R
+import com.owncloud.android.authentication.AuthenticatorActivity
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.files.FileUtils
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
+import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.security.SecureRandom
 
-@Suppress("TooManyFunctions")
-class DownloadNotificationManager(
-    private val id: Int,
-    private val context: Context,
-    private val viewThemeUtils: ViewThemeUtils
-) {
+class DownloadNotificationManager(private val context: Context, private val viewThemeUtils: ViewThemeUtils) {
 
-    private var notification: Notification
-    private var notificationBuilder: NotificationCompat.Builder
+    private var notification: Notification? = null
+    private lateinit var notificationBuilder: NotificationCompat.Builder
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    init {
+    fun init() {
         notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
             setContentTitle(context.resources.getString(R.string.app_name))
+            setContentText(context.resources.getString(R.string.worker_download))
             setSmallIcon(R.drawable.notification_icon)
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
             }
@@ -65,14 +62,16 @@ class DownloadNotificationManager(
     }
 
     @Suppress("MagicNumber")
-    fun prepareForStart(operation: DownloadFileOperation) {
+    fun notifyForStart(operation: DownloadFileOperation) {
         notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
             setSmallIcon(R.drawable.notification_icon)
+            setTicker(context.getString(R.string.downloader_download_in_progress_ticker))
+            setContentTitle(context.getString(R.string.downloader_download_in_progress_ticker))
             setOngoing(true)
             setProgress(100, 0, operation.size < 0)
             setContentText(
                 String.format(
-                    context.getString(R.string.downloader_download_in_progress), 0,
+                    context.getString(R.string.downloader_download_in_progress_content), 0,
                     File(operation.savePath).name
                 )
             )
@@ -80,70 +79,101 @@ class DownloadNotificationManager(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
             }
-
-            notificationManager.notify(
-                id,
-                this.build()
-            )
         }
     }
 
-    fun prepareForResult() {
+    fun prepareForResult(
+        downloadResult: RemoteOperationResult<*>,
+        needsToUpdateCredentials: Boolean
+    ) {
+        val tickerId = getTickerId(downloadResult.isSuccess, needsToUpdateCredentials)
+
         notificationBuilder
+            .setTicker(context.getString(tickerId))
+            .setContentTitle(context.getString(tickerId))
             .setAutoCancel(true)
             .setOngoing(false)
             .setProgress(0, 0, false)
     }
 
     @Suppress("MagicNumber")
-    fun updateDownloadProgress(filePath: String, percent: Int, totalToTransfer: Long) {
-        notificationBuilder.run {
-            setProgress(100, percent, totalToTransfer < 0)
-            val fileName: String = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1)
-            val text =
-                String.format(context.getString(R.string.downloader_download_in_progress), percent, fileName)
-            val title =
-                context.getString(R.string.downloader_download_in_progress_ticker)
-            updateNotificationText(title, text, false)
-        }
-    }
+    fun notifyForResult(result: RemoteOperationResult<*>, download: DownloadFileOperation) {
+        dismissDownloadInProgressNotification()
 
-    @Suppress("MagicNumber")
-    fun showCompleteNotification(text: String) {
-        Handler(Looper.getMainLooper()).postDelayed({
-            updateNotificationText(null, text, true)
-            dismissNotification()
-        }, 3000)
-    }
-
-    @Suppress("MagicNumber")
-    fun dismissNotification() {
-        Handler(Looper.getMainLooper()).postDelayed({
-            notificationManager.cancel(id)
-        }, 2000)
-    }
-
-    fun showNewNotification(text: String) {
+        val tickerId = getTickerId(result.isSuccess, null)
         val notifyId = SecureRandom().nextInt()
+        val resultText = getResultText(result, download)
 
         notificationBuilder.run {
-            setProgress(0, 0, false)
-            setContentTitle(null)
-            setContentText(text)
-            setOngoing(false)
+            setTicker(context.getString(tickerId))
+            setContentText(resultText)
             notificationManager.notify(notifyId, this.build())
         }
+
+        NotificationUtils.cancelWithDelay(
+            notificationManager,
+            notifyId,
+            2000
+        )
     }
 
-    private fun updateNotificationText(title: String?, text: String, cancelProgressBar: Boolean) {
-        notificationBuilder.run {
-            if (cancelProgressBar) {
-                setProgress(0, 0, false)
-            }
-            setContentTitle(title)
-            setContentText(text)
-            notificationManager.notify(id, this.build())
+    private fun getResultText(result: RemoteOperationResult<*>, download: DownloadFileOperation): String {
+        return if (result.isSuccess) {
+            download.file.fileName
+        } else {
+            ErrorMessageAdapter.getErrorCauseMessage(
+                result,
+                download,
+                context.resources
+            )
         }
+    }
+
+    private fun getTickerId(isSuccess: Boolean, needsToUpdateCredentials: Boolean?): Int {
+        return if (needsToUpdateCredentials == true) {
+            R.string.downloader_download_failed_credentials_error
+        } else {
+            if (isSuccess) {
+                R.string.downloader_download_succeeded_ticker
+            } else {
+                R.string.downloader_download_failed_ticker
+            }
+        }
+    }
+
+    @Suppress("MagicNumber")
+    fun updateDownloadProgressNotification(filePath: String, percent: Int, totalToTransfer: Long) {
+        notificationBuilder.setProgress(100, percent, totalToTransfer < 0)
+        val fileName: String = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1)
+        val text =
+            String.format(context.getString(R.string.downloader_download_in_progress_content), percent, fileName)
+        notificationBuilder.setContentText(text)
+    }
+
+    fun showDownloadInProgressNotification() {
+        notificationManager.notify(
+            R.string.downloader_download_in_progress_ticker,
+            notificationBuilder.build()
+        )
+    }
+
+    fun dismissDownloadInProgressNotification() {
+        notificationManager.cancel(R.string.downloader_download_in_progress_ticker)
+    }
+
+    fun setCredentialContentIntent(user: User) {
+        val intent = Intent(context, AuthenticatorActivity::class.java).apply {
+            putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, user.toPlatformAccount())
+            putExtra(
+                AuthenticatorActivity.EXTRA_ACTION,
+                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
+            )
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
+            addFlags(Intent.FLAG_FROM_BACKGROUND)
+        }
+
+        setContentIntent(intent, PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE)
     }
 
     fun setContentIntent(intent: Intent, flag: Int) {
@@ -155,13 +185,5 @@ class DownloadNotificationManager(
                 flag
             )
         )
-    }
-
-    fun getId(): Int {
-        return id
-    }
-
-    fun getNotification(): Notification {
-        return notificationBuilder.build()
     }
 }

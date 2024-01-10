@@ -32,7 +32,6 @@ import androidx.work.WorkerParameters
 import com.google.gson.Gson
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.notifications.download.DownloadNotificationManager
 import com.nextcloud.java.util.Optional
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
