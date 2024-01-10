@@ -519,6 +519,7 @@ internal class BackgroundJobManagerImpl(
 
     override fun startFolderDownloadJob(folder: OCFile, user: User, filesPath: List<String>) {
         val data = workDataOf(
+            FileDownloadWorker.WORKER_ID to folder.fileId.toInt(),
             FileDownloadWorker.ACCOUNT_NAME to user.accountName,
             FileDownloadWorker.FOLDER_REMOTE_PATH to folder.remotePath,
             FileDownloadWorker.FILES_REMOTE_PATH to filesPath.joinToString(FileDownloadWorker.FILES_SEPARATOR),
@@ -548,6 +549,7 @@ internal class BackgroundJobManagerImpl(
         val tag = startFileDownloadJobTag(user, file.fileId)
 
         val data = workDataOf(
+            FileDownloadWorker.WORKER_ID to file.fileId.toInt(),
             FileDownloadWorker.ACCOUNT_NAME to user.accountName,
             FileDownloadWorker.FILE_REMOTE_PATH to file.remotePath,
             FileDownloadWorker.BEHAVIOUR to behaviour,

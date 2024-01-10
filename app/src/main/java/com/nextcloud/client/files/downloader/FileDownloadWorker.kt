@@ -57,7 +57,7 @@ import java.util.Vector
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class FileDownloadWorker(
-    viewThemeUtils: ViewThemeUtils,
+    private val viewThemeUtils: ViewThemeUtils,
     private val accountManager: UserAccountManager,
     private var localBroadcastManager: LocalBroadcastManager,
     private val context: Context,
@@ -75,6 +75,7 @@ class FileDownloadWorker(
             }
         }
 
+        const val WORKER_ID = "WORKER_ID"
         const val FILES_SEPARATOR = ","
         const val FOLDER_REMOTE_PATH = "FOLDER_REMOTE_PATH"
         const val FILE_REMOTE_PATH = "FILE_REMOTE_PATH"
@@ -106,7 +107,7 @@ class FileDownloadWorker(
     private var lastPercent = 0
 
     private val intents = FileDownloadIntents(context)
-    private val notificationManager = DownloadNotificationManager(SecureRandom().nextInt(), context, viewThemeUtils)
+    private lateinit var notificationManager: DownloadNotificationManager
     private var downloadProgressListener = FileDownloadProgressListener()
 
     private var user: User? = null
@@ -115,6 +116,7 @@ class FileDownloadWorker(
     private var currentUserFileStorageManager: FileDataStorageManager? = null
     private var fileDataStorageManager: FileDataStorageManager? = null
 
+    private var workerId: Int? = null
     private var folder: OCFile? = null
     private var isAnyOperationFailed = false
 
@@ -122,16 +124,17 @@ class FileDownloadWorker(
     override fun doWork(): Result {
         return try {
             val requestDownloads = getRequestDownloads()
+            notificationManager =
+                DownloadNotificationManager(workerId ?: SecureRandom().nextInt(), context, viewThemeUtils)
 
             addAccountUpdateListener()
 
-            setForegroundAsync(
-                ForegroundServiceHelper.createWorkerForegroundInfo(
-                    notificationManager.getId(),
-                    notificationManager.getNotification(),
-                    ForegroundServiceType.DataSync
-                )
+            val foregroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
+                notificationManager.getId(),
+                notificationManager.getNotification(),
+                ForegroundServiceType.DataSync
             )
+            setForegroundAsync(foregroundInfo)
 
             requestDownloads.forEach {
                 downloadFile(it)
@@ -199,6 +202,8 @@ class FileDownloadWorker(
     }
 
     private fun getRequestDownloads(): AbstractList<String> {
+        workerId = inputData.keyValueMap[WORKER_ID] as Int
+
         isAnyOperationFailed = false
         setUser()
         setFolder()
@@ -206,7 +211,6 @@ class FileDownloadWorker(
         val downloadType = getDownloadType()
 
         conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long?
-
         val behaviour = inputData.keyValueMap[BEHAVIOUR] as String? ?: ""
         val activityName = inputData.keyValueMap[ACTIVITY_NAME] as String? ?: ""
         val packageName = inputData.keyValueMap[PACKAGE_NAME] as String? ?: ""
