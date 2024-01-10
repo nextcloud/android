@@ -1,0 +1,23 @@
+public class FurtherSearchProvider {
+    public List<File> searchFiles(String query) {
+        // 1. Retrieve a list of file objects (e.g., from existing search results or file provider)
+        List<File> files = getAllAvailableFiles();
+
+        // 2. Filter files based on query, including content:
+        List<File> matchingFiles = new ArrayList<>();
+        for (File file : files) {
+            if (containsQueryInFileContent(file, query)) {
+                matchingFiles.add(file);
+            }
+        }
+
+        return matchingFiles;
+    }
+
+    private boolean containsQueryInFileContent(File file, String query) {
+        // Implement logic to fetch and search file content
+        // Replace with Nextcloud-specific methods for content retrieval
+        String fileContents = retrieveFileContents(file);
+        return fileContents.contains(query);
+    }
+}
