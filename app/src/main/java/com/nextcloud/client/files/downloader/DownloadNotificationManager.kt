@@ -72,7 +72,7 @@ class DownloadNotificationManager(
             setProgress(100, 0, operation.size < 0)
             setContentText(
                 String.format(
-                    context.getString(R.string.downloader_download_in_progress_content), 0,
+                    context.getString(R.string.downloader_download_in_progress), 0,
                     File(operation.savePath).name
                 )
             )
@@ -101,7 +101,7 @@ class DownloadNotificationManager(
             setProgress(100, percent, totalToTransfer < 0)
             val fileName: String = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1)
             val text =
-                String.format(context.getString(R.string.downloader_download_in_progress_content), percent, fileName)
+                String.format(context.getString(R.string.downloader_download_in_progress), percent, fileName)
             val title =
                 context.getString(R.string.downloader_download_in_progress_ticker)
             updateNotificationText(title, text, false)
