@@ -26,7 +26,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
@@ -95,20 +94,17 @@ class GalleryRowHolder(
     }
 
     private fun prepareRow() {
-        val thumbnail = ImageView(context)
-
         val placeholder = ContextCompat.getDrawable(context, R.drawable.file_image)
 
-        thumbnail.run {
+        val thumbnail = ImageView(context).apply {
             LinearLayout.LayoutParams(defaultThumbnailSize.toInt(), defaultThumbnailSize.toInt())
             setImageDrawable(placeholder)
         }
 
-        val layout = LinearLayout(context).apply {
+        LinearLayout(context).apply {
             addView(thumbnail)
+            binding.rowLayout.addView(this)
         }
-
-        binding.rowLayout.addView(layout)
     }
 
     @SuppressWarnings("MagicNumber", "ComplexMethod")
@@ -152,6 +148,7 @@ class GalleryRowHolder(
     }
 
     private fun getSize(file: OCFile, shrinkRatio: Float): Pair<Int, Int> {
+        // TODO check defaultThumbnailSize is in use or image dimension
         val imageDimension = file.imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
         val height = (imageDimension.height * shrinkRatio).toInt()
         val width = (imageDimension.width * shrinkRatio).toInt()
@@ -160,11 +157,12 @@ class GalleryRowHolder(
 
     private fun addImage(row: GalleryRow, index: Int, file: OCFile, size: Pair<Int, Int>) {
         val linearLayout = binding.rowLayout[index] as LinearLayout
-        val thumbnail = linearLayout[0] as ImageView
+        val thumbnail = (linearLayout[0] as ImageView).apply {
+            adjustViewBounds = true
+            scaleType = ImageView.ScaleType.FIT_CENTER
+        }
+
         val (width, height) = size
-
-        setMargins(row, index, thumbnail)
-
         val imageUrl = getImageUrl(file)
         val placeholder = getPlaceholder(file, width, height)
 
@@ -180,25 +178,30 @@ class GalleryRowHolder(
             .dontAnimate()
             .into(thumbnail)
 
+        val params = getThumbnailLayoutParams(width, height, row, index)
+
         thumbnail.run {
-            adjustViewBounds = true
-            scaleType = ImageView.ScaleType.FIT_CENTER
+            layoutParams = params
+            layoutParams.width = width
+            layoutParams.height = height
             setOnClickListener {
                 galleryRowItemClick.openMedia(file)
             }
         }
     }
 
-    private fun setMargins(row: GalleryRow, index: Int, thumbnail: ImageView) {
-        val params = thumbnail.layoutParams as ViewGroup.MarginLayoutParams
+    private fun getThumbnailLayoutParams(width: Int, height: Int, row: GalleryRow, index: Int): LinearLayout.LayoutParams {
+        val params = LinearLayout.LayoutParams(width, height)
         val zero = context.resources.getInteger(R.integer.zero)
         val margin = context.resources.getInteger(R.integer.small_margin)
+
         if (index < (row.files.size - 1)) {
             params.setMargins(zero, zero, margin, margin)
         } else {
             params.setMargins(zero, zero, zero, margin)
         }
-        thumbnail.layoutParams = params
+
+        return params
     }
 
     private fun getImageUrl(file: OCFile): String {
