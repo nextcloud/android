@@ -245,10 +245,10 @@ class FileDownloadWorker(
 
     private fun getFiles(): List<OCFile> {
         val remotePath = inputData.keyValueMap[FILE_REMOTE_PATH] as String?
-        val file =  fileDataStorageManager?.getFileByEncryptedRemotePath(remotePath) ?: return listOf()
+        val file = fileDataStorageManager?.getFileByEncryptedRemotePath(remotePath) ?: return listOf()
 
         return if (file.isFolder) {
-             fileDataStorageManager?.getAllFilesRecursivelyInsideFolder(file) ?: listOf()
+            fileDataStorageManager?.getAllFilesRecursivelyInsideFolder(file) ?: listOf()
         } else {
             listOf(file)
         }
