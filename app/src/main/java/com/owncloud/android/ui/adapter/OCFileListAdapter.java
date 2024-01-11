@@ -219,6 +219,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return position;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setFavoriteAttributeForItemID(String remotePath, boolean favorite, boolean removeFromList) {
         List<OCFile> filesToDelete = new ArrayList<>();
         for (OCFile file : mFiles) {
