@@ -148,7 +148,6 @@ class GalleryRowHolder(
     }
 
     private fun getSize(file: OCFile, shrinkRatio: Float): Pair<Int, Int> {
-        // TODO check defaultThumbnailSize is in use or image dimension
         val imageDimension = file.imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
         val height = (imageDimension.height * shrinkRatio).toInt()
         val width = (imageDimension.width * shrinkRatio).toInt()
@@ -190,7 +189,12 @@ class GalleryRowHolder(
         }
     }
 
-    private fun getThumbnailLayoutParams(width: Int, height: Int, row: GalleryRow, index: Int): LinearLayout.LayoutParams {
+    private fun getThumbnailLayoutParams(
+        width: Int,
+        height: Int,
+        row: GalleryRow,
+        index: Int
+    ): LinearLayout.LayoutParams {
         val params = LinearLayout.LayoutParams(width, height)
         val zero = context.resources.getInteger(R.integer.zero)
         val margin = context.resources.getInteger(R.integer.small_margin)
