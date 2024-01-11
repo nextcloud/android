@@ -161,8 +161,6 @@ class FileDownloadWorker(
         Log_OC.e(TAG, "FilesDownloadWorker stopped")
 
         notificationManager.dismissNotification()
-        cancelAllDownloads()
-        removePendingDownload(currentDownload?.user?.accountName)
         setIdleWorkerState()
 
         super.onStopped()
@@ -173,14 +171,7 @@ class FileDownloadWorker(
     }
 
     private fun setIdleWorkerState() {
-        currentDownload = null
         WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
-    }
-
-    private fun cancelAllDownloads() {
-        pendingDownloads.all.forEach {
-            it.value.payload?.cancel()
-        }
     }
 
     private fun removePendingDownload(accountName: String?) {
