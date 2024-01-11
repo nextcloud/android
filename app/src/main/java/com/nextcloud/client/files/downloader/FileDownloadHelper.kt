@@ -60,10 +60,11 @@ class FileDownloadHelper {
             return false
         }
 
-        return FileDownloadWorker.isDownloading(user.accountName, file.fileId) ||
-            FileDownloadWorker.isDownloading(user.accountName, file.parentId) ||
-            backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId) ||
-            backgroundJobManager.isStartFileDownloadJobScheduled(user, file.parentId)
+        return if (file.isFolder) {
+            backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId)
+        } else {
+            FileDownloadWorker.isDownloading(user.accountName, file.fileId)
+        }
     }
 
     fun cancelPendingOrCurrentDownloads(user: User?, files: List<OCFile>?) {
