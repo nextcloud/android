@@ -80,10 +80,7 @@ class FileDownloadWorker(
         }
 
         const val WORKER_ID = "WORKER_ID"
-        const val FILES_SEPARATOR = ","
-        const val FOLDER_REMOTE_PATH = "FOLDER_REMOTE_PATH"
         const val FILE_REMOTE_PATH = "FILE_REMOTE_PATH"
-        const val FILES_REMOTE_PATH = "FILES_REMOTE_PATH"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
         const val BEHAVIOUR = "BEHAVIOUR"
         const val DOWNLOAD_TYPE = "DOWNLOAD_TYPE"
@@ -121,7 +118,6 @@ class FileDownloadWorker(
     private var fileDataStorageManager: FileDataStorageManager? = null
 
     private var workerId: Int? = null
-    private var folder: OCFile? = null
     private var isAnyOperationFailed = false
 
     @Suppress("TooGenericExceptionCaught")
@@ -193,9 +189,10 @@ class FileDownloadWorker(
 
     private fun getRequestDownloads(): AbstractList<String> {
         workerId = inputData.keyValueMap[WORKER_ID] as Int
+        Log_OC.e(TAG, "FilesDownloadWorker started for $workerId")
+
         isAnyOperationFailed = false
         setUser()
-        setFolder()
         val files = getFiles()
         val downloadType = getDownloadType()
 
@@ -246,33 +243,15 @@ class FileDownloadWorker(
         fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
     }
 
-    private fun setFolder() {
-        val folderPath = inputData.keyValueMap[FOLDER_REMOTE_PATH] as? String?
-        if (folderPath != null) {
-            folder = fileDataStorageManager?.getFileByEncryptedRemotePath(folderPath)
-        }
-    }
-
     private fun getFiles(): List<OCFile> {
-        val result = arrayListOf<OCFile>()
+        val remotePath = inputData.keyValueMap[FILE_REMOTE_PATH] as String?
+        val file =  fileDataStorageManager?.getFileByEncryptedRemotePath(remotePath) ?: return listOf()
 
-        val filesPath = inputData.keyValueMap[FILES_REMOTE_PATH] as String?
-        val filesPathList = filesPath?.split(FILES_SEPARATOR)
-
-        if (filesPathList != null) {
-            filesPathList.forEach {
-                fileDataStorageManager?.getFileByEncryptedRemotePath(it)?.let { file ->
-                    result.add(file)
-                }
-            }
+        return if (file.isFolder) {
+             fileDataStorageManager?.getAllFilesRecursivelyInsideFolder(file) ?: listOf()
         } else {
-            val remotePath = inputData.keyValueMap[FILE_REMOTE_PATH] as String
-            fileDataStorageManager?.getFileByEncryptedRemotePath(remotePath)?.let { file ->
-                result.add(file)
-            }
+            listOf(file)
         }
-
-        return result
     }
 
     private fun getDownloadType(): DownloadType? {

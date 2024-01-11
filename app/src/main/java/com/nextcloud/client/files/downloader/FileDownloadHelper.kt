@@ -130,11 +130,6 @@ class FileDownloadHelper {
         }
     }
 
-    fun downloadFolder(folder: OCFile, user: User, files: List<OCFile>) {
-        val filesPath = files.map { it.remotePath }
-        backgroundJobManager.startFolderDownloadJob(folder, user, filesPath)
-    }
-
     fun downloadFile(user: User, file: OCFile) {
         downloadFile(user, file, downloadType = DownloadType.DOWNLOAD)
     }

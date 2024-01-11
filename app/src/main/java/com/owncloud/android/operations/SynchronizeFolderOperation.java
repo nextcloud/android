@@ -376,19 +376,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
     }
 
-    private void classifyFileForLaterSyncOrDownload(OCFile remoteFile, OCFile localFile)
-            throws OperationCancelledException {
-        if (remoteFile.isFolder()) {
-            /// to download children files recursively
-            synchronized (mCancellationRequested) {
-                if (mCancellationRequested.get()) {
-                    throw new OperationCancelledException();
-                }
-                startSyncFolderOperation(remoteFile.getRemotePath());
-            }
-
-        } else {
-            /// prepare content synchronization for files (any file, not just favorites)
+    private void classifyFileForLaterSyncOrDownload(OCFile remoteFile, OCFile localFile) {
+        if (!remoteFile.isFolder()) {
             SynchronizeFileOperation operation = new SynchronizeFileOperation(
                 localFile,
                 remoteFile,
@@ -405,18 +394,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private void prepareOpsFromLocalKnowledge() throws OperationCancelledException {
         List<OCFile> children = getStorageManager().getFolderContent(mLocalFolder, false);
         for (OCFile child : children) {
-            /// classify file to sync/download contents later
-            if (child.isFolder()) {
-                /// to download children files recursively
-                synchronized(mCancellationRequested) {
-                    if (mCancellationRequested.get()) {
-                        throw new OperationCancelledException();
-                    }
-                    startSyncFolderOperation(child.getRemotePath());
-                }
-
-            } else {
-                /// synchronization for regular files
+            if (!child.isFolder()) {
                 if (!child.isDown()) {
                     mFilesForDirectDownload.add(child);
 
@@ -433,7 +411,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     mFilesToSyncContents.add(operation);
 
                 }
-
             }
         }
     }
@@ -445,9 +422,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
 
     private void startDirectDownloads() {
-        FileDownloadHelper.Companion.instance().downloadFolder(mLocalFolder,
-                                                               user,
-                                                               mFilesForDirectDownload);
+        FileDownloadHelper.Companion.instance().downloadFile(user, mLocalFolder);
     }
 
     /**

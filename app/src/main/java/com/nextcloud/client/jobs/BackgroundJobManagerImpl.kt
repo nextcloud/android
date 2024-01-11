@@ -517,26 +517,6 @@ internal class BackgroundJobManagerImpl(
         return workManager.isWorkScheduled(startFileDownloadJobTag(user, fileId))
     }
 
-    override fun startFolderDownloadJob(folder: OCFile, user: User, filesPath: List<String>) {
-        val data = workDataOf(
-            FileDownloadWorker.WORKER_ID to folder.fileId.toInt(),
-            FileDownloadWorker.ACCOUNT_NAME to user.accountName,
-            FileDownloadWorker.FOLDER_REMOTE_PATH to folder.remotePath,
-            FileDownloadWorker.FILES_REMOTE_PATH to filesPath.joinToString(FileDownloadWorker.FILES_SEPARATOR),
-            FileDownloadWorker.DOWNLOAD_TYPE to DownloadType.DOWNLOAD.toString()
-        )
-
-        val tag = startFileDownloadJobTag(user, folder.fileId)
-
-        val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
-            .addTag(tag)
-            .setInputData(data)
-            .build()
-
-        workManager
-            .enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, request)
-    }
-
     override fun startFileDownloadJob(
         user: User,
         file: OCFile,

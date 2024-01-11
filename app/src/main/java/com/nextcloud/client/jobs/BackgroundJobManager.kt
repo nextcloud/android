@@ -160,12 +160,6 @@ interface BackgroundJobManager {
         conflictUploadId: Long?
     )
 
-    fun startFolderDownloadJob(
-        folder: OCFile,
-        user: User,
-        filesPath: List<String>
-    )
-
     fun startPdfGenerateAndUploadWork(user: User, uploadFolder: String, imagePaths: List<String>, pdfPath: String)
 
     fun scheduleTestJob()
