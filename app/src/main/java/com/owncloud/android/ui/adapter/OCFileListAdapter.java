@@ -220,12 +220,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void setFavoriteAttributeForItemID(String remotePath, boolean favorite, boolean removeFromList) {
+        List<OCFile> filesToDelete = new ArrayList<>();
         for (OCFile file : mFiles) {
             if (file.getRemotePath().equals(remotePath)) {
                 file.setFavorite(favorite);
 
                 if (removeFromList) {
-                    mFiles.remove(file);
+                    filesToDelete.add(file);
                 }
 
                 break;
@@ -239,7 +240,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 mStorageManager.saveFile(file);
 
                 if (removeFromList) {
-                    mFiles.remove(file);
+                    filesToDelete.add(file);
                 }
 
                 break;
@@ -255,7 +256,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFiles = sortOrder.sortCloudFiles(mFiles);
         }
 
-        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
+        new Handler(Looper.getMainLooper()).post(() -> {
+            mFiles.removeAll(filesToDelete);
+            notifyDataSetChanged();
+        });
     }
 
     public void refreshCommentsCount(String fileId) {
