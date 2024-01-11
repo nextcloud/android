@@ -180,6 +180,27 @@ public class FileDataStorageManager {
         return fileDao.getFileByEncryptedRemotePath(path, user.getAccountName()) != null;
     }
 
+    public long getTopParentId(OCFile file) {
+        if (file.getParentId() == 1) {
+            return file.getFileId();
+        }
+
+        return getTopParentIdRecursive(file);
+    }
+
+    private long getTopParentIdRecursive(OCFile file) {
+        if (file.getParentId() == 1) {
+            return file.getFileId();
+        }
+
+        OCFile parentFile = getFileById(file.getParentId());
+        if (parentFile != null) {
+            return getTopParentId(parentFile);
+        }
+
+        return file.getFileId();
+    }
+
     public List<OCFile> getAllFilesRecursivelyInsideFolder(OCFile file) {
         ArrayList<OCFile> result = new ArrayList<>();
 
