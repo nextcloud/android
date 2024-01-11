@@ -118,7 +118,7 @@ class FileDownloadWorker(
     private var fileDataStorageManager: FileDataStorageManager? = null
 
     private var workerId: Int? = null
-    private var isAnyOperationFailed = false
+    private var downloadError: FileDownloadError? = null
 
     @Suppress("TooGenericExceptionCaught")
     override fun doWork(): Result {
@@ -140,7 +140,8 @@ class FileDownloadWorker(
                 downloadFile(it)
             }
 
-            if (isAnyOperationFailed) {
+            downloadError?.let {
+                showDownloadErrorNotification(it)
                 notificationManager.dismissNotification()
             }
 
@@ -182,7 +183,6 @@ class FileDownloadWorker(
         workerId = inputData.keyValueMap[WORKER_ID] as Int
         Log_OC.e(TAG, "FilesDownloadWorker started for $workerId")
 
-        isAnyOperationFailed = false
         setUser()
         val files = getFiles()
         val downloadType = getDownloadType()
@@ -339,7 +339,7 @@ class FileDownloadWorker(
 
     private fun cleanupDownloadProcess(result: RemoteOperationResult<*>?, fileName: String?) {
         result?.let {
-            showFailedDownloadNotifications(it, fileName)
+            checkDownloadError(it, fileName)
         }
 
         val removeResult = pendingDownloads.removePayload(
@@ -362,26 +362,29 @@ class FileDownloadWorker(
         }
     }
 
-    private fun showFailedDownloadNotifications(result: RemoteOperationResult<*>, fileName: String?) {
-        if (result.isSuccess) {
+    private fun checkDownloadError(result: RemoteOperationResult<*>, fileName: String?) {
+        if (result.isSuccess || downloadError != null) {
             return
         }
 
-        isAnyOperationFailed = true
-
-        val failMessage = if (result.isCancelled) {
-            context.getString(
-                R.string.downloader_file_download_cancelled,
-                fileName
-            )
+        downloadError = if (result.isCancelled) {
+            FileDownloadError.Cancelled
         } else {
-            context.getString(
-                R.string.downloader_file_download_failed,
-                fileName
-            )
+            FileDownloadError.Failed
+        }
+    }
+
+    private fun showDownloadErrorNotification(downloadError: FileDownloadError) {
+        val text = when (downloadError) {
+            FileDownloadError.Cancelled -> {
+                context.getString(R.string.downloader_file_download_cancelled)
+            }
+            FileDownloadError.Failed -> {
+                context.getString(R.string.downloader_file_download_failed)
+            }
         }
 
-        notificationManager.showNewNotification(failMessage)
+        notificationManager.showNewNotification(text)
     }
 
     private fun notifyDownloadResult(

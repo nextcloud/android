@@ -52,7 +52,7 @@ class DownloadNotificationManager(
 
     init {
         notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
-            setContentTitle(context.resources.getString(R.string.app_name))
+            setContentTitle(context.getString(R.string.downloader_download_in_progress_ticker))
             setSmallIcon(R.drawable.notification_icon)
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
 
