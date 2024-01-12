@@ -104,7 +104,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     private final Handler handler = new Handler();
     private String accountName;
     private UserListAdapter userListAdapter;
-    private ServiceConnection uploadServiceConnection;
     private Set<String> originalUsers;
     private String originalCurrentUser;
 
@@ -349,16 +348,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                 onBackPressed();
             }
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (uploadServiceConnection != null) {
-            unbindService(uploadServiceConnection);
-            uploadServiceConnection = null;
-        }
-
-        super.onDestroy();
     }
 
     public Handler getHandler() {

@@ -108,7 +108,7 @@ class FileDownloadWorker(
     private var lastPercent = 0
 
     private val intents = FileDownloadIntents(context)
-    private lateinit var notificationManager: com.nextcloud.client.jobs.download.DownloadNotificationManager
+    private lateinit var notificationManager: DownloadNotificationManager
     private var downloadProgressListener = FileDownloadProgressListener()
 
     private var user: User? = null
@@ -126,7 +126,7 @@ class FileDownloadWorker(
             val requestDownloads = getRequestDownloads()
 
             notificationManager =
-                com.nextcloud.client.jobs.download.DownloadNotificationManager(
+                DownloadNotificationManager(
                     workerId ?: SecureRandom().nextInt(),
                     context,
                     viewThemeUtils
@@ -267,7 +267,7 @@ class FileDownloadWorker(
         am.addOnAccountsUpdatedListener(this, null, false)
     }
 
-    @Suppress("TooGenericExceptionCaught")
+    @Suppress("TooGenericExceptionCaught", "DEPRECATION")
     private fun downloadFile(downloadKey: String) {
         currentDownload = pendingDownloads.get(downloadKey)
 
@@ -314,6 +314,7 @@ class FileDownloadWorker(
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun getOCAccountForDownload(): OwnCloudAccount {
         val currentDownloadAccount = currentDownload?.user?.toPlatformAccount()
         val currentDownloadUser = accountManager.getUser(currentDownloadAccount?.name)
@@ -413,6 +414,7 @@ class FileDownloadWorker(
         }
     }
 
+    @Suppress("DEPRECATION")
     override fun onAccountsUpdated(accounts: Array<out Account>?) {
         if (!accountManager.exists(currentDownload?.user?.toPlatformAccount())) {
             currentDownload?.cancel()
