@@ -22,7 +22,6 @@ package com.owncloud.android.ui.activity;
  */
 
 import android.content.Intent;
-import android.view.View;
 
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;

@@ -31,11 +31,11 @@ import android.view.Menu;
 import com.nextcloud.android.files.FileLockingHelper;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.editimage.EditImageActivity;
+import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
@@ -380,9 +380,8 @@ public class FileMenuFilter {
         if (componentsGetter != null && !files.isEmpty() && user != null) {
             OperationsServiceBinder opsBinder = componentsGetter.getOperationsServiceBinder();
             FileUploaderBinder uploaderBinder = componentsGetter.getFileUploaderBinder();
-            FileDownloaderBinder downloaderBinder = componentsGetter.getFileDownloaderBinder();
             synchronizing = anyFileSynchronizing(opsBinder) ||      // comparing local and remote
-                            anyFileDownloading(downloaderBinder) ||
+                            anyFileDownloading() ||
                             anyFileUploading(uploaderBinder);
         }
         return synchronizing;
@@ -398,14 +397,14 @@ public class FileMenuFilter {
         return synchronizing;
     }
 
-    private boolean anyFileDownloading(FileDownloaderBinder downloaderBinder) {
-        boolean downloading = false;
-        if (downloaderBinder != null) {
-            for (Iterator<OCFile> iterator = files.iterator(); !downloading && iterator.hasNext(); ) {
-                downloading = downloaderBinder.isDownloading(user, iterator.next());
+    private boolean anyFileDownloading() {
+        for (OCFile file : files) {
+            if (FileDownloadHelper.Companion.instance().isDownloading(user, file)) {
+                return true;
             }
         }
-        return downloading;
+
+        return false;
     }
 
     private boolean anyFileUploading(FileUploaderBinder uploaderBinder) {

@@ -44,6 +44,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
@@ -57,7 +58,6 @@ import com.owncloud.android.databinding.FileDetailsFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -502,7 +502,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * TODO Remove parameter when the transferring state of files is kept in database.
      *
      * @param transferring Flag signaling if the file should be considered as downloading or uploading, although
-     *                     {@link FileDownloaderBinder#isDownloading(User, OCFile)}  and
+     *                     {@link FileDownloadHelper#isDownloading(User, OCFile)}  and
      *                     {@link FileUploaderBinder#isUploading(User, OCFile)} return false.
      * @param refresh      If 'true', try to refresh the whole file from the database
      */
@@ -534,10 +534,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             setFavoriteIconStatus(file.isFavorite());
 
             // configure UI for depending upon local state of the file
-            FileDownloaderBinder downloaderBinder = containerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = containerActivity.getFileUploaderBinder();
             if (transferring
-                || (downloaderBinder != null && downloaderBinder.isDownloading(user, file))
+                || (FileDownloadHelper.Companion.instance().isDownloading(user, file))
                 || (uploaderBinder != null && uploaderBinder.isUploading(user, file))) {
                 setButtonsForTransferring();
 
@@ -659,10 +658,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             // show the progress bar for the transfer
             binding.progressBlock.setVisibility(View.VISIBLE);
             binding.progressText.setVisibility(View.VISIBLE);
-            FileDownloaderBinder downloaderBinder = containerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = containerActivity.getFileUploaderBinder();
-            //if (getFile().isDownloading()) {
-            if (downloaderBinder != null && downloaderBinder.isDownloading(user, getFile())) {
+            if (FileDownloadHelper.Companion.instance().isDownloading(user, getFile())) {
                 binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
             } else {
                 if (uploaderBinder != null && uploaderBinder.isUploading(user, getFile())) {
@@ -694,9 +691,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     public void listenForTransferProgress() {
         if (progressListener != null) {
-            if (containerActivity.getFileDownloaderBinder() != null) {
-                containerActivity.getFileDownloaderBinder().
-                    addDatatransferProgressListener(progressListener, getFile());
+            if (containerActivity.getFileDownloadProgressListener() != null) {
+                containerActivity.getFileDownloadProgressListener().
+                    addDataTransferProgressListener(progressListener, getFile());
             }
             if (containerActivity.getFileUploaderBinder() != null) {
                 containerActivity.getFileUploaderBinder().
@@ -709,9 +706,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void leaveTransferProgress() {
         if (progressListener != null) {
-            if (containerActivity.getFileDownloaderBinder() != null) {
-                containerActivity.getFileDownloaderBinder().
-                    removeDatatransferProgressListener(progressListener, getFile());
+            if (containerActivity.getFileDownloadProgressListener() != null) {
+                containerActivity.getFileDownloadProgressListener().
+                    removeDataTransferProgressListener(progressListener, getFile());
             }
             if (containerActivity.getFileUploaderBinder() != null) {
                 containerActivity.getFileUploaderBinder().

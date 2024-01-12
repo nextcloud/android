@@ -24,7 +24,7 @@ import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.etm.EtmActivity;
 import com.nextcloud.client.etm.pages.EtmBackgroundJobsFragment;
-import com.nextcloud.client.files.downloader.FileTransferService;
+import com.nextcloud.client.files.transfer.FileTransferService;
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl;
 import com.nextcloud.client.jobs.NotificationWork;
 import com.nextcloud.client.jobs.TestJob;
@@ -46,7 +46,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.DeepLinkLoginActivity;
 import com.owncloud.android.files.BootupBroadcastReceiver;
-import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.providers.DiskLruImageCacheFileProvider;
 import com.owncloud.android.providers.DocumentsStorageProvider;
@@ -323,9 +322,6 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract FileUploader fileUploader();
-
-    @ContributesAndroidInjector
-    abstract FileDownloader fileDownloader();
 
     @ContributesAndroidInjector
     abstract BootupBroadcastReceiver bootupBroadcastReceiver();
