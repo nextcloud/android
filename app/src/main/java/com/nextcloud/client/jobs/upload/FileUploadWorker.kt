@@ -37,7 +37,6 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.java.util.Optional
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
-import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -340,32 +339,27 @@ class FileUploadWorker(
             return
         }
 
-        val needsToUpdateCredentials = (uploadResult.code == ResultCode.UNAUTHORIZED)
         notificationManager.run {
-            val resultIntent = intents.resultIntent(ResultCode.OK, uploadFileOperation)
-            val credentialIntent: PendingIntent? = if (needsToUpdateCredentials) {
+            val credentialIntent: PendingIntent? = if (uploadResult.code == ResultCode.UNAUTHORIZED) {
                 intents.credentialIntent(uploadFileOperation)
             } else {
                 null
             }
 
-            val errorMessage = if (!uploadResult.isSuccess) {
-                ErrorMessageAdapter.getErrorCauseMessage(uploadResult, uploadFileOperation, context.resources)
+            if (uploadResult.isSuccess) {
+                val resultIntent = intents.resultIntent(ResultCode.OK, uploadFileOperation)
+                notifyForResult(uploadResult.code, resultIntent, credentialIntent)
+                showNotification()
             } else {
-                null
-            }
+                val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, uploadFileOperation, context.resources)
 
-            notifyForResult(uploadResult.code, resultIntent, credentialIntent, errorMessage)
-
-            if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
-                addAction(
-                    R.drawable.ic_cloud_upload,
-                    R.string.upload_list_resolve_conflict,
+                // FIXME SYNC_CONFLICT passes wrong OCFile, check ConflictsResolveActivity.createIntent usage
+                val conflictResolveIntent = if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
                     intents.conflictResolveActionIntents(context, uploadFileOperation)
-                )
-            }
-
-            if (!uploadResult.isSuccess) {
+                } else {
+                    null
+                }
+                notifyForFailedResult(conflictResolveIntent, credentialIntent, errorMessage)
                 showNewNotification(uploadFileOperation)
             }
         }

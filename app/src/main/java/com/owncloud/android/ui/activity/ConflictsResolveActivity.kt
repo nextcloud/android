@@ -191,7 +191,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         if (prev != null) {
             fragmentTransaction.remove(prev)
         }
-        if (existingFile != null && storageManager.fileExists(newFile!!.remotePath)) {
+        if (existingFile != null && storageManager.fileExists(newFile?.remotePath)) {
             val dialog = ConflictsResolveDialog.newInstance(
                 existingFile,
                 newFile,

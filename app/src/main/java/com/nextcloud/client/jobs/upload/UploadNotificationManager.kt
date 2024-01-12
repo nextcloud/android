@@ -32,6 +32,7 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.files.FileUtils
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.ui.dialog.ConflictsResolveDialog
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
@@ -95,8 +96,7 @@ class UploadNotificationManager(private val context: Context, private val viewTh
     fun notifyForResult(
         resultCode: RemoteOperationResult.ResultCode,
         resultIntent: PendingIntent,
-        credentialIntent: PendingIntent?,
-        errorMessage: String?
+        credentialIntent: PendingIntent?
     ) {
         val textId = resultText(resultCode)
 
@@ -112,10 +112,6 @@ class UploadNotificationManager(private val context: Context, private val viewTh
             credentialIntent?.let {
                 setContentIntent(it)
             }
-
-            errorMessage?.let {
-                setContentText(it)
-            }
         }
     }
 
@@ -128,6 +124,30 @@ class UploadNotificationManager(private val context: Context, private val viewTh
             R.string.uploader_upload_failed_sync_conflict_error
         } else {
             R.string.uploader_upload_failed_ticker
+        }
+    }
+
+    fun notifyForFailedResult(
+        conflictsResolveIntent: PendingIntent?,
+        credentialIntent: PendingIntent?,
+        errorMessage: String
+    ) {
+        notificationBuilder.run {
+            setProgress(0, 0, false)
+
+            conflictsResolveIntent?.let {
+                addAction(
+                    R.drawable.ic_cloud_upload,
+                    R.string.upload_list_resolve_conflict,
+                    it
+                )
+            }
+
+            credentialIntent?.let {
+                setContentIntent(it)
+            }
+
+            setContentText(errorMessage)
         }
     }
 
