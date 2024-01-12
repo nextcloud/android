@@ -121,9 +121,7 @@ class FileUploadHelper {
 
     @Suppress("ReturnCount")
     fun isUploading(user: User?, file: OCFile?): Boolean {
-        if (user == null || file == null || !MainApp.getAppContext()
-                .isWorkScheduled(BackgroundJobManagerImpl.JOB_FILES_UPLOAD)
-        ) {
+        if (user == null || file == null || !backgroundJobManager.isStartFileUploadJobScheduled(user)) {
             return false
         }
 

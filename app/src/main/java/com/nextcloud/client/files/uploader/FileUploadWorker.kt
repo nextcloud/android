@@ -216,9 +216,9 @@ class FileUploadWorker(
             return
         }
 
-        val (tickerId, needsToUpdateCredentials) = getTickerId(uploadResult.code)
+        val needsToUpdateCredentials = (uploadResult.code == ResultCode.UNAUTHORIZED)
         notificationManager.run {
-            notifyForResult(tickerId)
+            notifyForResult(uploadResult.code)
             setContentIntent(intents.resultIntent(ResultCode.OK, uploadFileOperation))
 
             if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
@@ -242,20 +242,6 @@ class FileUploadWorker(
 
             showNotificationTag(uploadFileOperation)
         }
-    }
-
-    private fun getTickerId(resultCode: ResultCode): Pair<Int, Boolean> {
-        var tickerId = R.string.uploader_upload_failed_ticker
-
-        val needsToUpdateCredentials = (resultCode == ResultCode.UNAUTHORIZED)
-
-        if (needsToUpdateCredentials) {
-            tickerId = R.string.uploader_upload_failed_credentials_error
-        } else if (resultCode == ResultCode.SYNC_CONFLICT) {
-            tickerId = R.string.uploader_upload_failed_sync_conflict_error
-        }
-
-        return Pair(tickerId, needsToUpdateCredentials)
     }
 
     override fun onTransferProgress(

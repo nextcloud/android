@@ -28,6 +28,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import androidx.core.app.NotificationCompat
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.files.FileUtils
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
@@ -51,8 +52,8 @@ class UploadNotificationManager(private val context: Context, private val viewTh
 
     private fun initNotificationBuilder() {
         notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
-            setContentTitle(context.resources.getString(R.string.app_name))
-            setContentText(context.resources.getString(R.string.foreground_service_upload))
+            setContentTitle(context.getString(R.string.app_name))
+            setContentText(context.getString(R.string.worker_upload))
             setSmallIcon(R.drawable.notification_icon)
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
             setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
@@ -91,14 +92,30 @@ class UploadNotificationManager(private val context: Context, private val viewTh
         }
     }
 
-    fun notifyForResult(tickerId: Int) {
+    fun notifyForResult(resultCode: RemoteOperationResult.ResultCode) {
+        val textId = resultText(resultCode)
+
         notificationBuilder
-            .setTicker(context.getString(tickerId))
-            .setContentTitle(context.getString(tickerId))
+            .setTicker(context.getString(textId))
+            .setContentTitle(context.getString(textId))
             .setAutoCancel(true)
             .setOngoing(false)
             .setProgress(0, 0, false)
             .clearActions()
+    }
+
+    private fun resultText(resultCode: RemoteOperationResult.ResultCode): Int {
+        var result = R.string.uploader_upload_failed_ticker
+
+        val needsToUpdateCredentials = (resultCode == RemoteOperationResult.ResultCode.UNAUTHORIZED)
+
+        if (needsToUpdateCredentials) {
+            result = R.string.uploader_upload_failed_credentials_error
+        } else if (resultCode == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+            result = R.string.uploader_upload_failed_sync_conflict_error
+        }
+
+        return result
     }
 
     fun setContentIntent(pendingIntent: PendingIntent) {
