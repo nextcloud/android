@@ -38,12 +38,10 @@ import com.nextcloud.client.utils.FileUploaderDelegate
 import com.nextcloud.java.util.Optional
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
-import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
@@ -73,6 +71,7 @@ class FilesUploadWorker(
     private val notificationManager = UploadNotificationManager(context, viewThemeUtils)
     private val intents = FileUploaderIntents(context)
     private val fileUploaderDelegate = FileUploaderDelegate()
+    private val helper = FilesUploadHelper()
 
     override fun doWork(): Result {
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
@@ -282,6 +281,7 @@ class FilesUploadWorker(
 
     companion object {
         val TAG: String = FilesUploadWorker::class.java.simpleName
+
         const val NOTIFICATION_ERROR_ID: Int = 413
         private const val MAX_PROGRESS: Int = 100
         const val ACCOUNT = "data_account"
@@ -305,28 +305,6 @@ class FilesUploadWorker(
         const val LOCAL_BEHAVIOUR_FORGET = 2
         const val LOCAL_BEHAVIOUR_DELETE = 3
 
-        fun uploadUpdateFile(
-            context: Context?,
-            user: User,
-            existingFiles: Array<OCFile?>?,
-            behaviour: Int?,
-            nameCollisionPolicy: NameCollisionPolicy?,
-            disableRetries: Boolean
-        ) {
-            FilesUploadHelper().uploadUpdatedFile(user, existingFiles!!, behaviour!!, nameCollisionPolicy!!)
-        }
-
-        /**
-         * Retry a failed [OCUpload] identified by [OCUpload.getRemotePath]
-         */
-        fun retryUpload(
-            context: Context,
-            user: User,
-            upload: OCUpload
-        ) {
-            FilesUploadHelper().retryUpload(upload, user)
-        }
-
         @Suppress("ComplexCondition")
         fun retryFailedUploads(
             context: Context,
@@ -336,9 +314,10 @@ class FilesUploadWorker(
             powerManagementService: PowerManagementService
         ) {
             val failedUploads = uploadsStorageManager.failedUploads
-            if (failedUploads == null || failedUploads.size == 0) {
-                return // nothing to do
+            if (failedUploads == null || failedUploads.isEmpty()) {
+                return
             }
+
             val (gotNetwork, _, gotWifi) = connectivityService.connectivity
             val batteryStatus = powerManagementService.battery
             val charging = batteryStatus.isCharging || batteryStatus.isFull
@@ -360,7 +339,7 @@ class FilesUploadWorker(
                     canUploadBeRetried(failedUpload, gotWifi, charging) && !connectivityService.isInternetWalled
                 ) {
                     // 2B. for existing local files, try restarting it if possible
-                    retryUpload(context, uploadUser.get(), failedUpload)
+                    FilesUploadHelper().retryUpload(failedUpload, uploadUser.get())
                 }
             }
         }

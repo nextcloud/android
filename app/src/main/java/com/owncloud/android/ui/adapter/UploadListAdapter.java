@@ -374,7 +374,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 File file = new File(item.getLocalPath());
                 Optional<User> user = accountManager.getUser(item.getAccountName());
                 if (file.exists() && user.isPresent()) {
-                    FilesUploadWorker.Companion.retryUpload(parentActivity, user.get(), item);
+                    new FilesUploadHelper().retryUpload(item, user.get());
                     loadUploadItemsFromDb();
                 } else {
                     DisplayUtils.showSnackMessage(
