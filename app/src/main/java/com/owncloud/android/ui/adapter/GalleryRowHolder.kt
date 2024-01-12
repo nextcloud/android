@@ -97,7 +97,6 @@ class GalleryRowHolder(
         val placeholder = ContextCompat.getDrawable(context, R.drawable.file_image)
 
         val thumbnail = ImageView(context).apply {
-            LinearLayout.LayoutParams(defaultThumbnailSize.toInt(), defaultThumbnailSize.toInt())
             setImageDrawable(placeholder)
         }
 
@@ -148,7 +147,7 @@ class GalleryRowHolder(
     }
 
     private fun getSize(file: OCFile, shrinkRatio: Float): Pair<Int, Int> {
-        val imageDimension = file.imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
+        val imageDimension = file.imageDimension ?: defaultImageDimension
         val height = (imageDimension.height * shrinkRatio).toInt()
         val width = (imageDimension.width * shrinkRatio).toInt()
         return Pair(width, height)
@@ -158,7 +157,7 @@ class GalleryRowHolder(
         val linearLayout = binding.rowLayout[index] as LinearLayout
         val thumbnail = (linearLayout[0] as ImageView).apply {
             adjustViewBounds = true
-            scaleType = ImageView.ScaleType.FIT_CENTER
+            scaleType = ImageView.ScaleType.FIT_XY
         }
 
         val (width, height) = size
@@ -170,9 +169,7 @@ class GalleryRowHolder(
             .using(CustomGlideStreamLoader(user, clientFactory))
             .load(imageUrl)
             .asBitmap()
-            .fitCenter()
             .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-            .override(width, height)
             .placeholder(placeholder)
             .dontAnimate()
             .into(thumbnail)
