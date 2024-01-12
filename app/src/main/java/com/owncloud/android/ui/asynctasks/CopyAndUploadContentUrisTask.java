@@ -36,7 +36,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.FilesUploadHelper;
+import com.nextcloud.client.files.uploader.FileUploadHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -247,7 +247,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
     }
 
     private void requestUpload(User user, String localPath, String remotePath, int behaviour) {
-        new FilesUploadHelper().uploadNewFiles(
+        new FileUploadHelper().uploadNewFiles(
             user,
             new String[]{ localPath },
             new String[]{ remotePath },

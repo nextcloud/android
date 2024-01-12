@@ -34,7 +34,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.utils.FilesUploadHelper;
+import com.nextcloud.client.files.uploader.FileUploadHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
@@ -183,7 +183,7 @@ public class OCUpload implements Parcelable {
         folderUnlockToken = "";
     }
 
-    public void setDataFixed(FilesUploadHelper uploadHelper) {
+    public void setDataFixed(FileUploadHelper uploadHelper) {
         fixedUploadStatus = uploadStatus;
         fixedUploadingNow = uploadHelper != null && uploadHelper.isUploadingNow(this);
         fixedUploadEndTimeStamp = uploadEndTimestamp;

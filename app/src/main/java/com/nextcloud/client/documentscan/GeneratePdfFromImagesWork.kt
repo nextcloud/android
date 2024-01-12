@@ -39,7 +39,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.utils.FilesUploadHelper
+import com.nextcloud.client.files.uploader.FileUploadHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.security.SecureRandom
@@ -123,7 +123,7 @@ class GeneratePdfFromImagesWork(
     private fun uploadFile(user: User, uploadFolder: String, pdfPath: String) {
         val uploadPath = uploadFolder + OCFile.PATH_SEPARATOR + File(pdfPath).name
 
-        FilesUploadHelper().uploadNewFiles(
+        FileUploadHelper().uploadNewFiles(
             user,
             arrayOf(pdfPath),
             arrayOf(uploadPath),

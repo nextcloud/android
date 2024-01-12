@@ -44,7 +44,7 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.FilesUploadHelper
+import com.nextcloud.client.files.uploader.FileUploadHelper
 import com.owncloud.android.utils.MimeType
 import java.io.File
 
@@ -112,7 +112,7 @@ class EditImageActivity :
             resultUri?.substring(resultUri.lastIndexOf('.'))
 
         resultUri?.let {
-            FilesUploadHelper().uploadNewFiles(
+            FileUploadHelper().uploadNewFiles(
                 user = storageManager.user,
                 localPaths = arrayOf(it),
                 remotePaths = arrayOf(file.parentRemotePath + File.separator + newFileName),

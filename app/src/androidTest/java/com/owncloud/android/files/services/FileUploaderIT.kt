@@ -37,7 +37,7 @@ import com.owncloud.android.lib.common.operations.OperationCancelledException
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.UploadFileOperation
-import com.owncloud.android.utils.FilesUploadHelper
+import com.nextcloud.client.files.uploader.FileUploadHelper
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
@@ -140,7 +140,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     fun testKeepLocalAndOverwriteRemoteStatic() {
         val file = getDummyFile("chunkedFile.txt")
 
-        FilesUploadHelper().uploadNewFiles(
+        FileUploadHelper().uploadNewFiles(
             user,
             arrayOf(file.absolutePath),
             arrayOf("/testFile.txt"),
@@ -162,7 +162,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val ocFile2 = OCFile("/testFile.txt")
         ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
 
-        FilesUploadHelper().uploadUpdatedFile(
+        FileUploadHelper().uploadUpdatedFile(
             user,
             arrayOf(ocFile2),
             FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
@@ -256,7 +256,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     fun testKeepBothStatic() {
         val file = getDummyFile("nonEmpty.txt")
 
-        FilesUploadHelper().uploadNewFiles(
+        FileUploadHelper().uploadNewFiles(
             user,
             arrayOf(file.absolutePath),
             arrayOf("/testFile.txt"),
@@ -278,7 +278,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val ocFile2 = OCFile("/testFile.txt")
         ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
 
-        FilesUploadHelper().uploadUpdatedFile(
+        FileUploadHelper().uploadUpdatedFile(
             user,
             arrayOf(ocFile2),
             FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
@@ -364,7 +364,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     fun testKeepServerStatic() {
         val file = getDummyFile("chunkedFile.txt")
 
-        FilesUploadHelper().uploadNewFiles(
+        FileUploadHelper().uploadNewFiles(
             user,
             arrayOf(file.absolutePath),
             arrayOf("/testFile.txt"),
@@ -386,7 +386,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val ocFile2 = OCFile("/testFile.txt")
         ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
 
-        FilesUploadHelper().uploadUpdatedFile(
+        FileUploadHelper().uploadUpdatedFile(
             user,
             arrayOf(ocFile2),
             FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
@@ -468,7 +468,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     fun testKeepCancelStatic() {
         val file = getDummyFile("chunkedFile.txt")
 
-        FilesUploadHelper().uploadNewFiles(
+        FileUploadHelper().uploadNewFiles(
             user,
             arrayOf(file.absolutePath),
             arrayOf("/testFile.txt"),
@@ -490,7 +490,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val ocFile2 = OCFile("/testFile.txt")
         ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
 
-        FilesUploadHelper().uploadUpdatedFile(
+        FileUploadHelper().uploadUpdatedFile(
             user,
             arrayOf(ocFile2),
             FileUploadWorker.LOCAL_BEHAVIOUR_COPY,

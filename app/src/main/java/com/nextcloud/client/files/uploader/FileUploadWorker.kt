@@ -48,7 +48,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.utils.ErrorMessageAdapter
-import com.owncloud.android.utils.FilesUploadHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 
@@ -270,8 +269,8 @@ class FileUploadWorker(
 
             if (accountName != null && remotePath != null) {
                 val key: String =
-                    FilesUploadHelper.buildRemoteName(accountName, remotePath)
-                val boundListener = FilesUploadHelper.mBoundListeners[key]
+                    FileUploadHelper.buildRemoteName(accountName, remotePath)
+                val boundListener = FileUploadHelper.mBoundListeners[key]
 
                 boundListener?.onTransferProgress(
                     progressRate,
@@ -350,7 +349,7 @@ class FileUploadWorker(
                     canUploadBeRetried(failedUpload, gotWifi, charging) && !connectivityService.isInternetWalled
                 ) {
                     // 2B. for existing local files, try restarting it if possible
-                    FilesUploadHelper().retryUpload(failedUpload, uploadUser.get())
+                    FileUploadHelper().retryUpload(failedUpload, uploadUser.get())
                 }
             }
         }
@@ -389,7 +388,7 @@ class FileUploadWorker(
                         return
                     }
 
-                    val uploadHelper = FilesUploadHelper()
+                    val uploadHelper = FileUploadHelper()
                     uploadHelper.cancelFileUpload(remotePath, accountName)
                 }
             }

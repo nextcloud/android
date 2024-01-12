@@ -36,7 +36,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.helpers.FileOperationsHelper
-import com.owncloud.android.utils.FilesUploadHelper
+import com.nextcloud.client.files.uploader.FileUploadHelper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -184,7 +184,7 @@ class DocumentScanViewModel @Inject constructor(
             uploadFolder + OCFile.PATH_SEPARATOR + File(it).name
         }.toTypedArray()
 
-        FilesUploadHelper().uploadNewFiles(
+        FileUploadHelper().uploadNewFiles(
             currentAccountProvider.user,
             pageList.toTypedArray(),
             uploadPaths,

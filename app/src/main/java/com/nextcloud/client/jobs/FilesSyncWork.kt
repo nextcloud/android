@@ -52,7 +52,7 @@ import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FilesSyncHelper
-import com.owncloud.android.utils.FilesUploadHelper
+import com.nextcloud.client.files.uploader.FileUploadHelper
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
@@ -210,7 +210,7 @@ class FilesSyncWork(
             uploadAction = syncedFolder.uploadAction
         }
 
-        FilesUploadHelper().uploadNewFiles(
+        FileUploadHelper().uploadNewFiles(
             user,
             localPaths,
             remotePaths,

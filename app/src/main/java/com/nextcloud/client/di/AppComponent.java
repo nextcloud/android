@@ -36,7 +36,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.media.MediaControlView;
 import com.owncloud.android.ui.ThemeableSwitchPreference;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
-import com.owncloud.android.utils.FilesUploadHelper;
+import com.nextcloud.client.files.uploader.FileUploadHelper;
 
 import javax.inject.Singleton;
 
@@ -70,7 +70,7 @@ public interface AppComponent {
 
     void inject(ThemeableSwitchPreference switchPreference);
 
-    void inject(FilesUploadHelper filesUploadHelper);
+    void inject(FileUploadHelper fileUploadHelper);
 
     void inject(FileDownloadHelper fileDownloadHelper);
 

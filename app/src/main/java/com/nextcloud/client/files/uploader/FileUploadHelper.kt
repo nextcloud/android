@@ -1,10 +1,9 @@
 /*
- *
  * Nextcloud Android client application
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2022 Tobias Kaminsky
- * Copyright (C) 2022 Nextcloud GmbH
+ * @author Alper Ozturk
+ * Copyright (C) 2023 Alper Ozturk
+ * Copyright (C) 2023 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,11 +19,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.utils
+package com.nextcloud.client.files.uploader
 
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.files.uploader.FileUploadWorker
 import com.nextcloud.client.files.uploader.FileUploadWorker.Companion.currentUploadFileOperation
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
@@ -40,7 +38,8 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions")
-class FilesUploadHelper {
+class FileUploadHelper {
+
     @Inject
     lateinit var backgroundJobManager: BackgroundJobManager
 

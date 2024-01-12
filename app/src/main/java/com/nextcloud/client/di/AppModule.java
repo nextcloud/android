@@ -41,6 +41,8 @@ import com.nextcloud.client.core.ClockImpl;
 import com.nextcloud.client.core.ThreadPoolAsyncRunner;
 import com.nextcloud.client.database.dao.ArbitraryDataDao;
 import com.nextcloud.client.device.DeviceInfo;
+import com.nextcloud.client.files.uploader.FileUploadHelper;
+import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.logger.FileLogHandler;
 import com.nextcloud.client.logger.Logger;
 import com.nextcloud.client.logger.LoggerImpl;

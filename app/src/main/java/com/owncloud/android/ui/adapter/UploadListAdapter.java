@@ -67,7 +67,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.FilesUploadHelper;
+import com.nextcloud.client.files.uploader.FileUploadHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -95,7 +95,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private final ViewThemeUtils viewThemeUtils;
     private NotificationManager mNotificationManager;
 
-    private final FilesUploadHelper uploadHelper = new FilesUploadHelper();
+    private final FileUploadHelper uploadHelper = new FileUploadHelper();
 
     @Override
     public int getSectionCount() {
@@ -279,12 +279,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                             return;
                         }
 
-                        String targetKey = FilesUploadHelper.Companion.buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
+                        String targetKey = FileUploadHelper.Companion.buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
                         uploadHelper.removeUploadTransferProgressListener(progressListener, targetKey);
                     }
                     // ... then, bind the current progress bar to listen for updates
                     progressListener = new ProgressListener(item, itemViewHolder.binding.uploadProgressBar);
-                    String targetKey = FilesUploadHelper.Companion.buildRemoteName(item.getAccountName(), item.getRemotePath());
+                    String targetKey = FileUploadHelper.Companion.buildRemoteName(item.getAccountName(), item.getRemotePath());
                     uploadHelper.addUploadTransferProgressListener(progressListener, targetKey);
                 } else {
                     // not really uploading; stop listening progress if view is reused!
@@ -296,7 +296,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                             return;
                         }
 
-                        String targetKey = FilesUploadHelper.Companion.buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
+                        String targetKey = FileUploadHelper.Companion.buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
 
                         uploadHelper.removeUploadTransferProgressListener(progressListener, targetKey);
                         progressListener = null;
