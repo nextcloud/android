@@ -24,7 +24,7 @@ package com.owncloud.android.ui.adapter
 
 import android.content.Context
 import com.nextcloud.client.account.User
-import com.nextcloud.client.files.uploader.FileUploadHelper
+import com.nextcloud.client.files.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems

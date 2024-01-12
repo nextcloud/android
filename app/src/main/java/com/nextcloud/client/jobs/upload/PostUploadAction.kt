@@ -17,9 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.files.upload
-
-import com.nextcloud.client.files.uploader.FileUploadWorker
+package com.nextcloud.client.jobs.upload
 
 enum class PostUploadAction(val value: Int) {
     NONE(FileUploadWorker.LOCAL_BEHAVIOUR_FORGET),

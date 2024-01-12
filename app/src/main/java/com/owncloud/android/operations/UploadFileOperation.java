@@ -29,7 +29,7 @@ import android.text.TextUtils;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
-import com.nextcloud.client.files.uploader.FileUploadWorker;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;

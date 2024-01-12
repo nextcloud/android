@@ -37,7 +37,7 @@ import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.files.uploader.FileUploadWorker;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadFilesLayoutBinding;

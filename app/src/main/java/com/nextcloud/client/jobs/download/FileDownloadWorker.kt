@@ -19,7 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.client.files.downloader
+package com.nextcloud.client.jobs.download
 
 import android.accounts.Account
 import android.accounts.AccountManager
@@ -108,7 +108,7 @@ class FileDownloadWorker(
     private var lastPercent = 0
 
     private val intents = FileDownloadIntents(context)
-    private lateinit var notificationManager: DownloadNotificationManager
+    private lateinit var notificationManager: com.nextcloud.client.jobs.download.DownloadNotificationManager
     private var downloadProgressListener = FileDownloadProgressListener()
 
     private var user: User? = null
@@ -126,7 +126,11 @@ class FileDownloadWorker(
             val requestDownloads = getRequestDownloads()
 
             notificationManager =
-                DownloadNotificationManager(workerId ?: SecureRandom().nextInt(), context, viewThemeUtils)
+                com.nextcloud.client.jobs.download.DownloadNotificationManager(
+                    workerId ?: SecureRandom().nextInt(),
+                    context,
+                    viewThemeUtils
+                )
             addAccountUpdateListener()
 
             val foregroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(

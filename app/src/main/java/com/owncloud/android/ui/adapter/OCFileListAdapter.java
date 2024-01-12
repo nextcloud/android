@@ -46,7 +46,7 @@ import android.widget.LinearLayout;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.files.uploader.FileUploadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;

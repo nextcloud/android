@@ -23,8 +23,8 @@ package com.nextcloud.client.files
 import android.os.Parcel
 import android.os.Parcelable
 import com.nextcloud.client.account.User
-import com.nextcloud.client.files.upload.PostUploadAction
-import com.nextcloud.client.files.upload.UploadTrigger
+import com.nextcloud.client.jobs.upload.PostUploadAction
+import com.nextcloud.client.jobs.upload.UploadTrigger
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload

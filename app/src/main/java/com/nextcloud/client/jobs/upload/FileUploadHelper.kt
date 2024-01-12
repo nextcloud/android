@@ -19,12 +19,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.client.files.uploader
+package com.nextcloud.client.jobs.upload
 
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.files.uploader.FileUploadWorker.Companion.currentUploadFileOperation
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUploadFileOperation
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager

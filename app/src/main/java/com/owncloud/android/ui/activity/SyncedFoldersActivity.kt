@@ -40,10 +40,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.files.uploader.FileUploadWorker
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.extensions.getParcelableArgument

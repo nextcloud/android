@@ -32,8 +32,8 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.AnonymousUser
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.files.uploader.FileUploadHelper
-import com.nextcloud.client.files.uploader.FileUploadWorker
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile

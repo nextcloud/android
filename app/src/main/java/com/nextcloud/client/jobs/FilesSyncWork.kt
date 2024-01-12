@@ -34,8 +34,8 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.files.uploader.FileUploadHelper
-import com.nextcloud.client.files.uploader.FileUploadWorker
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.R

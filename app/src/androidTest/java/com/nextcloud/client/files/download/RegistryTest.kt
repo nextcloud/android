@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.files.downloader
+package com.nextcloud.client.files.download
 
 import com.nextcloud.client.account.User
 import com.nextcloud.client.files.DownloadRequest

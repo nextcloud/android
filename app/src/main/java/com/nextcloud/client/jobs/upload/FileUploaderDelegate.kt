@@ -19,7 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.client.files.uploader
+package com.nextcloud.client.jobs.upload
 
 import android.content.Context
 import android.content.Intent

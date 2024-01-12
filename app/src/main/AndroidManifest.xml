@@ -170,7 +170,7 @@
             android:name="com.nextcloud.client.jobs.NotificationWork$NotificationReceiver"
             android:exported="false" />
         <receiver
-            android:name="com.nextcloud.client.files.uploader.FileUploadWorker$Companion$UploadNotificationActionReceiver"
+            android:name="com.nextcloud.client.jobs.upload.FileUploadWorker$Companion$UploadNotificationActionReceiver"
             android:exported="false" />
         <receiver
             android:name="com.nextcloud.client.widget.DashboardWidgetProvider"
@@ -394,7 +394,7 @@
             android:name=".services.OperationsService"
             android:exported="false" />
         <service
-            android:name="com.nextcloud.client.files.transfer.FileTransferService"
+            android:name="com.nextcloud.client.jobs.transfer.FileTransferService"
             android:foregroundServiceType="dataSync"
             android:exported="false" />
         <service

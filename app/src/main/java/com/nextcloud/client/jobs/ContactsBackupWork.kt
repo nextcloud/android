@@ -36,9 +36,9 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.files.UploadRequest
-import com.nextcloud.client.files.transfer.TransferManagerConnection
-import com.nextcloud.client.files.upload.PostUploadAction
-import com.nextcloud.client.files.upload.UploadTrigger
+import com.nextcloud.client.jobs.transfer.TransferManagerConnection
+import com.nextcloud.client.jobs.upload.PostUploadAction
+import com.nextcloud.client.jobs.upload.UploadTrigger
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.FileDataStorageManager

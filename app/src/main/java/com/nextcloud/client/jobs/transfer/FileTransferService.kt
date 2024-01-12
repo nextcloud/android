@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.files.transfer
+package com.nextcloud.client.jobs.transfer
 
 import android.app.Service
 import android.content.Context
@@ -30,8 +30,8 @@ import com.nextcloud.client.core.LocalBinder
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.files.Direction
 import com.nextcloud.client.files.Request
-import com.nextcloud.client.files.downloader.DownloadTask
-import com.nextcloud.client.files.upload.UploadTask
+import com.nextcloud.client.jobs.download.DownloadTask
+import com.nextcloud.client.jobs.upload.UploadTask
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ConnectivityService

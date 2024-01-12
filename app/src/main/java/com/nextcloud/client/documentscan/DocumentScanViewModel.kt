@@ -29,9 +29,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.IoDispatcher
-import com.nextcloud.client.files.uploader.FileUploadHelper
-import com.nextcloud.client.files.uploader.FileUploadWorker
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.services.NameCollisionPolicy

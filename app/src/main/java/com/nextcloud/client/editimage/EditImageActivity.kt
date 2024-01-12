@@ -34,8 +34,8 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.canhub.cropper.CropImageView
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.files.uploader.FileUploadHelper
-import com.nextcloud.client.files.uploader.FileUploadWorker
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityEditImageBinding

@@ -23,7 +23,7 @@ import android.content.ContentResolver
 import android.net.Uri
 import android.os.Parcelable
 import com.nextcloud.client.account.User
-import com.nextcloud.client.files.uploader.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.owncloud.android.R
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
