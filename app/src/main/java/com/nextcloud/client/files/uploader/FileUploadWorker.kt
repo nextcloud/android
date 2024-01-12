@@ -34,6 +34,8 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.java.util.Optional
+import com.nextcloud.model.WorkerState
+import com.nextcloud.model.WorkerStateLiveData
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
@@ -70,22 +72,47 @@ class FileUploadWorker(
     private val fileUploaderDelegate = FileUploaderDelegate()
 
     override fun doWork(): Result {
-        backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
+        return try {
+            backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
 
-        val accountName = inputData.getString(ACCOUNT)
-        if (accountName.isNullOrEmpty()) {
-            Log_OC.w(TAG, "User was null for file upload worker")
+            val accountName = inputData.getString(ACCOUNT)
+            if (accountName.isNullOrEmpty()) {
+                Log_OC.w(TAG, "User was null for file upload worker")
 
-            val result = Result.failure()
+                val result = Result.failure()
+                backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
+                return result
+            }
+
+            retrievePagesBySortingUploadsByID(accountName)
+
+            Log_OC.e(TAG, "FileUploadWorker successfully completed")
+
+            val result = Result.success()
             backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
-            return result
+            result
+        } catch (t: Throwable) {
+            Log_OC.e(TAG, "Error caught at FileUploadWorker " + t.localizedMessage)
+            Result.failure()
         }
+    }
 
-        retrievePagesBySortingUploadsByID(accountName)
+    override fun onStopped() {
+        Log_OC.e(TAG, "FileUploadWorker stopped")
 
-        val result = Result.success()
-        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
-        return result
+        setIdleWorkerState()
+        currentUploadFileOperation?.cancel(null)
+        notificationManager.dismissWorkerNotifications()
+
+        super.onStopped()
+    }
+
+    private fun setWorkerState(user: User?, uploads: List<OCUpload>) {
+        WorkerStateLiveData.instance().setWorkState(WorkerState.Upload(user, uploads))
+    }
+
+    private fun setIdleWorkerState() {
+        WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
     }
 
     private fun retrievePagesBySortingUploadsByID(accountName: String) {
@@ -103,6 +130,8 @@ class FileUploadWorker(
 
     private fun handlePendingUploads(uploads: List<OCUpload>, accountName: String) {
         val user = userAccountManager.getUser(accountName)
+        setWorkerState(user.get(), uploads)
+
         for (upload in uploads) {
             if (isStopped) {
                 break
@@ -273,12 +302,6 @@ class FileUploadWorker(
             notificationManager.dismissOldErrorNotification(currentUploadFileOperation)
         }
         lastPercent = percent
-    }
-
-    override fun onStopped() {
-        super.onStopped()
-        currentUploadFileOperation?.cancel(null)
-        notificationManager.dismissWorkerNotifications()
     }
 
     companion object {

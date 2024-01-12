@@ -42,6 +42,8 @@ import com.nextcloud.client.files.uploader.FileUploadWorker;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.utils.Throttler;
+import com.nextcloud.model.WorkerState;
+import com.nextcloud.model.WorkerStateLiveData;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -142,6 +144,20 @@ public class UploadListActivity extends FileActivity {
         setupDrawer(R.id.nav_uploads);
 
         setupContent();
+        observeWorkerState();
+    }
+
+    private void observeWorkerState() {
+        WorkerStateLiveData.Companion.instance().observe(this, state -> {
+            if (state instanceof WorkerState.Upload) {
+                Log_OC.d(TAG, "Upload worker started");
+                handleUploadWorkerState();
+            }
+        });
+    }
+
+    private void handleUploadWorkerState() {
+        uploadListAdapter.loadUploadItemsFromDb();
     }
 
     private void setupContent() {
