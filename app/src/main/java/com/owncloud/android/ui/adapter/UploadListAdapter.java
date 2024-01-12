@@ -129,7 +129,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     FilesUploadHelper uploadHelper = parentActivity.getFileUploaderHelper();
                     if (uploadHelper != null) {
                         for (OCUpload upload : group.getItems()) {
-                            uploadHelper.cancel(upload);
+                            uploadHelper.cancelFileUpload(upload.getRemotePath(), upload.getAccountName());
                         }
                     }
                 }
@@ -276,16 +276,32 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         // really uploading, so...
                         // ... unbind the old progress bar, if any; ...
                         if (progressListener != null) {
-                            uploadHelper.removeDatatransferProgressListener(progressListener, progressListener.getUpload());
+                            OCUpload ocUpload = progressListener.getUpload();
+
+                            if (ocUpload == null) {
+                                return;
+                            }
+
+                            String targetKey = FilesUploadHelper.Companion.buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
+                            uploadHelper.removeUploadTransferProgressListener(progressListener, targetKey);
                         }
                         // ... then, bind the current progress bar to listen for updates
                         progressListener = new ProgressListener(item, itemViewHolder.binding.uploadProgressBar);
-                        uploadHelper.addDatatransferProgressListener(progressListener, item);
+                        String targetKey = FilesUploadHelper.Companion.buildRemoteName(item.getAccountName(), item.getRemotePath());
+                        uploadHelper.addUploadTransferProgressListener(progressListener, targetKey);
                     } else {
                         // not really uploading; stop listening progress if view is reused!
                         if (progressListener != null &&
                             progressListener.isWrapping(itemViewHolder.binding.uploadProgressBar)) {
-                            uploadHelper.removeDatatransferProgressListener(progressListener, progressListener.getUpload());
+                            OCUpload ocUpload = progressListener.getUpload();
+
+                            if (ocUpload == null) {
+                                return;
+                            }
+
+                            String targetKey = FilesUploadHelper.Companion.buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
+
+                            uploadHelper.removeUploadTransferProgressListener(progressListener, targetKey);
                             progressListener = null;
                         }
                     }
@@ -309,7 +325,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> {
                 FilesUploadHelper uploadHelper = parentActivity.getFileUploaderHelper();
                 if (uploadHelper != null) {
-                    uploadHelper.cancel(item);
+                    uploadHelper.cancelFileUpload(item.getRemotePath(), item.getAccountName());
                     loadUploadItemsFromDb();
                 }
             });
