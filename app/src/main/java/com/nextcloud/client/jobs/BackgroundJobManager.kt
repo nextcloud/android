@@ -163,4 +163,5 @@ interface BackgroundJobManager {
     fun cancelAllJobs()
     fun schedulePeriodicHealthStatus()
     fun startHealthStatus()
+    fun bothFilesSyncJobsRunning(): Boolean
 }

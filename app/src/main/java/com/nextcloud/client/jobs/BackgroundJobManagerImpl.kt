@@ -21,6 +21,7 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.workDataOf
+import com.google.common.util.concurrent.ListenableFuture
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
@@ -28,11 +29,14 @@ import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.isWorkRunning
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadType
 import java.util.Date
 import java.util.UUID
+import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
 
@@ -401,6 +405,12 @@ internal class BackgroundJobManagerImpl(
 
     override fun cancelPeriodicCalendarBackup(user: User) {
         workManager.cancelJob(JOB_PERIODIC_CALENDAR_BACKUP, user)
+    }
+
+    override fun bothFilesSyncJobsRunning(): Boolean {
+
+        return workManager.isWorkRunning(JOB_PERIODIC_FILES_SYNC) &&
+            workManager.isWorkRunning(JOB_IMMEDIATE_FILES_SYNC)
     }
 
     override fun schedulePeriodicFilesSyncJob() {
