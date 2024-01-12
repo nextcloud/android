@@ -162,12 +162,11 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val ocFile2 = OCFile("/testFile.txt")
         ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
 
-        FileUploader.uploadUpdateFile(
-            targetContext,
+        FilesUploadHelper().uploadUpdatedFile(
             user,
-            ocFile2,
+            arrayOf(ocFile2),
             FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
-            NameCollisionPolicy.OVERWRITE
+            NameCollisionPolicy.OVERWRITE,
         )
 
         shortSleep()
@@ -279,10 +278,9 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val ocFile2 = OCFile("/testFile.txt")
         ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
 
-        FileUploader.uploadUpdateFile(
-            targetContext,
+        FilesUploadHelper().uploadUpdatedFile(
             user,
-            ocFile2,
+            arrayOf(ocFile2),
             FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
             NameCollisionPolicy.RENAME
         )
@@ -388,10 +386,9 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val ocFile2 = OCFile("/testFile.txt")
         ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
 
-        FileUploader.uploadUpdateFile(
-            targetContext,
+        FilesUploadHelper().uploadUpdatedFile(
             user,
-            ocFile2,
+            arrayOf(ocFile2),
             FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
             NameCollisionPolicy.CANCEL
         )
@@ -493,10 +490,9 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val ocFile2 = OCFile("/testFile.txt")
         ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
 
-        FileUploader.uploadUpdateFile(
-            targetContext,
+        FilesUploadHelper().uploadUpdatedFile(
             user,
-            ocFile2,
+            arrayOf(ocFile2),
             FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
             NameCollisionPolicy.CANCEL
         )

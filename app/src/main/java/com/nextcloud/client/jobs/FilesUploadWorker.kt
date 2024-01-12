@@ -43,7 +43,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
@@ -195,9 +194,6 @@ class FilesUploadWorker(
         return uploadResult
     }
 
-    /**
-     * adapted from [com.owncloud.android.files.services.FileUploader.notifyUploadResult]
-     */
     private fun notifyUploadResult(
         uploadFileOperation: UploadFileOperation,
         uploadResult: RemoteOperationResult<Any?>
@@ -254,9 +250,6 @@ class FilesUploadWorker(
         }
     }
 
-    /**
-     * see [com.owncloud.android.files.services.FileUploader.onTransferProgress]
-     */
     override fun onTransferProgress(
         progressRate: Long,
         totalTransferredSoFar: Long,
@@ -332,13 +325,6 @@ class FilesUploadWorker(
             nameCollisionPolicy: NameCollisionPolicy?,
             disableRetries: Boolean
         ) {
-            val intent = Intent(context, FileUploader::class.java)
-            intent.putExtra(KEY_USER, user)
-            intent.putExtra(KEY_ACCOUNT, user.toPlatformAccount())
-            intent.putExtra(KEY_FILE, existingFiles)
-            intent.putExtra(KEY_LOCAL_BEHAVIOUR, behaviour)
-            intent.putExtra(KEY_NAME_COLLISION_POLICY, nameCollisionPolicy)
-            intent.putExtra(KEY_DISABLE_RETRIES, disableRetries)
             FilesUploadHelper().uploadUpdatedFile(user, existingFiles!!, behaviour!!, nameCollisionPolicy!!)
         }
 
@@ -350,11 +336,6 @@ class FilesUploadWorker(
             user: User,
             upload: OCUpload
         ) {
-            val i = Intent(context, FileUploader::class.java)
-            i.putExtra(KEY_RETRY, true)
-            i.putExtra(KEY_USER, user)
-            i.putExtra(KEY_ACCOUNT, user.toPlatformAccount())
-            i.putExtra(KEY_RETRY_UPLOAD, upload)
             FilesUploadHelper().retryUpload(upload, user)
         }
 

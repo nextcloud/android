@@ -96,8 +96,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                         user,
                         arrayOf(file),
                         localBehaviour,
-                        NameCollisionPolicy.OVERWRITE,
-                        true
+                        NameCollisionPolicy.OVERWRITE
                     )
                     uploadsStorageManager?.removeUpload(upload)
                 }
@@ -107,8 +106,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                         user,
                         arrayOf(file),
                         localBehaviour,
-                        NameCollisionPolicy.RENAME,
-                        true
+                        NameCollisionPolicy.RENAME
                     )
                     uploadsStorageManager?.removeUpload(upload)
                 }

@@ -43,8 +43,8 @@ import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.files.downloader.DownloadTask;
-import com.nextcloud.client.jobs.FilesUploadWorker;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.utils.HashUtil;
@@ -53,7 +53,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -267,13 +266,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
                         // TODO disable upload notifications as DocumentsProvider users already show them
                         // upload file with FileUploader service (off main thread)
-                        FilesUploadWorker.Companion.uploadUpdateFile(
-                            context,
+                        FileUploadHelper.Companion.instance().uploadUpdatedFile(
                             user,
                             new OCFile[]{ ocFile },
-                            FilesUploadWorker.LOCAL_BEHAVIOUR_DELETE,
-                            NameCollisionPolicy.OVERWRITE,
-                            false);
+                            FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
+                            NameCollisionPolicy.OVERWRITE);
                     } else {
                         // error, no upload needed
                         Log_OC.e(TAG, "File was closed with an error: " + ocFile.getFileName(), error);
@@ -307,7 +304,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     /**
      * Updates the OC File after a successful download.
      *
-     * TODO unify with code from {@link com.nextcloud.client.files.downloader.FileDownloadWorker} and {@link DownloadTask}.
      */
     private void saveDownloadedFile(FileDataStorageManager storageManager, DownloadFileOperation dfo, OCFile file) {
         long syncDate = System.currentTimeMillis();
@@ -344,7 +340,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public AssetFileDescriptor openDocumentThumbnail(String documentId,
                                                      Point sizeHint,
                                                      CancellationSignal signal)
-            throws FileNotFoundException {
+        throws FileNotFoundException {
         Log_OC.d(TAG, "openDocumentThumbnail(), id=" + documentId);
 
         Document document = toDocument(documentId);
