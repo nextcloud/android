@@ -23,8 +23,8 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.files.DownloadRequest
 import com.nextcloud.client.files.Registry
 import com.nextcloud.client.files.Request
-import com.nextcloud.client.files.transfer.Transfer
-import com.nextcloud.client.files.transfer.TransferState
+import com.nextcloud.client.jobs.transfer.Transfer
+import com.nextcloud.client.jobs.transfer.TransferState
 import com.owncloud.android.datamodel.OCFile
 import io.mockk.CapturingSlot
 import io.mockk.MockKAnnotations

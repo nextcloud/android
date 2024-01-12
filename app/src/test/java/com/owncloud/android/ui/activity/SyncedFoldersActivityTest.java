@@ -22,7 +22,7 @@
 
 package com.owncloud.android.ui.activity;
 
-import com.nextcloud.client.files.upload.FileUploadWorker;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;

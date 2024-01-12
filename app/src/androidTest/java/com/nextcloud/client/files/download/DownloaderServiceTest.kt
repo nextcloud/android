@@ -22,7 +22,7 @@ package com.nextcloud.client.files.download
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.rule.ServiceTestRule
 import com.nextcloud.client.account.MockUser
-import com.nextcloud.client.files.transfer.FileTransferService
+import com.nextcloud.client.jobs.transfer.FileTransferService
 import io.mockk.MockKAnnotations
 import org.junit.Assert.assertTrue
 import org.junit.Before

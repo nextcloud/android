@@ -23,8 +23,8 @@ package com.owncloud.android.files
 import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextcloud.client.account.User
-import com.nextcloud.client.files.download.FileDownloadWorker
-import com.nextcloud.client.files.upload.FileUploadHelper
+import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.test.TestActivity
 import com.nextcloud.utils.EditorUtils
 import com.owncloud.android.AbstractIT

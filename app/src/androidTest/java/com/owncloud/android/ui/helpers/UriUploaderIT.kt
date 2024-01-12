@@ -2,7 +2,7 @@ package com.owncloud.android.ui.helpers
 
 import android.net.Uri
 import androidx.test.core.app.launchActivity
-import com.nextcloud.client.files.upload.FileUploadWorker
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import org.junit.Assert
