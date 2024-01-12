@@ -23,7 +23,8 @@ package com.owncloud.android.files
 import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextcloud.client.account.User
-import com.nextcloud.client.files.downloader.FileDownloadWorker
+import com.nextcloud.client.files.download.FileDownloadWorker
+import com.nextcloud.client.files.upload.FileUploadHelper
 import com.nextcloud.test.TestActivity
 import com.nextcloud.utils.EditorUtils
 import com.owncloud.android.AbstractIT
@@ -31,7 +32,6 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType
 import com.owncloud.android.lib.resources.status.OCCapability
@@ -59,7 +59,7 @@ class FileMenuFilterIT : AbstractIT() {
     private lateinit var mockStorageManager: FileDataStorageManager
 
     @MockK
-    private lateinit var mockFileUploaderBinder: FileUploader.FileUploaderBinder
+    private lateinit var mockFileUploaderBinder: FileUploadHelper
 
     @MockK
     private lateinit var mockFileDownloadProgressListener: FileDownloadWorker.FileDownloadProgressListener
@@ -76,7 +76,7 @@ class FileMenuFilterIT : AbstractIT() {
     fun setup() {
         MockKAnnotations.init(this)
         every { mockFileUploaderBinder.isUploading(any(), any()) } returns false
-        every { mockComponentsGetter.fileUploaderBinder } returns mockFileUploaderBinder
+        every { mockComponentsGetter.fileUploaderHelper } returns mockFileUploaderBinder
         every { mockFileDownloadProgressListener.isDownloading(any(), any()) } returns false
         every { mockComponentsGetter.fileDownloadProgressListener } returns mockFileDownloadProgressListener
         every { mockOperationsServiceBinder.isSynchronizing(any(), any()) } returns false

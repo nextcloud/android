@@ -22,13 +22,17 @@
 
 package com.owncloud.android.utils
 
+import android.accounts.Account
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.google.common.util.concurrent.ListenableFuture
 import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.jobs.FilesUploadWorker
+import com.nextcloud.client.jobs.FilesUploadWorker.Companion.buildRemoteName
+import com.nextcloud.client.jobs.FilesUploadWorker.Companion.currentUploadFileOperation
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -36,13 +40,18 @@ import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface
 import java.util.concurrent.ExecutionException
 import javax.inject.Inject
 
 class FilesUploadHelper {
     @Inject
     lateinit var backgroundJobManager: BackgroundJobManager
+
+    @Inject
+    lateinit var accountManager: UserAccountManager
 
     @Inject
     lateinit var uploadsStorageManager: UploadsStorageManager
@@ -66,7 +75,7 @@ class FilesUploadHelper {
             if (accountName == null || remotePath == null) return
 
             val key: String =
-                FilesUploadWorker.buildRemoteName(accountName, remotePath)
+                buildRemoteName(accountName, remotePath)
             val boundListener = mBoundListeners[key]
 
             boundListener?.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName)
@@ -112,7 +121,7 @@ class FilesUploadHelper {
                 this.nameCollisionPolicy = nameCollisionPolicy
                 isUseWifiOnly = requiresWifi
                 isWhileChargingOnly = requiresCharging
-                uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
+                uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
                 this.createdBy = createdBy
                 isCreateRemoteFolder = createRemoteFolder
                 localAction = localBehavior
@@ -144,6 +153,17 @@ class FilesUploadHelper {
         return upload.uploadStatus == UploadStatus.UPLOAD_IN_PROGRESS
     }
 
+    fun isUploadingNow(upload: OCUpload?): Boolean {
+        val currentUploadFileOperation = currentUploadFileOperation
+        if (currentUploadFileOperation == null || currentUploadFileOperation.user == null) return false
+        if (upload == null || upload.accountName != currentUploadFileOperation.user.accountName) return false
+        return if (currentUploadFileOperation.oldFile != null) {
+            // For file conflicts check old file remote path
+            upload.remotePath == currentUploadFileOperation.remotePath || upload.remotePath == currentUploadFileOperation.oldFile!!
+                .remotePath
+        } else upload.remotePath == currentUploadFileOperation.remotePath
+    }
+
     fun uploadUpdatedFile(
         user: User,
         existingFiles: Array<OCFile?>?,
@@ -165,7 +185,7 @@ class FilesUploadHelper {
                     this.localAction = behaviour
                     isUseWifiOnly = false
                     isWhileChargingOnly = false
-                    uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
+                    uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
                 }
             }
         }
@@ -176,10 +196,58 @@ class FilesUploadHelper {
     fun retryUpload(upload: OCUpload, user: User) {
         Log_OC.d(this, "retry upload")
 
-        upload.uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
+        upload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
         uploadsStorageManager.updateUpload(upload)
 
         backgroundJobManager.startFilesUploadJob(user)
+    }
+
+    fun cancel(storedUpload: OCUpload) {
+        cancel(storedUpload.accountName, storedUpload.remotePath, null)
+    }
+
+    fun cancel(account: Account, file: ServerFileInterface) {
+        cancel(account.name, file.remotePath, null)
+    }
+
+    fun cancel(accountName: String?) {
+        // cancelPendingUploads(accountName)
+        FilesUploadHelper().restartUploadJob(accountManager.getUser(accountName).get())
+    }
+
+    fun cancel(user: User) {
+        cancel(user.accountName)
+    }
+
+    fun cancel(accountName: String?, remotePath: String?, resultCode: ResultCode?) {
+        try {
+            cancelFileUpload(remotePath!!, accountManager.getUser(accountName).get())
+        } catch (e: NoSuchElementException) {
+            Log_OC.e(TAG, "Error cancelling current upload because user does not exist!")
+        }
+    }
+
+    fun addDatatransferProgressListener(
+        listener: OnDatatransferProgressListener?,
+        ocUpload: OCUpload?
+    ) {
+        if (ocUpload == null || listener == null) {
+            return
+        }
+        val targetKey = buildRemoteName(ocUpload.accountName, ocUpload.remotePath)
+        addDatatransferProgressListener(listener, targetKey)
+    }
+
+    fun addDatatransferProgressListener(
+        listener: OnDatatransferProgressListener?,
+        user: User?,
+        file: ServerFileInterface?
+    ) {
+        if (user == null || file == null || listener == null) {
+            return
+        }
+        val targetKey = buildRemoteName(user.accountName, file.remotePath)
+        addDatatransferProgressListener(listener, targetKey)
     }
 
     fun addDatatransferProgressListener(
@@ -187,6 +255,29 @@ class FilesUploadHelper {
         targetKey: String
     ) {
         mBoundListeners[targetKey] = listener
+    }
+
+    fun removeDatatransferProgressListener(
+        listener: OnDatatransferProgressListener?,
+        user: User?,
+        file: ServerFileInterface?
+    ) {
+        if (user == null || file == null || listener == null) {
+            return
+        }
+        val targetKey = buildRemoteName(user.accountName, file.remotePath)
+        removeDatatransferProgressListener(listener, targetKey)
+    }
+
+    fun removeDatatransferProgressListener(
+        listener: OnDatatransferProgressListener?,
+        ocUpload: OCUpload?
+    ) {
+        if (ocUpload == null || listener == null) {
+            return
+        }
+        val targetKey = buildRemoteName(ocUpload.accountName, ocUpload.remotePath)
+        removeDatatransferProgressListener(listener, targetKey)
     }
 
     fun removeDatatransferProgressListener(

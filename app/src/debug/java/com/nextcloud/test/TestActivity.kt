@@ -25,7 +25,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.nextcloud.client.files.downloader.FileDownloadWorker
+import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.EditorUtils
@@ -34,7 +35,6 @@ import com.owncloud.android.databinding.TestLayoutBinding
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import com.owncloud.android.services.OperationsService
@@ -126,7 +126,7 @@ class TestActivity :
         TODO("Not yet implemented")
     }
 
-    override fun getFileUploaderBinder(): FileUploader.FileUploaderBinder? {
+    override fun getFileUploaderHelper(): FileUploadHelper? {
         return null
     }
 

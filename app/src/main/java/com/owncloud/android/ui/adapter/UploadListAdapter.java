@@ -68,6 +68,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FilesUploadHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -126,10 +127,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
             switch (group.type) {
                 case CURRENT -> {
-                    FileUploader.FileUploaderBinder uploaderBinder = parentActivity.getFileUploaderBinder();
-                    if (uploaderBinder != null) {
+                    FilesUploadHelper uploadHelper = parentActivity.getFileUploaderHelper();
+                    if (uploadHelper != null) {
                         for (OCUpload upload : group.getItems()) {
-                            uploaderBinder.cancel(upload);
+                            uploadHelper.cancel(upload);
                         }
                     }
                 }
@@ -270,27 +271,22 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 viewThemeUtils.platform.themeHorizontalProgressBar(itemViewHolder.binding.uploadProgressBar);
                 itemViewHolder.binding.uploadProgressBar.setProgress(0);
                 itemViewHolder.binding.uploadProgressBar.setVisibility(View.VISIBLE);
-                FileUploader.FileUploaderBinder binder = parentActivity.getFileUploaderBinder();
-                if (binder != null) {
-                    if (binder.isUploadingNow(item)) {
+                FilesUploadHelper uploadHelper = parentActivity.getFileUploaderHelper();
+                if (uploadHelper != null) {
+                    if (uploadHelper.isUploadingNow(item)) {
                         // really uploading, so...
                         // ... unbind the old progress bar, if any; ...
                         if (progressListener != null) {
-                            binder.removeDatatransferProgressListener(
-                                progressListener,
-                                progressListener.getUpload()   // the one that was added
-                                                                     );
+                            uploadHelper.removeDatatransferProgressListener(progressListener, progressListener.getUpload());
                         }
                         // ... then, bind the current progress bar to listen for updates
                         progressListener = new ProgressListener(item, itemViewHolder.binding.uploadProgressBar);
-                        binder.addDatatransferProgressListener(progressListener, item);
+                        uploadHelper.addDatatransferProgressListener(progressListener, item);
                     } else {
                         // not really uploading; stop listening progress if view is reused!
                         if (progressListener != null &&
                             progressListener.isWrapping(itemViewHolder.binding.uploadProgressBar)) {
-                            binder.removeDatatransferProgressListener(progressListener,
-                                                                      progressListener.getUpload() // the one that was added
-                                                                     );
+                            uploadHelper.removeDatatransferProgressListener(progressListener, progressListener.getUpload());
                             progressListener = null;
                         }
                     }
@@ -312,9 +308,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_action_cancel_grey);
             itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE);
             itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> {
-                FileUploader.FileUploaderBinder uploaderBinder = parentActivity.getFileUploaderBinder();
-                if (uploaderBinder != null) {
-                    uploaderBinder.cancel(item);
+                FilesUploadHelper uploadHelper = parentActivity.getFileUploaderHelper();
+                if (uploadHelper != null) {
+                    uploadHelper.cancel(item);
                     loadUploadItemsFromDb();
                 }
             });
@@ -614,8 +610,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
             case UPLOAD_IN_PROGRESS:
                 status = parentActivity.getString(R.string.uploads_view_later_waiting_to_upload);
-                FileUploader.FileUploaderBinder binder = parentActivity.getFileUploaderBinder();
-                if (binder != null && binder.isUploadingNow(upload)) {
+                FilesUploadHelper uploadHelper = parentActivity.getFileUploaderHelper();
+                if (uploadHelper != null && uploadHelper.isUploadingNow(upload)) {
                     // really uploading, bind the progress bar to listen for progress updates
                     status = parentActivity.getString(R.string.uploader_upload_in_progress_ticker);
                 }
@@ -862,10 +858,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         }
 
         void fixAndSortItems(OCUpload... array) {
-            FileUploader.FileUploaderBinder binder = parentActivity.getFileUploaderBinder();
+            FilesUploadHelper uploadHelper = parentActivity.getFileUploaderHelper();
 
             for (OCUpload upload : array) {
-                upload.setDataFixed(binder);
+                upload.setDataFixed(uploadHelper);
             }
             Arrays.sort(array, new OCUploadComparator());
 
