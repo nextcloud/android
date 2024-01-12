@@ -47,8 +47,9 @@ import android.webkit.MimeTypeMap;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.download.FileDownloadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
 import com.nextcloud.utils.EditorUtils;
@@ -59,7 +60,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.StreamMediaFileOperation;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.CheckEtagRemoteOperation;
@@ -104,6 +104,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -1010,9 +1011,12 @@ public class FileOperationsHelper {
             FileDownloadHelper.Companion.instance().cancelPendingOrCurrentDownloads(currentUser, files);
         }
 
-        FileUploaderBinder uploaderBinder = fileActivity.getFileUploaderBinder();
-        if (uploaderBinder != null && uploaderBinder.isUploading(currentUser, file)) {
-            uploaderBinder.cancel(currentUser.toPlatformAccount(), file);
+        if (FileUploadHelper.Companion.instance().isUploading(currentUser, file)) {
+            try {
+                FileUploadHelper.Companion.instance().cancelFileUpload(file.getRemotePath(), currentUser.getAccountName());
+            } catch (NoSuchElementException e) {
+                Log_OC.e(TAG, "Error cancelling current upload because user does not exist!");
+            }
         }
     }
 

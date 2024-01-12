@@ -22,16 +22,22 @@
 
 package com.owncloud.android.utils
 
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
+import com.google.common.util.concurrent.ListenableFuture
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.jobs.FilesUploadWorker
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.utils.Log_OC
+import java.util.concurrent.ExecutionException
 import javax.inject.Inject
 
 class FilesUploadHelper {
@@ -43,6 +49,50 @@ class FilesUploadHelper {
 
     init {
         MainApp.getAppComponent().inject(this)
+    }
+
+    companion object {
+        private val TAG = FilesUploadWorker::class.java.simpleName
+        val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
+
+        fun onTransferProgress(
+            accountName: String?,
+            remotePath: String?,
+            progressRate: Long,
+            totalTransferredSoFar: Long,
+            totalToTransfer: Long,
+            fileName: String?
+        ) {
+            if (accountName == null || remotePath == null) return
+
+            val key: String =
+                FilesUploadWorker.buildRemoteName(accountName, remotePath)
+            val boundListener = mBoundListeners[key]
+
+            boundListener?.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName)
+        }
+
+        fun isWorkScheduled(tag: String): Boolean {
+            val instance = WorkManager.getInstance(MainApp.getAppContext())
+            val statuses: ListenableFuture<List<WorkInfo>> = instance.getWorkInfosByTag(tag)
+            var running = false
+            var workInfoList: List<WorkInfo> = emptyList()
+
+            try {
+                workInfoList = statuses.get()
+            } catch (e: ExecutionException) {
+                Log_OC.d(TAG, "ExecutionException in isWorkScheduled: $e")
+            } catch (e: InterruptedException) {
+                Log_OC.d(TAG, "InterruptedException in isWorkScheduled: $e")
+            }
+
+            for (workInfo in workInfoList) {
+                val state = workInfo.state
+                running = running || (state == WorkInfo.State.RUNNING || state == WorkInfo.State.ENQUEUED)
+            }
+
+            return running
+        }
     }
 
     @Suppress("LongParameterList")
@@ -83,6 +133,15 @@ class FilesUploadHelper {
     fun restartUploadJob(user: User) {
         backgroundJobManager.cancelFilesUploadJob(user)
         backgroundJobManager.startFilesUploadJob(user)
+    }
+
+    fun isUploading(user: User?, file: OCFile?): Boolean {
+        if (user == null || file == null || !isWorkScheduled(BackgroundJobManagerImpl.JOB_FILES_UPLOAD)) {
+            return false
+        }
+
+        val upload: OCUpload = uploadsStorageManager.getUploadByRemotePath(file.remotePath) ?: return false
+        return upload.uploadStatus == UploadStatus.UPLOAD_IN_PROGRESS
     }
 
     fun uploadUpdatedFile(
@@ -136,27 +195,6 @@ class FilesUploadHelper {
     ) {
         if (mBoundListeners[targetKey] === listener) {
             mBoundListeners.remove(targetKey)
-        }
-    }
-
-    companion object Progress {
-        val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
-
-        fun onTransferProgress(
-            accountName: String?,
-            remotePath: String?,
-            progressRate: Long,
-            totalTransferredSoFar: Long,
-            totalToTransfer: Long,
-            fileName: String?
-        ) {
-            if (accountName == null || remotePath == null) return
-
-            val key: String =
-                FilesUploadWorker.buildRemoteName(accountName, remotePath)
-            val boundListener = mBoundListeners[key]
-
-            boundListener?.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName)
         }
     }
 }

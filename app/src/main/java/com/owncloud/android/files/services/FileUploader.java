@@ -750,7 +750,7 @@ public class FileUploader extends Service
         }
 
         public void clearListeners() {
-            FilesUploadHelper.Progress.getMBoundListeners().clear();
+            FilesUploadHelper.Companion.getMBoundListeners().clear();
             mBoundListeners.clear();
         }
 

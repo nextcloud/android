@@ -25,13 +25,10 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -181,6 +178,7 @@ public class UploadListActivity extends FileActivity {
         swipeListRefreshLayout.setOnRefreshListener(this::refresh);
 
         loadItems();
+        uploadListAdapter.loadUploadItemsFromDb();
     }
 
     private void loadItems() {
@@ -317,44 +315,6 @@ public class UploadListActivity extends FileActivity {
 
         } else {
             super.onRemoteOperationFinish(operation, result);
-        }
-    }
-
-
-    @Override
-    protected ServiceConnection newTransferenceServiceConnection() {
-        return new UploadListServiceConnection();
-    }
-
-    /**
-     * Defines callbacks for service binding, passed to bindService()
-     */
-    private class UploadListServiceConnection implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName component, IBinder service) {
-            if (service instanceof FileUploaderBinder) {
-                if (mUploaderBinder == null) {
-                    mUploaderBinder = (FileUploaderBinder) service;
-                    Log_OC.d(TAG, "UploadListActivity connected to Upload service. component: " +
-                            component + " service: " + service);
-                    uploadListAdapter.loadUploadItemsFromDb();
-                } else {
-                    Log_OC.d(TAG, "mUploaderBinder already set. mUploaderBinder: " +
-                        mUploaderBinder + " service:" + service);
-                }
-            } else {
-                Log_OC.d(TAG, "UploadListActivity not connected to Upload service. component: " +
-                    component + " service: " + service);
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(UploadListActivity.this, FileUploader.class))) {
-                Log_OC.d(TAG, "UploadListActivity suddenly disconnected from Upload service");
-                mUploaderBinder = null;
-            }
         }
     }
 
