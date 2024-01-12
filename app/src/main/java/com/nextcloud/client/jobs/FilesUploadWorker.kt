@@ -22,7 +22,9 @@
 
 package com.nextcloud.client.jobs
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -33,11 +35,17 @@ import com.nextcloud.client.files.uploader.FileUploaderIntents
 import com.nextcloud.client.files.uploader.UploadNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.utils.FileUploaderDelegate
+import com.nextcloud.java.util.Optional
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.db.UploadResult
+import com.owncloud.android.files.services.FileUploader
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder
+import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
@@ -316,5 +324,167 @@ class FilesUploadWorker(
         const val LOCAL_BEHAVIOUR_MOVE = 1
         const val LOCAL_BEHAVIOUR_FORGET = 2
         const val LOCAL_BEHAVIOUR_DELETE = 3
+
+        /**
+         * Upload and overwrite an already uploaded file with disabled retries
+         */
+        fun uploadUpdateFile(
+            context: Context?,
+            user: User,
+            existingFile: OCFile?,
+            behaviour: Int?,
+            nameCollisionPolicy: NameCollisionPolicy?
+        ) {
+            uploadUpdateFile(
+                context,
+                user, arrayOf(existingFile),
+                behaviour,
+                nameCollisionPolicy,
+                true
+            )
+        }
+
+        /**
+         * Upload and overwrite an already uploaded file
+         */
+        fun uploadUpdateFile(
+            context: Context?,
+            user: User,
+            existingFile: OCFile?,
+            behaviour: Int?,
+            nameCollisionPolicy: NameCollisionPolicy?,
+            disableRetries: Boolean
+        ) {
+            uploadUpdateFile(
+                context,
+                user, arrayOf(existingFile),
+                behaviour,
+                nameCollisionPolicy,
+                disableRetries
+            )
+        }
+
+        /**
+         * Upload and overwrite already uploaded files
+         */
+        fun uploadUpdateFile(
+            context: Context?,
+            user: User,
+            existingFiles: Array<OCFile?>?,
+            behaviour: Int?,
+            nameCollisionPolicy: NameCollisionPolicy?,
+            disableRetries: Boolean
+        ) {
+            val intent = Intent(context, FileUploader::class.java)
+            intent.putExtra(KEY_USER, user)
+            intent.putExtra(KEY_ACCOUNT, user.toPlatformAccount())
+            intent.putExtra(KEY_FILE, existingFiles)
+            intent.putExtra(KEY_LOCAL_BEHAVIOUR, behaviour)
+            intent.putExtra(KEY_NAME_COLLISION_POLICY, nameCollisionPolicy)
+            intent.putExtra(KEY_DISABLE_RETRIES, disableRetries)
+            FilesUploadHelper().uploadUpdatedFile(user, existingFiles!!, behaviour!!, nameCollisionPolicy!!)
+        }
+
+        /**
+         * Retry a failed [OCUpload] identified by [OCUpload.getRemotePath]
+         */
+        fun retryUpload(
+            context: Context,
+            user: User,
+            upload: OCUpload
+        ) {
+            val i = Intent(context, FileUploader::class.java)
+            i.putExtra(KEY_RETRY, true)
+            i.putExtra(KEY_USER, user)
+            i.putExtra(KEY_ACCOUNT, user.toPlatformAccount())
+            i.putExtra(KEY_RETRY_UPLOAD, upload)
+            FilesUploadHelper().retryUpload(upload, user)
+        }
+
+        /**
+         * Retry a subset of all the stored failed uploads.
+         */
+        fun retryFailedUploads(
+            context: Context,
+            uploadsStorageManager: UploadsStorageManager,
+            connectivityService: ConnectivityService,
+            accountManager: UserAccountManager,
+            powerManagementService: PowerManagementService
+        ) {
+            val failedUploads = uploadsStorageManager.failedUploads
+            if (failedUploads == null || failedUploads.size == 0) {
+                return  //nothing to do
+            }
+            val (gotNetwork, _, gotWifi) = connectivityService.connectivity
+            val batteryStatus = powerManagementService.battery
+            val charging = batteryStatus.isCharging || batteryStatus.isFull
+            val isPowerSaving = powerManagementService.isPowerSavingEnabled
+            var uploadUser = Optional.empty<User>()
+            for (failedUpload in failedUploads) {
+                // 1. extract failed upload owner account and cache it between loops (expensive query)
+                if (!uploadUser.isPresent || !uploadUser.get().nameEquals(failedUpload.accountName)) {
+                    uploadUser = accountManager.getUser(failedUpload.accountName)
+                }
+                val isDeleted = !File(failedUpload.localPath).exists()
+                if (isDeleted) {
+                    // 2A. for deleted files, mark as permanently failed
+                    if (failedUpload.lastResult != UploadResult.FILE_NOT_FOUND) {
+                        failedUpload.lastResult = UploadResult.FILE_NOT_FOUND
+                        uploadsStorageManager.updateUpload(failedUpload)
+                    }
+                } else if (!isPowerSaving && gotNetwork &&
+                    canUploadBeRetried(failedUpload, gotWifi, charging) && !connectivityService.isInternetWalled
+                ) {
+                    // 2B. for existing local files, try restarting it if possible
+                    retryUpload(context, uploadUser.get(), failedUpload)
+                }
+            }
+        }
+
+        private fun canUploadBeRetried(upload: OCUpload, gotWifi: Boolean, isCharging: Boolean): Boolean {
+            val file = File(upload.localPath)
+            val needsWifi = upload.isUseWifiOnly
+            val needsCharging = upload.isWhileChargingOnly
+            return file.exists() && (!needsWifi || gotWifi) && (!needsCharging || isCharging)
+        }
+
+        fun getUploadsAddedMessage(): String {
+            return FileUploader::class.java.name + UPLOADS_ADDED_MESSAGE
+        }
+
+        fun getUploadStartMessage(): String {
+            return FileUploader::class.java.name + UPLOAD_START_MESSAGE
+        }
+
+        fun getUploadFinishMessage(): String {
+            return FileUploader::class.java.name + UPLOAD_FINISH_MESSAGE
+        }
+
+        fun buildRemoteName(accountName: String, remotePath: String): String {
+            return accountName + remotePath
+        }
+
+        class UploadNotificationActionReceiver : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                val accountName = intent.getStringExtra(EXTRA_ACCOUNT_NAME)
+                val remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH)
+                val action = intent.action
+                if (ACTION_CANCEL_BROADCAST == action) {
+                    Log_OC.d(
+                        TAG,
+                        "Cancel broadcast received for file " + remotePath + " at " + System.currentTimeMillis()
+                    )
+                    if (accountName == null || remotePath == null) {
+                        return
+                    }
+                    val uploadBinder = FileUploader.mBinder as FileUploaderBinder
+                    uploadBinder.cancel(accountName, remotePath, null)
+                } else if (ACTION_PAUSE_BROADCAST == action) {
+
+                } else {
+                    Log_OC.d(TAG, "Unknown action to perform as UploadNotificationActionReceiver.")
+                }
+            }
+        }
     }
 }

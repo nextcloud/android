@@ -111,15 +111,9 @@ public class FileUploader extends Service
 
     private static final String TAG = FileUploader.class.getSimpleName();
 
-
-
-
-
-    private static boolean forceNewUploadWorker = false;
-
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
-    private static IBinder mBinder;
+    public static IBinder mBinder;
     private OwnCloudClient mUploadClient;
     private Account mCurrentAccount;
     private FileDataStorageManager mStorageManager;
@@ -694,144 +688,7 @@ public class FileUploader extends Service
         mUploadsStorageManager.removeUploads(accountName);
     }
 
-    /**
-     * Upload and overwrite an already uploaded file with disabled retries
-     */
-    public static void uploadUpdateFile(
-        Context context,
-        User user,
-        OCFile existingFile,
-        Integer behaviour,
-        NameCollisionPolicy nameCollisionPolicy) {
-        uploadUpdateFile(context,
-                         user,
-                         new OCFile[]{existingFile},
-                         behaviour,
-                         nameCollisionPolicy,
-                         true);
-    }
 
-    /**
-     * Upload and overwrite an already uploaded file
-     */
-    public static void uploadUpdateFile(
-        Context context,
-        User user,
-        OCFile existingFile,
-        Integer behaviour,
-        NameCollisionPolicy nameCollisionPolicy,
-        boolean disableRetries) {
-        uploadUpdateFile(context,
-                         user,
-                         new OCFile[]{existingFile},
-                         behaviour,
-                         nameCollisionPolicy,
-                         disableRetries);
-    }
-
-    /**
-     * Upload and overwrite already uploaded files
-     */
-    public static void uploadUpdateFile(
-        Context context,
-        User user,
-        OCFile[] existingFiles,
-        Integer behaviour,
-        NameCollisionPolicy nameCollisionPolicy,
-        boolean disableRetries) {
-        Intent intent = new Intent(context, FileUploader.class);
-
-        intent.putExtra(FilesUploadWorker.KEY_USER, user);
-        intent.putExtra(FilesUploadWorker.KEY_ACCOUNT, user.toPlatformAccount());
-        intent.putExtra(FilesUploadWorker.KEY_FILE, existingFiles);
-        intent.putExtra(FilesUploadWorker.KEY_LOCAL_BEHAVIOUR, behaviour);
-        intent.putExtra(FilesUploadWorker.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
-        intent.putExtra(FilesUploadWorker.KEY_DISABLE_RETRIES, disableRetries);
-
-        new FilesUploadHelper().uploadUpdatedFile(user, existingFiles, behaviour, nameCollisionPolicy);
-    }
-
-    /**
-     * Retry a failed {@link OCUpload} identified by {@link OCUpload#getRemotePath()}
-     */
-    public static void retryUpload(@NonNull Context context,
-                                   @NonNull User user,
-                                   @NonNull OCUpload upload) {
-        Intent i = new Intent(context, FileUploader.class);
-        i.putExtra(FilesUploadWorker.KEY_RETRY, true);
-        i.putExtra(FilesUploadWorker.KEY_USER, user);
-        i.putExtra(FilesUploadWorker.KEY_ACCOUNT, user.toPlatformAccount());
-        i.putExtra(FilesUploadWorker.KEY_RETRY_UPLOAD, upload);
-
-        new FilesUploadHelper().retryUpload(upload, user);
-    }
-
-    /**
-     * Retry a subset of all the stored failed uploads.
-     */
-    public static void retryFailedUploads(
-        @NonNull final Context context,
-        @NonNull final UploadsStorageManager uploadsStorageManager,
-        @NonNull final ConnectivityService connectivityService,
-        @NonNull final UserAccountManager accountManager,
-        @NonNull final PowerManagementService powerManagementService) {
-        OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-        if (failedUploads == null || failedUploads.length == 0) {
-            return; //nothing to do
-        }
-
-        final Connectivity connectivity = connectivityService.getConnectivity();
-        final boolean gotNetwork = connectivity.isConnected();
-        final boolean gotWifi = connectivity.isWifi();
-        final BatteryStatus batteryStatus = powerManagementService.getBattery();
-        final boolean charging = batteryStatus.isCharging() || batteryStatus.isFull();
-        final boolean isPowerSaving = powerManagementService.isPowerSavingEnabled();
-
-        Optional<User> uploadUser = Optional.empty();
-        for (OCUpload failedUpload : failedUploads) {
-            // 1. extract failed upload owner account and cache it between loops (expensive query)
-            if (!uploadUser.isPresent() || !uploadUser.get().nameEquals(failedUpload.getAccountName())) {
-                uploadUser = accountManager.getUser(failedUpload.getAccountName());
-            }
-            final boolean isDeleted = !new File(failedUpload.getLocalPath()).exists();
-            if (isDeleted) {
-                // 2A. for deleted files, mark as permanently failed
-                if (failedUpload.getLastResult() != UploadResult.FILE_NOT_FOUND) {
-                    failedUpload.setLastResult(UploadResult.FILE_NOT_FOUND);
-                    uploadsStorageManager.updateUpload(failedUpload);
-                }
-            } else if (!isPowerSaving && gotNetwork &&
-                canUploadBeRetried(failedUpload, gotWifi, charging) && !connectivityService.isInternetWalled()) {
-                // 2B. for existing local files, try restarting it if possible
-                retryUpload(context, uploadUser.get(), failedUpload);
-            }
-        }
-    }
-
-    private static boolean canUploadBeRetried(OCUpload upload, boolean gotWifi, boolean isCharging) {
-        File file = new File(upload.getLocalPath());
-        boolean needsWifi = upload.isUseWifiOnly();
-        boolean needsCharging = upload.isWhileChargingOnly();
-
-        return file.exists() && (!needsWifi || gotWifi) && (!needsCharging || isCharging);
-    }
-
-    public static String getUploadsAddedMessage() {
-        return FileUploader.class.getName() + FilesUploadWorker.UPLOADS_ADDED_MESSAGE;
-    }
-
-    public static String getUploadStartMessage() {
-        return FileUploader.class.getName() + FilesUploadWorker.UPLOAD_START_MESSAGE;
-    }
-
-    public static String getUploadFinishMessage() {
-        return FileUploader.class.getName() + FilesUploadWorker.UPLOAD_FINISH_MESSAGE;
-    }
-
-    @VisibleForTesting
-    public static void setForceNewUploadWorker(final Boolean value) {
-        forceNewUploadWorker = value;
-    }
 
     /**
      * Binder to let client components to perform operations on the queue of uploads.
@@ -952,7 +809,7 @@ public class FileUploader extends Service
                 return;
             }
 
-            String targetKey = buildRemoteName(user.getAccountName(), file.getRemotePath());
+            String targetKey = FilesUploadWorker.Companion.buildRemoteName(user.getAccountName(), file.getRemotePath());
             new FilesUploadHelper().addDatatransferProgressListener(listener,targetKey);
         }
 
@@ -970,7 +827,7 @@ public class FileUploader extends Service
                 return;
             }
 
-            String targetKey = buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
+            String targetKey = FilesUploadWorker.Companion.buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
             new FilesUploadHelper().addDatatransferProgressListener(listener,targetKey);
         }
 
@@ -990,7 +847,7 @@ public class FileUploader extends Service
                 return;
             }
 
-            String targetKey = buildRemoteName(user.getAccountName(), file.getRemotePath());
+            String targetKey = FilesUploadWorker.Companion.buildRemoteName(user.getAccountName(), file.getRemotePath());
             new FilesUploadHelper().removeDatatransferProgressListener(listener,targetKey);
         }
 
@@ -1008,7 +865,7 @@ public class FileUploader extends Service
                 return;
             }
 
-            String targetKey = buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
+            String targetKey = FilesUploadWorker.Companion.buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
             new FilesUploadHelper().removeDatatransferProgressListener(listener,targetKey);
         }
 
@@ -1019,7 +876,7 @@ public class FileUploader extends Service
             long totalToTransfer,
             String fileName
                                       ) {
-            String key = buildRemoteName(mCurrentUpload.getUser().getAccountName(), mCurrentUpload.getFile().getRemotePath());
+            String key = FilesUploadWorker.Companion.buildRemoteName(mCurrentUpload.getUser().getAccountName(), mCurrentUpload.getFile().getRemotePath());
             OnDatatransferProgressListener boundListener = mBoundListeners.get(key);
 
             if (boundListener != null) {
@@ -1046,20 +903,6 @@ public class FileUploader extends Service
                           );
                 }
             }
-        }
-
-        /**
-         * Builds a key for the map of listeners.
-         *
-         * TODO use method in IndexedForest, or refactor both to a common place add to local database) to better policy
-         * (add to local database, then upload)
-         *
-         * @param accountName Local name of the ownCloud account where the file to upload belongs.
-         * @param remotePath  Remote path to upload the file to.
-         * @return Key
-         */
-        public static String buildRemoteName(String accountName, String remotePath) {
-            return accountName + remotePath;
         }
     }
 
@@ -1094,36 +937,6 @@ public class FileUploader extends Service
             mService.notificationManager.dismissWorkerNotifications();
             mService.stopForeground(true);
             mService.stopSelf(msg.arg1);
-        }
-    }
-
-
-    /**
-     * When cancel action in upload notification is pressed, cancel upload of item
-     */
-    public static class UploadNotificationActionReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            String accountName = intent.getStringExtra(FilesUploadWorker.EXTRA_ACCOUNT_NAME);
-            String remotePath = intent.getStringExtra(FilesUploadWorker.EXTRA_REMOTE_PATH);
-            String action = intent.getAction();
-
-            if (FilesUploadWorker.ACTION_CANCEL_BROADCAST.equals(action)) {
-                Log_OC.d(TAG, "Cancel broadcast received for file " + remotePath + " at " + System.currentTimeMillis());
-
-                if (accountName == null || remotePath == null) {
-                    return;
-                }
-
-                FileUploaderBinder uploadBinder = (FileUploaderBinder) mBinder;
-                uploadBinder.cancel(accountName, remotePath, null);
-            } else if (FilesUploadWorker.ACTION_PAUSE_BROADCAST.equals(action)) {
-
-            } else {
-                Log_OC.d(TAG, "Unknown action to perform as UploadNotificationActionReceiver.");
-            }
         }
     }
 }

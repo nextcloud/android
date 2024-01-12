@@ -24,6 +24,7 @@ package com.owncloud.android.utils
 
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.FilesUploadWorker
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -87,21 +88,27 @@ class FilesUploadHelper {
 
     fun uploadUpdatedFile(
         user: User,
-        existingFiles: Array<OCFile>,
+        existingFiles: Array<OCFile?>?,
         behaviour: Int,
         nameCollisionPolicy: NameCollisionPolicy
     ) {
+        if (existingFiles == null) {
+            return
+        }
+
         Log_OC.d(this, "upload updated file")
 
         val uploads = existingFiles.map { file ->
-            OCUpload(file, user).apply {
-                fileSize = file.fileLength
-                this.nameCollisionPolicy = nameCollisionPolicy
-                isCreateRemoteFolder = true
-                this.localAction = behaviour
-                isUseWifiOnly = false
-                isWhileChargingOnly = false
-                uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
+            file?.let {
+                OCUpload(file, user).apply {
+                    fileSize = file.fileLength
+                    this.nameCollisionPolicy = nameCollisionPolicy
+                    isCreateRemoteFolder = true
+                    this.localAction = behaviour
+                    isUseWifiOnly = false
+                    isWhileChargingOnly = false
+                    uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
+                }
             }
         }
         uploadsStorageManager.storeUploads(uploads)
@@ -147,7 +154,7 @@ class FilesUploadHelper {
             if (accountName == null || remotePath == null) return
 
             val key: String =
-                FileUploaderBinder.buildRemoteName(accountName, remotePath)
+                FilesUploadWorker.buildRemoteName(accountName, remotePath)
             val boundListener = mBoundListeners[key]
 
             boundListener?.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName)

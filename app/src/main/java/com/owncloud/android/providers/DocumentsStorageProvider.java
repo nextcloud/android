@@ -267,7 +267,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
                         // TODO disable upload notifications as DocumentsProvider users already show them
                         // upload file with FileUploader service (off main thread)
-                        FileUploader.uploadUpdateFile(
+                        FilesUploadWorker.Companion.uploadUpdateFile(
                             context,
                             user,
                             ocFile,

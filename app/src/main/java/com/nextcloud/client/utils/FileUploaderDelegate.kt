@@ -26,7 +26,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.nextcloud.client.jobs.FilesUploadWorker
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.operations.UploadFileOperation
 
@@ -37,7 +36,7 @@ class FileUploaderDelegate {
      * TODO - no more broadcasts, replace with a callback to subscribed listeners once we drop FileUploader
      */
     fun sendBroadcastUploadsAdded(context: Context, localBroadcastManager: LocalBroadcastManager) {
-        val start = Intent(FileUploader.getUploadsAddedMessage())
+        val start = Intent(FilesUploadWorker.getUploadsAddedMessage())
         // nothing else needed right now
         start.setPackage(context.packageName)
         localBroadcastManager.sendBroadcast(start)
@@ -55,7 +54,7 @@ class FileUploaderDelegate {
         context: Context,
         localBroadcastManager: LocalBroadcastManager
     ) {
-        val start = Intent(FileUploader.getUploadStartMessage())
+        val start = Intent(FilesUploadWorker.getUploadStartMessage())
         start.putExtra(FilesUploadWorker.EXTRA_REMOTE_PATH, upload.remotePath) // real remote
         start.putExtra(FilesUploadWorker.EXTRA_OLD_FILE_PATH, upload.originalStoragePath)
         start.putExtra(FilesUploadWorker.ACCOUNT_NAME, upload.user.accountName)
@@ -79,7 +78,7 @@ class FileUploaderDelegate {
         context: Context,
         localBroadcastManager: LocalBroadcastManager
     ) {
-        val end = Intent(FileUploader.getUploadFinishMessage())
+        val end = Intent(FilesUploadWorker.getUploadFinishMessage())
         // real remote path, after possible automatic renaming
         end.putExtra(FilesUploadWorker.EXTRA_REMOTE_PATH, upload.remotePath)
         if (upload.wasRenamed()) {
