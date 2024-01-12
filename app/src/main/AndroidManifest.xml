@@ -170,7 +170,7 @@
             android:name="com.nextcloud.client.jobs.NotificationWork$NotificationReceiver"
             android:exported="false" />
         <receiver
-            android:name="com.nextcloud.client.jobs.FilesUploadWorker$Companion$UploadNotificationActionReceiver"
+            android:name="com.nextcloud.client.files.uploader.FileUploadWorker$Companion$UploadNotificationActionReceiver"
             android:exported="false" />
         <receiver
             android:name="com.nextcloud.client.widget.DashboardWidgetProvider"

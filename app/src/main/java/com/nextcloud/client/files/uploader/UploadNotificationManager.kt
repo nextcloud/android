@@ -29,7 +29,6 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.nextcloud.client.jobs.FilesUploadWorker
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.files.FileUtils
 import com.owncloud.android.operations.UploadFileOperation
@@ -145,7 +144,7 @@ class UploadNotificationManager(private val context: Context, private val viewTh
     fun showNotificationTag(operation: UploadFileOperation) {
         notificationManager.notify(
             NotificationUtils.createUploadNotificationTag(operation.file),
-            FilesUploadWorker.NOTIFICATION_ERROR_ID,
+            FileUploadWorker.NOTIFICATION_ERROR_ID,
             notificationBuilder.build()
         )
     }
@@ -177,13 +176,13 @@ class UploadNotificationManager(private val context: Context, private val viewTh
 
         notificationManager.cancel(
             NotificationUtils.createUploadNotificationTag(operation.file),
-            FilesUploadWorker.NOTIFICATION_ERROR_ID
+            FileUploadWorker.NOTIFICATION_ERROR_ID
         )
 
         operation.oldFile?.let {
             notificationManager.cancel(
                 NotificationUtils.createUploadNotificationTag(it),
-                FilesUploadWorker.NOTIFICATION_ERROR_ID
+                FileUploadWorker.NOTIFICATION_ERROR_ID
             )
         }
     }

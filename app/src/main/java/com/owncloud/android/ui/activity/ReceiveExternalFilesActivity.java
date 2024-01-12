@@ -59,7 +59,7 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.jobs.FilesUploadWorker;
+import com.nextcloud.client.files.uploader.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
@@ -889,7 +889,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             getUser().orElseThrow(RuntimeException::new),
             new String[]{ tmpName },
             new String[]{ mFile.getRemotePath() + filename},
-            FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,
@@ -906,7 +906,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mStreamsToUpload,
             mUploadPath,
             getUser().orElseThrow(RuntimeException::new),
-            FilesUploadWorker.LOCAL_BEHAVIOUR_DELETE,
+            FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
             true, // Show waiting dialog while file is being copied from private storage
             this  // Copy temp task listener
         );

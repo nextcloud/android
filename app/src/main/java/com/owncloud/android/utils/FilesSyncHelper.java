@@ -33,8 +33,8 @@ import android.provider.MediaStore;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.files.uploader.FileUploadWorker;
 import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.jobs.FilesUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
@@ -64,8 +64,6 @@ public final class FilesSyncHelper {
     public static final String TAG = "FileSyncHelper";
 
     public static final String GLOBAL = "global";
-
-    public static final int ContentSyncJobId = 315;
 
     private FilesSyncHelper() {
         // utility class -> private constructor
@@ -229,8 +227,7 @@ public final class FilesSyncHelper {
 
         new Thread(() -> {
             if (connectivityService.getConnectivity().isConnected()) {
-                FilesUploadWorker.Companion.retryFailedUploads(
-                    context,
+                FileUploadWorker.Companion.retryFailedUploads(
                     uploadsStorageManager,
                     connectivityService,
                     accountManager,

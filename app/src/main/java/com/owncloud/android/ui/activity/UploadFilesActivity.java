@@ -37,7 +37,7 @@ import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.jobs.FilesUploadWorker;
+import com.nextcloud.client.files.uploader.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadFilesLayoutBinding;
@@ -499,7 +499,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 data.putExtra(EXTRA_CHOSEN_FILES, new String[]{filesToUpload[0]});
                 setResult(RESULT_OK_AND_DELETE, data);
 
-                preferences.setUploaderBehaviour(FilesUploadWorker.LOCAL_BEHAVIOUR_DELETE);
+                preferences.setUploaderBehaviour(FileUploadWorker.LOCAL_BEHAVIOUR_DELETE);
             } else {
                 data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
                 data.putExtra(LOCAL_BASE_PATH, mCurrentDir.getAbsolutePath());

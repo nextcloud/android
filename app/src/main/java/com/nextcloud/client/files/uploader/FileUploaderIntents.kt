@@ -25,7 +25,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import com.nextcloud.client.jobs.FilesUploadWorker
 import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.operations.UploadFileOperation
@@ -40,11 +39,11 @@ class FileUploaderIntents(private val context: Context) {
     fun startIntent(operation: UploadFileOperation): PendingIntent {
         val intent = Intent(
             context,
-            FilesUploadWorker.Companion.UploadNotificationActionReceiver::class.java
+            FileUploadWorker.Companion.UploadNotificationActionReceiver::class.java
         ).apply {
-            putExtra(FilesUploadWorker.EXTRA_ACCOUNT_NAME, operation.user.accountName)
-            putExtra(FilesUploadWorker.EXTRA_REMOTE_PATH, operation.remotePath)
-            action = FilesUploadWorker.ACTION_CANCEL_BROADCAST
+            putExtra(FileUploadWorker.EXTRA_ACCOUNT_NAME, operation.user.accountName)
+            putExtra(FileUploadWorker.EXTRA_REMOTE_PATH, operation.remotePath)
+            action = FileUploadWorker.ACTION_CANCEL_BROADCAST
         }
 
         return PendingIntent.getBroadcast(

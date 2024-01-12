@@ -26,7 +26,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.jobs.FilesUploadWorker
+import com.nextcloud.client.files.uploader.FileUploadWorker
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.AbstractOnServerIT
@@ -144,7 +144,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             user,
             arrayOf(file.absolutePath),
             arrayOf("/testFile.txt"),
-            FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,
@@ -165,7 +165,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         FilesUploadHelper().uploadUpdatedFile(
             user,
             arrayOf(ocFile2),
-            FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             NameCollisionPolicy.OVERWRITE
         )
 
@@ -196,7 +196,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 null,
                 ocUpload,
                 NameCollisionPolicy.DEFAULT,
-                FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+                FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
                 false,
@@ -224,7 +224,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 null,
                 ocUpload2,
                 NameCollisionPolicy.RENAME,
-                FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+                FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
                 false,
@@ -260,7 +260,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             user,
             arrayOf(file.absolutePath),
             arrayOf("/testFile.txt"),
-            FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,
@@ -281,7 +281,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         FilesUploadHelper().uploadUpdatedFile(
             user,
             arrayOf(ocFile2),
-            FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             NameCollisionPolicy.RENAME
         )
 
@@ -315,7 +315,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 null,
                 ocUpload,
                 NameCollisionPolicy.DEFAULT,
-                FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+                FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
                 false,
@@ -342,7 +342,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 null,
                 ocUpload2,
                 NameCollisionPolicy.CANCEL,
-                FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+                FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
                 false,
@@ -368,7 +368,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             user,
             arrayOf(file.absolutePath),
             arrayOf("/testFile.txt"),
-            FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,
@@ -389,7 +389,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         FilesUploadHelper().uploadUpdatedFile(
             user,
             arrayOf(ocFile2),
-            FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             NameCollisionPolicy.CANCEL
         )
 
@@ -418,7 +418,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 null,
                 ocUpload,
                 NameCollisionPolicy.CANCEL,
-                FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+                FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
                 false,
@@ -444,7 +444,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             null,
             ocUpload2,
             NameCollisionPolicy.CANCEL,
-            FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             false,
             false,
@@ -472,7 +472,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             user,
             arrayOf(file.absolutePath),
             arrayOf("/testFile.txt"),
-            FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,
@@ -493,7 +493,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         FilesUploadHelper().uploadUpdatedFile(
             user,
             arrayOf(ocFile2),
-            FilesUploadWorker.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             NameCollisionPolicy.CANCEL
         )
 

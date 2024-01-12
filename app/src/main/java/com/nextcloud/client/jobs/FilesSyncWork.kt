@@ -34,6 +34,7 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.files.uploader.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.R
@@ -292,10 +293,10 @@ class FilesSyncWork(
 
     private fun getUploadAction(action: String): Int? {
         return when (action) {
-            "LOCAL_BEHAVIOUR_FORGET" -> FilesUploadWorker.LOCAL_BEHAVIOUR_FORGET
-            "LOCAL_BEHAVIOUR_MOVE" -> FilesUploadWorker.LOCAL_BEHAVIOUR_MOVE
-            "LOCAL_BEHAVIOUR_DELETE" -> FilesUploadWorker.LOCAL_BEHAVIOUR_DELETE
-            else -> FilesUploadWorker.LOCAL_BEHAVIOUR_FORGET
+            "LOCAL_BEHAVIOUR_FORGET" -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
+            "LOCAL_BEHAVIOUR_MOVE" -> FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
+            "LOCAL_BEHAVIOUR_DELETE" -> FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
+            else -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
         }
     }
 }

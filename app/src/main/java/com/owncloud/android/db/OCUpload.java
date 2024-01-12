@@ -27,7 +27,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.jobs.FilesUploadWorker;
+import com.nextcloud.client.files.uploader.FileUploadWorker;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
@@ -172,7 +172,7 @@ public class OCUpload implements Parcelable {
         accountName = "";
         fileSize = -1;
         uploadId = -1;
-        localAction = FilesUploadWorker.LOCAL_BEHAVIOUR_COPY;
+        localAction = FileUploadWorker.LOCAL_BEHAVIOUR_COPY;
         nameCollisionPolicy = NameCollisionPolicy.DEFAULT;
         createRemoteFolder = false;
         uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;

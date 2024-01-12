@@ -40,8 +40,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.files.uploader.FileUploadWorker
 import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.client.jobs.FilesUploadWorker
 import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
 import com.nextcloud.client.preferences.AppPreferences
@@ -453,7 +453,7 @@ class SyncedFoldersActivity :
             true,
             false,
             account.name,
-            FilesUploadWorker.LOCAL_BEHAVIOUR_FORGET,
+            FileUploadWorker.LOCAL_BEHAVIOUR_FORGET,
             NameCollisionPolicy.ASK_USER.serialize(),
             false,
             clock.currentTime,
@@ -547,7 +547,7 @@ class SyncedFoldersActivity :
                         true,
                         false,
                         account.name,
-                        FilesUploadWorker.LOCAL_BEHAVIOUR_FORGET,
+                        FileUploadWorker.LOCAL_BEHAVIOUR_FORGET,
                         NameCollisionPolicy.ASK_USER.serialize(),
                         false,
                         clock.currentTime,

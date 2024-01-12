@@ -43,7 +43,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
-import com.nextcloud.client.jobs.FilesUploadWorker;
+import com.nextcloud.client.files.uploader.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
@@ -133,8 +133,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     }
                 }
                 case FINISHED -> uploadsStorageManager.clearSuccessfulUploads();
-                case FAILED -> new Thread(() -> FilesUploadWorker.Companion.retryFailedUploads(
-                    parentActivity,
+                case FAILED -> new Thread(() -> FileUploadWorker.Companion.retryFailedUploads(
                     uploadsStorageManager,
                     connectivityService,
                     accountManager,
@@ -162,6 +161,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                              final Clock clock,
                              final ViewThemeUtils viewThemeUtils) {
         Log_OC.d(TAG, "UploadListAdapter");
+
         this.parentActivity = fileActivity;
         this.uploadsStorageManager = uploadsStorageManager;
         this.storageManager = storageManager;
@@ -883,7 +883,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         if (upload == null) return;
         mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(upload.getRemotePath(),upload.getLocalPath()),
-                                    FilesUploadWorker.NOTIFICATION_ERROR_ID);
+                                    FileUploadWorker.NOTIFICATION_ERROR_ID);
 
     }
 

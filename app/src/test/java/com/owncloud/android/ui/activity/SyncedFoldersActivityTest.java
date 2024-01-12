@@ -22,7 +22,7 @@
 
 package com.owncloud.android.ui.activity;
 
-import com.nextcloud.client.jobs.FilesUploadWorker;
+import com.nextcloud.client.files.uploader.FileUploadWorker;
 import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
@@ -169,7 +169,7 @@ public class SyncedFoldersActivityTest {
                                            true,
                                            true,
                                            "test@nextcloud.com",
-                                           FilesUploadWorker.LOCAL_BEHAVIOUR_MOVE,
+                                           FileUploadWorker.LOCAL_BEHAVIOUR_MOVE,
                                            NameCollisionPolicy.ASK_USER.serialize(),
                                            enabled,
                                            System.currentTimeMillis(),

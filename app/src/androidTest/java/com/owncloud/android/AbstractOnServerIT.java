@@ -13,7 +13,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
-import com.nextcloud.client.jobs.FilesUploadWorker;
+import com.nextcloud.client.files.uploader.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
@@ -178,7 +178,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
     }
 
     public void uploadOCUpload(OCUpload ocUpload) {
-        uploadOCUpload(ocUpload, FilesUploadWorker.LOCAL_BEHAVIOUR_COPY);
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_COPY);
     }
 
     public void uploadOCUpload(OCUpload ocUpload, int localBehaviour) {
@@ -253,8 +253,8 @@ public abstract class AbstractOnServerIT extends AbstractIT {
         assertNotNull(uploadedFile.getRemoteId());
         assertNotNull(uploadedFile.getPermissions());
 
-        if (localBehaviour == FilesUploadWorker.LOCAL_BEHAVIOUR_COPY ||
-            localBehaviour == FilesUploadWorker.LOCAL_BEHAVIOUR_MOVE) {
+        if (localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_COPY ||
+            localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE) {
             assertTrue(new File(uploadedFile.getStoragePath()).exists());
         }
     }

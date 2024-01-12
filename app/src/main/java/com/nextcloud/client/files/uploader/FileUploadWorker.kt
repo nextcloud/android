@@ -1,10 +1,9 @@
 /*
- *
  * Nextcloud Android client application
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2022 Tobias Kaminsky
- * Copyright (C) 2022 Nextcloud GmbH
+ * @author Alper Ozturk
+ * Copyright (C) 2023 Alper Ozturk
+ * Copyright (C) 2023 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,7 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.client.jobs
+package com.nextcloud.client.files.uploader
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -31,10 +30,9 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.files.uploader.FileUploaderIntents
-import com.nextcloud.client.files.uploader.UploadNotificationManager
+import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.network.ConnectivityService
-import com.nextcloud.client.utils.FileUploaderDelegate
 import com.nextcloud.java.util.Optional
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -55,7 +53,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 
 @Suppress("LongParameterList")
-class FilesUploadWorker(
+class FileUploadWorker(
     val uploadsStorageManager: UploadsStorageManager,
     val connectivityService: ConnectivityService,
     val powerManagementService: PowerManagementService,
@@ -81,13 +79,17 @@ class FilesUploadWorker(
 
             val result = Result.failure()
             backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
-            return result // user account is needed
+            return result
         }
 
-        /*
-         * As pages are retrieved by sorting uploads by ID, if new uploads are added while uploading the current ones,
-         * they will be present in the pages that follow.
-         */
+        retrievePagesBySortingUploadsByID(accountName)
+
+        val result = Result.success()
+        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
+        return result
+    }
+
+    private fun retrievePagesBySortingUploadsByID(accountName: String) {
         var currentPage = uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(-1, accountName)
         while (currentPage.isNotEmpty() && !isStopped) {
             Log_OC.d(TAG, "Handling ${currentPage.size} uploads for account $accountName")
@@ -98,19 +100,15 @@ class FilesUploadWorker(
         }
 
         Log_OC.d(TAG, "No more pending uploads for account $accountName, stopping work")
-        val result = Result.success()
-        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
-        return result
     }
 
     private fun handlePendingUploads(uploads: List<OCUpload>, accountName: String) {
         val user = userAccountManager.getUser(accountName)
-
         for (upload in uploads) {
             if (isStopped) {
                 break
             }
-            // create upload file operation
+
             if (user.isPresent) {
                 val uploadFileOperation = createUploadFileOperation(upload, user.get())
 
@@ -126,7 +124,6 @@ class FilesUploadWorker(
                     localBroadcastManager
                 )
             } else {
-                // user not present anymore, remove upload
                 uploadsStorageManager.removeUpload(upload.uploadId)
             }
         }
@@ -148,7 +145,7 @@ class FilesUploadWorker(
             true,
             FileDataStorageManager(user, context.contentResolver)
         ).apply {
-            addDataTransferProgressListener(this@FilesUploadWorker)
+            addDataTransferProgressListener(this@FileUploadWorker)
         }
     }
 
@@ -175,13 +172,9 @@ class FilesUploadWorker(
             Log_OC.e(TAG, "Error uploading", e)
             uploadResult = RemoteOperationResult<Any?>(e)
         } finally {
-            // only update db if operation finished and worker didn't get canceled
             if (!(isStopped && uploadResult.isCancelled)) {
                 uploadsStorageManager.updateDatabaseUploadResult(uploadResult, uploadFileOperation)
-
-                // / notify result
                 notifyUploadResult(uploadFileOperation, uploadResult)
-
                 notificationManager.dismissWorkerNotifications()
             }
         }
@@ -200,36 +193,32 @@ class FilesUploadWorker(
             return
         }
 
-        // Only notify if the upload fails
         if (uploadResult.isCancelled) {
             return
         }
 
-        val notDelayed = uploadResult.code != ResultCode.DELAYED_FOR_WIFI &&
-            uploadResult.code != ResultCode.DELAYED_FOR_CHARGING &&
-            uploadResult.code != ResultCode.DELAYED_IN_POWER_SAVE_MODE
+        val notDelayed = uploadResult.code !in setOf(
+            ResultCode.DELAYED_FOR_WIFI,
+            ResultCode.DELAYED_FOR_CHARGING,
+            ResultCode.DELAYED_IN_POWER_SAVE_MODE
+        )
 
-        if (notDelayed &&
-            uploadResult.code != ResultCode.LOCAL_FILE_NOT_FOUND &&
-            uploadResult.code != ResultCode.LOCK_FAILED
-        ) {
-            var tickerId = R.string.uploader_upload_failed_ticker
+        val isValidFile = uploadResult.code !in setOf(
+            ResultCode.LOCAL_FILE_NOT_FOUND,
+            ResultCode.LOCK_FAILED,
+        )
 
-            // check credentials error
-            val needsToUpdateCredentials = uploadResult.code == ResultCode.UNAUTHORIZED
-            if (needsToUpdateCredentials) {
-                tickerId = R.string.uploader_upload_failed_credentials_error
-            } else if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
-                // check file conflict
-                tickerId = R.string.uploader_upload_failed_sync_conflict_error
-            }
-            notificationManager.notifyForResult(tickerId)
+        if (!notDelayed || !isValidFile) {
+            return
+        }
 
-            val content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, uploadFileOperation, context.resources)
-            notificationManager.setContentIntent(intents.resultIntent(ResultCode.OK, uploadFileOperation))
+        val (tickerId, needsToUpdateCredentials) = getTickerId(uploadResult.code)
+        notificationManager.run {
+            notifyForResult(tickerId)
+            setContentIntent(intents.resultIntent(ResultCode.OK, uploadFileOperation))
 
             if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
-                notificationManager.addAction(
+                addAction(
                     R.drawable.ic_cloud_upload,
                     R.string.upload_list_resolve_conflict,
                     intents.conflictResolveActionIntents(context, uploadFileOperation)
@@ -237,17 +226,32 @@ class FilesUploadWorker(
             }
 
             if (needsToUpdateCredentials) {
-                notificationManager.setContentIntent(intents.credentialIntent(uploadFileOperation))
+                setContentIntent(intents.credentialIntent(uploadFileOperation))
             }
 
-            notificationManager.setContentText(content)
+            val content = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, uploadFileOperation, context.resources)
+            setContentText(content)
 
             if (!uploadResult.isSuccess) {
-                notificationManager.showRandomNotification()
+                showRandomNotification()
             }
 
-            notificationManager.showNotificationTag(uploadFileOperation)
+            showNotificationTag(uploadFileOperation)
         }
+    }
+
+    private fun getTickerId(resultCode: ResultCode): Pair<Int, Boolean> {
+        var tickerId = R.string.uploader_upload_failed_ticker
+
+        val needsToUpdateCredentials = (resultCode == ResultCode.UNAUTHORIZED)
+
+        if (needsToUpdateCredentials) {
+            tickerId = R.string.uploader_upload_failed_credentials_error
+        } else if (resultCode == ResultCode.SYNC_CONFLICT) {
+            tickerId = R.string.uploader_upload_failed_sync_conflict_error
+        }
+
+        return Pair(tickerId, needsToUpdateCredentials)
     }
 
     override fun onTransferProgress(
@@ -259,14 +263,23 @@ class FilesUploadWorker(
         val percent = (MAX_PROGRESS * totalTransferredSoFar.toDouble() / totalToTransfer.toDouble()).toInt()
         if (percent != lastPercent) {
             notificationManager.updateUploadProgressNotification(fileAbsoluteName, percent, currentUploadFileOperation)
-            FilesUploadHelper.onTransferProgress(
-                currentUploadFileOperation?.user?.accountName,
-                currentUploadFileOperation?.remotePath,
-                progressRate,
-                totalTransferredSoFar,
-                totalToTransfer,
-                fileAbsoluteName
-            )
+
+            val accountName = currentUploadFileOperation?.user?.accountName
+            val remotePath = currentUploadFileOperation?.remotePath
+
+            if (accountName != null && remotePath != null) {
+                val key: String =
+                    FilesUploadHelper.buildRemoteName(accountName, remotePath)
+                val boundListener = FilesUploadHelper.mBoundListeners[key]
+
+                boundListener?.onTransferProgress(
+                    progressRate,
+                    totalTransferredSoFar,
+                    totalToTransfer,
+                    fileAbsoluteName
+                )
+            }
+
             notificationManager.dismissOldErrorNotification(currentUploadFileOperation)
         }
         lastPercent = percent
@@ -279,7 +292,7 @@ class FilesUploadWorker(
     }
 
     companion object {
-        val TAG: String = FilesUploadWorker::class.java.simpleName
+        val TAG: String = FileUploadWorker::class.java.simpleName
 
         const val NOTIFICATION_ERROR_ID: Int = 413
         private const val MAX_PROGRESS: Int = 100
@@ -298,7 +311,6 @@ class FilesUploadWorker(
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
         const val EXTRA_ACCOUNT_NAME = "ACCOUNT_NAME"
         const val ACTION_CANCEL_BROADCAST = "CANCEL"
-        const val ACTION_PAUSE_BROADCAST = "PAUSE"
         const val LOCAL_BEHAVIOUR_COPY = 0
         const val LOCAL_BEHAVIOUR_MOVE = 1
         const val LOCAL_BEHAVIOUR_FORGET = 2
@@ -306,7 +318,6 @@ class FilesUploadWorker(
 
         @Suppress("ComplexCondition")
         fun retryFailedUploads(
-            context: Context,
             uploadsStorageManager: UploadsStorageManager,
             connectivityService: ConnectivityService,
             accountManager: UserAccountManager,
@@ -351,23 +362,23 @@ class FilesUploadWorker(
         }
 
         fun getUploadsAddedMessage(): String {
-            return FilesUploadWorker::class.java.name + UPLOADS_ADDED_MESSAGE
+            return FileUploadWorker::class.java.name + UPLOADS_ADDED_MESSAGE
         }
 
         fun getUploadStartMessage(): String {
-            return FilesUploadWorker::class.java.name + UPLOAD_START_MESSAGE
+            return FileUploadWorker::class.java.name + UPLOAD_START_MESSAGE
         }
 
         fun getUploadFinishMessage(): String {
-            return FilesUploadWorker::class.java.name + UPLOAD_FINISH_MESSAGE
+            return FileUploadWorker::class.java.name + UPLOAD_FINISH_MESSAGE
         }
 
-        @Suppress("EmptyIfBlock")
         class UploadNotificationActionReceiver : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 val accountName = intent.getStringExtra(EXTRA_ACCOUNT_NAME)
                 val remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH)
                 val action = intent.action
+
                 if (ACTION_CANCEL_BROADCAST == action) {
                     Log_OC.d(
                         TAG,
@@ -376,11 +387,9 @@ class FilesUploadWorker(
                     if (accountName == null || remotePath == null) {
                         return
                     }
+
                     val uploadHelper = FilesUploadHelper()
                     uploadHelper.cancelFileUpload(remotePath, accountName)
-                } else if (ACTION_PAUSE_BROADCAST == action) {
-                } else {
-                    Log_OC.d(TAG, "Unknown action to perform as UploadNotificationActionReceiver.")
                 }
             }
         }

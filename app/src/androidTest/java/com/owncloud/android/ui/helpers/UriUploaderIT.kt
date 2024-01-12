@@ -2,7 +2,7 @@ package com.owncloud.android.ui.helpers
 
 import android.net.Uri
 import androidx.test.core.app.launchActivity
-import com.nextcloud.client.jobs.FilesUploadWorker
+import com.nextcloud.client.files.uploader.FileUploadWorker
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import org.junit.Assert
@@ -38,7 +38,7 @@ class UriUploaderIT : AbstractIT() {
             listOf(Uri.parse(path)),
             "",
             activity.user.orElseThrow(::RuntimeException),
-            FilesUploadWorker.LOCAL_BEHAVIOUR_MOVE,
+            FileUploadWorker.LOCAL_BEHAVIOUR_MOVE,
             false,
             null
         )

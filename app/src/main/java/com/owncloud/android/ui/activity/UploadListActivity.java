@@ -38,8 +38,8 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.files.uploader.FileUploadWorker;
 import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.jobs.FilesUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.utils.Throttler;
 import com.owncloud.android.R;
@@ -194,9 +194,7 @@ public class UploadListActivity extends FileActivity {
         backgroundJobManager.startImmediateFilesSyncJob(false, true);
 
         if(uploadsStorageManager.getFailedUploads().length > 0){
-            // retry failed uploads
-            new Thread(() -> FilesUploadWorker.Companion.retryFailedUploads(
-                this,
+            new Thread(() -> FileUploadWorker.Companion.retryFailedUploads(
                 uploadsStorageManager,
                 connectivityService,
                 userAccountManager,
@@ -226,9 +224,9 @@ public class UploadListActivity extends FileActivity {
         // Listen for upload messages
         uploadMessagesReceiver = new UploadMessagesReceiver();
         IntentFilter uploadIntentFilter = new IntentFilter();
-        uploadIntentFilter.addAction(FilesUploadWorker.Companion.getUploadsAddedMessage());
-        uploadIntentFilter.addAction(FilesUploadWorker.Companion.getUploadStartMessage());
-        uploadIntentFilter.addAction(FilesUploadWorker.Companion.getUploadFinishMessage());
+        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadsAddedMessage());
+        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadStartMessage());
+        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadFinishMessage());
         localBroadcastManager.registerReceiver(uploadMessagesReceiver, uploadIntentFilter);
 
         Log_OC.v(TAG, "onResume() end");
