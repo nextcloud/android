@@ -44,7 +44,6 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.files.services.FileUploader
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
@@ -435,8 +434,8 @@ class FilesUploadWorker(
                     if (accountName == null || remotePath == null) {
                         return
                     }
-                    val uploadBinder = FileUploader.mBinder as FileUploaderBinder
-                    uploadBinder.cancel(accountName, remotePath, null)
+                    val uploadHelper = FilesUploadHelper()
+                    uploadHelper.cancel(accountName, remotePath, null)
                 } else if (ACTION_PAUSE_BROADCAST == action) {
 
                 } else {

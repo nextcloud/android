@@ -159,7 +159,6 @@ public class FileUploader extends Service
         thread.start();
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
-        mBinder = new FileUploaderBinder();
         fileUploaderDelegate = new FileUploaderDelegate();
 
         intents = new FileUploaderIntents(this);
@@ -407,7 +406,7 @@ public class FileUploader extends Service
             newUpload.setRemoteFolderToBeCreated();
         }
         newUpload.addDataTransferProgressListener(this);
-        newUpload.addDataTransferProgressListener((FileUploaderBinder) mBinder);
+        // newUpload.addDataTransferProgressListener((FileUploaderBinder) mBinder);
 
         newUpload.addRenameUploadListener(this);
 
@@ -455,7 +454,7 @@ public class FileUploader extends Service
         );
 
         newUpload.addDataTransferProgressListener(this);
-        newUpload.addDataTransferProgressListener((FileUploaderBinder) mBinder);
+        // newUpload.addDataTransferProgressListener((FileUploaderBinder) mBinder);
 
         newUpload.addRenameUploadListener(this);
 
@@ -490,7 +489,7 @@ public class FileUploader extends Service
      */
     @Override
     public boolean onUnbind(Intent intent) {
-        ((FileUploaderBinder) mBinder).clearListeners();
+        // ((FileUploaderBinder) mBinder).clearListeners();
         return false;   // not accepting rebinding (default behaviour)
     }
 
@@ -686,224 +685,6 @@ public class FileUploader extends Service
     private void cancelPendingUploads(String accountName) {
         mPendingUploads.remove(accountName);
         mUploadsStorageManager.removeUploads(accountName);
-    }
-
-
-
-    /**
-     * Binder to let client components to perform operations on the queue of uploads.
-     * <p>
-     * It provides by itself the available operations.
-     */
-    public class FileUploaderBinder extends Binder implements OnDatatransferProgressListener {
-        /**
-         * Map of listeners that will be reported about progress of uploads from a {@link FileUploaderBinder} instance
-         */
-        private Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<>();
-
-        /**
-         * Cancels a pending or current upload of a remote file.
-         *
-         * @param account ownCloud account where the remote file will be stored.
-         * @param file    A file in the queue of pending uploads
-         */
-        public void cancel(Account account, ServerFileInterface file) {
-            cancel(account.name, file.getRemotePath(), null);
-        }
-
-        /**
-         * Cancels a pending or current upload that was persisted.
-         *
-         * @param storedUpload Upload operation persisted
-         */
-        public void cancel(OCUpload storedUpload) {
-            cancel(storedUpload.getAccountName(), storedUpload.getRemotePath(), null);
-        }
-
-        /**
-         * Cancels a pending or current upload of a remote file.
-         *
-         * @param accountName Local name of an ownCloud account where the remote file will be stored.
-         * @param remotePath  Remote target of the upload
-         * @param resultCode  Setting result code will pause rather than cancel the job
-         */
-        public void cancel(String accountName, String remotePath, @Nullable ResultCode resultCode) {
-            try {
-                new FilesUploadHelper().cancelFileUpload(remotePath, accountManager.getUser(accountName).get());
-            } catch (NoSuchElementException e) {
-                Log_OC.e(TAG, "Error cancelling current upload because user does not exist!");
-            }
-        }
-
-        /**
-         * Cancels all the uploads for a user, both running and pending.
-         *
-         * @param user Nextcloud user
-         */
-        public void cancel(User user) {
-            cancel(user.getAccountName());
-        }
-
-        public void cancel(String accountName) {
-            cancelPendingUploads(accountName);
-            new FilesUploadHelper().restartUploadJob(accountManager.getUser(accountName).get());
-        }
-
-        public void clearListeners() {
-            FilesUploadHelper.Companion.getMBoundListeners().clear();
-            mBoundListeners.clear();
-        }
-
-        /**
-         * Returns True when the file described by 'file' is being uploaded to the ownCloud account 'account' or waiting
-         * for it
-         *
-         * If 'file' is a directory, returns 'true' if some of its descendant files is uploading or waiting to upload.
-         *
-         * Warning: If remote file exists and target was renamed the original file is being returned here. That is, it
-         * seems as if the original file is being updated when actually a new file is being uploaded.
-         *
-         * @param user    user where the remote file will be stored.
-         * @param file    A file that could be in the queue of pending uploads
-         */
-        public boolean isUploading(User user, OCFile file) {
-            if (user == null || file == null) {
-                return false;
-            }
-
-            OCUpload upload = mUploadsStorageManager.getUploadByRemotePath(file.getRemotePath());
-
-            if (upload == null){
-                return false;
-            }
-
-            return upload.getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS;
-        }
-
-        @SuppressFBWarnings("NP")
-        public boolean isUploadingNow(OCUpload upload) {
-            UploadFileOperation currentUploadFileOperation = FilesUploadWorker.Companion.getCurrentUploadFileOperation();
-            if (currentUploadFileOperation == null || currentUploadFileOperation.getUser() == null) return false;
-            if (upload == null || (!upload.getAccountName().equals(currentUploadFileOperation.getUser().getAccountName()))) return false;
-            if (currentUploadFileOperation.getOldFile() != null){
-                // For file conflicts check old file remote path
-                return upload.getRemotePath().equals(currentUploadFileOperation.getRemotePath()) ||
-                    upload.getRemotePath().equals(currentUploadFileOperation.getOldFile().getRemotePath());
-            }
-            return upload.getRemotePath().equals(currentUploadFileOperation.getRemotePath());
-        }
-
-        /**
-         * Adds a listener interested in the progress of the upload for a concrete file.
-         *
-         * @param listener Object to notify about progress of transfer.
-         * @param user  user owning the file of interest.
-         * @param file     {@link OCFile} of interest for listener.
-         */
-        public void addDatatransferProgressListener(
-            OnDatatransferProgressListener listener,
-            User user,
-            ServerFileInterface file
-                                                   ) {
-            if (user == null || file == null || listener == null) {
-                return;
-            }
-
-            String targetKey = FilesUploadWorker.Companion.buildRemoteName(user.getAccountName(), file.getRemotePath());
-            new FilesUploadHelper().addDatatransferProgressListener(listener,targetKey);
-        }
-
-        /**
-         * Adds a listener interested in the progress of the upload for a concrete file.
-         *
-         * @param listener Object to notify about progress of transfer.
-         * @param ocUpload {@link OCUpload} of interest for listener.
-         */
-        public void addDatatransferProgressListener(
-            OnDatatransferProgressListener listener,
-            OCUpload ocUpload
-                                                   ) {
-            if (ocUpload == null || listener == null) {
-                return;
-            }
-
-            String targetKey = FilesUploadWorker.Companion.buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
-            new FilesUploadHelper().addDatatransferProgressListener(listener,targetKey);
-        }
-
-        /**
-         * Removes a listener interested in the progress of the upload for a concrete file.
-         *
-         * @param listener Object to notify about progress of transfer.
-         * @param user user owning the file of interest.
-         * @param file {@link OCFile} of interest for listener.
-         */
-        public void removeDatatransferProgressListener(
-            OnDatatransferProgressListener listener,
-            User user,
-            ServerFileInterface file
-                                                      ) {
-            if (user == null || file == null || listener == null) {
-                return;
-            }
-
-            String targetKey = FilesUploadWorker.Companion.buildRemoteName(user.getAccountName(), file.getRemotePath());
-            new FilesUploadHelper().removeDatatransferProgressListener(listener,targetKey);
-        }
-
-        /**
-         * Removes a listener interested in the progress of the upload for a concrete file.
-         *
-         * @param listener Object to notify about progress of transfer.
-         * @param ocUpload Stored upload of interest
-         */
-        public void removeDatatransferProgressListener(
-            OnDatatransferProgressListener listener,
-            OCUpload ocUpload
-                                                      ) {
-            if (ocUpload == null || listener == null) {
-                return;
-            }
-
-            String targetKey = FilesUploadWorker.Companion.buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
-            new FilesUploadHelper().removeDatatransferProgressListener(listener,targetKey);
-        }
-
-        @Override
-        public void onTransferProgress(
-            long progressRate,
-            long totalTransferredSoFar,
-            long totalToTransfer,
-            String fileName
-                                      ) {
-            String key = FilesUploadWorker.Companion.buildRemoteName(mCurrentUpload.getUser().getAccountName(), mCurrentUpload.getFile().getRemotePath());
-            OnDatatransferProgressListener boundListener = mBoundListeners.get(key);
-
-            if (boundListener != null) {
-                boundListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName);
-            }
-
-            Context context = MainApp.getAppContext();
-            if (context != null) {
-                ResultCode cancelReason = null;
-                Connectivity connectivity = connectivityService.getConnectivity();
-                if (mCurrentUpload.isWifiRequired() && !connectivity.isWifi()) {
-                    cancelReason = ResultCode.DELAYED_FOR_WIFI;
-                } else if (mCurrentUpload.isChargingRequired() && !powerManagementService.getBattery().isCharging()) {
-                    cancelReason = ResultCode.DELAYED_FOR_CHARGING;
-                } else if (!mCurrentUpload.isIgnoringPowerSaveMode() && powerManagementService.isPowerSavingEnabled()) {
-                    cancelReason = ResultCode.DELAYED_IN_POWER_SAVE_MODE;
-                }
-
-                if (cancelReason != null) {
-                    cancel(
-                        mCurrentUpload.getUser().getAccountName(),
-                        mCurrentUpload.getFile().getRemotePath(),
-                        cancelReason
-                          );
-                }
-            }
-        }
     }
 
     /**
