@@ -43,6 +43,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.files.uploader.FileUploadHelper;
 import com.nextcloud.client.files.uploader.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
@@ -67,7 +68,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.DisplayUtils;
-import com.nextcloud.client.files.uploader.FileUploadHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -95,7 +95,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private final ViewThemeUtils viewThemeUtils;
     private NotificationManager mNotificationManager;
 
-    private final FileUploadHelper uploadHelper = new FileUploadHelper();
+    private final FileUploadHelper uploadHelper = FileUploadHelper.Companion.instance();
 
     @Override
     public int getSectionCount() {

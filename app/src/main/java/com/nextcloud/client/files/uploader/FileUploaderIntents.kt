@@ -97,6 +97,22 @@ class FileUploaderIntents(private val context: Context) {
         )
     }
 
+    fun notificationStartIntent(operation: UploadFileOperation): PendingIntent {
+        val intent = UploadListActivity.createIntent(
+            operation.file,
+            operation.user,
+            Intent.FLAG_ACTIVITY_CLEAR_TOP,
+            context
+        )
+
+        return PendingIntent.getActivity(
+            context,
+            System.currentTimeMillis().toInt(),
+            intent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+    }
+
     fun conflictResolveActionIntents(context: Context, uploadFileOperation: UploadFileOperation): PendingIntent {
         val intent = createIntent(
             uploadFileOperation.file,

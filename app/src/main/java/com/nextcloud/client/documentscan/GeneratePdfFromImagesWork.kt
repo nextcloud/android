@@ -32,6 +32,7 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.AnonymousUser
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.files.uploader.FileUploadHelper
 import com.nextcloud.client.files.uploader.FileUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.owncloud.android.R
@@ -39,7 +40,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.nextcloud.client.files.uploader.FileUploadHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.security.SecureRandom

@@ -58,6 +58,14 @@ class FileUploadHelper {
 
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
 
+        private var instance: FileUploadHelper? = null
+
+        fun instance(): FileUploadHelper {
+            return instance ?: synchronized(this) {
+                instance ?: FileUploadHelper().also { instance = it }
+            }
+        }
+
         fun buildRemoteName(accountName: String, remotePath: String): String {
             return accountName + remotePath
         }

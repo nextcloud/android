@@ -27,6 +27,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.files.uploader.FileUploadHelper;
 import com.nextcloud.client.files.uploader.FileUploadWorker;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -34,7 +35,6 @@ import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.nextcloud.client.files.uploader.FileUploadHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;

@@ -34,6 +34,7 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.files.uploader.FileUploadHelper
 import com.nextcloud.client.files.uploader.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
@@ -52,7 +53,6 @@ import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FilesSyncHelper
-import com.nextcloud.client.files.uploader.FileUploadHelper
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
@@ -210,7 +210,7 @@ class FilesSyncWork(
             uploadAction = syncedFolder.uploadAction
         }
 
-        FileUploadHelper().uploadNewFiles(
+        FileUploadHelper.instance().uploadNewFiles(
             user,
             localPaths,
             remotePaths,

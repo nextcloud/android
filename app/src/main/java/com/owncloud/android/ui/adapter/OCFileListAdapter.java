@@ -171,7 +171,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         this.viewThemeUtils = viewThemeUtils;
 
-        ocFileListDelegate = new OCFileListDelegate(new FileUploadHelper(),
+        ocFileListDelegate = new OCFileListDelegate(FileUploadHelper.Companion.instance(),
                                                     activity,
                                                     ocFileListFragmentInterface,
                                                     user,

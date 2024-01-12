@@ -29,6 +29,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.IoDispatcher
+import com.nextcloud.client.files.uploader.FileUploadHelper
 import com.nextcloud.client.files.uploader.FileUploadWorker
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.logger.Logger
@@ -36,7 +37,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.helpers.FileOperationsHelper
-import com.nextcloud.client.files.uploader.FileUploadHelper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -184,7 +184,7 @@ class DocumentScanViewModel @Inject constructor(
             uploadFolder + OCFile.PATH_SEPARATOR + File(it).name
         }.toTypedArray()
 
-        FileUploadHelper().uploadNewFiles(
+        FileUploadHelper.instance().uploadNewFiles(
             currentAccountProvider.user,
             pageList.toTypedArray(),
             uploadPaths,

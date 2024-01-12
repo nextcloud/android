@@ -23,6 +23,7 @@ import android.content.ContentResolver
 import android.net.Uri
 import android.os.Parcelable
 import com.nextcloud.client.account.User
+import com.nextcloud.client.files.uploader.FileUploadHelper
 import com.owncloud.android.R
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -31,7 +32,6 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener
 import com.owncloud.android.ui.fragment.TaskRetainerFragment
-import com.nextcloud.client.files.uploader.FileUploadHelper
 import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
 
 /**
@@ -125,7 +125,7 @@ class UriUploader(
      * @param remotePath    Absolute path in the current OC account to set to the uploaded file.
      */
     private fun requestUpload(localPath: String?, remotePath: String) {
-        FileUploadHelper().uploadNewFiles(
+        FileUploadHelper.instance().uploadNewFiles(
             user,
             arrayOf(localPath ?: ""),
             arrayOf(remotePath),

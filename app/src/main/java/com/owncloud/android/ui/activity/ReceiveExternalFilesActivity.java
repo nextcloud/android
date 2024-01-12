@@ -59,6 +59,7 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.files.uploader.FileUploadHelper;
 import com.nextcloud.client.files.uploader.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -92,7 +93,6 @@ import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
-import com.nextcloud.client.files.uploader.FileUploadHelper;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -885,7 +885,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     public void uploadFile(String tmpName, String filename) {
-        new FileUploadHelper().uploadNewFiles(
+        FileUploadHelper.Companion.instance().uploadNewFiles(
             getUser().orElseThrow(RuntimeException::new),
             new String[]{ tmpName },
             new String[]{ mFile.getRemotePath() + filename},

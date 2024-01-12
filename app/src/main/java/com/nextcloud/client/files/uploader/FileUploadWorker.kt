@@ -152,7 +152,11 @@ class FileUploadWorker(
     private fun upload(uploadFileOperation: UploadFileOperation, user: User): RemoteOperationResult<Any?> {
         lateinit var uploadResult: RemoteOperationResult<Any?>
 
-        notificationManager.notifyForStart(uploadFileOperation, intents.startIntent(uploadFileOperation))
+        notificationManager.notifyForStart(
+            uploadFileOperation,
+            intents.startIntent(uploadFileOperation),
+            intents.notificationStartIntent(uploadFileOperation)
+        )
 
         try {
             val storageManager = uploadFileOperation.storageManager
@@ -349,7 +353,7 @@ class FileUploadWorker(
                     canUploadBeRetried(failedUpload, gotWifi, charging) && !connectivityService.isInternetWalled
                 ) {
                     // 2B. for existing local files, try restarting it if possible
-                    FileUploadHelper().retryUpload(failedUpload, uploadUser.get())
+                    FileUploadHelper.instance().retryUpload(failedUpload, uploadUser.get())
                 }
             }
         }
@@ -388,8 +392,7 @@ class FileUploadWorker(
                         return
                     }
 
-                    val uploadHelper = FileUploadHelper()
-                    uploadHelper.cancelFileUpload(remotePath, accountName)
+                    FileUploadHelper.instance().cancelFileUpload(remotePath, accountName)
                 }
             }
         }

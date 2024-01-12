@@ -26,6 +26,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.files.uploader.FileUploadHelper
 import com.nextcloud.client.files.uploader.FileUploadWorker
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
@@ -37,7 +38,6 @@ import com.owncloud.android.lib.common.operations.OperationCancelledException
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.UploadFileOperation
-import com.nextcloud.client.files.uploader.FileUploadHelper
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue

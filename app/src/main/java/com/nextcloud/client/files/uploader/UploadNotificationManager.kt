@@ -25,14 +25,11 @@ import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.graphics.BitmapFactory
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.files.FileUtils
 import com.owncloud.android.operations.UploadFileOperation
-import com.owncloud.android.ui.activity.UploadListActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.security.SecureRandom
@@ -53,62 +50,41 @@ class UploadNotificationManager(private val context: Context, private val viewTh
     }
 
     private fun initNotificationBuilder() {
-        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
-            .setContentTitle(context.resources.getString(R.string.app_name))
-            .setContentText(context.resources.getString(R.string.foreground_service_upload))
-            .setSmallIcon(R.drawable.notification_icon)
-            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
+        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
+            setContentTitle(context.resources.getString(R.string.app_name))
+            setContentText(context.resources.getString(R.string.foreground_service_upload))
+            setSmallIcon(R.drawable.notification_icon)
+            setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
+            setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
         }
 
         notification = notificationBuilder.build()
     }
 
     @Suppress("MagicNumber")
-    fun notifyForStart(upload: UploadFileOperation, pendingIntent: PendingIntent) {
-        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils)
-
-        notificationBuilder
-            .setOngoing(true)
-            .setSmallIcon(R.drawable.notification_icon)
-            .setTicker(context.getString(R.string.uploader_upload_in_progress_ticker))
-            .setContentTitle(context.getString(R.string.uploader_upload_in_progress_ticker))
-            .setProgress(100, 0, false)
-            .setContentText(
+    fun notifyForStart(upload: UploadFileOperation, pendingIntent: PendingIntent, startIntent: PendingIntent) {
+        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
+            setOngoing(true)
+            setSmallIcon(R.drawable.notification_icon)
+            setTicker(context.getString(R.string.uploader_upload_in_progress_ticker))
+            setContentTitle(context.getString(R.string.uploader_upload_in_progress_ticker))
+            setProgress(100, 0, false)
+            setContentText(
                 String.format(
                     context.getString(R.string.uploader_upload_in_progress_content),
                     0,
                     upload.fileName
                 )
             )
-            .clearActions()
-            .addAction(
+            clearActions()
+            addAction(
                 R.drawable.ic_action_cancel_grey,
                 context.getString(R.string.common_cancel),
                 pendingIntent
             )
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
+            setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
+            setContentIntent(startIntent)
         }
-
-        val intent = UploadListActivity.createIntent(
-            upload.file,
-            upload.user,
-            Intent.FLAG_ACTIVITY_CLEAR_TOP,
-            context
-        )
-
-        notificationBuilder.setContentIntent(
-            PendingIntent.getActivity(
-                context,
-                System.currentTimeMillis().toInt(),
-                intent,
-                PendingIntent.FLAG_IMMUTABLE
-            )
-        )
 
         if (!upload.isInstantPicture && !upload.isInstantVideo) {
             showWorkerNotification()
