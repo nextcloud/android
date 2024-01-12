@@ -33,3 +33,26 @@ fun WorkManager.isWorkScheduled(tag: String): Boolean {
 
     return running
 }
+
+fun WorkManager.isWorkRunning(tag: String): Boolean {
+    val statuses: ListenableFuture<List<WorkInfo>> = this.getWorkInfosByTag(tag)
+    var running = false
+    var workInfoList: List<WorkInfo> = emptyList()
+
+    try {
+        workInfoList = statuses.get()
+    } catch (e: ExecutionException) {
+        Log_OC.d("Worker", "ExecutionException in isWorkScheduled: $e")
+    } catch (e: InterruptedException) {
+        Log_OC.d("Worker", "InterruptedException in isWorkScheduled: $e")
+    }
+
+    for (workInfo in workInfoList) {
+        val state = workInfo.state
+        running = running || state == WorkInfo.State.RUNNING
+    }
+
+    return running
+}
+
+
