@@ -325,48 +325,6 @@ class FilesUploadWorker(
         const val LOCAL_BEHAVIOUR_FORGET = 2
         const val LOCAL_BEHAVIOUR_DELETE = 3
 
-        /**
-         * Upload and overwrite an already uploaded file with disabled retries
-         */
-        fun uploadUpdateFile(
-            context: Context?,
-            user: User,
-            existingFile: OCFile?,
-            behaviour: Int?,
-            nameCollisionPolicy: NameCollisionPolicy?
-        ) {
-            uploadUpdateFile(
-                context,
-                user, arrayOf(existingFile),
-                behaviour,
-                nameCollisionPolicy,
-                true
-            )
-        }
-
-        /**
-         * Upload and overwrite an already uploaded file
-         */
-        fun uploadUpdateFile(
-            context: Context?,
-            user: User,
-            existingFile: OCFile?,
-            behaviour: Int?,
-            nameCollisionPolicy: NameCollisionPolicy?,
-            disableRetries: Boolean
-        ) {
-            uploadUpdateFile(
-                context,
-                user, arrayOf(existingFile),
-                behaviour,
-                nameCollisionPolicy,
-                disableRetries
-            )
-        }
-
-        /**
-         * Upload and overwrite already uploaded files
-         */
         fun uploadUpdateFile(
             context: Context?,
             user: User,

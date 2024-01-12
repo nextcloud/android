@@ -270,7 +270,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                         FilesUploadWorker.Companion.uploadUpdateFile(
                             context,
                             user,
-                            ocFile,
+                            new OCFile[]{ ocFile },
                             FilesUploadWorker.LOCAL_BEHAVIOUR_DELETE,
                             NameCollisionPolicy.OVERWRITE,
                             false);
