@@ -71,7 +71,6 @@ class FilesUploadWorker(
     private val notificationManager = UploadNotificationManager(context, viewThemeUtils)
     private val intents = FileUploaderIntents(context)
     private val fileUploaderDelegate = FileUploaderDelegate()
-    private val helper = FilesUploadHelper()
 
     override fun doWork(): Result {
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
