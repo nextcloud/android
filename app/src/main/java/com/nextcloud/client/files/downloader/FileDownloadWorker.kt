@@ -271,8 +271,6 @@ class FileDownloadWorker(
             return
         }
 
-        val fileName = currentDownload?.file?.fileName
-
         setWorkerState(user)
         Log_OC.e(TAG, "FilesDownloadWorker downloading: $downloadKey")
 
@@ -299,7 +297,7 @@ class FileDownloadWorker(
             Log_OC.e(TAG, "Error downloading", e)
             downloadResult = RemoteOperationResult<Any?>(e)
         } finally {
-            cleanupDownloadProcess(downloadResult, fileName)
+            cleanupDownloadProcess(downloadResult)
         }
     }
 
@@ -337,9 +335,9 @@ class FileDownloadWorker(
         return file
     }
 
-    private fun cleanupDownloadProcess(result: RemoteOperationResult<*>?, fileName: String?) {
+    private fun cleanupDownloadProcess(result: RemoteOperationResult<*>?) {
         result?.let {
-            checkDownloadError(it, fileName)
+            checkDownloadError(it)
         }
 
         val removeResult = pendingDownloads.removePayload(
@@ -362,7 +360,7 @@ class FileDownloadWorker(
         }
     }
 
-    private fun checkDownloadError(result: RemoteOperationResult<*>, fileName: String?) {
+    private fun checkDownloadError(result: RemoteOperationResult<*>) {
         if (result.isSuccess || downloadError != null) {
             return
         }
