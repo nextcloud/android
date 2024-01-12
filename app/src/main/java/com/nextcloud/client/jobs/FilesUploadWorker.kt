@@ -284,5 +284,37 @@ class FilesUploadWorker(
         private const val MAX_PROGRESS: Int = 100
         const val ACCOUNT = "data_account"
         var currentUploadFileOperation: UploadFileOperation? = null
+
+        const val UPLOADS_ADDED_MESSAGE = "UPLOADS_ADDED"
+        const val UPLOAD_START_MESSAGE = "UPLOAD_START"
+        const val UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH"
+        const val EXTRA_UPLOAD_RESULT = "RESULT"
+        const val EXTRA_REMOTE_PATH = "REMOTE_PATH"
+        const val EXTRA_OLD_REMOTE_PATH = "OLD_REMOTE_PATH"
+        const val EXTRA_OLD_FILE_PATH = "OLD_FILE_PATH"
+        const val EXTRA_LINKED_TO_PATH = "LINKED_TO"
+        const val ACCOUNT_NAME = "ACCOUNT_NAME"
+        const val EXTRA_ACCOUNT_NAME = "ACCOUNT_NAME"
+        const val ACTION_CANCEL_BROADCAST = "CANCEL"
+        const val ACTION_PAUSE_BROADCAST = "PAUSE"
+        const val KEY_FILE = "FILE"
+        const val KEY_LOCAL_FILE = "LOCAL_FILE"
+        const val KEY_REMOTE_FILE = "REMOTE_FILE"
+        const val KEY_MIME_TYPE = "MIME_TYPE"
+        const val KEY_RETRY = "KEY_RETRY"
+        const val KEY_RETRY_UPLOAD = "KEY_RETRY_UPLOAD"
+        const val KEY_ACCOUNT = "ACCOUNT"
+        const val KEY_USER = "USER"
+        const val KEY_NAME_COLLISION_POLICY = "KEY_NAME_COLLISION_POLICY"
+        const val KEY_CREATE_REMOTE_FOLDER = "CREATE_REMOTE_FOLDER"
+        const val KEY_CREATED_BY = "CREATED_BY"
+        const val KEY_WHILE_ON_WIFI_ONLY = "KEY_ON_WIFI_ONLY"
+        const val KEY_WHILE_CHARGING_ONLY = "KEY_WHILE_CHARGING_ONLY"
+        const val KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR"
+        const val KEY_DISABLE_RETRIES = "DISABLE_RETRIES"
+        const val LOCAL_BEHAVIOUR_COPY = 0
+        const val LOCAL_BEHAVIOUR_MOVE = 1
+        const val LOCAL_BEHAVIOUR_FORGET = 2
+        const val LOCAL_BEHAVIOUR_DELETE = 3
     }
 }

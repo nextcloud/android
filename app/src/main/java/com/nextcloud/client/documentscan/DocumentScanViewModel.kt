@@ -30,9 +30,9 @@ import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.IoDispatcher
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.FilesUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.helpers.FileOperationsHelper
@@ -188,7 +188,7 @@ class DocumentScanViewModel @Inject constructor(
             currentAccountProvider.user,
             pageList.toTypedArray(),
             uploadPaths,
-            FileUploader.LOCAL_BEHAVIOUR_DELETE,
+            FilesUploadWorker.LOCAL_BEHAVIOUR_DELETE,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,

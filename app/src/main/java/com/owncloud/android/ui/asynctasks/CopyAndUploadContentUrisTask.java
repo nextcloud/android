@@ -31,7 +31,6 @@ import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;

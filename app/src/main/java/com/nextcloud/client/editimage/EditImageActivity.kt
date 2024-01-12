@@ -34,11 +34,11 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.canhub.cropper.CropImageView
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.jobs.FilesUploadWorker
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityEditImageBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener
 import com.owncloud.android.operations.UploadFileOperation
@@ -121,7 +121,7 @@ class EditImageActivity :
                 requiresWifi = false,
                 requiresCharging = false,
                 nameCollisionPolicy = NameCollisionPolicy.RENAME,
-                localBehavior = FileUploader.LOCAL_BEHAVIOUR_DELETE
+                localBehavior = FilesUploadWorker.LOCAL_BEHAVIOUR_DELETE
             )
         }
     }

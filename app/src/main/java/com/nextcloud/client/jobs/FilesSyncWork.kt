@@ -45,7 +45,6 @@ import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
@@ -293,10 +292,10 @@ class FilesSyncWork(
 
     private fun getUploadAction(action: String): Int? {
         return when (action) {
-            "LOCAL_BEHAVIOUR_FORGET" -> FileUploader.LOCAL_BEHAVIOUR_FORGET
-            "LOCAL_BEHAVIOUR_MOVE" -> FileUploader.LOCAL_BEHAVIOUR_MOVE
-            "LOCAL_BEHAVIOUR_DELETE" -> FileUploader.LOCAL_BEHAVIOUR_DELETE
-            else -> FileUploader.LOCAL_BEHAVIOUR_FORGET
+            "LOCAL_BEHAVIOUR_FORGET" -> FilesUploadWorker.LOCAL_BEHAVIOUR_FORGET
+            "LOCAL_BEHAVIOUR_MOVE" -> FilesUploadWorker.LOCAL_BEHAVIOUR_MOVE
+            "LOCAL_BEHAVIOUR_DELETE" -> FilesUploadWorker.LOCAL_BEHAVIOUR_DELETE
+            else -> FilesUploadWorker.LOCAL_BEHAVIOUR_FORGET
         }
     }
 }

@@ -111,82 +111,9 @@ public class FileUploader extends Service
 
     private static final String TAG = FileUploader.class.getSimpleName();
 
-    private static final String UPLOADS_ADDED_MESSAGE = "UPLOADS_ADDED";
-    private static final String UPLOAD_START_MESSAGE = "UPLOAD_START";
-    private static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
-    public static final String EXTRA_UPLOAD_RESULT = "RESULT";
-    public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
-    public static final String EXTRA_OLD_REMOTE_PATH = "OLD_REMOTE_PATH";
-    public static final String EXTRA_OLD_FILE_PATH = "OLD_FILE_PATH";
-    public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
-    public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
-
-    public static final String EXTRA_ACCOUNT_NAME = "ACCOUNT_NAME";
-    public static final String ACTION_CANCEL_BROADCAST = "CANCEL";
-    public static final String ACTION_PAUSE_BROADCAST = "PAUSE";
-
-    public static final String KEY_FILE = "FILE";
-    public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
-    public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
-    public static final String KEY_MIME_TYPE = "MIME_TYPE";
-
-    /**
-     * Call this Service with only this Intent key if all pending uploads are to be retried.
-     */
-    private static final String KEY_RETRY = "KEY_RETRY";
-//    /**
-//     * Call this Service with KEY_RETRY and KEY_RETRY_REMOTE_PATH to retry
-//     * upload of file identified by KEY_RETRY_REMOTE_PATH.
-//     */
-//    private static final String KEY_RETRY_REMOTE_PATH = "KEY_RETRY_REMOTE_PATH";
-    /**
-     * Call this Service with KEY_RETRY and KEY_RETRY_UPLOAD to retry upload of file identified by KEY_RETRY_UPLOAD.
-     */
-    private static final String KEY_RETRY_UPLOAD = "KEY_RETRY_UPLOAD";
-
-    /**
-     * {@link Account} to which file is to be uploaded.
-     */
-    public static final String KEY_ACCOUNT = "ACCOUNT";
-
-    /**
-     * {@link User} for which file is to be uploaded.
-     */
-    public static final String KEY_USER = "USER";
 
 
-    /**
-     * What {@link NameCollisionPolicy} to do when the file already exists on the remote.
-     */
-    public static final String KEY_NAME_COLLISION_POLICY = "KEY_NAME_COLLISION_POLICY";
 
-    /**
-     * Set to true if remote folder is to be created if it does not exist.
-     */
-    public static final String KEY_CREATE_REMOTE_FOLDER = "CREATE_REMOTE_FOLDER";
-    /**
-     * Key to signal what is the origin of the upload request
-     */
-    public static final String KEY_CREATED_BY = "CREATED_BY";
-
-    public static final String KEY_WHILE_ON_WIFI_ONLY = "KEY_ON_WIFI_ONLY";
-
-    /**
-     * Set to true if upload is to performed only when phone is being charged.
-     */
-    public static final String KEY_WHILE_CHARGING_ONLY = "KEY_WHILE_CHARGING_ONLY";
-
-    public static final String KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR";
-
-    /**
-     * Set to true if the HTTP library should disable automatic retries of uploads.
-     */
-    public static final String KEY_DISABLE_RETRIES = "DISABLE_RETRIES";
-
-    public static final int LOCAL_BEHAVIOUR_COPY = 0;
-    public static final int LOCAL_BEHAVIOUR_MOVE = 1;
-    public static final int LOCAL_BEHAVIOUR_FORGET = 2;
-    public static final int LOCAL_BEHAVIOUR_DELETE = 3;
 
     private static boolean forceNewUploadWorker = false;
 
@@ -293,12 +220,12 @@ public class FileUploader extends Service
             return Service.START_NOT_STICKY;
         }
 
-        if (!intent.hasExtra(KEY_ACCOUNT)) {
+        if (!intent.hasExtra(FilesUploadWorker.KEY_ACCOUNT)) {
             Log_OC.e(TAG, "Not enough information provided in intent");
             return Service.START_NOT_STICKY;
         }
 
-        final Account account = IntentExtensionsKt.getParcelableArgument(intent, KEY_ACCOUNT, Account.class);
+        final Account account = IntentExtensionsKt.getParcelableArgument(intent, FilesUploadWorker.KEY_ACCOUNT, Account.class);
         if (account == null) {
             return Service.START_NOT_STICKY;
         }
@@ -308,22 +235,22 @@ public class FileUploader extends Service
         }
         final User user = optionalUser.get();
 
-        boolean retry = intent.getBooleanExtra(KEY_RETRY, false);
+        boolean retry = intent.getBooleanExtra(FilesUploadWorker.KEY_RETRY, false);
         List<String> requestedUploads = new ArrayList<>();
 
-        boolean onWifiOnly = intent.getBooleanExtra(KEY_WHILE_ON_WIFI_ONLY, false);
-        boolean whileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
+        boolean onWifiOnly = intent.getBooleanExtra(FilesUploadWorker.KEY_WHILE_ON_WIFI_ONLY, false);
+        boolean whileChargingOnly = intent.getBooleanExtra(FilesUploadWorker.KEY_WHILE_CHARGING_ONLY, false);
 
         if (retry) {
             // Retry uploads
-            if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_RETRY_UPLOAD)) {
+            if (!intent.hasExtra(FilesUploadWorker.KEY_ACCOUNT) || !intent.hasExtra(FilesUploadWorker.KEY_RETRY_UPLOAD)) {
                 Log_OC.e(TAG, "Not enough information provided in intent: no KEY_RETRY_UPLOAD_KEY");
                 return START_NOT_STICKY;
             }
             retryUploads(intent, user, requestedUploads);
         } else {
             // Start new uploads
-            if (!(intent.hasExtra(KEY_LOCAL_FILE) || intent.hasExtra(KEY_FILE))) {
+            if (!(intent.hasExtra(FilesUploadWorker.KEY_LOCAL_FILE) || intent.hasExtra(FilesUploadWorker.KEY_FILE))) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
                 return Service.START_NOT_STICKY;
             }
@@ -361,20 +288,20 @@ public class FileUploader extends Service
         String[] mimeTypes = null;
         OCFile[] files = null;
 
-        if (intent.hasExtra(KEY_FILE)) {
-            Parcelable[] files_temp = intent.getParcelableArrayExtra(KEY_FILE);
+        if (intent.hasExtra(FilesUploadWorker.KEY_FILE)) {
+            Parcelable[] files_temp = intent.getParcelableArrayExtra(FilesUploadWorker.KEY_FILE);
             files = new OCFile[files_temp.length];
             System.arraycopy(files_temp, 0, files, 0, files_temp.length);
         } else {
-            localPaths = intent.getStringArrayExtra(KEY_LOCAL_FILE);
-            remotePaths = intent.getStringArrayExtra(KEY_REMOTE_FILE);
-            mimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
+            localPaths = intent.getStringArrayExtra(FilesUploadWorker.KEY_LOCAL_FILE);
+            remotePaths = intent.getStringArrayExtra(FilesUploadWorker.KEY_REMOTE_FILE);
+            mimeTypes = intent.getStringArrayExtra(FilesUploadWorker.KEY_MIME_TYPE);
         }
 
-        if (intent.hasExtra(KEY_FILE) && files == null) {
+        if (intent.hasExtra(FilesUploadWorker.KEY_FILE) && files == null) {
             Log_OC.e(TAG, "Incorrect array for OCFiles provided in upload intent");
             return Service.START_NOT_STICKY;
-        } else if (!intent.hasExtra(KEY_FILE)) {
+        } else if (!intent.hasExtra(FilesUploadWorker.KEY_FILE)) {
             if (localPaths == null) {
                 Log_OC.e(TAG, "Incorrect array for local paths provided in upload intent");
                 return Service.START_NOT_STICKY;
@@ -404,14 +331,14 @@ public class FileUploader extends Service
         }
         // at this point variable "OCFile[] files" is loaded correctly.
 
-        NameCollisionPolicy nameCollisionPolicy = IntentExtensionsKt.getSerializableArgument(intent, KEY_NAME_COLLISION_POLICY, NameCollisionPolicy.class);
+        NameCollisionPolicy nameCollisionPolicy = IntentExtensionsKt.getSerializableArgument(intent, FilesUploadWorker.KEY_NAME_COLLISION_POLICY, NameCollisionPolicy.class);
         if (nameCollisionPolicy == null) {
             nameCollisionPolicy = NameCollisionPolicy.DEFAULT;
         }
-        int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
-        boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
-        int createdBy = intent.getIntExtra(KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
-        boolean disableRetries = intent.getBooleanExtra(KEY_DISABLE_RETRIES, true);
+        int localAction = intent.getIntExtra(FilesUploadWorker.KEY_LOCAL_BEHAVIOUR, FilesUploadWorker.LOCAL_BEHAVIOUR_FORGET);
+        boolean isCreateRemoteFolder = intent.getBooleanExtra(FilesUploadWorker.KEY_CREATE_REMOTE_FOLDER, false);
+        int createdBy = intent.getIntExtra(FilesUploadWorker.KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
+        boolean disableRetries = intent.getBooleanExtra(FilesUploadWorker.KEY_DISABLE_RETRIES, true);
         try {
             for (OCFile file : files) {
                 startNewUpload(
@@ -512,7 +439,7 @@ public class FileUploader extends Service
         boolean onWifiOnly;
         boolean whileChargingOnly;
 
-        OCUpload upload = IntentExtensionsKt.getParcelableArgument(intent, KEY_RETRY_UPLOAD, OCUpload.class);
+        OCUpload upload = IntentExtensionsKt.getParcelableArgument(intent, FilesUploadWorker.KEY_RETRY_UPLOAD, OCUpload.class);
 
         onWifiOnly = upload.isUseWifiOnly();
         whileChargingOnly = upload.isWhileChargingOnly();
@@ -814,12 +741,12 @@ public class FileUploader extends Service
         boolean disableRetries) {
         Intent intent = new Intent(context, FileUploader.class);
 
-        intent.putExtra(FileUploader.KEY_USER, user);
-        intent.putExtra(FileUploader.KEY_ACCOUNT, user.toPlatformAccount());
-        intent.putExtra(FileUploader.KEY_FILE, existingFiles);
-        intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
-        intent.putExtra(FileUploader.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
-        intent.putExtra(FileUploader.KEY_DISABLE_RETRIES, disableRetries);
+        intent.putExtra(FilesUploadWorker.KEY_USER, user);
+        intent.putExtra(FilesUploadWorker.KEY_ACCOUNT, user.toPlatformAccount());
+        intent.putExtra(FilesUploadWorker.KEY_FILE, existingFiles);
+        intent.putExtra(FilesUploadWorker.KEY_LOCAL_BEHAVIOUR, behaviour);
+        intent.putExtra(FilesUploadWorker.KEY_NAME_COLLISION_POLICY, nameCollisionPolicy);
+        intent.putExtra(FilesUploadWorker.KEY_DISABLE_RETRIES, disableRetries);
 
         new FilesUploadHelper().uploadUpdatedFile(user, existingFiles, behaviour, nameCollisionPolicy);
     }
@@ -831,10 +758,10 @@ public class FileUploader extends Service
                                    @NonNull User user,
                                    @NonNull OCUpload upload) {
         Intent i = new Intent(context, FileUploader.class);
-        i.putExtra(FileUploader.KEY_RETRY, true);
-        i.putExtra(FileUploader.KEY_USER, user);
-        i.putExtra(FileUploader.KEY_ACCOUNT, user.toPlatformAccount());
-        i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
+        i.putExtra(FilesUploadWorker.KEY_RETRY, true);
+        i.putExtra(FilesUploadWorker.KEY_USER, user);
+        i.putExtra(FilesUploadWorker.KEY_ACCOUNT, user.toPlatformAccount());
+        i.putExtra(FilesUploadWorker.KEY_RETRY_UPLOAD, upload);
 
         new FilesUploadHelper().retryUpload(upload, user);
     }
@@ -890,15 +817,15 @@ public class FileUploader extends Service
     }
 
     public static String getUploadsAddedMessage() {
-        return FileUploader.class.getName() + UPLOADS_ADDED_MESSAGE;
+        return FileUploader.class.getName() + FilesUploadWorker.UPLOADS_ADDED_MESSAGE;
     }
 
     public static String getUploadStartMessage() {
-        return FileUploader.class.getName() + UPLOAD_START_MESSAGE;
+        return FileUploader.class.getName() + FilesUploadWorker.UPLOAD_START_MESSAGE;
     }
 
     public static String getUploadFinishMessage() {
-        return FileUploader.class.getName() + UPLOAD_FINISH_MESSAGE;
+        return FileUploader.class.getName() + FilesUploadWorker.UPLOAD_FINISH_MESSAGE;
     }
 
     @VisibleForTesting
@@ -1179,11 +1106,11 @@ public class FileUploader extends Service
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            String accountName = intent.getStringExtra(EXTRA_ACCOUNT_NAME);
-            String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
+            String accountName = intent.getStringExtra(FilesUploadWorker.EXTRA_ACCOUNT_NAME);
+            String remotePath = intent.getStringExtra(FilesUploadWorker.EXTRA_REMOTE_PATH);
             String action = intent.getAction();
 
-            if (ACTION_CANCEL_BROADCAST.equals(action)) {
+            if (FilesUploadWorker.ACTION_CANCEL_BROADCAST.equals(action)) {
                 Log_OC.d(TAG, "Cancel broadcast received for file " + remotePath + " at " + System.currentTimeMillis());
 
                 if (accountName == null || remotePath == null) {
@@ -1192,7 +1119,7 @@ public class FileUploader extends Service
 
                 FileUploaderBinder uploadBinder = (FileUploaderBinder) mBinder;
                 uploadBinder.cancel(accountName, remotePath, null);
-            } else if (ACTION_PAUSE_BROADCAST.equals(action)) {
+            } else if (FilesUploadWorker.ACTION_PAUSE_BROADCAST.equals(action)) {
 
             } else {
                 Log_OC.d(TAG, "Unknown action to perform as UploadNotificationActionReceiver.");

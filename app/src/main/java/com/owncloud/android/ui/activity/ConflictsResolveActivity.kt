@@ -21,14 +21,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.nextcloud.client.account.User
-import com.nextcloud.client.files.downloader.FileDownloadHelper
+import com.nextcloud.client.jobs.download.FileDownloadHelper
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
@@ -51,7 +52,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
     private var conflictUploadId: Long = 0
     private var existingFile: OCFile? = null
     private var newFile: OCFile? = null
-    private var localBehaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET
+    private var localBehaviour = FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
 
     @JvmField
     var listener: OnConflictDecisionMadeListener? = null
@@ -91,25 +92,23 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             when (decision) {
                 Decision.CANCEL -> {}
                 Decision.KEEP_LOCAL -> {
-                    FileUploader.uploadUpdateFile(
-                        baseContext,
+                    FileUploadHelper.instance().uploadUpdatedFile(
                         user,
-                        file,
+                        arrayOf(file),
                         localBehaviour,
                         NameCollisionPolicy.OVERWRITE
                     )
-                    uploadsStorageManager!!.removeUpload(upload)
+                    uploadsStorageManager?.removeUpload(upload)
                 }
 
                 Decision.KEEP_BOTH -> {
-                    FileUploader.uploadUpdateFile(
-                        baseContext,
+                    FileUploadHelper.instance().uploadUpdatedFile(
                         user,
-                        file,
+                        arrayOf(file),
                         localBehaviour,
                         NameCollisionPolicy.RENAME
                     )
-                    uploadsStorageManager!!.removeUpload(upload)
+                    uploadsStorageManager?.removeUpload(upload)
                 }
 
                 Decision.KEEP_SERVER -> if (!shouldDeleteLocal()) {
@@ -122,7 +121,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                         )
                     }
                 } else {
-                    uploadsStorageManager!!.removeUpload(upload)
+                    uploadsStorageManager?.removeUpload(upload)
                 }
 
                 else -> {}
@@ -226,7 +225,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
      * @return whether the local version of the files is to be deleted.
      */
     private fun shouldDeleteLocal(): Boolean {
-        return localBehaviour == FileUploader.LOCAL_BEHAVIOUR_DELETE
+        return localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
     }
 
     companion object {

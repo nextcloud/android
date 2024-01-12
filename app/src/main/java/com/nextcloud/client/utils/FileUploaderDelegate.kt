@@ -25,6 +25,7 @@ package com.nextcloud.client.utils
 import android.content.Context
 import android.content.Intent
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.nextcloud.client.jobs.FilesUploadWorker
 import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.operations.UploadFileOperation
@@ -55,9 +56,9 @@ class FileUploaderDelegate {
         localBroadcastManager: LocalBroadcastManager
     ) {
         val start = Intent(FileUploader.getUploadStartMessage())
-        start.putExtra(FileUploader.EXTRA_REMOTE_PATH, upload.remotePath) // real remote
-        start.putExtra(FileUploader.EXTRA_OLD_FILE_PATH, upload.originalStoragePath)
-        start.putExtra(FileUploader.ACCOUNT_NAME, upload.user.accountName)
+        start.putExtra(FilesUploadWorker.EXTRA_REMOTE_PATH, upload.remotePath) // real remote
+        start.putExtra(FilesUploadWorker.EXTRA_OLD_FILE_PATH, upload.originalStoragePath)
+        start.putExtra(FilesUploadWorker.ACCOUNT_NAME, upload.user.accountName)
         start.setPackage(context.packageName)
         localBroadcastManager.sendBroadcast(start)
     }
@@ -80,15 +81,15 @@ class FileUploaderDelegate {
     ) {
         val end = Intent(FileUploader.getUploadFinishMessage())
         // real remote path, after possible automatic renaming
-        end.putExtra(FileUploader.EXTRA_REMOTE_PATH, upload.remotePath)
+        end.putExtra(FilesUploadWorker.EXTRA_REMOTE_PATH, upload.remotePath)
         if (upload.wasRenamed()) {
-            end.putExtra(FileUploader.EXTRA_OLD_REMOTE_PATH, upload.oldFile!!.remotePath)
+            end.putExtra(FilesUploadWorker.EXTRA_OLD_REMOTE_PATH, upload.oldFile!!.remotePath)
         }
-        end.putExtra(FileUploader.EXTRA_OLD_FILE_PATH, upload.originalStoragePath)
-        end.putExtra(FileUploader.ACCOUNT_NAME, upload.user.accountName)
-        end.putExtra(FileUploader.EXTRA_UPLOAD_RESULT, uploadResult.isSuccess)
+        end.putExtra(FilesUploadWorker.EXTRA_OLD_FILE_PATH, upload.originalStoragePath)
+        end.putExtra(FilesUploadWorker.ACCOUNT_NAME, upload.user.accountName)
+        end.putExtra(FilesUploadWorker.EXTRA_UPLOAD_RESULT, uploadResult.isSuccess)
         if (unlinkedFromRemotePath != null) {
-            end.putExtra(FileUploader.EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
+            end.putExtra(FilesUploadWorker.EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
         }
         end.setPackage(context.packageName)
         localBroadcastManager.sendBroadcast(end)

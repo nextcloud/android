@@ -13,13 +13,13 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.jobs.FilesUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
@@ -178,7 +178,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
     }
 
     public void uploadOCUpload(OCUpload ocUpload) {
-        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_COPY);
+        uploadOCUpload(ocUpload, FilesUploadWorker.LOCAL_BEHAVIOUR_COPY);
     }
 
     public void uploadOCUpload(OCUpload ocUpload, int localBehaviour) {
@@ -253,8 +253,8 @@ public abstract class AbstractOnServerIT extends AbstractIT {
         assertNotNull(uploadedFile.getRemoteId());
         assertNotNull(uploadedFile.getPermissions());
 
-        if (localBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY ||
-            localBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE) {
+        if (localBehaviour == FilesUploadWorker.LOCAL_BEHAVIOUR_COPY ||
+            localBehaviour == FilesUploadWorker.LOCAL_BEHAVIOUR_MOVE) {
             assertTrue(new File(uploadedFile.getStoragePath()).exists());
         }
     }

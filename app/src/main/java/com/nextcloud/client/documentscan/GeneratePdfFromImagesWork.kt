@@ -32,10 +32,10 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.AnonymousUser
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.jobs.FilesUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
@@ -127,7 +127,7 @@ class GeneratePdfFromImagesWork(
             user,
             arrayOf(pdfPath),
             arrayOf(uploadPath),
-            FileUploader.LOCAL_BEHAVIOUR_DELETE, // MIME type will be detected from file name
+            FilesUploadWorker.LOCAL_BEHAVIOUR_DELETE, // MIME type will be detected from file name
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,

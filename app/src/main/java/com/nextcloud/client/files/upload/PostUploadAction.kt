@@ -19,11 +19,11 @@
  */
 package com.nextcloud.client.files.upload
 
-import com.owncloud.android.files.services.FileUploader
+import com.nextcloud.client.jobs.FilesUploadWorker
 
 enum class PostUploadAction(val value: Int) {
-    NONE(FileUploader.LOCAL_BEHAVIOUR_FORGET),
-    COPY_TO_APP(FileUploader.LOCAL_BEHAVIOUR_COPY),
-    MOVE_TO_APP(FileUploader.LOCAL_BEHAVIOUR_MOVE),
-    DELETE_SOURCE(FileUploader.LOCAL_BEHAVIOUR_DELETE)
+    NONE(FilesUploadWorker.LOCAL_BEHAVIOUR_FORGET),
+    COPY_TO_APP(FilesUploadWorker.LOCAL_BEHAVIOUR_COPY),
+    MOVE_TO_APP(FilesUploadWorker.LOCAL_BEHAVIOUR_MOVE),
+    DELETE_SOURCE(FilesUploadWorker.LOCAL_BEHAVIOUR_DELETE)
 }
