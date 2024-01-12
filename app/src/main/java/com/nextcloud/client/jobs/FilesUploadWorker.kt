@@ -68,8 +68,8 @@ class FilesUploadWorker(
     val context: Context,
     params: WorkerParameters
 ) : Worker(context, params), OnDatatransferProgressListener {
-    private var lastPercent = 0
 
+    private var lastPercent = 0
     private val notificationManager = UploadNotificationManager(context, viewThemeUtils)
     private val intents = FileUploaderIntents(context)
     private val fileUploaderDelegate = FileUploaderDelegate()
@@ -134,9 +134,6 @@ class FilesUploadWorker(
         }
     }
 
-    /**
-     * from @{link FileUploader#retryUploads()}
-     */
     private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation {
         return UploadFileOperation(
             uploadsStorageManager,

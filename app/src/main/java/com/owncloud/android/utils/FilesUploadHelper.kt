@@ -60,6 +60,8 @@ class FilesUploadHelper {
     companion object {
         private val TAG = FilesUploadWorker::class.java.simpleName
 
+        // TODO is needed with worker?
+        // val pendingUploads = IndexedForest<UploadFileOperation>()
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
 
         fun buildRemoteName(accountName: String, remotePath: String): String {
@@ -215,8 +217,9 @@ class FilesUploadHelper {
         backgroundJobManager.startFilesUploadJob(user)
     }
 
-    fun cancel(accountName: String?) {
-        // cancelPendingUploads(accountName)
+    fun cancel(accountName: String) {
+        // pendingUploads.remove(accountName)
+        uploadsStorageManager.removeUploads(accountName)
         restartUploadJob(accountManager.getUser(accountName).get())
     }
 
