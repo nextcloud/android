@@ -872,6 +872,7 @@
     <string name="whats_new_title">Novo u %1$s</string>
     <string name="whats_your_status">Koji je vaš status?</string>
     <string name="widgets_not_available_title">Nije dostupno</string>
+    <string name="worker_download">Preuzimanje datoteka...</string>
     <string name="write_email">Pošalji poruku e-pošte</string>
     <string name="wrong_storage_path">Put pohrane ne postoji!</string>
     <string name="wrong_storage_path_desc">To može biti zbog vraćanja sigurnosne kopije na drugom uređaju. Provjerite postavke i prilagodite put pohrane.</string>

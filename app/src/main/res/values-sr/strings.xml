@@ -75,6 +75,7 @@
     <string name="autoupload_custom_folder">Подесите произвољну фасциклу</string>
     <string name="autoupload_disable_power_save_check">Искључи проверу уштеде батерије</string>
     <string name="autoupload_hide_folder">Сакриј фасциклу</string>
+    <string name="autoupload_worker_foreground_info">Припрема се ауто отпремање</string>
     <string name="avatar">Аватар</string>
     <string name="away">Одсутан</string>
     <string name="backup_settings">Поставке резервне копије</string>
@@ -954,6 +955,7 @@
     <string name="whats_your_status">Који је ваш статус?</string>
     <string name="widgets_not_available">Виџети су доступни само на %1$s 25 или новијем</string>
     <string name="widgets_not_available_title">Није доступно</string>
+    <string name="worker_download">Преузимам фајлове…</string>
     <string name="write_email">Пошаљи е-пошту</string>
     <string name="wrong_storage_path">Фолдер за чување података не постоји!</string>
     <string name="wrong_storage_path_desc">Ово може да се догоди када се резервна копија обнови на другом уређају. Враћа се на подразумевано подешавање. Молимо вас да проверите подешавања и исправите локацију фолдера за чување података.</string>

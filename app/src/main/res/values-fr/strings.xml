@@ -75,6 +75,7 @@
     <string name="autoupload_custom_folder">Définir un dossier personnalisé</string>
     <string name="autoupload_disable_power_save_check">Désactiver l\'économie de batterie</string>
     <string name="autoupload_hide_folder">Masquer le dossier</string>
+    <string name="autoupload_worker_foreground_info">Préparation du téléversement automatique</string>
     <string name="avatar">Avatar</string>
     <string name="away">Absent</string>
     <string name="backup_settings">Paramètres de sauvegarde</string>
@@ -952,6 +953,7 @@
     <string name="whats_your_status">Quel est votre statut ?</string>
     <string name="widgets_not_available">Les widgets ne sont disponibles que sur %1$s 25 ou plus tard</string>
     <string name="widgets_not_available_title">Non disponible</string>
+    <string name="worker_download">Réception de fichiers…</string>
     <string name="write_email">Envoyer un e-mail</string>
     <string name="wrong_storage_path">Le dossier de stockage des données n\'existe pas !</string>
     <string name="wrong_storage_path_desc">Cela peut être dû à une restauration de sauvegarde sur un autre appareil. Retour aux valeurs par défaut. Veuillez vérifier les paramètres pour ajuster le chemin de stockage.</string>

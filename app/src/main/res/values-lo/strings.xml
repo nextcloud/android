@@ -792,6 +792,7 @@
     <string name="whats_new_skip">ຂ້າມໄປ</string>
     <string name="whats_new_title">ໃຫມ່ໃນ%1$s</string>
     <string name="widgets_not_available_title">ບໍ່ມີ</string>
+    <string name="worker_download">ກຳລັງອັບໂຫຼດຟາຍນີ້</string>
     <string name="write_email">ສົ່ງອີເມວ</string>
     <string name="wrong_storage_path">ບໍ່ມີໂຟນເດີເກັບຂໍ້ມູນ!</string>
     <string name="wrong_storage_path_desc">ນີ້ອາດຈະເປັນຍ້ອນການກູ້ຄືນການສໍາຮອງໃນອຸປະກອນອື່ນ.ການກັບຄືນຄ່າເດີມບໍ່ສຳເລັດ. ກະລຸນາກວດເບິ່ງການຕັ້ງຄ່າເພື່ອປັບຟາຍການເກັບຂໍ້ມູນ.</string>

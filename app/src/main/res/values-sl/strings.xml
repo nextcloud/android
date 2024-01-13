@@ -942,6 +942,7 @@
     <string name="whats_your_status">Kako želite nastaviti stanje?</string>
     <string name="widgets_not_available">Gradniki so na voljo samo na %1$s 25 ali pozneje</string>
     <string name="widgets_not_available_title">Ni na voljo</string>
+    <string name="worker_download">Poteka prejemanje datotek …</string>
     <string name="write_email">Pošlji elektronsko sporočilo</string>
     <string name="wrong_storage_path">Podatkovna mapa ne obstaja!</string>
     <string name="wrong_storage_path_desc">Napaka se lahko pojavi zaradi obnovitve varnostne kopije na drugi napravi. Nastavitev je povrnjena na privzeto vrednost. Za ustrezno delovanje je treba nastaviti podatkovno mapo.</string>

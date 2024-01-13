@@ -75,6 +75,7 @@
     <string name="autoupload_custom_folder">Skapa en anpassad mapp</string>
     <string name="autoupload_disable_power_save_check">Inaktivera strömsparingskontrollen</string>
     <string name="autoupload_hide_folder">Göm mapp</string>
+    <string name="autoupload_worker_foreground_info">Förbereder automatisk uppladdning</string>
     <string name="avatar">Avatar</string>
     <string name="away">Iväg</string>
     <string name="backup_settings">Backupinställningar</string>
@@ -954,6 +955,7 @@
     <string name="whats_your_status">Vad är din status?</string>
     <string name="widgets_not_available">Widgets är endast tillgängliga på %1$s 25 eller senare</string>
     <string name="widgets_not_available_title">Inte tillgänglig</string>
+    <string name="worker_download">Hämtar filer…</string>
     <string name="write_email">Skicka e-post</string>
     <string name="wrong_storage_path">Datalagringsmapp finns inte!</string>
     <string name="wrong_storage_path_desc">Detta kan bero på en säkerhetskopiering som återställts på en annan enhet. Kommer använda standarden. Vänligen kontrollera inställningarna för att konfigurera datalagringsmappen.</string>

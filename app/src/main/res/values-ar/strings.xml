@@ -75,6 +75,7 @@
     <string name="autoupload_custom_folder">إعداد مجلد خاص</string>
     <string name="autoupload_disable_power_save_check">تعطيل التحقق من حفظ الطاقة</string>
     <string name="autoupload_hide_folder">إخفاء المجلد</string>
+    <string name="autoupload_worker_foreground_info">التحضير للرفع التلقائي</string>
     <string name="avatar">الصورة الرمزية</string>
     <string name="away">بالخارج</string>
     <string name="backup_settings">اعدادات النسخ الاحتياطي</string>
@@ -962,6 +963,7 @@
     <string name="whats_your_status">ماهي حالتك؟</string>
     <string name="widgets_not_available">الأدوات مُتاحة فقط في %1$s الإصدار 25 و ما بعده  </string>
     <string name="widgets_not_available_title">غير متوفر</string>
+    <string name="worker_download">جارٍ تنزيل الملفات…</string>
     <string name="write_email">إرسال بريد</string>
     <string name="wrong_storage_path">مجلد التخزين غير موجود !</string>
     <string name="wrong_storage_path_desc">قد يكون هذا بسبب استعادة نسخة احتياطية على جهاز آخر . العودة الى الافتراضي . يرجى التحقق من الإعدادات لضبط مجلد تخزين البيانات.</string>

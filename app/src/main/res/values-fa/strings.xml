@@ -938,6 +938,7 @@
     <string name="whats_your_status">وضعیت شما چیست؟</string>
     <string name="widgets_not_available">ویجت ها فقط در%1$s 25 یا بالاتر در دسترس هستند</string>
     <string name="widgets_not_available_title">در دسترس نیست</string>
+    <string name="worker_download">در حال دریافت فایل ها...</string>
     <string name="write_email">ارسال ایمیل</string>
     <string name="wrong_storage_path">مسیر ذخیره سازی وجود ندارد!</string>
     <string name="wrong_storage_path_desc">این ممکن است به دلیل بازیابی نسخه پشتیبان در دستگاه دیگری باشد. بازگشتن به حالت پیش‌فرض. لطفا برای تنظیم مسیر ذخیره‌سازی تنظیمات را بررسی کنید.</string>

@@ -888,6 +888,7 @@
     <string name="whats_your_status">Wat is jouw status?</string>
     <string name="widgets_not_available">Widgets zijn alleen beschikbaar op %1$s 25 of later</string>
     <string name="widgets_not_available_title">Niet beschikbaar</string>
+    <string name="worker_download">Downloaden bestanden…</string>
     <string name="write_email">Stuur e-mail</string>
     <string name="wrong_storage_path">Gegevensopslagmap bestaat niet!</string>
     <string name="wrong_storage_path_desc">Dit kan komen door een back-upherstel op een ander apparaat. Standaardinstelling wordt gebruikt. Controleer de instellingen om de gegevensopslagmap aan te passen.</string>

@@ -802,6 +802,7 @@
     <string name="whats_new_skip">דלג</string>
     <string name="whats_new_title">חדש ב־%1$s</string>
     <string name="whats_your_status">מה המצב שלך?</string>
+    <string name="worker_download">קבצים מתקבלים…</string>
     <string name="write_email">שליחת דואר אלקטרוני</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">לא ניתן לסנכרן קובץ %1$d (סתירות: %2$d)</item>

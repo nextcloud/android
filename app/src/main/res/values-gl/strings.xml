@@ -952,6 +952,7 @@
     <string name="whats_your_status">Cal é o seu estado?</string>
     <string name="widgets_not_available">Os trebellos só están dispoñíbeis en %1$s 25 ou posterior</string>
     <string name="widgets_not_available_title">Non dispoñíbel</string>
+    <string name="worker_download">Descargando ficheiros…</string>
     <string name="write_email">Enviar o correo</string>
     <string name="wrong_storage_path">O cartafol de almacenamento de datos non existe.</string>
     <string name="wrong_storage_path_desc">Isto pode deberse a unha restauración de copia de seguranza noutro dispositivo. Volvendo ao predeterminado. Comprobe as opcións para axustar o cartafol de almacenamento de datos.</string>

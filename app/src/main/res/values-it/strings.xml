@@ -947,6 +947,7 @@
     <string name="whats_your_status">Qual è il tuo stato?</string>
     <string name="widgets_not_available">I widget sono disponibili solo su %1$s 25 o dopo </string>
     <string name="widgets_not_available_title">Non disponibile</string>
+    <string name="worker_download">Scaricamento file in corso…</string>
     <string name="write_email">Invia email</string>
     <string name="wrong_storage_path">La cartella di archiviazione dei dati non esiste!</string>
     <string name="wrong_storage_path_desc">Ciò potrebbe essere dovuto a un ripristino di backup su un altro dispositivo. Ripristino del valore predefinito. Controlla le impostazioni per modificare la cartella di archiviazione dei dati.</string>

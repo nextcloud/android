@@ -942,6 +942,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="whats_your_status">Hvad er din status</string>
     <string name="widgets_not_available">Widgets er kun tilgængelige for %1$s 25 eller senere</string>
     <string name="widgets_not_available_title">Ikke tilgængelig</string>
+    <string name="worker_download">Henter filer...</string>
     <string name="write_email">Send email</string>
     <string name="wrong_storage_path">Datalagrings mappe eksisterer ikke</string>
     <string name="wrong_storage_path_desc">Dette kan være på grund af en gendannet sikkerhedskopi på en anden enhed. Ruller tilbage til standard. Undersøg indstillingerne for at tilpasse data lagringsmappen.</string>

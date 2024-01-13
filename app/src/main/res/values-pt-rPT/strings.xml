@@ -918,6 +918,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="whats_your_status">Qual é o seu estado?</string>
     <string name="widgets_not_available">Os widgets só estão disponíveis em %1$s 25 ou posterior</string>
     <string name="widgets_not_available_title">Não disponível</string>
+    <string name="worker_download">A transferir os ficheiros…</string>
     <string name="write_email">Enviar mensagem</string>
     <string name="wrong_storage_path">A pasta de armazenamento de dados não existe!</string>
     <string name="wrong_storage_path_desc">Poderá estar relacionado com a reposição de uma cópia de segurança. Revertendo para a definição de base. Verifique as definições para ajustar a localização da pasta de armazenamento dos dados.</string>

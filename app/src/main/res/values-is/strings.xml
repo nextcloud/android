@@ -929,6 +929,7 @@
     <string name="whats_your_status">Hver er staðan á þér?</string>
     <string name="widgets_not_available">Viðmótshlutar eru einungis í boði á %1$s 25 eða nýrra</string>
     <string name="widgets_not_available_title">Not available</string>
+    <string name="worker_download">Sæki skrár…</string>
     <string name="write_email">Senda tölvupóst</string>
     <string name="wrong_storage_path">Gagnageymslumappa er ekki til!</string>
     <plurals name="sync_fail_in_favourites_content">
