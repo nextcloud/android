@@ -65,12 +65,16 @@ import com.nextcloud.client.core.AsyncRunner;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.files.DeepLinkHandler;
+import com.nextcloud.client.files.downloader.FileDownloadHelper;
+import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.model.WorkerState;
+import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.view.FastScrollUtils;
@@ -80,8 +84,6 @@ import com.owncloud.android.databinding.FilesBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.files.services.NameCollisionPolicy;
@@ -94,6 +96,7 @@ import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperatio
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.DownloadType;
 import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
@@ -284,6 +287,7 @@ public class FileDisplayActivity extends FileActivity
         checkStoragePath();
 
         initSyncBroadcastReceiver();
+        observeWorkerState();
     }
 
     @SuppressWarnings("unchecked")
@@ -684,12 +688,12 @@ public class FileDisplayActivity extends FileActivity
                 // the user browsed to other file ; forget the automatic preview
                 mWaitingToPreview = null;
 
-            } else if (downloadEvent.equals(FileDownloader.getDownloadAddedMessage())) {
+            } else if (downloadEvent.equals(FileDownloadWorker.Companion.getDownloadAddedMessage())) {
                 // grant that the details fragment updates the progress bar
                 detailsFragment.listenForTransferProgress();
                 detailsFragment.updateFileDetails(true, false);
 
-            } else if (downloadEvent.equals(FileDownloader.getDownloadFinishMessage())) {
+            } else if (downloadEvent.equals(FileDownloadWorker.Companion.getDownloadFinishMessage())) {
                 //  update the details panel
                 boolean detailsFragmentChanged = false;
                 if (waitedPreview) {
@@ -1115,8 +1119,8 @@ public class FileDisplayActivity extends FileActivity
         localBroadcastManager.registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
 
         // Listen for download messages
-        IntentFilter downloadIntentFilter = new IntentFilter(FileDownloader.getDownloadAddedMessage());
-        downloadIntentFilter.addAction(FileDownloader.getDownloadFinishMessage());
+        IntentFilter downloadIntentFilter = new IntentFilter(FileDownloadWorker.Companion.getDownloadAddedMessage());
+        downloadIntentFilter.addAction(FileDownloadWorker.Companion.getDownloadFinishMessage());
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         localBroadcastManager.registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
 
@@ -1417,7 +1421,7 @@ public class FileDisplayActivity extends FileActivity
 
 
     /**
-     * Class waiting for broadcast events from the {@link FileDownloader} service.
+     * Class waiting for broadcast events from the {@link FileDownloadWorker} service.
      * <p>
      * Updates the UI when a download is started or finished, provided that it is relevant for the current folder.
      */
@@ -1426,16 +1430,16 @@ public class FileDisplayActivity extends FileActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             boolean sameAccount = isSameAccount(intent);
-            String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
+            String downloadedRemotePath = intent.getStringExtra(FileDownloadWorker.EXTRA_REMOTE_PATH);
             String downloadBehaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
             boolean isDescendant = isDescendant(downloadedRemotePath);
 
             if (sameAccount && isDescendant) {
-                String linkedToRemotePath = intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
+                String linkedToRemotePath = intent.getStringExtra(FileDownloadWorker.EXTRA_LINKED_TO_PATH);
                 if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
                     updateListOfFilesFragment(false);
                 }
-                refreshDetailsFragmentIfVisible(intent.getAction(), downloadedRemotePath, intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
+                refreshDetailsFragmentIfVisible(intent.getAction(), downloadedRemotePath, intent.getBooleanExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, false));
             }
 
             if (mWaitingToSend != null) {
@@ -1468,7 +1472,7 @@ public class FileDisplayActivity extends FileActivity
         }
 
         private boolean isSameAccount(Intent intent) {
-            String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
+            String accountName = intent.getStringExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME);
             return accountName != null && getAccount() != null && accountName.equals(getAccount().name);
         }
     }
@@ -1558,6 +1562,24 @@ public class FileDisplayActivity extends FileActivity
         return isRoot(getCurrentDir());
     }
 
+    private void observeWorkerState() {
+        WorkerStateLiveData.Companion.instance().observe(this, state -> {
+            if (state instanceof WorkerState.Download) {
+                Log_OC.d(TAG, "Download worker started");
+                handleDownloadWorkerState();
+            }
+        });
+    }
+
+    private void handleDownloadWorkerState() {
+        if (mWaitingToPreview != null && getStorageManager() != null) {
+            mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
+            if (mWaitingToPreview != null && !mWaitingToPreview.isDown()) {
+                requestForDownload();
+            }
+        }
+    }
+
     @Override
     protected ServiceConnection newTransferenceServiceConnection() {
         return new ListServiceConnection();
@@ -1570,22 +1592,13 @@ public class FileDisplayActivity extends FileActivity
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
-            if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
-                Log_OC.d(TAG, "Download service connected");
-                mDownloaderBinder = (FileDownloaderBinder) service;
-                if (mWaitingToPreview != null && getStorageManager() != null) {
-                    // update the file
-                    mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());
-                    if (mWaitingToPreview != null && !mWaitingToPreview.isDown()) {
-                        requestForDownload();
-                    }
-                }
-            } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
+            if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             } else {
                 return;
             }
+
             // a new chance to get the mDownloadBinder through
             // getFileDownloadBinder() - THIS IS A MESS
             OCFileListFragment listOfFiles = getListOfFilesFragment();
@@ -1593,9 +1606,9 @@ public class FileDisplayActivity extends FileActivity
                 IntentExtensionsKt.getParcelableArgument(getIntent(), EXTRA_FILE, OCFile.class) == null))) {
                 listOfFiles.listDirectory(MainApp.isOnlyOnDevice(), false);
             }
+
             Fragment leftFragment = getLeftFragment();
-            if (leftFragment instanceof FileDetailFragment) {
-                FileDetailFragment detailFragment = (FileDetailFragment) leftFragment;
+            if (leftFragment instanceof FileDetailFragment detailFragment) {
                 detailFragment.listenForTransferProgress();
                 detailFragment.updateFileDetails(false, false);
             }
@@ -1603,9 +1616,9 @@ public class FileDisplayActivity extends FileActivity
 
         @Override
         public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
+            if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloadWorker.class))) {
                 Log_OC.d(TAG, "Download service disconnected");
-                mDownloaderBinder = null;
+                fileDownloadProgressListener = null;
             } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service disconnected");
                 mUploaderBinder = null;
@@ -1883,13 +1896,7 @@ public class FileDisplayActivity extends FileActivity
 
     private void requestForDownload() {
         User user = getUser().orElseThrow(RuntimeException::new);
-        //if (!mWaitingToPreview.isDownloading()) {
-        if (!mDownloaderBinder.isDownloading(user, mWaitingToPreview)) {
-            Intent i = new Intent(this, FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_USER, user);
-            i.putExtra(FileDownloader.EXTRA_FILE, mWaitingToPreview);
-            startService(i);
-        }
+        FileDownloadHelper.Companion.instance().downloadFileIfNotStartedBefore(user, mWaitingToPreview);
     }
 
     @Override
@@ -1959,14 +1966,8 @@ public class FileDisplayActivity extends FileActivity
 
     private void requestForDownload(OCFile file, String downloadBehaviour, String packageName, String activityName) {
         final User currentUser = getUser().orElseThrow(RuntimeException::new);
-        if (!mDownloaderBinder.isDownloading(currentUser, mWaitingToPreview)) {
-            Intent i = new Intent(this, FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_USER, currentUser);
-            i.putExtra(FileDownloader.EXTRA_FILE, file);
-            i.putExtra(SendShareDialog.PACKAGE_NAME, packageName);
-            i.putExtra(SendShareDialog.ACTIVITY_NAME, activityName);
-            i.putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, downloadBehaviour);
-            startService(i);
+        if (!FileDownloadHelper.Companion.instance().isDownloading(currentUser, file)) {
+            FileDownloadHelper.Companion.instance().downloadFile(currentUser, file, downloadBehaviour, DownloadType.DOWNLOAD, activityName, packageName, null);
         }
     }
 

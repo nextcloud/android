@@ -34,6 +34,7 @@ import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
+import com.nextcloud.client.files.downloader.FileDownloadWorker
 import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
@@ -102,6 +103,7 @@ class BackgroundJobFactory @Inject constructor(
                 CalendarImportWork::class -> createCalendarImportWork(context, workerParameters)
                 FilesExportWork::class -> createFilesExportWork(context, workerParameters)
                 FilesUploadWorker::class -> createFilesUploadWorker(context, workerParameters)
+                FileDownloadWorker::class -> createFilesDownloadWorker(context, workerParameters)
                 GeneratePdfFromImagesWork::class -> createPDFGenerateWork(context, workerParameters)
                 HealthStatusWork::class -> createHealthStatusWork(context, workerParameters)
                 TestJob::class -> createTestJob(context, workerParameters)
@@ -248,6 +250,16 @@ class BackgroundJobFactory @Inject constructor(
             viewThemeUtils.get(),
             localBroadcastManager.get(),
             backgroundJobManager.get(),
+            context,
+            params
+        )
+    }
+
+    private fun createFilesDownloadWorker(context: Context, params: WorkerParameters): FileDownloadWorker {
+        return FileDownloadWorker(
+            viewThemeUtils.get(),
+            accountManager,
+            localBroadcastManager.get(),
             context,
             params
         )

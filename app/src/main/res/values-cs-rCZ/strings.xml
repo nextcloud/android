@@ -288,6 +288,7 @@
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
     <string name="error_starting_doc_scan">Chyba při spouštění skenu dokumentu</string>
     <string name="etm_accounts">Účty</string>
+    <string name="etm_background_job_created">Vytvořeno</string>
     <string name="etm_background_job_name">Název úlohy</string>
     <string name="etm_background_job_progress">Průběh</string>
     <string name="etm_background_job_started">Zahájeno</string>

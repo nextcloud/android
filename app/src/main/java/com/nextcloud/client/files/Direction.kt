@@ -1,10 +1,8 @@
 /*
- *
  * Nextcloud Android client application
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2022 Tobias Kaminsky
- * Copyright (C) 2022 Nextcloud GmbH
+ * @author Chris Narkiewicz
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,16 +15,11 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client.files
 
-package com.owncloud.android.operations
-
-enum class DownloadType(var type: String) {
-    DOWNLOAD("DOWNLOAD"),
-    EXPORT("EXPORT");
-
-    override fun toString(): String {
-        return type
-    }
+enum class Direction {
+    DOWNLOAD,
+    UPLOAD
 }

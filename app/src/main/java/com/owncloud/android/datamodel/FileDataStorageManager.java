@@ -180,6 +180,50 @@ public class FileDataStorageManager {
         return fileDao.getFileByEncryptedRemotePath(path, user.getAccountName()) != null;
     }
 
+    public long getTopParentId(OCFile file) {
+        if (file.getParentId() == 1) {
+            return file.getFileId();
+        }
+
+        return getTopParentIdRecursive(file);
+    }
+
+    private long getTopParentIdRecursive(OCFile file) {
+        if (file.getParentId() == 1) {
+            return file.getFileId();
+        }
+
+        OCFile parentFile = getFileById(file.getParentId());
+        if (parentFile != null) {
+            return getTopParentId(parentFile);
+        }
+
+        return file.getFileId();
+    }
+
+    public List<OCFile> getAllFilesRecursivelyInsideFolder(OCFile file) {
+        ArrayList<OCFile> result = new ArrayList<>();
+
+        if (file == null || !file.fileExists()) {
+            return result;
+        }
+
+        if (!file.isFolder()) {
+            result.add(file);
+            return result;
+        }
+
+        List<OCFile> filesInsideFolder = getFolderContent(file.getFileId(), false);
+        for (OCFile item: filesInsideFolder) {
+            if (!item.isFolder()) {
+                result.add(item);
+            } else {
+                result.addAll(getAllFilesRecursivelyInsideFolder(item));
+            }
+        }
+
+        return result;
+    }
 
     public List<OCFile> getFolderContent(OCFile ocFile, boolean onlyOnDevice) {
         if (ocFile != null && ocFile.isFolder() && ocFile.fileExists()) {
@@ -188,7 +232,6 @@ public class FileDataStorageManager {
             return new ArrayList<>();
         }
     }
-
 
     public List<OCFile> getFolderImages(OCFile folder, boolean onlyOnDevice) {
         List<OCFile> imageList = new ArrayList<>();

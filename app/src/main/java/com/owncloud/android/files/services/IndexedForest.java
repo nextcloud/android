@@ -43,8 +43,12 @@ public class IndexedForest<V> {
 
     private ConcurrentMap<String, Node<V>> mMap = new ConcurrentHashMap<>();
 
+    public ConcurrentMap<String, Node<V>> getAll() {
+        return mMap;
+    }
+
     @SuppressWarnings("PMD.ShortClassName")
-    private class Node<V> {
+    public class Node<V> {
         private String mKey;
         private Node<V> mParent;
         private Set<Node<V>> mChildren = new HashSet<>();    // TODO be careful with hash()

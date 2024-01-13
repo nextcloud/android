@@ -251,6 +251,7 @@
     <string name="ecosystem_apps_display_notes">Нотатки</string>
     <string name="ecosystem_apps_more">Більше застосунків Nextcloud</string>
     <string name="ecosystem_apps_notes">Нотатки для Nextcloud</string>
+    <string name="email_pick_failed">Не вдалося вибрати ел. адресу.</string>
     <string name="encrypted">Позначити як зашифроване</string>
     <string name="end_to_end_encryption_confirm_button">Налаштування шифрування</string>
     <string name="end_to_end_encryption_decrypting">Розшифровування...</string>
@@ -285,6 +286,7 @@
     <string name="error_starting_direct_camera_upload">Помилка під час запуску камери</string>
     <string name="error_starting_doc_scan">Помилка під час сканування документу</string>
     <string name="etm_accounts">Облікові записи</string>
+    <string name="etm_background_execution_count">Час спливає за 48 годин</string>
     <string name="etm_background_job_created">Створено</string>
     <string name="etm_background_job_name">Назва завдання</string>
     <string name="etm_background_job_progress">Перебіг</string>
@@ -875,6 +877,7 @@
     <string name="uploader_file_not_found_message">Файл не знайдено. Чи файл дійсно присутній? Можливо, що попередній конфлікт не було вирішено?</string>
     <string name="uploader_file_not_found_on_server_message">Не вдалося знайти файл на сервері. Можливо, що інший користувач раніше вилучив цей файл.</string>
     <string name="uploader_info_dirname">Назва каталогу</string>
+    <string name="uploader_local_files_uploaded">Повторно після помилки завантажити файли, що на пристрої</string>
     <string name="uploader_top_message">Оберіть каталог для завантаження</string>
     <string name="uploader_upload_failed_content_single">Неможливо завантажити %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Помилка під час завантаження, увійдіть ще раз</string>

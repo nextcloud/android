@@ -1,8 +1,9 @@
 /*
  * Nextcloud Android client application
  *
- * @author Chris Narkiewicz
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * @author Alper Ozturk
+ * Copyright (C) 2023 Alper Ozturk
+ * Copyright (C) 2023 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -15,13 +16,15 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.files.downloader
 
-enum class TransferState {
-    PENDING,
-    RUNNING,
-    COMPLETED,
-    FAILED
+package com.nextcloud.model
+
+import com.nextcloud.client.account.User
+import com.owncloud.android.operations.DownloadFileOperation
+
+sealed class WorkerState {
+    object Idle : WorkerState()
+    class Download(var user: User?, var currentDownload: DownloadFileOperation?) : WorkerState()
 }

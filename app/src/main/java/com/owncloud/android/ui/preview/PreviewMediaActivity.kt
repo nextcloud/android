@@ -27,9 +27,7 @@
 package com.owncloud.android.ui.preview
 
 import android.app.Activity
-import android.content.ComponentName
 import android.content.Intent
-import android.content.ServiceConnection
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -39,7 +37,6 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
-import android.os.IBinder
 import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
@@ -65,6 +62,7 @@ import androidx.media3.ui.PlayerView
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.files.downloader.FileDownloadHelper
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
@@ -80,13 +78,12 @@ import com.owncloud.android.databinding.ActivityPreviewMediaBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.files.StreamMediaFileOperation
-import com.owncloud.android.files.services.FileDownloader
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.SynchronizeFileOperation
 import com.owncloud.android.ui.activity.FileActivity
@@ -563,30 +560,9 @@ class PreviewMediaActivity :
         }
     }
 
-    override fun newTransferenceServiceConnection(): ServiceConnection {
-        return PreviewMediaServiceConnection()
-    }
-
     private fun onSynchronizeFileOperationFinish(result: RemoteOperationResult<*>?) {
         result?.let {
             invalidateOptionsMenu()
-        }
-    }
-
-    private inner class PreviewMediaServiceConnection : ServiceConnection {
-        override fun onServiceConnected(componentName: ComponentName?, service: IBinder?) {
-            componentName?.let {
-                if (it == ComponentName(this@PreviewMediaActivity, FileDownloader::class.java)) {
-                    mDownloaderBinder = service as FileDownloaderBinder
-                }
-            }
-        }
-
-        override fun onServiceDisconnected(componentName: ComponentName?) {
-            if (componentName == ComponentName(this@PreviewMediaActivity, FileDownloader::class.java)) {
-                Log_OC.d(PreviewImageActivity.TAG, "Download service suddenly disconnected")
-                mDownloaderBinder = null
-            }
         }
     }
 
@@ -600,21 +576,22 @@ class PreviewMediaActivity :
         packageName: String? = null,
         activityName: String? = null
     ) {
-        if (fileDownloaderBinder.isDownloading(user, file)) {
+        if (FileDownloadHelper.instance().isDownloading(user, file)) {
             return
         }
 
-        val intent = Intent(this, FileDownloader::class.java).apply {
-            putExtra(FileDownloader.EXTRA_USER, user)
-            putExtra(FileDownloader.EXTRA_FILE, file)
-            downloadBehavior?.let { behavior ->
-                putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, behavior)
+        user?.let { user ->
+            file?.let { file ->
+                FileDownloadHelper.instance().downloadFile(
+                    user,
+                    file,
+                    downloadBehavior ?: "",
+                    DownloadType.DOWNLOAD,
+                    packageName ?: "",
+                    activityName ?: ""
+                )
             }
-            putExtra(SendShareDialog.PACKAGE_NAME, packageName)
-            putExtra(SendShareDialog.ACTIVITY_NAME, activityName)
         }
-
-        startService(intent)
     }
 
     private fun seeDetails() {

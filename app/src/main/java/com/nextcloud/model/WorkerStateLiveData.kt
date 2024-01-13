@@ -1,10 +1,9 @@
 /*
- *
  * Nextcloud Android client application
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2022 Tobias Kaminsky
- * Copyright (C) 2022 Nextcloud GmbH
+ * @author Alper Ozturk
+ * Copyright (C) 2023 Alper Ozturk
+ * Copyright (C) 2023 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -20,13 +19,23 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.operations
+package com.nextcloud.model
 
-enum class DownloadType(var type: String) {
-    DOWNLOAD("DOWNLOAD"),
-    EXPORT("EXPORT");
+import androidx.lifecycle.LiveData
 
-    override fun toString(): String {
-        return type
+class WorkerStateLiveData private constructor() : LiveData<WorkerState>() {
+
+    fun setWorkState(state: WorkerState) {
+        postValue(state)
+    }
+
+    companion object {
+        private var instance: WorkerStateLiveData? = null
+
+        fun instance(): WorkerStateLiveData {
+            return instance ?: synchronized(this) {
+                instance ?: WorkerStateLiveData().also { instance = it }
+            }
+        }
     }
 }

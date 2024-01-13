@@ -168,12 +168,16 @@
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="uploads_view_group_header" translatable="false">%1$s (%2$d)</string>
     <string name="downloader_download_in_progress_ticker">Downloading…</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>
     <string name="downloader_download_succeeded_ticker">Downloaded</string>
     <string name="downloader_download_succeeded_content">%1$s downloaded</string>
     <string name="downloader_download_failed_ticker">Download failed</string>
     <string name="downloader_download_failed_content">Could not download %1$s</string>
     <string name="downloader_not_downloaded_yet">Not downloaded yet</string>
+    <string name="downloader_file_download_cancelled">Certain files were canceled during the download by user</string>
+    <string name="downloader_file_download_failed">Error occurred while downloading files</string>
+    <string name="downloader_unexpected_error">Unexpected error occurred while downloading files</string>
     <string name="downloader_download_failed_credentials_error">Download failed, log in again</string>
     <string name="common_choose_account">Choose account</string>
     <string name="common_switch_account">Switch account</string>
@@ -636,7 +640,7 @@
     <string name="resharing_is_not_allowed">Resharing is not allowed</string>
 
     <string name="foreground_service_upload">Uploading files…</string>
-    <string name="foreground_service_download">Downloading files…</string>
+    <string name="worker_download">Downloading files…</string>
 
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_license">License</string>

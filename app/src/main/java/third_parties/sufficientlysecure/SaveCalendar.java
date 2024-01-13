@@ -42,11 +42,11 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.files.downloader.PostUploadAction;
-import com.nextcloud.client.files.downloader.Request;
-import com.nextcloud.client.files.downloader.TransferManagerConnection;
-import com.nextcloud.client.files.downloader.UploadRequest;
-import com.nextcloud.client.files.downloader.UploadTrigger;
+import com.nextcloud.client.files.Request;
+import com.nextcloud.client.files.UploadRequest;
+import com.nextcloud.client.files.transfer.TransferManagerConnection;
+import com.nextcloud.client.files.upload.PostUploadAction;
+import com.nextcloud.client.files.upload.UploadTrigger;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;

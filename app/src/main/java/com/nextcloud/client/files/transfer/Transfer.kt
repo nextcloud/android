@@ -1,8 +1,9 @@
-/**
+/*
  * Nextcloud Android client application
  *
- * @author Chris Narkiewicz
- * Copyright (C) 2021 Chris Narkiewicz <hello@ezaquarii.com>
+ * @author Alper Ozturk
+ * Copyright (C) 2023 Alper Ozturk
+ * Copyright (C) 2023 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -15,10 +16,14 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.files.downloader
+package com.nextcloud.client.files.transfer
 
+import com.nextcloud.client.files.Direction
+import com.nextcloud.client.files.DownloadRequest
+import com.nextcloud.client.files.Request
+import com.nextcloud.client.files.UploadRequest
 import com.owncloud.android.datamodel.OCFile
 import java.util.UUID
 
@@ -48,8 +53,9 @@ data class Transfer(
      */
     val isFinished: Boolean get() = state == TransferState.COMPLETED || state == TransferState.FAILED
 
-    val direction: Direction get() = when (request) {
-        is DownloadRequest -> Direction.DOWNLOAD
-        is UploadRequest -> Direction.UPLOAD
-    }
+    val direction: Direction
+        get() = when (request) {
+            is DownloadRequest -> Direction.DOWNLOAD
+            is UploadRequest -> Direction.UPLOAD
+        }
 }

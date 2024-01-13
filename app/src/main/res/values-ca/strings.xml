@@ -271,6 +271,7 @@
     <string name="error_retrieving_templates">S\'ha produït un error recuperant les plantilles</string>
     <string name="error_starting_direct_camera_upload">S\'ha produït un error iniciant la càmera</string>
     <string name="etm_accounts">Comptes</string>
+    <string name="etm_background_job_created">S\'ha creat</string>
     <string name="etm_background_job_name">Nom de la tasca</string>
     <string name="etm_background_job_progress">Progrés</string>
     <string name="etm_background_job_started">Iniciat</string>
