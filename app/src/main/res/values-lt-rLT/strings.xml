@@ -846,6 +846,7 @@
     <string name="whats_new_skip">Praleisti</string>
     <string name="whats_new_title">Naujas %1$s</string>
     <string name="whats_your_status">Kokia jūsų būsena?</string>
+    <string name="worker_download">Atsisiunčiami failai…</string>
     <string name="write_email">Siųsti elektroninį laišką</string>
     <string name="wrong_storage_path">Duomenų saugyklos aplanko nėra!</string>
     <plurals name="sync_fail_in_favourites_content">

@@ -75,6 +75,7 @@
     <string name="autoupload_custom_folder">إعداد مجلد خاص</string>
     <string name="autoupload_disable_power_save_check">تعطيل التحقق من حفظ الطاقة</string>
     <string name="autoupload_hide_folder">إخفاء المجلد</string>
+    <string name="autoupload_worker_foreground_info">التحضير للرفع التلقائي</string>
     <string name="avatar">الصورة الرمزية</string>
     <string name="away">بالخارج</string>
     <string name="backup_settings">اعدادات النسخ الاحتياطي</string>

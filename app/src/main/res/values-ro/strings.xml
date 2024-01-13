@@ -915,6 +915,7 @@
     <string name="whats_your_status">Care este statusul tău?</string>
     <string name="widgets_not_available">Widgeturile sunt disponibile începând cu %1$s 25</string>
     <string name="widgets_not_available_title">Nu este disponibil</string>
+    <string name="worker_download">Se descarcă fișiere…</string>
     <string name="write_email">Expediază mesajul</string>
     <string name="wrong_storage_path">Dosarul de stocare al datelor nu există!</string>
     <string name="wrong_storage_path_desc">Acest lucru s-ar putea datora unei rstaurări a unui backup pe un alt dispozitiv. Se restaurează opțiunea prestabilită. Vă rugăm verificați setările pentru a schimba dosarul de stocare a datelor.</string>

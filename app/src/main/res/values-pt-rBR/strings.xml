@@ -951,6 +951,7 @@
     <string name="whats_your_status">Qual é o seu status?</string>
     <string name="widgets_not_available">Widgets apenas estão disponíveis em %1$s 25 ou posterior</string>
     <string name="widgets_not_available_title">Indisponível</string>
+    <string name="worker_download">Baixando arquivos…</string>
     <string name="write_email">Enviar e-mail</string>
     <string name="wrong_storage_path">A pasta de armazenamento de dados não existe!</string>
     <string name="wrong_storage_path_desc">Isto pode ser decorrente de uma restauração de backup em outro dispositivo. Retornando ao padrão. Verifique as configurações para ajustar a pasta de armazenamento.</string>

@@ -910,6 +910,7 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="whats_your_status">Apa status Anda?</string>
     <string name="widgets_not_available">Widget hanya tersedia di %1$s 25 atau versi yang lebih baru.</string>
     <string name="widgets_not_available_title">Tidak tersedia</string>
+    <string name="worker_download">Mengunduh berkas…</string>
     <string name="write_email">Kirim surel</string>
     <string name="wrong_storage_path">Folder penyimpanan data tidak ada!</string>
     <string name="wrong_storage_path_desc">Ini mungkin disebabkan oleh pemulihan cadangan pada perangkat lain. Kembali ke bawaan. Silakan periksa pengaturan untuk menyesuaikan folder penyimpanan data.</string>

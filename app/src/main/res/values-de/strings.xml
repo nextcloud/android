@@ -75,6 +75,7 @@
     <string name="autoupload_custom_folder">Erstellen Sie einen eigenen Ordner</string>
     <string name="autoupload_disable_power_save_check">Energiesparmodus deaktivieren</string>
     <string name="autoupload_hide_folder">Ordner verstecken</string>
+    <string name="autoupload_worker_foreground_info">Automatisches Hochladen wird vorbereitet</string>
     <string name="avatar">Avatar</string>
     <string name="away">Abwesend</string>
     <string name="backup_settings">Sicherungseinstellungen</string>
@@ -955,6 +956,7 @@
     <string name="whats_your_status">Wie ist Ihr Status?</string>
     <string name="widgets_not_available">Widgets sind nur auf %1$s 25 oder neuer verfügbar</string>
     <string name="widgets_not_available_title">Nicht verfügbar</string>
+    <string name="worker_download">Dateien werden heruntergeladen…</string>
     <string name="write_email">E-Mail senden</string>
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
     <string name="wrong_storage_path_desc">Ursache könnte die Wiederherstellung einer Sicherungskopie auf einem anderen Gerät sein. Der Standard-Ordner wird jetzt wieder verwendet. Bitte überprüfen Sie die Einstellungen bezüglich des Speicherortes.</string>

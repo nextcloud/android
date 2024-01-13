@@ -951,6 +951,7 @@
     <string name="whats_your_status">Ваш статус?</string>
     <string name="widgets_not_available">Виджеты доступны только на%1$s25 или более</string>
     <string name="widgets_not_available_title">Не доступен</string>
+    <string name="worker_download">Получение файлов…</string>
     <string name="write_email">Отправить письмо</string>
     <string name="wrong_storage_path">Папка хранения данных не существует.</string>
     <string name="wrong_storage_path_desc">Это могло случиться после восстановления из резервной копии, созданной на другом устройстве. Будут использованы параметры по умолчанию, проверьте путь размещения папки хранения данных.</string>

@@ -539,5 +539,6 @@
     <string name="whats_new_skip">Izlaist</string>
     <string name="whats_new_title">Jaunums %1$s</string>
     <string name="whats_your_status">Kāds ir jūsu statuss?</string>
+    <string name="widgets_not_available_title">Nav pieejams</string>
     <string name="write_email">Sūtīt e-pastu</string>
     </resources>

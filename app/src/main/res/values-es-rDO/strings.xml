@@ -547,5 +547,6 @@
     <string name="what_s_new_image">Imagen de qué es nuevo</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
+    <string name="worker_download">Descargando archivos…</string>
     <string name="write_email">Enviar correo electrónico</string>
     </resources>

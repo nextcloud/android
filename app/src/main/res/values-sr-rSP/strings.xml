@@ -677,6 +677,7 @@
     <string name="what_s_new_image">Slika šta je novo</string>
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo u %1$s</string>
+    <string name="worker_download">Skidam fajlove…</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ne mogu da sinhronizujem %1$d fajl (konflikata: %2$d)</item>
         <item quantity="few">Ne mogu da sinhronizujem %1$d fajla (konflikata: %2$d)</item>

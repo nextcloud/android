@@ -630,6 +630,7 @@
     <string name="what_s_new_image">รูปภาพมีอะไรใหม่</string>
     <string name="whats_new_skip">ข้าม</string>
     <string name="whats_new_title">มีอะไรใหม่ใน %1$s</string>
+    <string name="worker_download">กำลังดาวน์โหลดไฟล์…</string>
     <string name="write_email">ส่งอีเมล</string>
     <string name="wrong_storage_path">โฟลเดอร์จัดเก็บข้อมูลไม่มีอยู่!</string>
     <plurals name="sync_fail_in_favourites_content">

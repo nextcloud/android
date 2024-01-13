@@ -950,6 +950,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="whats_your_status">당신의 상태는?</string>
     <string name="widgets_not_available">위젯 기능은 %1$s 버전 25 이후부터 사용할 수 있습니다.</string>
     <string name="widgets_not_available_title">사용할 수 없음</string>
+    <string name="worker_download">파일 다운로드 중…</string>
     <string name="write_email">이메일 보내기</string>
     <string name="wrong_storage_path">데이터 저장 폴더가 존재하지 않습니다!</string>
     <string name="wrong_storage_path_desc">백업이 다른 장치에 복원된 것 같습니다. 초기값으로 돌아갑니다. 설정을 확인하고 데이터 저장 폴더를 조정하세요.</string>

@@ -665,6 +665,7 @@
     <string name="whats_new_title">Novaĵoj en %1$s</string>
     <string name="whats_your_status">Kio estas via stato?</string>
     <string name="widgets_not_available_title">Ne disponeble</string>
+    <string name="worker_download">Elŝutado de dosieroj...</string>
     <string name="write_email">Sendi retpoŝtmesaĝon</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ne eblis sinkronigi %1$d dosieron (konfliktoj: %2$d)</item>
