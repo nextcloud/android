@@ -760,6 +760,7 @@
     <string name="whats_new_skip">Tremen</string>
     <string name="whats_new_title">Nevez e %1$s</string>
     <string name="widgets_not_available_title">Divak</string>
+    <string name="worker_download">O pellgargañ restroù ...</string>
     <string name="write_email">Kas postel</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Dibosupl kemprennañ %1$d restr (stourm : %2$d)</item>

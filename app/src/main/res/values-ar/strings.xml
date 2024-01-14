@@ -221,11 +221,15 @@
     <string name="downloader_download_failed_credentials_error">فشل التنزيل، قم بتسجيل الدخول مرة أخرى</string>
     <string name="downloader_download_failed_ticker">فشل التحميل</string>
     <string name="downloader_download_file_not_found">الملف غير متوفر في الخادم</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% تحميل  %2$s</string>
     <string name="downloader_download_in_progress_ticker">جارِ التنزيل …</string>
     <string name="downloader_download_succeeded_content">%1$s مُنزَّلَة</string>
     <string name="downloader_download_succeeded_ticker">تم التنزيل</string>
+    <string name="downloader_file_download_cancelled">بعض الملفات قام المستخدِم بإلغائها أثناء التحميل</string>
+    <string name="downloader_file_download_failed">حدث خطأ أثناء تحميل الملفات</string>
     <string name="downloader_not_downloaded_yet">لم يتم تحميلها بعد</string>
+    <string name="downloader_unexpected_error">حدث خطأ غير متوقع أثناء تحميل الملفات</string>
     <string name="drawer_close">أغلق الشريط الجانبي</string>
     <string name="drawer_community">المنتدى</string>
     <string name="drawer_header_background">صورة خلفية الدرج العلوي</string>
@@ -963,6 +967,7 @@
     <string name="whats_your_status">ماهي حالتك؟</string>
     <string name="widgets_not_available">الأدوات مُتاحة فقط في %1$s الإصدار 25 و ما بعده  </string>
     <string name="widgets_not_available_title">غير متوفر</string>
+    <string name="worker_download">جارٍ تنزيل الملفات…</string>
     <string name="write_email">إرسال بريد</string>
     <string name="wrong_storage_path">مجلد التخزين غير موجود !</string>
     <string name="wrong_storage_path_desc">قد يكون هذا بسبب استعادة نسخة احتياطية على جهاز آخر . العودة الى الافتراضي . يرجى التحقق من الإعدادات لضبط مجلد تخزين البيانات.</string>

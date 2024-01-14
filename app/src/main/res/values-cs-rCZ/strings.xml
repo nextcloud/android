@@ -951,6 +951,7 @@
     <string name="whats_your_status">Jaký je váš stav?</string>
     <string name="widgets_not_available">Ovládací prvky jsou k dispozici pouze na %1$s 25 a novějším</string>
     <string name="widgets_not_available_title">Není k dispozici</string>
+    <string name="worker_download">Stahování souborů…</string>
     <string name="write_email">Odeslat e-mail</string>
     <string name="wrong_storage_path">Složka pro ukládání dat neexistuje!</string>
     <string name="wrong_storage_path_desc">Toto může být způsobeno obnovením ze zálohy na jiném zařízení. Náhradně vráceno do výchozího stavu. Zkontrolujte nastavení a upravte popis umístění složky pro ukládání dat.</string>
