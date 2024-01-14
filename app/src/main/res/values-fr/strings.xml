@@ -221,11 +221,15 @@
     <string name="downloader_download_failed_credentials_error">Téléchargement échoué, reconnectez-vous</string>
     <string name="downloader_download_failed_ticker">Le téléchargement a échoué</string>
     <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">Téléchargement de %2$s : %1$d%% effectués</string>
     <string name="downloader_download_in_progress_ticker">Réception en cours…</string>
     <string name="downloader_download_succeeded_content">%1$s reçu</string>
     <string name="downloader_download_succeeded_ticker">Reçu</string>
+    <string name="downloader_file_download_cancelled">Certains fichiers ont été annulés pendant le téléchargement par l\'utilisateur</string>
+    <string name="downloader_file_download_failed">Une erreur est survenue lors du téléchargement des fichiers</string>
     <string name="downloader_not_downloaded_yet">Pas encore téléchargé</string>
+    <string name="downloader_unexpected_error">Erreur inattendue survenue lors du téléchargement des fichiers</string>
     <string name="drawer_close">Fermer le panneau latéral</string>
     <string name="drawer_community">Communauté</string>
     <string name="drawer_header_background">Image d\'arrière-plan de l\'en-tête du menu-tiroir</string>
