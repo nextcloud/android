@@ -225,7 +225,10 @@
     <string name="downloader_download_in_progress_ticker">Hämtar…</string>
     <string name="downloader_download_succeeded_content">%1$s hämtad</string>
     <string name="downloader_download_succeeded_ticker">Hämtad</string>
+    <string name="downloader_file_download_cancelled">Vissa filer avbröts under nedladdningen av användaren</string>
+    <string name="downloader_file_download_failed">Fel uppstod vid nedladdning av filer</string>
     <string name="downloader_not_downloaded_yet">Ännu inte hämtade</string>
+    <string name="downloader_unexpected_error">Oväntat fel inträffade vid nedladdning av filer</string>
     <string name="drawer_close">Stäng sidofältet</string>
     <string name="drawer_community">Community</string>
     <string name="drawer_header_background">Bakgrundsbild på appskärmsrubriken</string>
