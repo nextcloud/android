@@ -46,7 +46,7 @@ jobs:
                     fail_ci_if_error: true
             -   name: Upload jacoco artifacts
                 if: ${{ failure() }}
-                uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392
+                uses: actions/upload-artifact@1eb3cb2b3e0f29609092a73eb033bb759a334595
                 with:
                     name: test-results
                     path: app/build/reports/tests/testGplayDebugUnitTest/
