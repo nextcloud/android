@@ -221,11 +221,15 @@
     <string name="downloader_download_failed_credentials_error">下載失敗，再重新登入</string>
     <string name="downloader_download_failed_ticker">下載失敗</string>
     <string name="downloader_download_file_not_found">這個檔案已經不存在於伺服器中</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% 下載中 %2$s</string>
     <string name="downloader_download_in_progress_ticker">正在下載……</string>
     <string name="downloader_download_succeeded_content">%1$s 已下載</string>
     <string name="downloader_download_succeeded_ticker">已下載</string>
+    <string name="downloader_file_download_cancelled">某些檔案在下載期間被使用者取消</string>
+    <string name="downloader_file_download_failed">下載檔案時發生錯誤</string>
     <string name="downloader_not_downloaded_yet">尚未下載</string>
+    <string name="downloader_unexpected_error">下載檔案時發生了預料之外的錯誤</string>
     <string name="drawer_close">關閉側邊攔</string>
     <string name="drawer_community">社群</string>
     <string name="drawer_header_background">側滑選單背景圖片</string>
@@ -289,6 +293,7 @@
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
     <string name="error_starting_doc_scan">開始文件掃描時發生錯誤</string>
     <string name="etm_accounts">帳號</string>
+    <string name="etm_background_execution_count">時段執行於48小時內</string>
     <string name="etm_background_job_created">已建立</string>
     <string name="etm_background_job_name">工作名稱</string>
     <string name="etm_background_job_progress">進度</string>
