@@ -1,0 +1,9 @@
+## 3.27.1 RC1 (January 15, 2024)
+
+- bugfixes
+- E2E sharing
+
+
+Minimum: NC 16 Server, Android 7.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/87
