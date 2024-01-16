@@ -94,8 +94,8 @@ class FilesSyncWork(
 
     @Suppress("MagicNumber")
     override fun doWork(): Result {
-        if (backgroundJobManager.bothFilesSyncJobsRunning()){
-            Log_OC.d(TAG,"Kill Sync Worker since another instance of the worker seems to be running already!")
+        if (backgroundJobManager.bothFilesSyncJobsRunning()) {
+            Log_OC.d(TAG, "Kill Sync Worker since another instance of the worker seems to be running already!")
             return Result.success()
         }
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
