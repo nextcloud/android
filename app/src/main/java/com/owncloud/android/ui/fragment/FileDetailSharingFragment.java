@@ -59,6 +59,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ShareeListAdapter;
@@ -108,6 +109,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject ViewThemeUtils viewThemeUtils;
+    @Inject UsersAndGroupsSearchConfig searchConfig;
 
     public static FileDetailSharingFragment newInstance(OCFile file, User user) {
         FileDetailSharingFragment fragment = new FileDetailSharingFragment();
@@ -204,26 +206,52 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        searchConfig.setSearchOnlyUsers(file.isEncrypted());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        searchConfig.reset();
+    }
+
     private void setupView() {
         setShareWithYou();
 
-        if (file.isEncrypted()) {
-            binding.searchContainer.setVisibility(View.GONE);
-        } else {
-            FileDetailSharingFragmentHelper.setupSearchView(
-                (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
-                binding.searchView,
-                fileActivity.getComponentName());
-            viewThemeUtils.androidx.themeToolbarSearchView(binding.searchView);
+        OCFile parentFile = fileDataStorageManager.getFileById(file.getParentId());
 
-            if (file.canReshare()) {
-                binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
+        FileDetailSharingFragmentHelper.setupSearchView(
+            (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
+            binding.searchView,
+            fileActivity.getComponentName());
+        viewThemeUtils.androidx.themeToolbarSearchView(binding.searchView);
+
+
+        if (file.canReshare()) {
+            if (file.isEncrypted() || (parentFile != null && parentFile.isEncrypted())) {
+                if (file.getE2eCounter() == -1) {
+                    // V1 cannot share
+                    binding.searchContainer.setVisibility(View.GONE);
+                } else {
+                    binding.searchView.setQueryHint(getResources().getString(R.string.secure_share_search));
+
+                    if (file.isSharedViaLink()) {
+                        binding.searchView.setQueryHint(getResources().getString(R.string.share_not_allowed_when_file_drop));
+                        binding.searchView.setInputType(InputType.TYPE_NULL);
+                        disableSearchView(binding.searchView);
+                    }
+                }
             } else {
-                binding.searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
-                binding.searchView.setInputType(InputType.TYPE_NULL);
-                binding.pickContactEmailBtn.setVisibility(View.GONE);
-                disableSearchView(binding.searchView);
+                binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
             }
+        } else {
+            binding.searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
+            binding.searchView.setInputType(InputType.TYPE_NULL);
+            binding.pickContactEmailBtn.setVisibility(View.GONE);
+            disableSearchView(binding.searchView);
         }
     }
 
@@ -424,6 +452,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      * before reading database.
      */
     public void refreshSharesFromDB() {
+        file = fileDataStorageManager.getFileById(file.getFileId());
         ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesList.getAdapter();
 
         if (adapter == null) {

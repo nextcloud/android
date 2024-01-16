@@ -45,12 +45,12 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.lib.resources.users.DeletePublicKeyOperation
-import com.owncloud.android.lib.resources.users.GetPrivateKeyOperation
-import com.owncloud.android.lib.resources.users.GetPublicKeyOperation
-import com.owncloud.android.lib.resources.users.SendCSROperation
-import com.owncloud.android.lib.resources.users.StorePrivateKeyOperation
-import com.owncloud.android.utils.CsrHelper
+import com.owncloud.android.lib.resources.e2ee.CsrHelper
+import com.owncloud.android.lib.resources.users.DeletePublicKeyRemoteOperation
+import com.owncloud.android.lib.resources.users.GetPrivateKeyRemoteOperation
+import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
+import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
+import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.IOException
@@ -175,7 +175,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
 
         try {
             val privateKey = task?.get()
-            val mnemonicUnchanged = binding.encryptionPasswordInput.text.toString()
+            val mnemonicUnchanged = binding.encryptionPasswordInput.text.toString().trim()
             val mnemonic =
                 binding.encryptionPasswordInput.text.toString().replace("\\s".toRegex(), "")
                     .lowercase()
@@ -294,11 +294,11 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             // if available
             //  - store public key
             //  - decrypt private key, store unencrypted private key in database
-            val context = mWeakContext.get()
-            val publicKeyOperation = GetPublicKeyOperation()
+            val context = mWeakContext.get() ?: return null
+            val publicKeyOperation = GetPublicKeyRemoteOperation()
             val user = user ?: return null
 
-            val publicKeyResult = publicKeyOperation.execute(user, context)
+            val publicKeyResult = publicKeyOperation.executeNextcloudClient(user, context)
 
             if (publicKeyResult.isSuccess) {
                 Log_OC.d(TAG, "public key successful downloaded for " + user.accountName)
@@ -317,7 +317,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 return null
             }
 
-            val privateKeyResult = GetPrivateKeyOperation().execute(user, context)
+            val privateKeyResult = GetPrivateKeyRemoteOperation().executeNextcloudClient(user, context)
             if (privateKeyResult.isSuccess) {
                 Log_OC.d(TAG, "private key successful downloaded for " + user!!.accountName)
                 keyResult = KEY_EXISTING_USED
@@ -387,6 +387,11 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 val context = mWeakContext.get()
                 val publicKeyString: String
 
+                if (context == null) {
+                    keyResult = KEY_FAILED
+                    return ""
+                }
+
                 // Create public/private key pair
                 val keyPair = EncryptionUtils.generateKeyPair()
 
@@ -395,12 +400,12 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 val user = user ?: return ""
 
                 val userId = accountManager.getUserData(user.toPlatformAccount(), AccountUtils.Constants.KEY_USER_ID)
-                val urlEncoded = CsrHelper.generateCsrPemEncodedString(keyPair, userId)
-                val operation = SendCSROperation(urlEncoded)
-                val result = operation.execute(user, context)
+                val urlEncoded = CsrHelper().generateCsrPemEncodedString(keyPair, userId)
+                val operation = SendCSRRemoteOperation(urlEncoded)
+                val result = operation.executeNextcloudClient(user, context)
 
                 if (result.isSuccess) {
-                    publicKeyString = result.data[0] as String
+                    publicKeyString = result.resultData
                     if (!EncryptionUtils.isMatchingKeys(keyPair, publicKeyString)) {
                         EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
                         throw RuntimeException("Wrong CSR returned")
@@ -420,8 +425,8 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 )
 
                 // upload encryptedPrivateKey
-                val storePrivateKeyOperation = StorePrivateKeyOperation(encryptedPrivateKey)
-                val storePrivateKeyResult = storePrivateKeyOperation.execute(user, context)
+                val storePrivateKeyOperation = StorePrivateKeyRemoteOperation(encryptedPrivateKey)
+                val storePrivateKeyResult = storePrivateKeyOperation.executeNextcloudClient(user, context)
                 if (storePrivateKeyResult.isSuccess) {
                     Log_OC.d(TAG, "private key success")
                     arbitraryDataProvider?.storeOrUpdateKeyValue(
@@ -441,10 +446,10 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                     )
                     keyResult = KEY_CREATED
 
-                    return storePrivateKeyResult.data[0] as String
+                    return storePrivateKeyResult.resultData
                 } else {
-                    val deletePublicKeyOperation = DeletePublicKeyOperation()
-                    deletePublicKeyOperation.execute(user, context)
+                    val deletePublicKeyOperation = DeletePublicKeyRemoteOperation()
+                    deletePublicKeyOperation.executeNextcloudClient(user, context)
                 }
             } catch (e: Exception) {
                 Log_OC.e(TAG, e.message)

@@ -29,18 +29,18 @@ import androidx.annotation.VisibleForTesting;
 /**
  * Decrypted class representation of metadata json of folder metadata.
  */
-public class DecryptedFolderMetadata {
+public class DecryptedFolderMetadataOld {
     private Metadata metadata;
     private Map<String, DecryptedFile> files;
 
     private Map<String, DecryptedFile> filedrop;
 
-    public DecryptedFolderMetadata() {
+    public DecryptedFolderMetadataOld() {
         this.metadata = new Metadata();
         this.files = new HashMap<>();
     }
 
-    public DecryptedFolderMetadata(Metadata metadata, Map<String, DecryptedFile> files) {
+    public DecryptedFolderMetadataOld(Metadata metadata, Map<String, DecryptedFile> files) {
         this.metadata = metadata;
         this.files = files;
     }

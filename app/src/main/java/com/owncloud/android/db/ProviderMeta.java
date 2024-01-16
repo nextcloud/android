@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 76;
+    public static final int DB_VERSION = 77;
 
     private ProviderMeta() {
         // No instance
@@ -129,6 +129,7 @@ public class ProviderMeta {
         public static final String FILE_LOCK_TIMEOUT = "lock_timeout";
         public static final String FILE_LOCK_TOKEN = "lock_token";
         public static final String FILE_TAGS = "tags";
+        public static final String FILE_E2E_COUNTER = "e2e_counter";
 
         public static final List<String> FILE_ALL_COLUMNS = Collections.unmodifiableList(Arrays.asList(
                 _ID,
@@ -178,6 +179,7 @@ public class ProviderMeta {
                 FILE_LOCK_TOKEN,
                 FILE_METADATA_SIZE,
                 FILE_METADATA_LIVE_PHOTO,
+                FILE_E2E_COUNTER,
                 FILE_TAGS,
                 FILE_METADATA_GPS));
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
@@ -248,6 +250,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_SERVER_BACKGROUND_PLAIN = "background_plain";
         public static final String CAPABILITIES_END_TO_END_ENCRYPTION = "end_to_end_encryption";
         public static final String CAPABILITIES_END_TO_END_ENCRYPTION_KEYS_EXIST = "end_to_end_encryption_keys_exist";
+        public static final String CAPABILITIES_END_TO_END_ENCRYPTION_API_VERSION = "end_to_end_encryption_api_version";
         public static final String CAPABILITIES_ACTIVITY = "activity";
         public static final String CAPABILITIES_RICHDOCUMENT = "richdocument";
         public static final String CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST = "richdocument_mimetype_list";

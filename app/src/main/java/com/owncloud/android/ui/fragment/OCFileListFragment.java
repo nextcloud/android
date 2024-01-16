@@ -73,12 +73,11 @@ import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.DecryptedFolderMetadata;
-import com.owncloud.android.datamodel.EncryptedFolderMetadata;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.VirtualFolderType;
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -87,6 +86,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
+import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -116,6 +116,7 @@ import com.owncloud.android.ui.preview.PreviewMediaActivity;
 import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
+import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -1712,13 +1713,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
             dialog.setTargetFragment(this, SETUP_ENCRYPTION_REQUEST_CODE);
             dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
         } else {
+            // TODO E2E: if encryption fails, to not set it as encrypted!
             encryptFolder(file,
                           event.getLocalId(),
                           event.getRemoteId(),
                           event.getRemotePath(),
                           event.getShouldBeEncrypted(),
                           publicKey,
-                          privateKey);
+                          privateKey,
+                          storageManager);
         }
     }
 
@@ -1727,9 +1730,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                String remoteId,
                                String remotePath,
                                boolean shouldBeEncrypted,
-                               String publicKey,
-                               String privateKey) {
+                               String publicKeyString,
+                               String privateKeyString,
+                               FileDataStorageManager storageManager) {
         try {
+            Log_OC.d(TAG, "encrypt folder " + folder.getRemoteId());
             User user = accountManager.getUser();
             OwnCloudClient client = clientFactory.create(user);
             RemoteOperationResult remoteOperationResult = new ToggleEncryptionRemoteOperation(localId,
@@ -1741,43 +1746,43 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 // lock folder
                 String token = EncryptionUtils.lockFolder(folder, client);
 
-                // Update metadata
-                Pair<Boolean, DecryptedFolderMetadata> metadataPair = EncryptionUtils.retrieveMetadata(folder,
-                                                                                                       client,
-                                                                                                       privateKey,
-                                                                                                       publicKey,
-                                                                                                       arbitraryDataProvider,
-                                                                                                       user);
+                OCCapability ocCapability = mContainerActivity.getStorageManager().getCapability(user.getAccountName());
 
-                boolean metadataExists = metadataPair.first;
-                DecryptedFolderMetadata metadata = metadataPair.second;
+                if (ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.V2_0) {
+                    // Update metadata
+                    Pair<Boolean, DecryptedFolderMetadataFile> metadataPair = EncryptionUtils.retrieveMetadata(folder,
+                                                                                                               client,
+                                                                                                               privateKeyString,
+                                                                                                               publicKeyString,
+                                                                                                               storageManager,
+                                                                                                               user,
+                                                                                                               requireContext(),
+                                                                                                               arbitraryDataProvider);
 
-                EncryptedFolderMetadata encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(metadata,
-                                                                                                        publicKey,
-                                                                                                        arbitraryDataProvider,
-                                                                                                        user,
-                                                                                                        folder.getLocalId());
+                    boolean metadataExists = metadataPair.first;
+                    DecryptedFolderMetadataFile metadata = metadataPair.second;
 
-                String serializedFolderMetadata;
+                    new EncryptionUtilsV2().serializeAndUploadMetadata(folder,
+                                                                       metadata,
+                                                                       token,
+                                                                       client,
+                                                                       metadataExists,
+                                                                       requireContext(),
+                                                                       user,
+                                                                       storageManager);
 
-                // check if we need metadataKeys
-                if (metadata.getMetadata().getMetadataKey() != null) {
-                    serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata, true);
-                } else {
-                    serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
+                    // unlock folder
+                    EncryptionUtils.unlockFolder(folder, client, token);
+
+                } else if (ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.V1_0 ||
+                    ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.V1_1 ||
+                    ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.V1_2
+                ) {
+                    // unlock folder
+                    EncryptionUtils.unlockFolderV1(folder, client, token);
+                } else if (ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.UNKNOWN) {
+                    throw new IllegalArgumentException("Unknown E2E version");
                 }
-
-                // upload metadata
-                EncryptionUtils.uploadMetadata(folder,
-                                               serializedFolderMetadata,
-                                               token,
-                                               client,
-                                               metadataExists,
-                                               arbitraryDataProvider,
-                                               user);
-
-                // unlock folder
-                EncryptionUtils.unlockFolder(folder, client, token);
 
                 mAdapter.setEncryptionAttributeForItemID(remoteId, shouldBeEncrypted);
             } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
@@ -1790,7 +1795,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                               Snackbar.LENGTH_LONG).show();
             }
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             Log_OC.e(TAG, "Error creating encrypted folder", e);
         }
     }

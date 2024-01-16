@@ -1,14 +1,15 @@
 /*
+ *
  * Nextcloud Android client application
  *
  * @author Tobias Kaminsky
- * Copyright (C) 2017 Tobias Kaminsky
- * Copyright (C) 2017 Nextcloud GmbH.
+ * Copyright (C) 2023 Tobias Kaminsky
+ * Copyright (C) 2023 Nextcloud GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
- * at your option) any later version.
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,31 +17,34 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.datamodel;
+package com.owncloud.android.datamodel.e2e.v1.encrypted;
+
+import com.owncloud.android.datamodel.EncryptedFiledrop;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedMetadata;
 
 import java.util.Map;
 
 /**
  * Encrypted class representation of metadata json of folder metadata
  */
-public class EncryptedFolderMetadata {
-    private DecryptedFolderMetadata.Metadata metadata;
+public class EncryptedFolderMetadataFileV1 {
+    private DecryptedMetadata metadata;
     private Map<String, EncryptedFile> files;
 
     private Map<String, EncryptedFiledrop> filedrop;
 
-    public EncryptedFolderMetadata(DecryptedFolderMetadata.Metadata metadata,
-                                   Map<String, EncryptedFile> files,
-                                   Map<String, EncryptedFiledrop> filesdrop) {
+    public EncryptedFolderMetadataFileV1(DecryptedMetadata metadata,
+                                         Map<String, EncryptedFile> files,
+                                         Map<String, EncryptedFiledrop> filesdrop) {
         this.metadata = metadata;
         this.files = files;
         this.filedrop = filesdrop;
     }
 
-    public DecryptedFolderMetadata.Metadata getMetadata() {
+    public DecryptedMetadata getMetadata() {
         return this.metadata;
     }
 
@@ -52,7 +56,7 @@ public class EncryptedFolderMetadata {
         return filedrop;
     }
 
-    public void setMetadata(DecryptedFolderMetadata.Metadata metadata) {
+    public void setMetadata(DecryptedMetadata metadata) {
         this.metadata = metadata;
     }
 
