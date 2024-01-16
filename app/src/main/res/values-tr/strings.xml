@@ -954,6 +954,7 @@
     <string name="whats_your_status">Durumunuz nedir?</string>
     <string name="widgets_not_available">Pano bileşenleri yalnızca %1$s 25 ve üzeri sürümlerde kullanılabilir</string>
     <string name="widgets_not_available_title">Kullanılamaz</string>
+    <string name="worker_download">Dosyalar indiriliyor …</string>
     <string name="write_email">E-posta gönder</string>
     <string name="wrong_storage_path">Veri depolama klasörü bulunamadı!</string>
     <string name="wrong_storage_path_desc">Bunun nedeni bir yedeğin başka bir aygıta geri yüklenmesi olabilir. Varsayılan değerlere geri dönülüyor. Lütfen veri depolama klasörünü ayarlamak için ayarları denetleyin.</string>

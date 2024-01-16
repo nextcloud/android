@@ -954,6 +954,7 @@
     <string name="whats_your_status">¿Cuál es su estado?</string>
     <string name="widgets_not_available">Los widgets solo están disponibles para %1$s 25 o superior</string>
     <string name="widgets_not_available_title">No disponible</string>
+    <string name="worker_download">Bajando archivos…</string>
     <string name="write_email">Enviar email</string>
     <string name="wrong_storage_path">¡No existe la carpeta de almacenamiento de datos!</string>
     <string name="wrong_storage_path_desc">Esto podría deberse a una copia de seguridad restaurada en otro dispositivo. Volviendo a los valores predeterminados. Por favor, compruebe la configuración para ajustar la carpeta de almacenamiento.</string>

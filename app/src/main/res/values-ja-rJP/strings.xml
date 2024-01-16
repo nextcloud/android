@@ -925,6 +925,7 @@
     <string name="whats_your_status">あなたのステータスは？</string>
     <string name="widgets_not_available">ウィジェットは %1$s 25 以上でのみ利用可能です　</string>
     <string name="widgets_not_available_title">利用できません</string>
+    <string name="worker_download">ファイルをダウンロード中…</string>
     <string name="write_email">メールを送信</string>
     <string name="wrong_storage_path">データ保存フォルダーが存在しません!</string>
     <string name="wrong_storage_path_desc">これはバックアップの復元を違うデバイスで行ったためです。既定値に戻されています。データストレージフォルダーを調整するために設定を確認してください。</string>

@@ -943,6 +943,7 @@
     <string name="whats_your_status">Який ваш статус?</string>
     <string name="widgets_not_available">Віджети доступні тільки з версії %1$s 25 або пізніше</string>
     <string name="widgets_not_available_title">Не доступно</string>
+    <string name="worker_download">Звантаження файлів...</string>
     <string name="write_email">Надіслати лист</string>
     <string name="wrong_storage_path">Каталог для збереження даних не існує!</string>
     <string name="wrong_storage_path_desc">Можливо, це пов’язано з відновленням резервної копії на іншому пристрої. Повернення до стандартного. Будь ласка, перевірте налаштування, щоб налаштувати каталог для збереження даних.</string>

@@ -968,6 +968,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="whats_your_status">Mi az állapota?</string>
     <string name="widgets_not_available">A modulok csak %1$s 25 vagy újabb esetén érhetők el</string>
     <string name="widgets_not_available_title">Nem érhető el</string>
+    <string name="worker_download">Fájlok letöltése…</string>
     <string name="write_email">E-mail küldése</string>
     <string name="wrong_storage_path">Adattároló mappa nem létezik!</string>
     <string name="wrong_storage_path_desc">Ennek oka lehet egy másik eszköz biztonsági mentésének visszaállítása. Visszatérés az alapértelmezettre. Ellenőrizze a beállításokat az adattárolási mappa beállításához.</string>

@@ -514,5 +514,6 @@
     <string name="webview_version_check_alert_dialog_positive_button_title">Uuenda</string>
     <string name="whats_new_skip">Jäta vahele</string>
     <string name="whats_your_status">Mis on su staatus?</string>
+    <string name="worker_download">Failide allalaadimine…</string>
     <string name="write_email">Saada kiri</string>
     </resources>

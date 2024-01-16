@@ -75,6 +75,7 @@
     <string name="autoupload_custom_folder">Erstellen Sie einen eigenen Ordner</string>
     <string name="autoupload_disable_power_save_check">Energiesparmodus deaktivieren</string>
     <string name="autoupload_hide_folder">Ordner verstecken</string>
+    <string name="autoupload_worker_foreground_info">Automatisches Hochladen wird vorbereitet</string>
     <string name="avatar">Avatar</string>
     <string name="away">Abwesend</string>
     <string name="backup_settings">Sicherungseinstellungen</string>
@@ -220,11 +221,15 @@
     <string name="downloader_download_failed_credentials_error">Herunterladen fehlgeschlagen, erneute Anmeldung erforderlich</string>
     <string name="downloader_download_failed_ticker">Herunterladen fehlgeschlagen</string>
     <string name="downloader_download_file_not_found">Diese Datei steht auf dem Server nicht mehr zur Verfügung</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Herunterladen %2$s</string>
     <string name="downloader_download_in_progress_ticker">Lade herunter…</string>
     <string name="downloader_download_succeeded_content">%1$s heruntergeladen</string>
     <string name="downloader_download_succeeded_ticker">Heruntergeladen</string>
+    <string name="downloader_file_download_cancelled">Bestimmte Dateien wurden während des Downloads durch den Benutzer abgebrochen</string>
+    <string name="downloader_file_download_failed">Es ist ein Fehler beim Herunterladen der Dateien aufgetreten.</string>
     <string name="downloader_not_downloaded_yet">Noch nicht Heruntergeladen</string>
+    <string name="downloader_unexpected_error">Es ist ein unerwarteter Fehler beim Herunterladen der Dateien aufgetreten</string>
     <string name="drawer_close">Hauptmenü schließen</string>
     <string name="drawer_community">Gemeinschaft </string>
     <string name="drawer_header_background">Hintergrundbild des Kopfbereiches</string>
@@ -955,6 +960,7 @@
     <string name="whats_your_status">Wie ist Ihr Status?</string>
     <string name="widgets_not_available">Widgets sind nur auf %1$s 25 oder neuer verfügbar</string>
     <string name="widgets_not_available_title">Nicht verfügbar</string>
+    <string name="worker_download">Dateien werden heruntergeladen…</string>
     <string name="write_email">E-Mail senden</string>
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
     <string name="wrong_storage_path_desc">Ursache könnte die Wiederherstellung einer Sicherungskopie auf einem anderen Gerät sein. Der Standard-Ordner wird jetzt wieder verwendet. Bitte überprüfen Sie die Einstellungen bezüglich des Speicherortes.</string>

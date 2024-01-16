@@ -725,6 +725,7 @@
     <string name="what_s_new_image">Imazhi me çfarë është e re</string>
     <string name="whats_new_skip">Kalo</string>
     <string name="whats_new_title">I ri në %1$s</string>
+    <string name="worker_download">Shkarkimi i skedarëve…</string>
     <string name="write_email">Dërgo email</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nuk mund të sinkronizohej %1$dskedari (konfliktet:%2$d)</item>

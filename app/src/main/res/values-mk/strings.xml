@@ -788,6 +788,7 @@
     <string name="whats_new_title">Ново во %1$s</string>
     <string name="whats_your_status">Кој е вашиот статус?</string>
     <string name="widgets_not_available_title">Недостапно</string>
+    <string name="worker_download">Превземање датотеки…</string>
     <string name="write_email">Испрати е-пошта</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Неможе да се синхронизира %1$d датотека (конфликт: %2$d)</item>

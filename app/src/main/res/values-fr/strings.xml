@@ -75,6 +75,7 @@
     <string name="autoupload_custom_folder">Définir un dossier personnalisé</string>
     <string name="autoupload_disable_power_save_check">Désactiver l\'économie de batterie</string>
     <string name="autoupload_hide_folder">Masquer le dossier</string>
+    <string name="autoupload_worker_foreground_info">Préparation du téléversement automatique</string>
     <string name="avatar">Avatar</string>
     <string name="away">Absent</string>
     <string name="backup_settings">Paramètres de sauvegarde</string>
@@ -220,11 +221,15 @@
     <string name="downloader_download_failed_credentials_error">Téléchargement échoué, reconnectez-vous</string>
     <string name="downloader_download_failed_ticker">Le téléchargement a échoué</string>
     <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">Téléchargement de %2$s : %1$d%% effectués</string>
     <string name="downloader_download_in_progress_ticker">Réception en cours…</string>
     <string name="downloader_download_succeeded_content">%1$s reçu</string>
     <string name="downloader_download_succeeded_ticker">Reçu</string>
+    <string name="downloader_file_download_cancelled">Certains fichiers ont été annulés pendant le téléchargement par l\'utilisateur</string>
+    <string name="downloader_file_download_failed">Une erreur est survenue lors du téléchargement des fichiers</string>
     <string name="downloader_not_downloaded_yet">Pas encore téléchargé</string>
+    <string name="downloader_unexpected_error">Erreur inattendue survenue lors du téléchargement des fichiers</string>
     <string name="drawer_close">Fermer le panneau latéral</string>
     <string name="drawer_community">Communauté</string>
     <string name="drawer_header_background">Image d\'arrière-plan de l\'en-tête du menu-tiroir</string>
@@ -952,6 +957,7 @@
     <string name="whats_your_status">Quel est votre statut ?</string>
     <string name="widgets_not_available">Les widgets ne sont disponibles que sur %1$s 25 ou plus tard</string>
     <string name="widgets_not_available_title">Non disponible</string>
+    <string name="worker_download">Réception de fichiers…</string>
     <string name="write_email">Envoyer un e-mail</string>
     <string name="wrong_storage_path">Le dossier de stockage des données n\'existe pas !</string>
     <string name="wrong_storage_path_desc">Cela peut être dû à une restauration de sauvegarde sur un autre appareil. Retour aux valeurs par défaut. Veuillez vérifier les paramètres pour ajuster le chemin de stockage.</string>

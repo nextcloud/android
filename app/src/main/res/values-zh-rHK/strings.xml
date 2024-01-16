@@ -75,6 +75,7 @@
     <string name="autoupload_custom_folder">設定自訂資料夾</string>
     <string name="autoupload_disable_power_save_check">停用省電功能</string>
     <string name="autoupload_hide_folder">隱藏資料夾</string>
+    <string name="autoupload_worker_foreground_info">正在準備自動上傳</string>
     <string name="avatar">虛擬化身</string>
     <string name="away">不在</string>
     <string name="backup_settings">備份設定</string>
@@ -220,11 +221,15 @@
     <string name="downloader_download_failed_credentials_error">下載失敗，再重新登入</string>
     <string name="downloader_download_failed_ticker">下載失敗</string>
     <string name="downloader_download_file_not_found">這個檔案已經不存在於伺服器中</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% 下載中 %2$s</string>
     <string name="downloader_download_in_progress_ticker">下載中…</string>
     <string name="downloader_download_succeeded_content">%1$s 已下載</string>
     <string name="downloader_download_succeeded_ticker">已下載</string>
+    <string name="downloader_file_download_cancelled">某些檔案在下載期間被用戶取消。</string>
+    <string name="downloader_file_download_failed">下載檔案時出錯</string>
     <string name="downloader_not_downloaded_yet">尚未下載</string>
+    <string name="downloader_unexpected_error">下載檔案時發生了意外錯誤</string>
     <string name="drawer_close">關閉側邊攔</string>
     <string name="drawer_community">社群</string>
     <string name="drawer_header_background">側滑選單背景圖片</string>
@@ -954,6 +959,7 @@
     <string name="whats_your_status">您目前的狀態是什麼呢？</string>
     <string name="widgets_not_available">小部件僅在 %1$s 25 或更新提供</string>
     <string name="widgets_not_available_title">不可用</string>
+    <string name="worker_download">下載檔案中…</string>
     <string name="write_email">傳送電子郵件</string>
     <string name="wrong_storage_path">資料儲存資料夾不存在！</string>
     <string name="wrong_storage_path_desc">這可能是由於另一部設備上的備份還原所致。退回默認值。請檢查設置以調整數據存儲資料夾。</string>
