@@ -404,6 +404,7 @@
     <string name="foreign_files_success">모든 파일이 이동됨</string>
     <string name="forward">앞으로</string>
     <string name="fourHours">4 시간</string>
+    <string name="grid_file_features_live_photo_content_description">이 아이콘은 라이브 포토 사용 가능 여부를 표시합니다</string>
     <string name="hidden_file_name_warning">이 이름은 파일을 숨김처리 할 것입니다.</string>
     <string name="hint_name">이름</string>
     <string name="hint_note">참고</string>
@@ -456,7 +457,7 @@
     <string name="logs_status_loading">불러오는 중…</string>
     <string name="logs_status_not_filtered">기록: %1$dkB, 필터 없음</string>
     <string name="logs_title">로그</string>
-    <string name="maintenance_mode">서버가 유지 관리 모드입니다.</string>
+    <string name="maintenance_mode">서버가 유지 보수 모드입니다.</string>
     <string name="manage_space_clear_data">데이터 지우기</string>
     <string name="manage_space_description">%1$s의 데이터에서 설정, 데이터베이스, 서버 인증서를 삭제합니다.\n\n다운로드한 파일은 변경되지 않습니다.\n\n이 작업은 시간이 걸릴 수 있습니다.</string>
     <string name="manage_space_title">저장 공간 관리</string>
