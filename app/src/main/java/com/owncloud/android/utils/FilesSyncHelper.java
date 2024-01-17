@@ -34,6 +34,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
@@ -227,7 +228,7 @@ public final class FilesSyncHelper {
 
         new Thread(() -> {
             if (connectivityService.getConnectivity().isConnected()) {
-                FileUploadWorker.Companion.retryFailedUploads(
+                FileUploadHelper.Companion.instance().retryFailedUploads(
                     uploadsStorageManager,
                     connectivityService,
                     accountManager,

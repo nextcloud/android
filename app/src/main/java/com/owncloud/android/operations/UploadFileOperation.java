@@ -1037,18 +1037,18 @@ public class UploadFileOperation extends SyncOperation {
 
     @CheckResult
     private RemoteOperationResult checkNameCollision(OwnCloudClient client,
-                                                     DecryptedFolderMetadata metadata,
+                                                     List<String> fileNames,
                                                      boolean encrypted)
         throws OperationCancelledException {
         Log_OC.d(TAG, "Checking name collision in server");
 
-        if (existsFile(client, mRemotePath, metadata, encrypted)) {
+        if (existsFile(client, mRemotePath, fileNames, encrypted)) {
             switch (mNameCollisionPolicy) {
                 case CANCEL:
                     Log_OC.d(TAG, "File exists; canceling");
                     throw new OperationCancelledException();
                 case RENAME:
-                    mRemotePath = getNewAvailableRemotePath(client, mRemotePath, metadata, encrypted);
+                    mRemotePath = getNewAvailableRemotePath(client, mRemotePath, fileNames, encrypted);
                     mWasRenamed = true;
                     createNewOCFile(mRemotePath);
                     Log_OC.d(TAG, "File renamed as " + mRemotePath);
@@ -1131,15 +1131,14 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     /**
-     * Checks the existence of the folder where the current file will be uploaded both
-     * in the remote server and in the local database.
+     * Checks the existence of the folder where the current file will be uploaded both in the remote server and in the
+     * local database.
      * <p/>
-     * If the upload is set to enforce the creation of the folder, the method tries to
-     * create it both remote and locally.
+     * If the upload is set to enforce the creation of the folder, the method tries to create it both remote and
+     * locally.
      *
      * @param pathToGrant Full remote path whose existence will be granted.
-     * @return An {@link OCFile} instance corresponding to the folder where the file
-     * will be uploaded.
+     * @return An {@link OCFile} instance corresponding to the folder where the file will be uploaded.
      */
     private RemoteOperationResult grantFolderExistence(String pathToGrant, OwnCloudClient client) {
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, false);
@@ -1165,7 +1164,7 @@ public class UploadFileOperation extends SyncOperation {
     private OCFile createLocalFolder(String remotePath) {
         String parentPath = new File(remotePath).getParent();
         parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ?
-                parentPath : parentPath + OCFile.PATH_SEPARATOR;
+            parentPath : parentPath + OCFile.PATH_SEPARATOR;
         OCFile parent = getStorageManager().getFileByPath(parentPath);
         if (parent == null) {
             parent = createLocalFolder(parentPath);
@@ -1195,8 +1194,8 @@ public class UploadFileOperation extends SyncOperation {
         newFile.setMimeType(mFile.getMimeType());
         newFile.setModificationTimestamp(mFile.getModificationTimestamp());
         newFile.setModificationTimestampAtLastSyncForData(
-                mFile.getModificationTimestampAtLastSyncForData()
-        );
+            mFile.getModificationTimestampAtLastSyncForData()
+                                                         );
         newFile.setEtag(mFile.getEtag());
         newFile.setLastSyncDateForProperties(mFile.getLastSyncDateForProperties());
         newFile.setLastSyncDateForData(mFile.getLastSyncDateForData());
@@ -1207,15 +1206,16 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     /**
-     * Returns a new and available (does not exists on the server) remotePath.
-     * This adds an incremental suffix.
+     * Returns a new and available (does not exists on the server) remotePath. This adds an incremental suffix.
      *
      * @param client     OwnCloud client
      * @param remotePath remote path of the file
-     * @param metadata   metadata of encrypted folder
+     * @param fileNames  list of decrypted file names
      * @return new remote path
      */
-    private String getNewAvailableRemotePath(OwnCloudClient client, String remotePath, DecryptedFolderMetadata metadata,
+    private String getNewAvailableRemotePath(OwnCloudClient client,
+                                             String remotePath,
+                                             List<String> fileNames,
                                              boolean encrypted) {
         int extPos = remotePath.lastIndexOf('.');
         String suffix;
@@ -1232,20 +1232,22 @@ public class UploadFileOperation extends SyncOperation {
         do {
             suffix = " (" + count + ")";
             newPath = extPos >= 0 ? remotePathWithoutExtension + suffix + "." + extension : remotePath + suffix;
-            exists = existsFile(client, newPath, metadata, encrypted);
+            exists = existsFile(client, newPath, fileNames, encrypted);
             count++;
         } while (exists);
 
         return newPath;
     }
 
-    private boolean existsFile(OwnCloudClient client, String remotePath, DecryptedFolderMetadata metadata,
+    private boolean existsFile(OwnCloudClient client,
+                               String remotePath,
+                               List<String> fileNames,
                                boolean encrypted) {
         if (encrypted) {
             String fileName = new File(remotePath).getName();
 
-            for (DecryptedFolderMetadata.DecryptedFile file : metadata.getFiles().values()) {
-                if (file.getEncrypted().getFilename().equalsIgnoreCase(fileName)) {
+            for (String name : fileNames) {
+                if (name.equalsIgnoreCase(fileName)) {
                     return true;
                 }
             }
@@ -1259,9 +1261,8 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     /**
-     * Allows to cancel the actual upload operation. If actual upload operating
-     * is in progress it is cancelled, if upload preparation is being performed
-     * upload will not take place.
+     * Allows to cancel the actual upload operation. If actual upload operating is in progress it is cancelled, if
+     * upload preparation is being performed upload will not take place.
      */
     public void cancel(ResultCode cancellationReason) {
         if (mUploadOperation == null) {
@@ -1330,7 +1331,7 @@ public class UploadFileOperation extends SyncOperation {
                     int nRead;
                     byte[] buf = new byte[4096];
                     while (!mCancellationRequested.get() &&
-                            (nRead = in.read(buf)) > -1) {
+                        (nRead = in.read(buf)) > -1) {
                         out.write(buf, 0, nRead);
                     }
                     out.flush();
@@ -1349,7 +1350,7 @@ public class UploadFileOperation extends SyncOperation {
                     }
                 } catch (Exception e) {
                     Log_OC.d(TAG, "Weird exception while closing input stream for " +
-                            mOriginalStoragePath + " (ignoring)", e);
+                        mOriginalStoragePath + " (ignoring)", e);
                 }
                 try {
                     if (out != null) {
@@ -1357,7 +1358,7 @@ public class UploadFileOperation extends SyncOperation {
                     }
                 } catch (Exception e) {
                     Log_OC.d(TAG, "Weird exception while closing output stream for " +
-                            targetFile.getAbsolutePath() + " (ignoring)", e);
+                        targetFile.getAbsolutePath() + " (ignoring)", e);
                 }
             }
         }
@@ -1412,9 +1413,8 @@ public class UploadFileOperation extends SyncOperation {
     /**
      * Saves a OC File after a successful upload.
      * <p>
-     * A PROPFIND is necessary to keep the props in the local database
-     * synchronized with the server, specially the modification time and Etag
-     * (where available)
+     * A PROPFIND is necessary to keep the props in the local database synchronized with the server, specially the
+     * modification time and Etag (where available)
      */
     private void saveUploadedFile(OwnCloudClient client) {
         OCFile file = mFile;
@@ -1469,7 +1469,7 @@ public class UploadFileOperation extends SyncOperation {
 
         // generate new Thumbnail
         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                new ThumbnailsCacheManager.ThumbnailGenerationTask(getStorageManager(), user);
+            new ThumbnailsCacheManager.ThumbnailGenerationTask(getStorageManager(), user);
         task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, file.getRemoteId()));
     }
 

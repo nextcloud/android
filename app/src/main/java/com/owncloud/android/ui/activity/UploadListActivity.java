@@ -39,6 +39,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.utils.Throttler;
@@ -210,7 +211,7 @@ public class UploadListActivity extends FileActivity {
         backgroundJobManager.startImmediateFilesSyncJob(false, true);
 
         if(uploadsStorageManager.getFailedUploads().length > 0){
-            new Thread(() -> FileUploadWorker.Companion.retryFailedUploads(
+            new Thread(() -> FileUploadHelper.Companion.instance().retryFailedUploads(
                 uploadsStorageManager,
                 connectivityService,
                 userAccountManager,
