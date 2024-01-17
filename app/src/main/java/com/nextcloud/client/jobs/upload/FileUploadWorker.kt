@@ -91,51 +91,6 @@ class FileUploadWorker(
         const val LOCAL_BEHAVIOUR_FORGET = 2
         const val LOCAL_BEHAVIOUR_DELETE = 3
 
-        @Suppress("ComplexCondition")
-        fun retryFailedUploads(
-            uploadsStorageManager: UploadsStorageManager,
-            connectivityService: ConnectivityService,
-            accountManager: UserAccountManager,
-            powerManagementService: PowerManagementService
-        ) {
-            val failedUploads = uploadsStorageManager.failedUploads
-            if (failedUploads == null || failedUploads.isEmpty()) {
-                return
-            }
-
-            val (gotNetwork, _, gotWifi) = connectivityService.connectivity
-            val batteryStatus = powerManagementService.battery
-            val charging = batteryStatus.isCharging || batteryStatus.isFull
-            val isPowerSaving = powerManagementService.isPowerSavingEnabled
-            var uploadUser = Optional.empty<User>()
-            for (failedUpload in failedUploads) {
-                // 1. extract failed upload owner account and cache it between loops (expensive query)
-                if (!uploadUser.isPresent || !uploadUser.get().nameEquals(failedUpload.accountName)) {
-                    uploadUser = accountManager.getUser(failedUpload.accountName)
-                }
-                val isDeleted = !File(failedUpload.localPath).exists()
-                if (isDeleted) {
-                    // 2A. for deleted files, mark as permanently failed
-                    if (failedUpload.lastResult != UploadResult.FILE_NOT_FOUND) {
-                        failedUpload.lastResult = UploadResult.FILE_NOT_FOUND
-                        uploadsStorageManager.updateUpload(failedUpload)
-                    }
-                } else if (!isPowerSaving && gotNetwork &&
-                    canUploadBeRetried(failedUpload, gotWifi, charging) && !connectivityService.isInternetWalled
-                ) {
-                    // 2B. for existing local files, try restarting it if possible
-                    FileUploadHelper.instance().retryUpload(failedUpload, uploadUser.get())
-                }
-            }
-        }
-
-        private fun canUploadBeRetried(upload: OCUpload, gotWifi: Boolean, isCharging: Boolean): Boolean {
-            val file = File(upload.localPath)
-            val needsWifi = upload.isUseWifiOnly
-            val needsCharging = upload.isWhileChargingOnly
-            return file.exists() && (!needsWifi || gotWifi) && (!needsCharging || isCharging)
-        }
-
         fun getUploadsAddedMessage(): String {
             return FileUploadWorker::class.java.name + UPLOADS_ADDED_MESSAGE
         }
@@ -146,26 +101,6 @@ class FileUploadWorker(
 
         fun getUploadFinishMessage(): String {
             return FileUploadWorker::class.java.name + UPLOAD_FINISH_MESSAGE
-        }
-
-        class UploadNotificationActionReceiver : BroadcastReceiver() {
-            override fun onReceive(context: Context, intent: Intent) {
-                val accountName = intent.getStringExtra(EXTRA_ACCOUNT_NAME)
-                val remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH)
-                val action = intent.action
-
-                if (ACTION_CANCEL_BROADCAST == action) {
-                    Log_OC.d(
-                        TAG,
-                        "Cancel broadcast received for file " + remotePath + " at " + System.currentTimeMillis()
-                    )
-                    if (accountName == null || remotePath == null) {
-                        return
-                    }
-
-                    FileUploadHelper.instance().cancelFileUpload(remotePath, accountName)
-                }
-            }
         }
     }
 

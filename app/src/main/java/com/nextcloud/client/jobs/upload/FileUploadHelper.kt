@@ -21,18 +21,26 @@
 
 package com.nextcloud.client.jobs.upload
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUploadFileOperation
+import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.java.util.Optional
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.db.UploadResult
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.utils.Log_OC
+import java.io.File
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions")
@@ -66,6 +74,44 @@ class FileUploadHelper {
 
         fun buildRemoteName(accountName: String, remotePath: String): String {
             return accountName + remotePath
+        }
+    }
+
+    @Suppress("ComplexCondition")
+    fun retryFailedUploads(
+        uploadsStorageManager: UploadsStorageManager,
+        connectivityService: ConnectivityService,
+        accountManager: UserAccountManager,
+        powerManagementService: PowerManagementService
+    ) {
+        val failedUploads = uploadsStorageManager.failedUploads
+        if (failedUploads == null || failedUploads.isEmpty()) {
+            return
+        }
+
+        val (gotNetwork, _, gotWifi) = connectivityService.connectivity
+        val batteryStatus = powerManagementService.battery
+        val charging = batteryStatus.isCharging || batteryStatus.isFull
+        val isPowerSaving = powerManagementService.isPowerSavingEnabled
+        var uploadUser = Optional.empty<User>()
+        for (failedUpload in failedUploads) {
+            // 1. extract failed upload owner account and cache it between loops (expensive query)
+            if (!uploadUser.isPresent || !uploadUser.get().nameEquals(failedUpload.accountName)) {
+                uploadUser = accountManager.getUser(failedUpload.accountName)
+            }
+            val isDeleted = !File(failedUpload.localPath).exists()
+            if (isDeleted) {
+                // 2A. for deleted files, mark as permanently failed
+                if (failedUpload.lastResult != UploadResult.FILE_NOT_FOUND) {
+                    failedUpload.lastResult = UploadResult.FILE_NOT_FOUND
+                    uploadsStorageManager.updateUpload(failedUpload)
+                }
+            } else if (!isPowerSaving && gotNetwork &&
+                canUploadBeRetried(failedUpload, gotWifi, charging) && !connectivityService.isInternetWalled
+            ) {
+                // 2B. for existing local files, try restarting it if possible
+                retryUpload(failedUpload, uploadUser.get())
+            }
         }
     }
 
@@ -125,6 +171,13 @@ class FileUploadHelper {
 
         val upload: OCUpload = uploadsStorageManager.getUploadByRemotePath(file.remotePath) ?: return false
         return upload.uploadStatus == UploadStatus.UPLOAD_IN_PROGRESS
+    }
+
+    private fun canUploadBeRetried(upload: OCUpload, gotWifi: Boolean, isCharging: Boolean): Boolean {
+        val file = File(upload.localPath)
+        val needsWifi = upload.isUseWifiOnly
+        val needsCharging = upload.isWhileChargingOnly
+        return file.exists() && (!needsWifi || gotWifi) && (!needsCharging || isCharging)
     }
 
     @Suppress("ReturnCount")
@@ -199,6 +252,26 @@ class FileUploadHelper {
     ) {
         if (mBoundListeners[targetKey] === listener) {
             mBoundListeners.remove(targetKey)
+        }
+    }
+
+    class UploadNotificationActionReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val accountName = intent.getStringExtra(FileUploadWorker.EXTRA_ACCOUNT_NAME)
+            val remotePath = intent.getStringExtra(FileUploadWorker.EXTRA_REMOTE_PATH)
+            val action = intent.action
+
+            if (FileUploadWorker.ACTION_CANCEL_BROADCAST == action) {
+                Log_OC.d(
+                    FileUploadWorker.TAG,
+                    "Cancel broadcast received for file " + remotePath + " at " + System.currentTimeMillis()
+                )
+                if (accountName == null || remotePath == null) {
+                    return
+                }
+
+                instance().cancelFileUpload(remotePath, accountName)
+            }
         }
     }
 }

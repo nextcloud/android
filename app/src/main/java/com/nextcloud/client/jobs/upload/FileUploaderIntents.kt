@@ -39,7 +39,7 @@ class FileUploaderIntents(private val context: Context) {
     fun startIntent(operation: UploadFileOperation): PendingIntent {
         val intent = Intent(
             context,
-            FileUploadWorker.Companion.UploadNotificationActionReceiver::class.java
+            FileUploadHelper.UploadNotificationActionReceiver::class.java
         ).apply {
             putExtra(FileUploadWorker.EXTRA_ACCOUNT_NAME, operation.user.accountName)
             putExtra(FileUploadWorker.EXTRA_REMOTE_PATH, operation.remotePath)
