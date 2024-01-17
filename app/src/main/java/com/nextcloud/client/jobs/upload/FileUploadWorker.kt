@@ -22,9 +22,7 @@
 package com.nextcloud.client.jobs.upload
 
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -34,14 +32,12 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.network.ConnectivityService
-import com.nextcloud.java.util.Optional
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
-import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
@@ -286,7 +282,11 @@ class FileUploadWorker(
                 notifyForResult(uploadResult.code, resultIntent, credentialIntent)
                 showNotification()
             } else {
-                val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(uploadResult, uploadFileOperation, context.resources)
+                val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(
+                    uploadResult,
+                    uploadFileOperation,
+                    context.resources
+                )
 
                 // FIXME SYNC_CONFLICT passes wrong OCFile, check ConflictsResolveActivity.createIntent usage
                 val conflictResolveIntent = if (uploadResult.code == ResultCode.SYNC_CONFLICT) {

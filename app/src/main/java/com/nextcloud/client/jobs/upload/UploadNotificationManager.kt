@@ -32,7 +32,6 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.files.FileUtils
 import com.owncloud.android.operations.UploadFileOperation
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
@@ -63,7 +62,7 @@ class UploadNotificationManager(private val context: Context, private val viewTh
         notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
             setSmallIcon(R.drawable.notification_icon)
             setOngoing(true)
-            setTicker(context.getString(R.string.uploader_upload_in_progress_ticker))
+            setTicker(context.getString(R.string.foreground_service_upload))
             setContentTitle(context.getString(R.string.uploader_upload_in_progress_ticker))
             setProgress(100, 0, false)
             setContentText(
