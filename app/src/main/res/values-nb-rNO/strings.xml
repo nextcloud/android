@@ -75,6 +75,7 @@
     <string name="autoupload_custom_folder">Sett opp en tilpasset mappe</string>
     <string name="autoupload_disable_power_save_check">Deaktivere strømsparing sjekk</string>
     <string name="autoupload_hide_folder">Skjul mappe</string>
+    <string name="autoupload_worker_foreground_info">Forbereder auto-opplasting</string>
     <string name="avatar">Avatar</string>
     <string name="away">Borte</string>
     <string name="backup_settings">Sikkerhetskopier innstillinger</string>
@@ -156,6 +157,7 @@
     <string name="conflict_message_description">Hvis du velger begge versjonene vil den lokale filen få et tall lagt til på slutten av navnet.</string>
     <string name="conflict_server_file">Server fil</string>
     <string name="contact_backup_title">Backup av kontakter</string>
+    <string name="contact_no_permission">Kontaktrettighet kreves.</string>
     <string name="contactlist_item_icon">Brukerikon for kontaktliste</string>
     <string name="contactlist_no_permission">Ingen tilgang gitt, ingenting importert.</string>
     <string name="contacts">Kontakter</string>
@@ -219,11 +221,15 @@
     <string name="downloader_download_failed_credentials_error">Nedlasting mislyktes, prøv igjen</string>
     <string name="downloader_download_failed_ticker">Nedlasting mislyktes</string>
     <string name="downloader_download_file_not_found">Filen finnes ikke på serveren lenger</string>
+    <string name="downloader_download_in_progress">%1$d %% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Laster ned %2$s</string>
     <string name="downloader_download_in_progress_ticker">Laster ned…</string>
     <string name="downloader_download_succeeded_content">%1$s lastet ned</string>
     <string name="downloader_download_succeeded_ticker">Nedlastet</string>
+    <string name="downloader_file_download_cancelled">Enkelte filer ble kansellert under nedlastingen av brukeren</string>
+    <string name="downloader_file_download_failed">Det oppstod en feil under nedlasting av filer</string>
     <string name="downloader_not_downloaded_yet">Ikke lastet ned enda</string>
+    <string name="downloader_unexpected_error">Det oppstod en uventet feil under nedlasting av filer</string>
     <string name="drawer_close">Lukk sidepanel</string>
     <string name="drawer_community">Samfunn</string>
     <string name="drawer_header_background">Bakgrunsbilde for innledning på meny</string>
@@ -252,6 +258,7 @@
     <string name="ecosystem_apps_more">Flere Nextcloud apper</string>
     <string name="ecosystem_apps_notes">Nextcloud Notater</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Kunne ikke velge e-postadresse.</string>
     <string name="encrypted">Sett som kryptert</string>
     <string name="end_to_end_encryption_confirm_button">Sett opp kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer…</string>
@@ -286,6 +293,7 @@
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
     <string name="error_starting_doc_scan">Feil ved start av dokumentskanning</string>
     <string name="etm_accounts">Kontoer</string>
+    <string name="etm_background_execution_count">Tidene går på 48 timer</string>
     <string name="etm_background_job_created">Opprettet</string>
     <string name="etm_background_job_name">Jobbnavn</string>
     <string name="etm_background_job_progress">Fremgang</string>
@@ -641,6 +649,8 @@
     <string name="remove_e2e">Du kan fjerne ende-til-ende -kryptering lokalt på denne klienten</string>
     <string name="remove_e2e_message">Du kan fjerne ende-til-ende -kryptering lokalt på denne klienten. De krypterte filene vil forbli på serveren, men vil ikke bli synkronisert til denne maskinen lengre.</string>
     <string name="remove_fail_msg">Sletting mislyktes</string>
+    <string name="remove_local_account">Fjern lokal konto</string>
+    <string name="remove_local_account_details">Fjern konto fra enheten og slett alle lokale filer</string>
     <string name="remove_notification_failed">Kunne ikke fjerne meldingen.</string>
     <string name="remove_push_notification">Fjern</string>
     <string name="remove_success_msg">Slettet</string>
@@ -648,6 +658,8 @@
     <string name="rename_local_fail_msg">Kunne ikke endre navn på lokal kopi, prøv et annet navn</string>
     <string name="rename_server_fail_msg">Endring av navn ikke mulig, navnet er allerde benyttet</string>
     <string name="request_account_deletion">Request account deletion</string>
+    <string name="request_account_deletion_button">Be om sletting</string>
+    <string name="request_account_deletion_details">Be om permanent sletting av kontoen av tjenesteleverandøren</string>
     <string name="reshare_not_allowed">Videre deling er ikke tillatt</string>
     <string name="resharing_is_not_allowed">Videredeling er ikke tillatt</string>
     <string name="resized_image_not_possible_download">Inget mindre bilde tilgjengelig. Last ned fullversjon?</string>
@@ -864,6 +876,7 @@
     <string name="upload_lock_failed">Låsing av mappe feilet</string>
     <string name="upload_old_android">Kryptering er bare mulig med &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Det er ikke nok plass til å kopiere de valgte filene inn i mappen %1$s. Vil du flytte dem i stedet? </string>
+    <string name="upload_quota_exceeded">Overskredet lagringskvote</string>
     <string name="upload_scan_doc_upload">Skann dokument med kamera</string>
     <string name="upload_sync_conflict">Synkroniseringskonflikt, vennligst fiks manuelt</string>
     <string name="upload_unknown_error">Ukjent feil</string>
@@ -875,7 +888,10 @@
     <string name="uploader_error_message_source_file_not_found">Fil valgt for opplasting ble ikke funnet. Sjekk hvorvidt filen eksisterer.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Denne filen kan ikke lastes opp</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen fil å laste opp</string>
+    <string name="uploader_file_not_found_message">Finner ikke filen. Er du sikker på at denne filen eksisterer, eller er en tidligere konflikt ikke løst?</string>
+    <string name="uploader_file_not_found_on_server_message">Vi finner ikke filen på serveren. En annen bruker kan ha slettet filen.</string>
     <string name="uploader_info_dirname">Mappenavn</string>
+    <string name="uploader_local_files_uploaded">Prøv på nytt å laste opp mislykkede lokale filer</string>
     <string name="uploader_top_message">Velg opplastingsmappe</string>
     <string name="uploader_upload_failed_content_single">Kunne ikke laste opp %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Opplasting mislyktes, logg inn igjen</string>
