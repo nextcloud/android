@@ -26,12 +26,11 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class ArbitraryDataProviderIT : AbstractIT() {
-    private val arbitraryDataProvider = ArbitraryDataProviderImpl(targetContext)
 
     @Test
-    fun testNull() {
+    fun testEmpty() {
         val key = "DUMMY_KEY"
-        arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, key, null)
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, key, "")
 
         assertEquals("", arbitraryDataProvider.getValue(user.accountName, key))
     }

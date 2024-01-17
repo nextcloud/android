@@ -81,6 +81,7 @@ import com.owncloud.android.operations.UpdateNoteForShareOperation;
 import com.owncloud.android.operations.UpdateShareInfoOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
+import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
@@ -182,6 +183,12 @@ public abstract class FileActivity extends DrawerActivity
     @Inject
     EditorUtils editorUtils;
 
+    @Inject
+    UsersAndGroupsSearchConfig usersAndGroupsSearchConfig;
+
+    @Inject
+    ArbitraryDataProvider arbitraryDataProvider;
+
     @Override
     public void showFiles(boolean onDeviceOnly) {
         // must be specialized in subclasses
@@ -203,6 +210,7 @@ public abstract class FileActivity extends DrawerActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        usersAndGroupsSearchConfig.reset();
         mHandler = new Handler();
         mFileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService, editorUtils);
         User user = null;
@@ -907,7 +915,9 @@ public abstract class FileActivity extends DrawerActivity
     protected void doShareWith(String shareeName, ShareType shareType) {
         FileDetailFragment fragment = getFileDetailFragment();
         if (fragment != null) {
-            fragment.initiateSharingProcess(shareeName, shareType);
+            fragment.initiateSharingProcess(shareeName,
+                                            shareType,
+                                            usersAndGroupsSearchConfig.getSearchOnlyUsers());
         }
     }
 

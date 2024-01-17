@@ -92,6 +92,13 @@ public class ArbitraryDataProviderImpl implements ArbitraryDataProvider {
     }
 
     @Override
+    public void storeOrUpdateKeyValue(@NonNull User user,
+                                      @NonNull String key,
+                                      @NonNull String newValue) {
+        storeOrUpdateKeyValue(user.getAccountName(), key, newValue);
+    }
+
+    @Override
     public long getLongValue(@NonNull String accountName, @NonNull String key) {
         String value = getValue(accountName, key);
 

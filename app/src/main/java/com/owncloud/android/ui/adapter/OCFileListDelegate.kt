@@ -205,6 +205,7 @@ class OCFileListDelegate(
     fun bindGridViewHolder(
         gridViewHolder: ListGridImageViewHolder,
         file: OCFile,
+        currentDirectory: OCFile?,
         searchType: SearchType?
     ) {
         // thumbnail
@@ -250,8 +251,9 @@ class OCFileListDelegate(
                 file.isEncrypted ||
                 file.isEncrypted &&
                 !EncryptionUtils.supportsSecureFiledrop(file, user) ||
-                searchType == SearchType.FAVORITE_SEARCH
-            )
+                searchType == SearchType.FAVORITE_SEARCH ||
+                file.isFolder && currentDirectory?.isEncrypted ?: false
+            ) // sharing an encrypted subfolder is not possible
         if (shouldHideShare) {
             gridViewHolder.shared.visibility = View.GONE
         } else {

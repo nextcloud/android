@@ -186,7 +186,7 @@ public class FileMenuFilter {
 
 
     private void filterShareFile(List<Integer> toHide, OCCapability capability) {
-        if (!isSingleSelection() || containsEncryptedFile() ||
+        if (!isSingleSelection() || containsEncryptedFile() || hasEncryptedParent() ||
             (!isShareViaLinkAllowed() && !isShareWithUsersAllowed()) ||
             !isShareApiEnabled(capability) || !files.iterator().next().canReshare()) {
             toHide.add(R.id.action_send_share_file);
@@ -220,7 +220,11 @@ public class FileMenuFilter {
     }
 
     private void filterLock(List<Integer> toHide, boolean fileLockingEnabled) {
-        if (files.isEmpty() || !isSingleSelection() || !fileLockingEnabled) {
+        if (files.isEmpty() ||
+            !isSingleSelection() ||
+            !fileLockingEnabled ||
+            containsEncryptedFile() ||
+            containsEncryptedFolder()) {
             toHide.add(R.id.action_lock_file);
         } else {
             OCFile file = files.iterator().next();
@@ -340,7 +344,7 @@ public class FileMenuFilter {
 
     private void filterRemove(List<Integer> toHide, boolean synchronizing) {
         if (files.isEmpty() || synchronizing || containsLockedFile()
-            || containsEncryptedFolder() || containsEncryptedFile()) {
+            || containsEncryptedFolder() || isFolderAndContainsEncryptedFile()) {
             toHide.add(R.id.action_remove_file);
         }
     }
@@ -484,6 +488,24 @@ public class FileMenuFilter {
         OCFile file = files.iterator().next();
         return isSingleSelection() && (MimeTypeUtil.isVideo(file) || MimeTypeUtil.isAudio(file));
     }
+
+    private boolean isFolderAndContainsEncryptedFile() {
+        for (OCFile file : files) {
+            if (!file.isFolder()) {
+                continue;
+            }
+            if (file.isFolder()) {
+                List<OCFile> children = storageManager.getFolderContent(file, false);
+                for (OCFile child : children) {
+                    if (child.isEncrypted()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
 
     private boolean containsEncryptedFile() {
         for (OCFile file : files) {

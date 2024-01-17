@@ -58,6 +58,7 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
+import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -556,6 +557,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_METADATA_SIZE, gson.toJson(file.getImageDimension()));
         cv.put(ProviderTableMeta.FILE_METADATA_GPS, gson.toJson(file.getGeoLocation()));
         cv.put(ProviderTableMeta.FILE_METADATA_LIVE_PHOTO, file.getLinkedFileIdForLivePhoto());
+        cv.put(ProviderTableMeta.FILE_E2E_COUNTER, file.getE2eCounter());
 
         return cv;
     }
@@ -988,6 +990,7 @@ public class FileDataStorageManager {
         ocFile.setLockToken(fileEntity.getLockToken());
         ocFile.setLivePhoto(fileEntity.getMetadataLivePhoto());
         ocFile.setHidden(nullToZero(fileEntity.getHidden()) == 1);
+        ocFile.setE2eCounter(fileEntity.getE2eCounter());
 
         String sharees = fileEntity.getSharees();
         // Surprisingly JSON deserialization causes significant overhead.
@@ -1974,6 +1977,8 @@ public class FileDataStorageManager {
                           capability.getEndToEndEncryption().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION_KEYS_EXIST,
                           capability.getEndToEndEncryptionKeysExist().getValue());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION_API_VERSION,
+                          capability.getEndToEndEncryptionApiVersion().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT,
                           capability.getServerBackgroundDefault().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_PLAIN,
@@ -2127,6 +2132,16 @@ public class FileDataStorageManager {
                 getBoolean(cursor,
                            ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION_KEYS_EXIST)
                                                      );
+
+            String e2eVersionString = getString(cursor, ProviderTableMeta.CAPABILITIES_END_TO_END_ENCRYPTION_API_VERSION);
+            E2EVersion e2EVersion;
+            if (e2eVersionString == null) {
+                e2EVersion = E2EVersion.UNKNOWN;
+            } else {
+                e2EVersion = E2EVersion.fromValue(e2eVersionString);
+            }
+            capability.setEndToEndEncryptionApiVersion(e2EVersion);
+
             capability.setServerBackgroundDefault(
                 getBoolean(cursor, ProviderTableMeta.CAPABILITIES_SERVER_BACKGROUND_DEFAULT));
             capability.setServerBackgroundPlain(getBoolean(cursor,
