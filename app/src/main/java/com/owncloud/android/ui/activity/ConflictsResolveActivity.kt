@@ -24,6 +24,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.client.jobs.upload.UploadNotificationManager
 import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
@@ -92,36 +93,49 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             when (decision) {
                 Decision.CANCEL -> {}
                 Decision.KEEP_LOCAL -> {
+                    upload?.let {
+                        FileUploadHelper.instance().cancelFileUpload(it.remotePath, it.accountName)
+                    }
                     FileUploadHelper.instance().uploadUpdatedFile(
                         user,
                         arrayOf(file),
                         localBehaviour,
                         NameCollisionPolicy.OVERWRITE
                     )
-                    uploadsStorageManager?.removeUpload(upload)
                 }
 
                 Decision.KEEP_BOTH -> {
+                    upload?.let {
+                        FileUploadHelper.instance().cancelFileUpload(it.remotePath, it.accountName)
+                    }
                     FileUploadHelper.instance().uploadUpdatedFile(
                         user,
                         arrayOf(file),
                         localBehaviour,
                         NameCollisionPolicy.RENAME
                     )
-                    uploadsStorageManager?.removeUpload(upload)
                 }
 
-                Decision.KEEP_SERVER -> if (!shouldDeleteLocal()) {
-                    // Overwrite local file
-                    file?.let {
-                        FileDownloadHelper.instance().downloadFile(
-                            getUser().orElseThrow { RuntimeException() },
-                            file,
-                            conflictUploadId = conflictUploadId
-                        )
+                Decision.KEEP_SERVER -> {
+                    if (!shouldDeleteLocal()) {
+                        // Overwrite local file
+                        file?.let {
+                            FileDownloadHelper.instance().downloadFile(
+                                getUser().orElseThrow { RuntimeException() },
+                                file,
+                                conflictUploadId = conflictUploadId
+                            )
+                        }
                     }
-                } else {
-                    uploadsStorageManager?.removeUpload(upload)
+
+                    upload?.let {
+                        FileUploadHelper.instance().cancelFileUpload(it.remotePath, it.accountName)
+
+                        UploadNotificationManager(
+                            applicationContext,
+                            viewThemeUtils
+                        ).dismissOldErrorNotification(it.remotePath, it.localPath)
+                    }
                 }
 
                 else -> {}

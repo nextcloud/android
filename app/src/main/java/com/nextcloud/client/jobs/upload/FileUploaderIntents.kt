@@ -123,11 +123,11 @@ class FileUploaderIntents(private val context: Context) {
         )
 
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_MUTABLE)
+            PendingIntent.getActivity(context, SecureRandom().nextInt(), intent, PendingIntent.FLAG_MUTABLE)
         } else {
             PendingIntent.getActivity(
                 context,
-                0,
+                SecureRandom().nextInt(),
                 intent,
                 PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
             )

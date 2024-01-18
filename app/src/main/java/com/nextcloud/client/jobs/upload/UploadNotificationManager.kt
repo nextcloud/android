@@ -175,17 +175,18 @@ class UploadNotificationManager(private val context: Context, private val viewTh
             return
         }
 
-        notificationManager.cancel(
-            NotificationUtils.createUploadNotificationTag(operation.file),
-            FileUploadWorker.NOTIFICATION_ERROR_ID
-        )
+        dismissOldErrorNotification(operation.file.remotePath, operation.file.storagePath)
 
         operation.oldFile?.let {
-            notificationManager.cancel(
-                NotificationUtils.createUploadNotificationTag(it),
-                FileUploadWorker.NOTIFICATION_ERROR_ID
-            )
+            dismissOldErrorNotification(it.remotePath, it.storagePath)
         }
+    }
+
+    fun dismissOldErrorNotification(remotePath: String, localPath: String) {
+        notificationManager.cancel(
+            NotificationUtils.createUploadNotificationTag(remotePath, localPath),
+            FileUploadWorker.NOTIFICATION_ERROR_ID
+        )
     }
 
     fun dismissWorkerNotifications() {
