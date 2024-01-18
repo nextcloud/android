@@ -41,6 +41,7 @@ import com.owncloud.android.databinding.ExternalsiteWebviewBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.NextcloudWebViewClient;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.WebViewUtil;
 
 import java.io.InputStream;
 
@@ -160,6 +161,7 @@ public class ExternalSiteWebView extends FileActivity {
             }
         });
 
+        new WebViewUtil(getApplicationContext()).setProxyKKPlus(getWebView());
         getWebView().loadUrl(url);
     }
 
