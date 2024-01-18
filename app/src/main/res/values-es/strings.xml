@@ -686,6 +686,8 @@
     <string name="screenshot_06_davdroid_heading">Calendario y contactos</string>
     <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx5</string>
     <string name="search_error">Error al cargar resultados de búsqueda</string>
+    <string name="secure_share_not_set_up">Compartir en modo seguro no está configurado para este usuario</string>
+    <string name="secure_share_search">Compartir en modo seguro …</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_media_folder">Establece la carpeta multimedia</string>
     <string name="select_one_template">Por favor, selecciona una plantilla</string>
@@ -720,6 +722,7 @@
     <string name="share_link_with_label">Link para compartir (%1$s)</string>
     <string name="share_no_expiration_date_label">Fijar fecha de caducidad</string>
     <string name="share_no_password_title">Establecer contraseña</string>
+    <string name="share_not_allowed_when_file_drop">No se permite volver a compartir durante la entrega segura de archivos</string>
     <string name="share_password_title">Protegido con contraseña</string>
     <string name="share_permission_can_edit">Puede editar</string>
     <string name="share_permission_file_drop">Entrega de archivos</string>

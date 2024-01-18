@@ -686,6 +686,8 @@
     <string name="screenshot_06_davdroid_heading">Calendar &amp; contacts</string>
     <string name="screenshot_06_davdroid_subline">Sync with DAVx5</string>
     <string name="search_error">Error getting search results</string>
+    <string name="secure_share_not_set_up">Secure sharing is not set up for this user</string>
+    <string name="secure_share_search">Secure share …</string>
     <string name="select_all">Select all</string>
     <string name="select_media_folder">Set media folder</string>
     <string name="select_one_template">Please select one template</string>
@@ -720,6 +722,7 @@
     <string name="share_link_with_label">Share link (%1$s)</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_no_password_title">Set password</string>
+    <string name="share_not_allowed_when_file_drop">Resharing is not allowed during secure file drop</string>
     <string name="share_password_title">Password-protected</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_file_drop">File drop</string>

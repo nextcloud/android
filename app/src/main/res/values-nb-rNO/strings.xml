@@ -345,6 +345,7 @@
     <string name="file_list_empty_shared_headline">Ingenting delt enda</string>
     <string name="file_list_empty_unified_search_no_results">Ingen resultat for søk</string>
     <string name="file_list_folder">mappe</string>
+    <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Laster…</string>
     <string name="file_list_no_app_for_file_type">Ingen app er satt opp til å håndtere denne filtypen.</string>
     <string name="file_list_seconds_ago">for få sekunder siden</string>
@@ -414,6 +415,7 @@
     <string name="foreign_files_success">Alle filene ble flyttet</string>
     <string name="forward">Fremover</string>
     <string name="fourHours">4 timer</string>
+    <string name="grid_file_features_live_photo_content_description">Dette ikonet indikerer tilgjengeligheten av live photo</string>
     <string name="hidden_file_name_warning">Navn gir skjult fil</string>
     <string name="hint_name">Navn</string>
     <string name="hint_note">Melding</string>
@@ -684,6 +686,8 @@
     <string name="screenshot_06_davdroid_heading">Kalender &amp; kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synkroniser med DAVx5</string>
     <string name="search_error">Feil ved henting av søke resultat</string>
+    <string name="secure_share_not_set_up">Sikker deling er ikke konfigurert for denne brukeren</string>
+    <string name="secure_share_search">Sikker deling...</string>
     <string name="select_all">Velg alle</string>
     <string name="select_media_folder">Velg mediamappe</string>
     <string name="select_one_template">Velg en mal</string>
@@ -718,6 +722,7 @@
     <string name="share_link_with_label">Del lenke (%1$s)</string>
     <string name="share_no_expiration_date_label">Sett utløpsdato</string>
     <string name="share_no_password_title">Velg passord</string>
+    <string name="share_not_allowed_when_file_drop">Videredeling er ikke tillatt under sikker filslipp</string>
     <string name="share_password_title">Passordbeskyttet</string>
     <string name="share_permission_can_edit">Kan endre</string>
     <string name="share_permission_file_drop">Filkasse</string>

@@ -686,6 +686,8 @@
     <string name="screenshot_06_davdroid_heading">日曆與通訊錄</string>
     <string name="screenshot_06_davdroid_subline">使用 DAVx5 同步</string>
     <string name="search_error">取得搜尋結果時發生錯誤</string>
+    <string name="secure_share_not_set_up">尚未為此使用者設定安全分享</string>
+    <string name="secure_share_search">安全分享……</string>
     <string name="select_all">全選</string>
     <string name="select_media_folder">設定媒體資料夾</string>
     <string name="select_one_template">請選取一個範本</string>
@@ -720,6 +722,7 @@
     <string name="share_link_with_label">分享連結 (%1$s)</string>
     <string name="share_no_expiration_date_label">設定到期日</string>
     <string name="share_no_password_title">設定密碼</string>
+    <string name="share_not_allowed_when_file_drop">在安全檔案投遞時不允許轉分享</string>
     <string name="share_password_title">受密碼保護</string>
     <string name="share_permission_can_edit">可以編輯</string>
     <string name="share_permission_file_drop">檔案投放</string>

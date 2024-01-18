@@ -686,6 +686,8 @@
     <string name="screenshot_06_davdroid_heading">Календар и контакти</string>
     <string name="screenshot_06_davdroid_subline">Синхронизација помоћу DAVx5</string>
     <string name="search_error">Грешка приликом добијања резултата претраге</string>
+    <string name="secure_share_not_set_up">За овог корисника није подешено безбедно дељење</string>
+    <string name="secure_share_search">Безбедно дељење</string>
     <string name="select_all">Означи све</string>
     <string name="select_media_folder">Поставите фолдер са медијима</string>
     <string name="select_one_template">Молимо вас да изаберете један шаблон</string>
@@ -720,6 +722,7 @@
     <string name="share_link_with_label">Подели везу (%1$s)</string>
     <string name="share_no_expiration_date_label">Постави датум истека</string>
     <string name="share_no_password_title">Постави лозинку</string>
+    <string name="share_not_allowed_when_file_drop">Током безбедног упуштања фајла, није дозвољено поновно дељење</string>
     <string name="share_password_title">Заштићено лозинком</string>
     <string name="share_permission_can_edit">Може да уређује</string>
     <string name="share_permission_file_drop">Место за упуштање фајлова</string>
