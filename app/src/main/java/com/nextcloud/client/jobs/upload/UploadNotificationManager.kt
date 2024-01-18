@@ -36,8 +36,9 @@ import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class UploadNotificationManager(private val context: Context, private val viewThemeUtils: ViewThemeUtils) {
-
-    private val id = 411
+    companion object{
+        private const val ID = 411
+    }
 
     private var notification: Notification? = null
     private var notificationBuilder: NotificationCompat.Builder
@@ -167,7 +168,7 @@ class UploadNotificationManager(private val context: Context, private val viewTh
     }
 
     fun showNotification() {
-        notificationManager.notify(id, notificationBuilder.build())
+        notificationManager.notify(ID, notificationBuilder.build())
     }
 
     @Suppress("MagicNumber")
@@ -202,6 +203,6 @@ class UploadNotificationManager(private val context: Context, private val viewTh
     }
 
     fun dismissWorkerNotifications() {
-        notificationManager.cancel(id)
+        notificationManager.cancel(ID)
     }
 }
