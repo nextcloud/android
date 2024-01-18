@@ -277,9 +277,7 @@ class FileUploadWorker(
                 null
             }
 
-
             if (!uploadResult.isSuccess) {
-
                 val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(
                     uploadResult,
                     uploadFileOperation,
