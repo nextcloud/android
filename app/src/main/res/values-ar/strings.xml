@@ -691,6 +691,8 @@
     <string name="screenshot_06_davdroid_heading">التقويم &amp; جهات الاتصال</string>
     <string name="screenshot_06_davdroid_subline">مزامنة مع DAVx5</string>
     <string name="search_error">خطاء في الحصول على نتائج البحث</string>
+    <string name="secure_share_not_set_up">المشاركة الآمنة لم يتم إعدادها بالنسبة لهذا المستخدِم</string>
+    <string name="secure_share_search">المشاركة الآمنة ...</string>
     <string name="select_all">تحديد الكل</string>
     <string name="select_media_folder">تعيين مجلد الوسائط</string>
     <string name="select_one_template">الرجاء تحديد قالب واحد</string>
@@ -725,6 +727,7 @@
     <string name="share_link_with_label">مشاركة الرابط (%1$s)</string>
     <string name="share_no_expiration_date_label">تعيين تاريخ إنتهاء الصلاحية</string>
     <string name="share_no_password_title">تعيين كلمة سرية</string>
+    <string name="share_not_allowed_when_file_drop">إعادة المشاركة غير مسموح بها خلال الإفلات الآمن للملف</string>
     <string name="share_password_title">محمي بكلمة مرور</string>
     <string name="share_permission_can_edit">يمكن تعديله</string>
     <string name="share_permission_file_drop">اسقاط الملف</string>

@@ -685,6 +685,8 @@
     <string name="screenshot_06_davdroid_heading">Kalender &amp; kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synka med DAVx5</string>
     <string name="search_error">Ett fel uppstod vid sökning</string>
+    <string name="secure_share_not_set_up">Säker delning är inte konfigurerad för denna användare</string>
+    <string name="secure_share_search">Säker delning ...</string>
     <string name="select_all">Välj alla</string>
     <string name="select_media_folder">Ställ in mapp för media</string>
     <string name="select_one_template">Vänligen välj en mall</string>
@@ -719,6 +721,7 @@
     <string name="share_link_with_label">Dela länk (%1$s)</string>
     <string name="share_no_expiration_date_label">Välj utgångsdatum</string>
     <string name="share_no_password_title">Sätt lösenord</string>
+    <string name="share_not_allowed_when_file_drop">Återdelning är inte tillåtet under säker gömd fillista</string>
     <string name="share_password_title">Lösenordsskyddad</string>
     <string name="share_permission_can_edit">Kan ändra</string>
     <string name="share_permission_file_drop">Göm fillista</string>
