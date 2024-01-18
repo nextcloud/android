@@ -271,28 +271,25 @@ class FileUploadWorker(
         }
 
         notificationManager.run {
+            val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(
+                uploadResult,
+                uploadFileOperation,
+                context.resources
+            )
+
+            // FIXME SYNC_CONFLICT passes wrong OCFile, check ConflictsResolveActivity.createIntent usage
+            val conflictResolveIntent = if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
+                intents.conflictResolveActionIntents(context, uploadFileOperation)
+            } else {
+                null
+            }
             val credentialIntent: PendingIntent? = if (uploadResult.code == ResultCode.UNAUTHORIZED) {
                 intents.credentialIntent(uploadFileOperation)
             } else {
                 null
             }
-
-            if (!uploadResult.isSuccess) {
-                val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(
-                    uploadResult,
-                    uploadFileOperation,
-                    context.resources
-                )
-
-                // FIXME SYNC_CONFLICT passes wrong OCFile, check ConflictsResolveActivity.createIntent usage
-                val conflictResolveIntent = if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
-                    intents.conflictResolveActionIntents(context, uploadFileOperation)
-                } else {
-                    null
-                }
-                notifyForFailedResult(uploadResult.code, conflictResolveIntent, credentialIntent, errorMessage)
-                showNewNotification(uploadFileOperation)
-            }
+            notifyForFailedResult(uploadResult.code, conflictResolveIntent, credentialIntent, errorMessage)
+            showNewNotification(uploadFileOperation)
         }
     }
 
