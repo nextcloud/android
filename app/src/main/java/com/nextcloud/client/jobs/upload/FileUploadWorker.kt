@@ -148,9 +148,9 @@ class FileUploadWorker(
                 uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(lastId, accountName)
         }
 
-        if(isStopped){
+        if (isStopped) {
             Log_OC.d(TAG, "FileUploadWorker for account $accountName was stopped")
-        }else{
+        } else {
             Log_OC.d(TAG, "No more pending uploads for account $accountName, stopping work")
         }
         return Result.success()
