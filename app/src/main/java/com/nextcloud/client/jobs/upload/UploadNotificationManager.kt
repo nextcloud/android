@@ -36,7 +36,7 @@ import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class UploadNotificationManager(private val context: Context, private val viewThemeUtils: ViewThemeUtils) {
-    companion object{
+    companion object {
         private const val ID = 411
     }
 
