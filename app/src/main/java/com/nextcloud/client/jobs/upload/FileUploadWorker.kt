@@ -277,11 +277,9 @@ class FileUploadWorker(
                 null
             }
 
-            if (uploadResult.isSuccess) {
-                val resultIntent = intents.resultIntent(ResultCode.OK, uploadFileOperation)
-                notifyForResult(uploadResult.code, resultIntent, credentialIntent)
-                showNotification()
-            } else {
+
+            if (!uploadResult.isSuccess) {
+
                 val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(
                     uploadResult,
                     uploadFileOperation,
@@ -294,7 +292,7 @@ class FileUploadWorker(
                 } else {
                     null
                 }
-                notifyForFailedResult(conflictResolveIntent, credentialIntent, errorMessage)
+                notifyForFailedResult(uploadResult.code, conflictResolveIntent, credentialIntent, errorMessage)
                 showNewNotification(uploadFileOperation)
             }
         }

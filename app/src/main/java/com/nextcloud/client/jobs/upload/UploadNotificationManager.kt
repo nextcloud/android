@@ -46,7 +46,7 @@ class UploadNotificationManager(private val context: Context, private val viewTh
 
     init {
         notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
-            setContentTitle(context.getString(R.string.uploader_upload_in_progress_ticker))
+            setContentTitle(context.getString(R.string.foreground_service_upload))
             setSmallIcon(R.drawable.notification_icon)
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
 
@@ -93,47 +93,21 @@ class UploadNotificationManager(private val context: Context, private val viewTh
         }
     }
 
-    fun notifyForResult(
-        resultCode: RemoteOperationResult.ResultCode,
-        resultIntent: PendingIntent,
-        credentialIntent: PendingIntent?
-    ) {
-        val textId = resultText(resultCode)
-
-        notificationBuilder.run {
-            setTicker(context.getString(textId))
-            setContentTitle(context.getString(textId))
-            setAutoCancel(true)
-            setOngoing(false)
-            setProgress(0, 0, false)
-            clearActions()
-            setContentIntent(resultIntent)
-
-            credentialIntent?.let {
-                setContentIntent(it)
-            }
-        }
-    }
-
-    private fun resultText(resultCode: RemoteOperationResult.ResultCode): Int {
-        val needsToUpdateCredentials = (resultCode == RemoteOperationResult.ResultCode.UNAUTHORIZED)
-
-        return if (needsToUpdateCredentials) {
-            R.string.uploader_upload_failed_credentials_error
-        } else if (resultCode == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
-            R.string.uploader_upload_failed_sync_conflict_error
-        } else {
-            R.string.uploader_upload_failed_ticker
-        }
-    }
-
     fun notifyForFailedResult(
+        resultCode: RemoteOperationResult.ResultCode,
         conflictsResolveIntent: PendingIntent?,
         credentialIntent: PendingIntent?,
         errorMessage: String
     ) {
+        val textId = resultTitle(resultCode)
+
         notificationBuilder.run {
+            setTicker(context.getString(textId))
+            setContentTitle(context.getString(textId))
+            setAutoCancel(false)
+            setOngoing(false)
             setProgress(0, 0, false)
+            clearActions()
 
             conflictsResolveIntent?.let {
                 addAction(
@@ -148,6 +122,18 @@ class UploadNotificationManager(private val context: Context, private val viewTh
             }
 
             setContentText(errorMessage)
+        }
+    }
+
+    private fun resultTitle(resultCode: RemoteOperationResult.ResultCode): Int {
+        val needsToUpdateCredentials = (resultCode == RemoteOperationResult.ResultCode.UNAUTHORIZED)
+
+        return if (needsToUpdateCredentials) {
+            R.string.uploader_upload_failed_credentials_error
+        } else if (resultCode == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+            R.string.uploader_upload_failed_sync_conflict_error
+        } else {
+            R.string.uploader_upload_failed_ticker
         }
     }
 
@@ -167,7 +153,7 @@ class UploadNotificationManager(private val context: Context, private val viewTh
         )
     }
 
-    fun showNotification() {
+    private fun showNotification() {
         notificationManager.notify(ID, notificationBuilder.build())
     }
 
