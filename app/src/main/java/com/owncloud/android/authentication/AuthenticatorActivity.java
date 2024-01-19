@@ -366,6 +366,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private void initWebViewLogin(String baseURL, boolean useGenericUserAgent) {
         viewThemeUtils.platform.colorCircularProgressBar(accountSetupWebviewBinding.loginWebviewProgressBar, ColorRole.ON_PRIMARY_CONTAINER);
         accountSetupWebviewBinding.loginWebview.setVisibility(View.GONE);
+        new WebViewUtil(this).setProxyKKPlus(accountSetupWebviewBinding.loginWebview);
 
         accountSetupWebviewBinding.loginWebview.getSettings().setAllowFileAccess(false);
         accountSetupWebviewBinding.loginWebview.getSettings().setJavaScriptEnabled(true);
@@ -402,6 +403,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             url = getResources().getString(R.string.webview_login_url);
         }
 
+        new WebViewUtil(this).setProxyKKPlus(accountSetupWebviewBinding.loginWebview);
         if (url.startsWith(HTTPS_PROTOCOL)) {
             strictMode = true;
         }

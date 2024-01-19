@@ -49,6 +49,7 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.WebViewUtil;
 
 import javax.inject.Inject;
 
@@ -82,6 +83,11 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         this.url = loadedUrl;
 
         if (!url.isEmpty()) {
+            new WebViewUtil(getApplicationContext()).setProxyKKPlus(this.getWebView());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
             this.getWebView().loadUrl(url);
 
             new Handler().postDelayed(() -> {
