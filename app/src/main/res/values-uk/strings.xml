@@ -569,7 +569,7 @@
     <string name="prefs_calendar_contacts_no_store_error">Не встановлено ані F-Droid, ані Google Play</string>
     <string name="prefs_calendar_contacts_summary">Встановити DAVx5 (раніше відомий як DAVdroid) (v1.3.0+) для цього облікового запису</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Налаштування синхронізації календаря та контактів</string>
-    <string name="prefs_category_about">Про програму</string>
+    <string name="prefs_category_about">Про застосунок</string>
     <string name="prefs_category_details">Деталі</string>
     <string name="prefs_category_dev">Розробка</string>
     <string name="prefs_category_general">Основне</string>

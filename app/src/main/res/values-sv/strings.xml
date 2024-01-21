@@ -4,7 +4,7 @@
     <string name="about_title">Om</string>
     <string name="about_version">version %1$s</string>
     <string name="about_version_with_build">version %1$s, build #%2$s</string>
-    <string name="account_creation_failed">Skapa konto misslyckades</string>
+    <string name="account_creation_failed">Kontoskapande misslyckades</string>
     <string name="account_icon">Kontoikon</string>
     <string name="account_not_found">Kontot hittades inte!</string>
     <string name="action_clear_failed_uploads">Ta bort misslyckade uppladdningar</string>
