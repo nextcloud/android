@@ -35,7 +35,7 @@
     <string name="add_to_cloud">Aggiungi a %1$s</string>
     <string name="advanced_settings">Impostazioni avanzate</string>
     <string name="allow_resharing">Consenti la ri-condivisione</string>
-    <string name="app_widget_description">Mostra un widget dalla dashboard</string>
+    <string name="app_widget_description">Mostra un widget dal cruscotto</string>
     <string name="appbar_search_in">Cerca in %s</string>
     <string name="associated_account_not_found">Account associato non trovato.</string>
     <string name="auth_access_failed">Accesso non riuscito: %1$s</string>
@@ -220,6 +220,7 @@
     <string name="downloader_download_failed_credentials_error">Scaricamento non riuscito, effettua nuovamente l\'accesso</string>
     <string name="downloader_download_failed_ticker">Scaricamento non riuscito</string>
     <string name="downloader_download_file_not_found">Il file non è più disponibile sul server</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Scaricamento di %2$s</string>
     <string name="downloader_download_in_progress_ticker">Scaricamento in corso…</string>
     <string name="downloader_download_succeeded_content">%1$s scaricato</string>
@@ -249,9 +250,8 @@
     <string name="e2e_offline">Impossibile senza connessione internet</string>
     <string name="ecosystem_apps_display_more">Altro</string>
     <string name="ecosystem_apps_display_notes">Note</string>
-    <string name="ecosystem_apps_display_talk">Parlare</string>
-    <string name="ecosystem_apps_more">Altre app di Nextcloud</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
+    <string name="ecosystem_apps_more">Altre applicazioni di Nextcloud</string>
+    <string name="ecosystem_apps_notes">Nextcloud Note</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Impossibile scegliere l\'indirizzo di posta.</string>
     <string name="encrypted">Imposta come cifrato</string>
@@ -415,7 +415,7 @@
     <string name="host_not_available">Server non disponibile</string>
     <string name="host_your_own_server">Ospita il tuo server</string>
     <string name="icon_for_empty_list">Icona per lista vuota</string>
-    <string name="icon_of_dashboard_widget">Icona per widget della dashboard</string>
+    <string name="icon_of_dashboard_widget">Icona per widget del cruscotto</string>
     <string name="icon_of_widget_entry">Icona della voce del widget</string>
     <string name="image_editor_file_edited_suffix">modificato</string>
     <string name="image_editor_flip_horizontal">Ribalta orizzontalmente</string>
@@ -507,12 +507,12 @@
     <string name="no_actions">Nessuna azione per questo utente</string>
     <string name="no_browser_available">Nessun applicazione disponibile per gestire i collegamenti</string>
     <string name="no_calendar_exists">Nessun calendario esistente</string>
-    <string name="no_email_app_available">Nessuna app disponibile per gestire l\'indirizzo email</string>
+    <string name="no_email_app_available">Nessuna applicazione disponibile per gestire l\'indirizzo email</string>
     <string name="no_items">Nessun elemento</string>
     <string name="no_map_app_availble">Nessuna applicazione disponibile per gestire mappe</string>
     <string name="no_mutliple_accounts_allowed">Solo un account consentito</string>
     <string name="no_pdf_app_available">Nessuna applicazione disponibile per gestire i PDF</string>
-    <string name="no_send_app">Nessuna app disponibile per inviare i file selezionati</string>
+    <string name="no_send_app">Nessuna applicazione disponibile per inviare i file selezionati</string>
     <string name="no_share_permission_selected">Seleziona almeno un permesso da condividere.</string>
     <string name="note_could_not_sent">Impossibile inviare la nota</string>
     <string name="note_icon_hint">Icona della nota</string>
@@ -611,8 +611,8 @@
     <string name="prefs_recommend">Consiglia a un amico</string>
     <string name="prefs_remove_e2e">Rimuovi la cifratura localmente</string>
     <string name="prefs_setup_e2e">Configura la cifratura end-to-end</string>
-    <string name="prefs_show_ecosystem_apps">Mostra switcher di app</string>
-    <string name="prefs_show_ecosystem_apps_summary">Consigli dell\'app Nextcloud nell\'intestazione di navigazione</string>
+    <string name="prefs_show_ecosystem_apps">Mostra il selettore delle applicazioni</string>
+    <string name="prefs_show_ecosystem_apps_summary">Consigli delle applicazioni di Nextcloud nell\'intestazione di navigazione</string>
     <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
     <string name="prefs_sourcecode">Ottieni codice sorgente</string>
     <string name="prefs_storage_path">Cartella di archiviazione dei dati</string>
@@ -690,7 +690,7 @@
     <string name="set_picture_as">Usa immagine come</string>
     <string name="set_status">Imposta stato</string>
     <string name="set_status_message">Imposta messaggio di stato</string>
-    <string name="setup_e2e">Configurando la cifratura end-to-end, riceverai un promemoria di 12 parole, che ti servirà per aprire i tuoi file su altri dispositivi. Questo verrà conservato solo su questo dispositivo, e può essere mostrato di nuovo in questa schermata. Prego annotalo in un posto sicuro!</string>
+    <string name="setup_e2e">Configurando la cifratura end-to-end, riceverai una frase di 12 parole mnemoniche casuali, che ti servirà per aprire i tuoi file su altri dispositivi. Questa sarà conservata solo su questo dispositivo, e può essere mostrata di nuovo in questa schermata. Annotala in un posto sicuro!</string>
     <string name="share">Condividi</string>
     <string name="share_copy_link">Condividi &amp; Copia il collegamento</string>
     <string name="share_dialog_title">Condivisione</string>
@@ -938,7 +938,7 @@
     <string name="wait_a_moment">Attendi…</string>
     <string name="wait_checking_credentials">Controllo delle credenziali memorizzate</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copia file dall\'archiviazione privata</string>
-    <string name="webview_version_check_alert_dialog_message">Aggiorna l\'app System WebView di Android per accedere</string>
+    <string name="webview_version_check_alert_dialog_message">Aggiorna l\'applicazione System WebView di Android per accedere</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Aggiorna</string>
     <string name="webview_version_check_alert_dialog_title">Aggiorna System WebView di Android</string>
     <string name="what_s_new_image">Immagine Cosa c\'è di nuovo</string>
@@ -987,19 +987,19 @@
         <item quantity="other">%d file esportati</item>
     </plurals>
     <plurals name="export_failed">
-        <item quantity="one">Esportazione fallita di %d file</item>
-        <item quantity="many">Esportazione fallita di %d files</item>
-        <item quantity="other">Esportazione fallita di %d files</item>
+        <item quantity="one">Esportazione non riuscita di %d file</item>
+        <item quantity="many">Esportazione non riuscita di %d file</item>
+        <item quantity="other">Esportazione non riuscita di %d file</item>
     </plurals>
     <plurals name="export_partially_failed">
         <item quantity="one">Esportato %dfile , il resto saltato a causa di un errore</item>
         <item quantity="many">Esportati %d files, il resto saltato a causa di un errore</item>
-        <item quantity="other">Esportati %d files, il resto saltato a causa di un errore</item>
+        <item quantity="other">Esportati %d file, il resto saltato a causa di un errore</item>
     </plurals>
     <plurals name="export_start">
-        <item quantity="one">%dfile verrà esportato. Vedere la notifica per i dettagli.</item>
-        <item quantity="many">%dfiles verranno esportati. Vedere la notifica per i dettagli.</item>
-        <item quantity="other">%d files verranno esportati. Vedere la notifica per i dettagli.</item>
+        <item quantity="one">%dfile sarà esportato. Vedi la notifica per i dettagli.</item>
+        <item quantity="many">%dfile saranno esportati. Vedi la notifica per i dettagli.</item>
+        <item quantity="other">%d file saranno esportati. Vedi la notifica per i dettagli.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d cartella</item>
