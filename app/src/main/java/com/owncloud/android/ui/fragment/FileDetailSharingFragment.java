@@ -452,7 +452,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      * before reading database.
      */
     public void refreshSharesFromDB() {
-        file = fileDataStorageManager.getFileById(file.getFileId());
         ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesList.getAdapter();
 
         if (adapter == null) {
