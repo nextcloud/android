@@ -44,6 +44,6 @@ jobs:
         run: |
           mkdir -p "$HOME/.gradle"
           echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > "$HOME/.gradle/gradle.properties"
-          ./gradlew assembleDebug --stacktrace --no-configuration-cache
+          ./gradlew assembleDebug
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@0b21cf2492b6b02c465a3e5d7c473717ad7721ba # v3.23.1
