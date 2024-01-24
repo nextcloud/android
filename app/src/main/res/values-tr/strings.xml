@@ -75,6 +75,7 @@
     <string name="autoupload_custom_folder">Bir özel klasör kurun</string>
     <string name="autoupload_disable_power_save_check">Güç koruma denetimini devre dışı bırak</string>
     <string name="autoupload_hide_folder">Klasörü gizle</string>
+    <string name="autoupload_worker_foreground_info">Otomatik yüklemeye hazırlanılıyor</string>
     <string name="avatar">Avatar</string>
     <string name="away">Uzakta</string>
     <string name="backup_settings">Ayarları yedekle</string>
@@ -220,11 +221,15 @@
     <string name="downloader_download_failed_credentials_error">İndirilemedi, yeniden oturum açmalısınız</string>
     <string name="downloader_download_failed_ticker">İndirilemedi</string>
     <string name="downloader_download_file_not_found">Bu dosya artık sunucuda yok</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%%%1$d İndirilen: %2$s</string>
     <string name="downloader_download_in_progress_ticker">İndiriliyor …</string>
     <string name="downloader_download_succeeded_content">%1$s indirildi</string>
     <string name="downloader_download_succeeded_ticker">İndirildi</string>
+    <string name="downloader_file_download_cancelled">Bazı dosyalar indirme sırasında kullanıcı tarafından iptal edildi</string>
+    <string name="downloader_file_download_failed">Dosyalar indirilirken sorun çıktı</string>
     <string name="downloader_not_downloaded_yet">Henüz indirilmemiş</string>
+    <string name="downloader_unexpected_error">Dosyalar indirilirken beklenmeyen bir sorun çıktı</string>
     <string name="drawer_close">Yan çubuğu kapat</string>
     <string name="drawer_community">Topluluk</string>
     <string name="drawer_header_background">Çekmece üst bilgisinin arka plan görseli</string>
@@ -681,6 +686,8 @@
     <string name="screenshot_06_davdroid_heading">Takvim ve kişiler</string>
     <string name="screenshot_06_davdroid_subline">DAVx5 ile eşitleme</string>
     <string name="search_error">Arama sonuçları alınırken sorun çıktı</string>
+    <string name="secure_share_not_set_up">Bu kullanıcı için güvenli paylaşım kurulmamış</string>
+    <string name="secure_share_search">Güvenli paylaşım…</string>
     <string name="select_all">Tümünü seç</string>
     <string name="select_media_folder">Ortam klasörünü ayarla</string>
     <string name="select_one_template">Lütfen bir kalıp seçin</string>
@@ -715,6 +722,7 @@
     <string name="share_link_with_label">Bağlantı paylaş (%1$s)</string>
     <string name="share_no_expiration_date_label">Geçerlilik sonu tarihini ayarla</string>
     <string name="share_no_password_title">Parolayı ayarla</string>
+    <string name="share_not_allowed_when_file_drop">Güvenli dosya bırakma sırasında yeniden paylaşım yapılamaz</string>
     <string name="share_password_title">Parola korumalı</string>
     <string name="share_permission_can_edit">Düzenleyebilir</string>
     <string name="share_permission_file_drop">Dosya bırakma</string>
@@ -954,7 +962,7 @@
     <string name="whats_your_status">Durumunuz nedir?</string>
     <string name="widgets_not_available">Pano bileşenleri yalnızca %1$s 25 ve üzeri sürümlerde kullanılabilir</string>
     <string name="widgets_not_available_title">Kullanılamaz</string>
-    <string name="worker_download">Dosyalar indiriliyor …</string>
+    <string name="worker_download">Dosyalar indiriliyor…</string>
     <string name="write_email">E-posta gönder</string>
     <string name="wrong_storage_path">Veri depolama klasörü bulunamadı!</string>
     <string name="wrong_storage_path_desc">Bunun nedeni bir yedeğin başka bir aygıta geri yüklenmesi olabilir. Varsayılan değerlere geri dönülüyor. Lütfen veri depolama klasörünü ayarlamak için ayarları denetleyin.</string>
