@@ -240,10 +240,7 @@ android {
 dependencies {
     // dependencies for app building
     implementation 'androidx.multidex:multidex:2.0.1'
-//    implementation("com.github.nextcloud:android-library:$androidLibraryVersion") {
-    // temporarily using my own version of the nextcloud android-library so automated compile and unit tests
-    // are able to build the app. should be removed before merging.
-    implementation("com.github.elv1zz:nextcloud-android-library:$androidLibraryVersion") {
+    implementation("com.github.nextcloud:android-library:$androidLibraryVersion") {
         exclude group: 'org.ogce', module: 'xpp3' // unused in Android and brings wrong Junit version
     }
 
