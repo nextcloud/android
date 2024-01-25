@@ -1589,24 +1589,12 @@ public class FileDisplayActivity extends FileActivity
 
     /**
      * Defines callbacks for service binding, passed to bindService()
+     * TODO: Check if this can be removed since download and uploads uses work manager now.
      */
     private class ListServiceConnection implements ServiceConnection {
 
         @Override
-        public void onServiceConnected(ComponentName component, IBinder service) {
-            // a new chance to get the mDownloadBinder through
-            // getFileDownloadBinder() - THIS IS A MESS
-            OCFileListFragment listOfFiles = getListOfFilesFragment();
-            if (listOfFiles != null && (getIntent() == null || (getIntent() != null &&
-                IntentExtensionsKt.getParcelableArgument(getIntent(), EXTRA_FILE, OCFile.class) == null))) {
-                listOfFiles.listDirectory(MainApp.isOnlyOnDevice(), false);
-            }
-
-            Fragment leftFragment = getLeftFragment();
-            if (leftFragment instanceof FileDetailFragment detailFragment) {
-                detailFragment.listenForTransferProgress();
-                detailFragment.updateFileDetails(false, false);
-            }
+        public void onServiceConnected(ComponentName name, IBinder service) {
         }
 
         @Override
