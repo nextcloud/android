@@ -75,6 +75,7 @@
     <string name="autoupload_custom_folder">Каталог користувача</string>
     <string name="autoupload_disable_power_save_check">Вимкнути перевірку режиму енергозаощадження</string>
     <string name="autoupload_hide_folder">Приховати каталог</string>
+    <string name="autoupload_worker_foreground_info">Підготовка до автозавантаження</string>
     <string name="avatar">Світлина</string>
     <string name="away">Піти</string>
     <string name="backup_settings">Налаштування резервного збереження</string>
@@ -224,7 +225,10 @@
     <string name="downloader_download_in_progress_ticker">Звантаження…</string>
     <string name="downloader_download_succeeded_content">%1$s звантажено</string>
     <string name="downloader_download_succeeded_ticker">Звантажено</string>
+    <string name="downloader_file_download_cancelled">Окремі файли було скасовано під час звантаження користувачем</string>
+    <string name="downloader_file_download_failed">Помилка під час звантаження файлів</string>
     <string name="downloader_not_downloaded_yet">Ще не звантажено</string>
+    <string name="downloader_unexpected_error">Неочікувана помилка під час звантаження файлів</string>
     <string name="drawer_close">Сховати бічну панель</string>
     <string name="drawer_community">Спільнота</string>
     <string name="drawer_header_background">Зображення тла верхньої панелі</string>
@@ -338,6 +342,7 @@
     <string name="file_list_empty_shared_headline">Жодного спільного файлу</string>
     <string name="file_list_empty_unified_search_no_results">За вашим запитом нічого не знайдено</string>
     <string name="file_list_folder">каталог</string>
+    <string name="file_list_live">НАЖИВО</string>
     <string name="file_list_loading">Завантаження…</string>
     <string name="file_list_no_app_for_file_type">Відсутній застосунок для відкриття файлу такого типу.</string>
     <string name="file_list_seconds_ago">кілька секунд тому</string>
@@ -670,6 +675,8 @@
     <string name="screenshot_06_davdroid_heading">Календар та контакти</string>
     <string name="screenshot_06_davdroid_subline">Синхронізувати з DAVx5</string>
     <string name="search_error">Помилка під час отримання результатів</string>
+    <string name="secure_share_not_set_up">Безпечну передачу у спільний доступ не налаштовано для цього користувача</string>
+    <string name="secure_share_search">Безпечний спільний доступ ...</string>
     <string name="select_all">Вибрати все</string>
     <string name="select_media_folder">Налаштувати місце збереження зображень та відео</string>
     <string name="select_one_template">Будь ласка, виберіть один шаблон.</string>
@@ -704,6 +711,7 @@
     <string name="share_link_with_label">Поділитися посиланням (%1$s)</string>
     <string name="share_no_expiration_date_label">Встановити термін дії</string>
     <string name="share_no_password_title">Встановити пароль</string>
+    <string name="share_not_allowed_when_file_drop">Повторну передачу у спільний доступ не дозволено під час безпечної передачі файлів</string>
     <string name="share_password_title">Захищено паролем</string>
     <string name="share_permission_can_edit">Можна редагувати</string>
     <string name="share_permission_file_drop">Додати файл</string>
