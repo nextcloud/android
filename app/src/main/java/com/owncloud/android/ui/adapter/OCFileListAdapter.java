@@ -748,6 +748,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (!limitToMimeType.isEmpty()) {
                 mFiles = filterByMimeType(mFiles, limitToMimeType);
             }
+            if (OCFile.ROOT_PATH.equals(directory.getRemotePath()) && MainApp.isOnlyPersonFiles()) {
+                mFiles = limitToPersonalFiles(mFiles);
+            }
             sortOrder = preferences.getSortOrderByFolder(directory);
             mFiles = sortOrder.sortCloudFiles(mFiles);
             prepareListOfHiddenFiles();
@@ -1051,7 +1054,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      * @param files Collection of files to filter
      * @return Non-hidden files
      */
-    private List<OCFile> filterHiddenFiles(List<OCFile> files) {
+    private List<OCFile> filterHiddenFiles(Iterable<OCFile> files) {
         List<OCFile> ret = new ArrayList<>();
 
         for (OCFile file : files) {
@@ -1063,11 +1066,25 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return ret;
     }
 
-    private List<OCFile> filterByMimeType(List<OCFile> files, String mimeType) {
+    private List<OCFile> filterByMimeType(Iterable<OCFile> files, String mimeType) {
         List<OCFile> ret = new ArrayList<>();
 
         for (OCFile file : files) {
             if (file.isFolder() || file.getMimeType().startsWith(mimeType)) {
+                ret.add(file);
+            }
+        }
+
+        return ret;
+    }
+
+    private List<OCFile> limitToPersonalFiles(Iterable<OCFile> files) {
+        List<OCFile> ret = new ArrayList<>();
+
+        for (OCFile file : files) {
+            if (file.getOwnerId().equals(userId) &&
+                !file.isSharedWithMe() &&
+                !file.isGroupFolder()) {
                 ret.add(file);
             }
         }

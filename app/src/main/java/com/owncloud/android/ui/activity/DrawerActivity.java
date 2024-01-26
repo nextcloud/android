@@ -486,17 +486,18 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         int itemId = menuItem.getItemId();
 
-        if (itemId == R.id.nav_all_files) {
+        if (itemId == R.id.nav_all_files || itemId == R.id.nav_personal_files) {
             if (this instanceof FileDisplayActivity &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof SharedListFragment) &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof GroupfolderListFragment) &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof PreviewTextStringFragment)) {
-                showFiles(false);
+                showFiles(false, itemId == R.id.nav_personal_files);
                 ((FileDisplayActivity) this).browseToRoot();
                 EventBus.getDefault().post(new ChangeMenuEvent());
             } else {
                 MainApp.showOnlyFilesOnDevice(false);
+                MainApp.showOnlyPersonalFiles(itemId == R.id.nav_personal_files);
                 Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.setAction(FileDisplayActivity.ALL_FILES);
@@ -510,7 +511,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             startPhotoSearch(menuItem.getItemId());
         } else if (itemId == R.id.nav_on_device) {
             EventBus.getDefault().post(new ChangeMenuEvent());
-            showFiles(true);
+            showFiles(true, false);
         } else if (itemId == R.id.nav_uploads) {
             startActivity(UploadListActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_trashbin) {
@@ -1105,8 +1106,9 @@ public abstract class DrawerActivity extends ToolbarActivity
      *
      * @param onDeviceOnly flag to decide if all files or only the ones on the device should be shown
      */
-    public void showFiles(boolean onDeviceOnly) {
+    public void showFiles(boolean onDeviceOnly, boolean onlyPersonalFiles) {
         MainApp.showOnlyFilesOnDevice(onDeviceOnly);
+        MainApp.showOnlyPersonalFiles(onlyPersonalFiles);
         Intent fileDisplayActivity = new Intent(getApplicationContext(), FileDisplayActivity.class);
         fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         fileDisplayActivity.setAction(FileDisplayActivity.ALL_FILES);

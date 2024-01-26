@@ -187,9 +187,10 @@ public abstract class FileActivity extends DrawerActivity
     ArbitraryDataProvider arbitraryDataProvider;
 
     @Override
-    public void showFiles(boolean onDeviceOnly) {
+    public void showFiles(boolean onDeviceOnly, boolean personalFiles) {
         // must be specialized in subclasses
         MainApp.showOnlyFilesOnDevice(onDeviceOnly);
+        MainApp.showOnlyPersonalFiles(personalFiles);
         if (onDeviceOnly) {
             setupToolbar();
         } else {
