@@ -472,6 +472,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 }
             }
 
+            @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
                 accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
