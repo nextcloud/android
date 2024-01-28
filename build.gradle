@@ -2,7 +2,7 @@ buildscript {
     ext {
         androidPluginVersion = '8.2.1'
         appCompatVersion = '1.6.1'
-        jacoco_version = '0.8.10'
+        jacoco_version = '0.8.11'
         kotlin_version = '1.8.22'
         androidxTestVersion = "1.4.0"
         daggerVersion = "2.47"
