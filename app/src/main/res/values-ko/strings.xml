@@ -256,6 +256,7 @@
     <string name="ecosystem_apps_display_talk">토크</string>
     <string name="ecosystem_apps_more">더 많은 Nextcloud 앱</string>
     <string name="ecosystem_apps_notes">Nextcloud 메모</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">이메일 주소 고르기에 실패함</string>
     <string name="encrypted">암호화하도록 설정</string>
     <string name="end_to_end_encryption_confirm_button">암호화 설정</string>
@@ -425,6 +426,11 @@
     <string name="image_editor_rotate_cw">시계 방향으로 회전</string>
     <string name="image_editor_unable_to_edit_image">이미지를 편집할 수 없음</string>
     <string name="image_preview_filedetails">파일 정보</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s초</string>
     <string name="in_folder">%1$s 폴더 안에</string>
     <string name="instant_upload_existing">이미 존재하는 파일도 올리기</string>
     <string name="instant_upload_on_charging">충전 중에만 업로드</string>
@@ -606,6 +612,8 @@
     <string name="prefs_recommend">친구에게 추천하기</string>
     <string name="prefs_remove_e2e">암호화를 일부 제거합니다.</string>
     <string name="prefs_setup_e2e">종단간 암호화를 설정합니다.</string>
+    <string name="prefs_show_ecosystem_apps">앱 스위치 도구 보이기</string>
+    <string name="prefs_show_ecosystem_apps_summary">탐색창 상단에 표시되는 Nextcloud 앱 제안</string>
     <string name="prefs_show_hidden_files">숨겨진 파일 보기</string>
     <string name="prefs_sourcecode">소스 코드 보기</string>
     <string name="prefs_storage_path">데이터 저장 폴더</string>
