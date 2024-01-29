@@ -17,17 +17,17 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.files.downloader
+package com.nextcloud.client.files.download
 
 import android.content.ComponentName
 import android.content.Context
 import com.nextcloud.client.account.MockUser
 import com.nextcloud.client.files.DownloadRequest
-import com.nextcloud.client.files.transfer.FileTransferService
-import com.nextcloud.client.files.transfer.Transfer
-import com.nextcloud.client.files.transfer.TransferManager
-import com.nextcloud.client.files.transfer.TransferManagerConnection
-import com.nextcloud.client.files.transfer.TransferState
+import com.nextcloud.client.jobs.transfer.FileTransferService
+import com.nextcloud.client.jobs.transfer.Transfer
+import com.nextcloud.client.jobs.transfer.TransferManager
+import com.nextcloud.client.jobs.transfer.TransferManagerConnection
+import com.nextcloud.client.jobs.transfer.TransferState
 import com.owncloud.android.datamodel.OCFile
 import io.mockk.MockKAnnotations
 import io.mockk.every

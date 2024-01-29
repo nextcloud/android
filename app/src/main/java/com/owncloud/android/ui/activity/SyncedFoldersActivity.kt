@@ -43,6 +43,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.MediaFoldersDetectionWork
 import com.nextcloud.client.jobs.NotificationWork
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -58,7 +59,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.datamodel.SyncedFolderProvider
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter
@@ -453,7 +453,7 @@ class SyncedFoldersActivity :
             true,
             false,
             account.name,
-            FileUploader.LOCAL_BEHAVIOUR_FORGET,
+            FileUploadWorker.LOCAL_BEHAVIOUR_FORGET,
             NameCollisionPolicy.ASK_USER.serialize(),
             false,
             clock.currentTime,
@@ -547,7 +547,7 @@ class SyncedFoldersActivity :
                         true,
                         false,
                         account.name,
-                        FileUploader.LOCAL_BEHAVIOUR_FORGET,
+                        FileUploadWorker.LOCAL_BEHAVIOUR_FORGET,
                         NameCollisionPolicy.ASK_USER.serialize(),
                         false,
                         clock.currentTime,

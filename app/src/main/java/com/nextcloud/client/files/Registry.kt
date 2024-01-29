@@ -20,8 +20,8 @@
  */
 package com.nextcloud.client.files
 
-import com.nextcloud.client.files.transfer.Transfer
-import com.nextcloud.client.files.transfer.TransferState
+import com.nextcloud.client.jobs.transfer.Transfer
+import com.nextcloud.client.jobs.transfer.TransferState
 import com.owncloud.android.datamodel.OCFile
 import java.util.UUID
 import kotlin.math.max

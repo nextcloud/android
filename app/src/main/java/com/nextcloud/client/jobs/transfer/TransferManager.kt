@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.files.transfer
+package com.nextcloud.client.jobs.transfer
 
 import com.nextcloud.client.files.Request
 import com.owncloud.android.datamodel.OCFile

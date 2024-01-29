@@ -19,7 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.client.files.downloader
+package com.nextcloud.client.jobs.download
 
 import android.accounts.Account
 import android.accounts.AccountManager
@@ -126,7 +126,11 @@ class FileDownloadWorker(
             val requestDownloads = getRequestDownloads()
 
             notificationManager =
-                DownloadNotificationManager(workerId ?: SecureRandom().nextInt(), context, viewThemeUtils)
+                DownloadNotificationManager(
+                    workerId ?: SecureRandom().nextInt(),
+                    context,
+                    viewThemeUtils
+                )
             addAccountUpdateListener()
 
             val foregroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
@@ -263,7 +267,7 @@ class FileDownloadWorker(
         am.addOnAccountsUpdatedListener(this, null, false)
     }
 
-    @Suppress("TooGenericExceptionCaught")
+    @Suppress("TooGenericExceptionCaught", "DEPRECATION")
     private fun downloadFile(downloadKey: String) {
         currentDownload = pendingDownloads.get(downloadKey)
 
@@ -310,6 +314,7 @@ class FileDownloadWorker(
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun getOCAccountForDownload(): OwnCloudAccount {
         val currentDownloadAccount = currentDownload?.user?.toPlatformAccount()
         val currentDownloadUser = accountManager.getUser(currentDownloadAccount?.name)
@@ -409,6 +414,7 @@ class FileDownloadWorker(
         }
     }
 
+    @Suppress("DEPRECATION")
     override fun onAccountsUpdated(accounts: Array<out Account>?) {
         if (!accountManager.exists(currentDownload?.user?.toPlatformAccount())) {
             currentDownload?.cancel()

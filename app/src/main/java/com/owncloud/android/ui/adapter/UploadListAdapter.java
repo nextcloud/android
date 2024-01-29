@@ -43,7 +43,8 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
-import com.nextcloud.client.jobs.FilesUploadWorker;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
@@ -58,7 +59,6 @@ import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.OCUploadComparator;
 import com.owncloud.android.db.UploadResult;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.RefreshFolderOperation;
@@ -95,6 +95,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private final ViewThemeUtils viewThemeUtils;
     private NotificationManager mNotificationManager;
 
+    private final FileUploadHelper uploadHelper = FileUploadHelper.Companion.instance();
+
     @Override
     public int getSectionCount() {
         return uploadGroups.length;
@@ -126,21 +128,16 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
             switch (group.type) {
                 case CURRENT -> {
-                    FileUploader.FileUploaderBinder uploaderBinder = parentActivity.getFileUploaderBinder();
-                    if (uploaderBinder != null) {
-                        for (OCUpload upload : group.getItems()) {
-                            uploaderBinder.cancel(upload);
-                        }
+                    for (OCUpload upload : group.getItems()) {
+                        uploadHelper.cancelFileUpload(upload.getRemotePath(), upload.getAccountName());
                     }
                 }
                 case FINISHED -> uploadsStorageManager.clearSuccessfulUploads();
-                case FAILED -> new Thread(() -> FileUploader.retryFailedUploads(
-                    parentActivity,
+                case FAILED -> new Thread(() -> FileUploadHelper.Companion.instance().retryFailedUploads(
                     uploadsStorageManager,
                     connectivityService,
                     accountManager,
-                    powerManagementService
-                                                                               )).start();
+                    powerManagementService)).start();
                 default -> {
                 }
                 // do nothing
@@ -164,6 +161,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                              final Clock clock,
                              final ViewThemeUtils viewThemeUtils) {
         Log_OC.d(TAG, "UploadListAdapter");
+
         this.parentActivity = fileActivity;
         this.uploadsStorageManager = uploadsStorageManager;
         this.storageManager = storageManager;
@@ -270,33 +268,31 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 viewThemeUtils.platform.themeHorizontalProgressBar(itemViewHolder.binding.uploadProgressBar);
                 itemViewHolder.binding.uploadProgressBar.setProgress(0);
                 itemViewHolder.binding.uploadProgressBar.setVisibility(View.VISIBLE);
-                FileUploader.FileUploaderBinder binder = parentActivity.getFileUploaderBinder();
-                if (binder != null) {
-                    if (binder.isUploadingNow(item)) {
-                        // really uploading, so...
-                        // ... unbind the old progress bar, if any; ...
-                        if (progressListener != null) {
-                            binder.removeDatatransferProgressListener(
-                                progressListener,
-                                progressListener.getUpload()   // the one that was added
-                                                                     );
-                        }
-                        // ... then, bind the current progress bar to listen for updates
-                        progressListener = new ProgressListener(item, itemViewHolder.binding.uploadProgressBar);
-                        binder.addDatatransferProgressListener(progressListener, item);
-                    } else {
-                        // not really uploading; stop listening progress if view is reused!
-                        if (progressListener != null &&
-                            progressListener.isWrapping(itemViewHolder.binding.uploadProgressBar)) {
-                            binder.removeDatatransferProgressListener(progressListener,
-                                                                      progressListener.getUpload() // the one that was added
-                                                                     );
-                            progressListener = null;
-                        }
+
+                if (uploadHelper.isUploadingNow(item)) {
+                    // really uploading, so...
+                    // ... unbind the old progress bar, if any; ...
+                    if (progressListener != null) {
+                        String targetKey = FileUploadHelper.Companion.buildRemoteName(progressListener.getUpload().getAccountName(), progressListener.getUpload().getRemotePath());
+                        uploadHelper.removeUploadTransferProgressListener(progressListener, targetKey);
                     }
+                    // ... then, bind the current progress bar to listen for updates
+                    progressListener = new ProgressListener(item, itemViewHolder.binding.uploadProgressBar);
+                    String targetKey = FileUploadHelper.Companion.buildRemoteName(item.getAccountName(), item.getRemotePath());
+                    uploadHelper.addUploadTransferProgressListener(progressListener, targetKey);
+
                 } else {
-                    Log_OC.w(TAG, "FileUploaderBinder not ready yet for upload " + item.getRemotePath());
+                    // not really uploading; stop listening progress if view is reused!
+                    if (progressListener != null &&
+                        progressListener.isWrapping(itemViewHolder.binding.uploadProgressBar)) {
+
+                        String targetKey = FileUploadHelper.Companion.buildRemoteName(progressListener.getUpload().getAccountName(), progressListener.getUpload().getRemotePath());
+
+                        uploadHelper.removeUploadTransferProgressListener(progressListener, targetKey);
+                        progressListener = null;
+                    }
                 }
+
                 itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
                 itemViewHolder.binding.uploadFileSize.setVisibility(View.GONE);
                 itemViewHolder.binding.uploadProgressBar.invalidate();
@@ -312,11 +308,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_action_cancel_grey);
             itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE);
             itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> {
-                FileUploader.FileUploaderBinder uploaderBinder = parentActivity.getFileUploaderBinder();
-                if (uploaderBinder != null) {
-                    uploaderBinder.cancel(item);
-                    loadUploadItemsFromDb();
-                }
+                uploadHelper.cancelFileUpload(item.getRemotePath(), item.getAccountName());
+                loadUploadItemsFromDb();
             });
 
         } else if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
@@ -363,7 +356,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 File file = new File(item.getLocalPath());
                 Optional<User> user = accountManager.getUser(item.getAccountName());
                 if (file.exists() && user.isPresent()) {
-                    FileUploader.retryUpload(parentActivity, user.get(), item);
+                    uploadHelper.retryUpload(item, user.get());
                     loadUploadItemsFromDb();
                 } else {
                     DisplayUtils.showSnackMessage(
@@ -608,14 +601,11 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
      * @return Text describing the status of the given upload.
      */
     private String getStatusText(OCUpload upload) {
-
         String status;
         switch (upload.getUploadStatus()) {
-
             case UPLOAD_IN_PROGRESS:
                 status = parentActivity.getString(R.string.uploads_view_later_waiting_to_upload);
-                FileUploader.FileUploaderBinder binder = parentActivity.getFileUploaderBinder();
-                if (binder != null && binder.isUploadingNow(upload)) {
+                if (uploadHelper.isUploadingNow(upload)) {
                     // really uploading, bind the progress bar to listen for progress updates
                     status = parentActivity.getString(R.string.uploader_upload_in_progress_ticker);
                 }
@@ -862,10 +852,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         }
 
         void fixAndSortItems(OCUpload... array) {
-            FileUploader.FileUploaderBinder binder = parentActivity.getFileUploaderBinder();
-
             for (OCUpload upload : array) {
-                upload.setDataFixed(binder);
+                upload.setDataFixed(uploadHelper);
             }
             Arrays.sort(array, new OCUploadComparator());
 
@@ -885,7 +873,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         if (upload == null) return;
         mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(upload.getRemotePath(),upload.getLocalPath()),
-                                    FilesUploadWorker.NOTIFICATION_ERROR_ID);
+                                    FileUploadWorker.NOTIFICATION_ERROR_ID);
 
     }
 

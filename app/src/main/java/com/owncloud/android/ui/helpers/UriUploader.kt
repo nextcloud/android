@@ -23,8 +23,8 @@ import android.content.ContentResolver
 import android.net.Uri
 import android.os.Parcelable
 import com.nextcloud.client.account.User
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.owncloud.android.R
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
@@ -35,16 +35,16 @@ import com.owncloud.android.ui.fragment.TaskRetainerFragment
 import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
 
 /**
- * This class examines URIs pointing to files to upload and then requests [FileUploader] to upload them.
+ * This class examines URIs pointing to files to upload and then requests [FileUploadHelper] to upload them.
  *
  *
- * URIs with scheme file:// do not require any previous processing, their path is sent to [FileUploader] to find
+ * URIs with scheme file:// do not require any previous processing, their path is sent to [FileUploadHelper] to find
  * the source file.
  *
  *
  * URIs with scheme content:// are handling assuming that file is in private storage owned by a different app, and that
  * persistence permission is not granted. Due to this, contents of the file are temporary copied by the OC app, and then
- * passed [FileUploader].
+ * passed [FileUploadHelper].
  */
 @Suppress(
     "Detekt.LongParameterList",
@@ -114,7 +114,7 @@ class UriUploader(
     private fun isSensitiveUri(uri: Uri): Boolean = uri.toString().contains(mActivity.packageName)
 
     /**
-     * Requests the upload of a file in the local file system to [FileUploader] service.
+     * Requests the upload of a file in the local file system to [FileUploadHelper] service.
      *
      * The original file will be left in its original location, and will not be duplicated.
      * As a side effect, the user will see the file as not uploaded when accesses to the OC app.
@@ -125,10 +125,10 @@ class UriUploader(
      * @param remotePath    Absolute path in the current OC account to set to the uploaded file.
      */
     private fun requestUpload(localPath: String?, remotePath: String) {
-        FileUploader.uploadNewFile(
+        FileUploadHelper.instance().uploadNewFiles(
             user,
-            localPath,
-            remotePath,
+            arrayOf(localPath ?: ""),
+            arrayOf(remotePath),
             mBehaviour,
             false, // do not create parent folder if not existent
             UploadFileOperation.CREATED_BY_USER,

@@ -43,9 +43,9 @@ import android.text.TextUtils;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.files.downloader.FileDownloadHelper;
-import com.nextcloud.client.files.downloader.FileDownloadWorker;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.download.FileDownloadWorker;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -56,8 +56,6 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -123,8 +121,8 @@ import static com.owncloud.android.ui.activity.FileDisplayActivity.TAG_PUBLIC_LI
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud {@link Account}s .
  */
 public abstract class FileActivity extends DrawerActivity
-        implements OnRemoteOperationListener, ComponentsGetter, SslUntrustedCertDialog.OnSslUntrustedCertListener,
-        LoadingVersionNumberTask.VersionDevInterface, FileDetailSharingFragment.OnEditShareListener {
+    implements OnRemoteOperationListener, ComponentsGetter, SslUntrustedCertDialog.OnSslUntrustedCertListener,
+    LoadingVersionNumberTask.VersionDevInterface, FileDetailSharingFragment.OnEditShareListener {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_LIVE_PHOTO_FILE = "com.owncloud.android.ui.activity.LIVE.PHOTO.FILE";
@@ -150,7 +148,7 @@ public abstract class FileActivity extends DrawerActivity
     private static final String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
     private static final String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
 
-     /** Main {@link OCFile} handled by the activity.*/
+    /** Main {@link OCFile} handled by the activity.*/
     private OCFile mFile;
 
     /** Flag to signal if the activity is launched by a notification */
@@ -168,8 +166,7 @@ public abstract class FileActivity extends DrawerActivity
     private boolean mResumed;
 
     protected FileDownloadWorker.FileDownloadProgressListener fileDownloadProgressListener;
-    protected FileUploaderBinder mUploaderBinder;
-    private ServiceConnection mUploadServiceConnection;
+    protected FileUploadHelper fileUploadHelper = FileUploadHelper.Companion.instance();
 
     @Inject
     UserAccountManager accountManager;
@@ -229,7 +226,7 @@ public abstract class FileActivity extends DrawerActivity
             user = IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_USER, User.class);
             mFile = IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_FILE, OCFile.class);
             mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION,
-                    false);
+                                                            false);
 
             if (user != null) {
                 setUser(user);
@@ -238,13 +235,7 @@ public abstract class FileActivity extends DrawerActivity
 
         mOperationsServiceConnection = new OperationsServiceConnection();
         bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection,
-                Context.BIND_AUTO_CREATE);
-
-        mUploadServiceConnection = newTransferenceServiceConnection();
-        if (mUploadServiceConnection != null) {
-            bindService(new Intent(this, FileUploader.class), mUploadServiceConnection,
                     Context.BIND_AUTO_CREATE);
-        }
     }
 
     public void checkInternetConnection() {
@@ -282,10 +273,6 @@ public abstract class FileActivity extends DrawerActivity
         if (mOperationsServiceConnection != null) {
             unbindService(mOperationsServiceConnection);
             mOperationsServiceBinder = null;
-        }
-        if (mUploadServiceConnection != null) {
-            unbindService(mUploadServiceConnection);
-            mUploadServiceConnection = null;
         }
 
         super.onDestroy();
@@ -365,7 +352,7 @@ public abstract class FileActivity extends DrawerActivity
         dismissLoadingDialog();
 
         if (!result.isSuccess() && (
-                result.getCode() == ResultCode.UNAUTHORIZED ||
+            result.getCode() == ResultCode.UNAUTHORIZED ||
                 (result.isException() && result.getException() instanceof AuthenticatorException)
         )) {
 
@@ -393,8 +380,8 @@ public abstract class FileActivity extends DrawerActivity
 
             } else if (result.getCode() != ResultCode.CANCELLED) {
                 DisplayUtils.showSnackMessage(
-                        this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
-                );
+                    this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources())
+                                             );
             }
 
         } else if (operation instanceof SynchronizeFileOperation) {
@@ -525,7 +512,7 @@ public abstract class FileActivity extends DrawerActivity
         } else {
             if (!operation.transferWasRequested()) {
                 DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result,
-                        operation, getResources()));
+                                                                                             operation, getResources()));
             }
             supportInvalidateOptionsMenu();
         }
@@ -575,7 +562,7 @@ public abstract class FileActivity extends DrawerActivity
         long waitingForOpId = mFileOperationsHelper.getOpIdWaitingFor();
         if (waitingForOpId <= Integer.MAX_VALUE) {
             boolean wait = mOperationsServiceBinder.dispatchResultIfFinished((int)waitingForOpId,
-                    this);
+                                                                             this);
             if (!wait ) {
                 dismissLoadingDialog();
             }
@@ -620,8 +607,8 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     @Override
-    public FileUploaderBinder getFileUploaderBinder() {
-        return mUploaderBinder;
+    public FileUploadHelper getFileUploaderHelper() {
+        return fileUploadHelper;
     }
 
     public OCFile getCurrentDir() {
@@ -648,7 +635,7 @@ public abstract class FileActivity extends DrawerActivity
     public void onFailedSavingCertificate() {
         ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
             R.string.ssl_validator_not_saved, new String[]{}, 0, R.string.common_ok, -1, -1
-        );
+                                                                                  );
         dialog.show(getSupportFragmentManager(), DIALOG_CERT_NOT_SAVED);
     }
 
@@ -694,10 +681,10 @@ public abstract class FileActivity extends DrawerActivity
                 DisplayUtils.startLinkIntent(activity, devApkLink);
             } else {
                 Snackbar.make(activity.findViewById(android.R.id.content), R.string.dev_version_new_version_available,
-                        Snackbar.LENGTH_LONG)
-                        .setAction(activity.getString(R.string.version_dev_download), v -> {
-                            DisplayUtils.startLinkIntent(activity, devApkLink);
-                        }).show();
+                              Snackbar.LENGTH_LONG)
+                    .setAction(activity.getString(R.string.version_dev_download), v -> {
+                        DisplayUtils.startLinkIntent(activity, devApkLink);
+                    }).show();
             }
         } else {
             if (!inBackground) {

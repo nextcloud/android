@@ -24,21 +24,19 @@ package com.owncloud.android.ui.preview;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.editimage.EditImageActivity;
-import com.nextcloud.client.files.downloader.FileDownloadHelper;
-import com.nextcloud.client.files.downloader.FileDownloadWorker;
+import com.nextcloud.client.jobs.download.FileDownloadHelper;
+import com.nextcloud.client.jobs.download.FileDownloadWorker;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
 import com.nextcloud.model.WorkerState;
@@ -49,13 +47,10 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.DownloadType;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -82,10 +77,10 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class PreviewImageActivity extends FileActivity implements
-        FileFragment.ContainerActivity,
-        ViewPager.OnPageChangeListener,
-        OnRemoteOperationListener,
-        Injectable {
+    FileFragment.ContainerActivity,
+    ViewPager.OnPageChangeListener,
+    OnRemoteOperationListener,
+    Injectable {
 
     public static final String TAG = PreviewImageActivity.class.getSimpleName();
     public static final String EXTRA_VIRTUAL_TYPE = "EXTRA_VIRTUAL_TYPE";
@@ -307,7 +302,7 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     private void observeWorkerState() {
-       WorkerStateLiveData.Companion.instance().observe(this, state -> {
+        WorkerStateLiveData.Companion.instance().observe(this, state -> {
             if (state instanceof WorkerState.Download) {
                 Log_OC.d(TAG, "Download worker started");
                 isDownloadWorkStarted = true;
@@ -326,39 +321,9 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     @Override
-    protected ServiceConnection newTransferenceServiceConnection() {
-        return new PreviewImageServiceConnection();
-    }
-
-    /** Defines callbacks for service binding, passed to bindService() */
-    private class PreviewImageServiceConnection implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName component, IBinder service) {
-            if (component.equals(new ComponentName(PreviewImageActivity.this,
-                    FileUploader.class))) {
-                Log_OC.d(TAG, "Upload service connected");
-                mUploaderBinder = (FileUploaderBinder) service;
-            }
-
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(PreviewImageActivity.this,
-                    FileUploader.class))) {
-                Log_OC.d(TAG, "Upload service suddenly disconnected");
-                mUploaderBinder = null;
-            }
-        }
-    }
-
-
-    @Override
     public void onStop() {
         super.onStop();
     }
-
 
     @Override
     public void onDestroy() {
@@ -374,7 +339,7 @@ public class PreviewImageActivity extends FileActivity implements
         localBroadcastManager.registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
 
         mUploadFinishReceiver = new UploadFinishReceiver();
-        IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.getUploadFinishMessage());
+        IntentFilter uploadIntentFilter = new IntentFilter(FileUploadWorker.Companion.getUploadFinishMessage());
         localBroadcastManager.registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
     }
 
@@ -445,7 +410,7 @@ public class PreviewImageActivity extends FileActivity implements
                 setDrawerIndicatorEnabled(false);
 
                 if (currentFile.isEncrypted() && !currentFile.isDown() &&
-                        !mPreviewImagePagerAdapter.pendingErrorAt(position)) {
+                    !mPreviewImagePagerAdapter.pendingErrorAt(position)) {
                     requestForDownload(currentFile);
                 }
 
@@ -540,7 +505,7 @@ public class PreviewImageActivity extends FileActivity implements
 
     public void toggleFullScreen() {
         boolean visible = (mFullScreenAnchorView.getSystemUiVisibility()
-                & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+            & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
 
         if (visible) {
             hideSystemUI(mFullScreenAnchorView);
@@ -581,23 +546,23 @@ public class PreviewImageActivity extends FileActivity implements
 
 
     @SuppressLint("InlinedApi")
-	private void hideSystemUI(View anchorView) {
+    private void hideSystemUI(View anchorView) {
         anchorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION         // hides NAVIGATION BAR; Android >= 4.0
-            |   View.SYSTEM_UI_FLAG_FULLSCREEN              // hides STATUS BAR;     Android >= 4.1
-            |   View.SYSTEM_UI_FLAG_IMMERSIVE               // stays interactive;    Android >= 4.4
-            |   View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
-            |   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
-            |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.1
-        );
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION         // hides NAVIGATION BAR; Android >= 4.0
+                |   View.SYSTEM_UI_FLAG_FULLSCREEN              // hides STATUS BAR;     Android >= 4.1
+                |   View.SYSTEM_UI_FLAG_IMMERSIVE               // stays interactive;    Android >= 4.4
+                |   View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
+                |   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
+                |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.1
+                                        );
     }
 
     @SuppressLint("InlinedApi")
     private void showSystemUI(View anchorView) {
         anchorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
-            |   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
-            |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.
-        );
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
+                |   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
+                |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.
+                                        );
     }
 }

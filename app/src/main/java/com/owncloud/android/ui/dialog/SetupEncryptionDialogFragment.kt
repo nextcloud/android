@@ -287,7 +287,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             mWeakContext = WeakReference(context)
         }
 
-        @Suppress("ReturnCount")
+        @Suppress("ReturnCount", "LongMethod")
         @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg params: Void?): String? {
             // fetch private/public key

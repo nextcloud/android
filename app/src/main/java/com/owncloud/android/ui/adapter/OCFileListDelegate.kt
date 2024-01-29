@@ -32,7 +32,8 @@ import androidx.core.content.res.ResourcesCompat
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
-import com.nextcloud.client.files.downloader.FileDownloadHelper
+import com.nextcloud.client.jobs.download.FileDownloadHelper
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.createRoundedOutline
 import com.owncloud.android.R
@@ -53,6 +54,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListDelegate(
+    private val fileUploadHelper: FileUploadHelper,
     private val context: Context,
     private val ocFileListFragmentInterface: OCFileListFragmentInterface,
     private val user: User,
@@ -343,12 +345,11 @@ class OCFileListDelegate(
 
     private fun showLocalFileIndicator(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
-        val fileUploaderBinder = transferServiceGetter.fileUploaderBinder
 
         val icon: Int? = when {
             operationsServiceBinder?.isSynchronizing(user, file) == true ||
                 FileDownloadHelper.instance().isDownloading(user, file) ||
-                fileUploaderBinder?.isUploading(user, file) == true -> {
+                fileUploadHelper.isUploading(user, file) -> {
                 // synchronizing, downloading or uploading
                 R.drawable.ic_synchronizing
             }

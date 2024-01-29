@@ -65,8 +65,10 @@ import com.nextcloud.client.core.AsyncRunner;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.files.DeepLinkHandler;
-import com.nextcloud.client.files.downloader.FileDownloadHelper;
-import com.nextcloud.client.files.downloader.FileDownloadWorker;
+import com.nextcloud.client.jobs.download.FileDownloadHelper;
+import com.nextcloud.client.jobs.download.FileDownloadWorker;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
@@ -84,8 +86,6 @@ import com.owncloud.android.databinding.FilesBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.VirtualFolderType;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -869,7 +869,7 @@ public class FileDisplayActivity extends FileActivity
                             return;
                         }
 
-                        requestUploadOfFilesFromFileSystem(renamedFile.getParentFile().getAbsolutePath(), new String[]{renamedFile.getAbsolutePath()}, FileUploader.LOCAL_BEHAVIOUR_DELETE);
+                        requestUploadOfFilesFromFileSystem(renamedFile.getParentFile().getAbsolutePath(), new String[]{renamedFile.getAbsolutePath()}, FileUploadWorker.LOCAL_BEHAVIOUR_DELETE);
                     }
                 }
             }, new String[]{FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath()}).execute();
@@ -909,20 +909,20 @@ public class FileDisplayActivity extends FileActivity
             }
 
             int behaviour = switch (resultCode) {
-                case UploadFilesActivity.RESULT_OK_AND_MOVE -> FileUploader.LOCAL_BEHAVIOUR_MOVE;
-                case UploadFilesActivity.RESULT_OK_AND_DELETE -> FileUploader.LOCAL_BEHAVIOUR_DELETE;
-                default -> FileUploader.LOCAL_BEHAVIOUR_FORGET;
+                case UploadFilesActivity.RESULT_OK_AND_MOVE -> FileUploadWorker.LOCAL_BEHAVIOUR_MOVE;
+                case UploadFilesActivity.RESULT_OK_AND_DELETE -> FileUploadWorker.LOCAL_BEHAVIOUR_DELETE;
+                default -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET;
             };
 
-            FileUploader.uploadNewFile(getUser().orElseThrow(RuntimeException::new),
-                                       filePaths,
-                                       remotePaths,
-                                       behaviour,
-                                       true,
-                                       UploadFileOperation.CREATED_BY_USER,
-                                       false,
-                                       false,
-                                       NameCollisionPolicy.ASK_USER);
+            FileUploadHelper.Companion.instance().uploadNewFiles(getUser().orElseThrow(RuntimeException::new),
+                                                                 filePaths,
+                                                                 remotePaths,
+                                                                 behaviour,
+                                                                 true,
+                                                                 UploadFileOperation.CREATED_BY_USER,
+                                                                 false,
+                                                                 false,
+                                                                 NameCollisionPolicy.ASK_USER);
 
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
@@ -944,7 +944,7 @@ public class FileDisplayActivity extends FileActivity
             streamsToUpload.add(contentIntent.getData());
         }
 
-        int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploader.LOCAL_BEHAVIOUR_MOVE : FileUploader.LOCAL_BEHAVIOUR_COPY;
+        int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploadWorker.LOCAL_BEHAVIOUR_MOVE : FileUploadWorker.LOCAL_BEHAVIOUR_COPY;
 
         OCFile currentDir = getCurrentDir();
         String remotePath = (currentDir != null) ? currentDir.getRemotePath() : OCFile.ROOT_PATH;
@@ -1114,7 +1114,7 @@ public class FileDisplayActivity extends FileActivity
         }
 
         // Listen for upload messages
-        IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.getUploadFinishMessage());
+        IntentFilter uploadIntentFilter = new IntentFilter(FileUploadWorker.Companion.getUploadFinishMessage());
         mUploadFinishReceiver = new UploadFinishReceiver();
         localBroadcastManager.registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
 
@@ -1359,21 +1359,21 @@ public class FileDisplayActivity extends FileActivity
          */
         @Override
         public void onReceive(Context context, Intent intent) {
-            String uploadedRemotePath = intent.getStringExtra(FileUploader.EXTRA_REMOTE_PATH);
-            String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
+            String uploadedRemotePath = intent.getStringExtra(FileUploadWorker.EXTRA_REMOTE_PATH);
+            String accountName = intent.getStringExtra(FileUploadWorker.ACCOUNT_NAME);
             boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name);
             OCFile currentDir = getCurrentDir();
             boolean isDescendant = currentDir != null && uploadedRemotePath != null && uploadedRemotePath.startsWith(currentDir.getRemotePath());
 
             if (sameAccount && isDescendant) {
-                String linkedToRemotePath = intent.getStringExtra(FileUploader.EXTRA_LINKED_TO_PATH);
+                String linkedToRemotePath = intent.getStringExtra(FileUploadWorker.EXTRA_LINKED_TO_PATH);
                 if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
                     updateListOfFilesFragment(false);
                 }
             }
 
-            boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false);
-            boolean renamedInUpload = getFile().getRemotePath().equals(intent.getStringExtra(FileUploader.EXTRA_OLD_REMOTE_PATH));
+            boolean uploadWasFine = intent.getBooleanExtra(FileUploadWorker.EXTRA_UPLOAD_RESULT, false);
+            boolean renamedInUpload = getFile().getRemotePath().equals(intent.getStringExtra(FileUploadWorker.EXTRA_OLD_REMOTE_PATH));
 
             boolean sameFile = getFile().getRemotePath().equals(uploadedRemotePath) || renamedInUpload;
             Fragment details = getLeftFragment();
@@ -1567,6 +1567,8 @@ public class FileDisplayActivity extends FileActivity
             if (state instanceof WorkerState.Download) {
                 Log_OC.d(TAG, "Download worker started");
                 handleDownloadWorkerState();
+            } else if (state instanceof WorkerState.Idle) {
+                fileDownloadProgressListener = null;
             }
         });
     }
@@ -1587,31 +1589,12 @@ public class FileDisplayActivity extends FileActivity
 
     /**
      * Defines callbacks for service binding, passed to bindService()
+     * TODO: Check if this can be removed since download and uploads uses work manager now.
      */
     private class ListServiceConnection implements ServiceConnection {
 
         @Override
-        public void onServiceConnected(ComponentName component, IBinder service) {
-            if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
-                Log_OC.d(TAG, "Upload service connected");
-                mUploaderBinder = (FileUploaderBinder) service;
-            } else {
-                return;
-            }
-
-            // a new chance to get the mDownloadBinder through
-            // getFileDownloadBinder() - THIS IS A MESS
-            OCFileListFragment listOfFiles = getListOfFilesFragment();
-            if (listOfFiles != null && (getIntent() == null || (getIntent() != null &&
-                IntentExtensionsKt.getParcelableArgument(getIntent(), EXTRA_FILE, OCFile.class) == null))) {
-                listOfFiles.listDirectory(MainApp.isOnlyOnDevice(), false);
-            }
-
-            Fragment leftFragment = getLeftFragment();
-            if (leftFragment instanceof FileDetailFragment detailFragment) {
-                detailFragment.listenForTransferProgress();
-                detailFragment.updateFileDetails(false, false);
-            }
+        public void onServiceConnected(ComponentName name, IBinder service) {
         }
 
         @Override
@@ -1619,9 +1602,6 @@ public class FileDisplayActivity extends FileActivity
             if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloadWorker.class))) {
                 Log_OC.d(TAG, "Download service disconnected");
                 fileDownloadProgressListener = null;
-            } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
-                Log_OC.d(TAG, "Upload service disconnected");
-                mUploaderBinder = null;
             }
         }
     }

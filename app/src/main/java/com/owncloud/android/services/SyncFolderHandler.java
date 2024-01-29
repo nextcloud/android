@@ -28,7 +28,7 @@ import android.os.Message;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.files.downloader.FileDownloadWorker;
+import com.nextcloud.client.jobs.download.FileDownloadWorker;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.IndexedForest;
 import com.owncloud.android.lib.common.OwnCloudAccount;

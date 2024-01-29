@@ -38,7 +38,8 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
-import com.nextcloud.client.files.downloader.FileDownloadWorker
+import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
@@ -499,14 +500,26 @@ internal class BackgroundJobManagerImpl(
 
         workManager.enqueue(request)
     }
-    override fun startFilesUploadJob(user: User) {
-        val data = workDataOf(FilesUploadWorker.ACCOUNT to user.accountName)
 
-        val request = oneTimeRequestBuilder(FilesUploadWorker::class, JOB_FILES_UPLOAD, user)
+    private fun startFileUploadJobTag(user: User): String {
+        return JOB_FILES_UPLOAD + user.accountName
+    }
+
+    override fun isStartFileUploadJobScheduled(user: User): Boolean {
+        return workManager.isWorkScheduled(startFileUploadJobTag(user))
+    }
+
+    override fun startFilesUploadJob(user: User) {
+        val data = workDataOf(FileUploadWorker.ACCOUNT to user.accountName)
+
+        val tag = startFileUploadJobTag(user)
+
+        val request = oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
+            .addTag(tag)
             .setInputData(data)
             .build()
 
-        workManager.enqueueUniqueWork(JOB_FILES_UPLOAD + user.accountName, ExistingWorkPolicy.KEEP, request)
+        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, request)
     }
 
     private fun startFileDownloadJobTag(user: User, fileId: Long): String {

@@ -23,7 +23,6 @@ package com.owncloud.android.operations;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.nextcloud.client.account.User;

@@ -46,6 +46,7 @@ import android.widget.LinearLayout;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -170,7 +171,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         this.viewThemeUtils = viewThemeUtils;
 
-        ocFileListDelegate = new OCFileListDelegate(activity,
+        ocFileListDelegate = new OCFileListDelegate(FileUploadHelper.Companion.instance(),
+                                                    activity,
                                                     ocFileListFragmentInterface,
                                                     user,
                                                     mStorageManager,

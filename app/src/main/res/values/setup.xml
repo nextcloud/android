@@ -89,7 +89,7 @@
     <string name="syncedFolder_remote_folder">@string/auto_upload_path</string>
     <bool name="syncedFolder_light_on_charging">false</bool>
     <bool name="syncedFolder_light_use_subfolders">false</bool>
-    <string name="syncedFolder_light_upload_behaviour">FileUploader.LOCAL_BEHAVIOUR_FORGET</string>
+    <string name="syncedFolder_light_upload_behaviour">FilesUploadWorker.LOCAL_BEHAVIOUR_FORGET</string>
 
     <!--Destination mail for sending log files -->
     <string name="mail_logger"></string>

@@ -33,7 +33,7 @@ import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
-import com.nextcloud.client.files.downloader.FileDownloadHelper
+import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
