@@ -15,7 +15,6 @@ import java.util.concurrent.ExecutionException
 
 fun WorkManager.isWorkScheduled(tag: String): Boolean {
     val statuses: ListenableFuture<List<WorkInfo>> = this.getWorkInfosByTag(tag)
-    var running = false
     var workInfoList: List<WorkInfo> = emptyList()
 
     try {
@@ -26,17 +25,13 @@ fun WorkManager.isWorkScheduled(tag: String): Boolean {
         Log_OC.d("Worker", "InterruptedException in isWorkScheduled: $e")
     }
 
-    for (workInfo in workInfoList) {
-        val state = workInfo.state
-        running = running || (state == WorkInfo.State.RUNNING || state == WorkInfo.State.ENQUEUED)
+    return workInfoList.any {
+        it.state == WorkInfo.State.RUNNING || it.state == WorkInfo.State.ENQUEUED
     }
-
-    return running
 }
 
 fun WorkManager.isWorkRunning(tag: String): Boolean {
     val statuses: ListenableFuture<List<WorkInfo>> = this.getWorkInfosByTag(tag)
-    var running = false
     var workInfoList: List<WorkInfo> = emptyList()
 
     try {
@@ -47,10 +42,7 @@ fun WorkManager.isWorkRunning(tag: String): Boolean {
         Log_OC.d("Worker", "InterruptedException in isWorkScheduled: $e")
     }
 
-    for (workInfo in workInfoList) {
-        val state = workInfo.state
-        running = running || state == WorkInfo.State.RUNNING
+    return workInfoList.any {
+        it.state == WorkInfo.State.RUNNING
     }
-
-    return running
 }
