@@ -77,7 +77,10 @@
             <trusting group="org.osmdroid" name="osmdroid-android" version="6.1.16"/>
             <trusting group="org.osmdroid" name="osmdroid-android" version="6.1.18"/>
          </trusted-key>
-         <trusted-key id="3D9CDB50E2EAB3AA068D74A188518C11ADAEFC68" group="pl.droidsonroids.gif" name="android-gif-drawable" version="1.2.27"/>
+         <trusted-key id="3D9CDB50E2EAB3AA068D74A188518C11ADAEFC68">
+            <trusting group="pl.droidsonroids.gif" name="android-gif-drawable" version="1.2.27"/>
+            <trusting group="pl.droidsonroids.gif" name="android-gif-drawable" version="1.2.28"/>
+         </trusted-key>
          <trusted-key id="44F4797A52C336FA666CD9271DE461528F1F1B2A" group="org.apache.jackrabbit"/>
          <trusted-key id="44FBDBBC1A00FE414F1C1873586654072EAD6677" group="org.sonatype.oss" name="oss-parent" version="9"/>
          <trusted-key id="474DA67C32063DCA7FFE9CB5760F395DC40D55A7" group="^io[.]noties($|([.].*))" regex="true"/>
