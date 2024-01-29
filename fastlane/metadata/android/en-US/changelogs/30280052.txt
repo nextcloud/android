@@ -1,4 +1,4 @@
-## 3.28.0 RC1 (January 17, 2024)
+## 3.28.0 RC2 (January 29, 2024)
 
 - E2E sharing
 - Bugfixes
