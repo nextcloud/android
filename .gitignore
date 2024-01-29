@@ -54,3 +54,4 @@ fastlane/Fastfile
 
 # python
 **/__pycache__/
+/gradle/verification-keyring.gpg
