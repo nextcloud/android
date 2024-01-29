@@ -173,7 +173,10 @@
          <trusted-key id="AFCC4C7594D09E2182C60E0F7A01B0F236E5430F" group="com.google.code.gson"/>
          <trusted-key id="B01128C8FD304FE48E6EED2C347CD0EAED975C5F" group="org.antlr"/>
          <trusted-key id="B02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD" group="io.grpc"/>
-         <trusted-key id="B087A0EB8416563AFE64CEBA4604091C01C3086A" group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.6.0"/>
+         <trusted-key id="B087A0EB8416563AFE64CEBA4604091C01C3086A">
+            <trusting group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.6.0"/>
+            <trusting group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.6.4"/>
+         </trusted-key>
          <trusted-key id="B69A63A5EF7183DBC09199AC26E74B6874AEE127" group="com.github.bumptech.glide" name="glide" version="3.8.0"/>
          <trusted-key id="B6E73D84EA4FCC47166087253FAAD2CD5ECBB314">
             <trusting group="commons-beanutils"/>
