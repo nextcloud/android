@@ -34,6 +34,7 @@ import android.os.RemoteException;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.OCUpload;
@@ -44,6 +45,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -734,6 +736,25 @@ public class UploadsStorageManager extends Observable {
                     upload.getOCUploadId(),
                     UploadStatus.UPLOAD_SUCCEEDED,
                     UploadResult.UPLOADED,
+                    upload.getRemotePath(),
+                    localPath
+                                  );
+            } else if (uploadResult.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT &&
+                new FileUploadHelper().isSameFileOnRemote(
+                    upload.getUser(), new File(upload.getStoragePath()), upload.getRemotePath(), upload.getContext())) {
+
+                updateUploadStatus(
+                    upload.getOCUploadId(),
+                    UploadStatus.UPLOAD_SUCCEEDED,
+                    UploadResult.SAME_FILE_CONFLICT,
+                    upload.getRemotePath(),
+                    localPath
+                                  );
+            } else if (uploadResult.getCode() == RemoteOperationResult.ResultCode.LOCAL_FILE_NOT_FOUND) {
+                updateUploadStatus(
+                    upload.getOCUploadId(),
+                    UploadStatus.UPLOAD_SUCCEEDED,
+                    UploadResult.FILE_NOT_FOUND,
                     upload.getRemotePath(),
                     localPath
                                   );

@@ -259,6 +259,14 @@ class FileUploadWorker(
             return
         }
 
+        // Only notify if it is not same file on remote that causes conflict
+        if (uploadResult.code == ResultCode.SYNC_CONFLICT && FileUploadHelper().isSameFileOnRemote(
+                uploadFileOperation.user, File(uploadFileOperation.storagePath), uploadFileOperation.remotePath, context
+            )
+        ) {
+            return
+        }
+
         val notDelayed = uploadResult.code !in setOf(
             ResultCode.DELAYED_FOR_WIFI,
             ResultCode.DELAYED_FOR_CHARGING,

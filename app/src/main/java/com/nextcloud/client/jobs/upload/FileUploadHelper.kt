@@ -39,7 +39,11 @@ import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
+import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.utils.FileUtil
 import java.io.File
 import javax.inject.Inject
 
@@ -253,6 +257,25 @@ class FileUploadHelper {
         if (mBoundListeners[targetKey] === listener) {
             mBoundListeners.remove(targetKey)
         }
+    }
+
+    @Suppress("MagicNumber")
+    fun isSameFileOnRemote(user: User, localFile: File, remotePath: String, context: Context): Boolean {
+        // Compare remote file to local file
+        val localLastModifiedTimestamp = localFile.lastModified() / 1000 // remote file timestamp in milli not micro sec
+        val localCreationTimestamp = FileUtil.getCreationTimestamp(localFile)
+        val localSize: Long = localFile.length()
+
+        val operation = ReadFileRemoteOperation(remotePath)
+        val result: RemoteOperationResult<*> = operation.execute(user, context)
+        if (result.isSuccess) {
+            val remoteFile = result.data[0] as RemoteFile
+            return remoteFile.size == localSize &&
+                localCreationTimestamp != null &&
+                localCreationTimestamp == remoteFile.creationTimestamp &&
+                remoteFile.modifiedTimestamp == localLastModifiedTimestamp * 1000
+        }
+        return false
     }
 
     class UploadNotificationActionReceiver : BroadcastReceiver() {
