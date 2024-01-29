@@ -765,7 +765,7 @@
     <string name="stream_not_possible_headline">内部ストリーミングは不可能</string>
     <string name="stream_not_possible_message">代わりにメディアをダウンロードするか、外部アプリを使用してください。</string>
     <string name="strict_mode">ストリクトモード：HTTP接続が許可されていません！</string>
-    <string name="sub_folder_rule_day">念/月/日</string>
+    <string name="sub_folder_rule_day">年/月/日</string>
     <string name="sub_folder_rule_month">年/月</string>
     <string name="sub_folder_rule_year">年</string>
     <string name="subject_shared_with_you">\"%1$s\" があなたに共有されました</string>
