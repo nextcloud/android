@@ -45,7 +45,8 @@ public enum UploadResult {
     SYNC_CONFLICT(19),
     CANNOT_CREATE_FILE(20),
     LOCAL_STORAGE_NOT_COPIED(21),
-    QUOTA_EXCEEDED(22);
+    QUOTA_EXCEEDED(22),
+    SAME_FILE_CONFLICT(23);
 
     private final int value;
 
@@ -107,6 +108,8 @@ public enum UploadResult {
                 return LOCAL_STORAGE_NOT_COPIED;
             case 22:
                 return QUOTA_EXCEEDED;
+            case 23:
+                return SAME_FILE_CONFLICT;
         }
         return UNKNOWN;
     }

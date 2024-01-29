@@ -22,6 +22,7 @@
 
 package com.owncloud.android.utils
 
+import android.content.Context
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.MainApp
@@ -31,7 +32,11 @@ import com.owncloud.android.db.OCUpload
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
+import com.owncloud.android.lib.resources.files.model.RemoteFile
+import java.io.File
 import javax.inject.Inject
 
 class FilesUploadHelper {
@@ -132,6 +137,26 @@ class FilesUploadHelper {
             mBoundListeners.remove(targetKey)
         }
     }
+
+    @Suppress("MagicNumber")
+    fun isSameFileOnRemote(user: User, localFile: File, remotePath: String, context: Context): Boolean {
+        // Compare remote file to local file
+        val localLastModifiedTimestamp = localFile.lastModified() / 1000 // remote file timestamp in milli not micro sec
+        val localCreationTimestamp = FileUtil.getCreationTimestamp(localFile)
+        val localSize: Long = localFile.length()
+
+        val operation = ReadFileRemoteOperation(remotePath)
+        val result: RemoteOperationResult<*> = operation.execute(user, context)
+        if (result.isSuccess) {
+            val remoteFile = result.data[0] as RemoteFile
+            return remoteFile.size == localSize &&
+                localCreationTimestamp != null &&
+                localCreationTimestamp == remoteFile.creationTimestamp &&
+                remoteFile.modifiedTimestamp == localLastModifiedTimestamp * 1000
+        }
+        return false
+    }
+
 
     companion object Progress {
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
