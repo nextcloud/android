@@ -1683,7 +1683,7 @@ public static String decryptStringSymmetricAsString(String string,
                                                   ArbitraryDataProvider.E2E_ERRORS_TIMESTAMP);
 
         if (value > 0 && timestamp > 0) {
-            return new Problem(SendClientDiagnosticRemoteOperation.E2E_ERRORS, value, timestamp);
+            return new Problem(SendClientDiagnosticRemoteOperation.E2EE_ERRORS, value, timestamp);
         } else {
             return null;
         }
