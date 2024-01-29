@@ -308,6 +308,7 @@ class FilesUploadWorker(
     /**
      * adapted from [com.owncloud.android.files.services.FileUploader.notifyUploadResult]
      */
+    @Suppress("ReturnCount")
     private fun notifyUploadResult(
         uploadFileOperation: UploadFileOperation,
         uploadResult: RemoteOperationResult<Any?>
@@ -321,6 +322,14 @@ class FilesUploadWorker(
 
         // Only notify if the upload fails
         if (uploadResult.isCancelled) {
+            return
+        }
+
+        // Only notify if it is not same file on remote that causes conflict
+        if (uploadResult.code == ResultCode.SYNC_CONFLICT && FilesUploadHelper().isSameFileOnRemote(
+                uploadFileOperation.user, File(uploadFileOperation.storagePath), uploadFileOperation.remotePath, context
+            )
+        ) {
             return
         }
 
