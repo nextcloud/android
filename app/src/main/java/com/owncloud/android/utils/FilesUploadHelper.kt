@@ -157,7 +157,6 @@ class FilesUploadHelper {
         return false
     }
 
-
     companion object Progress {
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
 

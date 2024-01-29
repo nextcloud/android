@@ -333,7 +333,6 @@ class FilesUploadWorker(
             return
         }
 
-
         val notDelayed = uploadResult.code != ResultCode.DELAYED_FOR_WIFI &&
             uploadResult.code != ResultCode.DELAYED_FOR_CHARGING &&
             uploadResult.code != ResultCode.DELAYED_IN_POWER_SAVE_MODE
