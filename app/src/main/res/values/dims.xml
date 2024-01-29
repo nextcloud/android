@@ -154,7 +154,7 @@
     <dimen name="default_login_width">400dp</dimen>
     <dimen name="dialogBorderRadius">24dp</dimen>
     <dimen name="dialog_padding">24dp</dimen>
-    <dimen name="splash_image_size">116dp</dimen>
+    <dimen name="splash_image_size">180dp</dimen>
     <dimen name="splash_text_size">20sp</dimen>
     <integer name="small_margin">5</integer>
     <integer name="zero">0</integer>
