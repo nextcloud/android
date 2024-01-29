@@ -322,7 +322,7 @@ dependencies {
     // dependencies for image cropping and rotation
     implementation 'com.vanniktech:android-image-cropper:4.5.0'
 
-    implementation 'org.osmdroid:osmdroid-android:6.1.16'
+    implementation 'org.osmdroid:osmdroid-android:6.1.18'
 
     implementation('org.mnode.ical4j:ical4j:3.0.0') {
         ['org.apache.commons', 'commons-logging'].each {
