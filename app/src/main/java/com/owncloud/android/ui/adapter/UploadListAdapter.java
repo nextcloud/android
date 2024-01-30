@@ -304,8 +304,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         }
 
         // show status if same file conflict or local file deleted
-        if (item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED &&
-        item.getLastResult() != UploadResult.UPLOADED){
+        if (item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED && item.getLastResult() != UploadResult.UPLOADED){
             itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
             itemViewHolder.binding.uploadStatus.setTypeface(null, Typeface.BOLD);
             itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
