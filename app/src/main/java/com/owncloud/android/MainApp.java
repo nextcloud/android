@@ -710,6 +710,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     // user agent
     private static String getUserAgent(@StringRes int agent) {
         String appString = getAppContext().getResources().getString(agent);
+        String brandedName = getAppContext().getString(R.string.name_for_branded_user_agent);
         String packageName = getAppContext().getPackageName();
         String version = "";
 
@@ -722,7 +723,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             Log_OC.e(TAG, "Trying to get packageName", e.getCause());
         }
 
-        return String.format(appString, version);
+        return String.format(appString, version, brandedName);
     }
 
     private static void updateToAutoUpload() {
