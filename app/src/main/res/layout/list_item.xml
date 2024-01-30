@@ -89,8 +89,8 @@
 
         <TextView
             android:id="@+id/extension"
-            android:layout_width="20dp"
-            android:layout_height="@dimen/grid_bottom_view_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:singleLine="true"
             tools:visibility="visible"
