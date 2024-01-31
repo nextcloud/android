@@ -932,6 +932,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Hämtar serverversion</string>
     <string name="uploads_view_upload_status_service_interrupted">App avslutad</string>
     <string name="uploads_view_upload_status_succeeded">Slutförande</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Samma fil hittades på server, hoppar över uppladdning.</string>
     <string name="uploads_view_upload_status_unknown_fail">Okänt fel</string>
     <string name="uploads_view_upload_status_virus_detected">Virus upptäckt. Uppladdningen kan inte slutföras!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Väntar på att avsluta energisparläge</string>

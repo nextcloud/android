@@ -934,6 +934,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">正在擷取伺服器版本……</string>
     <string name="uploads_view_upload_status_service_interrupted">應用程式已被終止</string>
     <string name="uploads_view_upload_status_succeeded">完成</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">遠端找到相同的檔案，略過上傳</string>
     <string name="uploads_view_upload_status_unknown_fail">未知的錯誤</string>
     <string name="uploads_view_upload_status_virus_detected">偵測到病毒。上傳失敗！</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">等待省電模式解除</string>
