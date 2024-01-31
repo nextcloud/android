@@ -935,6 +935,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Serverversion wird abgerufen …</string>
     <string name="uploads_view_upload_status_service_interrupted">App beendet</string>
     <string name="uploads_view_upload_status_succeeded">Fertiggestellt</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Gleiche Datei auf dem Remote-Server gefunden, überspringe das Hochladen</string>
     <string name="uploads_view_upload_status_unknown_fail">Unbekannter Fehler</string>
     <string name="uploads_view_upload_status_virus_detected">Virus gefunden. Das Hochladen kann nicht abgeschlossen werden!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Warte auf Verlassen des Energiesparmodus</string>

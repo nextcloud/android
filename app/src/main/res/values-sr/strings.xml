@@ -934,6 +934,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Добављам серверску верзију…</string>
     <string name="uploads_view_upload_status_service_interrupted">Апликација прекинута</string>
     <string name="uploads_view_upload_status_succeeded">Завршено</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Исти фајл је пронађен на удаљеном серверу, отпремање се прескаче</string>
     <string name="uploads_view_upload_status_unknown_fail">Непозната грешка</string>
     <string name="uploads_view_upload_status_virus_detected">Вирус откривен. Отпремање не може да се заврши!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Чекам излазак из режима уштеде енергије</string>
