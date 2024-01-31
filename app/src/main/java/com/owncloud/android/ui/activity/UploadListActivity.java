@@ -25,13 +25,10 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,15 +39,17 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.utils.Throttler;
+import com.nextcloud.model.WorkerState;
+import com.nextcloud.model.WorkerStateLiveData;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -146,6 +145,20 @@ public class UploadListActivity extends FileActivity {
         setupDrawer(R.id.nav_uploads);
 
         setupContent();
+        observeWorkerState();
+    }
+
+    private void observeWorkerState() {
+        WorkerStateLiveData.Companion.instance().observe(this, state -> {
+            if (state instanceof WorkerState.Upload) {
+                Log_OC.d(TAG, "Upload worker started");
+                handleUploadWorkerState();
+            }
+        });
+    }
+
+    private void handleUploadWorkerState() {
+        uploadListAdapter.loadUploadItemsFromDb();
     }
 
     private void setupContent() {
@@ -180,6 +193,7 @@ public class UploadListActivity extends FileActivity {
         swipeListRefreshLayout.setOnRefreshListener(this::refresh);
 
         loadItems();
+        uploadListAdapter.loadUploadItemsFromDb();
     }
 
     private void loadItems() {
@@ -197,9 +211,7 @@ public class UploadListActivity extends FileActivity {
         backgroundJobManager.startImmediateFilesSyncJob(false, true);
 
         if(uploadsStorageManager.getFailedUploads().length > 0){
-            // retry failed uploads
-            new Thread(() -> FileUploader.retryFailedUploads(
-                this,
+            new Thread(() -> FileUploadHelper.Companion.instance().retryFailedUploads(
                 uploadsStorageManager,
                 connectivityService,
                 userAccountManager,
@@ -229,9 +241,9 @@ public class UploadListActivity extends FileActivity {
         // Listen for upload messages
         uploadMessagesReceiver = new UploadMessagesReceiver();
         IntentFilter uploadIntentFilter = new IntentFilter();
-        uploadIntentFilter.addAction(FileUploader.getUploadsAddedMessage());
-        uploadIntentFilter.addAction(FileUploader.getUploadStartMessage());
-        uploadIntentFilter.addAction(FileUploader.getUploadFinishMessage());
+        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadsAddedMessage());
+        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadStartMessage());
+        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadFinishMessage());
         localBroadcastManager.registerReceiver(uploadMessagesReceiver, uploadIntentFilter);
 
         Log_OC.v(TAG, "onResume() end");
@@ -316,44 +328,6 @@ public class UploadListActivity extends FileActivity {
 
         } else {
             super.onRemoteOperationFinish(operation, result);
-        }
-    }
-
-
-    @Override
-    protected ServiceConnection newTransferenceServiceConnection() {
-        return new UploadListServiceConnection();
-    }
-
-    /**
-     * Defines callbacks for service binding, passed to bindService()
-     */
-    private class UploadListServiceConnection implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName component, IBinder service) {
-            if (service instanceof FileUploaderBinder) {
-                if (mUploaderBinder == null) {
-                    mUploaderBinder = (FileUploaderBinder) service;
-                    Log_OC.d(TAG, "UploadListActivity connected to Upload service. component: " +
-                            component + " service: " + service);
-                    uploadListAdapter.loadUploadItemsFromDb();
-                } else {
-                    Log_OC.d(TAG, "mUploaderBinder already set. mUploaderBinder: " +
-                        mUploaderBinder + " service:" + service);
-                }
-            } else {
-                Log_OC.d(TAG, "UploadListActivity not connected to Upload service. component: " +
-                    component + " service: " + service);
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(UploadListActivity.this, FileUploader.class))) {
-                Log_OC.d(TAG, "UploadListActivity suddenly disconnected from Upload service");
-                mUploaderBinder = null;
-            }
         }
     }
 

@@ -19,7 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.client.files.downloader
+package com.nextcloud.client.jobs.download
 
 import android.app.Notification
 import android.app.NotificationManager
@@ -45,7 +45,6 @@ class DownloadNotificationManager(
     private val context: Context,
     private val viewThemeUtils: ViewThemeUtils
 ) {
-
     private var notification: Notification
     private var notificationBuilder: NotificationCompat.Builder
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -53,6 +52,7 @@ class DownloadNotificationManager(
     init {
         notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
             setContentTitle(context.getString(R.string.downloader_download_in_progress_ticker))
+            setTicker(context.getString(R.string.downloader_download_in_progress_ticker))
             setSmallIcon(R.drawable.notification_icon)
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
 

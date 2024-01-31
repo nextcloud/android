@@ -24,12 +24,12 @@ package com.owncloud.android;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -134,7 +134,7 @@ public class UploadIT extends AbstractOnServerIT {
                                          FOLDER + "nonEmpty.txt",
                                          account.name);
 
-        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_COPY);
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_COPY);
 
         File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt");
@@ -150,7 +150,7 @@ public class UploadIT extends AbstractOnServerIT {
                                          FOLDER + "nonEmpty.txt",
                                          account.name);
 
-        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_MOVE);
 
         File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt");
@@ -166,7 +166,7 @@ public class UploadIT extends AbstractOnServerIT {
                                          FOLDER + "nonEmpty.txt",
                                          account.name);
 
-        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_FORGET);
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_FORGET);
 
         File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt");
@@ -182,7 +182,7 @@ public class UploadIT extends AbstractOnServerIT {
                                          FOLDER + "nonEmpty.txt",
                                          account.name);
 
-        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_DELETE);
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_DELETE);
 
         File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt");
@@ -222,7 +222,7 @@ public class UploadIT extends AbstractOnServerIT {
             null,
             ocUpload,
             NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             false,
             true,
@@ -270,7 +270,7 @@ public class UploadIT extends AbstractOnServerIT {
             null,
             ocUpload,
             NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             false,
             true,
@@ -315,7 +315,7 @@ public class UploadIT extends AbstractOnServerIT {
             null,
             ocUpload,
             NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             true,
             false,
@@ -345,7 +345,7 @@ public class UploadIT extends AbstractOnServerIT {
             null,
             ocUpload,
             NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             true,
             false,
@@ -400,7 +400,7 @@ public class UploadIT extends AbstractOnServerIT {
             null,
             ocUpload,
             NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             true,
             false,
@@ -433,7 +433,7 @@ public class UploadIT extends AbstractOnServerIT {
                 null,
                 ocUpload,
                 NameCollisionPolicy.DEFAULT,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
+                FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
                 false,
@@ -480,18 +480,18 @@ public class UploadIT extends AbstractOnServerIT {
 
         assertTrue(
                 new UploadFileOperation(
-                        uploadsStorageManager,
-                        connectivityServiceMock,
-                        powerManagementServiceMock,
-                        user,
-                        null,
-                        ocUpload,
-                        NameCollisionPolicy.DEFAULT,
-                        FileUploader.LOCAL_BEHAVIOUR_COPY,
-                        targetContext,
-                        false,
-                        false,
-                        getStorageManager()
+                    uploadsStorageManager,
+                    connectivityServiceMock,
+                    powerManagementServiceMock,
+                    user,
+                    null,
+                    ocUpload,
+                    NameCollisionPolicy.DEFAULT,
+                    FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
+                    targetContext,
+                    false,
+                    false,
+                    getStorageManager()
                 )
                         .setRemoteFolderToBeCreated()
                         .execute(client)

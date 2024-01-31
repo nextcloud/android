@@ -34,11 +34,11 @@ import android.os.RemoteException;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.db.UploadResult;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -726,7 +726,7 @@ public class UploadsStorageManager extends Observable {
                 upload.getRemotePath()
                         );
         } else {
-            String localPath = (FileUploader.LOCAL_BEHAVIOUR_MOVE == upload.getLocalBehaviour())
+            String localPath = (FileUploadWorker.LOCAL_BEHAVIOUR_MOVE == upload.getLocalBehaviour())
                 ? upload.getStoragePath() : null;
 
             if (uploadResult.isSuccess()) {
@@ -753,7 +753,7 @@ public class UploadsStorageManager extends Observable {
      * Updates the persistent upload database with an upload now in progress.
      */
     public void updateDatabaseUploadStart(UploadFileOperation upload) {
-        String localPath = (FileUploader.LOCAL_BEHAVIOUR_MOVE == upload.getLocalBehaviour())
+        String localPath = (FileUploadWorker.LOCAL_BEHAVIOUR_MOVE == upload.getLocalBehaviour())
             ? upload.getStoragePath() : null;
 
         updateUploadStatus(

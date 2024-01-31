@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.nextcloud.client.files.downloader
+package com.nextcloud.client.files.download
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nextcloud.client.account.User
@@ -25,10 +25,11 @@ import com.nextcloud.client.core.ManualAsyncRunner
 import com.nextcloud.client.core.OnProgressCallback
 import com.nextcloud.client.files.DownloadRequest
 import com.nextcloud.client.files.Request
-import com.nextcloud.client.files.transfer.Transfer
-import com.nextcloud.client.files.transfer.TransferManagerImpl
-import com.nextcloud.client.files.transfer.TransferState
-import com.nextcloud.client.files.upload.UploadTask
+import com.nextcloud.client.jobs.download.DownloadTask
+import com.nextcloud.client.jobs.transfer.Transfer
+import com.nextcloud.client.jobs.transfer.TransferManagerImpl
+import com.nextcloud.client.jobs.transfer.TransferState
+import com.nextcloud.client.jobs.upload.UploadTask
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
 import io.mockk.MockKAnnotations

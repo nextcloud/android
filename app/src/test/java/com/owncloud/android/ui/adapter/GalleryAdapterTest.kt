@@ -24,6 +24,7 @@ package com.owncloud.android.ui.adapter
 
 import android.content.Context
 import com.nextcloud.client.account.User
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
@@ -61,6 +62,9 @@ class GalleryAdapterTest {
     lateinit var storageManager: FileDataStorageManager
 
     @Mock
+    lateinit var fileUploadHelper: FileUploadHelper
+
+    @Mock
     lateinit var viewThemeUtils: ViewThemeUtils
 
     private lateinit var mocks: AutoCloseable
@@ -78,6 +82,8 @@ class GalleryAdapterTest {
     @Test
     fun testItemCount() {
         whenever(transferServiceGetter.storageManager) doReturn storageManager
+        whenever(transferServiceGetter.fileUploaderHelper) doReturn fileUploadHelper
+
         val thumbnailSize = 50
 
         val sut = GalleryAdapter(

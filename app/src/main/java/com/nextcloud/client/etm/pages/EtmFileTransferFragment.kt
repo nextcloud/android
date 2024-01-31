@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.etm.EtmBaseFragment
 import com.nextcloud.client.files.DownloadRequest
 import com.nextcloud.client.files.UploadRequest
-import com.nextcloud.client.files.transfer.Transfer
-import com.nextcloud.client.files.transfer.TransferManager
+import com.nextcloud.client.jobs.transfer.Transfer
+import com.nextcloud.client.jobs.transfer.TransferManager
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload

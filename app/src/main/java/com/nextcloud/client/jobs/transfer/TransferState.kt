@@ -1,10 +1,8 @@
 /*
- *
  * Nextcloud Android client application
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2022 Tobias Kaminsky
- * Copyright (C) 2022 Nextcloud GmbH
+ * @author Chris Narkiewicz
+ * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,22 +15,13 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client.jobs.transfer
 
-package com.owncloud.android.files.services
-
-import org.junit.After
-import org.junit.Before
-
-class FileUploadWorkerIT : FileUploaderIT() {
-    @Before
-    fun forceUploadWorker() {
-        FileUploader.setForceNewUploadWorker(true)
-    }
-
-    @After
-    fun resetForceUploadWorker() {
-        FileUploader.setForceNewUploadWorker(false)
-    }
+enum class TransferState {
+    PENDING,
+    RUNNING,
+    COMPLETED,
+    FAILED
 }

@@ -909,6 +909,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">在來源資料夾保留檔案</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">刪除來源資料夾中的檔案</string>
     <string name="uploader_upload_forbidden_permissions">上傳至此資料夾</string>
+    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% 上傳 %2$s 中</string>
     <string name="uploader_upload_in_progress_ticker">上傳中…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s 已上傳</string>
@@ -933,6 +934,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">取得伺服器的版本中...</string>
     <string name="uploads_view_upload_status_service_interrupted">App 中斷運作</string>
     <string name="uploads_view_upload_status_succeeded">完成</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">遠端找到相同的檔案，跳過上傳。</string>
     <string name="uploads_view_upload_status_unknown_fail">錯誤不詳</string>
     <string name="uploads_view_upload_status_virus_detected">檢測到病毒。上傳無法完成！</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">等待省電模式解除</string>

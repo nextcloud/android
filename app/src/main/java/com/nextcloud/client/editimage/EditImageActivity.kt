@@ -34,17 +34,17 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.canhub.cropper.CropImageView
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityEditImageBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.FilesUploadHelper
 import com.owncloud.android.utils.MimeType
 import java.io.File
 
@@ -112,7 +112,7 @@ class EditImageActivity :
             resultUri?.substring(resultUri.lastIndexOf('.'))
 
         resultUri?.let {
-            FilesUploadHelper().uploadNewFiles(
+            FileUploadHelper().uploadNewFiles(
                 user = storageManager.user,
                 localPaths = arrayOf(it),
                 remotePaths = arrayOf(file.parentRemotePath + File.separator + newFileName),
@@ -121,7 +121,7 @@ class EditImageActivity :
                 requiresWifi = false,
                 requiresCharging = false,
                 nameCollisionPolicy = NameCollisionPolicy.RENAME,
-                localBehavior = FileUploader.LOCAL_BEHAVIOUR_DELETE
+                localBehavior = FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
             )
         }
     }

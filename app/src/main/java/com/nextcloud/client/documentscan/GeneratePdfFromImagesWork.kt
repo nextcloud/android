@@ -32,10 +32,11 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.AnonymousUser
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
@@ -122,11 +123,11 @@ class GeneratePdfFromImagesWork(
     private fun uploadFile(user: User, uploadFolder: String, pdfPath: String) {
         val uploadPath = uploadFolder + OCFile.PATH_SEPARATOR + File(pdfPath).name
 
-        FileUploader.uploadNewFile(
+        FileUploadHelper().uploadNewFiles(
             user,
-            pdfPath,
-            uploadPath,
-            FileUploader.LOCAL_BEHAVIOUR_DELETE, // MIME type will be detected from file name
+            arrayOf(pdfPath),
+            arrayOf(uploadPath),
+            FileUploadWorker.LOCAL_BEHAVIOUR_DELETE, // MIME type will be detected from file name
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,

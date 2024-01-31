@@ -29,6 +29,7 @@ import android.text.TextUtils;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -45,7 +46,6 @@ import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFile;
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -1019,7 +1019,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private RemoteOperationResult copyFile(File originalFile, String expectedPath) throws OperationCancelledException,
         IOException {
-        if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY && !mOriginalStoragePath.equals(expectedPath)) {
+        if (mLocalBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_COPY && !mOriginalStoragePath.equals(expectedPath)) {
             String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) +
                 mFile.getRemotePath();
             mFile.setStoragePath(temporalPath);
@@ -1077,20 +1077,20 @@ public class UploadFileOperation extends SyncOperation {
                                         File originalFile,
                                         OwnCloudClient client) {
         switch (mLocalBehaviour) {
-            case FileUploader.LOCAL_BEHAVIOUR_FORGET:
+            case FileUploadWorker.LOCAL_BEHAVIOUR_FORGET:
             default:
                 mFile.setStoragePath("");
                 saveUploadedFile(client);
                 break;
 
-            case FileUploader.LOCAL_BEHAVIOUR_DELETE:
+            case FileUploadWorker.LOCAL_BEHAVIOUR_DELETE:
                 originalFile.delete();
                 mFile.setStoragePath("");
                 getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
                 saveUploadedFile(client);
                 break;
 
-            case FileUploader.LOCAL_BEHAVIOUR_COPY:
+            case FileUploadWorker.LOCAL_BEHAVIOUR_COPY:
                 if (temporalFile != null) {
                     try {
                         move(temporalFile, expectedFile);
@@ -1111,7 +1111,7 @@ public class UploadFileOperation extends SyncOperation {
                 }
                 break;
 
-            case FileUploader.LOCAL_BEHAVIOUR_MOVE:
+            case FileUploadWorker.LOCAL_BEHAVIOUR_MOVE:
                 String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
                 File newFile = new File(expectedPath);
 

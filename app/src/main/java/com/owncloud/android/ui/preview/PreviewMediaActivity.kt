@@ -62,8 +62,8 @@ import androidx.media3.ui.PlayerView
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.files.downloader.FileDownloadHelper
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
 import com.nextcloud.client.media.PlayerServiceConnection

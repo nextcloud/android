@@ -34,8 +34,9 @@ import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
-import com.nextcloud.client.files.downloader.FileDownloadWorker
 import com.nextcloud.client.integrations.deck.DeckApi
+import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
@@ -102,7 +103,7 @@ class BackgroundJobFactory @Inject constructor(
                 CalendarBackupWork::class -> createCalendarBackupWork(context, workerParameters)
                 CalendarImportWork::class -> createCalendarImportWork(context, workerParameters)
                 FilesExportWork::class -> createFilesExportWork(context, workerParameters)
-                FilesUploadWorker::class -> createFilesUploadWorker(context, workerParameters)
+                FileUploadWorker::class -> createFilesUploadWorker(context, workerParameters)
                 FileDownloadWorker::class -> createFilesDownloadWorker(context, workerParameters)
                 GeneratePdfFromImagesWork::class -> createPDFGenerateWork(context, workerParameters)
                 HealthStatusWork::class -> createHealthStatusWork(context, workerParameters)
@@ -241,8 +242,8 @@ class BackgroundJobFactory @Inject constructor(
         )
     }
 
-    private fun createFilesUploadWorker(context: Context, params: WorkerParameters): FilesUploadWorker {
-        return FilesUploadWorker(
+    private fun createFilesUploadWorker(context: Context, params: WorkerParameters): FileUploadWorker {
+        return FileUploadWorker(
             uploadsStorageManager,
             connectivityService,
             powerManagementService,

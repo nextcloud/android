@@ -25,7 +25,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.files.downloader.FileDownloadHelper;
+import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
@@ -294,7 +294,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         if (mLocalFolder.isEncrypted() && object == null) {
             throw new IllegalStateException("metadata is null!");
         }
-        
+
         // get current data about local contents of the folder to synchronize
         Map<String, OCFile> localFilesMap;
         E2EVersion e2EVersion;
@@ -308,7 +308,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             localFilesMap = RefreshFolderOperation.prefillLocalFilesMap((DecryptedFolderMetadataFile) object,
                                                                         storageManager.getFolderContent(mLocalFolder, false));
         }
-        
+
         // loop to synchronize every child
         List<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
         OCFile remoteFile;
@@ -421,7 +421,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
 
-    @SuppressFBWarnings("JLM")
     private void prepareOpsFromLocalKnowledge() throws OperationCancelledException {
         List<OCFile> children = getStorageManager().getFolderContent(mLocalFolder, false);
         for (OCFile child : children) {

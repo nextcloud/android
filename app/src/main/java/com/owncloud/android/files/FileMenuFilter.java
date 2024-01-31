@@ -31,12 +31,12 @@ import android.view.Menu;
 import com.nextcloud.android.files.FileLockingHelper;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.editimage.EditImageActivity;
-import com.nextcloud.client.files.downloader.FileDownloadHelper;
+import com.nextcloud.client.jobs.download.FileDownloadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -383,10 +383,9 @@ public class FileMenuFilter {
         boolean synchronizing = false;
         if (componentsGetter != null && !files.isEmpty() && user != null) {
             OperationsServiceBinder opsBinder = componentsGetter.getOperationsServiceBinder();
-            FileUploaderBinder uploaderBinder = componentsGetter.getFileUploaderBinder();
             synchronizing = anyFileSynchronizing(opsBinder) ||      // comparing local and remote
-                            anyFileDownloading() ||
-                            anyFileUploading(uploaderBinder);
+                anyFileDownloading() ||
+                anyFileUploading();
         }
         return synchronizing;
     }
@@ -411,21 +410,20 @@ public class FileMenuFilter {
         return false;
     }
 
-    private boolean anyFileUploading(FileUploaderBinder uploaderBinder) {
-        boolean uploading = false;
-        if (uploaderBinder != null) {
-            for (Iterator<OCFile> iterator = files.iterator(); !uploading && iterator.hasNext(); ) {
-                uploading = uploaderBinder.isUploading(user, iterator.next());
+    private boolean anyFileUploading() {
+        for (OCFile file : files) {
+            if (FileUploadHelper.Companion.instance().isUploading(user, file)) {
+                return true;
             }
         }
-        return uploading;
+        return false;
     }
 
     private boolean isShareApiEnabled(OCCapability capability) {
         return capability != null &&
-                (capability.getFilesSharingApiEnabled().isTrue() ||
-                        capability.getFilesSharingApiEnabled().isUnknown()
-                );
+            (capability.getFilesSharingApiEnabled().isTrue() ||
+                capability.getFilesSharingApiEnabled().isUnknown()
+            );
     }
 
     private boolean isShareWithUsersAllowed() {

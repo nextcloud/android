@@ -1,10 +1,12 @@
 import com.github.spotbugs.snom.SpotBugsTask
+import com.github.spotbugs.snom.Confidence
+import com.github.spotbugs.snom.Effort
 import org.gradle.internal.jvm.Jvm
 
 buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$androidPluginVersion"
-        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:5.1.3'
+        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.7'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.4"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -250,12 +252,12 @@ dependencies {
     implementation 'org.apache.jackrabbit:jackrabbit-webdav:2.13.5' // remove after entire switch to lib v2
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'com.google.android.material:material:1.11.0'
     implementation 'com.jakewharton:disklrucache:2.0.2'
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation 'androidx.webkit:webkit:1.7.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.exifinterface:exifinterface:1.3.6'
+    implementation 'androidx.exifinterface:exifinterface:1.3.7'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
     implementation "androidx.work:work-runtime:$workRuntime"
     implementation "androidx.work:work-runtime-ktx:$workRuntime"
@@ -270,7 +272,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.github.nextcloud-deps:sectioned-recyclerview:0.6.1'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.27'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.28'
     implementation 'com.github.nextcloud-deps:qrcodescanner:0.1.2.4' // 'com.github.blikoon:QRCodeScanner:0.1.2'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation('com.github.bumptech.glide:glide:3.8.0') {
@@ -289,7 +291,7 @@ dependencies {
     qaImplementation project(':appscan')
 
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0'
-    spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.6.0'
+    spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.6.4'
 
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android:$daggerVersion"
@@ -299,9 +301,9 @@ dependencies {
 
     implementation 'org.conscrypt:conscrypt-android:2.5.2'
 
-    implementation "androidx.media3:media3-ui:1.2.0"
-    implementation "androidx.media3:media3-exoplayer:1.2.0"
-    implementation "androidx.media3:media3-datasource-okhttp:1.2.0"
+    implementation "androidx.media3:media3-ui:1.2.1"
+    implementation "androidx.media3:media3-exoplayer:1.2.1"
+    implementation "androidx.media3:media3-datasource-okhttp:1.2.1"
 
     implementation 'me.zhanghai.android.fastscroll:library:1.2.0'
 
@@ -322,7 +324,7 @@ dependencies {
     // dependencies for image cropping and rotation
     implementation 'com.vanniktech:android-image-cropper:4.5.0'
 
-    implementation 'org.osmdroid:osmdroid-android:6.1.16'
+    implementation 'org.osmdroid:osmdroid-android:6.1.18'
 
     implementation('org.mnode.ical4j:ical4j:3.0.0') {
         ['org.apache.commons', 'commons-logging'].each {
@@ -382,7 +384,7 @@ dependencies {
     gplayImplementation "com.google.firebase:firebase-messaging:23.2.1"
     gplayImplementation 'com.google.android.play:review-ktx:2.0.1'
 
-    implementation 'com.github.nextcloud.android-common:ui:0.13.0'
+    implementation 'com.github.nextcloud.android-common:ui:0.14.0'
 
     implementation "androidx.room:room-runtime:$roomVersion"
     ksp "androidx.room:room-compiler:$roomVersion"
@@ -442,8 +444,8 @@ jacoco {
 
 spotbugs {
     ignoreFailures = true // should continue checking
-    effort = "max"
-    reportLevel = "medium"
+    effort = Effort.MAX
+    reportLevel = Confidence.valueOf('MEDIUM')
 }
 
 tasks.withType(SpotBugsTask).configureEach { task ->
