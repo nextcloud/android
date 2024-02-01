@@ -297,12 +297,13 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         override fun doInBackground(vararg params: Void): String {
             return try {
                 val client = clientFactory!!.create(user)
+                val nextcloudClient = clientFactory.createNextcloudClient(user)
                 val result = DirectEditingCreateFileRemoteOperation(
                     path,
                     creator!!.editor,
                     creator.id,
                     template.title
-                ).execute(client)
+                ).execute(nextcloudClient)
                 if (!result.isSuccess) {
                     return ""
                 }
@@ -367,7 +368,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
 
         override fun doInBackground(vararg voids: Void): TemplateList {
             return try {
-                val client = clientFactory!!.create(user)
+                val client = clientFactory!!.createNextcloudClient(user)
                 val result = DirectEditingObtainListOfTemplatesRemoteOperation(
                     creator!!.editor,
                     creator.id
