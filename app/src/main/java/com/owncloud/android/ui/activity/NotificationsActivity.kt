@@ -34,12 +34,12 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.NotificationWork
 import com.nextcloud.client.network.ClientFactory.CreationException
+import com.nextcloud.common.NextcloudClient
 import com.nextcloud.java.util.Optional
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationsLayoutBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
-import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.notifications.GetNotificationsRemoteOperation
 import com.owncloud.android.lib.resources.notifications.models.Notification
@@ -59,7 +59,7 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
 
     private var adapter: NotificationListAdapter? = null
     private var snackbar: Snackbar? = null
-    private var client: OwnCloudClient? = null
+    private var client: NextcloudClient? = null
     private var optionalUser: Optional<User>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -228,16 +228,16 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
         val t = Thread {
             initializeAdapter()
             val getRemoteNotificationOperation = GetNotificationsRemoteOperation()
-            val result = getRemoteNotificationOperation.execute(client)
-            if (result.isSuccess && result.resultData != null) {
+            val result = client?.let { getRemoteNotificationOperation.execute(it) }
+            if (result?.isSuccess == true && result.resultData != null) {
                 runOnUiThread { populateList(result.resultData) }
             } else {
-                Log_OC.d(TAG, result.logMessage)
+                Log_OC.d(TAG, result?.logMessage)
                 // show error
                 runOnUiThread {
                     setEmptyContent(
                         getString(R.string.notifications_no_results_headline),
-                        result.logMessage
+                        result?.logMessage
                     )
                 }
             }
@@ -250,7 +250,7 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
         if (client == null && optionalUser?.isPresent == true) {
             try {
                 val user = optionalUser?.get()
-                client = clientFactory.create(user)
+                client = clientFactory.createNextcloudClient(user)
             } catch (e: CreationException) {
                 Log_OC.e(TAG, "Error initializing client", e)
             }
