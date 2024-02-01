@@ -37,6 +37,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class UploadNotificationManager(private val context: Context, private val viewThemeUtils: ViewThemeUtils) {
     companion object {
+
         private const val ID = 411
     }
 
@@ -191,5 +192,25 @@ class UploadNotificationManager(private val context: Context, private val viewTh
 
     fun dismissWorkerNotifications() {
         notificationManager.cancel(ID)
+    }
+
+    fun notifyPaused(startIntent: PendingIntent) {
+        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
+            setSmallIcon(R.drawable.notification_icon)
+            setOngoing(true)
+            setTicker(context.getString(R.string.upload_global_pause))
+            setContentTitle(context.getString(R.string.upload_global_pause_title))
+            setContentText(context.getString(R.string.upload_global_pause))
+            clearActions()
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
+            }
+
+            setContentIntent(startIntent)
+        }
+
+
+        showNotification()
     }
 }

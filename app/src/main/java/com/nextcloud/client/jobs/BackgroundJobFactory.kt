@@ -251,6 +251,7 @@ class BackgroundJobFactory @Inject constructor(
             viewThemeUtils.get(),
             localBroadcastManager.get(),
             backgroundJobManager.get(),
+            preferences,
             context,
             params
         )

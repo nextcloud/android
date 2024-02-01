@@ -97,10 +97,10 @@ class FileUploaderIntents(private val context: Context) {
         )
     }
 
-    fun notificationStartIntent(operation: UploadFileOperation): PendingIntent {
+    fun notificationStartIntent(operation: UploadFileOperation?): PendingIntent {
         val intent = UploadListActivity.createIntent(
-            operation.file,
-            operation.user,
+            operation?.file,
+            operation?.user,
             Intent.FLAG_ACTIVITY_CLEAR_TOP,
             context
         )

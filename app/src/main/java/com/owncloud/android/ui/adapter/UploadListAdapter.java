@@ -122,29 +122,56 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         headerViewHolder.binding.uploadListTitle.setOnClickListener(v -> toggleSectionExpanded(section));
 
         switch (group.type) {
-            case CURRENT, FINISHED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close);
-            case FAILED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_sync);
+            case CURRENT: case FINISHED:
+                headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close);
+                break;
+            case FAILED:
+                headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_dots_vertical);
+                break;
+
         }
 
         headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
+            PopupMenu popup;
+            final Optional<User> optionalUser = parentActivity.getUser();
             switch (group.type) {
                 case CURRENT -> {
                     for (OCUpload upload : group.getItems()) {
                         uploadHelper.cancelFileUpload(upload.getRemotePath(), upload.getAccountName());
                     }
+                    loadUploadItemsFromDb();
                 }
-                case FINISHED -> uploadsStorageManager.clearSuccessfulUploads();
-                case FAILED -> new Thread(() -> FileUploadHelper.Companion.instance().retryFailedUploads(
-                    uploadsStorageManager,
-                    connectivityService,
-                    accountManager,
-                    powerManagementService)).start();
-                default -> {
+                case FINISHED -> {
+                    uploadsStorageManager.clearSuccessfulUploads();
+                    loadUploadItemsFromDb();
                 }
-                // do nothing
-            }
+                case FAILED -> {
+                    popup = new PopupMenu(MainApp.getAppContext(), headerViewHolder.binding.uploadListAction);
+                    popup.inflate(R.menu.upload_list_failed_options);
+                    popup.setOnMenuItemClickListener(i -> {
+                        int itemId = i.getItemId();
 
-            loadUploadItemsFromDb();
+                        if (itemId == R.id.action_upload_list_failed_clear) {
+                            uploadsStorageManager.clearFailedButNotDelayedUploads();
+                            loadUploadItemsFromDb();
+                        } else {
+
+                            new Thread(() -> {
+                                FileUploadHelper.Companion.instance().retryFailedUploads(
+                                    uploadsStorageManager,
+                                    connectivityService,
+                                    accountManager,
+                                    powerManagementService);
+                                parentActivity.runOnUiThread(this::loadUploadItemsFromDb);
+                            }).start();
+
+
+                        }
+                        return true;
+                    });
+                    popup.show();
+                }
+            }
         });
     }
 

@@ -211,12 +211,16 @@ public class UploadListActivity extends FileActivity {
         backgroundJobManager.startImmediateFilesSyncJob(false, true);
 
         if(uploadsStorageManager.getFailedUploads().length > 0){
-            new Thread(() -> FileUploadHelper.Companion.instance().retryFailedUploads(
-                uploadsStorageManager,
-                connectivityService,
-                userAccountManager,
-                powerManagementService))
-                .start();
+            new Thread(() -> {
+                FileUploadHelper.Companion.instance().retryFailedUploads(
+                    uploadsStorageManager,
+                    connectivityService,
+                    accountManager,
+                    powerManagementService);
+                this.runOnUiThread(() -> {
+                    uploadListAdapter.loadUploadItemsFromDb();
+                });
+            }).start();
             DisplayUtils.showSnackMessage(this, R.string.uploader_local_files_uploaded);
         }
 
@@ -266,12 +270,21 @@ public class UploadListActivity extends FileActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_upload_list, menu);
 
+        if (menu.getItem(0).getItemId() == R.id.action_toogle_global_pause){
+            if (preferences.getGlobalUploadPaused()){
+                menu.getItem(0).setIcon(android.R.drawable.ic_media_play);
+            }else{
+                menu.getItem(0).setIcon(android.R.drawable.ic_media_pause);
+            }
+
+        }
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval = true;
+
         int itemId = item.getItemId();
 
         if (itemId == android.R.id.home) {
@@ -280,17 +293,20 @@ public class UploadListActivity extends FileActivity {
             } else {
                 openDrawer();
             }
-        } else if (itemId == R.id.action_clear_failed_uploads) {
-            for (OCUpload upload : uploadsStorageManager.getFailedButNotDelayedUploadsForCurrentAccount()){
-                uploadListAdapter.cancelOldErrorNotification(upload);
+        } else if (itemId == R.id.action_toogle_global_pause) {
+            preferences.setGlobalUploadPaused(!preferences.getGlobalUploadPaused());
+            if (preferences.getGlobalUploadPaused()){
+                item.setIcon(android.R.drawable.ic_media_play);
+            }else{
+                item.setIcon(android.R.drawable.ic_media_pause);
             }
-            uploadsStorageManager.clearFailedButNotDelayedUploads();
-            uploadListAdapter.loadUploadItemsFromDb();
-        } else {
-            retval = super.onOptionsItemSelected(item);
+
+            for (User user: accountManager.getAllUsers()){
+                if (user != null) FileUploadHelper.Companion.instance().cancelAndRestartUploadJob(user);
+            }
         }
 
-        return retval;
+        return true;
     }
 
     @Override

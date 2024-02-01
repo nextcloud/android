@@ -32,6 +32,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -58,6 +59,7 @@ class FileUploadWorker(
     val viewThemeUtils: ViewThemeUtils,
     val localBroadcastManager: LocalBroadcastManager,
     private val backgroundJobManager: BackgroundJobManager,
+    val preferences: AppPreferences,
     val context: Context,
     params: WorkerParameters
 ) : Worker(context, params), OnDatatransferProgressListener {
@@ -141,6 +143,14 @@ class FileUploadWorker(
         var currentPage = uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(-1, accountName)
 
         while (currentPage.isNotEmpty() && !isStopped) {
+            if (preferences.globalUploadPaused){
+                Log_OC.d(TAG, "Upload is paused, skip uploading files!")
+                notificationManager.notifyPaused(
+                    intents.notificationStartIntent(null)
+                )
+                return Result.success()
+            }
+
             Log_OC.d(TAG, "Handling ${currentPage.size} uploads for account $accountName")
             val lastId = currentPage.last().uploadId
             uploadFiles(currentPage, accountName)
