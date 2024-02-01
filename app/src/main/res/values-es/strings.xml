@@ -619,7 +619,7 @@
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_remove_e2e">Eliminar cifrado localmente</string>
     <string name="prefs_setup_e2e">Configurar el cifrado de extremo a extremo</string>
-    <string name="prefs_show_ecosystem_apps">Mostrar conmutador de la app</string>
+    <string name="prefs_show_ecosystem_apps">Mostrar conmutador de apps</string>
     <string name="prefs_show_ecosystem_apps_summary">Sugerencias de Nextcloud app en encabezado de navegación</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_sourcecode">Obtener el código fuente</string>
@@ -934,6 +934,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Obteniendo la versión del servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">La aplicación se ha interrumpido</string>
     <string name="uploads_view_upload_status_succeeded">Completado</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Se encontró el mismo archivo en el remoto, omitiendo subida</string>
     <string name="uploads_view_upload_status_unknown_fail">Error desconocido</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detectado. ¡No se ha podido subir!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando a salir del modo de ahorro de batería</string>
