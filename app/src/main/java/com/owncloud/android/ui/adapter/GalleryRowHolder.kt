@@ -27,7 +27,6 @@ import android.widget.LinearLayout
 import androidx.core.view.get
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.Glide
-import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
@@ -35,12 +34,9 @@ import com.owncloud.android.databinding.GalleryRowBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.common.OwnCloudAccount
-import com.owncloud.android.lib.common.OwnCloudClientManager
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.resources.files.model.ImageDimension
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader
 import java.net.URLEncoder
 
@@ -53,79 +49,21 @@ class GalleryRowHolder(
     private val user: User,
     private val clientFactory: ClientFactory
 ) : SectionedViewHolder(binding.root) {
-    val context = galleryAdapter.context
 
+    val context = galleryAdapter.context
     private lateinit var currentRow: GalleryRow
+
+    private val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+
+    @Suppress("DEPRECATION")
+    private val baseUri = client.getClientFor(user.toOwnCloudAccount(), context).baseUri
+    private val previewLink = "/index.php/core/preview.png?file="
+    private val mode = "&a=1&mode=cover&forceIcon=0"
 
     fun bind(row: GalleryRow) {
         currentRow = row
 
-        val shrinkRatio = computeShrinkRatio(row)
-        val client = OwnCloudClientManagerFactory.getDefaultSingleton()
-        val baseUri = client.getClientFor(user.toOwnCloudAccount(), context).baseUri
-        val previewLink = "/index.php/core/preview.png?file="
-        val mode = "&a=1&mode=cover&forceIcon=0"
-
-        row.files.forEach { file ->
-            val thumbnail = ImageView(context)
-
-            val width = ((file.imageDimension?.width ?: defaultThumbnailSize) * shrinkRatio).toInt()
-            val height = ((file.imageDimension?.height ?: defaultThumbnailSize) * shrinkRatio).toInt()
-
-            val imageUrl: String = (((baseUri.toString() + previewLink
-                + URLEncoder.encode(file.remotePath, Charsets.UTF_8.name())
-                + "&x=" + (width)) + "&y=" + (height)) + mode)
-
-            Glide
-                .with(context)
-                .using(CustomGlideStreamLoader(user, clientFactory))
-                .load(imageUrl)
-                .asBitmap()
-                .placeholder(R.drawable.file_image)
-                .error(R.drawable.background)
-                .override(height, width)
-                .fitCenter()
-                .into(thumbnail)
-
-            thumbnail.setOnClickListener {
-                ocFileListDelegate.ocFileListFragmentInterface.onItemClicked(file)
-            }
-
-            binding.rowLayout.addView(thumbnail)
-        }
-
-        /*
-           // re-use existing ones
-        while (binding.rowLayout.childCount < row.files.size) {
-            val shimmer = LoaderImageView(context).apply {
-                setImageResource(R.drawable.background)
-                resetLoader()
-                invalidate()
-            }
-
-            val bitmap = BitmapUtils.drawableToBitmap(
-                ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null),
-                defaultThumbnailSize.toInt(),
-                defaultThumbnailSize.toInt()
-            )
-
-            val drawable = ThumbnailsCacheManager.AsyncGalleryImageDrawable(
-                context.resources,
-                bitmap,
-                null
-            )
-
-            val thumbnail = ImageView(context).apply {
-                setImageDrawable(drawable)
-            }
-
-            val layout = LinearLayout(context).apply {
-                addView(shimmer)
-                addView(thumbnail)
-            }
-
-            binding.rowLayout.addView(layout)
-        }
+        addImages(row)
 
         if (binding.rowLayout.childCount > row.files.size) {
             binding.rowLayout.removeViewsInLayout(row.files.size - 1, (binding.rowLayout.childCount - row.files.size))
@@ -136,8 +74,40 @@ class GalleryRowHolder(
         for (indexedFile in row.files.withIndex()) {
             adjustFile(indexedFile, shrinkRatio, row)
         }
-         */
+    }
 
+    private fun addImages(row: GalleryRow) {
+        var index = binding.rowLayout.childCount
+        while (binding.rowLayout.childCount < row.files.size) {
+            val file = row.files[index]
+
+            val thumbnail = ImageView(context)
+
+            val imageUrl: String = (((baseUri.toString() + previewLink
+                + URLEncoder.encode(file.remotePath, Charsets.UTF_8.name())
+                + "&x=" + (defaultThumbnailSize)) + "&y=" + (defaultThumbnailSize)) + mode)
+
+            Glide
+                .with(context)
+                .using(CustomGlideStreamLoader(user, clientFactory))
+                .load(imageUrl)
+                .asBitmap()
+                .placeholder(R.drawable.file_image)
+                .error(R.drawable.background)
+                .fitCenter()
+                .into(thumbnail)
+
+            val layout = LinearLayout(context)
+            layout.addView(thumbnail)
+
+            thumbnail.setOnClickListener {
+                ocFileListDelegate.ocFileListFragmentInterface.onItemClicked(file)
+            }
+
+            binding.rowLayout.addView(layout)
+
+            index++
+        }
     }
 
     private fun adjustFile(indexedFile: IndexedValue<OCFile>, shrinkRatio: Float, row: GalleryRow) {
@@ -149,20 +119,10 @@ class GalleryRowHolder(
 
         // re-use existing one
         val linearLayout = binding.rowLayout[index] as LinearLayout
-        val shimmer = linearLayout[0] as LoaderImageView
-
-        val thumbnail = linearLayout[1] as ImageView
+        val thumbnail = linearLayout[0] as ImageView
 
         thumbnail.adjustViewBounds = true
         thumbnail.scaleType = ImageView.ScaleType.FIT_CENTER
-
-        ocFileListDelegate.bindGalleryRowThumbnail(
-            shimmer,
-            thumbnail,
-            file,
-            this,
-            adjustedWidth1
-        )
 
         val params = LinearLayout.LayoutParams(adjustedWidth1, adjustedHeight1)
 
@@ -177,10 +137,6 @@ class GalleryRowHolder(
         thumbnail.layoutParams = params
         thumbnail.layoutParams.height = adjustedHeight1
         thumbnail.layoutParams.width = adjustedWidth1
-
-        shimmer.layoutParams = params
-        shimmer.layoutParams.height = adjustedHeight1
-        shimmer.layoutParams.width = adjustedWidth1
     }
 
     fun redraw() {
@@ -219,15 +175,12 @@ class GalleryRowHolder(
                     2 -> {
                         c = 5 / 2f
                     }
-
                     3 -> {
                         c = 4 / 3f
                     }
-
                     4 -> {
                         c = 4 / 5f
                     }
-
                     5 -> {
                         c = 1f
                     }
