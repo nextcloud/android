@@ -33,6 +33,7 @@ import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.GalleryRowBinding
 import com.owncloud.android.datamodel.GalleryRow
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.resources.files.model.ImageDimension
 import com.owncloud.android.utils.DisplayUtils
@@ -42,10 +43,10 @@ import java.net.URLEncoder
 class GalleryRowHolder(
     val binding: GalleryRowBinding,
     private val defaultThumbnailSize: Float,
-    private val ocFileListDelegate: OCFileListDelegate,
     private val galleryAdapter: GalleryAdapter,
     private val user: User,
-    private val clientFactory: ClientFactory
+    private val clientFactory: ClientFactory,
+    private val galleryRowItemClick: GalleryRowItemClick
 ) : SectionedViewHolder(binding.root) {
 
     private val context = galleryAdapter.context
@@ -57,6 +58,10 @@ class GalleryRowHolder(
     private val baseUri = client.getClientFor(user.toOwnCloudAccount(), context).baseUri
     private val previewLink = "/index.php/core/preview.png?file="
     private val mode = "&a=1&mode=cover&forceIcon=0"
+
+    interface GalleryRowItemClick {
+        fun openMedia(file: OCFile)
+    }
 
     fun bind(row: GalleryRow) {
         currentRow = row
@@ -74,9 +79,15 @@ class GalleryRowHolder(
         row.files.forEach { file ->
             val thumbnail = ImageView(context)
 
-            val imageUrl: String = (((baseUri.toString() + previewLink
-                + URLEncoder.encode(file.remotePath, Charsets.UTF_8.name())
-                + "&x=" + (defaultThumbnailSize)) + "&y=" + (defaultThumbnailSize)) + mode)
+            val imageUrl: String = (
+                (
+                    (
+                        baseUri.toString() + previewLink +
+                            URLEncoder.encode(file.remotePath, Charsets.UTF_8.name()) +
+                            "&x=" + (defaultThumbnailSize)
+                        ) + "&y=" + (defaultThumbnailSize)
+                    ) + mode
+                )
 
             Glide
                 .with(context)
@@ -89,11 +100,11 @@ class GalleryRowHolder(
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(thumbnail)
 
-            val layout = LinearLayout(context)
-            layout.addView(thumbnail)
-
-            thumbnail.setOnClickListener {
-                ocFileListDelegate.ocFileListFragmentInterface.onItemClicked(file)
+            val layout = LinearLayout(context).apply {
+                addView(thumbnail)
+                setOnClickListener {
+                    galleryRowItemClick.openMedia(file)
+                }
             }
 
             binding.rowLayout.addView(layout)

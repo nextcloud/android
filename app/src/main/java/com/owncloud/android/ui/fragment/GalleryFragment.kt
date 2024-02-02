@@ -51,6 +51,8 @@ import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.activity.ToolbarActivity
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface
 import com.owncloud.android.ui.adapter.GalleryAdapter
+import com.owncloud.android.ui.adapter.GalleryRowHolder
+import com.owncloud.android.ui.adapter.OCFileListDelegate
 import com.owncloud.android.ui.asynctasks.GallerySearchTask
 import com.owncloud.android.ui.events.ChangeMenuEvent
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
@@ -59,7 +61,7 @@ import javax.inject.Inject
 /**
  * A Fragment that lists all files and folders in a given path
  */
-class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions {
+class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions, GalleryRowHolder.GalleryRowItemClick {
     private var isPhotoSearchQueryRunning = false
         set(value) {
             field = value
@@ -150,27 +152,50 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions 
         handleSearchEvent()
     }
 
+    private lateinit var ocFileListDelegate: OCFileListDelegate
+
+    private fun initOCFileListDelegate() {
+        val storageManager: FileDataStorageManager = mContainerActivity.storageManager
+
+        ocFileListDelegate = OCFileListDelegate(
+            requireContext(),
+            this,
+            accountManager.user,
+            storageManager,
+            false,
+            preferences,
+            true,
+            mContainerActivity,
+            showMetadata = false,
+            showShareAvatar = false,
+            viewThemeUtils
+        )
+    }
+
     override fun setAdapter(args: Bundle) {
+        initOCFileListDelegate()
+
         mAdapter = GalleryAdapter(
             requireContext(),
             accountManager.user,
-            this,
-            preferences,
             mContainerActivity,
-            viewThemeUtils,
             columnSize,
             ThumbnailsCacheManager.getThumbnailDimension(),
-            clientFactory
+            clientFactory,
+            ocFileListDelegate,
+            this
         )
+
         setRecyclerViewAdapter(mAdapter)
 
-        //update the footer as there is no footer shown in media view
+        // update the footer as there is no footer shown in media view
         if (recyclerView is EmptyRecyclerView) {
             (recyclerView as EmptyRecyclerView).setHasFooter(false)
         }
 
         val layoutManager = GridLayoutManager(context, 1)
         mAdapter?.setLayoutManager(layoutManager)
+
         recyclerView.layoutManager = layoutManager
     }
 
@@ -260,9 +285,10 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions 
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         // Handle item selection
-        if (item.itemId == R.id.action_three_dot_icon && !isPhotoSearchQueryRunning && galleryFragmentBottomSheetDialog != null) {
+        if (item.itemId == R.id.action_three_dot_icon &&
+            !isPhotoSearchQueryRunning && galleryFragmentBottomSheetDialog != null
+        ) {
             showBottomSheet()
             return true
         }
@@ -289,7 +315,7 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions 
     }
 
     private fun searchAndDisplayAfterChangingFolder() {
-        //TODO: Fix folder change, it seems it doesn't work at all
+        // TODO: Fix folder change, it seems it doesn't work at all
         endDate = System.currentTimeMillis() / 1000
         isPhotoSearchQueryRunning = true
         runGallerySearchTask()
@@ -329,8 +355,9 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions 
                     }
                     isPhotoSearchQueryRunning = true
                     runGallerySearchTask()
-                } else if (totalItemCount - visibleItemCount <= lastVisibleItem + MAX_ITEMS_PER_ROW //no more files in the gallery, retrieve the next ones
-                    && totalItemCount - visibleItemCount > 0
+                } else if (totalItemCount - visibleItemCount <= lastVisibleItem +
+                    MAX_ITEMS_PER_ROW && // no more files in the gallery, retrieve the next ones
+                    totalItemCount - visibleItemCount > 0
                 ) {
                     if (BuildConfig.DEBUG) {
                         Log_OC.d(this, "Gallery swipe: retrieve items because end of gallery display")
@@ -387,5 +414,9 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions 
         private const val FRAGMENT_TAG_BOTTOM_SHEET = "data"
         private const val SELECT_LOCATION_REQUEST_CODE = 212
         const val REFRESH_SEARCH_EVENT_RECEIVER = "refreshSearchEventReceiver"
+    }
+
+    override fun openMedia(file: OCFile) {
+        ocFileListDelegate.ocFileListFragmentInterface.onItemClicked(file)
     }
 }
