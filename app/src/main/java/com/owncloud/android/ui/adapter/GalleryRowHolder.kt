@@ -42,7 +42,6 @@ import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.resources.files.model.ImageDimension
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -70,9 +69,6 @@ class GalleryRowHolder(
     private val imageDownloadWidth = "&x=$defaultThumbnailSize"
     private val imageDownloadHeight = "&y=$defaultThumbnailSize"
     private val mode = "&a=1&mode=cover&forceIcon=0"
-    private val screenWidth =
-        DisplayUtils.convertDpToPixel(context.resources.configuration.screenWidthDp.toFloat(), context)
-            .toFloat()
     private val defaultImageDimension = ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
 
     interface GalleryRowItemClick {
@@ -148,10 +144,10 @@ class GalleryRowHolder(
                 c = sizeToFactorMap[row.files.size] ?: c
             }
 
-            return (screenWidth / c) / summedWidth
+            return (galleryAdapter.screenWidth / c) / summedWidth
         } else {
             val firstFileImageDimension = row.files[0].imageDimension ?: defaultImageDimension
-            return (screenWidth / galleryAdapter.columns) / firstFileImageDimension.width
+            return (galleryAdapter.screenWidth / galleryAdapter.columns) / firstFileImageDimension.width
         }
     }
 

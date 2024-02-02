@@ -55,6 +55,7 @@ import com.owncloud.android.ui.adapter.GalleryRowHolder
 import com.owncloud.android.ui.asynctasks.GallerySearchTask
 import com.owncloud.android.ui.events.ChangeMenuEvent
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog.MediaState
+import com.owncloud.android.utils.DisplayUtils
 import javax.inject.Inject
 
 /**
@@ -83,6 +84,7 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions,
 
     private val maxColumnSizeLandscape = 5
     private val maxColumnSizePortrait = 2
+    private var screenWidth = 0f
     private var columnSize = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,6 +101,11 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions,
         } else {
             maxColumnSizePortrait
         }
+
+        screenWidth = DisplayUtils.convertDpToPixel(
+            requireContext().resources.configuration.screenWidthDp.toFloat(),
+            requireContext()
+        ).toFloat()
 
         registerRefreshSearchEventReceiver()
     }
@@ -141,7 +148,7 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions,
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-         super.onActivityCreated(savedInstanceState)
+        super.onActivityCreated(savedInstanceState)
 
         currentSearchType = SearchType.GALLERY_SEARCH
         menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT
@@ -163,6 +170,7 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions,
             ThumbnailsCacheManager.getThumbnailDimension(),
             clientFactory,
             ocFileListDelegate,
+            screenWidth,
             this
         )
 
@@ -187,7 +195,14 @@ class GalleryFragment : OCFileListFragment(), GalleryFragmentBottomSheetActions,
             columnSize = maxColumnSizePortrait
         }
 
+        screenWidth =
+            DisplayUtils.convertDpToPixel(
+                requireContext().resources.configuration.screenWidthDp.toFloat(),
+                requireContext()
+            ).toFloat()
+
         mAdapter?.changeColumn(columnSize)
+        mAdapter?.changeScreenWidthValue(screenWidth)
         showAllGalleryItems()
     }
 
