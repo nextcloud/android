@@ -34,7 +34,7 @@ import androidx.annotation.VisibleForTesting
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
-import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.databinding.GalleryHeaderBinding
 import com.owncloud.android.databinding.GalleryRowBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -45,7 +45,6 @@ import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog
 import com.owncloud.android.ui.fragment.SearchType
-import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.MimeTypeUtil
@@ -57,35 +56,27 @@ import java.util.Date
 @Suppress("LongParameterList")
 class GalleryAdapter(
     val context: Context,
-    user: User,
-    ocFileListFragmentInterface: OCFileListFragmentInterface,
-    preferences: AppPreferences,
+    private val user: User,
     transferServiceGetter: ComponentsGetter,
-    viewThemeUtils: ViewThemeUtils,
     var columns: Int,
-    private val defaultThumbnailSize: Int
+    private val viewThemeUtils: ViewThemeUtils,
+    private val defaultThumbnailSize: Int,
+    private val clientFactory: ClientFactory,
+    private val ocFileListDelegate: OCFileListDelegate?,
+    var screenWidth: Float,
+    private val galleryRowItemClick: GalleryRowHolder.GalleryRowItemClick
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
+
     var files: List<GalleryItems> = mutableListOf()
-    private val ocFileListDelegate: OCFileListDelegate
+
     private var storageManager: FileDataStorageManager
 
     init {
         storageManager = transferServiceGetter.storageManager
 
-        ocFileListDelegate = OCFileListDelegate(
-            transferServiceGetter.fileUploaderHelper,
-            context,
-            ocFileListFragmentInterface,
-            user,
-            storageManager,
-            false,
-            preferences,
-            true,
-            transferServiceGetter,
-            showMetadata = false,
-            showShareAvatar = false,
-            viewThemeUtils
-        )
+        if (files.isNotEmpty()) {
+            setHasStableIds(true)
+        }
     }
 
     override fun showFooters(): Boolean = false
@@ -102,12 +93,22 @@ class GalleryAdapter(
         } else {
             GalleryRowHolder(
                 GalleryRowBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+                viewThemeUtils,
                 defaultThumbnailSize.toFloat(),
-                ocFileListDelegate,
-                storageManager,
-                this
+                this,
+                user,
+                clientFactory,
+                galleryRowItemClick
             )
         }
+    }
+
+    override fun getItemViewType(section: Int, relativePosition: Int, absolutePosition: Int): Int {
+        return absolutePosition
+    }
+
+    override fun getItemId(section: Int, position: Int): Long {
+        return position.toLong()
     }
 
     override fun onBindViewHolder(
@@ -116,9 +117,10 @@ class GalleryAdapter(
         relativePosition: Int,
         absolutePosition: Int
     ) {
-        if (holder != null) {
-            val rowHolder = holder as GalleryRowHolder
-            rowHolder.bind(files[section].rows[relativePosition])
+        holder?.let {
+            val galleryRowHolder = it as GalleryRowHolder
+            val row = files[section].rows[relativePosition]
+            galleryRowHolder.bind(row)
         }
     }
 
@@ -247,11 +249,11 @@ class GalleryAdapter(
     }
 
     override fun isMultiSelect(): Boolean {
-        return ocFileListDelegate.isMultiSelect
+        return ocFileListDelegate?.isMultiSelect ?: false
     }
 
     override fun cancelAllPendingTasks() {
-        ocFileListDelegate.cancelAllPendingTasks()
+        ocFileListDelegate?.cancelAllPendingTasks()
     }
 
     override fun getItemPosition(file: OCFile): Int {
@@ -286,19 +288,19 @@ class GalleryAdapter(
     }
 
     override fun addCheckedFile(file: OCFile) {
-        ocFileListDelegate.addCheckedFile(file)
+        ocFileListDelegate?.addCheckedFile(file)
     }
 
     override fun isCheckedFile(file: OCFile): Boolean {
-        return ocFileListDelegate.isCheckedFile(file)
+        return ocFileListDelegate?.isCheckedFile(file) ?: false
     }
 
     override fun getCheckedItems(): Set<OCFile> {
-        return ocFileListDelegate.checkedItems
+        return ocFileListDelegate?.checkedItems ?: setOf()
     }
 
     override fun removeCheckedFile(file: OCFile) {
-        ocFileListDelegate.removeCheckedFile(file)
+        ocFileListDelegate?.removeCheckedFile(file)
     }
 
     override fun notifyItemChanged(file: OCFile) {
@@ -311,12 +313,12 @@ class GalleryAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     override fun setMultiSelect(boolean: Boolean) {
-        ocFileListDelegate.isMultiSelect = boolean
+        ocFileListDelegate?.isMultiSelect = boolean
         notifyDataSetChanged()
     }
 
     override fun clearCheckedItems() {
-        ocFileListDelegate.clearCheckedItems()
+        ocFileListDelegate?.clearCheckedItems()
     }
 
     @VisibleForTesting
@@ -326,5 +328,9 @@ class GalleryAdapter(
 
     fun changeColumn(newColumn: Int) {
         columns = newColumn
+    }
+
+    fun changeScreenWidthValue(newScreenWidth: Float) {
+        screenWidth = newScreenWidth
     }
 }

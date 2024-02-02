@@ -24,35 +24,78 @@ package com.owncloud.android.ui.adapter
 
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.get
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
+import com.bumptech.glide.Glide
 import com.elyeproj.loaderviewlibrary.LoaderImageView
+import com.nextcloud.client.account.User
+import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.GalleryRowBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.lib.common.OwnCloudAccount
+import com.owncloud.android.lib.common.OwnCloudClientManager
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.resources.files.model.ImageDimension
-import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.glide.CustomGlideStreamLoader
+import java.net.URLEncoder
 
 class GalleryRowHolder(
     val binding: GalleryRowBinding,
     private val defaultThumbnailSize: Float,
     private val ocFileListDelegate: OCFileListDelegate,
     val storageManager: FileDataStorageManager,
-    private val galleryAdapter: GalleryAdapter
+    private val galleryAdapter: GalleryAdapter,
+    private val user: User,
+    private val clientFactory: ClientFactory
 ) : SectionedViewHolder(binding.root) {
     val context = galleryAdapter.context
 
-    lateinit var currentRow: GalleryRow
+    private lateinit var currentRow: GalleryRow
 
     fun bind(row: GalleryRow) {
         currentRow = row
 
-        // re-use existing ones
+        val shrinkRatio = computeShrinkRatio(row)
+        val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+        val baseUri = client.getClientFor(user.toOwnCloudAccount(), context).baseUri
+        val previewLink = "/index.php/core/preview.png?file="
+        val mode = "&a=1&mode=cover&forceIcon=0"
+
+        row.files.forEach { file ->
+            val thumbnail = ImageView(context)
+
+            val width = ((file.imageDimension?.width ?: defaultThumbnailSize) * shrinkRatio).toInt()
+            val height = ((file.imageDimension?.height ?: defaultThumbnailSize) * shrinkRatio).toInt()
+
+            val imageUrl: String = (((baseUri.toString() + previewLink
+                + URLEncoder.encode(file.remotePath, Charsets.UTF_8.name())
+                + "&x=" + (width)) + "&y=" + (height)) + mode)
+
+            Glide
+                .with(context)
+                .using(CustomGlideStreamLoader(user, clientFactory))
+                .load(imageUrl)
+                .asBitmap()
+                .placeholder(R.drawable.file_image)
+                .error(R.drawable.background)
+                .override(height, width)
+                .fitCenter()
+                .into(thumbnail)
+
+            thumbnail.setOnClickListener {
+                ocFileListDelegate.ocFileListFragmentInterface.onItemClicked(file)
+            }
+
+            binding.rowLayout.addView(thumbnail)
+        }
+
+        /*
+           // re-use existing ones
         while (binding.rowLayout.childCount < row.files.size) {
             val shimmer = LoaderImageView(context).apply {
                 setImageResource(R.drawable.background)
@@ -93,6 +136,8 @@ class GalleryRowHolder(
         for (indexedFile in row.files.withIndex()) {
             adjustFile(indexedFile, shrinkRatio, row)
         }
+         */
+
     }
 
     private fun adjustFile(indexedFile: IndexedValue<OCFile>, shrinkRatio: Float, row: GalleryRow) {
