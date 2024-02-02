@@ -27,13 +27,12 @@ import android.widget.LinearLayout
 import androidx.core.view.get
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.GalleryRowBinding
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryRow
-import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.resources.files.model.ImageDimension
 import com.owncloud.android.utils.DisplayUtils
@@ -44,13 +43,12 @@ class GalleryRowHolder(
     val binding: GalleryRowBinding,
     private val defaultThumbnailSize: Float,
     private val ocFileListDelegate: OCFileListDelegate,
-    val storageManager: FileDataStorageManager,
     private val galleryAdapter: GalleryAdapter,
     private val user: User,
     private val clientFactory: ClientFactory
 ) : SectionedViewHolder(binding.root) {
 
-    val context = galleryAdapter.context
+    private val context = galleryAdapter.context
     private lateinit var currentRow: GalleryRow
 
     private val client = OwnCloudClientManagerFactory.getDefaultSingleton()
@@ -69,18 +67,11 @@ class GalleryRowHolder(
             binding.rowLayout.removeViewsInLayout(row.files.size - 1, (binding.rowLayout.childCount - row.files.size))
         }
 
-        val shrinkRatio = computeShrinkRatio(row)
-
-        for (indexedFile in row.files.withIndex()) {
-            adjustFile(indexedFile, shrinkRatio, row)
-        }
+        adjustImages(row)
     }
 
     private fun addImages(row: GalleryRow) {
-        var index = binding.rowLayout.childCount
-        while (binding.rowLayout.childCount < row.files.size) {
-            val file = row.files[index]
-
+        row.files.forEach { file ->
             val thumbnail = ImageView(context)
 
             val imageUrl: String = (((baseUri.toString() + previewLink
@@ -95,6 +86,7 @@ class GalleryRowHolder(
                 .placeholder(R.drawable.file_image)
                 .error(R.drawable.background)
                 .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(thumbnail)
 
             val layout = LinearLayout(context)
@@ -105,38 +97,36 @@ class GalleryRowHolder(
             }
 
             binding.rowLayout.addView(layout)
-
-            index++
         }
     }
 
-    private fun adjustFile(indexedFile: IndexedValue<OCFile>, shrinkRatio: Float, row: GalleryRow) {
-        val file = indexedFile.value
-        val index = indexedFile.index
+    private fun adjustImages(row: GalleryRow) {
+        row.files.forEachIndexed { index, file ->
+            val shrinkRatio = computeShrinkRatio(row)
 
-        val adjustedHeight1 = ((file.imageDimension?.height ?: defaultThumbnailSize) * shrinkRatio).toInt()
-        val adjustedWidth1 = ((file.imageDimension?.width ?: defaultThumbnailSize) * shrinkRatio).toInt()
+            val height = ((file.imageDimension?.height ?: defaultThumbnailSize) * shrinkRatio).toInt()
+            val width = ((file.imageDimension?.width ?: defaultThumbnailSize) * shrinkRatio).toInt()
 
-        // re-use existing one
-        val linearLayout = binding.rowLayout[index] as LinearLayout
-        val thumbnail = linearLayout[0] as ImageView
+            val linearLayout = binding.rowLayout[index] as LinearLayout
+            val thumbnail = linearLayout[0] as ImageView
 
-        thumbnail.adjustViewBounds = true
-        thumbnail.scaleType = ImageView.ScaleType.FIT_CENTER
+            thumbnail.adjustViewBounds = true
+            thumbnail.scaleType = ImageView.ScaleType.FIT_CENTER
 
-        val params = LinearLayout.LayoutParams(adjustedWidth1, adjustedHeight1)
+            val params = LinearLayout.LayoutParams(width, height)
 
-        val zero = context.resources.getInteger(R.integer.zero)
-        val margin = context.resources.getInteger(R.integer.small_margin)
-        if (index < (row.files.size - 1)) {
-            params.setMargins(zero, zero, margin, margin)
-        } else {
-            params.setMargins(zero, zero, zero, margin)
+            val zero = context.resources.getInteger(R.integer.zero)
+            val margin = context.resources.getInteger(R.integer.small_margin)
+            if (index < (row.files.size - 1)) {
+                params.setMargins(zero, zero, margin, margin)
+            } else {
+                params.setMargins(zero, zero, zero, margin)
+            }
+
+            thumbnail.layoutParams = params
+            thumbnail.layoutParams.width = width
+            thumbnail.layoutParams.height = height
         }
-
-        thumbnail.layoutParams = params
-        thumbnail.layoutParams.height = adjustedHeight1
-        thumbnail.layoutParams.width = adjustedWidth1
     }
 
     fun redraw() {
