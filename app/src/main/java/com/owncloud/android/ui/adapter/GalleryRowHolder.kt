@@ -157,7 +157,8 @@ class GalleryRowHolder(
         val linearLayout = binding.rowLayout[index] as LinearLayout
         val thumbnail = (linearLayout[0] as ImageView).apply {
             adjustViewBounds = true
-            scaleType = ImageView.ScaleType.FIT_XY
+            scaleType = ImageView.ScaleType.CENTER_CROP
+
         }
 
         val (width, height) = size
