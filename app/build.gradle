@@ -333,7 +333,7 @@ dependencies {
     }
 
     if (perfAnalysis) {
-        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.13'
     }
 
     // dependencies for local unit tests
