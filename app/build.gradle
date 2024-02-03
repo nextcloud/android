@@ -8,7 +8,7 @@ buildscript {
         classpath "com.android.tools.build:gradle:$androidPluginVersion"
         classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.7'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.4"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.5"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath 'com.karumi:shot:5.14.1'
         classpath "org.jacoco:org.jacoco.core:$jacoco_version"
@@ -333,7 +333,7 @@ dependencies {
     }
 
     if (perfAnalysis) {
-        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.13'
     }
 
     // dependencies for local unit tests
@@ -352,7 +352,7 @@ dependencies {
     androidTestImplementation "androidx.test:rules:$androidxTestVersion"
     // Android JUnit Runner
     androidTestImplementation "androidx.test:runner:$androidxTestVersion"
-    androidTestUtil "androidx.test:orchestrator:$androidxTestVersion"
+    androidTestUtil "androidx.test:orchestrator:1.4.2"
     androidTestImplementation "androidx.test:core-ktx:$androidxTestVersion"
 
     // Espresso

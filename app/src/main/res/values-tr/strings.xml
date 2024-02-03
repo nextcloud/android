@@ -934,6 +934,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Sunucu sürümü alınıyor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Uygulama sonlandırıldı</string>
     <string name="uploads_view_upload_status_succeeded">Tamamlandı</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Uzakta aynı dosya var olduğundan yüklenmedi</string>
     <string name="uploads_view_upload_status_unknown_fail">Bilinmeyen sorun</string>
     <string name="uploads_view_upload_status_virus_detected">Virus bulundu. Yükleme tamamlanamadı!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Güç tasarrufu kipinden çıkılması bekleniyor</string>
