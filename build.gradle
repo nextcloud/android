@@ -4,7 +4,7 @@ buildscript {
         appCompatVersion = '1.6.1'
         jacoco_version = '0.8.11'
         kotlin_version = '1.8.22'
-        androidxTestVersion = "1.5.0"
+        androidxTestVersion = "1.5.2"
         daggerVersion = "2.50"
         markwonVersion = "4.6.2"
         prismVersion = "2.0.0"
