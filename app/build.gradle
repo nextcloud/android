@@ -351,7 +351,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation "androidx.test:rules:$androidxTestVersion"
     // Android JUnit Runner
-    androidTestImplementation "androidx.test:runner:$androidxTestVersion"
+    androidTestImplementation "androidx.test:runner:1.5.2"
     androidTestUtil "androidx.test:orchestrator:1.4.2"
     androidTestImplementation "androidx.test:core-ktx:$androidxTestVersion"
 
