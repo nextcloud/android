@@ -42,6 +42,7 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources.NotFoundException;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -54,6 +55,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -267,6 +269,9 @@ public class FileDisplayActivity extends FileActivity
 
         super.onCreate(savedInstanceState);
         loadSavedInstanceState(savedInstanceState);
+
+        Window window = getWindow();
+        window.setStatusBarColor(Color.TRANSPARENT);
 
         /// USER INTERFACE
         initLayout();

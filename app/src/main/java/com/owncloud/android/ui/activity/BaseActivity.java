@@ -2,7 +2,9 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Window;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -60,6 +62,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
                                         getContentResolver(),
                                         accountManager);
         mixinRegistry.add(sessionMixin);
+
+        Window window = getWindow();
+        window.setStatusBarColor(Color.TRANSPARENT);
 
         if (enableAccountHandling) {
             mixinRegistry.onCreate(savedInstanceState);
