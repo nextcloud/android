@@ -934,6 +934,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Henter serverversjon...</string>
     <string name="uploads_view_upload_status_service_interrupted">Appen ble avsluttet</string>
     <string name="uploads_view_upload_status_succeeded">Ferdig</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Samme fil funnet på ekstern, dropper opplasting</string>
     <string name="uploads_view_upload_status_unknown_fail">Ukjent feil</string>
     <string name="uploads_view_upload_status_virus_detected">Virus oppdaget. Opplasting kan ikke fullføres.</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Venter på å gå ut av strømsparingsmodus</string>
