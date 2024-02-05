@@ -287,7 +287,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         itemViewHolder.binding.uploadRemotePath.setVisibility(View.VISIBLE);
         itemViewHolder.binding.uploadFileSize.setVisibility(View.VISIBLE);
         itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
-        itemViewHolder.binding.uploadStatus.setTypeface(null, Typeface.NORMAL);
         itemViewHolder.binding.uploadProgressBar.setVisibility(View.GONE);
 
         // Update information depending of upload details
@@ -333,7 +332,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         // show status if same file conflict or local file deleted
         if (item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED && item.getLastResult() != UploadResult.UPLOADED){
             itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
-            itemViewHolder.binding.uploadStatus.setTypeface(null, Typeface.BOLD);
             itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
             itemViewHolder.binding.uploadFileSize.setVisibility(View.GONE);
         }
@@ -641,32 +639,27 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private String getStatusText(OCUpload upload) {
         String status;
         switch (upload.getUploadStatus()) {
-            case UPLOAD_IN_PROGRESS:
+            case UPLOAD_IN_PROGRESS -> {
                 status = parentActivity.getString(R.string.uploads_view_later_waiting_to_upload);
                 if (uploadHelper.isUploadingNow(upload)) {
                     // really uploading, bind the progress bar to listen for progress updates
                     status = parentActivity.getString(R.string.uploader_upload_in_progress_ticker);
-                } else if (parentActivity.getAppPreferences().getGlobalUploadPaused()) {
+                }
+                if (parentActivity.getAppPreferences().getGlobalUploadPaused()) {
                     status = parentActivity.getString(R.string.upload_global_pause);
                 }
-                break;
-
-            case UPLOAD_SUCCEEDED:
-                if (upload.getLastResult() == UploadResult.SAME_FILE_CONFLICT){
+            }
+            case UPLOAD_SUCCEEDED -> {
+                if (upload.getLastResult() == UploadResult.SAME_FILE_CONFLICT) {
                     status = parentActivity.getString(R.string.uploads_view_upload_status_succeeded_same_file);
-                }else if (upload.getLastResult() == UploadResult.FILE_NOT_FOUND) {
+                } else if (upload.getLastResult() == UploadResult.FILE_NOT_FOUND) {
                     status = getUploadFailedStatusText(upload.getLastResult());
                 } else {
                     status = parentActivity.getString(R.string.uploads_view_upload_status_succeeded);
                 }
-                break;
-
-            case UPLOAD_FAILED:
-                status = getUploadFailedStatusText(upload.getLastResult());
-                break;
-
-            default:
-                status = "Uncontrolled status: " + upload.getUploadStatus();
+            }
+            case UPLOAD_FAILED -> status = getUploadFailedStatusText(upload.getLastResult());
+            default -> status = "Uncontrolled status: " + upload.getUploadStatus();
         }
         return status;
     }

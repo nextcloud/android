@@ -210,7 +210,6 @@ class UploadNotificationManager(private val context: Context, private val viewTh
             setContentIntent(startIntent)
         }
 
-
         showNotification()
     }
 }

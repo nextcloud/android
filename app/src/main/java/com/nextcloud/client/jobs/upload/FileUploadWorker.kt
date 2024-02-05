@@ -138,12 +138,13 @@ class FileUploadWorker(
         WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
     }
 
+    @Suppress("ReturnCount")
     private fun retrievePagesBySortingUploadsByID(): Result {
         val accountName = inputData.getString(ACCOUNT) ?: return Result.failure()
         var currentPage = uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(-1, accountName)
 
         while (currentPage.isNotEmpty() && !isStopped) {
-            if (preferences.globalUploadPaused){
+            if (preferences.globalUploadPaused) {
                 Log_OC.d(TAG, "Upload is paused, skip uploading files!")
                 notificationManager.notifyPaused(
                     intents.notificationStartIntent(null)

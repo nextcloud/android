@@ -24,6 +24,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -287,6 +288,7 @@ public class UploadListActivity extends FileActivity {
         return true;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -309,6 +311,7 @@ public class UploadListActivity extends FileActivity {
             for (User user: accountManager.getAllUsers()){
                 if (user != null) FileUploadHelper.Companion.instance().cancelAndRestartUploadJob(user);
             }
+            uploadListAdapter.notifyDataSetChanged();
         }
 
         return true;
