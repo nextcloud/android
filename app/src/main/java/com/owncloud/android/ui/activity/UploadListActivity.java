@@ -49,7 +49,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -270,11 +269,17 @@ public class UploadListActivity extends FileActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_upload_list, menu);
 
-        if (menu.getItem(0).getItemId() == R.id.action_toogle_global_pause){
+        if (menu.getItem(0).getItemId() == R.id.action_toggle_global_pause){
             if (preferences.getGlobalUploadPaused()){
                 menu.getItem(0).setIcon(android.R.drawable.ic_media_play);
+                menu.getItem(0).setTitle(getApplicationContext().getString(
+                    R.string.upload_action_global_upload_resume
+                                                                          ));
             }else{
                 menu.getItem(0).setIcon(android.R.drawable.ic_media_pause);
+                menu.getItem(0).setTitle(getApplicationContext().getString(
+                    R.string.upload_action_global_upload_pause
+                                                                          ));
             }
 
         }
@@ -293,7 +298,7 @@ public class UploadListActivity extends FileActivity {
             } else {
                 openDrawer();
             }
-        } else if (itemId == R.id.action_toogle_global_pause) {
+        } else if (itemId == R.id.action_toggle_global_pause) {
             preferences.setGlobalUploadPaused(!preferences.getGlobalUploadPaused());
             if (preferences.getGlobalUploadPaused()){
                 item.setIcon(android.R.drawable.ic_media_play);

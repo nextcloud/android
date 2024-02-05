@@ -646,6 +646,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 if (uploadHelper.isUploadingNow(upload)) {
                     // really uploading, bind the progress bar to listen for progress updates
                     status = parentActivity.getString(R.string.uploader_upload_in_progress_ticker);
+                } else if (parentActivity.getAppPreferences().getGlobalUploadPaused()) {
+                    status = parentActivity.getString(R.string.upload_global_pause);
                 }
                 break;
 

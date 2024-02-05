@@ -1155,6 +1155,10 @@ public abstract class DrawerActivity extends ToolbarActivity
         return true;
     }
 
+    public AppPreferences getAppPreferences(){
+        return preferences;
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
