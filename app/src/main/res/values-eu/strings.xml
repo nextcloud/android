@@ -75,6 +75,7 @@
     <string name="autoupload_custom_folder">Konfiguratu karpeta berria</string>
     <string name="autoupload_disable_power_save_check">Desgaitu energia aurrezteko kontrola</string>
     <string name="autoupload_hide_folder">Ezkutatu karpeta</string>
+    <string name="autoupload_worker_foreground_info">Igoera automatikoa prestatzen</string>
     <string name="avatar">Abatarra</string>
     <string name="away">Kanpoan</string>
     <string name="backup_settings">Babeskopiaren ezarpenak</string>
@@ -220,11 +221,15 @@
     <string name="downloader_download_failed_credentials_error">Deskargak huts egin du, hasi saioa berriz</string>
     <string name="downloader_download_failed_ticker">Deskargak huts egin du</string>
     <string name="downloader_download_file_not_found">Fitxategia jadanik ez dago eskuragarri zerbitzarian</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Deskargatzen %2$s</string>
     <string name="downloader_download_in_progress_ticker">Deskargatzen…</string>
     <string name="downloader_download_succeeded_content">%1$s deskargatuta</string>
     <string name="downloader_download_succeeded_ticker">Deskargatuta</string>
+    <string name="downloader_file_download_cancelled">Erabiltzaileak fitxategi batzuen deskarga bertan behera utzi ditu</string>
+    <string name="downloader_file_download_failed">Errore bat gertatu da fitxategiak deskargatzean</string>
     <string name="downloader_not_downloaded_yet">Oraindik deskargatu gabe</string>
+    <string name="downloader_unexpected_error">Ustekabeko errorea gertatu da fitxategiak deskargatzean</string>
     <string name="drawer_close">Itxi alboko barra</string>
     <string name="drawer_community">Komunitatea</string>
     <string name="drawer_header_background">Goiburuko kutxaren atzeko planoaren irudia</string>
@@ -678,6 +683,8 @@
     <string name="screenshot_06_davdroid_heading">Egutegia eta kontaktuak</string>
     <string name="screenshot_06_davdroid_subline">Sinkronizatu DAVx5ekin</string>
     <string name="search_error">Errorea bilaketaren emaitzak lortzean</string>
+    <string name="secure_share_not_set_up">Partekatze segurua ez dago konfiguratuta erabiltzaile honentzat</string>
+    <string name="secure_share_search">Partekatze segurua...</string>
     <string name="select_all">Hautatu dena</string>
     <string name="select_media_folder">Ezarri multimedia karpeta</string>
     <string name="select_one_template">Hautatu txantiloi bat</string>
@@ -882,7 +889,10 @@
     <string name="uploader_error_message_source_file_not_found">Kargatzeko hautatutako fitxategia ez da aurkitu. Mesedez, egiaztatu fitxategia existitzen dela.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Fitxategi hau ezin da igo</string>
     <string name="uploader_error_title_no_file_to_upload">Ez dago fitxategirik kargatzeko</string>
+    <string name="uploader_file_not_found_message">Fitxategia ez da aurkitu. Ziur al zaude fitxategi hau badagoela edo aurretik konpondu gabeko gatazka bat duela?</string>
+    <string name="uploader_file_not_found_on_server_message">Ezin izan dugu fitxategia zerbitzarian kokatu. Baliteke beste erabiltzaile batek fitxategia ezabatu izana</string>
     <string name="uploader_info_dirname">Karpetaren izena</string>
+    <string name="uploader_local_files_uploaded">Saiatu berriro huts egin duten tokiko fitxategiak kargatzen</string>
     <string name="uploader_top_message">Aukeratu karga-karpeta</string>
     <string name="uploader_upload_failed_content_single">Ezin da %1$s igo</string>
     <string name="uploader_upload_failed_credentials_error">Kargatzeak huts egin du, hasi saioa berriz</string>
@@ -895,6 +905,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mantendu fitxategia jatorrizko karpetan</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Ezabatu fitxategia jatorrizko karpetatik</string>
     <string name="uploader_upload_forbidden_permissions">kargatzeko karpeta honetara</string>
+    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Igotzen %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Kargatzen…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s igota</string>
@@ -919,6 +930,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Zerbitzariko bertsioa ekartzen...</string>
     <string name="uploads_view_upload_status_service_interrupted">App-ak bukatu du</string>
     <string name="uploads_view_upload_status_succeeded">Betea</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Fitxategi bera aurkitu da zerbitzarian, igoera saltatu da</string>
     <string name="uploads_view_upload_status_unknown_fail">Errore ezezaguna</string>
     <string name="uploads_view_upload_status_virus_detected">Birusa detektatuta. Igoera ezin da osatu!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Itxaron irteteko energia aurrezteko modutik</string>
