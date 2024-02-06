@@ -8,7 +8,7 @@ permissions:
     pull-requests: write
     contents: read
 
-concurrency: 
+concurrency:
     group: qa-build-${{ github.head_ref || github.run_id }}
     cancel-in-progress: true
 
@@ -30,8 +30,9 @@ jobs:
             -   name: Install NDK and cmake
                 if: ${{ steps.check-secrets.outputs.ok == 'true' }}
                 run: |
+                    apt update; apt -y install sdkmanager
                     source ndk.env
-                    /usr/local/lib/android/sdk/tools/bin/sdkmanager "ndk;${NDK_VERSION}" "cmake;${CMAKE_VERSION}"
+                    sdkmanager "ndk;${NDK_VERSION}" "cmake;${CMAKE_VERSION}"
             -   name: Build QA
                 if: ${{ steps.check-secrets.outputs.ok == 'true' }}
                 env:
