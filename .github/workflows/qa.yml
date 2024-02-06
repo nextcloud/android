@@ -27,12 +27,6 @@ jobs:
                 with:
                     distribution: "temurin"
                     java-version: 17
-            -   name: Install NDK and cmake
-                if: ${{ steps.check-secrets.outputs.ok == 'true' }}
-                run: |
-                    apt update; apt -y install sdkmanager
-                    source ndk.env
-                    sdkmanager "ndk;${NDK_VERSION}" "cmake;${CMAKE_VERSION}"
             -   name: Build QA
                 if: ${{ steps.check-secrets.outputs.ok == 'true' }}
                 env:
