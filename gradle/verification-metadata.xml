@@ -158,10 +158,10 @@
             <trusting group="androidx.core"/>
             <trusting group="androidx.fragment"/>
             <trusting group="androidx.lifecycle"/>
+            <trusting group="androidx.recyclerview" name="recyclerview" version="1.3.2"/>
             <trusting group="androidx.room"/>
             <trusting group="androidx.sqlite"/>
             <trusting group="androidx.webkit" name="webkit" version="1.10.0"/>
-            <trusting group="androidx.recyclerview" name="recyclerview" version="1.3.2"/>
          </trusted-key>
          <trusted-key id="84789D24DF77A32433CE1F079EB80E92EB2135B1" group="org.apache" name="apache"/>
          <trusted-key id="8569C95CADC508B09FE90F3002216ED811210DAA" group="io.github.detekt.sarif4k"/>
@@ -267,7 +267,10 @@
          <trusted-key id="FA77DCFEF2EE6EB2DEBEDD2C012579464D01C06A" group="org.apache" name="apache"/>
          <trusted-key id="FA7929F83AD44C4590F6CC6815C71C0A4E0B8EDD" group="net.java.dev.jna"/>
          <trusted-key id="FAABC3738B1F58DA2D776FA2EB380DC13C39F675" group="com.intellij" name="annotations" version="12.0"/>
-         <trusted-key id="FB35C8D02B4724DADA23DE0AFD116C1969FCCFF3" group="org.json" name="json" version="20230618"/>
+         <trusted-key id="FB35C8D02B4724DADA23DE0AFD116C1969FCCFF3">
+            <trusting group="org.json" name="json" version="20230618"/>
+            <trusting group="org.json" name="json" version="20231013"/>
+         </trusted-key>
          <trusted-key id="FC411CD3CB7DCB0ABC9801058118B3BCDB1A5000" group="jakarta.xml.bind"/>
          <trusted-key id="FF6E2C001948C5F2F38B0CC385911F425EC61B51">
             <trusting group="junit"/>
