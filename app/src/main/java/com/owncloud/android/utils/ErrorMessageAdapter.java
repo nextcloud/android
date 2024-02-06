@@ -423,7 +423,7 @@ public final class ErrorMessageAdapter {
                 message = res.getString(R.string.auth_not_configured_title);
 
             } else if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                message = res.getString(R.string.auth_incorrect_path_title);
+                message = res.getString(R.string.file_not_found);
 
             } else if (result.getCode() == ResultCode.OAUTH2_ERROR) {
                 message = res.getString(R.string.auth_oauth_error);
