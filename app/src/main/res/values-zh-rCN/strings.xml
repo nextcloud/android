@@ -224,6 +224,8 @@
     <string name="downloader_download_in_progress_ticker">正在下载…</string>
     <string name="downloader_download_succeeded_content">已下载了 %1$s</string>
     <string name="downloader_download_succeeded_ticker">已下载</string>
+    <string name="downloader_file_download_cancelled">某些文件在下载过程中被用户取消</string>
+    <string name="downloader_file_download_failed">下载文件时发生错误</string>
     <string name="downloader_not_downloaded_yet">尚未下载</string>
     <string name="drawer_close">关闭侧边栏</string>
     <string name="drawer_community">社区</string>
