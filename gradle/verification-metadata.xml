@@ -8,7 +8,6 @@
          <trust group="com.fasterxml.jackson" name="jackson-base" version="2.14.2" reason="no keys available, no pom artifact to create a checksum"/>
       </trusted-artifacts>
       <ignored-keys>
-         <ignored-key id="4F91D100EB1F597B" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="59E05CE618187ED4" reason="Key couldn't be downloaded from any key server"/>
       </ignored-keys>
       <trusted-keys>
@@ -118,6 +117,7 @@
             <trusting group="javax.annotation"/>
          </trusted-key>
          <trusted-key id="4F8FEC6785F611D9A712EA2734918B7D3969D2F5" group="com.google.dagger" name="dagger" version="2.28.3"/>
+         <trusted-key id="508B736B26AA4F672A10B92C4F91D100EB1F597B" group="org.lukhnos" name="nnio" version="0.3"/>
          <trusted-key id="517B94F8D0A46317A28D8AB30DA8A5EC02D11EAD" group="net.sf.jopt-simple" name="jopt-simple" version="4.9"/>
          <trusted-key id="51B52DC5DD452F92BE342CC2858FC4C4F43856A3" group="xerces" name="xercesImpl" version="2.12.0"/>
          <trusted-key id="51BF0A126F41293F40F50A0B8CD7D660AE857DAD" group="com.getkeepsafe.relinker" name="relinker" version="1.4.5"/>
