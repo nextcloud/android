@@ -5069,6 +5069,40 @@ D78JpXJRgHL1vib++Q==
 =dGtv
 -----END PGP PUBLIC KEY BLOCK-----
 
+pub    2D6641C6AF88103E
+uid    Maven Central Java.net import (Used to sign artifacts imported from Java.net repos) <repository@sonatype.com>
+
+sub    376179DC810188ED
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: BCPG v1.68
+
+mQGiBEvHiBERBACWsrXr/oU5TYqCoX2pGlKVop38NX9/klFswZue0YMrAlEP3cid
+nQS7TYgEbUUIe25FFX7EsaiLoBDO0xKDcbO21vddThcBwF/cTwVrBvHThMECI1jX
+BUthK1UHgtn4JgFCmRSg8YVvG7jd2EU+TetdLiagwqF5aJpW8HlYjlkWZwCguQwG
+tsB0aNyAM47PEmaPdRsqd3sEAIyLOe6UdvuZaS45j0oNp35llY/FzXATI9cZJu8B
+HBjPtadKSkHUqiGoY1GFWw+DJXAwGiVuISOuiIzj9V7JYRDPmm5KMQphU9Wt66Vo
+dLB5821lg1aLsLxwT08q7lPsbfkdzpV6IEs6Xpjiixc36T3wtW/USLhKkSwhPMeJ
+EWJfA/9wq71QBxjDqOVtfddX6lCBaLP22SSZ0UIfkL3cPKFu1BlHqm1W4g/TtppQ
+i50NLN820IRDsZFQYK/c3e6uX1je5ovsro4C4mtex0e1Z1TULVeVooAnX/yjK8CF
+Ftggucz0ti56cqpfjhpbn1JtVJdrZ9V4vc97qOXoyRxx/v4sa7RtTWF2ZW4gQ2Vu
+dHJhbCBKYXZhLm5ldCBpbXBvcnQgKFVzZWQgdG8gc2lnbiBhcnRpZmFjdHMgaW1w
+b3J0ZWQgZnJvbSBKYXZhLm5ldCByZXBvcykgPHJlcG9zaXRvcnlAc29uYXR5cGUu
+Y29tPrkCDQRLx4gYEAgArRqEyhMVJS+IzyZkNirv++XDskoFFWbMF1u3xmBNGeZo
+vmuXdsfonVaYjGIW3KU/RfHzyaHwe2DWnPXkz1duRD3ZU4FwIWLaZhEm9I1Uf+B+
+6rUYj8u1ZUk/P6pY1m0ADPbrj1TS13HAyX8QoKm4qjaqMTtgheCJ05GIsqeqSk3R
+9GWEE2WPoO5IiUh8iy/xK+poufNVxRJUeMD6rn7WfK3pmtPF55elPVJnCiEnUBkm
+pcdfCo/bAp9u/0MbGkFunXvs0kwi7AK8DilC1JT7htsbWkLWN7kBcHNlt8sjMlge
+gEku0f7pOrlabVTydHL36bmAQwxN14NfgDJKG8fh/wADBQf/TfAnCFsHoQ8rig70
+zMQ16YSSHL0nrzAID/44Db5kji7+iD9P7a4jZd/nyIqzKeeJOqfN4t+F5xVgmdc0
+335JRRsIzsa0t3VE0+6yjEDAueBJvjyZtxKlBgDMUXR0h2TFxTCekN0BYnmkjVhL
+xhuOvkUNNwff0JRlTMBTd7q1ImYF00xUoo4YCd0X++VsviduNT3rS/G9OIbqwswj
+de+XKTraowpbRADse5HFPfZNbB1qJdWWY1CZC0JCVKwZ8rVpHWqmxK6H8JKqJwt1
+XGw6pHhkkeBCaeh/JVY9N0jLMBWUATJdvQqPcR6sb25co9UkNXpEOCrRnzjsyVj5
+++jlQYhJBBgRAgAJBQJLx4gYAhsMAAoJEC1mQcaviBA+FSUAnR5Xi/qPEHd1cXSp
+wdAqGKwCen3WAJwIsFD8tHGarvnRqo0ij3FERxwR3A==
+=TljG
+-----END PGP PUBLIC KEY BLOCK-----
+
 pub    347CD0EAED975C5F
 uid    Eric Vergnaud <eric.vergnaud@wanadoo.fr>
 
