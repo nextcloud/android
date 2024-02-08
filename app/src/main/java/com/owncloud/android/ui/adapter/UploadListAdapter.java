@@ -29,6 +29,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.format.DateUtils;
@@ -259,6 +260,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         itemViewHolder.binding.uploadRemotePath.setVisibility(View.VISIBLE);
         itemViewHolder.binding.uploadFileSize.setVisibility(View.VISIBLE);
         itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
+        itemViewHolder.binding.uploadStatus.setTypeface(null, Typeface.NORMAL);
         itemViewHolder.binding.uploadProgressBar.setVisibility(View.GONE);
 
         // Update information depending of upload details
@@ -300,6 +302,15 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             case UPLOAD_FAILED -> itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
             case UPLOAD_SUCCEEDED -> itemViewHolder.binding.uploadStatus.setVisibility(View.GONE);
         }
+
+        // show status if same file conflict or local file deleted
+        if (item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED && item.getLastResult() != UploadResult.UPLOADED){
+            itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
+            itemViewHolder.binding.uploadStatus.setTypeface(null, Typeface.BOLD);
+            itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
+            itemViewHolder.binding.uploadFileSize.setVisibility(View.GONE);
+        }
+
         itemViewHolder.binding.uploadStatus.setText(status);
 
         // bind listeners to perform actions
@@ -612,7 +623,13 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 break;
 
             case UPLOAD_SUCCEEDED:
-                status = parentActivity.getString(R.string.uploads_view_upload_status_succeeded);
+                if (upload.getLastResult() == UploadResult.SAME_FILE_CONFLICT){
+                    status = parentActivity.getString(R.string.uploads_view_upload_status_succeeded_same_file);
+                }else if (upload.getLastResult() == UploadResult.FILE_NOT_FOUND) {
+                    status = getUploadFailedStatusText(upload.getLastResult());
+                } else {
+                    status = parentActivity.getString(R.string.uploads_view_upload_status_succeeded);
+                }
                 break;
 
             case UPLOAD_FAILED:
