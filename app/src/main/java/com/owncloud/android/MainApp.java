@@ -141,6 +141,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     private static String storagePath;
 
     private static boolean mOnlyOnDevice;
+    private static boolean mOnlyPersonalFiles;
 
     @Inject
     protected AppPreferences preferences;
@@ -705,9 +706,16 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         mOnlyOnDevice = state;
     }
 
+    public static void showOnlyPersonalFiles(boolean state) {
+        mOnlyPersonalFiles = state;
+    }
 
     public static boolean isOnlyOnDevice() {
         return mOnlyOnDevice;
+    }
+
+    public static boolean isOnlyPersonFiles() {
+        return mOnlyPersonalFiles;
     }
 
     public static String getUserAgent() {

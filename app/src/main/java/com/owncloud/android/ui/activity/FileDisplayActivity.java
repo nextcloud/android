@@ -1130,7 +1130,7 @@ public class FileDisplayActivity extends FileActivity
         if (menuItemId == -1) {
             setDrawerAllFiles();
         } else {
-            if (menuItemId == R.id.nav_all_files) {
+            if (menuItemId == R.id.nav_all_files || menuItemId == R.id.nav_personal_files) {
                 setupHomeSearchToolbarWithSortAndListButtons();
             } else {
                 setupToolbar();
@@ -1148,7 +1148,10 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void setDrawerAllFiles() {
-        if (MainApp.isOnlyOnDevice()) {
+        if (MainApp.isOnlyPersonFiles()) {
+            setDrawerMenuItemChecked(R.id.nav_personal_files);
+            setupHomeSearchToolbarWithSortAndListButtons();
+        } else if (MainApp.isOnlyOnDevice()) {
             setDrawerMenuItemChecked(R.id.nav_on_device);
             setupToolbar();
         } else {
@@ -2202,8 +2205,8 @@ public class FileDisplayActivity extends FileActivity
     }
 
     @Override
-    public void showFiles(boolean onDeviceOnly) {
-        super.showFiles(onDeviceOnly);
+    public void showFiles(boolean onDeviceOnly, boolean personalFiles) {
+        super.showFiles(onDeviceOnly, personalFiles);
         if (onDeviceOnly) {
             updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_on_device));
         }
