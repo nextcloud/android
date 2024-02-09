@@ -65,6 +65,7 @@ import javax.inject.Inject;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Activity listing pending, active, and completed uploads. User can delete
@@ -266,6 +267,7 @@ public class UploadListActivity extends FileActivity {
     }
 
     @Override
+    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_BAD_PRACTICE")
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_upload_list, menu);
