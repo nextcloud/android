@@ -922,6 +922,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Отримую версію сервера...</string>
     <string name="uploads_view_upload_status_service_interrupted">Застосунок зупинено</string>
     <string name="uploads_view_upload_status_succeeded">Завершені</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Такий саме файл знайдено у хмарі, пропускаю завантаження</string>
     <string name="uploads_view_upload_status_unknown_fail">Невідома помилка</string>
     <string name="uploads_view_upload_status_virus_detected">Виявлено вірус. Завантаження не буде виконано!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Очікую виходу із режиму заощадження заряду батареї</string>
