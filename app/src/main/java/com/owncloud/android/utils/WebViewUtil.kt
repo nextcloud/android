@@ -122,7 +122,7 @@ class WebViewUtil(private val context: Context) {
      *
      * @return
      */
-    @SuppressLint("PrivateApi", "DiscouragedPrivateApi")
+    @SuppressLint("PrivateApi", "DiscouragedPrivateApi", "TooGenericExceptionCaught")
     fun setProxyKKPlus(webView: WebView) {
         val proxyHost = OwnCloudClientManagerFactory.getProxyHost()
         val proxyPort = OwnCloudClientManagerFactory.getProxyPort()
