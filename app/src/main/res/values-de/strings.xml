@@ -241,6 +241,7 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Benachrichtigungen</string>
     <string name="drawer_item_on_device">Auf dem Gerät</string>
+    <string name="drawer_item_personal_files">Persönliche Dateien</string>
     <string name="drawer_item_recently_modified">Kürzlich geändert</string>
     <string name="drawer_item_shared">Geteilt</string>
     <string name="drawer_item_trashbin">Gelöschte Dateien</string>
