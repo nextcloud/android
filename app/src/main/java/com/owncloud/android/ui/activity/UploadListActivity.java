@@ -290,18 +290,12 @@ public class UploadListActivity extends FileActivity {
         int iconId;
         String title;
         if (preferences.getGlobalUploadPaused()) {
-            iconId = R.drawable.ic_play_arrow;
+            iconId = R.drawable.ic_play;
             title = getString(R.string.upload_action_global_upload_resume);
         } else {
             iconId = R.drawable.ic_pause;
             title = getString(R.string.upload_action_global_upload_pause);
         }
-        /*
-        DrawableUtil drawableUtil = new DrawableUtil();
-        Drawable iconDrawable = AppCompatResources.getDrawable(this, iconId);
-        assert iconDrawable != null;
-        iconDrawable = drawableUtil.changeColor(iconDrawable, R.color.dark_background_text_color);
-         */
 
         pauseMenuItem.setIcon(iconId);
         pauseMenuItem.setTitle(title);
