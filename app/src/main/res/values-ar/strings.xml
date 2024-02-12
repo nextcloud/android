@@ -241,6 +241,7 @@
     <string name="drawer_item_home">الرئيسية</string>
     <string name="drawer_item_notifications">الإخطارات</string>
     <string name="drawer_item_on_device">على الجهاز</string>
+    <string name="drawer_item_personal_files">ملفات شخصية</string>
     <string name="drawer_item_recently_modified">تغيرت مؤخراً</string>
     <string name="drawer_item_shared">المشاركات</string>
     <string name="drawer_item_trashbin">الملفات المحذوفة</string>
