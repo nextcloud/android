@@ -2503,6 +2503,10 @@ public class FileDisplayActivity extends FileActivity
      * visibility earlier using {@link #setSortListGroup(boolean, boolean)}
      */
     private void popSortListGroupVisibility() {
+        if (previousSortGroupState.isEmpty()) {
+            return;
+        }
+
         boolean popped = previousSortGroupState.pop();
         showSortListGroup(popped);
     }
