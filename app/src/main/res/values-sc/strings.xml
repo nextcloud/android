@@ -620,7 +620,7 @@
     <string name="shared_icon_shared_via_link">cumpartzidu cun ligòngiu</string>
     <string name="shared_with_you_by">Cumpartzidu cun te dae %1$s</string>
     <string name="sharee_add_failed">Agiunta de cumpartzidura faddida</string>
-    <string name="signup_with_provider">Registra•ti cun su frunidore</string>
+    <string name="signup_with_provider">Registra·ti cun su frunidore</string>
     <string name="single_sign_on_request_token" formatted="true">Permìtere a %1$s de intrare in su contu tuo de Nextcloud %2$s?</string>
     <string name="sort_by">Assenta segundu</string>
     <string name="ssl_validator_btn_details_hide">Cua</string>
