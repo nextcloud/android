@@ -2504,6 +2504,7 @@ public class FileDisplayActivity extends FileActivity
      */
     private void popSortListGroupVisibility() {
         if (previousSortGroupState.isEmpty()) {
+            showSortListGroup(false);
             return;
         }
 
