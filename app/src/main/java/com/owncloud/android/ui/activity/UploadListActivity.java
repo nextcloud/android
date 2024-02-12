@@ -29,6 +29,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -57,11 +60,16 @@ import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.adapter.UploadListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.DrawableUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -275,20 +283,28 @@ public class UploadListActivity extends FileActivity {
 
     @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
     private void updateGlobalPauseIcon(MenuItem pauseMenuItem) {
-        if (pauseMenuItem.getItemId() == R.id.action_toggle_global_pause) {
-            if (preferences.getGlobalUploadPaused()) {
-                pauseMenuItem.setIcon(android.R.drawable.ic_media_play);
-                pauseMenuItem.setTitle(getApplicationContext().getString(
-                    R.string.upload_action_global_upload_resume
-                                                                        ));
-            } else {
-                pauseMenuItem.setIcon(android.R.drawable.ic_media_pause);
-                pauseMenuItem.setTitle(getApplicationContext().getString(
-                    R.string.upload_action_global_upload_pause
-                                                                        ));
-            }
-
+        if (pauseMenuItem.getItemId() != R.id.action_toggle_global_pause) {
+            return;
         }
+
+        int iconId;
+        String title;
+        if (preferences.getGlobalUploadPaused()) {
+            iconId = R.drawable.ic_play_arrow;
+            title = getString(R.string.upload_action_global_upload_resume);
+        } else {
+            iconId = R.drawable.ic_pause;
+            title = getString(R.string.upload_action_global_upload_pause);
+        }
+        /*
+        DrawableUtil drawableUtil = new DrawableUtil();
+        Drawable iconDrawable = AppCompatResources.getDrawable(this, iconId);
+        assert iconDrawable != null;
+        iconDrawable = drawableUtil.changeColor(iconDrawable, R.color.dark_background_text_color);
+         */
+
+        pauseMenuItem.setIcon(iconId);
+        pauseMenuItem.setTitle(title);
     }
 
     @SuppressLint("NotifyDataSetChanged")
