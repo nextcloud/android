@@ -387,7 +387,7 @@ public interface AppPreferences {
 
     void setCalendarLastBackup(long timestamp);
 
-    boolean getGlobalUploadPaused();
+    boolean isGlobalUploadPaused();
 
     void setGlobalUploadPaused(boolean globalPausedState);
 

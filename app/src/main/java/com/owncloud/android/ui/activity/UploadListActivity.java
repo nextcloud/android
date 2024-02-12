@@ -29,9 +29,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -60,16 +57,11 @@ import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.adapter.UploadListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.DrawableUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -289,7 +281,7 @@ public class UploadListActivity extends FileActivity {
 
         int iconId;
         String title;
-        if (preferences.getGlobalUploadPaused()) {
+        if (preferences.isGlobalUploadPaused()) {
             iconId = R.drawable.ic_play;
             title = getString(R.string.upload_action_global_upload_resume);
         } else {
@@ -303,7 +295,7 @@ public class UploadListActivity extends FileActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void toggleGlobalPause(MenuItem pauseMenuItem) {
-        preferences.setGlobalUploadPaused(!preferences.getGlobalUploadPaused());
+        preferences.setGlobalUploadPaused(!preferences.isGlobalUploadPaused());
         updateGlobalPauseIcon(pauseMenuItem);
 
         for (User user : accountManager.getAllUsers()) {

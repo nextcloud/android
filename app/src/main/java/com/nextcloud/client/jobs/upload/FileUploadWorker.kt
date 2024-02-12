@@ -144,7 +144,7 @@ class FileUploadWorker(
         var currentPage = uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(-1, accountName)
 
         while (currentPage.isNotEmpty() && !isStopped) {
-            if (preferences.globalUploadPaused) {
+            if (preferences.isGlobalUploadPaused) {
                 Log_OC.d(TAG, "Upload is paused, skip uploading files!")
                 notificationManager.notifyPaused(
                     intents.notificationStartIntent(null)

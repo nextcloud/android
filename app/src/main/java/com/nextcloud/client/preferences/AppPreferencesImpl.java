@@ -744,7 +744,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
-    public boolean getGlobalUploadPaused() {
+    public boolean isGlobalUploadPaused() {
         return preferences.getBoolean(PREF__GLOBAL_PAUSE_STATE,false);
     }
 

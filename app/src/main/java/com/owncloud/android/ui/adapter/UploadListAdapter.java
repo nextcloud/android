@@ -29,7 +29,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.format.DateUtils;
@@ -643,7 +642,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     // really uploading, bind the progress bar to listen for progress updates
                     status = parentActivity.getString(R.string.uploader_upload_in_progress_ticker);
                 }
-                if (parentActivity.getAppPreferences().getGlobalUploadPaused()) {
+                if (parentActivity.getAppPreferences().isGlobalUploadPaused()) {
                     status = parentActivity.getString(R.string.upload_global_pause_title);
                 }
             }
