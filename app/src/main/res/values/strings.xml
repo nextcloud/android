@@ -522,8 +522,6 @@
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_known_remote_on_clarification">on %1$s</string>
 
-    <string name="action_clear_failed_uploads">Clear failed uploads</string>
-
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
 

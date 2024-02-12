@@ -37,16 +37,12 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class UploadNotificationManager(private val context: Context, private val viewThemeUtils: ViewThemeUtils) {
     companion object {
-
         private const val ID = 411
     }
 
     private var notification: Notification? = null
-    private var notificationBuilder: NotificationCompat.Builder
-    private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    init {
-        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
+    private var notificationBuilder: NotificationCompat.Builder =
+        NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
             setContentTitle(context.getString(R.string.foreground_service_upload))
             setSmallIcon(R.drawable.notification_icon)
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
@@ -55,13 +51,15 @@ class UploadNotificationManager(private val context: Context, private val viewTh
                 setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
             }
         }
+    private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+    init {
         notification = notificationBuilder.build()
     }
 
     @Suppress("MagicNumber")
     fun prepareForStart(upload: UploadFileOperation, pendingIntent: PendingIntent, startIntent: PendingIntent) {
-        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
+        notificationBuilder.run {
             setSmallIcon(R.drawable.notification_icon)
             setOngoing(true)
             setTicker(context.getString(R.string.foreground_service_upload))
@@ -195,12 +193,14 @@ class UploadNotificationManager(private val context: Context, private val viewTh
     }
 
     fun notifyPaused(startIntent: PendingIntent) {
-        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
+        notificationBuilder.apply {
             setSmallIcon(R.drawable.notification_icon)
             setOngoing(true)
+            setAutoCancel(false)
             setTicker(context.getString(R.string.upload_global_pause))
             setContentTitle(context.getString(R.string.upload_global_pause_title))
             setContentText(context.getString(R.string.upload_global_pause))
+            setProgress(0, 0, false)
             clearActions()
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

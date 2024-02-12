@@ -68,9 +68,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Activity listing pending, active, and completed uploads. User can delete
- * completed uploads from view. Content of this list of coming from
- * {@link UploadsStorageManager}.
+ * Activity listing pending, active, and completed uploads. User can delete completed uploads from view. Content of this
+ * list of coming from {@link UploadsStorageManager}.
  */
 public class UploadListActivity extends FileActivity {
 
@@ -211,7 +210,7 @@ public class UploadListActivity extends FileActivity {
     private void refresh() {
         backgroundJobManager.startImmediateFilesSyncJob(false, true);
 
-        if(uploadsStorageManager.getFailedUploads().length > 0){
+        if (uploadsStorageManager.getFailedUploads().length > 0) {
             new Thread(() -> {
                 FileUploadHelper.Companion.instance().retryFailedUploads(
                     uploadsStorageManager,
@@ -267,32 +266,46 @@ public class UploadListActivity extends FileActivity {
     }
 
     @Override
-    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_upload_list, menu);
-
-        if (menu.getItem(0).getItemId() == R.id.action_toggle_global_pause){
-            if (preferences.getGlobalUploadPaused()){
-                menu.getItem(0).setIcon(android.R.drawable.ic_media_play);
-                menu.getItem(0).setTitle(getApplicationContext().getString(
-                    R.string.upload_action_global_upload_resume
-                                                                          ));
-            }else{
-                menu.getItem(0).setIcon(android.R.drawable.ic_media_pause);
-                menu.getItem(0).setTitle(getApplicationContext().getString(
-                    R.string.upload_action_global_upload_pause
-                                                                          ));
-            }
-
-        }
-
+        updateGlobalPauseIcon(menu.getItem(0));
         return true;
     }
 
-    @Override
-    @SuppressLint("NotifyDataSetChanged")
     @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
+    private void updateGlobalPauseIcon(MenuItem pauseMenuItem) {
+        if (pauseMenuItem.getItemId() == R.id.action_toggle_global_pause) {
+            if (preferences.getGlobalUploadPaused()) {
+                pauseMenuItem.setIcon(android.R.drawable.ic_media_play);
+                pauseMenuItem.setTitle(getApplicationContext().getString(
+                    R.string.upload_action_global_upload_resume
+                                                                        ));
+            } else {
+                pauseMenuItem.setIcon(android.R.drawable.ic_media_pause);
+                pauseMenuItem.setTitle(getApplicationContext().getString(
+                    R.string.upload_action_global_upload_pause
+                                                                        ));
+            }
+
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void toggleGlobalPause(MenuItem pauseMenuItem) {
+        preferences.setGlobalUploadPaused(!preferences.getGlobalUploadPaused());
+        updateGlobalPauseIcon(pauseMenuItem);
+
+        for (User user : accountManager.getAllUsers()) {
+            if (user != null) {
+                FileUploadHelper.Companion.instance().cancelAndRestartUploadJob(user);
+            }
+        }
+
+        uploadListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int itemId = item.getItemId();
@@ -304,17 +317,7 @@ public class UploadListActivity extends FileActivity {
                 openDrawer();
             }
         } else if (itemId == R.id.action_toggle_global_pause) {
-            preferences.setGlobalUploadPaused(!preferences.getGlobalUploadPaused());
-            if (preferences.getGlobalUploadPaused()){
-                item.setIcon(android.R.drawable.ic_media_play);
-            }else{
-                item.setIcon(android.R.drawable.ic_media_pause);
-            }
-
-            for (User user: accountManager.getAllUsers()){
-                if (user != null) FileUploadHelper.Companion.instance().cancelAndRestartUploadJob(user);
-            }
-            uploadListAdapter.notifyDataSetChanged();
+            toggleGlobalPause(item);
         }
 
         return true;
