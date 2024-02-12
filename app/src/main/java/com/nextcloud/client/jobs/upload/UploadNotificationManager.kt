@@ -190,8 +190,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
     fun notifyPaused(intent: PendingIntent) {
         notificationBuilder.apply {
             setContentTitle(context.getString(R.string.upload_global_pause_title))
-            setContentText(context.getString(R.string.upload_global_pause))
-            setTicker(context.getString(R.string.upload_global_pause))
+            setTicker(context.getString(R.string.upload_global_pause_title))
             setOngoing(true)
             setAutoCancel(false)
             setProgress(0, 0, false)
