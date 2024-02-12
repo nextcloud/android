@@ -35,7 +35,7 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class UploadNotificationManager(private val context: Context, private val viewThemeUtils: ViewThemeUtils) {
+class UploadNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) {
     companion object {
         private const val ID = 411
     }
@@ -60,11 +60,7 @@ class UploadNotificationManager(private val context: Context, private val viewTh
     @Suppress("MagicNumber")
     fun prepareForStart(upload: UploadFileOperation, pendingIntent: PendingIntent, startIntent: PendingIntent) {
         notificationBuilder.run {
-            setSmallIcon(R.drawable.notification_icon)
-            setOngoing(true)
-            setTicker(context.getString(R.string.foreground_service_upload))
             setContentTitle(context.getString(R.string.uploader_upload_in_progress_ticker))
-            setProgress(100, 0, false)
             setContentText(
                 String.format(
                     context.getString(R.string.uploader_upload_in_progress),
@@ -72,6 +68,9 @@ class UploadNotificationManager(private val context: Context, private val viewTh
                     upload.fileName
                 )
             )
+            setTicker(context.getString(R.string.foreground_service_upload))
+            setProgress(100, 0, false)
+            setOngoing(true)
             clearActions()
 
             addAction(
@@ -79,10 +78,6 @@ class UploadNotificationManager(private val context: Context, private val viewTh
                 context.getString(R.string.common_cancel),
                 pendingIntent
             )
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
-            }
 
             setContentIntent(startIntent)
         }
@@ -192,22 +187,16 @@ class UploadNotificationManager(private val context: Context, private val viewTh
         notificationManager.cancel(ID)
     }
 
-    fun notifyPaused(startIntent: PendingIntent) {
+    fun notifyPaused(intent: PendingIntent) {
         notificationBuilder.apply {
-            setSmallIcon(R.drawable.notification_icon)
-            setOngoing(true)
-            setAutoCancel(false)
-            setTicker(context.getString(R.string.upload_global_pause))
             setContentTitle(context.getString(R.string.upload_global_pause_title))
             setContentText(context.getString(R.string.upload_global_pause))
+            setTicker(context.getString(R.string.upload_global_pause))
+            setOngoing(true)
+            setAutoCancel(false)
             setProgress(0, 0, false)
             clearActions()
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
-            }
-
-            setContentIntent(startIntent)
+            setContentIntent(intent)
         }
 
         showNotification()
