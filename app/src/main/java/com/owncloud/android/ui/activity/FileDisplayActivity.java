@@ -1938,28 +1938,29 @@ public class FileDisplayActivity extends FileActivity
         // the execution is slightly delayed to allow the activity get the window focus if it's being started
         // or if the method is called from a dialog that is being dismissed
         if (TextUtils.isEmpty(searchQuery) && getUser().isPresent()) {
-            getHandler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (ignoreFocus || hasWindowFocus()) {
-                        long currentSyncTime = System.currentTimeMillis();
-                        mSyncInProgress = true;
+            getHandler().postDelayed(() -> {
+                Optional<User> user = getUser();
 
-                        // perform folder synchronization
-                        RemoteOperation synchFolderOp = new RefreshFolderOperation(folder, currentSyncTime, false, ignoreETag, getStorageManager(), getUser().orElseThrow(RuntimeException::new), getApplicationContext());
-                        synchFolderOp.execute(getAccount(), MainApp.getAppContext(), FileDisplayActivity.this, null, null);
-
-                        OCFileListFragment fragment = getListOfFilesFragment();
-
-                        if (fragment != null && !(fragment instanceof GalleryFragment)) {
-                            fragment.setLoading(true);
-                        }
-
-                        setBackgroundText();
-
-                    }   // else: NOTHING ; lets' not refresh when the user rotates the device but there is
-                    // another window floating over
+                if (!ignoreFocus && !hasWindowFocus() || !user.isPresent()) {
+                    // do not refresh if the user rotates the device while another window has focus
+                    // or if the current user is no longer valid
+                    return;
                 }
+
+                long currentSyncTime = System.currentTimeMillis();
+                mSyncInProgress = true;
+
+                // perform folder synchronization
+                RemoteOperation refreshFolderOperation = new RefreshFolderOperation(folder, currentSyncTime, false, ignoreETag, getStorageManager(), user.get(), getApplicationContext());
+                refreshFolderOperation.execute(getAccount(), MainApp.getAppContext(), FileDisplayActivity.this, null, null);
+
+                OCFileListFragment fragment = getListOfFilesFragment();
+
+                if (fragment != null && !(fragment instanceof GalleryFragment)) {
+                    fragment.setLoading(true);
+                }
+
+                setBackgroundText();
             }, DELAY_TO_REQUEST_REFRESH_OPERATION_LATER);
         }
     }
