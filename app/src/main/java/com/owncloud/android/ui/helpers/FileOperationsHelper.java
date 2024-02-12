@@ -523,6 +523,7 @@ public class FileOperationsHelper {
                 showShareFile(file);
             }
         }
+
         fileActivity.refreshList();
     }
 
