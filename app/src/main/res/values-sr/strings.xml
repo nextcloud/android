@@ -241,6 +241,7 @@
     <string name="drawer_item_home">Почетна</string>
     <string name="drawer_item_notifications">Обавештења</string>
     <string name="drawer_item_on_device">На уређају</string>
+    <string name="drawer_item_personal_files">Лични фајлови</string>
     <string name="drawer_item_recently_modified">Недавно измењено</string>
     <string name="drawer_item_shared">Дељено</string>
     <string name="drawer_item_trashbin">Обрисани фајлови</string>
