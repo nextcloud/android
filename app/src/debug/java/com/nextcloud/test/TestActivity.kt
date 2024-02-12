@@ -126,8 +126,8 @@ class TestActivity :
         TODO("Not yet implemented")
     }
 
-    override fun getFileUploaderHelper(): FileUploadHelper? {
-        return null
+    override fun getFileUploaderHelper(): FileUploadHelper {
+        return FileUploadHelper.instance()
     }
 
     override fun getFileDownloadProgressListener(): FileDownloadWorker.FileDownloadProgressListener? {
