@@ -46,12 +46,12 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggestions in navigation heading</string>
     <string name="prefs_enable_media_scan_notifications">Show media scan notifications</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notify about newly found media folders</string>
-    <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
+    <string name="prefs_calendar_contacts">Sync calendar and contacts</string>
     <string name="prefs_calendar_contacts_summary">Set up DAVx5 (formerly known as DAVdroid) (v1.3.0+) for current account</string>
     <string name="prefs_davx5_setup_error">Unexpected error while setting up DAVx5 (formerly known as DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up</string>
-    <string name="prefs_daily_backup_summary">Daily backup of your calendar &amp; contacts</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Calendar and contacts sync set up</string>
+    <string name="prefs_daily_backup_summary">Daily backup of your calendar and contacts</string>
     <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
     <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
     <string name="prefs_help">Help</string>
@@ -605,7 +605,7 @@
     <string name="activities_no_results_message">No events like additions, changes and shares yet.</string>
     <string name="prefs_category_about">About</string>
 
-    <string name="actionbar_calendar_contacts_restore">Restore contacts &amp; calendar</string>
+    <string name="actionbar_calendar_contacts_restore">Restore contacts and calendar</string>
     <string name="contacts_backup_button">Back up now</string>
     <string name="contactlist_no_permission">No permission given, nothing imported.</string>
     <string name="contact_no_permission">Contact permission is required.</string>
@@ -614,7 +614,7 @@
     <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
-    <string name="backup_title">Contacts &amp; calendar backup</string>
+    <string name="backup_title">Contacts and calendar backup</string>
     <string name="contact_backup_title">Contacts backup</string>
     <string name="drawer_logout">Log out</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
@@ -650,7 +650,7 @@
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
 
     <string name="store_short_desc">The self-hosted productivity platform that keeps you in control</string>
-    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
+    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar and Ccontacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync and share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
 
     <string name="contactlist_item_icon">User icon for contact list</string>
     <string name="activity_icon">Activity</string>
@@ -707,9 +707,9 @@
     <string name="screenshot_04_accounts_subline">in one place</string>
 
     <string name="screenshot_05_autoUpload_heading">Automatic upload</string>
-    <string name="screenshot_05_autoUpload_subline">for your photos &amp; videos</string>
+    <string name="screenshot_05_autoUpload_subline">for your photos and videos</string>
 
-    <string name="screenshot_06_davdroid_heading">Calendar &amp; contacts</string>
+    <string name="screenshot_06_davdroid_heading">Calendar and contacts</string>
     <string name="screenshot_06_davdroid_subline">Sync with DAVx5</string>
 
     <string name="userinfo_no_info_headline">No personal info set</string>
@@ -758,9 +758,9 @@
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="host_your_own_server">Host your own server</string>
     <string name="first_run_1_text">Keep your data secure and under your control</string>
-    <string name="first_run_2_text">Secure collaboration &amp; file exchange</string>
-    <string name="first_run_3_text">Easy-to-use webmail, calendar &amp; contacts</string>
-    <string name="first_run_4_text">Screensharing, online meetings &amp; web conferences</string>
+    <string name="first_run_2_text">Secure collaboration and file exchange</string>
+    <string name="first_run_3_text">Easy-to-use webmail, calendar and contacts</string>
+    <string name="first_run_4_text">Screensharing, online meetings and web conferences</string>
     <string name="restore_button_description">Restore deleted file</string>
     <string name="restore">Restore file</string>
     <string name="new_version_was_created">New version was created</string>
@@ -997,7 +997,7 @@
     <string name="common_next">Next</string>
     <string name="send_share">Send Share</string>
     <string name="no_share_permission_selected">Please select at least one permission to share.</string>
-    <string name="share_copy_link">Share &amp; Copy Link</string>
+    <string name="share_copy_link">Share and Copy Link</string>
     <string name="set_note">Set Note</string>
     <string name="share_send_new_email">Send new email</string>
     <string name="link_name">Link Name</string>
@@ -1036,7 +1036,7 @@
     <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
-    <string name="subtitle_photos_videos">Photos &amp; videos</string>
+    <string name="subtitle_photos_videos">Photos and videos</string>
     <string name="show_images">Show photos</string>
     <string name="subtitle_photos_only">Photos only</string>
     <string name="show_video">Show videos</string>
