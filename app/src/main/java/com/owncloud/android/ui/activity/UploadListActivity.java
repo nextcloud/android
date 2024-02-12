@@ -290,8 +290,9 @@ public class UploadListActivity extends FileActivity {
         return true;
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     @Override
+    @SuppressLint("NotifyDataSetChanged")
+    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int itemId = item.getItemId();
