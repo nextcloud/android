@@ -315,8 +315,6 @@
     <string name="filename_forbidden_charaters_from_server">Bez ez eus d\'an neubeutan un arouez diffenet en anv restr</string>
     <string name="filename_hint">Anv restr</string>
     <string name="first_run_1_text">Gwarezit o roadennoù ha gouarnit anezho dindañ o kontrol</string>
-    <string name="first_run_2_text">Kennlabour &amp; ha eskemm restr sur</string>
-    <string name="first_run_4_text">Rannañ skramm, emvodoù dre linnen &amp; ha prezegennoù web</string>
     <string name="folder_already_exists">Bez ez eus dija eus an teuliad</string>
     <string name="folder_confirm_create">Krouiñ</string>
     <string name="folder_list_empty_headline">Emañ heuliad ebet amañ</string>
@@ -453,10 +451,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Adenvel ar stumm nevez</string>
     <string name="pref_instant_name_collision_policy_title">Petra ober m\'az eus eus ar restr dija ?</string>
     <string name="prefs_add_account">Ouzhpenn ur c\'hont</string>
-    <string name="prefs_calendar_contacts">Kemprenañ &amp; darempred deizataer</string>
     <string name="prefs_calendar_contacts_no_store_error">N\'eo stalied na F-Droid na Google Play</string>
     <string name="prefs_calendar_contacts_summary">Lakaat DAVx5 (anavezhet DAVdroid) (v1.3.0+) evit ar c\'hont</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Deizataer &amp; darempred da kemprenn</string>
     <string name="prefs_category_about">Diwar-benn</string>
     <string name="prefs_category_details">Munudoù</string>
     <string name="prefs_category_dev">Diorenn</string>
@@ -529,8 +525,6 @@
     <string name="screenshot_04_accounts_heading">Tout o c\'hontoù</string>
     <string name="screenshot_04_accounts_subline">en ul lec\'h</string>
     <string name="screenshot_05_autoUpload_heading">Pellkas otomatek</string>
-    <string name="screenshot_05_autoUpload_subline">evit o fotoioù &amp; videoioù</string>
-    <string name="screenshot_06_davdroid_heading">Deizataer &amp; darempredoù</string>
     <string name="screenshot_06_davdroid_subline">Kemprenet gant DAVx5</string>
     <string name="select_all">Dibab pep tra</string>
     <string name="select_template">Choaz ur stumm skouer</string>
@@ -609,7 +603,6 @@
     <string name="storage_movies">Filmoù</string>
     <string name="storage_music">Musik</string>
     <string name="storage_pictures">Skeudennom</string>
-    <string name="store_full_desc">Ar bladenn labour ostet e unan a laosk ac\'hanoc\'h e kàontrol.\n\nperzhioù :\n* Un etrefas aes ha modern, temed pen-kil-ha-troad evel tem o servijer.\n* Pellgasit o restroù war o servijer Nextcloud.\n* Rannit o restroù gant ar re all.\n* Mirit o teuliadoù ha restroù karetañ kempreded.\n* Klaskit etre holl o teuliadoù en o servijer.\n* Adnevesadur otomatek evit ar fotoioù hag ar videoioù kemeret gant o venvigi.\n* Chomit a giz gant ar c\'hemenadennoù.\n* Skoazel meur-gont.\n* Guardit digor au roadenn gant ur pin pe roudoù-bizel.\n*Lakaet gant DAVx5 (anvet evel DAVdroid) evit ur staliadur aes eus an deizataer &amp; Kemprenn Darempredoù\n\nMar-plij, dezrevit ar gudennoù war https://github.com/nextcloud/android/issues, hag arguzit war https://help.nextcloud.com/c/clients/android\n\n Nevez war Nextcloud ? Nexcloud a zo ur ranner ha kemprener restroù &amp; hag ur servijour darempred prevez. Ur meziant dieub eo, ha posupl o deoc\'h ostañ anezhañ ho unan pe paeañ ur companiunez evit ma rafe ze evideoc\'h. Evel-se, controled e vo ganeoc\'h roadenn o fotoioù, o deizataer hag o darempredoù, o teuliadoù ha pep tra all.\n\nTaolit ur zel ouzh Nexcloud war https://nextcloud.com</string>
     <string name="store_full_dev_desc">Ur pladenn ober a ost anezhi e unan a laosk ac\'hanoc\'h e kontrol.\nAr stumm digelañ efisiel an hini eo, keweriusteriañ sjkouerioù bemdez eus pep keweriusterioù da amprouiñ, pez a zo distabil, ha posupl eo kol roadennoù. Ar meziant a zo evit an implijourien o deus c\'hoant amprouiñ, ha kemennañ ar gudennoù a gwellont. Na implijit ket evit al labour !\n\n Ar stumm amprouiñ hag ar stumm reizh a zo posupl kavout war F-droid, ha posupl; eo staliañ anezho e memes lec\'h.</string>
     <string name="store_short_desc">Ur pladenn ober a ost anezhi e unan a laosk ac\'hanoc\'h e kontrol</string>
     <string name="store_short_dev_desc">Ur pladenn ober a ost anezhi e unan a laosk ac\'hanoc\'h e kontrol (stumm ragwellout amprouiñ)</string>

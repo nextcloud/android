@@ -14,7 +14,6 @@
     <string name="action_send_share">Отправить / Открыть доступ</string>
     <string name="action_switch_grid_view">Вид сеткой</string>
     <string name="action_switch_list_view">Вид списком</string>
-    <string name="actionbar_calendar_contacts_restore">Восстановить контакты и календарь</string>
     <string name="actionbar_mkdir">Создать папку</string>
     <string name="actionbar_move_or_copy">Переместить или скопировать</string>
     <string name="actionbar_open_with">Открыть с помощью</string>
@@ -78,7 +77,6 @@
     <string name="avatar">Аватар</string>
     <string name="away">Отсутствует</string>
     <string name="backup_settings">Настройки резервного копирования</string>
-    <string name="backup_title">Резервное копирование контактов и календаря</string>
     <string name="battery_optimization_close">Закрыть</string>
     <string name="battery_optimization_disable">Отключить</string>
     <string name="battery_optimization_message">Вероятно, используется оптимизация использования батареи. Функция автоматической передачи файлов на сервер при использовании оптимизации может работать неправильно. </string>
@@ -385,9 +383,6 @@
     <string name="filename_forbidden_charaters_from_server">Имя файла содержит как минимум один недопустимый символ</string>
     <string name="filename_hint">Имя файла</string>
     <string name="first_run_1_text">Храните свои данные в безопасности и под своим контролем</string>
-    <string name="first_run_2_text">Защищённая совместная работа &amp;обмен файлами</string>
-    <string name="first_run_3_text">Простые в использовании веб-почта, календарь &amp; контакты</string>
-    <string name="first_run_4_text">Доступ к изображению на экране, онлайн общение и веб-конференции</string>
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="folder_confirm_create">Создать</string>
     <string name="folder_list_empty_headline">Здесь нет каталогов</string>
@@ -575,16 +570,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Переименовать новую версию</string>
     <string name="pref_instant_name_collision_policy_title">Действие в случае, если файл уже существует</string>
     <string name="prefs_add_account">Добавить аккаунт</string>
-    <string name="prefs_calendar_contacts">Синхронизация календаря и контактов</string>
     <string name="prefs_calendar_contacts_no_store_error">Ни F-Droid, ни Google Play не установлены</string>
     <string name="prefs_calendar_contacts_summary">Настроить DAVx5 (ранее называвшийся DAVdroid) (v1.3.0+) для текущей учётной записи</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Настройка синхронизации календаря &amp; контактов выполнена успешно.</string>
     <string name="prefs_category_about">О программе</string>
     <string name="prefs_category_details">Дополнительные</string>
     <string name="prefs_category_dev">Разрабатываемая версия</string>
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
-    <string name="prefs_daily_backup_summary">Ежедневное резервное копирование календаря</string>
     <string name="prefs_daily_contact_backup_summary">Ежедневное сохранение контактов</string>
     <string name="prefs_davx5_setup_error">Неожиданная ошибка при настройке DAVx5 (ранее известного как DAVdroid)</string>
     <string name="prefs_e2e_active">Сквозное шифрование настроено.</string>
@@ -676,8 +668,6 @@
     <string name="screenshot_04_accounts_heading">Все ваши учётные записи</string>
     <string name="screenshot_04_accounts_subline">в одном месте</string>
     <string name="screenshot_05_autoUpload_heading">Автоматическая загрузка</string>
-    <string name="screenshot_05_autoUpload_subline">ваших фото &amp; видео</string>
-    <string name="screenshot_06_davdroid_heading">Календарь и контакты</string>
     <string name="screenshot_06_davdroid_subline">Синхронизация с DAVx5</string>
     <string name="search_error">Ошибка при получении результатов поиска</string>
     <string name="select_all">Выбрать все</string>
@@ -694,7 +684,6 @@
     <string name="set_status_message">Установить сообщение о состоянии</string>
     <string name="setup_e2e">При настройке сквозного шифрования будет создана  мнемофраза из 12 слов, которая понадобится для открытия файлов на других устройствах. Мнемофраза будет сохранена  только на этом устройстве и может быть просмотрена повторно. Сохраните мнемофразу в надежном месте!</string>
     <string name="share">Общий ресурс</string>
-    <string name="share_copy_link">Опубликовать и скопировать ссылку </string>
     <string name="share_dialog_title">Общий доступ</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истекает %1$s</string>
@@ -779,7 +768,6 @@
     <string name="storage_permission_full_access">Полный доступ</string>
     <string name="storage_permission_media_read_only">Носитель только для чтения</string>
     <string name="storage_pictures">Изображения</string>
-    <string name="store_full_desc">Приложение Nextcloud для Android, распространяемое под свободной копилефт лицензией, позволяет получать доступ к файлам на своём сервере Nextcloud с мобильных устройств.\n\nВозможности: \n* Легкий современный интерфейс\n* Передача файлов на сервер Nextcloud\n* Возможность делиться своими файлами с другими\n* Синхронизация файлов и папок\n* Поиск по всем папкам на сервере\n* Автоматическая передача на сервер видео и фотографий, сделанных на мобильном устройстве\n* Поддержка нескольких учётных записей\n* Защита доступа к данным отпечатком пальца или ПИН-кодом\n* Интеграция с DAVx5 (ранее называвшемся DAVdroid) для лёгкой настройки синхронизации календарей и контактов\n\nЗамечания и ошибки: https://github.com/nextcloud/android/issues \nПомощь и обсуждение: https://help.nextcloud.com\n\nНе знакомы с Nextcloud? Nextcloud — это свободное серверное ПО для хранения и совместной работы с файлами, событиями календаря, контактами, документами и пр. с открытым исходным кодом. Вы можете самостоятельно развернуть сервер или поручить компании сделать это для вас. Таким образом, только вы управляете своими фотографиями, своими календарями и записными книжками, своими документами и всем остальным.\n\nПознакомьтесь с Nextcloud на https://nextcloud.com</string>
     <string name="store_full_dev_desc">Платформа, размещаемая на собственных ресурсах и позволяющая самостоятельно управлять данными.\nЭто разрабатываемая версия официального приложения Nextcloud, содержащая новые возможности, тестирование которых не ещё завершено. Разрабатываемая версия может быть нестабильна и её использование может привести к потере данных. Это приложение предназначено для пользователей, которые хотят познакомиться с новыми возможности и сообщать об обнаруженных ошибках. Не используйте его для работы!\n\nРазрабатываемая версия может быть установлена совместно с официальным приложением Nextcloud, которое также доступно в F-Droid.</string>
     <string name="store_short_desc">Платформа, размещаемая на собственных ресурсах и позволяющая самостоятельно управлять данными</string>
     <string name="store_short_dev_desc">Платформа, размещаемая на собственных ресурсах и позволяющая самостоятельно управлять данными (разрабатываемая версия)</string>
@@ -793,7 +781,6 @@
     <string name="subject_shared_with_you">Вам предоставлен доступ к «%1$s»</string>
     <string name="subject_user_shared_with_you">%1$s предоставил(а) вам доступ к «%2$s»</string>
     <string name="subtitle_photos_only">Только фото</string>
-    <string name="subtitle_photos_videos">Фото &amp; видео</string>
     <string name="subtitle_videos_only">Только видео</string>
     <string name="suggest">Посоветовать</string>
     <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>

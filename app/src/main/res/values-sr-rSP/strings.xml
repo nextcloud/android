@@ -275,8 +275,6 @@
     <string name="filename_forbidden_charaters_from_server">Naziv fajla sadrži bar jedan nedozvoljen znak</string>
     <string name="filename_hint">Ime fajla</string>
     <string name="first_run_1_text">Držite podatke bezbednim i pod Vašom kontrolom</string>
-    <string name="first_run_2_text">Bezbedna saradnja &amp; i razmena fajlova</string>
-    <string name="first_run_4_text">Deljenje ekrana, sastanci na internetu &amp; veb konferencije</string>
     <string name="folder_already_exists">Fascikla već postoji</string>
     <string name="folder_confirm_create">Napravi</string>
     <string name="folder_list_empty_headline">Bez fascikli</string>
@@ -395,10 +393,8 @@
     <string name="pref_behaviour_entries_keep_file">ostavljen u izvornoj fascikli</string>
     <string name="pref_behaviour_entries_move">premešten u fasciklu aplikacije</string>
     <string name="prefs_add_account">Dodaj nalog</string>
-    <string name="prefs_calendar_contacts">Sinhronizuj kalendar i kontakte</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-droid ni Gugl plej prodavnica nisu instalirane</string>
     <string name="prefs_calendar_contacts_summary">Podesi DAVx5 (ranije znan i kao DAVdroid) (v1.3.0+) za trenutni nalog</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalendar i sinhronizacija kontakata podešeni</string>
     <string name="prefs_category_about">O programu</string>
     <string name="prefs_category_details">Podaci</string>
     <string name="prefs_category_dev">Razvojno</string>
@@ -469,8 +465,6 @@
     <string name="screenshot_04_accounts_heading">Svi Vaši nalozi</string>
     <string name="screenshot_04_accounts_subline">na jednom mestu</string>
     <string name="screenshot_05_autoUpload_heading">Automatska otpremanja</string>
-    <string name="screenshot_05_autoUpload_subline">Vaših slika &amp; video zapisa</string>
-    <string name="screenshot_06_davdroid_heading">Kalendar &amp; kontakti</string>
     <string name="screenshot_06_davdroid_subline">Sinhronizacija sa DAVx5</string>
     <string name="select_all">Označi sve</string>
     <string name="select_template">Odaberite šablon</string>
@@ -545,7 +539,6 @@
     <string name="storage_movies">Filmovi</string>
     <string name="storage_music">Muzika</string>
     <string name="storage_pictures">Slike</string>
-    <string name="store_full_desc">Platforma za produktivnost koju i Vi možete da hostujete i koja Vam daje kontrolu.\nOsobine:\n* Lako i moderno sučelje, potpuno usklađeno sa temom sa servera\n* Otpremanje fajlova na Nekstklaud server\n* Deljenje fajlova sa drugima\n* Sinhronizacija omiljenih fajlova i fascikli\n* Pretraga kroz sve fascikle na serveru\n* Automatsko otpremanje slika i video zapisa sa uređaja\n* Obaveštenja sa servera\n* Podrška za više naloga\n* Bezbedan pristup svim podacima preko otiska prsta ili pina\n* Integracija sa DAVx5-om (ranije znanom i kao DAVdroid) za brzo podešavanje sinhronizacije kalendara &amp; kontakata\n\nSve probleme možete da prijavite na https://github.com/nextcloud/android/issues a o aplikaciji diskutujte na https://help.nextcloud.com/c/clients/android\n\nNovi ste na Nekstklaudu? Nekstklaud je lični server za sinhronizaciju, deljenje fajlova &amp; komunikaciju. Potpuno je otvorenog koda i možete da ga sami hostovati ili platiti kompaniji da to radi za Vas. Na ovaj način, sami kontrolišete svoje slike, kalendare, kontakte, dokumenta i sve ostalo.\n\nPogledajte Nekstklaud na https://nextcloud.com</string>
     <string name="store_full_dev_desc">Platforma za produktivnost koju i Vi možete da hostujete i koja Vam daje kontrolu.\nOvo je zvanična razvojna verzija koja ima uzorak netestiranih funkcija na dnevnom nivou, a koji mogu da izazovu nestabilnosti ili gubitak podataka. Ova aplikacija je za korisnike koje žete da testiraju i prijavljuju greške ukoliko se dese. Ne koristite je za produkciju!\n\nI zvanična i razvojna verzija su dostupne sa F-Droid-a i mogu biti instalirane zajedno.</string>
     <string name="store_short_desc">Platforma za produktivnost koju i Vi možete da hostujete i koja Vam daje kontrolu</string>
     <string name="store_short_dev_desc">Platforma za produktivnost koju i Vi možete da hostujete i koja Vam daje kontrolu (razvojna verzija)</string>

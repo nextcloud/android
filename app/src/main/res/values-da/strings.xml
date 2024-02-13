@@ -14,7 +14,6 @@
     <string name="action_send_share">Send/Del</string>
     <string name="action_switch_grid_view">Grid visning</string>
     <string name="action_switch_list_view">List visning</string>
-    <string name="actionbar_calendar_contacts_restore">Gendan kontakter &amp; kalender</string>
     <string name="actionbar_mkdir">Ny mappe</string>
     <string name="actionbar_move_or_copy">Flyt eller kopier</string>
     <string name="actionbar_open_with">Åbn med</string>
@@ -78,7 +77,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Ikke tilstede</string>
     <string name="backup_settings">Backup indstilinger</string>
-    <string name="backup_title">Kontakter &amp; kalender backup</string>
     <string name="battery_optimization_close">Luk</string>
     <string name="battery_optimization_disable">Deaktiver</string>
     <string name="battery_optimization_message">Din enhed har batterioptimisering aktiveret. Autoupload aktiveret. Autoupload virker kun korrekt hvis du ekskluderer denne app fra det.</string>
@@ -380,9 +378,6 @@
     <string name="filename_forbidden_charaters_from_server">Filnavnet indeholder mindst ét ugyldigt tegn</string>
     <string name="filename_hint">Filnavn</string>
     <string name="first_run_1_text">Bevar dine data i sikkerhed og under din kontrol</string>
-    <string name="first_run_2_text">Sikker kollaboration &amp; fil udveksling</string>
-    <string name="first_run_3_text">Brugervenlig webmail, kalender &amp; kontakter</string>
-    <string name="first_run_4_text">Skærmdeling, onlinemøder &amp; web konferencer</string>
     <string name="folder_already_exists">Mappe findes allerede</string>
     <string name="folder_confirm_create">Opret</string>
     <string name="folder_list_empty_headline">Ingen mappe her</string>
@@ -570,16 +565,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Omdøb ny version</string>
     <string name="pref_instant_name_collision_policy_title">Hvad skal ske, hvis filen allerede findes?</string>
     <string name="prefs_add_account">Tilføj konto</string>
-    <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_no_store_error">Hverken F-droid eller Google Play er installeret</string>
     <string name="prefs_calendar_contacts_summary">Indstil DAVx5 (før kendt som DAVdroid) (v1.3.0+) for aktiv konto</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Synkroniser kalender &amp;\'s kontakter</string>
     <string name="prefs_category_about">Om</string>
     <string name="prefs_category_details">Detaljer</string>
     <string name="prefs_category_dev">Udvikling</string>
     <string name="prefs_category_general">Generel</string>
     <string name="prefs_category_more">Mere</string>
-    <string name="prefs_daily_backup_summary">Daglig backup af din kalender &amp; kontakter</string>
     <string name="prefs_daily_contact_backup_summary">Daglig backup af dine kontakter</string>
     <string name="prefs_davx5_setup_error">Uventet fejl under opsætning af DAVx5 (tidligere kendt som DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end kryptering er blevet konfigureret!</string>
@@ -669,8 +661,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="screenshot_04_accounts_heading">Alle dine konti</string>
     <string name="screenshot_04_accounts_subline">på et sted</string>
     <string name="screenshot_05_autoUpload_heading">Automatisk upload</string>
-    <string name="screenshot_05_autoUpload_subline">Til dine billeder &amp; videoer</string>
-    <string name="screenshot_06_davdroid_heading">Kalender &amp; kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synkronisér med DAVx5</string>
     <string name="search_error">Fejl ved indhenting af søgeresultater</string>
     <string name="select_all">Vælg alle</string>
@@ -687,7 +677,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="set_status_message">Sæt statusbesked</string>
     <string name="setup_e2e">Undervejs i opsætningen af end-to-end kryptering, så vil du modtage en tilfældig huskeregel på 12 ord, som du får brug for til at åbne dine filer på andre enheder. Denne vil kun blive gemt på denne enhed, og kan blive vist senere i denne visning. Skriv den venligst ned et sikkert sted!</string>
     <string name="share">Del</string>
-    <string name="share_copy_link">Del &amp;Kopier Link</string>
     <string name="share_dialog_title">Deling</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Udløber %1$s</string>
@@ -772,7 +761,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="storage_permission_full_access">Fuld adgang</string>
     <string name="storage_permission_media_read_only">Læsebegrænset til medier</string>
     <string name="storage_pictures">Billeder</string>
-    <string name="store_full_desc">Produktivitets platformen der giver dig fuld kontrol.\nFeatures:\n* Simpelt, moderne interface skræddersyet efter dit server tema.\n* Upload filer til din Nextcloud server\n* Del dem med andre\n* Få dine favorit filer og mapper synkroniseret\n* Søg på tværs af alle dine mapper på din server\n* Auto upload fotos og videoer taget med din device\n* Vær up to date med notifikationer\n* Supporterer flere konti\n* Sikker adgang til dine data med fingeraftryk eller PIN\n* Integration med DAVx5 (tidligere DAVdroid) for nem opsætning af kalender &amp;Synkronisering af kontaker\n\nVenligst rapporter alle fejl og mangler på https://github.com/nextcloud/android/issues og deltag i debat om denne app på https://help.nextcloud.com/c/clients/android\n\nFørste gang du prøver Nextcloud? Nextcloud er en privat fil synkroniserings- &amp;, dele- og kommunikationsserver. Det er fri software, og du kan være din egen vært eller betale et firma for at være vært for dig. På den måde har du kontrol over dine photos, din kalender og kontakt data, dine dokumenter og alt det andet.\n\n Tjek Nextcloud på https://nextcloud.com</string>
     <string name="store_full_dev_desc">Produktivitets platformen der giver dig fuld kontrol.\nDette er den officielle udvikler version som indeholder et dagligt udvalg af nye utestede funktioner der kan medføre ustabilitet og tab af data. Denne er app er kun til brugere villige til at teste og indrapportere fejl og mangler. Brug den ikke i dit produktionsmiljø!\n\nBåde den officielle udvikler og almindelige version er tilgængelig på F-droid og kan begge være installeret på samme tid.</string>
     <string name="store_short_desc">Vært i eget hus produktivitets platform, hvor du bevarer kontrollen.</string>
     <string name="store_short_dev_desc">Vært i eget hus produktivitets platform, hvor du bevarer kontrollen. (tidlig udviklingsversion)</string>
@@ -786,7 +774,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="subject_shared_with_you">\"%1$s\" er blevet delt med dig</string>
     <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med dig</string>
     <string name="subtitle_photos_only">Kun billeder</string>
-    <string name="subtitle_photos_videos">Fotos &amp; videoer</string>
     <string name="subtitle_videos_only">Kun videoer</string>
     <string name="suggest">Foreslå</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>

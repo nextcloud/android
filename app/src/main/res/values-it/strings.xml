@@ -14,7 +14,6 @@
     <string name="action_send_share">Invia/Condividi</string>
     <string name="action_switch_grid_view">Vista Griglia</string>
     <string name="action_switch_list_view">Vista Elenco</string>
-    <string name="actionbar_calendar_contacts_restore">Ripristina contatti e calendario</string>
     <string name="actionbar_mkdir">Nuova cartella</string>
     <string name="actionbar_move_or_copy">Sposta o copia</string>
     <string name="actionbar_open_with">Apri con</string>
@@ -78,7 +77,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Assente</string>
     <string name="backup_settings">Impostazioni di backup</string>
-    <string name="backup_title">Backup contatti e calendario</string>
     <string name="battery_optimization_close">Chiudi</string>
     <string name="battery_optimization_disable">Disabilita</string>
     <string name="battery_optimization_message">Il tuo dispositivo potrebbe avere l\'ottimizzazione della batteria abilitata. Il caricamento automatico funziona correttamente solo se escludi questa applicazione dall\'ottimizzazione.</string>
@@ -383,9 +381,6 @@
     <string name="filename_forbidden_charaters_from_server">Il nome del file contiene almeno un carattere non valido</string>
     <string name="filename_hint">Nome file</string>
     <string name="first_run_1_text">Mantieni i tuoi dati sicuri e sotto il tuo controllo</string>
-    <string name="first_run_2_text">Rendi sicuri la collaborazione e lo scambio di file</string>
-    <string name="first_run_3_text">Webmail, calendario e contatti di semplice utilizzo</string>
-    <string name="first_run_4_text">Condivisione dello schermo, riunioni in linea e conferenze web</string>
     <string name="folder_already_exists">La cartella esiste già</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">Qui non c\'è alcuna cartella</string>
@@ -573,16 +568,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Rinomina la nuova versione</string>
     <string name="pref_instant_name_collision_policy_title">Cosa fare se il file esiste già?</string>
     <string name="prefs_add_account">Aggiungi account</string>
-    <string name="prefs_calendar_contacts">Sincronizza calendario e contatti</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid o Google Play non installato</string>
     <string name="prefs_calendar_contacts_summary">Configura DAVx5 (originariamente conosciuto come DAVdroid) (v1.3.0+) per l\'account corrente</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizzazione calendario e contatti configurata</string>
     <string name="prefs_category_about">Informazioni</string>
     <string name="prefs_category_details">Dettagli</string>
     <string name="prefs_category_dev">Sviluppo</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
-    <string name="prefs_daily_backup_summary">Backup quotidiano del tuo calendario e dei contatti</string>
     <string name="prefs_daily_contact_backup_summary">Backup giornaliero dei tuoi contatti</string>
     <string name="prefs_davx5_setup_error">Errore inaspettato nella configurazione di Davx5 (precedentemente DAVdroid)</string>
     <string name="prefs_e2e_active">La cifratura end-to-end è impostata!</string>
@@ -674,8 +666,6 @@
     <string name="screenshot_04_accounts_heading">Tutti i tuoi account</string>
     <string name="screenshot_04_accounts_subline">in un posto</string>
     <string name="screenshot_05_autoUpload_heading">Caricamento automatico</string>
-    <string name="screenshot_05_autoUpload_subline">per e tue foto e i video</string>
-    <string name="screenshot_06_davdroid_heading">Calendario e contatti</string>
     <string name="screenshot_06_davdroid_subline">Sincronizza con DAVx5</string>
     <string name="search_error">Errore nel recuperare i risultati della ricerca</string>
     <string name="select_all">Seleziona tutto</string>
@@ -692,7 +682,6 @@
     <string name="set_status_message">Imposta messaggio di stato</string>
     <string name="setup_e2e">Configurando la cifratura end-to-end, riceverai una frase di 12 parole mnemoniche casuali, che ti servirà per aprire i tuoi file su altri dispositivi. Questa sarà conservata solo su questo dispositivo, e può essere mostrata di nuovo in questa schermata. Annotala in un posto sicuro!</string>
     <string name="share">Condividi</string>
-    <string name="share_copy_link">Condividi &amp; Copia il collegamento</string>
     <string name="share_dialog_title">Condivisione</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Scade il %1$s</string>
@@ -777,7 +766,6 @@
     <string name="storage_permission_full_access">Accesso completo</string>
     <string name="storage_permission_media_read_only">Multimediali in sola lettura</string>
     <string name="storage_pictures">Immagini</string>
-    <string name="store_full_desc">La piattaforma di produttività auto-gestita che ti lascia al comando.\n\n* Interfaccia semplice e moderna, allineata al tema del tuo server\n* Carica i file sul tuo server Nextcloud\n* Condividi i tuoi file con altri\n* Mantieni i tuoi file e le cartelle preferite sincronizzate\n* Ricerca attraverso tutte le cartelle sul tuo server\n* Caricamento automatico per le foto e i video acquisiti con il tuo dispositivo\n* Tieniti aggiornato con le notifiche\n* Supporto di più account\n* Proteggi l\'accesso ai tuoi dati con impronta digitale o PIN\n* Integrazione con DAVx5 (conosciuto originariamente come DAVdroid) per una facile configurazione della sincronizzazione di calendari e contatti\n\nSegnala tutti i problemi su https://github.com/nextcloud/android/issues e discuti questa applicazione su https://help.nextcloud.com/c/clients/android\n\nNuovo di Nextcloud? Nextcloud è un server privato di sincronizzazione e condivisione dei file e un server di comunicazione. È software libero e puoi ospitarlo a casa tua o pagare una società che lo faccia per conto tuo. In questo modo, avrai il controllo delle tue foto, del tuo calendario e dei tuoi contatti, dei tuoi documenti e di qualsiasi altra cosa.\n\nDai un\'occhiata a Nextcloud su https://nextcloud.com</string>
     <string name="store_full_dev_desc">La piattaforma di produttività auto-gestita che ti lascia al comando.\nQuesta è la versione di sviluppo ufficiale e include funzionalità nuove, non testate che potrebbero provocare instabilità e perdite di dati. Questa applicazione è pensata per gli utenti che desiderano provare le nuove funzionalità e segnalare bug, se si verificano. Non utilizzarla in ambienti di produzione!\n\nSia la versione di sviluppo che quella normale sono disponibili su F-droid, e possono essere installate contemporaneamente.</string>
     <string name="store_short_desc">La piattaforma di produttività auto-gestita che ti lascia al comando</string>
     <string name="store_short_dev_desc">La piattaforma di produttività auto-gestita che ti lascia al comando (versione in anteprima di sviluppo)</string>
@@ -791,7 +779,6 @@
     <string name="subject_shared_with_you">\"%1$s\" è stato condiviso con te</string>
     <string name="subject_user_shared_with_you">%1$s ha condiviso \"%2$s\" con te</string>
     <string name="subtitle_photos_only">Solo foto</string>
-    <string name="subtitle_photos_videos">Foto &amp; video</string>
     <string name="subtitle_videos_only">Solo video</string>
     <string name="suggest">Suggerisci</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitti rilevati</string>

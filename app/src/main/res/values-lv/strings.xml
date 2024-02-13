@@ -333,9 +333,7 @@
     <string name="pref_behaviour_entries_keep_file">paturēt sākotnējā mapē</string>
     <string name="pref_behaviour_entries_move">pārvietots uz lietotnes mapi</string>
     <string name="prefs_add_account">Pievienot kontu</string>
-    <string name="prefs_calendar_contacts">Sinhronizēt kalendāra &amp; kontaktus</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid vai Google Play nav uzstādīts</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalendāra un kontaktu sinhronizācija ir izveidota</string>
     <string name="prefs_category_about">Par</string>
     <string name="prefs_category_details">Detaļas</string>
     <string name="prefs_category_general">Vispārīgi</string>

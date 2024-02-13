@@ -14,7 +14,6 @@
     <string name="action_send_share">Küldés/megosztás</string>
     <string name="action_switch_grid_view">Rács nézet</string>
     <string name="action_switch_list_view">Lista nézet</string>
-    <string name="actionbar_calendar_contacts_restore">Névjegyek és naptár helyreállítása</string>
     <string name="actionbar_mkdir">Új mappa</string>
     <string name="actionbar_move_or_copy">Áthelyezés vagy Másolás</string>
     <string name="actionbar_open_with">Megnyitás ezzel</string>
@@ -78,7 +77,6 @@
     <string name="avatar">Avatár</string>
     <string name="away">Távol</string>
     <string name="backup_settings">Biztonsági mentés beállításai</string>
-    <string name="backup_title">Névjegyek és naptár biztonsági mentése</string>
     <string name="battery_optimization_close">Bezárás</string>
     <string name="battery_optimization_disable">Letiltás</string>
     <string name="battery_optimization_message">Az eszközön lehet, hogy be van kapcsolva az akkumulátor optimalizálás. Az automatikus feltöltés csak akkor működik megfelelően, ha tiltólistára teszi ezt az alkalmazást.</string>
@@ -383,9 +381,6 @@
     <string name="filename_forbidden_charaters_from_server">A fájlnév legalább egy érvénytelen karaktert tartalmaz</string>
     <string name="filename_hint">Fájlnév</string>
     <string name="first_run_1_text">Tartsa az adatait biztonságban és a saját felügyelete alatt</string>
-    <string name="first_run_2_text">Biztonságos csoportmunka és fájlmegosztás</string>
-    <string name="first_run_3_text">Könnyen használható webes levelezés, naptár és névjegyek</string>
-    <string name="first_run_4_text">Képernyőmegosztás, online megbeszélések és webes konferenciák</string>
     <string name="folder_already_exists">A mappa már létezik</string>
     <string name="folder_confirm_create">Létrehozás</string>
     <string name="folder_list_empty_headline">Itt nincsenek mappák</string>
@@ -573,16 +568,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Új verzió átnevezése</string>
     <string name="pref_instant_name_collision_policy_title">Mit tegyen, ha a fájl már létezik?</string>
     <string name="prefs_add_account">Fiók hozzáadása</string>
-    <string name="prefs_calendar_contacts">Naptár és névjegyek szinkronizálása</string>
     <string name="prefs_calendar_contacts_no_store_error">Sem az F-Droid, sem a Google Play nincs telepítve</string>
     <string name="prefs_calendar_contacts_summary">DAVx5 (régi nevén DAVdroid) (v1.3.0+) beállítása a jelenlegi fiókhoz</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Szinkronizálás beállítva a naptárhoz és a névjegyekhez</string>
     <string name="prefs_category_about">Névjegy</string>
     <string name="prefs_category_details">Részletek</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
-    <string name="prefs_daily_backup_summary">Napi biztonsági mentés a naptáráról és a névjegyeiről</string>
     <string name="prefs_daily_contact_backup_summary">Névjegyek napi biztonsági mentése</string>
     <string name="prefs_davx5_setup_error">Váratlan hiba a DAVx5 (előző nevén DAVdroid) beállítása során</string>
     <string name="prefs_e2e_active">A végpontok közti titkosítás beállítva!</string>
@@ -674,8 +666,6 @@
     <string name="screenshot_04_accounts_heading">Az összes fiókja</string>
     <string name="screenshot_04_accounts_subline">egy helyen</string>
     <string name="screenshot_05_autoUpload_heading">Automatikus feltöltés</string>
-    <string name="screenshot_05_autoUpload_subline">a képeinek és videóinak</string>
-    <string name="screenshot_06_davdroid_heading">Naptár és névjegyek</string>
     <string name="screenshot_06_davdroid_subline">Szinkronizálás DAVx5-tel</string>
     <string name="search_error">Hiba a keresési találatok lekérésekor</string>
     <string name="select_all">Összes kiválasztása</string>
@@ -692,7 +682,6 @@
     <string name="set_status_message">Állapotüzenet beállítása</string>
     <string name="setup_e2e">A végpontok közti titkosítás beállítása során kap egy 12 véletlenszerű szóból álló mnemonikus kódot, amelyre akkor lesz szüksége, ha más eszközökön akarja megnyitni a fájlokat. Ez csak ezen az eszközön lesz tárolva, és újra megjeleníthető ezen a képernyőn. Jegyezze le, és tárolja biztonságos helyen!</string>
     <string name="share">Megosztás</string>
-    <string name="share_copy_link">Megosztás és hivatkozás másolása</string>
     <string name="share_dialog_title">Megosztás</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Lejárat: %1$s</string>
@@ -777,25 +766,6 @@
     <string name="storage_permission_full_access">Teljes hozzáférés</string>
     <string name="storage_permission_media_read_only">Írásvédett média</string>
     <string name="storage_pictures">Képek</string>
-    <string name="store_full_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást.
-
-Szolgáltatások:
-* Egyszerű, modern felület, mely igazodik a kiszolgáló témájához.
-* Fájlok feltöltése a Nextcloud kiszolgálódra
-* Fájlmegosztás másokkal
-* Kedvenc fájljaid és mappáid szinkronizálása
-* Keresés a kiszolgáló mappái között
-* Az eszközöddel készített videók és képek automatikus feltöltése
-* Értesítések fogadása
-* Több fiók támogatása
-* Biztonságosa adatelérés PIN-kód vagy ujjlenyomat segítségével
-* Kapcsolódás DAVx5-tel (régi nevén DAVdroid) a naptár és névjegy szinkronizálás megkönnyítéséhez
-
-Jelents minden hibát a https://github.com/nextcloud/android/issues címen, és beszélgess az appról itt: https://help.nextcloud.com/c/clients/android
-
-Új neked a Nextcloud? A Nextcloud egy privát fájlszinkronizáló, -megosztó és kommunikációs kiszolgáló. Teljesen szabad szoftver, melyet te magad is futtathatsz, vagy fizethetsz más cégeknek, hogy megtegyék neked. Segítségével teljesen ura lehetsz saját képeidnek, naptáradnak, névjegyeidnek, fájljaidnak és minden egyebednek.
-
-A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="store_full_dev_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást.\nEz a hivatalos fejlesztői változat, amely napi mintát ad a nem tesztelt, új funkciókról, melyek instabilitást és adatvesztést okozhatnak. Az alkalmazások azoknak a felhasználóknak készült, akik hajlandóak tesztelni, és hibákat bejelenteni, ha azok előfordulnak. Ne használja éles munkához!\n\nMind a hivatalos fejlesztői, mind a szokásos verzió elérhető az F-droidon, és egyszerre is telepíthetőek.</string>
     <string name="store_short_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást</string>
     <string name="store_short_dev_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást (fejlesztői előzetes verzió)</string>
@@ -809,7 +779,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="subject_shared_with_you">Megosztották Önnel: „%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s megosztotta Önnel: „%2$s”</string>
     <string name="subtitle_photos_only">Csak fényképek</string>
-    <string name="subtitle_photos_videos">Fényképek és videók</string>
     <string name="subtitle_videos_only">Csak videók</string>
     <string name="suggest">Javaslat</string>
     <string name="sync_conflicts_in_favourites_ticker">Ütközések vannak</string>

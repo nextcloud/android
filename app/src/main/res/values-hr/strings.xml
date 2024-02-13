@@ -14,7 +14,6 @@
     <string name="action_send_share">Pošalji/podijeli</string>
     <string name="action_switch_grid_view">Prikaz rešetke</string>
     <string name="action_switch_list_view">Prikaz popisa</string>
-    <string name="actionbar_calendar_contacts_restore">Vrati kontakte i kalendar</string>
     <string name="actionbar_mkdir">Nova mapa</string>
     <string name="actionbar_open_with">Otvori s</string>
     <string name="actionbar_search">Traži</string>
@@ -75,7 +74,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Odsutan</string>
     <string name="backup_settings">Postavke sigurnosne kopije</string>
-    <string name="backup_title">Sigurnosno kopiranje kontakata i kalendara</string>
     <string name="battery_optimization_close">Zatvori</string>
     <string name="battery_optimization_disable">Onemogući</string>
     <string name="battery_optimization_message">Možda je omogućena optimizacija rada baterije na uređaju. Mogućnost automatskog otpremanja AutoUpload djeluje samo ako izuzmete ovu aplikaciju iz optimizacije baterije.</string>
@@ -357,8 +355,6 @@
     <string name="filename_forbidden_charaters_from_server">Naziv datoteke sadrži barem jedan nevažeći znak</string>
     <string name="filename_hint">Naziv datoteke</string>
     <string name="first_run_1_text">Čuvajte svoje podatke sigurnim i pod kontrolom</string>
-    <string name="first_run_2_text">Sigurna suradnja i razmjena datoteka</string>
-    <string name="first_run_4_text">Dijeljenje zaslona, sastanci na mreži i web konferencije</string>
     <string name="folder_already_exists">Mapa već postoji</string>
     <string name="folder_confirm_create">Stvori</string>
     <string name="folder_list_empty_headline">Ovdje nema mapa</string>
@@ -524,16 +520,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Preimenuj novu inačicu</string>
     <string name="pref_instant_name_collision_policy_title">Što učiniti ako datoteka već postoji?</string>
     <string name="prefs_add_account">Dodaj račun</string>
-    <string name="prefs_calendar_contacts">Sinkroniziraj kalendar i kontakte</string>
     <string name="prefs_calendar_contacts_no_store_error">Nisu instalirani F-Droid ni Google Play</string>
     <string name="prefs_calendar_contacts_summary">Postavite DAVx5 (ranije poznat kao DAVdroid) (v1.3.0+) za predmetni račun</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Postavljena sinkronizacija kalendara i kontakata</string>
     <string name="prefs_category_about">Informacije</string>
     <string name="prefs_category_details">Pojedinosti</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Općenito</string>
     <string name="prefs_category_more">Više</string>
-    <string name="prefs_daily_backup_summary">Svakodnevno sigurnosno kopiranje vašeg kalendara i kontakata</string>
     <string name="prefs_daily_contact_backup_summary">Svakodnevno sigurnosno kopiranje vaših kontakata</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonička oznaka</string>
     <string name="prefs_e2e_no_device_credentials">Omogućite vjerodajnice uređaja kako biste prikazali mnemoničku oznaku.</string>
@@ -608,8 +601,6 @@
     <string name="screenshot_04_accounts_heading">Svi vaši računi</string>
     <string name="screenshot_04_accounts_subline">na jednom mjestu</string>
     <string name="screenshot_05_autoUpload_heading">Automatsko otpremanje</string>
-    <string name="screenshot_05_autoUpload_subline">fotografija i videozapisa</string>
-    <string name="screenshot_06_davdroid_heading">Kalendar i kontakti</string>
     <string name="screenshot_06_davdroid_subline">Sinkronizacija s DAVx5</string>
     <string name="search_error">Pogreška pri dohvaćanju rezultata pretraživanja</string>
     <string name="select_all">Odaberi sve</string>
@@ -625,7 +616,6 @@
     <string name="set_status">Postavi status</string>
     <string name="set_status_message">Postavi poruku statusa</string>
     <string name="share">Dijeli</string>
-    <string name="share_copy_link">Dijeli i kopiraj poveznicu</string>
     <string name="share_dialog_title">Dijeljenje</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Istječe %1$s</string>
@@ -709,7 +699,6 @@
     <string name="storage_permission_full_access">Puni pristup</string>
     <string name="storage_permission_media_read_only">Medijske datoteke samo za čitanje</string>
     <string name="storage_pictures">Slike</string>
-    <string name="store_full_desc">Samopostavljena platforma pospješuje produktivnost i omogućuje vam da zadržite kontrolu.\n\nZnačajke:\n* Jednostavno, moderno sučelje, prilagođeno dizajnu vašeg poslužitelja\n* Otpremite datoteke na Nextcloudov poslužitelj\n* Dijelite datoteke s drugima\n* Sinkronizirajte omiljene datoteke i mape\n* Pretražujte sve mape na poslužitelju\n* Automatski prijenos fotografija i videozapisa snimljenih vašim uređajem\n* Primanje najnovijih informacija putem trenutnih obavijesti\n* Podrška za više računa\n* Siguran pristup datotekama putem otiska prsta ili šifre\n* Integracija s aplikacijom DAVx5 (ranije poznatom kao DAVdroid) omogućuje jednostavnu izradu kalendara i sinkronizaciju kontakata\n\nBilo kakve probleme prijavite na https://github.com/nextcloud/android/issues i raspravljajte o aplikaciji na https://help.nextcloud.com/c/clients/android\n\nNovi ste korisnik Nextclouda? Nextcloud je privatni poslužitelj za sinkronizaciju i dijeljenje te komunikaciju. Radi se o besplatnom softveru i možete ga samostalno posluživati ili možete platiti tvrtki da to učini za vas. Na taj način sami upravljate svojim fotografijama, kalendarom i kontaktnim podacima, dokumentima i svim ostalim.\n\nViše informacija o Nextcloudu možete pronaći na https://nextcloud.com</string>
     <string name="store_full_dev_desc">Samopostavljena platforma pospješuje produktivnost i omogućuje vam da zadržite kontrolu.\nTo je službena razvojna inačica koja se isporučuje s dnevnim uzorkom svake nove neispitane funkcionalnosti, što može uzrokovati nestabilnost i gubitak podataka. Aplikacija je namijenjena korisnicima koji žele testirati i prijaviti pogreške, ako se iste pojave. Nemojte je upotrebljavati za važne radne zadatke!\n\nSlužbena razvojna i uobičajena inačica dostupne su putem F-droida i mogu biti istovremeno instalirane.</string>
     <string name="store_short_desc">Samopostavljena platforma pospješuje produktivnost i omogućuje vam da zadržite kontrolu</string>
     <string name="store_short_dev_desc">Samopostavljena platforma pospješuje produktivnost i omogućuje vam da zadržite kontrolu (razvojna inačica za pretpregled)</string>
@@ -721,7 +710,6 @@
     <string name="subject_shared_with_you">\"%1$s\" je dijeljen s vama</string>
     <string name="subject_user_shared_with_you">%1$s dijeli \"%2$s\" s vama</string>
     <string name="subtitle_photos_only">Samo fotografije</string>
-    <string name="subtitle_photos_videos">Fotografije &amp; video materijali</string>
     <string name="subtitle_videos_only">Samo video materijali</string>
     <string name="suggest">Predloži</string>
     <string name="sync_conflicts_in_favourites_ticker">Postoje nepodudaranja</string>

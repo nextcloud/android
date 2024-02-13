@@ -14,7 +14,6 @@
     <string name="action_send_share">Trimitere/Distribuire</string>
     <string name="action_switch_grid_view">Afișare în grilă</string>
     <string name="action_switch_list_view">Afișare în listă</string>
-    <string name="actionbar_calendar_contacts_restore">Restaurare contacte 1&amp; calendar</string>
     <string name="actionbar_mkdir">Dosar nou</string>
     <string name="actionbar_move_or_copy">Mută sau copiază</string>
     <string name="actionbar_open_with">Deschideţi cu </string>
@@ -77,7 +76,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Plecat</string>
     <string name="backup_settings">Setări pentru backup</string>
-    <string name="backup_title">Backup pentru contacte 1&amp; calendar</string>
     <string name="battery_optimization_close">Închidere</string>
     <string name="battery_optimization_disable">Dezactivează</string>
     <string name="battery_optimization_message">Dispozitivul dumneavoastră poate avea economizorul de baterie activat. Incărcarea automată AutoUpload funcționează corespunzător daca excludeti această funcție din aplicație.</string>
@@ -377,8 +375,6 @@
     <string name="filename_forbidden_charaters_from_server">Numele fișierului conține cel puțin un caracter invalid</string>
     <string name="filename_hint">Nume fișier</string>
     <string name="first_run_1_text">Păstrează datele tale în siguranță și sub controlul tău</string>
-    <string name="first_run_2_text">Colaborare securizată &amp; schimb de fișiere</string>
-    <string name="first_run_4_text">Partajarea ecranului, ședințe &amp; conferințe online</string>
     <string name="folder_already_exists">Dosar existent</string>
     <string name="folder_confirm_create">Creați</string>
     <string name="folder_list_empty_headline">Niciun dosar aici</string>
@@ -557,16 +553,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Redenumește noua versiune</string>
     <string name="pref_instant_name_collision_policy_title">Ce să facem dacă fișierul deja există?</string>
     <string name="prefs_add_account">Adaugă cont</string>
-    <string name="prefs_calendar_contacts">Sincronizați calendarul și contactele</string>
     <string name="prefs_calendar_contacts_no_store_error">Nici F-Droid, nici Google Play nu sunt instalate</string>
     <string name="prefs_calendar_contacts_summary">Setează DAVx5 (cunoscut în trecut ca DAVdroid) (v1.3.0+) pentru acest cont</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizarea calendarului și a contactelor a fost configurată</string>
     <string name="prefs_category_about">Despre</string>
     <string name="prefs_category_details">Detalii</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Mai mult</string>
-    <string name="prefs_daily_backup_summary">Salvarea zilnică a calendarului &amp;a contactelor</string>
     <string name="prefs_daily_contact_backup_summary">Salvarea zilnică a contactelor dvs.</string>
     <string name="prefs_e2e_active">Encripția end-to-end este setata!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
@@ -648,8 +641,6 @@
     <string name="screenshot_04_accounts_heading">Toate conturile tale</string>
     <string name="screenshot_04_accounts_subline">într-un singur loc</string>
     <string name="screenshot_05_autoUpload_heading">Încărcare automată</string>
-    <string name="screenshot_05_autoUpload_subline">pentru pozele &amp; video-urile tale</string>
-    <string name="screenshot_06_davdroid_heading">Calendar &amp; contacte</string>
     <string name="screenshot_06_davdroid_subline">Sincronizează folosind DAXx5</string>
     <string name="search_error">Eroare la returnarea rezultatelor căutării</string>
     <string name="select_all">Selectează tot</string>
@@ -665,7 +656,6 @@
     <string name="set_status">Setează status</string>
     <string name="set_status_message">Setează statusul mesajelor</string>
     <string name="share">Partajează</string>
-    <string name="share_copy_link">Partajează &amp;copiază legătura</string>
     <string name="share_dialog_title">Partajare</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expiră %1$s</string>
@@ -749,7 +739,6 @@
     <string name="storage_permission_full_access">Acces complet</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="storage_pictures">Poze</string>
-    <string name="store_full_desc">Platfoma locală de productivitate care vă menține în control.\n\nCaracteristici:\n* Interfață simplă, modernă, adaptată temei serverului\n* Încărcați fișiere în serverul Nextcloud\n* Partajați-le cu alții\n* Țineți fișierele și folderele preferate sincronizate\n* Căutați prin toate folderele de pe server\n* Auto Încărcarea fotografiilor și clipurilor video făcute de dispozitivul personal\n* Fiți la curent cu notificările\n* Suport pentru Multi-account\n* Acces sigur la date cu amprentă sau PIN\n* Integrae cu DAVx5 (anterior DAVdroid) pentru setarea simplă a sincronizării calendarului &amp; Contactelor\n\nRaportați orice problemă la https://github.com/nextcloud/android/issues și discutați despre această aplicație la https://help.nextcloud.com/c/clients/android\n\nNew cu Nextcloud? Nextcloud este un server privat de sincronizare fișiere &amp; partajare și de comunicație. Este un software gratuit și puteți să-l găzduiți sau să plătiți o companie să o facă pentru dumneavoastră. Aveți astfel control asupra fotografiilor, datelor calendarului și despre contacte, documentelor și orice altceva.\n\nVizitați Nextcloud la https://nextcloud.com</string>
     <string name="store_full_dev_desc">Platforma de productivitate locală care vă menține în control.\nAceasta este versiunea de dezvoltare oficială, cuprinzând exemple zilnice de funcționalități netestate, care pot crea instabilitate sau pierderi de date. Aplicația este pentru utilizatori care doresc să testeze și să raporteze bug-uri dacă acestea apar. Nu folosiți în producție!\n\n Și versiunea oficială de dezvoltare și cea stabilă sunt disponibile pe F-droid și pot fi instalate în același timp.</string>
     <string name="store_short_desc">Platforma găzduită și controlată de tine</string>
     <string name="store_short_dev_desc">Platforma găzduită și controlată de tine(versiunea pentru dezvoltatori)</string>
@@ -761,7 +750,6 @@
     <string name="subject_shared_with_you">„%1$s” a fost partajat cu dumneavoastră</string>
     <string name="subject_user_shared_with_you">%1$s a partajat fișierul \"%2$s\" cu tine</string>
     <string name="subtitle_photos_only">Doar poze</string>
-    <string name="subtitle_photos_videos">Poze &amp; video</string>
     <string name="subtitle_videos_only">Doar video</string>
     <string name="suggest">Sugerează</string>
     <string name="sync_conflicts_in_favourites_ticker">S-au gasit conflicte</string>

@@ -14,7 +14,6 @@
     <string name="action_send_share">Versturen/Delen</string>
     <string name="action_switch_grid_view">Rasterindeling </string>
     <string name="action_switch_list_view">Lijstindeling</string>
-    <string name="actionbar_calendar_contacts_restore">Herstel contacten &amp; agenda</string>
     <string name="actionbar_mkdir">Nieuwe map</string>
     <string name="actionbar_open_with">Openen met</string>
     <string name="actionbar_search">Zoeken</string>
@@ -76,7 +75,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Afwezig</string>
     <string name="backup_settings">Back-up instellingen </string>
-    <string name="backup_title">Back-up van contacten &amp; agenda</string>
     <string name="battery_optimization_close">Sluiten</string>
     <string name="battery_optimization_disable">Uitschakelen</string>
     <string name="battery_optimization_message">Op je toestel kan batterij optimalisatie ingeschakeld zijn. AutoUpload werkt alleen als je dat voor deze app uitschakelt.</string>
@@ -363,8 +361,6 @@
     <string name="filename_forbidden_charaters_from_server">De bestandsnaam bevat ten minste één ongeldig teken</string>
     <string name="filename_hint">Bestandsnaam</string>
     <string name="first_run_1_text">Hou je gegevens veilig en in eigen beheer</string>
-    <string name="first_run_2_text">Beveiligde samenwerking &amp; bestand uitwisseling</string>
-    <string name="first_run_4_text">Schermdelen, online afspraken &amp; web conferenties</string>
     <string name="folder_already_exists">Map bestaat al</string>
     <string name="folder_confirm_create">Aanmaken</string>
     <string name="folder_list_empty_headline">Hier zijn geen bestanden</string>
@@ -535,16 +531,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Hernoem nieuwe versie</string>
     <string name="pref_instant_name_collision_policy_title">Wat als het bestand al bestaat?</string>
     <string name="prefs_add_account">Account toevoegen</string>
-    <string name="prefs_calendar_contacts">Synchroniseren agenda &amp; contactpersonen</string>
     <string name="prefs_calendar_contacts_no_store_error">Noch F-Droid, noch Google Play is geïnstalleerd</string>
     <string name="prefs_calendar_contacts_summary">DAVx5 (vroeger bekend als DAVdroid) (v1.3.0+) voor het huidige account instellen</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Agenda &amp; contactpersonen sync instellingen</string>
     <string name="prefs_category_about">Over</string>
     <string name="prefs_category_details">Details</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Algemeen</string>
     <string name="prefs_category_more">Meer</string>
-    <string name="prefs_daily_backup_summary">Dagelijkse back-up van je agenda &amp;contactpersonen </string>
     <string name="prefs_daily_contact_backup_summary">Dagelijkse back-up van je contactpersonen</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Om de mnemonic te tonen moet je apparaatinloggegevens inschakelen.</string>
@@ -620,8 +613,6 @@
     <string name="screenshot_04_accounts_heading">Al je accounts</string>
     <string name="screenshot_04_accounts_subline">op één plek</string>
     <string name="screenshot_05_autoUpload_heading">Automatisch uploaden</string>
-    <string name="screenshot_05_autoUpload_subline">voor je foto\'s &amp; video\'s</string>
-    <string name="screenshot_06_davdroid_heading">Agenda&amp; contactpersonen</string>
     <string name="screenshot_06_davdroid_subline">Sync met DAVx5</string>
     <string name="search_error">Fout bij het ophalen van de zoekresultaten</string>
     <string name="select_all">Alles selecteren</string>
@@ -637,7 +628,6 @@
     <string name="set_status">Instellen status</string>
     <string name="set_status_message">Instellen statusbericht</string>
     <string name="share">Delen</string>
-    <string name="share_copy_link">Deel &amp;Kopieer Link</string>
     <string name="share_dialog_title">Delen</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vervalt op %1$s</string>
@@ -721,7 +711,6 @@
     <string name="storage_permission_full_access">Volledige toegang</string>
     <string name="storage_permission_media_read_only">Media alleen lezen</string>
     <string name="storage_pictures">Afbeeldingen</string>
-    <string name="store_full_desc">Het eigen-hosting productiviteitsplatform waarmee je zelf in control bent.\n\nFuncties:\n* Eenvoudige, moderne interface, passend bij het thema van jouw server\n* Upload bestanden naar je Nextcloud server\n* Deel ze met anderen\n* Hou je favoriete bestanden en mappen gesynchroniseerd\n* Zoek in alle mappen op je server\n* Auto Upload voor foto\'s en video\'s op je toestel\n* Blijf bij met meldingen\n* Multi-account ondersteuning\n* veilige toegang tot je gegevens door vingerafdruk of  PIN\n* Integratie met DAVx5 (vroeger bekend als DAVdroid) vooreenvoudig instellen van je agenda&amp; Contactpersonensynchronisatie\n\nMeld alle problemen op https://github.com/nextcloud/android/issues en bespreek deze app op https://help.nextcloud.com/c/clients/android\n\nNieuw bij Nextcloud? Nextcloud is een persoonlijk bestandensync- &amp; -deel en communicatieserver. het is vrije software, die je zelf kunt draaien of bij een betaalde provider. Hierdoor ben je zelf in control van jouw foto\'s, jouw agenda en contactgegevens, jouw documenten en al het andere.\n\nBekijk Nextcloud op https://nextcloud.com</string>
     <string name="store_full_dev_desc">Het eigen-hosting productiviteitsplatform waarmee je zelf in control bent.\nDit is de officiële ontwikkelversie die gloednieuwe, ongeteste mogelijkheden heeft, die tot instabiliteit en gegevensverlies zouden kunnen leiden. De app is voor gebruikers die de nieuwe functies willen testen en eventuele bugs willen melden. Gebruik de app niet voor productiewerkzaamheden!\n\nZowel de ontwikkelversie als de reguliere versie zijn beschikbaar in F-Droid en ze kunnen naast elkaar gebruikt worden.</string>
     <string name="store_short_desc">Het eigen-hosting productiviteitsplatform waarmee je zelf in control bent</string>
     <string name="store_short_dev_desc">Het eigen-hosting productiviteitsplatform waarmee je zelf in control bent (dev preview versie)</string>
@@ -735,7 +724,6 @@
     <string name="subject_shared_with_you">\"%1$s\" is met je gedeeld</string>
     <string name="subject_user_shared_with_you">%1$s deelde \"%2$s\" met jou</string>
     <string name="subtitle_photos_only">Enkel foto\'s</string>
-    <string name="subtitle_photos_videos">Foto\'s &amp; video\'s</string>
     <string name="subtitle_videos_only">Enkel video\'s</string>
     <string name="suggest">Stel voor</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicten gevonden</string>

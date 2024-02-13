@@ -14,7 +14,6 @@
     <string name="action_send_share">ส่ง/แชร์</string>
     <string name="action_switch_grid_view">มุมมองแบบตาราง</string>
     <string name="action_switch_list_view">มุมมองแบบรายการ</string>
-    <string name="actionbar_calendar_contacts_restore">กู้คืนข้อมูลรายชื่อและปฏิทิน</string>
     <string name="actionbar_mkdir">โฟลเดอร์ใหม่</string>
     <string name="actionbar_move_or_copy">ย้ายหรือคัดลอก</string>
     <string name="actionbar_open_with">เปิดด้วย</string>
@@ -77,7 +76,6 @@
     <string name="avatar">ภาพแทนตัว</string>
     <string name="away">ไม่อยู่</string>
     <string name="backup_settings">การตั้งค่าสำรองข้อมูล</string>
-    <string name="backup_title">การสำรองข้อมูลรายชื่อและปฏิทิน</string>
     <string name="battery_optimization_close">ปิด</string>
     <string name="battery_optimization_disable">ปิดใช้งาน</string>
     <string name="battery_optimization_message">อุปกรณ์ของคุณอาจเปิดใช้การเพิ่มประสิทธิภาพแบตเตอรี่อยู่ ฟังก์ชันอัปโหลดอัตโนมัติจะทำงานได้อย่างถูกต้องเฉพาะถ้ายกเว้นแอปนี้</string>
@@ -328,8 +326,6 @@
     <string name="filename_forbidden_charaters_from_server">ชื่อไฟล์มีตัวอักษรที่ไม่ถูกต้องอย่างน้อย 1 ตัว</string>
     <string name="filename_hint">ชื่อไฟล์</string>
     <string name="first_run_1_text">ให้ข้อมูลของคุณปลอดภัยและควบคุมโดยคุณ</string>
-    <string name="first_run_2_text">การทำงานร่วมกันและแลกเปลี่ยนไฟล์อย่างปลอดภัย</string>
-    <string name="first_run_4_text">การแชร์หน้าจอ ประชุมออนไลน์ และประชุมผ่านเว็บ</string>
     <string name="folder_already_exists">โฟลเดอร์มีอยู่แล้ว</string>
     <string name="folder_confirm_create">สร้าง</string>
     <string name="folder_list_empty_headline">ไม่มีโฟลเดอร์ที่นี่</string>
@@ -543,7 +539,6 @@
     <string name="storage_camera">กล้อง</string>
     <string name="storage_description_default">ค่าเริ่มต้น</string>
     <string name="storage_downloads">ดาวน์โหลด</string>
-    <string name="store_full_desc">แพลตฟอร์มผลิตภาพโอสต์เองได้ ที่คุณควบคุมได้เอง\n\nคุณสมบัติ:\n* ส่วนติดต่อที่ใช้งานง่าย ทันสมัย ปรับแต่งให้เข้ากับธีมของเซิร์ฟเวอร์ของคุณอย่างเต็มรูปแบบ\n* อัปโหลดไฟล์ขึ้นไปยังเซิร์ฟเวอร์ Nextcloud ของคุณ\n* แชร์ไฟล์ของคุณกับผู้อื่น\n* ซิงค์ไฟล์และโฟลเดอร์โปรดของคุณให้ตรงกันอยู่ตลอดเวลา\n* ค้นหาในทุกโฟลเดอร์บนเซิร์ฟเวอร์ของคุณ\n* อัปโหลดอัตโนมัติ สำหรับรูปภาพและวิดีโอที่ถ่ายโดยอุปกรณ์ของคุณ\n* ไม่พลาดข้อมูลล่าสุดด้วยการแจ้งเตือน\n* รองรับหลายบัญชี\n* เพิ่มความปลอดภัยในการเข้าถึงข้อมูลของคุณด้วยลายนิ้วมือหรือ PIN\n* บูรณาการร่วมกับ DAVx5 (ก่อนหน้านี้รู้จักในชื่อ DAVdroid) สำหรับการตั้งค่าการซิงค์ข้อมูลปฏิทินและรายชื่ออย่างง่าย\n\nโปรดรายงานปัญหาทั้งหมดที่ https://github.com/nextcloud/android/issues และแสดงความคิดเห็นเกี่ยวกับแอปนี้ได้ที่ https://help.nextcloud.com/c/clients/android\n\nมือใหม่ Nextcloud? Nextcloud เป็นเซิร์ฟเวอร์ส่วนตัวสำหรับการซิงค์และแชร์ไฟล์ และการสื่อสาร ซึ่งเป็นซอฟต์แวร์เสรี และคุณสามารถโฮสต์ด้วยตัวเองหรือจ่ายเงินให้บริษัทอื่นทำให้คุณแทนได้ วิธีนี้นี่เองทำให้ข้อมูลรูปภาพ ปฏิทิน รายชื่อ เอกสาร และอื่น ๆ ทั้งหมดของคุณอยู่ในการควบคุมของคุณ\n\nลองดู NextCloud ได้ที่ https://nextcloud.com</string>
     <string name="subject_shared_with_you">\"%1$s\" ได้ถูกแชร์กับคุณ</string>
     <string name="subject_user_shared_with_you">%1$s ได้แชร์ \"%2$s\" กับคุณ</string>
     <string name="sync_conflicts_in_favourites_ticker">ตรวจพบความขัดแย้ง</string>

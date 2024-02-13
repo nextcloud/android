@@ -14,7 +14,6 @@
     <string name="action_send_share">إرسال/مشاركة</string>
     <string name="action_switch_grid_view">عرض شبكي</string>
     <string name="action_switch_list_view">عرض على شكل قائمة</string>
-    <string name="actionbar_calendar_contacts_restore">استعادة جهات الاتصال &amp; التقويم</string>
     <string name="actionbar_mkdir">مجلد جديد</string>
     <string name="actionbar_move_or_copy">أنقُل أو انسَخ</string>
     <string name="actionbar_open_with">فتح باستخدام</string>
@@ -79,7 +78,6 @@
     <string name="avatar">الصورة الرمزية</string>
     <string name="away">بالخارج</string>
     <string name="backup_settings">اعدادات النسخ الاحتياطي</string>
-    <string name="backup_title">جهات الاتصال &amp; نسخ التقويم احتياطيا</string>
     <string name="battery_optimization_close">إغلاق</string>
     <string name="battery_optimization_disable">تعطيل</string>
     <string name="battery_optimization_message">قد يكون حفظ البطارية مفعلاً في جهازك. لذلك قد لا يعمل الرفع التلقائي إلا إذا سمحت لهذا التطبيق من أن يستبعد من هذه الميزة.</string>
@@ -391,9 +389,6 @@
     <string name="filename_forbidden_charaters_from_server">اسم الملف به على الأقل حرفٌ غير صالح</string>
     <string name="filename_hint">اسم الملف</string>
     <string name="first_run_1_text">حافظ على بياناتك آمنة وتحت سيطرتك</string>
-    <string name="first_run_2_text">تعاون آمن &amp; تبادل ملف</string>
-    <string name="first_run_3_text">بريد وب سهل الاستعمال، و تقويم &amp;، و جهات اتصال</string>
-    <string name="first_run_4_text">مشاركة للشاشة، اجتماعات على الإنترنت &amp; جلسات</string>
     <string name="folder_already_exists">المجلد موجود مسبقاً</string>
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
@@ -586,16 +581,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">إعادة تسمية الإصدار الجديد</string>
     <string name="pref_instant_name_collision_policy_title">ماذا تفعل إذا كان الملف موجودًا مسبقاً؟</string>
     <string name="prefs_add_account">أضف حساباً</string>
-    <string name="prefs_calendar_contacts">مزامنة التقويم &amp; جهات الاتصال</string>
     <string name="prefs_calendar_contacts_no_store_error">كلا من تطبيقي أف-دويد و متجر غوغل عير منصبين</string>
     <string name="prefs_calendar_contacts_summary">قم بإعداد DAVx5 (المعروف سابقًا باسم DAVdroid) (v1.3.0 +) للحساب الجاري</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">التقويم &amp; إعداد مزامنة الأسماء</string>
     <string name="prefs_category_about">حول</string>
     <string name="prefs_category_details">تفاصيل</string>
     <string name="prefs_category_dev">التطوير</string>
     <string name="prefs_category_general">عام</string>
     <string name="prefs_category_more">المزيد</string>
-    <string name="prefs_daily_backup_summary">نسخ احتياطي يومي للتقويم &amp;جهات الاتصال</string>
     <string name="prefs_daily_contact_backup_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
     <string name="prefs_davx5_setup_error">خطأ غير متوقع عند تجهيز DAVx5 ( الذي كان معروفاً سابقاً باسم DAVdroid)</string>
     <string name="prefs_e2e_active">التشفير من الحدّ للحدّ E2E جاهز!</string>
@@ -688,8 +680,6 @@
     <string name="screenshot_04_accounts_heading">كافة حساباتك</string>
     <string name="screenshot_04_accounts_subline">في مكان واحد</string>
     <string name="screenshot_05_autoUpload_heading">تحميل تلقائي</string>
-    <string name="screenshot_05_autoUpload_subline">لصوركم وفيديوهاتكم</string>
-    <string name="screenshot_06_davdroid_heading">التقويم &amp; جهات الاتصال</string>
     <string name="screenshot_06_davdroid_subline">مزامنة مع DAVx5</string>
     <string name="search_error">خطاء في الحصول على نتائج البحث</string>
     <string name="secure_share_not_set_up">المشاركة الآمنة لم يتم إعدادها بالنسبة لهذا المستخدِم</string>
@@ -708,7 +698,6 @@
     <string name="set_status_message">تعيين رسالة الحالة</string>
     <string name="setup_e2e">خلال تجهيز التشفير من الحدّ للحدّ، سوف تصلك جملة عشوائية مُكوّنة من 12 كلمة ستحتاج إليها لفتح ملفاتك على الأجهزة الأخرى. هذه الجملة سوف يتم تخزينها على هذا الجهاز فقط و يمكنك عرضها على الشاشة مرة أخرى. رجاءً، دوّنها و احفظها في مكانٍ آمنٍ!</string>
     <string name="share">مشاركة </string>
-    <string name="share_copy_link">مشاركة &amp; نسخ الرابط</string>
     <string name="share_dialog_title">مشاركة</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">تنتهي %1$s</string>
@@ -794,7 +783,6 @@
     <string name="storage_permission_full_access">النفاذ الكامل</string>
     <string name="storage_permission_media_read_only">الوسائط للقراءة فقط</string>
     <string name="storage_pictures">الصور</string>
-    <string name="store_full_desc">منصة الإنتاجية ذاتية الاستضافة التي تبقيك تحت السيطرة.\n\nالمميزات:\n* واجهة سهلة وحديثة ومناسبة لموضوع الخادم الخاص بك\n* رفع الملفات إلى خادم Nextcloud الخاص بك\n* شاركها مع الآخرين\n* حافظ على مزامنة ملفاتك ومجلداتك المفضلة\n* البحث في جميع المجلدات في خادمك\n* الرفع التلقائي للصور ومقاطع الفيديو التي يلتقطها جهازك\n* مواكبة مع الإشعارات\n* دعم لحسابات متعددة\n* وصول آمن إلى بياناتك باستخدام بصمة الإصبع أو رمز PIN\n* التكامل مع DAVx5 (المعروف سابقًا باسم DAVdroid) لسهولة إعداد التقويم ومزامنة جهات الاتصال\n\nالرجاء الإبلاغ عن جميع المشاكل على https://github.com/nextcloud/android/issues وناقش هذا التطبيق على https://help.nextcloud.com/c/clients/android\n\nجديد في Nextcloud؟ Nextcloud هو خادم خاص لمزامنة الملفات ومشاركتها واتصالاتها. إنه برنامج حر ، ويمكنك استضافته بنفسك أو الدفع لشركة للقيام بذلك نيابة عنك. بهذه الطريقة ، يمكنك التحكم في صورك والتقويم وبيانات الاتصال والمستندات وكل شيء آخر.\n\nتحقق من Nextcloud في https://nextcloud.com</string>
     <string name="store_full_dev_desc">منصة الإنتاجية ذاتية الاستضافة التي تبقيك تحت السيطرة.\nهذه هي النسخة التطويرية الرسمية ، وتضم عينة يومية من أي وظيفة جديدة غير مختبرة ، والتي قد تسبب عدم الاستقرار وفقدان البيانات. التطبيق مخصص للمستخدمين الراغبين في الاختبار والإبلاغ عن الأخطاء في حالة حدوثها. لا تستخدمه لعملك الإنتاجي!\n\nيتوفر كل من النسخة الرسمية والنسخة التطويرية على F-droid، ويمكن تثبيتهما في نفس الوقت.</string>
     <string name="store_short_desc">منصة إنتاجية ذاتية الاستضافة تبقيك متحكمًا</string>
     <string name="store_short_dev_desc">منصة إنتاجية ذاتية الاستضافة تبقيك متحكمًا (نسخة المطوريين)</string>
@@ -808,7 +796,6 @@
     <string name="subject_shared_with_you">تمت مشاركة \"%1$s\" معك</string>
     <string name="subject_user_shared_with_you">%1$s شارك معك \"%2$s\"</string>
     <string name="subtitle_photos_only">الصور فقط</string>
-    <string name="subtitle_photos_videos"> صور &amp; فيديوهات</string>
     <string name="subtitle_videos_only">مقاطع الفيديو فقط</string>
     <string name="suggest">اقتراح</string>
     <string name="sync_conflicts_in_favourites_ticker">هناك تعارض</string>

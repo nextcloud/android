@@ -320,8 +320,6 @@
     <string name="filename_forbidden_charaters_from_server">Faýlyň ady azyndan bir nädogry belgini öz içine alýar</string>
     <string name="filename_hint">Faýlyň ady</string>
     <string name="first_run_1_text">Maglumatlaryňyzy ygtybarly we gözegçilik astynda saklaň</string>
-    <string name="first_run_2_text">Ygtybarly hyzmatdaşlyk &amp;faýl alyş-çalşygy</string>
-    <string name="first_run_4_text">Ekrany paýlaşmak, onlaýn ýygnaklar &amp;web konferensiýalary</string>
     <string name="folder_already_exists">Bukja eýýäm bar</string>
     <string name="folder_confirm_create">Dörediň</string>
     <string name="folder_list_empty_headline">Bu ýerde bukjalar ýok</string>
@@ -465,10 +463,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Täze wersiýanyň adyny üýtgediň</string>
     <string name="pref_instant_name_collision_policy_title">Faýl eýýäm bar bolsa näme etmeli?</string>
     <string name="prefs_add_account">Hasap goşuň</string>
-    <string name="prefs_calendar_contacts">Senenama aragatnaşyklaryny sinhronlaň&amp;</string>
     <string name="prefs_calendar_contacts_no_store_error">Ne F-Droid, ne-de Google Play ýüklenmedik</string>
     <string name="prefs_calendar_contacts_summary">Häzirki hasap üçin DAVx5 (öň DAVdroid ady bilen tanalýardy) (v1.3.0 +) guruň</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Senenama &amp;kontaktlary sinhronlaşdyryldy</string>
     <string name="prefs_category_about">Hakynda</string>
     <string name="prefs_category_details">Jikme-jiklikler</string>
     <string name="prefs_category_dev">Dev</string>
@@ -542,8 +538,6 @@
     <string name="screenshot_04_accounts_heading">Siziň ähli hasaplaryňyz</string>
     <string name="screenshot_04_accounts_subline">bir ýerde</string>
     <string name="screenshot_05_autoUpload_heading">Awtomatiki ýüklemek</string>
-    <string name="screenshot_05_autoUpload_subline">siziň suratlaryňyz üçin&amp;wideolar</string>
-    <string name="screenshot_06_davdroid_heading">Senenama &amp;aragatnaşyklar</string>
     <string name="screenshot_06_davdroid_subline">DAVx5 bilen sinhronlaň</string>
     <string name="select_all">Hemmesini saýlaň</string>
     <string name="select_one_template">Bir şablon saýlaň</string>
@@ -628,9 +622,6 @@
     <string name="storage_movies">Wideo</string>
     <string name="storage_music">Saz</string>
     <string name="storage_pictures">Suratlar</string>
-    <string name="store_full_desc">Sizi gözegçilikde saklaýan, öndürijiligi ýokarlandyrmak üçin öz-özüni dolandyrýan platforma.\n\n Aýratynlyklary:\n * Serweriňiziň temasyna laýyk gelýän aňsat, döwrebap interfeýs\n * Nextcloud serweriňize faýl ýükläň\n* Olary beýlekiler bilen paýlaşyň\n * Halaýan faýllaryňyzy we bukjalaryňyzy sinhronlaň\ n * Serweriňizdäki ähli bukjalarda gözläň\ n * Enjamyňyz tarapyndan düşürilen suratlar we wideolar üçin awtomatiki ýüklemek\n * Duýduryşlary bilen ähli täzelikleriň habarynda boluň \n * Bir näçe hasaplaryňyz üçin goldaw \n * Barmak yzy ýa-da PIN kodynyň kömegi bilen siziň maglumatlaryňyza ygtybarly girmek \n  Integrasiýa DAVx5 bilen (öň DAVdroid ady bilen tanalýardy) &amp;Aragatnaşyklaryň senenamasyny sinhronlamasyny aňsat gurnamak üçin \n\n Haýyş edýäris ähli ýüze çykýan meseleleri habar beriň https://github.com/nextcloud/android/issues we bu programmany ara alyp maslahatlaşmak üçin
-
-https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud” şahsy umumy düýp faýl sinhronlamasy &amp;we aragatnaşyk serweri. Bu mugt programma üpjünçiligi, ony özbaşdak ýerleşdirip bilersiňiz ýa-da siziň üçin buny ýerine ýetirjek kompaniýa töläp bilersiňiz. Şeýlelik bilen, suratlaryňyzy, senenamaňyzy we aragatnaşyk maglumatlaryňyzy, resminamalaryňyzy we beýleki zatlary dolandyrýarsyňyz. \ N \ n Nextcloud-dan https://nextcloud.com sahypasyna giriň.</string>
     <string name="store_full_dev_desc">Özüňizi gözegçilikde saklaýan öndürijilik platformasy. \ NBu, durnuksyzlyga we maglumatlaryň ýitmegine sebäp bolup biljek islendik täze synag edilmedik funksiýanyň gündelik nusgasyny görkezýän resmi ösüş wersiýasy. Programma synamak isleýän ulanyjylar üçin we näsazlyklar ýüze çykan halatynda habar bermek üçin. Önümçilikli işiňiz üçin ulanmaň! \ N \ n Bu resmi dev we adaty wersiýa F-droid-de bar we şol bir wagtyň özünde gurup bolýar.</string>
     <string name="store_short_desc">Sizi gözegçilikde saklaýan, öndürijiligi ýokarlandyrmak üçin öz-özüni dolandyrýan platforma</string>
     <string name="store_short_dev_desc">Sizi gözegçilikde saklaýan, öndürijiligi ýokarlandyrmak üçin öz-özüni dolandyrýan platforma (deslapky wersiýa)</string>
