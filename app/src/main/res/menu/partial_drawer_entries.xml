@@ -127,4 +127,17 @@
             android:orderInCategory="200"
             android:title=""/>
     </group>
+
+    <!--
+      one more dummy element required
+      After making the quota details opaque
+      it is hiding some part of the element of the drawer above it
+    -->
+    <group>
+        <item
+            android:enabled="false"
+            android:orderInCategory="200"
+            android:title=""/>
+    </group>
+
 </menu>
