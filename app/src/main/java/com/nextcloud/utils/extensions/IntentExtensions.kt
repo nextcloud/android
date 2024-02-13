@@ -27,6 +27,7 @@ import android.os.Parcelable
 import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.Serializable
 
+@Suppress("TopLevelPropertyNaming")
 private const val tag = "IntentExtension"
 
 fun <T : Serializable?> Intent?.getSerializableArgument(key: String, type: Class<T>): T? {
