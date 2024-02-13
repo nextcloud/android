@@ -14,7 +14,6 @@
     <string name="action_send_share">Senda/Deila</string>
     <string name="action_switch_grid_view">Reitasýn</string>
     <string name="action_switch_list_view">Listasýn</string>
-    <string name="actionbar_calendar_contacts_restore">Endurheimta tengiliði og dagatal</string>
     <string name="actionbar_mkdir">Ný mappa</string>
     <string name="actionbar_move_or_copy">Færa eða afrita</string>
     <string name="actionbar_open_with">Opna með</string>
@@ -77,7 +76,6 @@
     <string name="avatar">Auðkennismynd</string>
     <string name="away">Fjarverandi</string>
     <string name="backup_settings">Stillingar öryggisafritunar</string>
-    <string name="backup_title">Öryggisafrit tengiliða og dagatals</string>
     <string name="battery_optimization_close">Loka</string>
     <string name="battery_optimization_disable">Gera óvirkt</string>
     <string name="battery_optimization_message">Tækið þitt gæti verið með virka orkusparnaðarstýringu. Sjalfvirka innsendingaforritið (AutoUpload) virkar ekki rétt nema að þetta forrit sé undanþegið í slíkri stýringu.</string>
@@ -378,9 +376,6 @@
     <string name="filename_forbidden_charaters_from_server">Skráarheitið inniheldur að minnsta kosti einn ógildan staf</string>
     <string name="filename_hint">Skráarheiti</string>
     <string name="first_run_1_text">Haltu gögnum þínum öruggum og undir þinni stjórn</string>
-    <string name="first_run_2_text">Örugg samvinna og skráaskipti</string>
-    <string name="first_run_3_text">Auðlærður vefpóstur, dagatal og tengiliðir</string>
-    <string name="first_run_4_text">Skjádeiling, netfundir og vefráðstefnur</string>
     <string name="folder_already_exists">Mappa er þegar til staðar</string>
     <string name="folder_confirm_create">Búa til</string>
     <string name="folder_list_empty_headline">Engar möppur hér</string>
@@ -563,16 +558,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Endurnefna nýja útgáfu</string>
     <string name="pref_instant_name_collision_policy_title">Hvað á að gera ef skráin er þegar til staðar?</string>
     <string name="prefs_add_account">Bæta við notandaaðgangi</string>
-    <string name="prefs_calendar_contacts">Samstilla dagatal &amp; tengiliði</string>
     <string name="prefs_calendar_contacts_no_store_error">Hvorki F-Droid né Google Play eru uppsett</string>
     <string name="prefs_calendar_contacts_summary">Setja upp DAVx5 (áður þekkt sem DAVdroid) (v1.3.0+) fyrir þennan aðgang</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Samstillingar dagatals 1&amp; tengiliða eru uppsettar</string>
     <string name="prefs_category_about">Um hugbúnaðinn</string>
     <string name="prefs_category_details">Nánar</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
-    <string name="prefs_daily_backup_summary">Daglegt öryggisafrit af dagatalinu þínu og tengiliðum</string>
     <string name="prefs_daily_contact_backup_summary">Daglegt öryggisafrit af tengiliðum</string>
     <string name="prefs_e2e_active">Enda-í-enda dulritun er virk!</string>
     <string name="prefs_e2e_mnemonic">E2E minnistækni</string>
@@ -661,8 +653,6 @@
     <string name="screenshot_04_accounts_heading">Allir aðgangarnir þínir</string>
     <string name="screenshot_04_accounts_subline">á einum stað</string>
     <string name="screenshot_05_autoUpload_heading">Sjálfvirk innsending</string>
-    <string name="screenshot_05_autoUpload_subline">mynda &amp; myndskeiða</string>
-    <string name="screenshot_06_davdroid_heading">Dagatal &amp; tengiliðir</string>
     <string name="screenshot_06_davdroid_subline">Samstilla með DAVx5</string>
     <string name="search_error">Villa við að sækja leitarniðurstöður</string>
     <string name="select_all">Velja allt</string>
@@ -677,7 +667,6 @@
     <string name="set_status">Setja stöðu</string>
     <string name="set_status_message">Setja stöðuskilaboð</string>
     <string name="share">Deila</string>
-    <string name="share_copy_link">Deila og afrita tengil</string>
     <string name="share_dialog_title">Deiling</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Rennur út %1$s</string>
@@ -761,7 +750,6 @@
     <string name="storage_permission_full_access">Fullur aðgangur</string>
     <string name="storage_permission_media_read_only">Skrifvarinn gagnamiðill</string>
     <string name="storage_pictures">Ljósmyndir</string>
-    <string name="store_full_desc">Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn.\n\nEiginleikar:\n* Einfalt, nútímalegt viðmót, með þema í samræmi við netþjóninn þinn\n* Sendir skrár inn á Nextcloud-þjóninn þinn\n* Deilir skránum þínum með öðrum\n* Heldur eftirlætisskránum og möppunum þínum samstilltum\n* Leitar í öllum möppum á þjóninum þínum\n* Sjálfvirk innsending mynda og myndskeiða sem tekin eru með tækjunum þínum\n* Heldur uppfærðu með tilkynningum\n* Styður við marga notandaaðganga\n* Öruggur aðgangur að gögnunum þínum með fingrafari eða PIN-númeri\n* Samþætting við DAVdroid fyrir auðvelda uppsetningu á samstillingu dagatals og tengiliða\n\nTilkynntu um vandamál á https://github.com/nextcloud/android/issues og ræddu um þetta forrit á https://help.nextcloud.com/c/clients/android\n\nNýr í Nextcloud? Nextcloud er þinn eiginn vefþjónn til samstillingar, samskipta og deilingar á skrám. Kóði hugbúnaðarins er fullkomlega opinn og frjáls til afnota; þú getur hýst hann sjálfur eða borgað fyrirtæki fyrir að gera það fyrir þig. Á þennan máta, hefur þú sjálfur full yfirráð yfir myndunum þínum, dagatalinu, tengiliðaskránum, skjölunum þínum og öllu öðru tilheyrandi.\n\nSkoðaðu fleira um Nextcloud á https://nextcloud.com</string>
     <string name="store_full_dev_desc">Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn.\nÞetta er opinbera þróunarútgáfan, sem kemur með daglegan skammt af óprófuðum nýjum eiginleikum, sem aftur gætu mögulega valdið truflunum og gagnatapi. Forritið er fyrir þá notendur sem vilja taka þátt í að prófa og tilkynna um villur, ef þær eiga sér stað. Ekki nota þetta í alvöru vinnuumhverfi!\n\nBæði opinbera þróunarútgáfan og venjulega útgáfan eru tiltækar á F-droid, og er hægt að setja þær upp samhliða hvorri annarri.</string>
     <string name="store_short_desc">Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn</string>
     <string name="store_short_dev_desc">Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn (forútgáfa fyrir hönnuði)</string>
@@ -775,7 +763,6 @@
     <string name="subject_shared_with_you">\"%1$s\" hefur verið deilt með þér</string>
     <string name="subject_user_shared_with_you">%1$s deildi \"%2$s\" með þér</string>
     <string name="subtitle_photos_only">Einungis ljósmyndir</string>
-    <string name="subtitle_photos_videos">Ljósmyndir og myndskeið</string>
     <string name="subtitle_videos_only">Einungis myndskeið</string>
     <string name="suggest">Stinga upp á</string>
     <string name="sync_conflicts_in_favourites_ticker">Árekstrar fundust</string>

@@ -14,7 +14,6 @@
     <string name="action_send_share">שליחה/שיתוף</string>
     <string name="action_switch_grid_view">תצוגת טבלה</string>
     <string name="action_switch_list_view">תצוגת רשימה</string>
-    <string name="actionbar_calendar_contacts_restore">שחזור אנשי קשר ולוח שנה</string>
     <string name="actionbar_mkdir">תיקייה חדשה</string>
     <string name="actionbar_open_with">פתיחה על בסיס</string>
     <string name="actionbar_search">חיפוש</string>
@@ -76,7 +75,6 @@
     <string name="avatar">תמונה מייצגת</string>
     <string name="away">לא פה</string>
     <string name="backup_settings">הגדרות גיבוי</string>
-    <string name="backup_title">גיבוי אנשי קשר ולוח שנה</string>
     <string name="battery_optimization_close">סגירה</string>
     <string name="battery_optimization_disable">השבתה</string>
     <string name="battery_optimization_message">יתכן שבמכשיר שלך מופעל מיטוב סוללה. שליחה אוטומטית עובדת כראוי רק אם היישומון הזה לא נכלל בהגדרה זו.</string>
@@ -337,8 +335,6 @@
     <string name="filename_forbidden_charaters_from_server">שם הקובץ מכיל לפחות תו אחד שגוי</string>
     <string name="filename_hint">שם קובץ</string>
     <string name="first_run_1_text">ניתן להשאיר את הנתונים שלך מאובטחים ותחת שליטה</string>
-    <string name="first_run_2_text">שיתוף פעולה והעברת קבצים באופן מאובטח</string>
-    <string name="first_run_4_text">שיתוף מסך, פגישות מקוונות וכנסים מקוונים</string>
     <string name="folder_already_exists">התיקייה כבר קיימת</string>
     <string name="folder_confirm_create">יצירה</string>
     <string name="folder_list_empty_headline">אין כאן תיקיות</string>
@@ -476,10 +472,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">לשנות את שם הגרסה החדשה</string>
     <string name="pref_instant_name_collision_policy_title">מה לעשות אם הקובץ כבר קיים?מה לעשות אם הקובץ קיים?</string>
     <string name="prefs_add_account">הוספת חשבון</string>
-    <string name="prefs_calendar_contacts">סנכרון לוח שנה ואנשי קשר</string>
     <string name="prefs_calendar_contacts_no_store_error">לא מותקנים F-Droid או Google Play</string>
     <string name="prefs_calendar_contacts_summary">הגדרת DAVx5 (לשעבר DAVdroid) (v1.3.0+‎) לחשבון הנוכחי</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">הגדרת סנכרון לוח שנה ואנשי קשר</string>
     <string name="prefs_category_about">על אודות</string>
     <string name="prefs_category_details">פרטים</string>
     <string name="prefs_category_dev">פיתוח</string>
@@ -551,8 +545,6 @@
     <string name="screenshot_04_accounts_heading">כל החשבונות שלך</string>
     <string name="screenshot_04_accounts_subline">במקום אחד</string>
     <string name="screenshot_05_autoUpload_heading">העלאה אוטומטית</string>
-    <string name="screenshot_05_autoUpload_subline">לתמונות ולסרטונים שלך</string>
-    <string name="screenshot_06_davdroid_heading">לוח שנה ואנשי קשר</string>
     <string name="screenshot_06_davdroid_subline">סנכרון עם DAVx5</string>
     <string name="select_all">בחר הכל</string>
     <string name="select_template">בחירת תבנית</string>
@@ -634,23 +626,6 @@
     <string name="storage_movies">סרטים</string>
     <string name="storage_music">מוזיקה</string>
     <string name="storage_pictures">תמונות</string>
-    <string name="store_full_desc">פלטפורמת הפרודוקטיביות בהארחה עצמית השומרת אתכם בשליטה.
-
-תכונות:
-* ממשק קל ומודרני המותאם לנושא השרת שלך
-העלה קבצים לשרת Nextcloud שלך
-* שתף אותם עם אחרים
-* שמור על סנכרון בין הקבצים והתיקיות המועדפים שלך
-* חפש בכל התיקיות בשרת שלך
-* העלאה אוטומטית לתמונות וסרטונים שצולמו על ידי המכשיר שלך
-* התעדכן בהתראות
-* תמיכה מרובת חשבונות
-* גישה מאובטחת לנתונים שלך באמצעות טביעת אצבע או מספר זיהוי אישי
-* שילוב עם DAVx5 (שכונה בעבר DAVdroid) להגדרה קלה של סנכרון אנשי קשר בלוח השנה
-
-אנא דווח על כל הנושאים בכתובת https://github.com/nextcloud/android/issues ודן באפליקציה הזו בכתובת https://help.nextcloud.com/c/clients/android\n\n חדש ל- Nextcloud? Nextcloud הוא שרת שיתוף ותקשורת פרטי לסנכרון קבצים. זו תוכנת libre ותוכל לארח אותה בעצמך או לשלם לחברה שתעשה את זה בשבילך. בדרך זו אתה שולט בתמונות שלך, בלוח השנה ובנתוני הקשר שלך, המסמכים שלך וכל השאר.
-
-בדוק את Nextcloud בכתובת https://nextcloud.com</string>
     <string name="store_full_dev_desc">פלטפורמת הפרודוקטיביות בהארחה עצמית השומרת אתכם בשליטה.
 זוהי גרסת הפיתוח הרשמית, הכוללת דגימה יומית של כל פונקציונליות חדשה שלא נבדקה, העלולה לגרום לחוסר יציבות ואובדן נתונים. האפליקציה מיועדת למשתמשים שמוכנים לבדוק ולדווח על באגים במידה והם יתרחשו. אל תשתמש בו לעבודה היצרנית שלך!
 

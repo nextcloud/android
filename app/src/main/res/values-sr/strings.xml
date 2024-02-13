@@ -14,7 +14,6 @@
     <string name="action_send_share">Слање/Дељење</string>
     <string name="action_switch_grid_view">Приказ мреже</string>
     <string name="action_switch_list_view">Приказ листе</string>
-    <string name="actionbar_calendar_contacts_restore">Обнови календар контакта &amp;</string>
     <string name="actionbar_mkdir">Нова фасцикла</string>
     <string name="actionbar_move_or_copy">Премести или копирај</string>
     <string name="actionbar_open_with">Отвори помоћу</string>
@@ -79,7 +78,6 @@
     <string name="avatar">Аватар</string>
     <string name="away">Одсутан</string>
     <string name="backup_settings">Поставке резервне копије</string>
-    <string name="backup_title">Резервна копија календара контакта &amp;</string>
     <string name="battery_optimization_close">Затвори</string>
     <string name="battery_optimization_disable">Искључи</string>
     <string name="battery_optimization_message">Аутоматско отпремање ради само ако изузмете ову апликацију из оптимизације батерије.</string>
@@ -391,9 +389,6 @@
     <string name="filename_forbidden_charaters_from_server">Назив фајла садржи бар један недозвољен знак</string>
     <string name="filename_hint">Назив фајла</string>
     <string name="first_run_1_text">Држите податке безбедним и под контролом</string>
-    <string name="first_run_2_text">Безбедна сарадња и размена фајлова</string>
-    <string name="first_run_3_text">Веб пошта лака за коришћење, календар &amp; контакти</string>
-    <string name="first_run_4_text">Дељење екрана, састанци и веб конференције</string>
     <string name="folder_already_exists">Фасцикла већ постоји</string>
     <string name="folder_confirm_create">Направи</string>
     <string name="folder_list_empty_headline">Нема фасцикли овде</string>
@@ -582,16 +577,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Преименуј нову верзију</string>
     <string name="pref_instant_name_collision_policy_title">Шта радити ако фајл већ постоји?</string>
     <string name="prefs_add_account">Додај налог</string>
-    <string name="prefs_calendar_contacts">Синхронизуј календар и контакте</string>
     <string name="prefs_calendar_contacts_no_store_error">Ни Ф-дроид ни Гугл плеј продавница нису инсталиране</string>
     <string name="prefs_calendar_contacts_summary">Подеси DAVx5 (раније знан и као ДАВдроид) (в1.3.0+) за тренутни налог</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Синхронизација контаката и календара подешена</string>
     <string name="prefs_category_about">О програму</string>
     <string name="prefs_category_details">Детаљи</string>
     <string name="prefs_category_dev">Развојно</string>
     <string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
-    <string name="prefs_daily_backup_summary">Дневна резервна копија контаката вашег календара &amp;</string>
     <string name="prefs_daily_contact_backup_summary">Дневно архивирање ваших контаката</string>
     <string name="prefs_davx5_setup_error">Неочекивана грешка приликом подешавања DAVx5 (раније познатог под именом DAVdroid)</string>
     <string name="prefs_e2e_active">Подешено је шифрирање од почетка-до-краја!</string>
@@ -683,8 +675,6 @@
     <string name="screenshot_04_accounts_heading">Сви ваши налози</string>
     <string name="screenshot_04_accounts_subline">на једном месту</string>
     <string name="screenshot_05_autoUpload_heading">Аутоматска отпремања</string>
-    <string name="screenshot_05_autoUpload_subline">слика и видео записа</string>
-    <string name="screenshot_06_davdroid_heading">Календар и контакти</string>
     <string name="screenshot_06_davdroid_subline">Синхронизација помоћу DAVx5</string>
     <string name="search_error">Грешка приликом добијања резултата претраге</string>
     <string name="secure_share_not_set_up">За овог корисника није подешено безбедно дељење</string>
@@ -703,7 +693,6 @@
     <string name="set_status_message">Постављање статусне поруке</string>
     <string name="setup_e2e">Током постављања шифрирања од почетка-до-краја примићете 12 случајних речи за памћење које ће вам бити неопходне да фајлове отворите на осталим уређајима. Ово ће се сачувати само на овом уређају и може поново да се прикаже на овом екрану. Молимо вас да их забележите на неко сигурно место!</string>
     <string name="share">Подели</string>
-    <string name="share_copy_link">Дели &amp; Линк за копирање</string>
     <string name="share_dialog_title">Дељење</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истиче %1$s</string>
@@ -789,7 +778,6 @@
     <string name="storage_permission_full_access">Пуни приступ</string>
     <string name="storage_permission_media_read_only">Само читање медија</string>
     <string name="storage_pictures">Слике</string>
-    <string name="store_full_desc">Платформа продуктивности на вашем серверу и под вашом контролом.\nОсобине:\n* Лако и модерно сучеље, усклађено са темом на серверу\n* Отпремање фајлова на Некстклауд сервер\n* Дељење фајлова са другима\n* Синхронизација омиљених фајлова и фасцикли\n* Претрага кроз све фасцикле на серверу\n* Аутоматско отпремање слика и видео записа са уређаја\n* Обавештења са сервера\n* Подршка за више налога\n* Безбедан приступ свим подацима преко отиска прста или пина\n* Интеграција са DAVx5 (раније знаном као ДАВдроид) за лако подешавање синхронизације календара и контаката\n\nСве проблеме можете да пријавите на https://github.com/nextcloud/android/issues а о апликацији дискутујте на https://help.nextcloud.com/c/clients/android\n\nНови сте на Некстклауду? Некстклауд је лични сервер за синхронизацију, дељење фајлова и комуникацију. То је слободан софтвер и можете га сами поставити на свој сервер или платити компанији да то учини уместо вас. На тај начин, сами контролишете своје слике, календаре, контакте, документа и све остало.\n\nПогледајте Некстклауд на https://nextcloud.com</string>
     <string name="store_full_dev_desc">Платформа продуктивности на вашем серверу и под вашом контролом.\nОво је званична развојна верзија, која свакодневно доноси нове нетестиране могућности, које могу изазвати нестабилност или губитак података. Ова апликација је за кориснике који желе да тестирају и пријављују грешке, уколико до њих дође. Не користите је за свакодневни посао!\n\nИ званична и развојна верзија су доступне на Ф-Дроид порталу и могу бити инсталиране истовремено.</string>
     <string name="store_short_desc">Платформа продуктивности под вашом контролом</string>
     <string name="store_short_dev_desc">Платформа продуктивности под вашом контролом (развојна верзија)</string>
@@ -803,7 +791,6 @@
     <string name="subject_shared_with_you">„%1$s“ је подељен са вама</string>
     <string name="subject_user_shared_with_you">%1$s дели „%2$s“ са вама</string>
     <string name="subtitle_photos_only">Само слике</string>
-    <string name="subtitle_photos_videos">Слике &amp; видео снимци</string>
     <string name="subtitle_videos_only">Само видео снимци</string>
     <string name="suggest">Предложи</string>
     <string name="sync_conflicts_in_favourites_ticker">Постоје сукоби</string>

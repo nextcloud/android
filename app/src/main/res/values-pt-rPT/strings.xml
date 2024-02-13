@@ -14,7 +14,6 @@
     <string name="action_send_share">Enviar/Partilhar</string>
     <string name="action_switch_grid_view">Visualização em grelha</string>
     <string name="action_switch_list_view">Visualização em lista</string>
-    <string name="actionbar_calendar_contacts_restore">Restaurar contactos e calendário</string>
     <string name="actionbar_mkdir">Nova pasta</string>
     <string name="actionbar_open_with">Abrir com</string>
     <string name="actionbar_search">Procura</string>
@@ -370,8 +369,6 @@
     <string name="filename_forbidden_charaters_from_server">Nome ficheiro contém pelo menos um caractere inválido</string>
     <string name="filename_hint">Nome do ficheiro</string>
     <string name="first_run_1_text">Mantenha os seus dados seguros e sob o seu controlo</string>
-    <string name="first_run_2_text">Colaboração &amp; partilha de ficheiros segura</string>
-    <string name="first_run_4_text">Partilha de ecrã, reuniões online &amp; conferências web</string>
     <string name="folder_already_exists">A pasta já existe</string>
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
@@ -555,10 +552,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Renomear a nova versão</string>
     <string name="pref_instant_name_collision_policy_title">Como proceder se o ficheiro já existir?</string>
     <string name="prefs_add_account">Adicionar conta</string>
-    <string name="prefs_calendar_contacts">Sincronizar calendário e contactos</string>
     <string name="prefs_calendar_contacts_no_store_error">As aplicações F-Droid e Google Play não estão instaladas</string>
     <string name="prefs_calendar_contacts_summary">Confirgurar DAVx5 (anteriormente conhecido como DAVdroid) (v1.3.0+) para a conta atual</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Configurar sincronização de calendário e contactos</string>
     <string name="prefs_category_about">Sobre</string>
     <string name="prefs_category_details">Detalhes</string>
     <string name="prefs_category_dev">Desenvolvimento</string>
@@ -650,8 +645,6 @@
     <string name="screenshot_04_accounts_heading">Todas as suas contas</string>
     <string name="screenshot_04_accounts_subline">num único lugar</string>
     <string name="screenshot_05_autoUpload_heading">Envio automático</string>
-    <string name="screenshot_05_autoUpload_subline">para as suas fotografias e vídeos</string>
-    <string name="screenshot_06_davdroid_heading">Calendário e contactos</string>
     <string name="screenshot_06_davdroid_subline">Sincronizar com DAVx5</string>
     <string name="search_error">Erro ao obter resultados da pesquisa</string>
     <string name="select_all">Selecionar tudo</string>
@@ -668,7 +661,6 @@
     <string name="set_status_message">Defina a mensagem de estado</string>
     <string name="setup_e2e">Durante a configuração da encriptação ponta-a-ponta, receberá uma mnemónica aleatória de 12 palavras, de que necessitará para abrir os seus ficheiros noutros dispositivos. Ela só será guardada neste dispositivo e pode ser mostrada novamente neste ecrã. Por favor, anote-a num local seguro!</string>
     <string name="share">Partilhar</string>
-    <string name="share_copy_link">Hiperligação de Partilhar e Copiar</string>
     <string name="share_dialog_title">Partilha</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expira %1$s</string>
@@ -750,7 +742,6 @@
     <string name="storage_music">Música</string>
     <string name="storage_permission_full_access">Acesso completo</string>
     <string name="storage_pictures">Imagens</string>
-    <string name="store_full_desc">A plataforma de produtividade auto-alojada que o/a mantém no controlo.\n\Características:\n* Interface simples e moderna, adequada ao tema do seu servidor\n* Envie ficheiros para o seu servidor Nextcloud\n* Partilhe-os com outros\n* Mantenha os seus ficheiros e pastas favoritos sincronizados\n* Pesquise em todas as pastas no seu servidor\n* Envie automaticamente fotografias e vídeos gravados pelo seu dispositivo\n* Mantenha-se informado/a com as notificações\n* Suporte para contas múltiplas\n* Proteja o acesso aos seus dados com impressão digital ou PIN\n* Integração com DAVx5 (anterior designado por DAVdroid) para uma configuração simples da sincronização do calendário &amp;contactos\n\nPor favor reporte todas as questões em https://github.com/nextcloud/android/issues e debata esta aplicação em https://help.nextcloud.com/c/clients/android\n\nNovo no Nextcloud? Nextcloud é um servidor privado de sincronização, partilha e comunicação. É software livre e pode alojá-lo você mesmo/a ou pagar uma companhia para o fazer por si. Desta forma você controla as suas fotografias, os seus dados de calendários e contactos, os seus documentos e tudo o resto.\n\nConheça o Nextcloud em https://nextcloud.com</string>
     <string name="store_full_dev_desc">A plataforma de produtividade auto-alojada que o/a mantém no controlo.\nEsta é a versão de desenvolvimento oficial, com uma amostra diária de funcionalidades não testadas que podem causar instabilidade e perda de dados. A aplicação é para pessoas dispostas a testar e reportar erros, caso ocorram. Não a use para o seu trabalho de produção!\n\nTanto a versão de desenvolvimento como a normal estão disponíveis no F-droid e podem ser instaladas ao mesmo tempo.</string>
     <string name="store_short_desc">A plataforma de produtividade auto-alojada que o/a mantém no controlo</string>
     <string name="store_short_dev_desc">A plataforma de produtividade auto alojada que o mantém em controle (versão \"preview dev\")</string>
@@ -763,7 +754,6 @@
     <string name="subject_shared_with_you">\"%1$s\" foi partilhado consigo</string>
     <string name="subject_user_shared_with_you">%1$s partilhou \"%2$s\" consigo</string>
     <string name="subtitle_photos_only">Apenas fotografias</string>
-    <string name="subtitle_photos_videos">Fotografias e vídeos</string>
     <string name="subtitle_videos_only">Apenas vídeos</string>
     <string name="suggest">Sugerir </string>
     <string name="sync_conflicts_in_favourites_ticker">Encontrados conflitos</string>

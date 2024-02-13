@@ -14,7 +14,6 @@
     <string name="action_send_share">送信/共有</string>
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
-    <string name="actionbar_calendar_contacts_restore">連絡先とカレンダーを復元</string>
     <string name="actionbar_mkdir">新しいフォルダー</string>
     <string name="actionbar_move_or_copy">移動またはコピー</string>
     <string name="actionbar_open_with">次で開く</string>
@@ -78,7 +77,6 @@
     <string name="avatar">アバター</string>
     <string name="away">離席中</string>
     <string name="backup_settings">バックアップ設定</string>
-    <string name="backup_title">連絡先とカレンダーのバックアップ</string>
     <string name="battery_optimization_close">閉じる</string>
     <string name="battery_optimization_disable">無効</string>
     <string name="battery_optimization_message">あなたのデバイスでバッテリー最適化が有効に設定されている場合、自動アップロードはこのアプリを最適化の対象から除外した場合にのみ正常に動作します</string>
@@ -377,9 +375,6 @@
     <string name="filename_forbidden_charaters_from_server">ファイル名に使用できない文字が含まれています</string>
     <string name="filename_hint">ファイル名</string>
     <string name="first_run_1_text">あなたのデータをセキュアなままコントロールしましょう</string>
-    <string name="first_run_2_text">セキュアなコラボレーションとファイル交換</string>
-    <string name="first_run_3_text">使いやすいWebメールやカレンダーや &amp; 連絡先</string>
-    <string name="first_run_4_text">画面共有やオンラインミーティングやウェブ会議</string>
     <string name="folder_already_exists">フォルダーはすでに存在します</string>
     <string name="folder_confirm_create">作成</string>
     <string name="folder_list_empty_headline">フォルダーがありません</string>
@@ -563,16 +558,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">新しいバージョンの名前を変更</string>
     <string name="pref_instant_name_collision_policy_title">ファイルがすでに存在するときの対応</string>
     <string name="prefs_add_account">アカウントを追加</string>
-    <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid も Google Play もインストールされていません</string>
     <string name="prefs_calendar_contacts_summary">DAVx5 (旧称 DAVdroid) (v1.3.0+) を現在のアカウントに設定する</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">カレンダー &amp; 連絡先の同期設定しました</string>
     <string name="prefs_category_about">アプリについて</string>
     <string name="prefs_category_details">詳細</string>
     <string name="prefs_category_dev">開発者</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
-    <string name="prefs_daily_backup_summary">カレンダーと連絡先を毎日バックアップ</string>
     <string name="prefs_daily_contact_backup_summary">連絡先のデイリーバックアップ</string>
     <string name="prefs_e2e_active">End-to-end 暗号化を設定中！</string>
     <string name="prefs_e2e_mnemonic">E2Eニーモニック</string>
@@ -655,8 +647,6 @@
     <string name="screenshot_04_accounts_heading">あなたのすべてのアカウント</string>
     <string name="screenshot_04_accounts_subline">ひとつの場所に</string>
     <string name="screenshot_05_autoUpload_heading">自動アップロード</string>
-    <string name="screenshot_05_autoUpload_subline">あなたの写真&amp;ビデオ</string>
-    <string name="screenshot_06_davdroid_heading">カレンダーと連絡先</string>
     <string name="screenshot_06_davdroid_subline">DAVx5で同期</string>
     <string name="search_error">検索結果の取得中にエラーが発生しました</string>
     <string name="select_all">すべて選択</string>
@@ -672,7 +662,6 @@
     <string name="set_status">ステータスを設定</string>
     <string name="set_status_message">メッセージを設定</string>
     <string name="share">共有</string>
-    <string name="share_copy_link">&amp;のリンクをコピー</string>
     <string name="share_dialog_title">共有</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">有効期限%1$s</string>
@@ -757,7 +746,6 @@
     <string name="storage_permission_full_access">フルアクセス</string>
     <string name="storage_permission_media_read_only">メディア読み取り専用</string>
     <string name="storage_pictures">写真</string>
-    <string name="store_full_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム\n\n特徴：\n* あなたのサーバと同調した、分かりやすくモダンなインターフェース\n* あなたのNextcloudサーバーにファイルをアップロード\n* それらのファイルの共有\n* お気に入りのファイルやフォルダーをいつでも同期\n* サーバーのすべてのフォルダーをまとめて検索\n* 撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダー連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分でホストをたてたり、そのための有償サービスを企業から受けることが出来ます。これにより、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\n詳細はNextcloud（https://nextcloud.com）まで。</string>
     <string name="store_full_dev_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム。\nこれは公式の開発バージョンです。まだ十分なテストをしていない新しいサンプル機能を毎日提供しており、不安定な挙動やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、不具合が発生した場合にレポートを必要とします。 実業務では使用しないでください！\n\n公式開発の正規バージョンはF-droidからもインストールできます。</string>
     <string name="store_short_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム</string>
     <string name="store_short_dev_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム（開発プレビューバージョン）</string>

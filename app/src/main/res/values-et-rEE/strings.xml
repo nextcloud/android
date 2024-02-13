@@ -14,7 +14,6 @@
     <string name="action_send_share">Saada/Jaga</string>
     <string name="action_switch_grid_view">Ruudustikvaade</string>
     <string name="action_switch_list_view">Nimekirjavaade</string>
-    <string name="actionbar_calendar_contacts_restore">Taasta kontaktid &amp; kalender</string>
     <string name="actionbar_mkdir">Uus kaust</string>
     <string name="actionbar_open_with">Ava rakendusega</string>
     <string name="actionbar_search">Otsi</string>
@@ -70,7 +69,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Eemal</string>
     <string name="backup_settings">Varunduse seaded</string>
-    <string name="backup_title">Kontaktide &amp; kalendri varundus</string>
     <string name="battery_optimization_close">Sulge</string>
     <string name="battery_optimization_disable">Lülita välja</string>
     <string name="battery_optimization_message">Sinu seade võib optimeerida akukasutust. Automaatne üleslaadimine toimib ainult siis, kui see rakendus sellest välistada.</string>
@@ -341,7 +339,6 @@
     <string name="pref_behaviour_entries_move">liigutatakse rakenduse kausta</string>
     <string name="pref_instant_name_collision_policy_entries_cancel">Jäta üleslaadimine vahele</string>
     <string name="prefs_add_account">Lisa konto</string>
-    <string name="prefs_calendar_contacts">Sünkroniseeri kalender &amp; kontaktid</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ega Google Play ei ole installeeritud</string>
     <string name="prefs_category_about">Info</string>
     <string name="prefs_category_details">Üksikasjad</string>

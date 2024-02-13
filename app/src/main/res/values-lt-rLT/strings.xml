@@ -14,7 +14,6 @@
     <string name="action_send_share">Siųsti/Bendrinti</string>
     <string name="action_switch_grid_view">Tinklelio rodinys</string>
     <string name="action_switch_list_view">Sąrašo rodinys</string>
-    <string name="actionbar_calendar_contacts_restore">Atkurti adresatus ir kalendorių</string>
     <string name="actionbar_mkdir">Naujas aplankas</string>
     <string name="actionbar_open_with">Atverti naudojant</string>
     <string name="actionbar_search">Paieška</string>
@@ -75,7 +74,6 @@
     <string name="avatar">Avataras</string>
     <string name="away">Atsitraukęs</string>
     <string name="backup_settings">Atsarginių kopijų nustatymai</string>
-    <string name="backup_title">Adresatų ir kalendoriaus atsarginė kopija</string>
     <string name="battery_optimization_close">Užverti</string>
     <string name="battery_optimization_disable">Išjungti</string>
     <string name="battery_optimization_message">Gali būti, kad Jūsų įrenginyje įjungta akumuliatriaus energijos naudojimo optimizacija. Automatinis įkėlimas tinkamai veikia tik tuo atveju, jei iš jo pašalinsite šią programą.
@@ -352,8 +350,6 @@
     <string name="filename_forbidden_charaters_from_server">Failo pavadinime yra bent vienas neteisingas simbolis</string>
     <string name="filename_hint">Failo pavadinimas</string>
     <string name="first_run_1_text">Saugiai laikykite ir valdykite savo duomenis</string>
-    <string name="first_run_2_text">Saugus bendradarbiavimas ir apsikeitimas failais</string>
-    <string name="first_run_4_text">Ekrano bendrinimas, internetiniai susitikimai bei konferencijos</string>
     <string name="folder_already_exists">Aplankas jau yra</string>
     <string name="folder_confirm_create">Sukurti</string>
     <string name="folder_list_empty_headline">Čia aplankų nėra</string>
@@ -510,16 +506,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Pervadinti naują versiją</string>
     <string name="pref_instant_name_collision_policy_title">Ką daryti, jei failas jau yra?</string>
     <string name="prefs_add_account">Pridėti paskyrą</string>
-    <string name="prefs_calendar_contacts">Sinchronizuoti kalendorių ir adresatus</string>
     <string name="prefs_calendar_contacts_no_store_error">Nėra įdiegta nei F-Droid, nei Google Play</string>
     <string name="prefs_calendar_contacts_summary">Dabartinei paskyrai nustatykite „DAVx5“ (anksčiau žinomą kaip „DAVdroid“) (v1.3.0 +)</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalendoriaus ir adresatų sinchronizavimas nustatytas</string>
     <string name="prefs_category_about">Apie</string>
     <string name="prefs_category_details">Informacija</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Bendra</string>
     <string name="prefs_category_more">Daugiau</string>
-    <string name="prefs_daily_backup_summary">Kasdienė jūsų adresatų ir kalendoriaus atsarginė kopija</string>
     <string name="prefs_daily_contact_backup_summary">Kasdieninė Jūsų kontaktų atsarginė kopija</string>
     <string name="prefs_e2e_mnemonic">E2E mnemoninis</string>
     <string name="prefs_e2e_no_device_credentials">Norėdami parodyti \"mnemoniką\", įjunkite įrenginio prisijungimo duomenis.</string>
@@ -594,8 +587,6 @@
     <string name="screenshot_04_accounts_heading">Visos jūsų paskyros</string>
     <string name="screenshot_04_accounts_subline">vienoje vietoje</string>
     <string name="screenshot_05_autoUpload_heading">Automatinis įkėlimas</string>
-    <string name="screenshot_05_autoUpload_subline">Jūsų nuotraukoms &amp; video</string>
-    <string name="screenshot_06_davdroid_heading">Kalendorius ir adresatai</string>
     <string name="screenshot_06_davdroid_subline">Sinchronizacija su DAVx5</string>
     <string name="search_error">Klaida gaunant paieškos rezultatus</string>
     <string name="select_all">Pažymėti viską</string>
@@ -609,7 +600,6 @@
     <string name="set_status">Nustatyti būseną</string>
     <string name="set_status_message">Nustatyti būsenos žinutę</string>
     <string name="share">Bendrinti</string>
-    <string name="share_copy_link">Bendrinti ir kopijuoti nuorodą</string>
     <string name="share_dialog_title">Bendrinimas</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Galioja iki %1$s</string>
@@ -689,7 +679,6 @@
     <string name="storage_permission_full_access">Pilna prieiga</string>
     <string name="storage_permission_media_read_only">Medija tik skaitymui</string>
     <string name="storage_pictures">Paveikslėliai</string>
-    <string name="store_full_desc">Savarankiška produktyvumo platforma, leidžianti Jums išlaikyti kontrolę. \n \nSavybės: \n * Paprasta, moderni sąsaja, tinkanti Jūsų serveriui. \n* Įkelti failai į „Nextcloud“ serverį \n* Failų bendrinimas su kitais naudotojais \n* Mėgstamų failų ir aplankų sinchronizacija. \n* Galima paieška visuose serverio aplankuose. \n* Automatinis Jūsų įrenginio darytų nuotraukų ir vaizdo įrašų įkėlimas \n* Pranešimai apie atnaujinimus \n* Kelių paskyrų palaikymas \n* Saugi prieiga prie savo duomenų naudojant pirštų atspaudus arba PIN kodą \n* Integracija su „DAVx5“ (anksčiau vadintu „DAVdroid“), kad būtų galima lengvai nustatyti kalendoriaus &amp; kontaktų sinchronizavimą\n. Prašome praneškite apie visas kilusias problemas puslapyje https://github.com/nextcloud/android/issues arba https://help.nextcloud.com/c/clients/android\n\nNaujai prisijungėte Nextcloud? „Nextcloud“ yra privatus failų sinchronizavimo &amp; ir ryšių serveris. Tai nemokama programinė įranga, kurią galite admnistruoti patys arba naudotis mokamais kitų įmonių pasiūlymais. Nextcloud Jūs kontroliuoti savo nuotraukas, kalendorių ar kontaktinius duomenis, dokumentus ir visa kita. \n\nIšbandykite „Nextcloud“ https://nextcloud.com.</string>
     <string name="store_full_dev_desc">Savarankiška platforma.\nTai yra oficiali vystoma versija, turinti neišbandytų funkcijų, kurios gali sukelti nestabilumą ar duomenų praradimą. Programa skirta naudotojams, norintiems išbandyti naujausią versiją ir pranešti apie aptiktas klaidas ar neatitiktis. Nenaudokite jo produktyviam darbui!\n\n Tiek oficialią „dev“ versiją, tiek įprastinę versija „F-droid“ galima įdiegti tuo pačiu metu.</string>
     <string name="store_short_desc">Savarankiška platforma, leidžianti Jums išlaikyti kontrolę</string>
     <string name="store_short_dev_desc">Savarankiška platforma, leidžianti Jums išlaikyti kontrolę (dev versija)</string>

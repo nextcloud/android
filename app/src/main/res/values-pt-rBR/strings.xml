@@ -14,7 +14,6 @@
     <string name="action_send_share">Enviar/Compartilhar</string>
     <string name="action_switch_grid_view">Vista em grade</string>
     <string name="action_switch_list_view">Lista de visualização</string>
-    <string name="actionbar_calendar_contacts_restore">Restaurar contatos &amp; calendário</string>
     <string name="actionbar_mkdir">Nova pasta</string>
     <string name="actionbar_move_or_copy">Mover ou Copiar</string>
     <string name="actionbar_open_with">Abrir com</string>
@@ -78,7 +77,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
     <string name="backup_settings">Configurações de backup </string>
-    <string name="backup_title">Backup de contatos &amp; calendário </string>
     <string name="battery_optimization_close">Fechar</string>
     <string name="battery_optimization_disable">Desativar</string>
     <string name="battery_optimization_message">Seu dispositivo pode ter a otimização da bateria ativada. AutoUpload funciona corretamente apenas se você excluir este aplicativo a partir dele.</string>
@@ -384,9 +382,6 @@
     <string name="filename_forbidden_charaters_from_server">O nome do arquivo contém pelo menos um caractere inválido  </string>
     <string name="filename_hint">Nome de arquivo</string>
     <string name="first_run_1_text">Mantenha seus dados seguros e sob seu controle</string>
-    <string name="first_run_2_text">Colaboração segura &amp; troca de arquivos</string>
-    <string name="first_run_3_text">Webmail, calendário e contatos fáceis de usar &amp; </string>
-    <string name="first_run_4_text">Compartilhamento de tela, reuniões online &amp; conferência via web</string>
     <string name="folder_already_exists">Pasta já existe</string>
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
@@ -574,16 +569,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Renomear a nova versão</string>
     <string name="pref_instant_name_collision_policy_title">O que fazer se o arquivo já existir?</string>
     <string name="prefs_add_account">Adicionar uma conta</string>
-    <string name="prefs_calendar_contacts">Sincronizar calendário &amp; contatos</string>
     <string name="prefs_calendar_contacts_no_store_error">Nem o F-Droid nem o Google Play estão instalados</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVx5 (conhecido como DAVdroid) (v1.3.0+) para a conta atual</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Configuração da sincronização de calendário &amp; contatos</string>
     <string name="prefs_category_about">Sobre</string>
     <string name="prefs_category_details">Detalhes</string>
     <string name="prefs_category_dev">Desenvolvimento</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
-    <string name="prefs_daily_backup_summary">Backup diário de seu calendário &amp; contatos</string>
     <string name="prefs_daily_contact_backup_summary">Backup diário de seus contatos</string>
     <string name="prefs_davx5_setup_error">Erro inesperado ao configurar o DAVx5 (anteriormente conhecido como DAVdroid)</string>
     <string name="prefs_e2e_active">A criptografia de ponta a ponta está configurada!</string>
@@ -675,8 +667,6 @@
     <string name="screenshot_04_accounts_heading">Todas as suas contas</string>
     <string name="screenshot_04_accounts_subline">em um lugar</string>
     <string name="screenshot_05_autoUpload_heading">Envio automático</string>
-    <string name="screenshot_05_autoUpload_subline">para suas fotos &amp; vídeos</string>
-    <string name="screenshot_06_davdroid_heading">Calendário &amp; contatos</string>
     <string name="screenshot_06_davdroid_subline">Sincronizar com DAVx5</string>
     <string name="search_error">Erro ao obter os resultados da pesquisa </string>
     <string name="select_all">Selecionar tudo</string>
@@ -693,7 +683,6 @@
     <string name="set_status_message">Definir mensagem de status</string>
     <string name="setup_e2e">Durante a configuração da criptografia de ponta a ponta, você receberá um mnemônico aleatório de 12 palavras, necessário para abrir seus arquivos em outros dispositivos. Isso será armazenado apenas neste dispositivo e poderá ser mostrado novamente nesta tela. Por favor, anote-o em um lugar seguro!</string>
     <string name="share">Compartilhar</string>
-    <string name="share_copy_link">Compartilhar &amp; copiar link</string>
     <string name="share_dialog_title">Compartilhamento</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expira em %1$s</string>
@@ -778,7 +767,6 @@
     <string name="storage_permission_full_access">Acesso total</string>
     <string name="storage_permission_media_read_only">Mídia somente leitura</string>
     <string name="storage_pictures">Imagens</string>
-    <string name="store_full_desc">A plataforma de produtividade auto-hospedada que mantém você no controle.\n\nCaracterísticas:\n* Interface fácil e moderna, adequada ao tema do seu servidor\n* Fazer upload de arquivos para o servidor Nextcloud\n* Compartilhá-los com outras pessoas\n* Mantenha seus arquivos e pastas favoritos sincronizados\n* Pesquise em todas as pastas do seu servidor\n* Upload automático de fotos e vídeos feitos pelo seu dispositivo\n* Mantenha-se atualizado com as notificações\n* Suporte a várias contas\n* Acesso seguro aos seus dados com impressão digital ou PIN\n* Integração com o DAVx5 (anteriormente conhecido como DAVdroid) para facilitar a configuração do calendário &amp; sincronização de contatos\n\nFavor informar todos os problemas em https://github.com/nextcloud/android/issues e discutir este aplicativo em https://help.nextcloud.com/c/clients/android\n\nNovo no Nextcloud? Nextcloud é uma sincronização de arquivos privada para compartilhamento &amp; comunicação. É um software livre e você pode hospedá-lo sozinho ou pagar uma empresa para fazer isso por você. Dessa forma, você controla suas fotos, dados de calendário e de contato, documentos e tudo mais.\n\nConsulte Nextcloud em https://nextcloud.com</string>
     <string name="store_full_dev_desc">A plataforma de produtividade auto-hospedada que mantém você no controle.\nEsta é a versão oficial de desenvolvimento, apresentando uma amostra diária de qualquer nova funcionalidade não testada e que pode causar instabilidade e perda de dados. O aplicativo é para usuários dispostos a testar e relatar erros caso eles ocorram. Não o use para o seu trabalho produtivo!\n\nOs aplicativos oficiais e a versão regular estão disponíveis no F-droid e podem ser instalados ao mesmo tempo.</string>
     <string name="store_short_desc">A plataforma de produtividade auto-hospedada que mantém você no controle</string>
     <string name="store_short_dev_desc">A plataforma de produtividade auto-hospedada que mantém você no controle (versão preview)</string>
@@ -792,7 +780,6 @@
     <string name="subject_shared_with_you">\"%1$s\" foi compartilhado com você</string>
     <string name="subject_user_shared_with_you">%1$s compartilhou \"%2$s\" com você</string>
     <string name="subtitle_photos_only">Somente fotos</string>
-    <string name="subtitle_photos_videos">Fotos &amp; vídeos</string>
     <string name="subtitle_videos_only">Somente vídeos</string>
     <string name="suggest">Sugerir </string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>

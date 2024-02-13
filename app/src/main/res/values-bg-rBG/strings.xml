@@ -14,7 +14,6 @@
     <string name="action_send_share">Изпрати/Сподели</string>
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
-    <string name="actionbar_calendar_contacts_restore">Възстановяване на контакти &amp; календар</string>
     <string name="actionbar_mkdir">Нова папка</string>
     <string name="actionbar_open_with">Отвори с</string>
     <string name="actionbar_search">Търсене</string>
@@ -77,7 +76,6 @@
     <string name="avatar">Аватар</string>
     <string name="away">Винаги</string>
     <string name="backup_settings">Настройки за архивиране</string>
-    <string name="backup_title">Контакти &amp; архивиране на календар</string>
     <string name="battery_optimization_close">Затваряне</string>
     <string name="battery_optimization_disable">Изключване</string>
     <string name="battery_optimization_message">Възможно е устройството ви да има активирана оптимизация на батерията. AutoUpload работи правилно само, ако изключите това приложение от него.</string>
@@ -374,8 +372,6 @@
     <string name="filename_forbidden_charaters_from_server">Името на файла съдържа поне един невалиден символ</string>
     <string name="filename_hint">Име на файла</string>
     <string name="first_run_1_text">Съхранявате данните си на сигурно място и под ваш контрол</string>
-    <string name="first_run_2_text">Сигурно сътрудничество&amp; за обмен на файлове</string>
-    <string name="first_run_4_text">Споделяне на екрана, online meetings и уеб конференции</string>
     <string name="folder_already_exists">Папката вече съществува</string>
     <string name="folder_confirm_create">Създай</string>
     <string name="folder_list_empty_headline">Няма папки</string>
@@ -547,16 +543,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Преименувай новата версия </string>
     <string name="pref_instant_name_collision_policy_title">Какво да направите, ако файлът вече съществува?</string>
     <string name="prefs_add_account">Добавяне на профил</string>
-    <string name="prefs_calendar_contacts">Синхронизиране на календар и контакти</string>
     <string name="prefs_calendar_contacts_no_store_error">Нито F-Droid, нито Google play са инсталирани</string>
     <string name="prefs_calendar_contacts_summary">Настройка на DAVx5 (преди известен като DAVdroid) (v1.3.0+) за текущ профил</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Календар &amp; синхронизацията на контакти е настроена</string>
     <string name="prefs_category_about">Относно</string>
     <string name="prefs_category_details">Подробности</string>
     <string name="prefs_category_dev">Разработка</string>
     <string name="prefs_category_general">Общи</string>
     <string name="prefs_category_more">Още</string>
-    <string name="prefs_daily_backup_summary">Ежедневно архивиране на вашия календар &amp; контакти</string>
     <string name="prefs_daily_contact_backup_summary">Дневно копие на вашите контакти</string>
     <string name="prefs_davx5_setup_error">Възникна неочаквана грешка при настройката на DAVx5 (известен преди, като DAVdroid)</string>
     <string name="prefs_e2e_active">Настроено е цялостно криптиране!</string>
@@ -640,8 +633,6 @@
     <string name="screenshot_04_accounts_heading">Всичките ви профили</string>
     <string name="screenshot_04_accounts_subline">на едно място</string>
     <string name="screenshot_05_autoUpload_heading">Автоматично качване</string>
-    <string name="screenshot_05_autoUpload_subline">за вашите снимки &amp; видеоклипове</string>
-    <string name="screenshot_06_davdroid_heading">Календар&amp; контакти</string>
     <string name="screenshot_06_davdroid_subline">Синхронизиране с DAVx5</string>
     <string name="search_error">Грешка при получаване на резултатите от търсенето</string>
     <string name="select_all">Избери всички</string>
@@ -658,7 +649,6 @@
     <string name="set_status_message">Задайте съобщение за състояние</string>
     <string name="setup_e2e">По време на настройката на цялостното криптиране ще получите мнемоника от 12 произволни думи , която ще ви е необходима, за да отваряте файловете си на други устройства. Тя ще бъде съхранена само на това устройство и може да бъде показана отново на този екран. Моля, запишете я на сигурно място!</string>
     <string name="share">Сподели</string>
-    <string name="share_copy_link">Споделяне &amp; Копиране на връзка</string>
     <string name="share_dialog_title">Споделяне</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Изтича %1$s</string>
@@ -743,7 +733,6 @@
     <string name="storage_permission_full_access">Пълен достъп</string>
     <string name="storage_permission_media_read_only">Медия само за четене</string>
     <string name="storage_pictures">Снимки</string>
-    <string name="store_full_desc">Самостоятелно хостваната платформа за производителност, която ви помага да поддържате контрол. \ N \ nХарактеристики: \ n* Лесен, модерен интерфейс, подходящ за темата на вашия сървър \ n* Качвайте файлове на вашия Nextcloud сървър \ n* Споделяйте ги с други \ n * Дръжте любимите си файлове и папки синхронизирани \ n* Търсете във всички папки на вашия сървър \ n* Автоматично качвайте снимки и видеоклипове, направени от вашето устройство \ n* Бъдете в крак с известията \ n* Поддръжка за няколко профила \ n* Сигурен достъп до вашите данни с пръстов отпечатък или ПИН \ n* Интеграция с DAVx5 (преди известен като DAVdroid) за лесна настройка на календар&amp; Синхронизиране на контакти \ n \ nМоля, докладвайте за всички проблеми на https://github.com/nextcloud/android/issues и обсъждайте това приложение на https://help.nextcloud.com/c/clients/android\n\nНово сте в Nextcloud? Nextcloud е частен  сървър за синхронизация на файлове &amp; за споделяне и комуникация. Това е безплатен софтуер и можете да го хоствате сами или да платите на компания да го направи вместо вас. По този начин вие контролирате снимките си, календара и данните си за контакт, документите си и всичко останало. \ N \ nПроверете Nextcloud на https://nextcloud.com</string>
     <string name="store_full_dev_desc">Самостоятелно хостваната платформа за производителност, която ви помага да поддържате контрол. \ NТова е официалната версия за разработка, включваща ежедневна извадка от всяка нова непроверена функционалност, която може да причини нестабилност и загуба на данни. Приложението е за потребители, които желаят да тестват и да докладват грешки, ако възникнат. Не го използвайте за вашата продуктивна работа! \ N \ nИ двете версии - официалната за разработчици и обикновената версия са налични на F-droid и могат да бъдат инсталирани едновременно.</string>
     <string name="store_short_desc">Самостоятелно хостваната платформа за производителност, която ви помага да поддържате контрол</string>
     <string name="store_short_dev_desc">Самостоятелно хостваната платформа за производителност, която ви помага да поддържате контрол (версия за предварителен преглед на разработчиците)</string>
@@ -755,7 +744,6 @@
     <string name="subject_shared_with_you">\"%1$s\" бе споделено с вас</string>
     <string name="subject_user_shared_with_you">%1$s сподели с вас \"%2$s\"</string>
     <string name="subtitle_photos_only">Само снимки</string>
-    <string name="subtitle_photos_videos">Снимки &amp; видеа</string>
     <string name="subtitle_videos_only">Само видеа</string>
     <string name="suggest">Препоръчване</string>
     <string name="sync_conflicts_in_favourites_ticker">Открити са конфликти</string>

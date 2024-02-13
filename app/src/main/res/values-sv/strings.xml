@@ -14,7 +14,6 @@
     <string name="action_send_share">Skicka/Dela</string>
     <string name="action_switch_grid_view">Rutnätsvy</string>
     <string name="action_switch_list_view">Listvy</string>
-    <string name="actionbar_calendar_contacts_restore">Återställ kontakter &amp; kalender</string>
     <string name="actionbar_mkdir">Ny mapp</string>
     <string name="actionbar_move_or_copy">Flytta eller kopiera</string>
     <string name="actionbar_open_with">Öppna med</string>
@@ -79,7 +78,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Iväg</string>
     <string name="backup_settings">Backupinställningar</string>
-    <string name="backup_title">Säkerhetskopierade kontakter &amp; kalender</string>
     <string name="battery_optimization_close">Stäng</string>
     <string name="battery_optimization_disable">Inaktivera</string>
     <string name="battery_optimization_message">Din enhet kan ha batterioptimering aktiverad. För att auto-uppladdning ska fungera måste du utesluta denna app från batterioptimering.</string>
@@ -390,9 +388,6 @@
     <string name="filename_forbidden_charaters_from_server">Filnamnet innehåller minst ett ogiltigt tecken</string>
     <string name="filename_hint">Filnamn</string>
     <string name="first_run_1_text">Håll dina data säkra och under din kontroll</string>
-    <string name="first_run_2_text">Säkert samarbete och filutbyte</string>
-    <string name="first_run_3_text">Lättanvänd webmail, kalender &amp; kontakter</string>
-    <string name="first_run_4_text">Skärmdelning, onlinemöten och webbkonferenser</string>
     <string name="folder_already_exists">Mapp finns redan</string>
     <string name="folder_confirm_create">Skapa</string>
     <string name="folder_list_empty_headline">Inga mappar här</string>
@@ -581,16 +576,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Byt namn på ny version</string>
     <string name="pref_instant_name_collision_policy_title">Vad ska göras om filen redan finns?</string>
     <string name="prefs_add_account">Lägg till konto</string>
-    <string name="prefs_calendar_contacts">Synkronisera kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_no_store_error">Varken F-Droid eller Google Play är installerad</string>
     <string name="prefs_calendar_contacts_summary">Sätt upp DAVx5 (tidigare DAVdroid) (v1.3.0 +) för nuvarande konto</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Synkronisera kalender &amp; kontakter</string>
     <string name="prefs_category_about">Om</string>
     <string name="prefs_category_details">Detaljer</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Allmänt</string>
     <string name="prefs_category_more">Mer</string>
-    <string name="prefs_daily_backup_summary">Daglig backup av din kalender &amp; dina kontakter </string>
     <string name="prefs_daily_contact_backup_summary">Daglig backup av dina kontakter</string>
     <string name="prefs_davx5_setup_error">Oväntat fel vid installation av DAVx5 (tidigare känd som DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end-kryptering är inställd!</string>
@@ -683,8 +675,6 @@
     <string name="screenshot_04_accounts_heading">Alla dina konton</string>
     <string name="screenshot_04_accounts_subline">på ett ställe</string>
     <string name="screenshot_05_autoUpload_heading">Automatisk uppladdning</string>
-    <string name="screenshot_05_autoUpload_subline">för dina bilder &amp; videor</string>
-    <string name="screenshot_06_davdroid_heading">Kalender &amp; kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synka med DAVx5</string>
     <string name="search_error">Ett fel uppstod vid sökning</string>
     <string name="secure_share_not_set_up">Säker delning är inte konfigurerad för denna användare</string>
@@ -703,7 +693,6 @@
     <string name="set_status_message">Sätt statusmeddelande</string>
     <string name="setup_e2e">Under inställningen av end-to-end-kryptering kommer du att få en slumpmässig 12-ords minnesregel, som du behöver för att öppna dina filer på andra enheter. Denna kommer endast att lagras på den här enheten och kan visas igen på den här skärmen. Vänligen notera den på ett säkert ställe!</string>
     <string name="share">Dela</string>
-    <string name="share_copy_link">Dela &amp; kopiera länk</string>
     <string name="share_dialog_title">Dela</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Gick ut %1$s</string>
@@ -789,7 +778,6 @@
     <string name="storage_permission_full_access">Fullständig åtkomst</string>
     <string name="storage_permission_media_read_only">En läsåtkomst till media</string>
     <string name="storage_pictures">Bilder</string>
-    <string name="store_full_desc">Produktivitetsplattformen där du är din egen värd och håller dig i kontroll.\n\nFunktioner:\n* Enkelt, modernt gränssnitt, anpassat till temat för din server\n* Ladda upp filer till din Nextcloud-server\n* Dela dem med andra\n* Håll dina favoritfiler och mappar synkroniserade\n* Sök i alla mappar på din server\n* Automatisk uppladdning av foton och videoklipp som tagits på enheten\n* Håll dig uppdaterad med aviseringar\n* Stöd för flera konton\n* Säker åtkomst till dina data med fingeravtryck eller PIN-kod\n* Integration med DAVx5 (tidigare känd som DAVdroid) för enkel installation av kalender &amp; Kontaktsynkronisering\n\nVänligen rapportera alla problem på https://github.com/nextcloud/android/issues och diskutera denna app på https://help.nextcloud.com/c/clients/android\n\nNy på Nextcloud? Nextcloud är en privat filsynkroniseringsserver&amp; där du även kan dela med dig av dina dokument till andra. Den är libre-programvara och du kan vara välja att vara din egen värd eller betala ett företag att göra det åt dig. På så sätt har du full kontroll över dina foton, din kalender, dina kontakter, dina dokument och allt annat.\n\nKolla in Nextcloud på https://nextcloud.com</string>
     <string name="store_full_dev_desc">Produktivitetsplattformen där du är din egen värd och håller dig i kontroll.\nDetta är den officiella utvecklingsversionen, med ett dagligt urval av någon ny otestad funktionalitet, vilket kan orsaka instabilitet och dataförlust. Appen är för användare som är villiga att testa, och rapportera fel om de inträffar. Använd inte det för ditt produktiva arbete!\n\nBåde den officiella dev och regelbunden versionen finns på F-droid, och kan installeras samtidigt.</string>
     <string name="store_short_desc">Produktivitetsplattformen där du är din egen värd och håller dig i kontroll</string>
     <string name="store_short_dev_desc">Produktivitetsplattformen där du är din egen värd och håller dig i kontroll (dev förhandsversion)</string>
@@ -803,7 +791,6 @@
     <string name="subject_shared_with_you">\"%1$s\" har delats med dig</string>
     <string name="subject_user_shared_with_you">%1$s delade \"%2$s\" med dig</string>
     <string name="subtitle_photos_only">Endast bilder</string>
-    <string name="subtitle_photos_videos">Bilder &amp; videos</string>
     <string name="subtitle_videos_only">Endast videos</string>
     <string name="suggest">Föreslå</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>

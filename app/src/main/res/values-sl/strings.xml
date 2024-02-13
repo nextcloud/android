@@ -14,7 +14,6 @@
     <string name="action_send_share">Pošlji/Omogoči souporabo</string>
     <string name="action_switch_grid_view">Mrežni pogled</string>
     <string name="action_switch_list_view">Seznamski pogled</string>
-    <string name="actionbar_calendar_contacts_restore">Obnovi stike koledarja &amp;</string>
     <string name="actionbar_mkdir">Nova mapa</string>
     <string name="actionbar_move_or_copy">Premakni ali Kopiraj</string>
     <string name="actionbar_open_with">Odpri s programom</string>
@@ -78,7 +77,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Ne spremljam</string>
     <string name="backup_settings">Nastavitve varnostnega kopiranja</string>
-    <string name="backup_title">Varnostno kopiranje stikov koledarja &amp;</string>
     <string name="battery_optimization_close">Zapri</string>
     <string name="battery_optimization_disable">Onemogoči</string>
     <string name="battery_optimization_message">Naprava ima najverjetneje omogočeno možnost optimizacije porabe baterije. Program AutoUpload pravilno deluje le, če je izvzet iz nje.</string>
@@ -382,9 +380,6 @@
     <string name="filename_forbidden_charaters_from_server">Ime datoteke vsebuje vsaj en neveljaven znak.</string>
     <string name="filename_hint">Ime datoteke</string>
     <string name="first_run_1_text">Hranite podatke varno in pod vašim nadzorom</string>
-    <string name="first_run_2_text">Varno sodelovanje in izmenjava datotek</string>
-    <string name="first_run_3_text">Enostavna uporaba spletne pošte, koledarja in stikov</string>
-    <string name="first_run_4_text">Souporaba zaslona, spletni sestanki in konference</string>
     <string name="folder_already_exists">Mapa že obstaja</string>
     <string name="folder_confirm_create">Ustvari</string>
     <string name="folder_list_empty_headline">Ni map</string>
@@ -572,16 +567,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Preimenuj novo različico</string>
     <string name="pref_instant_name_collision_policy_title">Kaj storiti, če datoteka že obstaja?</string>
     <string name="prefs_add_account">Dodaj račun</string>
-    <string name="prefs_calendar_contacts">Uskladi koledar in stike</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni nameščenega ne programa F-Droid ne Google Play</string>
     <string name="prefs_calendar_contacts_summary">Nastavitev DAVx5 (prej znan kot DAVdroid) (v1.3.0+) za trenutni račun</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Nastavitev sinhronizacije koledarja&amp; stikov</string>
     <string name="prefs_category_about">O projektu</string>
     <string name="prefs_category_details">Podrobnosti</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
-    <string name="prefs_daily_backup_summary">Dnevno varnostno kopiranje koledarja in stikov</string>
     <string name="prefs_daily_contact_backup_summary">Dnevno usklajevanje stikov</string>
     <string name="prefs_davx5_setup_error">Nepričakovana napaka pri nastavljanju DAVx5 (prej poznano kot DAVdroid)</string>
     <string name="prefs_e2e_active">Celovito šifriranje E2E je nastavljeno!</string>
@@ -669,8 +661,6 @@
     <string name="screenshot_04_accounts_heading">Vsi vaši računi</string>
     <string name="screenshot_04_accounts_subline">na enem mestu</string>
     <string name="screenshot_05_autoUpload_heading">Samodejno pošiljanje</string>
-    <string name="screenshot_05_autoUpload_subline">za vaše slike in posnetke</string>
-    <string name="screenshot_06_davdroid_heading">Koledar in stiki</string>
     <string name="screenshot_06_davdroid_subline">Uskladi z DAVx5</string>
     <string name="search_error">Napaka pridobivanja zadetkov iskanja</string>
     <string name="select_all">Izberi vse</string>
@@ -687,7 +677,6 @@
     <string name="set_status_message">Nastavi sporočilo stanja</string>
     <string name="setup_e2e">Med nastavitvijo šifriranja E2E boste prejeli naključno 12-mestno sporočilo, ki ga boste morali odpreti na drugih napravah. To bo shranjeno samo na tej napravi in ga je mogoče ponovno prikazati na tem zaslonu. Prosimo, zabeležite ga na varnem mestu!</string>
     <string name="share">Souporaba</string>
-    <string name="share_copy_link">Omogoči souporabo &amp; Kopiraj povezavo</string>
     <string name="share_dialog_title">Souporaba</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Preteče %1$s</string>
@@ -772,7 +761,6 @@
     <string name="storage_permission_full_access">Poln dostop</string>
     <string name="storage_permission_media_read_only">Predstavna vsebina samo za branje</string>
     <string name="storage_pictures">Slike</string>
-    <string name="store_full_desc">Okolje, ki gostuje, kjer vi želite, in vam omogoča popoln nadzor.\n\n Možnosti:\n* Enostaven za uporabo in sodoben vmesnik, ki je skladen z vašim strežnikom\n* Omogoča nalaganje datotek v oblak Nextcloud\n* Omogoča izmenjavo datotek z drugimi\n* Ohrani vaše datoteke in mape vedno usklajene\n * Podpira iskanje po vseh dodeljenih mapah na strežniku\n * Podpira samodejno nalaganje fotografij in videoposnetkov z naprave\n * Usklajuje in posreduje obvestila\n * Podpora je uporaba več računov\n* Zagotavlja varen dostop do podatkov s prstnim odtisom ali kodo PIN\n * Izvorno podpira sistem DAVx5 (poznan kot DAVdroid) za enostavno nastavitev usklajevanja koledarja in stikov\n\nPoročila o težavah je mogoče poslati na https://github.com/nextcloud/android/isissue in o programu razpravljati na https://help.nextcloud.com/c/clients/android\n\nAli šele spoznavate oblak Nextcloud? To je je zasebni strežnik za usklajevanje in sporočanje. Je brezplačna programska oprema, ki jo lahko namestite na svojem strežniku ali gostujete pri številnih ponudnikih. Vedno imate nadzor nad fotografijami, koledarjem in podatki stikov, nad dokumenti in vsem drugim.\n\nVse o Nextcloud izveste na https://nextcloud.com.</string>
     <string name="store_full_dev_desc">Okolje, ki vam omogoči popoln nadzor nad datotekami.\nUporabljate uradno razvojno različico, ki omogoča zagon nepreizkušene, dnevno spreminjajoče se kode, ta pa lahko povzroči nestabilnost in izgubo podatkov. Program je namenjen uporabnikom, ki so pripravljeni preizkušati novosti, poročati o težavah in iskati napake. Programa ni priporočljivo uporabiti za resno delo!\n\nObe različici, stabilna in razvojna, sta na voljo na F-droid in ju je mogoče uporabljati nameščeni sočasno.</string>
     <string name="store_short_desc">Zasebno produkcijsko okolje pod vašim nadzorom.</string>
     <string name="store_short_dev_desc">Zasebno produkcijsko okolje pod vašim nadzorom (razvojna predogledna različica).</string>
@@ -786,7 +774,6 @@
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
     <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
     <string name="subtitle_photos_only">Le slike</string>
-    <string name="subtitle_photos_videos">Slike &amp; videoposnetki</string>
     <string name="subtitle_videos_only">Le posnetki</string>
     <string name="suggest">Predlagaj</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>

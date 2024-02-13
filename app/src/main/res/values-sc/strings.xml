@@ -336,8 +336,6 @@
     <string name="filename_forbidden_charaters_from_server">Su nùmene de su documentu cuntenet a su mancu unu caràtere non vàlidu</string>
     <string name="filename_hint">Nùmene de su documentu</string>
     <string name="first_run_1_text">Tene is datos tuos in seguresa e controllados</string>
-    <string name="first_run_2_text">Collaboratzione segura &amp; cuncàmbiu de documentu</string>
-    <string name="first_run_4_text">Cumpartzidura de ischermu, addòbios in lìnia &amp; vìdeu-cunferèntzias</string>
     <string name="folder_already_exists">Sa cartella esistit giai</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">Peruna cartella inoghe</string>
@@ -490,10 +488,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Torra a numenare sa versione noa</string>
     <string name="pref_instant_name_collision_policy_title">Ite fàghere si su documentu esistit giai?</string>
     <string name="prefs_add_account">Agiunghe contu</string>
-    <string name="prefs_calendar_contacts">Sincroniza calendàriu &amp; cuntatos</string>
     <string name="prefs_calendar_contacts_no_store_error">Nen F-Droid nen Google Play sunt installados</string>
     <string name="prefs_calendar_contacts_summary">Cunfigura DAVx5 (antis connotu comente DAVdroid) (v1.3.0+) pro custu contu</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizatzione de is cuntatos de Calendàriu &amp; impostada</string>
     <string name="prefs_category_about">In contu de</string>
     <string name="prefs_category_details">Detàllios</string>
     <string name="prefs_category_dev">Dispositivu</string>
@@ -570,8 +566,6 @@
     <string name="screenshot_04_accounts_heading">Totu is contos tuos</string>
     <string name="screenshot_04_accounts_subline">in unu logu</string>
     <string name="screenshot_05_autoUpload_heading">Carrigamentu automàticu</string>
-    <string name="screenshot_05_autoUpload_subline">pro is fotografias e is vìdeos &amp; tuos</string>
-    <string name="screenshot_06_davdroid_heading">Calendàriu &amp; cuntatos</string>
     <string name="screenshot_06_davdroid_subline">Sincroniza cun DAVx5</string>
     <string name="select_all">Seletziona totu</string>
     <string name="select_one_template">Sèbera unu tema</string>
@@ -658,7 +652,6 @@
     <string name="storage_movies">Film</string>
     <string name="storage_music">Mùsica</string>
     <string name="storage_pictures">Immàgines</string>
-    <string name="store_full_desc">Sa prataforma auto-retzida chi ti lassat in controllu. \n\nCaraterìsticas:\n* Fàtzile, interfache moderna, adata a su tema de su serbidore tuo\n* Càrriga archìvios a su serbidore Nextcloud tuo\n* Cumpartzi•ddos cun àtere\n* Mantene sa sincronizatzione de is archìvios e cartellas preferidas tuas\n* Chirca in is cartellas in su serbidore tuo\n* Auto-carrigamentu de fotografias e vìdeos fatos cun su dispositivu tuo\n* Mantene•ti passu passu cun is notìficas\n* Atzessu a is datos seguru cun pin o imprenta de pòddighes\n* Integratzione cun DAVx5 (su betzu DAVdroid) po una cunfiguratzione fàtzile de su calendàriu&amp;Sincronizatzione de is cuntatos\n\nSinnala totu is problemas a https://github.com/nextcloud/android/issues e faedda de s\'aplicatzione a https://help.nextcloud.com/c/clients/android\n\n Prima bia in Nextcloud? Nextcloud est unu serbidore de sincronizatzione&amp; cumpartzidura e comunicatzione de archìvios privados. Est unu programa lìberu, e ddu podes retzire tue etotu o pagare una cumpangia pro ddu fàghere pro tene. In custa manera, tenes su controllu de is fotografias, de su calendàriu e de is datos de is cuntatos tuos, de is archìvios e de totu s\'àtere. </string>
     <string name="store_full_dev_desc">Sa prataforma de produtividade chi ti lassat in controllu.\nCustu est sa versione ufitziale de isvilupu, chi cada die mustrat un\'esempru de cada funtzionalidade noa no proada e chi podet causare instabilidade e pèrdida de datos. S\'aplicatzione est pro utentes chi bolent proare, e diant dèpere sinnalare is errore chi podent acuntèssere. Non dda imprees pro traballu produtivu!\n\nS\'isvilupu ufitziale e sa versione regolare s\'agatant in F-droid, e si podent installare in su matessi momentu.</string>
     <string name="store_short_desc">Sa prataforma de produtividade chi ti lassat in controllu</string>
     <string name="store_short_dev_desc">Sa prataforma de produtividade chi ti lassat in controllu (versione de anteprima de s\'isvilupu)</string>

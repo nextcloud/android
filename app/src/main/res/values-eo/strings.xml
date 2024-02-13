@@ -278,8 +278,6 @@
     <string name="filename_forbidden_charaters_from_server">Dosiernomo enhavas almenaŭ unu nevalidan signon</string>
     <string name="filename_hint">Dosiernomo</string>
     <string name="first_run_1_text">Gardu viajn datumojn sekuraj kaj sub via kontrolo</string>
-    <string name="first_run_2_text">Sekura kunlaborado kaj dosiera interŝanĝo</string>
-    <string name="first_run_4_text">Ekrandividado, retkunsidoj kaj reta konferencoj</string>
     <string name="folder_already_exists">La dosierujo jam ekzistas</string>
     <string name="folder_confirm_create">Krei</string>
     <string name="folder_list_empty_headline">Neniu dosierujo ĉi tie</string>
@@ -396,10 +394,8 @@
     <string name="pref_behaviour_entries_keep_file">konservita en origina dosierujo</string>
     <string name="pref_behaviour_entries_move">movita al aplikaĵa dosierujo</string>
     <string name="prefs_add_account">Aldoni konton</string>
-    <string name="prefs_calendar_contacts">Sinkronigi kalendaron kaj kontaktaron</string>
     <string name="prefs_calendar_contacts_no_store_error">Nek „F-Droid“ nek „Google Play“ estas instalita</string>
     <string name="prefs_calendar_contacts_summary">Agordi aplikaĵon DAVx5 (eks-DAVdroid) (versio 1.3.0 kaj posta) por la nuna konto</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalendara kaj kontaktara sinkronigo agordita</string>
     <string name="prefs_category_about">Pri</string>
     <string name="prefs_category_details">Detaloj</string>
     <string name="prefs_category_dev">Programado</string>
@@ -531,7 +527,6 @@
     <string name="storage_movies">Videaĵoj</string>
     <string name="storage_music">Muziko</string>
     <string name="storage_pictures">Bildoj</string>
-    <string name="store_full_desc">Oficeja programaro lanĉata en privata servilo, kiun vi regas.\n\nEbloj:\n• facila, kaj moderna fasado, kiu adaptiĝas al la etoso de via servilo\n• alŝuti dosierojn al via Nextcloud‑servilo…\n• …kaj kunhavigi ilin kun aliuloj\n• sinkronigi (samtempigi) viajn ŝatatajn dosierojn kaj dosierujojn\n• serĉi tra ĉiuj dosierujoj en via servilo\n• aŭtomate alŝuti fotojn kaj filmetojn faritajn per via aparato\n• sciigoj por resti informita\n• subteno por pluraj kontoj\n• sekurigi atingon al viaj datumoj per fingropremaĵo aŭ PIN‑kodo\n• integrigo kun DAVx5 (antaŭe DAVdroid) por facile sinkronigi kalendarojn kaj kontaktojn\n\nBonvolu raporti ĉiujn problemojn ĉe https://github.com/nextcloud/android/issues kaj pridiskuti la aplikaĵon ĉe https://help.nextcloud.com/c/clients/android\n\nĈu Nextcloud estas nova por vi?Nextcloud estas privata servilo por sinkronigi dosierojn kaj komunikadi. Ĝi estas libera programaro, vi povas gastigi vian propran servilon aŭ pagi firmaon. Tial vi regas vian fotojn, kalendarojn, kontakt‑datumojn, dokumentojn kaj ĉion alian.\n\nPliaj informoj ĉe https://nextcloud.com</string>
     <string name="store_full_dev_desc">Oficeja programaro lanĉata en privata servilo, kiun vi regas.\n\nTio ĉi estas oficiala testa (programista) versio liveranta ĉiutagan specimenon de novaj netestitaj ebloj, kiuj povas kaŭzi nestabilecon aŭ eĉ perdon de viaj datumoj. Tiu ĉi aplikaĵo celas al uzantoj, kiuj volas testi kaj raporti eventualajn erarojn. Ne uzu ĝin por grava laboro!\n\nKaj tiu ĉi testa kaj la stabila versioj estas elŝuteblaj el F-Droid kaj povas esti instalitaj samtempe.</string>
     <string name="store_short_desc">Oficeja programaro lanĉata en privata servilo, kiun vi regas</string>
     <string name="store_short_dev_desc">Oficeja programaro lanĉata en privata servilo, kiun vi regas (testa versio)</string>

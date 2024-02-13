@@ -302,8 +302,6 @@
     <string name="filename_forbidden_charaters_from_server">Emri i skedarit përmban të paktën një karakter të pavlefshëm</string>
     <string name="filename_hint">Emri i skedarit</string>
     <string name="first_run_1_text">Mbani të sigurta dhe nën kontroll të dhënat tuaja</string>
-    <string name="first_run_2_text">Bashkëpunim i sigurtë &amp;skedar i ndryshuar</string>
-    <string name="first_run_4_text">Ndarja e ekranit, takime në internet &amp; konferenca në web</string>
     <string name="folder_already_exists">Dosja ekziston tashmë</string>
     <string name="folder_confirm_create">Krijo</string>
     <string name="folder_list_empty_headline">Këtu nuk ka dosje</string>
@@ -428,10 +426,8 @@
     <string name="pref_behaviour_entries_keep_file">mbajtur në dosjen origjinale</string>
     <string name="pref_behaviour_entries_move">u kalua te dosja e aplikacionit</string>
     <string name="prefs_add_account">Shtoni llogari</string>
-    <string name="prefs_calendar_contacts">Sinkronizoni kalendarin &amp; kontaktet</string>
     <string name="prefs_calendar_contacts_no_store_error">Nuk janë instaluar as Google Play Store as F-Droid</string>
     <string name="prefs_calendar_contacts_summary">Konfiguro DAVx5 (i njohur më parë si DAVdroid) (v1.3.0+) për llogarinë rrjedhëse</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Sinkronizimi i kalendarit &amp; kontakteve u vendos me sukses</string>
     <string name="prefs_category_about">Rreth </string>
     <string name="prefs_category_details">Hollësi</string>
     <string name="prefs_category_dev">Dev</string>
@@ -502,8 +498,6 @@
     <string name="screenshot_04_accounts_heading">Të gjitha llogaritë tuaja</string>
     <string name="screenshot_04_accounts_subline">në një vend</string>
     <string name="screenshot_05_autoUpload_heading">Ngarkimi automatik</string>
-    <string name="screenshot_05_autoUpload_subline">për fotot tuaja &amp; videot</string>
-    <string name="screenshot_06_davdroid_heading">Kalendari&amp; kontaktet</string>
     <string name="screenshot_06_davdroid_subline">Sinkronizo me DAVx5</string>
     <string name="select_all">Zgjidhi të gjitha</string>
     <string name="select_template">Zgjidh shabllonin</string>
@@ -580,7 +574,6 @@
     <string name="storage_movies">Filma</string>
     <string name="storage_music">Muzik</string>
     <string name="storage_pictures">Piktura</string>
-    <string name="store_full_desc">Aplikacioni Android Copyleft libre Nextcloud , që ju jep liri të lëvizshme.\n\nFeatures:\n* Ndërfaqe e lehtë, moderne, e përshtatshme për temën e serverit tuaj\n* Ngarkoni skedarë në serverin tuaj Nextcloud\n* Ndajini ato me të tjerët\n* Ruan skedarët dhe dosjet tuaja të preferuara të sinkronizuara\n* Kërkoni në të gjitha dosjet në serverin tuaj\n* Ngarkim automatik për fotot dhe videot e marra nga pajisja juaj\n* Ju mban të përditësuar me njoftimet\n* Mbështetje për shumë llogari\n* Qasje e sigurtë në të dhënat tuaja me gjurmë gishtash ose PIN\n* Integrimi me DAVx5 (i njohur më parë si DAVdroid) për konfigurim të lehtë të kalendarit&amp; Sinkronizimi i kontakteve\n\nJu lutemi raportoni të gjitha çështjet në https://github.com/nextcloud/android/issues dhe diskutoni këtë aplikacion në https://help.nextcloud.com/c/clients/android\n\nI ri në Nexcloud? Nextcloud është një skedar  sinkronizimi privat&amp; server komunikimi dhe shpërndarës. Është software pa pagesë, dhe ju mund ta hostoni ose të paguani një kompani për ta bërë atë për ju. Në këtë mënyrë, ti kontrollon fotot, kalendarin tënd dhe të dhënat e kontaktit, dokumentet e tua dhe gjithçka tjetër.\n\nShikoni Nextcloud në https://nextcloud.com</string>
     <string name="store_full_dev_desc">Platforma e produktivitetit të vetë-pritëse që ju mban nën kontroll.\n Ky është versioni zhvillimi zyrtar, që përmban një shembull ditor të çdo funksionaliteti të ri të pa provuar, i cili mund të shkaktojë paqëndrueshmëri dhe humbje të të dhënave. Aplikacioni është për përdoruesit e gatshëm për të provuar dhe raportuar të metat nëse ato ndodhin. Mos e përdorni për punën tuaj produktive!\n\nVersioni zyrtar dhe versioni i rregullt janë në dispozicion në F-Droid, dhe mund të instalohen në të njëjtën kohë.</string>
     <string name="store_short_desc">Platforma vetë-pritëse e produktivitetit që ju mban nën kontroll</string>
     <string name="store_short_dev_desc">The self-hosted productivity platform that keeps you in control (versioni i parapamjes dev)</string>
