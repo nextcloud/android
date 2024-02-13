@@ -33,6 +33,7 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@Suppress("FunctionNaming")
 @RunWith(AndroidJUnit4::class)
 class IntentExtensionTests {
 
