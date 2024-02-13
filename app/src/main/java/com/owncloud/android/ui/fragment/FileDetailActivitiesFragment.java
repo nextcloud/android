@@ -147,6 +147,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
         viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingEmpty);
         viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList);
 
+        isLoadingActivities = true;
         fetchAndSetData(-1);
 
         binding.swipeContainingList.setOnRefreshListener(() -> {
