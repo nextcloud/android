@@ -25,7 +25,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import com.owncloud.android.lib.common.utils.Log_OC
-import org.apache.commons.logging.Log
 import java.io.Serializable
 
 private const val tag = "BundleExtension"
