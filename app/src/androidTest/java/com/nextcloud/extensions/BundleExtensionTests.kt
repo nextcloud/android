@@ -39,7 +39,7 @@ class BundleExtensionTests {
     private val key = "testDataKey"
 
     @Test
-    fun test_GetSerializableArgument_WhenGivenValidBundle_ShouldReturnExpectedData() {
+    fun test_get_serializable_argument_when_given_valid_bundle_should_return_expected_data() {
         val bundle = Bundle()
         val testObject = TestData("Hello")
         bundle.putSerializable(key, testObject)
@@ -48,7 +48,7 @@ class BundleExtensionTests {
     }
 
     @Test
-    fun test_GetSerializableArgument_WhenGivenValidBundleAndWrongClassType_ShouldReturnNull() {
+    fun test_get_serializable_argument_when_given_valid_bundle_and_wrong_class_type_should_return_null() {
         val bundle = Bundle()
         val testObject = TestData("Hello")
         bundle.putSerializable(key, testObject)
@@ -57,7 +57,7 @@ class BundleExtensionTests {
     }
 
     @Test
-    fun test_GetParcelableArgument_WhenGivenValidBundleAndWrongClassType_ShouldReturnNull() {
+    fun test_get_parcelable_argument_when_given_valid_bundle_and_wrong_class_type_should_return_null() {
         val bundle = Bundle()
         val testObject = TestData("Hello")
         bundle.putSerializable(key, testObject)
@@ -66,7 +66,7 @@ class BundleExtensionTests {
     }
 
     @Test
-    fun test_GetParcelableArgument_WhenGivenValidBundle_ShouldReturnExpectedData() {
+    fun test_get_parcelable_argument_when_given_valid_bundle_should_return_expected_data() {
         val bundle = Bundle()
         val testObject = TestDataParcelable("Hello")
         bundle.putParcelable(key, testObject)
@@ -75,13 +75,13 @@ class BundleExtensionTests {
     }
 
     @Test
-    fun test_GetSerializableArgument_WhenGivenNullBundle_ShouldReturnNull() {
+    fun test_get_serializable_argument_when_given_null_bundle_should_return_null() {
         val retrievedObject = (null as Bundle?).getSerializableArgument(key, TestData::class.java)
         assertNull(retrievedObject)
     }
 
     @Test
-    fun test_GetParcelableArgument_WhenGivenNullBundle_ShouldReturnNull() {
+    fun test_get_parcelable_argument_when_given_null_bundle_should_return_null() {
         val retrievedObject = (null as Bundle?).getParcelableArgument(key, TestDataParcelable::class.java)
         assertNull(retrievedObject)
     }
