@@ -33,6 +33,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
@@ -122,7 +123,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         switch (group.type) {
             case CURRENT, FINISHED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close);
-            case FAILED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_dots_vertical);
+            case CANCELLED, FAILED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_dots_vertical);
+
         }
 
         headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
@@ -142,6 +144,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 case FAILED -> {
                     // show popup with option clear or retry filed uploads
                     createFailedPopupMenu(headerViewHolder);
+                }
+                case CANCELLED -> {
+                    // show popup with option clear or retry manually cancelled uploads
+                    createCancelledActionsPopupMenu(headerViewHolder);
                 }
             }
         });
@@ -173,6 +179,30 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         failedPopup.show();
     }
 
+    public void createCancelledActionsPopupMenu(HeaderViewHolder headerViewHolder){
+        PopupMenu popup = new PopupMenu(MainApp.getAppContext(), headerViewHolder.binding.uploadListAction);
+        popup.inflate(R.menu.upload_list_cancelled_options);
+
+        popup.setOnMenuItemClickListener(i -> {
+            int itemId = i.getItemId();
+
+            if (itemId == R.id.action_upload_list_cancelled_clear) {
+                uploadsStorageManager.clearManuallyCancelledUploadsForCurrentAccount();
+                loadUploadItemsFromDb();
+            } else if (itemId == R.id.action_upload_list_cancelled_resume) {
+
+                new Thread(() -> {
+                    parentActivity.runOnUiThread(this::loadUploadItemsFromDb);
+                    // TODO Do something
+                }).start();
+
+            }
+
+            return true;
+        });
+        popup.show();
+    }
+
     @Override
     public void onBindFooterViewHolder(SectionedViewHolder holder, int section) {
         // not needed
@@ -197,7 +227,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         this.clock = clock;
         this.viewThemeUtils = viewThemeUtils;
 
-        uploadGroups = new UploadGroup[3];
+        uploadGroups = new UploadGroup[4];
 
         shouldShowHeadersForEmptySections(false);
 
@@ -222,6 +252,14 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             @Override
             public void refresh() {
                 fixAndSortItems(uploadsStorageManager.getFinishedUploadsForCurrentAccount());
+            }
+        };
+
+        uploadGroups[3] = new UploadGroup(Type.CANCELLED,
+                                          parentActivity.getString(R.string.upload_manually_cancelled)) {
+            @Override
+            public void refresh() {
+                fixAndSortItems(uploadsStorageManager.getManuallyCancelledUploadsForCurrentAccount());
             }
         };
 
@@ -655,7 +693,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     status = parentActivity.getString(R.string.uploads_view_upload_status_succeeded);
                 }
             }
-            case UPLOAD_FAILED -> status = getUploadFailedStatusText(upload.getLastResult());
+            case UPLOAD_FAILED, UPLOAD_MANUALLY_CANCELLED -> status = getUploadFailedStatusText(upload.getLastResult());
             default -> status = "Uncontrolled status: " + upload.getUploadStatus();
         }
         return status;
@@ -709,8 +747,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             case SSL_RECOVERABLE_PEER_UNVERIFIED:
                 status =
                     parentActivity.getString(
-                        R.string.uploads_view_upload_status_failed_ssl_certificate_not_trusted
-                                            );
+                                R.string.uploads_view_upload_status_failed_ssl_certificate_not_trusted
+                        );
                 break;
             case UNKNOWN:
                 status = parentActivity.getString(R.string.uploads_view_upload_status_unknown_fail);
@@ -720,7 +758,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 break;
             case DELAYED_IN_POWER_SAVE_MODE:
                 status = parentActivity.getString(
-                    R.string.uploads_view_upload_status_waiting_exit_power_save_mode);
+                        R.string.uploads_view_upload_status_waiting_exit_power_save_mode);
                 break;
             case VIRUS_DETECTED:
                 status = parentActivity.getString(R.string.uploads_view_upload_status_virus_detected);
@@ -742,6 +780,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 break;
             case QUOTA_EXCEEDED:
                 status = parentActivity.getString(R.string.upload_quota_exceeded);
+                break;
+            case MANUALLY_CANCELLED:
+                status = parentActivity.getString(R.string.upload_manually_cancelled);
                 break;
             default:
                 status = parentActivity.getString(R.string.upload_unknown_error);
@@ -795,17 +836,17 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
      */
     private void onUploadedItemClick(OCUpload upload) {
         final OCFile file = parentActivity.getStorageManager().getFileByEncryptedRemotePath(upload.getRemotePath());
-        if (file == null) {
+        if (file == null){
             DisplayUtils.showSnackMessage(parentActivity, R.string.error_retrieving_file);
             Log_OC.i(TAG, "Could not find uploaded file on remote.");
             return;
         }
 
-        if (PreviewImageFragment.canBePreviewed(file)) {
+        if (PreviewImageFragment.canBePreviewed(file)){
             //show image preview and stay in uploads tab
             Intent intent = FileDisplayActivity.openFileIntent(parentActivity, parentActivity.getUser().get(), file);
             parentActivity.startActivity(intent);
-        } else {
+        }else{
             Intent intent = new Intent(parentActivity, FileDisplayActivity.class);
             intent.setAction(Intent.ACTION_VIEW);
             intent.putExtra(FileDisplayActivity.KEY_FILE_PATH, upload.getRemotePath());
@@ -857,7 +898,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     }
 
     enum Type {
-        CURRENT, FINISHED, FAILED
+        CURRENT, FINISHED, FAILED, CANCELLED
     }
 
     abstract class UploadGroup implements Refresh {
@@ -901,16 +942,14 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         }
     }
 
-    public void cancelOldErrorNotification(OCUpload upload) {
+    public void cancelOldErrorNotification(OCUpload upload){
 
         if (mNotificationManager == null) {
             mNotificationManager = (NotificationManager) parentActivity.getSystemService(parentActivity.NOTIFICATION_SERVICE);
         }
 
-        if (upload == null) {
-            return;
-        }
-        mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(upload.getRemotePath(), upload.getLocalPath()),
+        if (upload == null) return;
+        mNotificationManager.cancel(NotificationUtils.createUploadNotificationTag(upload.getRemotePath(),upload.getLocalPath()),
                                     FileUploadWorker.NOTIFICATION_ERROR_ID);
 
     }

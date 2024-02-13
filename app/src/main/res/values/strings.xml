@@ -852,6 +852,9 @@
     <string name="upload_action_global_upload_pause">Pause all uploads</string>
     <string name="upload_action_global_upload_resume">Resume all uploads</string>
     <string name="dismiss_notification_description">Dismiss notification</string>
+    <string name="upload_action_cancelled_resume">Resume cancelled uploads</string>
+    <string name="upload_action_cancelled_clear">Clear cancelled uploads</string>
+    <string name="upload_manually_cancelled">Upload was cancelled by user</string>
     <string name="action_empty_notifications">Clear all notifications</string>
     <string name="timeout_richDocuments">Loading is taking longer than expected</string>
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
