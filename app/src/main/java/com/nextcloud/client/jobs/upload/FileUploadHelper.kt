@@ -160,7 +160,7 @@ class FileUploadHelper {
         }
     }
 
-    private fun cancelAndRestartUploadJob(user: User) {
+    fun cancelAndRestartUploadJob(user: User) {
         backgroundJobManager.run {
             cancelFilesUploadJob(user)
             startFilesUploadJob(user)

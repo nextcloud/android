@@ -387,6 +387,10 @@ public interface AppPreferences {
 
     void setCalendarLastBackup(long timestamp);
 
+    boolean isGlobalUploadPaused();
+
+    void setGlobalUploadPaused(boolean globalPausedState);
+
     void setPdfZoomTipShownCount(int count);
 
     int getPdfZoomTipShownCount();
