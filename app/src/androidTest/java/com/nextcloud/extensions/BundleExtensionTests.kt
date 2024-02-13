@@ -21,10 +21,8 @@
 
 package com.nextcloud.extensions
 
-import android.os.Build
 import android.os.Bundle
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SdkSuppress
 import com.nextcloud.test.model.OtherTestData
 import com.nextcloud.test.model.TestData
 import com.nextcloud.test.model.TestDataParcelable
@@ -50,7 +48,6 @@ class BundleExtensionTests {
         assertEquals(testObject, retrievedObject)
     }
 
-    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.Q)
     @Test
     fun test_get_serializable_argument_when_given_valid_bundle_and_wrong_class_type_should_return_null() {
         val bundle = Bundle()
