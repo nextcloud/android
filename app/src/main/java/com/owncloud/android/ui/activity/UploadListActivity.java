@@ -320,6 +320,8 @@ public class UploadListActivity extends FileActivity {
             }
         } else if (itemId == R.id.action_toggle_global_pause) {
             toggleGlobalPause(item);
+        } else {
+            return super.onOptionsItemSelected(item);
         }
 
         return true;
