@@ -39,7 +39,7 @@ class IntentExtensionTests {
     private val key = "testDataKey"
 
     @Test
-    fun test_GetSerializableArgument_WhenGivenValidIntent_ShouldReturnExpectedData() {
+    fun test_get_serializable_argument_when_given_valid_intent_should_return_expected_data() {
         val intent = Intent()
         val testObject = TestData("Hello")
         intent.putExtra(key, testObject)
@@ -48,7 +48,7 @@ class IntentExtensionTests {
     }
 
     @Test
-    fun test_GetSerializableArgument_WhenGivenValidIntentAndWrongClassType_ShouldReturnNull() {
+    fun test_get_serializable_argument_when_given_valid_intent_and_wrong_class_type_should_return_null() {
         val intent = Intent()
         val testObject = TestData("Hello")
         intent.putExtra(key, testObject)
@@ -57,7 +57,7 @@ class IntentExtensionTests {
     }
 
     @Test
-    fun test_GetParcelableArgument_WhenGivenValidIntentAndWrongClassType_ShouldReturnNull() {
+    fun test_get_parcelable_argument_when_given_valid_intent_and_wrong_class_type_should_return_null() {
         val intent = Intent()
         val testObject = TestData("Hello")
         intent.putExtra(key, testObject)
@@ -66,7 +66,7 @@ class IntentExtensionTests {
     }
 
     @Test
-    fun test_GetParcelableArgument_WhenGivenValidIntent_ShouldReturnExpectedData() {
+    fun test_get_parcelable_argument_when_given_valid_intent_should_return_expected_data() {
         val intent = Intent()
         val testObject = TestDataParcelable("Hello")
         intent.putExtra(key, testObject)
@@ -75,13 +75,13 @@ class IntentExtensionTests {
     }
 
     @Test
-    fun test_GetSerializableArgument_WhenGivenNullIntent_ShouldReturnNull() {
+    fun test_get_serializable_argument_when_given_null_intent_should_return_null() {
         val retrievedObject = (null as Intent?).getSerializableArgument(key, TestData::class.java)
         assertNull(retrievedObject)
     }
 
     @Test
-    fun test_GetParcelableArgument_WhenGivenNullIntent_ShouldReturnNull() {
+    fun test_get_parcelable_argument_when_given_null_intent_should_return_null() {
         val retrievedObject = (null as Intent?).getParcelableArgument(key, TestDataParcelable::class.java)
         assertNull(retrievedObject)
     }
