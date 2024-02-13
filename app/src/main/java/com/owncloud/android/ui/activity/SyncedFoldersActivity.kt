@@ -403,7 +403,8 @@ class SyncedFoldersActivity :
             files.size.toLong(),
             syncedFolder.type,
             syncedFolder.isHidden,
-            syncedFolder.subfolderRule
+            syncedFolder.subfolderRule,
+            syncedFolder.isExcludeHidden
         )
     }
 
@@ -433,7 +434,8 @@ class SyncedFoldersActivity :
             mediaFolder.numberOfFiles,
             mediaFolder.type,
             syncedFolder.isHidden,
-            syncedFolder.subfolderRule
+            syncedFolder.subfolderRule,
+            syncedFolder.isExcludeHidden
         )
     }
 
@@ -462,7 +464,8 @@ class SyncedFoldersActivity :
             mediaFolder.numberOfFiles,
             mediaFolder.type,
             false,
-            SubFolderRule.YEAR_MONTH
+            SubFolderRule.YEAR_MONTH,
+            false
         )
     }
 
@@ -554,7 +557,8 @@ class SyncedFoldersActivity :
                         null,
                         MediaFolderType.CUSTOM,
                         false,
-                        SubFolderRule.YEAR_MONTH
+                        SubFolderRule.YEAR_MONTH,
+                        false
                     )
                     onSyncFolderSettingsClick(0, emptyCustomFolder)
                 } else {
@@ -670,7 +674,8 @@ class SyncedFoldersActivity :
                 File(syncedFolder.localPath).name,
                 syncedFolder.type,
                 syncedFolder.isHidden,
-                syncedFolder.subFolderRule
+                syncedFolder.subFolderRule,
+                syncedFolder.isExcludeHidden
             )
             saveOrUpdateSyncedFolder(newCustomFolder)
             adapter.addSyncFolderItem(newCustomFolder)
@@ -688,7 +693,8 @@ class SyncedFoldersActivity :
                 syncedFolder.uploadAction,
                 syncedFolder.nameCollisionPolicy.serialize(),
                 syncedFolder.isEnabled,
-                syncedFolder.subFolderRule
+                syncedFolder.subFolderRule,
+                syncedFolder.isExcludeHidden
             )
             saveOrUpdateSyncedFolder(item)
 
@@ -759,6 +765,7 @@ class SyncedFoldersActivity :
      * @param uploadAction    upload action
      * @param nameCollisionPolicy what to do on name collision
      * @param enabled         is sync enabled
+     * @param excludeHidden   exclude hidden file or folder, for {@link MediaFolderType#CUSTOM} only
      */
     @Suppress("LongParameterList")
     private fun updateSyncedFolderItem(
@@ -773,7 +780,8 @@ class SyncedFoldersActivity :
         uploadAction: Int,
         nameCollisionPolicy: Int,
         enabled: Boolean,
-        subFolderRule: SubFolderRule
+        subFolderRule: SubFolderRule,
+        excludeHidden: Boolean
     ) {
         item.id = id
         item.localPath = localPath
@@ -786,6 +794,7 @@ class SyncedFoldersActivity :
         item.setNameCollisionPolicy(nameCollisionPolicy)
         item.setEnabled(enabled, clock.currentTime)
         item.setSubFolderRule(subFolderRule)
+        item.setExcludeHidden(excludeHidden)
     }
 
     override fun onRequestPermissionsResult(

@@ -59,7 +59,7 @@ complexity:
     excludes: ['**/androidTest/**']
   LabeledExpression:
     active: false
-    ignoredLabels: ""
+    ignoredLabels: []
   LargeClass:
     active: true
     threshold: 600
@@ -132,7 +132,7 @@ exceptions:
   active: true
   ExceptionRaisedInUnexpectedLocation:
     active: false
-    methodNames: 'toString,hashCode,equals,finalize'
+    methodNames: [toString,hashCode,equals,finalize]
   InstanceOfCheckForException:
     active: false
   NotImplementedDeclaration:
@@ -145,14 +145,14 @@ exceptions:
     active: false
   SwallowedException:
     active: false
-    ignoredExceptionTypes: 'InterruptedException,NumberFormatException,ParseException,MalformedURLException'
+    ignoredExceptionTypes: [InterruptedException,NumberFormatException,ParseException,MalformedURLException]
   ThrowingExceptionFromFinally:
     active: false
   ThrowingExceptionInMain:
     active: false
   ThrowingExceptionsWithoutMessageOrCause:
     active: false
-    exceptions: 'IllegalArgumentException,IllegalStateException,IOException'
+    exceptions: [IllegalArgumentException,IllegalStateException,IOException]
   ThrowingNewInstanceOfSameException:
     active: false
   TooGenericExceptionCaught:
@@ -190,7 +190,7 @@ naming:
     enumEntryPattern: '^[A-Z][_a-zA-Z0-9]*'
   ForbiddenClassName:
     active: false
-    forbiddenName: ''
+    forbiddenName: []
   FunctionMaxLength:
     active: false
     maximumFunctionNameLength: 30
@@ -291,7 +291,7 @@ style:
     active: false
   DataClassContainsFunctions:
     active: false
-    conversionFunctionPrefix: 'to'
+    conversionFunctionPrefix: [to]
   EqualsNullCall:
     active: false
   EqualsOnSignatureLine:
@@ -306,19 +306,19 @@ style:
     values: 'TODO:,FIXME:,STOPSHIP:'
   ForbiddenImport:
     active: false
-    imports: ''
+    imports: []
   ForbiddenVoid:
     active: false
   FunctionOnlyReturningConstant:
     active: false
     ignoreOverridableFunction: true
-    excludedFunctions: 'describeContents'
+    excludedFunctions: [describeContents]
   LoopWithTooManyJumpStatements:
     active: false
     maxJumpCount: 1
   MagicNumber:
     active: true
-    ignoreNumbers: '-1,0,1,2'
+    ignoreNumbers: ["-1","0","1","2"]
     ignoreHashCodeFunction: true
     ignorePropertyDeclaration: false
     ignoreConstantDeclaration: true
@@ -362,7 +362,7 @@ style:
   ReturnCount:
     active: true
     max: 2
-    excludedFunctions: "equals"
+    excludedFunctions: [equals]
     excludeLabeled: false
     excludeReturnFromLambda: true
   SafeCast:
@@ -409,4 +409,4 @@ style:
     active: false
   WildcardImport:
     active: true
-    excludeImports: 'java.util.*,kotlinx.android.synthetic.*'
+    excludeImports: [java.util.*,kotlinx.android.synthetic.*]
