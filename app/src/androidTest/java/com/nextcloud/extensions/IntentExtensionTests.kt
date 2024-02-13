@@ -22,7 +22,9 @@
 package com.nextcloud.extensions
 
 import android.content.Intent
+import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.SdkSuppress
 import com.nextcloud.test.model.OtherTestData
 import com.nextcloud.test.model.TestData
 import com.nextcloud.test.model.TestDataParcelable
@@ -48,6 +50,7 @@ class IntentExtensionTests {
         assertEquals(testObject, retrievedObject)
     }
 
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.Q)
     @Test
     fun test_get_serializable_argument_when_given_valid_intent_and_wrong_class_type_should_return_null() {
         val intent = Intent()
