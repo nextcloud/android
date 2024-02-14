@@ -104,13 +104,14 @@ class FileUploadHelper {
         uploadsStorageManager: UploadsStorageManager,
         connectivityService: ConnectivityService,
         accountManager: UserAccountManager,
-        powerManagementService: PowerManagementService
-    ) {
+        powerManagementService: PowerManagementService,
+    ): Boolean {
         val cancelledUploads = uploadsStorageManager.cancelledUploadsForCurrentAccount
         if (cancelledUploads == null || cancelledUploads.isEmpty()) {
-            return
+            return false
         }
-        retryUploads(
+
+        return retryUploads(
             uploadsStorageManager,
             connectivityService,
             accountManager,
@@ -125,8 +126,9 @@ class FileUploadHelper {
         connectivityService: ConnectivityService,
         accountManager: UserAccountManager,
         powerManagementService: PowerManagementService,
-        failedUploads: Array<OCUpload>
-    ) {
+        failedUploads: Array<OCUpload>,
+    ): Boolean {
+        var showNotExistMessage = false
         val (gotNetwork, _, gotWifi) = connectivityService.connectivity
         val batteryStatus = powerManagementService.battery
         val charging = batteryStatus.isCharging || batteryStatus.isFull
@@ -139,6 +141,8 @@ class FileUploadHelper {
             }
             val isDeleted = !File(failedUpload.localPath).exists()
             if (isDeleted) {
+                showNotExistMessage = true
+
                 // 2A. for deleted files, mark as permanently failed
                 if (failedUpload.lastResult != UploadResult.FILE_NOT_FOUND) {
                     failedUpload.lastResult = UploadResult.FILE_NOT_FOUND
@@ -151,6 +155,8 @@ class FileUploadHelper {
                 retryUpload(failedUpload, uploadUser.get())
             }
         }
+
+        return showNotExistMessage
     }
 
     @Suppress("LongParameterList")

@@ -175,7 +175,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         failedPopup.show();
     }
 
-    public void showCancelledPopupMenu(HeaderViewHolder headerViewHolder) {
+    private void showCancelledPopupMenu(HeaderViewHolder headerViewHolder) {
         PopupMenu popup = new PopupMenu(MainApp.getAppContext(), headerViewHolder.binding.uploadListAction);
         popup.inflate(R.menu.upload_list_cancelled_options);
 
@@ -186,21 +186,34 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 uploadsStorageManager.clearCancelledUploadsForCurrentAccount();
                 loadUploadItemsFromDb();
             } else if (itemId == R.id.action_upload_list_cancelled_resume) {
-
-                new Thread(() -> {
-                    FileUploadHelper.Companion.instance().retryCancelledUploads(
-                        uploadsStorageManager,
-                        connectivityService,
-                        accountManager,
-                        powerManagementService);
-                    parentActivity.runOnUiThread(this::loadUploadItemsFromDb);
-                }).start();
-
+                retryCancelledUploads();
             }
 
             return true;
         });
+
         popup.show();
+    }
+
+    private void retryCancelledUploads() {
+        new Thread(() -> {
+            boolean showNotExistMessage = FileUploadHelper.Companion.instance().retryCancelledUploads(
+                uploadsStorageManager,
+                connectivityService,
+                accountManager,
+                powerManagementService);
+
+            parentActivity.runOnUiThread(this::loadUploadItemsFromDb);
+            parentActivity.runOnUiThread(() -> {
+                if (showNotExistMessage) {
+                    showNotExistMessage();
+                }
+            });
+        }).start();
+    }
+
+    private void showNotExistMessage() {
+        DisplayUtils.showSnackMessage(parentActivity, R.string.upload_action_file_not_exist_message);
     }
 
     @Override
