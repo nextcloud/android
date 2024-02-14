@@ -106,7 +106,7 @@ class FileUploadHelper {
         accountManager: UserAccountManager,
         powerManagementService: PowerManagementService
     ) {
-        val cancelledUploads = uploadsStorageManager.manuallyCancelledUploadsForCurrentAccount
+        val cancelledUploads = uploadsStorageManager.cancelledUploadsForCurrentAccount
         if (cancelledUploads == null || cancelledUploads.isEmpty()) {
             return
         }
@@ -194,11 +194,12 @@ class FileUploadHelper {
         }
     }
 
-    fun manuallyCancelFileUpload(remotePath: String, accountName: String) {
-        val upload = uploadsStorageManager.getUploadByRemotePath(remotePath)
-        removeFileUpload(remotePath, accountName)
-        upload.uploadStatus = UploadStatus.UPLOAD_MANUALLY_CANCELLED
-        uploadsStorageManager.storeUpload(upload)
+    fun cancelFileUpload(remotePath: String, accountName: String) {
+        uploadsStorageManager.getUploadByRemotePath(remotePath).run {
+            removeFileUpload(remotePath, accountName)
+            uploadStatus = UploadStatus.UPLOAD_CANCELLED
+            uploadsStorageManager.storeUpload(this)
+        }
     }
 
     fun cancelAndRestartUploadJob(user: User) {
@@ -334,7 +335,7 @@ class FileUploadHelper {
                     return
                 }
 
-                instance().manuallyCancelFileUpload(remotePath, accountName)
+                instance().cancelFileUpload(remotePath, accountName)
             }
         }
     }

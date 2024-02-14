@@ -630,10 +630,10 @@ public class UploadsStorageManager extends Observable {
                               ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", user.getAccountName());
     }
 
-    public OCUpload[] getManuallyCancelledUploadsForCurrentAccount() {
+    public OCUpload[] getCancelledUploadsForCurrentAccount() {
         User user = currentAccountProvider.getUser();
 
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_MANUALLY_CANCELLED.value + AND +
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_CANCELLED.value + AND +
                               ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", user.getAccountName());
     }
 
@@ -707,19 +707,18 @@ public class UploadsStorageManager extends Observable {
         return deleted;
     }
 
-    public long clearManuallyCancelledUploadsForCurrentAccount() {
+    public void clearCancelledUploadsForCurrentAccount() {
         User user = currentAccountProvider.getUser();
         final long deleted = getDB().delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
-            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_MANUALLY_CANCELLED.value + AND +
+            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_CANCELLED.value + AND +
                 ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", new String[]{user.getAccountName()}
                                            );
 
-        Log_OC.d(TAG, "delete all manually cancelled uploads");
+        Log_OC.d(TAG, "delete all cancelled uploads");
         if (deleted > 0) {
             notifyObserversNow();
         }
-        return deleted;
     }
 
     public long clearSuccessfulUploads() {
@@ -878,7 +877,7 @@ public class UploadsStorageManager extends Observable {
         /**
          * Upload was cancelled by the user.
          */
-        UPLOAD_MANUALLY_CANCELLED(3);
+        UPLOAD_CANCELLED(3);
 
         private final int value;
 
@@ -895,7 +894,7 @@ public class UploadsStorageManager extends Observable {
                 case 2:
                     return UPLOAD_SUCCEEDED;
                 case 3:
-                    return UPLOAD_MANUALLY_CANCELLED;
+                    return UPLOAD_CANCELLED;
             }
             return null;
         }

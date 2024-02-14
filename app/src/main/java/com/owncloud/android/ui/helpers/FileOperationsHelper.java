@@ -1015,7 +1015,7 @@ public class FileOperationsHelper {
 
         if (FileUploadHelper.Companion.instance().isUploading(currentUser, file)) {
             try {
-                FileUploadHelper.Companion.instance().manuallyCancelFileUpload(file.getRemotePath(), currentUser.getAccountName());
+                FileUploadHelper.Companion.instance().cancelFileUpload(file.getRemotePath(), currentUser.getAccountName());
             } catch (NoSuchElementException e) {
                 Log_OC.e(TAG, "Error cancelling current upload because user does not exist!");
             }

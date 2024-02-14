@@ -130,30 +130,26 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
             switch (group.type) {
                 case CURRENT -> {
-                    // cancel all current uploads
                     for (OCUpload upload : group.getItems()) {
-                        uploadHelper.manuallyCancelFileUpload(upload.getRemotePath(), upload.getAccountName());
+                        uploadHelper.cancelFileUpload(upload.getRemotePath(), upload.getAccountName());
                     }
                     loadUploadItemsFromDb();
                 }
                 case FINISHED -> {
-                    // clear successfully uploaded section
                     uploadsStorageManager.clearSuccessfulUploads();
                     loadUploadItemsFromDb();
                 }
                 case FAILED -> {
-                    // show popup with option clear or retry filed uploads
-                    createFailedPopupMenu(headerViewHolder);
+                    showFailedPopupMenu(headerViewHolder);
                 }
                 case CANCELLED -> {
-                    // show popup with option clear or retry manually cancelled uploads
-                    createCancelledActionsPopupMenu(headerViewHolder);
+                    showCancelledPopupMenu(headerViewHolder);
                 }
             }
         });
     }
 
-    private void createFailedPopupMenu(HeaderViewHolder headerViewHolder) {
+    private void showFailedPopupMenu(HeaderViewHolder headerViewHolder) {
         PopupMenu failedPopup = new PopupMenu(MainApp.getAppContext(), headerViewHolder.binding.uploadListAction);
         failedPopup.inflate(R.menu.upload_list_failed_options);
         failedPopup.setOnMenuItemClickListener(i -> {
@@ -179,7 +175,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         failedPopup.show();
     }
 
-    public void createCancelledActionsPopupMenu(HeaderViewHolder headerViewHolder) {
+    public void showCancelledPopupMenu(HeaderViewHolder headerViewHolder) {
         PopupMenu popup = new PopupMenu(MainApp.getAppContext(), headerViewHolder.binding.uploadListAction);
         popup.inflate(R.menu.upload_list_cancelled_options);
 
@@ -187,7 +183,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             int itemId = i.getItemId();
 
             if (itemId == R.id.action_upload_list_cancelled_clear) {
-                uploadsStorageManager.clearManuallyCancelledUploadsForCurrentAccount();
+                uploadsStorageManager.clearCancelledUploadsForCurrentAccount();
                 loadUploadItemsFromDb();
             } else if (itemId == R.id.action_upload_list_cancelled_resume) {
 
@@ -256,7 +252,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                               R.string.uploads_view_group_manually_cancelled_uploads)) {
             @Override
             public void refresh() {
-                fixAndSortItems(uploadsStorageManager.getManuallyCancelledUploadsForCurrentAccount());
+                fixAndSortItems(uploadsStorageManager.getCancelledUploadsForCurrentAccount());
             }
         };
 
@@ -367,13 +363,13 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 itemViewHolder.binding.uploadProgressBar.invalidate();
             }
             case UPLOAD_FAILED -> itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
-            case UPLOAD_SUCCEEDED, UPLOAD_MANUALLY_CANCELLED ->
+            case UPLOAD_SUCCEEDED, UPLOAD_CANCELLED ->
                 itemViewHolder.binding.uploadStatus.setVisibility(View.GONE);
         }
 
         // show status if same file conflict or local file deleted or upload cancelled
         if ((item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED && item.getLastResult() != UploadResult.UPLOADED)
-            || item.getUploadStatus() == UploadStatus.UPLOAD_MANUALLY_CANCELLED) {
+            || item.getUploadStatus() == UploadStatus.UPLOAD_CANCELLED) {
 
             itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
             itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
@@ -388,7 +384,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_action_cancel_grey);
             itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE);
             itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> {
-                uploadHelper.manuallyCancelFileUpload(item.getRemotePath(), item.getAccountName());
+                uploadHelper.cancelFileUpload(item.getRemotePath(), item.getAccountName());
                 loadUploadItemsFromDb();
             });
 
@@ -418,7 +414,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         // click on item
         if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED ||
-            item.getUploadStatus() == UploadStatus.UPLOAD_MANUALLY_CANCELLED) {
+            item.getUploadStatus() == UploadStatus.UPLOAD_CANCELLED) {
 
             final UploadResult uploadResult = item.getLastResult();
             itemViewHolder.binding.uploadListItemLayout.setOnClickListener(v -> {
@@ -706,7 +702,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             case UPLOAD_FAILED -> {
                 status = getUploadFailedStatusText(upload.getLastResult());
             }
-            case UPLOAD_MANUALLY_CANCELLED -> {
+            case UPLOAD_CANCELLED -> {
                 status = parentActivity.getString(R.string.upload_manually_cancelled);
             }
 
@@ -798,9 +794,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 break;
             case QUOTA_EXCEEDED:
                 status = parentActivity.getString(R.string.upload_quota_exceeded);
-                break;
-            case MANUALLY_CANCELLED:
-                status = parentActivity.getString(R.string.upload_manually_cancelled);
                 break;
             default:
                 status = parentActivity.getString(R.string.upload_unknown_error);
