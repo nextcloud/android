@@ -30,7 +30,7 @@ jobs:
                 if: ${{ always() }}
                 run: scripts/deleteOldComments.sh "test" "Unit" ${{github.event.number}}
             -   name: Run unit tests with coverage
-                uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3.0.0
+                uses: gradle/gradle-build-action@29c0906b64b8fc82467890bfb7a0a7ef34bda89e # v3.1.0
                 with:
                     arguments: jacocoTestGplayDebugUnitTest
             -   name: Upload failing results
