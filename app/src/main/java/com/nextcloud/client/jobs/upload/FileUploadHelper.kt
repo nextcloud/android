@@ -104,7 +104,7 @@ class FileUploadHelper {
         uploadsStorageManager: UploadsStorageManager,
         connectivityService: ConnectivityService,
         accountManager: UserAccountManager,
-        powerManagementService: PowerManagementService,
+        powerManagementService: PowerManagementService
     ): Boolean {
         val cancelledUploads = uploadsStorageManager.cancelledUploadsForCurrentAccount
         if (cancelledUploads == null || cancelledUploads.isEmpty()) {
@@ -126,7 +126,7 @@ class FileUploadHelper {
         connectivityService: ConnectivityService,
         accountManager: UserAccountManager,
         powerManagementService: PowerManagementService,
-        failedUploads: Array<OCUpload>,
+        failedUploads: Array<OCUpload>
     ): Boolean {
         var showNotExistMessage = false
         val (gotNetwork, _, gotWifi) = connectivityService.connectivity
