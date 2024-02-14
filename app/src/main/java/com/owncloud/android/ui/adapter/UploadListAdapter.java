@@ -367,7 +367,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 itemViewHolder.binding.uploadProgressBar.invalidate();
             }
             case UPLOAD_FAILED -> itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
-            case UPLOAD_SUCCEEDED -> itemViewHolder.binding.uploadStatus.setVisibility(View.GONE);
+            case UPLOAD_SUCCEEDED, UPLOAD_MANUALLY_CANCELLED ->
+                itemViewHolder.binding.uploadStatus.setVisibility(View.GONE);
         }
 
         // show status if same file conflict or local file deleted or upload cancelled
