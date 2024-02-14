@@ -390,6 +390,10 @@ public class OCUpload implements Parcelable {
         return this.useWifiOnly;
     }
 
+    public boolean exists() {
+        return new File(localPath).exists();
+    }
+
     public boolean isWhileChargingOnly() {
         return this.whileChargingOnly;
     }

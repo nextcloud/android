@@ -143,6 +143,8 @@ class FileUploadWorker(
         val accountName = inputData.getString(ACCOUNT) ?: return Result.failure()
         var currentPage = uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(-1, accountName)
 
+        notificationManager.dismissWorkerNotifications()
+
         while (currentPage.isNotEmpty() && !isStopped) {
             if (preferences.isGlobalUploadPaused) {
                 Log_OC.d(TAG, "Upload is paused, skip uploading files!")

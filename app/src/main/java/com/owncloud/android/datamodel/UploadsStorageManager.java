@@ -630,6 +630,13 @@ public class UploadsStorageManager extends Observable {
                               ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", user.getAccountName());
     }
 
+    public OCUpload[] getCancelledUploadsForCurrentAccount() {
+        User user = currentAccountProvider.getUser();
+
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_CANCELLED.value + AND +
+                              ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", user.getAccountName());
+    }
+
     /**
      * Get all uploads which where successfully completed.
      */
@@ -698,6 +705,20 @@ public class UploadsStorageManager extends Observable {
             notifyObserversNow();
         }
         return deleted;
+    }
+
+    public void clearCancelledUploadsForCurrentAccount() {
+        User user = currentAccountProvider.getUser();
+        final long deleted = getDB().delete(
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_CANCELLED.value + AND +
+                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?", new String[]{user.getAccountName()}
+                                           );
+
+        Log_OC.d(TAG, "delete all cancelled uploads");
+        if (deleted > 0) {
+            notifyObserversNow();
+        }
     }
 
     public long clearSuccessfulUploads() {
@@ -851,7 +872,12 @@ public class UploadsStorageManager extends Observable {
         /**
          * Upload was successful.
          */
-        UPLOAD_SUCCEEDED(2);
+        UPLOAD_SUCCEEDED(2),
+
+        /**
+         * Upload was cancelled by the user.
+         */
+        UPLOAD_CANCELLED(3);
 
         private final int value;
 
@@ -867,6 +893,8 @@ public class UploadsStorageManager extends Observable {
                     return UPLOAD_FAILED;
                 case 2:
                     return UPLOAD_SUCCEEDED;
+                case 3:
+                    return UPLOAD_CANCELLED;
             }
             return null;
         }

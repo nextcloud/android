@@ -94,7 +94,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 Decision.CANCEL -> {}
                 Decision.KEEP_LOCAL -> {
                     upload?.let {
-                        FileUploadHelper.instance().cancelFileUpload(it.remotePath, it.accountName)
+                        FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
                     }
                     FileUploadHelper.instance().uploadUpdatedFile(
                         user,
@@ -106,7 +106,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
                 Decision.KEEP_BOTH -> {
                     upload?.let {
-                        FileUploadHelper.instance().cancelFileUpload(it.remotePath, it.accountName)
+                        FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
                     }
                     FileUploadHelper.instance().uploadUpdatedFile(
                         user,
@@ -129,7 +129,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                     }
 
                     upload?.let {
-                        FileUploadHelper.instance().cancelFileUpload(it.remotePath, it.accountName)
+                        FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
 
                         UploadNotificationManager(
                             applicationContext,
