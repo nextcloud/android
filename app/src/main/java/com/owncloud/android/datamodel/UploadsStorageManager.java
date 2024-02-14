@@ -569,7 +569,7 @@ public class UploadsStorageManager extends Observable {
     }
 
     public OCUpload[] getCurrentAndPendingUploadsForAccount(final @NonNull String accountName) {
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
+        return getUploads("( " + ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
                               " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
                               "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
                               " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
@@ -578,7 +578,7 @@ public class UploadsStorageManager extends Observable {
                               "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
                               " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
                               "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
-                              " AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
+                              " ) AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
                           accountName);
     }
 
@@ -588,7 +588,7 @@ public class UploadsStorageManager extends Observable {
      * If <code>afterId</code> is -1, returns the first page
      */
     public List<OCUpload> getCurrentAndPendingUploadsForAccountPageAscById(final long afterId, final @NonNull String accountName) {
-        final String selection = ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
+        final String selection = "( " + ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
             " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
             "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
             " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
@@ -597,7 +597,7 @@ public class UploadsStorageManager extends Observable {
             "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
             " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
             "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
-            " AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?";
+            " ) AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?";
         return getUploadPage(afterId, false, selection, accountName);
     }
 
