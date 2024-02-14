@@ -40,7 +40,11 @@ fun <T : Serializable?> Intent?.getSerializableArgument(key: String, type: Class
             this.getSerializableExtra(key, type)
         } else {
             @Suppress("UNCHECKED_CAST", "DEPRECATION")
-            this.getSerializableExtra(key) as T
+            if (type.isInstance(this.getSerializableExtra(key))) {
+                this.getSerializableExtra(key) as T
+            } else {
+                null
+            }
         }
     } catch (e: ClassCastException) {
         Log_OC.e(tag, e.localizedMessage)
