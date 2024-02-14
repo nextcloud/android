@@ -248,6 +248,7 @@ public class DialogFragmentIT extends AbstractIT {
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");
         accountManager.setAuthToken(newAccount, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password");
         User newUser = userAccountManager.getUser(newAccount.name).orElseThrow(RuntimeException::new);
+        userAccountManager.setCurrentOwnCloudAccount(newAccount.name);
 
         Account newAccount2 = new Account("user1@nextcloud.localhost", MainApp.getAccountType(targetContext));
         accountManager.addAccountExplicitly(newAccount2, "password", null);
