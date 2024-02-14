@@ -81,7 +81,6 @@ class FileUploadHelper {
         }
     }
 
-    @Suppress("ComplexCondition")
     fun retryFailedUploads(
         uploadsStorageManager: UploadsStorageManager,
         connectivityService: ConnectivityService,
@@ -92,6 +91,42 @@ class FileUploadHelper {
         if (failedUploads == null || failedUploads.isEmpty()) {
             return
         }
+        retryUploads(
+            uploadsStorageManager,
+            connectivityService,
+            accountManager,
+            powerManagementService,
+            failedUploads
+        )
+    }
+
+    fun retryCancelledUploads(
+        uploadsStorageManager: UploadsStorageManager,
+        connectivityService: ConnectivityService,
+        accountManager: UserAccountManager,
+        powerManagementService: PowerManagementService
+    ) {
+        val cancelledUploads = uploadsStorageManager.manuallyCancelledUploadsForCurrentAccount
+        if (cancelledUploads == null || cancelledUploads.isEmpty()) {
+            return
+        }
+        retryUploads(
+            uploadsStorageManager,
+            connectivityService,
+            accountManager,
+            powerManagementService,
+            cancelledUploads
+        )
+    }
+
+    @Suppress("ComplexCondition")
+    private fun retryUploads(
+        uploadsStorageManager: UploadsStorageManager,
+        connectivityService: ConnectivityService,
+        accountManager: UserAccountManager,
+        powerManagementService: PowerManagementService,
+        failedUploads: Array<OCUpload>
+    ) {
 
         val (gotNetwork, _, gotWifi) = connectivityService.connectivity
         val batteryStatus = powerManagementService.battery
@@ -146,7 +181,7 @@ class FileUploadHelper {
         backgroundJobManager.startFilesUploadJob(user)
     }
 
-    fun cancelFileUpload(remotePath: String, accountName: String) {
+    fun removeFileUpload(remotePath: String, accountName: String) {
         try {
             val user = accountManager.getUser(accountName).get()
 
@@ -158,6 +193,13 @@ class FileUploadHelper {
         } catch (e: NoSuchElementException) {
             Log_OC.e(TAG, "Error cancelling current upload because user does not exist!")
         }
+    }
+
+    fun manuallyCancelFileUpload(remotePath: String, accountName: String) {
+        val upload = uploadsStorageManager.getUploadByRemotePath(remotePath)
+        removeFileUpload(remotePath, accountName)
+        upload.uploadStatus = UploadStatus.UPLOAD_MANUALLY_CANCELLED
+        uploadsStorageManager.storeUpload(upload)
     }
 
     fun cancelAndRestartUploadJob(user: User) {
@@ -293,7 +335,7 @@ class FileUploadHelper {
                     return
                 }
 
-                instance().cancelFileUpload(remotePath, accountName)
+                instance().manuallyCancelFileUpload(remotePath, accountName)
             }
         }
     }

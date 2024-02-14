@@ -152,6 +152,7 @@
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Current</string>
     <string name="uploads_view_group_failed_uploads">Failed/pending restart</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Cancelled</string>
     <string name="uploads_view_group_finished_uploads">Uploaded</string>
     <string name="uploads_view_upload_status_succeeded">Completed</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Same file found on remote, skipping upload</string>
