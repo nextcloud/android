@@ -127,7 +127,6 @@ class FileUploadHelper {
         powerManagementService: PowerManagementService,
         failedUploads: Array<OCUpload>
     ) {
-
         val (gotNetwork, _, gotWifi) = connectivityService.connectivity
         val batteryStatus = powerManagementService.battery
         val charging = batteryStatus.isCharging || batteryStatus.isFull
