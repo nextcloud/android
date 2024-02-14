@@ -44,6 +44,8 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     var file = getFile("gps.jpg")
     val oCFile = OCFile("/").apply {
         storagePath = file.absolutePath
+        fileId = 12
+        fileDataStorageManager.saveFile(this)
     }
 
     @Test
