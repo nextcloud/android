@@ -14,7 +14,6 @@
     <string name="action_send_share">ارسال/اشتراک گذاری</string>
     <string name="action_switch_grid_view">نمایش گرید</string>
     <string name="action_switch_list_view">نمایش لیست</string>
-    <string name="actionbar_calendar_contacts_restore">بازگردانی آشنایان و تقویم</string>
     <string name="actionbar_mkdir">پوشه جدید</string>
     <string name="actionbar_open_with">باز کردن با</string>
     <string name="actionbar_search">جستجو</string>
@@ -77,7 +76,6 @@
     <string name="avatar">آواتار</string>
     <string name="away">دور</string>
     <string name="backup_settings">تنظیمات پشتیبان</string>
-    <string name="backup_title">پشتیبان از آشنایان و تقویم</string>
     <string name="battery_optimization_close">بستن</string>
     <string name="battery_optimization_disable">غیرفعال کردن</string>
     <string name="battery_optimization_message">ممکن است وسیله شما بهینه ساز باطری را فعال کرده باشد.  بارگذاری خودکار به درستی کار می کند اگر این برنامه را از آن حذف کنید.</string>
@@ -380,9 +378,6 @@
     <string name="filename_forbidden_charaters_from_server">نام فایل حداقل دارای یک کاراکتر نامعتبر است</string>
     <string name="filename_hint">نام فایل</string>
     <string name="first_run_1_text">از داده‌های خود محافظت کرده و تحت کنترل خود درآورید</string>
-    <string name="first_run_2_text">همکاری ایمن &amp; تبادل پرونده</string>
-    <string name="first_run_3_text">ایمیل با کاربری آسان، &amp; مخاطبین تقویم</string>
-    <string name="first_run_4_text">اشتراک‌گذاری صفحه ، جلسات آنلاین &amp; کنفرانس های وب</string>
     <string name="folder_already_exists">پوشه از قبل موجود است</string>
     <string name="folder_confirm_create">ایجاد کردن</string>
     <string name="folder_list_empty_headline">هیچ  پوشه ای اینجا وجود ندارد</string>
@@ -570,16 +565,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">تغییر نام ویرایش جدید</string>
     <string name="pref_instant_name_collision_policy_title">در صورت وجود فایل چه کاری انجام شود؟</string>
     <string name="prefs_add_account">ایحاد حساب کاربری</string>
-    <string name="prefs_calendar_contacts"> همگام سازی تقویم &amp; مخاطبین</string>
     <string name="prefs_calendar_contacts_no_store_error">" هیچ‌کدام از برنامک‌های F-Droid و Google Play نصب نشده‌اند."</string>
     <string name="prefs_calendar_contacts_summary">" تنظیم DAVx5 برای حساب جاری(که قبلاً با نام DAVdroid شناخته می‌شد) (v1.3.0 +) "</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">تقویم &amp; همگام سازی مخاطبین تنظیم شده است</string>
     <string name="prefs_category_about">درباره</string>
     <string name="prefs_category_details">جزئیات</string>
     <string name="prefs_category_dev">توسعه</string>
     <string name="prefs_category_general">عمومی</string>
     <string name="prefs_category_more">بیش‌تر</string>
-    <string name="prefs_daily_backup_summary">پشتیبان گیری روزانه از &amp; مخاطبین تقویم شما</string>
     <string name="prefs_daily_contact_backup_summary">پشتیبان گیری روزانه از مخاطبین شما</string>
     <string name="prefs_davx5_setup_error">خطای غیرمنتظره هنگام راه‌اندازی DAVx5 (که قبلاً DAVdroid نامیده می‌شد)</string>
     <string name="prefs_e2e_active">رمزگذاری انتها به انتها راه اندازی شد!</string>
@@ -667,8 +659,6 @@
     <string name="screenshot_04_accounts_heading">همه حساب‌های شما</string>
     <string name="screenshot_04_accounts_subline">در یکجا</string>
     <string name="screenshot_05_autoUpload_heading">بارگذاری خودکار</string>
-    <string name="screenshot_05_autoUpload_subline">برای عکس ها  &amp; ویدیو های شما</string>
-    <string name="screenshot_06_davdroid_heading">تقویم &amp; مخاطبین</string>
     <string name="screenshot_06_davdroid_subline">همگام سازی با DAVx5</string>
     <string name="search_error">خطا در دریافت نتایج جستجو</string>
     <string name="select_all">انتخاب همه</string>
@@ -685,7 +675,6 @@
     <string name="set_status_message">تنظیم پیام وضعیت</string>
     <string name="setup_e2e">در طول راه اندازی رمزگذاری انتها به انتها، یک یادگاری تصادفی 12 کلمه ای دریافت خواهید کرد که باید فایل های خود را در دستگاه های دیگر باز کنید. این فقط در این دستگاه ذخیره می شود و می تواند دوباره در این صفحه نمایش داده شود. لطفا آن را در یک مکان امن یادداشت کنید!</string>
     <string name="share">هم‌رسانی</string>
-    <string name="share_copy_link">هم‌رسانی و رونوشت پیوند</string>
     <string name="share_dialog_title">اشتراک گذاری</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">منقضی در%1$s</string>
@@ -770,7 +759,6 @@
     <string name="storage_permission_full_access">دسترسی کامل</string>
     <string name="storage_permission_media_read_only">رسانه فقط‌خواندنی</string>
     <string name="storage_pictures">نگاره‌ها</string>
-    <string name="store_full_desc">"بستر خودمیزبانی که به شما اختیارات کامل می‌دهد. امکانات: * سهولت، رابط مدرن، مناسب برای زمینه سرور شما * بارگذاری فایل‌ها در سرور نکست‌کلود شما * اشتراک‌گذاری آن‌ها با دیگران * همگام‌سازی فایل‌ها و پوشه‌های مورد‌علاقه شما * جستجو در تمامی پوشه‌های سرور شما * بارگذاری خودکار فیلم‌ها و عکس‌های گرفته شده توسط دستگاه شما * همواره به‌روز بودن توسط اعلان‌ها * پشتیبانی از چند حساب * دسترسی امن به داده‌‌های شما توسط اثر انگشت یا رمز پین * یکپارچه‌سازی با برنامک DAVx5(که قبلاً با نام DAVdroid شناخته می‌شد) برای راحتی در قرار دادن تقویم &amp; همگام‌سازی مخاطبین. لطفاً تمامی مسائل و مشکلات خود را در  https://github.com/nextcloud/android/issues گزارش دهید و برای بحث در مورد این برنامک به آدرس https://help.nextcloud.com/c/clients/android مراجعه کنید. کاربر جدید نکست‌کلود هستید؟ نکست‌کلود یک سرور شخصی برای همگام‌سازی &amp; به‌اشتراک‌گذاری و ارتباطات است. این یک نرم‌افزار آزاد است، که شما می‌توانید خودتان میزبانی آن را انجام دهید و یا با پرداخت هزینه، از یک شرکت درخواست میزبانی کنید. به این ترتیب، شما کنترل عکس‌‌ها و فیلم‌هایتان، تقدیم و اطلاعات مخاطبین شما، فایل‌‌ها و اسنادتان و هرچیز دیگری را دارید. برای بررسی نکست‌کلود به  https://nextcloud.com مراجعه کنید.   "</string>
     <string name="store_full_dev_desc">"بستر خودمیزبانی که به شما اختیارات کامل می‌دهد. این نسخه رسمی درحال توسعه می‌باشد، شامل یک نمونه روزانه از هر قابلیت جدید آزمایش نشده است، چیزی که ممکن است باعث ناپایداری و از دست دادن اطلاعات شود. این برنامک برای کاربرانی می‌باشد که قصد آزمایش دارند، و در صورت بروز مشکل آن را گزارش دهند. از آن برای کار تولیدی استفاده نکنید! هردو نسخه عادی و در حال توسعه در F-droid در دسترس هستند و به صورت هم‌زمان قابل نصب هستند.  "</string>
     <string name="store_short_desc">بستر بهره‌وری خود میزبان که به شما اختیار کامل می‌دهد</string>
     <string name="store_short_dev_desc">بستر خودمیزبانی که به شما اختیار کامل می‌دهد</string>
@@ -784,7 +772,6 @@
     <string name="subject_shared_with_you">\"%1$s\" با شما به اشتراک گذاشته شد</string>
     <string name="subject_user_shared_with_you">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>
     <string name="subtitle_photos_only">فقط عکس</string>
-    <string name="subtitle_photos_videos">عکس &amp; ویدیوها</string>
     <string name="subtitle_videos_only">ویدیو فقط</string>
     <string name="suggest">پیشنهاد دادن</string>
     <string name="sync_conflicts_in_favourites_ticker">ناسازگاری ها یافت شدند</string>

@@ -14,7 +14,6 @@
     <string name="action_send_share">보내기/공유</string>
     <string name="action_switch_grid_view">바둑판식 보기</string>
     <string name="action_switch_list_view">목록 보기</string>
-    <string name="actionbar_calendar_contacts_restore">주소록 &amp; 일정 복원하기</string>
     <string name="actionbar_mkdir">새 폴더</string>
     <string name="actionbar_move_or_copy">이동이나 복사</string>
     <string name="actionbar_open_with">다음으로 열기</string>
@@ -79,7 +78,6 @@
     <string name="avatar">아바타</string>
     <string name="away">자리 비움</string>
     <string name="backup_settings">백업 설정</string>
-    <string name="backup_title">주소록 &amp; 일정 백업</string>
     <string name="battery_optimization_close">닫기</string>
     <string name="battery_optimization_disable">비활성화</string>
     <string name="battery_optimization_message">기기의 배터리 최적화가 활성화되어있습니다. 자동 업로드는 이 앱을 배터리 최적화에서 제외해야만 정상적으로 동작합니다.</string>
@@ -387,8 +385,6 @@
     <string name="filename_forbidden_charaters_from_server">파일 이름에 잘못된 글자가 한 자 이상 있음</string>
     <string name="filename_hint">파일 이름</string>
     <string name="first_run_1_text">데이터를 안전하게 보관하세요</string>
-    <string name="first_run_2_text">안전한 협력 &amp;파일 교환</string>
-    <string name="first_run_4_text">화면 공유, 온라인 회의 &amp; 웹 회의</string>
     <string name="folder_already_exists">폴더가 이미 존재함</string>
     <string name="folder_confirm_create">생성</string>
     <string name="folder_list_empty_headline">폴더가 없습니다</string>
@@ -574,16 +570,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">새 버전의 이름을 바꾸기</string>
     <string name="pref_instant_name_collision_policy_title">파일이 이미 존재한다면 어떻게 처리할까요?</string>
     <string name="prefs_add_account">계정 추가</string>
-    <string name="prefs_calendar_contacts">달력 및 연락처 동기화</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid 및 Google Play를 사용할 수 없음</string>
     <string name="prefs_calendar_contacts_summary">현재 계정에 대해 DAVx5 (이전의 DAVdroid) (v1.3.0 +) 설정</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">달력 및 연락처 동기화 설정</string>
     <string name="prefs_category_about">정보</string>
     <string name="prefs_category_details">자세한 정보</string>
     <string name="prefs_category_dev">개발</string>
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
-    <string name="prefs_daily_backup_summary">달력 &amp; 의 연락처 매일 백업</string>
     <string name="prefs_daily_contact_backup_summary">연락처 일간 백업</string>
     <string name="prefs_davx5_setup_error">DAVx5를 설정하는 동안 발생한 예기치 못한 에러</string>
     <string name="prefs_e2e_active">종단간 암호화가 설정됩니다!</string>
@@ -675,8 +668,6 @@
     <string name="screenshot_04_accounts_heading">모든 계정</string>
     <string name="screenshot_04_accounts_subline">한곳에서</string>
     <string name="screenshot_05_autoUpload_heading">자동 업로드</string>
-    <string name="screenshot_05_autoUpload_subline">사진 &amp; 동영상</string>
-    <string name="screenshot_06_davdroid_heading">캘린더 &amp; 연락처</string>
     <string name="screenshot_06_davdroid_subline">DAVx5와 동기화</string>
     <string name="search_error">검색 결과 조회 오류</string>
     <string name="secure_share_not_set_up">이 사용자에 대해 보안 공유가 설정되지 않았습니다</string>
@@ -695,7 +686,6 @@
     <string name="set_status_message">상태 메시지 설정</string>
     <string name="setup_e2e">종단간 암호화를 설정하는 동안, 당신은 다른 장치들에서 당신의 파일들을 열어야 할 무작위의 12 단어 니모닉을 수신할 것입니다. 이것은 당신의 장치에만 저장 될 것이고, 이 스크린에서 다시 보여질 수 있습니다. 이를 안전한 위치에 적어두세요!</string>
     <string name="share">공유</string>
-    <string name="share_copy_link">공유 &amp;의 링크 복사</string>
     <string name="share_dialog_title">공유</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">%1$s 에 만료됨</string>
@@ -781,28 +771,6 @@
     <string name="storage_permission_full_access">완전한 접근</string>
     <string name="storage_permission_media_read_only">읽기 전용 미디어 접근</string>
     <string name="storage_pictures">그림</string>
-    <string name="store_full_desc">당신이 관리할 수 있는 자체 운영되는 생산성 플랫폼.
-
-특징:
-당신의 Nextcloud 서버 테마에 맞는 쉽고 현대적인 인터페이스를 지니고 있음
-파일을 Nextcloud 서버에 올리고 다른 이들과 공유할 수 있음
-당신의 중요 파일과 폴더를 동기화 된 상태로 유지 할 수 있음
-당신의 폴더들 구석구석을 검색할 수 있음
-당신의 장치로 찍힌 사진과 동영상을 자동 업로드 할 수 있음
-Nextcloud의 알림으로 최신 상태로 유지할 수 있음
-다-계정 지원 가능함
-지문이나 PIN을 통한 안전한 잠금을 지원함
-DAVx5(DAVdroid) 와의 통합으로 캘린더와 주소록을 쉽게 동기화할 수 있음
-
-문제가 있다면 https://github.com/nextcloud/android/issues 여기서 토론을
-앱에 문제가 있다면 https://help.nextcloud.com/c/clients/android 여기서 토론을 부탁드립니다.
-
-Nextcloud가 처음이신가요?
-Nextcloud는 개인적인 파일 동기화, 공유 그리고 의사소통을 위한 서버입니다.
-Nextcloud는 자유 소프트웨어이고, 당신이 직접 운영하거나 돈을 내고 다른 서버의 계정를 빌릴 수 있습니다.
-그럼으로써, 당신은 당신의 사진, 캘린더와 주소록, 당신의 문서 등을 관리할 수 있습니다.
-
-Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="store_full_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼.\n이는 공식 개발 버전으로, 테스트되지 않은 새로운 기능을 매일 샘플로 제공하므로 불안정과 데이터 손실이 발생할 수 있습니다. 이 애플리케이션은 기꺼이 테스트하고 버그가 발생하면 보고하는 사용자를 대상으로 합니다. 생산적인 작업에는 사용하지 마십시오!\n\n공식 개발 버전 및 일반 버전은 모두 F-droid에서 사용할 수 있으며, 동시에 설치할 수 있습니다.</string>
     <string name="store_short_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼</string>
     <string name="store_short_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼 (디바이스 미리 보기 버전)</string>
@@ -816,7 +784,6 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="subject_shared_with_you">\"%1$s\"을(를) 여러분과 공유했습니다</string>
     <string name="subject_user_shared_with_you">%1$s 님이 \"%2$s\" 항목을 여러분과 공유했습니다</string>
     <string name="subtitle_photos_only">사진만</string>
-    <string name="subtitle_photos_videos">사진 &amp; 동영상</string>
     <string name="subtitle_videos_only">동영상만</string>
     <string name="suggest">제안</string>
     <string name="sync_conflicts_in_favourites_ticker">충돌하는 항목 발견됨</string>

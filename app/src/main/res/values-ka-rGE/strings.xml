@@ -304,9 +304,7 @@
     <string name="pref_behaviour_entries_keep_file">დარჩა ორიგინალ დირექტორიაში</string>
     <string name="pref_behaviour_entries_move">გადატანილია აპლიკაციის დირექტორიაში</string>
     <string name="prefs_add_account">ანგარიშის დამატება</string>
-    <string name="prefs_calendar_contacts">კანენდრისა და კონტაქტების სინქრონიზაცია</string>
     <string name="prefs_calendar_contacts_no_store_error">არც Google Play-ა დაყენებული, არც F-Droid-ი</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">კალენდრისა და კონტაქტების სინქრონიზაცია დაყენებულია</string>
     <string name="prefs_category_about">ჩვენს შესახებ</string>
     <string name="prefs_category_details">დეტალები</string>
     <string name="prefs_category_dev">დევ.</string>

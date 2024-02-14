@@ -24,6 +24,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -49,7 +50,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -65,11 +65,11 @@ import javax.inject.Inject;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Activity listing pending, active, and completed uploads. User can delete
- * completed uploads from view. Content of this list of coming from
- * {@link UploadsStorageManager}.
+ * Activity listing pending, active, and completed uploads. User can delete completed uploads from view. Content of this
+ * list of coming from {@link UploadsStorageManager}.
  */
 public class UploadListActivity extends FileActivity {
 
@@ -210,13 +210,17 @@ public class UploadListActivity extends FileActivity {
     private void refresh() {
         backgroundJobManager.startImmediateFilesSyncJob(false, true);
 
-        if(uploadsStorageManager.getFailedUploads().length > 0){
-            new Thread(() -> FileUploadHelper.Companion.instance().retryFailedUploads(
-                uploadsStorageManager,
-                connectivityService,
-                userAccountManager,
-                powerManagementService))
-                .start();
+        if (uploadsStorageManager.getFailedUploads().length > 0) {
+            new Thread(() -> {
+                FileUploadHelper.Companion.instance().retryFailedUploads(
+                    uploadsStorageManager,
+                    connectivityService,
+                    accountManager,
+                    powerManagementService);
+                this.runOnUiThread(() -> {
+                    uploadListAdapter.loadUploadItemsFromDb();
+                });
+            }).start();
             DisplayUtils.showSnackMessage(this, R.string.uploader_local_files_uploaded);
         }
 
@@ -265,13 +269,47 @@ public class UploadListActivity extends FileActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_upload_list, menu);
-
+        updateGlobalPauseIcon(menu.getItem(0));
         return true;
+    }
+
+    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
+    private void updateGlobalPauseIcon(MenuItem pauseMenuItem) {
+        if (pauseMenuItem.getItemId() != R.id.action_toggle_global_pause) {
+            return;
+        }
+
+        int iconId;
+        String title;
+        if (preferences.isGlobalUploadPaused()) {
+            iconId = R.drawable.ic_play;
+            title = getString(R.string.upload_action_global_upload_resume);
+        } else {
+            iconId = R.drawable.ic_pause;
+            title = getString(R.string.upload_action_global_upload_pause);
+        }
+
+        pauseMenuItem.setIcon(iconId);
+        pauseMenuItem.setTitle(title);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void toggleGlobalPause(MenuItem pauseMenuItem) {
+        preferences.setGlobalUploadPaused(!preferences.isGlobalUploadPaused());
+        updateGlobalPauseIcon(pauseMenuItem);
+
+        for (User user : accountManager.getAllUsers()) {
+            if (user != null) {
+                FileUploadHelper.Companion.instance().cancelAndRestartUploadJob(user);
+            }
+        }
+
+        uploadListAdapter.notifyDataSetChanged();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval = true;
+
         int itemId = item.getItemId();
 
         if (itemId == android.R.id.home) {
@@ -280,17 +318,13 @@ public class UploadListActivity extends FileActivity {
             } else {
                 openDrawer();
             }
-        } else if (itemId == R.id.action_clear_failed_uploads) {
-            for (OCUpload upload : uploadsStorageManager.getFailedButNotDelayedUploadsForCurrentAccount()){
-                uploadListAdapter.cancelOldErrorNotification(upload);
-            }
-            uploadsStorageManager.clearFailedButNotDelayedUploads();
-            uploadListAdapter.loadUploadItemsFromDb();
+        } else if (itemId == R.id.action_toggle_global_pause) {
+            toggleGlobalPause(item);
         } else {
-            retval = super.onOptionsItemSelected(item);
+            return super.onOptionsItemSelected(item);
         }
 
-        return retval;
+        return true;
     }
 
     @Override

@@ -326,8 +326,6 @@
     <string name="filename_forbidden_charaters_from_server">Tha caractar mì-dhligheach no dhà ann an ainm an fhaidhle</string>
     <string name="filename_hint">Ainm an fhaidhle</string>
     <string name="first_run_1_text">Cùm an dàta agad tèarainte is fo do smachd-sa</string>
-    <string name="first_run_2_text">Co-obrachadh ⁊ co-roinneadh fhaidhlichean tèarainte</string>
-    <string name="first_run_4_text">Co-roinneadh sgrìn, coinneamhan air loidhne ⁊ co-labhairtean-lìn</string>
     <string name="folder_already_exists">Tha am pasgan seo ann mu thràth</string>
     <string name="folder_confirm_create">Cruthaich</string>
     <string name="folder_list_empty_headline">Chan eil pasgan an-seo</string>
@@ -475,10 +473,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Thoir ainm eile air an tionndadh ùr</string>
     <string name="pref_instant_name_collision_policy_title">Dè nì sinn nuair a bhios faidhle ann mu thràth?</string>
     <string name="prefs_add_account">Cuir cunntas ris</string>
-    <string name="prefs_calendar_contacts">Sioncronaich am mìosachan ⁊ an luchd-aithne</string>
     <string name="prefs_calendar_contacts_no_store_error">Cha deach F-Droid no Google Play a stàladh</string>
     <string name="prefs_calendar_contacts_summary">Suidhich DAVx5 (air a bhiodh DAVdroid) (v1.3.0+) dhan chunntas làithreach</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Suidheachadh sioncronachadh a’ mhìosachain ⁊ an luchd-aithne</string>
     <string name="prefs_category_about">Mu dhèidhinn</string>
     <string name="prefs_category_details">Mion-fhiosrachadh</string>
     <string name="prefs_category_dev">Leasachadh</string>
@@ -553,8 +549,6 @@
     <string name="screenshot_04_accounts_heading">Na cunntasan agad uile</string>
     <string name="screenshot_04_accounts_subline">air an aon àite</string>
     <string name="screenshot_05_autoUpload_heading">Luchdadh suas fèin-obrachail</string>
-    <string name="screenshot_05_autoUpload_subline">dha na dealbhan ⁊ videothan agad</string>
-    <string name="screenshot_06_davdroid_heading">Mìosachan ⁊ luchd-aithne</string>
     <string name="screenshot_06_davdroid_subline">Sioncronaich le DAVx5</string>
     <string name="select_all">Tagh na h-uile</string>
     <string name="select_one_template">Tagh teamplaid</string>
@@ -639,7 +633,6 @@
     <string name="storage_movies">Filmichean</string>
     <string name="storage_music">Ceòl</string>
     <string name="storage_pictures">Dealbhan</string>
-    <string name="store_full_desc">An t-ùrlar tarbhachd as urrainn dhut fhèin òstadh ’nad làmhan-sa.\n\nGleusan:\n* Eadar-aghaidh furasta is ùr-nòsach a fhreagras ri ùrlar an fhrithealaiche agad\n* Luchdaich suas faidhlichean dhan fhrithealaiche Nextcloud agad\n* Co-roinn iad le càch\n* Sioncronaich na faidhlichean is pasganan as annsa leat\n* Dèan lorg air feadh gach pasgain air an fhrithealaiche agad\n* Luchdadh suas fèin-obrachail airson dealbhan is videothan a thog thu leis an uidheam agad\n* Cùm cùisean làithreach le brathan\n* Taic ri iomadh cunntas\n* Inntrigeadh tèarainte dhan dàta agad le lorg-meòir no PIN\n* Amalachadh le DAVx5 (air a bhiodh DAVdroid) airson sioncronachadh a’ mhìosachain ⁊ an luchd-aichne a shuidheachadh gun duilgheadas\n\nDèan aithris air duilgheadasan air https://github.com/nextcloud/android/issues is dèan deasbad mun aplacaid seo air https://help.nextcloud.com/c/clients/android\n\nNach eil thu eòlach air Nextcloud fhathast? ’S e frithealaiche prìobhaideach airson sioncronachadh ⁊ co-roinneadh fhaidhlichean ’s conaltradh a th’ ann an Nextcloud. ’S e bathar-bog saor a th’ ann agus ’s urrainn dhut fèin òstadh no companaidh a phàigheadh ach an dèan iad dhut e. Air an dòigh sin, bidh na dealbhan, dàta a’ mhìosachain ’s an luchd-aithne, na sgrìobhainnean agad is a h-uile càile eile fo do smachd-sa.\n\nThoir sùil air Nextcloud air https://nextcloud.com</string>
     <string name="store_full_dev_desc">An t-ùrlar tarbhachd as urrainn dhut fhèin òstadh ’nad làmhan-sa\nSeo an tionndadh oifigeil dhan luchd-leasachaidh a bheir gleusan ùra dhut gach latha nach deach an cur fo dheuchainn gu slàn fhathast agus a dh’fhaodas neo-sheasmhachd is call dàta adhbharachadh. Tha an aplacaid ag amas air luchd-cleachdaidh a tha deònach a cur fo dheuchainn agus aithris a dhèanamh air duilgheasan ma thachras gin. Na cleachd airson obair cheart i!\n\nTha an dà chuid an tionndadh dhan luchd-leasachaidh ’s an tionndadh àbhaisteach ri fhaighinn air F-Droid agus ’s urrainn dhut an stàladh aig an aon àm.</string>
     <string name="store_short_desc">An t-ùrlar tarbhachd as urrainn dhut fhèin òstadh ’nad làmhan-sa</string>
     <string name="store_short_dev_desc">An t-ùrlar tarbhachd as urrainn dhut fhèin òstadh ’nad làmhan-sa (tionndadh ro-sheallaidh dhan luchd-leasachaidh)</string>

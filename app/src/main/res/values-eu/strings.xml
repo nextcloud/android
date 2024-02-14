@@ -14,7 +14,6 @@
     <string name="action_send_share">Bidali/Partekatu</string>
     <string name="action_switch_grid_view">Sareta ikuspegia</string>
     <string name="action_switch_list_view">Zerrenda ikuspegia</string>
-    <string name="actionbar_calendar_contacts_restore">Berezarri kontaktuen &amp; egutegia</string>
     <string name="actionbar_mkdir">Karpeta berria</string>
     <string name="actionbar_move_or_copy">Mugitu edo kopiatu</string>
     <string name="actionbar_open_with">Ireki honekin</string>
@@ -79,7 +78,6 @@
     <string name="avatar">Abatarra</string>
     <string name="away">Kanpoan</string>
     <string name="backup_settings">Babeskopiaren ezarpenak</string>
-    <string name="backup_title">Kontaktuen &amp; egutegiaren babeskopia</string>
     <string name="battery_optimization_close">Itxi</string>
     <string name="battery_optimization_disable">Desaktibatu</string>
     <string name="battery_optimization_message">Zure gailuak bateriaren optimizazioa aktibatuta eduki dezake. Auto-karga funtzioak ongi funtzionatzeko aplikazio hau bertatik kanpora utzi behar duzu.</string>
@@ -388,9 +386,6 @@
     <string name="filename_forbidden_charaters_from_server">Fitxategi-izenak karaktere baliogabe bat du gutxienez</string>
     <string name="filename_hint">Fitxategi-izena</string>
     <string name="first_run_1_text">Mantendu zure datuak seguru eta zure kontrolpean</string>
-    <string name="first_run_2_text">Lankidetza eta fitxategi partekatze segurua</string>
-    <string name="first_run_3_text">Web posta, egutegi eta kontaktu erabilerrazak</string>
-    <string name="first_run_4_text">Pantaila partekatzea, online bilerak eta web konferentziak</string>
     <string name="folder_already_exists">Karpeta dagoeneko existitzen da</string>
     <string name="folder_confirm_create">Sortu</string>
     <string name="folder_list_empty_headline">Ez dago karpetarik hemen</string>
@@ -578,16 +573,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Aldatu izena bertsio berriari</string>
     <string name="pref_instant_name_collision_policy_title">Zer egin fitxategia dagoeneko existitzen bada?</string>
     <string name="prefs_add_account">Gehitu kontua</string>
-    <string name="prefs_calendar_contacts">Sinkronizatu egutegia eta kontaktuak</string>
     <string name="prefs_calendar_contacts_no_store_error">Ez F-Droid, ez Google Play, ez daude instalatuta</string>
     <string name="prefs_calendar_contacts_summary">Konfiguratu DAVx5 (lehen DAVdroid izenarekin ezagutzen zena) (v1.3.0+) kontu honetarako</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Egutegiaren eta kontaktuen sinkronizazioa konfiguratuta</string>
     <string name="prefs_category_about">Honi buruz</string>
     <string name="prefs_category_details">Xehetasunak</string>
     <string name="prefs_category_dev">Garapena</string>
     <string name="prefs_category_general">Orokorra</string>
     <string name="prefs_category_more">Gehiago</string>
-    <string name="prefs_daily_backup_summary">Eguneroko babeskopia zure egutegi eta kontaktuentzat</string>
     <string name="prefs_daily_contact_backup_summary">Zure kontaktuen eguneroko babeskopia</string>
     <string name="prefs_davx5_setup_error">Ustekabeko errorea DAVx5 konfiguratzean (lehen DAVdroid izenez ezagutzen zena)</string>
     <string name="prefs_e2e_active">Muturretik muturrerako enkriptatzea konfiguratuta dago!</string>
@@ -679,8 +671,6 @@
     <string name="screenshot_04_accounts_heading">Zure kontu guztiak</string>
     <string name="screenshot_04_accounts_subline">leku bakar batean</string>
     <string name="screenshot_05_autoUpload_heading">Igoera automatikoa</string>
-    <string name="screenshot_05_autoUpload_subline">zure argazki eta bideoentzat</string>
-    <string name="screenshot_06_davdroid_heading">Egutegia eta kontaktuak</string>
     <string name="screenshot_06_davdroid_subline">Sinkronizatu DAVx5ekin</string>
     <string name="search_error">Errorea bilaketaren emaitzak lortzean</string>
     <string name="secure_share_not_set_up">Partekatze segurua ez dago konfiguratuta erabiltzaile honentzat</string>
@@ -699,7 +689,6 @@
     <string name="set_status_message">Ezarri egoera mezua</string>
     <string name="setup_e2e">Muturretik muturrerako enkriptatzea konfiguratzean, ausazko 12 hitz mnemotekniko jasoko dituzu, zure fitxategiak beste gailu batzuetan irekitzeko beharko dituzunak. Hau gailu honetan bakarrik gordeko da eta pantaila honetan berriro ikusi ahal izango duzu. Apuntatu leku seguru batean!</string>
     <string name="share">Partekatu</string>
-    <string name="share_copy_link">Partekatu eta kopiatu esteka</string>
     <string name="share_dialog_title">Partekatzea</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Iraungitzen da %1$s</string>
@@ -784,7 +773,6 @@
     <string name="storage_permission_full_access">Sarbide osoa</string>
     <string name="storage_permission_media_read_only">Mutimediak irakurtzeko soilik</string>
     <string name="storage_pictures">Irudiak</string>
-    <string name="store_full_desc">Zure datuak kontrolpean mantentzen dituen norberak ostatatutako produktibitate plataforma.\n\n Ezaugarriak:\n* Interfazea erraza eta modernoa, zure zerbitzariaren gaira egokitzen dena\n* Kargatu fitxategiak Nextcloud zerbitzarira\n* Partekatu itzazu besteekin\n* Mantendu zure gogoko fitxategiak eta karpetak sinkronizatuta\n* Bilatu zure zerbitzariko karpeta guztietan\n* Kargatu automatikoki zure gailuan ateratako argazkiak eta bideoak\n* Egunean egon jakinarazpenen bidez\n* Hainbat kontu erabili daitezke\n* Sarbide segurua zure datuetarako hatz-marka edo PIN bidez\n* DAVx5-rekin integratua (lehenago DAVdroid izenarekin ezagutzen zena) egutegia erraz konfiguratzeko eta kontaktuak sinkronizatzeko\n\n Eman arazoen berri https://github.com/nextcloud/android/issues orrian eta eztabaidatu aplikazio hau https://help.nextcloud.com/c/clients/android orrian\n\n Berria Nextcloud-en? Nextcloud fitxategiak sinkronizatu eta partekatzeko eta komunikaziorako zerbitzari pribatu bat da. Software librea da, eta zuk zeuk ostatatu dezakezu edo enpresa bat ordaindu zure ordez ostatatzeko. Horrela, zure argazkiak, zure egutegia eta kontaktuen datuak, zure dokumentuak eta gainerako guztia zuk kontrolatzen dituzu.\n\n Ezagutu Nextcloud https://nextcloud.com helbidean</string>
     <string name="store_full_dev_desc">Kontrola zuri ematen dizun norberak ostatatutako produktibitate-plataforma.\nHau garapeneko bertsio ofiziala da. Probatu gabeko funtzionalitateen eguneroko lagina hartzen du, eta horrek ezegonkortasuna eta datu-galera eragin ditzake. Aplikazio hau probatu eta gertatzen diren akatsen berri eman nahi duten erabiltzaileentzat da. Ez erabili zure produkzio-lanerako!\n\nBi bertsio ofizialak, garapenekoa eta normala, F-Droiden daude eskuragarri eta aldi berean instalatu daitezke.</string>
     <string name="store_short_desc">Kontrola zuri ematen dizun norberak ostatutako produktibitate plataforma</string>
     <string name="store_short_dev_desc">Kontrola zuri ematen dizun norberak ostatutako produktibitate plataforma (garapeneko aurrerapen bertsioa)</string>
@@ -798,7 +786,6 @@
     <string name="subject_shared_with_you">\"%1$s\" zurekin partekatu dute</string>
     <string name="subject_user_shared_with_you">%1$s(e)k \"%2$s\" partekatu du zurekin</string>
     <string name="subtitle_photos_only">Argazkiak soilik</string>
-    <string name="subtitle_photos_videos">Argazkiak eta bideoak</string>
     <string name="subtitle_videos_only">Bideoak soilik</string>
     <string name="suggest">Iradokitu</string>
     <string name="sync_conflicts_in_favourites_ticker">Gatazkak aurkitu dira</string>

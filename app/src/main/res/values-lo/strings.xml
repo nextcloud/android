@@ -14,7 +14,6 @@
     <string name="action_send_share">ສົ່ງ/ແບ່ງປັນ</string>
     <string name="action_switch_grid_view">ເບິ່ງຕາຕະລາງ</string>
     <string name="action_switch_list_view">ລາຍການທີ່ຈະເບິ່ງ</string>
-    <string name="actionbar_calendar_contacts_restore">ກູ້ຄືນຂໍ້ມູນຕິດຕໍ່ &amp; ປະຕິທິນ</string>
     <string name="actionbar_mkdir">ໂຟນເດີໃຫມ່</string>
     <string name="actionbar_open_with">ເປີດດ້ວຍ</string>
     <string name="actionbar_search">ຄົ້ນຫາ</string>
@@ -77,7 +76,6 @@
     <string name="avatar">ຮຸບພາບອາວະຕານ</string>
     <string name="away">ອອກໄປ</string>
     <string name="backup_settings">ສໍາຮອງຂໍ້ມູນການຕັ້ງຄ່າ</string>
-    <string name="backup_title">ສຳຮອງຂຊ້ມູນລາຍຊື່ຕິດຕໍ່ &amp;ປະຕິທິນ</string>
     <string name="battery_optimization_close">ປີດ</string>
     <string name="battery_optimization_disable">ປີດ</string>
     <string name="battery_optimization_message">ອຸປະກອນຂອງທ່ານອາດຈະເປີດໃຊ້ງານປະສິດທິພາບ. ການອັບໂຫຼດອັດຕະໂນມັດ ເພື່ອເຮັດວຽກໄດ້ຢ່າງຖືກຕ້ອງ.</string>
@@ -331,8 +329,6 @@
     <string name="filename_forbidden_charaters_from_server">ຊື່ຟາຍມີລັກສະນະທີ່ບໍ່ຖືກຕ້ອງ</string>
     <string name="filename_hint">ຊື່ຟາຍ</string>
     <string name="first_run_1_text">ຮັກສາຂໍ້ມູນຂອງທ່ານໃຫ້ປອດໄພ ແລະ ຢູ່ພາຍໃຕ້ການຄວບຄຸມຂອງທ່ານ</string>
-    <string name="first_run_2_text">ການແລກປ່ຽນຟາຍ &amp;ການຮ່ວມມືທີ່ປອດໄພ</string>
-    <string name="first_run_4_text">ການແບ່ງປັນໜ້າຈໍ, ກອງປະຊຸມອອນລາຍ&amp;</string>
     <string name="folder_already_exists">ໂຟນເດີມີຢຸ່ແລ້ວ</string>
     <string name="folder_confirm_create">ສ້າງ</string>
     <string name="folder_list_empty_headline">ບໍ່ມີໂຟນເດີ</string>
@@ -477,10 +473,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">ປ່ຽນຊື່ສະບັບໃຫມ່</string>
     <string name="pref_instant_name_collision_policy_title">ຈະເຮັດແນວໃດຖ້າຟາຍມີຢູ່ແລ້ວ?</string>
     <string name="prefs_add_account">ເພີ່ມບັນຊີ</string>
-    <string name="prefs_calendar_contacts">Sync ການຕິດຕໍ່ &amp;ປະຕິທິນ</string>
     <string name="prefs_calendar_contacts_no_store_error">ທັງ F-Droid ແລະ Google Play ບໍ່ໄດ້ຖືກຕິດຕັ້ງ</string>
     <string name="prefs_calendar_contacts_summary">ຕັ້ງ DAVx5 (ເຄີຍເປັນທີ່ຮູ້ຈັກໃນຊື່ DAVdroid) (v1.3.0+) ສໍາລັບບັນຊີປະຈຸບັນ</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">  ຕັ້ງຄ່າການຕິດຕໍ່ sync ການຕິດຕໍ່&amp;ປະຕິທິປະຕິທິນ</string>
     <string name="prefs_category_about">ກ່ຽວກັບ</string>
     <string name="prefs_category_details">ລາຍລະອຽດ</string>
     <string name="prefs_category_dev">Dev</string>
@@ -555,8 +549,6 @@
     <string name="screenshot_04_accounts_heading">ບັນຊີທັງໝົດ</string>
     <string name="screenshot_04_accounts_subline">ໃນບ່ອນດຽວ</string>
     <string name="screenshot_05_autoUpload_heading">ອັບໂຫຼດອັດຕະໂນມັັດ</string>
-    <string name="screenshot_05_autoUpload_subline">ສຳລັບຮຸບຂອງທ່ານ&amp;ວີດີໂອ</string>
-    <string name="screenshot_06_davdroid_heading">ການຕິດຕໍ່ປະຕິທິນ&amp;</string>
     <string name="screenshot_06_davdroid_subline">Sync ກັບ DAVx5</string>
     <string name="select_all">ເລືອກທັງໝົດ</string>
     <string name="select_one_template">ເລືອກຕົວຢ່າງ1 ອັນ</string>
@@ -642,7 +634,6 @@
     <string name="storage_movies">ລະຄອນໂທລະທັດ</string>
     <string name="storage_music">ເພງ</string>
     <string name="storage_pictures">ຮູບພາບ</string>
-    <string name="store_full_desc">platform ການເຮັດວຽກ ເປັນ host ດ້ວຍຕົນເອງ ແມ່ນຊ່ວຍໃຫ້ທ່ານຄວບຄຸມໄດ້ \n\nFeatures:\n* ງ່າຍ, ທັນສະໃໝ  ເໝາະສົມກັບເຊີເວີຂອງທ່ານ\n* ການອັບໂຫຼດຟາຍໄປຍັງເຊີເວີ  Nextcloud \n*  ການແບ່ງປັນກັບເຊີເວີອຶ່ນ \n* ຮັກສາ syn ຟາຍ ແລະ ໂຟນເດີຂອງທ່ານ \n*  ຄົ້ນຫາໂຟນເດີທັງໝົດຢຸ່ໃນເຊເວີຂອງທ່ານ\n* ອັບໂຫຼດຮຸບ ແລະ ວິດິໂອອັດຕະໂນມັດໃນອຸປະກອນຂອງທ່ານ \n* ອັບເດດດ້ວຍການແຈ້ງເຕືອນ\n*  ການສະຫັບສະໜຸນບັນຊີ\n*  ຄວາມປອດໄພໃນການເຂົ້າເຖິງຂໍ້ມູນຂອງທ່ານດ້ວຍສະເເກນລາຍນິ້ວມື ຫຼື ລະຫັດຜ່ານ\n*  ການລວມເຂົ້າກັນກັບ DAVx5  (ດັ່ງທີ່ຮຸ້ກັນ  DAVdroid) ງ່າຍໃນການຕິດຕັ້ງປະຕິທິນ &amp;ການຕິດຕໍ່\n\n ກະລຸນາລາຍງານບັນຫາທັງໝົດທີ່  https://github.com/nextcloud/android/issues ແລະ ຂຽນໃນແອັບນີ້ືິ້ https://help.nextcloud.com/c//clients/android\n\nNew to Nextcloud?  Nextcloud ແມ່ນການ sync ຟາຍສ່ວນຕົວ&amp; ເຊີເວີການແບ່ງປັນ  ແລະ ການສື່ສານ. ເປັນຊອບແວ, ແລະ ທ່ານສາມາດຈັດການຕົວທ່ານເອງ ຫຼື ຈ່າຍໃຫ້ບໍລິສັດເພື່ອຈັດການໃຫ້ທ່ານ. ວິທີນີ້ , ທ່ານວສາມາດຄວບຄຸມຮຸບພາບ, ປະຕິທິນ ແລະ ຂໍ້ມຸນຕິດຕໍ່, ເອກະສານ ແລະ ທຸກຢ່າງຂອງທ່ານ\n\nCheck out Nextcloud ທີ່ https://nextcloud.com</string>
     <string name="store_full_dev_desc">platform ການເຮັດວຽກ ເປັນ host ດ້ວຍຕົນເອງ ແມ່ນຊ່ວຍໃຫ້ທ່ານຄວບຄຸມໄດ້  .\n ເປັນເວີຊັ້ນການພັດທະນາຢ່າງເປັນທາງການ ຊຶ່ງມີຕົວຢ່າງການເຮັດວຽກທີ່ຍັງບໍ່ໄດ້ທົດລອງອາດເຮັດໃຫ້ເກີດຄວາມບໍ່ສະຖຽນ ແລະ ການສູນເສຍຂອງຂໍ້ມູນ  ແອັບນີ້ສຳລັບຜູ້ທີ່ ຍິນດີຈະທົດລອງ ແລະ ລາຍງານຂໍ້ບົກຜ່ອງ. ຫ້າມໃຊ້ສຳລັບວຽກຕົວຈິງຂອງທ່ານ!\n\n ໃຫ້ຜູ້ພັດທະນາ ແລະ ເວີຊັ້ນຢ່າງເປັນທາງການພ້ອມໃຊ້ງານໃນ F-droid ແລະ ສາມາດຕິດຕັ້ງໄດ້ໃນເວລາດຽວກັນ. </string>
     <string name="store_short_desc">ປະສິດພາບການເຮັດວຽກຂອງ ຟາດຟອມ ທີ່ເຮັດໜ້າທີ່ດ້ວຍໂຕມັນເອງ ແລະ ທ່ານຄຸ້ມຄອງໄດ້</string>
     <string name="store_short_dev_desc">ປະສິດພາບການເຮັດວຽກຂອງ ຟາດຟອມ ທີ່ເຮັດໜ້າທີ່ດ້ວຍໂຕມັນເອງ ແລະ ທ່ານຄຸ້ມຄອງໄດ້ (ເວີຊັ້ນຕົວຢ່າງ)</string>

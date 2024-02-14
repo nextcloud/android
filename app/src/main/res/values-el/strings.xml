@@ -14,7 +14,6 @@
     <string name="action_send_share">Αποστολή/Κοινή χρήση</string>
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
     <string name="action_switch_list_view">Προβολή λίστας</string>
-    <string name="actionbar_calendar_contacts_restore">Επαναφορά επαφών &amp; και ημερολογίου</string>
     <string name="actionbar_mkdir">Νέος φάκελος</string>
     <string name="actionbar_open_with">Άνοιγμα με</string>
     <string name="actionbar_search">Αναζήτηση</string>
@@ -76,7 +75,6 @@
     <string name="avatar">Εικόνα προφίλ</string>
     <string name="away">Λείπω</string>
     <string name="backup_settings">Ρυθμίσεις αντιγράφου ασφαλείας</string>
-    <string name="backup_title">Αντίγραφο ασφαλείας επαφών &amp; ημερολογίου</string>
     <string name="battery_optimization_close">Κλείσιμο</string>
     <string name="battery_optimization_disable">Απενεργοποίηση</string>
     <string name="battery_optimization_message">Η συσκευή σας ίσως έχει ενεργές ρυθμίσεις εξοικονόμησης ενέργειας. Η αυτόματη μεταφόρτωση δουλεύει μόνο εάν η εφαρμογή εξαιρεθεί από αυτές.</string>
@@ -378,8 +376,6 @@
     <string name="filename_forbidden_charaters_from_server">Το όνομα αρχείου κατέχει τουλάχιστο ένα μη έγκυρο χαρακτήρα</string>
     <string name="filename_hint">Όνομα αρχείου</string>
     <string name="first_run_1_text">Κρατήστε τα δεδομένα σας ασφαλή και υπό τον έλεγχό σας</string>
-    <string name="first_run_2_text">Ασφαλής συνεργασία &amp; ανταλλαγή αρχείων</string>
-    <string name="first_run_4_text">Κοινή χρήση οθόνης, ηλεκτρονικές συναντήσεις &amp; συνέδρια</string>
     <string name="folder_already_exists">Ο φάκελος υπάρχει ήδη</string>
     <string name="folder_confirm_create">Δημιουργία</string>
     <string name="folder_list_empty_headline">Δεν υπάρχουν φάκελοι εδώ</string>
@@ -554,16 +550,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Μετονομασία νέας έκδοσης</string>
     <string name="pref_instant_name_collision_policy_title">Τι να κάνετε όταν το αρχείο υπάρχει ήδη;</string>
     <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
-    <string name="prefs_calendar_contacts">Συγχρονισμός ημερολογίου &amp; επαφών</string>
     <string name="prefs_calendar_contacts_no_store_error">Δεν είναι εγκατεστημένο το Google Play ή το F-Droid</string>
     <string name="prefs_calendar_contacts_summary">Ρύθμιση του DAVx5 (γνωστό και ως DAVdroid) (v1.3.0+) για τον παρόν λογαριασμό</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Επιτυχής ρύθμιση συγχρονισμού ημερολογίου &amp; επαφών</string>
     <string name="prefs_category_about">Περί</string>
     <string name="prefs_category_details">Λεπτομέρειες</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
-    <string name="prefs_daily_backup_summary">Ημερήσιο αντίγραφο ασφαλείας του ημερολογίου &amp; επαφών σας </string>
     <string name="prefs_daily_contact_backup_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
     <string name="prefs_e2e_active">Η κρυπτογράφηση από άκρο σε άκρο έχει ρυθμιστεί!</string>
     <string name="prefs_e2e_mnemonic">E2E μνήμη</string>
@@ -646,8 +639,6 @@
     <string name="screenshot_04_accounts_heading">Όλοι οι λογαριασμοί σας</string>
     <string name="screenshot_04_accounts_subline">σε ένα σημείο</string>
     <string name="screenshot_05_autoUpload_heading">Αυτόματη μεταφόρτωση</string>
-    <string name="screenshot_05_autoUpload_subline">για τις φωτογραφίες &amp; τα βίντεό σας</string>
-    <string name="screenshot_06_davdroid_heading">Ημερολόγιο &amp; επαφές</string>
     <string name="screenshot_06_davdroid_subline">Συγχρονισμός με DAVx5</string>
     <string name="search_error">Σφάλμα λήψης αποτελεσμάτων αναζήτησης</string>
     <string name="select_all">Επιλογή όλων</string>
@@ -663,7 +654,6 @@
     <string name="set_status">Ορισμός κατάστασης</string>
     <string name="set_status_message">Ορισμός μηνύματος κατάστασης</string>
     <string name="share">Διαμοιρασμός</string>
-    <string name="share_copy_link">Κοινή χρήση &amp; Αντιγραφή Συνδέσμου</string>
     <string name="share_dialog_title">Γίνεται διαμοιρασμός</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Λήγει στις %1$s</string>
@@ -747,7 +737,6 @@
     <string name="storage_permission_full_access">Πλήρης πρόσβαση </string>
     <string name="storage_permission_media_read_only">Media μόνο για ανάγνωση</string>
     <string name="storage_pictures">Φωτογραφίες</string>
-    <string name="store_full_desc">Η αυτοφιλοξενούμενη πλατφόρμα παραγωγικότητας που έχετε τον πλήρη έλεγχο.\n\nΧαρακτηριστικά:\n* Εύκολη, μοντέρνα διεπαφή, συμβατή με το θέμα του διακομιστή σας\n* Μεταφόρτωση αρχείων στον Nextcloud διακομιστή σας\n* Κοινή χρήση\n* Κρατήστε τα αγαπημένα σας αρχεία και φακέλους συγχρονισμένα\n* Αναζήτηση σε όλους τους φακέλους στον διακομιστή σας\n* Αυτόματη μεταφόρτωση φωτογραφιών και βίντεο από τη συσκευή σας\n* Ενημέρωση για ειδοποιήσεις\n* Υποστήριξη πολλαπλών λογαριασμών\n* Ασφαλής σύνδεση στα δεδομένα σας με χρήση δακτυλικού αποτυπώματος ή κωδικού PIN\n* Ενσωμάτωση με DADVx5 (γνωστό ως DAVdroid) για εύκολη εγκατάσταση και συγχρονισμό ημερολογίου &amp;Συγχρονισμός επαφών\n\nΠαρακαλούμε αναφέρετε τα σφάλματα στο https://github.com/nextcloud/android/issues και συζητήστε για την εφαρμογή στο https://help.nextcloud.com/c/clients/android\n\n Καινούργιος στο Nextcloud? To Nextclound είναι ένας ιδιωτικός διακομιστής &amp;συγχρονισμού κοινόχρηστων αρχείων και επικοινωνίας. Είναι ένα ελεύθερο λογισμικό, οπου μπορείτε να το φιλοξενήσετε μόνοι σας ή να πληρώσετε μια εταιρεία να το κάνει για εσάς. Με αυτό τον τρόπο έχετε τον έλεγχο των φωτογραφιών σας, του ημερολογίου σας και των δεδομένων των επαφών σας, των αρχείων σας και οτιδήποτε άλλο.\n\nΕνημερωθείτε για το Nextcloud στο https://nextcloud.com</string>
     <string name="store_full_dev_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο. \nΑυτή είναι η επίσημη αναπτυξιακή έκδοση, που περιλαμβάνει καθημερινό δείγμα οποιασδήποτε νέας μη δοκιμασμένης λειτουργικότητας, η οποία μπορεί να προκαλέσει αστάθεια και απώλεια δεδομένων. Η εφαρμογή προορίζεται για χρήστες που είναι πρόθυμοι να δοκιμάσουν και να αναφέρουν σφάλματα όταν προκύψουν. Μην το χρησιμοποιείτε για την κανονική εργασία σας! \n\nΗ επίσημη έκδοση dev και η κανονική έκδοση είναι διαθέσιμες στο F-droid και μπορούν να εγκατασταθούν ταυτόχρονα.</string>
     <string name="store_short_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο.</string>
     <string name="store_short_dev_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο (προεπισκόπηση έκδοσης dev)</string>
@@ -759,7 +748,6 @@
     <string name="subject_shared_with_you">Ο \"%1$s\" διαμοιράστηκε μαζί σας</string>
     <string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
     <string name="subtitle_photos_only">Μόνο φωτογραφίες</string>
-    <string name="subtitle_photos_videos">Φωτογραφίες &amp; βίντεο</string>
     <string name="subtitle_videos_only">Μόνο βίντεο</string>
     <string name="suggest">Προτείνετε</string>
     <string name="sync_conflicts_in_favourites_ticker">Βρέθηκαν διενέξεις</string>

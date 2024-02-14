@@ -14,7 +14,6 @@
     <string name="action_send_share">共享</string>
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
-    <string name="actionbar_calendar_contacts_restore">恢复联系人 &amp; 日历</string>
     <string name="actionbar_mkdir">新建文件夹</string>
     <string name="actionbar_move_or_copy">移动或复制</string>
     <string name="actionbar_open_with">打开方式</string>
@@ -78,7 +77,6 @@
     <string name="avatar">头像</string>
     <string name="away">离开</string>
     <string name="backup_settings">备份设置</string>
-    <string name="backup_title">联系人 &amp; 日历备份 </string>
     <string name="battery_optimization_close">关闭</string>
     <string name="battery_optimization_disable">禁用</string>
     <string name="battery_optimization_message">您的设备可能启用了电池优化。仅当您从中排除（允许后台运行）此应用时，自动上传才能正常工作。</string>
@@ -385,9 +383,6 @@
     <string name="filename_forbidden_charaters_from_server">文件名中存在至少一个非法字符</string>
     <string name="filename_hint">文件名</string>
     <string name="first_run_1_text">保证您的数据安全并处于您的控制之下</string>
-    <string name="first_run_2_text">安全协作和文件交换</string>
-    <string name="first_run_3_text">易于使用的网页邮件、日历&amp;和联系人</string>
-    <string name="first_run_4_text">屏幕共享，线上见面和网络会议</string>
     <string name="folder_already_exists">目录已经存在</string>
     <string name="folder_confirm_create">创建</string>
     <string name="folder_list_empty_headline">这里没有文件夹</string>
@@ -575,16 +570,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">重命名新版本</string>
     <string name="pref_instant_name_collision_policy_title">如果文件已经存在怎么办？</string>
     <string name="prefs_add_account">添加账号</string>
-    <string name="prefs_calendar_contacts">同步日历和联系人</string>
     <string name="prefs_calendar_contacts_no_store_error">F-droid 和 Google Play 都没有安装</string>
     <string name="prefs_calendar_contacts_summary">为当前账号设置 DAVx5（前身为 DAVdroid）(v1.3.0+)</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">日历和联系人同步设置</string>
     <string name="prefs_category_about">关于</string>
     <string name="prefs_category_details">详细信息</string>
     <string name="prefs_category_dev">开发</string>
     <string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
-    <string name="prefs_daily_backup_summary">每天备份日历 &amp; 联系人</string>
     <string name="prefs_daily_contact_backup_summary">每日备份您的联系人</string>
     <string name="prefs_davx5_setup_error">设置 DAVx5（以前为 DAVdroid）时出现意外错误</string>
     <string name="prefs_e2e_active">端对端加密已设置完成</string>
@@ -676,8 +668,6 @@
     <string name="screenshot_04_accounts_heading">您所有的账号</string>
     <string name="screenshot_04_accounts_subline">都在一处</string>
     <string name="screenshot_05_autoUpload_heading">自动上传</string>
-    <string name="screenshot_05_autoUpload_subline">您的照片和视频</string>
-    <string name="screenshot_06_davdroid_heading">日历和联系人</string>
     <string name="screenshot_06_davdroid_subline">与DAVx5同步</string>
     <string name="search_error">获取搜索结果时出错</string>
     <string name="select_all">全部选择</string>
@@ -694,7 +684,6 @@
     <string name="set_status_message">设定状态信息</string>
     <string name="setup_e2e">在端对端加密期间，你将接收一个随机12字助记字串，您需要这个字符串才能在其它设备上开放您的文件。这将只会存储在该设备上，并可以在此画面中再次展示。请记在安全的地方！</string>
     <string name="share">共享</string>
-    <string name="share_copy_link">分享 &amp; 复制链接</string>
     <string name="share_dialog_title">共享</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">过期 %1$s</string>
@@ -779,7 +768,6 @@
     <string name="storage_permission_full_access">完整存取权限</string>
     <string name="storage_permission_media_read_only">媒体只读权限</string>
     <string name="storage_pictures">图片</string>
-    <string name="store_full_desc">让您掌控全局的自托管生产力平台。\n\n特色：\n* 简单，现代的界面，搭配您服务器的主题\n* 上传文件到您的 Nextcloud 服务器\n* 与他人共享您的文件\n* 为您最喜欢的文件及文件夹保持同步\n* 在您的服务器上的所有文件夹中进行搜索\n* 自动上传通过您的设备所拍摄的照片和视频\n* 获得最新的通知\n* 多账号支持\n* 通过使用指纹或者 PIN 来安全访问到您的数据\n* 集成了 DAVx5（原名DAVdroid） 来快速设置日历和联系人同步\n\n请通过 https://github.com/nextcloud/android/issues 报告任何问题，并在 https://help.nextcloud.com/c/clients/android 讨论此应用程序\n\n刚刚接触 Nextcloud？Nextcloud 是一个私人文件同步和共享和交流服务端软件。它是自由软件，您可以自己组建或者花钱购买某一公司提供的服务。这样，您就可以操作您的照片，日历，联系方式，文档和其他所有内容.\n\n通过 https://nextcloud.com 查看 Nextcloud</string>
     <string name="store_full_dev_desc">让您掌控全局的自托管生产力平台。
 这是官方开发版本，每天都会对新的未经测试的功能进行取样，这些功能可能导致不稳定和数据丢失。此应用主要面向愿意测试以及在发现bug时能提交报告的用户。请不要用于生产性工作！
 
@@ -796,7 +784,6 @@
     <string name="subject_shared_with_you">已与你共享 “%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s 已和你共享了“%2$s”</string>
     <string name="subtitle_photos_only">仅照片</string>
-    <string name="subtitle_photos_videos">照片 &amp; 视频</string>
     <string name="subtitle_videos_only">仅视频</string>
     <string name="suggest">建议</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>

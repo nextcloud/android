@@ -333,8 +333,6 @@
     <string name="filename_forbidden_charaters_from_server">Името на датотеката соджи невалиден карактер</string>
     <string name="filename_hint">Име на датотека</string>
     <string name="first_run_1_text">Чувајте ги вашите податоци безбедни и под ваша контрола</string>
-    <string name="first_run_2_text">Безбедна соработка &amp; пренос на датотеки</string>
-    <string name="first_run_4_text">Споделување на екранот, онлајн состаноци &amp; веб конференции</string>
     <string name="folder_already_exists">Папката веќе постои</string>
     <string name="folder_confirm_create">Креирај</string>
     <string name="folder_list_empty_headline">Тука нема папки</string>
@@ -483,10 +481,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Преименувај ја новата верзија</string>
     <string name="pref_instant_name_collision_policy_title">Што ако датотеката веќе постои?</string>
     <string name="prefs_add_account">Додади сметка</string>
-    <string name="prefs_calendar_contacts">Синхронизирај календар &amp; контакти</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_summary">Подеси DAVx5 (Порано познат под името DAVdroid) (v1.3.0+) за оваа сметка</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Подесување за календар &amp; контакти</string>
     <string name="prefs_category_about">За</string>
     <string name="prefs_category_details">Детали:</string>
     <string name="prefs_category_dev">Dev</string>
@@ -560,8 +556,6 @@
     <string name="screenshot_04_accounts_heading">Сите ваши сметки</string>
     <string name="screenshot_04_accounts_subline">на едно место</string>
     <string name="screenshot_05_autoUpload_heading">Автоматско прикачување</string>
-    <string name="screenshot_05_autoUpload_subline">за вашите слики &amp; видеа</string>
-    <string name="screenshot_06_davdroid_heading">Календар &amp; контакти</string>
     <string name="select_all">Избери се</string>
     <string name="select_one_template">Изберете еден шаблон</string>
     <string name="select_template">Избери шаблон</string>
@@ -644,7 +638,6 @@
     <string name="storage_movies">Филмови</string>
     <string name="storage_music">Музика</string>
     <string name="storage_pictures">Слики</string>
-    <string name="store_full_desc">Продуктивна платформа која можете сами да ја хостирате и која ви дава целосна контрола.\n\nОсобини:\n* Едноставен, модерен интерфејс, потполно ускладен со темата на вашиот сервер\n* Прикачувајте датотеки на вашиот Nextcloud сервер\n* Споделувајте со други\n* Чувајте ги вашите омилените датотеки и папки синхронизирани\n* Пребарувајте во сите папки на вашиот сервер\n* Автоматски прикачувајте слики и видеа што се направени со вашиот уред\n* Добивајте известувања и бидете во тек со сите работи што се случуваат на серверот\n* Поддршка за повеќе сметки\n* Безбедносен пристап до вашите податоци со отисок од прст или со ПИН код\n* Интеграција со DAVx5 (порано познат како DAVdroid) за лесно синхронизирање на календарот &amp; контактите\n\nВе молиме пријавете ги сите проблеми на https://github.com/nextcloud/android/issues и дискутирајте за оваа апликација на https://help.nextcloud.com/c/clients/android\n\nНов сте на на Nextcloud? Nextcloud е приватен сервер за синхронизирање на датотеки &amp; споделување и комуникација. Тој е слободен софтвер, и вие можете да го хостирате сами или да платите компанија да го стори тоа за вас. На тој начин, вие ги контролирате вашите фотографии, вашиот календар и контакти, вашите документи и сè останато.\n\nПроверете го Nextcloud на https://nextcloud.com</string>
     <string name="store_full_dev_desc">Продуктивна платформа која можете сами да ја хостирате и која ви дава целосна контрола.\nОва е официјална верзија за развој, во која има секојдневни примери од секоја нова и непроверена функционалност, поради која може да предизвика нестабилност и загуба на податоци. Апликацијата е наменета за корисници кои сакаат да тестираат и да пријават грешки доколку се појават. Не ја користете за вашата продуктивна работа!\n\nОфицијалната верзија и редовната верзија се достапни на F-Droid и може да се инсталираат во исто време.</string>
     <string name="store_short_desc">Продуктивна платформа која можете сами да ја хостирате и која ви дава целосна контрола</string>
     <string name="store_short_dev_desc">Продуктивна платформа која можете сами да ја хостирате и која ви дава целосна контрола (dev верзија за разгледување)</string>

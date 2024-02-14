@@ -14,7 +14,6 @@
     <string name="action_send_share">Odoslať/Zdieľať</string>
     <string name="action_switch_grid_view">Zobrazenie mriežky</string>
     <string name="action_switch_list_view">Zobrazenie zoznamu</string>
-    <string name="actionbar_calendar_contacts_restore">Obnoviť kontakty &amp; kalendár</string>
     <string name="actionbar_mkdir">Nový priečinok</string>
     <string name="actionbar_move_or_copy">Presunúť alebo Kopírovať</string>
     <string name="actionbar_open_with">Otvoriť pomocou</string>
@@ -78,7 +77,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Preč</string>
     <string name="backup_settings">Nastavenie zálohovania</string>
-    <string name="backup_title">Zálohovanie kontaktov &amp; kalendára</string>
     <string name="battery_optimization_close">Zatvoriť</string>
     <string name="battery_optimization_disable">Zakázať</string>
     <string name="battery_optimization_message">Vaše zariadenie môže mať zapnutú optimalizáciu batérie. AutoUpload správne funguje iba pokiaľ z túto aplikáciu z optimalizácie vynecháte.</string>
@@ -383,9 +381,6 @@
     <string name="filename_forbidden_charaters_from_server">Názov súboru obsahuje najmenej jeden nepovolený znak</string>
     <string name="filename_hint">Názov súboru</string>
     <string name="first_run_1_text">Majte svoje dáta pod vlastnou kontrolou a zabezpečené</string>
-    <string name="first_run_2_text">Bezpečná kolaborácia&amp;výmena súborov</string>
-    <string name="first_run_3_text">Jednoduchý webmail, kalendár &amp; kontakty</string>
-    <string name="first_run_4_text">Zdieľanie obrazovky, online meetingy &amp; web konferencie</string>
     <string name="folder_already_exists">Priečinok už existuje</string>
     <string name="folder_confirm_create">Vytvoriť</string>
     <string name="folder_list_empty_headline">Nie sú tu žiadne priečinky</string>
@@ -573,16 +568,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Premenovať novú verziu</string>
     <string name="pref_instant_name_collision_policy_title">Čo urobiť, ak súbor už existuje?</string>
     <string name="prefs_add_account">Pridať účet</string>
-    <string name="prefs_calendar_contacts">Synchronizovať kalendár &amp; kontakty</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ani Google Play nie sú nainštalované</string>
     <string name="prefs_calendar_contacts_summary">Nastaviť DAVx5 (predtým známy ako DAVdroid) (v1.3.0+) pre tento účet</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizácia kalendára &amp; kontaktov úspešne dokončená</string>
     <string name="prefs_category_about">O aplikácii</string>
     <string name="prefs_category_details">Podrobnosti</string>
     <string name="prefs_category_dev">Vývojové</string>
     <string name="prefs_category_general">Všeobecné</string>
     <string name="prefs_category_more">Viac</string>
-    <string name="prefs_daily_backup_summary">Denná záloha vašeho kalendára &amp; kontaktov</string>
     <string name="prefs_daily_contact_backup_summary">Denná záloha vašich kontaktov</string>
     <string name="prefs_davx5_setup_error">Neočakávaná chyba pri nastavovaní DAVx5 (predtým známy ako DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end šifrovanie je nastavené!</string>
@@ -674,8 +666,6 @@
     <string name="screenshot_04_accounts_heading">Všetky vaše účty</string>
     <string name="screenshot_04_accounts_subline">na jednom mieste</string>
     <string name="screenshot_05_autoUpload_heading">Automatické nahrávanie</string>
-    <string name="screenshot_05_autoUpload_subline">vašich fotiek a videí</string>
-    <string name="screenshot_06_davdroid_heading">Kalendár a kontakty</string>
     <string name="screenshot_06_davdroid_subline">Synchronizácia s DAVx5</string>
     <string name="search_error">Chyba pri získavaní výsledkov vyhľadávania</string>
     <string name="select_all">Vybrať všetko</string>
@@ -692,7 +682,6 @@
     <string name="set_status_message">Nastaviť správu o stave</string>
     <string name="setup_e2e">Počas nastavovania end-to-end šifrovania dostanete náhodný 12-slovový mnemotechnický záznam, ktorý budete potrebovať na otvorenie svojich súborov na iných zariadeniach. Tento záznam bude uložený iba na tomto zariadení a môže byť znovu zobrazený na tejto obrazovke. Prosím, zapíšte si ho na bezpečné miesto!</string>
     <string name="share">Zdieľať</string>
-    <string name="share_copy_link">Zdieľať &amp; Kopírovať Odkaz</string>
     <string name="share_dialog_title">Sprístupnenie</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vyprší %1$s</string>
@@ -777,7 +766,6 @@
     <string name="storage_permission_full_access">Plný prístup</string>
     <string name="storage_permission_media_read_only">Médiá iba načítanie</string>
     <string name="storage_pictures">Obrázky</string>
-    <string name="store_full_desc">Platforma, ktorú môžete bežať na vlastnom serveri, ktorú môžete mať kompletne pod kontrolou.\n\nFunkcie:\n* Jednoducho použiteľné moderné rozhranie, hodiace sa k vzhľadu vášho servera\n* Nahrávanie súborov na Nextcloud server\n* Ich sprístupnenie s inými ľudmi\n* Synchronizácia vašich obľúbených súborov a priečinkov\n* Vyhľadávanie naprieč všetkými zložkami na serveri\n* Automatické nahrávanie fotiek a videí nasnímaných vašim zariadením\n* Doručovanie notifikácií\n* Podpora viac účtov naraz\n* Zabezpečený prístup k vašim dátam pomocou odtlačku prstu alebo kódom PIN\n* Začlenenie DAVx5 (predtým známy ako DAVdroid) pre jednoduchý prístup ku kalendáru &amp; synchronizácii kontaktov\n\nAkékoľvek problémy prosím hláste na https://github.com/nextcloud/android/issues a o aplikácii môžete diskutovať na https://help.nextcloud.com/c/clients/android\n\nNepoznáte ešte Nextcloud? Nextcloud je server pre súkromnú synchronizáciu súborov &amp;, zdieľanie a komunikáciu. Je to slobodný softvér a môžete si ho prevádzkovať buď sami alebo si ho prenajímať od nejakej spoločnosti. Týmto spôsobom získate plnú vládu nad svojimi fotkami, údajom v kalendári a kontaktoch, dokumentom a všetkým ostatným.\n\nViac zistíte na https://nextcloud.com</string>
     <string name="store_full_dev_desc">Platforma, ktorú môžete bežať na vlastnom serveri, ktorú môžete mať kompletne pod kontrolou.\nToto je oficiálna vývojová verzia, obsahujúca dennú vzorku všetkých nových a nevyskúšaných funkcií, ktoré môžu spôsobovať nestabilitu a viesť ku strate dát. Aplikácia v tomto štádiu vývoja je určená tým používateľom, ktorí sú ochotní skúšať a hlásiť chyby, ktoré sa vyskytnú. Nepoužívajte ju pre svoju produkčnú prácu.\n\nObe oficiálne verzie, tak vývojová ako aj produkčná sú k dispozícii na F-droid a je možné ich mať nainštalované súbežne.</string>
     <string name="store_short_desc">Platforma, ktorú môžete bežať na vlastnom serveri, ktorú môžete mať kompletne pod kontrolou.</string>
     <string name="store_short_dev_desc">Platforma, ktorú môžete bežať na vlastnom serveri, ktorú môžete mať kompletne pod kontrolou (vývojová verzia)</string>
@@ -791,7 +779,6 @@
     <string name="subject_shared_with_you">\"%1$s\" vám bol sprístupnený</string>
     <string name="subject_user_shared_with_you">%1$s vám sprístupnil \"%2$s\"</string>
     <string name="subtitle_photos_only">Iba fotky</string>
-    <string name="subtitle_photos_videos">Fotky a videá</string>
     <string name="subtitle_videos_only">Iba videá</string>
     <string name="suggest">Navrhnúť</string>
     <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>

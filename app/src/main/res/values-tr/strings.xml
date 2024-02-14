@@ -14,7 +14,6 @@
     <string name="action_send_share">Gönder/paylaş</string>
     <string name="action_switch_grid_view">Tablo görünümü</string>
     <string name="action_switch_list_view">Liste görünümü</string>
-    <string name="actionbar_calendar_contacts_restore">Kişileri ve takvimi geri yükle</string>
     <string name="actionbar_mkdir">Yeni klasör</string>
     <string name="actionbar_move_or_copy">Taşı ya da kopyala</string>
     <string name="actionbar_open_with">Birlikte aç</string>
@@ -79,7 +78,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Uzakta</string>
     <string name="backup_settings">Ayarları yedekle</string>
-    <string name="backup_title">Kişileri ve takvimi yedekle</string>
     <string name="battery_optimization_close">Kapat</string>
     <string name="battery_optimization_disable">Devre dışı bırak</string>
     <string name="battery_optimization_message">Aygıtınızda pil kullanımı iyileştirmesi kullanılıyor olabilir. Otomatik yükleme yalnızca bu uygulamayı pil kullanımı iyileştirmesinin dışında tuttuğunuzda düzgün çalışır.</string>
@@ -390,9 +388,6 @@
     <string name="filename_forbidden_charaters_from_server">Dosya adında en az bir geçersiz karakter var</string>
     <string name="filename_hint">Dosya adı</string>
     <string name="first_run_1_text">Verilerinizi güvenli ve denetiminiz altında tutun</string>
-    <string name="first_run_2_text">Güvenli iş birliği ve dosya değiş tokuşu</string>
-    <string name="first_run_3_text">İnternet üzerinden kolayca kullanılan e-posta, takvim ve kişiler</string>
-    <string name="first_run_4_text">Ekran paylaşımı, çevrim içi görüşmeler ve internet toplantıları</string>
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="folder_confirm_create">Ekle</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
@@ -581,16 +576,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Yeni sürümün adı değiştirilsin</string>
     <string name="pref_instant_name_collision_policy_title">Dosya zaten varsa ne yapılsın?</string>
     <string name="prefs_add_account">Hesap ekle</string>
-    <string name="prefs_calendar_contacts">Takvim ve kişi eşitleme</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ya da Google Play kurulmamış</string>
     <string name="prefs_calendar_contacts_summary">Geçerli hesap için DAVx5 (eski adı DAVdroid) (v1.3.0+) kurulumu</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitleme ayarları</string>
     <string name="prefs_category_about">Hakkında</string>
     <string name="prefs_category_details">Ayrıntılar</string>
     <string name="prefs_category_dev">Geliştirici</string>
     <string name="prefs_category_general">Genel</string>
     <string name="prefs_category_more">Daha fazla</string>
-    <string name="prefs_daily_backup_summary">Takvim ve kişilerinizin günlük yedeği</string>
     <string name="prefs_daily_contact_backup_summary">Kişilerinizin günlük yedeği</string>
     <string name="prefs_davx5_setup_error">DAVx5 (eski adıyla DAVdroid) kurulurken beklenmeyen bir sorun çıktı</string>
     <string name="prefs_e2e_active">Uçtan uca şifreleme kuruldu!</string>
@@ -682,8 +674,6 @@
     <string name="screenshot_04_accounts_heading">Tüm hesaplarınız</string>
     <string name="screenshot_04_accounts_subline">tek bir yerde</string>
     <string name="screenshot_05_autoUpload_heading">Otomatik yükleme</string>
-    <string name="screenshot_05_autoUpload_subline">fotoğraf ve görüntüleriniz için</string>
-    <string name="screenshot_06_davdroid_heading">Takvim ve kişiler</string>
     <string name="screenshot_06_davdroid_subline">DAVx5 ile eşitleme</string>
     <string name="search_error">Arama sonuçları alınırken sorun çıktı</string>
     <string name="secure_share_not_set_up">Bu kullanıcı için güvenli paylaşım kurulmamış</string>
@@ -702,7 +692,6 @@
     <string name="set_status_message">Durum iletisini ayarla</string>
     <string name="setup_e2e">Uçtan uca şifrelemenin kurulumu sırasında, dosyalarınızı diğer aygıtlarda açabilmeniz için rastgele 12 sözcükten oluşan bir parola alacaksınız. Bu parola yalnızca bu aygıta kaydedilir ve bu sayfadan yeniden görülebilir. Lütfen güvenli bir yere not edin!</string>
     <string name="share">Paylaş</string>
-    <string name="share_copy_link">Bağlantıyı paylaş ve kopyala</string>
     <string name="share_dialog_title">Paylaşım</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Geçerlilik süresi %1$s zamanında dolacak</string>
@@ -788,7 +777,6 @@
     <string name="storage_permission_full_access">Tüm dosyalara erişim</string>
     <string name="storage_permission_media_read_only">Ortam dosyalarına salt okunur erişim</string>
     <string name="storage_pictures">Fotoğraflar</string>
-    <string name="store_full_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu.\n\nÖzellikleri:\n* Sunucunuzun temasına uygun, kolay kullanılan, modern arayüz\n* Dosyaları Nextcloud sunucunuza yükleme\n* Başkaları ile paylaşma\n* İstediğiniz dosya ve klasörleri eşitleme\n* Sunucunuzdaki tüm klasörlerde arama\n* Aygıtınızdaki fotoğraf ve görüntüleri otomatik olarak yükleme\n* Güncelleme bildirimleri\n* Birden çok hesap desteği\n* Verilere parmak izi ya da PIN kodu ile güvenli erişim\n* Kolay takvim ve kişi eşitleme kurulumu için DAVx5 bütünleştirmesi (eski adı DAVdroid)\n\nLütfen olabilecek sorunları https://github.com/nextcloud/android/issues adresine bildirin ve uygulama ile ilgili görüşlerinizi https://help.nextcloud.com/c/clients/android adresine yazın\n\nNextcloud kullanmaya yeni mi başladınız? Nextcloud kişisel dosyaları eşitlemek ve paylaşmak için kullanılan bir iletişim sunucusudur. Özgür bir yazılımdır ve kendiniz barındırabileceğiniz gibi bir kuruluş üzerinde ücretli olarak barındırabilirsiniz. Böylece fotoğraflarınız, takviminiz, kişi bilgileriniz ve belgeleriniz gibi pek çok veriyi kendi kontrolunuz altında tutabilirsiniz.\n\nNextcloud hakkında bilgi almak için https://nextcloud.com sitesine bakabilirsiniz.</string>
     <string name="store_full_dev_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu.\nBu sürüm resmi Nextcloud uygulamasının geliştirici sürümü olduğundan, kararsız çalışabilir ve veri kaybına yol açabilecek yeterince sınanmamış yeni özellikler bulundurur. Bu sürüm yeni özellikleri sınamak ve hataları bildirmek isteyen kullanıcılar için tasarlanmıştır. Bu sürümü günlük işleriniz için kullanmayın!\n\nNormal ve Geliştirici sürümleri F-Droid üzerinde bulunur ve aynı anda kurulup kullanılabilir.</string>
     <string name="store_short_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu</string>
     <string name="store_short_dev_desc">Sizin denetiminiz altında barındırılan üretkenlik platformu (geliştirici ön izlemesi)</string>
@@ -802,7 +790,6 @@
     <string name="subject_shared_with_you">\"%1$s\" ögesi sizinle paylaşıldı</string>
     <string name="subject_user_shared_with_you">%1$s, sizinle \"%2$s\" ögesini paylaştı</string>
     <string name="subtitle_photos_only">Yalnızca fotoğraflar</string>
-    <string name="subtitle_photos_videos">Fotoğraflar ve görüntüler</string>
     <string name="subtitle_videos_only">Yalnızca görüntüler</string>
     <string name="suggest">Öner</string>
     <string name="sync_conflicts_in_favourites_ticker">Çakışmalar bulundu</string>
