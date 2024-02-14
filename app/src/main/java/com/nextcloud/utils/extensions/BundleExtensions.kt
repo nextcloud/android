@@ -40,7 +40,11 @@ fun <T : Serializable?> Bundle?.getSerializableArgument(key: String, type: Class
             this.getSerializable(key, type)
         } else {
             @Suppress("UNCHECKED_CAST", "DEPRECATION")
-            this.getSerializable(key) as T
+            if (type.isInstance(this.getSerializable(key))) {
+                this.getSerializable(key) as T
+            } else {
+                null
+            }
         }
     } catch (e: ClassCastException) {
         Log_OC.e(tag, e.localizedMessage)
