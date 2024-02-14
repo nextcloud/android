@@ -74,6 +74,7 @@ import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -159,6 +160,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         hideItemOptions = argHideItemOptions;
         this.gridView = gridView;
         mStorageManager = transferServiceGetter.getStorageManager();
+
+        if (activity instanceof FileDisplayActivity) {
+            ((FileDisplayActivity) activity).showSortListGroup(true);
+        }
 
         if (mStorageManager == null) {
             mStorageManager = new FileDataStorageManager(user, activity.getContentResolver());
