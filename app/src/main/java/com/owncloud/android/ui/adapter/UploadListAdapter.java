@@ -122,32 +122,34 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         switch (group.type) {
             case CURRENT, FINISHED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close);
-            case FAILED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_dots_vertical);
+            case CANCELLED, FAILED ->
+                headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_dots_vertical);
+
         }
 
         headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
             switch (group.type) {
                 case CURRENT -> {
-                    // cancel all current uploads
                     for (OCUpload upload : group.getItems()) {
                         uploadHelper.cancelFileUpload(upload.getRemotePath(), upload.getAccountName());
                     }
                     loadUploadItemsFromDb();
                 }
                 case FINISHED -> {
-                    // clear successfully uploaded section
                     uploadsStorageManager.clearSuccessfulUploads();
                     loadUploadItemsFromDb();
                 }
                 case FAILED -> {
-                    // show popup with option clear or retry filed uploads
-                    createFailedPopupMenu(headerViewHolder);
+                    showFailedPopupMenu(headerViewHolder);
+                }
+                case CANCELLED -> {
+                    showCancelledPopupMenu(headerViewHolder);
                 }
             }
         });
     }
 
-    private void createFailedPopupMenu(HeaderViewHolder headerViewHolder) {
+    private void showFailedPopupMenu(HeaderViewHolder headerViewHolder) {
         PopupMenu failedPopup = new PopupMenu(MainApp.getAppContext(), headerViewHolder.binding.uploadListAction);
         failedPopup.inflate(R.menu.upload_list_failed_options);
         failedPopup.setOnMenuItemClickListener(i -> {
@@ -171,6 +173,47 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             return true;
         });
         failedPopup.show();
+    }
+
+    private void showCancelledPopupMenu(HeaderViewHolder headerViewHolder) {
+        PopupMenu popup = new PopupMenu(MainApp.getAppContext(), headerViewHolder.binding.uploadListAction);
+        popup.inflate(R.menu.upload_list_cancelled_options);
+
+        popup.setOnMenuItemClickListener(i -> {
+            int itemId = i.getItemId();
+
+            if (itemId == R.id.action_upload_list_cancelled_clear) {
+                uploadsStorageManager.clearCancelledUploadsForCurrentAccount();
+                loadUploadItemsFromDb();
+            } else if (itemId == R.id.action_upload_list_cancelled_resume) {
+                retryCancelledUploads();
+            }
+
+            return true;
+        });
+
+        popup.show();
+    }
+
+    private void retryCancelledUploads() {
+        new Thread(() -> {
+            boolean showNotExistMessage = FileUploadHelper.Companion.instance().retryCancelledUploads(
+                uploadsStorageManager,
+                connectivityService,
+                accountManager,
+                powerManagementService);
+
+            parentActivity.runOnUiThread(this::loadUploadItemsFromDb);
+            parentActivity.runOnUiThread(() -> {
+                if (showNotExistMessage) {
+                    showNotExistMessage();
+                }
+            });
+        }).start();
+    }
+
+    private void showNotExistMessage() {
+        DisplayUtils.showSnackMessage(parentActivity, R.string.upload_action_file_not_exist_message);
     }
 
     @Override
@@ -197,7 +240,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         this.clock = clock;
         this.viewThemeUtils = viewThemeUtils;
 
-        uploadGroups = new UploadGroup[3];
+        uploadGroups = new UploadGroup[4];
 
         shouldShowHeadersForEmptySections(false);
 
@@ -217,7 +260,16 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             }
         };
 
-        uploadGroups[2] = new UploadGroup(Type.FINISHED,
+        uploadGroups[2] = new UploadGroup(Type.CANCELLED,
+                                          parentActivity.getString(
+                                              R.string.uploads_view_group_manually_cancelled_uploads)) {
+            @Override
+            public void refresh() {
+                fixAndSortItems(uploadsStorageManager.getCancelledUploadsForCurrentAccount());
+            }
+        };
+
+        uploadGroups[3] = new UploadGroup(Type.FINISHED,
                                           parentActivity.getString(R.string.uploads_view_group_finished_uploads)) {
             @Override
             public void refresh() {
@@ -324,11 +376,14 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 itemViewHolder.binding.uploadProgressBar.invalidate();
             }
             case UPLOAD_FAILED -> itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
-            case UPLOAD_SUCCEEDED -> itemViewHolder.binding.uploadStatus.setVisibility(View.GONE);
+            case UPLOAD_SUCCEEDED, UPLOAD_CANCELLED ->
+                itemViewHolder.binding.uploadStatus.setVisibility(View.GONE);
         }
 
-        // show status if same file conflict or local file deleted
-        if (item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED && item.getLastResult() != UploadResult.UPLOADED) {
+        // show status if same file conflict or local file deleted or upload cancelled
+        if ((item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED && item.getLastResult() != UploadResult.UPLOADED)
+            || item.getUploadStatus() == UploadStatus.UPLOAD_CANCELLED) {
+
             itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
             itemViewHolder.binding.uploadDate.setVisibility(View.GONE);
             itemViewHolder.binding.uploadFileSize.setVisibility(View.GONE);
@@ -371,7 +426,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         itemViewHolder.binding.thumbnail.setImageResource(R.drawable.file);
 
         // click on item
-        if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
+        if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED ||
+            item.getUploadStatus() == UploadStatus.UPLOAD_CANCELLED) {
+
             final UploadResult uploadResult = item.getLastResult();
             itemViewHolder.binding.uploadListItemLayout.setOnClickListener(v -> {
                 if (uploadResult == UploadResult.CREDENTIAL_ERROR) {
@@ -655,8 +712,16 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     status = parentActivity.getString(R.string.uploads_view_upload_status_succeeded);
                 }
             }
-            case UPLOAD_FAILED -> status = getUploadFailedStatusText(upload.getLastResult());
-            default -> status = "Uncontrolled status: " + upload.getUploadStatus();
+            case UPLOAD_FAILED -> {
+                status = getUploadFailedStatusText(upload.getLastResult());
+            }
+            case UPLOAD_CANCELLED -> {
+                status = parentActivity.getString(R.string.upload_manually_cancelled);
+            }
+
+            default -> {
+                status = "Uncontrolled status: " + upload.getUploadStatus();
+            }
         }
         return status;
     }
@@ -857,7 +922,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     }
 
     enum Type {
-        CURRENT, FINISHED, FAILED
+        CURRENT, FINISHED, FAILED, CANCELLED
     }
 
     abstract class UploadGroup implements Refresh {

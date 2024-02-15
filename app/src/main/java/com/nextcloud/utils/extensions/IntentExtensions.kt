@@ -24,22 +24,48 @@ package com.nextcloud.utils.extensions
 import android.content.Intent
 import android.os.Build
 import android.os.Parcelable
+import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.Serializable
 
-fun <T : Serializable?> Intent.getSerializableArgument(key: String, type: Class<T>): T? {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        this.getSerializableExtra(key, type)
-    } else {
-        @Suppress("UNCHECKED_CAST", "DEPRECATION")
-        this.getSerializableExtra(key) as T
+@Suppress("TopLevelPropertyNaming")
+private const val tag = "IntentExtension"
+
+fun <T : Serializable?> Intent?.getSerializableArgument(key: String, type: Class<T>): T? {
+    if (this == null) {
+        return null
+    }
+
+    return try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            this.getSerializableExtra(key, type)
+        } else {
+            @Suppress("UNCHECKED_CAST", "DEPRECATION")
+            if (type.isInstance(this.getSerializableExtra(key))) {
+                this.getSerializableExtra(key) as T
+            } else {
+                null
+            }
+        }
+    } catch (e: ClassCastException) {
+        Log_OC.e(tag, e.localizedMessage)
+        null
     }
 }
 
-fun <T : Parcelable?> Intent.getParcelableArgument(key: String, type: Class<T>): T? {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        this.getParcelableExtra(key, type)
-    } else {
-        @Suppress("DEPRECATION")
-        this.getParcelableExtra(key)
+fun <T : Parcelable?> Intent?.getParcelableArgument(key: String, type: Class<T>): T? {
+    if (this == null) {
+        return null
+    }
+
+    return try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            this.getParcelableExtra(key, type)
+        } else {
+            @Suppress("DEPRECATION")
+            this.getParcelableExtra(key)
+        }
+    } catch (e: ClassCastException) {
+        Log_OC.e(tag, e.localizedMessage)
+        null
     }
 }

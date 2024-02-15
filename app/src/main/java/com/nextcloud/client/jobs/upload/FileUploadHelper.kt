@@ -81,7 +81,6 @@ class FileUploadHelper {
         }
     }
 
-    @Suppress("ComplexCondition")
     fun retryFailedUploads(
         uploadsStorageManager: UploadsStorageManager,
         connectivityService: ConnectivityService,
@@ -92,7 +91,44 @@ class FileUploadHelper {
         if (failedUploads == null || failedUploads.isEmpty()) {
             return
         }
+        retryUploads(
+            uploadsStorageManager,
+            connectivityService,
+            accountManager,
+            powerManagementService,
+            failedUploads
+        )
+    }
 
+    fun retryCancelledUploads(
+        uploadsStorageManager: UploadsStorageManager,
+        connectivityService: ConnectivityService,
+        accountManager: UserAccountManager,
+        powerManagementService: PowerManagementService
+    ): Boolean {
+        val cancelledUploads = uploadsStorageManager.cancelledUploadsForCurrentAccount
+        if (cancelledUploads == null || cancelledUploads.isEmpty()) {
+            return false
+        }
+
+        return retryUploads(
+            uploadsStorageManager,
+            connectivityService,
+            accountManager,
+            powerManagementService,
+            cancelledUploads
+        )
+    }
+
+    @Suppress("ComplexCondition")
+    private fun retryUploads(
+        uploadsStorageManager: UploadsStorageManager,
+        connectivityService: ConnectivityService,
+        accountManager: UserAccountManager,
+        powerManagementService: PowerManagementService,
+        failedUploads: Array<OCUpload>
+    ): Boolean {
+        var showNotExistMessage = false
         val (gotNetwork, _, gotWifi) = connectivityService.connectivity
         val batteryStatus = powerManagementService.battery
         val charging = batteryStatus.isCharging || batteryStatus.isFull
@@ -105,6 +141,8 @@ class FileUploadHelper {
             }
             val isDeleted = !File(failedUpload.localPath).exists()
             if (isDeleted) {
+                showNotExistMessage = true
+
                 // 2A. for deleted files, mark as permanently failed
                 if (failedUpload.lastResult != UploadResult.FILE_NOT_FOUND) {
                     failedUpload.lastResult = UploadResult.FILE_NOT_FOUND
@@ -117,6 +155,8 @@ class FileUploadHelper {
                 retryUpload(failedUpload, uploadUser.get())
             }
         }
+
+        return showNotExistMessage
     }
 
     @Suppress("LongParameterList")
@@ -146,7 +186,7 @@ class FileUploadHelper {
         backgroundJobManager.startFilesUploadJob(user)
     }
 
-    fun cancelFileUpload(remotePath: String, accountName: String) {
+    fun removeFileUpload(remotePath: String, accountName: String) {
         try {
             val user = accountManager.getUser(accountName).get()
 
@@ -157,6 +197,14 @@ class FileUploadHelper {
             cancelAndRestartUploadJob(user)
         } catch (e: NoSuchElementException) {
             Log_OC.e(TAG, "Error cancelling current upload because user does not exist!")
+        }
+    }
+
+    fun cancelFileUpload(remotePath: String, accountName: String) {
+        uploadsStorageManager.getUploadByRemotePath(remotePath).run {
+            removeFileUpload(remotePath, accountName)
+            uploadStatus = UploadStatus.UPLOAD_CANCELLED
+            uploadsStorageManager.storeUpload(this)
         }
     }
 
