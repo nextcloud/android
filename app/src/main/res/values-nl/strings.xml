@@ -269,7 +269,6 @@
     <string name="etm_background_job_created">Gemaakt</string>
     <string name="etm_background_job_name">Taaknaam</string>
     <string name="etm_background_job_progress">Voortgang</string>
-    <string name="etm_background_job_started">Gestart</string>
     <string name="etm_background_job_state">Status</string>
     <string name="etm_background_job_user">Gebruiker</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -374,7 +373,6 @@
     <string name="forbidden_permissions_delete">om dit bestand te verwijderen</string>
     <string name="forbidden_permissions_move">om dit bestand te verplaatsen</string>
     <string name="forbidden_permissions_rename">om dit bestand te hernoemen</string>
-    <string name="foreground_service_download">Downloaden bestanden…</string>
     <string name="foreground_service_upload">Uploaden bestanden…</string>
     <string name="foreign_files_fail">Een paar bestanden konden niet worden verplaatst</string>
     <string name="foreign_files_local_text">Lokaal: %1$s</string>
@@ -781,6 +779,8 @@
     <string name="update_link_file_no_exist">Kan niet bijwerken. Controleer of het bestand bestaat.</string>
     <string name="update_link_forbidden_permissions">om deze share bij te werken</string>
     <string name="updating_share_failed">Bijwerken delen mislukt</string>
+    <string name="upload_action_failed_clear">Wis mislukte uploads</string>
+    <string name="upload_action_failed_retry">Probeer mislukte uploads opnieuw</string>
     <string name="upload_cannot_create_file">Kan geen lokaal bestand aanmaken</string>
     <string name="upload_chooser_title">Upload van…</string>
     <string name="upload_content_from_other_apps">Uploaden content vanaf andere apps</string>
@@ -836,6 +836,7 @@
     <string name="uploads_view_group_current_uploads">Huidige</string>
     <string name="uploads_view_group_failed_uploads">Mislukt/Wacht op herstart</string>
     <string name="uploads_view_group_finished_uploads">Geüpload</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Geannuleerd</string>
     <string name="uploads_view_later_waiting_to_upload">Wachten om te uploaden</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_upload_status_cancelled">Geannuleerd</string>

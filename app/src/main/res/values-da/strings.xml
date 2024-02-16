@@ -286,7 +286,6 @@
     <string name="etm_accounts">Konti</string>
     <string name="etm_background_job_name">Job navn</string>
     <string name="etm_background_job_progress">Progress</string>
-    <string name="etm_background_job_started">Startet</string>
     <string name="etm_background_job_state">Tilstand</string>
     <string name="etm_background_job_user">Bruger</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -391,7 +390,6 @@
     <string name="forbidden_permissions_delete">til at slette denne fil</string>
     <string name="forbidden_permissions_move">til at flytte denne fil</string>
     <string name="forbidden_permissions_rename">til at omdøbe denne fil</string>
-    <string name="foreground_service_download">Henter filer...</string>
     <string name="foreground_service_upload">Sender filer...</string>
     <string name="foreign_files_fail">Nogle filer kunne ikke flyttes</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
@@ -831,6 +829,8 @@ Enheds legitimationsoplysninger er sat op
     <string name="update_link_file_no_exist">Kan ikke opdatere. Undersøg venligst om filen eksisterer.</string>
     <string name="update_link_forbidden_permissions">for at opdatere denne deling</string>
     <string name="updating_share_failed">Opdater deling fejlet</string>
+    <string name="upload_action_failed_clear">Fjern fejlede uploads</string>
+    <string name="upload_action_failed_retry">Prøv fejlede uploads igen</string>
     <string name="upload_cannot_create_file">Kan ikke oprette filen lokalt</string>
     <string name="upload_chooser_title">Sender fra...</string>
     <string name="upload_content_from_other_apps">Send indhold fra andre apps</string>
@@ -886,6 +886,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="uploads_view_group_current_uploads">Nuværende</string>
     <string name="uploads_view_group_failed_uploads">Fejl/venter på genstart</string>
     <string name="uploads_view_group_finished_uploads">Sendt</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Annulléret</string>
     <string name="uploads_view_later_waiting_to_upload">Venter med upload</string>
     <string name="uploads_view_title">Uploadede filer</string>
     <string name="uploads_view_upload_status_cancelled">Annulléret</string>

@@ -295,7 +295,6 @@
     <string name="etm_background_job_created">Oluşturulma</string>
     <string name="etm_background_job_name">Görev adı</string>
     <string name="etm_background_job_progress">İlerleme</string>
-    <string name="etm_background_job_started">Başlatıldı</string>
     <string name="etm_background_job_state">Durum</string>
     <string name="etm_background_job_user">Kullanıcı</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -401,7 +400,6 @@
     <string name="forbidden_permissions_delete">bu dosyayı silin</string>
     <string name="forbidden_permissions_move">bu dosyayı taşıyın</string>
     <string name="forbidden_permissions_rename">bu dosyayı yeniden adlandırın</string>
-    <string name="foreground_service_download">Dosyalar indiriliyor …</string>
     <string name="foreground_service_upload">Dosyalar yükleniyor …</string>
     <string name="foreign_files_fail">Bazı dosyalar taşınamadı</string>
     <string name="foreign_files_local_text">Yerel: %1$s</string>
@@ -847,6 +845,8 @@
     <string name="update_link_file_no_exist">Güncellenemedi. Lütfen dosyanın var olup olmadığını denetleyin.</string>
     <string name="update_link_forbidden_permissions">bu paylaşımı güncelleyin</string>
     <string name="updating_share_failed">Paylaşım güncellenemedi</string>
+    <string name="upload_action_failed_clear">Tamamlanamayan yüklemeler silinsin</string>
+    <string name="upload_action_failed_retry">Tamamlanamayan yüklemeler yinelensin</string>
     <string name="upload_cannot_create_file">Yerel dosya oluşturulamadı</string>
     <string name="upload_chooser_title">Şuradan yükle …</string>
     <string name="upload_content_from_other_apps">Diğer uygulamalardan içerik yükle</string>
@@ -907,6 +907,7 @@
     <string name="uploads_view_group_current_uploads">Geçerli</string>
     <string name="uploads_view_group_failed_uploads">Tamamlanamadı / yeniden başlatma bekleniyor</string>
     <string name="uploads_view_group_finished_uploads">Yüklendi</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">İptal edildi</string>
     <string name="uploads_view_later_waiting_to_upload">Yüklenmeyi bekliyor</string>
     <string name="uploads_view_title">Yüklemeler</string>
     <string name="uploads_view_upload_status_cancelled">İptal edildi</string>

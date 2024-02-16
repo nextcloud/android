@@ -283,7 +283,6 @@
     <string name="etm_background_job_created">A fost creat</string>
     <string name="etm_background_job_name">Numele serviciului</string>
     <string name="etm_background_job_progress">Progres</string>
-    <string name="etm_background_job_started">A început</string>
     <string name="etm_background_job_state">Stadiu</string>
     <string name="etm_background_job_user">Utilizator</string>
     <string name="etm_background_job_uuid">identificator UUID</string>
@@ -388,7 +387,6 @@
     <string name="forbidden_permissions_delete">pentru a șterge acest fișier</string>
     <string name="forbidden_permissions_move">pentru a muta acest fișier</string>
     <string name="forbidden_permissions_rename">pentru a redenumi acest fișier</string>
-    <string name="foreground_service_download">Se descarcă fișiere…</string>
     <string name="foreground_service_upload">Încarcă fișiere…</string>
     <string name="foreign_files_fail">Unele fișiere nu au putut fi mutate</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
@@ -807,6 +805,7 @@
     <string name="update_link_file_no_exist">Actualizare nereușită. Vă rugăm să verificați existența fișierului.</string>
     <string name="update_link_forbidden_permissions">sa actualizezi această partajare</string>
     <string name="updating_share_failed">Actualizarea partajării eșuată</string>
+    <string name="upload_action_failed_clear">Elimină încărcările eșuate</string>
     <string name="upload_cannot_create_file">Nu se poate creea un fisier local</string>
     <string name="upload_chooser_title">Încarcă din…</string>
     <string name="upload_content_from_other_apps">Încarcă conținut din alte aplicații</string>
@@ -861,6 +860,7 @@
     <string name="uploads_view_group_current_uploads">Curent</string>
     <string name="uploads_view_group_failed_uploads">Repornire eșuată/în așteptare</string>
     <string name="uploads_view_group_finished_uploads">Încărcat</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Anulat</string>
     <string name="uploads_view_later_waiting_to_upload">Se așteaptă încărcarea</string>
     <string name="uploads_view_title">Încărcări</string>
     <string name="uploads_view_upload_status_cancelled">Anulat</string>

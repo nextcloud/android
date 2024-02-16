@@ -272,7 +272,6 @@
     <string name="etm_background_job_created">S\'ha creat</string>
     <string name="etm_background_job_name">Nom de la tasca</string>
     <string name="etm_background_job_progress">Progrés</string>
-    <string name="etm_background_job_started">Iniciat</string>
     <string name="etm_background_job_state">Estat</string>
     <string name="etm_background_job_user">Usuari</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -377,7 +376,6 @@
     <string name="forbidden_permissions_delete">per suprimir aquest fitxer</string>
     <string name="forbidden_permissions_move">per moure aquest fitxer</string>
     <string name="forbidden_permissions_rename">per canviar el nom d\'aquest fitxer</string>
-    <string name="foreground_service_download">S\'està descarregant fitxers…</string>
     <string name="foreground_service_upload">S\'està carregant fitxers…</string>
     <string name="foreign_files_fail">No s\'han pogut moure alguns fitxers</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
@@ -790,6 +788,8 @@
     <string name="update_link_file_no_exist">No s\'ha pogut actualitzar. Assegureu-vos que el fitxer existeix.</string>
     <string name="update_link_forbidden_permissions">per actualitzar aquesta compartició</string>
     <string name="updating_share_failed">Ha fallat l\'actualització de la compartició</string>
+    <string name="upload_action_failed_clear">Esborra les pujades amb errors</string>
+    <string name="upload_action_failed_retry">Reintenta les pujades fallides</string>
     <string name="upload_cannot_create_file">No s\'ha pogut crear el fitxer local</string>
     <string name="upload_chooser_title">Pujada des de…</string>
     <string name="upload_content_from_other_apps">Pujada de contingut des d\'altres aplicacions</string>
@@ -845,6 +845,7 @@
     <string name="uploads_view_group_current_uploads">Actual</string>
     <string name="uploads_view_group_failed_uploads">Error de reinici/pendent de reiniciar</string>
     <string name="uploads_view_group_finished_uploads">Carregat</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Cancel·lat</string>
     <string name="uploads_view_later_waiting_to_upload">S\'està esperant per pujar-lo</string>
     <string name="uploads_view_title">Fitxers carregats</string>
     <string name="uploads_view_upload_status_cancelled">S\'ha cancel·lat</string>

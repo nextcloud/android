@@ -283,7 +283,6 @@
     <string name="etm_background_job_created">作成時刻</string>
     <string name="etm_background_job_name">ジョブの名前</string>
     <string name="etm_background_job_progress">進捗状況</string>
-    <string name="etm_background_job_started">開始されました</string>
     <string name="etm_background_job_state">状態</string>
     <string name="etm_background_job_user">ユーザー</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -388,7 +387,6 @@
     <string name="forbidden_permissions_delete">ファイルを削除</string>
     <string name="forbidden_permissions_move">このファイルを移動</string>
     <string name="forbidden_permissions_rename">ファイル名の変更</string>
-    <string name="foreground_service_download">ファイルをダウンロード中…</string>
     <string name="foreground_service_upload">ファイルのアップロード中…</string>
     <string name="foreign_files_fail">いくつかのファイルが移動できません</string>
     <string name="foreign_files_local_text">ローカル: %1$s</string>
@@ -816,6 +814,8 @@
     <string name="update_link_file_no_exist">更新できません。ファイルがあるか確認してください。</string>
     <string name="update_link_forbidden_permissions">共有を更新</string>
     <string name="updating_share_failed">共有の更新に失敗しました</string>
+    <string name="upload_action_failed_clear">失敗したアップロードのクリア</string>
+    <string name="upload_action_failed_retry">失敗したアップロードを再試行する</string>
     <string name="upload_cannot_create_file">ローカルファイルが作成できません</string>
     <string name="upload_chooser_title">アップロード…</string>
     <string name="upload_content_from_other_apps">他のアプリからコンテンツをアップロードする</string>
@@ -871,6 +871,7 @@
     <string name="uploads_view_group_current_uploads">現在</string>
     <string name="uploads_view_group_failed_uploads">失敗/再開待ち</string>
     <string name="uploads_view_group_finished_uploads">アップロード済み</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">キャンセル済</string>
     <string name="uploads_view_later_waiting_to_upload">アップロード待ち</string>
     <string name="uploads_view_title">アップロード</string>
     <string name="uploads_view_upload_status_cancelled">キャンセル済</string>

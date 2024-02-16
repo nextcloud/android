@@ -255,7 +255,6 @@
     <string name="etm_background_job_created">Креирано</string>
     <string name="etm_background_job_name">Име на задачата</string>
     <string name="etm_background_job_progress">Напредок</string>
-    <string name="etm_background_job_started">Започна</string>
     <string name="etm_background_job_state">Статус</string>
     <string name="etm_background_job_user">Корисник</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -345,7 +344,6 @@
     <string name="forbidden_permissions_delete">да ја избришете оваа датотека</string>
     <string name="forbidden_permissions_move">да ја преместам оваа датотека</string>
     <string name="forbidden_permissions_rename">да ја преименувате датотеката</string>
-    <string name="foreground_service_download">Превземање датотеки…</string>
     <string name="foreground_service_upload">Прикачување датотеки…</string>
     <string name="foreign_files_fail">Некои датотеки не можат да се преместат</string>
     <string name="foreign_files_local_text">Локално: %1$s</string>
@@ -691,6 +689,7 @@
     <string name="untrusted_domain">Пристап преку недоверлив домен. Ве молиме прочитајте ја документацијата за повеќе информации.</string>
     <string name="update_link_forbidden_permissions">за да се ажурира ова споделување</string>
     <string name="updating_share_failed">Неуспешно ажурирање на споделувањето</string>
+    <string name="upload_action_failed_clear">Исчисти ги неуспешните прикачувања</string>
     <string name="upload_cannot_create_file">Неможе да се креира локална датотека</string>
     <string name="upload_chooser_title">Прикачи од…</string>
     <string name="upload_content_from_other_apps">Прикачете содржина од други апликации</string>
@@ -743,6 +742,7 @@
     <string name="uploads_view_group_current_uploads">Моменталлни</string>
     <string name="uploads_view_group_failed_uploads">Неуспешни/на чекање рестарт</string>
     <string name="uploads_view_group_finished_uploads">Прикачено</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Откажано</string>
     <string name="uploads_view_later_waiting_to_upload">Чекање за прикачување</string>
     <string name="uploads_view_title">Прикачувања</string>
     <string name="uploads_view_upload_status_cancelled">Откажано</string>

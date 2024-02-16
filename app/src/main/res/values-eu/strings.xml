@@ -294,7 +294,6 @@
     <string name="etm_background_job_created">Sortua</string>
     <string name="etm_background_job_name">Lanaren izena</string>
     <string name="etm_background_job_progress">Aurrerapena</string>
-    <string name="etm_background_job_started">Hasi da</string>
     <string name="etm_background_job_state">Egoera</string>
     <string name="etm_background_job_user">Erabiltzailea</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -399,7 +398,6 @@
     <string name="forbidden_permissions_delete">fitxategi hau ezabatzeko</string>
     <string name="forbidden_permissions_move">fitxategi hau mugitzeko</string>
     <string name="forbidden_permissions_rename">fitxategi hau berrizendatzeko</string>
-    <string name="foreground_service_download">Fitxategiak deskargatzen…</string>
     <string name="foreground_service_upload">Fitxategiak kargatzen…</string>
     <string name="foreign_files_fail">Fitxategi batzuk ezin izan dira mugitu</string>
     <string name="foreign_files_local_text">Bertakoa: %1$s</string>
@@ -843,6 +841,8 @@
     <string name="update_link_file_no_exist">Ezin izan da eguneratu. Mesedez egiaztatu fitxategia existitzen dela.</string>
     <string name="update_link_forbidden_permissions">eguneratzeko partekatze hau</string>
     <string name="updating_share_failed">partekatzearen eguneraketa huts egin du</string>
+    <string name="upload_action_failed_clear">Garbitu huts egin duten igoerak</string>
+    <string name="upload_action_failed_retry">Erroredun igoerak berriz saiatu</string>
     <string name="upload_cannot_create_file">Ezin da sortu fitxategi lokala</string>
     <string name="upload_chooser_title">Igo hemendik…</string>
     <string name="upload_content_from_other_apps">Igo edukia beste aplikazioetatik</string>
@@ -903,6 +903,7 @@
     <string name="uploads_view_group_current_uploads">Unekoa</string>
     <string name="uploads_view_group_failed_uploads">Berrabiarazteko zain/huts egin du.</string>
     <string name="uploads_view_group_finished_uploads">Igoa</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Ezeztatua</string>
     <string name="uploads_view_later_waiting_to_upload">Igotzeko itxoiten</string>
     <string name="uploads_view_title">Kargak</string>
     <string name="uploads_view_upload_status_cancelled">Ezeztatuak</string>

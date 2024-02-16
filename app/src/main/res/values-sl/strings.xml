@@ -288,7 +288,6 @@
     <string name="etm_accounts">Računi</string>
     <string name="etm_background_job_name">Ime opravila</string>
     <string name="etm_background_job_progress">Napredek pošiljanja</string>
-    <string name="etm_background_job_started">Začeto</string>
     <string name="etm_background_job_state">Stanje</string>
     <string name="etm_background_job_user">Uporabnik</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -393,7 +392,6 @@
     <string name="forbidden_permissions_delete">za izbris datoteke.</string>
     <string name="forbidden_permissions_move">med premikanjem datoteke</string>
     <string name="forbidden_permissions_rename">za preimenovanje datoteke.</string>
-    <string name="foreground_service_download">Poteka prejemanje datotek …</string>
     <string name="foreground_service_upload">Poteka pošiljanje datotek …</string>
     <string name="foreign_files_fail">Nekaterih datotek ni mogoče premakniti</string>
     <string name="foreign_files_local_text">Krajevno: %1$s</string>
@@ -831,6 +829,8 @@
     <string name="update_link_file_no_exist">Posodobitev ni mogoča. Preverite, ali datoteka obstaja.</string>
     <string name="update_link_forbidden_permissions">za posodobitev mesta souporabe</string>
     <string name="updating_share_failed">Posodabljanje mesta souporabe je spodletelo</string>
+    <string name="upload_action_failed_clear">Počisti dnevnik spodletelih pošiljanj</string>
+    <string name="upload_action_failed_retry">Ponovi neuspela pošiljanja</string>
     <string name="upload_cannot_create_file">Krajevne datoteke ni mogoče ustvariti</string>
     <string name="upload_chooser_title">Pošlji iz …</string>
     <string name="upload_content_from_other_apps">Pošlji vsebino iz drugih programov</string>
@@ -886,6 +886,7 @@
     <string name="uploads_view_group_current_uploads">Trenutno</string>
     <string name="uploads_view_group_failed_uploads">Ponovno pošiljanje je spodletelo oziroma je na čakanju.</string>
     <string name="uploads_view_group_finished_uploads">Poslano</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Preklicano</string>
     <string name="uploads_view_later_waiting_to_upload">Poteka čakanje na začetek pošiljanja …</string>
     <string name="uploads_view_title">Poslano</string>
     <string name="uploads_view_upload_status_cancelled">Preklicano</string>

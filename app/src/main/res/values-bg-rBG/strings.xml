@@ -280,7 +280,6 @@
     <string name="etm_accounts">Профили</string>
     <string name="etm_background_job_name">Име на процеса</string>
     <string name="etm_background_job_progress">Прогрес</string>
-    <string name="etm_background_job_started">Стартиран</string>
     <string name="etm_background_job_state">Състояние</string>
     <string name="etm_background_job_user">Потребител</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -385,7 +384,6 @@
     <string name="forbidden_permissions_delete">за изтриване на файла</string>
     <string name="forbidden_permissions_move">за да преместите файла</string>
     <string name="forbidden_permissions_rename">за преименуване на файла</string>
-    <string name="foreground_service_download">Сваляне на файлове...</string>
     <string name="foreground_service_upload">Качване на файлове…</string>
     <string name="foreign_files_fail">Някои файлове не могат да бъдат преместени</string>
     <string name="foreign_files_local_text">Локален: %1$s</string>
@@ -800,6 +798,8 @@
     <string name="update_link_file_no_exist">Невъзможно да се обнови. Моля, проверете дали файлът съществува.</string>
     <string name="update_link_forbidden_permissions">за обновяване на споделянето</string>
     <string name="updating_share_failed"> Неуспешно споделяне на обновяването </string>
+    <string name="upload_action_failed_clear">Изчисти провалените качвания</string>
+    <string name="upload_action_failed_retry">Нов опит за провалените</string>
     <string name="upload_cannot_create_file">Не е възможно създаването на локален файл</string>
     <string name="upload_chooser_title">Качи от...</string>
     <string name="upload_content_from_other_apps">Качи от други приложения</string>
@@ -855,6 +855,7 @@
     <string name="uploads_view_group_current_uploads">Текущ</string>
     <string name="uploads_view_group_failed_uploads">Провален/в очакване на рестарт</string>
     <string name="uploads_view_group_finished_uploads">Качени</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Отказано</string>
     <string name="uploads_view_later_waiting_to_upload">Изчакване за качване</string>
     <string name="uploads_view_title">Качени</string>
     <string name="uploads_view_upload_status_cancelled">Отказано</string>

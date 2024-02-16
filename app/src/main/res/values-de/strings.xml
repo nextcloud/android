@@ -14,6 +14,7 @@
     <string name="action_send_share">Senden/Teilen</string>
     <string name="action_switch_grid_view">Rasteransicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
+    <string name="actionbar_calendar_contacts_restore">Kontakte und Kalender wiederherstellen</string>
     <string name="actionbar_mkdir">Neuer Ordner</string>
     <string name="actionbar_move_or_copy">Verschieben oder kopieren</string>
     <string name="actionbar_open_with">Öffnen mit</string>
@@ -78,6 +79,7 @@
     <string name="avatar">Avatar</string>
     <string name="away">Abwesend</string>
     <string name="backup_settings">Sicherungseinstellungen</string>
+    <string name="backup_title">Kontakte- und Kalender-Sicherung</string>
     <string name="battery_optimization_close">Schliessen</string>
     <string name="battery_optimization_disable">Deaktivieren</string>
     <string name="battery_optimization_message">Ihr Gerät hat möglicherweise Batterieoptimierung aktiv. AutoUpload funktioniert nur dann richtig, wenn Sie diese App davon ausschließen.</string>
@@ -296,7 +298,6 @@
     <string name="etm_background_job_created">Erzeugt</string>
     <string name="etm_background_job_name">Aufgabenname</string>
     <string name="etm_background_job_progress">Fortschritt</string>
-    <string name="etm_background_job_started">Gestartet</string>
     <string name="etm_background_job_state">Status</string>
     <string name="etm_background_job_user">Benutzer</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -389,6 +390,9 @@
     <string name="filename_forbidden_charaters_from_server">Der Dateiname enthält mindestens ein ungültiges Zeichen</string>
     <string name="filename_hint">Dateiname</string>
     <string name="first_run_1_text">Halten Sie Ihre Daten sicher und unter Ihrer Kontrolle</string>
+    <string name="first_run_2_text">Sichere Zusammenarbeit und Dateiaustausch</string>
+    <string name="first_run_3_text">Benutzerfreundliche Webmailer, Kalender und Kontakte</string>
+    <string name="first_run_4_text">Bildschirmfreigabe, Online-Meetings und Webkonferenzen</string>
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="folder_confirm_create">Erstellen</string>
     <string name="folder_list_empty_headline">Keine Ordner vorhanden</string>
@@ -402,7 +406,6 @@
     <string name="forbidden_permissions_delete">diese Datei zu löschen</string>
     <string name="forbidden_permissions_move">um diese Datei zu verschieben</string>
     <string name="forbidden_permissions_rename">diese Datei umzubenennen</string>
-    <string name="foreground_service_download">Dateien werden heruntergeladen…</string>
     <string name="foreground_service_upload">Dateien werden hochgeladen…</string>
     <string name="foreign_files_fail">Einige Dateien konnten nicht verschoben werden</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
@@ -577,13 +580,16 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Neue Version umbenennen</string>
     <string name="pref_instant_name_collision_policy_title">Was tun, wenn die Datei bereits vorhanden ist?</string>
     <string name="prefs_add_account">Konto hinzufügen</string>
+    <string name="prefs_calendar_contacts">Kalender und Kontakte synchronisieren</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder F-Droid noch Google-Play sind installiert</string>
     <string name="prefs_calendar_contacts_summary">DAVx5 (zuvor bekannt als DAVdroid) (v1.3.0+) für aktuelles Konto einrichten</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender- und Kontakt-Synchronisierung einrichten</string>
     <string name="prefs_category_about">Über</string>
     <string name="prefs_category_details">Details</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
+    <string name="prefs_daily_backup_summary">Tägliche Sicherung Ihrer Kalender und Kontakte</string>
     <string name="prefs_daily_contact_backup_summary">Tägliche Sicherung Ihrer Kontakte</string>
     <string name="prefs_davx5_setup_error">Unerwarteter Fehler beim Einrichten von DAVx5 (früher bekannt als DAVdroid)</string>
     <string name="prefs_e2e_active">Ende-zu-Ende-Verschlüsselung ist eingerichtet!</string>
@@ -596,6 +602,8 @@
     <string name="prefs_imprint">Impressum</string>
     <string name="prefs_instant_behaviour_dialogTitle">Originaldatei wird…</string>
     <string name="prefs_instant_behaviour_title">Originaldatei wird…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Versteckte Dateien und Ordner ausschließen</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Versteckte ausschließen</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Nach Datum in Unterordnern speichern</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Unterordner benutzen</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Unterordneroptionen</string>
@@ -675,6 +683,8 @@
     <string name="screenshot_04_accounts_heading">All ihre Konten</string>
     <string name="screenshot_04_accounts_subline">an einem Ort</string>
     <string name="screenshot_05_autoUpload_heading">Automatisches Hochladen</string>
+    <string name="screenshot_05_autoUpload_subline">für Ihre Fotos und Videos</string>
+    <string name="screenshot_06_davdroid_heading">Kalender und Kontakte</string>
     <string name="screenshot_06_davdroid_subline">Synchronisiere mit DAVx5</string>
     <string name="search_error">Fehler beim Abrufen der Suchergebnisse</string>
     <string name="secure_share_not_set_up">Sicheres teilen ist für diesen Benutzer nicht eingerichtet</string>
@@ -693,6 +703,7 @@
     <string name="set_status_message">Statusnachricht setzen</string>
     <string name="setup_e2e">Während der Einrichtung der Ende-zu-Ende-Verschlüsselung erhalten Sie eine zufällige 12-Wörter-Gedächtnisstütze, die Sie benötigen, um Ihre Dateien auf anderen Geräten zu öffnen. Diese wird nur auf diesem Gerät gespeichert und kann in diesem Bildschirm erneut angezeigt werden. Bitte notieren Sie es an einem sicheren Ort!</string>
     <string name="share">Teilen</string>
+    <string name="share_copy_link">Teilen und Link kopieren</string>
     <string name="share_dialog_title">Teilen</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Läuft am %1$s ab</string>
@@ -778,6 +789,25 @@
     <string name="storage_permission_full_access">Voller Zugriff</string>
     <string name="storage_permission_media_read_only">Medien schreibgeschützt</string>
     <string name="storage_pictures">Bilder</string>
+    <string name="store_full_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen volle Kontrolle.
+
+Funktionen:
+* Einfache, moderne Oberfläche. Angepasst an das Design Ihres Servers
+* Laden Sie Ihre Dateien auf Ihren Nextcloud Server
+* Teilen Sie Ihre Dateien mit anderen
+* Halten Sie Ihre favorisierten Dateien und Ordner synchron
+* Suche über alle Ordner auf Ihrem Server
+* Automatisches Hochladen von Fotos und Videos von Ihrem Gerät
+* Bleiben Sie auf dem Laufenden durch Benachrichtigungen
+* Mehrere Konten gleichzeitig
+* Geschützter Zugriff durch Fingerabdruck oder PIN
+* Integration mit DAVx5 (ehemals DAVdroid) für einfaches Konfigurieren der Kalender- &amp; Kontakte-Synchronisierung
+
+Bitte melden Sie Probleme unter https://github.com/nextcloud/android/issues oder diskutieren Sie über die App auf https://help.nextcloud.com/c/clients/android
+
+Was ist Nextcloud? Die Nextcloud ist ein privater Dateiaustausch &amp; -synchronisierungs Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behalten Sie die Kontrolle über Ihre Fotos, Ihre Kalender und Kontakte, Ihre Dokumente und alle anderen Daten.
+
+Schauen Sie sich Nextcloud an unter https://nextcloud.com</string>
     <string name="store_full_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle.\nDies ist die offizielle Entwicklungsversion und bietet neue, ungetestete Funkitionen. Dies kann zu Instabilitäten und Datenverlust führen. Die App ist für alle Benutzer, die Testen wollen und falls nötig Fehlerberichte erstellen. Nutzen Sie diese Version nicht für Ihre Produktivarbeit!\n\nSowohl die reguläre als auch die Entwicklerversion sind auf F-droid verfügbar und können parallel installiert werden.</string>
     <string name="store_short_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle</string>
     <string name="store_short_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle (Vorab- Entwicklungsversion)</string>
@@ -791,6 +821,7 @@
     <string name="subject_shared_with_you">\"%1$s\" wurde mit Ihnen geteilt</string>
     <string name="subject_user_shared_with_you">%1$s hat \"%2$s\" mit Ihnen geteilt</string>
     <string name="subtitle_photos_only">Nur Fotos</string>
+    <string name="subtitle_photos_videos">Fotos und Videos</string>
     <string name="subtitle_videos_only">Nur Videos</string>
     <string name="suggest">Vorschlagen</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>
@@ -848,6 +879,13 @@
     <string name="update_link_file_no_exist">Aktualisierung nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
     <string name="update_link_forbidden_permissions">zum Aktualisieren dieser Freigabe</string>
     <string name="updating_share_failed">Aktualisierung der Freigabe fehlgeschlagen</string>
+    <string name="upload_action_cancelled_clear">Abgebrochene Uploads entfernen</string>
+    <string name="upload_action_cancelled_resume">Abgebrochene Uploads fortsetzen</string>
+    <string name="upload_action_failed_clear">Fehlgeschlagene Uploads entfernen</string>
+    <string name="upload_action_failed_retry">Fehlgeschlagene Uploads neu starten</string>
+    <string name="upload_action_file_not_exist_message">Einige Dateien existieren nicht, Fortsetzung für diese Dateien ist nicht möglich</string>
+    <string name="upload_action_global_upload_pause">Alle Uploads pausieren</string>
+    <string name="upload_action_global_upload_resume">Alle Uploads fortsetzen</string>
     <string name="upload_cannot_create_file">Datei kann lokal nicht erstellt werden</string>
     <string name="upload_chooser_title">Dateien hochladen von…</string>
     <string name="upload_content_from_other_apps">Inhalt anderer Apps hochladen</string>
@@ -859,6 +897,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Schnipsel Textdatei (.txt)</string>
     <string name="upload_file_dialog_title">Dateinamen und -typ zum Hochladen eingeben</string>
     <string name="upload_files">Dateien hochladen</string>
+    <string name="upload_global_pause_title">Alle Uploads wurden pausiert</string>
     <string name="upload_item_action_button">Button, um Objekt hochzuladen</string>
     <string name="upload_list_delete">Löschen</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
@@ -867,6 +906,7 @@
     <string name="upload_local_storage_full">Lokaler Speicher voll</string>
     <string name="upload_local_storage_not_copied">Datei konnte nicht in den lokalen Speicher kopiert werden</string>
     <string name="upload_lock_failed">Fehler beim Sperren des Ordners</string>
+    <string name="upload_manually_cancelled">Der Upload wurde vom Benutzer abgebrochen</string>
     <string name="upload_old_android">Verschlüsselung ist nur möglich mit &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung, um die ausgewählten Dateien in das Verzeichnis %1$s zu kopieren. Sollen diese stattdessen verschoben werden?</string>
     <string name="upload_quota_exceeded">Speicherkontingent überschritten</string>
@@ -908,6 +948,7 @@
     <string name="uploads_view_group_current_uploads">Aktuell</string>
     <string name="uploads_view_group_failed_uploads">Fehlgeschlagene/Wartende neustarten</string>
     <string name="uploads_view_group_finished_uploads">Hochgeladen</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Abgesagt</string>
     <string name="uploads_view_later_waiting_to_upload">Warte auf Hochladen</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_upload_status_cancelled">Abgebrochen</string>

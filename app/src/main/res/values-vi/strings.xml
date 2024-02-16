@@ -270,7 +270,6 @@
     <string name="etm_accounts">Tài khoản</string>
     <string name="etm_background_job_name">Tên công việc</string>
     <string name="etm_background_job_progress">Tiến trình</string>
-    <string name="etm_background_job_started">Đã bắt đầu</string>
     <string name="etm_background_job_state">Trạng thái</string>
     <string name="etm_background_job_user">Người dùng</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -374,7 +373,6 @@
     <string name="forbidden_permissions_delete">xóa tập tin này</string>
     <string name="forbidden_permissions_move">dịch chuyển tập tin này</string>
     <string name="forbidden_permissions_rename">đổi tên tập tin này</string>
-    <string name="foreground_service_download">Đang tải về tập tin…</string>
     <string name="foreground_service_upload">Đang tải lên tập tin…</string>
     <string name="foreign_files_fail">Một số tập tin không thể dịch chuyển</string>
     <string name="foreign_files_local_text">Cục bộ: %1$s</string>
@@ -771,6 +769,8 @@
     <string name="update_link_file_no_exist">Không thể cập nhật. Vui lòng kiểm tra xem tệp có tồn tại hay không.</string>
     <string name="update_link_forbidden_permissions">cập nhật chia sẽ này</string>
     <string name="updating_share_failed">Cập nhật chia sẻ không thành công</string>
+    <string name="upload_action_failed_clear">Dọn dẹp các tải lên bị lỗi</string>
+    <string name="upload_action_failed_retry">Thử lại các tải lên bị lỗi</string>
     <string name="upload_cannot_create_file">Không thể tạo tệp trên máy</string>
     <string name="upload_chooser_title">Tải lên từ…</string>
     <string name="upload_content_from_other_apps">Tải lên từ các ứng dụng khác</string>
@@ -826,6 +826,7 @@
     <string name="uploads_view_group_current_uploads">Hiện tại</string>
     <string name="uploads_view_group_failed_uploads">Không thành công/đang chờ khởi động lại</string>
     <string name="uploads_view_group_finished_uploads">Đã tải lên</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Đã hủy</string>
     <string name="uploads_view_later_waiting_to_upload">Chờ tải lên</string>
     <string name="uploads_view_title">Tải lên</string>
     <string name="uploads_view_upload_status_cancelled">Đã hủy</string>

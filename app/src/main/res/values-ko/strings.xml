@@ -293,7 +293,6 @@
     <string name="etm_background_job_created">만든 날짜</string>
     <string name="etm_background_job_name">작업 이름</string>
     <string name="etm_background_job_progress">진행 상황</string>
-    <string name="etm_background_job_started">시작됨</string>
     <string name="etm_background_job_state">상태</string>
     <string name="etm_background_job_user">사용자</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -398,7 +397,6 @@
     <string name="forbidden_permissions_delete">이 파일을 삭제할</string>
     <string name="forbidden_permissions_move">이 파일을 이동할</string>
     <string name="forbidden_permissions_rename">이 파일의 이름을 바꿀</string>
-    <string name="foreground_service_download">파일 다운로드 중…</string>
     <string name="foreground_service_upload">파일 업로드 중…</string>
     <string name="foreign_files_fail">일부 파일을 이동할 수 없음</string>
     <string name="foreign_files_local_text">로컬: %1$s</string>
@@ -841,6 +839,8 @@
     <string name="update_link_file_no_exist">업데이트할 수 없습니다. 파일이 존재하는지 체크해주십시오.</string>
     <string name="update_link_forbidden_permissions">이 공유를 업데이트할</string>
     <string name="updating_share_failed">공유 갱신 실패</string>
+    <string name="upload_action_failed_clear">실패한 업로드 삭제</string>
+    <string name="upload_action_failed_retry">실패한 업로드 다시 시도</string>
     <string name="upload_cannot_create_file">로컬 파일을 만들 수 없음</string>
     <string name="upload_chooser_title">다음에서 업로드…</string>
     <string name="upload_content_from_other_apps">다른 앱에서 자료 업로드</string>
@@ -900,6 +900,7 @@
     <string name="uploads_view_group_current_uploads">현재</string>
     <string name="uploads_view_group_failed_uploads">다시 시작 실패/대기 중</string>
     <string name="uploads_view_group_finished_uploads">업로드됨</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">취소됨</string>
     <string name="uploads_view_later_waiting_to_upload">업로드 대기 중</string>
     <string name="uploads_view_title">업로드</string>
     <string name="uploads_view_upload_status_cancelled">취소됨</string>
