@@ -279,7 +279,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="etm_accounts">Akun</string>
     <string name="etm_background_job_name">Nama pekerjaan</string>
     <string name="etm_background_job_progress">Kemajuan</string>
-    <string name="etm_background_job_started">Dimulai</string>
     <string name="etm_background_job_state">Kondisi</string>
     <string name="etm_background_job_user">Pengguna</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -375,7 +374,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="forbidden_permissions_delete">untuk menghapus berkas ini</string>
     <string name="forbidden_permissions_move">untuk memindahkan berkas ini</string>
     <string name="forbidden_permissions_rename">untuk mengubah nama berkas ini</string>
-    <string name="foreground_service_download">Mengunduh berkas…</string>
     <string name="foreground_service_upload">Mengunggah berkas…</string>
     <string name="foreign_files_fail">Beberapa berkas tidak dapat dipindahkan</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
@@ -800,6 +798,8 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="update_link_file_no_exist">Tidak dapat memperbarui. Silakan periksa apakah berkas ada.</string>
     <string name="update_link_forbidden_permissions">untuk memperbarui pembagian ini</string>
     <string name="updating_share_failed">Gagal memperbarui pembagian</string>
+    <string name="upload_action_failed_clear">Bersihkan unggahan gagal.</string>
+    <string name="upload_action_failed_retry">Ulangi unggahan yang gagal.</string>
     <string name="upload_cannot_create_file">Tidak dapat membuat berkas lokal</string>
     <string name="upload_chooser_title">Unggah dari…</string>
     <string name="upload_content_from_other_apps">Unggah konten dari aplikasi lain</string>
@@ -857,6 +857,7 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="uploads_view_group_current_uploads">Saat ini</string>
     <string name="uploads_view_group_failed_uploads">Ulangi proses yang gagal/tertunda</string>
     <string name="uploads_view_group_finished_uploads">Terunggah</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Dibatalkan</string>
     <string name="uploads_view_later_waiting_to_upload">Menunggu unggahan</string>
     <string name="uploads_view_title">Unggah</string>
     <string name="uploads_view_upload_status_cancelled">Dibatalkan</string>

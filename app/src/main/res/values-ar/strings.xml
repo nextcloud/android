@@ -14,6 +14,7 @@
     <string name="action_send_share">إرسال/مشاركة</string>
     <string name="action_switch_grid_view">عرض شبكي</string>
     <string name="action_switch_list_view">عرض على شكل قائمة</string>
+    <string name="actionbar_calendar_contacts_restore">إستعادة جهات الاتصال و التقويم</string>
     <string name="actionbar_mkdir">مجلد جديد</string>
     <string name="actionbar_move_or_copy">أنقُل أو انسَخ</string>
     <string name="actionbar_open_with">فتح باستخدام</string>
@@ -78,6 +79,7 @@
     <string name="avatar">الصورة الرمزية</string>
     <string name="away">بالخارج</string>
     <string name="backup_settings">اعدادات النسخ الاحتياطي</string>
+    <string name="backup_title">النسخ الاحتياطي لجهات الاتصال و التقويم</string>
     <string name="battery_optimization_close">إغلاق</string>
     <string name="battery_optimization_disable">تعطيل</string>
     <string name="battery_optimization_message">قد يكون حفظ البطارية مفعلاً في جهازك. لذلك قد لا يعمل الرفع التلقائي إلا إذا سمحت لهذا التطبيق من أن يستبعد من هذه الميزة.</string>
@@ -296,7 +298,6 @@
     <string name="etm_background_job_created">أُنشِئَ</string>
     <string name="etm_background_job_name">إسم المهمة</string>
     <string name="etm_background_job_progress">التقدم</string>
-    <string name="etm_background_job_started">تم البدء</string>
     <string name="etm_background_job_state">الحالة</string>
     <string name="etm_background_job_user">المستخدم</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -389,6 +390,9 @@
     <string name="filename_forbidden_charaters_from_server">اسم الملف به على الأقل حرفٌ غير صالح</string>
     <string name="filename_hint">اسم الملف</string>
     <string name="first_run_1_text">حافظ على بياناتك آمنة وتحت سيطرتك</string>
+    <string name="first_run_2_text">العمل التعاوني الآمن و تبادل الملفات</string>
+    <string name="first_run_3_text">بريد وب و تقويم و جهات اتصال سهلة الاستخدام</string>
+    <string name="first_run_4_text">مُشاركة الشاشة و الاجتماع عن بعد و مؤتمرات الوب</string>
     <string name="folder_already_exists">المجلد موجود مسبقاً</string>
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
@@ -402,7 +406,6 @@
     <string name="forbidden_permissions_delete">لحذف هذا الملف</string>
     <string name="forbidden_permissions_move">لنقل هذا الملف</string>
     <string name="forbidden_permissions_rename">لإعادة تسمية هذا الملف</string>
-    <string name="foreground_service_download">جارٍ تنزيل الملفات…</string>
     <string name="foreground_service_upload">جارٍ تحميل الملفات…</string>
     <string name="foreign_files_fail">تعذر نقل بعض الملفات</string>
     <string name="foreign_files_local_text">محلّي : %1$s</string>
@@ -581,13 +584,16 @@
     <string name="pref_instant_name_collision_policy_entries_rename">إعادة تسمية الإصدار الجديد</string>
     <string name="pref_instant_name_collision_policy_title">ماذا تفعل إذا كان الملف موجودًا مسبقاً؟</string>
     <string name="prefs_add_account">أضف حساباً</string>
+    <string name="prefs_calendar_contacts">مُزامنة التقويم و جهات الاتصال</string>
     <string name="prefs_calendar_contacts_no_store_error">كلا من تطبيقي أف-دويد و متجر غوغل عير منصبين</string>
     <string name="prefs_calendar_contacts_summary">قم بإعداد DAVx5 (المعروف سابقًا باسم DAVdroid) (v1.3.0 +) للحساب الجاري</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">التجهيز لمزامنة التقويم و جهات الاتصال</string>
     <string name="prefs_category_about">حول</string>
     <string name="prefs_category_details">تفاصيل</string>
     <string name="prefs_category_dev">التطوير</string>
     <string name="prefs_category_general">عام</string>
     <string name="prefs_category_more">المزيد</string>
+    <string name="prefs_daily_backup_summary">النسخ الاحتياطي اليومي لتقويمك و جهات اتصالك</string>
     <string name="prefs_daily_contact_backup_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
     <string name="prefs_davx5_setup_error">خطأ غير متوقع عند تجهيز DAVx5 ( الذي كان معروفاً سابقاً باسم DAVdroid)</string>
     <string name="prefs_e2e_active">التشفير من الحدّ للحدّ E2E جاهز!</string>
@@ -600,6 +606,8 @@
     <string name="prefs_imprint">البصمة</string>
     <string name="prefs_instant_behaviour_dialogTitle">سيكون الملف الأصلي…</string>
     <string name="prefs_instant_behaviour_title">سيكون الملف الأصلي…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">إستثناء الملفات و المجلدات المخفية</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">إستثناء المخفي</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">التخزين في مجلدات فرعية بناءً على التاريخ</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">استخدم المجلدات الفرعية</string>
     <string name="prefs_instant_upload_subfolder_rule_title">خيارات المجلدات الفرعية</string>
@@ -680,6 +688,8 @@
     <string name="screenshot_04_accounts_heading">كافة حساباتك</string>
     <string name="screenshot_04_accounts_subline">في مكان واحد</string>
     <string name="screenshot_05_autoUpload_heading">تحميل تلقائي</string>
+    <string name="screenshot_05_autoUpload_subline">لصورك و فيديوهاتك</string>
+    <string name="screenshot_06_davdroid_heading">القويم و جهات الاتصال</string>
     <string name="screenshot_06_davdroid_subline">مزامنة مع DAVx5</string>
     <string name="search_error">خطاء في الحصول على نتائج البحث</string>
     <string name="secure_share_not_set_up">المشاركة الآمنة لم يتم إعدادها بالنسبة لهذا المستخدِم</string>
@@ -698,6 +708,7 @@
     <string name="set_status_message">تعيين رسالة الحالة</string>
     <string name="setup_e2e">خلال تجهيز التشفير من الحدّ للحدّ، سوف تصلك جملة عشوائية مُكوّنة من 12 كلمة ستحتاج إليها لفتح ملفاتك على الأجهزة الأخرى. هذه الجملة سوف يتم تخزينها على هذا الجهاز فقط و يمكنك عرضها على الشاشة مرة أخرى. رجاءً، دوّنها و احفظها في مكانٍ آمنٍ!</string>
     <string name="share">مشاركة </string>
+    <string name="share_copy_link">شارك و انسخ الرابط</string>
     <string name="share_dialog_title">مشاركة</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">تنتهي %1$s</string>
@@ -783,6 +794,8 @@
     <string name="storage_permission_full_access">النفاذ الكامل</string>
     <string name="storage_permission_media_read_only">الوسائط للقراءة فقط</string>
     <string name="storage_pictures">الصور</string>
+    <string name="store_full_desc">منصة الإنتاجية المستضافة ذاتياً و الذي تُبقيك مسيطراً.\n\nالميزات:\n* واجهة سهلة وحديثة ومتناسبة مع تيمات الخادوم عندك\n* تحميل الملفات إلى خادوم نكست كلاود عندك\n* مشاركتها مع الآخرين\n * المزامنة المستمرة لملفاتك و مجلداتك\n* البحث عبر كافة المجلدات الموجودة على االخادوم عندك\n* التحميل التلقائي للصور و مقاطع الفيديو التي تم التقاطها بواسطة جهازك\n* البقاء على اطلاع دائم بالإشعارات\n* دعم الحسابات المتعددة\n* الوصول الآمن إلى بياناتك باستخدام بصمة الإصبع أو رقم التعريف الشخصي\n* التكامل مع DAVx5 (المعروف سابقًا باسم DAVdroid) لإعداد سهل للتقويم ومزامنة جهات الاتصال \n\nيرجى الإبلاغ عن جميع المشكلات على https://github.com/nextcloud/android/issues ؛ كما يمكنك دخول المناقشات حول هذا التطبيق على https://help.nextcloud.com/c/clients/android\n\nNew
+و إذا كنت جديداً على نكست كلاود؛ فإن نكست كلاود هو منصة لمزامنة الملفات ومشاركتها و للتواصل. و هي  برنامج مجاني يمكنك استضافته بنفسك أو الدفع لشركة للقيام بذلك نيابةً عنك. وبهذه الطريقة، يمكنك التحكم في صورك وتقويمك و جهات اتصالك و مستنداتك و كل ما لديك.\n\nللمزيد، أنظر: https://nextcloud.com</string>
     <string name="store_full_dev_desc">منصة الإنتاجية ذاتية الاستضافة التي تبقيك تحت السيطرة.\nهذه هي النسخة التطويرية الرسمية ، وتضم عينة يومية من أي وظيفة جديدة غير مختبرة ، والتي قد تسبب عدم الاستقرار وفقدان البيانات. التطبيق مخصص للمستخدمين الراغبين في الاختبار والإبلاغ عن الأخطاء في حالة حدوثها. لا تستخدمه لعملك الإنتاجي!\n\nيتوفر كل من النسخة الرسمية والنسخة التطويرية على F-droid، ويمكن تثبيتهما في نفس الوقت.</string>
     <string name="store_short_desc">منصة إنتاجية ذاتية الاستضافة تبقيك متحكمًا</string>
     <string name="store_short_dev_desc">منصة إنتاجية ذاتية الاستضافة تبقيك متحكمًا (نسخة المطوريين)</string>
@@ -796,6 +809,7 @@
     <string name="subject_shared_with_you">تمت مشاركة \"%1$s\" معك</string>
     <string name="subject_user_shared_with_you">%1$s شارك معك \"%2$s\"</string>
     <string name="subtitle_photos_only">الصور فقط</string>
+    <string name="subtitle_photos_videos">الصور و الفيديوهات</string>
     <string name="subtitle_videos_only">مقاطع الفيديو فقط</string>
     <string name="suggest">اقتراح</string>
     <string name="sync_conflicts_in_favourites_ticker">هناك تعارض</string>
@@ -855,6 +869,13 @@
     <string name="update_link_file_no_exist">تعذر التحديث. يرجى التحقق من وجود الملف.</string>
     <string name="update_link_forbidden_permissions">لتحديث هذه المشاركة</string>
     <string name="updating_share_failed">فشل تحديث المشاركة</string>
+    <string name="upload_action_cancelled_clear">مسح المرفوعات الملغاة</string>
+    <string name="upload_action_cancelled_resume">إستئناف المرفوعات الملغاة</string>
+    <string name="upload_action_failed_clear">مسح الملفات التي فشل رفعها</string>
+    <string name="upload_action_failed_retry">أعِد محاولات الرفع الفاشلة</string>
+    <string name="upload_action_file_not_exist_message">بعض الملفات غير موجودة و لا يمكن استئناف هذه الملفات</string>
+    <string name="upload_action_global_upload_pause">جمِّد كل عمليات الرفع</string>
+    <string name="upload_action_global_upload_resume">إستَأنِف عمليات الرفع</string>
     <string name="upload_cannot_create_file">لا يمكن إنشاء ملف محلي</string>
     <string name="upload_chooser_title">الرفع من…</string>
     <string name="upload_content_from_other_apps">تحميل محتوى من تطبيقات أخرى</string>
@@ -866,6 +887,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">ملف نصي مقتطف (.txt)</string>
     <string name="upload_file_dialog_title">إدخال اسم الملف ونوع الملف للرفع</string>
     <string name="upload_files">حمل الملفات</string>
+    <string name="upload_global_pause_title">كل عمليات الرفع مجمدة</string>
     <string name="upload_item_action_button">زر إجراء رفع العنصر</string>
     <string name="upload_list_delete">حذف</string>
     <string name="upload_list_empty_headline">لا توجد تحميلات</string>
@@ -874,6 +896,7 @@
     <string name="upload_local_storage_full">التخزين المحلي ممتلئ</string>
     <string name="upload_local_storage_not_copied">تعذر نسخ الملف إلى التخزين المحلي</string>
     <string name="upload_lock_failed">فشل قفّل المجلد</string>
+    <string name="upload_manually_cancelled">عملية الرفع تمّ إلغاؤها من مُستخدِم</string>
     <string name="upload_old_android">التشفير ممكن فقط مع &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">يمنع وجود مساحة غير كافية نسخ الملفات المحددة إلى المجلد %1$s. هل ترغب في نقلهم إلى هناك بدلاً من ذلك؟</string>
     <string name="upload_quota_exceeded">الحصة التخزينية تمّ استنفاذها</string>
@@ -916,6 +939,7 @@
     <string name="uploads_view_group_current_uploads">الحالي</string>
     <string name="uploads_view_group_failed_uploads">فشل / في انتظار إعادة التشغيل</string>
     <string name="uploads_view_group_finished_uploads">تم رفعه</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">ملغى</string>
     <string name="uploads_view_later_waiting_to_upload">بانتظار الرفع</string>
     <string name="uploads_view_title">التحميلات</string>
     <string name="uploads_view_upload_status_cancelled">ملغي</string>

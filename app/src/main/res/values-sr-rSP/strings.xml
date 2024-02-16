@@ -287,7 +287,6 @@
     <string name="forbidden_permissions_delete">da obrišete ovaj fajl</string>
     <string name="forbidden_permissions_move">da premestite ovaj fajl</string>
     <string name="forbidden_permissions_rename">da preimenujete ovaj fajl</string>
-    <string name="foreground_service_download">Skidam fajlove…</string>
     <string name="foreground_service_upload">Otpremam fajlove…</string>
     <string name="foreign_files_fail">Neki fajlovi nisu mogli biti premešteni</string>
     <string name="foreign_files_local_text">Lokalni: %1$s</string>
@@ -587,6 +586,7 @@
     <string name="untrusted_domain">Pristup kroz domen koji nije od poverenja. Pogledajte dokumentaciju za još informacija.</string>
     <string name="update_link_forbidden_permissions">da ažurirate ovaj fajl</string>
     <string name="updating_share_failed">Ažuriranje deljenja nije uspelo</string>
+    <string name="upload_action_failed_clear">Izbriši neuspela otpremanja</string>
     <string name="upload_cannot_create_file">Ne mogu da napravim lokalni fajl</string>
     <string name="upload_chooser_title">Otpremi iz…</string>
     <string name="upload_content_from_other_apps">Otpremi sadržaj iz drugih aplikacija</string>
@@ -636,6 +636,7 @@
     <string name="uploads_view_group_current_uploads">Tekuće</string>
     <string name="uploads_view_group_failed_uploads">Greška/čekam na ponovno pokretanje</string>
     <string name="uploads_view_group_finished_uploads">Otpremljeno</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Otkazano</string>
     <string name="uploads_view_later_waiting_to_upload">Čekam otpremanje</string>
     <string name="uploads_view_title">Otpremanja</string>
     <string name="uploads_view_upload_status_cancelled">Otkazano</string>

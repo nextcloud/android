@@ -290,7 +290,6 @@
     <string name="forbidden_permissions_delete">forigi ĉi tiun dosieron</string>
     <string name="forbidden_permissions_move">movi ĉi tiun dosieron</string>
     <string name="forbidden_permissions_rename">alinomi ĉi tiun dosieron</string>
-    <string name="foreground_service_download">Elŝutado de dosieroj...</string>
     <string name="foreground_service_upload">Alŝutado de dosieroj...</string>
     <string name="foreign_files_fail">Kelkaj dosieroj ne eblis moviĝi</string>
     <string name="foreign_files_local_text">Loka: %1$s</string>
@@ -574,6 +573,8 @@
     <string name="untrusted_domain">Aliro per nefidinda domajno. Vidu la helpdokumentojn por scii pli.</string>
     <string name="update_link_forbidden_permissions">ĝisdatigi ĉi tiun kunhavon</string>
     <string name="updating_share_failed">Ĝisdatigo de kunhavo malsukcesis</string>
+    <string name="upload_action_failed_clear">Vakigi malsukcesajn alŝutojn</string>
+    <string name="upload_action_failed_retry">Reprovi malsukcesajn alŝutojn</string>
     <string name="upload_cannot_create_file">Ne eblas krei lokan dosieron</string>
     <string name="upload_chooser_title">Alŝuti el...</string>
     <string name="upload_content_from_other_apps">Alŝuti enhavon el aliaj aplikaĵoj</string>
@@ -623,6 +624,7 @@
     <string name="uploads_view_group_current_uploads">Nuna</string>
     <string name="uploads_view_group_failed_uploads">Malsukcesa aŭ atendante reprovadon</string>
     <string name="uploads_view_group_finished_uploads">Alŝutita</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Nuligita</string>
     <string name="uploads_view_later_waiting_to_upload">Atendo por alŝuti</string>
     <string name="uploads_view_title">Alŝutoj</string>
     <string name="uploads_view_upload_status_cancelled">Nuligita</string>

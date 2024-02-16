@@ -284,7 +284,6 @@
     <string name="etm_accounts">Λογαριασμοί</string>
     <string name="etm_background_job_name">Όνομα εργασίας</string>
     <string name="etm_background_job_progress">Πρόοδος</string>
-    <string name="etm_background_job_started">Ξεκίνησε</string>
     <string name="etm_background_job_state">Κατάσταση</string>
     <string name="etm_background_job_user">Χρήστης</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -389,7 +388,6 @@
     <string name="forbidden_permissions_delete">για να διαγράψετε αυτό το αρχείο</string>
     <string name="forbidden_permissions_move">για μετακίνηση αυτού του αρχείου</string>
     <string name="forbidden_permissions_rename">για να μετονομάσετε αυτό το αρχείο</string>
-    <string name="foreground_service_download">Λήψη αρχείων…</string>
     <string name="foreground_service_upload">Μεταφόρτωση αρχείων…</string>
     <string name="foreign_files_fail">Αδυναμία μετακίνησης μερικών αρχείων</string>
     <string name="foreign_files_local_text">Τοπικά: %1$s</string>
@@ -804,6 +802,8 @@
     <string name="update_link_file_no_exist">Αδυναμία ενημέρωσης. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει.</string>
     <string name="update_link_forbidden_permissions">για να ενημερώσετε αυτό τον διαμοιρασμό</string>
     <string name="updating_share_failed">Η ενημέρωση της κοινής χρήσης απέτυχε</string>
+    <string name="upload_action_failed_clear">Εκκαθάριση αποτυχημένων μεταφορτώσεων</string>
+    <string name="upload_action_failed_retry">Επανάληψη αποτυχημένων μεταφορτώσεων</string>
     <string name="upload_cannot_create_file">Αδυναμία δημιουργίας τοπικού αρχείου</string>
     <string name="upload_chooser_title">Μεταφόρτωση από…</string>
     <string name="upload_content_from_other_apps">Μεταφόρτωση περιεχομένου από άλλες εφαρμογές</string>
@@ -859,6 +859,7 @@
     <string name="uploads_view_group_current_uploads">Τρέχουσα</string>
     <string name="uploads_view_group_failed_uploads">Αποτυχία/αναμονή επανεκκίνησης</string>
     <string name="uploads_view_group_finished_uploads">Μεταφορτώθηκε</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Ακυρώθηκε</string>
     <string name="uploads_view_later_waiting_to_upload">Αναμονή για μεταφόρτωση</string>
     <string name="uploads_view_title">Μεταφορτώσεις</string>
     <string name="uploads_view_upload_status_cancelled">Ακυρώθηκαν</string>

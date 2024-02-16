@@ -290,7 +290,6 @@
     <string name="etm_accounts">账号</string>
     <string name="etm_background_job_name">工作名称</string>
     <string name="etm_background_job_progress">进度</string>
-    <string name="etm_background_job_started">已开始</string>
     <string name="etm_background_job_state">状况</string>
     <string name="etm_background_job_user">用户</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -396,7 +395,6 @@
     <string name="forbidden_permissions_delete">删除这个文件</string>
     <string name="forbidden_permissions_move">移动这个文件</string>
     <string name="forbidden_permissions_rename">重命名这个文件</string>
-    <string name="foreground_service_download">正在下载文件…</string>
     <string name="foreground_service_upload">正在上传文件... </string>
     <string name="foreign_files_fail">某些文件无法被移动</string>
     <string name="foreign_files_local_text">本地: %1$s</string>
@@ -841,6 +839,8 @@
     <string name="update_link_file_no_exist">无法更新文件。请检查文件是否存在。</string>
     <string name="update_link_forbidden_permissions">更新共享</string>
     <string name="updating_share_failed">更新共享失败</string>
+    <string name="upload_action_failed_clear">清除失败上传任务</string>
+    <string name="upload_action_failed_retry">重试失败上传任务</string>
     <string name="upload_cannot_create_file">无法新建本地文件</string>
     <string name="upload_chooser_title">上传自...</string>
     <string name="upload_content_from_other_apps">上传来自其它应用的内容</string>
@@ -898,6 +898,7 @@
     <string name="uploads_view_group_current_uploads">当前</string>
     <string name="uploads_view_group_failed_uploads">失败 / 等待重启</string>
     <string name="uploads_view_group_finished_uploads">已上传</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">已取消</string>
     <string name="uploads_view_later_waiting_to_upload">等待上传</string>
     <string name="uploads_view_title">上传</string>
     <string name="uploads_view_upload_status_cancelled">已取消</string>

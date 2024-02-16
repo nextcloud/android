@@ -261,7 +261,6 @@
     <string name="etm_accounts">Paskyros</string>
     <string name="etm_background_job_name">Užduoties pavadinimas</string>
     <string name="etm_background_job_progress">Eiga</string>
-    <string name="etm_background_job_started">Pradėta</string>
     <string name="etm_background_job_state">Būsena</string>
     <string name="etm_background_job_user">Naudotojas</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -363,7 +362,6 @@
     <string name="forbidden_permissions_delete">ištrinti failo</string>
     <string name="forbidden_permissions_move">perkelti šį failą</string>
     <string name="forbidden_permissions_rename">pervadinti failo</string>
-    <string name="foreground_service_download">Atsisiunčiami failai…</string>
     <string name="foreground_service_upload">Įkeliami failai…</string>
     <string name="foreign_files_fail">Kai kurių failų nepavyko perkelti</string>
     <string name="foreign_files_local_text">Vietinis: %1$s</string>
@@ -743,6 +741,8 @@
     <string name="update_link_file_no_exist">Nepavyko atnaujinti. Patikrinkite, ar failas egzistuoja.</string>
     <string name="update_link_forbidden_permissions">atnaujinti šį viešinį</string>
     <string name="updating_share_failed">Viešinio atnaujinimas nepavyko</string>
+    <string name="upload_action_failed_clear">Išvalyti nepavykusius įkėlimus</string>
+    <string name="upload_action_failed_retry">Pabandyti iš naujo nepavykusius įkėlimus</string>
     <string name="upload_cannot_create_file">Nepavyksta sukurti vietinį failą</string>
     <string name="upload_chooser_title">Įkelti iš…</string>
     <string name="upload_content_from_other_apps">Įkelti turinį iš kitų programėlių</string>
@@ -797,6 +797,7 @@
     <string name="uploads_view_group_current_uploads">Dabartinis</string>
     <string name="uploads_view_group_failed_uploads">Nepavyko/laukiama paleidimo iš naujo</string>
     <string name="uploads_view_group_finished_uploads">Įkelta</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Atsisakytas</string>
     <string name="uploads_view_later_waiting_to_upload">Įkelinėjamas failas</string>
     <string name="uploads_view_title">Įkėlimai</string>
     <string name="uploads_view_upload_status_cancelled">Atsisakyta</string>

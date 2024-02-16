@@ -289,7 +289,6 @@
     <string name="etm_background_job_created">Utworzono</string>
     <string name="etm_background_job_name">Nazwa zadania</string>
     <string name="etm_background_job_progress">Postęp</string>
-    <string name="etm_background_job_started">Rozpoczęte</string>
     <string name="etm_background_job_state">Stan</string>
     <string name="etm_background_job_user">Użytkownik</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -395,7 +394,6 @@
     <string name="forbidden_permissions_delete">do usunięcia tego pliku</string>
     <string name="forbidden_permissions_move">do przeniesienia tego pliku</string>
     <string name="forbidden_permissions_rename">do zmiany nazwy tego pliku</string>
-    <string name="foreground_service_download">Pobieranie plików…</string>
     <string name="foreground_service_upload">Wysyłanie plików…</string>
     <string name="foreign_files_fail">Niektóre pliki nie mogły zostać przeniesione</string>
     <string name="foreign_files_local_text">Lokalnie: %1$s</string>
@@ -837,6 +835,8 @@
     <string name="update_link_file_no_exist">Nie można zaktualizować. Sprawdź, czy plik istnieje.</string>
     <string name="update_link_forbidden_permissions">do zaktualizowania tego udostępnienia</string>
     <string name="updating_share_failed">Zmiana udostępniania nie powiodła się</string>
+    <string name="upload_action_failed_clear">Wyczyść nieudane wysyłanie</string>
+    <string name="upload_action_failed_retry">Ponów nieudane wysyłanie</string>
     <string name="upload_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
     <string name="upload_chooser_title">Wyślij plik z…</string>
     <string name="upload_content_from_other_apps">Wyślij z innej aplikacji</string>
@@ -895,6 +895,7 @@
     <string name="uploads_view_group_current_uploads">Bieżące</string>
     <string name="uploads_view_group_failed_uploads">Nieudane/oczekujące na ponowne uruchomienie</string>
     <string name="uploads_view_group_finished_uploads">Wysłane</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Anulowane</string>
     <string name="uploads_view_later_waiting_to_upload">Oczekuje na wysłanie</string>
     <string name="uploads_view_title">Wysłane</string>
     <string name="uploads_view_upload_status_cancelled">Przerwano</string>

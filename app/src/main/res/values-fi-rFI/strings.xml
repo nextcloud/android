@@ -275,7 +275,6 @@
     <string name="etm_background_job_created">Luonut</string>
     <string name="etm_background_job_name">Työn nimi</string>
     <string name="etm_background_job_progress">Edistyminen</string>
-    <string name="etm_background_job_started">Käynnistetty</string>
     <string name="etm_background_job_state">Tila</string>
     <string name="etm_background_job_user">Käyttäjä</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -380,7 +379,6 @@
     <string name="forbidden_permissions_delete">poistaa tiedostoa</string>
     <string name="forbidden_permissions_move">siirtää tämä tiedosto</string>
     <string name="forbidden_permissions_rename">nimetä tiedostoa uudelleen</string>
-    <string name="foreground_service_download">Ladataan tiedostoja…</string>
     <string name="foreground_service_upload">Lähetetään tiedostoja…</string>
     <string name="foreign_files_fail">Joitain tiedostoja ei voitu siirtää</string>
     <string name="foreign_files_local_text">Paikallinen: %1$s</string>
@@ -793,6 +791,8 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="update_link_file_no_exist">Ei voida päivittää. Ole hyvä ja tarkasta, onko tiedosto olemassa.</string>
     <string name="update_link_forbidden_permissions">päivitä tämä jako</string>
     <string name="updating_share_failed">Jaon päivitys epäonnistui</string>
+    <string name="upload_action_failed_clear">Tyhjennä epäonnistuneet lähetykset</string>
+    <string name="upload_action_failed_retry">Yritä lähetystä uudelleen</string>
     <string name="upload_cannot_create_file">Paikallista tiedostoa ei voi luoda</string>
     <string name="upload_chooser_title">Lähetä…</string>
     <string name="upload_content_from_other_apps">Lähetä sisältöä toisista sovelluksista</string>
@@ -848,6 +848,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="uploads_view_group_current_uploads">Nykyiset</string>
     <string name="uploads_view_group_failed_uploads">Epäonnistuneet/odottaa uudelleenlähetystä</string>
     <string name="uploads_view_group_finished_uploads">Lähetetty</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Peruttu</string>
     <string name="uploads_view_later_waiting_to_upload">Odottaa siirtoa</string>
     <string name="uploads_view_title">Lähetykset</string>
     <string name="uploads_view_upload_status_cancelled">Peruttu</string>

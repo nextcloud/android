@@ -426,6 +426,8 @@
     <string name="unshare_link_forbidden_permissions">შეწყვიტოთ ამ ფაილის გაზიარება</string>
     <string name="untrusted_domain">წვდომა არასანდო დომენით. დამატებითი ინფორმაციისთვის გთხოვთ იხილოთ დოკუმენტაცია.</string>
     <string name="update_link_forbidden_permissions">განაახლოთ ეს გაზიარება</string>
+    <string name="upload_action_failed_clear">წარუმატებლად დასრულებული ატვირთების გასუფთავება</string>
+    <string name="upload_action_failed_retry">წარუმატებლად დასრულებული ატვირთების ხელახლა გაშვება</string>
     <string name="upload_file_dialog_filename">ფაილის სახელი</string>
     <string name="upload_file_dialog_filetype">ფაილის სახეობა</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps იარლიყის ფაილი(%s)</string>
@@ -465,6 +467,7 @@
     <string name="uploads_view_group_current_uploads">მიმდინარე</string>
     <string name="uploads_view_group_failed_uploads">ვერ მოხერხებული/მიმდინარე რესტარტი</string>
     <string name="uploads_view_group_finished_uploads">ატვირთულია</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">უარყოფილია</string>
     <string name="uploads_view_later_waiting_to_upload">ველოდებით ატვირთვას</string>
     <string name="uploads_view_title">ატვირთვები</string>
     <string name="uploads_view_upload_status_cancelled">უარყოფილია</string>

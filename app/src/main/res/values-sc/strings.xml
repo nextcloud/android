@@ -251,7 +251,6 @@
     <string name="etm_background_job_created">Creadu</string>
     <string name="etm_background_job_name">Nùmene de su traballu</string>
     <string name="etm_background_job_progress">Progressu</string>
-    <string name="etm_background_job_started">Cumintzadu</string>
     <string name="etm_background_job_state">Istadu</string>
     <string name="etm_background_job_user">Utente</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -349,7 +348,6 @@
     <string name="forbidden_permissions_delete">de cantzellare custu documentu</string>
     <string name="forbidden_permissions_move">de tramudare custu documentu</string>
     <string name="forbidden_permissions_rename">de torrare a numenare custu documentu</string>
-    <string name="foreground_service_download">Iscarrighende documentos…</string>
     <string name="foreground_service_upload">Carrighende documentos…</string>
     <string name="foreign_files_fail">No at fatu a tramudare carchi archìviu</string>
     <string name="foreign_files_local_text">Locale: %1$s</string>
@@ -716,6 +714,7 @@
     <string name="update_link_file_no_exist">No at fatu a agiornare. Controlla si s\'archìviu esistit.</string>
     <string name="update_link_forbidden_permissions">de agiornare custa cumpartzidura</string>
     <string name="updating_share_failed">Agiornamentu de sa cumpartzidura faddidu</string>
+    <string name="upload_action_failed_clear">Boga·nche is carrigamentos faddidos</string>
     <string name="upload_cannot_create_file">No at fatu a creare s\'archìviu locale</string>
     <string name="upload_chooser_title">Càrriga dae…</string>
     <string name="upload_content_from_other_apps">Càrriga cuntenutu dae àteras aplicatziones</string>
@@ -770,6 +769,7 @@
     <string name="uploads_view_group_current_uploads">Atuale</string>
     <string name="uploads_view_group_failed_uploads">Faddidu/in isetu de aviare torra</string>
     <string name="uploads_view_group_finished_uploads">Carrigadu</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Annulladu</string>
     <string name="uploads_view_later_waiting_to_upload">Abetende pro carrigare</string>
     <string name="uploads_view_title">Carrigamentos</string>
     <string name="uploads_view_upload_status_cancelled">Annulladu</string>

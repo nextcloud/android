@@ -263,7 +263,6 @@
     <string name="etm_accounts">Računi</string>
     <string name="etm_background_job_name">Naziv zadatka</string>
     <string name="etm_background_job_progress">Napredak</string>
-    <string name="etm_background_job_started">Pokrenuto</string>
     <string name="etm_background_job_state">Stanje</string>
     <string name="etm_background_job_user">@string/user_icon</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -368,7 +367,6 @@
     <string name="forbidden_permissions_delete">za brisanje ove datoteke</string>
     <string name="forbidden_permissions_move">za premještanje ove datoteke</string>
     <string name="forbidden_permissions_rename">za preimenovanje ove datoteke</string>
-    <string name="foreground_service_download">Preuzimanje datoteka...</string>
     <string name="foreground_service_upload">Otpremanje datoteka...</string>
     <string name="foreign_files_fail">Neke datoteke nije moguće premjestiti</string>
     <string name="foreign_files_local_text">Lokalno: %1$s</string>
@@ -766,6 +764,8 @@
     <string name="update_link_file_no_exist">Nije moguće ažurirati. Provjerite postoji li datoteka.</string>
     <string name="update_link_forbidden_permissions">za ažuriranje ovog dijeljenja</string>
     <string name="updating_share_failed">Ažuriranje dijeljenja nije uspjelo</string>
+    <string name="upload_action_failed_clear">Izbriši neuspješne otpreme</string>
+    <string name="upload_action_failed_retry">Ponovno pokušaj neuspjele otpreme</string>
     <string name="upload_cannot_create_file">Nije moguće stvoriti lokalnu datoteku</string>
     <string name="upload_chooser_title">Otpremi iz...</string>
     <string name="upload_content_from_other_apps">Otpremi sadržaj iz drugih aplikacija</string>
@@ -821,6 +821,7 @@
     <string name="uploads_view_group_current_uploads">Trenutno</string>
     <string name="uploads_view_group_failed_uploads">Neuspješno/čekanje na ponovno pokretanje</string>
     <string name="uploads_view_group_finished_uploads">Otpremljeno</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Otkazano</string>
     <string name="uploads_view_later_waiting_to_upload">Čekanje otpreme</string>
     <string name="uploads_view_title">Otpreme</string>
     <string name="uploads_view_upload_status_cancelled">Otkazano</string>

@@ -14,6 +14,7 @@
     <string name="action_send_share">Envoyer / Partager</string>
     <string name="action_switch_grid_view">Affichage mosaïque</string>
     <string name="action_switch_list_view">Affichage liste</string>
+    <string name="actionbar_calendar_contacts_restore">Restaurer les contacts et l\'agenda</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_move_or_copy">Déplacer ou copier</string>
     <string name="actionbar_open_with">Ouvrir avec</string>
@@ -295,7 +296,6 @@
     <string name="etm_background_job_created">Créée</string>
     <string name="etm_background_job_name">Nom de la tâche </string>
     <string name="etm_background_job_progress">Progression</string>
-    <string name="etm_background_job_started">Démarré</string>
     <string name="etm_background_job_state">État</string>
     <string name="etm_background_job_user">Utilisateur</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -401,7 +401,6 @@
     <string name="forbidden_permissions_delete">de supprimer ce fichier</string>
     <string name="forbidden_permissions_move">de déplacer ce fichier</string>
     <string name="forbidden_permissions_rename">de renommer ce fichier</string>
-    <string name="foreground_service_download">Réception de fichiers…</string>
     <string name="foreground_service_upload">Téléversement des fichiers…</string>
     <string name="foreign_files_fail">Certains fichiers n\'ont pu être déplacés</string>
     <string name="foreign_files_local_text">Local : %1$s</string>
@@ -575,8 +574,10 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Renommer la nouvelle version</string>
     <string name="pref_instant_name_collision_policy_title">Que faire si le fichier existe déjà ?</string>
     <string name="prefs_add_account">Ajouter un compte</string>
+    <string name="prefs_calendar_contacts">Synchroniser l\'agenda et les contacts</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni Google Play Store ou F-Droid ne sont installés</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVx5 (autrefois connu comme DAVdroid) (v1.3.0+) pour le compte actuel</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">La synchronisation de l\'agenda et des contacts a bien été configurée.</string>
     <string name="prefs_category_about">À propos</string>
     <string name="prefs_category_details">Préférences</string>
     <string name="prefs_category_dev">Dév</string>
@@ -594,6 +595,8 @@
     <string name="prefs_imprint">Mentions</string>
     <string name="prefs_instant_behaviour_dialogTitle">Le fichier original sera…</string>
     <string name="prefs_instant_behaviour_title">Le fichier original sera…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Exclure les fichiers et dossiers cachés</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Exclure les cachés</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Stockage dans des sous-dossiers se basant sur la date</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Utiliser des sous-dossiers</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Options du sous-dossier</string>
@@ -773,6 +776,7 @@
     <string name="storage_permission_full_access">Accès complet</string>
     <string name="storage_permission_media_read_only">Média en lecture seule</string>
     <string name="storage_pictures">Images</string>
+    <string name="store_full_desc">La plateforme de productivité auto-hébergée qui vous redonne le contrôle.\n\nFonctionalités: \n* Intuitif, interface moderne, adaptée au thème de votre serveur.\n* Envoyez des fichiers sur votre serveur Nextcloud\n* Partagez avec d\'autres personnes\n* Gardez vos fichiers et dossiers préférés synchronisés\n* Recherchez dans tous les dossiers de votre serveur\n* Téléversement automatique des photos et vidéos prises par votre appareil\n* Restez à jour avec les notifications\n* Supporte plusieurs comptes simultanément\n* Accès sécurisé avec votre empreinte digitale ou un PIN\n* Intégration avec DAVx5 (ancien nom : DAVdroid) pour configurer facilement l\'agenda&amp;et synchroniser les contacts\n\nMerci de signaler les problèmes sur https://github.com/nextcloud/android/issues et discutez de cette application sur https://help.nextcloud.com/c/clients/android\n\nNew sur Nextcloud ? Nextcloud est un serveur privé de synchronisation de fichiers&amp;de partage et de communications. C\'est un logiciel libre, et vous pouvez l\'héberger vous-même ou payer une entreprise pour le faire à votre place. De cette façon, vous avez le contrôle de vos photos, votre agenda et vos données de contacts, vos documents et tout le reste.\n\nApprenez en plus sur Nextcloud sur https://nextcloud.com</string>
     <string name="store_full_dev_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle.\nCeci est la version officielle de développement, qui présente chaque jour quelques-unes des fonctionnalités non-testées les plus récentes, causant parfois des instabilités ou des pertes de données. Cette application s\'adresse aux utilisateurs volontaires souhaitant tester et rapporter les problèmes qui peuvent arriver. Ne l\'utilisez jamais pour un environnement de production!\n\nLes versions officielles et en développement sont disponibles sur F-droid, et peuvent être utilisées en même temps.</string>
     <string name="store_short_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle</string>
     <string name="store_short_dev_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle (version de développement en démonstration)</string>
@@ -786,6 +790,7 @@
     <string name="subject_shared_with_you">\"%1$s\" a été partagé avec vous</string>
     <string name="subject_user_shared_with_you">%1$s a partagé \"%2$s\" avec vous</string>
     <string name="subtitle_photos_only">Photos uniquement</string>
+    <string name="subtitle_photos_videos">Photos et vidéos</string>
     <string name="subtitle_videos_only">Vidéos uniquement</string>
     <string name="suggest">Suggérer</string>
     <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
@@ -843,6 +848,12 @@
     <string name="update_link_file_no_exist">Impossible de mettre à jour. Vérifiez que le fichier existe </string>
     <string name="update_link_forbidden_permissions">de modifier ce partage</string>
     <string name="updating_share_failed">La mise à jour du partage a échoué</string>
+    <string name="upload_action_cancelled_clear">Effacer les téléversements annulés</string>
+    <string name="upload_action_cancelled_resume">Poursuivre les téléversements annulés</string>
+    <string name="upload_action_failed_clear">Effacer les téléversements échoués</string>
+    <string name="upload_action_failed_retry">Relancer les envois en erreur</string>
+    <string name="upload_action_global_upload_pause">Suspendre tous les téléversements</string>
+    <string name="upload_action_global_upload_resume">Poursuivre tous les téléversements</string>
     <string name="upload_cannot_create_file">Impossible de créer le fichier local</string>
     <string name="upload_chooser_title">Téléverser depuis…</string>
     <string name="upload_content_from_other_apps">Téléverser du contenu à partir d\'autres applications</string>
@@ -854,6 +865,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Extrait du fichier texte (.txt)</string>
     <string name="upload_file_dialog_title">Spécifiez le nom et le type du fichier à téléverser</string>
     <string name="upload_files">Téléverser des fichiers</string>
+    <string name="upload_global_pause_title">Tous les téléversements sont suspendus</string>
     <string name="upload_item_action_button">Bouton d\'action d\'upload</string>
     <string name="upload_list_delete">Supprimer</string>
     <string name="upload_list_empty_headline">Aucun téléversement disponible</string>
@@ -862,6 +874,7 @@
     <string name="upload_local_storage_full">Stockage local plein</string>
     <string name="upload_local_storage_not_copied">Le fichier n\'a pas pu être copié sur le stockage local</string>
     <string name="upload_lock_failed">Impossible de verrouiller le dossier</string>
+    <string name="upload_manually_cancelled">Le téléversement a été annulé par l\'utilisateur</string>
     <string name="upload_old_android">Le chiffrement n\'est disponible que pour les versions d\'Android&gt;= 5.0</string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="upload_quota_exceeded">Quota de stockage dépassé</string>
@@ -903,6 +916,7 @@
     <string name="uploads_view_group_current_uploads">En cours</string>
     <string name="uploads_view_group_failed_uploads">Échec / En attente de reprise</string>
     <string name="uploads_view_group_finished_uploads">Envoyé</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Annulé</string>
     <string name="uploads_view_later_waiting_to_upload">En attente de téléversement</string>
     <string name="uploads_view_title">Téléversements</string>
     <string name="uploads_view_upload_status_cancelled">Annulé</string>

@@ -263,7 +263,6 @@
     <string name="forbidden_permissions_delete">selle faili kustutamiseks</string>
     <string name="forbidden_permissions_move">selle faili liigutamiseks</string>
     <string name="forbidden_permissions_rename">selle faili ümbernimetamiseks</string>
-    <string name="foreground_service_download">Failide allalaadimine…</string>
     <string name="foreground_service_upload">Failide ülesaadimine…</string>
     <string name="foreign_files_fail">Mõnda faili ei saanud liigutada</string>
     <string name="foreign_files_local_text">Kohalik: %1$s</string>
@@ -446,6 +445,8 @@
     <string name="unset_favorite">Eemalda lemmikutest</string>
     <string name="unshare_link_forbidden_permissions">faili jagamise lõpetamiseks</string>
     <string name="update_link_forbidden_permissions">jagamise uuendamiseks</string>
+    <string name="upload_action_failed_clear">Puhasta ebaõnnestunud üleslaadimised</string>
+    <string name="upload_action_failed_retry">Proovi ebaõnnestunud üleslaadimisi uuesti</string>
     <string name="upload_cannot_create_file">Kohalike faili loomine ebaõnnestus</string>
     <string name="upload_content_from_other_apps">Lae üles sisu teistest rakendustest</string>
     <string name="upload_direct_camera_upload">Laadi üles kaamerast</string>
@@ -482,6 +483,7 @@
     <string name="uploader_wrn_no_account_title">Kontot ei leitud</string>
     <string name="uploads_view_group_current_uploads">Praegune</string>
     <string name="uploads_view_group_finished_uploads">Üles laetud</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Tühistatud</string>
     <string name="uploads_view_later_waiting_to_upload">Üleslaadimise ootamine</string>
     <string name="uploads_view_title">Üleslaadimised</string>
     <string name="uploads_view_upload_status_cancelled">Tühistatud</string>

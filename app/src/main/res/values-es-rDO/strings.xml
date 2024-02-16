@@ -258,7 +258,6 @@
     <string name="forbidden_permissions_delete">para borrar este archivo</string>
     <string name="forbidden_permissions_move">para mover este archivo</string>
     <string name="forbidden_permissions_rename">para renombrar este archivo</string>
-    <string name="foreground_service_download">Descargando archivos…</string>
     <string name="foreground_service_upload">Cargando archivos…</string>
     <string name="foreign_files_fail">Algunos archivos no se pudieron mover</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
@@ -468,6 +467,8 @@
     <string name="unshare_link_forbidden_permissions">para dejar de compartir este archivo</string>
     <string name="untrusted_domain">Accede a través de un dominio no de confianza. Por favor consulta la documentación para más información.</string>
     <string name="update_link_forbidden_permissions">para actualizar este recurso compartido</string>
+    <string name="upload_action_failed_clear">Borrar cargas fallidas</string>
+    <string name="upload_action_failed_retry">Reintentar cargas fallidas</string>
     <string name="upload_chooser_title">Cargar forma…</string>
     <string name="upload_content_from_other_apps">Cargar contenido de otras aplicaciones</string>
     <string name="upload_file_dialog_filename">Nombre de archivo</string>
@@ -510,6 +511,7 @@
     <string name="uploads_view_group_current_uploads">Actual</string>
     <string name="uploads_view_group_failed_uploads">Fallido/pendiente de reinicio</string>
     <string name="uploads_view_group_finished_uploads">Cargado</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Cancelado</string>
     <string name="uploads_view_later_waiting_to_upload">Esperando para cargar</string>
     <string name="uploads_view_title">Cargas</string>
     <string name="uploads_view_upload_status_cancelled">Cancelado</string>

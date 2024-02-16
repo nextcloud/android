@@ -71,6 +71,7 @@
     <string name="autoupload_custom_folder">Configurar una carpeta personalizada</string>
     <string name="autoupload_disable_power_save_check">Deshabilitar la verificación de ahorro de energía</string>
     <string name="autoupload_hide_folder">Ocultar carpeta</string>
+    <string name="autoupload_worker_foreground_info">Preparando carga automática</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
     <string name="battery_optimization_close">Cerrar</string>
@@ -207,6 +208,7 @@
     <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_item_on_device">Disponibles sin conexión</string>
+    <string name="drawer_item_personal_files">Archivos personales</string>
     <string name="drawer_item_recently_modified">Modificado recientemente</string>
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Papelera</string>
@@ -246,7 +248,6 @@
     <string name="etm_background_job_created">Creado</string>
     <string name="etm_background_job_name">Nombre de la tarea</string>
     <string name="etm_background_job_progress">Avance</string>
-    <string name="etm_background_job_started">Iniciado</string>
     <string name="etm_background_job_state">Estado</string>
     <string name="etm_background_job_user">Usuario</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -333,7 +334,6 @@
     <string name="forbidden_permissions_delete">para borrar este archivo</string>
     <string name="forbidden_permissions_move">para mover este archivo</string>
     <string name="forbidden_permissions_rename">para renombrar este archivo</string>
-    <string name="foreground_service_download">Descargando archivos…</string>
     <string name="foreground_service_upload">Cargando archivos…</string>
     <string name="foreign_files_fail">Algunos archivos no se pudieron mover</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
@@ -341,9 +341,11 @@
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
     <string name="foreign_files_success">Se han movido todos los archivos</string>
     <string name="forward">Adelante</string>
+    <string name="grid_file_features_live_photo_content_description">Este ícono indica la disponibilidad de una foto en vivo</string>
     <string name="hint_name">Nombre</string>
     <string name="hint_note">Nota</string>
     <string name="hint_password">Contraseña</string>
+    <string name="instant_upload_existing">Cargar también archivos existentes</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_path">/Cargas Automáticas</string>
     <string name="invisible">Invisible</string>
@@ -472,17 +474,21 @@
     <string name="resharing_is_not_allowed">No está permitido recompartir</string>
     <string name="resized_image_not_possible_download">No hay una imagen a escala disponible. ¿Descargar la imagen completa? </string>
     <string name="restore_button_description">Restaurar archivo eliminado</string>
+    <string name="screenshot_03_drawer_heading">Actividad, compartidos, ...</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_template">Seleccionar plantilla</string>
     <string name="send">Enviar</string>
     <string name="sendbutton_description">Ícono de botón de envío</string>
     <string name="set_as">Establecer Como</string>
     <string name="set_picture_as">Usar imagen como</string>
+    <string name="set_status">Establecer estado</string>
+    <string name="set_status_message">Establecer mensaje de estado</string>
     <string name="share">Compartir</string>
     <string name="share_dialog_title">Compartiendo</string>
     <string name="share_expiration_date_label">Expira el %1$s</string>
     <string name="share_file">Compartir %1$s</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
+    <string name="share_internal_link">Compartir enlace interno</string>
     <string name="share_link">Compartir liga</string>
     <string name="share_link_empty_password">Debes ingresar una contraseña</string>
     <string name="share_link_forbidden_permissions">para compartir este archivo</string>
@@ -549,6 +555,7 @@
     <string name="synced_folders_new_info">Las cargas instantáneas se han mejorado por completo. Re-configura tu carga automática desde el menú principal.\n\nDisfruta la nueva y mejorada carga automática. </string>
     <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <string name="synced_folders_type">Tipo</string>
+    <string name="synced_icon">Sincronizado</string>
     <string name="tags">Etiquetas</string>
     <string name="test_server_button">Probar la conexión del servidor</string>
     <string name="thirtyMinutes">30 minutos</string>
@@ -569,6 +576,8 @@
     <string name="untrusted_domain">Accede a través de un dominio no de confianza. Por favor consulta la documentación para más información.</string>
     <string name="update_link_forbidden_permissions">para actualizar este recurso compartido</string>
     <string name="updating_share_failed">Se presentó una falla al actualizar el elemento compartido</string>
+    <string name="upload_action_failed_clear">Borrar cargas fallidas</string>
+    <string name="upload_action_failed_retry">Reintentar cargas fallidas</string>
     <string name="upload_chooser_title">Cargar forma…</string>
     <string name="upload_content_from_other_apps">Cargar contenido de otras aplicaciones</string>
     <string name="upload_file_dialog_filename">Nombre de archivo</string>
@@ -611,6 +620,7 @@
     <string name="uploads_view_group_current_uploads">Actual</string>
     <string name="uploads_view_group_failed_uploads">Fallido/pendiente de reinicio</string>
     <string name="uploads_view_group_finished_uploads">Cargado</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Cancelado</string>
     <string name="uploads_view_later_waiting_to_upload">Esperando para cargar</string>
     <string name="uploads_view_title">Cargas</string>
     <string name="uploads_view_upload_status_cancelled">Cancelado</string>
@@ -647,4 +657,9 @@
     <string name="whats_new_title">Nuevo en %1$s</string>
     <string name="worker_download">Descargando archivos…</string>
     <string name="write_email">Enviar correo electrónico</string>
+    <plurals name="file_list__footer__file">
+        <item quantity="one">%1$d archivo</item>
+        <item quantity="many">%1$d archivos</item>
+        <item quantity="other">%1$d archivos</item>
+    </plurals>
     </resources>

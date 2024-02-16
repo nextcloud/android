@@ -292,7 +292,6 @@
     <string name="etm_background_job_created">Створено</string>
     <string name="etm_background_job_name">Назва завдання</string>
     <string name="etm_background_job_progress">Перебіг</string>
-    <string name="etm_background_job_started">Розпочато</string>
     <string name="etm_background_job_state">Стан</string>
     <string name="etm_background_job_user">Користувач</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -398,7 +397,6 @@
     <string name="forbidden_permissions_delete">щоби вилучити цей файл</string>
     <string name="forbidden_permissions_move">перемістити цей файл</string>
     <string name="forbidden_permissions_rename">на перейменування цього файла</string>
-    <string name="foreground_service_download">Звантаження файлів...</string>
     <string name="foreground_service_upload">Завантаження файлів...</string>
     <string name="foreign_files_fail">Окремі файли неможливо перемістити</string>
     <string name="foreign_files_local_text">Локально: %1$s</string>
@@ -836,6 +834,8 @@
     <string name="update_link_file_no_exist">Неможливо оновити. Будь ласка, перевірте, чи файл існує.</string>
     <string name="update_link_forbidden_permissions">на оновлення цього спільного каталогу</string>
     <string name="updating_share_failed">Не вдалося оновити спільний ресурс.</string>
+    <string name="upload_action_failed_clear">Очистити невдалі завантаження</string>
+    <string name="upload_action_failed_retry">Повторити невдалі вивантаження</string>
     <string name="upload_cannot_create_file">Неможливо створити файл на пристрої</string>
     <string name="upload_chooser_title">Завантажити з…</string>
     <string name="upload_content_from_other_apps">Вибрати з інших застосунків</string>
@@ -895,6 +895,7 @@
     <string name="uploads_view_group_current_uploads">Поточний</string>
     <string name="uploads_view_group_failed_uploads">Не вдалося/триває перезапуск</string>
     <string name="uploads_view_group_finished_uploads">Завантажено</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Скасовано</string>
     <string name="uploads_view_later_waiting_to_upload">Очікування завантаження</string>
     <string name="uploads_view_title">Завантаження</string>
     <string name="uploads_view_upload_status_cancelled">Скасовано</string>

@@ -464,6 +464,8 @@
     <string name="unshare_link_forbidden_permissions">lai pārtrauktu šīs datnes koplietošanu</string>
     <string name="update_link_forbidden_permissions">lai atjauninātu šo koplietošanu</string>
     <string name="updating_share_failed">Koplietojuma atjaunināšana neizdevās</string>
+    <string name="upload_action_failed_clear">Notīrīt neizdevušās augšupielādes</string>
+    <string name="upload_action_failed_retry">Atkārtot neizdevušās augšupielādes</string>
     <string name="upload_chooser_title">Augšupielādēts no…</string>
     <string name="upload_file_dialog_filename">Datnes nosaukums</string>
     <string name="upload_file_dialog_filetype">Datnes tips</string>
@@ -503,6 +505,7 @@
     <string name="uploads_view_group_current_uploads">Pašreizējais</string>
     <string name="uploads_view_group_failed_uploads">Neizdevās/gaida atsākšanu</string>
     <string name="uploads_view_group_finished_uploads">Augšupielādēts</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Atcelts</string>
     <string name="uploads_view_later_waiting_to_upload">Gaida augšupielādi</string>
     <string name="uploads_view_title">Augšupielādes</string>
     <string name="uploads_view_upload_status_cancelled">Atcelts</string>
