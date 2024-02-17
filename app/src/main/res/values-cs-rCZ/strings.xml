@@ -294,7 +294,6 @@
     <string name="etm_background_job_created">Vytvořeno</string>
     <string name="etm_background_job_name">Název úlohy</string>
     <string name="etm_background_job_progress">Průběh</string>
-    <string name="etm_background_job_started">Zahájeno</string>
     <string name="etm_background_job_state">Stav</string>
     <string name="etm_background_job_user">Uživatel</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -400,7 +399,6 @@
     <string name="forbidden_permissions_delete">pro smazání tohoto souboru</string>
     <string name="forbidden_permissions_move">pro přesun tohoto souboru</string>
     <string name="forbidden_permissions_rename">pro přejmenování tohoto souboru</string>
-    <string name="foreground_service_download">Stahování souborů…</string>
     <string name="foreground_service_upload">Nahrávání souborů…</string>
     <string name="foreign_files_fail">Některé soubory nebylo možné přesunout</string>
     <string name="foreign_files_local_text">Místní: %1$s</string>
@@ -844,6 +842,8 @@
     <string name="update_link_file_no_exist">Nedaří se změnit – zkontrolujte zda soubor existuje.</string>
     <string name="update_link_forbidden_permissions">pro změnu tohoto sdílení</string>
     <string name="updating_share_failed">Změna sdílení se nezdařila</string>
+    <string name="upload_action_failed_clear">Vyčistit nezdařená nahrávání</string>
+    <string name="upload_action_failed_retry">Zkusit znovu nezdařená nahrání</string>
     <string name="upload_cannot_create_file">Nedaří se vytvořit místní soubor</string>
     <string name="upload_chooser_title">Nahrát z…</string>
     <string name="upload_content_from_other_apps">Nahrát obsah z ostatních aplikací</string>
@@ -903,6 +903,7 @@
     <string name="uploads_view_group_current_uploads">Stávající</string>
     <string name="uploads_view_group_failed_uploads">Neúspěšné / čekající na restart</string>
     <string name="uploads_view_group_finished_uploads">Nahráno</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Zrušeno</string>
     <string name="uploads_view_later_waiting_to_upload">Čeká se na nahrání</string>
     <string name="uploads_view_title">Nahrání</string>
     <string name="uploads_view_upload_status_cancelled">Zrušeno</string>

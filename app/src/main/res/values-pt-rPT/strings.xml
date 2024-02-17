@@ -279,7 +279,6 @@
     <string name="etm_background_job_created">Criado</string>
     <string name="etm_background_job_name">Nome do Trabalho</string>
     <string name="etm_background_job_progress">Progresso</string>
-    <string name="etm_background_job_started">Iniciado</string>
     <string name="etm_background_job_state">Estado</string>
     <string name="etm_background_job_user">Utilizador</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -382,7 +381,6 @@
     <string name="forbidden_permissions_delete">para apagar este ficheiro</string>
     <string name="forbidden_permissions_move">para mover este ficheiro</string>
     <string name="forbidden_permissions_rename">para renomear este ficheiro</string>
-    <string name="foreground_service_download">A transferir os ficheiros…</string>
     <string name="foreground_service_upload">A enviar ficheiros…</string>
     <string name="foreign_files_fail">Não foi possível mover alguns ficheiros</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
@@ -812,6 +810,8 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="update_link_file_no_exist">Não é possível atualizar. Por favor, verifique se o ficheiro existe.</string>
     <string name="update_link_forbidden_permissions">para atualizar esta partilha</string>
     <string name="updating_share_failed">Actualização da partilha falhou</string>
+    <string name="upload_action_failed_clear">Limpar envios falhados</string>
+    <string name="upload_action_failed_retry">Repetir envios falhados</string>
     <string name="upload_cannot_create_file">Não é possível criar ficheiro local</string>
     <string name="upload_chooser_title">Enviar de…</string>
     <string name="upload_content_from_other_apps">Envie conteúdo a partir de outras aplicações</string>
@@ -867,6 +867,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="uploads_view_group_current_uploads">Atual</string>
     <string name="uploads_view_group_failed_uploads">Falhou/reinício pendente</string>
     <string name="uploads_view_group_finished_uploads">Enviado</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Cancelado</string>
     <string name="uploads_view_later_waiting_to_upload">A aguardar para enviar</string>
     <string name="uploads_view_title">Envios</string>
     <string name="uploads_view_upload_status_cancelled">Cancelado</string>

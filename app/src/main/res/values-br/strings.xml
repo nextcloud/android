@@ -236,7 +236,6 @@
     <string name="etm_accounts">Kont</string>
     <string name="etm_background_job_name">Anv labour</string>
     <string name="etm_background_job_progress">Araokadenn</string>
-    <string name="etm_background_job_started">Kroget</string>
     <string name="etm_background_job_state">Stad</string>
     <string name="etm_background_job_user">Implijer</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -327,7 +326,6 @@
     <string name="forbidden_permissions_delete">evit lemel ar restr</string>
     <string name="forbidden_permissions_move">evit diblasa ar restr</string>
     <string name="forbidden_permissions_rename">evit adenvel ar restr</string>
-    <string name="foreground_service_download">O pellgargañ restroù ...</string>
     <string name="foreground_service_upload">O pellkas restreoù ...</string>
     <string name="foreign_files_fail">Ne oa ket posupl diblasañ ar restroù</string>
     <string name="foreign_files_local_text">Diabarzh: %1$s</string>
@@ -663,6 +661,7 @@
     <string name="update_link_file_no_exist">Dibosupl adnevesañ. Sellit m\'az eus ouzh ar restr.</string>
     <string name="update_link_forbidden_permissions">evit adnevezañ ar rannadenn</string>
     <string name="updating_share_failed">Adnevesadenn ar ranndenn c\'hwitet</string>
+    <string name="upload_action_failed_clear">Lemmel ar pellgasoù chwitet</string>
     <string name="upload_cannot_create_file">Dibosupl kroui ur restr diabarzh</string>
     <string name="upload_chooser_title">Pellkas eus ..</string>
     <string name="upload_content_from_other_apps">Pellkas ar gemenadenn diouzh ur meziant all</string>
@@ -716,6 +715,7 @@
     <string name="uploads_view_group_current_uploads">A red</string>
     <string name="uploads_view_group_failed_uploads">Adlakaat war dro c\'hwitet pe re hir</string>
     <string name="uploads_view_group_finished_uploads">Pellkaset</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Arrestet</string>
     <string name="uploads_view_later_waiting_to_upload">O gortoz ar pellkas</string>
     <string name="uploads_view_title">Pellkasadennoù</string>
     <string name="uploads_view_upload_status_cancelled">Arrestet</string>

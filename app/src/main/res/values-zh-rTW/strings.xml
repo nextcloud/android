@@ -14,6 +14,7 @@
     <string name="action_send_share">傳送/分享</string>
     <string name="action_switch_grid_view">網格檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
+    <string name="actionbar_calendar_contacts_restore">還原通訊錄與日曆</string>
     <string name="actionbar_mkdir">新資料夾</string>
     <string name="actionbar_move_or_copy">移動或複製</string>
     <string name="actionbar_open_with">開啟方式</string>
@@ -78,6 +79,7 @@
     <string name="avatar">頭像</string>
     <string name="away">外出</string>
     <string name="backup_settings">備份設定</string>
+    <string name="backup_title">通訊錄與日曆備份</string>
     <string name="battery_optimization_close">關閉</string>
     <string name="battery_optimization_disable">停用</string>
     <string name="battery_optimization_message">您的裝置可能啟用了電池最佳化。自動上傳功能只能在排除此應用程式的情況下才能運作。</string>
@@ -239,6 +241,7 @@
     <string name="drawer_item_home">家目錄</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">在裝置上</string>
+    <string name="drawer_item_personal_files">個人檔案</string>
     <string name="drawer_item_recently_modified">最近修改的</string>
     <string name="drawer_item_shared">已分享</string>
     <string name="drawer_item_trashbin">回收桶</string>
@@ -295,7 +298,6 @@
     <string name="etm_background_job_created">已建立</string>
     <string name="etm_background_job_name">工作名稱</string>
     <string name="etm_background_job_progress">進度</string>
-    <string name="etm_background_job_started">開始於</string>
     <string name="etm_background_job_state">狀態</string>
     <string name="etm_background_job_user">使用者</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -388,6 +390,9 @@
     <string name="filename_forbidden_charaters_from_server">檔案名稱包含了至少一個無效的字元</string>
     <string name="filename_hint">檔案名稱</string>
     <string name="first_run_1_text">保障您的資料安全，且由您掌控</string>
+    <string name="first_run_2_text">安全協作與檔案交換</string>
+    <string name="first_run_3_text">易於使用的網路郵件、日曆與通訊錄</string>
+    <string name="first_run_4_text">螢幕分享、線上會議與網路會議</string>
     <string name="folder_already_exists">資料夾已存在</string>
     <string name="folder_confirm_create">建立</string>
     <string name="folder_list_empty_headline">這裡沒有資料夾</string>
@@ -401,7 +406,6 @@
     <string name="forbidden_permissions_delete">刪除這個檔案</string>
     <string name="forbidden_permissions_move">移動這個檔案</string>
     <string name="forbidden_permissions_rename">重新命名檔案</string>
-    <string name="foreground_service_download">正在下載檔案……</string>
     <string name="foreground_service_upload">正在上傳檔案……</string>
     <string name="foreign_files_fail">有些檔案無法被移動</string>
     <string name="foreign_files_local_text">本機：%1$s</string>
@@ -576,13 +580,16 @@
     <string name="pref_instant_name_collision_policy_entries_rename">重新命名新的版本</string>
     <string name="pref_instant_name_collision_policy_title">當檔案已經存在時我該怎麼做?</string>
     <string name="prefs_add_account">新增帳號</string>
+    <string name="prefs_calendar_contacts">同步日曆與通訊錄</string>
     <string name="prefs_calendar_contacts_no_store_error">尚未安裝 F-Droid 或 Google Play</string>
     <string name="prefs_calendar_contacts_summary">為目前使用者帳號設定 DAVx5（以前稱為 DAVdroid）（版本 v1.3.0 以上）</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">日曆與通訊錄同步設定</string>
     <string name="prefs_category_about">關於</string>
     <string name="prefs_category_details">詳細資料</string>
     <string name="prefs_category_dev">開發版</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">更多</string>
+    <string name="prefs_daily_backup_summary">每日備份您的日曆與通訊錄</string>
     <string name="prefs_daily_contact_backup_summary">每日備份您的通訊錄</string>
     <string name="prefs_davx5_setup_error">設定 DAVx5（先前稱為 DAVdroid）時發生意外錯誤</string>
     <string name="prefs_e2e_active">端到端加密已設定完成！</string>
@@ -595,6 +602,8 @@
     <string name="prefs_imprint">法律聲明</string>
     <string name="prefs_instant_behaviour_dialogTitle">原始的檔案將會……</string>
     <string name="prefs_instant_behaviour_title">原始的檔案將會……</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">排除隱藏檔與資料夾</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">排除隱藏</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">根據日期儲存在下層資料夾中</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子資料夾</string>
     <string name="prefs_instant_upload_subfolder_rule_title">下層資料夾選項</string>
@@ -674,6 +683,8 @@
     <string name="screenshot_04_accounts_heading">您所有的帳號</string>
     <string name="screenshot_04_accounts_subline">在一個地方</string>
     <string name="screenshot_05_autoUpload_heading">自動上傳</string>
+    <string name="screenshot_05_autoUpload_subline">您的照片與視訊</string>
+    <string name="screenshot_06_davdroid_heading">日曆與通訊錄</string>
     <string name="screenshot_06_davdroid_subline">使用 DAVx5 同步</string>
     <string name="search_error">取得搜尋結果時發生錯誤</string>
     <string name="secure_share_not_set_up">尚未為此使用者設定安全分享</string>
@@ -692,6 +703,7 @@
     <string name="set_status_message">設定狀態訊息</string>
     <string name="setup_e2e">在設定端到端加密期間，您將會收到一個隨機的 12 字助記字串，您需要這個字串才能在其他裝置上開啟檔案。這將只會儲存在此裝置上，並可以在此畫面中再次顯示。請記在安全的地方！</string>
     <string name="share">分享</string>
+    <string name="share_copy_link">分享並複製連結</string>
     <string name="share_dialog_title">分享</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">過期 %1$s</string>
@@ -777,6 +789,7 @@
     <string name="storage_permission_full_access">完整存取權限</string>
     <string name="storage_permission_media_read_only">僅媒體唯讀</string>
     <string name="storage_pictures">圖片</string>
+    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的使用者介面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多帳號支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx5 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 回報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https://nextcloud.com 以取得更多資訊</string>
     <string name="store_full_dev_desc">可自架且始終讓您掌控一切的生產力平台。\n這是官方的開發版本，每天都會提供未經測試的任何新功能的範例，可能造成不穩定或資料遺失。此應用程式適合願意測試且回報遇到的問題的使用者。不要將其用於您的生產力工作！\n\nF-Droid 同時提供了官方的開發版本與一般版本，可同時安裝。</string>
     <string name="store_short_desc">讓你能完全掌控、自建且具生產力的平台</string>
     <string name="store_short_dev_desc">讓你能完全掌控、自建且具生產力的平台（開發者預覽版）</string>
@@ -790,6 +803,7 @@
     <string name="subject_shared_with_you">「%1$s」已經與您分享</string>
     <string name="subject_user_shared_with_you">%1$s 分享了「%2$s」給您</string>
     <string name="subtitle_photos_only">僅限照片</string>
+    <string name="subtitle_photos_videos">照片與視訊</string>
     <string name="subtitle_videos_only">僅影片</string>
     <string name="suggest">建議</string>
     <string name="sync_conflicts_in_favourites_ticker">出現衝突</string>
@@ -847,6 +861,13 @@
     <string name="update_link_file_no_exist">無法更新。請確認檔案是否存在。</string>
     <string name="update_link_forbidden_permissions">更新此分享</string>
     <string name="updating_share_failed">上傳分享失敗</string>
+    <string name="upload_action_cancelled_clear">清除已取消的上傳</string>
+    <string name="upload_action_cancelled_resume">繼續已取消的上傳</string>
+    <string name="upload_action_failed_clear">清除失敗的上傳</string>
+    <string name="upload_action_failed_retry">重試未成功的上傳項目</string>
+    <string name="upload_action_file_not_exist_message">部份檔案不存在，這些檔案無法繼續</string>
+    <string name="upload_action_global_upload_pause">暫停所有上傳</string>
+    <string name="upload_action_global_upload_resume">繼續所有上傳</string>
     <string name="upload_cannot_create_file">無法建立本機檔案</string>
     <string name="upload_chooser_title">上傳自……</string>
     <string name="upload_content_from_other_apps">從其它應用程式上傳</string>
@@ -858,6 +879,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">片段文字檔 (.txt)</string>
     <string name="upload_file_dialog_title">輸入上傳的檔名和類型</string>
     <string name="upload_files">上傳檔案</string>
+    <string name="upload_global_pause_title">所有上傳皆已暫停</string>
     <string name="upload_item_action_button">上傳動作按鈕</string>
     <string name="upload_list_delete">刪除</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
@@ -866,6 +888,7 @@
     <string name="upload_local_storage_full">本機儲存空間已滿</string>
     <string name="upload_local_storage_not_copied">無法複製檔案到本機儲存空間</string>
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
+    <string name="upload_manually_cancelled">使用者已取消上傳</string>
     <string name="upload_old_android">加密功能僅適用於 Android 5.0 及更新版本</string>
     <string name="upload_query_move_foreign_files">空間不足以將選擇的檔案複製到 %1$s 資料夾，是否要改成移動它們？</string>
     <string name="upload_quota_exceeded">超過儲存空間配額</string>
@@ -907,6 +930,7 @@
     <string name="uploads_view_group_current_uploads">目前</string>
     <string name="uploads_view_group_failed_uploads">失敗/等待重啟</string>
     <string name="uploads_view_group_finished_uploads">已上傳</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">已取消</string>
     <string name="uploads_view_later_waiting_to_upload">上傳等候中</string>
     <string name="uploads_view_title">上傳</string>
     <string name="uploads_view_upload_status_cancelled">已取消</string>

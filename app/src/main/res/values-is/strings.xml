@@ -286,7 +286,6 @@
     <string name="etm_background_job_created">Búið til þann</string>
     <string name="etm_background_job_name">Heiti verks</string>
     <string name="etm_background_job_progress">Framvinda</string>
-    <string name="etm_background_job_started">Ræst</string>
     <string name="etm_background_job_state">Staða</string>
     <string name="etm_background_job_user">Notandi</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -389,7 +388,6 @@
     <string name="forbidden_permissions_delete">til að eyða þessari skrá</string>
     <string name="forbidden_permissions_move">til að færa þessa skrá</string>
     <string name="forbidden_permissions_rename">til að endurnefna þessa skrá</string>
-    <string name="foreground_service_download">Sæki skrár…</string>
     <string name="foreground_service_upload">Sendi inn skrár…</string>
     <string name="foreign_files_fail">Ekki tókst að færa sumar skrár</string>
     <string name="foreign_files_local_text">Staðvært: %1$s</string>
@@ -820,6 +818,8 @@
     <string name="update_link_file_no_exist">Get ekki uppfært. Athugaðu hvort skráin sé til.</string>
     <string name="update_link_forbidden_permissions">til að uppfæra þessa sameign</string>
     <string name="updating_share_failed">Mistókst að uppfæra sameign</string>
+    <string name="upload_action_failed_clear">Hreinsa lista yfir innsendingar sem mistókust</string>
+    <string name="upload_action_failed_retry">Prófa aftur innsendingar sem mistókust</string>
     <string name="upload_cannot_create_file">Get ekki búið til skrá á tölvu</string>
     <string name="upload_chooser_title">Senda inn frá…</string>
     <string name="upload_content_from_other_apps">Senda inn efni frá öðrum forritum</string>
@@ -876,6 +876,7 @@
     <string name="uploads_view_group_current_uploads">Núverandi</string>
     <string name="uploads_view_group_failed_uploads">Mistókst/Bíður endurræsingar</string>
     <string name="uploads_view_group_finished_uploads">Hlaðið inn</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Hætt við</string>
     <string name="uploads_view_later_waiting_to_upload">Bíð eftir að senda inn</string>
     <string name="uploads_view_title">Innsendingar</string>
     <string name="uploads_view_upload_status_cancelled">Hætt við</string>

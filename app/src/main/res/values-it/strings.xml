@@ -289,7 +289,6 @@
     <string name="etm_background_job_created">Creato il</string>
     <string name="etm_background_job_name">Nome operazione</string>
     <string name="etm_background_job_progress">Avanzamento</string>
-    <string name="etm_background_job_started">Avviata</string>
     <string name="etm_background_job_state">Stato</string>
     <string name="etm_background_job_user">Utente</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -394,7 +393,6 @@
     <string name="forbidden_permissions_delete">per eliminare questo file</string>
     <string name="forbidden_permissions_move">per spostare questo file</string>
     <string name="forbidden_permissions_rename">per rinominare questo file</string>
-    <string name="foreground_service_download">Scaricamento file in corso…</string>
     <string name="foreground_service_upload">Caricamento file in corso…</string>
     <string name="foreign_files_fail">Alcuni file non possono essere spostati</string>
     <string name="foreign_files_local_text">Locale: %1$s</string>
@@ -836,6 +834,8 @@
     <string name="update_link_file_no_exist">Impossibile aggiornare. Assicurati che il file esista.</string>
     <string name="update_link_forbidden_permissions">per aggiornare questa condivisione</string>
     <string name="updating_share_failed">Aggiornamento condivisione non riuscito</string>
+    <string name="upload_action_failed_clear">Cancella caricamenti non riusciti</string>
+    <string name="upload_action_failed_retry">Riprova caricamenti non riusciti</string>
     <string name="upload_cannot_create_file">Impossibile creare il file locale</string>
     <string name="upload_chooser_title">Carica da…</string>
     <string name="upload_content_from_other_apps">Carica contenuti da altre applicazioni</string>
@@ -893,6 +893,7 @@
     <string name="uploads_view_group_current_uploads">Attuale</string>
     <string name="uploads_view_group_failed_uploads">Riavvio non riuscito/in corso</string>
     <string name="uploads_view_group_finished_uploads">Caricati</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Annullato</string>
     <string name="uploads_view_later_waiting_to_upload">In attesa di caricamento</string>
     <string name="uploads_view_title">Caricamenti</string>
     <string name="uploads_view_upload_status_cancelled">Annullati</string>

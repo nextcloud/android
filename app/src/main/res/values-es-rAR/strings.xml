@@ -285,7 +285,6 @@
     <string name="etm_accounts">Cuentas</string>
     <string name="etm_background_job_name">Nombre del trabajo</string>
     <string name="etm_background_job_progress">Progreso</string>
-    <string name="etm_background_job_started">Iniciado</string>
     <string name="etm_background_job_state">Estado</string>
     <string name="etm_background_job_user">Usuario</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -389,7 +388,6 @@
     <string name="forbidden_permissions_delete">para borrar este archivo</string>
     <string name="forbidden_permissions_move">para mover este archivo</string>
     <string name="forbidden_permissions_rename">para renombrar este archivo</string>
-    <string name="foreground_service_download">Descargando archivos…</string>
     <string name="foreground_service_upload">Subiendo archivos…</string>
     <string name="foreign_files_fail">Algunos archivos no pudieron ser movidos</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
@@ -781,6 +779,8 @@
     <string name="update_link_file_no_exist">Falla al actualizar. Favor de verificar si el archivo existe</string>
     <string name="update_link_forbidden_permissions">para actualizar este recurso compartido</string>
     <string name="updating_share_failed">La actualización de la compartición falló</string>
+    <string name="upload_action_failed_clear">Borrar subidas fallidas</string>
+    <string name="upload_action_failed_retry">Reintentar subidas fallidas</string>
     <string name="upload_cannot_create_file">No se puede crear el archivo local</string>
     <string name="upload_chooser_title">Subiendo desde…</string>
     <string name="upload_content_from_other_apps">Subir contenido de otras aplicaciones</string>
@@ -834,6 +834,7 @@
     <string name="uploads_view_group_current_uploads">Actual</string>
     <string name="uploads_view_group_failed_uploads">Reinicio fallido/pendiente</string>
     <string name="uploads_view_group_finished_uploads">Cargado</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Cancelado</string>
     <string name="uploads_view_later_waiting_to_upload">Esperando para cargar</string>
     <string name="uploads_view_title">Cargas</string>
     <string name="uploads_view_upload_status_cancelled">Cancelado</string>

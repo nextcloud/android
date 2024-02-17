@@ -248,7 +248,6 @@
     <string name="etm_accounts">ບັນຊີ</string>
     <string name="etm_background_job_name">ຊື່ວຽກ</string>
     <string name="etm_background_job_progress">ດຳເນີນການ</string>
-    <string name="etm_background_job_started">ເລີີມຕົ້ນ</string>
     <string name="etm_background_job_state">ກ່າວ</string>
     <string name="etm_background_job_user">ຜູ້ໃຊ້</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -341,7 +340,6 @@
     <string name="forbidden_permissions_delete">ລຶບຟາຍນີ້</string>
     <string name="forbidden_permissions_move">ຢ້າຍຟາຍນີ້</string>
     <string name="forbidden_permissions_rename">ປ່ຽນຊື່ຟາຍນີ້</string>
-    <string name="foreground_service_download">ກຳລັງອັບໂຫຼດຟາຍນີ້</string>
     <string name="foreground_service_upload">ອັບໂຫຼດໄຟລ໌...</string>
     <string name="foreign_files_fail">ບາງຟາຍບໍ່ສາມາດເຄື່ອນຍ້າຍໄດ້</string>
     <string name="foreign_files_local_text">ຊ່ອງເກັບ%1$s</string>
@@ -693,6 +691,7 @@
     <string name="update_link_file_no_exist">ບໍ່ສາມາດປັບປຸງໄດ້. ກະລຸນາກວດເບິ່ງວ່າຟາຍມີຢູ່ຫຼືບໍ່.</string>
     <string name="update_link_forbidden_permissions">ເພື່ອປັບປຸງການແບ່ງປັນນີ້</string>
     <string name="updating_share_failed">ການປັບປຸງການແບ່ງປັນບໍ່ສໍາເລັດ</string>
+    <string name="upload_action_failed_clear">ການອັບໂຫຼດບໍ່ສຳເລັດ</string>
     <string name="upload_cannot_create_file">ບໍ່ສາມາດສ້າງຟາຍໄດ້</string>
     <string name="upload_chooser_title">ອັບໂຫຼດຈາກ...</string>
     <string name="upload_content_from_other_apps">ອັບໂຫລດເນື້ອຫາຈາກແອັບອື່ນໆ</string>
@@ -746,6 +745,7 @@
     <string name="uploads_view_group_current_uploads">ປັດຈຸບັນ</string>
     <string name="uploads_view_group_failed_uploads">ການເລີ່ມບໍ່ສຳເລັດ/ຄ້າງ</string>
     <string name="uploads_view_group_finished_uploads">ອັບໂຫຼດແລ້ວ</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">ຍົກເລີກ</string>
     <string name="uploads_view_later_waiting_to_upload">ລໍຖ້າເພື່ອອັບໂຫຼດ</string>
     <string name="uploads_view_title">ອັບໂຫຼດ</string>
     <string name="uploads_view_upload_status_cancelled">ຍົກເລີກ</string>

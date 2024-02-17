@@ -239,7 +239,6 @@
     <string name="etm_accounts">Hasaplar</string>
     <string name="etm_background_job_name">Işiň ady</string>
     <string name="etm_background_job_progress">Ösüş</string>
-    <string name="etm_background_job_started">Başlady</string>
     <string name="etm_background_job_state">Ýagdaýy</string>
     <string name="etm_background_job_user">Ulanyjy</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -332,7 +331,6 @@
     <string name="forbidden_permissions_delete">bu faýly pozmak</string>
     <string name="forbidden_permissions_move">bu faýly geçirmek</string>
     <string name="forbidden_permissions_rename">bu faýlyň adyny üýtgetmek</string>
-    <string name="foreground_service_download">Faýllary göçürip almaklyk...</string>
     <string name="foreground_service_upload">Faýl ýüklemek…</string>
     <string name="foreign_files_fail">Käbir faýllary süýşürip bolmaýar</string>
     <string name="foreign_files_local_text">Ýerli:%1$s</string>
@@ -681,6 +679,7 @@
     <string name="update_link_file_no_exist">Täzelenip bolmaýar Faýlyň bardygyny ýa-da ýokdugyny barlaň.</string>
     <string name="update_link_forbidden_permissions">bu paýy täzelemek üçin</string>
     <string name="updating_share_failed">Paý paýy täzelendi</string>
+    <string name="upload_action_failed_clear">Şowsuz ýüklemeleri arassalaň</string>
     <string name="upload_cannot_create_file">Ýerli faýl döredip bolmaýar</string>
     <string name="upload_chooser_title">Ýüklemek…</string>
     <string name="upload_content_from_other_apps">Mazmuny beýleki programmalardan ýükläň</string>
@@ -734,6 +733,7 @@
     <string name="uploads_view_group_current_uploads">Häzirki</string>
     <string name="uploads_view_group_failed_uploads">Şowsuz / täzeden başlamaga garaşýar</string>
     <string name="uploads_view_group_finished_uploads">Ýüklendi</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Ýatyryldy</string>
     <string name="uploads_view_later_waiting_to_upload">Ýüklemek üçin garaşýar</string>
     <string name="uploads_view_title">Ýüklemeler</string>
     <string name="uploads_view_upload_status_cancelled">Ýatyryldy</string>

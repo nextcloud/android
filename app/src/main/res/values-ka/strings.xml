@@ -289,7 +289,6 @@
     <string name="etm_background_job_created">Created</string>
     <string name="etm_background_job_name">Job name</string>
     <string name="etm_background_job_progress">Progress</string>
-    <string name="etm_background_job_started">Started</string>
     <string name="etm_background_job_state">State</string>
     <string name="etm_background_job_user">User</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -395,7 +394,6 @@
     <string name="forbidden_permissions_delete">to delete this file</string>
     <string name="forbidden_permissions_move">to move this file</string>
     <string name="forbidden_permissions_rename">to rename this file</string>
-    <string name="foreground_service_download">Downloading files…</string>
     <string name="foreground_service_upload">Uploading files…</string>
     <string name="foreign_files_fail">Some files could not be moved</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
@@ -837,6 +835,7 @@
     <string name="update_link_file_no_exist">Unable to update. Please check whether the file exists.</string>
     <string name="update_link_forbidden_permissions">to update this share</string>
     <string name="updating_share_failed">Updating share failed</string>
+    <string name="upload_action_failed_clear">Clear failed uploads</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_chooser_title">Upload from…</string>
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
@@ -895,6 +894,7 @@
     <string name="uploads_view_group_current_uploads">Current</string>
     <string name="uploads_view_group_failed_uploads">Failed/pending restart</string>
     <string name="uploads_view_group_finished_uploads">Uploaded</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Cancelled</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_upload_status_cancelled">Cancelled</string>

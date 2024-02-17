@@ -14,6 +14,7 @@
     <string name="action_send_share">Send/Share</string>
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
+    <string name="actionbar_calendar_contacts_restore">Restore contacts and calendar</string>
     <string name="actionbar_mkdir">New folder</string>
     <string name="actionbar_move_or_copy">Move or Copy</string>
     <string name="actionbar_open_with">Open with</string>
@@ -78,6 +79,7 @@
     <string name="avatar">Avatar</string>
     <string name="away">Away</string>
     <string name="backup_settings">Backup settings</string>
+    <string name="backup_title">Contacts and calendar backup</string>
     <string name="battery_optimization_close">Close</string>
     <string name="battery_optimization_disable">Disable</string>
     <string name="battery_optimization_message">Your device may have battery optimization enabled. AutoUpload works only properly if you exclude this app from it.</string>
@@ -296,7 +298,6 @@
     <string name="etm_background_job_created">Created</string>
     <string name="etm_background_job_name">Job name</string>
     <string name="etm_background_job_progress">Progress</string>
-    <string name="etm_background_job_started">Started</string>
     <string name="etm_background_job_state">State</string>
     <string name="etm_background_job_user">User</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -389,6 +390,9 @@
     <string name="filename_forbidden_charaters_from_server">Filename contains at least one invalid character</string>
     <string name="filename_hint">Filename</string>
     <string name="first_run_1_text">Keep your data secure and under your control</string>
+    <string name="first_run_2_text">Secure collaboration and file exchange</string>
+    <string name="first_run_3_text">Easy-to-use webmail, calendar and contacts</string>
+    <string name="first_run_4_text">Screensharing, online meetings and web conferences</string>
     <string name="folder_already_exists">Folder already exists</string>
     <string name="folder_confirm_create">Create</string>
     <string name="folder_list_empty_headline">No folders here</string>
@@ -402,7 +406,6 @@
     <string name="forbidden_permissions_delete">to delete this file</string>
     <string name="forbidden_permissions_move">to move this file</string>
     <string name="forbidden_permissions_rename">to rename this file</string>
-    <string name="foreground_service_download">Downloading files…</string>
     <string name="foreground_service_upload">Uploading files…</string>
     <string name="foreign_files_fail">Some files could not be moved</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
@@ -577,13 +580,16 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Rename new version</string>
     <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
     <string name="prefs_add_account">Add account</string>
+    <string name="prefs_calendar_contacts">Sync calendar and contacts</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_summary">Set up DAVx5 (formerly known as DAVdroid) (v1.3.0+) for current account</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Calendar and contacts sync set up</string>
     <string name="prefs_category_about">About</string>
     <string name="prefs_category_details">Details</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
+    <string name="prefs_daily_backup_summary">Daily backup of your calendar and contacts</string>
     <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
     <string name="prefs_davx5_setup_error">Unexpected error while setting up DAVx5 (formerly known as DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end encryption is set up!</string>
@@ -596,6 +602,8 @@
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_instant_behaviour_dialogTitle">Original file will be…</string>
     <string name="prefs_instant_behaviour_title">Original file will be…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Exclude hidden files and folders</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Exclude hidden</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Store in subfolders based on date</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Subfolder options</string>
@@ -675,6 +683,8 @@
     <string name="screenshot_04_accounts_heading">All your accounts</string>
     <string name="screenshot_04_accounts_subline">in one place</string>
     <string name="screenshot_05_autoUpload_heading">Automatic upload</string>
+    <string name="screenshot_05_autoUpload_subline">for your photos and videos</string>
+    <string name="screenshot_06_davdroid_heading">Calendar and contacts</string>
     <string name="screenshot_06_davdroid_subline">Sync with DAVx5</string>
     <string name="search_error">Error getting search results</string>
     <string name="secure_share_not_set_up">Secure sharing is not set up for this user</string>
@@ -693,6 +703,7 @@
     <string name="set_status_message">Set status message</string>
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="share">Share</string>
+    <string name="share_copy_link">Share and Copy Link</string>
     <string name="share_dialog_title">Sharing</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expires %1$s</string>
@@ -778,6 +789,7 @@
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="storage_pictures">Pictures</string>
+    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar and Ccontacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync and share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
     <string name="store_full_dev_desc">The self-hosted productivity platform that keeps you in control.\nThis is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!\n\nBoth the official dev and regular version are available on F-droid, and can be installed at the same time.</string>
     <string name="store_short_desc">The self-hosted productivity platform that keeps you in control</string>
     <string name="store_short_dev_desc">The self-hosted productivity platform that keeps you in control (dev preview version)</string>
@@ -791,6 +803,7 @@
     <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
     <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
     <string name="subtitle_photos_only">Photos only</string>
+    <string name="subtitle_photos_videos">Photos and videos</string>
     <string name="subtitle_videos_only">Videos only</string>
     <string name="suggest">Suggest</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
@@ -848,6 +861,10 @@
     <string name="update_link_file_no_exist">Unable to update. Please check whether the file exists.</string>
     <string name="update_link_forbidden_permissions">to update this share</string>
     <string name="updating_share_failed">Updating share failed</string>
+    <string name="upload_action_failed_clear">Clear failed uploads</string>
+    <string name="upload_action_failed_retry">Retry failed uploads</string>
+    <string name="upload_action_global_upload_pause">Pause all uploads</string>
+    <string name="upload_action_global_upload_resume">Resume all uploads</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_chooser_title">Upload from…</string>
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
@@ -859,6 +876,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Snippet text file(.txt)</string>
     <string name="upload_file_dialog_title">Input filename and filetype to upload</string>
     <string name="upload_files">Upload files</string>
+    <string name="upload_global_pause_title">All uploads are paused</string>
     <string name="upload_item_action_button">Upload item action button</string>
     <string name="upload_list_delete">Delete</string>
     <string name="upload_list_empty_headline">No uploads available</string>
@@ -908,6 +926,7 @@
     <string name="uploads_view_group_current_uploads">Current</string>
     <string name="uploads_view_group_failed_uploads">Failed/pending restart</string>
     <string name="uploads_view_group_finished_uploads">Uploaded</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Cancelled</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_upload_status_cancelled">Cancelled</string>

@@ -339,7 +339,6 @@
     <string name="forbidden_permissions_delete">ให้ลบไฟล์นี้</string>
     <string name="forbidden_permissions_move">ให้ย้ายไฟล์นี้</string>
     <string name="forbidden_permissions_rename">ให้เปลี่ยนชื่อไฟล์นี้</string>
-    <string name="foreground_service_download">กำลังดาวน์โหลดไฟล์…</string>
     <string name="foreground_service_upload">กำลังอัปโหลดไฟล์…</string>
     <string name="foreign_files_fail">ไม่สามารถย้ายบางไฟล์</string>
     <string name="foreign_files_local_text">ในเครื่อง: %1$s</string>
@@ -567,6 +566,7 @@
     <string name="trashbin_file_remove">ลบแบบถาวร</string>
     <string name="unshare_link_forbidden_permissions">เพื่อเลิกแชร์ไฟล์นี้</string>
     <string name="update_link_forbidden_permissions">เพื่ออัปเดตการแชร์นี้</string>
+    <string name="upload_action_failed_clear">ล้างการอัปโหลดที่ล้มเหลว</string>
     <string name="upload_cannot_create_file">ไม่สามารถสร้างไฟล์ต้นทาง</string>
     <string name="upload_chooser_title">อัปโหลดจาก…</string>
     <string name="upload_content_from_other_apps">อัปโหลดเนื้อหาจากแอปอื่น</string>
@@ -597,6 +597,7 @@
     <string name="uploader_wrn_no_account_title">ไม่พบบัญชี</string>
     <string name="uploads_view_group_current_uploads">ปัจจุบัน</string>
     <string name="uploads_view_group_finished_uploads">ถูกอัพโหลด</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">ยกเลิกแล้ว</string>
     <string name="uploads_view_later_waiting_to_upload">กำลังรอที่จะอัปโหลด</string>
     <string name="uploads_view_title">อัปโหลด</string>
     <string name="uploads_view_upload_status_cancelled">ยกเลิกแล้ว</string>

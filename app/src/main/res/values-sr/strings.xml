@@ -14,6 +14,7 @@
     <string name="action_send_share">Слање/Дељење</string>
     <string name="action_switch_grid_view">Приказ мреже</string>
     <string name="action_switch_list_view">Приказ листе</string>
+    <string name="actionbar_calendar_contacts_restore">Обнови контакте и календар </string>
     <string name="actionbar_mkdir">Нова фасцикла</string>
     <string name="actionbar_move_or_copy">Премести или копирај</string>
     <string name="actionbar_open_with">Отвори помоћу</string>
@@ -78,6 +79,7 @@
     <string name="avatar">Аватар</string>
     <string name="away">Одсутан</string>
     <string name="backup_settings">Поставке резервне копије</string>
+    <string name="backup_title">Резервна копија контакта и календара</string>
     <string name="battery_optimization_close">Затвори</string>
     <string name="battery_optimization_disable">Искључи</string>
     <string name="battery_optimization_message">Аутоматско отпремање ради само ако изузмете ову апликацију из оптимизације батерије.</string>
@@ -296,7 +298,6 @@
     <string name="etm_background_job_created">Направљен</string>
     <string name="etm_background_job_name">Назив посла</string>
     <string name="etm_background_job_progress">Напредак</string>
-    <string name="etm_background_job_started">Започет</string>
     <string name="etm_background_job_state">Стање</string>
     <string name="etm_background_job_user">Корисник</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -389,6 +390,9 @@
     <string name="filename_forbidden_charaters_from_server">Назив фајла садржи бар један недозвољен знак</string>
     <string name="filename_hint">Назив фајла</string>
     <string name="first_run_1_text">Држите податке безбедним и под контролом</string>
+    <string name="first_run_2_text">Безбедна сарадња и размена фајлова</string>
+    <string name="first_run_3_text">Веб пошта лака за коришћење, календар и контакти</string>
+    <string name="first_run_4_text">Дељење екрана, састанци на мрежи и веб конференције</string>
     <string name="folder_already_exists">Фасцикла већ постоји</string>
     <string name="folder_confirm_create">Направи</string>
     <string name="folder_list_empty_headline">Нема фасцикли овде</string>
@@ -402,7 +406,6 @@
     <string name="forbidden_permissions_delete">да обришете овај фајл</string>
     <string name="forbidden_permissions_move">да преместите овај фајл</string>
     <string name="forbidden_permissions_rename">да преименујете овај фајл</string>
-    <string name="foreground_service_download">Преузимам фајлове…</string>
     <string name="foreground_service_upload">Отпремам фајлове…</string>
     <string name="foreign_files_fail">Неке фајлове нисам могао да преместим</string>
     <string name="foreign_files_local_text">Локални: %1$s</string>
@@ -577,13 +580,16 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Преименуј нову верзију</string>
     <string name="pref_instant_name_collision_policy_title">Шта радити ако фајл већ постоји?</string>
     <string name="prefs_add_account">Додај налог</string>
+    <string name="prefs_calendar_contacts">Синхронизација календара и контаката</string>
     <string name="prefs_calendar_contacts_no_store_error">Ни Ф-дроид ни Гугл плеј продавница нису инсталиране</string>
     <string name="prefs_calendar_contacts_summary">Подеси DAVx5 (раније знан и као ДАВдроид) (в1.3.0+) за тренутни налог</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Синхронизација календара и контаката је подешена</string>
     <string name="prefs_category_about">О програму</string>
     <string name="prefs_category_details">Детаљи</string>
     <string name="prefs_category_dev">Развојно</string>
     <string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
+    <string name="prefs_daily_backup_summary">Дневна резервна копија вашег календара и контаката</string>
     <string name="prefs_daily_contact_backup_summary">Дневно архивирање ваших контаката</string>
     <string name="prefs_davx5_setup_error">Неочекивана грешка приликом подешавања DAVx5 (раније познатог под именом DAVdroid)</string>
     <string name="prefs_e2e_active">Подешено је шифрирање од почетка-до-краја!</string>
@@ -596,6 +602,8 @@
     <string name="prefs_imprint">Жиг</string>
     <string name="prefs_instant_behaviour_dialogTitle">Оригинални фајл биће…</string>
     <string name="prefs_instant_behaviour_title">Оригинални фајл биће…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Не отпремај скривене фајлове и фолдере</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Изузми скривено</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Сачувај у подфолдерима према датуму</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Користи потфасцикле</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Опције подфолдера</string>
@@ -675,6 +683,8 @@
     <string name="screenshot_04_accounts_heading">Сви ваши налози</string>
     <string name="screenshot_04_accounts_subline">на једном месту</string>
     <string name="screenshot_05_autoUpload_heading">Аутоматска отпремања</string>
+    <string name="screenshot_05_autoUpload_subline">слика и видео записа</string>
+    <string name="screenshot_06_davdroid_heading">Календар и контакти</string>
     <string name="screenshot_06_davdroid_subline">Синхронизација помоћу DAVx5</string>
     <string name="search_error">Грешка приликом добијања резултата претраге</string>
     <string name="secure_share_not_set_up">За овог корисника није подешено безбедно дељење</string>
@@ -693,6 +703,7 @@
     <string name="set_status_message">Постављање статусне поруке</string>
     <string name="setup_e2e">Током постављања шифрирања од почетка-до-краја примићете 12 случајних речи за памћење које ће вам бити неопходне да фајлове отворите на осталим уређајима. Ово ће се сачувати само на овом уређају и може поново да се прикаже на овом екрану. Молимо вас да их забележите на неко сигурно место!</string>
     <string name="share">Подели</string>
+    <string name="share_copy_link">Дели и копирај линк</string>
     <string name="share_dialog_title">Дељење</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истиче %1$s</string>
@@ -778,6 +789,7 @@
     <string name="storage_permission_full_access">Пуни приступ</string>
     <string name="storage_permission_media_read_only">Само читање медија</string>
     <string name="storage_pictures">Слике</string>
+    <string name="store_full_desc">Платформа продуктивности на вашем серверу и под вашом контролом.\nОсобине:\n* Лако и модерно сучеље, усклађено са темом на серверу\n* Отпремање фајлова на Некстклауд сервер\n* Дељење фајлова са другима\n* Синхронизација омиљених фајлова и фасцикли\n* Претрага кроз све фасцикле на серверу\n* Аутоматско отпремање слика и видео записа са уређаја\n* Обавештења са сервера\n* Подршка за више налога\n* Безбедан приступ свим подацима преко отиска прста или пина\n* Интеграција са DAVx5 (раније познатом као ДАВдроид) за лако подешавање синхронизације календара и контаката\n\nСве проблеме можете да пријавите на https://github.com/nextcloud/android/issues а о апликацији дискутујте на https://help.nextcloud.com/c/clients/android\n\nНови сте на Некстклауду? Некстклауд је лични сервер за синхронизацију, дељење фајлова и комуникацију. То је слободан софтвер и можете га сами поставити на свој сервер или платити компанији да то учини уместо вас. На тај начин, сами контролишете своје слике, календаре, контакте, документа и све остало.\n\nПогледајте Некстклауд на https://nextcloud.com</string>
     <string name="store_full_dev_desc">Платформа продуктивности на вашем серверу и под вашом контролом.\nОво је званична развојна верзија, која свакодневно доноси нове нетестиране могућности, које могу изазвати нестабилност или губитак података. Ова апликација је за кориснике који желе да тестирају и пријављују грешке, уколико до њих дође. Не користите је за свакодневни посао!\n\nИ званична и развојна верзија су доступне на Ф-Дроид порталу и могу бити инсталиране истовремено.</string>
     <string name="store_short_desc">Платформа продуктивности под вашом контролом</string>
     <string name="store_short_dev_desc">Платформа продуктивности под вашом контролом (развојна верзија)</string>
@@ -791,6 +803,7 @@
     <string name="subject_shared_with_you">„%1$s“ је подељен са вама</string>
     <string name="subject_user_shared_with_you">%1$s дели „%2$s“ са вама</string>
     <string name="subtitle_photos_only">Само слике</string>
+    <string name="subtitle_photos_videos">Фотографије и видео снимци</string>
     <string name="subtitle_videos_only">Само видео снимци</string>
     <string name="suggest">Предложи</string>
     <string name="sync_conflicts_in_favourites_ticker">Постоје сукоби</string>
@@ -848,6 +861,13 @@
     <string name="update_link_file_no_exist">Не могу да освежим везу. Проверите да ли фајл постоји.</string>
     <string name="update_link_forbidden_permissions">да ажурирате ово дељење</string>
     <string name="updating_share_failed">Ажурирање дељења није успело</string>
+    <string name="upload_action_cancelled_clear">Обриши отказана отпремања</string>
+    <string name="upload_action_cancelled_resume">Настави отказана отпремања</string>
+    <string name="upload_action_failed_clear">Избриши неуспела отпремања</string>
+    <string name="upload_action_failed_retry">Понови неуспела отпремања</string>
+    <string name="upload_action_file_not_exist_message">Неки фајлови не постоје, неће моћи да се настави отпремање</string>
+    <string name="upload_action_global_upload_pause">Паузирај сва отпремања</string>
+    <string name="upload_action_global_upload_resume">Настави сва отпремања</string>
     <string name="upload_cannot_create_file">Не могу да направим локални фајл</string>
     <string name="upload_chooser_title">Отпреми из…</string>
     <string name="upload_content_from_other_apps">Отпрема садржај из других апликација</string>
@@ -859,6 +879,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Текстуални исечак (.txt)</string>
     <string name="upload_file_dialog_title">Унесите назив и тип фајла за отпремање</string>
     <string name="upload_files">Отпреми фајлове</string>
+    <string name="upload_global_pause_title">Сва отпремања су паузирана</string>
     <string name="upload_item_action_button">Дугме за отпремање</string>
     <string name="upload_list_delete">Избриши</string>
     <string name="upload_list_empty_headline">Нема доступних отпремања</string>
@@ -867,6 +888,7 @@
     <string name="upload_local_storage_full">Локално складиште пуно</string>
     <string name="upload_local_storage_not_copied">Фајл није могао да се копира на локално складиште</string>
     <string name="upload_lock_failed">Неуспело закључавање фасцикле</string>
+    <string name="upload_manually_cancelled">Корисник је прекинуо отпремање</string>
     <string name="upload_old_android">Шифровање је могуће само са &gt;= Андроидом 5.0</string>
     <string name="upload_query_move_foreign_files">Недостатак простора  спречава копирање фајлова у фасциклу %1$s. Желите ли да их преместите тамо?</string>
     <string name="upload_quota_exceeded">Прекорачена је квота за складиште</string>
@@ -908,6 +930,7 @@
     <string name="uploads_view_group_current_uploads">Текуће</string>
     <string name="uploads_view_group_failed_uploads">Грешка/чекам на поновно покретање</string>
     <string name="uploads_view_group_finished_uploads">Отпремљено</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Отказано</string>
     <string name="uploads_view_later_waiting_to_upload">Чекам отпремање</string>
     <string name="uploads_view_title">Отпремања</string>
     <string name="uploads_view_upload_status_cancelled">Отказано</string>

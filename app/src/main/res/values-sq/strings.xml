@@ -229,7 +229,6 @@
     <string name="etm_background_job_created">U krijua</string>
     <string name="etm_background_job_name">Emri i punës</string>
     <string name="etm_background_job_progress">Progresi</string>
-    <string name="etm_background_job_started">Filloi</string>
     <string name="etm_background_job_state">Gjendja</string>
     <string name="etm_background_job_user">Përdorues</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -314,7 +313,6 @@
     <string name="forbidden_permissions_delete">për fshirje të kësaj kartele</string>
     <string name="forbidden_permissions_move">për zhvendosje të këtij skedari</string>
     <string name="forbidden_permissions_rename">për riemërtim të këtij skedari</string>
-    <string name="foreground_service_download">Shkarkimi i skedarëve…</string>
     <string name="foreground_service_upload">Ngarkimi i skedarëve…</string>
     <string name="foreign_files_fail">Disa skedarë nuk u zhvendosën dot</string>
     <string name="foreign_files_local_text">Vendore: %1$s</string>
@@ -629,6 +627,8 @@
     <string name="untrusted_domain">Aksesi nëpërmjet një domaini jo të besuar. Ju lutem shikoni dokumentimin për info të mëtejshme. </string>
     <string name="update_link_forbidden_permissions">që të përditësohet kjo ndarje</string>
     <string name="updating_share_failed">Duke përditësuar ndarjet e dështuara</string>
+    <string name="upload_action_failed_clear">Pastroni ngarkimet e dështuara</string>
+    <string name="upload_action_failed_retry">Riprovoni ngarkimet e dështuara</string>
     <string name="upload_cannot_create_file">Nuk mund të krijohet skedar lokal</string>
     <string name="upload_chooser_title">Ngarkojeni prej…</string>
     <string name="upload_content_from_other_apps">Ngarkoni përmbatje nga aplikacionet e tjera</string>
@@ -682,6 +682,7 @@
     <string name="uploads_view_group_current_uploads">Të tanishëm</string>
     <string name="uploads_view_group_failed_uploads">Dështoi/Rindezja në pritje</string>
     <string name="uploads_view_group_finished_uploads">U ngarkua</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">U anulua</string>
     <string name="uploads_view_later_waiting_to_upload">Po pritet për ngarkim</string>
     <string name="uploads_view_title">Ngarkime</string>
     <string name="uploads_view_upload_status_cancelled">U anulua</string>

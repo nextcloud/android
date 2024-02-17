@@ -4,7 +4,7 @@
     <string name="about_title">Om</string>
     <string name="about_version">version %1$s</string>
     <string name="about_version_with_build">version %1$s, build #%2$s</string>
-    <string name="account_creation_failed">Kontoskapande misslyckades</string>
+    <string name="account_creation_failed">Skapande av konto misslyckades</string>
     <string name="account_icon">Kontoikon</string>
     <string name="account_not_found">Kontot hittades inte!</string>
     <string name="action_clear_failed_uploads">Ta bort misslyckade uppladdningar</string>
@@ -14,6 +14,7 @@
     <string name="action_send_share">Skicka/Dela</string>
     <string name="action_switch_grid_view">Rutnätsvy</string>
     <string name="action_switch_list_view">Listvy</string>
+    <string name="actionbar_calendar_contacts_restore">Återställ kontakter och kalender</string>
     <string name="actionbar_mkdir">Ny mapp</string>
     <string name="actionbar_move_or_copy">Flytta eller kopiera</string>
     <string name="actionbar_open_with">Öppna med</string>
@@ -78,6 +79,7 @@
     <string name="avatar">Avatar</string>
     <string name="away">Iväg</string>
     <string name="backup_settings">Backupinställningar</string>
+    <string name="backup_title">Säkerhetskopiering av kontakter och kalender</string>
     <string name="battery_optimization_close">Stäng</string>
     <string name="battery_optimization_disable">Inaktivera</string>
     <string name="battery_optimization_message">Din enhet kan ha batterioptimering aktiverad. För att auto-uppladdning ska fungera måste du utesluta denna app från batterioptimering.</string>
@@ -292,10 +294,10 @@
     <string name="error_starting_direct_camera_upload">Fel vid start av kamera</string>
     <string name="error_starting_doc_scan">Fel vid start av dokumentskanning</string>
     <string name="etm_accounts">Konton</string>
+    <string name="etm_background_execution_count">Antal körningar på 48 timmar</string>
     <string name="etm_background_job_created">Skapat</string>
     <string name="etm_background_job_name">Uppdragsnamn</string>
     <string name="etm_background_job_progress">Status</string>
-    <string name="etm_background_job_started">Påbörjat</string>
     <string name="etm_background_job_state">Status</string>
     <string name="etm_background_job_user">Användare</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -388,6 +390,9 @@
     <string name="filename_forbidden_charaters_from_server">Filnamnet innehåller minst ett ogiltigt tecken</string>
     <string name="filename_hint">Filnamn</string>
     <string name="first_run_1_text">Håll dina data säkra och under din kontroll</string>
+    <string name="first_run_2_text">Säkert samarbete och filutbyte</string>
+    <string name="first_run_3_text">Lättanvänd webmail, kalender och kontakter</string>
+    <string name="first_run_4_text">Skärmdelning, onlinemöten och webbkonferenser</string>
     <string name="folder_already_exists">Mapp finns redan</string>
     <string name="folder_confirm_create">Skapa</string>
     <string name="folder_list_empty_headline">Inga mappar här</string>
@@ -401,7 +406,6 @@
     <string name="forbidden_permissions_delete">att radera denna fil</string>
     <string name="forbidden_permissions_move">att flytta den här filen</string>
     <string name="forbidden_permissions_rename">att döpa om denna fil</string>
-    <string name="foreground_service_download">Hämtar filer…</string>
     <string name="foreground_service_upload">Laddar upp filer…</string>
     <string name="foreign_files_fail">Vissa filer kunde inte flyttas</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
@@ -576,13 +580,16 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Byt namn på ny version</string>
     <string name="pref_instant_name_collision_policy_title">Vad ska göras om filen redan finns?</string>
     <string name="prefs_add_account">Lägg till konto</string>
+    <string name="prefs_calendar_contacts">Synkronisera kalender och kontakter</string>
     <string name="prefs_calendar_contacts_no_store_error">Varken F-Droid eller Google Play är installerad</string>
     <string name="prefs_calendar_contacts_summary">Sätt upp DAVx5 (tidigare DAVdroid) (v1.3.0 +) för nuvarande konto</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Synkronisera kalender och kontakter</string>
     <string name="prefs_category_about">Om</string>
     <string name="prefs_category_details">Detaljer</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Allmänt</string>
     <string name="prefs_category_more">Mer</string>
+    <string name="prefs_daily_backup_summary">Daglig backup av din kalender och dina kontakter </string>
     <string name="prefs_daily_contact_backup_summary">Daglig backup av dina kontakter</string>
     <string name="prefs_davx5_setup_error">Oväntat fel vid installation av DAVx5 (tidigare känd som DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end-kryptering är inställd!</string>
@@ -595,6 +602,8 @@
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_instant_behaviour_dialogTitle">Originalfilen kommer att…</string>
     <string name="prefs_instant_behaviour_title">Originalfilen kommer att…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Exkludera dolda filer och mappar</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Exkludera dolda</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Lagra i undermappar baserat på datum</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Använd undermappar</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Alternativ för undermapp</string>
@@ -675,6 +684,8 @@
     <string name="screenshot_04_accounts_heading">Alla dina konton</string>
     <string name="screenshot_04_accounts_subline">på ett ställe</string>
     <string name="screenshot_05_autoUpload_heading">Automatisk uppladdning</string>
+    <string name="screenshot_05_autoUpload_subline">för dina bilder och videor</string>
+    <string name="screenshot_06_davdroid_heading">Kalender och kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synka med DAVx5</string>
     <string name="search_error">Ett fel uppstod vid sökning</string>
     <string name="secure_share_not_set_up">Säker delning är inte konfigurerad för denna användare</string>
@@ -684,7 +695,7 @@
     <string name="select_one_template">Vänligen välj en mall</string>
     <string name="select_template">Välj mall</string>
     <string name="send">Skicka</string>
-    <string name="send_share">Skicka &amp; dela</string>
+    <string name="send_share">Skicka delning</string>
     <string name="sendbutton_description">Ikonen för Skicka-knapp</string>
     <string name="set_as">Sätt som</string>
     <string name="set_note">Ange anteckning</string>
@@ -693,6 +704,7 @@
     <string name="set_status_message">Sätt statusmeddelande</string>
     <string name="setup_e2e">Under inställningen av end-to-end-kryptering kommer du att få en slumpmässig 12-ords minnesregel, som du behöver för att öppna dina filer på andra enheter. Denna kommer endast att lagras på den här enheten och kan visas igen på den här skärmen. Vänligen notera den på ett säkert ställe!</string>
     <string name="share">Dela</string>
+    <string name="share_copy_link">Dela och kopiera länk</string>
     <string name="share_dialog_title">Dela</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Gick ut %1$s</string>
@@ -778,6 +790,9 @@
     <string name="storage_permission_full_access">Fullständig åtkomst</string>
     <string name="storage_permission_media_read_only">En läsåtkomst till media</string>
     <string name="storage_pictures">Bilder</string>
+    <string name="store_full_desc">Självhostade produktivitetsplattformen som ger dig kontroll.
+
+Funktioner:\n* Enkelt, modernt gränssnitt, anpassat till temat på din server\n* Ladda upp filer till din Nextcloud-server\n* Dela dem med andra\n* Håll dina favoritfiler och mappar synkade\n* Sök i alla mappar på din server\n* Automatisk uppladdning av foton och videor som skapas med din enhet\n* Håll dig uppdaterad med notiser\n* Stöd för flera konton\n* Säkra åtkomst till din data med fingeravtryck eller PIN-kod\n* Integration med DAVx5 (tidigare DAVdroid) för enkel synkning av kalendrar och kontakter\n\nRapportera alla problem på https://github.com/nextcloud/android/issues och diskutera appen på https://help.nextcloud.com/c/clients/android \n\nNy till Nextcloud? Nextcloud är en privat server för filsynkronisering, delning och kommunikation. Det är fri programvara som du kan hosta själv eller betala ett företag för att göra det åt dig. På så sätt har du kontroll över dina foton, din kalender och dina kontakter, dina dokument och allt annat.\n\nKolla in Nextcloud på https://nextcloud.com</string>
     <string name="store_full_dev_desc">Produktivitetsplattformen där du är din egen värd och håller dig i kontroll.\nDetta är den officiella utvecklingsversionen, med ett dagligt urval av någon ny otestad funktionalitet, vilket kan orsaka instabilitet och dataförlust. Appen är för användare som är villiga att testa, och rapportera fel om de inträffar. Använd inte det för ditt produktiva arbete!\n\nBåde den officiella dev och regelbunden versionen finns på F-droid, och kan installeras samtidigt.</string>
     <string name="store_short_desc">Produktivitetsplattformen där du är din egen värd och håller dig i kontroll</string>
     <string name="store_short_dev_desc">Produktivitetsplattformen där du är din egen värd och håller dig i kontroll (dev förhandsversion)</string>
@@ -791,6 +806,7 @@
     <string name="subject_shared_with_you">\"%1$s\" har delats med dig</string>
     <string name="subject_user_shared_with_you">%1$s delade \"%2$s\" med dig</string>
     <string name="subtitle_photos_only">Endast bilder</string>
+    <string name="subtitle_photos_videos">Bilder och videor</string>
     <string name="subtitle_videos_only">Endast videos</string>
     <string name="suggest">Föreslå</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
@@ -848,6 +864,13 @@
     <string name="update_link_file_no_exist">Det går inte att uppdatera. Vänligen kontrollera att filen finns.</string>
     <string name="update_link_forbidden_permissions">att uppdatera denna delning</string>
     <string name="updating_share_failed">Uppdatera delning misslyckades</string>
+    <string name="upload_action_cancelled_clear">Rensa avbrutna uppladdningar</string>
+    <string name="upload_action_cancelled_resume">Återuppta avbrutna uppladdningar</string>
+    <string name="upload_action_failed_clear">Ta bort misslyckade uppladdningar</string>
+    <string name="upload_action_failed_retry">Försök igen med misslyckade uppladdningar</string>
+    <string name="upload_action_file_not_exist_message">Vissa filer finns inte. Dessa filer kan inte återupptas</string>
+    <string name="upload_action_global_upload_pause">Pausa alla uppladdningar</string>
+    <string name="upload_action_global_upload_resume">Återuppta alla uppladdningar</string>
     <string name="upload_cannot_create_file">Kan inte skapa lokal fil</string>
     <string name="upload_chooser_title">Ladda upp från…</string>
     <string name="upload_content_from_other_apps">Ladda upp innehåll från andra appar</string>
@@ -859,6 +882,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Kodavsnitt textfil(.txt)</string>
     <string name="upload_file_dialog_title">Mata in filnamn och filtyp att ladda upp</string>
     <string name="upload_files">Ladda upp filer</string>
+    <string name="upload_global_pause_title">Alla uppladdningar är pausade</string>
     <string name="upload_item_action_button">Ladda upp objekthändelse-knapp</string>
     <string name="upload_list_delete">Ta bort</string>
     <string name="upload_list_empty_headline">Inga uppladdningar tillgängliga</string>
@@ -867,6 +891,7 @@
     <string name="upload_local_storage_full">Lokal lagring full</string>
     <string name="upload_local_storage_not_copied">Filen kunde inte kopieras till lokal lagringsplats</string>
     <string name="upload_lock_failed">Misslyckades låsa mappen</string>
+    <string name="upload_manually_cancelled">Uppladdningen avbröts av användaren</string>
     <string name="upload_old_android">Kryptering är endast möjlig med &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Otillräckligt utrymme förhindrar kopiering av de valda filerna till %1$s -mappen. Vill du flytta dem dit i stället?</string>
     <string name="upload_quota_exceeded">Lagringskvot överskriden</string>
@@ -908,6 +933,7 @@
     <string name="uploads_view_group_current_uploads">Nuvarande</string>
     <string name="uploads_view_group_failed_uploads">Misslyckades/väntar omstart</string>
     <string name="uploads_view_group_finished_uploads">Uppladdad</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Avbokad</string>
     <string name="uploads_view_later_waiting_to_upload">Väntar på att ladda upp</string>
     <string name="uploads_view_title">Uppladdningar</string>
     <string name="uploads_view_upload_status_cancelled">Avbruten</string>

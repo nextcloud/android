@@ -288,7 +288,6 @@
     <string name="etm_accounts">Fiókok</string>
     <string name="etm_background_job_name">Feladat neve</string>
     <string name="etm_background_job_progress">Folyamat</string>
-    <string name="etm_background_job_started">Elindítva</string>
     <string name="etm_background_job_state">Állapot</string>
     <string name="etm_background_job_user">Felhasználó</string>
     <string name="etm_background_job_uuid">Egyedi azonosító</string>
@@ -394,7 +393,6 @@
     <string name="forbidden_permissions_delete">fájl törlése</string>
     <string name="forbidden_permissions_move">a fájl áthelyezése</string>
     <string name="forbidden_permissions_rename">fájl átnevezése</string>
-    <string name="foreground_service_download">Fájlok letöltése…</string>
     <string name="foreground_service_upload">Fájlok feltöltése…</string>
     <string name="foreign_files_fail">Néhány fájl nem helyezhető át</string>
     <string name="foreign_files_local_text">Helyi: %1$s</string>
@@ -836,6 +834,8 @@
     <string name="update_link_file_no_exist">Nem lehet frissíteni. Ellenőrizze, hogy a fájl létezik-e</string>
     <string name="update_link_forbidden_permissions">megosztás frissítése</string>
     <string name="updating_share_failed">A megosztás frissítése sikertelen</string>
+    <string name="upload_action_failed_clear">Sikertelen feltöltések eltávolítása</string>
+    <string name="upload_action_failed_retry">Sikertelen feltöltések újrapróbálása</string>
     <string name="upload_cannot_create_file">A helyi fájlt nem lehet létrehozni</string>
     <string name="upload_chooser_title">Feltöltés innen…</string>
     <string name="upload_content_from_other_apps">Más alkalmazásból származó tartalom feltöltése</string>
@@ -894,6 +894,7 @@
     <string name="uploads_view_group_current_uploads">Jelenlegi</string>
     <string name="uploads_view_group_failed_uploads">Sikertelen/Függőben lévő újraindítás</string>
     <string name="uploads_view_group_finished_uploads">Feltöltve</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Megszakítva</string>
     <string name="uploads_view_later_waiting_to_upload">Várakozás a feltöltésre</string>
     <string name="uploads_view_title">Feltöltések</string>
     <string name="uploads_view_upload_status_cancelled">Megszakítva</string>

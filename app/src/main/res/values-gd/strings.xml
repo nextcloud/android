@@ -242,7 +242,6 @@
     <string name="etm_accounts">Cunntasan</string>
     <string name="etm_background_job_name">Ainm na h-obrach</string>
     <string name="etm_background_job_progress">Adhartas</string>
-    <string name="etm_background_job_started">Air a thòiseachadh</string>
     <string name="etm_background_job_state">Staid</string>
     <string name="etm_background_job_user">Cleachdaiche</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -338,7 +337,6 @@
     <string name="forbidden_permissions_delete">am faidhle seo a sguabadh às</string>
     <string name="forbidden_permissions_move">am faidhle seo a ghluasad</string>
     <string name="forbidden_permissions_rename">ainm ùr a thoirt air an fhaidhle seo</string>
-    <string name="foreground_service_download">A’ luchdadh a-nuas faidhlichean…</string>
     <string name="foreground_service_upload">A’ luchdadh suas faidhlichean…</string>
     <string name="foreign_files_fail">Cha b’ urrainn dhuinn gach faidhle a ghluasad</string>
     <string name="foreign_files_local_text">Ionadail: %1$s</string>
@@ -694,6 +692,7 @@
     <string name="update_link_file_no_exist">Cha ghabh ùrachadh a dhèanamh. Thoir sùil a bheil am faidhle ann.</string>
     <string name="update_link_forbidden_permissions">airson an co-roinneadh seo ùrachadh</string>
     <string name="updating_share_failed">Dh’fhàillig ùrachadh a’ cho-roinnidh</string>
+    <string name="upload_action_failed_clear">Falamhaich na luchdaidhean suas a dh’fhàillig</string>
     <string name="upload_cannot_create_file">Chan urrainn dhuinn am faidhle ionadail a chruthachadh</string>
     <string name="upload_chooser_title">Luchdaich suas o…</string>
     <string name="upload_content_from_other_apps">Luchdaich suas susbaint o aplacaidean eile</string>
@@ -748,6 +747,7 @@
     <string name="uploads_view_group_current_uploads">Làithreach</string>
     <string name="uploads_view_group_failed_uploads">Dh’fhàillig e/ath-thòiseachadh ri dhèiligeadh</string>
     <string name="uploads_view_group_finished_uploads">Air a luchdadh suas</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Sguireadh dheth</string>
     <string name="uploads_view_later_waiting_to_upload">A’ feitheamh ris an luchdadh suas</string>
     <string name="uploads_view_title">Na chaidh a luchdadh suas</string>
     <string name="uploads_view_upload_status_cancelled">Sguireadh dheth</string>

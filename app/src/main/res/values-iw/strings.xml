@@ -256,7 +256,6 @@
     <string name="etm_background_job_created">יצירה</string>
     <string name="etm_background_job_name">שם המשימה</string>
     <string name="etm_background_job_progress">תהליך</string>
-    <string name="etm_background_job_started">התחלה</string>
     <string name="etm_background_job_state">מצב</string>
     <string name="etm_background_job_user">משתמש</string>
     <string name="etm_background_job_uuid">מזהה ייחודי</string>
@@ -348,7 +347,6 @@
     <string name="forbidden_permissions_delete">למחוק קובץ זה</string>
     <string name="forbidden_permissions_move">להעביר את הקובץ הזה</string>
     <string name="forbidden_permissions_rename">לשנות שם לקובץ זה</string>
-    <string name="foreground_service_download">קבצים מתקבלים…</string>
     <string name="foreground_service_upload">קבצים מועלים…</string>
     <string name="foreign_files_fail">חלק מהקבצים לא הועברו</string>
     <string name="foreign_files_local_text">מקומי: %1$s</string>
@@ -687,6 +685,8 @@
     <string name="untrusted_domain">גישה דרך שם מתחם בלתי מהימן. נא לעיין בתיעוד לקבלת פרטים נוספים.</string>
     <string name="update_link_forbidden_permissions">לעידכון השיתוף הזה</string>
     <string name="updating_share_failed">עדכון השיתוף נכשל</string>
+    <string name="upload_action_failed_clear">פינוי העלאות שנכשלו</string>
+    <string name="upload_action_failed_retry">לנסות העלאות שנכשלו מחדש</string>
     <string name="upload_cannot_create_file">לא ניתן ליצור קובץ מקומי</string>
     <string name="upload_chooser_title">העלאה מהמיקום…</string>
     <string name="upload_content_from_other_apps">העלאת תוכן מיישומונים אחרים</string>
@@ -740,6 +740,7 @@
     <string name="uploads_view_group_current_uploads">נוכחי</string>
     <string name="uploads_view_group_failed_uploads">הפעלה מחדש ממתינה/נכשלה.</string>
     <string name="uploads_view_group_finished_uploads">הועלה</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">בוטל</string>
     <string name="uploads_view_later_waiting_to_upload">ממתין להעלאה</string>
     <string name="uploads_view_title">העלאות</string>
     <string name="uploads_view_upload_status_cancelled">בוטל</string>
