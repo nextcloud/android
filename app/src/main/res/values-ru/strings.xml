@@ -14,6 +14,7 @@
     <string name="action_send_share">Отправить / Открыть доступ</string>
     <string name="action_switch_grid_view">Вид сеткой</string>
     <string name="action_switch_list_view">Вид списком</string>
+    <string name="actionbar_calendar_contacts_restore">Восстановить контакты и календарь</string>
     <string name="actionbar_mkdir">Создать папку</string>
     <string name="actionbar_move_or_copy">Переместить или скопировать</string>
     <string name="actionbar_open_with">Открыть с помощью</string>
@@ -74,9 +75,11 @@
     <string name="autoupload_custom_folder">Задать пользовательский каталог</string>
     <string name="autoupload_disable_power_save_check">Отключить проверку энергосбережения</string>
     <string name="autoupload_hide_folder">Скрыть папку</string>
+    <string name="autoupload_worker_foreground_info">Подготовка к автоматической загрузке</string>
     <string name="avatar">Аватар</string>
     <string name="away">Отсутствует</string>
     <string name="backup_settings">Настройки резервного копирования</string>
+    <string name="backup_title">Резервное копирование контактов и календаря</string>
     <string name="battery_optimization_close">Закрыть</string>
     <string name="battery_optimization_disable">Отключить</string>
     <string name="battery_optimization_message">Вероятно, используется оптимизация использования батареи. Функция автоматической передачи файлов на сервер при использовании оптимизации может работать неправильно. </string>
@@ -218,11 +221,15 @@
     <string name="downloader_download_failed_credentials_error">Ошибка скачивания, необходимо авторизоваться</string>
     <string name="downloader_download_failed_ticker">Сбой при скачивании</string>
     <string name="downloader_download_file_not_found">Этот файл больше недоступен на сервере</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Скачивается %2$s</string>
     <string name="downloader_download_in_progress_ticker">Скачивается…</string>
     <string name="downloader_download_succeeded_content">%1$s скачано</string>
     <string name="downloader_download_succeeded_ticker">Скачивание завершено</string>
+    <string name="downloader_file_download_cancelled">Загрузка некоторых файлов была отменена пользователем</string>
+    <string name="downloader_file_download_failed">Произошла ошибка во время скачивания файлов</string>
     <string name="downloader_not_downloaded_yet">Ещё не скачано</string>
+    <string name="downloader_unexpected_error">Произошла непредвиденная ошибка во время скачивания файлов</string>
     <string name="drawer_close">Закрыть боковую панель</string>
     <string name="drawer_community">Сообщество</string>
     <string name="drawer_header_background">Фоновое изображение заголовка</string>
@@ -234,6 +241,7 @@
     <string name="drawer_item_home">Главная</string>
     <string name="drawer_item_notifications">Уведомления</string>
     <string name="drawer_item_on_device">На устройстве</string>
+    <string name="drawer_item_personal_files">Личные файлы</string>
     <string name="drawer_item_recently_modified">Недавно изменённые</string>
     <string name="drawer_item_shared">Опубликованное</string>
     <string name="drawer_item_trashbin">Удалённые файлы</string>
@@ -286,6 +294,7 @@
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
     <string name="error_starting_doc_scan">Ошибка во время запуска сканирования</string>
     <string name="etm_accounts">Аккаунты</string>
+    <string name="etm_background_execution_count">Запусков за 48 часов</string>
     <string name="etm_background_job_created">Создано</string>
     <string name="etm_background_job_name">Имя задания</string>
     <string name="etm_background_job_progress">Прогресс</string>
@@ -382,6 +391,9 @@
     <string name="filename_forbidden_charaters_from_server">Имя файла содержит как минимум один недопустимый символ</string>
     <string name="filename_hint">Имя файла</string>
     <string name="first_run_1_text">Храните свои данные в безопасности и под своим контролем</string>
+    <string name="first_run_2_text">Безопасная работа в коллективе и обмен файлами</string>
+    <string name="first_run_3_text">Простая в использовании веб-почта, календарь и контакты</string>
+    <string name="first_run_4_text">Совместное использование экрана, онлайн-встречи и веб-конференции</string>
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="folder_confirm_create">Создать</string>
     <string name="folder_list_empty_headline">Здесь нет каталогов</string>
@@ -403,6 +415,7 @@
     <string name="foreign_files_success">Все файлы перемещены</string>
     <string name="forward">Вперёд</string>
     <string name="fourHours">4 часа</string>
+    <string name="grid_file_features_live_photo_content_description">Этот значок отображает доступность живого фото</string>
     <string name="hidden_file_name_warning">Имя приведет к скрытому файлу</string>
     <string name="hint_name">Имя</string>
     <string name="hint_note">Примечание</string>
@@ -568,13 +581,16 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Переименовать новую версию</string>
     <string name="pref_instant_name_collision_policy_title">Действие в случае, если файл уже существует</string>
     <string name="prefs_add_account">Добавить аккаунт</string>
+    <string name="prefs_calendar_contacts">Синхронизировать календарь и контакты</string>
     <string name="prefs_calendar_contacts_no_store_error">Ни F-Droid, ни Google Play не установлены</string>
     <string name="prefs_calendar_contacts_summary">Настроить DAVx5 (ранее называвшийся DAVdroid) (v1.3.0+) для текущей учётной записи</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Настройка синхронизации календаря и контактов</string>
     <string name="prefs_category_about">О программе</string>
     <string name="prefs_category_details">Дополнительные</string>
     <string name="prefs_category_dev">Разрабатываемая версия</string>
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
+    <string name="prefs_daily_backup_summary">Ежедневное резервное копирование календаря и контактов</string>
     <string name="prefs_daily_contact_backup_summary">Ежедневное сохранение контактов</string>
     <string name="prefs_davx5_setup_error">Неожиданная ошибка при настройке DAVx5 (ранее известного как DAVdroid)</string>
     <string name="prefs_e2e_active">Сквозное шифрование настроено.</string>
@@ -587,6 +603,8 @@
     <string name="prefs_imprint">Отпечаток</string>
     <string name="prefs_instant_behaviour_dialogTitle">Исходный файл будет…</string>
     <string name="prefs_instant_behaviour_title">Исходный файл будет…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Исключить скрытые файлы и папки</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Исключить скрытые</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Сохранять в подпапке по дате</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Создавать вложенные папки</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Формат вложенных папок</string>
@@ -666,8 +684,12 @@
     <string name="screenshot_04_accounts_heading">Все ваши учётные записи</string>
     <string name="screenshot_04_accounts_subline">в одном месте</string>
     <string name="screenshot_05_autoUpload_heading">Автоматическая загрузка</string>
+    <string name="screenshot_05_autoUpload_subline">для ваших фотографий и видео</string>
+    <string name="screenshot_06_davdroid_heading">Календарь и контакты</string>
     <string name="screenshot_06_davdroid_subline">Синхронизация с DAVx5</string>
     <string name="search_error">Ошибка при получении результатов поиска</string>
+    <string name="secure_share_not_set_up">Безопасная публикация не настроена для данного пользователя</string>
+    <string name="secure_share_search">Безопасная публикация …</string>
     <string name="select_all">Выбрать все</string>
     <string name="select_media_folder">Назначить папку с медиа</string>
     <string name="select_one_template">Пожалуйста, выберите один шаблон</string>
@@ -682,6 +704,7 @@
     <string name="set_status_message">Установить сообщение о состоянии</string>
     <string name="setup_e2e">При настройке сквозного шифрования будет создана  мнемофраза из 12 слов, которая понадобится для открытия файлов на других устройствах. Мнемофраза будет сохранена  только на этом устройстве и может быть просмотрена повторно. Сохраните мнемофразу в надежном месте!</string>
     <string name="share">Общий ресурс</string>
+    <string name="share_copy_link">Опубликовать и скопировать ссылку </string>
     <string name="share_dialog_title">Общий доступ</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истекает %1$s</string>
@@ -779,6 +802,7 @@
     <string name="subject_shared_with_you">Вам предоставлен доступ к «%1$s»</string>
     <string name="subject_user_shared_with_you">%1$s предоставил(а) вам доступ к «%2$s»</string>
     <string name="subtitle_photos_only">Только фото</string>
+    <string name="subtitle_photos_videos">Фото и видео</string>
     <string name="subtitle_videos_only">Только видео</string>
     <string name="suggest">Посоветовать</string>
     <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>
@@ -836,7 +860,13 @@
     <string name="update_link_file_no_exist">Не удалось изменить параметры общего доступа, убедитесь, что файл существует.</string>
     <string name="update_link_forbidden_permissions">для обновления этой ссылки</string>
     <string name="updating_share_failed">Не удалось изменить параметры общего доступа</string>
+    <string name="upload_action_cancelled_clear">Убрать отмененные загрузки</string>
+    <string name="upload_action_cancelled_resume">Продолжить отмененные загрузки</string>
     <string name="upload_action_failed_clear">Убрать неудавшиеся загрузки</string>
+    <string name="upload_action_failed_retry">Повторить неудавшиеся загрузки</string>
+    <string name="upload_action_file_not_exist_message">Некоторые файлы не существуют, эти файлы нельзя возобновить</string>
+    <string name="upload_action_global_upload_pause">Приостановить все загрузки</string>
+    <string name="upload_action_global_upload_resume">Возобновить все загрузки</string>
     <string name="upload_cannot_create_file">Невозможно создать локальный файл</string>
     <string name="upload_chooser_title">Выгрузить из…</string>
     <string name="upload_content_from_other_apps">Отправить из других приложений</string>
@@ -848,6 +878,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Текстовый файл заготовок(*.txt)</string>
     <string name="upload_file_dialog_title">Имя и типа файла для автозагрузки </string>
     <string name="upload_files">Отправить файлы</string>
+    <string name="upload_global_pause_title">Все загрузки приостановлены</string>
     <string name="upload_item_action_button">Кнопка «выгрузить объект»</string>
     <string name="upload_list_delete">Удалить</string>
     <string name="upload_list_empty_headline">Нет файлов, ожидающих передачу на сервер.</string>
@@ -856,6 +887,7 @@
     <string name="upload_local_storage_full">Закончилось свободное место в локальном хранилище</string>
     <string name="upload_local_storage_not_copied">Невозможно скопировать файл в локальное хранилище</string>
     <string name="upload_lock_failed">Не удалось заблокировать папку</string>
+    <string name="upload_manually_cancelled">Загрузка была отменена пользователем</string>
     <string name="upload_old_android">Шифрование возможно только в &gt; Android 5.0</string>
     <string name="upload_query_move_foreign_files">Недостаточно места для копирования выбранных файлов в папку «%1$s». Выполнить перемещение вместо копирования?</string>
     <string name="upload_quota_exceeded">Превышена квота хранилища</string>
@@ -870,8 +902,10 @@
     <string name="uploader_error_message_source_file_not_found">Не удалось найти файл для передачи, убедитесь что он существует.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Этот файл не может быть передан на сервер</string>
     <string name="uploader_error_title_no_file_to_upload">Не выбран файл для передачи на сервер</string>
+    <string name="uploader_file_not_found_message">Файл не найден. Вы уверены, что этот файл существует или предыдущий конфликт не был разрешен?</string>
     <string name="uploader_file_not_found_on_server_message">Нам не удалось найти файл на сервере. Возможно, другой пользователь удалил файл</string>
     <string name="uploader_info_dirname">Имя каталога</string>
+    <string name="uploader_local_files_uploaded">Повторить попытку загрузки неудачно загруженных локальных файлов</string>
     <string name="uploader_top_message">Выбрать каталог для передачи</string>
     <string name="uploader_upload_failed_content_single">Не удалось передать файл «%1$s»</string>
     <string name="uploader_upload_failed_credentials_error">Ошибка передачи файла, необходимо войти в систему</string>
@@ -884,6 +918,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Оставить файл в исходной папке</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходной папки</string>
     <string name="uploader_upload_forbidden_permissions">для передачи в эту папку</string>
+    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% «%2$s»</string>
     <string name="uploader_upload_in_progress_ticker">Передача…</string>
     <string name="uploader_upload_succeeded_content_single">Передача файла «%1$s» завершена</string>
@@ -909,6 +944,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Получение версия сервера…</string>
     <string name="uploads_view_upload_status_service_interrupted">Работа приложения была прекращена</string>
     <string name="uploads_view_upload_status_succeeded">Завершено</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Идентичный файл найден на удаленном сервере, загрузка пропущена</string>
     <string name="uploads_view_upload_status_unknown_fail">Неизвестная ошибка</string>
     <string name="uploads_view_upload_status_virus_detected">Обнаружен вирус. Передача не может быть завершена!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Ожидание выхода из режима энергосбережения</string>

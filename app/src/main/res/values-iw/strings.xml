@@ -783,7 +783,6 @@
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">לא ניתן לסנכרן קובץ %1$d (סתירות: %2$d)</item>
         <item quantity="two">לא ניתן לסנכרן %1$d קבצים (סתירות: %2$d)</item>
-        <item quantity="many">לא ניתן לסנכרן %1$d קבצים (סתירות: %2$d)</item>
         <item quantity="other">לא ניתן לסנכרן %1$d קבצים (סתירות: %2$d)</item>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
@@ -807,7 +806,6 @@
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">הצגת תיקייה (%1$d) מוסתרת</item>
         <item quantity="two">הצגת %1$d תיקיות מוסתרות</item>
-        <item quantity="many">הצגת %1$d תיקיות מוסתרות</item>
         <item quantity="other">הצגת %1$d תיקיות מוסתרות</item>
     </plurals>
     <plurals name="items_selected_count">
