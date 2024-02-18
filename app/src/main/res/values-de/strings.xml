@@ -583,7 +583,7 @@
     <string name="prefs_calendar_contacts">Kalender und Kontakte synchronisieren</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder F-Droid noch Google-Play sind installiert</string>
     <string name="prefs_calendar_contacts_summary">DAVx5 (zuvor bekannt als DAVdroid) (v1.3.0+) für aktuelles Konto einrichten</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender- und Kontakt-Synchronisierung einrichten</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisierung von Kalender und Kontakten einrichten</string>
     <string name="prefs_category_about">Über</string>
     <string name="prefs_category_details">Details</string>
     <string name="prefs_category_dev">Dev</string>
@@ -906,7 +906,7 @@ Schauen Sie sich Nextcloud an unter https://nextcloud.com</string>
     <string name="upload_local_storage_full">Lokaler Speicher voll</string>
     <string name="upload_local_storage_not_copied">Datei konnte nicht in den lokalen Speicher kopiert werden</string>
     <string name="upload_lock_failed">Fehler beim Sperren des Ordners</string>
-    <string name="upload_manually_cancelled">Der Upload wurde vom Benutzer abgebrochen</string>
+    <string name="upload_manually_cancelled">Der Upload wurde manuell abgebrochen</string>
     <string name="upload_old_android">Verschlüsselung ist nur möglich mit &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung, um die ausgewählten Dateien in das Verzeichnis %1$s zu kopieren. Sollen diese stattdessen verschoben werden?</string>
     <string name="upload_quota_exceeded">Speicherkontingent überschritten</string>
@@ -948,7 +948,7 @@ Schauen Sie sich Nextcloud an unter https://nextcloud.com</string>
     <string name="uploads_view_group_current_uploads">Aktuell</string>
     <string name="uploads_view_group_failed_uploads">Fehlgeschlagene/Wartende neustarten</string>
     <string name="uploads_view_group_finished_uploads">Hochgeladen</string>
-    <string name="uploads_view_group_manually_cancelled_uploads">Abgesagt</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Abgebrochen</string>
     <string name="uploads_view_later_waiting_to_upload">Warte auf Hochladen</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_upload_status_cancelled">Abgebrochen</string>
