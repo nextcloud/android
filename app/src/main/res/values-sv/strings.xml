@@ -594,7 +594,7 @@
     <string name="prefs_davx5_setup_error">Oväntat fel vid installation av DAVx5 (tidigare känd som DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end-kryptering är inställd!</string>
     <string name="prefs_e2e_mnemonic">E2E krypteringsord</string>
-    <string name="prefs_e2e_no_device_credentials">För att visa mnemonic vänligen aktivera enhetsuppgifter.</string>
+    <string name="prefs_e2e_no_device_credentials">För att visa krypteringsord vänligen aktivera enhetsuppgifter.</string>
     <string name="prefs_enable_media_scan_notifications">Visa aviseringar om mediescanning</string>
     <string name="prefs_enable_media_scan_notifications_summary">Meddela om nya media-mappar</string>
     <string name="prefs_gpl_v2">GNU General Public License, version 2</string>
@@ -702,7 +702,7 @@
     <string name="set_picture_as">Använd bild som</string>
     <string name="set_status">Sätt status</string>
     <string name="set_status_message">Sätt statusmeddelande</string>
-    <string name="setup_e2e">Under inställningen av end-to-end-kryptering kommer du att få en slumpmässig 12-ords minnesregel, som du behöver för att öppna dina filer på andra enheter. Denna kommer endast att lagras på den här enheten och kan visas igen på den här skärmen. Vänligen notera den på ett säkert ställe!</string>
+    <string name="setup_e2e">Under inställningen av end-to-end-kryptering kommer du att få en slumpmässig lista med 12 krypteringsord, som du behöver för att öppna dina filer på andra enheter. Orden kommer endast att lagras på den här enheten och kan visas igen på den här skärmen. Vänligen notera krypteringsorden på ett säkert ställe!</string>
     <string name="share">Dela</string>
     <string name="share_copy_link">Dela och kopiera länk</string>
     <string name="share_dialog_title">Dela</string>
