@@ -789,25 +789,6 @@
     <string name="storage_permission_full_access">Voller Zugriff</string>
     <string name="storage_permission_media_read_only">Medien schreibgeschützt</string>
     <string name="storage_pictures">Bilder</string>
-    <string name="store_full_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen volle Kontrolle.
-
-Funktionen:
-* Einfache, moderne Oberfläche. Angepasst an das Design Ihres Servers
-* Laden Sie Ihre Dateien auf Ihren Nextcloud Server
-* Teilen Sie Ihre Dateien mit anderen
-* Halten Sie Ihre favorisierten Dateien und Ordner synchron
-* Suche über alle Ordner auf Ihrem Server
-* Automatisches Hochladen von Fotos und Videos von Ihrem Gerät
-* Bleiben Sie auf dem Laufenden durch Benachrichtigungen
-* Mehrere Konten gleichzeitig
-* Geschützter Zugriff durch Fingerabdruck oder PIN
-* Integration mit DAVx5 (ehemals DAVdroid) für einfaches Konfigurieren der Kalender- &amp; Kontakte-Synchronisierung
-
-Bitte melden Sie Probleme unter https://github.com/nextcloud/android/issues oder diskutieren Sie über die App auf https://help.nextcloud.com/c/clients/android
-
-Was ist Nextcloud? Die Nextcloud ist ein privater Dateiaustausch &amp; -synchronisierungs Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behalten Sie die Kontrolle über Ihre Fotos, Ihre Kalender und Kontakte, Ihre Dokumente und alle anderen Daten.
-
-Schauen Sie sich Nextcloud an unter https://nextcloud.com</string>
     <string name="store_full_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle.\nDies ist die offizielle Entwicklungsversion und bietet neue, ungetestete Funkitionen. Dies kann zu Instabilitäten und Datenverlust führen. Die App ist für alle Benutzer, die Testen wollen und falls nötig Fehlerberichte erstellen. Nutzen Sie diese Version nicht für Ihre Produktivarbeit!\n\nSowohl die reguläre als auch die Entwicklerversion sind auf F-droid verfügbar und können parallel installiert werden.</string>
     <string name="store_short_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle</string>
     <string name="store_short_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle (Vorab- Entwicklungsversion)</string>
