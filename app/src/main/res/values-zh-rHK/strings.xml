@@ -602,6 +602,8 @@
     <string name="prefs_imprint">法律聲明</string>
     <string name="prefs_instant_behaviour_dialogTitle">原始的檔案將會…</string>
     <string name="prefs_instant_behaviour_title">原始的檔案將會…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">排除隱藏檔與資料夾</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">排除隱藏</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">依據日期儲存在子資料夾內</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子資料夾</string>
     <string name="prefs_instant_upload_subfolder_rule_title">子資料夾選項</string>
@@ -787,7 +789,6 @@
     <string name="storage_permission_full_access">完整存取權限</string>
     <string name="storage_permission_media_read_only">僅媒體唯讀</string>
     <string name="storage_pictures">圖片</string>
-    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的用戶界面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多賬戶支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx5 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 舉報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https://nextcloud.com 以取得更多資訊</string>
     <string name="store_full_dev_desc">可自架且始終讓您掌控一切的生產力平台。\n這是官方的開發版本，每天都會提供未經測試的任何新功能的範例，可能造成不穩定或資料遺失。此應用程式適合願意測試且舉報遇到的問題的用戶。不要將其用於您的生產力工作！\n\nF-Droid 同時提供了官方的開發版本與一般版本，可同時安裝。</string>
     <string name="store_short_desc">讓你能完全掌控、自建且具生產力的平台</string>
     <string name="store_short_dev_desc">讓你能完全掌控、自建且具生產力的平台（開發者預覽版）</string>
@@ -859,7 +860,13 @@
     <string name="update_link_file_no_exist">無法更新，請確認檔案是否存在</string>
     <string name="update_link_forbidden_permissions">更新這個分享</string>
     <string name="updating_share_failed">上傳分享失敗</string>
+    <string name="upload_action_cancelled_clear">清除已取消的上傳</string>
+    <string name="upload_action_cancelled_resume">繼續已取消的上傳</string>
     <string name="upload_action_failed_clear">清除失敗的上傳</string>
+    <string name="upload_action_failed_retry">重試失敗的上傳</string>
+    <string name="upload_action_file_not_exist_message">部份檔案不存在，這些檔案無法繼續</string>
+    <string name="upload_action_global_upload_pause">暫停所有上傳</string>
+    <string name="upload_action_global_upload_resume">繼續所有上傳</string>
     <string name="upload_cannot_create_file">無法建立近端檔案</string>
     <string name="upload_chooser_title">上傳自…</string>
     <string name="upload_content_from_other_apps">從其它應用程式上傳</string>
@@ -871,6 +878,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">片段文字檔案（.txt）</string>
     <string name="upload_file_dialog_title">輸入上傳的檔名和類型</string>
     <string name="upload_files">上傳檔案</string>
+    <string name="upload_global_pause_title">所有上傳皆已暫停</string>
     <string name="upload_item_action_button">上傳操作按鈕</string>
     <string name="upload_list_delete">刪除</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
@@ -879,6 +887,7 @@
     <string name="upload_local_storage_full">近端儲存空間已滿</string>
     <string name="upload_local_storage_not_copied">無法複製檔案到近端資料夾</string>
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
+    <string name="upload_manually_cancelled">用戶已取消上傳</string>
     <string name="upload_old_android">加密功能只適用於 Android 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空間不足導致無法將所選檔案複製到 %1$s 資料夾中。您想改為將檔案移到那裡嗎？</string>
     <string name="upload_quota_exceeded">超過儲存空間配額</string>
