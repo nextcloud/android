@@ -115,7 +115,7 @@ class UriUploader(
 
     private fun belongsToCurrentApplication(ctx: Context, uri: Uri): Boolean {
         val authority: String = uri.authority.toString()
-        val info: ProviderInfo = ctx.packageManager.resolveContentProvider(authority, 0) ?: return false
+        val info: ProviderInfo = ctx.packageManager.resolveContentProvider(authority, 0) ?: return true
         return ctx.packageName.equals(info.packageName)
     }
 
