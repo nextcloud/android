@@ -77,10 +77,10 @@ lane :Final_releasePhase2 do |options|
     checkIfAPKexists()
     tag(info)
     uploadToPlaystore_Final(info)
-    uploadToHuawei_Final(info)
     createGithubRelease_Final(info)
     fdroidMergeRequest_Final(info)
     createChangelogPullRequest_Final(info)
+    uploadToHuawei_Final(info)
 end
 
 desc "Makes gplay and generic releases in ../releases/"
