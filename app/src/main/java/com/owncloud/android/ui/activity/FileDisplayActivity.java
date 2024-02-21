@@ -183,7 +183,6 @@ public class FileDisplayActivity extends FileActivity
     public static final int SINGLE_USER_SIZE = 1;
     public static final String OPEN_FILE = "NC_OPEN_FILE";
 
-
     private FilesBinding binding;
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
@@ -197,9 +196,7 @@ public class FileDisplayActivity extends FileActivity
     public static final String KEY_FILE_ID = "KEY_FILE_ID";
     public static final String KEY_FILE_PATH = "KEY_FILE_PATH";
     public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
-    public static final String KEY_SORT_GROUP_STATE = "KEY_SORT_GROUP_STATE";
     public static final String KEY_IS_SORT_GROUP_VISIBLE = "KEY_IS_SORT_GROUP_VISIBLE";
-
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
