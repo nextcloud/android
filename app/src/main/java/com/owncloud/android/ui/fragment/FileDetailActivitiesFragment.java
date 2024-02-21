@@ -370,7 +370,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
             isDataFetched = true;
             Log_OC.d(TAG, "Data fetched");
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Log_OC.d(TAG, "Error caught at thread join: $e");
         }
     }
 
