@@ -101,6 +101,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     private int lastGiven;
     private boolean isLoadingActivities;
+    private boolean isDataFetched = false;
 
     private boolean restoreFileVersionSupported;
     private FileOperationsHelper operationsHelper;
@@ -198,7 +199,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         String trimmedComment = commentField.toString().trim();
 
-        if (trimmedComment.length() > 0) {
+        if (trimmedComment.length() > 0 && ownCloudClient != null && isDataFetched) {
             new SubmitCommentTask(trimmedComment, file.getLocalId(), callback, ownCloudClient).execute();
         }
     }
@@ -363,6 +364,14 @@ public class FileDetailActivitiesFragment extends Fragment implements
         });
 
         t.start();
+
+        try {
+            t.join();
+            isDataFetched = true;
+            Log_OC.d(TAG, "Data fetched");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void markCommentsAsRead() {
