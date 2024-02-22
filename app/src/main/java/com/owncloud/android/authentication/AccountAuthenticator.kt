@@ -56,10 +56,11 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
      */
     override fun addAccount(
         response: AccountAuthenticatorResponse,
-        accountType: String, authTokenType: String,
-        requiredFeatures: Array<String>, options: Bundle
+        accountType: String,
+        authTokenType: String,
+        requiredFeatures: Array<String>,
+        options: Bundle
     ): Bundle {
-
         Log_OC.i(TAG, "Adding account with type $accountType and auth token $authTokenType")
 
         val accountManager = AccountManager.get(mContext)
@@ -71,8 +72,10 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
                 validateAccountType(accountType)
             } catch (e: AuthenticatorException) {
                 Log_OC.e(
-                    TAG, "Failed to validate account type " + accountType + ": "
-                        + e.message, e
+                    TAG,
+                    "Failed to validate account type " + accountType + ": " +
+                        e.message,
+                    e
                 )
                 return e.failureBundle
             }
@@ -89,7 +92,8 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
             // Return an error
             bundle.putInt(AccountManager.KEY_ERROR_CODE, AccountManager.ERROR_CODE_UNSUPPORTED_OPERATION)
             val message = String.format(
-                mContext.getString(R.string.auth_unsupported_multiaccount), mContext.getString(
+                mContext.getString(R.string.auth_unsupported_multiaccount),
+                mContext.getString(
                     R.string.app_name
                 )
             )
@@ -105,7 +109,8 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
      */
     override fun confirmCredentials(
         response: AccountAuthenticatorResponse,
-        account: Account, options: Bundle
+        account: Account,
+        options: Bundle
     ): Bundle {
         try {
             validateAccountType(account.type)
@@ -137,7 +142,9 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
      */
     override fun getAuthToken(
         response: AccountAuthenticatorResponse,
-        account: Account, authTokenType: String, options: Bundle
+        account: Account,
+        authTokenType: String,
+        options: Bundle
     ): Bundle {
         // validate parameters
         try {
@@ -148,7 +155,7 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
             return e.failureBundle
         }
 
-        /// check if required token is stored
+        // / check if required token is stored
         val am = AccountManager.get(mContext)
         val accessToken: String? =
             if (authTokenType == AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType(mContext))) {
@@ -165,7 +172,7 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
             return result
         }
 
-        /// if not stored, return Intent to access the AuthenticatorActivity and UPDATE the token for the account
+        // / if not stored, return Intent to access the AuthenticatorActivity and UPDATE the token for the account
         val intent = Intent(mContext, AuthenticatorActivity::class.java)
 
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response)
@@ -185,7 +192,8 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
 
     override fun hasFeatures(
         response: AccountAuthenticatorResponse,
-        account: Account, features: Array<String>
+        account: Account,
+        features: Array<String>
     ): Bundle {
         val result = Bundle()
         result.putBoolean(AccountManager.KEY_BOOLEAN_RESULT, true)
@@ -194,7 +202,9 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
 
     override fun updateCredentials(
         response: AccountAuthenticatorResponse,
-        account: Account, authTokenType: String, options: Bundle
+        account: Account,
+        authTokenType: String,
+        options: Bundle
     ): Bundle {
         val intent = Intent(mContext, AuthenticatorActivity::class.java)
 
