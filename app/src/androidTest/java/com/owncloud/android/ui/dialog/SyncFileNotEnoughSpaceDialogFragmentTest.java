@@ -25,6 +25,7 @@ package com.owncloud.android.ui.dialog;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,6 +42,7 @@ public class SyncFileNotEnoughSpaceDialogFragmentTest extends AbstractIT {
                                                                                            false);
 
     @Test
+    @ScreenshotTest
     public void showNotEnoughSpaceDialogForFolder() {
         FileDisplayActivity test = activityRule.launchActivity(null);
         OCFile ocFile = new OCFile("/Document/");
@@ -56,6 +58,7 @@ public class SyncFileNotEnoughSpaceDialogFragmentTest extends AbstractIT {
     }
 
     @Test
+    @ScreenshotTest
     public void showNotEnoughSpaceDialogForFile() {
         FileDisplayActivity test = activityRule.launchActivity(null);
         OCFile ocFile = new OCFile("/Video.mp4");

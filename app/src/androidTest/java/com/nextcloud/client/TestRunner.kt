@@ -27,11 +27,11 @@ import android.app.Application
 import android.app.Instrumentation
 import android.content.Context
 import android.os.Build
+import androidx.test.runner.AndroidJUnitRunner
 import com.github.tmurakami.dexopener.DexOpener
-import com.karumi.shot.ShotTestRunner
 import com.nextcloud.test.TestMainApp
 
-class ScreenshotTestRunner : ShotTestRunner() {
+class TestRunner : AndroidJUnitRunner() {
     @Throws(ClassNotFoundException::class, IllegalAccessException::class, InstantiationException::class)
     override fun newApplication(cl: ClassLoader, className: String, context: Context): Application {
         /*
